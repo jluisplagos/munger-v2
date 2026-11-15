@@ -25,3 +25,7 @@ ACEPTACION_Y_ALCANCE.md distingue las decisiones E1/D3/E2/E6 ya autorizadas de s
 Abrir otra tarea de Claude Code sobre una copia aislada del repositorio. Leer y ejecutar PROMPT_FRENTE_ECONOMICO.md. Para disponer de binarios: materializar y verificar primero main con el ZIP original base-4.14 y después cambiar a esta rama. No aplicar tools/base_414.py sobre los textos ya modificados de la 4.15. La rama económica parte del hito1, no del trabajo aún no publicado del frente T.
 
 La aceptación para apoyar una decisión de inversión se evalúa sobre un expediente concreto, un motor cuyo alcance esté validado y una versión auditada. Los tests y la conservación de bytes no acreditan por sí solos la economía del modelo ni la decisión de inversión. La rentabilidad y las pérdidas siguen siendo inciertas.
+
+## Modelos y esfuerzo incorporados al encargo
+
+Opus 5.5/Máx para la conciliación y el razonamiento económico; Opus 5.5/Alto para operaciones mecánicas; Fable 5.2/Máx para revisión independiente en contexto separado. El frente técnico conserva Opus 5.5/Alto. Aplicación mediante los controles realmente disponibles; no afirmar selección ni ejecución sin evidencia. El detalle y el procedimiento cuando se necesita ajuste manual están en PROMPT_FRENTE_ECONOMICO.md.
