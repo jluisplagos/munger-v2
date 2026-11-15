@@ -20,7 +20,7 @@
 | C3 | eb77dea | Primera respuesta a O1–O17: control del ejercicio de la columna; residuos afirmados con ±0,15 y dos excepciones; citas nuevas; informe y especificación |
 | C4 | d2e585e91638c363682a000bdb416a4b865c6cce (también en [ESTADO.md](ESTADO.md)) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
 | C6 | f30c66c8651dba134b4e66fff9a08c2b50359b6c (también en [ESTADO.md](ESTADO.md)) | Adenda tras las sondas externas sobre eb77dea: columna de la matriz por segmentos para el perímetro declarado; tres casos de test; sondas de un solo campo en todas las filas (`sondas_metadatos.py`) |
-| C7 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 3 y su adenda: lista cerrada de modos; columna identificada por su cabecera; dimensión «columna»; contraejemplos de unidad y perímetro; huella de la verificación; 109 residuos, también en 2021–22; cobertura de todas las entradas usadas y su prueba de mutación; scripts del revisor sobre C7 |
+| C7 | 9869def325b8820e2ee25618107495a7a7b70229 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 3 y su adenda: lista cerrada de modos; columna identificada por su cabecera; dimensión «columna»; contraejemplos de unidad y perímetro; huella de la verificación; 109 residuos, también en 2021–22; cobertura de todas las entradas usadas y su prueba de mutación; scripts del revisor sobre C7 |
 
 ## Marcas y pruebas
 
