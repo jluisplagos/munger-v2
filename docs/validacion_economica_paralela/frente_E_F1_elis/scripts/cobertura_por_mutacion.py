@@ -139,6 +139,13 @@ def main():
     print(f"  sin detectar y con efecto en la referencia de la especificación: {len(sin_det_ref)} {sin_det_ref}")
     libro_ref = sorted(rid for rid, clase, _, cambian in res if clase == "solo libro" and "referencia_especificacion" in cambian)
     print(f"  solo contrastadas con el libro y con efecto en la referencia de la especificación: {len(libro_ref)} {libro_ref}")
+    # (revisión n.º 4, P3) entradas de páginas sin ninguna identidad entre páginas: su unidad y su perímetro no los acredita
+    # una segunda línea; ¿mueven la referencia de la especificación?
+    entradas_decl = k0["tablas"]["cobertura_entradas"]["entradas"]
+    sin_ancla = sorted(rid for rid in objetivos if rid in entradas_decl and not entradas_decl[rid].get("pagina_con_identidad_entre_paginas", True))
+    sin_ancla_ref = sorted(rid for rid, _, _, cambian in res if rid in sin_ancla and "referencia_especificacion" in cambian)
+    print(f"  entradas de páginas sin identidad entre páginas: {len(sin_ancla)}; con efecto en la referencia de la especificación: "
+          f"{len(sin_ancla_ref)} {sin_ancla_ref}")
 
     for c in ("SIN DETECTAR", "solo libro", "solo algebraica", "aborta"):
         print(f"\n== {c} ==")

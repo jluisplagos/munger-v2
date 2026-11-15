@@ -127,8 +127,13 @@ def main():
             if not deben_fallar and residuos_fallidos:
                 problemas.append(f"fallan residuos inesperados {sorted(residuos_fallidos)}")
             if cod_esp is None:
-                otros = sorted(n for n in fallidas if not n.startswith("residuo "))
-                nombre += f" → ningún residuo lo detecta; comprobaciones contra el libro que sí: {len(otros)}"
+                # (revisión n.º 4, P4) se separa por clase lo que sí lo detecta: otras comprobaciones de fuente (la doble vía
+                # del FCF base) y comprobaciones contra el libro
+                otras = [c for c in k["comprobaciones"] if not c["ok"] and not c["nombre"].startswith("residuo ")]
+                de_fuente = sum(1 for c in otras if c["clase"] == "fuente")
+                del_libro = sum(1 for c in otras if c["clase"] == "libro")
+                nombre += (f" → ningún residuo lo detecta; sí lo detectan {de_fuente} otras comprobaciones de fuente y "
+                           f"{del_libro} contra el libro")
         malos += bool(problemas)
         print("OK " if not problemas else "MAL", nombre, "" if not problemas else "→ " + "; ".join(problemas))
     print(f"{len(casos) + 1 - malos}/{len(casos) + 1} casos con el resultado esperado")

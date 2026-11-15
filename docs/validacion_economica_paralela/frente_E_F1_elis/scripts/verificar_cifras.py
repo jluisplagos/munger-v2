@@ -139,6 +139,9 @@ PAISES = re.compile(r"^(?:France|Germany|Allemagne|United Kingdom|Royaume-Uni|Sp
                     r"Austria|Autriche|Luxembourg|Czech|Tchèque|Other countries|Autres pays)\b")
 # rótulos de sublíneas que dependen de la línea anterior (márgenes, desgloses)
 SUBLINEA = re.compile(r"^(?:As a % of|En % d|of which|dont|›|o/w)", re.I)
+# países y segmentos en un título por encima de una tabla, en cualquier caja («FRANCE – DETAILS»)
+PAIS_O_SEGMENTO_TITULO = re.compile(r"\b(?:" + PAISES.pattern[4:].rstrip(")\\b") + "|" +
+                                    "|".join(re.escape(r) for r in sorted(ROTULOS_SEGMENTO, key=len, reverse=True)) + r")\b", re.I)
 # los mismos países como palabras de una cabecera de columnas (tabla con una columna por país)
 PAIS_EN_CABECERA = re.compile(r"\b" + PAISES.pattern[1:])
 PALABRA_SEGMENTO = re.compile(r"\b(France|Central|Scandinavia|Ireland|Latin|Southern|segments|centrale|Scandinavie|Irlande|latine|Sud)\b")
@@ -562,6 +565,12 @@ def otra_tabla_entre(lineas, j, i, idioma):
     return False
 
 
+def entero_de_recuento(lit, idioma):
+    """Literal sin parte decimal y con seis cifras o más («23,355,764», «233 954 020»)."""
+    decimal = r",\d" if idioma == "fr" else r"\.\d"
+    return not re.search(decimal, lit) and len(re.sub(r"\D", "", lit)) >= 6
+
+
 def comprobar_unidad(lineas, i, fila, idioma="en"):
     u = (fila.get("unidad") or "").strip()
     lit = fila["literal"]
@@ -575,6 +584,10 @@ def comprobar_unidad(lineas, i, fila, idioma="en"):
         return "FALLO", "unidad «mm EUR» para un importe en euros"
     if NO_MONETARIA.search(rotulo(lineas[i])):
         return "FALLO", f"la línea «{rotulo(lineas[i])}» es un recuento, un importe por acción o un margen, no millones de euros"
+    # (revisión n.º 4, P1) criterio de formato, que no depende del rótulo: un entero de seis cifras o más no es una cifra en
+    # millones de euros con decimales; es un recuento (acciones, efectos de dilución) aunque su rótulo no lo diga
+    if entero_de_recuento(lit, idioma):
+        return "PENDIENTE", f"el literal «{lit}» es un entero de seis cifras o más: formato de recuento, no de millones de euros"
     dec, j = unidad_declarada(lineas, i)
     if dec is None:
         return "PENDIENTE", "la página no declara la unidad por encima de la línea"
@@ -641,6 +654,26 @@ def tabla_por_paises(lineas, i, j, idioma):
     return m.group(0) if m else None
 
 
+def titulo_de_pais_encima(lineas, j, alto=15):
+    """(Revisión n.º 4, P2) Título más próximo por encima de la tabla, si nombra un país o un segmento («FRANCE – DETAILS»
+    sobre el bloque de pensiones de Francia). Se mira primero lo que queda en la línea de unidades después de la declaración
+    («(In millions of euros) France») y después, hacia arriba, la primera línea corta sin cifras; las líneas con cifras
+    (datos, cabeceras de fechas) y la prosa larga se saltan. None si el título más próximo no nombra ninguno."""
+    if j is None:
+        return None
+    resto = lineas[j]
+    for rx, _ in UNIDAD_RX:
+        resto = rx.sub("", resto)
+    candidatos = [resto] + [lineas[k] for k in range(j - 1, max(-1, j - alto), -1)]
+    for c in candidatos:
+        t = c.strip()
+        if not t or re.search(r"\d", t) or len(t) > 60:
+            continue
+        m = PAIS_O_SEGMENTO_TITULO.search(t)
+        return t if m else None
+    return None
+
+
 def pais_de_columna(lineas, i, pos, idioma):
     """En una tabla con columnas por país (tres países o más en la cabecera), palabra de cabecera bajo la que está el token
     si no es la columna del ejercicio o del total: la columna de un país o de una sociedad, no del grupo. None si no."""
@@ -701,6 +734,9 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en"):
             if col == "Total" or (col is None and pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total"):
                 return "OK", "columna «Total» de una matriz por segmentos"
             return "FALLO", f"columna {'del segmento ' + col if col else 'de un segmento'} en una matriz por segmentos, no el total del grupo"
+        tit = titulo_de_pais_encima(lineas, j)
+        if tit:
+            return "PENDIENTE", f"el título «{tit}» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar"
         pc = pais_de_columna(lineas, i, pos, idioma)
         if pc:
             return "FALLO", f"la columna es la de «{pc}» en una tabla con columnas por país, no la del grupo"

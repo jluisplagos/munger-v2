@@ -21,6 +21,9 @@
 | C4 | d2e585e91638c363682a000bdb416a4b865c6cce (también en [ESTADO.md](ESTADO.md)) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
 | C6 | f30c66c8651dba134b4e66fff9a08c2b50359b6c (también en [ESTADO.md](ESTADO.md)) | Adenda tras las sondas externas sobre eb77dea: columna de la matriz por segmentos para el perímetro declarado; tres casos de test; sondas de un solo campo en todas las filas (`sondas_metadatos.py`) |
 | C7 | 9869def325b8820e2ee25618107495a7a7b70229 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 3 y su adenda: lista cerrada de modos; columna identificada por su cabecera; dimensión «columna»; contraejemplos de unidad y perímetro; huella de la verificación; 109 residuos, también en 2021–22; cobertura de todas las entradas usadas y su prueba de mutación; scripts del revisor sobre C7 |
+| C8 | 97441770f51761e28c089df7830d3de802bf87e9 | Registra el hash de C7. Congelado de la revisión n.º 4 |
+| C9 | c8764494d9911c59a67a530f13b56616fe86707c | Segunda presentación de cinco entradas del ancla de S2C (R17, R39 y R40 de 2021–22); hueco del verificador hallado por el autor: columnas por país. Sin revisar (tercera parte) |
+| C10 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 4 (P1–P5): criterio de formato de recuento, título de país o de segmento sobre la tabla, páginas sin identidad entre páginas, precisiones de forma (cuarta parte) |
 
 ## Marcas y pruebas
 
@@ -437,7 +440,7 @@ La vía que propone el revisor queda descrita como posible definición futura, s
 
 ## N6 · forma · afirmaciones sobre los residuos más fuertes que la prueba · **aceptada y corregida** (C7)
 
-1. §5.4 y estas respuestas dicen ahora que la diferencia fijada solo detecta un error neto mayor que 0,15. Con el gasto devengado en 29,3 o en 29,1, o con los pagos en 178,0, R13 pasa: es su límite de detección. Tres casos de `test_contraste_residuos.py` lo documentan (H3a–H3c), y otro comprueba que 29,5 sí falla (H4). Ninguna otra identidad los detecta: R11 y R12, que también usan los pagos, tienen cotas de 0,35 y 0,25.
+1. §5.4 y estas respuestas dicen ahora que la diferencia fijada solo detecta un error neto mayor que 0,15. Con el gasto devengado en 29,3 o en 29,1, o con los pagos en 178,0, R13 pasa: es su límite de detección. Tres casos de `test_contraste_residuos.py` lo documentan (H3a–H3c), y otro comprueba que 29,5 sí falla (H4). Ningún otro residuo los detecta: R11 y R12, que también usan los pagos, tienen cotas de 0,35 y 0,25. *(Precisión de C10, revisión n.º 4, P4:)* el de los pagos, H3c, sí lo detectan la doble vía del FCF base, que es una comprobación de fuente, y 41 comprobaciones del libro.
 2. R16 de 2023 (−0,1 con cota 0,10) se muestra en la tabla de §2, con su causa [P]: la amortización ROU de 2023 se imprime como 115,8 en la nota 4.5 (DEU 2024 p.296) y como 115,9 en el movimiento de arrendamientos (p.312). E1 fija la nota 4.5 como fuente.
 
 ## N7 · forma · «359 entradas» · **aceptada y corregida** (C7)
@@ -463,7 +466,7 @@ La columna se asigna por la posición horizontal del token respecto a las ocho c
 
 **Qué miden las sondas.** Que una etiqueta cambiada se detecta. No que una cifra de otra unidad o de otro perímetro con una etiqueta verosímil se rechace. Así se dice ahora en el informe §1, en T12 y en la sección de sondas de estas respuestas.
 
-**Contraejemplos de la adenda:** los que eran OK quedan ahora en FALLO, y forman parte del test y de T14:
+**Contraejemplos de la adenda:** esos casos, que eran OK, quedan ahora en FALLO y forman parte del test y de T14. *(Precisión de C10, revisión n.º 4, P5:)* su clase no queda cerrada: otras filas de la misma clase sin las señales de las listas pasaban (P1 y P2 de la revisión n.º 4):
 - **P1**, tabla por países;
 - **P2a**, fila «Other» en una tabla por segmentos;
 - **U1 y U2**, recuentos de acciones;
@@ -491,7 +494,7 @@ Se ejecutaron sin cambios. Salidas en `resultados/`:
 - Entregan la verificación del CSV original a un CSV mutado. El contraste se niega y no escribe salida.
 - El script lee entonces el `k.json` que dejó H5 en la misma carpeta temporal. Por eso los cuatro muestran los fallos de R25 y R16 de 2022 y un R13 sin mutar (0,4).
 - Es un efecto del script, no de C7.
-- Los mismos cuatro casos están en `test_contraste_residuos.py`, con la verificación falsa ligada al CSV mutado. H4 (29,5) hace fallar R13. H3a (29,3), H3b (29,1) y H3c (178,0) no los detecta ninguna identidad, porque están dentro de la cota (N6). H3c hace fallar 42 comprobaciones contra el libro.
+- Los mismos cuatro casos están en `test_contraste_residuos.py`, con la verificación falsa ligada al CSV mutado. H4 (29,5) hace fallar R13. H3a (29,3), H3b (29,1) y H3c (178,0) no los detecta ningún residuo, porque están dentro de la cota (N6). *(Precisión de C10, revisión n.º 4, P4:)* H3c lo detectan la doble vía del FCF base y 41 comprobaciones del libro, no «42 comprobaciones contra el libro».
 
 **Contraejemplos de `sondas_revisor.py`.**
 - P1, P2a, U1, U2 y X1: FALLO en la dimensión que deben.
@@ -568,3 +571,106 @@ Tras C7, cinco entradas que cambian los valores de referencia de la especificaci
 - **Columnas por sociedad:** PENDIENTE, no FALLO.
 - **Límites de detección por debajo de la cota:** R13 de 2025 y R39 de 2021.
 - **Decisiones económicas [DH] y aptitud:** como tras C7. Sin aptitud para dinero real.
+
+# Respuesta a la revisión independiente n.º 4
+
+**Revisión:** [REVISION_INDEPENDIENTE_4.md](REVISION_INDEPENDIENTE_4.md). Commit a15f706 de la rama `auditoria/economica-f1-frente-e-revision` (22:04 UTC), sobre el congelado 97441770 (C8). Copia sin cambios y procedencia: [PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md).
+
+**Resultado de la revisión:**
+- reproduce todas las cifras del autor, con salidas idénticas;
+- N2–N10, corregidas; N1, corregida en parte: las reglas de unidad y de perímetro son listas de rótulos;
+- objeciones nuevas: P1–P3 (menores) y P4–P5 (forma);
+- ninguna conclusión material cambia y no encuentra errores en los datos reales.
+
+**Esta respuesta** acepta las cinco objeciones y las corrige en **C10**. El revisor no ha visto C9, cuyos cambios son posteriores a su congelado. C9 y C10 entran juntos en la pasada siguiente.
+
+**Relación con C9.** La revisión no señala el hueco de las columnas por país corregido en C9. Su P2 es de la misma familia, un perímetro que se deduce de señales de la tabla, pero es otro caso: un título por encima de la tabla, no una columna.
+
+## P1 · menor · un recuento sin rótulo de recuento pasaba como millones de euros · **aceptada y corregida** (C10)
+
+- **Corrección.** Se aplica el criterio que no depende del rótulo, el primero que propone el revisor: un literal entero, sin parte decimal y con seis cifras o más, declarado en millones de euros queda PENDIENTE en unidad.
+  - Queda PENDIENTE y no FALLO porque el formato sugiere un recuento, pero no lo prueba.
+  - La segunda variante propuesta, cualquier línea cuyo formato no sea el de su tabla, no se implementa: exige inferir el formato de cada tabla y no tiene contraejemplo real. Queda como mejora posible.
+- **Pruebas:**
+  - los casos A1 y A2 del revisor quedan en PENDIENTE y su control A3, en FALLO (`resultados/revisor4_contraejemplos_4_sobre_C10.txt`);
+  - dos casos nuevos en `test_verificar_cifras.py`;
+  - ninguna de las 743 filas reales cambia de estado;
+  - T14 incluye el criterio de formato.
+
+## P2 · menor · el bloque de un país bajo su título pasaba como grupo · **aceptada y corregida** (C10)
+
+- **Corrección.** Se aplica la primera de las dos vías propuestas. Se busca el título más próximo por encima de la tabla:
+  - primero, lo que queda en la línea de unidades después de la declaración;
+  - después, hacia arriba, la primera línea corta sin cifras.
+
+  Si ese título nombra un país o un segmento («FRANCE – DETAILS»), el perímetro del grupo queda PENDIENTE. La segunda vía, el mismo rótulo en la página anterior con otro valor, no se implementa.
+- **Pruebas:**
+  - el caso B1 del revisor (pensiones de Francia, 45,2) queda en PENDIENTE, y sus controles B2 y B3, en FALLO;
+  - un caso nuevo en el test y un positivo: el total por países de la misma página (67,1), bajo «INFORMATION BY REGION», sigue en OK;
+  - ninguna fila real cambia de estado.
+- **Límite:** no se detecta un bloque de otro perímetro sin título ni rótulo que lo nombre.
+
+## P3 · menor · la identidad de la misma página no acredita la unidad ni el perímetro · **aceptada y corregida** (C10)
+
+- `cobertura_entradas` dice ahora:
+  - qué acredita cada clase;
+  - si la página de cada entrada tiene alguna identidad entre páginas;
+  - qué páginas no tienen ninguna.
+- Tras C9 son 13 de 52 páginas, con 41 entradas, 25 de ellas con solo identidad de su página. C9 ancla la p.226 del URD 2021 con R40; por eso son 13 y no las 14 que cuenta el revisor sobre C8.
+- El informe (§0.2 y §1) y T12 dicen qué acredita cada clase y que esas 13 páginas son **cobertura pendiente**.
+- **Pruebas:**
+  - `paginas_sin_ancla.py` del revisor, sin cambios, sobre C10 (`resultados/revisor4_paginas_sin_ancla_sobre_C10.txt`);
+  - `cobertura_por_mutacion.py`: ninguna de las 41 entradas de esas páginas cambia la referencia de la especificación. Cambian las tablas de crecimiento orgánico (alternativas y horizonte), financiación, arrendamientos e impuestos.
+
+## P4 · forma · el caso de los pagos en 178,0 · **aceptada y corregida** (C10)
+
+- Las respuestas (N6 y «Los scripts del revisor sobre C7») y el informe (§1) dicen ahora: ningún residuo lo detecta; lo detectan la doble vía del FCF base y 41 comprobaciones del libro.
+- `test_contraste_residuos.py` separa por clase lo que detecta los casos que quedan por debajo de la cota:
+  - en H3c, 1 comprobación de fuente y 41 del libro;
+  - en el de las adquisiciones de 2021 (C9), 2 del libro.
+
+## P5 · forma · dos frases absolutas · **aceptada y corregida** (C10)
+
+- Informe §1, unidad: la regla vale para los rótulos de la lista; se añade el criterio de formato, y los límites lo dicen.
+- Respuestas, N10: esos casos quedan en FALLO, pero su clase no queda cerrada.
+
+## Cobertura de la unidad y del perímetro: respuesta a la pregunta de la persona responsable (§6 de la revisión)
+
+- **La unidad y el perímetro no quedan acreditados por las reglas del verificador.** Son listas de rótulos y criterios que detectan señales conocidas.
+- Los acredita, de forma indirecta, una identidad entre páginas. Sobre C10, eso cubre 223 de las 409 entradas usadas.
+- Del resto:
+  - 151 tienen solo identidad de su página, que acredita la coherencia de su tabla, no su unidad ni su perímetro;
+  - 4 solo la Historia del libro;
+  - 31, ninguna segunda línea.
+- 13 páginas, con 41 entradas, no tienen ninguna identidad entre páginas. Es **cobertura pendiente**. Ninguna de esas entradas cambia los valores de referencia de la especificación.
+
+## Observaciones de la revisión
+
+- **`LS_AMORT_ROU_2021`.** Esta contraparte PENDIENTE da a R16 de 2021 una cifra cuya unidad no está acreditada. La amortización ROU de 2021 la cubre además R25, de su misma página. Se mantiene declarado.
+- **Casos C1 y C2 del revisor.** Una línea equivocada en dos de las 31 entradas sin segunda línea pasa las dos defensas. Cambia el ratio fiscal de 2025 y las partidas puntuales, no la referencia. Confirman el límite declarado en N2; no se propone corrección.
+
+## Resultados sobre C10
+
+| Prueba | Resultado |
+|---|---|
+| Verificador | 743 filas: 729 OK, 14 PENDIENTE, 0 FALLO |
+| `test_verificar_cifras.py` | 71/71: 15 positivos reales, 5 PENDIENTE esperados y 51 contraejemplos |
+| Contraste | 280 comprobaciones, 0 fallidas; 409 entradas |
+| `test_contraste_residuos.py` | 18/18 |
+| Mutación | Sin incoherencias con `cobertura_entradas` |
+| Scripts del revisor, sin cambios | `resultados/*_sobre_C10.txt` |
+
+## Lo que queda abierto tras C10
+
+- **Revisión independiente de lo afectado por C9 y C10**, sobre un commit congelado (pasada 5): pendiente.
+- **Cobertura de la unidad y del perímetro:**
+  - 13 páginas (41 entradas) sin identidad entre páginas;
+  - 151 entradas con solo identidad de su página;
+  - 31 sin segunda línea y 4 solo con la Historia.
+
+  Ninguna de esas entradas cambia la referencia de la especificación.
+- **Reglas de unidad y perímetro:** listas y criterios que detectan señales conocidas, no acreditación.
+- **14 filas PENDIENTE** de URD 2022 p.302, y columnas por sociedad PENDIENTE.
+- **Límites de detección por debajo de la cota:** R13 de 2025 y R39 de 2021.
+- **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
+- **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.

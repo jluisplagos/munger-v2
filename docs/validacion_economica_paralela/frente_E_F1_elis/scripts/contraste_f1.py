@@ -917,10 +917,32 @@ def main():
                   else "contrastada con la Historia del libro" if i in por_libro else "sin comprobación de segunda línea")
         cobertura[i] = {"fuente": F.ref[i], "usos": sorted(usos.get(i, [])) or [directos.get(i, "uso directo fuera de las tablas anuales")], "identidades_entre_paginas": entre,
                         "identidades_misma_pagina": misma, "historia_del_libro": i in por_libro, "estado": estado}
+    # (Revisión n.º 4, P3) Una identidad de la misma página acredita la coherencia interna de su tabla, no su unidad ni su
+    # perímetro: una tabla entera de otro perímetro o de otra unidad cuadra igual. La unidad y el perímetro solo los
+    # acredita, de forma indirecta, una identidad entre páginas. Se marca, para cada entrada, si su página tiene alguna
+    # entrada contrastada entre páginas, y se listan las páginas que no.
+    pagina_de = {i: f"{F.meta[i]['doc']} p.{F.meta[i]['pagina']}" for i in cobertura}
+    con_ancla = {pagina_de[i] for i, v in cobertura.items() if v["estado"] == "contrastada entre páginas"}
+    for i, v in cobertura.items():
+        v["pagina_con_identidad_entre_paginas"] = pagina_de[i] in con_ancla
+    sin_ancla = {}
+    for i in sorted(cobertura):
+        if pagina_de[i] not in con_ancla:
+            sin_ancla.setdefault(pagina_de[i], []).append(i)
     R["tablas"]["cobertura_entradas"] = {
         "resumen": {e: sum(1 for v in cobertura.values() if v["estado"] == e) for e in
                     ("contrastada entre páginas", "solo identidad de la misma página", "contrastada con la Historia del libro",
                      "sin comprobación de segunda línea")},
+        "que_acredita_cada_clase": {
+            "contrastada entre páginas": "el número y, de forma indirecta, su unidad y su perímetro: otra presentación de otro perímetro o de otra unidad rompería la identidad",
+            "solo identidad de la misma página": "la coherencia interna de su tabla; no la unidad ni el perímetro de la tabla entera",
+            "contrastada con la Historia del libro": "el número, salvo un error común a las dos transcripciones de la misma publicación",
+            "sin comprobación de segunda línea": "nada más que su literal y las reglas automáticas del verificador"},
+        "paginas_sin_identidad_entre_paginas": sin_ancla,
+        "resumen_paginas": {"paginas_con_entradas": len(set(pagina_de.values())), "sin_identidad_entre_paginas": len(sin_ancla),
+                            "entradas_en_ellas": sum(len(v) for v in sin_ancla.values()),
+                            "misma_pagina_en_paginas_sin_ancla": sum(1 for i, v in cobertura.items()
+                                                                     if v["estado"] == "solo identidad de la misma página" and not v["pagina_con_identidad_entre_paginas"])},
         "sin_comprobacion": {i: v["usos"] for i, v in cobertura.items() if v["estado"] == "sin comprobación de segunda línea"},
         "entradas": cobertura}
     ok = all(c["ok"] for c in R["comprobaciones"])

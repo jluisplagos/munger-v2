@@ -231,6 +231,19 @@ def main():
     caso("C9: la columna de una sociedad adquirida (Textilservice, URD 2023 p.294) declarada del grupo: PENDIENTE, nunca OK",
          [nueva("MUT_ADQ_TEXTIL", anio="2022", doc="URD2023", pagina="294", etiqueta="NET CASH FLOW", pos="1", literal="(25.7)",
                 valor_publicado="-25.7")], "PENDIENTE")
+    # ---- revisión n.º 4 (C10): P1, formato de recuento sin rótulo de la lista; P2, bloque de un país bajo su título
+    caso("P1 (revisión n.º 4): «Effect of conversion of convertible bonds 23,355,764» (URD 2025 p.395) declarado en millones de euros: PENDIENTE, nunca OK",
+         [nueva("MUT4_ACC_CONVERSION", anio="2025", pagina="395", etiqueta="re:^\\s*Effect of conversion of convertible bonds\\s{2,}", pos="-2",
+                literal="23,355,764", valor_publicado="23355764")], "PENDIENTE")
+    caso("P1: «Effect of contingently issuable shares 1,767,869» declarado en millones de euros: PENDIENTE",
+         [nueva("MUT4_ACC_CONTINGENTES", anio="2025", pagina="395", etiqueta="re:^\\s*Effect of contingently issuable shares\\s{2,}", pos="-2",
+                literal="1,767,869", valor_publicado="1767869")], "PENDIENTE")
+    caso("P2 (revisión n.º 4): obligaciones de pensiones de Francia, 45,2, bajo el título «FRANCE – DETAILS» (URD 2025 p.356), declaradas del grupo: PENDIENTE",
+         [nueva("MUT4_PENSIONES_FR", anio="2025", pagina="356", etiqueta="TOTAL VALUE OF DEFINED BENEFIT PLAN OBLIGATIONS (1)", ocurrencia="1", pos="-2",
+                literal="45.2", valor_publicado="45.2")], "PENDIENTE")
+    caso("positivo C10: pasivo neto por planes de prestación definida del grupo, 67,1, total de la tabla por países de esa página",
+         [nueva("POS4_PENSIONES_GRUPO", anio="2025", pagina="356", etiqueta="LIABILITIES (ASSETS) RELATED TO DEFINED BENEFIT PLANS", pos="-2",
+                literal="67.1", valor_publicado="67.1")], "OK")
 
     malos = 0
     for k in casos:
