@@ -7,6 +7,7 @@ Carpeta propia del frente económico. Solo contiene documentos y cálculos de co
 | [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md) | Conciliación 2023–2025 y horizonte 2021–2025; puente del FCF base 307,933 a f y al motor A; arrendamientos; intangibles adquiridos y reinversión necesaria; impuestos; financiación; alternativas; decisiones pendientes |
 | [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md) | Especificación propuesta para el frente técnico, con reglas de control y criterios de prueba. No adoptada |
 | [REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md) | Modelos, esfuerzo y separación de contextos según lo que expone el entorno |
+| [PUNTO_DE_RECUPERACION.md](PUNTO_DE_RECUPERACION.md) | Estado de las pruebas, incidencias pendientes y siguiente paso exacto. Se reescribe al terminar cada bloque importante |
 | [revision/](revision/) | Estado de la revisión independiente; informe, scripts y salidas del revisor (copia sin cambios de su rama, con procedencia y huellas); respuesta del autor a cada objeción |
 | `datos/fuentes.json` | Fuentes primarias con huella SHA-256, ruta en el árbol materializado y ejercicio de la publicación |
 | `datos/cifras_fuente.csv` | 736 filas (697 cifras de tabla y 39 literales de texto) con documento, página PDF, literal impreso, signo, unidad, perímetro, edición («vigente» o «anterior»), período y modo de control del ejercicio |
