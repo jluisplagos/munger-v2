@@ -1,0 +1,5 @@
+Continúa esta tarea como frente T técnico: termina R415-SIGNO y U2–U5/I20, y los demás pendientes técnicos del encargo vigente. Antes de implementar cambios económicos F1, entrega y publica un punto de continuidad con commit, archivos cambiados, pruebas ejecutadas, resultados y pendientes.
+
+Abrimos aparte un frente E de conciliación económica, solo sobre una copia congelada y sin modificar tu código. La coordinación y su encargo están en la rama auditoria/economica-f1, carpeta docs/validacion_economica_paralela/. No dupliques esa conciliación dentro de esta tarea. Sí continúa los trabajos técnicos independientes mientras llega su especificación.
+
+Para integrar F1, contrasta la especificación económica propuesta y sus fuentes, identifica supuestos pendientes y fija la versión técnica de destino. Después implementa lo autorizado, ejecuta réplica, regeneración, revisión y auditoría conforme al encargo original. Conserva intactos los originales y las decisiones humanas registradas. No declares aptitud financiera por superar pruebas técnicas.

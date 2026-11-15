@@ -1,3 +1,11 @@
+# Auditoría económica paralela — F1
+
+Esta rama añade únicamente revisión documental y un encargo económico separado sobre la base congelada de la 4.15 hito1. No modifica el producto. F1 permanece abierto.
+
+Leer primero [la coordinación](docs/validacion_economica_paralela/COORDINACION.md), [el inicio de conciliación](docs/validacion_economica_paralela/F1_INICIO_CONCILIACION.md) y [el encargo para la segunda tarea](docs/validacion_economica_paralela/PROMPT_FRENTE_ECONOMICO.md).
+
+---
+
 # Rama de revisión: 4.15, hito 1
 
 Entrega intermedia recibida de Claude, con una revisión externa en curso. No fusionada con main. El hito no contiene el cierre económico F1 ni los expedientes regenerados. Hay un contraejemplo nuevo del control de signos; consultar docs/revision_externa_4_15_hito1/.
