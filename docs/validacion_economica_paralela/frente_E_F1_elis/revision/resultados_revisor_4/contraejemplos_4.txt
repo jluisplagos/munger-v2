@@ -1,0 +1,74 @@
+A. Unidad: líneas reales de la tabla del beneficio por acción (URD 2025 p.395), bajo «(In millions of euros)»
+   A1 «Effect of conversion of convertible bonds 23,355,764» (acciones) declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (orden con la cabecera)
+        unidad: tabla en millones de euros (línea 55)
+        perimetro: página de estados consolidados o de resultados del grupo
+   A2 «Effect of contingently issuable shares 1,767,869» (acciones) declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (orden con la cabecera)
+        unidad: tabla en millones de euros (línea 55)
+        perimetro: página de estados consolidados o de resultados del grupo
+   A3 control: «Weighted average number of shares 233,954,020» (U1 de la adenda)
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'FALLO', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (orden con la cabecera)
+        unidad: la línea «Weighted average number of shares» es un recuento, un importe por acción o un margen, no millones de euros
+        perimetro: página de estados consolidados o de resultados del grupo
+
+B. Perímetro: nota de pensiones «Information by region» (URD 2025 p.356)
+   B1 obligaciones de los planes de FRANCIA, 45,2 («TOTAL VALUE OF DEFINED BENEFIT PLAN OBLIGATIONS (1)» del bloque de Francia), declaradas del grupo (el grupo son 414,4, p.355)
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (alineación con la cabecera)
+        unidad: tabla en millones de euros (línea 29)
+        perimetro: página de estados consolidados o de resultados del grupo
+   B2 control: fila «United Kingdom (9.2)» de la tabla por países de esa página, declarada del grupo
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (orden con la cabecera)
+        unidad: tabla en millones de euros (línea 9)
+        perimetro: la línea es de un país (United Kingdom) en una tabla por países, no del grupo
+   B3 control: ventas de Alemania (P1 de la adenda)
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        ejercicio: columna de 2025 (orden con la cabecera)
+        unidad: tabla en millones de euros (línea 9)
+        perimetro: la línea es de un país (Germany) en una tabla por países, no del grupo
+
+C. Otra línea de la misma tabla en entradas SIN segunda línea (verificador regenerado y contraste)
+   C1 TAXDIF_INT_2025 toma «(17.5)» de la línea «Right-of-use assets» (misma columna de resultado)
+      verificador: código 2 · OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+      contraste: código 0 · fallidas: 0 []
+        impuestos 2025 · diferido_intangibles_(ingreso; PPA no deducible en caja): 17.5 → -17.5
+        impuestos 2025 · diferido_intangibles_÷_amortizacion_relaciones_con_clientes: 0.2096 → -0.2096
+        ¿cambia referencia_especificacion?: False
+   C2 OOIE_PLUSV_2025 toma «(0.4)» de la línea «Expenses relating to site disposal» (misma tabla, p.350)
+      verificador: código 2 · OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+      contraste: código 0 · fallidas: 0 []
+        partidas_puntuales_en_flujo_sin_crecimiento: [13.675, -4.032, 18.293, 27.936] → [13.675, -4.032, -0.285, 9.358]
+        ¿cambia referencia_especificacion?: False
+
+D. Diferencia fijada R13 de 2025 (+0,4 ± 0,15), verificador saltado con una verificación ligada al CSV mutado
+   D1 (H3a) gasto devengado 29,3 en lugar de 29,2: código 0 · R13 residuo 0.3 ok=True · fallidas: 0 (de fuente: 0, del libro: 0)
+   D2 (H3b) gasto devengado 29,1: código 0 · R13 residuo 0.5 ok=True · fallidas: 0 (de fuente: 0, del libro: 0)
+   D3 (H3c) pagos de arrendamientos 178,0 en lugar de 177,9: código 1 · R13 residuo 0.5 ok=True · fallidas: 51 (de fuente: 1, del libro: 50)
+   D4 (H4) control: gasto devengado 29,5: código 1 · R13 residuo 0.1 ok=False · fallidas: 1 (de fuente: 1, del libro: 0)
+
+E. Matriz por segmentos con una celda vacía (URD 2025 p.344), identificadores con el modo «titulo» admitido
+   E1 margen de EBITDA de Francia, 41,9 %, declarado «segmento Europa central»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        ejercicio: tabla de 2025
+        unidad: porcentaje impreso
+        perimetro: declarado segmento Europa central, pero la columna es del segmento Francia
+   E2 el mismo, declarado «segmento Francia» (correcto)
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: tabla de 2025
+        unidad: porcentaje impreso
+        perimetro: columna del segmento Francia en una matriz por segmentos
+   E3 margen de EBIT de Europa del Sur, 15,6 %, declarado «segmento Otros segmentos» (la columna que le correspondería contando desde la derecha)
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        ejercicio: tabla de 2025
+        unidad: porcentaje impreso
+        perimetro: declarado segmento Otros segmentos, pero la columna es del segmento Europa del Sur
+   E4 el mismo, declarado «segmento Europa del Sur» (correcto)
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        ejercicio: tabla de 2025
+        unidad: porcentaje impreso
+        perimetro: columna del segmento Europa del Sur en una matriz por segmentos
