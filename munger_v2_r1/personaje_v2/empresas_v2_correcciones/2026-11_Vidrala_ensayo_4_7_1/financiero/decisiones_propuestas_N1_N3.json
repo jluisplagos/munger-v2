@@ -1,0 +1,67 @@
+{
+ "titulo": "Convenciones propuestas N1–N3 (entrega 4.7, con D-N3 revisada y D-N3b nueva en la 4.7.1). Archivo PREPARADO: sin decidir.",
+ "estado": "pendiente de la persona responsable",
+ "instrucciones": "Para cada decisión, la persona responsable escribe en «decision» una de las opciones, o otra con su motivo, y rellena «fecha» y «confirmado_por». Claude no rellena esos campos ni los sustituye. Mientras estén vacíos, el libro de referencia y sus valores (53,67 / 70,77 / 86,49; ponderado 70,50; precio de Sí 65,69) siguen siendo los vigentes del ensayo. Ningún valor de este archivo es una comparación válida con el precio de noviembre de 2026 ni una recomendación de compra o espera.",
+ "decisiones": [
+  {
+   "id": "D-N1",
+   "pregunta": "Tipo impositivo para el NOPAT proyectado y el terminal (hoy Historia!C52 = 20,03 %, media 2021–2025 del tipo efectivo).",
+   "opciones": {
+    "T0": "mantener 20,03 % (media del tipo efectivo 2021–2025: incluye 2021–2022, con Italia, deducciones del año de 4–5 puntos y el cambio de tipo de 2021)",
+    "T1": "22,05 % = media del tipo efectivo 2023–2025 del perímetro de continuadas, con todas las líneas de la conciliación (sin las no recurrentes, 21,88 %)",
+    "T2": "24,33 % = tipo efectivo de 2025, último año de una serie que sube"
+   },
+   "propuesta_de_claude": "T1",
+   "efecto_en_la_combinacion_recomendada": "ver INFORME_FINANCIERO_N1_N3.md §2 y matriz.md",
+   "representable_en_la_plantilla": "no con una entrada: exige una celda de tipo normalizado (cambio de plantilla) o sustituir Diagnóstico V6!C11 en una copia de propuesta (PROPUESTA_T1_M1.xlsx)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Tras la auditoría interna (H-5, H-6) se descartó la formulación anterior de T1 (23,30 % = tipo de cada país 2025 − deducciones), que elegía líneas de forma asimétrica; queda en formulacion_inicial_N1/."
+  },
+  {
+   "id": "D-N2",
+   "pregunta": "Margen de partida (hoy Historia!C49 = 16,86 %, media 2016–2025 con Italia y con 2016–2019).",
+   "opciones": {
+    "M0": "mantener 16,86 %",
+    "M1": "18,55 % = media 2020–2025 en perímetro de continuadas (2020–2022 sin el segmento Italia)",
+    "M2": "19,93 % = margen de 2025 (Palancas!C8 = «Último año», representable en la plantilla)"
+   },
+   "propuesta_de_claude": "M1",
+   "representable_en_la_plantilla": "M2 sí (Palancas!C8); M1 no con una entrada (copia de propuesta con Diagnóstico V6!C10 sustituido)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "D-N3",
+   "pregunta": "Regla de reinversión con ventas que caen en el MALO (hoy la plantilla libera ΔV ÷ S2C, ≈ 16 mm al año en los años 1–5, de los que ≈ 14,1 son desinversión fija y ≈ 2,2 circulante).",
+   "opciones": {
+    "R0": "mantener la liberación simétrica de la plantilla: circulante ΔV × 14,70 % e inversión fija neta ΔV ÷ S2C − ΔV × 14,70 % (desinversión de planta); inversión bruta implícita del año 1 = 118,8",
+    "R1": "al caer las ventas solo se libera el circulante comercial (|ΔV| × 14,70 %) y la inversión fija neta es cero; en la recuperación hasta el máximo ya alcanzado solo se repone el circulante; por encima del máximo, ΔV ÷ S2C. Inversión bruta implícita = amortización (132,9 el año 1), lo que supone que la reposición necesaria es igual a la amortización (ver D-N3b)",
+    "R2": "al caer las ventas no se libera capital (ni circulante ni fijo); en la recuperación hasta el máximo ya alcanzado no se reinvierte; por encima del máximo, ΔV ÷ S2C. Inversión bruta implícita = amortización"
+   },
+   "propuesta_de_claude": "R1, condicionada a la hipótesis de mantenimiento de D-N3b",
+   "representable_en_la_plantilla": "no: la reinversión es ΔV ÷ S2C en las dos direcciones; solo en el modelo auxiliar (…_4_7_1/scripts/analisis_n1_n3.py)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "4.7.1: corregida la inversión bruta implícita (D&A + inversión fija neta; la 4.7 sumaba la reinversión total). Los valores no cambian."
+  },
+  {
+   "id": "D-N3b",
+   "pregunta": "Hipótesis de mantenimiento: ¿la inversión de reposición necesaria para conservar la capacidad es igual a la amortización, como suponen la plantilla y R1?",
+   "opciones": {
+    "=D&A": "mantener la convención de la plantilla (reposición = amortización) y declarar el límite; mostrar siempre la sensibilidad de mantenimiento del MALO",
+    "MALO+": "adoptar en el MALO un mantenimiento por encima de la amortización, con una cifra que habría que fundamentar (las sensibilidades de 20,9 % y 41,8 % no son cotas)",
+    "plantilla": "tratar la reposición por encima de la amortización como hipótesis de la plantilla en todos los escenarios (cambio de plantilla, fuera del N3; efecto de hasta unos −20 puntos de ponderado en la sensibilidad)"
+   },
+   "propuesta_de_claude": "=D&A de forma provisional, con el límite declarado y la sensibilidad visible, hasta obtener la separación entre reposición y crecimiento de la inversión, que no está en los textos conservados. Es, de las tres opciones, la de mayor valor: se propone por falta de cuantificación para otra, no porque la evidencia la respalde",
+   "evidencia": "inversión ÷ amortización > 1 en todos los años 2017–2025, también en 2020 (1,60, con Italia) y 2025 (1,42), años de ventas en caída; adiciones de 2024–2025 «primarily» de renovación de hornos (CF_2025 p. 44; no excluye ampliación, eficiencia ni descarbonización); vida útil contable de hornos, instalaciones y maquinaria 8–16 años (p. 14); descarbonización de hornos desde 2026 (p. 65); compromisos 66,6 mm (p. 45). En el otro sentido: la amortización de 2025 incluye 4,492 de cartera de clientes adquirida (p. 46) y la de 2024, 4,768 de derechos de uso; la serie mezcla perímetros (Brasil desde nov-2023, Italia fuera en 2024)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  }
+ ],
+ "nota_4_7_1": "Sustituye, como archivo vigente de propuestas, al de …/2026-11_Vidrala_ensayo_4_7/financiero/, que se conserva intacto. D-N1 y D-N2 no cambian; D-N3 se reescribe con la descomposición en inversión fija y circulante y su hipótesis de mantenimiento; D-N3b es nueva. Ver INFORME_N3_SUBSANACION.md."
+}

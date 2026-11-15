@@ -1,0 +1,70 @@
+{
+ "modo": "tras",
+ "con_fase_c": true,
+ "motor": "A",
+ "codigo": 0,
+ "hallazgos": [
+  {
+   "id": "G5",
+   "categoria": "desviación",
+   "escenario": "BUENO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "margen objetivo BUENO = 0.135 > máximo histórico (0.131337558372248) o Q3 del sector (0.134735202492212)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar con el mecanismo (precio, mezcla, escala) y quién se queda la mejora"
+  },
+  {
+   "id": "G7",
+   "categoria": "desviación",
+   "escenario": "NORMAL",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "rentabilidad marginal NORMAL = S2C 1.2 × margen 0.125 × (1 − 0.288) = 0.107 > 2 × ROIC histórico (0.095)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar por qué cada euro nuevo rendiría el doble que la historia"
+  },
+  {
+   "id": "G7",
+   "categoria": "desviación",
+   "escenario": "BUENO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "rentabilidad marginal BUENO = S2C 1.5 × margen 0.135 × (1 − 0.288) = 0.144 > 2 × ROIC histórico (0.095)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar por qué cada euro nuevo rendiría el doble que la historia"
+  },
+  {
+   "id": "A1",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "S2C medio fuera del rango del sector: ⚠ REVISAR · su capital por euro de ventas está fuera del rango del sector",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "se informa"
+  },
+  {
+   "id": "A3",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A, B, C",
+   "detalle": "fechas del precio y de las acciones: Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "se informa"
+  }
+ ],
+ "resumen": {
+  "errores": 0,
+  "limites": 0,
+  "desviaciones": 3,
+  "desviaciones_sin_justificar": 0,
+  "avisos": 2
+ }
+}

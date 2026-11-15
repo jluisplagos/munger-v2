@@ -1,0 +1,433 @@
+{
+ "bateria": "personaje_v2/pruebas/test_integridad_auditoria_v2.py",
+ "mutaciones": [
+  {
+   "id": "M01",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la identidad vuelve a aceptarse por el detector (huella de contenido sin orden), como en la 4.8.1",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "66/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "C transformaciones inocuas y no admitidas · espacios añadidos al final de una línea",
+    "C transformaciones inocuas y no admitidas · línea en blanco intercalada",
+    "D destino inaccesible · mismas palabras con otro significado e informe.py con un destino inaccesible: código 5, «RETIRADA PENDIENTE» c",
+    "D destino inaccesible · con la retirada pendiente, el pipeline se detiene con código 5 y no la presenta como completada",
+    "D destino inaccesible · al restaurar el destino, la retirada se completa en él (fila «SIN APROBACIÓN VIGENTE») y el cierre sigue recha",
+    "E reanudación y cierre legítimo · tras la retirada, restaurar los bytes de la respuesta original no reactiva el cierre (código 4, sin ficha)",
+    "E reanudación y cierre legítimo · el historial conserva el cierre retirado con su motivo y la auditoría del momento de la retirada",
+    "F compatibilidad con cierres históricos · la solicitud de la respuesta ya no consta como respondida en estado_pipeline.json: se retira la aprobación (có",
+    "F compatibilidad con cierres históricos · cierre de la 4.8.1 con la respuesta guardada en CRLF: la correspondencia no puede acreditarse con la huella de",
+    "F compatibilidad con cierres históricos · cierre de la 4.8.1 con la respuesta con las mismas palabras reordenadas: la correspondencia no puede acreditar"
+   ]
+  },
+  {
+   "id": "M02",
+   "archivo": "cierre_v2.py",
+   "descripcion": "sin línea de solicitud se supone la registrada",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "92/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud eliminada"
+   ]
+  },
+  {
+   "id": "M03",
+   "archivo": "cierre_v2.py",
+   "descripcion": "se admiten líneas de solicitud duplicadas si nombran la misma",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "92/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada",
+    "B cambios posteriores al cierre (primera llamada) · solicitud duplicada"
+   ]
+  },
+  {
+   "id": "M04",
+   "archivo": "cierre_v2.py",
+   "descripcion": "no se compara el identificador de la solicitud",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "92/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra",
+    "B cambios posteriores al cierre (primera llamada) · solicitud cambiada por otra"
+   ]
+  },
+  {
+   "id": "M05",
+   "archivo": "cierre_v2.py",
+   "descripcion": "no se compara la huella fiel",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "77/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "C transformaciones inocuas y no admitidas · espacios añadidos al final de una línea",
+    "C transformaciones inocuas y no admitidas · línea en blanco intercalada",
+    "D destino inaccesible · mismas palabras con otro significado e informe.py con un destino inaccesible: código 5, «RETIRADA PENDIENTE» c",
+    "D destino inaccesible · con la retirada pendiente, el pipeline se detiene con código 5 y no la presenta como completada",
+    "D destino inaccesible · al restaurar el destino, la retirada se completa en él (fila «SIN APROBACIÓN VIGENTE») y el cierre sigue recha",
+    "E reanudación y cierre legítimo · tras la retirada, restaurar los bytes de la respuesta original no reactiva el cierre (código 4, sin ficha)",
+    "E reanudación y cierre legítimo · el historial conserva el cierre retirado con su motivo y la auditoría del momento de la retirada"
+   ]
+  },
+  {
+   "id": "M06",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la huella fiel no tiene en cuenta el orden de las líneas",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "91/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "G unidades · huella_fiel: distinta con otro orden de palabras, una negación, mayúsculas, la línea de solicitud, un espacio,"
+   ]
+  },
+  {
+   "id": "M07",
+   "archivo": "cierre_v2.py",
+   "descripcion": "CRLF y CR dejan de ser transformaciones admitidas",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "88/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · finales CR",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.9 sin estado_pipeline.json y con la respuesta en CRLF",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre de la 4.9 sin estado y con la respuesta en CRLF",
+    "G unidades · huella_fiel: iguales con CRLF, CR, BOM, sin o con saltos finales y NFD"
+   ]
+  },
+  {
+   "id": "M08",
+   "archivo": "cierre_v2.py",
+   "descripcion": "los espacios al final de línea pasan a ser inocuos (no lo son)",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "C transformaciones inocuas y no admitidas · espacios añadidos al final de una línea"
+   ]
+  },
+  {
+   "id": "M09",
+   "archivo": "cierre_v2.py",
+   "descripcion": "un cierre de la 4.8.1 sin huella fiel se acredita por el contenido sin orden, no por los bytes",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "94/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "F compatibilidad con cierres históricos · cierre de la 4.8.1 con la respuesta guardada en CRLF: la correspondencia no puede acreditarse con la huella de",
+    "F compatibilidad con cierres históricos · cierre de la 4.8.1 con la respuesta con las mismas palabras reordenadas: la correspondencia no puede acreditar"
+   ]
+  },
+  {
+   "id": "M10",
+   "archivo": "cierre_v2.py",
+   "descripcion": "cierre_vigente.json deja de registrar la solicitud y la huella fiel",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "93/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "F compatibilidad con cierres históricos · cierre de la 4.9: cierre_vigente.json registra la solicitud y la huella fiel de la respuesta aceptada",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.9 sin estado_pipeline.json y con la respuesta en CRLF",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre de la 4.9 sin estado y con la respuesta en CRLF"
+   ]
+  },
+  {
+   "id": "M11",
+   "archivo": "cierre_v2.py",
+   "descripcion": "sin estado del pipeline, cierre_vigente.json solo compara la solicitud",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "F compatibilidad con cierres históricos · sin estado_pipeline.json, respuesta con las mismas palabras reordenadas"
+   ]
+  },
+  {
+   "id": "M12",
+   "archivo": "cierre_v2.py",
+   "descripcion": "no se comprueba que la solicitud conste como respondida por esa respuesta",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "F compatibilidad con cierres históricos · la solicitud de la respuesta ya no consta como respondida en estado_pipeline.json: se retira la aprobación (có"
+   ]
+  },
+  {
+   "id": "M13",
+   "archivo": "pipeline.py",
+   "descripcion": "el paso 13 no registra la huella fiel de la respuesta aceptada",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "68/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "A cierre base por respuesta a una solicitud · la respuesta aceptada queda registrada con su solicitud, su material y su huella fiel (contenido y orden)",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas palabras, otro significado",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · mismas líneas en otro orden",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "B cambios posteriores al cierre (primera llamada) · respuesta sustituida por otra aprobación",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · CRLF",
+    "C transformaciones inocuas y no admitidas · finales CR",
+    "C transformaciones inocuas y no admitidas · BOM UTF-8 al principio",
+    "C transformaciones inocuas y no admitidas · sin salto de línea final",
+    "C transformaciones inocuas y no admitidas · Unicode NFD (forma canónica equivalente)",
+    "C transformaciones inocuas y no admitidas · espacios añadidos al final de una línea",
+    "C transformaciones inocuas y no admitidas · línea en blanco intercalada",
+    "D destino inaccesible · mismas palabras con otro significado e informe.py con un destino inaccesible: código 5, «RETIRADA PENDIENTE» c",
+    "E reanudación y cierre legítimo · el historial conserva el cierre retirado con su motivo y la auditoría del momento de la retirada",
+    "F compatibilidad con cierres históricos · cierre de la 4.9: cierre_vigente.json registra la solicitud y la huella fiel de la respuesta aceptada",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.9 sin estado_pipeline.json y con la respuesta en CRLF",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre de la 4.9 sin estado y con la respuesta en CRLF"
+   ]
+  },
+  {
+   "id": "M14",
+   "archivo": "cierre_v2.py",
+   "descripcion": "el BOM deja de ser una transformación admitida",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "94/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "C transformaciones inocuas y no admitidas · BOM UTF-8 al principio",
+    "G unidades · huella_fiel: iguales con CRLF, CR, BOM, sin o con saltos finales y NFD"
+   ]
+  },
+  {
+   "id": "M15",
+   "archivo": "cierre_v2.py",
+   "descripcion": "NFC/NFD deja de ser una transformación admitida",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "94/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "C transformaciones inocuas y no admitidas · Unicode NFD (forma canónica equivalente)",
+    "G unidades · huella_fiel: iguales con CRLF, CR, BOM, sin o con saltos finales y NFD"
+   ]
+  },
+  {
+   "id": "M16",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la huella fiel normaliza con NFKC en lugar de NFC (iguala «²» y «2»)",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "G unidades · huella_fiel: fuera de la lista cerrada, también son distintos un carácter de compatibilidad (NFKC: «²»), un es"
+   ]
+  },
+  {
+   "id": "M17",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la huella fiel elimina los caracteres de formato (U+200B y otros)",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "G unidades · huella_fiel: fuera de la lista cerrada, también son distintos un carácter de compatibilidad (NFKC: «²»), un es"
+   ]
+  },
+  {
+   "id": "M18",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la huella fiel convierte el espacio no separable en un espacio",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "G unidades · huella_fiel: fuera de la lista cerrada, también son distintos un carácter de compatibilidad (NFKC: «²»), un es"
+   ]
+  },
+  {
+   "id": "M19",
+   "archivo": "cierre_v2.py",
+   "descripcion": "la huella fiel trata VT, FF y U+2028 como saltos de línea",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "G unidades · huella_fiel: fuera de la lista cerrada, también son distintos un carácter de compatibilidad (NFKC: «²»), un es"
+   ]
+  },
+  {
+   "id": "M20",
+   "archivo": "cierre_v2.py",
+   "descripcion": "sin estado del pipeline, se ignora la huella fiel de cierre_vigente.json (solo bytes)",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "94/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.9 sin estado_pipeline.json y con la respuesta en CRLF",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre de la 4.9 sin estado y con la respuesta en CRLF"
+   ]
+  },
+  {
+   "id": "M21",
+   "archivo": "cierre_v2.py",
+   "descripcion": "sin ningún registro de la respuesta aprobada se acepta cualquier APROBADO del material (comportamiento anterior)",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "90/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.6 (sin cierre_vigente.json de origen) con otra aprobación",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre de la 4.9 sin estado_pipeline.json ni cierre_vigente.json y con otra aprobación"
+   ]
+  },
+  {
+   "id": "M22",
+   "archivo": "cierre_v2.py",
+   "descripcion": "un auditoria.md que no es UTF-8 vuelve a interrumpir las vías",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "91/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · auditoria.md con un byte que no es UTF-8",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · auditoria.md con un byte que no es UTF-8",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · auditoria.md con un byte que no es UTF-8",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · auditoria.md con un byte que no es UTF-8",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · la respuesta guardada en cp1252"
+   ]
+  },
+  {
+   "id": "M23",
+   "archivo": "cierre_v2.py",
+   "descripcion": "un cierre_vigente.json ilegible deja de ser motivo de retirada",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "93/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre_vigente.json ilegible",
+    "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3) · cierre_vigente.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre_vigente.json = [1]"
+   ]
+  },
+  {
+   "id": "M24",
+   "archivo": "cierre_v2.py",
+   "descripcion": "un material_auditoria.json ilegible deja de ser motivo de retirada",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "92/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · material_auditoria.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · material_auditoria.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · material_auditoria.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · material_auditoria.json ilegible"
+   ]
+  },
+  {
+   "id": "M25",
+   "archivo": "cierre_v2.py",
+   "descripcion": "un JSON válido que no es un objeto vuelve a aceptarse como archivo de control",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "93/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · estado_pipeline.json = []",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre_vigente.json = [1]",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · estado_pipeline.json = []"
+   ]
+  },
+  {
+   "id": "M26",
+   "archivo": "cierre_v2.py",
+   "descripcion": "una ficha.json ilegible vuelve a tomarse por «sin salida cerrada»",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "93/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · ficha.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · ficha.json ilegible",
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · ficha.json ilegible"
+   ]
+  },
+  {
+   "id": "M27",
+   "archivo": "cierre_v2.py",
+   "descripcion": "sin estado, registrar_cierre vuelve a registrar la huella del archivo actual y pierde la solicitud y la huella fiel",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · cierre de la 4.9 sin estado y con la respuesta en CRLF"
+   ]
+  },
+  {
+   "id": "M28",
+   "archivo": "pipeline.py",
+   "descripcion": "un estado_pipeline.json que es una carpeta vuelve a interrumpir el pipeline",
+   "aplicada": true,
+   "detectada": true,
+   "resultado_bateria": "95/96 pruebas de integridad de la auditoría vigente PASAN",
+   "pruebas_que_fallan": [
+    "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3) · estado_pipeline.json es una carpeta"
+   ]
+  }
+ ],
+ "detectadas": 28,
+ "total": 28
+}

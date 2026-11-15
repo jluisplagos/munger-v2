@@ -1,0 +1,1093 @@
+--- base/personaje_v2/esquema/fase_c.esquema.json
++++ i3/personaje_v2/esquema/fase_c.esquema.json
+@@ -813,6 +813,163 @@
+          "no_determinada"
+         ],
+         "description": "(4.13, revisión interna R4) base de material_para_objetivo: «calculada» solo con contraste aislado o variación conjunta necesaria, y «false calculada» solo si ningún contraste mueve el precio de Sí a dos decimales; si lo mueve, «no material» es un juicio económico con evidencia e inferencias; «no_determinada» ⇔ null"
++       },
++       "juicio_objetivo": {
++        "type": "object",
++        "description": "(4.14, encargo de cierre §5) juicio PROPIO sobre el objetivo, separado del de la acción. Obligatorio cuando el pipeline fija el contrato 4.14 (estado_pipeline.json → contrato_juicio_objetivo); material_para_objetivo y base_de_la_materialidad_objetivo se derivan de él. La coherencia comprueba el contrato; la pertinencia la revisa la auditoría.",
++        "required": [
++         "hipotesis",
++         "contraste",
++         "cobertura",
++         "limites",
++         "base",
++         "material",
++         "criterio",
++         "razonamiento",
++         "evidencia"
++        ],
++        "properties": {
++         "hipotesis": {
++          "type": "string",
++          "minLength": 1,
++          "description": "qué afirmación sobre el objetivo se contrasta"
++         },
++         "contraste": {
++          "type": "array",
++          "description": "exactamente las filas de contraste_objetivo_v64.md de este parámetro",
++          "items": {
++           "type": "object",
++           "required": [
++            "variante",
++            "delta_eur",
++            "atribuible"
++           ],
++           "properties": {
++            "variante": {
++             "type": "string"
++            },
++            "descripcion": {
++             "type": [
++              "string",
++              "null"
++             ]
++            },
++            "precio_si": {
++             "type": [
++              "number",
++              "null"
++             ]
++            },
++            "delta_eur": {
++             "type": [
++              "number",
++              "null"
++             ]
++            },
++            "delta_pct": {
++             "type": [
++              "number",
++              "null"
++             ]
++            },
++            "atribuible": {
++             "type": "boolean"
++            }
++           }
++          }
++         },
++         "cobertura": {
++          "enum": [
++           "contraste_aislado",
++           "variacion_conjunta_necesaria",
++           "variacion_conjunta",
++           "sin_cobertura"
++          ]
++         },
++         "limites": {
++          "type": "array",
++          "minItems": 1,
++          "items": {
++           "type": "string"
++          },
++          "description": "lo que el contraste no cubre"
++         },
++         "base": {
++          "enum": [
++           "calculada",
++           "juicio_economico",
++           "no_determinada"
++          ]
++         },
++         "material": {
++          "type": [
++           "boolean",
++           "null"
++          ]
++         },
++         "criterio": {
++          "type": "object",
++          "required": [
++           "origen"
++          ],
++          "properties": {
++           "origen": {
++            "enum": [
++             "ninguno",
++             "redondeo_declarado",
++             "juicio_propio_del_agente",
++             "politica_adoptada"
++            ]
++           },
++           "descripcion": {
++            "type": [
++             "string",
++             "null"
++            ]
++           },
++           "referencia": {
++            "type": [
++             "string",
++             "null"
++            ]
++           }
++          }
++         },
++         "comparado_con": {
++          "type": [
++           "object",
++           "null"
++          ],
++          "properties": {
++           "referencia": {
++            "enum": [
++             "rango_calculado",
++             "resolucion_de_las_palancas",
++             "otra_hipotesis_calculada",
++             "otro_declarado"
++            ]
++           },
++           "valor_eur": {
++            "type": "number"
++           },
++           "fuente": {
++            "type": "string"
++           }
++          }
++         },
++         "razonamiento": {
++          "type": "array",
++          "items": {
++           "type": "string"
++          }
++         },
++         "evidencia": {
++          "type": "array",
++          "items": {
++           "type": "string"
++          }
++         }
++        }
+        }
+       }
+      }
+--- base/personaje_v2/prompts/fase_c_turno1.md
++++ i3/personaje_v2/prompts/fase_c_turno1.md
+@@ -43,6 +43,17 @@
+          - `calculada`: solo con contraste aislado o variación conjunta necesaria. `false` calculada solo si ningún contraste mueve el precio de Sí a dos decimales.
+          - `juicio_economico`: si un contraste lo mueve y lo juzgas no material, o si no hay contraste. Lleva evidencia e inferencias.
+          - `no_determinada`: `material_para_objetivo = null`. Un parámetro sin fundamento suficiente con `null` condiciona el objetivo.
++       - **Juicio propio sobre el objetivo (contrato 4.14; si entre tus entradas está `contraste_objetivo_v64.md`, es obligatorio).** El juicio sobre el objetivo es distinto del juicio sobre la acción: que «esperar» no cambie no demuestra que un parámetro sea irrelevante para el objetivo, y calcular una diferencia no demuestra por sí solo que sea pequeña. Para cada parámetro, `juicio_objetivo` con:
++         - `hipotesis`: la afirmación sobre el objetivo que contrastas (p. ej., «θ = 0,5 no desplaza el precio de Sí más de lo que el objetivo puede declarar»);
++         - `contraste`: copia **exactamente** las filas de este parámetro de `contraste_objetivo_v64.md` (`variante`, `precio_si`, `delta_eur`, `delta_pct`, `atribuible`); sin filas, lista vacía (el cambio no está definido, no es 0);
++         - `cobertura`: la de la tabla;
++         - `limites`: lo que el contraste no cubre (alternativas no calculadas, extremos del dominio, la familia, el perímetro, interacciones con otras hipótesis);
++         - `base` y `material`: las mismas tres bases. `material_para_objetivo` y `base_de_la_materialidad_objetivo` tienen que coincidir con ellos;
++         - `criterio`: `{origen, descripcion, referencia}`, de dónde sale la línea entre material y no material: `ninguno`, `redondeo_declarado` (mueve el precio de Sí a dos decimales), `juicio_propio_del_agente` (un criterio tuyo, p. ej. «1,5 €», que es **tu juicio, no una política**: con él la base es `juicio_economico` y la `descripcion` es obligatoria) o `politica_adoptada` (solo si existe una decisión registrada con decisión, fecha y firma humana; hoy no hay ninguna, así que no la uses);
++         - `comparado_con` `{referencia, valor_eur, fuente}`: **obligatorio** si declaras «no material» por juicio un parámetro **sin fundamento suficiente** cuyo contraste mueve el precio de Sí (o que no tiene contraste atribuible). `referencia` es `rango_calculado` (con `valor_eur` = la amplitud del rango calculado, que comprueba el pipeline), `resolucion_de_las_palancas`, `otra_hipotesis_calculada` u `otro_declarado`. Si no puedes declarar con qué comparas, la base es `no_determinada` (y condiciona el objetivo): «sin base suficiente se declara no determinada, no falso»;
++         - `razonamiento` y `evidencia`: los propios del objetivo (no los del juicio sobre la acción), no vacíos salvo con `no_determinada`.
++
++         El pipeline comprueba el contrato y su coherencia, no la pertinencia: la auditoría revisa que la comparación sostenga la conclusión. Un texto no vacío no acredita fundamento.
+        - `evidencia`: lista no vacía (variantes, celdas, páginas).
+        - `hechos` (lista no vacía) e `inferencias` (lista, vacía si no hay), separados.
+        - `contradicciones_revisadas`: una entrada `{discrepancia, resolucion}` por cada discrepancia con la clase o la confianza que declara `configuracion_economica.json → trazabilidad` para ese parámetro. Son estas:
+--- base/personaje_v2/prompts/verificacion.md
++++ i3/personaje_v2/prompts/verificacion.md
+@@ -20,6 +20,7 @@
+ - Revisa también los parámetros con `fundamento_suficiente = true`, no solo los `false`.
+ - Cada uno cita evidencia pertinente y separa hechos de inferencias.
+ - Cada discrepancia que calcula `objetivo_v64.discrepancias_con_la_configuracion` (hipótesis o confianza baja en la configuración con fundamento suficiente, dato publicado sin fundamento, confianza distinta) está en `contradicciones_revisadas`, con una resolución razonada. Las clases de la fase C (fundamentada, convención, técnico, sin juicio propio) y las de la configuración (dato publicado, derivado, convención, hipótesis) son vocabularios distintos: un cambio de una a otra no es por sí solo una discrepancia del contrato, pero si contradice la evidencia, anótalo como aviso.
++- **Juicio propio sobre el objetivo (contrato 4.14; si los parámetros llevan `juicio_objetivo`).** El pipeline ya comprobó el contrato (contraste mecánico, cobertura, límites, base, criterio y comparación); tú revisas la **pertinencia**: que la `hipotesis` sea la que el objetivo necesita, que el `razonamiento` y la `evidencia` sean del objetivo y no una copia del juicio sobre la acción, que los `limites` sean los relevantes (alternativas no calculadas, dominio, familia, perímetro, interacciones), y que `comparado_con` sostenga de verdad la conclusión «no material». Una comparación sin relación económica con el objetivo = FALLA. Un `criterio.origen = juicio_propio_del_agente` (p. ej., 1,5 €) aparece en la ficha y en el informe como criterio propio del agente, nunca como política ni como umbral adoptado; uno presentado como política = FALLA. La invariancia de «esperar» no se usa como prueba de que algo no sea material para el objetivo = si se usa, FALLA. Un texto no vacío no es fundamento.
+ - Una materialidad «calculada», para la acción o para el objetivo, se apoya en un contraste aislado o en una variación conjunta necesaria. Un parámetro sin fundamento suficiente cuya materialidad para el objetivo no está determinada aparece entre las hipótesis que condicionan el objetivo. Un «juicio_economico» se presenta como juicio, con su evidencia, y no como cifra calculada. Lo «no_determinada» no aparece como «no material» en la ficha ni en el informe.
+ - Cada grupo de `avisos_de_dominio_variantes` está evaluado, con la conclusión a la que afecta.
+ 
+--- base/personaje_v2/scripts/cierre_v2.py
++++ i3/personaje_v2/scripts/cierre_v2.py
+@@ -393,6 +393,9 @@
+         return f"el pipeline no registró una auditoría APROBADO válida (auditoria = {st.get('auditoria')!r})"
+     if st is not None and st.get("material_auditoria") != (material_fijado(carpeta) or {}).get("id"):
+         return "el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
++    m = motivo_aprobacion_retirada(carpeta, st, cv)  # (4.13.1, H5) una aprobación ya retirada no se reactiva restaurando archivos
++    if m:
++        return m
+     pend = [s for s in (st or {}).get("solicitudes_auditoria") or [] if s.get("estado") == "pendiente"]
+     if pend:
+         # (4.8.1, Y-h de la auditoría interna) con una auditoría nueva pedida, ninguna aprobación anterior cierra (tampoco ficha.py ni la vigencia)
+@@ -631,6 +634,198 @@
+     return isinstance(pubs, list) and any(isinstance(e, dict) and e.get("estado") == "publicada" for e in pubs)
+ 
+ 
++def senal_publicacion(carpeta, st, F=None):
++    """(4.13.1, H5; revisión interna D1-1, D1-4, D1-8) Señal de que la aprobación REGISTRADA en el estado (su solicitud y su respuesta
++    aceptada) se publicó, o None. La señal es propia de esa aprobación, nunca el nombre de una empresa en un CSV (D1-1):
++      - «registro»: una entrada «publicada» en el registro de publicaciones (o, si falta o es ilegible, en su respaldo), o una entrada con
++        la identidad de esta aprobación en cualquier estado (las publicaciones desde la 4.13.1 la llevan; la sincronización no la borra);
++      - «estado»: el propio estado del pipeline registra el FIN del paso 14 después de consumir la respuesta a esta solicitud (también en
++        los cierres anteriores a la 4.13.1) o una publicación de esta aprobación (publicaciones_de_la_aprobacion).
++    Un registro ilegible no es una señal (D1-4): no permite acreditar nada, así que no retira una aprobación del intervalo legítimo; la
++    retirada pendiente que deja ese registro (código 5) ya impide cerrar y publicar hasta restaurarlo."""
++    ident = identidad_aprobacion(st, None, carpeta)
++    for p in (os.path.join(carpeta, REGISTRO_RESUMEN), os.path.join(carpeta, RESPALDO_RESUMEN)):
++        reg, err = leer_json_control(p)
++        pubs = reg.get("publicaciones") if isinstance(reg, dict) else None
++        if err or not isinstance(pubs, list):
++            continue
++        for e in pubs:
++            if not isinstance(e, dict):
++                continue
++            if e.get("estado") == "publicada":
++                return f"el registro de publicaciones ({os.path.basename(p)}) conserva una publicación «publicada» en {os.path.basename(str(e.get('csv') or ''))}"
++            if ident and (e.get("solicitud"), e.get("auditoria_fiel")) == tuple(ident):
++                return f"el registro de publicaciones ({os.path.basename(p)}) registra una publicación de esta aprobación (solicitud {ident[0]})"
++        break  # el primer registro legible manda (el respaldo solo sustituye a un registro ausente o ilegible)
++    if ident and any(isinstance(x, dict) and (x.get("solicitud"), x.get("auditoria_fiel")) == tuple(ident) for x in st.get("publicaciones_de_la_aprobacion") or []):
++        return f"estado_pipeline.json registra una publicación de esta aprobación (solicitud {ident[0]})"
++    if ident and _fin_del_paso_14_tras(st, ident[0]):
++        return f"estado_pipeline.json registra el FIN del paso 14 después de consumir la respuesta a la solicitud {ident[0]}"
++    if ident and ident[0] == "legado-sha256" and any(isinstance(h, str) and FIN_CIERRE.search(h) for h in st.get("historial") or []):
++        # (D1-5) cierre anterior a la 4.8.1 (sin solicitud): el estado registra el FIN del paso 14 con esa aprobación
++        return "estado_pipeline.json registra el FIN del paso 14 de un cierre anterior a la 4.8.1 (sin solicitud de auditoría)"
++    return None
++
++
++FIN_CIERRE = re.compile(r"paso 14 · FIN · estado (concluido|pendiente_de_investigacion|pendiente_de_datos) · auditoría APROBADO")
++
++
++def _fin_del_paso_14_tras(st, solicitud):
++    """(revisión interna D2-3) solo un FIN del paso 14 que CIERRA (estado de cierre con auditoría APROBADO), no el de un no_entregable."""
++    hist = [h for h in (st.get("historial") or []) if isinstance(h, str)]
++    pos = [i for i, h in enumerate(hist) if f"respuesta a la solicitud {solicitud}" in h]
++    return bool(pos) and any(FIN_CIERRE.search(h) for h in hist[pos[-1] + 1:])
++
++
++def destinos_publicados_en_el_estado(st):
++    """(4.13.1, H5) Destinos donde el estado del pipeline registra que el paso 14 publicó la fila («OK: fila de <empresa> en <ruta>»)
++    después de consumir la respuesta aprobada: [(ruta, empresa)]. Se usa solo sin registro de publicaciones legible."""
++    ident = identidad_aprobacion(st)
++    hist = [h for h in (st.get("historial") or []) if isinstance(h, str)] if isinstance(st, dict) else []
++    pos = [i for i, h in enumerate(hist) if ident and f"respuesta a la solicitud {ident[0]}" in h]
++    if not ident and isinstance(st, dict) and not st.get("auditoria_respuesta"):
++        pos = [-1]  # (D1-5) cierre anterior a la 4.8.1: todas las publicaciones que registra el historial
++    out = []
++    # (revisión interna D2-1, D2-4) primero el registro estructurado que deja resumen.py en el estado (destino completo, sin truncar)
++    for x in (st.get("publicaciones_de_la_aprobacion") or []) if isinstance(st, dict) else []:
++        if isinstance(x, dict) and ident and (x.get("solicitud"), x.get("auditoria_fiel")) == tuple(ident) and x.get("csv") and (x["csv"], x.get("empresa")) not in out:
++            out.append((x["csv"], x.get("empresa")))
++    for h in hist[pos[-1] + 1:] if pos else []:
++        # la línea de la orden («$ python3 resumen.py <expediente> <destino> → 0 …», con el destino tal como se pasó) y la del resultado
++        # («OK: fila de <empresa> en <ruta>»); el historial trunca las líneas largas, así que se usan las dos
++        m = re.search(r"OK: fila de (.+?) en (\S+\.csv)", h)
++        m2 = re.search(r"\$ \S*python3?\S* resumen\.py \S+ (.+?\.csv) → 0", h)
++        emp = m.group(1) if m else (re.search(r"OK: fila de (.+?) en ", h).group(1) if re.search(r"OK: fila de (.+?) en ", h) else None)
++        for ruta in ([m.group(2)] if m else []) + ([m2.group(1)] if m2 else []):
++            if not any(os.path.basename(r) == os.path.basename(ruta) for r, _ in out):
++                out.append((ruta, emp))
++    return out
++
++
++def aprobacion_publicada_sin_respaldo(carpeta, F=None, st=None):
++    """(4.13.1, H5) Motivo si el estado del pipeline registra una auditoría APROBADO en un estado de cierre cuya publicación consta
++    (senal_publicacion) y no queda ninguna salida que la respalde: ni ficha oficial cerrada (falte o exista sin cerrar) ni cierre registrado
++    (cierre_vigente.json); None si no. Hasta la 4.13 solo se detectaba con una ficha oficial presente sin cerrar (aprobacion_sin_ficha_cerrada);
++    sin ficha y sin registro del cierre, la aprobación interna seguía vigente (H5).
++    Intervalo legítimo entre la aceptación de la auditoría (paso 13) y la publicación del paso 14: al pedir la auditoría, las publicaciones del
++    cierre anterior se retiraron (Y-h: «retirada» o «retirada_pendiente»), la aprobación nueva es de otra solicitud y el paso 14 todavía no
++    ha registrado su FIN: ninguna señal de publicación de ESTA aprobación. La distinción se hace con la solicitud, la respuesta y los rastros
++    de publicación, nunca con fechas de archivos."""
++    if ficha_cerrada(F) or cierre_registrado(carpeta):
++        return None
++    if st is None:
++        st = _j_tolerante(os.path.join(carpeta, "estado_pipeline.json"))
++    if not (isinstance(st, dict) and st.get("auditoria") == "APROBADO"
++            and st.get("estado_analisis") in ("concluido", "pendiente_de_investigacion", "pendiente_de_datos")):
++        return None
++    return senal_publicacion(carpeta, st, F)
++
++
++def _empresas_del_expediente(carpeta):
++    """Nombre de la empresa en los archivos de entrada del expediente (nunca el nombre de la carpeta)."""
++    nombres = set()
++    for n in ("fase1_v63.json", "fase_a.json"):
++        d = _j_tolerante(os.path.join(carpeta, n))
++        if isinstance(d, dict) and isinstance(d.get("empresa"), str) and d["empresa"].strip():
++            nombres.add(d["empresa"])
++    return nombres
++
++
++APROBACIONES_RETIRADAS = "aprobaciones_retiradas.json"
++
++
++def identidad_aprobacion(st, cv=None, carpeta=None):
++    """(4.13.1, H5) (solicitud, huella fiel) de la respuesta de auditoría que respalda la aprobación registrada; None si no consta."""
++    resp = (st or {}).get("auditoria_respuesta") if isinstance(st, dict) else None
++    if isinstance(resp, dict) and resp.get("solicitud") and resp.get("fiel"):
++        return resp["solicitud"], resp["fiel"]
++    if isinstance(cv, dict) and cv.get("solicitud") and cv.get("auditoria_fiel"):
++        return cv["solicitud"], cv["auditoria_fiel"]
++    if isinstance(cv, dict) and cv.get("auditoria_sha256") and not (isinstance(resp, dict) and resp):
++        # (revisión interna D1-5) cierre anterior a la 4.8.1, sin solicitud ni huella fiel: lo identifica la huella de bytes de la auditoría
++        # registrada en cierre_vigente.json (la misma que exige motivo_rechazo_cierre, Y-g)
++        return "legado-sha256", cv["auditoria_sha256"]
++    if carpeta and isinstance(st, dict) and st.get("auditoria") == "APROBADO" and not (isinstance(resp, dict) and resp):
++        # (D1-5) cierre anterior a la 4.8.1 cuyo cierre_vigente.json falta: la auditoría aprobada es la de auditoria.md (sus bytes; la retirada
++        # no la mueve ni la cambia), la misma huella que cierre_vigente.json registraría
++        aud = os.path.join(carpeta, "auditoria.md")
++        if os.path.isfile(aud):
++            return "legado-sha256", _sha(aud)
++    return None
++
++
++def anotar_aprobacion_retirada(carpeta, ident, material_id, motivo, antecedente):
++    """(4.13.1, H5) Registro que solo crece (aprobaciones_retiradas.json, fuera de las salidas oficiales y del estado del pipeline): una
++    aprobación quitada del estado por una retirada no vuelve a acreditar ningún cierre, aunque se restauren archivos antiguos (también el
++    estado). Hace falta una auditoría nueva (otra solicitud). Un registro ilegible no se sobrescribe: el cierre se rechaza (lado seguro)."""
++    p = os.path.join(carpeta, APROBACIONES_RETIRADAS)
++    d, err = leer_json_control(p)
++    if err:
++        return f"{APROBACIONES_RETIRADAS} no se puede leer ({err}): no se sobrescribe"
++    d = d if isinstance(d, dict) else {}
++    lista = d.get("retiradas") if isinstance(d.get("retiradas"), list) else []
++    if not any(isinstance(e, dict) and (e.get("solicitud"), e.get("auditoria_fiel")) == tuple(ident) for e in lista):
++        import datetime as _dt
++        lista.append({"solicitud": ident[0], "auditoria_fiel": ident[1], "material_auditado": material_id,
++                      "fecha": _dt.datetime.now().isoformat(timespec="seconds"), "motivo": str(motivo)[:300], "antecedente": antecedente})
++    tmp = p + ".tmp"
++    json.dump({"nota": "aprobaciones retiradas de este expediente (4.13.1, H5): ninguna vuelve a acreditar un cierre; solo se añaden entradas",
++               "retiradas": lista}, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++    os.replace(tmp, p)
++    return None
++
++
++def motivo_aprobacion_retirada(carpeta, st, cv=None):
++    """(4.13.1, H5) Motivo si la aprobación registrada (su solicitud y su respuesta) ya se retiró: consta en aprobaciones_retiradas.json o en
++    el antecedente de una retirada (historial_cierres/*/RETIRADA.json). Dos señales independientes: no depende solo de una carpeta archivada."""
++    ident = identidad_aprobacion(st, cv, carpeta)
++    if not ident:
++        return None
++    d, err = leer_json_control(os.path.join(carpeta, APROBACIONES_RETIRADAS))
++    # (revisión interna D1-6) un registro ilegible no retira por sí solo un cierre sano: se ignora esa fuente (no se sobrescribe) y deciden
++    # las otras dos señales, que son independientes
++    vistas = [e for e in ((d or {}).get("retiradas") or []) if isinstance(e, dict)] if not err else []
++    # (D1-3) tercera señal: las entradas del registro de publicaciones (y del respaldo) que publicaron ESTA aprobación y que retiró una
++    # RETIRADA DE LA APROBACIÓN (archivar_salidas las marca con retirada_de_la_aprobacion). (Revisión interna D2-2) una retirada de filas de
++    # la sincronización, sin retirada de la aprobación, no cuenta: con el cierre vigente no es una retirada de esa aprobación
++    for n in (REGISTRO_RESUMEN, RESPALDO_RESUMEN):
++        reg = _j_tolerante(os.path.join(carpeta, n))
++        for e in ((reg or {}).get("publicaciones") or []) if isinstance(reg, dict) else []:
++            if isinstance(e, dict) and e.get("estado") in ("retirada", "retirada_pendiente") and e.get("solicitud") and e.get("retirada_de_la_aprobacion"):
++                vistas.append({"solicitud": e.get("solicitud"), "auditoria_fiel": e.get("auditoria_fiel"), "fecha": e.get("fecha_retirada") or e.get("fecha"),
++                               "antecedente": f"{n} ({os.path.basename(str(e.get('csv') or ''))})"})
++    for r in sorted(glob.glob(os.path.join(carpeta, "historial_cierres", "*", "RETIRADA.json"))):
++        x = _j_tolerante(r)
++        a = (x or {}).get("aprobacion_retirada") if isinstance(x, dict) else None
++        if isinstance(a, dict):
++            vistas.append(dict(a, antecedente=os.path.relpath(os.path.dirname(r), carpeta)))
++    for e in vistas:
++        if (e.get("solicitud"), e.get("auditoria_fiel")) == tuple(ident):
++            quien = (f"la aprobación del cierre anterior a la 4.8.1 (auditoría {ident[1][:12]}…)" if ident[0] == "legado-sha256"
++                     else f"la aprobación de la solicitud {ident[0]}")
++            return (f"{quien} ya se retiró ({e.get('fecha') or 'fecha no registrada'}; antecedente "
++                    f"{e.get('antecedente') or '—'}): restaurar archivos antiguos no la reactiva; hace falta una auditoría nueva (paso 13)")
++    return None
++
++
++def instantanea_rastro(carpeta, destino):
++    """(4.13.1, H5) Copia, antes de tocarlos, el estado del pipeline y el registro de publicaciones (y su respaldo) en
++    <destino>/rastro_previo/: el rastro de la aprobación retirada no depende de que quede ninguna salida oficial que archivar."""
++    import shutil
++    d = os.path.join(destino, "rastro_previo")
++    copiados = []
++    for n in ("estado_pipeline.json", REGISTRO_RESUMEN, RESPALDO_RESUMEN):
++        p = os.path.join(carpeta, n)
++        if os.path.isfile(p):
++            try:
++                os.makedirs(d, exist_ok=True)
++                shutil.copy2(p, os.path.join(d, n.lstrip(".")))
++                copiados.append(n)
++            except OSError:
++                pass
++    return copiados
++
++
+ def registrar_cierre(carpeta):
+     """Lo llama ficha.py al escribir una ficha oficial cerrada con una aprobación válida."""
+     F = _j(os.path.join(carpeta, "ficha.json")) or {}
+@@ -684,6 +879,14 @@
+                 # pero el estado del pipeline sigue registrando una aprobación de una ficha que ya no está cerrada
+                 return ("la ficha oficial no está cerrada (sin «cierre» ni estado concluido) y no hay cierre registrado, pero estado_pipeline.json "
+                         "registra una auditoría APROBADO: ninguna salida cerrada la respalda; la aprobación se retira (hace falta una auditoría nueva)")
++            senal = aprobacion_publicada_sin_respaldo(carpeta, F)
++            if senal:
++                # (4.13.1, H5) sin ficha oficial cerrada (falta o está sin cerrar) ni cierre registrado, el estado sigue registrando una
++                # aprobación cuya publicación consta: la aprobación publicada perdió su respaldo y se retira en la primera llamada.
++                # (D1-8) el motivo dice qué señal de publicación se encontró
++                return (("no hay ficha.json oficial" if not os.path.isfile(os.path.join(carpeta, "ficha.json")) else "la ficha oficial no está cerrada")
++                        + f" ni cierre registrado ({CIERRE_VIGENTE}), pero estado_pipeline.json registra una auditoría APROBADO publicada ({senal}): "
++                        "ninguna salida respalda la aprobación publicada; se retira (restaurar archivos antiguos no la reactiva: hace falta una auditoría nueva)")
+             return None  # estado temprano legítimo, sin cierre previo registrado
+         # (4.10, encargo §3.3; caso externo, heredado de la 4.8.1) la ficha oficial perdió sus marcadores de cierre («cierre» y
+         # estado concluido; o es {} o falta), pero hay un cierre registrado: su correspondencia se comprueba con independencia de
+@@ -751,21 +954,30 @@
+     import datetime as _dt
+     import shutil
+     presentes = [f for f in SALIDAS_OFICIALES if os.path.exists(os.path.join(carpeta, f))]
+-    if not presentes:
+-        return None
+     F, err_ficha = leer_ficha_control(os.path.join(carpeta, "ficha.json"))
+     F = F or {}
++    # (4.13.1, H5) sin ninguna salida oficial que archivar, una aprobación publicada sin respaldo también se retira: se deja el antecedente
++    # (RETIRADA.json y el rastro previo), se retiran las publicaciones y se invalida el estado. Antes se devolvía None sin tocar nada
++    sin_respaldo = aprobacion_publicada_sin_respaldo(carpeta, None if err_ficha else F, st)
++    if not presentes and not sin_respaldo:
++        return None
+     # (4.9, V-1) una ficha ilegible se trata como la salida cerrada que era; (4.10, §3.3) también la que perdió sus marcadores
+     # mientras hay un cierre registrado: se retiran el estado y la aprobación del pipeline y todas las publicaciones registradas
+-    cerrada = ficha_cerrada(F) or bool(err_ficha) or cierre_registrado(carpeta) or aprobacion_sin_ficha_cerrada(carpeta, F, st)
++    cerrada = (ficha_cerrada(F) or bool(err_ficha) or cierre_registrado(carpeta) or aprobacion_sin_ficha_cerrada(carpeta, F, st)
++               or sin_respaldo)
+     cv = _j_tolerante(os.path.join(carpeta, CIERRE_VIGENTE)) or {}
+     mat = (F.get("cierre") or {}).get("material_auditado") or cv.get("material_auditado")
++    if not mat and sin_respaldo:
++        mat = (material_fijado(carpeta) or {}).get("id")  # (4.13.1, H5) el material que aprobó la auditoría registrada
+     base = os.path.join(carpeta, "historial_cierres")
+     os.makedirs(base, exist_ok=True)
+     n = 1 + len([x for x in os.listdir(base) if os.path.isdir(os.path.join(base, x))])
+     # (segundo control de vigencia, W-4; anterior a la 4.9) el identificador se limpia: un «../» no saca el archivo del expediente
+     destino = os.path.join(base, f"{n:02d}_" + re.sub(r"[^0-9A-Za-z_-]", "_", str(mat or "sin_material")))
+     os.makedirs(destino)
++    # (4.13.1, H5) el rastro previo (estado y registro de publicaciones tal como estaban) se conserva ANTES de sincronizar publicaciones
++    # y de tocar el estado, haya o no salidas oficiales que mover
++    rastro = instantanea_rastro(carpeta, destino)
+     for f in presentes:
+         shutil.move(os.path.join(carpeta, f), os.path.join(destino, f))
+     copiada = False
+@@ -776,22 +988,92 @@
+         except OSError:
+             pass  # (segundo control de vigencia, W-3) sin permiso de lectura: la retirada sigue; RETIRADA.json lo dice
+     actual, _ = material(carpeta)
++    estado_previo = F.get("estado_analisis")
++    if not estado_previo and sin_respaldo:  # (4.13.1, H5) sin ficha: el estado que presentaba la aprobación retirada
++        _s0 = st if isinstance(st, dict) else _j_tolerante(os.path.join(carpeta, "estado_pipeline.json"))
++        estado_previo = (_s0 or {}).get("estado_analisis") if isinstance(_s0, dict) else None
+     reg = {"retirada": _dt.datetime.now().isoformat(timespec="seconds"), "motivo": motivo, "material_auditado_en_la_aprobacion": mat,
+-           "material_actual": actual, "estado_que_presentaba": F.get("estado_analisis"), "archivos": presentes,
++           "material_actual": actual, "estado_que_presentaba": estado_previo, "archivos": presentes, "rastro_previo": [os.path.join("rastro_previo", x.lstrip(".")) for x in rastro],
++           **({"sin_salidas_oficiales": "no quedaba ninguna salida oficial que archivar: la aprobación publicada había perdido su respaldo "
++               "(sin ficha oficial cerrada ni cierre registrado); el rastro previo conserva el estado y el registro de publicaciones anteriores"}
++              if not presentes else {}),
+            "nota": (f"Aprobación histórica del material {mat}, distinto del actual {actual}: no acredita la versión actual. " if mat and mat != actual else
+                     f"Salida oficial que ya no está respaldada por una aprobación válida del material actual ({motivo[:120]}): no acredita la versión actual. ")
+                    + "La auditoría que la aprobó no se ha borrado ni cambiado" + (" (copia en este archivo)." if copiada else ("; no se pudo copiar (auditoria.md no se puede leer)." if os.path.exists(os.path.join(carpeta, "auditoria.md")) else "; en el momento de la retirada no había auditoria.md en el expediente."))}
++    # (4.13.1, H5) la identidad de la aprobación que esta retirada quita (solicitud y huella fiel de la respuesta aceptada): restaurar archivos
++    # antiguos, también el estado del pipeline, no la reactiva (motivo_aprobacion_retirada lo comprueba aquí y en aprobaciones_retiradas.json)
++    _st0 = st if isinstance(st, dict) else _j_tolerante(os.path.join(carpeta, "estado_pipeline.json"))
++    _st0 = _st0 if isinstance(_st0, dict) else None
++    ident = identidad_aprobacion(_st0, cv, carpeta) if cerrada and ((_st0 or {}).get("auditoria") == "APROBADO" or _st0 is None) else None
++    if ident:
++        reg["aprobacion_retirada"] = {"solicitud": ident[0], "auditoria_fiel": ident[1], "fecha": reg["retirada"]}
+     json.dump(reg, open(os.path.join(destino, "RETIRADA.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++    if ident:
++        try:
++            anotar_aprobacion_retirada(carpeta, ident, mat, motivo, os.path.relpath(destino, carpeta))
++        except OSError:
++            pass  # el antecedente (RETIRADA.json) ya lleva la identidad: es la segunda señal
+     fallo_retirada = None
+     if F.get("empresa") or cerrada:
+         # (4.7) en todos los destinos registrados y en el que se pase; un destino inaccesible queda como retirada pendiente
+         # (4.10, §3.3) también si la ficha ya no dice su empresa (p. ej., {}): los destinos registrados llevan la suya
+         # (4.13, revisión interna R2) protegida: un fallo inesperado no impide quitar la aprobación del estado (abajo); el registro queda
+         # como estaba y retiradas_pendientes() lo sigue mostrando
++        sin_registro = not any(os.path.lexists(os.path.join(carpeta, n)) for n in (REGISTRO_RESUMEN, RESPALDO_RESUMEN))
+         try:
+             retirar_publicaciones(carpeta, motivo, csv_path, F.get("empresa"), mat)
+         except (AttributeError, TypeError, KeyError, IndexError, ValueError) as e:
+             fallo_retirada = f"{type(e).__name__}: {str(e)[:160]}"
++        if sin_respaldo and sin_registro:
++            # (4.13.1, H5; revisión interna D1-1, D1-2, D1-10) sin registro ni respaldo: los destinos que el PROPIO estado del pipeline
++            # registra como publicados por esta aprobación (paso 14) se retiran como destinos conocidos, con su empresa; nunca se busca una
++            # fila por el nombre de la empresa en otros CSV (D1-1). Si la ruta registrada ya no existe (expediente trasladado), se usa la
++            # misma ruta junto a la ubicación actual. retirar_publicaciones los registra y deja la retirada pendiente visible (código 5) si
++            # un destino no se puede escribir (D1-2)
++            # Solo destinos JUNTO A LA UBICACIÓN ACTUAL del expediente (la ruta registrada se traslada a la carpeta actual por su nombre) y el
++            # destino que pasa la vía: una ruta absoluta del historial puede ser la del ORIGINAL de una copia (o de un expediente movido), y sin
++            # registro no hay registro_id que lo distinga; no se toca ningún CSV fuera de la carpeta actual (protección de copias, 4.7, H-2)
++            base = os.path.dirname(os.path.abspath(carpeta))
++            vistos = set()
++            for ruta, emp in destinos_publicados_en_el_estado(_st0):
++                destino_csv = os.path.join(base, os.path.basename(ruta))
++                if not emp:
++                    # (D2-1) la línea truncada no dice la empresa: la de los archivos de entrada del expediente, si es una sola
++                    nombres = _empresas_del_expediente(carpeta)
++                    emp = next(iter(nombres)) if len(nombres) == 1 else None
++                    if not emp:
++                        continue
++                if (destino_csv, emp) in vistos:
++                    continue
++                vistos.add((destino_csv, emp))
++                try:
++                    retirar_publicaciones(carpeta, motivo, destino_csv, emp, mat)
++                except (AttributeError, TypeError, KeyError, IndexError, ValueError) as e:
++                    fallo_retirada = f"{os.path.basename(ruta)}: {type(e).__name__}: {str(e)[:120]}"
++            if csv_path and os.path.abspath(csv_path) not in {d for d, _ in vistos}:
++                for emp in sorted({e for _, e in vistos}):  # (D1-10) el destino de la vía, con la empresa que registró el propio estado
++                    try:
++                        retirar_publicaciones(carpeta, motivo, csv_path, emp, mat)
++                    except (AttributeError, TypeError, KeyError, IndexError, ValueError) as e:
++                        fallo_retirada = f"{os.path.basename(csv_path)}: {type(e).__name__}: {str(e)[:120]}"
++    if ident and cerrada:
++        # (4.13.1, H5; revisión interna D2-2) las publicaciones que esta retirada de la aprobación retiró llevan su identidad y la marca
++        # retirada_de_la_aprobacion: es la tercera señal de motivo_aprobacion_retirada (una retirada de filas de la sincronización no la lleva)
++        try:
++            reg_m = _leer_registro(carpeta)
++            cambio = False
++            for e in reg_m.get("publicaciones") or []:
++                if not isinstance(e, dict) or e.get("estado") not in ("retirada", "retirada_pendiente"):
++                    continue
++                if e.get("solicitud") is None and e.get("material_auditado") == mat:
++                    e.update(solicitud=ident[0], auditoria_fiel=ident[1])  # publicación anterior a la 4.13.1 de esta misma aprobación
++                if (e.get("solicitud"), e.get("auditoria_fiel")) == tuple(ident) and not e.get("retirada_de_la_aprobacion"):
++                    e["retirada_de_la_aprobacion"] = True
++                    cambio = True
++            if cambio:
++                _guardar_registro(carpeta, reg_m)
++        except (RegistroIlegible, OSError, AttributeError, TypeError, KeyError, ValueError):
++            pass  # sin registro legible: deciden aprobaciones_retiradas.json y RETIRADA.json
+     ep = os.path.join(carpeta, "estado_pipeline.json")
+     propio = st is None
+     if propio:
+@@ -814,7 +1096,9 @@
+         if aud_reg == "APROBADO" and cerrada:
+             st["auditoria"] = None  # la aprobación registrada era la del cierre archivado: no acredita el material actual
+         st.setdefault("cierres_archivados", []).append({"carpeta": os.path.relpath(destino, carpeta), "material_auditado": mat, "auditoria_registrada": aud_reg, "motivo": motivo[:300]})
+-        st.setdefault("historial", []).append(f"{reg['retirada']} · salidas oficiales archivadas en {os.path.relpath(destino, carpeta)}: {motivo[:200]}"
++        st.setdefault("historial", []).append(f"{reg['retirada']} · " + (f"salidas oficiales archivadas en {os.path.relpath(destino, carpeta)}" if presentes else
++                                              f"aprobación publicada sin respaldo retirada (sin salidas oficiales que archivar; antecedente en {os.path.relpath(destino, carpeta)})")
++                                              + f": {motivo[:200]}"
+                                               + (f" · la retirada de las publicaciones falló ({fallo_retirada}): queda pendiente" if fallo_retirada else ""))
+         if propio:
+             json.dump(st, open(ep, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+@@ -1002,7 +1286,25 @@
+         e = {"csv": ruta, "empresa": empresa, "expediente": exp}
+         reg["publicaciones"].append(e)
+     e.update({"material_auditado": material_auditado, "estado": "publicada", "fecha": _dt.datetime.now().isoformat(timespec="seconds"), "error": None})
++    # (4.13.1, H5; revisión interna D1-3) cada publicación lleva la identidad de la aprobación que la respalda (solicitud y huella fiel de
++    # la respuesta aceptada): la sincronización cambia el estado de la entrada, no su identidad, y así una aprobación retirada no se reactiva
++    # aunque se restaure el estado del pipeline
++    ep = os.path.join(carpeta, "estado_pipeline.json")
++    st = _j_tolerante(ep)
++    ident = identidad_aprobacion(st if isinstance(st, dict) else None, _j_tolerante(os.path.join(carpeta, CIERRE_VIGENTE)), carpeta)
++    if ident:
++        e.update(solicitud=ident[0], auditoria_fiel=ident[1])
+     _guardar_registro(carpeta, reg)
++    if ident and isinstance(st, dict):
++        pubs = st.setdefault("publicaciones_de_la_aprobacion", [])
++        if isinstance(pubs, list) and not any(isinstance(x, dict) and (x.get("solicitud"), x.get("auditoria_fiel"), x.get("csv")) == (ident[0], ident[1], ruta) for x in pubs):
++            pubs.append({"solicitud": ident[0], "auditoria_fiel": ident[1], "csv": ruta, "fecha": e["fecha"]})
++            try:
++                tmp = ep + ".tmp"
++                json.dump(st, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++                os.replace(tmp, ep)
++            except OSError:
++                pass  # la entrada del registro ya lleva la identidad
+ 
+ 
+ def _retirar_en(objetivos, motivo):
+@@ -1017,6 +1319,7 @@
+             _retirar_fila(e["csv"], e["empresa"], e.get("material_auditado"), motivo)
+             e["estado"], e["error"] = "retirada", None
+             e["retirada_motivo"] = motivo[:300]
++            e["fecha_retirada"] = __import__("datetime").datetime.now().isoformat(timespec="seconds")
+         except OSError as err:
+             e["estado"], e["error"] = "retirada_pendiente", f"{type(err).__name__}: {err}"
+             pendientes.append(e["csv"])
+@@ -1078,6 +1381,14 @@
+         return retirar_publicaciones(carpeta, motivo, *extra, conservar_material=conservar)
+     antes = json.dumps(reg, sort_keys=True)
+     propias = _propias(reg, carpeta)
++    if vigente and conservar:
++        # (4.13.1, H5; revisión interna D1-3) las publicaciones anteriores a la 4.13.1 de un cierre VIGENTE reciben la identidad de su
++        # aprobación (solicitud y huella fiel; o la huella de la auditoría en un cierre anterior a la 4.8.1), para que una retirada posterior
++        # la conserve aunque se restaure el estado del pipeline
++        ident = identidad_aprobacion(_j_tolerante(os.path.join(carpeta, "estado_pipeline.json")), _j_tolerante(os.path.join(carpeta, CIERRE_VIGENTE)), carpeta)
++        for e in propias:
++            if ident and e.get("estado") == "publicada" and e.get("material_auditado") == conservar and not e.get("solicitud"):
++                e.update(solicitud=ident[0], auditoria_fiel=ident[1])
+     if json.dumps(reg, sort_keys=True) != antes:
+         _guardar_registro(carpeta, reg)  # copia o traslado resueltos: se fija el resultado
+     if origen is None and not any(_viva(e) and not (conservar and e.get("material_auditado") == conservar) for e in propias):
+--- base/personaje_v2/scripts/comprobar_gramatica.py
++++ i3/personaje_v2/scripts/comprobar_gramatica.py
+@@ -400,7 +400,12 @@
+           "Categorías (D17): **error** bloquea y ninguna explicación lo aprueba · **límite del modelo** vuelve a la fase A · **desviación** exige evidencia y razonamiento específicos en `desviaciones_justificadas` (justificación ≥ 40 caracteres, `hechos` no vacío, clase fundamentada o convención) · **aviso** informa.\n"]
+     if str(((g.d or {}).get("configuracion_v64") or {}).get("modo") or "") == "Experimental":
+         # (4.12 §5) lecturas con bases heredadas, identificadas donde se usan
+-        md.append("> **V6.4 experimental:** G7 y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f). No son una comprobación completa del modelo experimental.\n")
++        _cv = (g.d or {}).get("configuracion_v64") or {}
++        if str(_cv.get("perimetro_efectivo") or "").upper().replace(" ", "") == "NIIF16":
++            # (4.14, S4) con el perímetro NIIF 16 de la V6.4.1, las referencias del S2C se anclan en B155; G7 sigue con las bases de la Historia
++            md.append("> **V6.4.1 experimental (perímetro NIIF 16):** G7 usa las bases heredadas (tipo de la Historia y S2C de la Historia, sin f); las referencias mecánicas del S2C se anclan en el S2C histórico del perímetro NIIF 16 (Configuración V6.4!B155), no en Historia!C53, sin f. No son una comprobación completa del modelo experimental.\n")
++        else:
++            md.append("> **V6.4 experimental:** G7 y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f). No son una comprobación completa del modelo experimental.\n")
+     for cat in ("límite del modelo", "error", "desviación", "aviso"):
+         xs = [x for x in g.h if x["categoria"] == cat]
+         md.append(f"## {cat} ({len(xs)})\n")
+--- base/personaje_v2/scripts/ficha.py
++++ i3/personaje_v2/scripts/ficha.py
+@@ -99,6 +99,9 @@
+     return hashlib.sha256(open(p, "rb").read()).hexdigest() if p and os.path.isfile(p) else None
+ 
+ 
++TXT_S4_NIIF = 'G7 de la gramática usa las bases heredadas (tipo de la Historia y S2C de la Historia, sin f); las referencias mecánicas del S2C se anclan, con el perímetro NIIF 16 (V6.4.1), en el S2C histórico de ese perímetro (Configuración V6.4!B155), no en Historia!C53, y tampoco aplican f: no comprueban el modelo experimental'
++
++
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("carpeta")
+@@ -131,7 +134,15 @@
+         _csv0 = CIE.ruta_resumen(c, cfg)
+         _F0, _errF0 = CIE.leer_ficha_control(os.path.join(c, "ficha.json"))
+         _hay_cierre, _mh = ESTR.protegido(lambda: CIE.ficha_cerrada(_F0) or CIE.cierre_registrado(c), contexto="vigencia")
+-        if _hay_cierre or _mh:
++        # (4.13.1, H5) sin ficha oficial cerrada ni cierre registrado, una aprobación cuyo cierre consta como publicado no tiene respaldo:
++        # se retira aquí, en la primera llamada, también con el material intacto (motivo_vigencia da el motivo)
++        _sin_resp, _msr = (False, None) if (_hay_cierre or _mh) else ESTR.protegido(CIE.aprobacion_publicada_sin_respaldo, c, None if _errF0 else _F0, contexto="vigencia")
++        _mh5 = None
++        if _sin_resp:
++            _mh5, _msr2 = ESTR.protegido(CIE.motivo_vigencia, c, _pl.Pipeline.veredicto_auditoria, contexto="vigencia")
++            _msr = _msr or _msr2
++        _mh = _mh or _msr  # un fallo de la comprobación misma: código 5
++        if _hay_cierre or _mh or _mh5:
+             _rm, _mrm = ESTR.protegido(CIE.motivo_rechazo_cierre, c, _pl.Pipeline.veredicto_auditoria, contexto="vigencia del material")
+ 
+             def _informe_cambiado():
+@@ -141,7 +152,7 @@
+                     return "informe.md no es el informe registrado al cerrar (cambió después del cierre)"
+                 return None
+             _ri, _mri = (None, None) if (_rm or _mrm) else ESTR.protegido(_informe_cambiado, contexto="vigencia del informe")
+-            _mv = _rm or _mrm or _mh or _ri or _mri
++            _mv = _rm or _mrm or _mh or _ri or _mri or _mh5
+             if _mv:
+                 _arch, _ma = ESTR.protegido(CIE.archivar_salidas, c, _mv, _csv0, contexto="retirada")
+                 _pend, _mp = ESTR.protegido(lambda: CIE.sincronizar_resumenes(c, _pl.Pipeline.veredicto_auditoria) or CIE.retiradas_pendientes(c), contexto="retirada")
+@@ -331,7 +342,10 @@
+                        # (4.12 §5) lecturas con bases parciales, identificadas donde se usan: no son una comprobación completa del modelo experimental
+                        + (["BL (valor sin crecimiento; Diagnóstico B33:D33 y «cuánto pagas por crecer») no incluye la cartera P0: es una lectura, no entra en el valor ni en el precio de Sí"]
+                           if str((cv or {}).get("cartera_texto") or "").startswith("P0") else [])
+-                       + (["G7 de la gramática y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f): no comprueban el modelo experimental"]
++                       # (4.14, S4 de la segunda revisión interna 4.13) con el perímetro NIIF 16 de la V6.4.1 el ancla de las referencias del S2C es
++                       # B155, no una base heredada; G7 sigue con las bases de la Historia
++                       + (([TXT_S4_NIIF] if str((cv or {}).get("perimetro_efectivo") or "").upper().replace(" ", "") == "NIIF16" else
++                           ["G7 de la gramática y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f): no comprueban el modelo experimental"])
+                           if conf_e.get("modo") == "Experimental" else []),
+         }
+         if var.get("formato") in ("4.12", "4.13"):
+--- base/personaje_v2/scripts/informe.py
++++ i3/personaje_v2/scripts/informe.py
+@@ -92,9 +92,16 @@
+     if not prov and not os.path.exists(os.path.join(c, "ficha.json")):
+         # (4.6.1) sin ficha oficial no hay informe oficial: no se publica el contenido de las fases bajo ninguna ficha
+         import pipeline
++        import config_v2
++        import estructura_json as ESTR
++        # (4.13.1, H5) antes de sincronizar: una aprobación publicada sin ficha ni cierre registrado se retira también del estado interno
++        _av, _mal = ESTR.protegido(CIE.asegurar_vigencia, c, pipeline.Pipeline.veredicto_auditoria, None, CIE.ruta_resumen(c, config_v2.cargar()), contexto="vigencia")
++        motivo, archivo = _av if _av else (_mal, None)
+         pend = CIE.sincronizar_resumenes(c, pipeline.Pipeline.veredicto_auditoria) or CIE.retiradas_pendientes(c)  # (4.7)
+-        print("informe.py: no se publica el informe oficial: no hay ficha.json oficial (para el material de la auditoría, usa --provisional)" + (f" · RETIRADA PENDIENTE en {pend}" if pend else ""))
+-        return 5 if pend else 3
++        print("informe.py: no se publica el informe oficial: no hay ficha.json oficial (para el material de la auditoría, usa --provisional)"
++              + (f" · aprobación retirada: {motivo}" if motivo else "") + (f" · antecedente en {os.path.relpath(archivo, c)}" if archivo else "")
++              + (f" · RETIRADA PENDIENTE en {pend}" if pend else ""))
++        return 5 if (pend or _mal) else 3
+     # (4.9, V-1) una ficha oficial ilegible pasa por la vigencia (y se retira); (4.10, §3.3) también la que perdió sus marcadores de
+     # cierre mientras hay un cierre registrado (cierre_vigente.json): su correspondencia no depende de los marcadores actuales
+     # (4.10, revisión interna R-1) y la que no está cerrada mientras el estado del pipeline sigue registrando una aprobación
+@@ -368,6 +375,22 @@
+                     t.append(f"- Juicio económico sobre el objetivo (no es una constatación calculada) de {j.get('clave')}: material para el objetivo = {j.get('material_para_objetivo')}; "
+                              # (4.13, auditoría de vidrala_condicionado) con su evidencia, como el juicio sobre la acción
+                              f"evidencia: {txt('; '.join(j.get('evidencia') or [])) if j.get('evidencia') else '—'}; inferencias: {txt('; '.join(j.get('inferencias') or []))}.")
++                for j in cob.get("juicios_objetivo") or []:
++                    # (4.14, encargo de cierre §5) el juicio PROPIO sobre el objetivo, separado del de la acción
++                    crit = j.get("criterio") or {}
++                    cc = j.get("comparado_con") or {}
++                    filas_c = "; ".join(f"{c.get('variante')} {c.get('delta_eur'):+.2f} €" + ("" if c.get("atribuible") else " (no atribuible)")
++                                        for c in j.get("contraste") or [] if isinstance(c.get("delta_eur"), (int, float))) or "sin contraste (cambio no definido)"
++                    t.append(f"- Juicio sobre el objetivo de {j.get('clave')} (contrato 4.14): hipótesis «{txt(j.get('hipotesis'))}»; contraste {filas_c}; cobertura {j.get('cobertura')}; "
++                             f"base {j.get('base')} · material {j.get('material')}; "
++                             + ({"juicio_propio_del_agente": f"criterio propio del agente, no adoptado: {txt(crit.get('descripcion'))}",
++                                 "redondeo_declarado": "criterio: el redondeo declarado (dos decimales)", "politica_adoptada": f"política registrada {crit.get('referencia')}",
++                                 "ninguno": "sin criterio declarado"}.get(crit.get("origen"), "criterio no declarado"))
++                             + (f"; comparado con {cc.get('referencia')} ({cc.get('valor_eur')} €; {txt(cc.get('fuente'))})" if cc else "")
++                             + f"; límites: {txt('; '.join(j.get('limites') or []))}; razonamiento: {txt('; '.join(j.get('razonamiento') or [])) or '—'}.")
++                if cob.get("sin_fundamento_excluidas_por_juicio"):
++                    t.append("- Hipótesis sin fundamento suficiente excluidas del objetivo por juicio económico (con la comparación declarada; la pertinencia la revisa la "
++                             f"auditoría): {', '.join(cob['sin_fundamento_excluidas_por_juicio'])}.")
+                 nd_o = [k for k, b in (cob.get("base_de_la_materialidad_para_el_objetivo") or {}).items() if b == "no_determinada"]
+                 if nd_o:
+                     t.append(f"- Materialidad para el objetivo no determinada: {', '.join(nd_o)} (si no tienen fundamento suficiente, condicionan el objetivo).")
+--- base/personaje_v2/scripts/objetivo_v64.py
++++ i3/personaje_v2/scripts/objetivo_v64.py
+@@ -124,6 +124,140 @@
+             "accion_invariante_en_variantes_calculadas": inv(ais + nec + con), "accion_invariante_en_contrastes": inv(ais + nec)}
+ 
+ 
++# ---------- (4.14, encargo de cierre §5; S3 y S11 de la segunda revisión interna 4.13) juicio propio sobre el OBJETIVO ----------
++# Con el contrato 4.14 (lo fija el PIPELINE en estado_pipeline.json → contrato_juicio_objetivo al generar el prompt de la fase C, nunca un
++# campo que escriba el agente), cada parámetro activo lleva `juicio_objetivo`, separado del juicio sobre la acción: hipótesis, contraste
++# mecánico (referencia, alternativas y cambio en € y %), cobertura, límites, base, material, criterio (de dónde sale la línea entre
++# material y no material), comparación declarada y razonamiento y evidencia propios. La validación comprueba el CONTRATO y su COHERENCIA,
++# no la pertinencia económica (eso es de la auditoría): un campo de texto no vacío no acredita fundamento. No hay umbral: un criterio
++# propio del agente (p. ej., 1,5 €) se representa como juicio suyo, nunca como política; una política solo cuenta si está registrada con
++# decisión, fecha y firma humana. Diseño y parche de origen: frente B (agentes/B/materialidad_objetivo_diseno.md, juicio_objetivo_414.py).
++FORMATO_JUICIO_OBJETIVO = "4.14"
++ORIGENES_CRITERIO = ("ninguno", "redondeo_declarado", "juicio_propio_del_agente", "politica_adoptada")
++COMPARADORES = ("rango_calculado", "resolucion_de_las_palancas", "otra_hipotesis_calculada", "otro_declarado")
++
++
++def contraste_objetivo(var, cb, psi_activa):
++    """Alternativas calculadas que contrastan un parámetro para el objetivo, con Δ € y Δ % del precio de Sí frente a la activa. Solo son
++    atribuibles al parámetro los contrastes aislados y las variaciones conjuntas necesarias; las conjuntas se informan como no atribuibles."""
++    vs = {v.get("clave"): v for v in (var or {}).get("variantes") or []}
++    out = []
++    for grupo, atrib in (("aisladas", True), ("conjuntas_necesarias", True), ("conjuntas", False)):
++        for c in (cb or {}).get(grupo) or []:
++            v = vs.get(c) or {}
++            ps = v.get("precio_si")
++            d = (ps - psi_activa) if _num(ps) and _num(psi_activa) else None
++            out.append({"variante": c, "descripcion": v.get("descripcion") or v.get("configuracion"), "precio_si": ps, "delta_eur": d,
++                        "delta_pct": (d / psi_activa) if d is not None and psi_activa else None, "atribuible": atrib})
++    return out
++
++
++def escribir_contraste_objetivo(carpeta):
++    """(4.14) contraste_objetivo_v64.md (y .json): para cada parámetro activo, la cobertura mecánica y las alternativas calculadas con su
++    precio de Sí y el cambio en € y % frente a la activa, que la fase C copia en juicio_objetivo.contraste. No es material auditado: se
++    deriva de configuracion_v64_variantes.json y de precio.json, que sí lo son."""
++    var = _cargar(carpeta, "configuracion_v64_variantes.json") or {}
++    conf = SEL.configuracion(carpeta) or {}
++    psi = (_cargar(carpeta, "precio.json") or {}).get("precio_si")
++    filas, js = [], {}
++    for k in CE.activos(conf):
++        if k == "modo":
++            continue
++        cb = cobertura(var, k, conf)
++        cs = contraste_objetivo(var, cb, psi)
++        js[k] = {"cobertura": (cb or {}).get("tipo"), "contraste": cs}
++        for c in cs or [None]:
++            if c is None:
++                filas.append(f"| {k} | {(cb or {}).get('tipo')} | — | — | — | — | — |")
++            else:
++                f = lambda x, n=2: f"{x:+.{n}f}" if _num(x) else "—"  # noqa: E731
++                filas.append(f"| {k} | {(cb or {}).get('tipo')} | {c['variante']} | {format(c['precio_si'], '.4f') if _num(c['precio_si']) else '—'} | {f(c['delta_eur'])} | "
++                             f"{f((c['delta_pct'] or 0) * 100, 2) + ' %' if _num(c['delta_pct']) else '—'} | {'sí' if c['atribuible'] else 'no (varía otros parámetros)'} |")
++    json.dump({"formato": FORMATO_JUICIO_OBJETIVO, "precio_si_activa": psi, "por_parametro": js}, open(os.path.join(carpeta, "contraste_objetivo_v64.json"), "w", encoding="utf-8"),
++              ensure_ascii=False, indent=1)
++    md = ["# Contraste mecánico para el juicio sobre el objetivo (contrato 4.14)", "",
++          f"Precio de Sí de la activa: {psi}. Copia en `juicio_objetivo.contraste` exactamente estas filas de cada parámetro (variante, delta_eur y atribuible). "
++          "Solo son atribuibles al parámetro los contrastes aislados y las variaciones conjuntas necesarias. Sin contraste, el cambio no está definido (no es 0).", "",
++          "| Parámetro | Cobertura | Variante | Precio de Sí | Δ € | Δ % | Atribuible |", "|---|---|---|---|---|---|---|"] + filas
++    open(os.path.join(carpeta, "contraste_objetivo_v64.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
++
++
++def amplitud_rango(var):
++    vals = [v.get("precio_si") for v in (var or {}).get("variantes") or [] if _num(v.get("precio_si")) and v.get("zona")]
++    return (max(vals) - min(vals)) if vals else None
++
++
++def validar_juicio_objetivo(k, p, cb, var, psi_activa, politicas=None):
++    """None si el bloque `juicio_objetivo` del parámetro `k` cumple el contrato 4.14; si no, el motivo. Reglas V1–V8 del diseño."""
++    pref = f"configuracion_v64.parametros[{k}].juicio_objetivo"
++    j = p.get("juicio_objetivo")
++    if not isinstance(j, dict):
++        return f"{pref}: obligatorio con el contrato {FORMATO_JUICIO_OBJETIVO} (juicio sobre el objetivo separado del de la acción; encargo de cierre §5)"
++    base, mat = j.get("base"), j.get("material")
++    if base not in BASES_MATERIALIDAD:
++        return f"{pref}.base: una de {BASES_MATERIALIDAD}"
++    if mat not in (True, False, None) or (base == "no_determinada") != (mat is None):
++        return f"{pref}: material = null si y solo si base = «no_determinada» (lo no determinado no se convierte en false)"
++    if p.get("material_para_objetivo", mat) != mat or p.get("base_de_la_materialidad_objetivo", base) != base:  # V1: los campos 4.13 se derivan
++        return f"{pref}: material_para_objetivo y base_de_la_materialidad_objetivo tienen que coincidir con el bloque (se derivan de él)"
++    if not str(j.get("hipotesis") or "").strip():
++        return f"{pref}.hipotesis: obligatoria (qué afirmación sobre el objetivo se contrasta)"
++    calc = contraste_objetivo(var, cb, psi_activa)  # V3: lo declarado tiene que ser lo calculado
++    decl = {c.get("variante"): c for c in j.get("contraste") or [] if isinstance(c, dict)}
++    if sorted(decl) != sorted(c["variante"] for c in calc):
++        return f"{pref}.contraste: tiene que listar exactamente las variantes calculadas que varían {k}: {[c['variante'] for c in calc] or 'ninguna'}"
++    for c in calc:
++        d = decl[c["variante"]]
++        if c["delta_eur"] is not None and (not _num(d.get("delta_eur")) or round(d["delta_eur"], 2) != round(c["delta_eur"], 2)):
++            return f"{pref}.contraste[{c['variante']}].delta_eur {d.get('delta_eur')!r} no es el calculado {c['delta_eur']:.2f} (dos decimales; si las variantes se recalcularon, hay que volver a juzgar)"
++        if d.get("atribuible") is not c["atribuible"]:
++            return f"{pref}.contraste[{c['variante']}].atribuible = {c['atribuible']} (lo fija el tipo de cobertura, no el agente)"
++    if j.get("cobertura") != (cb or {}).get("tipo"):
++        return f"{pref}.cobertura {j.get('cobertura')!r} no es la mecánica: {(cb or {}).get('tipo')!r}"
++    if not [x for x in j.get("limites") or [] if isinstance(x, str) and x.strip()]:
++        return f"{pref}.limites: lista no vacía (qué no cubre el contraste: hipótesis no calculadas, dominio, familia, perímetro, interacciones…)"
++    for campo in ("evidencia", "razonamiento"):
++        if base != "no_determinada" and not (isinstance(j.get(campo), list) and [x for x in j[campo] if isinstance(x, str) and x.strip()]):
++            return f"{pref}.{campo}: lista no vacía con base {base!r} (razonamiento y evidencia propios del objetivo)"
++    crit = j.get("criterio") if isinstance(j.get("criterio"), dict) else None
++    if not crit or crit.get("origen") not in ORIGENES_CRITERIO:
++        return f"{pref}.criterio.origen: uno de {ORIGENES_CRITERIO} (de dónde sale la línea que separa material de no material)"
++    atrib = [c for c in calc if c["atribuible"] and c["delta_eur"] is not None]
++    mueve = [c for c in atrib if round(c["delta_eur"], 2) != 0]
++    if base == "calculada":  # V4
++        if (cb or {}).get("tipo") not in TIPOS_COBERTURA[:2] or not atrib:
++            return f"{pref}: «calculada» exige un contraste aislado o una variación conjunta necesaria"
++        if mat is False and mueve:
++            return f"{pref}: «no material» calculada con contrastes que mueven el precio de Sí ({', '.join(c['variante'] for c in mueve)}): que no sea material es un juicio"
++        if mat is True and crit.get("origen") not in ("redondeo_declarado", "politica_adoptada"):
++            return (f"{pref}: «material» calculada con el criterio {crit.get('origen')!r}: solo con el redondeo declarado o una política adoptada; "
++                    "con un criterio propio del agente la base es «juicio_economico» (S11)")
++        if mat is True and crit.get("origen") == "redondeo_declarado" and not mueve:
++            return f"{pref}: «material» por el redondeo declarado sin ningún contraste que mueva el precio de Sí"
++    if crit.get("origen") == "politica_adoptada":  # V7: no se inventan adopciones
++        pol = (politicas or {}).get(crit.get("referencia")) if isinstance(politicas, dict) else None
++        if not isinstance(pol, dict) or not all(str(pol.get(c) or "").strip() for c in ("decision", "fecha", "decidido_por")):
++            return f"{pref}.criterio: la política {crit.get('referencia')!r} no está registrada con decisión, fecha y firma humana"
++    if crit.get("origen") == "juicio_propio_del_agente":  # V5 (S11)
++        if base == "calculada":
++            return f"{pref}: un criterio propio del agente es un juicio: base «juicio_economico», no «calculada» (S11)"
++        if not str(crit.get("descripcion") or "").strip():
++            return f"{pref}.criterio.descripcion: obligatoria con un criterio propio (se muestra como juicio del agente, no como política)"
++    # V6 (S3): «no material» por juicio de un parámetro SIN fundamento suficiente cuyo contraste mueve el objetivo (o sin contraste atribuible)
++    # exige declarar con qué se compara ese movimiento; sin comparación, la materialidad queda no determinada y condiciona el objetivo
++    if base == "juicio_economico" and mat is False and p.get("fundamento_suficiente") is False and (mueve or not atrib):
++        comp = j.get("comparado_con") if isinstance(j.get("comparado_con"), dict) else None
++        if not comp or comp.get("referencia") not in COMPARADORES or not _num(comp.get("valor_eur")) or not str(comp.get("fuente") or "").strip():
++            return (f"{pref}: «no material» por juicio de un parámetro sin fundamento suficiente "
++                    + ("cuyo contraste mueve el precio de Sí " if mueve else "sin contraste atribuible ")
++                    + f"exige comparado_con {{referencia ∈ {COMPARADORES}, valor_eur, fuente}}; sin esa comparación la base es «no_determinada» (y condiciona el objetivo)")
++        if comp["referencia"] == "rango_calculado":
++            amp = amplitud_rango(var)
++            if amp is not None and round(comp["valor_eur"], 2) != round(amp, 2):
++                return f"{pref}.comparado_con.valor_eur {comp['valor_eur']} no es la amplitud del rango calculado {amp:.2f}"
++    return None
++
++
+ def discrepancias_con_la_configuracion(conf, p):
+     """(4.13 §5; R5 de la revisión 4.12) Discrepancias entre la clase y la confianza que la configuración declara para un parámetro
+     (trazabilidad) y el juicio de la fase C. No se resuelven con un umbral: la fase C tiene que revisarlas y decir cómo las resuelve."""
+@@ -193,7 +327,10 @@
+     for p in cv.get("parametros") or []:
+         # (4.13, revisión interna R4) también la materialidad para el objetivo «no determinada» (null): sin fundamento suficiente y sin
+         # saber si mueve el objetivo, lo condiciona (no se convierte en «no material»)
+-        if p.get("material_para_objetivo") in (True, None) and "material_para_objetivo" in p and p.get("fundamento_suficiente") is False and p.get("clave") not in out:
++        # (4.14) con el bloque juicio_objetivo, su «material» manda (los campos 4.13 se derivan de él y la coherencia exige que coincidan)
++        j = p.get("juicio_objetivo") if isinstance(p.get("juicio_objetivo"), dict) else None
++        mpo, tiene = (j.get("material"), True) if j is not None and "material" in j else (p.get("material_para_objetivo"), "material_para_objetivo" in p)
++        if mpo in (True, None) and tiene and p.get("fundamento_suficiente") is False and p.get("clave") not in out:
+             out.append(p.get("clave"))
+     for h in ((fc or {}).get("fundamento_material") or {}).get("hipotesis_sin_fundamento") or []:
+         k = clave_de_celda(h.get("celda"), conf) or h.get("celda")
+@@ -500,6 +637,14 @@
+                                                         "inferencias": p.get("inferencias")} for p in params if p.get("base_de_la_materialidad_objetivo") == "juicio_economico"],
+                        "juicios_economicos": [{"clave": p.get("clave"), "material_para_accion": p.get("material_para_accion"), "evidencia": p.get("evidencia"),
+                                                "inferencias": p.get("inferencias")} for p in params if p.get("base_de_la_materialidad") == "juicio_economico"],
++                       # (4.14, encargo de cierre §5) el juicio propio sobre el objetivo, si la fase C se generó con ese contrato
++                       "juicios_objetivo": ([dict({k2: (p.get("juicio_objetivo") or {}).get(k2) for k2 in ("hipotesis", "contraste", "cobertura", "limites", "base",
++                                                                                                          "material", "criterio", "comparado_con", "razonamiento", "evidencia")},
++                                                  clave=p.get("clave"), fundamento_suficiente=p.get("fundamento_suficiente"))
++                                             for p in params if isinstance(p.get("juicio_objetivo"), dict)] or None),
++                       "sin_fundamento_excluidas_por_juicio": ([p.get("clave") for p in params if isinstance(p.get("juicio_objetivo"), dict)
++                                                                and p.get("fundamento_suficiente") is False and p["juicio_objetivo"].get("material") is False
++                                                                and p["juicio_objetivo"].get("base") == "juicio_economico"] or None),
+                        "discrepancias_revisadas": {p.get("clave"): p.get("contradicciones_revisadas") for p in params if p.get("contradicciones_revisadas")},
+                        "nota": ("contraste_aislado y variacion_conjunta_necesaria permiten una materialidad calculada; variacion_conjunta y sin_cobertura, "
+                                 "solo un juicio económico con evidencia o «no determinada». La invariancia de la acción vale solo para las variantes calculadas.")}
+--- base/personaje_v2/scripts/pipeline.py
++++ i3/personaje_v2/scripts/pipeline.py
+@@ -218,6 +218,16 @@
+         auditoría retirada, los cierres archivados y el historial, pero se conservan el estado_analisis y el paso de la memoria: son
+         el resultado legítimo de esta ejecución, y el disco queda con ese mismo estado en la primera ejecución."""
+         disco = json.load(open(self.estado_path, encoding="utf-8")) if os.path.exists(self.estado_path) else {}
++        # (4.13.1, H5; revisión interna D2-4) la publicación que registra resumen.py (identidad de la aprobación y destino) se adopta siempre:
++        # si no, el estado de la memoria la sobrescribe al guardar y la señal de publicación del propio estado se pierde
++        pubs_d = disco.get("publicaciones_de_la_aprobacion") if isinstance(disco, dict) else None
++        if isinstance(pubs_d, list):
++            mias = self.st.setdefault("publicaciones_de_la_aprobacion", [])
++            if isinstance(mias, list):
++                nuevas = [x for x in pubs_d if x not in mias]
++                if nuevas:
++                    mias.extend(nuevas)
++                    self.guardar()
+         nuevos = (disco.get("cierres_archivados") or [])[len(self.st.get("cierres_archivados") or []):]
+         if not nuevos:
+             return False
+@@ -742,6 +752,15 @@
+                         if v:
+                             return self.terminar("no_entregable", "fallo_de_implementacion", "variantes de la configuración V6.4: " + v, 10)
+                         entradas_c += ["configuracion_economica.json", "configuracion_v64_variantes.md"]
++                        # (4.14, encargo de cierre §5) contrato del juicio propio sobre el objetivo: lo fija el PIPELINE al generar el prompt de
++                        # la fase C (no un campo del agente), con el contraste mecánico por parámetro que la fase C copia en juicio_objetivo
++                        import objetivo_v64 as OBJ
++                        if st.get("contrato_juicio_objetivo") != OBJ.FORMATO_JUICIO_OBJETIVO:
++                            st["contrato_juicio_objetivo"] = OBJ.FORMATO_JUICIO_OBJETIVO
++                            self.log(f"contrato del juicio sobre el objetivo {OBJ.FORMATO_JUICIO_OBJETIVO} (encargo de cierre §5)")
++                            self.guardar()
++                        OBJ.escribir_contraste_objetivo(self.c)
++                        entradas_c += ["contraste_objetivo_v64.md"]
+                     self.agente(10, "fase_c_turno1", "fase_c.json", entradas_c,
+                                 alternativas=[f"fase_c.turno1.intento{n + 1}.json"] if n else ["fase_c.turno1.json"])
+                     v = self.validar_esquema("fase_c.json", "fase_c", 10, "fase_c_turno1", turno=1)
+@@ -1490,6 +1509,31 @@
+         # (4.13, revisión interna R4) el mismo contrato para la materialidad para el OBJETIVO: base explícita; «calculada» solo con un
+         # contraste, y «false calculada» solo si ningún contraste mueve el precio de Sí al redondeo declarado (dos decimales); si lo
+         # mueve, «no material» es un juicio económico con su evidencia; null ⇔ no determinada (y entonces condiciona el objetivo)
++        if self.st.get("contrato_juicio_objetivo") == OBJ.FORMATO_JUICIO_OBJETIVO:
++            # (4.14, encargo de cierre §5; S3 y S11) juicio PROPIO sobre el objetivo: contraste mecánico, límites, base, criterio y comparación.
++            # El contrato lo fijó el pipeline al generar el prompt de la fase C (paso 10), no el agente. Comprueba contrato y coherencia; la
++            # pertinencia económica la revisa la auditoría. Sustituye a las reglas 4.13 del objetivo (_objetivo_413), que siguen para las fases C de la 4.13
++            m = OBJ.validar_juicio_objetivo(k, x, cb, var, ev.get("valor_calculado_condicional"), politicas=None)
++            if m:
++                return m
++        else:
++            m = self._objetivo_413(k, x, cb, var, ev, contraste, pref)
++            if m:
++                return m
++        disc = (ev.get("discrepancias_por_parametro") or {}).get(k) or []
++        rev = {r.get("discrepancia"): r for r in x.get("contradicciones_revisadas") or [] if isinstance(r, dict)}
++        sin = [d for d in disc if not str((rev.get(d) or {}).get("resolucion") or "").strip()]
++        if sin:
++            return (f"{pref}.contradicciones_revisadas: faltan por revisar (con su resolución) las discrepancias con configuracion_economica.json: {', '.join(sin)} "
++                    "(4.13 §5; no hay umbral: se revisan, no se decide por una cifra)")
++        sobran = [d for d in rev if d not in disc]
++        if sobran:
++            return f"{pref}.contradicciones_revisadas: {sobran} no son discrepancias de este parámetro ({disc or 'ninguna'})"
++        return None
++
++    def _objetivo_413(self, k, x, cb, var, ev, contraste, pref):
++        """(4.13, revisión interna R4) reglas del objetivo del contrato 4.13 (expedientes cuya fase C no se generó con el contrato 4.14)."""
++        import objetivo_v64 as OBJ
+         base_o, mpo = x.get("base_de_la_materialidad_objetivo"), x.get("material_para_objetivo")
+         if base_o not in OBJ.BASES_MATERIALIDAD:
+             return f"{pref}.base_de_la_materialidad_objetivo: una de {OBJ.BASES_MATERIALIDAD} (4.13; revisión interna R4)"
+@@ -1506,15 +1550,6 @@
+             if mueven:
+                 return (f"{pref}: material_para_objetivo = false «calculada», pero estos contrastes mueven el precio de Sí al redondeo declarado: {', '.join(mueven)[:300]}; "
+                         "que ese movimiento no sea material es un juicio económico (base «juicio_economico», con evidencia e inferencias)")
+-        disc = (ev.get("discrepancias_por_parametro") or {}).get(k) or []
+-        rev = {r.get("discrepancia"): r for r in x.get("contradicciones_revisadas") or [] if isinstance(r, dict)}
+-        sin = [d for d in disc if not str((rev.get(d) or {}).get("resolucion") or "").strip()]
+-        if sin:
+-            return (f"{pref}.contradicciones_revisadas: faltan por revisar (con su resolución) las discrepancias con configuracion_economica.json: {', '.join(sin)} "
+-                    "(4.13 §5; no hay umbral: se revisan, no se decide por una cifra)")
+-        sobran = [d for d in rev if d not in disc]
+-        if sobran:
+-            return f"{pref}.contradicciones_revisadas: {sobran} no son discrepancias de este parámetro ({disc or 'ninguna'})"
+         return None
+ 
+     def coherencia_fase_c(self, fc):
+--- base/personaje_v2/scripts/rellenar_fase1_v63.py
++++ i3/personaje_v2/scripts/rellenar_fase1_v63.py
+@@ -313,8 +313,10 @@
+     # cifras que ya no son las de las entradas: la fase 1 puede sustituirlos de forma explícita; el anterior queda en el registro
+     for ref, texto in (f1.get("control_maestro_textos") or {}).items():
+         m_ref = re.match(r"^([CDE])(\d+)$", str(ref))
+-        if not m_ref or not (86 <= int(m_ref.group(2)) <= 102) or not isinstance(texto, str):
+-            registro["avisos"].append(f"control_maestro_textos: {ref!r} no es una celda de la lista de comprobación (C86:E102): ignorada")
++        # (4.14, S5 de la segunda revisión interna 4.13) también F5, «Periodo usado en medias DCF» de la cabecera, que la migración de la etapa 1
++        # trae como texto («Pendiente de inversor: …») aunque el período ya esté fijado: es un texto declarativo, no una entrada del motor
++        if not (str(ref) == "F5" or (m_ref and 86 <= int(m_ref.group(2)) <= 102)) or not isinstance(texto, str):
++            registro["avisos"].append(f"control_maestro_textos: {ref!r} no es una celda de la lista de comprobación (C86:E102) ni la cabecera del período (F5): ignorada")
+             continue
+         registro.setdefault("evidencias_sustituidas", []).append({"celda": f"Control maestro!{ref}", "antes": {"texto": libro.leer("Control maestro", ref)}})
+         celdas[f"Control maestro!{ref}"] = texto
+--- base/personaje_v2/scripts/resumen.py
++++ i3/personaje_v2/scripts/resumen.py
+@@ -40,6 +40,10 @@
+         # (4.7, H-3 de la auditoría interna) sin ficha (p. ej., salidas archivadas): no se publica nada, pero se retiran las
+         # aprobaciones registradas y se informa de las retiradas pendientes
+         import pipeline as _p
++        import estructura_json as ESTR
++        # (4.13.1, H5) antes de sincronizar: una aprobación publicada sin ficha ni cierre registrado se retira también del estado interno
++        _av, _mal = ESTR.protegido(CIE.asegurar_vigencia, c, _p.Pipeline.veredicto_auditoria, None, csv_path, contexto="vigencia")
++        motivo_h5, archivo_h5 = _av if _av else (_mal, None)
+         pend = CIE.sincronizar_resumenes(c, _p.Pipeline.veredicto_auditoria)
+         arch = CIE._fichas_cerradas_archivadas(c)
+         emp = arch[0].get("empresa") if arch else None
+@@ -47,8 +51,9 @@
+         if origen is not None:
+             pend = CIE.retirar_publicaciones(c, "resumen.py sin ficha oficial vigente", csv_path, emp, ((origen.get("cierre") or {}).get("material_auditado"))) or pend
+         pend = pend or CIE.retiradas_pendientes(c)
+-        print("resumen.py: no hay ficha.json: no se escribe ninguna fila" + (f" · RETIRADA PENDIENTE en {pend}" if pend else ""))
+-        return 5 if pend else 3
++        print("resumen.py: no hay ficha.json: no se escribe ninguna fila" + (f" · aprobación retirada: {motivo_h5}" if motivo_h5 else "")
++              + (f" · antecedente en {os.path.relpath(archivo_h5, c)}" if archivo_h5 else "") + (f" · RETIRADA PENDIENTE en {pend}" if pend else ""))
++        return 5 if (pend or _mal) else 3
+     F, ilegible = leer_control(os.path.join(c, "ficha.json"))
+     F = F or {}
+     # (4.9, V-1) una ficha oficial ilegible pasa por la vigencia (y se retira); (4.10, §3.3) también la que perdió sus marcadores de
+--- base/personaje_v2/scripts/volcar_datos_v63.py
++++ i3/personaje_v2/scripts/volcar_datos_v63.py
+@@ -107,7 +107,11 @@
+                 md.append(f"- Perímetro de la inversión: {cv.get('perimetro_efectivo')} · altas de derechos de uso en las bases {fmt(cv.get('altas_derechos_uso'))} · S2C histórico de referencia con el perímetro {fmt(cv.get('s2c_referencia_perimetro'))}")
+             md.append("- **Qué no se hace en las fases:** las palancas (S2C, ROIC, margen objetivo, g) se eligen con la misma base histórica que en la V6.3; la estructura ya aplica la reposición, el tipo y el margen de partida configurados. No se anticipan en las palancas (sería descontarlos dos veces) y no se presentan como convenciones adoptadas: son hipótesis de un ensayo.")
+             # (4.12 §5) lecturas con bases parciales, identificadas donde se usan
+-            md.append("- **Lecturas con bases parciales (4.12):** la regla G7 de la gramática y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f): no comprueban el modelo experimental."
++            md.append("- **Lecturas con bases parciales (4.12):** " + (
++                # (4.14, S4) con el perímetro NIIF 16 de la V6.4.1, las referencias del S2C se anclan en B155, no en una base heredada
++                "la regla G7 de la gramática usa las bases heredadas (tipo de la Historia y S2C de la Historia, sin f); las referencias mecánicas del S2C se anclan en el S2C histórico del perímetro NIIF 16 (Configuración V6.4!B155), no en Historia!C53, y tampoco aplican f: no comprueban el modelo experimental."
++                if str(cv.get("perimetro_efectivo") or "").upper().replace(" ", "") == "NIIF16" else
++                "la regla G7 de la gramática y las referencias mecánicas usan las bases heredadas (tipo de la Historia y S2C sin f): no comprueban el modelo experimental.")
+                       + (" El valor sin crecimiento (Diagnóstico B33:D33, Motor BL) y «cuánto pagas por crecer» no incluyen la cartera P0: son lecturas, no entran en el valor." if str(cv.get("cartera_texto") or "").startswith("P0") else ""))
+         md.append("- Conciliación (hoja «Conciliación B»): " + "; ".join(f"{k} {v.get('comprobacion')}" for k, v in (cv.get("conciliacion") or {}).items()) + "\n")
+     md.append("## 1. Estado técnico del libro\n")
+--- base/verificar_paquete.sh
++++ i3/verificar_paquete.sh
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env bash
+-# Verificación del paquete Munger v2 (vigente desde la entrega 3.1; ampliada en cada entrega, la última la 4.12). Ejecutar desde la raíz munger_v2_r1/ de un ZIP recién descomprimido:
++# Verificación del paquete Munger v2 (vigente desde la entrega 3.1; ampliada en cada entrega, la última la 4.14). Ejecutar desde la raíz munger_v2_r1/ de un ZIP recién descomprimido:
+ #   bash verificar_paquete.sh            manifiesto + entorno + contraste del piloto Vidrala 2025 + test_comprobadores.py (≈ 1–2 min)
+ #   bash verificar_paquete.sh completa   lo anterior + test_pipeline_sintetico.py y comparación de nombres + batería de cierre
+ #                                        test_cierre_v2.py (obligatoria: si falla, no se ejecuta o se interrumpe, el resultado global
+@@ -15,7 +15,9 @@
+ #                                        test_integracion_v64.py (4.11: plantilla, 117 casos con la réplica independiente, pipeline y cambio
+ #                                        de base; 4.12: grupos E vigencia y selección, F materialidad y protocolos del objetivo, G coherencia,
+ #                                        variantes y fórmulas alteradas; 4.13: guardas de estructura, salto del protocolo, cobertura y H
+-#                                        V6.4.1 experimental; igual de obligatoria; al menos 195 pruebas) (≈ 30–45 min en total)
++#                                        V6.4.1 experimental; igual de obligatoria; al menos 195 pruebas) y, antes de ella, la batería de
++#                                        vigencia H5 test_vigencia_h5.py (4.13.1; al menos 59 pruebas) y la del juicio sobre el objetivo
++#                                        test_juicio_objetivo_414.py (4.14; al menos 27 pruebas), igual de obligatorias (≈ 30–45 min en total)
+ # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
+ # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
+ # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
+@@ -75,6 +77,44 @@
+ ( cd personaje_v2 && bash pruebas/ejecutar_pruebas_reparacion.sh $([ "${1:-}" = "completa" ] || echo rapidas) ); rc=$?
+ [ $rc -eq 0 ] || fallos=$((fallos+1))
+ 
++echo "== batería de vigencia H5 (personaje_v2/pruebas/test_vigencia_h5.py; obligatoria en «completa»; reparación 4.13.1)"
++if [ "${1:-}" = "completa" ]; then
++  SALIDA_H5="$(mktemp)"
++  if [ -f personaje_v2/pruebas/test_vigencia_h5.py ]; then
++    ( cd personaje_v2 && python3 -B pruebas/test_vigencia_h5.py ) > "$SALIDA_H5" 2>&1; rc=$?
++  else
++    rc=127; echo "FALTA personaje_v2/pruebas/test_vigencia_h5.py" > "$SALIDA_H5"
++  fi
++  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de vigencia H5 \(4\.13\.1\) PASAN$' "$SALIDA_H5" | tail -1)"
++  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
++  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 59 ]; then
++    echo "$linea"; echo "RESULTADO vigencia H5: PASA"
++  else
++    tail -5 "$SALIDA_H5"; echo "RESULTADO vigencia H5: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 59 pruebas; ver $SALIDA_H5)"; fallos=$((fallos+1))
++  fi
++else
++  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
++fi
++
++echo "== batería del juicio sobre el objetivo (personaje_v2/pruebas/test_juicio_objetivo_414.py; obligatoria en «completa»; contrato 4.14)"
++if [ "${1:-}" = "completa" ]; then
++  SALIDA_JO="$(mktemp)"
++  if [ -f personaje_v2/pruebas/test_juicio_objetivo_414.py ]; then
++    ( cd personaje_v2 && python3 -B pruebas/test_juicio_objetivo_414.py ) > "$SALIDA_JO" 2>&1; rc=$?
++  else
++    rc=127; echo "FALTA personaje_v2/pruebas/test_juicio_objetivo_414.py" > "$SALIDA_JO"
++  fi
++  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del juicio sobre el objetivo \(4\.14\) PASAN$' "$SALIDA_JO" | tail -1)"
++  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
++  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 27 ]; then
++    echo "$linea"; echo "RESULTADO juicio sobre el objetivo: PASA"
++  else
++    tail -5 "$SALIDA_JO"; echo "RESULTADO juicio sobre el objetivo: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 27 pruebas; ver $SALIDA_JO)"; fallos=$((fallos+1))
++  fi
++else
++  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
++fi
++
+ echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
+ if [ "${1:-}" = "completa" ]; then
+   SALIDA_V64="$(mktemp)"

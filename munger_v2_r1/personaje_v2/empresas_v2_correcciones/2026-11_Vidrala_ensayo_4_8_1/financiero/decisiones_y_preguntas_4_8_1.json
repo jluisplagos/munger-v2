@@ -1,0 +1,79 @@
+{
+ "titulo": "Decisiones y preguntas pendientes tras la entrega 4.8.1 (R-T1, R-F1 y R-F2). Archivo PREPARADO: sin decidir.",
+ "estado": "pendiente de la persona responsable",
+ "instrucciones": "Para cada decisión, la persona responsable escribe en «decision» una de las opciones, u otra con su motivo, y rellena «fecha» y «confirmado_por». Claude no rellena esos campos ni los sustituye. Mientras estén vacíos, el libro de referencia y sus valores (53,67 / 70,77 / 86,49; ponderado 70,50; precio de Sí 65,69) siguen siendo los vigentes del ensayo. Ningún valor de este archivo es una comparación válida con el precio de noviembre de 2026 ni una recomendación de compra o espera.",
+ "relacion": "Sustituye la propuesta de D-N3b de …/2026-11_Vidrala_ensayo_4_8/financiero/decisiones_y_preguntas_4_8.json (que se conserva intacto y sin rellenar) y añade D-N3e, Q-T4, Q-T5 y Q-T6. D-N3c, D-N3d, Q-T1, Q-T2, Q-T3 y las preguntas a la empresa Q-E1 a Q-E7 siguen siendo las de ese archivo, sin cambios. D-N1 a D-N3 siguen siendo las de la 4.7.1.",
+ "decisiones": [
+  {
+   "id": "D-N3b (revisada en la 4.8.1)",
+   "pregunta": "Hipótesis de reposición: el requisito por encima de la amortización (λ o θ) y la ESTRUCTURA que relaciona ese requisito con la inversión para crecer del modelo, con la regla de liberación R1 de D-N3.",
+   "opciones": {
+    "H": "regla del hueco: la inversión para crecer también repone (todo el requisito se acredita contra ella). λ = 1,15: 68,92 · 63,00. Es la estructura que da más valor con cualquier requisito",
+    "S": "suma sin reestimar el S2C ni el ROIC: λ = 1,15: 61,63 · 57,04. Cuenta dos veces el exceso histórico si el S2C de la fase B lo contiene (S2C 0,90 frente a C53 0,916)",
+    "SR1": "suma con el S2C de los diez años reestimado sin la reposición histórica y el ROIC del terminal sin cambio: λ = 1,15: 62,47 · 57,64",
+    "SR2": "suma con el S2C y el ROIC del terminal reestimados con el mismo factor: λ = 1,15: 63,66 · 58,61",
+    "SRF": "suma con la inversión FIJA para crecer reestimada (× (1 − Rh ÷ 251,21) en los años y en el terminal) y el circulante sin tocar: λ = 1,15: 65,38 · 59,95 (auditoría interna, Y-c)",
+    "=D&A": "reposición igual a la amortización (referencia de la plantilla): 69,24 · 64,26. Sin respaldo (4.8)",
+    "otra": "otra hipótesis o combinación (por ejemplo, otro λ o un θ de la familia Θ, INFORME_REINVERSION_4_8_1.md §3.4), con su motivo"
+   },
+   "propuesta_de_claude": "Ninguna estructura por defecto. Mientras no se responda a Q-E1 y Q-E2 (qué parte de la inversión de 2021–2025 fue reposición o competitividad obligada y si el crecimiento se hace con reconstrucciones ampliadas o con capacidad nueva), mostrar siempre el abanico por requisito y estructura (§3.4) sin tomar como central el extremo que da más valor (H). No se propone «=D&A». P1s de la 4.8 se retira (terminal incoherente con los diez años); lo sustituyen SR1, SR2 y SRF. Todas las estructuras conservan la convención de la 4.8 (amortización y nivel θ planos en los años 1–10 y proporcionales a las ventas en el terminal; efecto en «Δ conv.», INFORME §3.4). Ningún rango es una cota",
+   "representable_en_la_plantilla": "no: la plantilla no tiene una entrada de reposición ni una estructura de crédito; exige un cambio de plantilla o el modelo auxiliar identificado (scripts/analisis_reinversion_4_8_1.py)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "D-N3e",
+   "pregunta": "Si se elige una estructura que suma, ¿cómo se descuenta la reposición histórica de la inversión para crecer: con el S2C de los diez años y el ROIC_lp sin cambio (SR1), con los dos reestimados con el mismo factor (SR2), o solo sobre la inversión fija, sin tocar el circulante (SRF)?",
+   "opciones": {
+    "SR1": "S2C × f; ROIC_lp sin cambio",
+    "SR2": "S2C × f y ROIC_lp × f",
+    "SRF": "inversión fija para crecer × (1 − Rh ÷ F), en los años y en el terminal; circulante sin cambio"
+   },
+   "propuesta_de_claude": "sin propuesta: depende de cómo se fijaron el S2C y el ROIC_lp en la fase B y de cómo se repartió la reposición histórica entre inversión fija y circulante, que no se observan",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T4",
+   "pregunta": "R-T1 deja el paso 13 (auditoría) sin depender de las fechas de los archivos. Las salidas de los agentes de los pasos 5 a 10 (extracto, fases A, B y C) siguen usando el criterio de fechas (archivo más nuevo que el consumido). ¿Se extiende a esas salidas el mecanismo de solicitudes identificables?",
+   "opciones": {
+    "no": "mantener el alcance de la 4.8.1 (encargo: fuera de esta reparación el rediseño general del almacenamiento)",
+    "sí": "extenderlo en una entrega posterior, con su batería"
+   },
+   "propuesta_de_claude": "sí, en una entrega posterior y separada: el riesgo es el mismo (una salida antigua con fecha nueva se toma por nueva), aunque esas salidas pasan después por la auditoría, que ya no depende de las fechas",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T5",
+   "pregunta": "Desde la 4.8.1 (auditoría interna, Y-h), registrar una solicitud de auditoría nueva con un cierre vigente (por ejemplo, --desde 13 sobre un expediente concluido) archiva ese cierre en la misma ejecución: ficha, informe y fila del resumen pasan a historial_cierres/ hasta la respuesta. ¿Se mantiene?",
+   "opciones": {
+    "sí": "mantener: una auditoría pedida de nuevo deja sin aprobación vigente hasta su respuesta",
+    "no": "conservar el cierre vigente mientras la solicitud está pendiente. No basta con no archivarlo al registrar la solicitud (control de vigencia, V-7): habría que conservar también la aprobación registrada (estado_pipeline.json → auditoria) y que la comprobación de vigencia de cada ejecución no lo archivara por la solicitud pendiente, aunque el paso 14 y ficha.py siguieran sin poder cerrar de nuevo hasta la respuesta; es un cambio de código con su batería"
+   },
+   "propuesta_de_claude": "sí: evita que convivan una aprobación publicada y una auditoría pedida de nuevo",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T6",
+   "pregunta": "(Control de vigencia de la 4.8.1, V-10.) Una auditoría APROBADO cuyo contenido es el de una ya usada no se acepta y el pipeline sigue esperando, con el motivo, sin contar una corrección fallida; una auditoría rehecha de verdad con un texto idéntico tampoco se acepta. ¿Debe contar esa repetición como corrección fallida (de modo que, agotadas las correcciones, el análisis termine en no_entregable)?",
+   "opciones": {
+    "no": "comportamiento actual: se espera indefinidamente una respuesta con contenido nuevo",
+    "sí": "contar cada repetición como corrección fallida (max_correcciones_esquema) y terminar en no_entregable al agotarlas"
+   },
+   "propuesta_de_claude": "sin propuesta: es una regla de gobierno del cierre",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  }
+ ],
+ "preguntas_a_la_empresa": {
+  "nota": "Sin cambios respecto de la 4.8 (Q-E1 a Q-E7 en decisiones_y_preguntas_4_8.json). NO se han enviado: el encargo no autoriza a contactar con la empresa. Q-E1, Q-E2 y Q-E3 deciden también la estructura (H frente a S/SR) y θ.",
+  "lista": []
+ }
+}

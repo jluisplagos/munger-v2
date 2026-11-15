@@ -1,0 +1,64 @@
+FALLA · H1 · caso 1 · esperado RECHAZADO · obtenido ACEPTADO
+PASA  · H1 · caso 2 · esperado ACEPTADO · obtenido ACEPTADO
+FALLA · H1 · caso 3 · esperado RECHAZADO · obtenido ACEPTADO
+FALLA · H1 · caso 3b · esperado RECHAZADO · obtenido ACEPTADO
+PASA  · H1 · caso 4 · esperado ACEPTADO · obtenido ACEPTADO
+PASA  · H1 · caso 5 · esperado ACEPTADO · obtenido ACEPTADO
+PASA  · H1 · caso 6 · esperado ACEPTADO · obtenido ACEPTADO
+FALLA · H1 · caso 7 · esperado RECHAZADO · obtenido ACEPTADO
+FALLA · H1 · caso 7b · esperado RECHAZADO · obtenido ACEPTADO
+PASA  · H1 · caso 8 · esperado RECHAZADO · obtenido RECHAZADO · capex actual: «999» no está en la página 1
+PASA  · H1 · caso 9 · esperado RECHAZADO · obtenido RECHAZADO · capex actual: página 7 inexistente
+PASA  · H1 · caso 10 · esperado ACEPTADO · obtenido ACEPTADO
+PASA  · H1 · caso 11 · esperado RECHAZADO · obtenido RECHAZADO · capex: «cero» sin motivo o con página inexistente
+FALLA · H1 · caso 12 · esperado PENDIENTE · obtenido ACEPTADO
+FALLA · H1 · caso 13 · esperado PENDIENTE · obtenido ACEPTADO
+FALLA · H1 · orden comprobar-anio caso 12: código 0 y línea PENDIENTE · código 0 · OK
+FALLA · H1 · orden comprobar-anio caso 7: código 1 · código 0 · OK
+PASA  · H1 · un cero pendiente no es un error para preparar (lista de errores vacía)
+PASA  · H1 · inventario de ceros heredados: 134 filas, las mismas que los AR_*.json · 134 filas · 134 ceros en los AR
+PASA  · H1 · expedientes originales de empresas_v2/ intactos (SHA-256 de la base) · 0 distintos
+PASA  · H1 · ningún script escribe fase1_decisiones.json · ninguno
+FALLA · H1 · prompt de extracción: cita obligatoria, pendiente y prohibición de escribir decisiones
+FALLA · H2 · caso 1 solo «Veredicto: APROBADO» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 2 «8. FALLA · hecho material inventado» + APROBADO · esperado REPETIR · obtenido APROBADO
+PASA  · H2 · caso 3a FALLA en el punto 1 + APROBADO · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 3b FALLA en el punto 11 + APROBADO · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 3c FALLA en el punto 16 + APROBADO · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 4 auditoría vacía · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 5 «APROBADO con reservas» · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 6 dos veredictos · esperado REPETIR · obtenido REPETIR
+FALLA · H2 · caso 7 16 puntos, FALLA en el 8, APROBADO · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 8 16 puntos, FALLA en los 11 no bloqueantes, APROBADO · esperado REPETIR · obtenido APROBADO
+PASA  · H2 · caso 9 16 puntos, todos PASA, APROBADO · esperado APROBADO · obtenido APROBADO
+FALLA · H2 · caso 10 16 puntos con el 5 duplicado · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 11 15 puntos (falta el 12) · esperado REPETIR · obtenido APROBADO
+PASA  · H2 · caso 12 16 puntos PASA, veredicto REPETIR · esperado REPETIR · obtenido REPETIR
+PASA  · H2 · caso 13 16 puntos PASA, el 7 con «Aviso: …» · esperado APROBADO · obtenido APROBADO
+FALLA · H2 · caso 14 16 puntos PASA, «FALLA» en el texto del 6 · esperado REPETIR · obtenido APROBADO
+PASA  · H2 · caso 15 16 puntos PASA en negrita («**1.** PASA», «2. **PASA**»), APROBADO · esperado APROBADO · obtenido APROBADO
+FALLA · H2 · caso 16 punto 17 adicional · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 17 encabezado «17. PENDIENTE · revisión pendiente» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 18 encabezado «8. PENDIENTE · hecho material sin comprobar» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 19 encabezado «100. PASA · punto fuera del rango» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 20 encabezado «(17) PASA» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 21 encabezado «8) PASA» (separador inválido) · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 22 encabezado «**17.** PASA» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 23 encabezado «8 PENDIENTE» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 24 encabezado «8 – PENDIENTE» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 25 encabezado «0. PASA» · esperado REPETIR · obtenido APROBADO
+FALLA · H2 · caso 26 lista numerada tras «Veredicto: APROBADO» · esperado REPETIR · obtenido APROBADO
+PASA  · H2 · caso 27 cifras legítimas de la evidencia en líneas de continuación · esperado APROBADO · obtenido APROBADO
+PASA  · H2 · hay seis auditorías reales · 6 encontradas
+PASA  · H2 · auditoría real empresas_v2/Aarsleff/auditoria.md · veredicto APROBADO · SHA-256 idéntico (c23511aba2fc…)
+PASA  · H2 · auditoría real empresas_v2/Hermes/auditoria.md · veredicto APROBADO · SHA-256 idéntico (09403af2803a…)
+PASA  · H2 · auditoría real empresas_v2/Nike/auditoria.md · veredicto APROBADO · SHA-256 idéntico (38b6183fb8ca…)
+PASA  · H2 · auditoría real empresas_v2/Rational/auditoria.md · veredicto APROBADO · SHA-256 idéntico (5025ec4eff6d…)
+PASA  · H2 · auditoría real empresas_v2/Vidrala/auditoria.md · veredicto APROBADO · SHA-256 idéntico (c5fe65941c8c…)
+PASA  · H2 · auditoría real empresas_v2/Viscofan/auditoria.md · veredicto APROBADO · SHA-256 idéntico (54b9c09b60aa…)
+FALLA · H2 · documentación: ninguna regla antigua vigente · ANEXO_D_salidas_y_formatos.md:189, DECISIONES.md:17, ESTADO.md:29, ESTADO.md:75, prompts/verificacion.md:27, scripts/pipeline.py:699
+FALLA · H2 · prompt y Anexo D enuncian la regla nueva y el «Aviso:»
+PASA  · H2 · generador sintético: APROBADO → APROBADO y REPETIR → REPETIR · APROBADO / REPETIR
+
+31/61 comprobaciones PASAN
+codigo_salida=1

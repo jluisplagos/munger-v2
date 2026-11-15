@@ -1,0 +1,24 @@
+--- antes/verificar_paquete.sh	2026-11-12 22:52:11.000000000 +0100
++++ despues/verificar_paquete.sh	2026-11-13 00:04:08.612771229 +0100
+@@ -14,7 +14,7 @@
+ #                                        menos 78 pruebas) y, la primera de las obligatorias, la batería de la integración V6.4 experimental
+ #                                        test_integracion_v64.py (4.11: plantilla, 117 casos con la réplica independiente, pipeline y cambio
+ #                                        de base; 4.12: grupos E vigencia y selección, F materialidad y protocolos del objetivo, G coherencia,
+-#                                        variantes y fórmulas alteradas; igual de obligatoria; al menos 123 pruebas) (≈ 20–30 min en total)
++#                                        variantes y fórmulas alteradas; igual de obligatoria; al menos 127 pruebas) (≈ 20–30 min en total)
+ # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
+ # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
+ # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
+@@ -84,10 +84,10 @@
+   fi
+   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de integración V6.4 PASAN$' "$SALIDA_V64" | tail -1)"
+   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 123 ]; then
++  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 127 ]; then
+     echo "$linea"; echo "RESULTADO integración V6.4: PASA"
+   else
+-    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 123 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
++    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 127 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
+   fi
+ else
+   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

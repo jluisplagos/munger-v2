@@ -1,0 +1,284 @@
+== Viscofan B Experimental {'B252': False, 'B253': True, 'B254': False, 'B255': 'COMPLETO Y VÁLIDO'}
+  PASA  V_MALO (B78)                                                 exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  V_NORMAL (C78)                                               exp=43.7670991087673       rep=43.767099108767255     drel=9.740779035790833e-16
+  PASA  V_BUENO (D78)                                                exp=57.9469537938741       rep=57.946953793874144     drel=7.357170887231856e-16
+  PASA  ponderado (C83)                                              exp=43.8055904657485       rep=43.80559046574854      drel=8.110183291738437e-16
+  PASA  V_MALO precio.json                                           exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  V_NORMAL precio.json                                         exp=43.7670991087673       rep=43.767099108767255     drel=9.740779035790833e-16
+  PASA  V_BUENO precio.json                                          exp=57.9469537938741       rep=57.946953793874144     drel=7.357170887231856e-16
+  PASA  ponderado precio.json                                        exp=43.8055904657485       rep=43.80559046574854      drel=8.110183291738437e-16
+  PASA  P* (k = 3)                                                   exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  P* por bisección (comprobación)                              exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  precio de Sí = mín(P*, V_NORMAL)                             exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  tope NORMAL aplicado                                         exp=False                  rep=False                  drel=None
+  PASA  precio del escenario MALO                                    exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  precio actual (C37)                                          exp=54.7                   rep=54.7                   drel=0.0
+  PASA  zona                                                         exp=caro                   rep=caro                   drel=None
+  PASA  G(P*)                                                        exp=6.011095395935044      rep=6.011095395935049      drel=8.86539002825424e-16
+  PASA  L(P*)                                                        exp=2.003698465311679      rep=2.0036984653116803     drel=6.649042521190688e-16
+  PASA  tabla del DCF inverso utilizable                             exp=True                   rep=True                   drel=None
+  PASA  g implícito al precio actual                                 exp=0.10091047676364358    rep=0.10091047676364373    drel=1.5127831200670574e-15
+  PASA  g implícito al precio de Sí                                  exp=0.019773308206957933   rep=0.019773308206957822   drel=5.614756079281086e-15
+  PASA  distancia a precio de Sí                                     exp=0.2724279061220258     rep=0.2724279061220263     drel=1.8338810006399993e-15
+  PASA  distancia a MALO                                             exp=0.45558133073918106    rep=0.45558133073918167    drel=1.3403153780535748e-15
+  PASA  C86 frente a g implícito réplica                             exp=0.100910476763644      rep=0.10091047676364373    drel=2.612989025570361e-15
+  PASA  regla antigua C156 = mín(MALO, 0,75 × ponderado) · precio.js exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  regla antigua C156 · resultados.json                         exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  propiedades: |G − 3L| en P* < 1e-9 · P* ≥ mín V · P* ≤ ponde exp=(Anexo C.2)            rep=|F(P*)| = 8.88e-15     drel=None
+  -- intermedios
+  PASA  Diagnóstico V6!C9 V0                                         exp=1251.983               rep=1251.983               drel=0.0
+  PASA  Diagnóstico V6!C10 m0                                        exp=0.163575703503961      rep=0.16357570350396133    drel=2.0361636860053713e-15
+  PASA  Diagnóstico V6!C11 t                                         exp=0.221190838053599      rep=0.22119083805359852    drel=2.133202214059852e-15
+  PASA  Diagnóstico V6!C12 f                                         exp=0.0192483426422769     rep=0.019248342642276876   drel=1.2617257036111487e-15
+  PASA  Diagnóstico V6!C15 r_op                                      exp=0.0826769373447879     rep=0.08267693734478786    drel=5.035668320636941e-16
+  PASA  Diagnóstico V6!C16 pasivos netos                             exp=273.828                rep=273.828                drel=0.0
+  PASA  Configuración V6.4!B76                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B77                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B78                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B83                                       exp=0.482846013084842      rep=0.4828460130848422     drel=4.598662905103357e-16
+  PASA  Configuración V6.4!B84                                       exp=1.1135523703749        rep=1.1135523703749048     drel=4.386844694790655e-15
+  PASA  Configuración V6.4!B87                                       exp=0                      rep=0                      drel=0.0
+  PASA  Configuración V6.4!B88                                       exp=6.49230000000001       rep=6.492299999999998      drel=1.7784636347829905e-15
+  PASA  Configuración V6.4!B89                                       exp=6.49230000000001       rep=6.492299999999998      drel=1.7784636347829905e-15
+  PASA  Configuración V6.4!B90                                       exp=True                   rep=True                   drel=None
+  PASA  Motor!BE6 MALO                                               exp=832.423401955027       rep=832.4234019550265      drel=5.462933283932743e-16
+  PASA  Motor!BF6 MALO                                               exp=130.450606796523       rep=130.45060679652255     drel=3.485973442774241e-15
+  PASA  Motor!BH6 MALO                                               exp=811.074277831367       rep=811.0742778313667      drel=4.20504659667877e-16
+  PASA  Motor!BI6 MALO                                               exp=1369.66967978639       rep=1369.6696797863933     drel=2.490093182306839e-15
+  PASA  Motor!BJ6 MALO                                               exp=1369.66967978639       rep=1369.6696797863933     drel=2.490093182306839e-15
+  PASA  Motor!BK6 MALO                                               exp=29.7797012085668       rep=29.779701208566763     drel=1.1929984300106016e-15
+  PASA  Motor!BD6 MALO                                               exp=133.691053806867       rep=133.691053806867       drel=0.0
+  PASA  Motor!BE7 NORMAL                                             exp=957.544263275165       rep=957.5442632751647      drel=3.5618250377093967e-16
+  PASA  Motor!BF7 NORMAL                                             exp=184.379888806939       rep=184.37988880693922     drel=1.2331804564721868e-15
+  PASA  Motor!BH7 NORMAL                                             exp=1329.28138910691       rep=1329.2813891069118     drel=1.3684005647351772e-15
+  PASA  Motor!BI7 NORMAL                                             exp=2012.99765238208       rep=2012.9976523820765     drel=1.807244436071106e-15
+  PASA  Motor!BJ7 NORMAL                                             exp=2012.99765238208       rep=2012.9976523820765     drel=1.807244436071106e-15
+  PASA  Motor!BK7 NORMAL                                             exp=43.7670991087673       rep=43.767099108767255     drel=9.740779035790833e-16
+  PASA  Motor!BD7 NORMAL                                             exp=196.954815447775       rep=196.9548154477749      drel=4.3291720538724847e-16
+  PASA  Motor!BE8 BUENO                                              exp=1098.34419123021       rep=1098.3441912302067     drel=3.1052243539690436e-15
+  PASA  Motor!BF8 BUENO                                              exp=234.944293304231       rep=234.9442933042306      drel=1.6936096911722284e-15
+  PASA  Motor!BH8 BUENO                                              exp=1840.66117544601       rep=1840.6611754460105     drel=2.470565234670495e-16
+  PASA  Motor!BI8 BUENO                                              exp=2665.17736667622       rep=2665.177366676217      drel=1.194378841726058e-15
+  PASA  Motor!BJ8 BUENO                                              exp=2665.17736667622       rep=2665.177366676217      drel=1.194378841726058e-15
+  PASA  Motor!BK8 BUENO                                              exp=57.9469537938741       rep=57.946953793874144     drel=7.357170887231856e-16
+  PASA  Motor!BD8 BUENO                                              exp=260.728917989419       rep=260.7289179894189      drel=4.360346316714654e-16
+  PASA  Motor!B191                                                   exp=80                     rep=80                     drel=0.0
+  PASA  Motor!B193                                                   exp=✓ PASA                 rep=✓ PASA                 drel=None
+  PASA  Análisis!B108:B188 (máx. dif. rel.)                          exp=81 celdas              rep=3.714199771559004e-15  drel=3.714199771559004e-15
+== Vidrala B Experimental {'B252': False, 'B253': True, 'B254': False, 'B255': 'COMPLETO Y VÁLIDO'}
+  PASA  V_MALO (B78)                                                 exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  V_NORMAL (C78)                                               exp=60.1901164149973       rep=60.1901164149973       drel=0.0
+  PASA  V_BUENO (D78)                                                exp=78.4785189164147       rep=78.47851891641471      drel=1.8107954777201633e-16
+  PASA  ponderado (C83)                                              exp=60.6741181667017       rep=60.674118166701696     drel=1.1710804495054863e-16
+  PASA  V_MALO precio.json                                           exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  V_NORMAL precio.json                                         exp=60.1901164149973       rep=60.1901164149973       drel=0.0
+  PASA  V_BUENO precio.json                                          exp=78.4785189164147       rep=78.47851891641471      drel=1.8107954777201633e-16
+  PASA  ponderado precio.json                                        exp=60.6741181667017       rep=60.674118166701696     drel=1.1710804495054863e-16
+  PASA  P* (k = 3)                                                   exp=56.002005168244615     rep=56.002005168244594     drel=3.8063426494753785e-16
+  PASA  P* por bisección (comprobación)                              exp=56.002005168244615     rep=56.002005168244594     drel=3.8063426494753785e-16
+  PASA  precio de Sí = mín(P*, V_NORMAL)                             exp=56.002005168244615     rep=56.002005168244594     drel=3.8063426494753785e-16
+  PASA  tope NORMAL aplicado                                         exp=False                  rep=False                  drel=None
+  PASA  precio del escenario MALO                                    exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  precio actual (C37)                                          exp=90.1                   rep=90.1                   drel=0.0
+  PASA  zona                                                         exp=caro                   rep=caro                   drel=None
+  PASA  G(P*)                                                        exp=7.008169497685627      rep=7.008169497685646      drel=2.788163904976272e-15
+  PASA  L(P*)                                                        exp=2.3360564992285435     rep=2.336056499228546      drel=1.1406125065812014e-15
+  PASA  tabla del DCF inverso utilizable                             exp=True                   rep=True                   drel=None
+  PASA  g implícito al precio actual                                 exp=0.14290199276464988    rep=0.14290199276465004    drel=1.1653683092302502e-15
+  PASA  g implícito al precio de Sí                                  exp=-0.008330756620557536  rep=-0.008330756620557576  drel=4.789317677221537e-15
+  PASA  distancia a precio de Sí                                     exp=0.37844611355999314    rep=0.37844611355999336    drel=5.867271375475011e-16
+  PASA  distancia a MALO                                             exp=0.5080829892108557     rep=0.508082989210856      drel=6.555364270409049e-16
+  PASA  C86 frente a g implícito réplica                             exp=0.14290199276465       rep=0.14290199276465004    drel=3.884561030767498e-16
+  PASA  regla antigua C156 = mín(MALO, 0,75 × ponderado) · precio.js exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  regla antigua C156 · resultados.json                         exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  propiedades: |G − 3L| en P* < 1e-9 · P* ≥ mín V · P* ≤ ponde exp=(Anexo C.2)            rep=|F(P*)| = 7.11e-15     drel=None
+  -- intermedios
+  PASA  Diagnóstico V6!C9 V0                                         exp=1465.16                rep=1465.16                drel=0.0
+  PASA  Diagnóstico V6!C10 m0                                        exp=0.185466721361995      rep=0.18546672136199518    drel=1.047568145285687e-15
+  PASA  Diagnóstico V6!C11 t                                         exp=0.220541332769837      rep=0.220541332769837      drel=0.0
+  PASA  Diagnóstico V6!C12 f (vacío: caché None ≡ réplica "")        exp=None                   rep=                       drel=None
+  PASA  Diagnóstico V6!C15 r_op                                      exp=0.0868915167432047     rep=0.08689151674320474    drel=4.791418654422244e-16
+  PASA  Diagnóstico V6!C16 pasivos netos                             exp=160.784                rep=160.78400000000002     drel=1.7676951332473386e-16
+  PASA  Configuración V6.4!B76                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B77                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B78                                       exp=True                   rep=True                   drel=None
+  PASA  Configuración V6.4!B83                                       exp=0.147037866171613      rep=0.1470378661716127     drel=1.8876481506630693e-15
+  PASA  Configuración V6.4!B84                                       exp=1.15874757336707       rep=1.1587475733670667     drel=2.874369837252185e-15
+  PASA  Configuración V6.4!B87                                       exp=0.15                   rep=0.1499999999999999     drel=5.551115123125783e-16
+  PASA  Configuración V6.4!B88                                       exp=0                      rep=0                      drel=0.0
+  PASA  Configuración V6.4!B89                                       exp=19.9422                rep=19.94219999999999      drel=5.344516169931854e-16
+  PASA  Configuración V6.4!B90                                       exp=True                   rep=True                   drel=None
+  PASA  Motor!BE6 MALO                                               exp=1019.7235737058        rep=1019.723573705804      drel=3.9020764282189204e-15
+  PASA  Motor!BF6 MALO                                               exp=123.908826562453       rep=123.90882656245341     drel=3.3259518161375086e-15
+  PASA  Motor!BH6 MALO                                               exp=700.425301382137       rep=700.4253013821367      drel=4.869334567038616e-16
+  PASA  Motor!BI6 MALO                                               exp=1559.36487508794       rep=1559.3648750879406     drel=4.374351617296934e-16
+  PASA  Motor!BJ6 MALO                                               exp=1559.36487508794       rep=1559.3648750879406     drel=4.374351617296934e-16
+  PASA  Motor!BK6 MALO                                               exp=44.3217226721019       rep=44.32172267210186      drel=8.015739155907719e-16
+  PASA  Motor!BD6 MALO                                               exp=136.897021387343       rep=136.89702138734341     drel=3.1142068478597055e-15
+  PASA  Motor!BE7 NORMAL                                             exp=1186.04117484327       rep=1186.041174843272      drel=1.725372712511019e-15
+  PASA  Motor!BF7 NORMAL                                             exp=168.118681631118       rep=168.11868163111794     drel=3.3811482643869696e-16
+  PASA  Motor!BH7 NORMAL                                             exp=1092.40314398905       rep=1092.4031439890475     drel=2.2895489120824272e-15
+  PASA  Motor!BI7 NORMAL                                             exp=2117.66031883232       rep=2117.6603188323193     drel=4.294809199024065e-16
+  PASA  Motor!BJ7 NORMAL                                             exp=2117.66031883232       rep=2117.6603188323193     drel=4.294809199024065e-16
+  PASA  Motor!BK7 NORMAL                                             exp=60.1901164149973       rep=60.1901164149973       drel=0.0
+  PASA  Motor!BD7 NORMAL                                             exp=189.72534092582        rep=189.72534092582018     drel=8.988269872135796e-16
+  PASA  Motor!BE8 BUENO                                              exp=1335.15701419843       rep=1335.1570141984266     drel=2.5544599589255495e-15
+  PASA  Motor!BF8 BUENO                                              exp=225.940943399256       rep=225.94094339925553     drel=2.1384750061128545e-15
+  PASA  Motor!BH8 BUENO                                              exp=1586.72557288811       rep=1586.7255728881066     drel=2.1494612489547264e-15
+  PASA  Motor!BI8 BUENO                                              exp=2761.09858708653       rep=2761.098587086533      drel=9.881878604696402e-16
+  PASA  Motor!BJ8 BUENO                                              exp=2761.09858708653       rep=2761.098587086533      drel=9.881878604696402e-16
+  PASA  Motor!BK8 BUENO                                              exp=78.4785189164147       rep=78.47851891641471      drel=1.8107954777201633e-16
+  PASA  Motor!BD8 BUENO                                              exp=254.596346963687       rep=254.5963469636865      drel=2.0094191289407625e-15
+  PASA  Motor!B191                                                   exp=80                     rep=80                     drel=0.0
+  PASA  Motor!B193                                                   exp=✓ PASA                 rep=✓ PASA                 drel=None
+  PASA  Análisis!B108:B188 (máx. dif. rel.)                          exp=81 celdas              rep=4.569040698093495e-15  drel=4.569040698093495e-15
+== Elis A None {'B252': False, 'B253': True, 'B254': False, 'B255': 'COMPLETO Y VÁLIDO'}
+  PASA  V_MALO (B78)                                                 exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  V_NORMAL (C78)                                               exp=7.82436495245035       rep=7.824364952450354      drel=5.675722087975812e-16
+  PASA  V_BUENO (D78)                                                exp=10.89154926695         rep=10.891549266949962     drel=3.4249942513322067e-15
+  PASA  ponderado (C83)                                              exp=7.98957836734924       rep=7.98957836734924       drel=0.0
+  PASA  V_MALO precio.json                                           exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  V_NORMAL precio.json                                         exp=7.82436495245035       rep=7.824364952450354      drel=5.675722087975812e-16
+  PASA  V_BUENO precio.json                                          exp=10.89154926695         rep=10.891549266949962     drel=3.4249942513322067e-15
+  PASA  ponderado precio.json                                        exp=7.98957836734924       rep=7.98957836734924       drel=0.0
+  PASA  P* (k = 3)                                                   exp=7.30205532309094       rep=7.3020553230909355     drel=6.081701523757846e-16
+  PASA  P* por bisección (comprobación)                              exp=7.30205532309094       rep=7.302055323090936      drel=4.865361219006277e-16
+  PASA  precio de Sí = mín(P*, V_NORMAL)                             exp=7.30205532309094       rep=7.3020553230909355     drel=6.081701523757846e-16
+  PASA  tope NORMAL aplicado                                         exp=False                  rep=False                  drel=None
+  PASA  precio del escenario MALO                                    exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  precio actual (C37)                                          exp=24.18                  rep=24.18                  drel=0.0
+  PASA  zona                                                         exp=caro                   rep=caro                   drel=None
+  PASA  G(P*)                                                        exp=1.0312845663874577     rep=1.0312845663874566     drel=1.076543818079443e-15
+  PASA  L(P*)                                                        exp=0.34376152212915195    rep=0.3437615221291518     drel=4.844447181357502e-16
+  PASA  tabla del DCF inverso utilizable                             exp=False                  rep=False                  drel=None
+  PASA  g implícito al precio actual                                 exp=no utilizable          rep=no utilizable          drel=None
+  PASA  g implícito al precio de Sí                                  exp=no utilizable          rep=no utilizable          drel=None
+  PASA  distancia a precio de Sí                                     exp=0.6980126003684475     rep=0.6980126003684476     drel=1.5905486864264668e-16
+  PASA  distancia a MALO                                             exp=0.7690964552338636     rep=0.7690964552338636     drel=0.0
+  PASA  regla antigua C156 = mín(MALO, 0,75 × ponderado) · precio.js exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  regla antigua C156 · resultados.json                         exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  propiedades: |G − 3L| en P* < 1e-9 · P* ≥ mín V · P* ≤ ponde exp=(Anexo C.2)            rep=|F(P*)| = 1.11e-15     drel=None
+  -- intermedios
+  PASA  Diagnóstico V6!C9 V0                                         exp=4796.8                 rep=4796.8                 drel=0.0
+  PASA  Diagnóstico V6!C10 m0                                        exp=0.131337558372248      rep=0.13133755837224817    drel=1.267980429648085e-15
+  PASA  Diagnóstico V6!C11 t                                         exp=0.2882                 rep=0.2882                 drel=0.0
+  PASA  Diagnóstico V6!C12 f                                         exp=0.0416814552737959     rep=0.041681455273795874   drel=6.658974700693369e-16
+  PASA  Diagnóstico V6!C15 r_op                                      exp=—                      rep=—                      drel=None
+  PASA  Diagnóstico V6!C16 pasivos netos                             exp=—                      rep=—                      drel=None
+  PASA  Motor!BE6 MALO                                               exp=688.694086788754       rep=688.6940867887542      drel=3.301519205768574e-16
+  PASA  Motor!BF6 MALO                                               exp=128.329299529238       rep=128.32929952923817     drel=1.3288489628478893e-15
+  PASA  Motor!BH6 MALO                                               exp=677.5960370313         rep=677.5960370313004      drel=5.033390021864805e-16
+  PASA  Motor!BI6 MALO                                               exp=1366.29012382005       rep=1366.2901238200548     drel=3.49475349419766e-15
+  PASA  Motor!BJ6 MALO                                               exp=1297.97561762905       rep=1297.975617629052      drel=1.5765805236981894e-15
+  PASA  Motor!BK6 MALO                                               exp=5.58324771244518       rep=5.583247712445177      drel=6.363166855164647e-16
+  PASA  Motor!BD6 MALO                                               exp=131.464271789004       rep=131.4642717890036      drel=3.026707763340289e-15
+  PASA  Motor!BE7 NORMAL                                             exp=656.646616578569       rep=656.6466165785685      drel=8.656622515926204e-16
+  PASA  Motor!BF7 NORMAL                                             exp=208.482102060691       rep=208.48210206069064     drel=1.7722491232733853e-15
+  PASA  Motor!BH7 NORMAL                                             exp=1258.07275649665       rep=1258.0727564966528     drel=2.1687808524816822e-15
+  PASA  Motor!BI7 NORMAL                                             exp=1914.71937307522       rep=1914.7193730752213     drel=7.1250234987088e-16
+  PASA  Motor!BJ7 NORMAL                                             exp=1818.98340442146       rep=1818.9834044214601     drel=1.2500041225804905e-16
+  PASA  Motor!BK7 NORMAL                                             exp=7.82436495245035       rep=7.824364952450354      drel=5.675722087975812e-16
+  PASA  Motor!BD7 NORMAL                                             exp=214.476759327578       rep=214.47675932757826     drel=1.192648498026542e-15
+  PASA  Motor!BE8 BUENO                                              exp=943.269945012413       rep=943.2699450124128      drel=2.4104836229064834e-16
+  PASA  Motor!BF8 BUENO                                              exp=264.983256956192       rep=264.98325695619246     drel=1.7161361669037247e-15
+  PASA  Motor!BH8 BUENO                                              exp=1722.02755976481       rep=1722.027559764814      drel=2.3766902769762586e-15
+  PASA  Motor!BI8 BUENO                                              exp=2665.29750477723       rep=2665.297504777227      drel=1.1943250051822296e-15
+  PASA  Motor!BJ8 BUENO                                              exp=2532.03262953837       rep=2532.0326295383657     drel=1.7959774514018477e-15
+  PASA  Motor!BK8 BUENO                                              exp=10.89154926695         rep=10.891549266949962     drel=3.4249942513322067e-15
+  PASA  Motor!BD8 BUENO                                              exp=286.777628439703       rep=286.77762843970294     drel=1.9821427204793188e-16
+  PASA  Motor!B191                                                   exp=0                      rep=0                      drel=0.0
+  PASA  Motor!B193                                                   exp=⚠ REVISAR · con tus pa rep=⚠ REVISAR · con tus pa drel=None
+  PASA  Análisis!B108:B188 (máx. dif. rel.)                          exp=81 celdas              rep=4.6880767797382126e-15 drel=4.6880767797382126e-15
+== efecto Viscofan
+  PASA  [libro anterior + celdas del caso] rama 4.14 (reproducción)  exp=40.302817682724694     rep=40.302817682724715     drel=5.289030221313774e-16
+  PASA  [libro anterior + celdas del caso] rama 4.14 (reproducción)  exp=44.3628981996609       rep=44.36289819966088      drel=3.2033197315568147e-16
+  PASA  [libro anterior + celdas del caso] rama 4.14 (reproducción)  exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] rama 4.14 (reproducción)  exp=0.0826034488326509     rep=0.08260344883265087    drel=3.3600988830212e-16
+  PASA  [libro anterior + celdas del caso] rama 4.14 (reproducción)  exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] D3 · solo el denominador  exp=39.85224637738848      rep=39.852246377388475     drel=1.78294274563968e-16
+  PASA  [libro anterior + celdas del caso] D3 · solo el denominador  exp=43.8669366242773       rep=43.86693662427735      drel=1.1338378134132232e-15
+  PASA  [libro anterior + celdas del caso] D3 · solo el denominador  exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] D3 · solo el denominador  exp=0.0826034488326509     rep=0.08260344883265087    drel=3.3600988830212e-16
+  PASA  [libro anterior + celdas del caso] D3 · solo el denominador  exp=-0.4505713053362115    rep=-0.4505713053362399    drel=6.307927090296181e-14
+  PASA  [libro anterior + celdas del caso] D3 · solo la capitalizaci exp=40.248153716574826     rep=40.248153716574805     drel=5.296213640732698e-16
+  PASA  [libro anterior + celdas del caso] D3 · solo la capitalizaci exp=44.3008584586809       rep=44.300858458680935     drel=8.019514299286305e-16
+  PASA  [libro anterior + celdas del caso] D3 · solo la capitalizaci exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] D3 · solo la capitalizaci exp=0.0826769373447879     rep=0.08267693734478786    drel=5.035668320636941e-16
+  PASA  [libro anterior + celdas del caso] D3 · solo la capitalizaci exp=-0.05466396614986735   rep=-0.05466396614990998   drel=7.799025052211559e-13
+  PASA  [libro anterior + celdas del caso] D3 · denominador y capita exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  [libro anterior + celdas del caso] D3 · denominador y capita exp=43.8055904657485       rep=43.80559046574854      drel=8.110183291738437e-16
+  PASA  [libro anterior + celdas del caso] D3 · denominador y capita exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] D3 · denominador y capita exp=0.0826769373447879     rep=0.08267693734478786    drel=5.035668320636941e-16
+  PASA  [libro anterior + celdas del caso] D3 · denominador y capita exp=-0.5046241475995004    rep=-0.5046241475995501    drel=9.856443006108782e-14
+  PASA  [libro anterior + celdas del caso] E1 · medias exactas C47–C exp=40.302817682724694     rep=40.302817682724715     drel=5.289030221313774e-16
+  PASA  [libro anterior + celdas del caso] E1 · medias exactas C47–C exp=44.3628981996609       rep=44.36289819966088      drel=3.2033197315568147e-16
+  PASA  [libro anterior + celdas del caso] E1 · medias exactas C47–C exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E1 · medias exactas C47–C exp=0.0826034488326509     rep=0.08260344883265087    drel=3.3600988830212e-16
+  PASA  [libro anterior + celdas del caso] E1 · medias exactas C47–C exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] D3 + E1 · todo · precio d exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  [libro anterior + celdas del caso] D3 + E1 · todo · ponderad exp=43.8055904657485       rep=43.80559046574854      drel=8.110183291738437e-16
+  PASA  [libro anterior + celdas del caso] D3 + E1 · todo · zona     exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] D3 + E1 · todo · r operat exp=0.0826769373447879     rep=0.08267693734478786    drel=5.035668320636941e-16
+  PASA  [libro anterior + celdas del caso] D3 + E1 · todo · Δ precio exp=-0.5046241475995004    rep=-0.5046241475995501    drel=9.856443006108782e-14
+  PASA  [libro anterior + celdas del caso] dilución · D3 aplicado (d exp=39.79819353512519      rep=39.798193535125165     drel=7.141457163205033e-16
+  PASA  [libro anterior + celdas del caso] dilución · D3 aplicado (d exp=43.8055904657485       rep=43.80559046574854      drel=8.110183291738437e-16
+  PASA  [libro anterior + celdas del caso] dilución · D3 aplicado (d exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=39.52747739649197      rep=39.52747739649199      drel=5.392775728889496e-16
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=43.5076151244565       rep=43.50761512445654      drel=9.79887406460976e-16
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=39.393495749221024     rep=39.393495749221        drel=5.411117157132347e-16
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=43.3601424718323       rep=43.36014247183226      drel=8.193500934892965e-16
+  PASA  [libro anterior + celdas del caso] dilución · + dilución pot exp=caro                   rep=caro                   drel=None
+  PASA  [libro final con C55 = 45.479209] ≡ caso «D3 · solo la capit exp=40.248153716574826     rep=40.248153716574805     drel=5.296213640732698e-16
+  PASA  [libro final con C55 = 45.479209] ≡ caso «D3 · solo la capit exp=44.3008584586809       rep=44.300858458680935     drel=8.019514299286305e-16
+  PASA  [libro final con C55 = 45.479209] · zona (sin caso en el fic exp=caro                   rep=caro                   drel=None
+  efecto en libro final: {'C55_nuevo': 45.993399, 'C55_viejo': 45.479209, 'V_C55_nuevo': [29.779701208566763, 43.767099108767255, 57.946953793874144], 'V_C55_viejo': [30.11639186130949, 44.261931916671564, 58.60210468208049], 'pond_nuevo': 43.80559046574854, 'pond_viejo': 44.300858458680935, 'precio_si_nuevo': 39.798193535125165, 'precio_si_viejo': 40.248153716574805, 'zona_nuevo': 'caro', 'zona_viejo': 'caro', 'd_precio_si': -0.4499601814496401, 'd_pond': -0.49526799293239776, 'cociente_precio_si': 0.9888203522422858, 'cociente_acciones': 0.9888203522422859, 'd_precio_si_en_rama_segun_fichero': -0.4505713053362115, 'r_op_igual': True}
+== efecto Elis
+  PASA  [libro anterior + celdas del caso] expediente anterior elis_ exp=6.556340324610303      rep=6.556340324610302      drel=1.3546862666146254e-16
+  PASA  [libro anterior + celdas del caso] expediente anterior elis_ exp=7.17350245848518       rep=7.173502458485178      drel=2.476275500957118e-16
+  PASA  [libro anterior + celdas del caso] expediente anterior elis_ exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] expediente anterior elis_ exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] E6 · solo el denominador  exp=7.306540683028282      rep=7.306540683028279      drel=3.646780842936507e-16
+  PASA  [libro anterior + celdas del caso] E6 · solo el denominador  exp=7.99432075787504       rep=7.994320757875043      drel=3.333035213123763e-16
+  PASA  [libro anterior + celdas del caso] E6 · solo el denominador  exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · solo el denominador  exp=0.7502003584179793     rep=0.7502003584179775     drel=2.3678432294357038e-15
+  PASA  [libro anterior + celdas del caso] E6 · solo la capitalizaci exp=6.556340324610303      rep=6.556340324610302      drel=1.3546862666146254e-16
+  PASA  [libro anterior + celdas del caso] E6 · solo la capitalizaci exp=7.17350245848518       rep=7.173502458485178      drel=2.476275500957118e-16
+  PASA  [libro anterior + celdas del caso] E6 · solo la capitalizaci exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · solo la capitalizaci exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] E6 · acciones y capitaliz exp=7.306540683028282      rep=7.306540683028279      drel=3.646780842936507e-16
+  PASA  [libro anterior + celdas del caso] E6 · acciones y capitaliz exp=7.99432075787504       rep=7.994320757875043      drel=3.333035213123763e-16
+  PASA  [libro anterior + celdas del caso] E6 · acciones y capitaliz exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · acciones y capitaliz exp=0.7502003584179793     rep=0.7502003584179775     drel=2.3678432294357038e-15
+  PASA  [libro anterior + celdas del caso] E6 · pensiones I25:L25 (d exp=6.556340324610303      rep=6.556340324610302      drel=1.3546862666146254e-16
+  PASA  [libro anterior + celdas del caso] E6 · pensiones I25:L25 (d exp=7.17350245848518       rep=7.173502458485178      drel=2.476275500957118e-16
+  PASA  [libro anterior + celdas del caso] E6 · pensiones I25:L25 (d exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · pensiones I25:L25 (d exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] supuesto de la orquestaci exp=6.552315499798757      rep=6.55231549979876       drel=4.066555188287579e-16
+  PASA  [libro anterior + celdas del caso] supuesto de la orquestaci exp=7.16924699374636       rep=7.16924699374636       drel=0.0
+  PASA  [libro anterior + celdas del caso] supuesto de la orquestaci exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] supuesto de la orquestaci exp=-0.004024824811545535  rep=-0.004024824811541983  drel=8.827002031515147e-13
+  PASA  [libro anterior + celdas del caso] E6 · entradas reexpresada exp=6.556340324610303      rep=6.556340324610302      drel=1.3546862666146254e-16
+  PASA  [libro anterior + celdas del caso] E6 · entradas reexpresada exp=7.17350245848518       rep=7.173502458485178      drel=2.476275500957118e-16
+  PASA  [libro anterior + celdas del caso] E6 · entradas reexpresada exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · entradas reexpresada exp=0.0                    rep=0.0                    drel=0.0
+  PASA  [libro anterior + celdas del caso] E6 · todo · precio de Sí  exp=7.30205532309094       rep=7.3020553230909355     drel=6.081701523757846e-16
+  PASA  [libro anterior + celdas del caso] E6 · todo · ponderado     exp=7.98957836734924       rep=7.98957836734924       drel=0.0
+  PASA  [libro anterior + celdas del caso] E6 · todo · zona          exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] E6 · todo · Δ precio de S exp=0.7457149984806373     rep=0.7457149984806337     drel=4.764170877666407e-15
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.155558226498556      rep=7.155558226498552      drel=4.964970679218353e-16
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.81012086053621       rep=7.81012086053621       drel=0.0
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=0.5992179018882533     rep=0.5992179018882506     drel=4.4466883427612924e-15
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.220865902575944      rep=7.22086590257595       drel=8.610115492773463e-16
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.90074457890164       rep=7.900744578901636      drel=4.496682108022784e-16
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=0.6645255779656409     rep=0.664525577965648      drel=1.0692481362949713e-14
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.204844190910432      rep=7.20484419091044       drel=1.1094765640297662e-15
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=7.883214347307         rep=7.883214347306996      drel=4.506681567036358e-16
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=caro                   rep=caro                   drel=None
+  PASA  [libro anterior + celdas del caso] dilución potencial (NO in exp=0.6485038663001292     rep=0.6485038663001381     drel=1.3695807625132555e-14
+  PASA  [libro final con C55 = 259.077654] ≡ caso «supuesto de la or exp=6.552315499798757      rep=6.55231549979876       drel=4.066555188287579e-16
+  PASA  [libro final con C55 = 259.077654] ≡ caso «supuesto de la or exp=7.16924699374636       rep=7.16924699374636       drel=0.0
+  PASA  [libro final con C55 = 259.077654] · zona (sin caso en el fi exp=caro                   rep=caro                   drel=None
+  efecto en libro final: {'C55_nuevo': 232.47681, 'C55_viejo': 259.077654, 'V_C55_nuevo': [5.583247712445177, 7.824364952450354, 10.891549266949962], 'V_C55_viejo': [5.009986764929762, 7.0209968954769835, 9.773257517371087], 'pond_nuevo': 7.98957836734924, 'pond_viejo': 7.16924699374636, 'precio_si_nuevo': 7.3020553230909355, 'precio_si_viejo': 6.55231549979876, 'zona_nuevo': 'caro', 'zona_viejo': 'caro', 'd_precio_si': 0.7497398232921757, 'd_pond': 0.8203313736028797, 'cociente_precio_si': 1.1144236450938911, 'cociente_acciones': 1.1144236450938914, 'd_precio_si_en_rama_segun_fichero': 0.7502003584179793, 'r_op_igual': True}

@@ -1,0 +1,63 @@
+SIMULACIÓN DE VIABILIDAD · pasos 0–4 del pipeline sobre una COPIA TEMPORAL del expediente de ensayo con una decisión SIMULADA de P1
+(fase1_decisiones.json de la copia con circulante_lineas 2024 = 84,994 y fuente marcada «SIMULACIÓN DE PRUEBA … no es una decisión humana»; sin persona ni fecha).
+Ejecutada una vez el 9-nov-2026 con «python3 personaje_v2/scripts/pipeline.py <copia>/Vidrala --hasta 4». No es el ensayo: no hay fases ni valores; la copia se descartó.
+
+== historial del pipeline
+  $ bash comprobar_entorno.sh → 0 · autotest precio_de_si: PASA (5 casos + propiedades)
+  $ python3 migrar_v53_a_v63.py Vidrala_evaluada.xlsx Plantilla_V6.3.xlsx Vidrala_v63_base.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos
+  $ python3 fase1_historia.py preparar Vidrala Vidrala → 0 · 
+  $ python3 fase1_historia.py construir Vidrala → 0 · fase1_v63.json escrito (10 años, 27 diferencias con el comparativo, 38 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)
+  $ python3 rellenar_fase1_v63.py Vidrala_v63_base.xlsx fase1_v63.json Vidrala_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos
+  $ python3 comprobar_entrada_v63.py Vidrala_v63_datos.xlsx Vidrala → 0 · OK: 0 bloqueantes · 6 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']
+  $ python3 volcar_datos_v63.py Vidrala_v63_datos.xlsx Vidrala → 0 · OK: datos_v63.md (12657 palabras) y datos_v63.json en /tmp/claude-0/-home-claude/e1d9fd2f-7a4e-5443-8b0f-fae3b340b4cf/scratchpad/sim/Vidrala
+paso final 5 estado None
+
+== entrada_v63.md (comprobación de entrada)
+# Comprobación de entrada · Vidrala_v63_datos.xlsx
+
+- Íntegro (verificar_v63.py): True · estado técnico: INCOMPLETO (Faltan palancas de crecimiento (Palancas B14:D14)) · estado del libro: NO LISTO · incompleto (6 pendientes) · comparable precio↔valor: True · años con ventas: 10
+
+## Motores calculables (simulación con palancas de prueba)
+
+- Motor A: CALCULABLE
+- Motor B: CALCULABLE
+- Motor C: CALCULABLE
+
+## BLOQUEANTE (el pipeline se detiene: pendiente_de_datos)
+
+- ninguno
+
+## Necesario para LISTO · PROVISIONAL (no para el valor)
+
+- evidencia Análisis!C48: Intereses pagados clasificados en financiación · IFRS: no verificable · de dónde: fase1_v63.json (fuente y página del dato) o etapa 1 · el dato está pero su clasificación/documento no permite LISTO·PROVISIONAL; la fase C juzga si es material
+- evidencia Historia!C13:L13: Adquisiciones netas (positivo): cero pendiente de verificación · de dónde: decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) · [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, adquisiciones; 2018, 2019, 2020, 2021, 2022): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma.
+- evidencia Historia!C16:L16: Intereses pagados en financiación (IFRS): cero pendiente de verificación · de dónde: decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) · [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, intereses_financiacion; 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma.
+- evidencia Historia!C17:L17: Principal de arrendamientos (IFRS 16): cero pendiente de verificación · de dónde: decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) · [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, arrendamientos_principal; 2016, 2018): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma.
+- evidencia Historia!C23:L23: Pasivo por arrendamientos: cero pendiente de verificación · de dónde: decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) · [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, arrendamientos; 2016): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma.
+- evidencia Historia!C26:L26: Minoritarios: cero pendiente de verificación · de dónde: decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) · [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, minoritarios; 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma.
+
+## No bloqueante
+
+- Palancas!C24: tamaño del mercado año 10 · de dónde: extractos (solo con cifra de fuente primaria)
+
+## Avisos de la hoja
+
+- V19 AVISO: Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido
+- V28 AVISO: Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)
+- V31 AVISO: Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha
+
+== libro de datos recalculado frente al libro evaluado original (Historia C5:L26 y celdas seleccionadas)
+Historia C5:L26 con valor distinto: [('K14', -127.84, 84.994)]
+Análisis C37: original 87.9 · simulación 87.9
+Análisis C41: original 3094.6 · simulación 3094.6
+Análisis C46: original 335.4 · simulación 335.4
+Análisis C47: original 169.7 · simulación 169.7
+Análisis C48: original 0 · simulación 0
+Análisis C49: original 4.5 · simulación 4.5
+Análisis C50: original 0 · simulación 0
+Análisis C52: original 161.2 · simulación 161.2
+Análisis C55: original 35.206 · simulación 35.206
+Análisis C56: original 0.09 · simulación 0.09
+Historia C53: original 1.54921660243955 · simulación 0.915854136412881
+Historia C58: original 0.0198902473163874 · simulación -0.0276077999509027
+Historia C70: original 161.2 · simulación 161.2

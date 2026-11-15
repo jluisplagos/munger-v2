@@ -1,0 +1,69 @@
+[
+ {
+  "caso": "3b_subcadena_con_linea_real",
+  "que_prueba": "La línea existe en la página; '123' solo aparece dentro de 91234 (aísla la regla del importe completo).",
+  "pagina": "Capital expenditure 91234",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 91234"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado_actual": "ACEPTADO"
+ },
+ {
+  "caso": "7b_cero_cita_no_en_pagina",
+  "que_prueba": "Cero con cita que no está en la página.",
+  "pagina": "Revenue 123",
+  "partidas_declaradas": {
+   "sbc": {
+    "cero": {
+     "motivo": "no hay plan de pagos en acciones",
+     "pagina": 1,
+     "cita": "The Group has no share-based payment programmes"
+    }
+   }
+  },
+  "errores": [],
+  "resultado_actual": "ACEPTADO"
+ },
+ {
+  "caso": "12_cero_bien_respaldado",
+  "que_prueba": "Cero de SBC con cita literal de la página que lo respalda.",
+  "pagina": "The Group has no share-based payment programmes.",
+  "partidas_declaradas": {
+   "sbc": {
+    "cero": {
+     "motivo": "no hay plan de pagos en acciones",
+     "pagina": 1,
+     "cita": "The Group has no share-based payment programmes"
+    }
+   }
+  },
+  "errores": [],
+  "resultado_actual": "ACEPTADO"
+ },
+ {
+  "caso": "13_cero_cita_de_otra_partida",
+  "que_prueba": "Cero de SBC con cita literal auténtica que habla de pensiones (otra partida).",
+  "pagina": "The Group has no defined benefit pension obligations.",
+  "partidas_declaradas": {
+   "sbc": {
+    "cero": {
+     "motivo": "no hay plan de pagos en acciones",
+     "pagina": 1,
+     "cita": "The Group has no defined benefit pension obligations"
+    }
+   }
+  },
+  "errores": [],
+  "resultado_actual": "ACEPTADO"
+ }
+]

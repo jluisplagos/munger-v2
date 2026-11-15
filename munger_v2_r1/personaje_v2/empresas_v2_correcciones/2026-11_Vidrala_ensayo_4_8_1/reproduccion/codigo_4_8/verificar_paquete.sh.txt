@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# Verificación del paquete Munger v2 (entrega 4: continuidad 3.1 + piloto Vidrala 2025). Ejecutar desde la raíz munger_v2_r1/ de un ZIP recién descomprimido:
+#   bash verificar_paquete.sh            manifiesto + entorno + contraste del piloto Vidrala 2025 + test_comprobadores.py (≈ 1–2 min)
+#   bash verificar_paquete.sh completa   lo anterior + test_pipeline_sintetico.py y comparación de nombres + batería de cierre
+#                                        test_cierre_v2.py (obligatoria: si falla, no se ejecuta o se interrumpe, el resultado global
+#                                        es FALLA; exige al menos 55 pruebas, todas en PASA) y batería del resumen
+#                                        test_resumen_v2.py (4.7; igual de obligatoria; al menos 45 pruebas) y batería de coherencia
+#                                        de estados test_estados_v2.py (4.8; igual de obligatoria; al menos 28 pruebas) (≈ 7–10 min en total)
+# El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
+# Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
+# Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
+# se comprueba ANTES de ejecutarlas (para repetir la verificación completa, descomprimir de nuevo).
+set -uo pipefail
+cd "$(dirname "$0")"
+export PYTHONDONTWRITEBYTECODE=1   # sin __pycache__ dentro del paquete
+ENTORNO_LOG="$(mktemp)"
+fallos=0
+echo "== versión"
+cat VERSION 2>/dev/null || { echo "FALTA VERSION"; fallos=$((fallos+1)); }
+
+echo "== manifiesto (MANIFIESTO_SHA256.txt)"
+python3 - <<'PY'
+import hashlib, os, sys
+esperado = {}
+for l in open("MANIFIESTO_SHA256.txt", encoding="utf-8"):
+    if l.strip() and not l.startswith("#"):
+        h, p = l.rstrip("\n").split("  ", 1)
+        esperado[p] = h
+actual = {}
+for r, ds, fs in os.walk("."):
+    ds[:] = [d for d in ds if d != "__pycache__"]
+    for f in fs:
+        p = os.path.relpath(os.path.join(r, f), ".")
+        if p != "MANIFIESTO_SHA256.txt":
+            actual[p] = hashlib.sha256(open(p, "rb").read()).hexdigest()
+mod = sorted(p for p in esperado if p in actual and actual[p] != esperado[p])
+falt = sorted(p for p in esperado if p not in actual)
+extra = sorted(p for p in actual if p not in esperado)
+print(f"{len(esperado)} archivos en el manifiesto · modificados {len(mod)} · ausentes {len(falt)} · de más {len(extra)}")
+for etiqueta, lista in (("MODIFICADO", mod), ("AUSENTE", falt), ("DE MÁS", extra)):
+    for p in lista[:20]:
+        print(f"  {etiqueta}: {p}")
+print("RESULTADO manifiesto:", "PASA" if not (mod or falt or extra) else "FALLA (¿se ejecutaron ya pruebas en esta copia? descomprimir de nuevo)")
+sys.exit(0 if not (mod or falt or extra) else 1)
+PY
+[ $? -eq 0 ] || fallos=$((fallos+1))
+
+echo "== entorno (personaje_v2/scripts/comprobar_entorno.sh)"
+( cd personaje_v2 && bash scripts/comprobar_entorno.sh ) > "$ENTORNO_LOG" 2>&1; rc=$?
+grep -E "^(FALTA|AVISO|ERROR|FALLA)|autotest" "$ENTORNO_LOG" || true
+echo "RESULTADO entorno: $([ $rc -eq 0 ] && echo PASA || echo "FALLA (ver $ENTORNO_LOG)")"
+[ $rc -eq 0 ] || fallos=$((fallos+1))
+
+echo "== contraste del piloto Vidrala 2025 (solo lectura; salida idéntica a la de referencia)"
+SALIDA_PILOTO="$(mktemp)"
+python3 -I contrastes/piloto_Vidrala_2025/scripts/contraste_vidrala_2025.py > "$SALIDA_PILOTO" 2>&1; rc=$?
+if [ $rc -eq 0 ] && diff -q "$SALIDA_PILOTO" contrastes/piloto_Vidrala_2025/resultados/contraste_salida.txt > /dev/null; then
+  echo "$(grep -c '\[CUMPLE\]' "$SALIDA_PILOTO") comprobaciones CUMPLEN · salida idéntica a resultados/contraste_salida.txt"
+  echo "RESULTADO piloto: PASA"
+else
+  tail -5 "$SALIDA_PILOTO"; echo "RESULTADO piloto: FALLA (ver $SALIDA_PILOTO)"; fallos=$((fallos+1))
+fi
+
+echo "== pruebas de la reparación"
+( cd personaje_v2 && bash pruebas/ejecutar_pruebas_reparacion.sh $([ "${1:-}" = "completa" ] || echo rapidas) ); rc=$?
+[ $rc -eq 0 ] || fallos=$((fallos+1))
+
+echo "== batería de coherencia de estados (personaje_v2/pruebas/test_estados_v2.py; obligatoria en «completa»; reparación 4.8, X-a y X-c)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_ESTADOS="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_estados_v2.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_estados_v2.py ) > "$SALIDA_ESTADOS" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_estados_v2.py" > "$SALIDA_ESTADOS"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de coherencia de estados PASAN$' "$SALIDA_ESTADOS" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 28 ]; then
+    echo "$linea"; echo "RESULTADO estados: PASA"
+  else
+    tail -5 "$SALIDA_ESTADOS"; echo "RESULTADO estados: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 28 pruebas; ver $SALIDA_ESTADOS)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== batería del resumen (personaje_v2/pruebas/test_resumen_v2.py; obligatoria en «completa»; reparación 4.7)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_RESUMEN="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_resumen_v2.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_resumen_v2.py ) > "$SALIDA_RESUMEN" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_resumen_v2.py" > "$SALIDA_RESUMEN"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de aceptación del resumen PASAN$' "$SALIDA_RESUMEN" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 45 ]; then
+    echo "$linea"; echo "RESULTADO resumen: PASA"
+  else
+    tail -5 "$SALIDA_RESUMEN"; echo "RESULTADO resumen: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 45 pruebas; ver $SALIDA_RESUMEN)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== batería de cierre (personaje_v2/pruebas/test_cierre_v2.py; obligatoria en «completa»; reparaciones 4.6 y 4.6.1)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_CIERRE="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_cierre_v2.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_cierre_v2.py ) > "$SALIDA_CIERRE" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_cierre_v2.py" > "$SALIDA_CIERRE"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de aceptación del cierre PASAN$' "$SALIDA_CIERRE" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 55 ]; then
+    echo "$linea"; echo "RESULTADO cierre: PASA"
+  else
+    tail -5 "$SALIDA_CIERRE"; echo "RESULTADO cierre: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 55 pruebas; ver $SALIDA_CIERRE)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "RESULTADO GLOBAL: $([ $fallos -eq 0 ] && echo PASA || echo "FALLA ($fallos bloques)")"
+exit $fallos

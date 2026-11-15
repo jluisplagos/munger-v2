@@ -1,0 +1,43 @@
+LIBROS DE PROPUESTA N1–N2 · entrega 4.7 (copias identificadas; resultados mecánicos, no comparables con el precio)
+
+A. Palancas!C8 = «Último año» (entrada de la plantilla) · OK: 1 celdas escritas en /home/claude/entrega47/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_7/financiero/propuesta_excel/PROPUESTA_M2_ultimo_anio.xlsx (10292 cachés de fórmula borradas)
+  m0 leído 0.199342 (Historia!C48) · t 0.200320 · r_op 0.086922
+  PROPUESTA_M2: libro V [55.3774, 72.5801, 88.3487] · ponderado 72.2933 · precio de Sí 67.4602
+  réplica T0·M2·R0: V [55.3774, 72.5801, 88.3487] · ponderado 72.2933 · precio de Sí 67.4602 → COINCIDE (tolerancia 0.005 €)
+  celdas con fórmula o entrada distinta de la referencia: 1 → Palancas!C8: 'Media del ciclo' → 'Último año'
+  celdas con valor recalculado distinto: 2445
+
+B. Diagnóstico V6!C11 (tipo) = 0.220541 (antes =Historia!$C$52) · Diagnóstico V6!C10 (margen de partida) = 0.185467 (antes =IF(Palancas!$C8="Media del ciclo",Historia!$C$49,Historia!$C$48)) · 10290 cachés borradas
+  (primer intento, descartado: sustituir Historia!C52 y C49; la regla V39 del Motor bloquea el valor porque Historia!C52 es celda de salida protegida)
+  m0 leído 0.185467 · t 0.220541 · r_op 0.086822 (referencia 0.086922)
+  PROPUESTA_T1_M1: libro V [53.2198, 69.7806, 85.0759] · ponderado 69.5275 · precio de Sí 64.8682
+  réplica T1·M1·R0: V [53.2198, 69.7805, 85.0758] · ponderado 69.5274 · precio de Sí 64.8681 → COINCIDE (tolerancia 0.005 €)
+  celdas con fórmula o entrada distinta de la referencia: 2 → Diagnóstico V6!C10: '=IF(Palancas!$C8="Media del ciclo",Historia!$C$49,Historia!$C$48)' → 0.185467; Diagnóstico V6!C11: '=Historia!$C$52' → 0.220541
+  celdas con valor recalculado distinto: 3966 (las primeras 25:)
+    Análisis!B108: 54.3869035462347 → 54.1522607278026
+    Análisis!B109: 54.870596787858 → 54.6152120869437
+    Análisis!B110: 55.3684661956007 → 55.0915769906177
+    Análisis!B111: 55.8808899800119 → 55.5817123601104
+    Análisis!B112: 56.40825495731 → 56.0859832345403
+    Análisis!B113: 56.9509567088088 → 56.6047629212699
+    Análisis!B114: 57.5093997426246 → 57.1384331484688
+    Análisis!B115: 58.0839976576886 → 57.6873842198526
+    Análisis!B116: 58.675173310087 → 58.2520151716184
+    Análisis!B117: 59.283358981753 → 58.8327339315996
+    Análisis!B118: 59.9089965515341 → 59.4299574806627
+    Análisis!B119: 60.5525376686598 → 60.0441120163686
+    Análisis!B120: 61.2144439286323 → 60.6756331189209
+    Análisis!B121: 61.8951870515652 → 61.3249659194251
+    Análisis!B122: 62.5952490629957 → 61.9925652704797
+    Análisis!B123: 63.3151224771918 → 62.6788959191255
+    Análisis!B124: 64.0553104829836 → 63.3844326821727
+    Análisis!B125: 64.8163271321393 → 64.1096606239333
+    Análisis!B126: 65.598697530314 → 64.8550752363786
+    Análisis!B127: 66.402958030595 → 65.6211826217487
+    Análisis!B128: 67.2296564296696 → 66.4084996776359
+    Análisis!B129: 68.0793521666398 → 67.2175542845671
+    Análisis!B130: 68.952616524512 → 68.0488854961093
+    Análisis!B131: 69.8500328343843 → 68.9030437315219
+    Análisis!B132: 70.7721966823599 → 69.7805909709815
+
+RESULTADO: las dos propuestas reproducen la réplica y solo difieren de la referencia en las celdas declaradas (4 de 4)

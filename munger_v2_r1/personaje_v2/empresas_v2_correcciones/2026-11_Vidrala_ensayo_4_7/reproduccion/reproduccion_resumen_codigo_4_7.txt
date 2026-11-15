@@ -1,0 +1,26 @@
+REPRODUCCIÓN DEL FALLO DEL RESUMEN CONFIGURADO · código de /home/claude/entrega47/munger_v2_r1
+
+$ pipeline.py COPIA --config CONFIG --desde 14 → código 0
+   estado final: concluido · paso 14
+   ficha.json True · informe.md True · cierre_vigente.json True
+   CSV personalizado (cartera/resumen_global.csv): [('concluido', 'APROBADO', '65.68808732041568', 'esperar')]
+   CSV predeterminado (resumen_v2.csv junto al expediente): [('concluido', 'APROBADO', '65.68808732041568', 'esperar')]
+
+modificación: fase_c.json → celdas.B101 += « [MARCADOR 4.7]» (auditoría sin tocar)
+
+$ informe.py COPIA (directo, sin --config) → código 3
+   informe.py: no se publica el informe oficial: el material cambió después de la auditoría (fase_c.json): la aprobación no vale para la versión nueva. Salidas oficiales anteriores archivadas en historia
+   ficha.json False · informe.md False · cierre_vigente.json False
+   CSV personalizado (cartera/resumen_global.csv): [('', 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del mater', '', '')]
+   CSV predeterminado (resumen_v2.csv junto al expediente): [('', 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del mater', '', '')]
+
+$ pipeline.py COPIA --config CONFIG --desde 14 → código 4
+   CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No se escribe ninguna salida oficial; el pipeline vuelve al paso 13 (auditoría).
+   ficha.json False · informe.md False · cierre_vigente.json False
+   CSV personalizado (cartera/resumen_global.csv): [('', 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del mater', '', '')]
+   CSV predeterminado (resumen_v2.csv junto al expediente): [('', 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del mater', '', '')]
+
+VEREDICTO
+  paso 2 (publicación configurada): código 0 · fila concluido / APROBADO
+  tras informe.py directo: NO SE REPRODUCE: el CSV personalizado ya no presenta la aprobación
+  tras el relanzamiento configurado: NO SE REPRODUCE: el CSV personalizado ya no presenta la aprobación

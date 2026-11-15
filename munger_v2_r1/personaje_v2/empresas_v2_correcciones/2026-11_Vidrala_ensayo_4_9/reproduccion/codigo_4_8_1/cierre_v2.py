@@ -1,0 +1,822 @@
+#!/usr/bin/env python3
+"""Cierre del análisis (reparación del cierre, entrega 4.6). Reglas compartidas por pipeline.py, ficha.py e informe.py.
+
+1. Material auditado (incidencia I1). La fase C solo PROPONE el estado. En el paso 11 el pipeline escribe el material provisional
+   (`ficha_provisional.json`, `informe_provisional.md`); en el paso 13, antes de pedir la auditoría, fija la huella del material
+   sometido a revisión (`material_auditoria.json`: SHA-256 de cada artefacto y un identificador). El auditor copia ese
+   identificador en una línea `Material auditado: <id>`. El cierre oficial (paso 14, o `ficha.py` sin `--provisional` con
+   `concluido`) exige: veredicto APROBADO según la regla estricta de H2 (pipeline.Pipeline.veredicto_auditoria, sin cambios),
+   la línea de material igual al identificador fijado, y el material actual igual al fijado. Si cambia un artefacto, una
+   aprobación anterior no vale para la versión nueva.
+1b. Solicitud de auditoría (4.8.1, R-T1). La auditoría responde a una solicitud con identificador propio («Solicitud de auditoría:
+   SA-…»), registrada por el paso 13 y ligada al material fijado. Un cierre aprobado como respuesta a una solicitud exige que
+   auditoria.md sea esa respuesta (huella en estado_pipeline.json → auditoria_respuesta).
+2. Marca «con datos de etapa 1 incompletos» (I2): se activa solo por `entrada_v63.json → necesarios_para_listo_provisional`
+   no vacío (nunca por el texto «NO LISTO» ni por los no bloqueantes) y conserva la lista exacta de causas.
+3. Correspondencia D10 ↔ estado ↔ acción ↔ etiqueta de C104 (I3): tabla cerrada FUNDAMENTO_C104.
+4. Alcance declarado del expediente (I4): `alcance_v2.json`, metadato explícito; sin él no hay aviso.
+"""
+import glob
+import hashlib
+import json
+import os
+import re
+import unicodedata
+
+MARCA_ETAPA1 = "con datos de etapa 1 incompletos"
+LINEA_MATERIAL = re.compile(r"^[\s>*_-]*Material auditado[\s*_]*:[\s*_`]*([0-9a-f]{16})[\s*_`.]*$", re.I)
+MATERIAL_FIJO = ["fase_a.json", "fase_a.md", "fase_b.json", "fase_b.md", "fase_c.json", "fase_c.md", "extracto_v63.md", "datos_ausentes.json",
+                 "entrada_v63.json", "referencias_mecanicas.json", "resultados.json", "precio.json", "gramatica.json", "comprobacion_conjunta.json",
+                 "ficha_provisional.json", "informe_provisional.md", "alcance_v2.json"]
+
+
+# ---------- 1. material auditado ----------
+def _sha(p):
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def material(carpeta, empresa=None):
+    """{archivo: sha256} de los artefactos que se someten a la auditoría (los que existen) y su identificador."""
+    e = empresa or os.path.basename(os.path.abspath(carpeta))
+    nombres = MATERIAL_FIJO + [f"{e}_v63_evaluada.xlsx", f"{e}_v63_datos.xlsx"]
+    huellas = {n: _sha(os.path.join(carpeta, n)) for n in nombres if os.path.isfile(os.path.join(carpeta, n))}
+    ident = hashlib.sha256(json.dumps(sorted(huellas.items())).encode("utf-8")).hexdigest()[:16]
+    return ident, huellas
+
+
+def fijar_material(carpeta, empresa=None):
+    ident, huellas = material(carpeta, empresa)
+    json.dump({"id": ident, "archivos": huellas, "nota": "material sometido a la auditoría del paso 13; el auditor copia el id en «Material auditado: <id>»"},
+              open(os.path.join(carpeta, "material_auditoria.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return ident
+
+
+def material_fijado(carpeta):
+    p = os.path.join(carpeta, "material_auditoria.json")
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else None
+
+
+def id_en_auditoria(txt):
+    """Identificador de la línea «Material auditado: <id>»; None si falta o hay más de una."""
+    ids = [m.group(1).lower() for m in (LINEA_MATERIAL.match(l) for l in txt.replace("\\.", ".").splitlines()) if m]
+    return ids[0] if len(ids) == 1 else None
+
+
+# ---------- 1b. solicitud de auditoría (4.8.1, R-T1) ----------
+# Hasta la 4.8, el paso 13 aceptaba como respuesta cualquier auditoria.md con una fecha de modificación posterior a la del último
+# consumo: un informe antiguo con otra fecha (descompresión en otra zona horaria o con fechas renovadas) pasaba por una
+# respuesta nueva. Desde la 4.8.1, cada petición de auditoría es una SOLICITUD con un identificador propio, persistente en
+# estado_pipeline.json → solicitudes_auditoria y escrito en solicitud_auditoria.json y en el prompt. Una auditoría solo responde a
+# la solicitud cuyo identificador nombra («Solicitud de auditoría: SA-…»); si aprueba, nunca una auditoría ya conocida (huella o contenido).
+# Las fechas de los archivos no intervienen. La regla H2 (veredicto) y la vinculación al material no cambian.
+SOLICITUD_AUDITORIA = "solicitud_auditoria.json"
+LINEA_SOLICITUD = re.compile(r"^[\s>*_-]*Solicitud de auditor[ií]a[\s*_]*:[\s*_`]*(SA-[0-9a-f]{16})[\s*_`.]*$", re.I)
+
+
+def nueva_solicitud(material_id, motivo, ahora):
+    """Solicitud nueva: identificador imprevisible (no se deriva de ninguna auditoría existente) ligado al material fijado."""
+    semilla = f"{material_id}|{ahora}|{os.urandom(16).hex()}"
+    return {"id": "SA-" + hashlib.sha256(semilla.encode("utf-8")).hexdigest()[:16], "material": material_id, "creada": ahora,
+            "motivo": motivo, "estado": "pendiente", "respuesta_sha256": None, "respondida": None, "veredicto": None}
+
+
+def escribir_solicitud(carpeta, sol):
+    json.dump({"id": sol["id"], "material": sol["material"], "creada": sol["creada"], "motivo": sol.get("motivo"),
+               "nota": "solicitud de auditoría vigente del paso 13: el auditor copia el id en «Solicitud de auditoría: <id>» y el id de "
+                       "material_auditoria.json en «Material auditado: <id>». Una auditoría anterior, aunque se copie o cambie de fecha, no "
+                       "responde a esta solicitud."},
+              open(os.path.join(carpeta, SOLICITUD_AUDITORIA), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+def _nfkc(txt):
+    return unicodedata.normalize("NFKC", txt)
+
+
+def id_solicitud_en_auditoria(txt):
+    """Identificador de la línea «Solicitud de auditoría: SA-<16 hex>»; None si falta o hay más de una."""
+    ids = ["SA-" + m.group(1)[3:].lower() for m in (LINEA_SOLICITUD.match(l) for l in _nfkc(txt).replace("\\.", ".").splitlines()) if m]
+    return ids[0] if len(ids) == 1 else None
+
+
+def sha_archivo(p):
+    return _sha(p) if os.path.isfile(p) else None
+
+
+def _sin_diacriticos(s):
+    return "".join(c for c in unicodedata.normalize("NFKD", s) if unicodedata.category(c) != "Mn")
+
+
+def huella_contenido(txt):
+    """Huella del contenido de una auditoría sin la línea de solicitud y sin formato: el MULTICONJUNTO de sus palabras (secuencias de
+    letras y cifras), tras la forma Unicode NFKC, sin marcas diacríticas y con casefold. No cuentan los espacios, los saltos y cortes
+    de línea, la puntuación, los separadores, las marcas de markdown, las tildes ni el orden; sí cuenta cuántas veces aparece cada
+    palabra. Una auditoría ya usada a la que solo se añade la línea de una solicitud nueva o se cambia el formato tiene la misma.
+    (Auditoría interna de la 4.8.1, Y-a; control de vigencia, V-1; tercera revisión, W-1: el corte de las líneas no cuenta.)"""
+    lineas = [l for l in _nfkc(txt).replace("\\.", ".").splitlines() if not LINEA_SOLICITUD.match(l)]
+    palabras = re.findall(r"[^\W_]+", _sin_diacriticos("\n".join(lineas)).casefold())
+    return hashlib.sha256("\n".join(sorted(palabras)).encode("utf-8")).hexdigest()
+
+
+def leer_texto(ruta, limite=50_000_000):
+    """Texto de un archivo para buscar auditorías: UTF-8 (con o sin BOM), UTF-16 con BOM o, si no, cp1252; None si parece binario
+    (bytes NUL sin BOM UTF-16) o pasa de `limite`. (Tercera revisión de la 4.8.1, W-2.)"""
+    try:
+        if os.path.getsize(ruta) > limite:
+            return None
+        b = open(ruta, "rb").read()
+    except OSError:
+        return None
+    if b[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        try:
+            return b.decode("utf-16")
+        except UnicodeDecodeError:
+            return None
+    if b"\x00" in b[:65536]:
+        return None
+    for cod in ("utf-8-sig", "cp1252"):
+        try:
+            return b.decode(cod)
+        except UnicodeDecodeError:
+            continue
+    return None
+
+
+class RegistroAuditoriasIlegible(Exception):
+    """auditorias_conocidas.json existe y no se puede leer: no se acepta ninguna auditoría hasta restaurarlo (V-9)."""
+
+
+AUDITORIAS_CONOCIDAS = "auditorias_conocidas.json"
+
+
+def parece_auditoria(txt, veredicto=None):
+    """¿Es un texto de auditoría? Una línea «Material auditado: <id>», o un APROBADO según H2 si se pasa el lector (veredicto)."""
+    if any(LINEA_MATERIAL.match(l) for l in _nfkc(txt).replace("\\.", ".").splitlines()):
+        return True
+    return bool(veredicto) and veredicto(txt) == "APROBADO"
+
+
+EXTENSIONES_NO_TEXTO = (".xlsx", ".xls", ".pdf", ".zip", ".png", ".jpg", ".jpeg", ".gif", ".ods", ".odt", ".docx", ".pptx", ".gz", ".7z")
+
+
+def auditorias_del_expediente(carpeta, veredicto=None):
+    """Huellas (bytes y contenido) de todas las auditorías que hay en el expediente, con cualquier nombre y en cualquier subcarpeta:
+    todo archivo de texto (UTF-8, UTF-16 con BOM o cp1252; no binario; hasta 50 MB) que tenga una línea «Material auditado» o que H2
+    califique APROBADO, y la huella que
+    guarda cierre_vigente.json. (Auditoría interna de la 4.8.1, Y-b, y control de vigencia, V-2: la primera versión solo miraba
+    auditoria*.md de la carpeta y de historial_cierres/.)"""
+    shas, conts = set(), set()
+    for raiz, dirs, fs in os.walk(carpeta):
+        dirs[:] = [d for d in dirs if d not in ("__pycache__", ".lo_perfil")]
+        for f in fs:
+            r = os.path.join(raiz, f)
+            if f.lower().endswith(EXTENSIONES_NO_TEXTO) or not os.path.isfile(r):
+                continue
+            txt = leer_texto(r)
+            if txt is None:
+                continue
+            if parece_auditoria(txt, veredicto):
+                shas.add(_sha(r))
+                conts.add(huella_contenido(txt))
+    cv = _j(os.path.join(carpeta, CIERRE_VIGENTE)) or {}
+    if cv.get("auditoria_sha256"):
+        shas.add(cv["auditoria_sha256"])
+    return shas, conts
+
+
+def registro_auditorias(carpeta):
+    """Registro persistente de auditorías ya conocidas o usadas (auditorias_conocidas.json). Vive fuera de estado_pipeline.json:
+    --reiniciar no lo borra."""
+    p = os.path.join(carpeta, AUDITORIAS_CONOCIDAS)
+    if not os.path.exists(p):
+        return set(), set()
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+        s, c = d.get("sha256") or [], d.get("contenido") or []
+        if not (isinstance(s, list) and isinstance(c, list) and all(isinstance(x, str) for x in s + c)):
+            raise ValueError("«sha256» y «contenido» tienen que ser listas de huellas")  # (tercera revisión, W-3)
+        return set(s), set(c)
+    except (ValueError, OSError, AttributeError) as e:
+        raise RegistroAuditoriasIlegible(f"{AUDITORIAS_CONOCIDAS} no se puede leer ({e}): restaurarlo desde una copia; mientras tanto no se acepta ninguna auditoría") from e
+
+
+def anotar_auditorias(carpeta, shas, conts, motivo):
+    s0, c0 = registro_auditorias(carpeta)
+    s1, c1 = s0 | set(x for x in shas if x), c0 | set(x for x in conts if x)
+    if (s1, c1) != (s0, c0) or not os.path.exists(os.path.join(carpeta, AUDITORIAS_CONOCIDAS)):
+        json.dump({"nota": "huellas de auditorías ya conocidas o usadas en este expediente (4.8.1, R-T1): ninguna puede acreditar una aprobación que responda a una solicitud "
+                           "de auditoría nueva. Solo se añaden huellas; no se borra ninguna.", "ultimo_motivo": motivo,
+                   "sha256": sorted(s1), "contenido": sorted(c1)}, open(os.path.join(carpeta, AUDITORIAS_CONOCIDAS), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+def motivo_auditoria_no_corresponde(carpeta, txt, empresa=None):
+    """None si la auditoría nombra el material fijado y el material actual es ese; si no, el motivo."""
+    fij = material_fijado(carpeta)
+    if not fij:
+        return "no hay material_auditoria.json: el material no se fijó antes de pedir la auditoría"
+    ida = id_en_auditoria(txt)
+    if ida is None:
+        return "la auditoría no tiene exactamente una línea «Material auditado: <id>»"
+    if ida != fij["id"]:
+        return f"la auditoría corresponde al material {ida}, no al fijado {fij['id']}"
+    actual, huellas = material(carpeta, empresa)
+    if actual != fij["id"]:
+        cambiados = sorted(set(k for k in set(huellas) | set(fij["archivos"]) if huellas.get(k) != fij["archivos"].get(k)))
+        return f"el material cambió después de la auditoría ({', '.join(cambiados)}): la aprobación no vale para la versión nueva"
+    return None
+
+
+def motivo_rechazo_cierre(carpeta, veredicto, estado_pipeline=None, empresa=None):
+    """None si se puede confirmar el cierre oficial; si no, el motivo (I1). veredicto = pipeline.Pipeline.veredicto_auditoria."""
+    p = os.path.join(carpeta, "auditoria.md")
+    if not os.path.exists(p):
+        return "no hay auditoria.md"
+    txt = open(p, encoding="utf-8").read()
+    v = veredicto(txt)
+    if v != "APROBADO":
+        return f"la auditoría dice {v} (regla estricta de H2)"
+    st = estado_pipeline
+    if st is None and os.path.exists(os.path.join(carpeta, "estado_pipeline.json")):
+        st = json.load(open(os.path.join(carpeta, "estado_pipeline.json"), encoding="utf-8"))
+    if st is not None and st.get("auditoria") != "APROBADO":
+        return f"el pipeline no registró una auditoría APROBADO válida (auditoria = {st.get('auditoria')!r})"
+    if st is not None and st.get("material_auditoria") != (material_fijado(carpeta) or {}).get("id"):
+        return "el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
+    pend = [s for s in (st or {}).get("solicitudes_auditoria") or [] if s.get("estado") == "pendiente"]
+    if pend:
+        # (4.8.1, Y-h de la auditoría interna) con una auditoría nueva pedida, ninguna aprobación anterior cierra (tampoco ficha.py ni la vigencia)
+        return f"hay una solicitud de auditoría pendiente ({pend[-1]['id']}): el cierre exige su respuesta, no una aprobación anterior"
+    resp = (st or {}).get("auditoria_respuesta")
+    if resp:
+        # (4.8.1, R-T1) la aprobación registrada es la de una respuesta concreta a una solicitud: otro auditoria.md no la hereda. Se compara el
+        # contenido sin formato (Y-i: volver a guardar la misma respuesta con otros finales de línea no la anula)
+        if (resp.get("contenido") or "") != huella_contenido(txt) and resp.get("sha256") != sha_archivo(p):
+            return f"auditoria.md no es la respuesta registrada a la solicitud {resp.get('solicitud')} (contenido distinto)"
+    else:
+        cv = _j(os.path.join(carpeta, CIERRE_VIGENTE)) or {}
+        if cv.get("auditoria_sha256") and cv["auditoria_sha256"] != sha_archivo(p):
+            # (4.8.1, Y-g) cierre anterior a la 4.8.1: la auditoría que lo aprobó es la registrada en cierre_vigente.json
+            return "auditoria.md no es la auditoría registrada en cierre_vigente.json al cerrar (cierre anterior a la 4.8.1)"
+    return motivo_auditoria_no_corresponde(carpeta, txt, empresa)
+
+
+# ---------- 2. marca de datos de etapa 1 ----------
+def marca_etapa1(entrada):
+    """{"marca", "causas"} si faltan datos necesarios para LISTO · PROVISIONAL (y solo entonces); si no, None."""
+    nec = (entrada or {}).get("necesarios_para_listo_provisional") or []
+    if not nec:
+        return None
+    return {"marca": MARCA_ETAPA1, "causas": [dict(x) for x in nec],
+            "nota": "Limitación visible; no sustituye la revisión de materialidad (S-19): un dato material mantiene pendiente_de_datos."}
+
+
+# ---------- 3. correspondencia D10 ↔ C104 ----------
+# (estado, acción) → resultado de fundamento_material admitido → etiqueta visible de C104 («fundamento <etiqueta>»).
+# `no_procede` solo en los casos que D10 ya admite: conclusión no favorable concluida, o pendiente_de_datos por S-19.
+FUNDAMENTO_C104 = {
+    ("concluido", "comprar"): {"sin_limitacion": "lista vacía", "comprobacion_conjunta_superada": "comprobación conjunta superada"},
+    ("concluido", "esperar"): {"no_procede": "no procede (conclusión no favorable)"},
+    ("concluido", "descartar"): {"no_procede": "no procede (conclusión no favorable)"},
+    ("concluido", "demasiado_dificil"): {"no_procede": "no procede (conclusión no favorable)"},
+    ("pendiente_de_investigacion", None): {"pendiente_de_investigacion": "pendiente de investigación"},
+    ("pendiente_de_datos", None): {"no_procede": "pendiente de datos"},
+}
+ETIQUETAS_C104 = sorted({e for d in FUNDAMENTO_C104.values() for e in d.values()}, key=len, reverse=True)
+
+
+def etiqueta_fundamento(estado, accion, resultado):
+    """(etiqueta, None) si la combinación es admitida; (None, motivo) si es contradictoria o desconocida."""
+    fila = FUNDAMENTO_C104.get((estado, accion))
+    if fila is None:
+        return None, f"combinación estado {estado!r} · acción {accion!r} no admitida en el cierre"
+    if resultado not in fila:
+        return None, f"fundamento_material.resultado {resultado!r} no corresponde a estado {estado!r} · acción {accion!r} (admitidos: {', '.join(fila)})"
+    return fila[resultado], None
+
+
+def etiqueta_en_c104(c104):
+    """La etiqueta que sigue a «fundamento » en C104 si es una de las conocidas; «?» si hay otra cosa; None si no hay."""
+    m = re.search(r"·\s*fundamento\s+(.+?)\s*(?:·|$)", c104 or "")
+    if not m:
+        return None
+    t = m.group(1).strip()
+    for e in ETIQUETAS_C104:
+        if t == e or t.startswith(e + " "):
+            return e
+    return "?"
+
+
+def motivo_c104_fundamento(estado, accion, resultado, c104):
+    esperada, motivo = etiqueta_fundamento(estado, accion, resultado)
+    if motivo:
+        return motivo
+    vista = etiqueta_en_c104(c104)
+    if vista is None:
+        return f"C104 no lleva «fundamento {esperada}»"
+    if vista == "?":
+        return f"C104 lleva una etiqueta de fundamento desconocida (admitida aquí: «fundamento {esperada}»)"
+    if vista != esperada:
+        return f"C104 dice «fundamento {vista}» pero el JSON ({resultado}, {estado}, {accion}) exige «fundamento {esperada}»"
+    return None
+
+
+# ---------- 4. alcance declarado ----------
+def alcance(carpeta):
+    """Metadato explícito del expediente (alcance_v2.json). None si no existe; ValueError si está mal formado."""
+    p = os.path.join(carpeta, "alcance_v2.json")
+    if not os.path.exists(p):
+        return None
+    a = json.load(open(p, encoding="utf-8"))
+    if a.get("tipo") not in ("ensayo_exploratorio",) or not str(a.get("aviso") or "").strip() or not str(a.get("fuente") or "").strip():
+        raise ValueError("alcance_v2.json mal formado: hace falta tipo = ensayo_exploratorio, aviso y fuente no vacíos")
+    return a
+
+
+def linea_alcance(a):
+    return f"> **Alcance del expediente ({a['tipo'].replace('_', ' ')}):** {a['aviso'].strip()}" if a else None
+
+
+# ---------- 5. vigencia de las salidas oficiales (reparación 4.6.1) ----------
+# Una salida oficial cerrada por una auditoría (ficha.json con «cierre», o con estado concluido) solo es VIGENTE si la aprobación
+# sigue siendo válida para el material actual y la ficha (y el informe, si existe) son los registrados en cierre_vigente.json al
+# cerrar. Si no, se ARCHIVA en historial_cierres/<n>_<material>/ con RETIRADA.json (qué aprobación era, de qué material, por qué
+# se retira), la fila del resumen activo pasa a «SIN APROBACIÓN VIGENTE» y la fila anterior se conserva en resumen_v2_historial.csv,
+# y el estado del pipeline deja de decir «concluido». La auditoría que la aprobó no se borra ni cambia: era la aprobación de otro
+# material. Los estados tempranos sin auditoría (ficha sin «cierre» y estado ≠ concluido) no se tocan.
+CIERRE_VIGENTE = "cierre_vigente.json"
+SALIDAS_OFICIALES = ("ficha.json", "informe.md", CIERRE_VIGENTE)
+NO_VIGENTE = "SIN APROBACIÓN VIGENTE"
+
+
+def _j(p):
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else None
+
+
+def ruta_resumen(carpeta, cfg=None):
+    return (cfg or {}).get("resumen_csv") or os.path.join(os.path.dirname(os.path.abspath(carpeta)), "resumen_v2.csv")
+
+
+def ficha_cerrada(F):
+    """¿La ficha oficial dice que hubo un cierre con auditoría (o que está concluida)? Entonces exige vigencia."""
+    return bool(F) and (bool(F.get("cierre")) or F.get("estado_analisis") == "concluido")
+
+
+def registrar_cierre(carpeta):
+    """Lo llama ficha.py al escribir una ficha oficial cerrada con una aprobación válida."""
+    F = _j(os.path.join(carpeta, "ficha.json")) or {}
+    aud = os.path.join(carpeta, "auditoria.md")
+    json.dump({"material_auditado": (F.get("cierre") or {}).get("material_auditado"), "estado_analisis": F.get("estado_analisis"),
+               "ficha_sha256": _sha(os.path.join(carpeta, "ficha.json")), "informe_sha256": None,
+               "auditoria_sha256": _sha(aud) if os.path.exists(aud) else None,
+               "nota": "salidas oficiales vigentes de este material; si cambia el material o la aprobación, se archivan"},
+              open(os.path.join(carpeta, CIERRE_VIGENTE), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+def registrar_informe(carpeta):
+    cv = _j(os.path.join(carpeta, CIERRE_VIGENTE))
+    if cv is not None:
+        cv["informe_sha256"] = _sha(os.path.join(carpeta, "informe.md"))
+        json.dump(cv, open(os.path.join(carpeta, CIERRE_VIGENTE), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+def motivo_vigencia(carpeta, veredicto, empresa=None, comprobar_informe=True):
+    """None si no hay salida oficial cerrada o si es vigente; si no, el motivo por el que no lo es."""
+    F = _j(os.path.join(carpeta, "ficha.json"))
+    if not ficha_cerrada(F):
+        return None
+    m = motivo_rechazo_cierre(carpeta, veredicto, None, empresa)
+    if m:
+        return m
+    cv = _j(os.path.join(carpeta, CIERRE_VIGENTE))
+    if not cv:
+        return f"no hay {CIERRE_VIGENTE}: la ficha oficial no está ligada a ninguna aprobación registrada"
+    fij = (material_fijado(carpeta) or {}).get("id")
+    if cv.get("material_auditado") != fij or (F.get("cierre") or {}).get("material_auditado") != fij:
+        return f"la ficha oficial pertenece a la aprobación del material {(F.get('cierre') or {}).get('material_auditado')}, no al material aprobado vigente {fij}"
+    if _sha(os.path.join(carpeta, "ficha.json")) != cv.get("ficha_sha256"):
+        return "ficha.json no es la ficha registrada al cerrar (cambió después del cierre)"
+    inf = os.path.join(carpeta, "informe.md")
+    if comprobar_informe and cv.get("informe_sha256") and os.path.exists(inf) and _sha(inf) != cv["informe_sha256"]:
+        return "informe.md no es el informe registrado al cerrar (cambió después del cierre)"
+    return None
+
+
+def _retirar_fila(csv_path, empresa, material, motivo):
+    import csv
+    if not csv_path or not os.path.exists(csv_path):
+        return False
+    with open(csv_path, encoding="utf-8", newline="") as fh:
+        rd = csv.DictReader(fh)
+        cols, filas = rd.fieldnames, list(rd)
+    mias = [r for r in filas if r.get("empresa") == empresa]
+    if not mias or all((r.get("verificacion") or "").startswith(NO_VIGENTE) for r in mias):
+        return False
+    hist = os.path.join(os.path.dirname(csv_path), "resumen_v2_historial.csv")
+    hcols = list(cols) + ["retirada_motivo", "material_auditado"]
+    nuevo = not os.path.exists(hist)
+    with open(hist, "a", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=hcols)
+        if nuevo:
+            w.writeheader()
+        for r in mias:
+            if not (r.get("verificacion") or "").startswith(NO_VIGENTE):
+                w.writerow(dict(r, retirada_motivo=motivo[:300], material_auditado=material or ""))
+    activa = {k: "" for k in cols}
+    activa.update({"empresa": empresa, "fecha": mias[-1].get("fecha", ""),
+                   "verificacion": f"{NO_VIGENTE} · cierre anterior (APROBADO del material {material or 'sin registrar'}) archivado en resumen_v2_historial.csv"})
+    filas = [r for r in filas if r.get("empresa") != empresa] + [activa]
+    with open(csv_path, "w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        for r in filas:
+            w.writerow({k: r.get(k, "") for k in cols})
+    return True
+
+
+def archivar_salidas(carpeta, motivo, csv_path=None, st=None):
+    """Archiva las salidas oficiales presentes como antecedente (conservando el historial), retira la fila activa del resumen y
+    deja el estado del pipeline sin cierre. Devuelve la carpeta del archivo o None si no había nada que archivar."""
+    import datetime as _dt
+    import shutil
+    presentes = [f for f in SALIDAS_OFICIALES if os.path.exists(os.path.join(carpeta, f))]
+    if not presentes:
+        return None
+    F = _j(os.path.join(carpeta, "ficha.json")) or {}
+    cv = _j(os.path.join(carpeta, CIERRE_VIGENTE)) or {}
+    mat = (F.get("cierre") or {}).get("material_auditado") or cv.get("material_auditado")
+    base = os.path.join(carpeta, "historial_cierres")
+    os.makedirs(base, exist_ok=True)
+    n = 1 + len([x for x in os.listdir(base) if os.path.isdir(os.path.join(base, x))])
+    destino = os.path.join(base, f"{n:02d}_{mat or 'sin_material'}")
+    os.makedirs(destino)
+    for f in presentes:
+        shutil.move(os.path.join(carpeta, f), os.path.join(destino, f))
+    if os.path.exists(os.path.join(carpeta, "auditoria.md")):
+        shutil.copy2(os.path.join(carpeta, "auditoria.md"), os.path.join(destino, "auditoria_en_el_momento_de_la_retirada.md"))
+    actual, _ = material(carpeta)
+    reg = {"retirada": _dt.datetime.now().isoformat(timespec="seconds"), "motivo": motivo, "material_auditado_en_la_aprobacion": mat,
+           "material_actual": actual, "estado_que_presentaba": F.get("estado_analisis"), "archivos": presentes,
+           "nota": (f"Aprobación histórica del material {mat}, distinto del actual {actual}: no acredita la versión actual. " if mat and mat != actual else
+                    f"Salida oficial que ya no está respaldada por una aprobación válida del material actual ({motivo[:120]}): no acredita la versión actual. ")
+                   + "La auditoría que la aprobó no se ha borrado ni cambiado" + (" (copia en este archivo)." if os.path.exists(os.path.join(carpeta, "auditoria.md")) else "; en el momento de la retirada no había auditoria.md en el expediente.")}
+    json.dump(reg, open(os.path.join(destino, "RETIRADA.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if F.get("empresa"):
+        # (4.7) en todos los destinos registrados y en el que se pase; un destino inaccesible queda como retirada pendiente
+        retirar_publicaciones(carpeta, motivo, csv_path, F["empresa"], mat)
+    ep = os.path.join(carpeta, "estado_pipeline.json")
+    propio = st is None
+    if propio:
+        st = _j(ep)
+    if st is not None:
+        if st.get("estado_analisis") in ("concluido", "pendiente_de_investigacion", "pendiente_de_datos") and ficha_cerrada(F):
+            st["estado_analisis"] = None
+            st["paso"] = min(st.get("paso", 13), 13)
+        aud_reg = st.get("auditoria")
+        if aud_reg == "APROBADO" and ficha_cerrada(F):
+            st["auditoria"] = None  # la aprobación registrada era la del cierre archivado: no acredita el material actual
+        st.setdefault("cierres_archivados", []).append({"carpeta": os.path.relpath(destino, carpeta), "material_auditado": mat, "auditoria_registrada": aud_reg, "motivo": motivo[:300]})
+        st.setdefault("historial", []).append(f"{reg['retirada']} · salidas oficiales archivadas en {os.path.relpath(destino, carpeta)}: {motivo[:200]}")
+        if propio:
+            json.dump(st, open(ep, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return destino
+
+
+def asegurar_vigencia(carpeta, veredicto, empresa=None, csv_path=None, st=None, comprobar_informe=True):
+    """Si hay salidas oficiales cerradas que ya no son vigentes, las archiva. Devuelve (motivo, carpeta_archivo) o (None, None)."""
+    m = motivo_vigencia(carpeta, veredicto, empresa, comprobar_informe)
+    if not m:
+        return None, None
+    return m, archivar_salidas(carpeta, m, csv_path, st)
+
+
+# ---------- 6. destinos del resumen (reparación 4.7) ----------
+# Cada publicación de una fila de una ficha cerrada queda registrada en publicaciones_resumen.json, dentro del expediente y fuera de
+# las salidas oficiales (no se archiva con ellas), con un respaldo (.publicaciones_resumen.respaldo.json): destino efectivo (ruta
+# absoluta), empresa, expediente (ruta real) y material aprobado. Toda invalidación retira la aprobación en TODOS los destinos
+# registrados (y en el que se pase), aunque la ficha, el informe y cierre_vigente.json ya estén archivados. No se buscan CSV fuera
+# del registro (salvo la traslación de rutas de abajo, que solo mira la ruta equivalente de un destino ya registrado).
+#   - Destino inaccesible (error de escritura o carpeta ausente): «retirada_pendiente» (código operativo 5), reintento en la llamada
+#     siguiente. CSV ausente en una carpeta accesible: «sin_archivo», vigilado en cada sincronización.
+#   - Identidad (auditorías internas de la 4.7, H-2, C-1, C-2): el registro lleva un registro_id. Una entrada cuyo expediente no es
+#     este se interpreta así: si en esa ruta sigue existiendo un expediente con un registro del MISMO registro_id, este expediente es
+#     una COPIA del original vivo: se registran como propios los destinos equivalentes (ruta trasladada) que existan y sean distintos
+#     de los del original, la copia recibe un registro_id nuevo y las entradas del original pasan a «heredadas_del_original» (no se
+#     tocan sus filas). Si no (ruta ausente, otro expediente u otro registro): este expediente es el original TRASLADADO o renombrado:
+#     adopta las entradas y, para cada destino, usa la ruta trasladada si existe y, si no, la registrada.
+#   - Salida humana para un destino que no volverá: la persona responsable puede poner en la entrada estado «descartada» con
+#     «descartado_por» y «fecha_descarte» no vacíos (Claude no lo hace); esa entrada deja de bloquear. Un descarte incompleto
+#     sigue como retirada pendiente.
+#   - Traslado: solo se traslada un destino cuya carpeta registrada ya no está accesible (F-1).
+#   - El resumen predeterminado del expediente es siempre un destino conocido (F-2).
+#   - Registro ilegible: retirada pendiente (código 5), sin sobrescribirlo; aun así se retira el destino conocido de la llamada y,
+#     si el respaldo es legible, los destinos del respaldo. Registro ausente: se usa el respaldo, con aviso.
+#   - Escritura atómica (temporal y os.replace).
+REGISTRO_RESUMEN = "publicaciones_resumen.json"
+RESPALDO_RESUMEN = ".publicaciones_resumen.respaldo.json"
+_VIVOS = ("publicada", "retirada_pendiente", "sin_archivo")
+AVISOS_REGISTRO = []  # avisos ya impresos (salida de error) en este proceso
+
+
+class RegistroIlegible(Exception):
+    def __init__(self, msg, respaldo=None):
+        super().__init__(msg)
+        self.respaldo = respaldo
+
+
+def _ruta_exp(carpeta):
+    return os.path.realpath(carpeta)
+
+
+def _cargar(ruta):
+    reg = json.load(open(ruta, encoding="utf-8"))
+    if not isinstance(reg, dict) or not isinstance(reg.get("publicaciones"), list):
+        raise ValueError("estructura no válida")
+    return reg
+
+
+def _leer_registro(carpeta):
+    vacio = {"nota": "destinos del resumen en los que se publicó una fila de una ficha cerrada (reparación 4.7)", "publicaciones": []}
+    principal, respaldo = os.path.join(carpeta, REGISTRO_RESUMEN), os.path.join(carpeta, RESPALDO_RESUMEN)
+    rres = None
+    if os.path.exists(respaldo):
+        try:
+            rres = _cargar(respaldo)
+        except (ValueError, OSError):
+            rres = None
+    if os.path.exists(principal):
+        try:
+            return _cargar(principal)
+        except (ValueError, OSError) as err:
+            raise RegistroIlegible(f"{REGISTRO_RESUMEN} ilegible ({type(err).__name__}: {err}); se conserva sin tocar: hay que restaurarlo"
+                                   + (" (el respaldo es legible)" if rres else ""), rres) from err
+    if os.path.exists(respaldo):
+        if rres is None:
+            raise RegistroIlegible(f"{REGISTRO_RESUMEN} no existe y {RESPALDO_RESUMEN} es ilegible: hay que restaurarlo")
+        aviso = f"AVISO: {REGISTRO_RESUMEN} no existía en {carpeta}: se ha recuperado del respaldo"
+        if aviso not in AVISOS_REGISTRO:
+            AVISOS_REGISTRO.append(aviso)
+            import sys as _sys
+            print(aviso, file=_sys.stderr)
+        rres.setdefault("avisos", []).append(f"{REGISTRO_RESUMEN} no existía: recuperado del respaldo")
+        return rres
+    return vacio
+
+
+def _guardar_registro(carpeta, reg):
+    reg.setdefault("registro_id", _nuevo_id())
+    for nombre in (REGISTRO_RESUMEN, RESPALDO_RESUMEN):
+        tmp = os.path.join(carpeta, nombre + ".tmp")
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(reg, fh, ensure_ascii=False, indent=1)
+        os.replace(tmp, os.path.join(carpeta, nombre))
+
+
+def _nuevo_id():
+    import uuid
+    return uuid.uuid4().hex
+
+
+def _registro_id_en(ruta_exp):
+    for nombre in (REGISTRO_RESUMEN, RESPALDO_RESUMEN):
+        try:
+            return _cargar(os.path.join(ruta_exp, nombre)).get("registro_id")
+        except (ValueError, OSError):
+            continue
+    return "sin registro"
+
+
+def _trasladar(csv, desde, hasta):
+    return os.path.normpath(os.path.join(hasta, os.path.relpath(csv, desde)))
+
+
+def _propias(reg, carpeta):
+    """Entradas de este expediente, resolviendo copias y traslados (ver la cabecera de la sección). Modifica `reg`."""
+    exp = _ruta_exp(carpeta)
+    mi_id = reg.get("registro_id")
+    out, heredadas = [], []
+    for e in list(reg["publicaciones"]):
+        r = e.get("expediente")
+        if not r or os.path.realpath(r) == exp:
+            out.append(e)
+            continue
+        if mi_id is not None and os.path.isdir(r) and _registro_id_en(r) == mi_id:  # (final, F-5a) sin registro_id no hay copia reconocible
+            # copia del original vivo: solo los destinos equivalentes de la copia, distintos de los del original
+            heredadas.append(e)
+            reg["publicaciones"].remove(e)
+            nuevo = _trasladar(e["csv"], r, exp)
+            if nuevo != e["csv"] and os.path.exists(nuevo) and not any(x["csv"] == nuevo and x["empresa"] == e["empresa"] for x in reg["publicaciones"]):
+                c = {k: v for k, v in e.items() if k not in ("trasladado_desde",)}
+                c.update({"csv": nuevo, "expediente": exp, "heredada_de_la_copia": {"expediente": r, "csv": e["csv"]}})
+                reg["publicaciones"].append(c)
+                out.append(c)
+        else:
+            # original trasladado o renombrado
+            nuevo = _trasladar(e["csv"], r, exp)
+            e.setdefault("trasladado_desde", []).append({"expediente": r, "csv": e["csv"]})
+            e["expediente"] = exp
+            # (final, F-1) solo se traslada un destino cuya carpeta registrada ya no está accesible; si lo está, se conserva el registrado
+            if nuevo != e["csv"] and not os.path.isdir(os.path.dirname(e["csv"])) and os.path.isdir(os.path.dirname(nuevo)):
+                e["csv"] = nuevo
+            out.append(e)
+    if heredadas:
+        reg.setdefault("heredadas_del_original", []).extend(heredadas)
+        reg["copia_de"] = {"registro_id": mi_id, "expediente": heredadas[0].get("expediente")}
+        reg["registro_id"] = _nuevo_id()
+    return [e for e in out if not _descartada(e)]
+
+
+def _viva(e):
+    """Entrada que todavía puede presentar una aprobación: publicada, pendiente, sin archivo o con un descarte INCOMPLETO (F-3)."""
+    return e.get("estado") in _VIVOS or (e.get("estado") == "descartada" and not _descartada(e))
+
+
+def _descartada(e):
+    return e.get("estado") == "descartada" and e.get("descartado_por") and e.get("fecha_descarte")
+
+
+def registrar_publicacion(carpeta, csv_path, empresa, material_auditado):
+    import datetime as _dt
+    reg = _leer_registro(carpeta)
+    ruta = os.path.abspath(csv_path)
+    exp = _ruta_exp(carpeta)
+    e = next((x for x in _propias(reg, carpeta) if x["csv"] == ruta and x["empresa"] == empresa), None)
+    if e is None:
+        e = {"csv": ruta, "empresa": empresa, "expediente": exp}
+        reg["publicaciones"].append(e)
+    e.update({"material_auditado": material_auditado, "estado": "publicada", "fecha": _dt.datetime.now().isoformat(timespec="seconds"), "error": None})
+    _guardar_registro(carpeta, reg)
+
+
+def _retirar_en(objetivos, motivo):
+    pendientes = []
+    for e in objetivos:
+        try:
+            if not os.path.isdir(os.path.dirname(e["csv"])):
+                raise FileNotFoundError(f"la carpeta del destino no está accesible: {os.path.dirname(e['csv'])}")
+            if not os.path.exists(e["csv"]):
+                e["estado"], e["error"] = "sin_archivo", "el CSV no existe en una carpeta accesible: se vuelve a comprobar en cada sincronización"
+                continue
+            _retirar_fila(e["csv"], e["empresa"], e.get("material_auditado"), motivo)
+            e["estado"], e["error"] = "retirada", None
+            e["retirada_motivo"] = motivo[:300]
+        except OSError as err:
+            e["estado"], e["error"] = "retirada_pendiente", f"{type(err).__name__}: {err}"
+            pendientes.append(e["csv"])
+    return pendientes
+
+
+def retirar_publicaciones(carpeta, motivo, csv_extra=None, empresa_extra=None, material_extra=None, conservar_material=None):
+    """Retira la aprobación en los destinos registrados (salvo los del material `conservar_material`, si es el vigente) y en
+    `csv_extra`. Devuelve la lista de destinos con la retirada pendiente."""
+    exp = _ruta_exp(carpeta)
+    extra = {"csv": os.path.abspath(csv_extra), "empresa": empresa_extra, "expediente": exp, "material_auditado": material_extra, "estado": "publicada",
+             "fecha": None, "error": None, "registrado_en_la_retirada": True} if csv_extra and empresa_extra else None
+    try:
+        reg = _leer_registro(carpeta)
+    except RegistroIlegible as err:
+        # (C-3) el registro no se toca, pero se retira lo que se conoce: el destino de la llamada y, si es legible, el respaldo
+        objetivos = ([extra] if extra else []) + [e for e in ((err.respaldo or {}).get("publicaciones") or []) if _viva(e)
+                                                     and os.path.realpath(e.get("expediente") or "") == exp and not (conservar_material and e.get("material_auditado") == conservar_material)]
+        pend = _retirar_en(objetivos, motivo)
+        return [f"{REGISTRO_RESUMEN}: {err}"] + pend
+    propias = _propias(reg, carpeta)
+    objetivos = [e for e in propias if _viva(e) and not (conservar_material and e.get("material_auditado") == conservar_material)]
+    if extra:
+        previa = next((e for e in propias if e["csv"] == extra["csv"] and e["empresa"] == empresa_extra), None)
+        if previa is None:
+            reg["publicaciones"].append(extra)
+            objetivos.append(extra)
+        elif previa not in objetivos:
+            # (4.7.1, W-f de la auditoría interna) el destino de la llamada ya estaba registrado como retirado (o como el del material
+            # vigente) y su fila aprobada ha reaparecido (p. ej., al restaurar una copia de seguridad): se vuelve a retirar
+            objetivos.append(previa)
+    pendientes = _retirar_en(objetivos, motivo)
+    _guardar_registro(carpeta, reg)
+    return pendientes
+
+
+def sincronizar_resumenes(carpeta, veredicto, empresa=None):
+    """Si no hay una salida oficial cerrada VIGENTE, retira la aprobación en todos los destinos registrados; si la hay, solo en los
+    registrados para otro material. Devuelve los destinos con la retirada pendiente."""
+    F = _j(os.path.join(carpeta, "ficha.json"))
+    vigente = ficha_cerrada(F) and motivo_vigencia(carpeta, veredicto, empresa) is None
+    conservar = (F.get("cierre") or {}).get("material_auditado") if vigente else None
+    motivo = "sin salida oficial vigente que respalde la aprobación publicada" if not vigente else "aprobación de un material distinto del vigente"
+    # (final, F-2; vigencia, V-1 y V-2; 4.7.1, W-1 y W-a) el resumen predeterminado (junto a la ubicación ACTUAL del expediente) es
+    # un destino conocido para una aprobación publicada allí sin registrar (anterior a la 4.7). Se DETECTA como en la 4.7: fila
+    # APROBADO de la empresa con la fecha de una ficha cerrada que este expediente archivó (la fecha se lee también en los formatos
+    # que deja una hoja de cálculo). El contenido publicado solo sirve para EXCLUIR la fila de la ficha oficial vigente, si la hay,
+    # con los números comparados con tolerancia; si la exclusión falla, la fila se retira y resumen.py la vuelve a publicar (sentido
+    # conservador). La empresa sale de la ficha, nunca del nombre de la carpeta que pasa el pipeline. Se calcula antes de leer el
+    # registro, porque no depende de él (W-b: también con el registro ilegible).
+    archivadas = _fichas_cerradas_archivadas(carpeta)
+    emp = (F or {}).get("empresa") or (archivadas[0].get("empresa") if archivadas else None) or empresa
+    pred = os.path.join(os.path.dirname(os.path.abspath(carpeta)), "resumen_v2.csv")
+    origen = _fila_aprobada(pred, emp, archivadas, salvo=F if vigente else None) if emp else None
+    extra = (pred, emp, ((origen or {}).get("cierre") or {}).get("material_auditado")) if origen is not None else (None, None, None)
+    try:
+        reg = _leer_registro(carpeta)
+    except RegistroIlegible:
+        return retirar_publicaciones(carpeta, motivo, *extra, conservar_material=conservar)
+    antes = json.dumps(reg, sort_keys=True)
+    propias = _propias(reg, carpeta)
+    if json.dumps(reg, sort_keys=True) != antes:
+        _guardar_registro(carpeta, reg)  # copia o traslado resueltos: se fija el resultado
+    if origen is None and not any(_viva(e) and not (conservar and e.get("material_auditado") == conservar) for e in propias):
+        return []
+    return retirar_publicaciones(carpeta, motivo, *extra, conservar_material=conservar)
+
+
+def _num(v):
+    """Número de una celda del resumen (o de la ficha), también con coma decimal; None si no es un número."""
+    if isinstance(v, bool) or v is None:
+        return None
+    if isinstance(v, (int, float)):
+        return float(v)
+    s = str(v).strip()
+    try:
+        return float(s)
+    except ValueError:
+        pass
+    import re as _re
+    return float(s.replace(",", ".")) if _re.fullmatch(r"-?\d+,\d+", s) else None
+
+
+def _fechas(v):
+    """Fechas que puede representar un texto de fecha: ISO (la de la ficha) o los formatos habituales de una hoja de cálculo
+    (día/mes y mes/día se admiten los dos, porque el texto no permite distinguirlos)."""
+    import datetime as _dt
+    s = str(v or "").strip().split("T")[0].split(" ")[0]
+    out = set()
+    for fmt in ("%Y-%m-%d", "%Y/%m/%d", "%d/%m/%Y", "%m/%d/%Y", "%d/%m/%y", "%m/%d/%y", "%d.%m.%Y", "%d-%m-%Y"):
+        try:
+            out.add(_dt.datetime.strptime(s, fmt).date())
+        except ValueError:
+            pass
+    return out
+
+
+def _misma_fecha(v, fecha):
+    a, b = _fechas(v), _fechas(fecha)
+    if a and b:
+        return bool(a & b)
+    return bool(str(fecha or "").strip()) and str(v or "").strip() == str(fecha).strip()
+
+
+def _igual(v, x):
+    """Celda `v` del resumen frente al valor `x` de la ficha: números con tolerancia relativa de 1e-6; texto sin espacios de los extremos."""
+    if x is None or (isinstance(x, str) and not x.strip()):
+        return not str(v or "").strip()
+    a, b = _num(v), _num(x)
+    if a is not None and b is not None:
+        import math
+        return math.isclose(a, b, rel_tol=1e-6, abs_tol=1e-9)
+    return str(v or "").strip() == str(x).strip()
+
+
+def _fila_de(r, F):
+    """La fila `r` de un resumen presenta lo que publicó la ficha `F` (mismas columnas que resumen.py toma de la ficha), con los
+    números normalizados y la fecha en cualquiera de los formatos de _fechas (4.7.1, W-a)."""
+    esc = (F or {}).get("escalera") or {}
+    pares = {"estado_analisis": F.get("estado_analisis"), "precio": F.get("precio"), "moneda": F.get("moneda"),
+             "precio_si": esc.get("precio_si"), "ponderado": esc.get("ponderado"), "zona": esc.get("zona"),
+             "accion": (F.get("decision") or {}).get("accion"), "cubo_v2": F.get("cubo"), "motor": F.get("motor")}
+    fecha_ok = _misma_fecha(r.get("fecha"), F.get("fecha")) if F.get("fecha") else not (r.get("fecha") or "").strip()
+    return fecha_ok and all(_igual(r.get(k), x) for k, x in pares.items())
+
+
+def _fila_aprobada(csv_path, empresa, de_fichas, salvo=None):
+    """Ficha de `de_fichas` (cerradas y archivadas por este expediente) cuya aprobación sigue publicada en `csv_path`: fila APROBADO
+    de la empresa con su fecha que no es la de la ficha `salvo` (la oficial vigente, si la hay). None si no hay ninguna."""
+    import csv as _csv
+    try:
+        with open(csv_path, encoding="utf-8", newline="") as fh:
+            for r in _csv.DictReader(fh):
+                if (r.get("empresa") or "").strip() != empresa or (r.get("verificacion") or "").strip() != "APROBADO" or (salvo and _fila_de(r, salvo)):
+                    continue
+                A = next((A for A in de_fichas if _misma_fecha(r.get("fecha"), A.get("fecha"))), None)
+                if A is not None:
+                    return A
+    except (OSError, ValueError):
+        return None
+    return None
+
+
+def _fichas_cerradas_archivadas(carpeta):
+    """Fichas cerradas archivadas en historial_cierres/, de la más reciente a la más antigua."""
+    base = os.path.join(carpeta, "historial_cierres")
+    out = []
+    if os.path.isdir(base):
+        for d in sorted(os.listdir(base), reverse=True):
+            F = _j(os.path.join(base, d, "ficha.json"))
+            if F and ficha_cerrada(F):
+                out.append(F)
+    return out
+
+
+def retiradas_pendientes(carpeta):
+    try:
+        reg = _leer_registro(carpeta)
+    except RegistroIlegible as err:
+        return [f"{REGISTRO_RESUMEN}: {err}"]
+    return [e["csv"] for e in _propias(reg, carpeta) if e.get("estado") == "retirada_pendiente" or (e.get("estado") == "descartada" and not _descartada(e))]

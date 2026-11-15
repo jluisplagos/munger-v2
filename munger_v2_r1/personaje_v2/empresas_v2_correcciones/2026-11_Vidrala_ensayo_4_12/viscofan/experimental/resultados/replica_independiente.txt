@@ -1,0 +1,101 @@
+RÉPLICA INDEPENDIENTE · V6.4 experimental del motor B (encargo 4.11 §8)
+RESULTADO GLOBAL: 14 de 14 casos coinciden → TODOS COINCIDEN (código 0)
+directorio de casos: /tmp/replica412_ox76t75e
+manifiesto: sha256 75b7a6a67b89a748f23000b202ced7f454cff17d19dcbb14434544001a875ab3 · plantilla V6.4 experimental (sha256 None)
+casos: 14 · rechazados por la réplica: 0 · calculados: 14 · con referencia: 14
+tolerancias: valores y BK 1e-09 €/acción · flujos y conciliación 1e-09 × ventas de partida · parámetros 1e-12 · referencia: la de cada caso
+libros abiertos solo con data_only=True (valores); la réplica no lee fórmulas ni las columnas BU:DY del Motor
+AVISO: casos de un expediente real de la 4.12: no están en casos_v64.py (el contraste con los 117 casos no aplica)
+
+RESUMEN POR GRUPO (casos que pasan de los evaluados; «no aplican»: rechazos sin valores o casos sin referencia)
+  0 · entradas (libro = manifiesto = casos_v64.py): pasan 14 de 14 (0 no aplican) · comparaciones 868
+  1 · validez: pasan 14 de 14 (0 no aplican) · comparaciones 84
+  2 · valores (Análisis B78:D78, C83; Motor BK6:BK8): pasan 14 de 14 (0 no aplican) · comparaciones 98 · dif. máx. 9.948e-14 (estructura_SR2 · Análisis!D78 (V BUENO))
+  2b · parámetros de las filas 6–8 (añadido): pasan 14 de 14 (0 no aplican) · comparaciones 630 · dif. máx. 5.684e-14 (activa_expediente · Motor!M6 (ajuste))
+  2c · referencia de réplicas anteriores (V, ponderado, precio de Sí): pasan 14 de 14 (0 no aplican) · comparaciones 126 · dif. máx. 9.948e-14 (estructura_SR2 · referencia V BUENO frente a la réplica)
+  3 · flujos (Motor AU6:BD8 y BF6:BF8): pasan 14 de 14 (0 no aplican) · comparaciones 462 · dif. máx. 6.821e-13 (estructura_SR2 · Motor!BF8 (FCF BUENO año 11))
+  4 · conciliación («Conciliación B»): pasan 14 de 14 (0 no aplican) · comparaciones 4158 · dif. máx. 4.775e-12 (activa_expediente · Conciliación B!D37 (ventas NORMAL año 3))
+  5 · sensibilidad, tornado y DCF inverso (Motor 9–136): pasan 14 de 14 (0 no aplican) · comparaciones 15274 · dif. máx. 6.963e-13 (activa_expediente · Motor!BK132 (Inverso 76))
+  6 · identidades: pasan 14 de 14 (0 no aplican) · comparaciones 741 · dif. máx. 4.974e-14 (estructura_SRF · Conciliación B!F48 (Δcirculante SRF del libro frente al de S de la réplica))
+  flujos de las filas 9–136 (añadido al grupo 5): dif. máx. 1.364e-12 · filas comparadas 1694
+
+CASOS  (ent = entradas · val = validez · V = valores · par = parámetros · ref = referencia · fcf = flujos · con = conciliación · sens = filas 9–136 · id = identidades;
+        «—» = no aplica; dif = diferencia máxima libro − réplica: V y BK en €/acción, fcf y con en millones)
+  caso                                 ent   val   V     par   ref   fcf   con   sens  id       dif V  dif fcf  dif con   dif BK  resultado
+  activa_expediente                    ok    ok    ok    ok    ok    ok    ok    ok    ok     7.8e-14  5.7e-13  4.8e-12  7.0e-13  COINCIDE
+  activa                               ok    ok    ok    ok    ok    ok    ok    ok    ok     7.8e-14  5.7e-13  4.8e-12  7.0e-13  COINCIDE
+  activa_sin_PM1                       ok    ok    ok    ok    ok    ok    ok    ok    ok     8.5e-14  6.3e-13  4.8e-12  6.5e-13  COINCIDE
+  convencion_anios_alternativa         ok    ok    ok    ok    ok    ok    ok    ok    ok     8.5e-14  5.7e-13  4.8e-12  6.8e-13  COINCIDE
+  convencion_terminal_alternativa      ok    ok    ok    ok    ok    ok    ok    ok    ok     7.8e-14  6.3e-13  4.8e-12  6.8e-13  COINCIDE
+  estructura_H                         ok    ok    ok    ok    ok    ok    ok    ok    ok     8.5e-14  6.3e-13  4.8e-12  6.5e-13  COINCIDE
+  estructura_S                         ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  6.3e-13  4.8e-12  5.7e-13  COINCIDE
+  estructura_SR2                       ok    ok    ok    ok    ok    ok    ok    ok    ok     9.9e-14  6.8e-13  4.8e-12  7.0e-13  COINCIDE
+  estructura_SRF                       ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  6.0e-13  4.8e-12  6.4e-13  COINCIDE
+  heredado                             ok    ok    ok    ok    ok    ok    ok    ok    ok     5.0e-14  5.1e-13  4.8e-12  5.1e-13  COINCIDE
+  parametro_maximo                     ok    ok    ok    ok    ok    ok    ok    ok    ok     9.9e-14  6.0e-13  4.8e-12  6.7e-13  COINCIDE
+  parametro_minimo                     ok    ok    ok    ok    ok    ok    ok    ok    ok     8.5e-14  6.3e-13  4.8e-12  6.5e-13  COINCIDE
+  solo_N1                              ok    ok    ok    ok    ok    ok    ok    ok    ok     7.8e-14  6.3e-13  4.8e-12  6.5e-13  COINCIDE
+  solo_R1                              ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  5.1e-13  4.8e-12  4.8e-13  COINCIDE
+
+MODELO ACTIVO DE CADA CASO (según la réplica, a partir de las celdas de entrada)
+  activa_expediente                    Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=0.5 años planos term. ∝ventas
+  activa                               Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=0.5 años planos term. ∝ventas
+  activa_sin_PM1                       Exp · t=0.2212 vinc. · m0=0.1636 · R1
+  convencion_anios_alternativa         Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=0.5 años ∝ventas term. ∝ventas
+  convencion_terminal_alternativa      Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=0.5 años planos term. ×(1+g)
+  estructura_H                         Exp · t=0.2212 vinc. · m0=0.1636 · R1 · H θ=0.5 años planos term. ∝ventas
+  estructura_S                         Exp · t=0.2212 vinc. · m0=0.1636 · R1 · S θ=0.5 años planos term. ∝ventas
+  estructura_SR2                       Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR2 θ=0.5 años planos term. ∝ventas
+  estructura_SRF                       Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SRF θ=0.5 años planos term. ∝ventas
+  heredado                             Heredado
+  parametro_maximo                     Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=1 años planos term. ∝ventas
+  parametro_minimo                     Exp · t=0.2212 vinc. · m0=0.1636 · R1 · SR1 θ=0 años planos term. ∝ventas
+  solo_N1                              Exp · t=0.2212 vinc. · m0=0.1636 · R0
+  solo_R1                              Exp · t=0.1983 · m0=0.1636 · R1
+
+VALORES DE LA RÉPLICA (€/acción)
+  caso                                       V MALO     V NORMAL      V BUENO    ponderado  precio de Sí           P* tope NORMAL
+  activa_expediente                       30.692453    44.854708    59.995913    43.585325     39.287701    39.287701 no
+  activa                                  30.692453    44.854708    59.995913    43.585325     39.287701    39.287701 no
+  activa_sin_PM1                          31.766022    45.884833    61.170230    44.647940     40.353967    40.353967 no
+  convencion_anios_alternativa            30.662766    44.717968    59.772204    43.462303     39.195791    39.195791 no
+  convencion_terminal_alternativa         30.751511    45.148582    60.523391    43.855536     39.487527    39.487527 no
+  estructura_H                            31.766022    45.884833    61.170230    44.647940     40.353967    40.353967 no
+  estructura_S                            30.547320    44.334664    59.325548    43.136461     38.940080    38.940080 no
+  estructura_SR2                          30.871884    45.325818    60.766405    44.028422     39.642910    39.642910 no
+  estructura_SRF                          31.580595    47.061741    62.848654    45.559492     40.899859    40.899859 no
+  heredado                                32.898344    47.560045    63.326462    46.259582     41.805836    41.805836 no
+  parametro_maximo                        29.618884    43.824583    58.821596    42.522710     38.221435    38.221435 no
+  parametro_minimo                        31.766022    45.884833    61.170230    44.647940     40.353967    40.353967 no
+  solo_N1                                 31.766022    45.884833    61.170230    44.647940     40.353967    40.353967 no
+  solo_R1                                 32.898344    47.560045    63.326462    46.259582     41.805836    41.805836 no
+
+PRECIO DE SÍ FRENTE A LA REFERENCIA (k = 3; convención: min(P*, V NORMAL))
+  activa_expediente                      réplica 39.287700870505 · referencia 39.287700870505 · dif. 4.97e-14 · tol 1e-09 · Viscofan/precio.json
+  activa                                 réplica 39.287700870505 · referencia 39.287700870505 · dif. 4.97e-14 · tol 1e-09 · Viscofan/variantes_v64/activa.precio.json
+  activa_sin_PM1                         réplica 40.353967091243 · referencia 40.353967091244 · dif. 7.11e-14 · tol 1e-09 · Viscofan/variantes_v64/activa_sin_PM1.precio.json
+  convencion_anios_alternativa           réplica 39.195790524950 · referencia 39.195790524950 · dif. 4.26e-14 · tol 1e-09 · Viscofan/variantes_v64/convencion_anios_alternativa.precio.json
+  convencion_terminal_alternativa        réplica 39.487527358721 · referencia 39.487527358721 · dif. 4.97e-14 · tol 1e-09 · Viscofan/variantes_v64/convencion_terminal_alternativa.precio.json
+  estructura_H                           réplica 40.353967091243 · referencia 40.353967091244 · dif. 7.11e-14 · tol 1e-09 · Viscofan/variantes_v64/estructura_H.precio.json
+  estructura_S                           réplica 38.940080424022 · referencia 38.940080424022 · dif. 4.26e-14 · tol 1e-09 · Viscofan/variantes_v64/estructura_S.precio.json
+  estructura_SR2                         réplica 39.642909571420 · referencia 39.642909571420 · dif. 2.84e-14 · tol 1e-09 · Viscofan/variantes_v64/estructura_SR2.precio.json
+  estructura_SRF                         réplica 40.899859496457 · referencia 40.899859496457 · dif. 3.55e-14 · tol 1e-09 · Viscofan/variantes_v64/estructura_SRF.precio.json
+  heredado                               réplica 41.805835837020 · referencia 41.805835837021 · dif. 2.84e-14 · tol 1e-09 · Viscofan/variantes_v64/heredado.precio.json
+  parametro_maximo                       réplica 38.221434649766 · referencia 38.221434649766 · dif. 3.55e-14 · tol 1e-09 · Viscofan/variantes_v64/parametro_maximo.precio.json
+  parametro_minimo                       réplica 40.353967091243 · referencia 40.353967091244 · dif. 7.11e-14 · tol 1e-09 · Viscofan/variantes_v64/parametro_minimo.precio.json
+  solo_N1                                réplica 40.353967091243 · referencia 40.353967091244 · dif. 7.11e-14 · tol 1e-09 · Viscofan/variantes_v64/solo_N1.precio.json
+  solo_R1                                réplica 41.805835837020 · referencia 41.805835837021 · dif. 2.13e-14 · tol 1e-09 · Viscofan/variantes_v64/solo_R1.precio.json
+
+RECHAZOS (motivos de la réplica · motivo del libro en «Configuración V6.4»!B8 · motivo esperado)
+
+IDENTIDADES
+  crédito = 0 fuera de H (años y terminal; libro y réplica): 13 casos
+  0 ≤ crédito ≤ min(req, max(0, fija)) en H (libro y réplica): 1 casos
+  Δcirculante de SRF = el de S, fila a fila: 1 casos SRF · con libro S homólogo 1 · solo con la variante S de la réplica 0
+  Rh = 0 ⇒ SRF = S: (ningún caso)
+  θ = 0 ⇒ f = 1: parametro_minimo (f = 1; libro homólogo sin requisito: activa_sin_PM1)
+
+DISCREPANCIAS
+  (ninguna)
+
+RESULTADO GLOBAL: 14 de 14 casos coinciden → TODOS COINCIDEN (código 0)

@@ -1,0 +1,563 @@
+{
+ "codigo": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_9/reproduccion/codigo_4_8_1",
+ "pruebas": [
+  {
+   "grupo": "A cierre base por respuesta a una solicitud",
+   "prueba": "--desde 13 pide la auditoría (código 10); la respuesta sintética válida cierra (código 0, concluido · paso 14) y se publica en un destino configurado",
+   "pasa": true,
+   "detalle": "10 0 0 · estado final: concluido · paso 14"
+  },
+  {
+   "grupo": "A cierre base por respuesta a una solicitud",
+   "prueba": "la respuesta aceptada queda registrada con su solicitud, su material y su huella fiel (contenido y orden)",
+   "pasa": false,
+   "detalle": "{'solicitud': 'SA-07e0e6af45a10c6', 'sha256': '47397df8dc6bdcbd16', 'contenido': '0bb570e5e129ac98da', 'material': '74b94f8072dd58c1'}"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud cambiada por otra · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «nombra la solicitud SA-0123456789abcdef»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud cambiada por otra · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «nombra la solicitud SA-0123456789abcdef»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud cambiada por otra · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «nombra la solicitud SA-0123456789abcdef»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud cambiada por otra · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «nombra la solicitud SA-0123456789abcdef»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud eliminada · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «no tiene ninguna línea «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud eliminada · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «no tiene ninguna línea «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud eliminada · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «no tiene ninguna línea «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud eliminada · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «no tiene ninguna línea «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud duplicada · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «tiene 2 líneas «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud duplicada · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «tiene 2 líneas «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud duplicada · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «tiene 2 líneas «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "solicitud duplicada · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «tiene 2 líneas «Solicitud de auditoría»»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas palabras, otro significado · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas palabras, otro significado · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas palabras, otro significado · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas palabras, otro significado · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas líneas en otro orden · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas líneas en otro orden · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas líneas en otro orden · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "mismas líneas en otro orden · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "respuesta sustituida por otra aprobación · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 4 (esperado 4) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: auditoria.md no es la respuesta registrada a la solicitud SA-07e0e6af45a10c6c (contenido distinto)"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "respuesta sustituida por otra aprobación · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: auditoria.md no es la respuesta registrada a la solicitud SA-07e0e6af45a10c6c (contenido distinto)"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "respuesta sustituida por otra aprobación · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: informe.py: auditoria.md no es la respuesta registrada a la solicitud SA-07e0e6af45a10c6c (contenido distinto)"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "respuesta sustituida por otra aprobación · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «su contenido o su orden cambiaron»",
+   "pasa": false,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: resumen.py: auditoria.md no es la respuesta registrada a la solicitud SA-07e0e6af45a10c6c (contenido distinto)"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "material financiero modificado · paso 14: aprobación retirada en la primera llamada (código 4), en los dos destinos, con historial y diagnóstico «el material cambió»",
+   "pasa": true,
+   "detalle": "código 4 (esperado 4) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: el material cambió después de la auditoría (resultados.json): la aprobación no vale para la versión nueva"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "material financiero modificado · ficha.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «el material cambió»",
+   "pasa": true,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: el material cambió después de la auditoría (resultados.json): la aprobación no vale para la versión nueva"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "material financiero modificado · informe.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «el material cambió»",
+   "pasa": true,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: informe.py: el material cambió después de la auditoría (resultados.json): la aprobación no vale para la versión nueva"
+  },
+  {
+   "grupo": "B cambios posteriores al cierre (primera llamada)",
+   "prueba": "material financiero modificado · resumen.py: aprobación retirada en la primera llamada (código 3), en los dos destinos, con historial y diagnóstico «el material cambió»",
+   "pasa": true,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: resumen.py: el material cambió después de la auditoría (resultados.json): la aprobación no vale para la versión nueva"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "CRLF · paso 14: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "CRLF · ficha.py: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "CRLF · informe.py: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "CRLF · resumen.py: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "finales CR · paso 14: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "BOM UTF-8 al principio · paso 14: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "sin salto de línea final · paso 14: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "Unicode NFD (forma canónica equivalente) · paso 14: transformación inocua, el cierre sigue vigente",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "espacios añadidos al final de una línea · paso 14: no es una transformación admitida, se retira la aprobación",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "C transformaciones inocuas y no admitidas",
+   "prueba": "línea en blanco intercalada · paso 14: no es una transformación admitida, se retira la aprobación",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "D destino inaccesible",
+   "prueba": "mismas palabras con otro significado e informe.py con un destino inaccesible: código 5, «RETIRADA PENDIENTE» con el destino identificado, salidas archivadas y el predeterminado retirado",
+   "pasa": false,
+   "detalle": "código 0 · None · OK: informe.md (13 secciones)"
+  },
+  {
+   "grupo": "D destino inaccesible",
+   "prueba": "con la retirada pendiente, el pipeline se detiene con código 5 y no la presenta como completada",
+   "pasa": false,
+   "detalle": "0"
+  },
+  {
+   "grupo": "D destino inaccesible",
+   "prueba": "al restaurar el destino, la retirada se completa en él (fila «SIN APROBACIÓN VIGENTE») y el cierre sigue rechazado (código 4)",
+   "pasa": false,
+   "detalle": "código 0 · publicada"
+  },
+  {
+   "grupo": "E reanudación y cierre legítimo",
+   "prueba": "tras la retirada, restaurar los bytes de la respuesta original no reactiva el cierre (código 4, sin ficha)",
+   "pasa": false,
+   "detalle": "0 0"
+  },
+  {
+   "grupo": "E reanudación y cierre legítimo",
+   "prueba": "--desde 13 registra una solicitud nueva (código 10), la respuesta original no la responde y una respuesta legítima nueva cierra (código 0) y se vuelve a publicar en los dos destinos",
+   "pasa": true,
+   "detalle": "10 10 0 0 · estado final: concluido · paso 14"
+  },
+  {
+   "grupo": "E reanudación y cierre legítimo",
+   "prueba": "el historial conserva el cierre retirado con su motivo y la auditoría del momento de la retirada",
+   "pasa": false,
+   "detalle": "3"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.6.1 sin solicitudes · paso 14: sigue vigente y no recibe ninguna solicitud ni respuesta retroactiva",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.6.1 sin solicitudes · ficha.py: sigue vigente y no recibe ninguna solicitud ni respuesta retroactiva",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.6.1 sin solicitudes · informe.py: sigue vigente y no recibe ninguna solicitud ni respuesta retroactiva",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.6.1 sin solicitudes · resumen.py: sigue vigente y no recibe ninguna solicitud ni respuesta retroactiva",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.6.1 con su auditoría guardada en CRLF: sin huella fiel registrada no se acredita (huella de bytes) y se retira, sin calcular una nueva",
+   "pasa": true,
+   "detalle": "código 4 (esperado 4) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: auditoria.md no es la auditoría registrada en cierre_vigente.json al cerrar (cierre anterior a la 4.8.1)"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.8.1 (respuesta sin huella fiel registrada) con los bytes idénticos: sigue vigente y no se le atribuye ninguna huella nueva",
+   "pasa": true,
+   "detalle": "código 0 · estado 'concluido' · auditoría 'APROBADO' · pred ['APROBADO'] · extra ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.9: cierre_vigente.json registra la solicitud y la huella fiel de la respuesta aceptada",
+   "pasa": false,
+   "detalle": "{'solicitud': 'None', 'auditoria_fiel': 'None'}"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "sin estado_pipeline.json, respuesta intacta · ficha.py: el cierre sigue vigente (código 0)",
+   "pasa": true,
+   "detalle": "código 0 · ficha cerrada True · pred ['APROBADO']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "sin estado_pipeline.json, respuesta con las mismas palabras reordenadas · ficha.py: se retira la aprobación (código 3) por cierre_vigente.json",
+   "pasa": true,
+   "detalle": "código 3 · ficha cerrada False · pred ['SIN APROBACIÓN VIGENTE']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "sin estado_pipeline.json, respuesta con la solicitud cambiada · ficha.py: se retira la aprobación (código 3) por cierre_vigente.json",
+   "pasa": true,
+   "detalle": "código 3 · ficha cerrada False · pred ['SIN APROBACIÓN VIGENTE']"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "la solicitud de la respuesta ya no consta como respondida en estado_pipeline.json: se retira la aprobación (código 4)",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.8.1 con la respuesta guardada en CRLF: la correspondencia no puede acreditarse con la huella de bytes y se retira (código 4)",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "F compatibilidad con cierres históricos",
+   "prueba": "cierre de la 4.8.1 con la respuesta con las mismas palabras reordenadas: la correspondencia no puede acreditarse con la huella de bytes y se retira (código 4)",
+   "pasa": false,
+   "detalle": "código 0 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material · paso 14: no se vuelve a cerrar ni se crea un cierre_vigente.json con la huella del archivo actual (código 4)",
+   "pasa": false,
+   "detalle": "código 4 (esperado 4) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material · ficha.py: no se vuelve a cerrar ni se crea un cierre_vigente.json con la huella del archivo actual (código 3)",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: no hay auditoria.md"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material · informe.py: no se vuelve a cerrar ni se crea un cierre_vigente.json con la huella del archivo actual (código 3)",
+   "pasa": false,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: informe.py: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.6.1 sin cierre_vigente.json y con otra aprobación del material · resumen.py: no se vuelve a cerrar ni se crea un cierre_vigente.json con la huella del archivo actual (código 3)",
+   "pasa": false,
+   "detalle": "código 3 (esperado 3) · estado None · auditoría None · ficha False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: resumen.py: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.6 (sin cierre_vigente.json de origen) con otra aprobación · ficha.py: código 3, ninguna ficha cerrada y ningún cierre_vigente.json creado",
+   "pasa": false,
+   "detalle": "OK: ficha.json · estado concluido · cubo Vigilar · acción esperar"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.9 sin estado_pipeline.json ni cierre_vigente.json y con otra aprobación · ficha.py: código 3, aprobación retirada en los dos destinos",
+   "pasa": false,
+   "detalle": "código 0 (esperado 3) · estado None · auditoría None · ficha True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "auditoria.md con un byte que no es UTF-8 · paso 14: aprobación retirada (código 4) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "auditoria.md con un byte que no es UTF-8 · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "auditoria.md con un byte que no es UTF-8 · informe.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "auditoria.md con un byte que no es UTF-8 · resumen.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "la respuesta guardada en cp1252 · paso 14: aprobación retirada (código 4) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre_vigente.json ilegible · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre_vigente.json ilegible · informe.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "estado_pipeline.json vacío · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado None · auditoría None · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "estado_pipeline.json ilegible · pipeline.py: no puede continuar (código 6, «ESTADO DEL PIPELINE ILEGIBLE») pero antes retira la aprobación, sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 6) · estado None · auditoría None · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "H hallazgos de la auditoría interna de la 4.9 (Z-1, Z-2, Z-3)",
+   "prueba": "cierre de la 4.9 sin estado_pipeline.json y con la respuesta en CRLF · ficha.py: sigue vigente por la huella fiel de cierre_vigente.json (código 0)",
+   "pasa": false,
+   "detalle": "código 3 · ficha.py: no se confirma «concluido» en la ficha oficial: auditoria.md no es la auditoría registrada"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "material_auditoria.json ilegible · paso 14: aprobación retirada (código 4) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 4) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "material_auditoria.json ilegible · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "material_auditoria.json ilegible · informe.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "material_auditoria.json ilegible · resumen.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "ficha.json ilegible · paso 14: aprobación retirada (código 4) sin traza; la ficha ilegible queda archivada",
+   "pasa": false,
+   "detalle": "código 1 · json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 co · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale h"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "ficha.json ilegible · informe.py: aprobación retirada (código 3) sin traza; la ficha ilegible queda archivada",
+   "pasa": false,
+   "detalle": "código 1 · json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 co · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale h"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "ficha.json ilegible · resumen.py: aprobación retirada (código 3) sin traza; la ficha ilegible queda archivada",
+   "pasa": false,
+   "detalle": "código 1 · json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 co · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale h"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "ficha.json ilegible · ficha.py: sin traza; la ficha ilegible queda archivada y, con la aprobación válida, se vuelve a escribir la ficha oficial (código 0); la fila del destino configurado queda retirada hasta que resumen.py la vuelva a publicar",
+   "pasa": false,
+   "detalle": "código 1 · json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 co · archivada []"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "estado_pipeline.json = [] · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado None · auditoría None · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "cierre_vigente.json = [1] · ficha.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "solicitudes_auditoria como objeto · informe.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "auditoria_respuesta como texto · resumen.py: aprobación retirada (código 3) sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 3) · estado 'concluido' · auditoría 'APROBADO' · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "estado_pipeline.json = [] · pipeline.py: código 6 después de retirar, sin traza",
+   "pasa": false,
+   "detalle": "código 1 (esperado 6) · estado None · auditoría None · ficha True · pred ['APROBADO'] · extra ['APROBADO'] · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior no vale hasta su respuesta"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "estado_pipeline.json es una carpeta · pipeline.py: código 6 después de retirar la aprobación en los dos destinos, sin traza",
+   "pasa": false,
+   "detalle": "código 1 · IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/tmpdir/integridad49_3b"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "auditoria.md es una carpeta · ficha.py: aprobación retirada (código 3) en los dos destinos, sin traza",
+   "pasa": false,
+   "detalle": "código 1 · IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/tmpdir/integridad49_3b · retirada: se pidió una auditoría nueva (solicitud SA-07e0e6af45a10c6c): el cierre anterior"
+  },
+  {
+   "grupo": "I hallazgos del control de vigencia de la 4.9 (V-1, V-2, V-3)",
+   "prueba": "cierre de la 4.9 sin estado y con la respuesta en CRLF · ficha.py: cierre_vigente.json conserva la solicitud, la huella fiel y la huella de bytes de la respuesta aceptada; al restaurar los bytes originales sigue vigente (código 0 las dos veces)",
+   "pasa": false,
+   "detalle": "códigos 3/0 · ['auditoria_sha256'] · OK: ficha.json · estado concluido · cubo Vigilar · acción esperar"
+  },
+  {
+   "grupo": "G unidades",
+   "prueba": "cierre_v2.huella_fiel existe",
+   "pasa": false,
+   "detalle": ""
+  },
+  {
+   "grupo": "G unidades",
+   "prueba": "Pipeline.veredicto_auditoria es idéntica a la de la 4.7.1 (H2 sin cambios)",
+   "pasa": true,
+   "detalle": "9edf6252ca48c800"
+  }
+ ]
+}

@@ -1,0 +1,365 @@
+{
+ "empresa": "Vidrala, S.A.",
+ "fecha": "2026-11-12",
+ "estado_analisis": "no_entregable",
+ "causa": {
+  "tipo": "fallo_de_implementacion",
+  "detalle": "verificar_todo.sh con FAIL: FAIL · verify_quotes_v2.py (Munger y Damodaran; textos y Observaciones; páginas estrictas; corpus ausente = fallo) (código 1)",
+  "comprobacion": null,
+  "categoria": null
+ },
+ "paso_en_que_se_detuvo": 12,
+ "intentos": {
+  "fase_b": 0,
+  "fase_c": 0,
+  "auditoria": 0,
+  "vueltas_c_a_b": 0,
+  "vueltas_b_a_a": 0
+ },
+ "lo_que_sigue_valido": {
+  "libro": "íntegro: True · estado técnico INCOMPLETO · motores calculables ['A', 'B', 'C']",
+  "cubo_cualitativo": "Vigilar",
+  "descalificadores": "ninguno aplica",
+  "gestion": {
+   "C97": "Neutral",
+   "C98": "Buena"
+  },
+  "seis_preguntas": true,
+  "celdas_fase_a": [
+   "B65",
+   "B66",
+   "C11",
+   "C12",
+   "C13",
+   "C14",
+   "C17",
+   "C18",
+   "C19",
+   "C20",
+   "C25",
+   "C27",
+   "C51",
+   "C56",
+   "C61",
+   "C62",
+   "C65",
+   "C66",
+   "C97",
+   "C98",
+   "D65",
+   "D66",
+   "Palancas!C10",
+   "Palancas!C43",
+   "Palancas!C47",
+   "Palancas!C5",
+   "Palancas!C6",
+   "Palancas!C8",
+   "Palancas!C9"
+  ],
+  "palancas_fase_b": "escritas",
+  "fase_c": {
+   "cubo_final": "Vigilar",
+   "estado_analisis": "pendiente_de_datos"
+  },
+  "revision_datos_ausentes": {
+   "revisados": [
+    {
+     "dato": "evidencia Historia!C23:L23",
+     "que_falta": "Documento y página que acrediten la serie de pasivos por arrendamiento de la Historia (fila 23).",
+     "conclusion_afectada": "Historia C64 (deuda y arrendamientos, 262,9 mm) → pasivos netos del motor B (160,8 mm) → valor por acción de los tres escenarios.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El dato que entra en la base sí está en el extracto: arrendamientos NIIF 16 de 49,3 mm a 31-dic-2025 (43,162 + 6,138) [ES, PDF p. 72 y p. 109], el mismo que la Historia lleva en 2025. Lo no verificable son los años anteriores, que solo tocan ratios históricos. Un error de 10 mm movería el valor unos 0,28 € por acción: no cambia la acción ni el objetivo."
+    },
+    {
+     "dato": "evidencia Historia!C26:L26",
+     "que_falta": "Documento y página que acrediten los ceros de minoritarios de la Historia (fila 26).",
+     "conclusion_afectada": "Historia C65 (pensiones más minoritarios, 6,2 mm) → pasivos netos del motor B.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El extracto confirma el cero de la base: todo el patrimonio de 1.412,9 mm es atribuible a la dominante y no hay línea de participaciones no dominantes [ES, PDF p. 10]; Vidroporto es 100 % del grupo desde el 4-dic-2023 [ES, PDF p. 36]. El cero de 2025 es el único que entra en el valor."
+    },
+    {
+     "dato": "evidencia Análisis!C48",
+     "que_falta": "Confirmación humana del cero de intereses pagados clasificados en financiación (2023–2025) que usa Análisis!C48.",
+     "conclusion_afectada": "Análisis!C52 (FCF base del motor A, 161,2 mm), Historia C58 (f) y el aviso A6; ninguna celda que entre en el valor del motor B.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Con el motor B el valor sale del NOPAT, de la reinversión y de los pasivos netos; el FCF base y f solo sirvieron en la fase A como contexto para elegir motor. Los pagos de intereses de 2025 (20,8 mm) están publicados en el estado de flujos [ES, PDF p. 14]: lo pendiente es su clasificación, no su importe. No mueve la acción ni el objetivo."
+    },
+    {
+     "dato": "evidencia Historia!C13:L13",
+     "que_falta": "Confirmación humana de los ceros de adquisiciones netas de 2018–2022 (Historia fila 13).",
+     "conclusion_afectada": "Historia C53 (S2C marginal 0,92) y D_hist de la configuración (530,0 mm), a través de la reinversión total de 2021–2022; Análisis!C98 (asignación de capital).",
+     "material_para_conclusion_favorable": false,
+     "porque": "El extracto solo registra operaciones corporativas en 2017 (Historia D13), 2023 (Vidroporto), 2024 (Italia y 6,0 mm de minoritarias) y 2025 (Toro, sin cierre) [ES, PDF p. 36, p. 38, p. 39 y p. 85]. La participación inicial del 29,36 % de Vidroporto (unos 53 mm) no tiene fecha en el extracto: si fuera de 2021–2022, C53 bajaría a ~0,83 y f a ~1,15, y el precio de Sí se movería menos de 0,5 € (cálculo mío con el tornado del S2C). No es material."
+    },
+    {
+     "dato": "evidencia Historia!C16:L16",
+     "que_falta": "Confirmación humana de los ceros de intereses pagados en financiación de 2016–2025 (Historia fila 16).",
+     "conclusion_afectada": "Historia fila 35 (FCF al accionista), C58 (f) y Análisis!C52; no entran en el valor del motor B.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Es la misma clasificación que la de Análisis!C48: cambia la lectura del FCF al accionista y de f, que en esta empresa solo justificaron el motor B, no el valor. El importe de los intereses de cada año está en la Historia (fila 15). No mueve la acción ni el objetivo."
+    },
+    {
+     "dato": "evidencia Historia!C17:L17",
+     "que_falta": "Confirmación humana de los ceros de principal de arrendamientos de 2016 y 2018 (Historia fila 17).",
+     "conclusion_afectada": "Historia fila 35 (FCF al accionista de 2016 y 2018) y la media 2016–2018 citada en Análisis!C25.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Son años anteriores a la NIIF 16, que la Historia aplica desde 2019; solo tocan dos años de una serie de contexto. C25 = Sí no cambia: el FCF de 2023–2025 (159 mm de media, Historia J35:L35) sigue por encima del de 2016–2018 con cualquier principal plausible de esos años."
+    },
+    {
+     "dato": "Palancas!C24",
+     "que_falta": "Cifra de fuente primaria del tamaño del mercado en el año 10.",
+     "conclusion_afectada": "Palancas!C24 (vacía) y la prueba de cuota implícita (fila 45 «—»): techo de mercado del BUENO.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El BUENO crece un 3,5 % al año con componentes nombrados (volumen +2 % sobre capacidad que no iba llena y Toro con ~70 mm de ventas [ES, PDF p. 54 y p. 85]): no necesita ganar cuota en un mercado maduro más allá de una compra ya firmada. El BUENO mueve el precio de Sí unos 0,14 € por euro de su valor y el precio supera el BUENO de todas las variantes: ni la acción ni el objetivo dependen de este techo."
+    },
+    {
+     "dato": "extracto_v63: Tamaño del mercado de envases de vidrio (Europa Occidental, Reino Unido, Brasil, Chile) en volumen o valor: no encontrado en los documentos.",
+     "que_falta": "Tamaño del mercado de envases de vidrio en Europa occidental, Reino Unido, Brasil y Chile.",
+     "conclusion_afectada": "Palancas!C24 y la prueba G17 de cuota implícita; contexto de Análisis!C17 y C18.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Es el mismo hueco que Palancas!C24 visto desde el extracto: sin cifra no hay techo del BUENO, pero el BUENO no lo necesita (3,5 % anual con componentes) y pesa poco en el precio de Sí. Para el foso importa más la cuota (dato siguiente) que el tamaño."
+    },
+    {
+     "dato": "extracto_v63: Crecimiento del mercado de envases de vidrio en cifras de la propia empresa en 2025: no encontrado en los documentos (solo la afirmación cualitativa de consumos",
+     "que_falta": "Crecimiento del mercado de envases de vidrio en cifras de la propia empresa en 2025.",
+     "conclusion_afectada": "Palancas!B14:D14 (crecimiento 1–5) y Análisis!C17 (viento de cola = No).",
+     "material_para_conclusion_favorable": false,
+     "porque": "La dirección del dato está publicada: ventas orgánicas −5,4 % en 2025 [ES, PDF p. 88] y «niveles de consumo globalmente inferiores a lo previsto» [ES, PDF p. 94]. Una cifra precisaría el NORMAL (1,5 %), pero el crecimiento pesa poco: ±2 puntos mueven el NORMAL ±3,5 € (tornado) y el precio de Sí menos de 1 € por punto. No cambia la acción."
+    },
+    {
+     "dato": "extracto_v63: Cuota de mercado de Vidrala (global o por región) y su definición: no encontrado en los documentos. Tampoco aparecen nombres de competidores con cifras; solo as",
+     "que_falta": "Cuota de mercado de Vidrala por región y nombres de competidores con cifras.",
+     "conclusion_afectada": "Análisis!C18 (foso Sí, confianza baja), Análisis!C12 (borde del círculo), Palancas!C15 y B15 (quién se queda la mejora) y C18:D18 (duración del retorno).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Es el hueco mayor y queda dicho en el cubo: es lo que me llevaría a No o a Demasiado difícil. No impide esperar con objetivo: los márgenes de los tres escenarios salen de diez años propios que ya contienen la respuesta de la competencia a un choque de energía completo (13,7 % en 2022 y 20,8 % en 2024, Historia I29 y K29), el NORMAL no da retorno en exceso al capital nuevo desde el año 11 y el precio (90,10) supera el BUENO de todas las variantes calculadas (máximo 88,38)."
+    },
+    {
+     "dato": "extracto_v63: Reparto de ventas por países fuera de España (porcentaje de ventas por país o región): no encontrado en los documentos; solo ventas en España y reparto por segm",
+     "que_falta": "Reparto de ventas por país fuera de España.",
+     "conclusion_afectada": "Palancas!A28:B33 (reparto por regiones que usa la hoja para la prima país) y la lectura de la divisa.",
+     "material_para_conclusion_favorable": false,
+     "porque": "La hoja ya tiene el reparto por segmentos (Europa occidental 48,7 %, Reino Unido 39,1 %, Brasil 12,2 %) y la empresa publica que el 48,8 % de las ventas está en libra y real [ES, PDF p. 103]. La r es heredada y la prima país no es decisión mía; el detalle por país dentro de Europa no cambia ninguna palanca."
+    },
+    {
+     "dato": "extracto_v63: Margen y rentabilidad por línea de producto (envase frente a servicios de envasado y logística) y ventas de los servicios en importe: no encontrado en los docum",
+     "que_falta": "Margen y ventas de los servicios de envasado y logística frente al envase.",
+     "conclusion_afectada": "Palancas!C15:D15 (mezcla del margen) y la lectura del segmento Reino Unido e Irlanda.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Los servicios suman menos del 10 % de los ingresos [ES, PDF p. 32] y los márgenes por segmento están publicados (Reino Unido e Irlanda, 23,5 % de margen EBITDA [ES, PDF p. 107]). El margen objetivo sale del grupo en su ciclo; separar los servicios no cambia la acción ni el objetivo."
+    },
+    {
+     "dato": "extracto_v63: Importe de I+D y su porcentaje sobre ventas: no encontrado en los documentos.",
+     "que_falta": "Importe de I+D y su peso sobre ventas.",
+     "conclusion_afectada": "Palancas!C9 = No y C10 vacía (I+D no capitalizada en las anclas).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Sin gasto de I+D publicado y con altas de «Desarrollo» de 0,433 mm en 2025 [ES, PDF p. 52], capitalizar la I+D no movería las anclas de margen ni de ROIC de forma apreciable. Ninguna conclusión depende de ello."
+    },
+    {
+     "dato": "extracto_v63: Capex anunciado para 2026 y siguientes, desglosado por destino (mantenimiento, crecimiento, descarbonización): no encontrado en los documentos.",
+     "que_falta": "Capex anunciado para 2026 y siguientes, separado en mantenimiento, crecimiento y descarbonización.",
+     "conclusion_afectada": "Configuración V6.4: PM1.estructura, PM1.familia y PM1.parametro (λ), y Palancas!B16:D16.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Como dato ausente (S-19) no es material: la acción no depende de él (con λ entre 1,10 y 1,25 y todas las estructuras calculadas el precio de Sí va de 51,29 a 63,11 € y la zona es «caro» en todas). Lo que sí deja sin fundamento es una hipótesis económica distinta, la reposición de hornos, registrada aparte en configuracion_v64 (PM1.estructura, PM1.familia y PM1.parametro, fundamento_suficiente = false), que lo nombra como información que falta. Qué pasa con el objetivo por esa hipótesis no lo decide esta revisión sino el protocolo experimental: con «bloqueo_del_objetivo» el objetivo no se emite. No lo clasifico dos veces."
+    },
+    {
+     "dato": "extracto_v63: Planes de capacidad futura por planta (toneladas, hornos nuevos y fechas): no encontrado en los documentos.",
+     "que_falta": "Planes de capacidad por planta (toneladas, hornos nuevos y fechas).",
+     "conclusion_afectada": "Palancas!D14 y D16 (volumen sobre capacidad libre en el BUENO) y N3.regla (capacidad conservada).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Solo afina el BUENO, que pesa poco en el precio de Sí (un S2C BUENO 0,3 más bajo lo movería unos 0,4 €, cálculo mío), y la regla R1, que va del lado prudente (con ventas que caen no recupera capital fijo). No cambia la acción ni el objetivo de forma material."
+    },
+    {
+     "dato": "extracto_v63: Utilización de capacidad y toneladas fundidas: no encontrado en los documentos.",
+     "que_falta": "Utilización de capacidad y toneladas fundidas.",
+     "conclusion_afectada": "Palancas!D16 (S2C BUENO 1,1), el mecanismo de coste fijo del MALO (B15) y los componentes de C14.",
+     "material_para_conclusion_favorable": false,
+     "porque": "La empresa supone plena utilización en 2025 «aunque no haya sido el caso» [ES, PDF p. 54]: hay capacidad libre sin medir. Afecta al BUENO (menos de 0,5 € de precio de Sí) y al mecanismo del MALO, cuyo margen ya está en el 15 % para siempre. No es material para esperar."
+    },
+    {
+     "dato": "extracto_v63: Múltiplos pagados en las adquisiciones de Vidroporto, Cristalerías Toro y en la venta de Vidrala Italia (la empresa no los declara): no encontrado en los docume",
+     "que_falta": "Múltiplos declarados por la empresa en Vidroporto, Toro e Italia.",
+     "conclusion_afectada": "Análisis!C98 (asignación de capital Buena) y el mecanismo de compras del BUENO (D66).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Los puedo aproximar con lo publicado: Vidroporto, 384 mm por 55,5 mm de EBITDA pro forma, unas 6,9 veces [ES, PDF p. 36–37]; Toro, unos 77 mm por 12 mm, unas 6,4 veces [ES, PDF p. 85]. Falta el múltiplo declarado, no el dato; Italia se vendió por 230 mm con 50 mm de plusvalía [ES, PDF p. 38]. No cambia C98 ni el valor."
+    },
+    {
+     "dato": "extracto_v63: Subidas de precio por año, efecto en volumen y mezcla de producto: no encontrado en los documentos.",
+     "que_falta": "Subidas de precio por año, efecto en volumen y mezcla.",
+     "conclusion_afectada": "Palancas!B14:D14 (componentes de precio y volumen) y el mecanismo de traslado de B15:D15.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Sin precio y volumen separados, el NORMAL usa el volumen que supone la empresa (+1 %), pero el margen de los escenarios sale del ciclo observado (Historia fila 29), que ya integra el resultado del traslado. Una serie de precio precisaría C14, con menos de 1 € de efecto en el precio de Sí por punto de crecimiento."
+    },
+    {
+     "dato": "extracto_v63: Evidencia directa de absorción o rechazo de subidas por los clientes (contratos indexados, retrasos de traslado, cláusulas de energía): no encontrado en los doc",
+     "que_falta": "Cláusulas de traslado de energía, retrasos y rechazos de subidas por los clientes.",
+     "conclusion_afectada": "B65:D66 (quién se queda la mejora) y Palancas!B15:D15.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El resultado agregado del traslado está en la Historia (13,7 % en 2022 y vuelta al 20,8 % en 2024, I29:K29) y la empresa nombra el mecanismo, contratos o renegociación [ES, PDF p. 98]. Las cláusulas fundarían mejor la velocidad del traslado, que el NORMAL no necesita porque toma la media del ciclo."
+    },
+    {
+     "dato": "extracto_v63: Guía numérica de la dirección para 2026 de ventas, margen EBITDA y capex: no encontrado en los documentos.",
+     "que_falta": "Guía numérica de la dirección para 2026 (ventas, margen EBITDA y capex).",
+     "conclusion_afectada": "Ninguna celda de juicio: por método no uso la guía de la dirección como palanca.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Una guía no fundaría ninguna palanca: «A projection prepared by… an executive trying to justify a particular course of action will frequently be a lie» (TCI p.60; HIM). Del año 2026 dicen más las coberturas del 69 % del consumo de energía [ES, PDF p. 101] que una guía."
+    },
+    {
+     "dato": "extracto_v63: Informes de gestión de 2017 a 2024 y guías de esos años para contrastarlas con los resultados: no encontrado en los documentos (los archivos CF_2017 a CF_2024 s",
+     "que_falta": "Informes de gestión de 2017 a 2024 y sus guías, para contrastarlas con los resultados.",
+     "conclusion_afectada": "Análisis!C98 y la respuesta a «¿puedo confiar en la gestión?» (hueco declarado en la fase A).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Juzgo la gestión por lo hecho, no por guías cumplidas: deuda de 554 a 214 mm en 2023–2025 (Historia J22:L22), Vidroporto e Italia. Hay un contraste parcial: la prueba de deterioro de 2023 suponía bajadas de precio del 8 % y del 4 % en 2024–2025 [CF_2023, PDF p. 48] y 2025 cerró con ventas orgánicas −5,4 % [ES, PDF p. 88]. No es material para esperar."
+    },
+    {
+     "dato": "extracto_v63: Dividendo efectivamente pagado en 2017 para contrastar con la propuesta de 2016: no encontrado en los documentos.",
+     "que_falta": "Dividendo efectivamente pagado en 2017.",
+     "conclusion_afectada": "Ninguna celda de juicio: solo serviría para contrastar una guía de 2016.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Ninguna palanca ni la asignación de capital dependen de un dividendo de 2017; la política de dividendo creciente está en los pagos de 2025 (1,5959 € por acción [ES, PDF p. 95])."
+    },
+    {
+     "dato": "extracto_v63: Covenants financieros con sus umbrales: no encontrado en los documentos.",
+     "que_falta": "Covenants financieros y sus umbrales.",
+     "conclusion_afectada": "Palancas!C22 (quiebra vacía) y el descalificador «deuda que mata».",
+     "material_para_conclusion_favorable": false,
+     "porque": "Con deuda neta de 0,36x EBITDA (Análisis!C33; 0,2x según la empresa [ES, PDF p. 109]), 258 mm disponibles sin usar [ES, PDF p. 75] y capitales propios del 61 % [ES, PDF p. 68], ningún umbral habitual de covenant está cerca. C22 sigue vacía sin disparador."
+    },
+    {
+     "dato": "extracto_v63: Rating crediticio de Vidrala: no encontrado en los documentos.",
+     "que_falta": "Rating crediticio de Vidrala.",
+     "conclusion_afectada": "Palancas!C22 y el descalificador de deuda.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El rating no añade nada a lo medible: vencimientos bilaterales entre 2027 y 2032 [ES, PDF p. 105], liquidez de 258 mm y deuda neta de 105,3 mm sin NIIF 16 [ES, PDF p. 109]. No cambia la quiebra ni la conclusión."
+    },
+    {
+     "dato": "extracto_v63: Conciliación entre las cifras de «ingresos diferidos» de la nota de inmovilizado (23.115) y del balance (41.117): no encontrado en los documentos.",
+     "que_falta": "Conciliación entre los ingresos diferidos de la nota de inmovilizado (23,115 mm) y del balance (41,117 mm).",
+     "conclusion_afectada": "Ninguna celda de juicio: es una partida que no entra en la deuda ni en el NOPAT del motor B.",
+     "material_para_conclusion_favorable": false,
+     "porque": "La diferencia cuadra con lo publicado: 41,117 − 23,115 = 18,002 mm, exactamente los créditos fiscales por deducciones por inversiones que el extracto dice que incluye el epígrafe del balance [ES, PDF p. 10 y p. 71]. Lo anoto como ruido resuelto, no como señal de piezas móviles."
+    },
+    {
+     "dato": "extracto_v63: Conciliación de la nota 16 («íntegramente en euros») con la deuda en reales de 55 mm: no encontrado en los documentos.",
+     "que_falta": "Conciliación de la nota 16 («íntegramente en euros») con los 55 mm de deuda en reales.",
+     "conclusion_afectada": "Historia C64 (deuda) y el riesgo de divisa del BUENO (D66).",
+     "material_para_conclusion_favorable": false,
+     "porque": "El importe entra igual en los pasivos netos del motor B sea cual sea su moneda, y los 55 mm en reales a CDI [ES, PDF p. 105] ya están como riesgo en la historia del BUENO. Es una incoherencia de redacción que pediría explicada, no un dato que cambie el valor."
+    },
+    {
+     "dato": "extracto_v63: Explicación del concepto «Otros» dentro de otros ingresos de explotación (43.124 miles de euros en 2025, 26.211 en 2024): no encontrado en los documentos.",
+     "que_falta": "Explicación del concepto «Otros» de otros ingresos de explotación (43,124 mm en 2025 y 26,211 mm en 2024).",
+     "conclusion_afectada": "Palancas!C15:D15 (margen NORMAL y BUENO) y N2.margen (m0 18,55 %).",
+     "material_para_conclusion_favorable": false,
+     "porque": "Pesa 2,9 puntos de margen en 2025 y 1,7 en 2024 [ES, PDF p. 79]. Si todo el «Otros» de 2024–2025 fuera no recurrente, la media de siete años del NORMAL bajaría ~0,66 puntos y la de 2023–2025 del BUENO ~1,5, y el precio de Sí ~1,9 € (−3,3 %, cálculo mío con la sensibilidad del tornado); si solo lo fuera el aumento de 2025 (16,9 mm), ~0,5 €. Aparece los dos años: una parte es recurrente. No cambia la acción ni deja el objetivo sin base."
+    },
+    {
+     "dato": "extracto_v63: Cuota gratuita de derechos de emisión de CO2 y exposición cuantificada al precio del CO2: no encontrado en los documentos.",
+     "que_falta": "Asignación gratuita de derechos de CO2 y exposición cuantificada a su precio.",
+     "conclusion_afectada": "Palancas!B15:D15 (margen), el «qué lo pararía» del NORMAL (C66) y la reposición por descarbonización.",
+     "material_para_conclusion_favorable": false,
+     "porque": "El coste del CO2 de 2019–2025 ya está dentro de los márgenes que uso (provisión de derechos de 46,4 mm en 2025 y 50,7 mm en 2024 [ES, PDF p. 77]); falta cuánto subirá si baja la asignación gratuita. Es un riesgo de margen que cubre el MALO (15 % para siempre, cinco puntos bajo 2025) y no cambia la acción."
+    },
+    {
+     "dato": "extracto_v63: Cifra de deuda neta trimestral y de cartera de pedidos como series numéricas: no encontrado en los documentos (el gráfico del informe de gestión no se extrajo c",
+     "que_falta": "Series de deuda neta trimestral y de cartera de pedidos.",
+     "conclusion_afectada": "Ninguna celda de juicio: la base es el 31-dic-2025 y la deuda de esa fecha está publicada.",
+     "material_para_conclusion_favorable": false,
+     "porque": "Los pasivos netos del motor B usan el balance del 31-dic-2025 (deuda neta de 105,3 mm sin NIIF 16 [ES, PDF p. 109]); una serie trimestral o una cartera de pedidos no cambian ninguna palanca de diez años."
+    },
+    {
+     "dato": "extracto_v63: Archivo etapa1/extracto.md citado en el prompt: no existe en el expediente; no se pudo evitar la repetición con la etapa 1.",
+     "que_falta": "El archivo etapa1/extracto.md no existe en el expediente.",
+     "conclusion_afectada": "Ninguna celda de juicio: solo la comparación con la etapa 1 del turno 2.",
+     "material_para_conclusion_favorable": false,
+     "porque": "La herencia de la etapa 1 está en la sección 6 de datos_v63.md, que es lo que reviso; los hechos de la base salen de extracto_v63.md y de la Historia. No falta ningún hecho para decidir."
+    }
+   ],
+   "alguno_material": false
+  },
+  "hipotesis_sin_fundamento": []
+ },
+ "lo_que_no_es_valido": [
+  "todo lo posterior al paso 12"
+ ],
+ "para_continuar": {
+  "que_hace_falta": "ver verificacion_*.txt en la carpeta",
+  "desde_que_paso": 12,
+  "quien": "Claude Code"
+ },
+ "archivos": [
+  "Vidrala_v63_base.xlsx",
+  "Vidrala_v63_base.xlsx.conciliacion.json",
+  "Vidrala_v63_datos.xlsx",
+  "Vidrala_v63_datos.xlsx.fase1.registro.json",
+  "Vidrala_v63_evaluada.xlsx",
+  "acreditacion_libro.json",
+  "alcance_v2.json",
+  "auditoria.md",
+  "auditorias_conocidas.json",
+  "cadena_trazabilidad.json",
+  "cadena_trazabilidad.md",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "cierre_vigente.json",
+  "citas_fase_a.md",
+  "citas_fase_a.txt",
+  "citas_fase_b.md",
+  "citas_fase_b.txt",
+  "citas_fase_c.md",
+  "citas_fase_c.txt",
+  "configuracion_economica.json",
+  "configuracion_v64_variantes.json",
+  "configuracion_v64_variantes.md",
+  "datos_ausentes.json",
+  "datos_v63.json",
+  "datos_v63.md",
+  "diagnostico.json.anterior",
+  "diagnostico.md.anterior",
+  "entrada_v63.json",
+  "entrada_v63.md",
+  "esquema_fase_a.json.txt",
+  "esquema_fase_b.json.txt",
+  "esquema_fase_c.json.txt",
+  "esquema_ficha.json.txt",
+  "estado_pipeline.json",
+  "extracto_v63.md",
+  "fase1_decisiones.json",
+  "fase1_fuentes.json",
+  "fase1_metadatos.json",
+  "fase1_v63.json",
+  "fase_a.json",
+  "fase_a.md",
+  "fase_b.json",
+  "fase_b.md",
+  "fase_c.json",
+  "fase_c.md",
+  "ficha.json",
+  "ficha_provisional.json",
+  "gramatica.json",
+  "gramatica.md",
+  "historia_revision.md",
+  "informe.md",
+  "informe_provisional.md",
+  "material_auditoria.json",
+  "observaciones_para_citas.md",
+  "plantilla_activa.json",
+  "precio.json",
+  "publicaciones_resumen.json",
+  "referencias_mecanicas.json",
+  "resultados.json",
+  "solicitud_auditoria.json",
+  "verificacion_acreditacion.txt",
+  "verificacion_c86.txt",
+  "verificacion_cache.txt",
+  "verificacion_celdas.json",
+  "verificacion_celdas.txt",
+  "verificacion_citas.txt",
+  "verificacion_esquemas.txt",
+  "verificacion_estado_libro.txt",
+  "verificacion_gramatica.txt",
+  "verificacion_integridad.txt",
+  "verificacion_libro_final.txt",
+  "verificacion_trazabilidad.txt"
+ ]
+}

@@ -1,0 +1,285 @@
+{
+ "tipo": "propuestas_n4_sin_firmar",
+ "entrega": "4.9",
+ "aviso": "Propuestas de la IA para revisión humana. La IA no confirma ceros ni escribe fase1_decisiones.json. Una clasificación documental favorable no equivale a una confirmación humana; P1 no autoriza otras confirmaciones.",
+ "separacion": {
+  "cobertura_documental": "matriz_n4.json → clasificacion",
+  "registro_humano": "fase1_decisiones.json sin cambios (huella de la 4.8.1): conserva P1 (con fecha y firma) y la regla y las decisiones anteriores de deuda y arrendamientos (sin fecha ni firma en el archivo); ninguna de las 38 entradas está registrada",
+  "estado_operativo": "el pipeline sigue tratando los 38 como pendientes («Dato no verificable»)"
+ },
+ "grupos": [
+  {
+   "grupo": "adquisiciones · clase 2",
+   "partida": "adquisiciones",
+   "anios": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+   ],
+   "celdas": [
+    "Historia!E13",
+    "Historia!F13",
+    "Historia!G13",
+    "Historia!H13",
+    "Historia!I13"
+   ],
+   "celdas_dependientes_sin_solicitud_propia": [],
+   "clasificacion_documental": 2,
+   "propuesta": "registrar el cero con la fuente documental del cuadre (valor 0, sin cambio numérico)",
+   "valor_propuesto": 0.0,
+   "fuentes": [
+    "AR_2018.json · CF_2018.txt p. 13",
+    "AR_2019.json · CF_2019.txt p. 12",
+    "AR_2020.json · CF_2020.txt p. 13",
+    "AR_2021.json · CF_2021.txt p. 7",
+    "AR_2022.json · CF_2022.txt p. 7"
+   ],
+   "reserva": null,
+   "ids_matriz": [
+    "N4-adquisiciones-2018",
+    "N4-adquisiciones-2019",
+    "N4-adquisiciones-2020",
+    "N4-adquisiciones-2021",
+    "N4-adquisiciones-2022"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  },
+  {
+   "grupo": "intereses_financiacion · clase 2",
+   "partida": "intereses_financiacion",
+   "anios": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "celdas": [
+    "Historia!C16",
+    "Historia!D16",
+    "Historia!E16",
+    "Historia!F16",
+    "Historia!G16",
+    "Historia!H16",
+    "Historia!I16",
+    "Historia!J16",
+    "Historia!K16",
+    "Historia!L16"
+   ],
+   "celdas_dependientes_sin_solicitud_propia": [
+    "Análisis!C48 (media 2023–2025)"
+   ],
+   "clasificacion_documental": 2,
+   "propuesta": "registrar el cero con la fuente documental del cuadre (valor 0, sin cambio numérico)",
+   "valor_propuesto": 0.0,
+   "fuentes": [
+    "AR_2016.json · CF_2016.txt p. 9",
+    "AR_2017.json · CF_2017.txt p. 14",
+    "AR_2018.json · CF_2018.txt p. 13",
+    "AR_2019.json · CF_2019.txt p. 12",
+    "AR_2020.json · CF_2020.txt p. 13",
+    "AR_2021.json · CF_2021.txt p. 7",
+    "AR_2022.json · CF_2022.txt p. 7",
+    "AR_2023.json · CF_2023.txt p. 7",
+    "AR_2024.json · CF_2024.txt p. 7",
+    "AR_2025.json · CF_2025.txt p. 7"
+   ],
+   "reserva": [
+    "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+   ],
+   "ids_matriz": [
+    "N4-intereses_financiacion-2016",
+    "N4-intereses_financiacion-2017",
+    "N4-intereses_financiacion-2018",
+    "N4-intereses_financiacion-2019",
+    "N4-intereses_financiacion-2020",
+    "N4-intereses_financiacion-2021",
+    "N4-intereses_financiacion-2022",
+    "N4-intereses_financiacion-2023",
+    "N4-intereses_financiacion-2024",
+    "N4-intereses_financiacion-2025"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  },
+  {
+   "grupo": "arrendamientos_principal · clase 4",
+   "partida": "arrendamientos_principal",
+   "anios": [
+    2016,
+    2018
+   ],
+   "celdas": [
+    "Historia!C17",
+    "Historia!E17"
+   ],
+   "celdas_dependientes_sin_solicitud_propia": [],
+   "clasificacion_documental": 4,
+   "propuesta": "decidir la representación del concepto no aplicable (0 o vacío); no es una confirmación de un cero publicado",
+   "valor_propuesto": "no aplicable (representación numérica 0 a decidir)",
+   "fuentes": [
+    "AR_2016.json · CF_2016.txt p. 9",
+    "AR_2018.json · CF_2018.txt p. 13"
+   ],
+   "reserva": null,
+   "ids_matriz": [
+    "N4-arrendamientos_principal-2016",
+    "N4-arrendamientos_principal-2018"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  },
+  {
+   "grupo": "arrendamientos · clase 4",
+   "partida": "arrendamientos",
+   "anios": [
+    2016
+   ],
+   "celdas": [
+    "Historia!C23"
+   ],
+   "celdas_dependientes_sin_solicitud_propia": [],
+   "clasificacion_documental": 4,
+   "propuesta": "decidir la representación del concepto no aplicable (0 o vacío); no es una confirmación de un cero publicado",
+   "valor_propuesto": "no aplicable (representación numérica 0 a decidir)",
+   "fuentes": [
+    "AR_2016.json · CF_2016.txt p. 5"
+   ],
+   "reserva": null,
+   "ids_matriz": [
+    "N4-arrendamientos-2016"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  },
+  {
+   "grupo": "minoritarios · clase 2",
+   "partida": "minoritarios",
+   "anios": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "celdas": [
+    "Historia!C26",
+    "Historia!D26",
+    "Historia!E26",
+    "Historia!F26",
+    "Historia!G26",
+    "Historia!H26",
+    "Historia!I26",
+    "Historia!J26",
+    "Historia!K26",
+    "Historia!L26"
+   ],
+   "celdas_dependientes_sin_solicitud_propia": [
+    "Historia!C65 → Diagnóstico V6!C16 (puente)"
+   ],
+   "clasificacion_documental": 2,
+   "propuesta": "registrar el cero con la fuente documental del cuadre (valor 0, sin cambio numérico)",
+   "valor_propuesto": 0.0,
+   "fuentes": [
+    "AR_2016.json · CF_2016.txt p. 5",
+    "AR_2017.json · CF_2017.txt p. 10",
+    "AR_2018.json · CF_2018.txt p. 9",
+    "AR_2019.json · CF_2019.txt p. 8",
+    "AR_2020.json · CF_2020.txt p. 9",
+    "AR_2021.json · CF_2021.txt p. 3",
+    "AR_2022.json · CF_2022.txt p. 3",
+    "AR_2023.json · CF_2023.txt p. 3",
+    "AR_2024.json · CF_2024.txt p. 3",
+    "AR_2025.json · CF_2025.txt p. 3"
+   ],
+   "reserva": null,
+   "ids_matriz": [
+    "N4-minoritarios-2016",
+    "N4-minoritarios-2017",
+    "N4-minoritarios-2018",
+    "N4-minoritarios-2019",
+    "N4-minoritarios-2020",
+    "N4-minoritarios-2021",
+    "N4-minoritarios-2022",
+    "N4-minoritarios-2023",
+    "N4-minoritarios-2024",
+    "N4-minoritarios-2025"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  },
+  {
+   "grupo": "otros_activos_financieros · clase 2",
+   "partida": "otros_activos_financieros",
+   "anios": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "celdas": [],
+   "celdas_dependientes_sin_solicitud_propia": [],
+   "clasificacion_documental": 2,
+   "propuesta": "registrar el cero con la fuente documental del cuadre (valor 0, sin cambio numérico)",
+   "valor_propuesto": 0.0,
+   "fuentes": [
+    "AR_2016.json · CF_2016.txt p. 4",
+    "AR_2017.json · CF_2017.txt p. 9",
+    "AR_2018.json · CF_2018.txt p. 8",
+    "AR_2019.json · CF_2019.txt p. 7",
+    "AR_2020.json · CF_2020.txt p. 8",
+    "AR_2021.json · CF_2021.txt p. 2",
+    "AR_2022.json · CF_2022.txt p. 2",
+    "AR_2023.json · CF_2023.txt p. 2",
+    "AR_2024.json · CF_2024.txt p. 2",
+    "AR_2025.json · CF_2025.txt p. 2"
+   ],
+   "reserva": null,
+   "ids_matriz": [
+    "N4-otros_activos_financieros-2016",
+    "N4-otros_activos_financieros-2017",
+    "N4-otros_activos_financieros-2018",
+    "N4-otros_activos_financieros-2019",
+    "N4-otros_activos_financieros-2020",
+    "N4-otros_activos_financieros-2021",
+    "N4-otros_activos_financieros-2022",
+    "N4-otros_activos_financieros-2023",
+    "N4-otros_activos_financieros-2024",
+    "N4-otros_activos_financieros-2025"
+   ],
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Campos decision, fecha y confirmado_por vacíos a propósito: solo los rellena la persona responsable, y solo en fase1_decisiones.json produce efecto (valor, fuente con página, fecha y persona). Esta propuesta no tiene efecto en el pipeline."
+  }
+ ]
+}

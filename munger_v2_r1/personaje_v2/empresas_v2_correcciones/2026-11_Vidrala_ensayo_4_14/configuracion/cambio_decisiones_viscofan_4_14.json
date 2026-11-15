@@ -1,0 +1,260 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Viscofan",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/viscofan/Viscofan",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/viscofan_decisiones",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Rama 4.14 de Viscofan (cuentas de 2025 corregidas y verificadas) con dos decisiones de la persona responsable: D3 (acciones en circulación a 31-dic-2025) y E1 (medias exactas). No se incorpora ninguna operación de 2026; el precio es del 3-nov-2026 (fechas distintas, declaradas)."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-03",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "AR 2025 (informe anual consolidado 2025, inglés) y boletín de cotización de la Bolsa de Madrid del 3-nov-2026"
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "fuentes_mercado",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {
+  "precio": {
+   "valor": 54.7,
+   "moneda_cotizacion": "EUR",
+   "fecha": "2026-11-03",
+   "fx": null,
+   "fx_fecha": null,
+   "fuente": "Boletín de cotización de la Bolsa de Madrid (BME), sesión del 3-nov-2026, PDF p. 3, fila «MC VIS VISCOFAN»: cierre 54,7000 € (precedente 54,30; máx. 55,30; mín. 54,50; CMP 54,8454). PDF oficial conservado en fuentes_mercado/ con su SHA-256 23335f63b500af1b5423768f9b9381a12ef50e01ac7f4d6c5d469fe8abd78718 (descargado por la persona responsable el 14-nov-2026). Fecha del precio distinta de la de las acciones (31-dic-2025)."
+  },
+  "acciones_diluidas": {
+   "valor": 45.993399,
+   "fecha": "2025-12-31",
+   "fuente": "Acciones EN CIRCULACIÓN a 31-dic-2025 = 46.500.000 emitidas − 506.601 propias (AR 2025, nota 12.4, PDF p. 83; capital y número de acciones, PDF p. 76). Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (D3). Conciliación: 2026-11_Vidrala_ensayo_4_13/fuentes/CONCILIACION_ACCIONES_VISCOFAN_4_13.md. No es la media ponderada «diluida» de la nota 20.2 (45,479209, contradictoria con la básica 45,656226). Dilución potencial NO incluida: plan de incentivos 2025–2027, hasta 0,315 (objetivo) o 0,4725 (máximo) millones de acciones en el primer semestre de 2028 (nota 22.3), sin decir si con autocartera o acciones nuevas; su efecto se declara aparte (resultados/efecto_decisiones_viscofan.json).",
+   "pagina": "PDF 83 y 76 (AR_2025)",
+   "periodo": "31-dic-2025 (fecha de las cuentas)",
+   "unidad": "millones de acciones"
+  },
+  "capitalizacion": {
+   "valor": 2515.838925,
+   "fecha": "2026-11-03",
+   "fuente": "54,70 € (cierre del 3-nov-2026, boletín de BME) × 45,993399 millones de acciones en circulación a 31-dic-2025 = 2515.838925 mm. Fechas distintas (precio de 2026, acciones de las cuentas de 2025); derivado de D3. No es una actualización a 2026: la autocartera a 3-nov-2026 no consta (a 30-jun-2026: 396.357; emitidas 46.000.000 tras la amortización de mayo de 2026).",
+   "periodo": "precio del 3-nov-2026 × acciones a 31-dic-2025",
+   "unidad": "millones de EUR"
+  },
+  "tasa_sin_riesgo": {
+   "valor": 0.0335,
+   "fuente": "Bund alemán a 10 años, ~3,35% el 2026-11-04 por la mañana (Euronews 2026-11-04); Trading Economics ~3,3% (2026-11-03), Finimize 3,33%. Rating Alemania AAA"
+  }
+ },
+ "nota_metadatos": "(4.14, decisiones D3 y E1 de la persona responsable, 14-nov-2026) Metadatos ACTIVOS escritos por cambiar_base.py: precio del 3-nov-2026 del boletín oficial de BME; acciones en circulación a 31-dic-2025 (45,993399 M; D3); capitalización = precio × esas acciones, con fechas distintas declaradas; rf sin cambios. fecha_analisis es la fecha real de ejecución. Las notas de la base anterior sobre las acciones y el precio están en antecedentes/notas_retiradas.json.",
+ "notas_que_se_retiran": [
+  "Acciones \\(4\\.13\\)",
+  "^Precio: no se obtuvo cotización"
+ ],
+ "analisis": {
+  "C47": {
+   "valor": 77.533,
+   "fuente": "Media 2023–2025 de los datos de la Historia (valor exacto); Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1): sustituye el redondeo escrito a mano en la etapa 1 (77.5).",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "evidencia": {
+    "M": "77.533 (media exacta 2023–2025 de la Historia)",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1) sustituye el redondeo de la etapa 1 (77.5)."
+   }
+  },
+  "C48": {
+   "valor": 8.294,
+   "fuente": "Media 2023–2025 de los datos de la Historia (valor exacto); Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1): sustituye el redondeo escrito a mano en la etapa 1 (8.3).",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "evidencia": {
+    "M": "8.294 (media exacta 2023–2025 de la Historia)",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1) sustituye el redondeo de la etapa 1 (8.3)."
+   }
+  },
+  "C49": {
+   "valor": 5.547,
+   "fuente": "Media 2023–2025 de los datos de la Historia (valor exacto); Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1): sustituye el redondeo escrito a mano en la etapa 1 (5.5).",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "evidencia": {
+    "M": "5.547 (media exacta 2023–2025 de la Historia)",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1) sustituye el redondeo de la etapa 1 (5.5)."
+   }
+  },
+  "C50": {
+   "valor": 3.707,
+   "fuente": "Media 2023–2025 de los datos de la Historia (valor exacto); Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1): sustituye el redondeo escrito a mano en la etapa 1 (3.71).",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "evidencia": {
+    "M": "3.707 (media exacta 2023–2025 de la Historia)",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (E1) sustituye el redondeo de la etapa 1 (3.71)."
+   }
+  }
+ },
+ "evidencia": {},
+ "textos_prohibidos": [
+  "45,479209 millones \\(media ponderada «diluida»\\) como acciones activas"
+ ],
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "ENSAYO 4.13 · VISCOFAN CON LA PLANTILLA V6.4.1 EXPERIMENTAL (solo cubre el motor B; la fase A elige el motor) Y UNA CONFIGURACIÓN PROPIA NO ADOPTADA: N1 sin las activaciones de bases imponibles negativas (22,12 %), N2 vacío por elección (regla heredada, margen de 2025), R1 (circulante 48,28 % de las ventas), P-M1 SR1 · Θ con θ = 0,5 (punto medio del dominio, sin central económica) y extremos θ = 0 y θ = 1, cartera legado; perímetro de la inversión «NIIF 16» como punto de cálculo, con «Caja» como variante (no adoptado); protocolo experimental del objetivo «objetivo_condicionado» (no adoptado); r heredada y k = 3 experimental. Cuentas de 2025 con el precio del 3-nov-2026: no es una valoración a cierre de 2025 ni un backtest. Fecha de análisis = fecha real de ejecución. Acciones: 45,993399 millones EN CIRCULACIÓN a 31-dic-2025 (decisión D3 de la persona responsable, 14-nov-2026); precio del 3-nov-2026: fechas distintas, no es una actualización a 2026. Medias C47–C50 con los valores exactos de los datos (decisión E1).",
+  "fuente": "2026-11_Vidrala_ensayo_4_13/scripts/preparar_expedientes_4_13.py; encargo 4.13 §6 y §7. Metadato de la orquestación.; 2026-11_Vidrala_ensayo_4_14/configuracion/cambio_decisiones_viscofan_4_14.json",
+  "fecha": "2026-11-14"
+ },
+ "configuracion_economica": {
+  "tipo": "configuracion_economica_motor_B",
+  "version_formato": 1,
+  "plantilla_requerida": "V6.4.1 experimental",
+  "modo": "Experimental",
+  "naturaleza": "Configuración PROPIA de ENSAYO para Viscofan (encargo 4.12 §8), escrita por la orquestación con el análisis viscofan/configuracion/analisis_configuracion_viscofan.md (cifras de las publicaciones recuperadas, comprobadas en su página). No es una adopción y no traslada nada de Vidrala (ni tipo, ni margen, ni cartera, ni λ, ni proporción de mantenimiento). N1: tipo sin las activaciones de bases imponibles negativas (misma regla de media 2021–2025 que la heredada). N2 VACÍO POR ELECCIÓN EXPLÍCITA: se conserva la regla heredada (Palancas C8 «Último año», margen EBIT de 2025 = 16,36 %) porque el ciclo 2021–2025 da 16,38 %, no hay partidas no recurrentes materiales identificadas en el resultado de explotación de 2025 (+0,648 de deterioros y enajenaciones) y la empresa dice que los cambios de perímetro no tuvieron efecto material (0,0 p.p. en el EBITDA); la serie de diez años (17,47 %) mezcla un período de márgenes de 21,1 % a 15,1 % y queda como lectura. R1 con el circulante del balance de 2025 (48,28 % de las ventas). P-M1: SR1 con la familia Θ porque su base es el exceso de la inversión sobre la D&A OBSERVADO en 2021–2025 (con el perímetro NIIF 16 del expediente, 64,923: capex + altas de derechos de uso − D&A; con «Caja» era 40,813) y su parámetro está acotado; θ NO SE OBSERVA: θ = 0,5 es el PUNTO MEDIO DEL DOMINIO [0, 1] para calcular, SIN CENTRAL ECONÓMICA ADOPTADA, y theta_rango [0, 1] calcula los dos extremos (todo el exceso fue crecimiento / todo fue reposición). La familia Λ no se declara: λ no se observa y, con las bases de Viscofan, SRF solo estaría definida hasta λ = 1,2011 con el perímetro NIIF 16 (1,1413 con «Caja»; viscofan/resultados/dominios_perimetro.md) (combinación no definida en esta configuración). Cartera «legado»: la única cartera de clientes identificada (altas de 1,294 en 2025, vida 12 años) es inmaterial y no hay datos que confirmen ceros en 2021–2024, así que no se usa P0 (que exigiría cinco importes con ceros explícitos). Protocolo experimental del objetivo declarado como ensayo: «objetivo_condicionado». (4.13) Expediente nuevo con la plantilla V6.4.1 experimental: el perímetro de la inversión de las bases de P-M1 se declara de forma explícita, «NIIF 16» (capex + altas de derechos de uso frente a toda la D&A) como punto de cálculo coherente con el motor B, con «Caja» (la V6.4) como variante calculada. No se adopta (VISCOFAN-PERIMETRO). N sigue en 45,479209 (VISCOFAN-ACCIONES).",
+  "N1": {
+   "valor": 0.22119083805359852,
+   "fuente": "Conciliaciones del impuesto con el tipo de Navarra: AR_2025 PDF p. 109 (2025 y 2024; activación de bases negativas −18,009 y −2,493), CF_2024 PDF p. 85 (2023), CF_2022_compilacion PDF p. 74 (2022 y 2021); causa del 10,1 % de 2025: AR_2025 PDF p. 142. Cálculo: viscofan/configuracion/analisis_configuracion_viscofan.md",
+   "periodo": "2021–2025 (media de los tipos anuales, como la regla heredada C52)",
+   "perimetro": "consolidado, actividades continuadas (sin actividades interrumpidas en 2021–2025)",
+   "clase": "derivado de datos publicados",
+   "escudo": "Vinculado al tipo aplicado a NOPAT"
+  },
+  "N2": null,
+  "N3": {
+   "regla": "R1 · solo circulante; capacidad conservada",
+   "existencias": 386.859,
+   "deudores": 321.044,
+   "acreedores": 103.388,
+   "fuente": "AR_2025 (informe anual consolidado 2025, inglés), balance a 31-dic-2025, PDF pp. 21–22 (existencias, deudores comerciales y otras cuentas a cobrar, acreedores comerciales y otras cuentas a pagar); conciliado con las notas 9 (p. 70) y 14 (p. 95)"
+  },
+  "PM1": {
+   "estructura": "SR1 · suma con S2C reestimado",
+   "familia": "Θ · θ × exceso histórico medio",
+   "lambda": null,
+   "theta": 0.5,
+   "theta_rango": [
+    0.0,
+    1.0
+   ],
+   "convencion_anios": "Plana",
+   "convencion_terminal": "Proporcional a las ventas",
+   "roic_terminal": "ROIC de la fase B sin cambio",
+   "cartera": "Legado · se repone con la amortización",
+   "perimetro_inversion": "NIIF 16 · capex de caja + altas de derechos de uso frente a toda la D&A",
+   "altas_derechos_uso": [
+    3.01,
+    1.633,
+    6.554,
+    6.419,
+    6.494
+   ],
+   "altas_fuente": "Altas de derechos de uso 2021–2025 (notas de arrendamientos): CF_2021 p. 39, CF_2022_compilacion p. 51, CA_2023_es p. 35, CF_2024 y AR_2025; conciliación y réplica en 2026-11_Vidrala_ensayo_4_13/resultados/conciliacion_arrendamientos_viscofan.md"
+  },
+  "trazabilidad": {
+   "modo": {
+    "clase": "convención",
+    "confianza": "alta",
+    "fuente_o_condicion": "encargo 4.12 §8: expediente nuevo de Viscofan con una configuración experimental propia",
+    "justificacion": "contrastar la integración con una segunda empresa; ninguna configuración se adopta",
+    "materialidad": "sin efecto propio: el efecto es el de cada parámetro"
+   },
+   "N1.tipo": {
+    "clase": "derivado de datos publicados",
+    "confianza": "media",
+    "fuente_o_condicion": "conciliaciones del impuesto 2021–2025 (AR_2025 p. 109; CF_2024 p. 85; CF_2022_compilacion p. 74) y causa del 10,1 % de 2025 (AR_2025 p. 142)",
+    "justificacion": "la regla heredada (C52, 19,83 %) incluye el 10,1 % de 2025, que la empresa atribuye a la activación de bases imponibles negativas de Estados Unidos (18,009); sin las activaciones de 2024 y 2025 la media 2021–2025 es 22,12 %. Sin además los ajustes de ejercicios anteriores sería 22,66 % (lectura); la deducción de 2023 (ICMS en Brasil) no está cuantificada y no se ajusta",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "N1.escudo": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "configuración de compatibilidad de la V6.3 (el mismo tipo en NOPAT y en el escudo)",
+    "justificacion": "no se separa el escudo sin una decisión (D-N6-τ de la 4.10); la deuda financiera es pequeña frente a la capitalización, así que el efecto es menor",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "N3.regla": {
+    "clase": "hipótesis",
+    "confianza": "media",
+    "fuente_o_condicion": "regla R1 de la plantilla V6.4 (D-N3 sin firmar)",
+    "justificacion": "con ventas que caen no se recupera capital fijo: solo se libera circulante, que en Viscofan es alto (48,28 % de las ventas); la capacidad conservada sirve a la recuperación. Que la regla cuadre no demuestra la conservación ni que las existencias bajen en proporción a las ventas",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C; solo actúa cuando las ventas caen"
+   },
+   "N3.circulante": {
+    "clase": "dato publicado",
+    "confianza": "alta",
+    "fuente_o_condicion": "balance consolidado a 31-dic-2025 (AR_2025 pp. 21–22), conciliado con las notas 9 y 14",
+    "justificacion": "circulante = existencias + deudores − acreedores del balance, sobre las ventas de 2025 (48,28 %; 48,04 % en 2024; 46,79 % solo con las partidas comerciales de las notas)",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.estructura": {
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "estructuras de la plantilla V6.4 (D-N3b revisada sin firmar); ninguna elegida",
+    "justificacion": "SR1 evita contar dos veces la parte de reposición: el S2C histórico (C53, 1,146) sale de la reinversión neta 2021–2025, que incluye el exceso de capex sobre D&A; si una parte fue reposición, el requisito adicional se suma y el S2C de los años se reestima con f. Las demás estructuras se calculan como variantes",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.familia": {
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "familias de la plantilla V6.4; análisis viscofan/configuracion/analisis_configuracion_viscofan.md",
+    "justificacion": "Θ parte del exceso observado: con el perímetro NIIF 16, Σ (capex + altas de derechos de uso − D&A) 2021–2025 = 64,923 (40,813 con «Caja»); θ está acotado en [0, 1]; Λ necesitaría λ, no observado",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.parametro": {
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "θ no observado: punto medio del dominio [0, 1], sin central económica adoptada; extremos calculados (theta_rango)",
+    "justificacion": "θ es la parte del exceso histórico que fue reposición; las cuentas no la separan. θ = 0 (todo fue crecimiento) y θ = 1 (todo fue reposición) se calculan como variantes, también con el perímetro «Caja»; con NIIF 16 la D&A de los derechos de uso se compara con sus altas (4.13 §7)",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro, con los extremos θ = 0 y θ = 1) y la evalúa la fase C"
+   },
+   "PM1.convencion_anios": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "convención de la plantilla para el requisito de los años 1–10",
+    "justificacion": "con R1 la capacidad se conserva cuando las ventas caen, así que su reposición no baja con ellas: nivel plano; la proporcional a las ventas se calcula como variante",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.convencion_terminal": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "convención de la plantilla para el terminal",
+    "justificacion": "en la perpetuidad la base de activos crece con el negocio: requisito proporcional a las ventas; «crece con g» se calcula como variante",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.roic_terminal": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "definición de SR1: el ROIC del terminal no cambia",
+    "justificacion": "(4.13 §8, condición de PRECISION_ROIC_4_9.md) Q-ROIC1 sigue sin decidir: si el ROIC de largo plazo de la fase B es neto de reposición (rendimiento de la inversión que excede el mantenimiento), la combinación coherente con la suma del requisito es la que NO reestima el ROIC del terminal (SR1); si se midió sobre una inversión total que ya incluye la reposición, la coherente es la que lo reestima (SR2, ROIC × f). SR2 se calcula como variante; ninguna se elige por su valor",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "PM1.cartera": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "nota de combinaciones de negocios de 2025 (AR_2025 p. 33): cartera de clientes de 1,294 con vida de 12 años",
+    "justificacion": "cartera inmaterial (≈0,11 al año) y sin datos que confirmen ceros en 2021–2024: no se usa P0 y la amortización de la cartera se trata como la del resto (legado). La ausencia de una cartera identificada no confirma ningún cero",
+    "materialidad": "inmaterial por importe; P0 no se calcula porque exigiría importes que no constan (combinación no definida)"
+   },
+   "PM1.perimetro": {
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "plantilla V6.4.1 experimental (4.13 §7); altas de derechos de uso conciliadas 2021–2025 (24,110) frente a su amortización (27,051)",
+    "justificacion": "NIIF 16 completo: el motor B trata los arrendamientos como capital (Historia fila 32) y como deuda (puente), su NOPAT ya descuenta la amortización de los derechos de uso y no resta sus pagos; la inversión que repone esos activos son las altas. Con «Caja» (la V6.4) la D&A incluye la de los derechos de uso y el capex no incluye sus altas. Es el punto de cálculo, no una adopción: «Caja» se calcula como variante (perimetro_alternativo) y la elección es VISCOFAN-PERIMETRO",
+    "materialidad": "la mide configuracion_v64_variantes.json (variante perimetro_alternativo y sus extremos de θ) y la evalúa la fase C"
+   }
+  },
+  "protocolo_objetivo": "objetivo_condicionado"
+ }
+}

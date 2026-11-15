@@ -1,0 +1,49 @@
+{
+ "paso": 10,
+ "estado_analisis": null,
+ "intentos": {
+  "fase_b": 0,
+  "fase_c": 0,
+  "auditoria": 0,
+  "vueltas_c_a_b": 0,
+  "vueltas_b_a_a": 0
+ },
+ "historial": [
+  "  $ bash comprobar_entorno.sh → 0 · autotest precio_de_si: PASA (5 casos + propiedades)",
+  "  $ python3 migrar_v53_a_v63.py Viscofan_evaluada.xlsx Plantilla_V6.4_experimental.xlsx Viscofan_v63_base.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 rellenar_fase1_v63.py Viscofan_v63_base.xlsx fase1_v63.json Viscofan_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 configuracion_economica.py aplicar Viscofan_v63_datos.xlsx Viscofan_v63_datos.xlsx.cfg.xlsx configuracion_economica.json --config config_v2_v64_experimental.json → 0 · OK: 96 celdas de «Configuración V6.4» escritas en Viscofan_v63_datos.xlsx.cfg.xlsx · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_entrada_v63.py Viscofan_v63_datos.xlsx Viscofan → 0 · OK: 0 bloqueantes · 0 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
+  "  $ python3 volcar_datos_v63.py Viscofan_v63_datos.xlsx Viscofan → 0 · OK: datos_v63.md (10684 palabras) y datos_v63.json en /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscof",
+  "  $ python3 validar_esquema.py fase_a.json fase_a --salida esquema_fase_a.json.txt → 0 · VÁLIDO · fase_a.json contra fase_a.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_a.md fase_a.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_a.json A celdas_A.json → 0 · OK: 116 celdas (incluidas E/F/N de Control maestro) → /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscof",
+  "  $ python3 escribir_v63.py Viscofan_v63_datos.xlsx Viscofan_v63_evaluada.xlsx --celdas celdas_A.json --verificar referencia_V6.4_experimental.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Viscofan_v63_evaluada.xlsx Viscofan_v63_datos.xlsx --fases A → 0 · PASS: 0 errores · 29 celdas correctas · fases ['A'] · motor B",
+  "  $ python3 comprobar_entrada_v63.py Viscofan_v63_evaluada.xlsx Viscofan --motor B → 0 · OK: 0 bloqueantes · 0 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
+  "  $ python3 volcar_datos_v63.py Viscofan_v63_evaluada.xlsx Viscofan --referencias-mecanicas → 0 · OK: datos_v63.md (12316 palabras) y datos_v63.json en /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscof",
+  "  $ python3 validar_esquema.py fase_b.json fase_b --salida esquema_fase_b.json.txt → 0 · VÁLIDO · fase_b.json contra fase_b.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_b.md fase_b.md → 0 · RESULTADO: PASS",
+  "  $ python3 comprobar_gramatica.py Viscofan --antes-de-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 3 (sin justificar 0) · avisos 0 → gramatica.md",
+  "  $ python3 fase_a_celdas.py fase_b.json B celdas_B.json → 0 · OK: 92 celdas (incluidas E/F/N de Control maestro) → /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscofa",
+  "  $ python3 escribir_v63.py Viscofan_v63_evaluada.xlsx Viscofan_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_B.json --verificar referencia_V6.4_experimental.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Viscofan_v63_evaluada.xlsx Viscofan_v63_datos.xlsx --fases A,B → 0 · PASS: 0 errores · 49 celdas correctas · fases ['A', 'B'] · motor B",
+  "  $ bash recalc.sh Viscofan_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscofan/recalc/Viscofan_v63_evaluada.xlsx (recálculo fo",
+  "  $ python3 leer_resultados.py Viscofan_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/claude/trabajo_4_12/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/reproduccion_v64_heredado/Viscofan/resultados.json · motor B · e",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 54.7 · esc. MALO 35.3886020412093 · precio de Sí 43.0510 (P* 43.0510) · ponderado 46.8821 · zona caro",
+  "  $ python3 comprobar_gramatica.py Viscofan --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 4 (sin justificar 1) · avisos 3 → gramatica.md"
+ ],
+ "motor": "B",
+ "fase_b_escrita": true,
+ "fase_c_escrita": false,
+ "esperando": "10:fase_c.json",
+ "inicio": "2026-11-12T21:17:16",
+ "configuracion_economica_sha256": "72472ab203cb45f76e47baf84c7f917e660a8bf182f58eb8fcc5bb8ffac41013",
+ "esperando_desde": 1794514660.903827,
+ "consumidos": {
+  "extracto_v63.md": 1794514648.0848305,
+  "fase_a.json": 1794514648.1627567,
+  "fase_b.json": 1794514657.4267464
+ },
+ "motivo_correccion": null
+}

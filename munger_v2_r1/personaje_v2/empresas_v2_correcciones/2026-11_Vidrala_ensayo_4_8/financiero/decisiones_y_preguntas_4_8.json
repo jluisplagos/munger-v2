@@ -1,0 +1,125 @@
+{
+ "titulo": "Decisiones y preguntas pendientes tras la entrega 4.8 (P-M1, X-a y X-c). Archivo PREPARADO: sin decidir.",
+ "estado": "pendiente de la persona responsable",
+ "instrucciones": "Para cada decisión, la persona responsable escribe en «decision» una de las opciones, u otra con su motivo, y rellena «fecha» y «confirmado_por». Claude no rellena esos campos ni los sustituye. Mientras estén vacíos, el libro de referencia y sus valores (53,67 / 70,77 / 86,49; ponderado 70,50; precio de Sí 65,69) siguen siendo los vigentes del ensayo. Ningún valor de este archivo es una comparación válida con el precio de noviembre de 2026 ni una recomendación de compra o espera.",
+ "relacion": "D-N1, D-N2 y D-N3 siguen siendo las del archivo de la 4.7.1 (…/2026-11_Vidrala_ensayo_4_7_1/financiero/decisiones_propuestas_N1_N3.json), que se conserva intacto y sin rellenar. Este archivo sustituye solo la propuesta de D-N3b y añade D-N3c, D-N3d, las preguntas técnicas Q-T1 a Q-T3 y las preguntas a la empresa Q-E1 a Q-E7.",
+ "decisiones": [
+  {
+   "id": "D-N3b",
+   "pregunta": "Hipótesis de reposición (mantenimiento) en la proyección y en el terminal, con la regla de liberación R1 de D-N3.",
+   "opciones": {
+    "=D&A": "reposición igual a la amortización (referencia de la plantilla y de la 4.7.1): ponderado 69,24 · precio de Sí 64,26. No respaldada: los indicios conservados apuntan a una reposición mayor (INFORME_PM1.md §3)",
+    "P1": "reposición a coste corriente λ = 1,15 (hipótesis central; indicios de 1,05 a 1,29; rango explorado 1,10–1,25) con la regla del hueco y con la corrección P0: 68,92 · 63,00 (P1b, λ = 1,10: 69,25 · 63,72)",
+    "P5": "exceso estructural en nivel (media 2021–2025 sobre la amortización que se repone, 47,8 M€/año) con la regla del hueco y P0: 62,71 · 55,83",
+    "P6m": "suelo de inversión bruta del 10,6 % de las ventas con la regla del hueco y P0: 67,36 · 61,80",
+    "otra": "otra hipótesis, con su motivo"
+   },
+   "propuesta_de_claude": "P1 como hipótesis central (no como mínimo respaldado: P1b y P0 dan más valor), mostrando siempre a su lado P5, P6m y los extremos explorados P6i (61,33 · 55,53) y P6x (55,70 · 50,25). No se propone «=D&A»: no tiene respaldo. La elección entre P1, P5 y P6 depende de un dato que no es público: qué parte de la inversión de 2021–2025 es reposición o competitividad obligada y qué parte es ampliación (Q-E1 y Q-E2). Ningún rango es una cota",
+   "representable_en_la_plantilla": "no: la plantilla no tiene una entrada de reposición ni una regla del hueco; exige un cambio de plantilla o el modelo auxiliar identificado (scripts/analisis_pm1.py)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota_auditoria_interna": "Redacción y cifras corregidas tras la auditoría interna de la 4.8 (Z-b, Z-c, Z-d, Z-l)"
+  },
+  {
+   "id": "D-N3c",
+   "pregunta": "Amortización de la cartera de clientes de Vidroporto (4,492 M€ en 2025; valor neto 21,858): ¿se trata como no repuesta (se suma al FCF mientras dura)?",
+   "opciones": {
+    "sí": "P0: +0,49 de ponderado y de precio de Sí",
+    "no": "mantenerla dentro de la reposición, como hace la plantilla"
+   },
+   "propuesta_de_claude": "sí (dato publicado; efecto menor). Límites: no consta si esa amortización es fiscalmente deducible, y al agotarse sube el EBIT unos 0,3 puntos, lo que no se modela",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "D-N3d",
+   "pregunta": "Ola de reconstrucción 2026–2027 (P2: inversión de 180 M€ el año 1, según una transcripción de la conferencia de resultados).",
+   "opciones": {
+    "sensibilidad": "mostrarla como sensibilidad, no como base",
+    "base": "incluirla en la base con una cifra oficial"
+   },
+   "propuesta_de_claude": "sensibilidad hasta disponer de una cifra oficial (Q-E5): la fuente es secundaria y posterior a la base económica",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T1",
+   "pregunta": "Código de salida cuando la ficha no cumple su esquema al cerrar (X-c). Hoy: 0, estado final no_entregable (como las demás vías de fallo de implementación).",
+   "opciones": {
+    "0": "mantener",
+    "otro": "reservar un código propio para «fallo de implementación al cerrar»"
+   },
+   "propuesta_de_claude": "mantener 0; la causa ya consta en el estado, el diagnóstico y la última línea",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T2",
+   "pregunta": "X-b: ¿una diferencia solo de metadatos (p. ej. version_config) entre la ficha regenerada y la cerrada debe contar como sustitución y exigir una auditoría nueva?",
+   "opciones": {
+    "sí": "comportamiento actual (conservador)",
+    "no": "excluir los metadatos de versión de la comparación"
+   },
+   "propuesta_de_claude": "sin propuesta: es una regla de gobierno del cierre",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "Q-T3",
+   "pregunta": "W-d: ¿ficha.py directo debe negarse a sustituir una ficha cerrada (hoy la sustituye, archiva la anterior y avisa)?",
+   "opciones": {
+    "no": "comportamiento actual",
+    "sí": "negarse y terminar con un código de rechazo"
+   },
+   "propuesta_de_claude": "sin propuesta",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  }
+ ],
+ "preguntas_a_la_empresa": {
+  "nota": "Preguntas preparadas para una eventual consulta humana a Vidrala (relaciones con inversores). NO se han enviado: el encargo no autoriza a enviar mensajes ni a contactar con la empresa.",
+  "lista": [
+   {
+    "id": "Q-E1",
+    "dato_material": "sí (decide entre P1, P5 y P6)",
+    "pregunta": "Desglose de la inversión de 2023, 2024 y 2025 entre mantenimiento o reposición, ampliación de capacidad, eficiencia y descarbonización, por segmento."
+   },
+   {
+    "id": "Q-E2",
+    "dato_material": "sí",
+    "pregunta": "Inventario de hornos por planta: año de la última reconstrucción, duración prevista de la campaña y capacidad (t/día), y calendario de reconstrucciones 2026–2030 con su coste estimado."
+   },
+   {
+    "id": "Q-E3",
+    "dato_material": "sí",
+    "pregunta": "Qué parte de las reconstrucciones es obligatoria en su fecha (fin de campaña, normativa de emisiones, ETS) y qué parte es aplazable, y con qué coste o riesgo."
+   },
+   {
+    "id": "Q-E4",
+    "dato_material": "sí (capacidad de R1)",
+    "pregunta": "Capacidad instalada y producción en toneladas por segmento en 2023–2025, y si la reestructuración del Reino Unido de 2025 redujo capacidad instalada o solo plantilla."
+   },
+   {
+    "id": "Q-E5",
+    "dato_material": "sí (P2)",
+    "pregunta": "Cifra oficial de la inversión prevista para 2026 y su evolución esperada a medio plazo, en % de las ventas."
+   },
+   {
+    "id": "Q-E6",
+    "dato_material": "no (P0)",
+    "pregunta": "Vida restante y tratamiento fiscal de la amortización de la cartera de clientes de Vidroporto."
+   },
+   {
+    "id": "Q-E7",
+    "dato_material": "no",
+    "pregunta": "Qué parte del gasto de reparación y mantenimiento (41,854 M€ en 2025, ya en el EBIT) corresponde a reparaciones parciales de hornos."
+   }
+  ]
+ }
+}

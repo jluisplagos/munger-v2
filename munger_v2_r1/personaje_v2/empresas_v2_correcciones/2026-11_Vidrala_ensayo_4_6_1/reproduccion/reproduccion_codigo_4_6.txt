@@ -1,0 +1,45 @@
+REPRODUCCIÓN DEL CASO DE VIGENCIA · código de /home/claude/entrega461/munger_v2_r1
+
+-- estado inicial (expediente aprobado, copia temporal)
+   pipeline: paso 14 · estado 'concluido' · auditoría 'APROBADO'
+   ficha.json: estado 'concluido' · cierre {'auditoria': 'APROBADO', 'material_auditado': '74b94f8072dd58c1'}
+   informe.md: presente · # Vidrala, S.A. (VID) · informe del personaje v2 · 2026-11-0 · «Estado `concluido`» True · tesis de prueba False
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': 'concluido', 'verificacion': 'APROBADO'}
+   historial_cierres/: no existe
+
+modificación: fase_c.json → celdas.B101 += «[TESIS DE PRUEBA AÑADIDA DESPUÉS DE LA AUDITORÍA]» (SHA-256 4874c9b89151… → 9c36c65632e0…)
+
+$ pipeline.py <copia> --desde 14 → código 4
+   CIERRE RECHAZADO: el material cambió después de la auditoría (fase_c.json): la aprobación no vale para la versión nueva. No se escribe ninguna salida oficial; el pipeline vuelve al paso 13 (auditoría).
+
+-- después del rechazo
+   pipeline: paso 13 · estado None · auditoría 'APROBADO'
+   ficha.json: estado 'concluido' · cierre {'auditoria': 'APROBADO', 'material_auditado': '74b94f8072dd58c1'}
+   informe.md: presente · # Vidrala, S.A. (VID) · informe del personaje v2 · 2026-11-0 · «Estado `concluido`» True · tesis de prueba False
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': 'concluido', 'verificacion': 'APROBADO'}
+   historial_cierres/: no existe
+
+$ informe.py <copia> (directo) → código 0
+   OK: informe.md (13 secciones)
+
+-- después de informe.py directo
+   pipeline: paso 13 · estado None · auditoría 'APROBADO'
+   ficha.json: estado 'concluido' · cierre {'auditoria': 'APROBADO', 'material_auditado': '74b94f8072dd58c1'}
+   informe.md: presente · # Vidrala, S.A. (VID) · informe del personaje v2 · 2026-11-0 · «Estado `concluido`» True · tesis de prueba True
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': 'concluido', 'verificacion': 'APROBADO'}
+   historial_cierres/: no existe
+
+$ ficha.py <copia> --estado concluido (directo) → código 3
+   ficha.py: no se confirma «concluido» en la ficha oficial: el material cambió después de la auditoría (fase_c.json): la aprobación no vale para la versión nueva. Para el material de la auditoría, usa --provisional.
+
+-- después de ficha.py directo
+   pipeline: paso 13 · estado None · auditoría 'APROBADO'
+   ficha.json: estado 'concluido' · cierre {'auditoria': 'APROBADO', 'material_auditado': '74b94f8072dd58c1'}
+   informe.md: presente · # Vidrala, S.A. (VID) · informe del personaje v2 · 2026-11-0 · «Estado `concluido`» True · tesis de prueba True
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': 'concluido', 'verificacion': 'APROBADO'}
+   historial_cierres/: no existe
+
+VEREDICTO
+  --desde 14: REPRODUCIDO: rechaza (código 4) pero ficha, informe o resumen siguen presentando concluido / APROBADO
+  informe.py directo: REPRODUCIDO: publica la tesis modificada bajo el cierre anterior (código 0)
+  ficha.py directo: REPRODUCIDO: la ficha oficial anterior sigue presentando concluido

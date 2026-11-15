@@ -1,0 +1,61 @@
+# test_auditorias_v2.py (4.8.1) con el código de producción de la 4.8 (pipeline.py, cierre_v2.py y prompts/verificacion.md de reproduccion/codigo_4_8/), 2026-11-10
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [cet] primera ejecución: código 10, solicitud nueva registrada y nombrada en el prompt, sin cierre ni aprobación vigente; diagnóstico X-c como antecedente · código 10 · ESPERANDO: verificacion → auditoria.md (ver ESPERANDO.md y prompts_generados/) · solicitudes [] · auditoría None · estado None · paso 13
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [cet] el informe antiguo no se acepta y su huella queda anotada como ya usada, sin asignarle ninguna solicitud · None
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [utc] primera ejecución: código 10, solicitud nueva registrada y nombrada en el prompt, sin cierre ni aprobación vigente; diagnóstico X-c como antecedente · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [utc] el informe antiguo no se acepta y su huella queda anotada como ya usada, sin asignarle ninguna solicitud · None
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [renovadas] primera ejecución: código 10, solicitud nueva registrada y nombrada en el prompt, sin cierre ni aprobación vigente; diagnóstico X-c como antecedente · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · A X-c, esquema restaurado y --desde 13 directo · [renovadas] el informe antiguo no se acepta y su huella queda anotada como ya usada, sin asignarle ninguna solicitud · None
+FALLA · B X-c con intento intermedio desde 14 · [cet] --desde 14 rechaza el cierre (código 4, sin ficha cerrada) y --desde 13 pide una auditoría nueva (código 10, solicitud registrada) · código 14 → 4 · código 10 · ESPERANDO: verificacion → auditoria.md (ver ESPERANDO.md y prompts_generados/) · solicitudes [] · auditoría None · estado None · paso 13
+FALLA · B X-c con intento intermedio desde 14 · [utc] --desde 14 rechaza el cierre (código 4, sin ficha cerrada) y --desde 13 pide una auditoría nueva (código 10, solicitud registrada) · código 14 → 4 · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · B X-c con intento intermedio desde 14 · [renovadas] --desde 14 rechaza el cierre (código 4, sin ficha cerrada) y --desde 13 pide una auditoría nueva (código 10, solicitud registrada) · código 14 → 4 · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · sin --desde: código 10, la misma solicitud pendiente (…), nada cerrado · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · --desde 13: código 10, la misma solicitud pendiente (…), nada cerrado · código 10 · ESPERANDO: verificacion → auditoria.md (ver ESPERANDO.md y prompts_generados/) · solicitudes [] · auditoría 'APROBADO' · estado None · paso 13
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · informe antiguo con fecha reciente: código 10, la misma solicitud pendiente (…), nada cerrado · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · informe antiguo con fecha futura: código 10, la misma solicitud pendiente (…), nada cerrado · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · --desde 14 con la solicitud pendiente: cierre rechazado (código 4) por la solicitud pendiente, sin ficha cerrada; la solicitud sigue pendiente · estado final: concluido · paso 14
+FALLA · C relanzamientos mientras la respuesta sigue pendiente · después del rechazo, --desde 13 conserva la misma solicitud · código 10 · ESPERANDO: verificacion → auditoria.md (ver ESPERANDO.md y prompts_generados/) · solicitudes [] · auditoría 'APROBADO' · estado None · paso 13
+Traceback (most recent call last):
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 548, in main
+    g(exp)
+    ~^^^^^
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 260, in grupo_d
+    sid = pendientes(d)[0]["id"]
+          ~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+FALLA · grupo_d · excepción list index out of range
+Traceback (most recent call last):
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 548, in main
+    g(exp)
+    ~^^^^^
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 323, in grupo_e
+    sid = pendientes(d)[0]["id"]
+          ~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+FALLA · grupo_e · excepción list index out of range
+FALLA · H vías adicionales (auditoría interna de la 4.8.1) · la penúltima respuesta (ya usada) con la línea de la solicitud vigente no responde a una solicitud nueva · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+FALLA · H vías adicionales (auditoría interna de la 4.8.1) · auditorias_conocidas.json guarda las huellas fuera de estado_pipeline.json: una respuesta usada que ya no está ni en la carpeta ni en el estado sigue sin valer · código 0 → 0 · estado final: concluido · paso 14
+FALLA · H vías adicionales (auditoría interna de la 4.8.1) · ficha.py --estado concluido con una solicitud pendiente (y una aprobación anterior en el estado): código 3 y ninguna ficha cerrada · OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+FALLA · H vías adicionales (auditoría interna de la 4.8.1) · --desde 13 sobre un cierre vigente: en la primera ejecución el cierre se archiva, la fila deja de estar APROBADO y la aprobación pasa al historial; se espera la respuesta · código 0 · estado final: concluido · paso 14 · solicitudes [] · auditoría 'APROBADO' · estado 'concluido' · paso 14
+Traceback (most recent call last):
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 548, in main
+    g(exp)
+    ~^^^^^
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 477, in grupo_h
+    s1 = pendientes(d)[0]["id"]
+         ~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+FALLA · grupo_h · excepción list index out of range
+Traceback (most recent call last):
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 548, in main
+    g(exp)
+    ~^^^^^
+  File "<temporal>/a48/munger_v2_r1/personaje_v2/pruebas/test_auditorias_v2.py", line 363, in grupo_i
+    sid = pendientes(d)[0]["id"]
+          ~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+FALLA · grupo_i · excepción list index out of range
+PASA  · F cierre histórico sin solicitudes · el cierre aprobado de la 4.6.1 sigue vigente (sin --desde y con --desde 14) y no recibe ninguna solicitud retroactiva · 0 0
+PASA  · G regla H2 · Pipeline.veredicto_auditoria es idéntica a la de la 4.7.1 (16 puntos únicos, todos PASA, un único APROBADO, ningún FALLA ni encabezado inválido) · 9edf6252ca48c800
+FALLA · G regla H2 · el identificador de solicitud solo se lee en una línea propia («Solicitud de auditoría: SA-<16 hex>»), exactamente una vez
+
+2/26 pruebas de solicitudes de auditoría PASAN

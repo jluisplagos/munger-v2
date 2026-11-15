@@ -1,0 +1,61 @@
+{
+ "celda": "Palancas!C47",
+ "revisor": "revisor independiente RC47 (Claude, contexto separado; no es una revisión humana)",
+ "fecha": "2026-11-14",
+ "resultado": "verificado",
+ "fuente_examinada": "/home/claude/trabajo_4_14/trabajo/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/viscofan_decisiones/Viscofan/Viscofan_v63_evaluada.xlsx y Viscofan_v63_datos.xlsx (openpyxl, data_only=True y False, sin guardar): Análisis C37, C41, C55; Palancas A45:C48; «Diagnóstico V6» C91, C92 y filas 118, 122, 123, 124 (fórmulas que remiten a Motor fila 222–228); datos_v63.md (filas C37, C41, C55 y §5, línea 146); fase1_metadatos.json (fechas y fuente de precio y capitalización); fase_a.json (líneas 298, 314, 325); /home/claude/trabajo_4_14/hitos/decisiones/DECISIONES_ENTRADAS_4_14.md (D3, línea 25 y condiciones); texto/AR_2025.txt (sha256 0c58cd37…, coincide con el registrado): nota 22.3, PDF pp. 129–130, y capital/autocartera (líneas 2725 y 3093); fuentes_mercado/BMadrid_boletin_20261103_seccion_16.txt (fila MC VIS VISCOFAN).",
+ "comprobaciones": [
+  {
+   "afirmacion": "C41 = 54,70 € × 45,993399 M = 2.515,84 M€",
+   "resultado": "correcta",
+   "prueba": "Análisis!C37 = 54.7 (precio), Análisis!C55 = 45.993399, Análisis!C41 = 2515.838925 (constante, igual en ambos libros, con y sin data_only). 54,70 × 45,993399 = 2.515,8389253 → 2.515,84 M€. (En el fundamento C41 es la capitalización y C37 el precio, como en el libro.)"
+  },
+  {
+   "afirmacion": "desviación 0",
+   "resultado": "correcta",
+   "prueba": "|C41 ÷ (C37 × C55) − 1| = 1,2·10⁻¹⁰ (solo por el redondeo de C41 a seis decimales); tolerancia «Diagnóstico V6»!C91 = 0,05, corte C92 = 0,25."
+  },
+  {
+   "afirmacion": "V22, V26 y V27 en OK",
+   "resultado": "correcta",
+   "prueba": "«Diagnóstico V6» (valores calculados de la evaluada): A118 V22 OK, A122 V26 OK, A123 V27 OK; datos_v63.md §5: «V22 OK; V26 OK; V27 OK»."
+  },
+  {
+   "afirmacion": "Queda el aviso V28",
+   "resultado": "correcta",
+   "prueba": "«Diagnóstico V6» A124: V28 AVISO «Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)»; igual en datos_v63.md §5."
+  },
+  {
+   "afirmacion": "precio del 3-nov-2026",
+   "resultado": "correcta",
+   "prueba": "Palancas!C45 = 2026-11-03; fase1_metadatos.json fecha 2026-11-03; boletín BME: fila MC VIS VISCOFAN, precedente 54,3000 (02-11-26), último 54,7000."
+  },
+  {
+   "afirmacion": "acciones en circulación a 31-dic-2025",
+   "resultado": "correcta",
+   "prueba": "Palancas!C46 = 2025-12-31; AR_2025: 46,500,000 acciones de capital (l. 2725) y 506,601 propias a 31-dic-2025 (l. 3093); 46.500.000 − 506.601 = 45.993.399. (La etiqueta de Palancas C46 dice «acciones diluidas», heredada de la plantilla; no afecta al fundamento.)"
+  },
+  {
+   "afirmacion": "decisión D3",
+   "resultado": "correcta",
+   "prueba": "DECISIONES_ENTRADAS_4_14.md l. 25: D3 autoriza 45,993399 M en circulación a 31-dic-2025 (46.500.000 − 506.601) y exige no presentarlo como actualización a 2026 (precio del 3-nov-2026 frente a acciones del 31-dic-2025). Recogida en fase1_metadatos.json (l. 79), datos_v63.md (C41, C55) y fase_a.json (l. 298, 314)."
+  },
+  {
+   "afirmacion": "las acciones a la fecha del precio no constan en el expediente",
+   "resultado": "correcta",
+   "prueba": "datos_v63.md C41 y fase1_metadatos.json: «la autocartera a 3-nov-2026 no consta (a 30-jun-2026: 396.357; emitidas 46.000.000…)»; fase_a.json l. 325 igual; el boletín de BME no da número de acciones. Hay datos a 30-jun-2026, pero no a 3-nov-2026, que es lo que afirma el texto."
+  },
+  {
+   "afirmacion": "Dilución potencial del plan 2025–2027 (nota 22.3: hasta 0,315/0,4725 M) declarada aparte, no incluida",
+   "resultado": "correcta",
+   "prueba": "AR_2025.txt, nota «22.3. Long-Term Incentive Plan» (l. 5243, PDF p. 129; plan 2025-2027) y PDF p. 130 (l. 5283): «a maximum of 315,000 shares for the Target Incentive and 472,500 shares for the Maximum Incentive», liquidación en el primer semestre de 2028. No incluida en C55 y declarada aparte: datos_v63.md C55 («Dilución potencial NO incluida… su efecto se declara aparte») y fase_a.json l. 325."
+  },
+  {
+   "afirmacion": "El valor «Ninguna» de C47 es coherente con esos hechos",
+   "resultado": "correcta",
+   "prueba": "Palancas!C47 = «Ninguna» en la evaluada (vacía en _datos, la escribe la fase B/C). Según «Diagnóstico V6» C92, la causa solo se pide si la desviación está entre la tolerancia (0,05) y el corte (0,25). Con desviación ≈ 0 no hay causa que declarar; V28 es un aviso de fechas, no de desviación."
+  }
+ ],
+ "texto_propuesto": null,
+ "nota": "Todas las afirmaciones del fundamento vigente coinciden con el expediente (libros, datos_v63.md, metadatos, D3, AR_2025 nota 22.3, boletín de BME). Lo revisado es la exactitud de los hechos que cita el fundamento y si la clasificación es coherente; «verificado» no valida el juicio de la hipótesis. Observación menor que no afecta al texto: la etiqueta de Palancas A46 dice «Fecha de las acciones diluidas» y la de Análisis B55 dice «Diluted shares outstanding», pero C55 son las acciones en circulación (D3). No se ha modificado ningún archivo del expediente."
+}

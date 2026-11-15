@@ -1,0 +1,23 @@
+código: entrega 4.7.1
+X-a · copia aprobada de la 4.6.1, sin fase1_v63.json ni texto/ · pipeline.py COPIA --desde 2 (una sola ejecución)
+   código de salida: 0
+   últimas líneas: [paso 2] FIN · estado pendiente_de_datos · falta_de_datos: falta fase1_v63.json y no hay informes en texto/ para construirlo | estado final: None · paso 2
+   estado_pipeline.json: estado_analisis=None · auditoria=None · paso=2 · cierres_archivados=2 · ficha_valida=True
+   ficha.json: estado='pendiente_de_datos' · cierre=None
+   informe.md: sí · cierre_vigente.json: no
+   diagnostico.json: estado='pendiente_de_datos' · causa='falta_de_datos' · detalle='falta fase1_v63.json y no hay informes en texto/ para construirlo' · paso=2 · desde_que_paso=2 · que_hace_falta='José Luis: informes anuales de 10 años (PDF → texto/) o fase1_v63.json (S-2)'
+   fila del resumen: [('pendiente_de_datos', '')]
+   carpetas archivadas: [('01_74b94f8072dd58c1', 'concluido', True), ('02_74b94f8072dd58c1', 'concluido', True)]
+   X-a REPRODUCIDO: la primera ejecución deja un estado incoherente
+X-c · código con esquema de ficha roto (campo obligatorio inexistente) · copia aprobada de la 4.6.1 · pipeline.py COPIA --desde 14 (una sola ejecución)
+   código de salida: 4
+   últimas líneas: [paso 14] ficha.json no cumplía su esquema: estado concluido → no_entregable | [paso 13] CIERRE RECHAZADO tras las salidas finales: informe.py: el pipeline no registró una auditoría APROBADO válida (auditoria = None) | CIERRE RECHAZADO: las salidas finales archivaron la salida oficial (informe.py: el pipeline no registró una auditoría APROBADO válida (auditoria = Non
+   estado_pipeline.json: estado_analisis='no_entregable' · auditoria=None · paso=13 · cierres_archivados=3 · ficha_valida=False
+   ficha.json: ninguna
+   informe.md: no · cierre_vigente.json: no
+   diagnostico.json: estado='no_entregable' · causa='fallo_de_implementacion' · detalle="ficha.json no cumple su esquema (criterio 7 †; estado previsto: concluido): INVÁLIDO · ficha.json contra ficha.esquema.json\n(raíz): 'campo_inexistente" · paso=14 · desde_que_paso=14 · que_hace_falta='corregir ficha.py o el esquema (ver esquema_ficha.json.txt)'
+   fila del resumen: [('', 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del mater')]
+   carpetas archivadas: [('01_74b94f8072dd58c1', 'concluido', True), ('02_74b94f8072dd58c1', 'concluido', True), ('03_74b94f8072dd58c1', 'no_entregable', True)]
+   ¿alguna ficha no_entregable con «cierre» (actual o archivada)? sí
+   X-c REPRODUCIDO: estado mixto o causa atribuida a otra cosa
+RESULTADO: X-A incoherente · X-C incoherente

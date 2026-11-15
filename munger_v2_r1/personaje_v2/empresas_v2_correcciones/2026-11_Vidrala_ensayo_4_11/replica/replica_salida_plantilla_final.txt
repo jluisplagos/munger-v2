@@ -1,0 +1,517 @@
+RÉPLICA INDEPENDIENTE · V6.4 experimental del motor B (encargo 4.11 §8)
+RESULTADO GLOBAL: 117 de 117 casos coinciden → TODOS COINCIDEN (código 0)
+directorio de casos: /home/claude/trabajo/munger_v2_r1/personaje_v2/pruebas/_v64/casos
+manifiesto: sha256 78917887c8da023876c64dc2bc2dac6bff7d48dc138c9ac0085f74742aeeaaf1 · plantilla v6/v64_experimental/entregables/Plantilla_V6.4_experimental.xlsx (sha256 04bab281d2a1a4b236e9714e069c9ade8a9c7d467f090b7ce435cce0040d9bef)
+casos: 117 · rechazados por la réplica: 23 · calculados: 94 · con referencia: 53
+tolerancias: valores y BK 1e-09 €/acción · flujos y conciliación 1e-09 × ventas de partida · parámetros 1e-12 · referencia: la de cada caso
+libros abiertos solo con data_only=True (valores); la réplica no lee fórmulas ni las columnas BU:DY del Motor
+
+RESUMEN POR GRUPO (casos que pasan de los evaluados; «no aplican»: rechazos sin valores o casos sin referencia)
+  0 · entradas (libro = manifiesto = casos_v64.py): pasan 117 de 117 (0 no aplican) · comparaciones 10514
+  1 · validez: pasan 117 de 117 (0 no aplican) · comparaciones 771
+  2 · valores (Análisis B78:D78, C83; Motor BK6:BK8): pasan 94 de 94 (23 no aplican) · comparaciones 658 · dif. máx. 4.690e-13 (N1_cero · Análisis!D78 (V BUENO))
+  2b · parámetros de las filas 6–8 (añadido): pasan 94 de 94 (23 no aplican) · comparaciones 4230 · dif. máx. 2.842e-14 (her_461 · Motor!M6 (ajuste))
+  2c · referencia de réplicas anteriores (V, ponderado, precio de Sí): pasan 53 de 53 (64 no aplican) · comparaciones 417 · dif. máx. 4.456e-07 (her_461 · referencia V BUENO frente a la réplica)
+  3 · flujos (Motor AU6:BD8 y BF6:BF8): pasan 94 de 94 (23 no aplican) · comparaciones 3102 · dif. máx. 6.821e-13 (SRF_T0.50 · Motor!AU8 (FCF BUENO año 1))
+  4 · conciliación («Conciliación B»): pasan 94 de 94 (23 no aplican) · comparaciones 27918 · dif. máx. 5.002e-12 (her_461 · Conciliación B!G7 (ventas MALO año 6))
+  5 · sensibilidad, tornado y DCF inverso (Motor 9–136): pasan 94 de 94 (23 no aplican) · comparaciones 102554 · dif. máx. 8.811e-13 (N1_cero · Motor!BK120 (Inverso 64))
+  6 · identidades: pasan 94 de 94 (23 no aplican) · comparaciones 5648 · dif. máx. 5.329e-15 (SRF_L1.15 · Conciliación B!E48 (Δcirculante SRF del libro frente al de S de la réplica))
+  flujos de las filas 9–136 (añadido al grupo 5): dif. máx. 5.002e-12 · filas comparadas 11374
+
+CASOS  (ent = entradas · val = validez · V = valores · par = parámetros · ref = referencia · fcf = flujos · con = conciliación · sens = filas 9–136 · id = identidades;
+        «—» = no aplica; dif = diferencia máxima libro − réplica: V y BK en €/acción, fcf y con en millones)
+  caso                                 ent   val   V     par   ref   fcf   con   sens  id       dif V  dif fcf  dif con   dif BK  resultado
+  her_461                              ok    ok    ok    ok    ok    ok    ok    ok    ok     3.6e-14  5.1e-13  5.0e-12  5.3e-13  COINCIDE
+  her_4101                             ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  5.1e-13  5.0e-12  4.5e-13  COINCIDE
+  her_461_explicito                    ok    ok    ok    ok    ok    ok    ok    ok    ok     3.6e-14  5.1e-13  5.0e-12  5.3e-13  COINCIDE
+  T1_M0_R0                             ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  4.8e-13  COINCIDE
+  T0_M1_R0                             ok    ok    ok    ok    —     ok    ok    ok    ok     7.1e-14  5.4e-13  5.0e-12  6.5e-13  COINCIDE
+  T0_M0_R1                             ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  T0_M0_R0_exp                         ok    ok    ok    ok    ok    ok    ok    ok    ok     3.6e-14  5.1e-13  5.0e-12  5.3e-13  COINCIDE
+  T1_M1_R0                             ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  T1_M1_R1                             ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  T2_M1_R1                             ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  5.1e-13  5.0e-12  4.5e-13  COINCIDE
+  T1_M1_R1_escudo_separado             ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  6.3e-13  COINCIDE
+  N2_cero                              ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  N1_cero                              ok    ok    ok    ok    —     ok    ok    ok    ok     4.7e-13  6.0e-13  5.0e-12  8.8e-13  COINCIDE
+  P0_solo                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_L1.15                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_L1.10                              ok    ok    ok    ok    ok    ok    ok    ok    ok     7.1e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_L1.25                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.8e-13  COINCIDE
+  H_T0.25                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_T0.50                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_T0.75                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  H_T1.00                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.0e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  H_L1.15_anios_ventas                 ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_L1.15_terminal_g                   ok    ok    ok    ok    —     ok    ok    ok    ok     8.5e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_T0.50_terminal_g_anios_ventas      ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_L1.15_legado                       ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  H_L1.15_nuevo_maximo                 ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.7e-13  5.0e-12  4.7e-13  COINCIDE
+  S_L1.15                              ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  S_L1.10                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.4e-13  5.0e-12  5.3e-13  COINCIDE
+  S_L1.25                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.8e-13  COINCIDE
+  S_T0.25                              ok    ok    ok    ok    ok    ok    ok    ok    ok     1.4e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  S_T0.50                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.1e-13  COINCIDE
+  S_T0.75                              ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  5.1e-13  5.0e-12  5.3e-13  COINCIDE
+  S_T1.00                              ok    ok    ok    ok    ok    ok    ok    ok    ok     5.0e-14  5.4e-13  5.0e-12  3.0e-13  COINCIDE
+  S_L1.15_anios_ventas                 ok    ok    ok    ok    —     ok    ok    ok    ok     5.0e-14  5.1e-13  5.0e-12  5.4e-13  COINCIDE
+  S_L1.15_terminal_g                   ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.5e-13  COINCIDE
+  S_T0.50_terminal_g_anios_ventas      ok    ok    ok    ok    —     ok    ok    ok    ok     5.0e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  S_L1.15_legado                       ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  4.8e-13  5.0e-12  5.4e-13  COINCIDE
+  S_L1.15_nuevo_maximo                 ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  5.7e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_L1.15                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_L1.10                            ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_L1.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_T0.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.4e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_T0.50                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  5.4e-13  5.0e-12  5.4e-13  COINCIDE
+  SR1_T0.75                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.0e-14  4.8e-13  5.0e-12  4.8e-13  COINCIDE
+  SR1_T1.00                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_L1.15_anios_ventas               ok    ok    ok    ok    —     ok    ok    ok    ok     6.4e-14  6.0e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_L1.15_terminal_g                 ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_T0.50_terminal_g_anios_ventas    ok    ok    ok    ok    —     ok    ok    ok    ok     2.8e-14  5.4e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_L1.15_legado                     ok    ok    ok    ok    —     ok    ok    ok    ok     2.1e-14  5.4e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_L1.15_nuevo_maximo               ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  4.7e-13  COINCIDE
+  SR2_L1.15                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  5.3e-13  COINCIDE
+  SR2_L1.10                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  5.4e-13  COINCIDE
+  SR2_L1.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  4.8e-13  5.0e-12  5.4e-13  COINCIDE
+  SR2_T0.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.4e-13  5.0e-12  4.8e-13  COINCIDE
+  SR2_T0.50                            ok    ok    ok    ok    ok    ok    ok    ok    ok     3.6e-14  5.4e-13  5.0e-12  4.8e-13  COINCIDE
+  SR2_T0.75                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  5.0e-13  COINCIDE
+  SR2_T1.00                            ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  4.8e-13  5.0e-12  5.0e-13  COINCIDE
+  SR2_L1.15_anios_ventas               ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  SR2_L1.15_terminal_g                 ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  4.5e-13  COINCIDE
+  SR2_T0.50_terminal_g_anios_ventas    ok    ok    ok    ok    —     ok    ok    ok    ok     7.1e-14  5.4e-13  5.0e-12  5.1e-13  COINCIDE
+  SR2_L1.15_legado                     ok    ok    ok    ok    —     ok    ok    ok    ok     5.0e-14  5.4e-13  5.0e-12  5.4e-13  COINCIDE
+  SR2_L1.15_nuevo_maximo               ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  5.3e-13  COINCIDE
+  SRF_L1.15                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  5.4e-13  COINCIDE
+  SRF_L1.10                            ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_L1.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_T0.25                            ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  5.7e-13  5.0e-12  4.8e-13  COINCIDE
+  SRF_T0.50                            ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  6.8e-13  5.0e-12  5.4e-13  COINCIDE
+  SRF_T0.75                            ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_T1.00                            ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  6.3e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_L1.15_anios_ventas               ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  6.0e-13  5.0e-12  4.5e-13  COINCIDE
+  SRF_L1.15_terminal_g                 ok    ok    ok    ok    —     ok    ok    ok    ok     7.1e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_T0.50_terminal_g_anios_ventas    ok    ok    ok    ok    —     ok    ok    ok    ok     2.8e-14  6.8e-13  5.0e-12  4.8e-13  COINCIDE
+  SRF_L1.15_legado                     ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.4e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_L1.15_nuevo_maximo               ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  6.0e-13  5.0e-12  5.4e-13  COINCIDE
+  H_L1.15_anios_ventas_ref             ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  H_T0.50_anios_ventas_ref             ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  S_L1.15_anios_ventas_ref             ok    ok    ok    ok    ok    ok    ok    ok    ok     5.0e-14  5.1e-13  5.0e-12  5.4e-13  COINCIDE
+  S_T0.50_anios_ventas_ref             ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  4.8e-13  5.0e-12  5.1e-13  COINCIDE
+  SR1_L1.15_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  6.0e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_T0.50_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     6.4e-14  5.4e-13  5.0e-12  5.1e-13  COINCIDE
+  SR2_L1.15_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  SR2_T0.50_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     5.7e-14  5.4e-13  5.0e-12  5.0e-13  COINCIDE
+  SRF_L1.15_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     4.3e-14  6.0e-13  5.0e-12  4.5e-13  COINCIDE
+  SRF_T0.50_anios_ventas_ref           ok    ok    ok    ok    ok    ok    ok    ok    ok     2.8e-14  6.8e-13  5.0e-12  5.1e-13  COINCIDE
+  R1_nuevo_maximo                      ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  6.0e-13  5.0e-12  5.1e-13  COINCIDE
+  R0_nuevo_maximo                      ok    ok    ok    ok    —     ok    ok    ok    ok     5.0e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  SRF_L1.00                            ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  S_L1.00                              ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  SR1_T0.00                            ok    ok    ok    ok    —     ok    ok    ok    ok     5.7e-14  5.1e-13  5.0e-12  4.7e-13  COINCIDE
+  piloto_T1_M1_R1                      ok    ok    ok    ok    —     ok    ok    ok    ok     8.5e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  piloto_SR1_L1.15                     ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  5.4e-13  5.0e-12  5.0e-13  COINCIDE
+  piloto_H_T0.50                       ok    ok    ok    ok    —     ok    ok    ok    ok     2.8e-14  5.1e-13  5.0e-12  5.7e-13  COINCIDE
+  piloto_SRF_L1.15_legado              ok    ok    ok    ok    —     ok    ok    ok    ok     2.8e-14  6.3e-13  5.0e-12  6.0e-13  COINCIDE
+  T1_M1_R0_sin_circulante              ok    ok    ok    ok    —     ok    ok    ok    ok     4.3e-14  5.1e-13  5.0e-12  5.1e-13  COINCIDE
+  rechazo_sin_N3                       ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_lambda_vacio                 ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_lambda_menor_1               ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_theta_fuera                  ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_R0_mas_PM1                   ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_modo_mal_escrito             ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_roic_incoherente             ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_N1_sin_escudo                ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_N1_sin_fuente                ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_P0_sin_historia              ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_estructura_vacia             ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_cartera_vacia                ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_convencion_vacia             ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_N1_fuera_de_rango            ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_N2_fuera_de_rango            ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_N2_sin_procedencia           ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_circulante_negativo          ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_P0_negativo                  ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_P0_no_se_agota               ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_f_no_definido                ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_f_fija_fuera                 ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_cartera_supera_amortizacion  ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+  rechazo_motor_A                      ok    ok    —     —     —     —     —     —     —            —        —        —        —  COINCIDE
+
+MODELO ACTIVO DE CADA CASO (según la réplica, a partir de las celdas de entrada)
+  her_461                              Heredado
+  her_4101                             Heredado
+  her_461_explicito                    Heredado
+  T1_M0_R0                             Exp · t=0.2205 vinc. · m0=0.1686 · R0
+  T0_M1_R0                             Exp · t=0.2003 · m0=0.1855 · R0
+  T0_M0_R1                             Exp · t=0.2003 · m0=0.1686 · R1
+  T0_M0_R0_exp                         Exp · t=0.2003 · m0=0.1686 · R0
+  T1_M1_R0                             Exp · t=0.2205 vinc. · m0=0.1855 · R0
+  T1_M1_R1                             Exp · t=0.2205 vinc. · m0=0.1855 · R1
+  T2_M1_R1                             Exp · t=0.2433 vinc. · m0=0.1855 · R1
+  T1_M1_R1_escudo_separado             Exp · t=0.2205 escudo Hist. · m0=0.1855 · R1
+  N2_cero                              Exp · t=0.2205 vinc. · m0=0.0000 · R1
+  N1_cero                              Exp · t=0.0000 vinc. · m0=0.1855 · R1
+  P0_solo                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · P0
+  H_L1.15                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años planos term. ∝ventas · P0
+  H_L1.10                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.1 años planos term. ∝ventas · P0
+  H_L1.25                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.25 años planos term. ∝ventas · P0
+  H_T0.25                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.25 años planos term. ∝ventas · P0
+  H_T0.50                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.5 años planos term. ∝ventas · P0
+  H_T0.75                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.75 años planos term. ∝ventas · P0
+  H_T1.00                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=1 años planos term. ∝ventas · P0
+  H_L1.15_anios_ventas                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años ∝ventas term. ∝ventas · P0
+  H_L1.15_terminal_g                   Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años planos term. ×(1+g) · P0
+  H_T0.50_terminal_g_anios_ventas      Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.5 años ∝ventas term. ×(1+g) · P0
+  H_L1.15_legado                       Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años planos term. ∝ventas
+  H_L1.15_nuevo_maximo                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años planos term. ∝ventas · P0
+  S_L1.15                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años planos term. ∝ventas · P0
+  S_L1.10                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.1 años planos term. ∝ventas · P0
+  S_L1.25                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.25 años planos term. ∝ventas · P0
+  S_T0.25                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=0.25 años planos term. ∝ventas · P0
+  S_T0.50                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=0.5 años planos term. ∝ventas · P0
+  S_T0.75                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=0.75 años planos term. ∝ventas · P0
+  S_T1.00                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=1 años planos term. ∝ventas · P0
+  S_L1.15_anios_ventas                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años ∝ventas term. ∝ventas · P0
+  S_L1.15_terminal_g                   Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años planos term. ×(1+g) · P0
+  S_T0.50_terminal_g_anios_ventas      Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=0.5 años ∝ventas term. ×(1+g) · P0
+  S_L1.15_legado                       Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años planos term. ∝ventas
+  S_L1.15_nuevo_maximo                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años planos term. ∝ventas · P0
+  SR1_L1.15                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años planos term. ∝ventas · P0
+  SR1_L1.10                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.1 años planos term. ∝ventas · P0
+  SR1_L1.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.25 años planos term. ∝ventas · P0
+  SR1_T0.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0.25 años planos term. ∝ventas · P0
+  SR1_T0.50                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0.5 años planos term. ∝ventas · P0
+  SR1_T0.75                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0.75 años planos term. ∝ventas · P0
+  SR1_T1.00                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=1 años planos term. ∝ventas · P0
+  SR1_L1.15_anios_ventas               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años ∝ventas term. ∝ventas · P0
+  SR1_L1.15_terminal_g                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años planos term. ×(1+g) · P0
+  SR1_T0.50_terminal_g_anios_ventas    Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0.5 años ∝ventas term. ×(1+g) · P0
+  SR1_L1.15_legado                     Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años planos term. ∝ventas
+  SR1_L1.15_nuevo_maximo               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años planos term. ∝ventas · P0
+  SR2_L1.15                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años planos term. ∝ventas · P0
+  SR2_L1.10                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.1 años planos term. ∝ventas · P0
+  SR2_L1.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.25 años planos term. ∝ventas · P0
+  SR2_T0.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=0.25 años planos term. ∝ventas · P0
+  SR2_T0.50                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=0.5 años planos term. ∝ventas · P0
+  SR2_T0.75                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=0.75 años planos term. ∝ventas · P0
+  SR2_T1.00                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=1 años planos term. ∝ventas · P0
+  SR2_L1.15_anios_ventas               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años ∝ventas term. ∝ventas · P0
+  SR2_L1.15_terminal_g                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años planos term. ×(1+g) · P0
+  SR2_T0.50_terminal_g_anios_ventas    Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=0.5 años ∝ventas term. ×(1+g) · P0
+  SR2_L1.15_legado                     Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años planos term. ∝ventas
+  SR2_L1.15_nuevo_maximo               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años planos term. ∝ventas · P0
+  SRF_L1.15                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años planos term. ∝ventas · P0
+  SRF_L1.10                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.1 años planos term. ∝ventas · P0
+  SRF_L1.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.25 años planos term. ∝ventas · P0
+  SRF_T0.25                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=0.25 años planos term. ∝ventas · P0
+  SRF_T0.50                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=0.5 años planos term. ∝ventas · P0
+  SRF_T0.75                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=0.75 años planos term. ∝ventas · P0
+  SRF_T1.00                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=1 años planos term. ∝ventas · P0
+  SRF_L1.15_anios_ventas               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años ∝ventas term. ∝ventas · P0
+  SRF_L1.15_terminal_g                 Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años planos term. ×(1+g) · P0
+  SRF_T0.50_terminal_g_anios_ventas    Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=0.5 años ∝ventas term. ×(1+g) · P0
+  SRF_L1.15_legado                     Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años planos term. ∝ventas
+  SRF_L1.15_nuevo_maximo               Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años planos term. ∝ventas · P0
+  H_L1.15_anios_ventas_ref             Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H λ=1.15 años ∝ventas term. ∝ventas · P0
+  H_T0.50_anios_ventas_ref             Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.5 años ∝ventas term. ∝ventas · P0
+  S_L1.15_anios_ventas_ref             Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1.15 años ∝ventas term. ∝ventas · P0
+  S_T0.50_anios_ventas_ref             Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S θ=0.5 años ∝ventas term. ∝ventas · P0
+  SR1_L1.15_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años ∝ventas term. ∝ventas · P0
+  SR1_T0.50_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0.5 años ∝ventas term. ∝ventas · P0
+  SR2_L1.15_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 λ=1.15 años ∝ventas term. ∝ventas · P0
+  SR2_T0.50_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR2 θ=0.5 años ∝ventas term. ∝ventas · P0
+  SRF_L1.15_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años ∝ventas term. ∝ventas · P0
+  SRF_T0.50_anios_ventas_ref           Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF θ=0.5 años ∝ventas term. ∝ventas · P0
+  R1_nuevo_maximo                      Exp · t=0.2205 vinc. · m0=0.1855 · R1
+  R0_nuevo_maximo                      Exp · t=0.2205 vinc. · m0=0.1855 · R0
+  SRF_L1.00                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1 años planos term. ∝ventas · P0
+  S_L1.00                              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · S λ=1 años planos term. ∝ventas · P0
+  SR1_T0.00                            Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 θ=0 años planos term. ∝ventas · P0
+  piloto_T1_M1_R1                      Exp · t=0.2205 vinc. · m0=0.1855 · R1
+  piloto_SR1_L1.15                     Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SR1 λ=1.15 años planos term. ∝ventas · P0
+  piloto_H_T0.50                       Exp · t=0.2205 vinc. · m0=0.1855 · R1 · H θ=0.5 años planos term. ∝ventas · P0
+  piloto_SRF_L1.15_legado              Exp · t=0.2205 vinc. · m0=0.1855 · R1 · SRF λ=1.15 años planos term. ∝ventas
+  T1_M1_R0_sin_circulante              Exp · t=0.2205 vinc. · m0=0.1855 · R0
+  rechazo_sin_N3                       RECHAZADO
+  rechazo_lambda_vacio                 RECHAZADO
+  rechazo_lambda_menor_1               RECHAZADO
+  rechazo_theta_fuera                  RECHAZADO
+  rechazo_R0_mas_PM1                   RECHAZADO
+  rechazo_modo_mal_escrito             RECHAZADO
+  rechazo_roic_incoherente             RECHAZADO
+  rechazo_N1_sin_escudo                RECHAZADO
+  rechazo_N1_sin_fuente                RECHAZADO
+  rechazo_P0_sin_historia              RECHAZADO
+  rechazo_estructura_vacia             RECHAZADO
+  rechazo_cartera_vacia                RECHAZADO
+  rechazo_convencion_vacia             RECHAZADO
+  rechazo_N1_fuera_de_rango            RECHAZADO
+  rechazo_N2_fuera_de_rango            RECHAZADO
+  rechazo_N2_sin_procedencia           RECHAZADO
+  rechazo_circulante_negativo          RECHAZADO
+  rechazo_P0_negativo                  RECHAZADO
+  rechazo_P0_no_se_agota               RECHAZADO
+  rechazo_f_no_definido                RECHAZADO
+  rechazo_f_fija_fuera                 RECHAZADO
+  rechazo_cartera_supera_amortizacion  RECHAZADO
+  rechazo_motor_A                      RECHAZADO
+
+VALORES DE LA RÉPLICA (€/acción)
+  caso                                       V MALO     V NORMAL      V BUENO    ponderado  precio de Sí           P* tope NORMAL
+  her_461                                 53.670420    70.772197    86.488762    70.495154     65.688087    65.688087 no
+  her_4101                                53.659650    72.740491    86.443849    71.664994     66.520610    66.520610 no
+  her_461_explicito                       53.670420    70.772197    86.488762    70.495154     65.688087    65.688087 no
+  T1_M0_R0                                52.305787    68.812537    84.079920    68.564664     63.919270    63.919270 no
+  T0_M1_R0                                54.607950    71.765137    87.510297    71.482732     66.661366    66.661366 no
+  T0_M0_R1                                52.256818    70.772197    86.488762    70.212434     65.082258    65.082258 no
+  T0_M0_R0_exp                            53.670420    70.772197    86.488762    70.495154     65.688087    65.688087 no
+  T1_M1_R0                                53.219772    69.780542    85.075803    69.527440     64.868106    64.868106 no
+  T1_M1_R1                                51.805936    69.780542    85.075803    69.244673     64.262177    64.262177 no
+  T2_M1_R1                                50.237278    67.537312    82.323280    67.034499     62.235293    62.235293 no
+  T1_M1_R1_escudo_separado                51.739204    69.670595    84.928046    69.135807     64.165349    64.165349 no
+  N2_cero                                 41.779064    59.161039    74.150469    58.682530     53.852968    53.852968 no
+  N1_cero                                 66.773147    91.131176   111.233374    90.280010     83.563763    83.563763 no
+  P0_solo                                 52.295067    70.269673    85.564934    69.733804     64.751308    64.751308 no
+  H_L1.15                                 48.207342    70.269673    85.564934    68.916259     62.999426    62.999426 no
+  H_L1.10                                 49.886212    70.269673    85.564934    69.252033     63.718941    63.718941 no
+  H_L1.25                                 43.724533    69.863300    85.564934    67.775873     60.904062    60.904062 no
+  H_T0.25                                 50.087812    70.269673    85.564934    69.292353     63.805341    63.805341 no
+  H_T0.50                                 46.791922    70.269673    85.564934    68.633175     62.392817    62.392817 no
+  H_T0.75                                 42.722104    68.676607    85.564934    66.863372     59.965867    59.965867 no
+  H_T1.00                                 38.652287    63.724760    83.699435    62.705200     55.832940    55.832940 no
+  H_L1.15_anios_ventas                    48.345015    70.269673    85.564934    68.943794     63.058428    63.058428 no
+  H_L1.15_terminal_g                      48.079277    70.269673    85.564934    68.890646     62.944541    62.944541 no
+  H_T0.50_terminal_g_anios_ventas         46.803427    70.269673    85.564934    68.635476     62.397748    62.397748 no
+  H_L1.15_legado                          47.644842    69.780542    85.075803    68.412454     62.478851    62.478851 no
+  H_L1.15_nuevo_maximo                    52.137563    70.269673    85.564934    69.702303     64.683806    64.683806 no
+  S_L1.15                                 45.570853    62.072256    76.355025    61.628529     57.040622    57.040622 no
+  S_L1.10                                 47.812258    64.804728    79.424994    64.330287     59.610850    59.610850 no
+  S_L1.25                                 41.088044    56.607311    70.215085    56.225013     51.900164    51.900164 no
+  S_T0.25                                 48.225250    65.317827    80.006893    64.837125     60.090875    60.090875 no
+  S_T0.50                                 44.155432    60.365980    74.448852    59.940445     55.430441    55.430441 no
+  S_T0.75                                 40.085615    55.414134    68.890811    55.043765     50.770008    50.770008 no
+  S_T1.00                                 36.015798    50.462287    63.332770    50.147086     46.109575    46.109575 no
+  S_L1.15_anios_ventas                    45.708526    61.696573    75.693764    61.298402     56.844152    56.844152 no
+  S_L1.15_terminal_g                      45.442788    62.895804    77.866991    62.399438     57.554681    57.554681 no
+  S_T0.50_terminal_g_anios_ventas         44.166937    60.902267    75.467513    60.468250     55.810732    55.810732 no
+  S_L1.15_legado                          45.008352    61.509755    75.792524    61.066029     56.478121    56.478121 no
+  S_L1.15_nuevo_maximo                    46.873107    62.072256    76.355025    61.888980     57.598730    57.598730 no
+  SR1_L1.15                               45.570853    62.992779    77.777172    62.465272     57.638295    57.638295 no
+  SR1_L1.10                               47.812258    65.418410    80.373093    64.888116     60.009299    60.009299 no
+  SR1_L1.25                               41.088044    58.141516    72.585332    57.619585     52.896287    52.896287 no
+  SR1_T0.25                               48.225250    66.050238    81.138421    65.502877     60.566412    60.566412 no
+  SR1_T0.50                               44.155432    61.830803    76.711908    61.271950     56.381517    56.381517 no
+  SR1_T0.75                               40.085615    57.611368    72.285396    57.041023     52.196621    52.196621 no
+  SR1_T1.00                               36.015798    53.391933    67.858883    52.810096     48.011725    48.011725 no
+  SR1_L1.15_anios_ventas                  45.708526    62.617096    77.115912    62.135145     57.441825    57.441825 no
+  SR1_L1.15_terminal_g                    45.442788    63.816326    79.289139    63.236181     58.152355    58.152355 no
+  SR1_T0.50_terminal_g_anios_ventas       44.166937    62.367090    77.730570    61.799756     56.761808    56.761808 no
+  SR1_L1.15_legado                        45.008352    62.464558    77.267632    61.933932     57.098052    57.098052 no
+  SR1_L1.15_nuevo_maximo                  47.037886    62.992779    77.777172    62.758679     58.267024    58.267024 no
+  SR2_L1.15                               45.991196    64.209054    79.667686    63.657209     58.609776    58.609776 no
+  SR2_L1.10                               48.092486    66.229260    81.633435    65.682740     60.656954    60.656954 no
+  SR2_L1.25                               41.788615    60.168641    75.736187    59.606145     54.515422    54.515422 no
+  SR2_T0.25                               48.559694    67.017964    82.642603    66.451238     61.339369    61.339369 no
+  SR2_T0.50                               44.824322    63.766256    79.720272    63.168672     57.927429    57.927429 no
+  SR2_T0.75                               41.088950    60.514547    76.797942    59.886106     54.515490    54.515490 no
+  SR2_T1.00                               37.353577    57.262838    73.875611    56.603540     51.103551    51.103551 no
+  SR2_L1.15_anios_ventas                  46.128869    63.833371    79.006425    63.327081     58.413306    58.413306 no
+  SR2_L1.15_terminal_g                    45.863131    65.032602    81.179652    64.428118     59.123836    59.123836 no
+  SR2_T0.50_terminal_g_anios_ventas       44.835827    64.302543    80.738934    63.696478     58.307720    58.307720 no
+  SR2_L1.15_legado                        45.444349    63.726127    79.228547    63.170255     58.105711    58.105711 no
+  SR2_L1.15_nuevo_maximo                  48.948669    64.209054    79.667686    64.248703     59.877265    59.877265 no
+  SRF_L1.15                               46.358313    66.033457    82.462482    65.384233     59.948256    59.948256 no
+  SRF_L1.10                               48.337231    67.445529    83.496633    66.834090     61.549273    61.549273 no
+  SRF_L1.25                               42.400477    63.209313    80.394181    62.484519     56.746221    56.746221 no
+  SRF_T0.25                               48.851790    68.469546    84.866275    67.825341     62.404326    62.404326 no
+  SRF_T0.50                               45.408513    66.669419    84.167617    65.916878     60.057345    60.057345 no
+  SRF_T0.75                               41.965236    64.869292    83.468959    64.008414     57.710363    57.710363 no
+  SRF_T1.00                               38.521959    63.069165    82.770301    62.099951     55.363382    55.363382 no
+  SRF_L1.15_anios_ventas                  46.495986    65.657774    81.801221    65.054106     59.751786    59.751786 no
+  SRF_L1.15_terminal_g                    46.230248    66.857005    83.974449    66.155142     60.462315    60.462315 no
+  SRF_T0.50_terminal_g_anios_ventas       45.420018    67.205706    85.186279    66.444683     60.437636    60.437636 no
+  SRF_L1.15_legado                        45.841863    65.702607    82.257144    65.041365     59.555793    59.555793 no
+  SRF_L1.15_nuevo_maximo                  50.763137    66.033457    82.462482    66.265198     61.836038    61.836038 no
+  H_L1.15_anios_ventas_ref                48.345015    70.269673    85.564934    68.943794     63.058428    63.058428 no
+  H_T0.50_anios_ventas_ref                46.956776    70.269673    85.564934    68.666146     62.463469    62.463469 no
+  S_L1.15_anios_ventas_ref                45.708526    61.696573    75.693764    61.298402     56.844152    56.844152 no
+  S_T0.50_anios_ventas_ref                44.320286    59.916126    73.657038    59.545141     55.195182    55.195182 no
+  SR1_L1.15_anios_ventas_ref              45.708526    62.617096    77.115912    62.135145     57.441825    57.441825 no
+  SR1_T0.50_anios_ventas_ref              44.320286    61.380949    75.920095    60.876646     56.146257    56.146257 no
+  SR2_L1.15_anios_ventas_ref              46.128869    63.833371    79.006425    63.327081     58.413306    58.413306 no
+  SR2_T0.50_anios_ventas_ref              44.989176    63.316401    78.928459    62.773368     57.692170    57.692170 no
+  SRF_L1.15_anios_ventas_ref              46.495986    65.657774    81.801221    65.054106     59.751786    59.751786 no
+  SRF_T0.50_anios_ventas_ref              45.573367    66.219565    83.375804    65.521573     59.822086    59.822086 no
+  R1_nuevo_maximo                         54.711120    69.780542    85.075803    69.825710     65.507256    65.507256 no
+  R0_nuevo_maximo                         54.957527    69.780542    85.075803    69.874991     65.612859    65.612859 no
+  SRF_L1.00                               52.295067    70.269673    85.564934    69.733804     64.751308    64.751308 no
+  S_L1.00                                 52.295067    70.269673    85.564934    69.733804     64.751308    64.751308 no
+  SR1_T0.00                               52.295067    70.269673    85.564934    69.733804     64.751308    64.751308 no
+  piloto_T1_M1_R1                         51.793570    71.699901    85.028922    70.384439     65.072762    65.072762 no
+  piloto_SR1_L1.15                        45.560249    64.916146    77.735998    63.608937     58.452169    58.452169 no
+  piloto_H_T0.50                          46.779225    72.189266    85.518287    69.773062     63.203394    63.203394 no
+  piloto_SRF_L1.15_legado                 45.830246    67.698891    82.211972    66.227778     60.399912    60.399912 no
+  T1_M1_R0_sin_circulante                 53.219772    69.780542    85.075803    69.527440     64.868106    64.868106 no
+
+PRECIO DE SÍ FRENTE A LA REFERENCIA (k = 3; convención: min(P*, V NORMAL))
+  her_461                                réplica 65.688087320416 · referencia 65.688087000000 · dif. 3.20e-07 · tol 1e-06 · 4.6.1 (encargo 4.11 §8.1, seis decimales)
+  her_4101                               réplica 66.520610324559 · referencia 66.520610000000 · dif. 3.25e-07 · tol 1e-06 · 4.10.1 (encargo 4.11 §8.3, seis decimales)
+  her_461_explicito                      réplica 65.688087320416 · referencia 65.688087000000 · dif. 3.20e-07 · tol 1e-06 · 4.6.1 (encargo 4.11 §8.1, seis decimales)
+  T0_M0_R1                               réplica 65.082258180827 · referencia 65.082258180827 · dif. 1.42e-14 · tol 1e-09 · …_4_7_1/financiero/matriz.json · T0·M0·R1
+  T0_M0_R0_exp                           réplica 65.688087320416 · referencia 65.688087320416 · dif. 1.42e-14 · tol 1e-09 · …_4_7_1/financiero/matriz.json · T0·M0·R0
+  T1_M1_R0                               réplica 64.868106419120 · referencia 64.868106419120 · dif. 0.00e+00 · tol 1e-09 · …_4_7_1/financiero/matriz.json · T1·M1·R0
+  T1_M1_R1                               réplica 64.262176772327 · referencia 64.262176772327 · dif. 1.42e-14 · tol 1e-09 · …_4_7_1/financiero/matriz.json · T1·M1·R1
+  P0_solo                                réplica 64.751307711385 · referencia 64.751307711385 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[P0]
+  H_L1.15                                réplica 62.999425690700 · referencia 62.999425690700 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·L1.15]
+  H_L1.10                                réplica 63.718941391717 · referencia 63.718941391717 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·L1.10]
+  H_L1.25                                réplica 60.904061677969 · referencia 60.904061677969 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·L1.25]
+  H_T0.25                                réplica 63.805341382654 · referencia 63.805341382654 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·T0.25]
+  H_T0.50                                réplica 62.392816914145 · referencia 62.392816914145 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·T0.50]
+  H_T0.75                                réplica 59.965866671058 · referencia 59.965866671058 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·T0.75]
+  H_T1.00                                réplica 55.832939551962 · referencia 55.832939551962 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[H·T1.00]
+  S_L1.15                                réplica 57.040621627758 · referencia 57.040621627758 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·L1.15]
+  S_L1.10                                réplica 59.610850322301 · referencia 59.610850322301 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·L1.10]
+  S_L1.25                                réplica 51.900164238674 · referencia 51.900164238674 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·L1.25]
+  S_T0.25                                réplica 60.090874552875 · referencia 60.090874552875 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·T0.25]
+  S_T0.50                                réplica 55.430441394365 · referencia 55.430441394365 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·T0.50]
+  S_T0.75                                réplica 50.770008235855 · referencia 50.770008235855 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·T0.75]
+  S_T1.00                                réplica 46.109575077345 · referencia 46.109575077345 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[S·T1.00]
+  SR1_L1.15                              réplica 57.638295360110 · referencia 57.638295360110 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·L1.15]
+  SR1_L1.10                              réplica 60.009299477201 · referencia 60.009299477201 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·L1.10]
+  SR1_L1.25                              réplica 52.896287125926 · referencia 52.896287125926 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·L1.25]
+  SR1_T0.25                              réplica 60.566412115651 · referencia 60.566412115651 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·T0.25]
+  SR1_T0.50                              réplica 56.381516519916 · referencia 56.381516519916 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·T0.50]
+  SR1_T0.75                              réplica 52.196620924182 · referencia 52.196620924182 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·T0.75]
+  SR1_T1.00                              réplica 48.011725328447 · referencia 48.011725328447 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR1·T1.00]
+  SR2_L1.15                              réplica 58.609776437097 · referencia 58.609776437097 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·L1.15]
+  SR2_L1.10                              réplica 60.656953528526 · referencia 60.656953528526 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·L1.10]
+  SR2_L1.25                              réplica 54.515422254238 · referencia 54.515422254238 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·L1.25]
+  SR2_T0.25                              réplica 61.339368527531 · referencia 61.339368527531 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·T0.25]
+  SR2_T0.50                              réplica 57.927429343676 · referencia 57.927429343676 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·T0.50]
+  SR2_T0.75                              réplica 54.515490159822 · referencia 54.515490159822 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·T0.75]
+  SR2_T1.00                              réplica 51.103550975968 · referencia 51.103550975968 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SR2·T1.00]
+  SRF_L1.15                              réplica 59.948255917973 · referencia 59.948255917973 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·L1.15]
+  SRF_L1.10                              réplica 61.549273182444 · referencia 61.549273182444 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·L1.10]
+  SRF_L1.25                              réplica 56.746221389032 · referencia 56.746221389032 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·L1.25]
+  SRF_T0.25                              réplica 62.404326272382 · referencia 62.404326272382 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·T0.25]
+  SRF_T0.50                              réplica 60.057344833378 · referencia 60.057344833378 · dif. 2.13e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·T0.50]
+  SRF_T0.75                              réplica 57.710363394374 · referencia 57.710363394374 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·T0.75]
+  SRF_T1.00                              réplica 55.363381955371 · referencia 55.363381955371 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.alternativas[SRF·T1.00]
+  H_L1.15_anios_ventas_ref               réplica 63.058428447694 · referencia 63.058428447694 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[H·L1.15]
+  H_T0.50_anios_ventas_ref               réplica 62.463468619340 · referencia 62.463468619340 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[H·T0.50]
+  S_L1.15_anios_ventas_ref               réplica 56.844151621758 · referencia 56.844151621758 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[S·L1.15]
+  S_T0.50_anios_ventas_ref               réplica 55.195182202236 · referencia 55.195182202236 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[S·T0.50]
+  SR1_L1.15_anios_ventas_ref             réplica 57.441825354109 · referencia 57.441825354109 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SR1·L1.15]
+  SR1_T0.50_anios_ventas_ref             réplica 56.146257327787 · referencia 56.146257327787 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SR1·T0.50]
+  SR2_L1.15_anios_ventas_ref             réplica 58.413306431097 · referencia 58.413306431097 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SR2·L1.15]
+  SR2_T0.50_anios_ventas_ref             réplica 57.692170151547 · referencia 57.692170151547 · dif. 7.11e-15 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SR2·T0.50]
+  SRF_L1.15_anios_ventas_ref             réplica 59.751785911973 · referencia 59.751785911973 · dif. 0.00e+00 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SRF·L1.15]
+  SRF_T0.50_anios_ventas_ref             réplica 59.822085641249 · referencia 59.822085641249 · dif. 1.42e-14 · tol 1e-09 · …_4_8_1/financiero/rf_resultados.json · rf1.convencion_anios_ventas[SRF·T0.50]
+
+RECHAZOS (motivos de la réplica · motivo del libro en «Configuración V6.4»!B8 · motivo esperado)
+  rechazo_sin_N3: réplica RECHAZA · libro no calcula
+      réplica: B28 = None: falta la regla de reinversión (R0 o R1)
+      libro B8: N3: elige la regla de reinversión (R0 o R1); en modo experimental no se toma ninguna por defecto
+      esperado: «N3: elige la regla» → contenido en B8
+  rechazo_lambda_vacio: réplica RECHAZA · libro no calcula
+      réplica: B38 = None: λ debe ser un número ≥ 1
+      libro B8: P-M1 · Λ: λ debe ser un número ≥ 1
+      esperado: «λ debe ser» → contenido en B8
+  rechazo_lambda_menor_1: réplica RECHAZA · libro no calcula
+      réplica: B38 = 0.95: λ debe ser un número ≥ 1
+      libro B8: P-M1 · Λ: λ debe ser un número ≥ 1
+      esperado: «λ debe ser» → contenido en B8
+  rechazo_theta_fuera: réplica RECHAZA · libro no calcula
+      réplica: B39 = 1.2: θ debe ser un número entre 0 y 1
+      libro B8: P-M1 · Θ: θ debe ser un número entre 0 y 1
+      esperado: «θ debe ser» → contenido en B8
+  rechazo_R0_mas_PM1: réplica RECHAZA · libro no calcula
+      réplica: R0 + P-M1 no está especificado: las estructuras de reposición y la cartera P0 exigen R1
+      libro B8: R0 + P-M1 no está especificado (las estructuras de reposición parten de R1): elige R1 o quita P-M1
+      esperado: «R0 + P-M1» → contenido en B8
+  rechazo_modo_mal_escrito: réplica RECHAZA · libro no calcula
+      réplica: B4 = 'experimental': modo no reconocido (solo «Heredado», «Experimental» o vacío)
+      libro B8: Modo no reconocido en B4: escribe «Heredado» o «Experimental» (vacío = Heredado)
+      esperado: «Modo no reconocido» → contenido en B8
+  rechazo_roic_incoherente: réplica RECHAZA · libro no calcula
+      réplica: B42 = 'ROIC × f (SR2)': el ROIC del terminal debe ser «× f» en SR2 y «sin cambio» en las demás
+      libro B8: P-M1: el ROIC del terminal debe ser «× f» en SR2 y «sin cambio» en las demás estructuras
+      esperado: «ROIC del terminal» → contenido en B8
+  rechazo_N1_sin_escudo: réplica RECHAZA · libro no calcula
+      réplica: B16 = None: falta el tratamiento del escudo de la deuda (vinculado o tipo de la Historia)
+      libro B8: N1: elige el tratamiento del escudo de la deuda (vinculado al tipo aplicado o tipo de la Historia)
+      esperado: «escudo de la deuda» → contenido en B8
+  rechazo_N1_sin_fuente: réplica RECHAZA · libro no calcula
+      réplica: faltan la fuente, el período o el perímetro del tipo normalizado (B12:B14)
+      libro B8: N1: faltan la fuente, el período, el perímetro o la clase del tipo normalizado
+      esperado: «faltan la fuente» → contenido en B8
+  rechazo_P0_sin_historia: réplica RECHAZA · libro no calcula
+      réplica: faltan la amortización anual (B44), el valor neto (B45) o la amortización histórica de la cartera (B46:B50, cinco años con 0 explícito), o alguno es negativo
+      libro B8: P0: faltan la amortización anual, el valor neto o la amortización histórica de la cartera (cinco años; 0 explícito si no la hubo)
+      esperado: «P0: faltan» → contenido en B8
+  rechazo_estructura_vacia: réplica RECHAZA · libro no calcula
+      réplica: B36 = None: falta la estructura (o «Sin requisito adicional»)
+      libro B8: P-M1: elige la estructura (o «Sin requisito adicional»); en modo experimental no hay estructura por defecto
+      esperado: «P-M1: elige la estructura» → contenido en B8
+  rechazo_cartera_vacia: réplica RECHAZA · libro no calcula
+      réplica: B43 = None: falta el tratamiento de la cartera de clientes (legado o P0)
+      libro B8: P-M1: elige el tratamiento de la cartera de clientes (legado o P0 explícito)
+      esperado: «cartera de clientes» → contenido en B8
+  rechazo_convencion_vacia: réplica RECHAZA · libro no calcula
+      réplica: B40 = None: falta la convención del requisito en los años 1–10
+      libro B8: P-M1: elige la convención del requisito en los años 1–10
+      esperado: «convención del requisito en los años» → contenido en B8
+  rechazo_N1_fuera_de_rango: réplica RECHAZA · libro no calcula
+      réplica: B11 = 1.2: el tipo normalizado debe ser un número en [0, 1)
+      libro B8: N1: el tipo normalizado debe ser un número entre 0 y 1, o quedar vacío
+      esperado: «N1: el tipo normalizado debe ser» → contenido en B8
+  rechazo_N2_fuera_de_rango: réplica RECHAZA · libro no calcula
+      réplica: B21 = 1.5: el margen de partida debe ser un número en (−1, 1)
+      libro B8: N2: el margen de partida debe ser un número entre −1 y 1, o quedar vacío
+      esperado: «N2: el margen de partida debe ser» → contenido en B8
+  rechazo_N2_sin_procedencia: réplica RECHAZA · libro no calcula
+      réplica: faltan el perímetro o la fuente del margen de partida (B22, B23)
+      libro B8: N2: faltan el perímetro o la procedencia del margen de partida
+      esperado: «N2: faltan el perímetro o la procedencia» → contenido en B8
+  rechazo_circulante_negativo: réplica RECHAZA · libro no calcula
+      réplica: R1 exige existencias, deudores y acreedores comerciales (B29:B31) numéricos y ≥ 0
+      libro B8: N3: los importes del circulante comercial no pueden ser negativos
+      esperado: «circulante comercial no pueden ser negativos» → contenido en B8
+  rechazo_P0_negativo: réplica RECHAZA · libro no calcula
+      réplica: faltan la amortización anual (B44), el valor neto (B45) o la amortización histórica de la cartera (B46:B50, cinco años con 0 explícito), o alguno es negativo
+      libro B8: P0: los importes de la cartera no pueden ser negativos
+      esperado: «P0: los importes de la cartera no pueden ser negativos» → contenido en B8
+  rechazo_P0_no_se_agota: réplica RECHAZA · libro no calcula
+      réplica: el valor neto de la cartera (100) supera diez años de su amortización anual (4.492)
+      libro B8: P0: la cartera no se agota en diez años (valor neto > 10 × amortización anual): el terminal no la representa
+      esperado: «la cartera no se agota en diez años» → contenido en B8
+  rechazo_f_no_definido: réplica RECHAZA · libro no calcula
+      réplica: f no está definido: D_hist = 530.009, D_hist − Rh = -470.409 (deben ser > 0)
+      libro B8: P-M1 · SR1/SR2: D_hist ≤ 0 o D_hist − Rh ≤ 0: el factor f no está definido
+      esperado: «el factor f no está definido» → contenido en B8
+  rechazo_f_fija_fuera: réplica RECHAZA · libro no calcula
+      réplica: f_fija no está definido: F_hist = 251.212, Rh = 300.12540000000007 (F_hist > 0 y f_fija ≥ 0)
+      libro B8: P-M1 · SRF: F_hist ≤ 0 o Rh > F_hist: el factor de la inversión fija queda fuera de [0, 1]
+      esperado: «el factor de la inversión fija queda fuera» → contenido en B8
+  rechazo_cartera_supera_amortizacion: réplica RECHAZA · libro no calcula
+      réplica: Λ con P0: la amortización anual de la cartera (B44) supera la amortización del último año
+      libro B8: P-M1 · Λ con P0: la amortización de la cartera supera la amortización total
+      esperado: «la amortización de la cartera supera la amortización total» → contenido en B8
+  rechazo_motor_A: réplica RECHAZA · libro no calcula
+      réplica: el modo experimental solo es aplicable al motor B (Análisis C62 = 'Sí')
+      libro B8: La configuración experimental V6.4 solo es aplicable al motor B; el motor elegido es «A» (vuelve al modo Heredado o revisa Análisis C62)
+      esperado: «solo es aplicable al motor B» → contenido en B8
+
+IDENTIDADES
+  crédito = 0 fuera de H (años y terminal; libro y réplica): 79 casos
+  0 ≤ crédito ≤ min(req, max(0, fija)) en H (libro y réplica): 15 casos
+  Δcirculante de SRF = el de S, fila a fila: 16 casos SRF · con libro S homólogo 15 · solo con la variante S de la réplica 1
+  Rh = 0 ⇒ SRF = S: SRF_L1.00 = S_L1.00
+  θ = 0 ⇒ f = 1: SR1_T0.00 (f = 1; libro homólogo sin requisito: P0_solo)
+
+DISCREPANCIAS
+  (ninguna)
+
+RESULTADO GLOBAL: 117 de 117 casos coinciden → TODOS COINCIDEN (código 0)

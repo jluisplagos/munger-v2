@@ -1,0 +1,140 @@
+{
+ "tipo": "configuracion_economica_motor_B",
+ "version_formato": 1,
+ "plantilla_requerida": "V6.4.1 experimental",
+ "modo": "Experimental",
+ "naturaleza": "Configuración PROPIA de ENSAYO para Elis (encargo de cierre 4.14 §8, tercera empresa), escrita por la orquestación el 14-nov-2026 ANTES de calcular ninguna valoración de Elis, con el análisis analisis_configuracion_elis.md (179 cifras comprobadas en su página). No es una adopción y no traslada valores de Vidrala ni de Viscofan. Para que el contraste entre las tres empresas sea homogéneo usa los MISMOS criterios estructurales que la configuración de Viscofan 4.13 (SR1, familia Θ con θ = 0,5 y extremos 0 y 1, convenciones plana / proporcional, ROIC de la fase B sin cambio, cartera legado, perímetro NIIF 16 con altas de derechos de uso, escudo vinculado) con los datos de Elis. N1 aplica el mismo principio que Viscofan (quitar las partidas que la empresa identifica y que no se repiten por su naturaleza). N2 VACÍO POR ELECCIÓN EXPLÍCITA: se conserva la regla heredada (margen EBIT de 2025, 13,13 %). Distinción contable fijada por la persona responsable: el lino y los artículos propios que Elis alquila son inmovilizado (capex de caja); los derechos de uso NIIF 16 son los activos que Elis arrienda y entran solo por sus altas. La fase A decide si el motor B aplica: el análisis anota hechos que lo ponen en duda (capex < D&A en 9 de 10 años, crecimiento por adquisiciones, peso de los arrendamientos). Si la fase A elige el motor A, esta configuración no se usa para el resultado.",
+ "N1": {
+  "valor": 0.2677,
+  "fuente": "Conciliaciones del impuesto 2021–2025: URD 2022 p. 326 (2021), URD 2023 p. 345 (2022), URD 2024 p. 337 (2023), URD 2025 p. 392 (2024 y 2025); contribución excepcional francesa que no se aplica en 2026: informe semestral 2026 p. 9. Cálculo: analisis_configuracion_elis.md §N1, lectura (A)",
+  "periodo": "2021–2025 (media de los tipos anuales, como la regla heredada C52)",
+  "perimetro": "consolidado, actividades continuadas (sin actividades interrumpidas en 2021–2025)",
+  "clase": "derivado de datos publicados",
+  "escudo": "Vinculado al tipo aplicado a NOPAT"
+ },
+ "N2": null,
+ "N3": {
+  "regla": "R1 · solo circulante; capacidad conservada",
+  "existencias": 205.9,
+  "deudores": 945.3,
+  "acreedores": 457.0,
+  "fuente": "URD 2025 (inglés), balance a 31-dic-2025, PDF p. 326 (Inventories 205,9; Trade and other receivables 945,3; Trade and other payables 457,0); conciliado con las notas 4.4 (p. 349), 4.7 y 4.8 (p. 351)"
+ },
+ "PM1": {
+  "estructura": "SR1 · suma con S2C reestimado",
+  "familia": "Θ · θ × exceso histórico medio",
+  "lambda": null,
+  "theta": 0.5,
+  "theta_rango": [
+   0.0,
+   1.0
+  ],
+  "convencion_anios": "Plana",
+  "convencion_terminal": "Proporcional a las ventas",
+  "roic_terminal": "ROIC de la fase B sin cambio",
+  "cartera": "Legado · se repone con la amortización",
+  "perimetro_inversion": "NIIF 16 · capex de caja + altas de derechos de uso frente a toda la D&A",
+  "altas_derechos_uso": [
+   71.1,
+   90.4,
+   132.6,
+   145.7,
+   183.9
+  ],
+  "altas_fuente": "Nuevos derechos de uso 2021–2025 («New rights of use», nota de derechos de uso): URD 2022 p. 302 (2021: 71,1; 2022: 90,4), URD 2024 (francés) p. 312 (2023: 132,6), URD 2025 p. 366 (2024: 145,7; 2025: 183,9). Sin las reestimaciones (155,0 en el período) ni las altas por combinaciones (45,6), que llegan con las adquisiciones; la lectura con reestimaciones (778,7) es una alternativa: analisis_configuracion_elis.md §P-M1"
+ },
+ "trazabilidad": {
+  "modo": {
+   "clase": "convención",
+   "confianza": "alta",
+   "fuente_o_condicion": "encargo de cierre 4.14 §8: tercera empresa (Elis), elegida por la persona responsable antes de ver su valoración",
+   "justificacion": "contrastar el alcance del personaje con una tercera empresa con la misma configuración estructural que Viscofan; ninguna configuración se adopta",
+   "materialidad": "sin efecto propio: el efecto es el de cada parámetro"
+  },
+  "N1.tipo": {
+   "clase": "derivado de datos publicados",
+   "confianza": "media",
+   "fuente_o_condicion": "conciliaciones del impuesto 2021–2025 (URD 2022 p. 326; URD 2023 p. 345; URD 2024 p. 337; URD 2025 p. 392); semestral 2026 p. 9",
+   "justificacion": "la regla heredada (C52, 28,82 %) incluye partidas que la conciliación nombra y que no se repiten: deterioro no deducible del fondo de comercio de Rusia (2022), complementos de precio (sobre todo 2023) y la contribución excepcional francesa de 2025, que no se aplica en 2026; sin ellas la media 2021–2025 es 26,77 %. Las bases negativas (signos mezclados, recurrentes en algunos países) y la CVAE (impuesto sobre beneficios según NIC 12, fuera del EBIT) se conservan. Lecturas: sin además las bases negativas, 27,75 %; 2021 tiene otro tipo teórico (28,41 % frente a 25,83 %)",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "N1.escudo": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "configuración de compatibilidad de la V6.3 (el mismo tipo en NOPAT y en el escudo)",
+   "justificacion": "no se separa el escudo sin una decisión (D-N6-τ de la 4.10), igual que en Viscofan; en Elis la deuda es material (deuda 3.418,3 y arrendamientos 703,2 a 31-dic-2025), así que el efecto puede ser mayor",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "N3.regla": {
+   "clase": "hipótesis",
+   "confianza": "media",
+   "fuente_o_condicion": "regla R1 de la plantilla V6.4 (D-N3 sin firmar), la misma que en Viscofan",
+   "justificacion": "con ventas que caen solo se libera circulante y la capacidad se conserva. En Elis el circulante de la definición es bajo (14,47 % de las ventas) y los pasivos con el personal (303,1) y fiscales (206,6), que también bajarían, quedan fuera; parte de las existencias puede ser lino aún no puesto en servicio. Que la regla cuadre no demuestra la conservación",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C; solo actúa cuando las ventas caen"
+  },
+  "N3.circulante": {
+   "clase": "dato publicado",
+   "confianza": "alta",
+   "fuente_o_condicion": "balance consolidado a 31-dic-2025 (URD 2025 p. 326), conciliado con las notas 4.4, 4.7 y 4.8",
+   "justificacion": "circulante = existencias + deudores − acreedores del balance (definición de B29:B31), sobre las ventas de 2025 (14,47 %; 13,82 % en 2024; 13,60 % solo con las partidas comerciales de las notas)",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.estructura": {
+   "clase": "hipótesis",
+   "confianza": "baja",
+   "fuente_o_condicion": "estructuras de la plantilla V6.4 (D-N3b revisada sin firmar); la misma que en Viscofan; ninguna elegida",
+   "justificacion": "SR1 evita contar dos veces la parte de reposición del exceso histórico: si una parte del exceso de inversión sobre la D&A fue reposición, el requisito se suma y el S2C de los años se reestima con f. Las demás estructuras se calculan como variantes",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.familia": {
+   "clase": "hipótesis",
+   "confianza": "baja",
+   "fuente_o_condicion": "familias de la plantilla V6.4; analisis_configuracion_elis.md §P-M1",
+   "justificacion": "Θ parte del exceso observado: con el perímetro NIIF 16 y solo los nuevos derechos de uso, Σ (capex + altas − D&A) 2021–2025 = 93,2 y Θ está definida en todo [0, 1]; con «Caja» el exceso es −530,5 (la D&A incluye 593,8 de derechos de uso y 420,4 de intangibles de adquisiciones) y Θ no está definida para θ > 0. Λ necesitaría λ, no observado",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.parametro": {
+   "clase": "hipótesis",
+   "confianza": "baja",
+   "fuente_o_condicion": "θ no observado: punto medio del dominio [0, 1], sin central económica adoptada; extremos calculados (theta_rango), como en Viscofan",
+   "justificacion": "θ es la parte del exceso histórico que fue reposición; las cuentas no la separan (el gasto en artículos de alquiler mezcla reposición y crecimiento: ventas +57 % en el período). θ = 0 y θ = 1 se calculan como variantes",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C, con los extremos θ = 0 y θ = 1"
+  },
+  "PM1.convencion_anios": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "convención de la plantilla para el requisito de los años 1–10",
+   "justificacion": "con R1 la capacidad se conserva cuando las ventas caen, así que su reposición no baja con ellas: nivel plano; la proporcional se calcula como variante",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.convencion_terminal": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "convención de la plantilla para el terminal",
+   "justificacion": "en la perpetuidad la base de activos crece con el negocio: requisito proporcional a las ventas; «crece con g» se calcula como variante",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.roic_terminal": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "definición de SR1: el ROIC del terminal no cambia",
+   "justificacion": "Q-ROIC1 sigue sin decidir (PRECISION_ROIC_4_9.md): con SR1 se conserva el ROIC de la fase B; SR2 (ROIC × f) se calcula como variante",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.cartera": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "cartera de la plantilla; la misma que en Viscofan",
+   "justificacion": "legado: la amortización de intangibles de adquisiciones (≈ 84 al año) se repone con la amortización; P0 (no se repone, importes que constan sin ceros) sube el exceso en 411,1 y se calcula como variante; en Elis esa cartera se repone, si acaso, con adquisiciones",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  },
+  "PM1.perimetro": {
+   "clase": "convención",
+   "confianza": "media",
+   "fuente_o_condicion": "(4.13 §7) perímetro de la inversión de la V6.4.1; el mismo que en Viscofan",
+   "justificacion": "el motor B trata los arrendamientos como capital y como deuda y su NOPAT descuenta la amortización de los derechos de uso, así que su inversión entra por sus altas (solo nuevos: 623,7 en 2021–2025). Con las reestimaciones serían 778,7; «Caja» se calcula como variante",
+   "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+  }
+ },
+ "protocolo_objetivo": "objetivo_condicionado"
+}

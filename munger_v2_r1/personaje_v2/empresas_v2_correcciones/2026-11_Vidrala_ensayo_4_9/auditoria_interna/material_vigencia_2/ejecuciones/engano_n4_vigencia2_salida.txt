@@ -1,0 +1,47 @@
+ok (acepta) · [anteriores] control favorable: financiación limpia · clase 2
+ok (rechaza) · [anteriores] intereses en financiación «Finance costs paid» · clase 3
+ok (rechaza) · [anteriores] intereses en financiación «Gastos financieros pagados» · clase 3
+ok (rechaza) · [anteriores] «Interest paid» a «-» y «Borrowing costs paid» en financiación · clase 3
+ok (rechaza) · [anteriores] importe ilegible en la columna del año («Other financing payments 0,00») · clase 3
+ok (rechaza) · [anteriores] adquisición con el rótulo «Acquisition of businesses, net of cash acquired» · clase 3
+ok (rechaza) · [anteriores] adquisición con el rótulo «Business combinations, net of cash acquired» · clase 3
+ok (rechaza) · [anteriores] adquisición con el rótulo «Purchase of subsidiaries» · clase 3
+ok (rechaza) · [anteriores] adquisición con el rótulo «Adquisición de negocios, neta de la caja adquirida» · clase 3
+ok (rechaza) · [anteriores] adquisición con el rótulo «Combinaciones de negocios» · clase 3
+ok (rechaza) · [anteriores] control: «Acquisition of a subsidiary» con importe en el año · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Short-term investments» · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Current financial assets» · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Marketable securities» · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Imposiciones a corto plazo» · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Inversiones a corto plazo» · clase 3
+ok (rechaza) · [anteriores] activo financiero corriente «Activos financieros corrientes» · clase 3
+ok (rechaza) · [nuevos] B1 intereses en financiación en una línea solo con importes (sin rótulo) · clase 3
+ok (rechaza) · [nuevos] B2 «of which: interest paid» después del total de financiación · clase 3
+ok (rechaza) · [nuevos] B3 segundo bloque de financiación (actividades interrumpidas) con intereses · clase 3
+ok (rechaza) · [nuevos] B4 estado en millones con «thousands of euros» en una nota al pie · clase 3
+ok (rechaza) · [nuevos] B5 adquisición del año en una línea solo con importes · clase 3
+ok (rechaza) · [nuevos] B6 depósito corriente en una línea solo con importes · clase 3
+ok (rechaza) · [nuevos] B7 «Intеrest paid» con homoglifo cirílico en financiación · clase 3
+ok (rechaza) · [nuevos] B8 «Dividends paid and» + continuación «interest on borrowings» · clase 3
+ok (rechaza) · [nuevos] B9 «Dividends paid (incl. finance costs)» · clase 3
+ok (rechaza) · [nuevos] B10 «Outside shareholders' interests» en el balance · clase 3
+ok (rechaza) · [nuevos] B11 minoritarios dentro de «Total liabilities» y desglosados aparte · clase 3
+ok (acepta) · [nuevos] B12 control favorable de minoritarios · clase 2
+FALSO POSITIVO · [nuevos2] C1 «Thereof: interest paid» después del total de financiación · clase 2
+FALSO POSITIVO · [nuevos2] C2 «Of which» con espacio no separable (U+00A0) después del total · clase 2
+FALSO POSITIVO · [nuevos2] C3 «Оf which» con homoglifo cirílico (О = U+041E) después del total · clase 2
+FALSO POSITIVO · [nuevos2] C4 «Including interest paid of» después del total · clase 2
+FALSO POSITIVO · [nuevos2] C5 segundo bloque de financiación con otra cabecera («Discontinued operations – cash flows from financing activities») · clase 2
+FALSO POSITIVO · [nuevos2] C6 cabecera con «thousands of euros» y el estado «(in € millions)» · clase 2
+FALSO POSITIVO · [nuevos2] C7 cabecera con «thousands of euros» y el estado «(EUR million)» · clase 2
+FALSO POSITIVO · [nuevos2] C8 adquisición del año con el rótulo de la lista blanca partido en dos líneas (importe en la línea de continuación) · clase 2
+ok (rechaza) · [nuevos2] C9 adquisición del año: rótulo «Acquisition of a subsidiary» con homoglifo (а = U+0430) · clase 3
+FALSO POSITIVO · [nuevos2] C10 minoritarios dentro de «Total liabilities» y desglosados aparte con homoglifo («Nоn-controlling») · clase 2
+FALSO POSITIVO · [nuevos2] C11 minoritarios rotulados «Equity attributable to other shareholders» dentro de «Total liabilities» · clase 2
+FALSO POSITIVO · [nuevos2] C12 minoritarios rotulados «Intereses de terceros» dentro de «Total liabilities» · clase 2
+ok (acepta) · [nuevos2] C13 control favorable de adquisiciones (sin línea de adquisición) · clase 2
+ok (acepta) · [nuevos2] C14 control favorable de financiación limpia (repetición) · clase 2
+[anteriores] 16 rechazados de 16 que debían rechazarse; falsos positivos: []
+[nuevos] 11 rechazados de 11 que debían rechazarse; falsos positivos: []
+[nuevos2] 1 rechazados de 12 que debían rechazarse; falsos positivos: ['C1 «Thereof: interest paid» después del total de financiación', 'C2 «Of which» con espacio no separable (U+00A0) después del total', 'C3 «Оf which» con homoglifo cirílico (О = U+041E) después del total', 'C4 «Including interest paid of» después del total', 'C5 segundo bloque de financiación con otra cabecera («Discontinued operations – cash flows from financing activities»)', 'C6 cabecera con «thousands of euros» y el estado «(in € millions)»', 'C7 cabecera con «thousands of euros» y el estado «(EUR million)»', 'C8 adquisición del año con el rótulo de la lista blanca partido en dos líneas (importe en la línea de continuación)', 'C10 minoritarios dentro de «Total liabilities» y desglosados aparte con homoglifo («Nоn-controlling»)', 'C11 minoritarios rotulados «Equity attributable to other shareholders» dentro de «Total liabilities»', 'C12 minoritarios rotulados «Intereses de terceros» dentro de «Total liabilities»']
+controles favorables aceptados: 4 de 4

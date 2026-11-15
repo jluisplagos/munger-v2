@@ -1,0 +1,232 @@
+[
+ {
+  "caso": "1_revisor_capex_linea_inexistente",
+  "que_prueba": "Página 'Revenue 123'; capex 123 con línea 'Capital expenditure 123' que no existe en la página.",
+  "pagina": "Revenue 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/1_revisor_capex_linea_inexistente"
+ },
+ {
+  "caso": "2_concepto_ajeno_linea_real",
+  "que_prueba": "capex declarado con la línea real 'Revenue 123': ¿se compara el concepto con la partida?",
+  "pagina": "Revenue 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Revenue",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Revenue 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/2_concepto_ajeno_linea_real"
+ },
+ {
+  "caso": "3_subcadena_numerica",
+  "que_prueba": "Página 'Revenue 91234'; capex 123: '123' solo aparece como parte de 91234.",
+  "pagina": "Revenue 91234",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/3_subcadena_numerica"
+ },
+ {
+  "caso": "4_columna_anterior_como_actual",
+  "que_prueba": "Línea real con dos columnas (2025=150, 2024=123); se declara 123 como 'actual'.",
+  "pagina": "2025 2024\nCapital expenditure 150 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure 150",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 150 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/4_columna_anterior_como_actual"
+ },
+ {
+  "caso": "5_unidad_no_contrastada",
+  "que_prueba": "Página en miles; el JSON declara 'millones'.",
+  "pagina": "Amounts in thousands of EUR\nCapital expenditure 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/5_unidad_no_contrastada"
+ },
+ {
+  "caso": "6_signo_no_contrastado",
+  "que_prueba": "Cobro de 40 declarado con signo -1 (lo convierte en pago).",
+  "pagina": "Proceeds from sale of businesses 40",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "adquisiciones": {
+    "actual": [
+     {
+      "concepto": "Proceeds from sale of businesses",
+      "impreso": "40",
+      "pagina": 1,
+      "linea": "Proceeds from sale of businesses 40",
+      "signo": -1
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/6_signo_no_contrastado"
+ },
+ {
+  "caso": "7_cero_sin_respaldo",
+  "que_prueba": "capex = cero con motivo libre y página 1, que solo contiene 'Revenue 123'.",
+  "pagina": "Revenue 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "cero": {
+     "motivo": "no hay capex",
+     "pagina": 1
+    }
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/7_cero_sin_respaldo"
+ },
+ {
+  "caso": "8_control_numero_ausente",
+  "que_prueba": "Control: 999 no aparece en la página.",
+  "pagina": "Revenue 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "999",
+      "pagina": 1,
+      "linea": "Capital expenditure 999"
+     }
+    ]
+   }
+  },
+  "errores": [
+   "capex actual: «999» no está en la página 1"
+  ],
+  "resultado": "RECHAZADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/8_control_numero_ausente"
+ },
+ {
+  "caso": "9_control_pagina_inexistente",
+  "que_prueba": "Control: página 7 inexistente.",
+  "pagina": "Capital expenditure 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 7,
+      "linea": "Capital expenditure 123"
+     }
+    ]
+   }
+  },
+  "errores": [
+   "capex actual: página 7 inexistente"
+  ],
+  "resultado": "RECHAZADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/9_control_pagina_inexistente"
+ },
+ {
+  "caso": "10_control_correcto",
+  "que_prueba": "Control: línea y número presentes.",
+  "pagina": "Capital expenditure 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "actual": [
+     {
+      "concepto": "Capital expenditure",
+      "impreso": "123",
+      "pagina": 1,
+      "linea": "Capital expenditure 123"
+     }
+    ]
+   }
+  },
+  "errores": [],
+  "resultado": "ACEPTADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/10_control_correcto"
+ },
+ {
+  "caso": "11_control_cero_pagina_inexistente",
+  "que_prueba": "Control: cero con página 9 inexistente.",
+  "pagina": "Revenue 123",
+  "unidad_declarada": "millones",
+  "partidas_declaradas": {
+   "capex": {
+    "cero": {
+     "motivo": "x",
+     "pagina": 9
+    }
+   }
+  },
+  "errores": [
+   "capex: «cero» sin motivo o con página inexistente"
+  ],
+  "resultado": "RECHAZADO",
+  "carpeta": "/home/claude/diag/diagnostico/trabajo/h1/11_control_cero_pagina_inexistente"
+ }
+]

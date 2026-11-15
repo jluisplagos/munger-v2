@@ -1,0 +1,1663 @@
+{
+ "origen": "/home/claude/trabajo_4_14/trabajo/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/viscofan_decisiones/Viscofan/variantes_v64/recalc/convencion_terminal_alternativa.xlsx",
+ "recalculo_forzado_comprobado": true,
+ "fallos_recalculo": [],
+ "valores": {
+  "B78": 29.9068894377967,
+  "C78": 44.2284960085398,
+  "D78": 58.7750350987014,
+  "C83": 44.2734825124235,
+  "C84": -0.235502537769662,
+  "C85": "-45% / +7%",
+  "C86": 0.0961418216416905,
+  "C39": 0.537459834263487,
+  "C87": -0.625625887769123,
+  "C37": 54.7,
+  "C41": 2515.838925,
+  "C55": 45.993399,
+  "C56": 0.09,
+  "C57": 0.0335
+ },
+ "probabilidades": [
+  0.2,
+  0.6,
+  0.2
+ ],
+ "g_perpetuo": [
+  0.01,
+  0.02,
+  0.025
+ ],
+ "estados": {
+  "estado_tecnico_B255": "INCOMPLETO",
+  "causa_tecnica_B256": "Faltan 3 predicciones (Palancas A38:A40)",
+  "estado_inversion_B258": "DESCARTADA POR FILTRO PABRAI",
+  "estado_libro_B266": "NO LISTO · incompleto (1 pendientes)",
+  "lectura_precio_B267": "sin margen: tu DCF no da colchón",
+  "veredicto_B268": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
+  "evidencias_B269": "INCOMPLETAS · datos 15 de 17 · hipótesis confirmadas 0 de 22 · 22 estimaciones · 2 no verificables · 0 hipótesis pendientes · 0 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido",
+  "bloqueo_valor_B252": false,
+  "comparable_B253": true,
+  "bloqueo_lectura_B254": false,
+  "n_avisos_B260": 3,
+  "n_causas_B261": 4,
+  "dcf_inverso_monotono_B193": "✓ PASA"
+ },
+ "reglas_motor": [
+  {
+   "id": "V01",
+   "regla": "Motor elegido (Análisis C62)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V02",
+   "regla": "Historia: al menos 5 ejercicios con ventas",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V03",
+   "regla": "Historia: el año más reciente en la columna L",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V04",
+   "regla": "Historia: años consecutivos y sin huecos",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V05",
+   "regla": "Años de la media del FCF base (Historia C57) · motor A",
+   "aplica": false,
+   "resultado": "N/A",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V06",
+   "regla": "Precio actual (Análisis C37)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V07",
+   "regla": "Acciones diluidas (Análisis C55)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V08",
+   "regla": "Rentabilidad exigida r (Análisis C56)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V09",
+   "regla": "Datos del FCF base (Análisis C46–C51): tipo y dominio",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V10",
+   "regla": "FCF base ≤ 0 · motor A",
+   "aplica": false,
+   "resultado": "N/A",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V11",
+   "regla": "Tipo de empresa frente a motor (Palancas C6)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V12",
+   "regla": "Crecimiento años 1–5 (Palancas B14:D14)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V13",
+   "regla": "Margen o ROE objetivo (Palancas B15:D15)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V14",
+   "regla": "Ventas por euro reinvertido (Palancas B16:D16) · motores A y B",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V15",
+   "regla": "g para siempre (Análisis B68:D68)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V16",
+   "regla": "ROIC o ROE a largo plazo (Palancas B18:D18)",
+   "aplica": true,
+   "resultado": "AVISO",
+   "codigo": "AVI|La rentabilidad marginal de los años 1–10 y el ROIC del terminal se separan más de 5 puntos: el salto del año 11 es una hipótesis. Hazla explícita (Diagnóstico V6, bloque 10)",
+   "causa": "La rentabilidad marginal de los años 1–10 y el ROIC del terminal se separan más de 5 puntos: el salto del año 11 es una hipótesis. Hazla explícita (Diagnóstico V6, bloque 10)",
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": 1
+  },
+  {
+   "id": "V17",
+   "regla": "Probabilidades de los escenarios (Análisis B69:D69)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V18",
+   "regla": "Tipo impositivo medio (Historia C52) · motores A y B",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V19",
+   "regla": "Probabilidad de quiebra (Palancas C22)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V20",
+   "regla": "Recuperación si quiebra (Palancas C23)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V21",
+   "regla": "Historia de cada escenario (Análisis B65:D65)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V22",
+   "regla": "Capitalización (Análisis C41)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V23",
+   "regla": "Deuda y r operativa · motor B",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V24",
+   "regla": "Patrimonio y ROE de partida · motor C",
+   "aplica": false,
+   "resultado": "N/A",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V25",
+   "regla": "Moneda de cotización frente a moneda del modelo",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 2,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V26",
+   "regla": "ADR: unidad cotizada frente a la unidad del valor",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 2,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V27",
+   "regla": "Conciliación: capitalización ≈ precio × acciones",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V28",
+   "regla": "Fechas del precio y de las acciones",
+   "aplica": true,
+   "resultado": "AVISO",
+   "codigo": "AVI|Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
+   "causa": "Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": 2
+  },
+  {
+   "id": "V30",
+   "regla": "Los países suman 100 %",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V31",
+   "regla": "Vigencia de las tablas de sector y país",
+   "aplica": true,
+   "resultado": "AVISO",
+   "codigo": "AVI|Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
+   "causa": "Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": 3
+  },
+  {
+   "id": "V32",
+   "regla": "Ventas o patrimonio del último año > 0 (Historia L6 / L21)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V33",
+   "regla": "EBIT del último año (Historia L7) · motores A y B",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V34",
+   "regla": "Exceso de caja no operativo (Análisis C76)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 2,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V37",
+   "regla": "Historia: solo números en C5:L26",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V38",
+   "regla": "Valor de la fuente externa (Análisis C38)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V39",
+   "regla": "Celdas de salida intactas (sin sobrescribir)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V35",
+   "regla": "Motor calculable (red de seguridad)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 1,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C01",
+   "regla": "Identificación (Análisis B3, D3)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C02",
+   "regla": "Filtro Pabrai (Análisis C11:C13)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C03",
+   "regla": "Tipo de empresa (Palancas C5, C6)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C04",
+   "regla": "Sector de Damodaran (Palancas C7)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C05",
+   "regla": "Tesis y tesis inversa (Análisis B101, B102)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C06",
+   "regla": "Gestión (Análisis C97, C98)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C07",
+   "regla": "Predicciones (Palancas A38:A40)",
+   "aplica": true,
+   "resultado": "INCOMPLETO",
+   "codigo": "INC|Faltan 3 predicciones (Palancas A38:A40)",
+   "causa": "Faltan 3 predicciones (Palancas A38:A40)",
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": 4
+  },
+  {
+   "id": "C08",
+   "regla": "Etapas 1 y 2 de Análisis (13 respuestas)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C09",
+   "regla": "Escenarios en tus palabras (Análisis B66:D66)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "C10",
+   "regla": "Cierre (Análisis C14, C93, C103, C104)",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V29",
+   "regla": "DCF inverso utilizable",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  },
+  {
+   "id": "V36",
+   "regla": "Valor por acción positivo en los tres escenarios",
+   "aplica": true,
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
+   "nivel": 3,
+   "prioridad": 9,
+   "n_causa_activa": null
+  }
+ ],
+ "causas_activas": [
+  "1. AVISO · La rentabilidad marginal de los años 1–10 y el ROIC del terminal se separan más de 5 puntos: el salto del año 11 es una hipótesis. Hazla explícita (Diagnóstico V6, bloque 10)",
+  "2. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
+  "3. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
+  "4. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)"
+ ],
+ "semaforos": {
+  "fila40": [
+   "Crecimiento frente al sector y a su historia",
+   "✓ PASA",
+   "✓ PASA",
+   "✓ PASA"
+  ],
+  "fila41": [
+   "Margen frente a su máximo y al sector",
+   "⚠ REVISAR · margen por encima de su máximo o del Q3 del sector",
+   "⚠ REVISAR · margen por encima de su máximo o del Q3 del sector",
+   "⚠ REVISAR · margen por encima de su máximo o del Q3 del sector"
+  ],
+  "fila42": [
+   "ROIC marginal frente a su historia",
+   "✓ PASA",
+   "✓ PASA",
+   "✓ PASA"
+  ],
+  "fila43": [
+   "ROIC (o ROE) a largo plazo",
+   "✓ PASA",
+   "✓ PASA",
+   "✓ PASA"
+  ],
+  "fila44": [
+   "Peso del «para siempre»",
+   "✓ PASA",
+   "✓ PASA",
+   "✓ PASA"
+  ],
+  "fila45": [
+   "Cuota de mercado implícita",
+   "—",
+   "—",
+   "—"
+  ],
+  "fila46": [
+   "S2C medio frente al sector",
+   null,
+   "✓ PASA",
+   null
+  ],
+  "fila47": [
+   "Orden de los escenarios (MALO ≤ NORMAL ≤ BUENO)",
+   null,
+   "✓ PASA",
+   null
+  ],
+  "fila48": [
+   "Tu r frente a la r mínima",
+   null,
+   "⚠ REVISAR · tu r (9.0 %) < r mínima (9.5 %)",
+   null
+  ],
+  "fila49": [
+   "Tipo de empresa frente a motor",
+   null,
+   "✓ PASA · tipo y motor coherentes",
+   null
+  ],
+  "fila50": [
+   "Fugas al accionista (f) en un rango razonable",
+   null,
+   "✓ PASA",
+   null
+  ]
+ },
+ "por_escenario": {
+  "ventas_anio_10": [
+   1431.62437901316,
+   1808.48468384856,
+   2166.59210664277
+  ],
+  "fcf_anio_1": [
+   129.648191261989,
+   114.476009828126,
+   107.054942417914
+  ],
+  "fcf_anio_10": [
+   133.691053806867,
+   196.954815447775,
+   260.728917989419
+  ],
+  "crecimiento_fcf_implicito": [
+   0.00341771695161208,
+   0.0621444127843631,
+   0.103960689133041
+  ],
+  "valor_anios_1_10": [
+   832.423401955027,
+   957.544263275165,
+   1098.34419123021
+  ],
+  "valor_para_siempre": [
+   816.924096806442,
+   1350.50260081552,
+   1878.74744930337
+  ],
+  "peso_terminal": [
+   0.495301382770998,
+   0.585127893989962,
+   0.631068061098263
+  ],
+  "ajuste": [
+   -273.828,
+   -273.828,
+   -273.828
+  ],
+  "valor_antes_quiebra": [
+   1375.51949876147,
+   2034.21886409068,
+   2703.26364053358
+  ],
+  "valor_final": [
+   1375.51949876147,
+   2034.21886409068,
+   2703.26364053358
+  ],
+  "valor_por_accion": [
+   29.9068894377967,
+   44.2284960085398,
+   58.7750350987014
+  ],
+  "valor_sin_crecimiento": [
+   34.2828881547351,
+   34.2828881547351,
+   34.2828881547351
+  ],
+  "valor_del_crecimiento": [
+   -4.37599871693837,
+   9.94560785380479,
+   24.4921469439664
+  ],
+  "roic_marginal_implicito": [
+   0.0971314162957722,
+   0.157404929086452,
+   0.202935280475095
+  ],
+  "cuota_implicita": [
+   null,
+   null,
+   null
+  ]
+ },
+ "cuanto_pagas_por_crecer": [
+  [
+   "Valor sin crecimiento (por acción)",
+   null,
+   34.2828881547351,
+   null
+  ],
+  [
+   "Precio actual",
+   null,
+   54.7,
+   null
+  ],
+  [
+   "Lo que pagas por crecimiento = precio − valor sin crecimiento",
+   null,
+   20.417111845265,
+   null
+  ],
+  [
+   "Lo que vale el crecimiento (y la mejora de margen) en tu NORMAL",
+   null,
+   9.94560785380479,
+   null
+  ],
+  [
+   "Pagas ÷ vale",
+   null,
+   2.05287722433719,
+   "⚠ REVISAR · pagas 2.1 veces lo que vale"
+  ]
+ ],
+ "multiplos": [
+  [
+   "PER (precio ÷ beneficio)",
+   15.732154336312,
+   null,
+   12.7204666426376,
+   "Crecimiento NORMAL: 4.5 %"
+  ],
+  [
+   "Precio ÷ valor contable",
+   2.71211466317389,
+   2.19025725577819,
+   2.19292052228871,
+   "ROE último: 17.2 %"
+  ],
+  [
+   "EV ÷ ventas",
+   2.2281987255418,
+   1.3434507919661,
+   1.84351294234081,
+   "Margen NORMAL tras impuestos: 12.9 %"
+  ],
+  [
+   "EV ÷ EBITDA",
+   9.61987284044278,
+   11.0720759595625,
+   7.95905674020028,
+   "Tasa de reinversión año 1: 31 %"
+  ],
+  [
+   "Precio ÷ FCF base",
+   25.8780580442095,
+   null,
+   20.9240875146903,
+   "Rentabilidad FCF hoy: 3.9 %"
+  ]
+ ],
+ "autocomprobaciones": [
+  [
+   "Historia: al menos 5 años con ventas",
+   "✓ PASA"
+  ],
+  [
+   "Historia: el año más reciente está en la columna L",
+   "✓ PASA"
+  ],
+  [
+   "Los años de la media del FCF caben en la historia",
+   "No aplica (motor B)"
+  ],
+  [
+   "Las probabilidades suman 100 %",
+   "✓ PASA"
+  ],
+  [
+   "g para siempre < tasa de descuento en los tres escenarios",
+   "✓ PASA"
+  ],
+  [
+   "S2C > 0 en los tres escenarios (motores A y B)",
+   "✓ PASA"
+  ],
+  [
+   "ROIC a largo plazo > g en los tres escenarios",
+   "⚠ REVISAR · La rentabilidad marginal de los años 1–10 y el ROIC del terminal se separan más de 5 puntos: el salto del año 11 es una hipótesis. Hazla explícita (Diagnóstico V6, bloque 10)"
+  ],
+  [
+   "Los países suman 100 % (si has rellenado alguno)",
+   "✓ PASA"
+  ],
+  [
+   "La SBC se resta del FCF base (Análisis C51)",
+   "✓ PASA"
+  ],
+  [
+   "El exceso de caja no supera la caja del balance",
+   "No aplica"
+  ],
+  [
+   "El DCF inverso es utilizable",
+   "✓ PASA"
+  ],
+  [
+   "Modo estudio apagado y ajustes a cero",
+   "✓ PASA"
+  ],
+  [
+   "Las tres predicciones están escritas",
+   "⛔ TÉCNICO · Faltan 3 predicciones (Palancas A38:A40)"
+  ],
+  [
+   "Tipo de empresa y caso especial elegidos",
+   "✓ PASA"
+  ],
+  [
+   "El motor calcula un valor en los tres escenarios",
+   "✓ PASA"
+  ],
+  [
+   "ESTADO DEL LIBRO · LISTO = el cálculo está completo y pasa sus comprobaciones. No es una aprobación de inversión ni dice que los datos sean ciertos: mira el estado de las evidencias y las advertencias.",
+   "NO LISTO · incompleto (1 pendientes)"
+  ]
+ ],
+ "salto_anio_11": {
+  "filas": [
+   [
+    "  10 · COHERENCIA DE LA TRANSICIÓN AL TERMINAL (años 10 → 11)",
+    null,
+    null,
+    null
+   ],
+   [
+    "Concepto",
+    "MALO",
+    "NORMAL",
+    "BUENO"
+   ],
+   [
+    "Rentabilidad marginal implícita en los años 1–10 (S2C × margen objetivo × (1 − t))",
+    0.0971314162957722,
+    0.157404929086452,
+    0.202935280475095
+   ],
+   [
+    "ROIC o ROE a largo plazo que usa el terminal (Palancas B18:D18)",
+    0.08,
+    0.11,
+    0.12
+   ],
+   [
+    "Salto en el año 11 (puntos; positivo = la rentabilidad marginal cae al pasar al terminal)",
+    0.0171314162957722,
+    0.0474049290864522,
+    0.0829352804750954
+   ],
+   [
+    "Umbral del aviso (puntos; ajustable)",
+    null,
+    0.05,
+    null
+   ],
+   [
+    "Durante los años 1–10 cada euro reinvertido rinde S2C × margen × (1 − t). El terminal usa el ROIC a largo plazo y reinvierte g ÷ ROIC. Si los dos no coinciden, en el año 11 cambia la rentabilidad del capital sin que nada lo diga: es una hipótesis tuya sobre la pérdida (o ganancia) de ventaja competitiva, y conviene escribirla en la tesis.",
+    null,
+    null,
+    null
+   ]
+  ]
+ },
+ "tornado": {
+  "rotulos": [
+   "Crecimiento 1–5 (±2 pts)",
+   "Margen / ROE objetivo (±2 pts)",
+   "S2C (±0,3)",
+   "g perpetuo (±0,5 pts)",
+   "ROIC / ROE largo plazo (±5 pts)",
+   "Tasa de descuento (±1 pt)"
+  ],
+  "efectos": [
+   [
+    3.76178229367532,
+    0.0850533622700845
+   ],
+   [
+    6.35128087548824,
+    0.143601556658447
+   ],
+   [
+    2.51525891091856,
+    0.0568696459954891
+   ],
+   [
+    1.16383498827916,
+    0.0263141434439562
+   ],
+   [
+    5.62981257925684,
+    0.127289261162528
+   ],
+   [
+    10.0400252716253,
+    0.227003542460198
+   ]
+  ],
+  "mas_influyente": "Tasa de descuento (±1 pt)",
+  "B222": null,
+  "B223": null
+ },
+ "precio_referencia_hoja_C156": 29.9068894377967,
+ "parametros_hoja": {
+  "C91": 0.05,
+  "C92": 0.25,
+  "C93": 90,
+  "C94": 18,
+  "C156": 29.9068894377967,
+  "C158": 0.75,
+  "C179": 0.05
+ },
+ "evidencias": {
+  "D240": 39,
+  "D241": 17,
+  "D242": 15,
+  "D243": 22,
+  "D244": 0,
+  "D245": 22,
+  "D246": 2,
+  "D247": 0,
+  "D248": 0,
+  "D249": 0,
+  "D250": "INCOMPLETAS · datos 15 de 17 · hipótesis confirmadas 0 de 22 · 22 estimaciones · 2 no verificables · 0 hipótesis pendientes · 0 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido"
+ },
+ "banderas_C7": 5,
+ "revisar_D7": 9,
+ "veredicto_A6": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
+ "tabla_dcf_inverso": [
+  [
+   -0.1,
+   22.9643231045053
+  ],
+  [
+   -0.095,
+   23.5083673079163
+  ],
+  [
+   -0.09,
+   24.0682589762694
+  ],
+  [
+   -0.085,
+   24.6444203027961
+  ],
+  [
+   -0.08,
+   25.2372830842942
+  ],
+  [
+   -0.075,
+   25.8472888990342
+  ],
+  [
+   -0.07,
+   26.4748892872111
+  ],
+  [
+   -0.065,
+   27.120545933968
+  ],
+  [
+   -0.06,
+   27.7847308550179
+  ],
+  [
+   -0.055,
+   28.4679265848899
+  ],
+  [
+   -0.05,
+   29.1706263678256
+  ],
+  [
+   -0.045,
+   29.8933343513542
+  ],
+  [
+   -0.04,
+   30.6365657825715
+  ],
+  [
+   -0.035,
+   31.4008472071509
+  ],
+  [
+   -0.03,
+   32.186716671113
+  ],
+  [
+   -0.025,
+   32.9947239253822
+  ],
+  [
+   -0.02,
+   33.8254306331566
+  ],
+  [
+   -0.015,
+   34.6794105801199
+  ],
+  [
+   -0.01,
+   35.5572498875237
+  ],
+  [
+   -0.005,
+   36.3558919224422
+  ],
+  [
+   0,
+   37.1059727910712
+  ],
+  [
+   0.00499999999999999,
+   37.8141459180555
+  ],
+  [
+   0.01,
+   38.5419521007849
+  ],
+  [
+   0.015,
+   39.289877808327
+  ],
+  [
+   0.02,
+   40.0584197429628
+  ],
+  [
+   0.025,
+   40.8480850154652
+  ],
+  [
+   0.03,
+   41.6593913227039
+  ],
+  [
+   0.035,
+   42.4928671275948
+  ],
+  [
+   0.04,
+   43.3490518414204
+  ],
+  [
+   0.045,
+   44.2284960085398
+  ],
+  [
+   0.05,
+   45.1317614935137
+  ],
+  [
+   0.055,
+   46.0594216706653
+  ],
+  [
+   0.06,
+   47.0120616161014
+  ],
+  [
+   0.065,
+   47.9902783022152
+  ],
+  [
+   0.07,
+   48.9946807946948
+  ],
+  [
+   0.075,
+   50.0258904520607
+  ],
+  [
+   0.08,
+   51.0845411277551
+  ],
+  [
+   0.085,
+   52.1712793748067
+  ],
+  [
+   0.09,
+   53.2867646530954
+  ],
+  [
+   0.095,
+   54.431669539239
+  ],
+  [
+   0.1,
+   55.6066799391283
+  ],
+  [
+   0.105,
+   56.8124953031316
+  ],
+  [
+   0.11,
+   58.0498288439958
+  ],
+  [
+   0.115,
+   59.3194077574662
+  ],
+  [
+   0.12,
+   60.6219734456507
+  ],
+  [
+   0.125,
+   61.9582817431526
+  ],
+  [
+   0.13,
+   63.3291031459971
+  ],
+  [
+   0.135,
+   64.7352230433754
+  ],
+  [
+   0.14,
+   66.1774419522325
+  ],
+  [
+   0.145,
+   67.6565757547243
+  ],
+  [
+   0.15,
+   69.1734559385671
+  ],
+  [
+   0.155,
+   70.7289298403077
+  ],
+  [
+   0.16,
+   72.3238608915373
+  ],
+  [
+   0.165,
+   73.9591288680773
+  ],
+  [
+   0.17,
+   75.6356301421608
+  ],
+  [
+   0.175,
+   77.3542779376364
+  ],
+  [
+   0.18,
+   79.1160025882221
+  ],
+  [
+   0.185,
+   80.9217517988329
+  ],
+  [
+   0.19,
+   82.7724909100104
+  ],
+  [
+   0.195,
+   84.6692031654813
+  ],
+  [
+   0.2,
+   86.6128899828696
+  ],
+  [
+   0.205,
+   88.6045712275915
+  ],
+  [
+   0.21,
+   90.6452854899588
+  ],
+  [
+   0.215,
+   92.7360903655189
+  ],
+  [
+   0.22,
+   94.878062738657
+  ],
+  [
+   0.225,
+   97.0722990694909
+  ],
+  [
+   0.23,
+   99.3199156840825
+  ],
+  [
+   0.235,
+   101.622049067998
+  ],
+  [
+   0.24,
+   103.979856163238
+  ],
+  [
+   0.245,
+   106.394514668578
+  ],
+  [
+   0.25,
+   108.867223343327
+  ],
+  [
+   0.255,
+   111.399202314561
+  ],
+  [
+   0.26,
+   113.991693387828
+  ],
+  [
+   0.265,
+   116.645960361381
+  ],
+  [
+   0.27,
+   119.363289343947
+  ],
+  [
+   0.275,
+   122.144989076082
+  ],
+  [
+   0.28,
+   124.992391255112
+  ],
+  [
+   0.285,
+   127.906850863724
+  ],
+  [
+   0.29,
+   130.889746502208
+  ],
+  [
+   0.295,
+   133.942480724391
+  ],
+  [
+   0.3,
+   137.066480377296
+  ]
+ ],
+ "motor": "B",
+ "coherencia_tipo_motor": "✓ PASA · tipo y motor coherentes",
+ "r_operativa_C15": 0.0826769373447879,
+ "r_minima_C17": 0.0946343075645323,
+ "r_vs_minima_C18": "⚠ REVISAR · tu r (9.0 %) < r mínima (9.5 %)",
+ "pasivos_netos_B_C16": 273.828,
+ "V0": 1251.983,
+ "m0": 0.163575703503961,
+ "t": 0.221190838053599,
+ "f": 0.0192483426422769,
+ "anclas_historia": {
+  "anios_con_ventas": 10,
+  "ventas_ultimo": 1251.983,
+  "cagr_3": 0.0139466386647236,
+  "cagr_5": 0.0653823107792342,
+  "cagr_serie": 0.061635877672257,
+  "margen_ultimo": 0.163575703503961,
+  "margen_medio": 0.17472419687222,
+  "margen_min": 0.150667285588769,
+  "margen_max": 0.211219252551541,
+  "tipo_impositivo_5": 0.19834,
+  "s2c_marginal": 1.15498055902985,
+  "s2c_medio": 1.05996234204061,
+  "roic_medio_5": 0.143186971637181,
+  "roe_medio_5": 0.16049997902243,
+  "anios_fcf_base": 3,
+  "f": 0.0192483426422769,
+  "patrimonio_ultimo": 927.63,
+  "roe_ultimo": 0.172393087761284,
+  "beneficio_ultimo": 159.917,
+  "ebitda_ultimo": 289.99,
+  "coste_deuda": 0.031372091873141,
+  "deuda_mas_arr": 316.318,
+  "pensiones_mas_minor": 20.3,
+  "caja_ultimo": 62.79
+ },
+ "palancas": {
+  "C5": "Madura",
+  "C6": "Ninguno",
+  "C7": "Food Processing",
+  "C8": "Último año",
+  "C9": "No",
+  "C10": null,
+  "B14": 0.015,
+  "C14": 0.045,
+  "D14": 0.07,
+  "B15": 0.14,
+  "C15": 0.165,
+  "D15": 0.18,
+  "B16": 0.8,
+  "C16": 1.1,
+  "D16": 1.3,
+  "B18": 0.08,
+  "C18": 0.11,
+  "D18": 0.12,
+  "C22": 0,
+  "C23": 0,
+  "C24": null,
+  "C43": "No aplica",
+  "C44": null,
+  "C47": "Ninguna",
+  "C48": "EUR"
+ },
+ "veredictos_analisis": {
+  "D11": "✓ PASA",
+  "D12": "✓ PASA",
+  "D13": "✗ BANDERA",
+  "D14": "—",
+  "D17": "✓ PASA",
+  "D18": "✓ PASA",
+  "D19": "✓ PASA",
+  "D20": "✗ BANDERA",
+  "D24": "✓ PASA",
+  "D25": "⚠ REVISAR · averigua por qué",
+  "D26": "✓ PASA",
+  "D27": "⚠ REVISAR · márgenes deteriorándose",
+  "D28": "ℹ ESTABLE",
+  "D31": "⚠ REVISAR · puede ser señal de demanda/contabilidad",
+  "D32": "ℹ BAJO",
+  "D33": "✓ PASA",
+  "D34": "⚠ REVISAR · mira vencimientos y generación de caja",
+  "D84": "✗ BANDERA · poco margen",
+  "D85": "✗ BANDERA · asimetría débil",
+  "D86": "✗ BANDERA · > BUENO",
+  "D93": "✓ PASA · terminal coherente"
+ },
+ "celdas_juicio_analisis": {
+  "C11": "Sí",
+  "C12": "Sí",
+  "C13": "No",
+  "C14": "Calidad a precio razonable",
+  "C17": "Sí",
+  "C18": "Sí",
+  "C19": "Sí",
+  "C20": "Riesgo real alto",
+  "C25": "No",
+  "C27": "Comprimiendo",
+  "C51": "Sí",
+  "C56": 0.09,
+  "C61": "Sí",
+  "C62": "No · financiación cambia mucho",
+  "B65": "Márgenes se comprimen (costes o precios)",
+  "C65": "Crece al ritmo de su mercado",
+  "D65": "Gana cuota: el moat se ensancha",
+  "B66": "Pieles, energía, CO2, aranceles y dólar suben más deprisa de lo que Viscofan repercute a la industria cárnica, la cuota se defiende con precio y el margen EBIT vuelve al 15 % de 2023: lo que se gana en volumen se lo quedan el cliente y el proveedor de pieles, mientras el reparto sigue tirando de deuda.",
+  "C66": "El volumen crece con el mercado (2-4 % al año) más algo de sustitución de tripa animal, los precios siguen a los costes con retraso y el margen EBIT se queda en el rango de 2019-2025 (15-18 %): la empresa conserva su margen, pero la eficiencia pasa al cliente.",
+  "D66": "La cuota sigue subiendo como en 2015-2022, la capacidad nueva de colágeno y plásticos se llena y los nuevos negocios crecen más que el tradicional; con la gama completa la escala se queda en la empresa y el margen EBIT vuelve hacia el 18 % de 2020-2021.",
+  "C76": null,
+  "C93": "Sí",
+  "C97": "Comprando",
+  "C98": "Aceptable",
+  "B101": "Viscofan es el mayor fabricante de envolturas para embutidos y el único con todas las tecnologías; vende a más de 1.700 clientes de la industria cárnica en más de 100 países y, según sus propias estimaciones, ha ganado cuota durante una década. Creo que es un buen negocio, no uno extraordinario: margen EBITDA del 22-26 %, ROIC del 12,6 % y una caja libre para el accionista que no ha crecido desde 2019 porque la absorben el capex, el circulante y los impuestos. La dirección cuenta las malas noticias y hace compras pequeñas, pero reparte más de lo que genera y lo paga con deuda bancaria que vence en su mayor parte en un año. A 53,6 € el precio descuenta, según mi estimación, que la caja libre crezca un 9-10 % anual diez años, algo que en caja la empresa no ha hecho en el periodo que tengo. Vigilar: precio de Sí de 25,1 € según la hoja recalculada, o revisarlo si la caja libre demuestra que crece.",
+  "B102": "Defiendo el No: Viscofan transforma pieles bovinas, celulosa y gas en un insumo industrial, y sus márgenes dependen de esas materias, de los derechos de CO2 y del dólar; en 2022 el margen bruto cayó 3,2 puntos y en 2T26 otros 3,5, así que leo que no traslada los costes a tiempo. La cuota sube, pero en 2025 el precio-mezcla bajó con volumen récord y en 2T26 las ventas de Norteamérica bajaron un 0,7 % por las divisas y ‘el entorno competitivo’: puede que la cuota se esté pagando con precio. Siete años de EBITDA al alza (+6,3 % anual) no han dado más caja al accionista (108,7 M€ en 2019, 100,5 M€ en 2025), y la empresa reparte por encima de esa caja: la deuda bancaria neta pasó de 1,8 M€ en 2021 a 283,3 M€ en junio de 2026, con 227 M€ de deuda bancaria a menos de un año al cierre de 2025 y un dividendo ‘extraordinario’ de 1 € repetido tres años. La inversión en EE. UU. dio resultados negativos durante años, los nuevos negocios llevan cinco años en el 12 % de las ventas con el mismo ‘potencial de más de 5.000 M€’, la última compra (Pet Mania) redujo mucho su actividad por un arancel seis meses después, y en la junta de 2025 el 23,7 % de los votos fue contra el informe de remuneraciones del ejercicio en que se pagaron 1,3 M€ de indemnización a un presidente que sigue siendo presidente (lo cuento como secuencia de hechos; el informe no da la causa del voto). Si la caja libre sigue plana, que es lo que ha pasado, la hoja da 25,1 € por acción en ese escenario (B78) con r del 9 %, y el mercado paga más del doble.",
+  "C103": "No",
+  "C104": "0% · Watchlist · precio de Sí 25,1 €"
+ },
+ "configuracion_v64": {
+  "modo_escrito": "Experimental",
+  "modo": "Experimental",
+  "motor": "B",
+  "valida": true,
+  "motivo": null,
+  "resumen": "Experimental · t NOPAT 22.12 % · escudo 22.12 % · m0 16.36 % (Palancas C8) · R1 (circulante 48.28 % de las ventas) · P-M1: SR1 · θ = 0.500 · años Plana · terminal Crece con g · f 1.1136 · f_fija 1.0000 · cartera: legado · perímetro NIIF 16",
+  "aviso": null,
+  "t_historia": 0.19834,
+  "t_nopat": 0.221190838053599,
+  "t_escudo": 0.221190838053599,
+  "m0_heredado": 0.163575703503961,
+  "m0_aplicado": 0.163575703503961,
+  "nwc_ratio": 0.482846013084842,
+  "regla": "R1",
+  "estructura_texto": "SR1 · suma con S2C reestimado",
+  "familia_texto": "Θ · θ × exceso histórico medio",
+  "lambda": null,
+  "theta": 0.5,
+  "convencion_anios": "Plana",
+  "convencion_terminal": "Crece con g",
+  "roic_terminal": "ROIC de la fase B sin cambio",
+  "cartera_texto": "Legado · se repone con la amortización",
+  "da0": 85.196,
+  "den_c53": 318.334,
+  "suma_cartera": 0,
+  "D_hist": 318.334,
+  "capex_menos_da": 64.923,
+  "adquisiciones": 16.161,
+  "exceso_acumulado": 64.923,
+  "exceso_medio": 12.9846,
+  "F_hist": 81.0840000000001,
+  "amortizacion_que_se_repone": 403.132,
+  "p0": false,
+  "requisito": true,
+  "codigo_estructura": "SR1",
+  "requisito_ventas_constantes": 6.49230000000001,
+  "Rh": 32.4615,
+  "f": 1.1135523703749,
+  "f_fija_calculado": 1,
+  "experimental_activo": true,
+  "r1": true,
+  "pm1": true,
+  "h": false,
+  "lambda_activa": false,
+  "anios_ventas": false,
+  "terminal_ventas": false,
+  "nwc_efectivo": 0.482846013084842,
+  "f_s2c": 1.1135523703749,
+  "f_roic": 1,
+  "f_fija": 1,
+  "trazabilidad_completa": "completa",
+  "perimetro_texto": "NIIF 16 · capex de caja + altas de derechos de uso frente a toda la D&A",
+  "altas_derechos_uso": 24.11,
+  "perimetro_efectivo": "NIIF 16",
+  "s2c_referencia_perimetro": 1.06750457067106,
+  "cartera_no_repuesta_anios": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "trazabilidad": [
+   {
+    "parametro": "N1 · tipo aplicado a NOPAT",
+    "valor": 0.221190838053599,
+    "clase": "derivado de datos publicados",
+    "confianza": "media",
+    "fuente_o_condicion": "conciliaciones del impuesto 2021–2025 (AR_2025 p. 109; CF_2024 p. 85; CF_2022_compilacion p. 74) y causa del 10,1 % de 2025 (AR_2025 p. 142)",
+    "justificacion": "la regla heredada (C52, 19,83 %) incluye el 10,1 % de 2025, que la empresa atribuye a la activación de bases imponibles negativas de Estados Unidos (18,009); sin las activaciones de 2024 y 2025 la media 2021–2025 es 22,12 %. Sin además los ajustes de ejercicios anteriores sería 22,66 % (lectura); la deducción de 2023 (ICMS en Brasil) no está cuantificada y no se ajusta",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "N1 · tipo del escudo de la deuda",
+    "valor": 0.221190838053599,
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "configuración de compatibilidad de la V6.3 (el mismo tipo en NOPAT y en el escudo)",
+    "justificacion": "no se separa el escudo sin una decisión (D-N6-τ de la 4.10); la deuda financiera es pequeña frente a la capitalización, así que el efecto es menor",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "N2 · margen de partida (m0)",
+    "valor": 0.163575703503961,
+    "clase": null,
+    "confianza": null,
+    "fuente_o_condicion": null,
+    "justificacion": null,
+    "materialidad": null,
+    "activo": false
+   },
+   {
+    "parametro": "N3 · regla de reinversión",
+    "valor": "R1",
+    "clase": "hipótesis",
+    "confianza": "media",
+    "fuente_o_condicion": "regla R1 de la plantilla V6.4 (D-N3 sin firmar)",
+    "justificacion": "con ventas que caen no se recupera capital fijo: solo se libera circulante, que en Viscofan es alto (48,28 % de las ventas); la capacidad conservada sirve a la recuperación. Que la regla cuadre no demuestra la conservación ni que las existencias bajen en proporción a las ventas",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C; solo actúa cuando las ventas caen",
+    "activo": true
+   },
+   {
+    "parametro": "N3 · circulante comercial ÷ ventas",
+    "valor": 0.482846013084842,
+    "clase": "dato publicado",
+    "confianza": "alta",
+    "fuente_o_condicion": "balance consolidado a 31-dic-2025 (AR_2025 pp. 21–22), conciliado con las notas 9 y 14",
+    "justificacion": "circulante = existencias + deudores − acreedores del balance, sobre las ventas de 2025 (48,28 %; 48,04 % en 2024; 46,79 % solo con las partidas comerciales de las notas)",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · estructura",
+    "valor": "SR1",
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "estructuras de la plantilla V6.4 (D-N3b revisada sin firmar); ninguna elegida",
+    "justificacion": "SR1 evita contar dos veces la parte de reposición: el S2C histórico (C53, 1,146) sale de la reinversión neta 2021–2025, que incluye el exceso de capex sobre D&A; si una parte fue reposición, el requisito adicional se suma y el S2C de los años se reestima con f. Las demás estructuras se calculan como variantes",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · familia",
+    "valor": "Θ",
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "familias de la plantilla V6.4; análisis viscofan/configuracion/analisis_configuracion_viscofan.md",
+    "justificacion": "Θ parte del exceso observado: con el perímetro NIIF 16, Σ (capex + altas de derechos de uso − D&A) 2021–2025 = 64,923 (40,813 con «Caja»); θ está acotado en [0, 1]; Λ necesitaría λ, no observado",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · λ o θ",
+    "valor": 0.5,
+    "clase": "hipótesis",
+    "confianza": "baja",
+    "fuente_o_condicion": "θ no observado: punto medio del dominio [0, 1], sin central económica adoptada; extremos calculados (theta_rango)",
+    "justificacion": "θ es la parte del exceso histórico que fue reposición; las cuentas no la separan. θ = 0 (todo fue crecimiento) y θ = 1 (todo fue reposición) se calculan como variantes, también con el perímetro «Caja»; con NIIF 16 la D&A de los derechos de uso se compara con sus altas (4.13 §7)",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro, con los extremos θ = 0 y θ = 1) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · convención de los años",
+    "valor": "Plana",
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "convención de la plantilla para el requisito de los años 1–10",
+    "justificacion": "con R1 la capacidad se conserva cuando las ventas caen, así que su reposición no baja con ellas: nivel plano; la proporcional a las ventas se calcula como variante",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · convención del terminal",
+    "valor": "Crece con g",
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "convención de la plantilla para el terminal",
+    "justificacion": "en la perpetuidad la base de activos crece con el negocio: requisito proporcional a las ventas; «crece con g» se calcula como variante",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · ROIC del terminal",
+    "valor": "ROIC de la fase B sin cambio",
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "definición de SR1: el ROIC del terminal no cambia",
+    "justificacion": "(4.13 §8, condición de PRECISION_ROIC_4_9.md) Q-ROIC1 sigue sin decidir: si el ROIC de largo plazo de la fase B es neto de reposición (rendimiento de la inversión que excede el mantenimiento), la combinación coherente con la suma del requisito es la que NO reestima el ROIC del terminal (SR1); si se midió sobre una inversión total que ya incluye la reposición, la coherente es la que lo reestima (SR2, ROIC × f). SR2 se calcula como variante; ninguna se elige por su valor",
+    "materialidad": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · cartera de clientes",
+    "valor": "legado",
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "nota de combinaciones de negocios de 2025 (AR_2025 p. 33): cartera de clientes de 1,294 con vida de 12 años",
+    "justificacion": "cartera inmaterial (≈0,11 al año) y sin datos que confirmen ceros en 2021–2024: no se usa P0 y la amortización de la cartera se trata como la del resto (legado). La ausencia de una cartera identificada no confirma ningún cero",
+    "materialidad": "inmaterial por importe; P0 no se calcula porque exigiría importes que no constan (combinación no definida)",
+    "activo": true
+   },
+   {
+    "parametro": "Modo",
+    "valor": "Experimental",
+    "clase": "convención",
+    "confianza": "alta",
+    "fuente_o_condicion": "encargo 4.12 §8: expediente nuevo de Viscofan con una configuración experimental propia",
+    "justificacion": "contrastar la integración con una segunda empresa; ninguna configuración se adopta",
+    "materialidad": "sin efecto propio: el efecto es el de cada parámetro",
+    "activo": true
+   },
+   {
+    "parametro": "P-M1 · perímetro de la inversión",
+    "valor": "NIIF 16",
+    "clase": "convención",
+    "confianza": "media",
+    "fuente_o_condicion": "plantilla V6.4.1 experimental (4.13 §7); altas de derechos de uso conciliadas 2021–2025 (24,110) frente a su amortización (27,051)",
+    "justificacion": "NIIF 16 completo: el motor B trata los arrendamientos como capital (Historia fila 32) y como deuda (puente), su NOPAT ya descuenta la amortización de los derechos de uso y no resta sus pagos; la inversión que repone esos activos son las altas. Con «Caja» (la V6.4) la D&A incluye la de los derechos de uso y el capex no incluye sus altas. Es el punto de cálculo, no una adopción: «Caja» se calcula como variante (perimetro_alternativo) y la elección es VISCOFAN-PERIMETRO",
+    "materialidad": "la mide configuracion_v64_variantes.json (variante perimetro_alternativo y sus extremos de θ) y la evalúa la fase C",
+    "activo": true
+   }
+  ],
+  "conciliacion": {
+   "MALO": {
+    "comprobacion": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "peso_terminal": 0.495301382770998,
+    "salto_requisito": 0.01,
+    "salto_fcf": -0.0172007076715285,
+    "s2c_efectivo": 0.890841896299924,
+    "roic_efectivo_terminal": 0.08
+   },
+   "NORMAL": {
+    "comprobacion": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "peso_terminal": 0.585127893989962,
+    "salto_requisito": 0.02,
+    "salto_fcf": -0.0489016117594586,
+    "s2c_efectivo": 1.2249076074124,
+    "roic_efectivo_terminal": 0.11
+   },
+   "BUENO": {
+    "comprobacion": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "peso_terminal": 0.631068061098263,
+    "salto_requisito": 0.0249999999999999,
+    "salto_fcf": -0.0802490388969221,
+    "s2c_efectivo": 1.44761808148738,
+    "roic_efectivo_terminal": 0.12
+   }
+  }
+ }
+}

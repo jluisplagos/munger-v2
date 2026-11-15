@@ -1,0 +1,352 @@
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/entradas_economicas.py despues/personaje_v2/scripts/entradas_economicas.py
+--- antes/personaje_v2/scripts/entradas_economicas.py	2026-11-12 20:14:16.000000000 +0100
++++ despues/personaje_v2/scripts/entradas_economicas.py	2026-11-12 23:29:01.649350572 +0100
+@@ -7,8 +7,14 @@
+ tesis, Observaciones), las predicciones, la evidencia de Control maestro y las celdas de trazabilidad de la configuración: un
+ cambio en ellos es editorial y no obliga a repetir las valoraciones. Un cambio en una entrada económica sí.
+ 
++(4.12, revisión interna R1) En un libro V6.4 entran además las filas de la Historia que alimentan las bases de «Configuración V6.4» y
++que no están en la relación de la V6.3: la fila 13 (adquisiciones netas), que entra en D_hist y F_hist y, con ellas, en f y f_fija
++(ADICIONALES_V64). Versión de la relación: «4.12+H13». Una instantánea guardada con la relación anterior («4.12», sin campo
++`version`) se compara con esa misma relación, y su fila 13 con la del libro de la variante «activa» (copia recalculada en el paso 10).
++
+ Funciones:
+-  instantanea(libro)              → {"celdas": {"Hoja!REF": valor}, "tipos": {...}, "ids": {...}, "huella": sha256, "n": N}
++  instantanea(libro, version)     → {"celdas": {"Hoja!REF": valor}, "tipos": {...}, "ids": {...}, "huella": sha256, "n": N, "version": …}
++  comparar(guardada, libro, libro_activa) → (diferencias, instantánea del libro, nota): con la relación con que se guardó
+   vector_escenarios(res, precio)  → V MALO/NORMAL/BUENO, probabilidades, ponderado, precio de Sí, precio y zona
+   huella_configuracion(conf)      → sha256 de las celdas económicas de la configuración (sin trazabilidad, naturaleza ni protocolo)
+   diferencias(a, b)               → celdas cuyo valor cambió entre dos instantáneas
+@@ -37,6 +43,21 @@
+     return R.ENTRADAS
+ 
+ 
++# (4.12, revisión interna R1) entradas de la Historia que solo usa la V6.4 (bases de «Configuración V6.4» B55 y B59: D_hist y F_hist, y
++# con ellas f = D_hist ÷ (D_hist − Rh) de SR1/SR2 y f_fija de SRF). Se comprobó con una traza de precedentes de B54:B63 que es la única
++# fila de la Historia fuera de la relación de la V6.3.
++ADICIONALES_V64 = [{"id": "h_adquisiciones", "celda": "Historia!C13:L13", "tipo": "dato",
++                    "motores": "B (V6.4 experimental: D_hist y F_hist de P-M1)", "cond": "modo experimental de la V6.4 (bases de «Configuración V6.4»)",
++                    "periodo": "las columnas H:L (cinco últimos ejercicios) entran en las bases"}]
++RELACION_ACTUAL = "4.12+H13"
++RELACION_4_12 = "4.12"
++
++
++def relacion_v64():
++    """La relación de la V6.3 y las entradas adicionales de la V6.4."""
++    return list(relacion()) + ADICIONALES_V64
++
++
+ def _expandir(celda):
+     """«Historia!C6:L6» → [(Historia, C6), …, (Historia, L6)]; «'Control maestro'!H4» → [(Control maestro, H4)]."""
+     hoja, rango = celda.rsplit("!", 1)
+@@ -78,11 +99,12 @@
+     return v
+ 
+ 
+-def instantanea(libro):
++def instantanea(libro, version=RELACION_ACTUAL):
+     lec = _Lector(libro)
+     hojas = set(lec.lb.hojas())
+     celdas, tipos, ids = {}, {}, {}
+-    for e in relacion():
++    rel = relacion_v64() if (CE.HOJA in hojas and version != RELACION_4_12) else relacion()
++    for e in rel:
+         for hoja, ref in _expandir(e["celda"]):
+             if hoja not in hojas:
+                 continue
+@@ -101,6 +123,7 @@
+                 ids[k] = clave
+     texto = json.dumps(sorted(celdas.items()), ensure_ascii=False, default=str, separators=(",", ":"))
+     return {"celdas": celdas, "tipos": tipos, "ids": ids, "n": len(celdas), "huella": hashlib.sha256(texto.encode("utf-8")).hexdigest(),
++            "version": version if CE.HOJA in hojas else RELACION_4_12,
+             "nota": "entradas materiales de la valoración y de la lectura del precio (relación independiente de la V6.3) y, en la V6.4, las de «Configuración V6.4» sin sus metadatos; "
+                     "los textos de juicio, las predicciones, la evidencia y la trazabilidad no entran (son editoriales)"}
+ 
+@@ -120,6 +143,36 @@
+     return hashlib.sha256(json.dumps(sorted(econ.items()), ensure_ascii=False, default=str).encode("utf-8")).hexdigest()
+ 
+ 
++def _adicionales(libro):
++    """{celda: valor} de ADICIONALES_V64 en un libro V6.4 ({} si el libro no es V6.4)."""
++    lec = _Lector(libro)
++    if CE.HOJA not in set(lec.lb.hojas()):
++        return {}
++    return {f"{h}!{r}": _norm(lec.leer(h, r)) for e in ADICIONALES_V64 for h, r in _expandir(e["celda"])}
++
++
++def comparar(guardada, libro, libro_activa=None):
++    """(4.12, revisión interna R1) Compara la instantánea que guardaron las variantes con la del libro, con la relación con que se guardó.
++    Con la relación anterior («4.12»), las entradas adicionales de la V6.4 se comparan además con las del libro de la variante «activa»
++    (la copia recalculada del libro evaluado en el paso 10); si falta ese libro, no se pueden acreditar y cuenta como diferencia.
++    Devuelve (diferencias, instantánea del libro, nota)."""
++    ver = (guardada or {}).get("version") or RELACION_4_12
++    inst = instantanea(libro, version=ver)
++    dif = diferencias(guardada, inst) if (guardada or {}).get("huella") != inst["huella"] else []
++    nota = None
++    if ver == RELACION_4_12:
++        nuevas = _adicionales(libro)
++        if nuevas:
++            if libro_activa and os.path.exists(libro_activa):
++                previas = _adicionales(libro_activa)
++                dif += sorted(k for k in set(nuevas) | set(previas) if nuevas.get(k) != previas.get(k))
++                nota = "instantánea guardada con la relación «4.12»: la fila 13 de la Historia se comparó con la del libro de la variante «activa»"
++            else:
++                dif.append("Historia!C13:L13 (sin acreditar: instantánea de la relación «4.12» y sin el libro de la variante «activa»)")
++                nota = "instantánea guardada con la relación «4.12» y sin el libro de la variante «activa»: la fila 13 de la Historia no se puede acreditar"
++    return dif, inst, nota
++
++
+ def diferencias(a, b):
+     ca, cb = (a or {}).get("celdas") or {}, (b or {}).get("celdas") or {}
+     return sorted(k for k in set(ca) | set(cb) if ca.get(k) != cb.get(k))
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/informe.py despues/personaje_v2/scripts/informe.py
+--- antes/personaje_v2/scripts/informe.py	2026-11-12 22:44:06.000000000 +0100
++++ despues/personaje_v2/scripts/informe.py	2026-11-12 23:58:49.457697855 +0100
+@@ -58,6 +58,18 @@
+     return str(v)
+ 
+ 
++def plano(x):
++    """(4.12) Valores de un aviso de dominio escritos sin la sintaxis JSON. verificar_todo.sh pasa juntos informe.md e
++    informe_provisional.md a verify_quotes_v2, que lee como cita el texto entre dos comillas rectas: con los valores en JSON, la última
++    comilla de un archivo se emparejaba con la primera del siguiente y el texto del informe entre ellas pasaba por cita no encontrada.
++    Al repetir desde el paso 12 un expediente con avisos de dominio activos, los informes anteriores hacían fallar la verificación."""
++    if isinstance(x, dict):
++        return "{" + "; ".join(f"{k} = {plano(v)}" for k, v in x.items()) + "}"
++    if isinstance(x, (list, tuple)):
++        return "[" + ", ".join(plano(v) for v in x) + "]"
++    return str(x).replace('"', "")
++
++
+ def distancias_con_denominador(precio, precio_si):
+     """(4.11 §7) Las dos lecturas de la distancia entre el precio y el precio de Sí, cada una con su denominador."""
+     if not (isinstance(precio, (int, float)) and isinstance(precio_si, (int, float)) and precio > 0 and precio_si > 0):
+@@ -132,12 +144,12 @@
+             return "; ".join(xs[:n]) + (f"; y {len(xs) - n} más (sección 14)" if len(xs) > n else "")
+ 
+         def _rango():  # (4.12 §4 y verificación, punto 10) el rango calculado y su ámbito también en la línea de estado, con cualquier tratamiento
+-            return ((f"; rango calculado del precio de Sí {f(rg['precio_si'][0])}–{f(rg['precio_si'][1])} en {rg.get('n_escenarios')} escenarios calculados, que no es un intervalo de confianza" if rg.get("precio_si") else "")
++            return ((f"; rango calculado del precio de Sí {f(rg['precio_si'][0])}–{f(rg['precio_si'][1])} en la activa y {rg.get('n_escenarios')} escenarios calculados, que no es un intervalo de confianza" if rg.get("precio_si") else "")
+                     + (f"; no cubiertas por ese ámbito: {_lista(ob.get('hipotesis_no_cubiertas_por_el_ambito'))}" if ob.get("hipotesis_no_cubiertas_por_el_ambito") else ""))
+         if tr in ("objetivo_emitido", "objetivo_condicionado") and ob.get("precio_objetivo_emitido") is not None:
+             linea += f" · precio objetivo {f(ob['precio_objetivo_emitido'])}"
+             if tr == "objetivo_condicionado":
+-                linea += f" **(condicionado, provisional: lo condiciona{'n' if len(hc) > 1 else ''} {_lista(hc)}" + _rango() + ")**"
++                linea += f" **(condicionado, provisional: es el valor calculado condicional; lo condiciona{'n' if len(hc) > 1 else ''} {_lista(hc)}" + _rango() + ")**"
+         elif tr == "objetivo_bloqueado":
+             # (4.12, auditoría del cierre de bloqueo de Vidrala, punto 10) con el objetivo bloqueado la línea de estado también da el rango y su ámbito
+             linea += (f" · **objetivo bloqueado** ({'protocolo de bloqueo' if ob.get('origen_del_bloqueo') == 'protocolo_de_bloqueo' else 'la acción no se sostiene en el ámbito calculado'}"
+@@ -283,7 +295,7 @@
+              f"- Configuración económica (`configuracion_economica.json`, SHA-256 `{str(ce.get('configuracion_sha256'))[:16]}…`): {ce.get('resumen')}. {ce.get('naturaleza') or ''}",
+              f"- Efectivos en el libro: tipo NOPAT {f(ef.get('t_nopat'))} (Historia {f(ef.get('t_historia'))}; escudo {f(ef.get('t_escudo'))}) · m0 {f(ef.get('m0_aplicado'))} (heredado {f(ef.get('m0_heredado'))}) · {ef.get('regla')} · estructura {ef.get('codigo_estructura')} · factores S2C × {f(ef.get('f_s2c'))}, ROIC × {f(ef.get('f_roic'))}, inversión fija × {f(ef.get('f_fija'))} · trazabilidad {ef.get('trazabilidad_completa')}.",
+              f"- Conciliación año a año y terminal (hoja «Conciliación B»): {'; '.join(f'{k} {v}' for k, v in (ce.get('conciliacion') or {}).items())}.",
+-             f"- Variantes calculadas ({vc.get('n')}): zonas {', '.join(vc.get('zonas') or [])}; «la zona no cambia» solo se afirma de esas variantes ({'misma zona en todas' if vc.get('zona_igual_en_todas') else 'hay zonas distintas'}).",
++             f"- Variantes calculadas ({vc.get('n')}, incluida la activa): zonas {', '.join(vc.get('zonas') or [])}; «la zona no cambia» solo se afirma de esas variantes ({'misma zona en todas' if vc.get('zona_igual_en_todas') else 'hay zonas distintas'}).",
+              f"- Evaluación de la fase C del mantenimiento: {txt((ev.get('mantenimiento') or {}).get('evaluacion'))}"]
+         t += [f"- Límite: {x}" for x in ce.get("limites") or []]
+         for a in ce.get("avisos_de_dominio") or []:
+@@ -291,7 +303,7 @@
+             evf = a.get("evaluacion_fase_c") or {}
+             if a.get("activo") is False:
+                 continue
+-            t.append(f"- Aviso de dominio «{a.get('id')}» ({'activo' if a.get('activo') else 'lectura sin umbral'}): {a.get('motivo')} · valores {json.dumps(a.get('valores'), ensure_ascii=False, default=str)[:260]}"
++            t.append(f"- Aviso de dominio «{a.get('id')}» ({'activo' if a.get('activo') else 'lectura sin umbral'}): {a.get('motivo')} · valores {plano(a.get('valores'))[:260]}"
+                      + (f" · fase C: {'MATERIAL' if evf.get('material_para_conclusion') else 'no material'} — {txt(evf.get('consecuencia'))}" if evf else ""))
+         ee = ce.get("entradas_economicas") or {}
+         if ee.get("huella"):
+@@ -307,7 +319,7 @@
+                   f"- Valor calculado condicional (precio de Sí): {f(ob.get('valor_calculado_condicional'))} · precio objetivo emitido: {f(ob.get('precio_objetivo_emitido')) if ob.get('precio_objetivo_emitido') is not None else 'ninguno'} · marca provisional: {'sí' if ob.get('provisional') else 'no'}.",
+                   f"- Acción provisional {ob.get('accion_provisional')}; ¿se sostiene en el ámbito calculado?: {'sí' if ob.get('accion_sostenida_en_ambito') else 'no'}"
+                   + (f" ({'; '.join(ob.get('motivos_no_sostenida'))})" if ob.get("motivos_no_sostenida") else "") + ".",
+-                  f"- Rango calculado: precio de Sí {f(rg['precio_si'][0])}–{f(rg['precio_si'][1])}, ponderado {f(rg['ponderado'][0])}–{f(rg['ponderado'][1])}, en {rg.get('n_escenarios')} escenarios ({', '.join(rg.get('escenarios') or [])}). {rg.get('naturaleza')}."
++                  f"- Rango calculado: precio de Sí {f(rg['precio_si'][0])}–{f(rg['precio_si'][1])}, ponderado {f(rg['ponderado'][0])}–{f(rg['ponderado'][1])}, en la activa y {rg.get('n_escenarios')} escenarios ({', '.join(rg.get('escenarios') or [])}). {rg.get('naturaleza')}."
+                   if rg.get("precio_si") and rg.get("ponderado") else f"- Rango calculado: ninguno ({rg.get('naturaleza')}).",
+                   "- Hipótesis que condicionan el objetivo: " + ("; ".join(f"{h.get('hipotesis')} (falta: {txt(h.get('informacion_que_falta'))})" for h in ob.get("hipotesis_que_lo_condicionan") or []) or "ninguna") + ".",
+                   "- No cubiertas por el ámbito calculado: " + ("; ".join(ob.get("hipotesis_no_cubiertas_por_el_ambito") or []) or "ninguna") + ".",
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/objetivo_v64.py despues/personaje_v2/scripts/objetivo_v64.py
+--- antes/personaje_v2/scripts/objetivo_v64.py	2026-11-12 20:21:59.000000000 +0100
++++ despues/personaje_v2/scripts/objetivo_v64.py	2026-11-12 23:31:55.389850225 +0100
+@@ -152,16 +152,30 @@
+             and clave in (v.get("parametros_variados") or []) and set(v.get("parametros_variados") or []) <= propio]
+ 
+ 
+-def cubiertas(H, esc, fc):
+-    """Del conjunto H, las hipótesis que varía al menos un escenario calculado (las demás, «no cubiertas»: el rango no las refleja)."""
++# (4.12, revisión interna R3) subparámetros de P-M1: «heredado», los componentes aislados de N1, N2 y R1 y «activa sin P-M1» quitan P-M1
++# entera, así que los listan entre sus parámetros variados sin calcular ninguna alternativa suya (p. ej., la familia Θ con Λ activa)
++SUBPARAMETROS_PM1 = ("PM1.familia", "PM1.parametro", "PM1.convencion_anios", "PM1.convencion_terminal", "PM1.roic_terminal", "PM1.cartera")
++
++
++def cubiertas(H, esc, fc, var=None):
++    """Del conjunto H, las hipótesis cuya alternativa refleja al menos un escenario calculado (las demás, «no cubiertas»: el rango no
++    las refleja). Un subparámetro de P-M1 solo queda cubierto por una variante que lo varía de forma AISLADA (con P-M1 activa) o por la
++    comprobación conjunta; quitar P-M1 entera no calcula ninguna alternativa del subparámetro (revisión interna R3)."""
+     varia_param = set()
+     varia_celdas = set()
++    varia_cc = set()
+     for e in esc:
+         for x in e.get("varia") or []:
+             varia_param.add(x)
+             varia_celdas |= _celdas_norm(x)
++            if str(e.get("origen") or "").startswith("comprobacion_conjunta"):
++                varia_cc.add(x)
+     out = []
+     for h in H:
++        if h in SUBPARAMETROS_PM1 and var is not None:
++            if ambito_aislado(var, h) or h in varia_cc:
++                out.append(h)
++            continue
+         if h in varia_param or (_celdas_norm(h) & varia_celdas):
+             out.append(h)
+     return out
+@@ -229,7 +243,7 @@
+     psi = precio.get("precio_si")
+     vals = [x for x in [psi] + [e.get("precio_si") for e in esc] if _num(x)]
+     ponds = [x for x in [precio.get("ponderado")] + [e.get("ponderado") for e in esc] if _num(x)]
+-    cub = cubiertas(H, esc, fc)
++    cub = cubiertas(H, esc, fc, var)
+     params = {p.get("clave"): p for p in cv.get("parametros") or []}
+     info = []
+     avisos_fc = {f"limite:{a.get('id')}": a for a in cv.get("avisos_de_dominio") or [] if isinstance(a, dict)}
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/pipeline.py despues/personaje_v2/scripts/pipeline.py
+--- antes/personaje_v2/scripts/pipeline.py	2026-11-12 22:49:03.000000000 +0100
++++ despues/personaje_v2/scripts/pipeline.py	2026-11-12 23:29:13.839335742 +0100
+@@ -1183,11 +1183,14 @@
+         if var.get("formato") != "4.12":
+             return "configuracion_v64_variantes.json es de un formato anterior a la 4.12 (sin instantánea de entradas económicas ni avisos de dominio): hay que recalcularlas (paso 10)"
+         libro_ev = self.p(f"{self.E}_v63_evaluada.xlsx")
+-        inst = EE.instantanea(libro_ev)
+-        if (var.get("entradas_economicas") or {}).get("huella") != inst["huella"]:
+-            dif = EE.diferencias(var.get("entradas_economicas"), inst)
++        # (4.12, revisión interna R1) con la relación con que se guardaron; con la anterior, la fila 13 de la Historia (bases de P-M1)
++        # se compara con el libro de la variante «activa»
++        dif, inst, nota_rel = EE.comparar(var.get("entradas_economicas"), libro_ev, self.p("variantes_v64", "recalc", "activa.xlsx"))
++        if dif:
+             return (f"las entradas económicas del libro evaluado final no son las de las variantes ({len(dif)} celdas distintas: {', '.join(dif[:8])}"
+                     + ("…" if len(dif) > 8 else "") + "): las variantes y su evaluación tienen que rehacerse")
++        if nota_rel:
++            self.log(nota_rel)
+         if var.get("configuracion_huella_economica") != EE.huella_configuracion(SEL.configuracion(self.c)):
+             return "las variantes V6.4 se calcularon con otra configuración económica (cambia alguna celda de la configuración, no solo su trazabilidad)"
+         act = next((v for v in var.get("variantes") or [] if v.get("clave") == "activa"), None)
+@@ -1242,7 +1245,7 @@
+             # económica y del mismo k: un cambio editorial (textos, Observaciones, trazabilidad, protocolo) no obliga a repetir las
+             # valoraciones; uno económico sí
+             import entradas_economicas as EE
+-            mismo = (prev.get("entradas_economicas") or {}).get("huella") == EE.instantanea(libro_ev)["huella"]
++            mismo = not EE.comparar(prev.get("entradas_economicas"), libro_ev, self.p("variantes_v64", "recalc", "activa.xlsx"))[0]
+             misma_c = prev.get("configuracion_huella_economica") == EE.huella_configuracion(SEL.configuracion(self.c))
+             mismo_k = prev.get("k") == float(self.cfg.get("convenciones", {}).get("k_asimetria", 3))
+             if mismo and misma_c and mismo_k:
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/trazabilidad_v64.py despues/personaje_v2/scripts/trazabilidad_v64.py
+--- antes/personaje_v2/scripts/trazabilidad_v64.py	2026-11-12 20:26:10.000000000 +0100
++++ despues/personaje_v2/scripts/trazabilidad_v64.py	2026-11-12 23:30:07.781182719 +0100
+@@ -14,7 +14,8 @@
+   - el resultado (vector de escenarios, ponderado, precio de Sí y zona) y la conclusión de la fase C con su objetivo, si existen;
+   - las fechas separadas (ejecución, base, precio, acciones, revisión de fuentes).
+ Comprobaciones (AVISO, nunca recortes ni umbrales económicos adoptados): unidad declarada y coherente; signos de las magnitudes que
+-no pueden ser negativas; un cero que depende de un dato pendiente de verificación (nunca «desconocido = cero») y celdas vacías;
++no pueden ser negativas; (4.12, revisión interna R4) en el precio, la capitalización y las acciones, fechas del período o de la
++transformación distintas de la declarada y un resultado de la transformación («… = N») distinto del valor que entra en el modelo; un cero que depende de un dato pendiente de verificación (nunca «desconocido = cero») y celdas vacías;
+ fechas que faltan; un stock del circulante que no nombra el ejercicio base; ceros de la configuración sin fuente.
+ Uso: trazabilidad_v64.py CARPETA LIBRO_EVALUADO.xlsx
+ """
+@@ -36,7 +37,8 @@
+             "h_tipo": "tasa del ejercicio", "h_capex": "flujo del ejercicio", "h_circulante": "flujo del ejercicio (aumento del circulante)",
+             "h_intereses": "flujo del ejercicio", "h_patrimonio": "stock a cierre", "h_deuda": "stock a cierre", "h_arrend": "stock a cierre",
+             "h_caja": "stock a cierre", "h_pensiones": "stock a cierre", "h_minoritarios": "stock a cierre", "moneda_cotizacion": "metadato",
+-            "moneda_modelo": "metadato", "ratio_adr": "metadato", "unidad": "metadato", "norma": "metadato"}
++            "moneda_modelo": "metadato", "ratio_adr": "metadato", "unidad": "metadato", "norma": "metadato",
++            "h_adquisiciones": "flujo del ejercicio"}  # (4.12, revisión interna R1) solo V6.4: bases de P-M1
+ MAG_CONFIG = {"B4": "metadato (modo)", "B11": "tasa (parámetro)", "B16": "convención", "B21": "tasa (margen de partida)", "B28": "regla",
+               "B29": "stock a la fecha del balance base", "B30": "stock a la fecha del balance base", "B31": "stock a la fecha del balance base",
+               "B36": "estructura", "B37": "familia", "B38": "parámetro", "B39": "parámetro", "B40": "convención", "B41": "convención", "B42": "convención",
+@@ -47,6 +49,41 @@
+ CLASE_ID = {"dato publicado": "D", "derivado de datos publicados": "C", "convención": "V", "hipótesis": "H"}
+ 
+ 
++MESES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "sep": 9, "oct": 10, "nov": 11, "dic": 12}
++
++
++def _fechas_en(texto):
++    """Fechas «AAAA-MM-DD» y «D-mmm-AAAA» (meses en español abreviados) de un texto, como «AAAA-MM-DD»."""
++    out = set()
++    for m in re.finditer(r"\b(\d{4})-(\d{2})-(\d{2})\b", texto):
++        out.add(f"{m.group(1)}-{m.group(2)}-{m.group(3)}")
++    for m in re.finditer(r"\b(\d{1,2})-(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]*\.?-(\d{4})\b", texto, re.I):
++        out.add(f"{m.group(3)}-{MESES[m.group(2).lower()]:02d}-{int(m.group(1)):02d}")
++    return out
++
++
++def _num_es(t):
++    """«2.444,4» → 2444.4 · «35.182.858» → 35182858 · «45,60» → 45.6 · «3169.97» → 3169.97."""
++    t = t.strip().rstrip(".,")
++    if "," in t:
++        t = t.replace(".", "").replace(",", ".")
++    elif re.fullmatch(r"\d{1,3}(\.\d{3})+", t):
++        t = t.replace(".", "")
++    try:
++        return float(t)
++    except ValueError:
++        return None
++
++
++def _resultados_en(texto):
++    """Los resultados que escribe una transformación: los números que siguen a «=»."""
++    return [x for x in (_num_es(m.group(1)) for m in re.finditer(r"=\s*([\d.,]*\d)", texto)) if x is not None]
++
++
++def _coincide(x, v):
++    return any(abs(x * f - v) <= 1e-3 * max(abs(v), 1e-12) for f in (1e-6, 1e-3, 1.0, 1e3, 1e6))
++
++
+ def _cargar(c, n):
+     p = os.path.join(c, n)
+     try:
+@@ -94,7 +131,9 @@
+     da = _cargar(c, "datos_ausentes.json") or []
+     pendientes = {str(x.get("dato") or "").replace("evidencia ", ""): x for x in da}
+     avisos, entradas = [], []
+-    rel = {e["celda"].replace("'", ""): e for e in EE.relacion()}
++    # (4.12, revisión interna R1) en un libro V6.4 también la fila 13 de la Historia, que entra en las bases de P-M1 (en un libro V6.3 no
++    # está en la instantánea y se salta)
++    rel = {e["celda"].replace("'", ""): e for e in EE.relacion_v64()}
+     # entradas de la relación (agrupadas como las declara la relación: una serie de la Historia es una entrada)
+     for celda_rel, e in rel.items():
+         celdas = [f"{h}!{r}" for h, r in EE._expandir(e["celda"])]
+@@ -165,6 +204,23 @@
+             avisos.append(f"AVISO fecha · falta la fecha «{k}»")
+     if not unidad:
+         avisos.append("AVISO unidad · Control maestro J4 (unidad de todos los importes) vacío")
++    # (4.12, revisión interna R4) precio, capitalización y acciones: las fechas que nombran el período o la transformación tienen que ser
++    # la declarada (la del precio o la de las acciones), y el resultado que escribe la transformación («… = N») tiene que ser el valor
++    # que entra en el modelo (en la misma escala o en miles o millones). Un texto de evidencia heredado que no se actualizó avisa.
++    for item in entradas:
++        idx = item["id"].split("-", 1)[-1]
++        if idx not in ("precio", "capitalizacion", "acciones"):
++            continue
++        ref = fechas.get("acciones" if idx == "acciones" else "precio")
++        per = (item.get("dato_extraido_y_periodo") or {}).get("periodo")
++        aj = (item.get("transformacion_o_supuesto") or {}).get("ajuste_o_criterio")
++        otras = sorted(f for f in _fechas_en(f"{per or ''} {aj or ''}") if ref and f != str(ref)[:10])
++        if otras:
++            avisos.append(f"AVISO fecha incoherente · {item['id']}: el período o la transformación nombran {', '.join(otras)} y la fecha declarada es {ref}")
++        v = (item.get("entrada_del_modelo") or {}).get("valor")
++        res_t = _resultados_en(str(aj or ""))
++        if isinstance(v, (int, float)) and res_t and not any(_coincide(x, v) for x in res_t):
++            avisos.append(f"AVISO valor incoherente · {item['id']}: la transformación escribe = {', '.join(f'{x:g}' for x in res_t)} y el valor que entra en el modelo es {v:g}")
+     dec = fc.get("decision") or {}
+     out = {"empresa": inst["celdas"].get("Análisis!B3") or os.path.basename(os.path.abspath(c)), "unidad": unidad, "fechas": fechas,
+            "huella_entradas_economicas": inst["huella"], "n_celdas_economicas": inst["n"],
+diff -ru '--exclude=__pycache__' '--exclude=_v64' antes/personaje_v2/scripts/variantes_configuracion_v64.py despues/personaje_v2/scripts/variantes_configuracion_v64.py
+--- antes/personaje_v2/scripts/variantes_configuracion_v64.py	2026-11-12 20:20:48.000000000 +0100
++++ despues/personaje_v2/scripts/variantes_configuracion_v64.py	2026-11-12 23:29:13.838354526 +0100
+@@ -157,7 +157,7 @@
+     out = {"aplica": True, "libro_origen": os.path.basename(a.libro), "libro_origen_sha256": hashlib.sha256(open(a.libro, "rb").read()).hexdigest(),
+            "configuracion_economica_sha256": hashlib.sha256(open(pc, "rb").read()).hexdigest(), "precio": precio, "k": float(k),
+            "variantes": filas, "zonas_calculadas": zonas, "variantes_sin_zona": sin_zona, "zona_igual_en_todas_las_calculadas": len(zonas) == 1 and not sin_zona,
+-           "formato": "4.12", "entradas_economicas": {k: inst[k] for k in ("huella", "n", "celdas", "tipos", "ids", "nota")},
++           "formato": "4.12", "entradas_economicas": {k: inst[k] for k in ("huella", "n", "celdas", "tipos", "ids", "nota", "version")},
+            "configuracion_huella_economica": EE.huella_configuracion(conf), "vector_escenarios_activa": EE.vector_escenarios(res_act, pr_act),
+            "avisos_de_dominio": avisos,
+            "nota": ("Variantes mecánicas de la configuración económica (encargo 4.11). Ninguna se elige ni se adopta; la materialidad la evalúa la fase C. "

@@ -1,0 +1,90 @@
+{
+ "tipo": "decisiones_y_preguntas_4_9",
+ "aviso": "Preparado por Claude para la persona responsable del proyecto. Ningún campo humano está relleno (decision, fecha, decidido_por) y nada se aplica. Las preguntas a terceros no se han enviado (encargo 4.9 §10).",
+ "sustituye_o_amplia": "Amplía, sin sustituir, decisiones_y_preguntas_4_8_1.json (D-N3b, D-N3c, D-N3d, D-N3e, Q-T1 a Q-T6, Q-E1 a Q-E7 siguen igual).",
+ "decisiones": [
+  {
+   "id": "D-RV1a",
+   "tema": "Transformaciones inocuas admitidas en la identidad de la respuesta de auditoría aceptada (R-V1)",
+   "propuesta": "Mantener la lista cerrada de cierre_v2.TRANSFORMACIONES_INOCUAS: BOM UTF-8; finales CRLF o CR; saltos de línea al final del archivo; forma Unicode NFC o NFD. Cualquier otra diferencia retira la aprobación.",
+   "alternativas": [
+    "añadir los espacios al final de línea (hoy no admitidos: en Markdown dos espacios finales son un salto de línea)",
+    "quitar NFC/NFD (hoy admitida por ser equivalencia canónica)"
+   ],
+   "efecto_si_no_se_decide": "rige la lista propuesta, que es la implementada y probada (103 pruebas, 31 mutaciones)",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-RV1b",
+   "tema": "Cierres de la 4.8.1 sin huella fiel registrada",
+   "propuesta": "Solo se acreditan con los bytes exactos de la respuesta registrada; con cualquier otro cambio (también CRLF) se retira la aprobación y hace falta otra auditoría. No se calcula una huella nueva para atribuírsela.",
+   "nota": "En el paquete no hay ningún expediente real cerrado con la 4.8.1: el caso solo aparece en las pruebas.",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-RV1c",
+   "tema": "Cierres sin ningún registro de la respuesta aprobada (anteriores a la 4.6.1, como el expediente histórico de la 4.6, o con cierre_vigente.json y estado borrados)",
+   "propuesta": "No se aceptan: ningún APROBADO los confirma ni los mantiene vigentes y hace falta una auditoría nueva (Z-1). No se atribuye la aprobación al auditoria.md actual (encargo 4.9 §3.3).",
+   "consecuencia": "El control de la 4.6 (…_4_6/scripts/comprobar_cierre_ensayo.py) da 23 de 24 sobre el árbol 4.9: «cierre_v2.motivo_rechazo_cierre: ningún motivo de rechazo» deja de cumplirse para ese expediente, que no se modifica. Es coherente con lo que la 4.6.1 ya declaró para la vigencia de esos expedientes.",
+   "alternativas": [
+    "volver a aceptar cualquier APROBADO del material fijado cuando no hay registro (reintroduce Z-1)"
+   ],
+   "efecto_si_no_se_decide": "rige la propuesta, que es la implementada y probada (grupo H y mutación M21)",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-N4-reg",
+   "tema": "Registro humano de los ceros respaldados (clase 2: 35 entradas en cuatro grupos)",
+   "propuesta": "Ver propuestas_n4_sin_firmar.json. Si la persona responsable los da por buenos, registrarlos en fase1_decisiones.json (valor 0, fuente con página del cuadre, fecha y persona). La IA no lo hace.",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-N4-na",
+   "tema": "Conceptos no aplicables (clase 4): arrendamientos NIIF 16 de 2016 (principal y pasivo) y principal de 2018",
+   "propuesta": "Decidir si se extiende a estos tres años la representación como 0 que ya escriben en fase1_decisiones.json las decisiones de arrendamientos 2017 y 2018 = 0 y principal 2017 = 0 («antes de NIIF 16») y su regla «Arrendamientos = solo pasivos NIIF 16», o si se dejan vacíos (= desconocido). Una regla, no un valor por año.",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null,
+   "nota": "Esas decisiones de 2017–2018 y la regla no tienen fecha ni firma en el archivo, y no consta quién las tomó (DECISIONES.md, 3-nov-2026, las recoge entre los trabajos de la sesión de construcción de la fase 1). Si la persona responsable quiere apoyarse en ellas, conviene que las confirme también (auditoría interna de la 4.9, Z-5)."
+  },
+  {
+   "id": "D-N4-C48",
+   "tema": "Componente de arrendamientos de los intereses pagados (reserva de C48, ligada a P3 y Análisis!C49)",
+   "propuesta": "Decidirlo con P3. Si C49 recoge el pago total de arrendamientos (6,764), C48 sigue en 0. Si C49 = 4,5 (principal estimado), C48 = 0 solo si los intereses de arrendamientos están en «Interest paid»; si estuvieran en financiación, faltarían unos 2,254 mm (hipótesis, no cota). En ningún caso C48 = intereses pagados de explotación (doble cómputo).",
+   "efecto_medido": "solo FCF base, f y diagnósticos; ninguno en la valoración del motor B",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-AUT",
+   "tema": "Política futura de verificación automática de ceros (PROPUESTA_AUTOMATIZACION_4_9.md)",
+   "propuesta": "Decidir si se encarga. No está activada ni cambia el contrato de confirmaciones.",
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  }
+ ],
+ "preguntas": [
+  {
+   "id": "Q-N4a",
+   "a_quien": "Vidrala (relación con inversores)",
+   "pregunta": "¿En qué línea del estado de flujos consolidado se presentan los pagos de arrendamientos (principal e intereses) en 2019–2025?",
+   "enviada": false
+  },
+  {
+   "id": "Q-ROIC1",
+   "a_quien": "persona responsable o fase B futura",
+   "pregunta": "¿El ROIC_lp de la fase B (0,09 / 0,11 / 0,12) es rendimiento de la inversión neta de reposición o de la inversión total? (decide entre SR1 y SR2 de la 4.8.1; no la elige esta entrega)",
+   "enviada": false
+  }
+ ]
+}

@@ -1,0 +1,249 @@
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/INFORME_INTEGRACION_4_12.md	2026-11-12 23:09:18.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/INFORME_INTEGRACION_4_12.md	2026-11-13 00:07:46.826861004 +0100
+@@ -7,10 +7,10 @@
+ **Qué se pedía** (encargo 4.12). Hacer fiables para un uso supervisado las piezas que la 4.11 dejó abiertas, cerrar de nuevo Vidrala con el código final, ensayar dos protocolos para el objetivo y contrastar el sistema con una segunda empresa, Viscofan. Y evaluar, por separado de las auditorías, para qué sirve hoy el sistema. El motor A queda fuera.
+ 
+ **Qué se hizo** (hechos comprobados):
+-- **Vigencia, materialidad y coherencia.** Vigencia de las aprobaciones antes de cualquier rechazo. Materialidad separada para la acción y para el objetivo, con dos protocolos experimentales. Variantes atadas a las entradas del libro, avisos de dominio con sus valores, cadena de trazabilidad y aptitud de uso en las salidas. La batería obligatoria de la V6.4 pasa de 58 a 123 pruebas.
++- **Vigencia, materialidad y coherencia.** Vigencia de las aprobaciones antes de cualquier rechazo. Materialidad separada para la acción y para el objetivo, con dos protocolos experimentales. Variantes atadas a las entradas del libro, avisos de dominio con sus valores, cadena de trazabilidad y aptitud de uso en las salidas. La batería obligatoria de la V6.4 pasa de 58 a 127 pruebas.
+ - **Vidrala.**
+   - El control con las palancas de la 4.11 reproduce el piloto exactamente.
+-  - El cierre nuevo con agentes reales termina en **concluido · APROBADO · Vigilar · esperar**: precio de Sí 56,02 € frente a 90,10 €, con el objetivo **condicionado y provisional** por las hipótesis de reposición (P-M1).
++  - El cierre nuevo con agentes reales termina en **concluido · APROBADO · Vigilar · esperar**: precio de Sí 56,02 € frente a 90,10 € (cierre del 31-dic-2025; análisis del 12-nov-2026), con el objetivo **condicionado y provisional** por las hipótesis de reposición (P-M1).
+   - La copia con el protocolo de bloqueo termina, con el mismo material, en **pendiente_de_datos · APROBADO · sin acción ni objetivo**.
+ - **Viscofan.**
+   - Doce publicaciones conservadas, con edición identificada, y el heredado reproducido exactamente.
+@@ -47,7 +47,7 @@
+   - `objetivo_condicionado`: se presenta el objetivo como condicionado y provisional, con sus hipótesis y su rango, si la acción se sostiene en todo el ámbito calculado;
+   - `bloqueo_del_objetivo`: no se emite objetivo y el expediente queda pendiente de datos.
+ - Ninguna de las dos está adoptada. Sin protocolo declarado, cuando hace falta, no se emite ningún objetivo oficial y el diagnóstico explica las dos lecturas.
+-- `objetivo_v64.py` (solo lee) separa: dato ausente material (S-19), hipótesis sin fundamento suficiente, materialidad para la acción, materialidad para el objetivo y ámbito. Calcula el tratamiento y la decisión que corresponde; la fase C no lo elige.
++- `objetivo_v64.py` (solo lee) separa: dato ausente material (S-19), hipótesis sin fundamento suficiente, materialidad para la acción, materialidad para el objetivo y ámbito. Calcula el tratamiento y la decisión que corresponde a partir de dos banderas que la fase C declara para cada parámetro: material para el objetivo y fundamento suficiente. La fase C no elige el tratamiento, pero esas banderas son juicios suyos que ninguna regla contrasta (revisión interna R5; §9.6, L15).
+ - Campo estructurado en la ficha (`objetivo`), línea de estado y sección 14 del informe, y columnas del resumen V6.4. No hay que buscar la palabra «provisional» en un párrafo.
+ - La comprobación conjunta (D10) rechaza mover parámetros inactivos y recalcula una a una las alternativas no numéricas definidas.
+ 
+@@ -81,11 +81,11 @@
+ - auditoría con Opus (esfuerzo medio), en un contexto que no vio el trabajo.
+ 
+ **Resultado** concluido · auditoría interna **APROBADO** (16/16; la vigente responde a la solicitud SA-2427fb9cd6e753fe sobre el material 5025f54d0c143062) · cubo Vigilar · acción esperar:
+-- precio 90,10 €, zona caro;
++- precio 90,10 €, cierre del 31-dic-2025 (la fecha de análisis es el 12-nov-2026), zona caro;
+ - precio de Sí 56,02 € (56,01809018887024), ponderado 60,70 €;
+ - valores por escenario 44,32 / 60,21 / 78,52 €, con probabilidades 0,2 / 0,6 / 0,2;
+ - objetivo **condicionado y provisional**: lo condicionan PM1.estructura, PM1.familia y PM1.parametro, por falta de un desglose del capex por destino;
+-- rango calculado del precio de Sí: 51,29–65,72 € en 14 escenarios calculados, todos en «caro». No es un intervalo de confianza.
++- rango calculado del precio de Sí: 51,29–65,72 € en la activa y 14 escenarios calculados (las 15 variantes), todos en «caro». No es un intervalo de confianza. La familia de P-M1 no queda cubierta por ese ámbito, porque ninguna variante calcula Θ (corrección de la revisión interna R3: antes las salidas decían «ninguna»).
+ 
+ **Separación de los cambios** (`resultados/separacion_cambios_vidrala.md`):
+ 
+@@ -144,6 +144,11 @@
+ | El control de entrega comprobaba que ningún archivo se llamara `AR_2020.pdf`, pero la segunda entrega sí trajo la edición de 2020 con la paginación de la fase 1 | Revisión del script tras la segunda entrega | La comprobación mira ahora lo que importa: ninguna **otra edición** lleva el nombre de la fuente de la fase 1 ni se llama «original recuperado», y la edición sustituida no está entre las publicaciones | — |
+ | La réplica independiente de la 4.11 no aceptaba los libros de la 4.12 tal cual | Primera ejecución de `replica_expedientes_4_12.py` | El envoltorio pasa a cada caso las celdas de su configuración (`CE.celdas`) y los ajustes de cada variante | 16 de 16 coinciden |
+ | **PDF del Bundesbank: sin bytes** | Descarga imposible desde la consola y la carpeta conectada no lo tenía | Limitación registrada (§2.4). Se continuó con lo demás | La fuente de rf de Vidrala no se conserva con su huella |
++| La instantánea de entradas económicas y la cadena de trazabilidad no cubrían las adquisiciones de la Historia (fila 13), que en el modo experimental entran en las bases de P-M1 (D_hist, F_hist, f) | Revisión interna (R1) | Relación «4.12+H13»: la fila 13 entra en la instantánea y en la cadena. Las instantáneas guardadas con la relación anterior se comparan con el libro de la variante activa en esa fila; sin ese libro no se acreditan. Dos pruebas nuevas en el grupo G | Ninguno en cifras: en los tres expedientes la fila 13 coincide con la de la activa |
++| «Hipótesis no cubiertas por el ámbito calculado: ninguna» se cumplía casi siempre: un subparámetro de P-M1 contaba como cubierto aunque ningún escenario lo moviera solo | Revisión interna (R3) | Un subparámetro de P-M1 cuenta como cubierto solo si tiene un ámbito aislado o entra en la comprobación conjunta. Prueba nueva en el grupo F | En Vidrala aparece ahora «PM1.familia» como no cubierta; en Viscofan, ninguna. El tratamiento del objetivo no cambia |
++| La cadena de trazabilidad de Viscofan daba «0 avisos» con textos de evidencia del precio, la capitalización y las acciones que contradicen el valor (fechas de octubre y de junio de 2026, 53,60 € y 45,60 millones de acciones) | Revisión interna (R4) | `trazabilidad_v64.py` contrasta las fechas y los resultados que citan esos textos con el valor y avisa («fecha incoherente», «valor incoherente»). Sin falsos avisos en Vidrala ni en el piloto de la 4.11. Prueba nueva en el grupo G | La cadena de Viscofan lleva ahora 4 avisos, que van a la auditoría. Los valores del libro no cambian (efecto de las acciones de junio estimado por el revisor en unos 0,1 € en el precio de Sí, no recalculado) |
++| El informe decía que los dos expedientes usaban precios de noviembre de 2026; el de Vidrala usa el cierre del 31-dic-2025. «186 celdas contrastadas» aparecía sin su salvedad. La revisión económica de Vidrala daba una lista de hipótesis sin fundamento distinta de la del expediente | Revisión interna (R2, R14 y R5) | Textos corregidos: el precio de cada expediente con su fecha, la salvedad de las 186 celdas y la lista de la revisión económica igual que la del expediente, con la diferencia anotada en su apartado 7 | Ninguno en cifras |
++| Los valores de los avisos de dominio se escribían en el informe con la sintaxis JSON. Al repetir desde el paso 12 los dos expedientes de Vidrala, la verificación de citas (`verify_quotes_v2`, que lee también el informe anterior) tomó sus comillas rectas por citas y los dos quedaron `no_entregable` en el paso 12 | Repetición desde el paso 12 tras las correcciones de la revisión (12-nov, 23:52) | `informe.py` escribe esos valores sin comillas rectas (`plano`). Los tres expedientes se repitieron desde el paso 11, que regenera el material provisional con el código corregido antes de la verificación. Prueba nueva en el grupo G, que comprueba también que la forma anterior fallaba. El defecto es de la 4.12: dos líneas heredadas del fundamento material (D10) escriben igual una lista y una combinación, pero no aparecen en estos expedientes (queda como límite) | Ninguno en cifras. Los cierres anteriores quedaron archivados por el pipeline en `historial_cierres/` |
+ 
+ <!-- FALLOS_REVISION -->
+ 
+@@ -156,12 +161,12 @@
+ | `personaje_v2/scripts/pipeline.py` | Vigencia antes del rechazo; paso 13 con `libros_verificados`; protocolo y coherencia del objetivo; variantes en formato «4.12» reutilizadas ante cambios editoriales; cambio de protocolo → fase C desde el paso 10, con el motivo ya en el turno 1; trazabilidad en el paso 12 |
+ | `objetivo_v64.py`, `entradas_economicas.py`, `dominios_v64.py`, `trazabilidad_v64.py`, `comparar_zip.py` | Nuevos (§2.2–§2.4) |
+ | `cierre_v2.py`, `seleccion_plantilla.py` | Vigencia y resolución de la selección en las llamadas a mano |
+-| `ficha.py`, `informe.py`, `resumen.py` | Objetivo estructurado, avisos de dominio, lecturas con bases parciales, rango con su ámbito en la línea de estado y aptitud de uso (solo V6.4 experimental) |
++| `ficha.py`, `informe.py`, `resumen.py` | Objetivo estructurado, avisos de dominio, lecturas con bases parciales, rango con su ámbito en la línea de estado, aptitud de uso y valores de los avisos sin comillas rectas (solo V6.4 experimental) |
+ | `variantes_configuracion_v64.py`, `comprobacion_conjunta.py`, `configuracion_economica.py`, `comprobar_gramatica.py`, `volcar_datos_v63.py` | Parámetros variados por variante y ámbito; parámetros inactivos y alternativas no numéricas; protocolo; nota de G7; sección 0 antes de la fase A |
+ | `esquema/fase_c.esquema.json`, `esquema/ficha.esquema.json` | Materialidad separada, bloque `objetivo` y `aptitud_de_uso` |
+ | `prompts/fase_c_turno1.md`, `fase_c_turno2.md`, `verificacion.md` | Protocolo, materialidad y avisos dentro de los mismos 16 puntos de la auditoría |
+-| `pruebas/test_integracion_v64.py`, `pruebas/agentes_sinteticos.py` | Grupos E, F y G (de 58 a 123 pruebas) |
+-| `verificar_paquete.sh` | Mínimo de la batería V6.4: 123 |
++| `pruebas/test_integracion_v64.py`, `pruebas/agentes_sinteticos.py` | Grupos E, F y G (de 58 a 127 pruebas) |
++| `verificar_paquete.sh` | Mínimo de la batería V6.4: 127 |
+ | `ANEXO_D_salidas_y_formatos.md`, README de la V6.4 §9, `GUIA_RECORRIDO_SUPERVISADO.md` (nueva) | Formatos, límites 13–15 y recorrido supervisado |
+ 
+ **Lo que no cambia.** La plantilla V6.4 experimental y su referencia, la plantilla V6.3, `config_v2.json`, el kit, los originales (`personaje_v2/empresas_v2/`) y los expedientes de entregas anteriores, incluido el piloto 4.11, conservan sus bytes. Lo comprueba `scripts/comprobar_entrega_4_12.py`.
+@@ -221,7 +226,30 @@
+ 
+ ## 8. Revisión interna
+ 
+-[REVISION_INTERNA]
++**Qué se hizo.** Una revisión con Fable, en un contexto separado que no vio el trabajo, del código, los expedientes y los documentos de la entrega (`revision_interna/ENCARGO_REVISION_INTERNA_4_12.md` y `REVISION_INTERNA_4_12.md`, 12-nov, 23:10–23:30). Motivo de usar Fable: es la comprobación de mayor consecuencia de la entrega (lo que se dice de la aptitud para decisiones con dinero real) y conviene que la haga un modelo distinto del que hizo el trabajo; el resto del procedimiento se hizo con Opus. Se avisó a la persona responsable antes de lanzarla.
++
++**Resultado (hecho).** 0 bloqueantes, 5 importantes (R1–R5), 4 menores (R6–R9) y 5 observaciones (R10–R14). Ninguno cambia cifras de valoración, estados ni veredictos de los expedientes.
++
++| Hallazgo | Respuesta |
++|---|---|
++| R1 · La instantánea y la cadena no cubrían la fila 13 de la Historia | Corregido en el código (§3). Prueba nueva (G) |
++| R2 · Fechas de los precios mal descritas en este informe | Corregido en este informe: cada precio con su fecha |
++| R3 · «Hipótesis no cubiertas: ninguna» casi vacía; errónea en Vidrala para P-M1 | Corregido en el código (§3). En Vidrala aparece «PM1.familia». Prueba nueva (F) |
++| R4 · Textos de evidencia de Viscofan incoherentes con «0 avisos» | Corregido en el código (§3): la cadena de Viscofan lleva 4 avisos. Prueba nueva (G). Los textos heredados no se reescriben: son del expediente de origen |
++| R5 · El tratamiento del objetivo depende de dos juicios del agente que nada contrasta | **No se corrige en el código**: contrastarlos exigiría un umbral o una regla de materialidad, que el encargo no permite adoptar. Se declara como límite (L15, §9.6), se corrige la frase de §2.2 y la lista de la revisión económica de Vidrala, y la propuesta humana lleva una decisión nueva (D412-FUNDAMENTO) |
++| R6 · θ = 0,5 funciona como central en Viscofan aunque se declare «sin central» | Aclarado en el contraste de Viscofan: θ = 0,5 es el punto de cálculo de la activa, no una central adoptada |
++| R7 · Avisos de dominio solo en la activa | Lectura de todas las variantes (`resultados/dominios_variantes_4_12.md`) y frase del README corregida. El pipeline sigue calculándolos solo en la activa (límite) |
++| R8 · «Sesgo pequeño» sin calcular | Medido sobre copias en Viscofan: −0,71 € con θ = 0,5; sin cifra con θ = 1 (L13) |
++| R9 · En Viscofan, la r usada está por debajo de la r mínima de la hoja | Recogido en el contraste de Viscofan y en las limitaciones |
++| R10 · Baterías completas sin ejecutar sobre el código final | Se ejecutan en la verificación final sobre la copia limpia y la descompresión del ZIP (§7) |
++| R11 · Avisos de las auditorías | Redacción del informe corregida (`informe.py`) |
++| R12 · Restos del original en `cierre_bloqueo/Vidrala` | La propia revisión comprobó que no dan vigencia a nada. Se dejan como están: borrarlos sería editar la copia sin necesidad |
++| R13 · ¿Recibió la fase A de Viscofan la fase A heredada? | No la recibió; lo dicen las instrucciones exactas de cada relevo (`resultados/relevos_agentes_4_12.md`) |
++| R14 · «186 celdas contrastadas» sin su salvedad | Corregido (§9.3) |
++
++**Después de las correcciones (hecho).** Los tres expedientes se repitieron desde el paso 11 con el código corregido y tuvieron auditorías nuevas (§5). Al repetirlos apareció un defecto más, de la 4.12, que la revisión no había visto (los valores de los avisos en JSON, §3); se corrigió con su prueba.
++
++[REVISION_RE]
+ 
+ ## 9. Evaluación expresa de aptitud de uso
+ 
+@@ -241,7 +269,7 @@
+ ### 9.1 Integridad y funcionamiento técnico comprobados
+ 
+ **Hechos.**
+-- Batería V6.4 de 123 pruebas (grupos A–G) y baterías V6.3 con sus mínimos, en la verificación final sobre una copia limpia (§7).
++- Batería V6.4 de 127 pruebas (grupos A–G) y baterías V6.3 con sus mínimos, en la verificación final sobre una copia limpia (§7).
+ - Vigencia de las aprobaciones en las primeras llamadas de las cuatro vías (grupo E y reproducción del fallo de la 4.11).
+ - Plantillas con su huella estricta y reconstrucción comparada miembro a miembro.
+ - Tres expedientes reales cerrados con agentes reales y auditorías APROBADO de agentes que no vieron el trabajo. Cada código 10 se resolvió; ningún expediente se entrega en espera.
+@@ -263,7 +291,7 @@
+ ### 9.3 Hipótesis y convenciones económicas: contrastadas o pendientes
+ 
+ **Contrastadas con fuentes** (hechos):
+-- las cifras de la Historia de Viscofan (186 celdas);
++- las cifras de la Historia de Viscofan (186 celdas cuyas cifras se encontraron, por sus dígitos, en la publicación del ejercicio: es un contraste, no una verificación de la partida en el original);
+ - la causa de la anomalía del tipo de Viscofan en 2025;
+ - el circulante de Viscofan, conciliado con las notas;
+ - las series de capex, amortización y adquisiciones de las dos empresas;
+@@ -271,7 +299,7 @@
+ 
+ **Pendientes, ninguna adoptada:**
+ - **La configuración de cada empresa:** N1, N2, N3, estructura y familia de P-M1, λ o θ, convenciones y cartera.
+-- **Los parámetros de ensayo:** r = 0,09 en Vidrala, las probabilidades y k = 3 experimental.
++- **Los parámetros de ensayo:** r = 0,09 en Vidrala; en Viscofan, la r heredada (9,0 %) está por debajo de la r mínima de la hoja (9,5 %, aviso A2) y es la palanca más influyente (A5). También las probabilidades y k = 3 experimental.
+ - **La coherencia entre el S2C de los años y el ROIC del terminal** (Q-ROIC1).
+ - **El terminal de R1** cuando las ventas siguen bajo el máximo conservado.
+ - **El protocolo del objetivo y los umbrales de los dominios.**
+@@ -300,7 +328,7 @@
+ 
+ 1. **Decisiones humanas** de la propuesta (sin firmar): el uso del sistema (D412-USO), el protocolo del objetivo, los dominios, el terminal de R1 y, por empresa, si se adopta alguna configuración.
+ 2. **Validación económica de P-M1.** Un desglose del capex observable, o un método de estimación defendible y replicado, y una prueba de que la estructura elegida describe a cada empresa.
+-3. **Ensayo en el tiempo («point-in-time»).** Varias empresas y años, cada uno con la información disponible en su fecha, para medir la calidad de las decisiones. No se ha hecho: los dos expedientes combinan cuentas de 2025 con precios de noviembre de 2026.
++3. **Ensayo en el tiempo («point-in-time»).** Varias empresas y años, cada uno con la información disponible en su fecha, para medir la calidad de las decisiones. No se ha hecho. Los dos expedientes usan cuentas de 2025 con fecha de análisis del 12-nov-2026: Vidrala, con el precio de cierre de 2025 (90,10 €, diez meses y medio antes del análisis); Viscofan, con el del 3-nov-2026 (54,70 €).
+ 4. **Más empresas, y el motor A.** Medir también la variación de los juicios de los agentes en ejecuciones repetidas, porque aquí cada fase se ejecutó una vez.
+ 5. **Revisión externa de la 4.12,** independiente de los modelos que construyeron y auditaron.
+ 6. **Fuentes completas.** El ejemplar del Bundesbank con sus bytes, y las ediciones exactas de Viscofan que cita la fase 1, o una nueva extracción sobre las ediciones conservadas.
+@@ -310,20 +338,21 @@
+ 
+ | # | Limitación | Qué resultado o decisión puede afectar | Qué evidencia la identifica | Qué controles existen | Qué información o trabajo falta | Consecuencia para el uso |
+ |---|---|---|---|---|---|---|
+-| L1 | Reposición por encima de la amortización no observada (estructura, familia, λ/θ de P-M1) | El nivel del precio de Sí y cualquier objetivo: Vidrala 51,29–65,72 €, Viscofan 38,22–41,81 € | Variantes calculadas, comparación homogénea y revisión económica de cada empresa | Variantes con zona; protocolo del objetivo; objetivo condicionado o bloqueado; ámbito explícito | Desglose del capex por destino; vida útil y coste de reposición | El objetivo es un valor condicional: no sirve como precio de compra |
++| L1 | Reposición por encima de la amortización no observada (estructura, familia, λ/θ de P-M1) | El nivel del precio de Sí y cualquier objetivo: Vidrala 51,29–65,72 €, Viscofan 38,22–41,81 €. En Viscofan, el objetivo condicionado emitido (39,29 €) es el valor en θ = 0,5, un punto de cálculo y no una central (θ = 0: 40,35 €; θ = 1: 38,22 €) | Variantes calculadas, comparación homogénea y revisión económica de cada empresa | Variantes con zona; protocolo del objetivo; objetivo condicionado o bloqueado; ámbito explícito, con las hipótesis no cubiertas (en Vidrala, la familia) | Desglose del capex por destino; vida útil y coste de reposición | El objetivo es un valor condicional: no sirve como precio de compra |
+ | L2 | Configuración económica no adoptada (N1, N2, N3 y convenciones) | Precio de Sí y ponderado (Vidrala −8,73 € frente al heredado; Viscofan −2,52 €) | `comparacion_homogenea.md` de cada expediente | Modo heredado como control; componentes aislados | Decisiones VIDRALA-CONFIG y VISCOFAN-CONFIG | Los expedientes son ensayos |
+ | L3 | Discontinuidad entre el S2C de los años y el ROIC del terminal (Q-ROIC1) | El valor terminal, que pesa entre el 48 % y el 62 % en Viscofan | `datos_revision_economica.md` de cada expediente | Variante SR2; desviación G8 justificada en la fase C | Decisión sobre Q-ROIC1; contraste con el ROIC histórico | Sensibilidad de ±1 € en Vidrala y ±0,4 € en Viscofan con las variantes calculadas; mayor fuera de ellas |
+ | L4 | Terminal prudente de R1 con el MALO bajo el máximo conservado | El valor MALO de Vidrala (unos 2,5 €/acción) | Aviso de dominio y revisión económica §4 | Aviso visible y evaluado por la fase C | Especificación alternativa con su réplica (D411-TERMINAL-R1) | MALO conservador; no cambia la zona |
+-| L5 | r, probabilidades y k = 3 son de ensayo | El valor, la zona y la acción | Aviso de alcance de cada expediente | Ninguna variante los mueve: quedan fuera del ámbito | Decisión humana y análisis de sensibilidad propio | «La zona no cambia» no cubre estos parámetros |
++| L5 | r, probabilidades y k = 3 son de ensayo; en Viscofan, la r heredada (9,0 %) está por debajo de la r mínima de la hoja (9,5 %) y es la palanca más influyente | El valor, la zona y la acción | Aviso de alcance de cada expediente; avisos A2 y A5 de la ficha de Viscofan | Ninguna variante los mueve: quedan fuera del ámbito | Decisión humana y análisis de sensibilidad propio | «La zona no cambia» no cubre estos parámetros. Con una r mayor, el valor baja: «caro» no está en riesgo por ese lado |
+ | L6 | Datos de la etapa 1 incompletos en Vidrala (ceros pendientes de verificación, evidencias no verificables) | Flujos de intereses, arrendamientos y adquisiciones | Cadena de trazabilidad; `ficha.datos_etapa1_incompletos`; línea de estado | Un cero pendiente nunca se presenta como dato; S-19 | Confirmar esos ceros con las fuentes (N4) | Estado del libro «NO LISTO · evidencias incompletas» |
+ | L7 | Fuentes en otra edición (Viscofan 2016, 2018, 2021–2023) y PDF del Bundesbank sin bytes | Las citas de esas fuentes y la tasa sin riesgo de Vidrala | Inventario de fuentes; registro de avance §6 | Contraste por contenido; ninguna edición se llama original | Ediciones exactas; bytes y huella del PDF | Citas contrastadas, no verificadas en el original |
+ | L8 | Solo el motor B | Empresas cuyo motor por los hechos es A o C | Límite del modelo (H3 de la 4.11); fase A de Viscofan «ajustada» | Límite del modelo declarado, nunca forzado | Extender la integración al motor A | No se puede usar con esas empresas |
+ | L9 | Dos empresas, una configuración cada una y una ejecución por fase | La generalización y la estabilidad de los juicios | `viscofan/CONTRASTE_VISCOFAN_4_12.md` | Réplica numérica (no de juicio) | Más empresas y ejecuciones repetidas | La confianza se limita a estos casos |
+-| L10 | Sin ensayo en el tiempo; fechas mixtas (cuentas de 2025, precio de noviembre de 2026) | Saber si las decisiones habrían sido buenas | Fechas separadas en cada expediente | Aviso «no es un backtest» | Ensayo con la información de cada fecha | No hay evidencia de calidad de decisión |
++| L10 | Sin ensayo en el tiempo; fechas distintas: Vidrala con el precio de cierre de 2025 y análisis de noviembre de 2026; Viscofan con cuentas de 2025 y precio de noviembre de 2026 | Saber si las decisiones habrían sido buenas; la vigencia del precio en la fecha de análisis | Fechas separadas en cada expediente | Aviso «no es un backtest»; aviso A3 de Viscofan (precio y acciones separados más de 90 días) | Ensayo con la información de cada fecha; precio de la fecha de análisis | No hay evidencia de calidad de decisión |
+ | L11 | Revisiones internas con modelos de la misma familia | Errores comunes no detectados | Registro de la revisión interna | Contexto separado; auditorías que no ven el trabajo | Revisión externa | — |
+ | L12 | Protocolo del objetivo no adoptado | El estado y la acción publicados (concluido o pendiente de datos) | `COMPARACION_PROTOCOLOS_4_12.md` | Cada expediente declara su protocolo; sin protocolo, ningún objetivo oficial | Decisión D412-PROTOCOLO | La presentación del objetivo depende de una elección abierta |
+-| L13 | Amortización de los derechos de uso dentro de la D&A (límite 13 del README) | Las bases de Λ y Θ | Análisis de la configuración de Viscofan | Límite declarado | Separarla en la plantilla, con definición, versión y réplica propias | Sesgo pequeño en el requisito |
+-| L14 | Dominios sin umbral (f, inversión fija negativa, terminal de R1, S2C inerte) | Estructuras con parámetros extremos | `dominios_v64.py` y avisos de cada expediente | Avisos con valores; la fase C los evalúa; uno material condiciona el objetivo y no admite comprar | Decisión D412-DOMINIOS | La persona tiene que leer los avisos |
++| L13 | Amortización de los derechos de uso dentro de la D&A (límite 13 del README) | Las bases de Λ y Θ | Análisis de la configuración de Viscofan | Límite declarado; medido en Viscofan sobre copias (`viscofan/resultados/sensibilidad_derechos_de_uso.md`): con θ = 0,5, contar solo la amortización que se repone con capex baja el precio de Sí de 39,29 a 38,58 € (−0,71 €, sigue en «caro» y por encima del extremo inferior del rango calculado, 38,22 €); con θ = 1 no hay cifra, porque el cálculo saldría del dominio declarado o exigiría editar una fórmula protegida de la plantilla | Separarla en la plantilla, con definición, versión y réplica propias | Sesgo medido de −0,71 € con θ = 0,5; sin medir con θ = 1 |
++| L14 | Dominios sin umbral (f, inversión fija negativa, terminal de R1, S2C inerte); el pipeline solo los calcula sobre la variante activa | Estructuras con parámetros extremos | `dominios_v64.py`; `resultados/dominios_variantes_4_12.md`, con todas las variantes (λ = 1,25 de Vidrala: f = 1,309) | Avisos con valores; la fase C los evalúa; uno material condiciona el objetivo y no admite comprar | Decisión D412-DOMINIOS; avisos de todas las variantes en las salidas | La persona tiene que leer los avisos, también los de las variantes |
++| L15 | Las banderas por parámetro de la fase C (material para el objetivo, fundamento suficiente) son juicios que ninguna regla contrasta (revisión interna R5) | Qué hipótesis condicionan el objetivo; con «comprar», qué entra en D10. La regla R1 sale con fundamento suficiente en Vidrala y sin él en Viscofan | `objetivo_v64.py`; `pipeline.coherencia_v64`; los `fase_c.json` | La auditoría revisa la coherencia con el ámbito y la acción, no el fundamento | Decisión D412-FUNDAMENTO (regla conservadora para comprar); evidencia con página para cada «fundamento suficiente» | La lista de condicionantes depende del juicio del agente: se lee como tal |
+ 
+ ## 10. Trabajo pendiente para un producto fiable para decisiones con dinero real
+ 
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/REVISION_ECONOMICA_VIDRALA_4_12.md	2026-11-12 22:06:16.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/REVISION_ECONOMICA_VIDRALA_4_12.md	2026-11-12 23:42:58.142001754 +0100
+@@ -105,7 +105,7 @@
+ 
+ **Interpretación.**
+ - **Acción «esperar por precio».** Se sostiene en todo el ámbito calculado: ninguna variante la cambia.
+-- **Precio objetivo.** Depende de hipótesis sin fundamento suficiente (λ, la estructura, la cartera P0, R1 y los tipos y márgenes normalizados). Es un **valor calculado condicional**, no un objetivo emitido.
++- **Precio objetivo.** Su nivel depende de elecciones no adoptadas: λ, la estructura, la cartera P0, R1 y los tipos y márgenes normalizados. Es un **valor calculado condicional**, no un objetivo adoptado. Esta revisión las lee todas como no observadas. La fase C del expediente, en cambio, da fundamento suficiente a N1, N2, R1 y la cartera, y solo deja como hipótesis que condicionan el objetivo PM1.estructura, PM1.familia y PM1.parametro, que son las que publican las salidas. La diferencia es de juicio: las banderas de la fase C no las contrasta ninguna regla (revisión interna R5; informe integrado §9.6, L15).
+ - **Rango.** No es un intervalo de confianza. No cubre hipótesis no exploradas, como otros márgenes, otras probabilidades u otra r.
+ 
+ ## 6. Qué se sostiene con las fuentes disponibles y qué sigue siendo condicional
+@@ -142,3 +142,4 @@
+ **Coincidencias y diferencias con esta revisión.**
+ - Coinciden en que el objetivo es condicional por la reposición y en que la discontinuidad del año 11 la amplifica SR1.
+ - Esta revisión añade la cota del doble cómputo posible del terminal (SR2, +1,06 €) y la del terminal de R1 en el MALO (≤ 2,5 € del valor MALO). También añade la incoherencia de las convenciones (plana en los años, proporcional en el terminal) y la descomposición frente al heredado.
++- Difieren en qué hipótesis carecen de fundamento. Esta revisión lee como no observadas también N1, N2, R1 y la cartera P0. La fase C les da fundamento suficiente y deja como condicionantes solo las tres de P-M1 (revisión interna R5). Tampoco cubre el ámbito la familia de P-M1: ninguna variante calcula Θ, y las salidas lo dicen desde la corrección R3.
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/CONTRASTE_VISCOFAN_4_12.md	2026-11-12 23:08:46.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/viscofan/CONTRASTE_VISCOFAN_4_12.md	2026-11-12 23:51:21.770888610 +0100
+@@ -50,7 +50,7 @@
+ - **N1 · tipo impositivo** (perímetro: actividades continuadas, consolidado; período 2021–2025, el de la regla heredada). La regla heredada (C52) da 19,83 %. El 10,1 % de 2025 se debe a activaciones de bases imponibles negativas en Estados Unidos (18,0 M€), una causa publicada y cuantificada. Sin ellas, la media es 22,12 %; además sin los ajustes de ejercicios anteriores, 22,66 %. El ensayo usa 22,12 %.
+ - **N2 · margen de partida.** Se deja vacío por elección explícita: la regla heredada («Último año») da 16,36 %, y el ciclo 2021–2025, 16,38 %. En 2025 no hay partidas no recurrentes materiales, y la empresa dice que los cambios de perímetro no tuvieron efecto material en el EBITDA.
+ - **N3 · circulante.** Con las líneas del balance, 48,28 % de las ventas en 2025 (48,04 % en 2024). La conciliación con las notas 9 y 14 da 46,79 % solo comercial.
+-- **Capex y amortización 2021–2025.** El capex fue 1,33 y 1,48 veces la amortización en 2021–2022, y 0,90–0,94 veces en 2023–2025. La amortización de la Historia incluye la de los derechos de uso (5,1–5,8 M€ al año), que se repone con arrendamientos y no con capex. Es el límite 13 del README de la V6.4.
++- **Capex y amortización 2021–2025.** El capex fue 1,33 y 1,48 veces la amortización en 2021–2022, y 0,90–0,94 veces en 2023–2025. La amortización de la Historia incluye la de los derechos de uso (5,1–5,8 M€ al año), que se repone con arrendamientos y no con capex. Es el límite 13 del README de la V6.4. **Hecho medido sobre copias** (`resultados/sensibilidad_derechos_de_uso.md`, revisión interna R8): si el exceso histórico se calcula sobre la amortización que se repone con capex (67,864 en lugar de 40,813), con θ = 0,5 el precio de Sí baja de 39,29 a 38,58 € (−0,71 €) y sigue en «caro», por encima del extremo inferior del rango calculado (38,22 €). Con θ = 1 no hay cifra: saldría del dominio declarado de θ o exigiría editar una fórmula protegida de la plantilla, y no se hace. Es una lectura de sensibilidad, no una variante del expediente ni una corrección adoptada.
+ - **Adquisiciones.** 7,2 y 8,9 M€ en 2024–2025 (Brasil).
+ - **P-M1.** SR1 con la familia Θ. θ no se observa: se declara el rango 0–1 y θ = 0,5 solo como punto de cálculo, **sin central económica**. Con Λ, SRF solo estaría definida hasta λ = 1,1413 (límite 14).
+ - **Cartera.** Legado (sin P0): la ausencia de una cartera identificada no confirma ceros.
+@@ -65,7 +65,7 @@
+ - la configuración propia y el aviso del ensayo;
+ - el extracto del origen, como antecedente para contrastar, no como entrada.
+ 
+-Cada código 10 se resolvió con un agente real. Las fases de juicio recibieron como referencia de solo lectura las del expediente heredado, porque el encargo pide reutilizar «juicios y decisiones registradas». Ninguna recibió nada de Vidrala.
++Cada código 10 se resolvió con un agente real. Las fases B y C recibieron como referencia de solo lectura las del expediente heredado, porque el encargo pide reutilizar «juicios y decisiones registradas». La fase A no las recibió: solo la herencia de la etapa 1 que lleva `datos_v63.md`, para que eligiera el motor por los hechos. Ninguna recibió nada de Vidrala. Las instrucciones exactas de cada relevo están en `resultados/relevos_agentes_4_12.md`.
+ 
+ | Relevo | Agente | Resultado |
+ |---|---|---|
+@@ -79,7 +79,9 @@
+ - precio 54,70 €, zona caro;
+ - precio de Sí 39,29 € (39,2877008705048), ponderado 43,59 €;
+ - valores por escenario 30,69 / 44,85 / 60,00 €, con probabilidades 0,25 / 0,6 / 0,15;
+-- rango calculado del precio de Sí: 38,22–41,81 € en 12 escenarios (las 13 variantes sin la activa), todos en «caro»; el precio está un 30,8 % por encima del mayor (la diferencia, dividida entre ese precio de Sí). No es un intervalo de confianza.
++- rango calculado del precio de Sí: 38,22–41,81 € en la activa y 12 escenarios (las 13 variantes), todos en «caro»; el precio está un 30,8 % por encima del mayor (la diferencia, dividida entre ese precio de Sí). No es un intervalo de confianza.
++- el objetivo condicionado emitido (39,29 €) es el valor en θ = 0,5, que es un punto de cálculo y no una central: con θ = 0 el precio de Sí es 40,35 € y con θ = 1, 38,22 €. La fase C lee θ en la parte baja del rango (revisión interna R6).
++- r: la heredada (9,0 %) está por debajo de la r mínima de la hoja (9,5 %, aviso A2) y es la palanca más influyente (A5). Ninguna variante la mueve. Con una r mayor el valor baja, así que «caro» no está en riesgo por ese lado (R9).
+ 
+ **Separación de los cambios** (`viscofan/resultados/separacion_cambios_viscofan.md`):
+ 
+@@ -97,6 +99,8 @@
+ - Convenciones: −0,09 € y +0,20 €.
+ - La réplica independiente de la 4.11 coincide en los 14 libros finales: diferencias ≤ 9,9e-14 €/acción en los valores y ≤ 4,8e-12 en la conciliación.
+ 
++**Textos de evidencia heredados del origen (revisión interna R4).** En el libro, el período del precio («Cierre 6-oct-2026»), la transformación de la capitalización («53,60 × 45,6036 = 2.444,4», del semestral de 2026) y el criterio de las acciones («a 30-jun-2026 = 45,60») vienen del expediente de origen y no corresponden a los valores que entran en el modelo: 54,70 € del 3-nov-2026 y 45,479209 millones de acciones, la media diluida de 2025. Los valores sí salen de `fase1_metadatos.json`, con su fuente. La cadena de trazabilidad corregida lo avisa (cuatro avisos de fecha o valor incoherentes). Efecto acotado: con 45,60 millones de acciones, los valores por acción bajarían un 0,27 %.
++
+ ## 5. Estructuras, dominios y lo que pasa en la hoja (hechos e interpretación)
+ 
+ - **R1 no mueve nada en Viscofan.** En los tres escenarios las ventas superan siempre el máximo conservado (el MALO crece un 1 % al año), así que la capacidad conservada nunca actúa. En Vidrala, en cambio, el MALO cae bajo el máximo y R1 resta 1,36 €.
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/REGISTRO_PRUEBAS_4_12.md	2026-11-12 23:06:43.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/REGISTRO_PRUEBAS_4_12.md	2026-11-13 00:04:08.647851400 +0100
+@@ -4,9 +4,9 @@
+ 
+ **Verificación final.** Sobre una copia limpia del ZIP final, con `verificar_paquete.sh completa`, los controles históricos y `comprobar_entrega_4_12.py`. Va en el registro externo `munger_v2_r1_entrega4.12_validacion_supervisada_y_Viscofan.VERIFICACION.txt`, fuera del ZIP, porque un ZIP no puede contener su propia huella.
+ 
+-## 1. Batería obligatoria `personaje_v2/pruebas/test_integracion_v64.py` (123 pruebas)
++## 1. Batería obligatoria `personaje_v2/pruebas/test_integracion_v64.py` (127 pruebas)
+ 
+-Se ejecuta desde `personaje_v2/` con `python3 -B pruebas/test_integracion_v64.py [A B C D E F G]`. En `verificar_paquete.sh completa` es la primera de las obligatorias y exige al menos 123 pruebas, todas en PASA. La 4.11 tenía 58 (grupos A–D).
++Se ejecuta desde `personaje_v2/` con `python3 -B pruebas/test_integracion_v64.py [A B C D E F G]`. En `verificar_paquete.sh completa` es la primera de las obligatorias y exige al menos 127 pruebas, todas en PASA. La 4.11 tenía 58 (grupos A–D).
+ 
+ | Grupo | Qué prueba (4.12 en negrita) | Pruebas |
+ |---|---|---|
+@@ -15,12 +15,14 @@
+ | C · pipeline | selección explícita, pasada V6.4, fase C, cambio después del cierre, heredado = V6.3 (sin cambios desde la 4.11) | 21 |
+ | D · cambio de base | preparación reproducible, sin restos (sin cambios desde la 4.11) | 7 |
+ | **E · vigencia (§3)** | siete alteraciones del material × cuatro primeras llamadas independientes (pipeline, ficha, informe, resumen); selección equivocada con material intacto; plantilla, referencia o verificador alterados con el mismo nombre; resumen no actualizable | 13 |
+-| **F · materialidad y protocolos (§4)** | los dos protocolos y la falta de protocolo; diez contradicciones; dato ausente material (S-19) con prioridad; compra con una hipótesis experimental material sin fundamento fuera de las listas heredadas; λ sin mover; θ inactivo; comprobación conjunta ausente o inválida; estructura sin alternativas o con una que no sobrevive; barrido real de las alternativas no numéricas; **rango calculado con su ámbito en la línea de estado con el objetivo bloqueado o sin protocolo; aptitud de uso separada de la auditoría en la ficha, el informe y el resumen** | 35 |
+-| **G · coherencia (§5)** | variantes desactualizadas por cambios económicos y reutilizadas ante cambios editoriales; instantánea de entradas; trazabilidad; dominios; cambio de protocolo después del cierre, **con el motivo ya en el turno 1 de la fase C**; fórmula alterada después del cierre | 14 |
++| **F · materialidad y protocolos (§4)** | los dos protocolos y la falta de protocolo; diez contradicciones; dato ausente material (S-19) con prioridad; compra con una hipótesis experimental material sin fundamento fuera de las listas heredadas; λ sin mover; θ inactivo; comprobación conjunta ausente o inválida; estructura sin alternativas o con una que no sobrevive; barrido real de las alternativas no numéricas; **rango calculado con su ámbito en la línea de estado con el objetivo bloqueado o sin protocolo; aptitud de uso separada de la auditoría en la ficha, el informe y el resumen; cobertura de los subparámetros de PM1 solo por su ámbito aislado o por la comprobación conjunta (revisión interna R3)** | 36 |
++| **G · coherencia (§5)** | variantes desactualizadas por cambios económicos y reutilizadas ante cambios editoriales; instantánea de entradas; trazabilidad; dominios; cambio de protocolo después del cierre, **con el motivo ya en el turno 1 de la fase C**; fórmula alterada después del cierre; **adquisiciones de la Historia (fila 13) en la instantánea y comparación de instantáneas antiguas con la activa (R1); avisos de fecha y valor incoherentes en la cadena de trazabilidad (R4); valores de los avisos de dominio en el informe sin comillas rectas, con la verificación de citas de los dos informes juntos (la forma anterior fallaba)** | 17 |
+ 
+ **Ejecuciones registradas en el desarrollo.**
+ - A–G completa con el código final del desarrollo: **120/120** (12-nov, 21:00–21:14; `scratchpad/f412/v64/AG_final.log`).
+-- Después de las correcciones del cierre (12-nov, 22:30–23:15): F **35/35** (rango en la línea de estado y aptitud de uso) y G **14/14** (motivo del cambio de protocolo en el turno 1). Total de la batería: 123. Las demás baterías se repiten en la verificación final.
++- Después de las correcciones del cierre (12-nov, 22:30–23:15): F **35/35** (rango en la línea de estado y aptitud de uso) y G **14/14** (motivo del cambio de protocolo en el turno 1). Total de la batería entonces: 123.
++- Después de las correcciones de la revisión interna (12-nov, 23:15–23:45): F **36/36** y G **16/16** (F+G 52/52). Total de la batería entonces: 126.
++- Después de la corrección de los valores de los avisos en el informe (13-nov, 00:00–00:35): G **17/17**. Total de la batería: **127**. Las demás baterías se repiten en la verificación final.
+ - Antes: A–G 115/115 con la versión anterior del grupo F; A+G 24/25, con la prueba de la fórmula alterada que encontró el defecto del paso 13 (se corrigió con `libros_verificados`); G 13/13 tras la corrección.
+ 
+ ## 2. Baterías V6.3 (obligatorias; mínimos sin cambios)

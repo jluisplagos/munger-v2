@@ -1,0 +1,32 @@
+M01 DETECTADA · 73/103 pruebas de integridad de la auditoría vigente PASAN · la identidad vuelve a aceptarse por el detector (huella de contenido sin orden), como en la 4.8.1
+M02 DETECTADA · 99/103 pruebas de integridad de la auditoría vigente PASAN · sin línea de solicitud se supone la registrada
+M03 DETECTADA · 99/103 pruebas de integridad de la auditoría vigente PASAN · se admiten líneas de solicitud duplicadas si nombran la misma
+M04 DETECTADA · 99/103 pruebas de integridad de la auditoría vigente PASAN · no se compara el identificador de la solicitud
+M05 DETECTADA · 84/103 pruebas de integridad de la auditoría vigente PASAN · no se compara la huella fiel
+M06 DETECTADA · 98/103 pruebas de integridad de la auditoría vigente PASAN · la huella fiel no tiene en cuenta el orden de las líneas
+M07 DETECTADA · 95/103 pruebas de integridad de la auditoría vigente PASAN · CRLF y CR dejan de ser transformaciones admitidas
+M08 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · los espacios al final de línea pasan a ser inocuos (no lo son)
+M09 DETECTADA · 101/103 pruebas de integridad de la auditoría vigente PASAN · un cierre de la 4.8.1 sin huella fiel se acredita por el contenido sin orden, no por los bytes
+M10 DETECTADA · 100/103 pruebas de integridad de la auditoría vigente PASAN · cierre_vigente.json deja de registrar la solicitud y la huella fiel
+M11 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · sin estado del pipeline, cierre_vigente.json solo compara la solicitud
+M12 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · no se comprueba que la solicitud conste como respondida por esa respuesta
+M13 DETECTADA · 75/103 pruebas de integridad de la auditoría vigente PASAN · el paso 13 no registra la huella fiel de la respuesta aceptada
+M14 DETECTADA · 101/103 pruebas de integridad de la auditoría vigente PASAN · el BOM deja de ser una transformación admitida
+M15 DETECTADA · 101/103 pruebas de integridad de la auditoría vigente PASAN · NFC/NFD deja de ser una transformación admitida
+M16 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · la huella fiel normaliza con NFKC en lugar de NFC (iguala «²» y «2»)
+M17 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · la huella fiel elimina los caracteres de formato (U+200B y otros)
+M18 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · la huella fiel convierte el espacio no separable en un espacio
+M19 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · la huella fiel trata VT, FF y U+2028 como saltos de línea
+M20 DETECTADA · 101/103 pruebas de integridad de la auditoría vigente PASAN · sin estado del pipeline, se ignora la huella fiel de cierre_vigente.json (solo bytes)
+M21 DETECTADA · 97/103 pruebas de integridad de la auditoría vigente PASAN · sin ningún registro de la respuesta aprobada se acepta cualquier APROBADO del material (comportamiento anterior)
+M22 DETECTADA · 97/103 pruebas de integridad de la auditoría vigente PASAN · un auditoria.md que no es UTF-8 vuelve a interrumpir las vías
+M23 DETECTADA · 100/103 pruebas de integridad de la auditoría vigente PASAN · un cierre_vigente.json ilegible deja de ser motivo de retirada
+M24 DETECTADA · 99/103 pruebas de integridad de la auditoría vigente PASAN · un material_auditoria.json ilegible deja de ser motivo de retirada
+M25 DETECTADA · 100/103 pruebas de integridad de la auditoría vigente PASAN · un JSON válido que no es un objeto vuelve a aceptarse como archivo de control
+M26 DETECTADA · 96/103 pruebas de integridad de la auditoría vigente PASAN · una ficha.json ilegible vuelve a tomarse por «sin salida cerrada»
+M27 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · sin estado, registrar_cierre vuelve a registrar la huella del archivo actual y pierde la solicitud y la huella fiel
+M28 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · un estado_pipeline.json que es una carpeta vuelve a interrumpir el pipeline
+M29 DETECTADA · 101/103 pruebas de integridad de la auditoría vigente PASAN · una ficha con «cierre» que no es un objeto vuelve a aceptarse
+M30 DETECTADA · 100/103 pruebas de integridad de la auditoría vigente PASAN · ficha.py vuelve a cerrar sobre una ficha oficial ilegible
+M31 DETECTADA · 102/103 pruebas de integridad de la auditoría vigente PASAN · el identificador del material vuelve a usarse sin limpiar en la ruta del archivo
+31 de 31 mutaciones detectadas

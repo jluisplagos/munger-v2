@@ -1,0 +1,853 @@
+{
+ "constantes": {
+  "T1": 0.220541332769837,
+  "M1": 0.18546672136199518,
+  "r_op": 0.086821731906109,
+  "DA25": 132.948,
+  "NWC_RATIO": 0.1470378661716127,
+  "V0": 1465.16,
+  "acciones": 35.206,
+  "puente": 160.784,
+  "probabilidades": [
+   0.2,
+   0.6,
+   0.2
+  ],
+  "lambda": {
+   "central": 1.15,
+   "bajo": 1.1,
+   "alto": 1.25,
+   "l12_pi2": 1.1124658426229588,
+   "l12_pi3": 1.1704320637626762,
+   "l10_pi1": 1.045367094566053,
+   "l16_pi3": 1.2366733866483588,
+   "balance": {
+    "0.02": 1.1919474106954133,
+    "0.03": 1.2879211160431199
+   }
+  },
+  "exceso_2025": 55.55499999999998,
+  "exceso_medio_2021_2025": 45.8762,
+  "exceso_2025_propio": 60.04699999999997,
+  "exceso_medio_propio": 47.758799999999994,
+  "inversion_sobre_ventas": {
+   "2016": 0.07097483097845056,
+   "2017": 0.10820206145468689,
+   "2018": 0.10653467667825661,
+   "2019": 0.10602048013865792,
+   "2020": 0.13582767587037242,
+   "2021": 0.10127600385918761,
+   "2022": 0.08932751688825144,
+   "2023": 0.10627171231960254,
+   "2024": 0.10627935983055746,
+   "2025": 0.12865693849135929
+  },
+  "inversion_sobre_ventas_media": 0.10593712565093827,
+  "uk_ciclo": [
+   1.0954391674599295,
+   1.11278268028506
+  ],
+  "iberia_2019_2025": 1.9695875454048326,
+  "cartera_por_anio": [
+   4.492,
+   4.492,
+   4.492,
+   4.492,
+   3.8900000000000006,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "factor_s2c_P1s": 1.1683961014411715
+ },
+ "alternativas": {
+  "REF": "referencia 4.7.1 (T1·M1·R1; reposición = D&A en los tres escenarios y en el terminal)",
+  "P0": "P0 · la amortización de la cartera de clientes de Vidroporto (4,492 en 2025; valor neto 21,858) no se repone: el modelo la cobra como inversión; se suma al FCF mientras dura (≈ 4,9 años). Dato publicado; efecto menor y favorable",
+  "P1": "P1 · reposición a coste corriente = λ × (D&A − cartera) con λ = 1.15 (indicios: desfase de inflación λ(12 años; 2 %) = 1.112 y λ(12; 3 %) = 1.170; balance 1 + π × valor neto ÷ dotación = 1.192 al 2 % y 1.288 al 3 %; ciclo del Reino Unido 2018–2025 1.095–1.113, débil por perímetro; central elevado de 1,10 a 1,15 tras la crítica independiente). Regla del hueco: se añade solo max(0, (λ−1)·(D&A − cartera) − inversión fija neta del modelo), cada año y en el terminal (año 11, con D&A proporcional a las ventas), para no cobrar dos veces lo que ΔV ÷ S2C o g ÷ ROIC ya reinvierten. Sin escudo fiscal adicional (en estado estacionario el desfase no se recupera). Con P0",
+  "P1b": "P1 con λ = 1.10 (cerca del mínimo de los indicios: Reino Unido 1,095–1,113 y λ(12; 2 %) = 1,112; λ(10; 1 %) = 1.045 queda por debajo): extremo bajo explorado, no cota",
+  "P1a": "P1 con λ = 1.25 (λ(16; 3 %) = 1.237; balance al 3 %): extremo alto explorado, no cota",
+  "P1s": "P1s · estructura alternativa: S2C de la fase B multiplicado por el cociente entre el S2C marginal de la Historia sin el exceso de reposición en el denominador y el C53 (0,9159), y reposición explícita (λ−1)·(D&A − cartera) en los diez años de los tres escenarios; terminal con la regla del hueco. Con P0",
+  "P2": "P2 · ola de reconstrucción 2026–2027 sobre P1: inversión bruta del año 1 = 180 (2026; la dirección habló de 170–189 en la conferencia de resultados: fuente secundaria y posterior a la base), año 2 a mitad de camino hacia la de P1; el exceso se amortiza en 12 años con escudo fiscal al tipo T1. Hipótesis condicionada",
+  "P3": "P3 · P1 con la capacidad no conservada en el MALO (la recuperación paga ΔV ÷ S2C completo): Reino Unido adaptó su capacidad en 2025 con una reestructuración de 13,668. La regla del hueco solo descuenta la inversión fija de R1 (Z-c)",
+  "P4": "P4 · combinación adversa coherente: λ = 1.250, ola de reconstrucción (P2) y capacidad no conservada en el MALO (P3)",
+  "X41": "X41 · sensibilidad de la 4.7.1: +41,8 % de D&A en todos los escenarios y en el terminal, sin regla del hueco (para cuantificar su doble cómputo)",
+  "P5": "P5 · exceso estructural en nivel con la regla del hueco: el exceso medio 2021–2025 de la inversión sobre la amortización que se repone (47.8 M€/año; 45.9 con la amortización total) se mantiene en los diez años (y en el terminal, proporcional a las ventas), descontando la inversión fija neta que el modelo ya paga. Supone que el exceso depende de reponer y conservar competitividad, no del crecimiento. Con P0",
+  "P5x": "P5 con el exceso de 2025 sobre la amortización que se repone (60.0 M€/año): el nivel de inversión de 2025 en el año 1 (después, el exceso constante con hueco). Con P0",
+  "P5x0": "P5 con el exceso de 2025 sobre la amortización total (55.6 M€/año) y sin P0: la parte de X41 que no es doble cómputo (solo para medirla)",
+  "P6m": "P6 · suelo de inversión bruta de caja = 10.6% de las ventas (media 2016–2025 de la Historia), con la regla del hueco (se añade lo que falte sobre D&A − cartera + inversión fija neta; terminal con D&A proporcional a las ventas). Recoge la intensidad real de «conservar competitividad» (electrificación de hornos, descarbonización) que λ no mide. Con P0",
+  "P6i": "P6 con un suelo del 12 % de las ventas: la previsión oficial de la inversión de 2025 («around 12% of sales», presentación del primer trimestre de 2025, O6). Con P0",
+  "P6x": "P6 con el nivel de 2025 perpetuo (12.9% de las ventas), sin retorno en margen: extremo alto explorado, no cota. Con P0"
+ },
+ "clases": {
+  "REF": "referencia (supuesto de la plantilla, no acreditado)",
+  "P0": "respaldado con alcance y límites (dato publicado; efecto menor)",
+  "P1": "hipótesis condicionada (desfase de inflación; indicios de balance, de vida contable y del Reino Unido; no acreditada)",
+  "P1_sin_P0": "descomposición de P1",
+  "P1b": "sensibilidad (extremo bajo explorado)",
+  "P1a": "sensibilidad (extremo alto explorado)",
+  "P1s": "contraste de estructura de P1 (hipótesis condicionada)",
+  "P2": "hipótesis condicionada (fuente secundaria y posterior a la base)",
+  "P3": "hipótesis condicionada (capacidad)",
+  "P4": "combinación adversa de λ alto, ola y capacidad (sensibilidad, no cota)",
+  "X41": "sensibilidad de la 4.7.1; cerca de la mitad de su efecto es doble cómputo (la parte restante, en P5x0)",
+  "P5": "hipótesis condicionada (nivel estructural; no acreditada)",
+  "P5x": "sensibilidad (nivel de 2025 con hueco)",
+  "P5x0": "medida auxiliar (doble cómputo de X41)",
+  "P6m": "hipótesis condicionada (intensidad de inversión; no acreditada)",
+  "P6i": "sensibilidad (intensidad de inversión: previsión de 2025)",
+  "P6x": "sensibilidad (extremo alto explorado, no cota)"
+ },
+ "resultados": {
+  "REF": {
+   "V": [
+    51.80593592874469,
+    69.78054231190437,
+    85.0758026843406
+   ],
+   "ponderado": 69.24467310975967,
+   "precio_si": 64.26217677232682,
+   "peso_terminal": [
+    0.42137042696071514,
+    0.5200181402594256,
+    0.5660940815707056
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 147.71283356019302
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P0": {
+   "V": [
+    52.29506686780315,
+    70.26967325096284,
+    85.56493362339907
+   ],
+   "ponderado": 69.73380404881814,
+   "precio_si": 64.75130771138528,
+   "peso_terminal": [
+    0.41774576979452316,
+    0.5166193101913543,
+    0.563021981862795
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 147.71283356019302
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P1": {
+   "V": [
+    48.207342152871725,
+    70.26967325096284,
+    85.56493362339907
+   ],
+   "ponderado": 68.91625910583186,
+   "precio_si": 62.99942569070039,
+   "peso_terminal": [
+    0.44111296410494716,
+    0.5166193101913543,
+    0.563021981862795
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 2.950309592341842,
+     "fcf11": 144.76252396785117
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P1_sin_P0": {
+   "V": [
+    47.644841572954505,
+    69.78054231190437,
+    85.0758026843406
+   ],
+   "ponderado": 68.41245423860164,
+   "precio_si": 62.47885061984531,
+   "peso_terminal": [
+    0.44586526806295707,
+    0.5200181402594256,
+    0.5660940815707056
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 2.950309592341842,
+     "fcf11": 144.76252396785117
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P1b": {
+   "V": [
+    49.88621212191109,
+    70.26967325096284,
+    85.56493362339907
+   ],
+   "ponderado": 69.25203309963973,
+   "precio_si": 63.718941391717266,
+   "peso_terminal": [
+    0.4362256681662947,
+    0.5166193101913543,
+    0.563021981862795
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 147.71283356019302
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P1a": {
+   "V": [
+    43.72453283541779,
+    69.86329987204391,
+    85.56493362339907
+   ],
+   "ponderado": 67.77587321498972,
+   "precio_si": 60.90406167796916,
+   "peso_terminal": [
+    0.43911407604596836,
+    0.5191755296312427,
+    0.563021981862795
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 15.847144988117826,
+     "fcf11": 131.8656885720752
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.10645080714190414,
+     "fcf11": 209.01682000617186
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P1s": {
+   "V": [
+    48.207342152871725,
+    67.59355802040409,
+    83.39951357103037
+   ],
+   "ponderado": 66.87750595702288,
+   "precio_si": 61.54317344155111,
+   "peso_terminal": [
+    0.44111296410494716,
+    0.5357784439755301,
+    0.5768815717152584
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 2.950309592341842,
+     "fcf11": 144.76252396785117
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P2": {
+   "V": [
+    47.14045347116506,
+    69.50557575400501,
+    85.32292690690886
+   ],
+   "ponderado": 68.1960215280178,
+   "precio_si": 62.18014494034558,
+   "peso_terminal": [
+    0.4502145319258978,
+    0.5219485132135445,
+    0.5645377821689732
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 2.950309592341842,
+     "fcf11": 144.76252396785117
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P3": {
+   "V": [
+    47.89494774677029,
+    70.26967325096284,
+    85.56493362339907
+   ],
+   "ponderado": 68.85378022461157,
+   "precio_si": 62.86554237379978,
+   "peso_terminal": [
+    0.4437396556939851,
+    0.5166193101913543,
+    0.563021981862795
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 2.950309592341842,
+     "fcf11": 144.76252396785117
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P4": {
+   "V": [
+    42.769868507593415,
+    69.22102995032097,
+    85.32292690690886
+   ],
+   "ponderado": 67.15117705309304,
+   "precio_si": 60.185088897236,
+   "peso_terminal": [
+    0.44796990049620566,
+    0.5236945696205991,
+    0.5645377821689732
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 15.847144988117826,
+     "fcf11": 131.8656885720752
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.10645080714190414,
+     "fcf11": 209.01682000617186
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "X41": {
+   "V": [
+    32.51245739247228,
+    49.03401624555757,
+    63.42647412152103
+   ],
+   "ponderado": 48.6081960501332,
+   "precio_si": 44.00941357651579,
+   "peso_terminal": [
+    0.39727351413876727,
+    0.5258449358061908,
+    0.5789851259940072
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 56.11054999999998,
+     "fcf11": 91.60228356019303
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 56.66609999999998,
+     "fcf11": 152.45717081331378
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 56.94387499999997,
+     "fcf11": 197.00411747451685
+    }
+   ]
+  },
+  "P5": {
+   "V": [
+    38.65228721943008,
+    63.724760066042364,
+    83.69943500731839
+   ],
+   "ponderado": 62.705200484975116,
+   "precio_si": 55.83293955196224,
+   "peso_terminal": [
+    0.4382332422110784,
+    0.516962051446203,
+    0.5576610674357929
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 29.93425154484523,
+     "fcf11": 117.77858201534778
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 18.162483838787367,
+     "fcf11": 190.9607869745264
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 7.62403618305504,
+     "fcf11": 246.32395629146177
+    }
+   ]
+  },
+  "P5x": {
+   "V": [
+    34.463678790926366,
+    58.62837738421686,
+    78.0608398075194
+   ],
+   "ponderado": 57.681930150219266,
+   "precio_si": 51.04814404756415,
+   "peso_terminal": [
+    0.43614923495473296,
+    0.5139544655735229,
+    0.553979921053307
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 41.8546183582139,
+     "fcf11": 105.85821520197912
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 33.44131601520251,
+     "fcf11": 175.68195479811124
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 24.88172191715786,
+     "fcf11": 229.06627055735896
+    }
+   ]
+  },
+  "P5x0": {
+   "V": [
+    35.5057101914163,
+    60.00224924514213,
+    79.66277645699131
+   ],
+   "ponderado": 59.0350468767668,
+   "precio_si": 52.31237925238094,
+   "peso_terminal": [
+    0.44229455305930726,
+    0.5190106429337642,
+    0.5584107196126513
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 37.49708123107958,
+     "fcf11": 110.21575232911344
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 27.856078621893737,
+     "fcf11": 181.26719219142
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 18.57310679715738,
+     "fcf11": 235.37488567735943
+    }
+   ]
+  },
+  "P6m": {
+   "V": [
+    47.8932325427777,
+    68.36327560852679,
+    83.81593391167893
+   ],
+   "ponderado": 67.3597986560074,
+   "precio_si": 61.797922623656056,
+   "peso_terminal": [
+    0.43656760206963646,
+    0.5301237501236781,
+    0.5741635655448899
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 5.294726650973473,
+     "fcf11": 142.41810690921955
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 209.12327081331375
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.0,
+     "fcf11": 253.9479924745168
+    }
+   ]
+  },
+  "P6i": {
+   "V": [
+    41.042951083802215,
+    61.95051641257478,
+    79.73723918144285
+   ],
+   "ponderado": 61.32634790059387,
+   "precio_si": 55.53109166722483,
+   "peso_terminal": [
+    0.4319798770330156,
+    0.5476417312404271,
+    0.6001409282614123
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 25.19295625041471,
+     "fcf11": 122.51987730977831
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 12.085367569077675,
+     "fcf11": 197.03790324423608
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 0.7598359914890409,
+     "fcf11": 253.18815648302777
+    }
+   ]
+  },
+  "P6x": {
+   "V": [
+    36.63919871731796,
+    56.2331855907377,
+    73.16158200620062
+   ],
+   "ponderado": 55.700067499146336,
+   "precio_si": 50.25410499005251,
+   "peso_terminal": [
+    0.4282251391104386,
+    0.5492842890103021,
+    0.6033012448314801
+   ],
+   "terminal": [
+    {
+     "escenario": "MALO",
+     "nopat11": 166.17693775521715,
+     "reinversion11": 18.46410419502413,
+     "fija11": 16.394943501322103,
+     "da11": 128.96835395775972,
+     "reposicion_adicional11": 37.98467527862698,
+     "fcf11": 109.72815828156604
+    },
+    {
+     "escenario": "NORMAL",
+     "nopat11": 255.59510877182794,
+     "reinversion11": 46.47183795851417,
+     "fija11": 41.21958108097116,
+     "da11": 165.30412755245226,
+     "reposicion_adicional11": 28.481048284265285,
+     "fcf11": 180.64222252904847
+    },
+    {
+     "escenario": "BUENO",
+     "nopat11": 320.7764115467581,
+     "reinversion11": 66.82841907224127,
+     "fija11": 59.448957537577016,
+     "da11": 186.71366050174197,
+     "reposicion_adicional11": 19.279020043799676,
+     "fcf11": 234.66897243071713
+    }
+   ]
+  }
+ },
+ "controles": {
+  "replica_471_identica": {
+   "matriz.csv": true,
+   "sensibilidades_n3.csv": true,
+   "n3_anio_a_anio.csv": true,
+   "evidencia.json": true
+  },
+  "control_471": true,
+  "ref": true,
+  "x41": true,
+  "identidad_fcf": true,
+  "evidencia": true
+ },
+ "doble_computo_x41": {
+  "NORMAL": 309.3343387889813,
+  "BUENO": 462.59516488016203
+ },
+ "parte_doble_computo_x41": 0.5052631220196422
+}

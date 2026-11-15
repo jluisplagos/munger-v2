@@ -1,0 +1,1323 @@
+{
+ "origen_de_cada_pieza": {
+  "amortizacion_2025": "dato publicado (CF_2025; Historia fila 8)",
+  "reposicion_contable": "dato publicado (amortización de 2025) llevado PLANO a los años 1–10 por convención del motor, y proporcional a las ventas en el terminal (convención); la variante «años ∝ ventas» mide el efecto de esa convención (Y-d)",
+  "inversion_historica": "dato publicado (Historia fila 8, 2016–2025)",
+  "den_C53": "cálculo de la plantilla con datos publicados (Historia!H31:L31; incluye adquisiciones y desinversiones)",
+  "cartera_no_repuesta": "dato publicado (nota de intangibles 2024–2025) y cálculo de su agotamiento",
+  "inversion_fija_para_crecer": "cálculo del modelo (ΔV ÷ S2C − Δcirculante; g ÷ ROIC − Δcirculante en el terminal) con S2C y ROIC de la fase B",
+  "circulante": "cálculo del modelo (ΔV × circulante ÷ ventas de 2025, regla R1)",
+  "requisito_reposicion_adicional": "hipótesis (λ o θ): no es un dato publicado",
+  "credito": "consecuencia de la estructura H (hipótesis): no es una medición",
+  "fcf": "cálculo: NOPAT + amortización − inversión fija bruta − Δcirculante"
+ },
+ "historia": {
+  "dv_2020_2025": 476.7900000000001,
+  "den_C53": 520.596,
+  "composicion_den": {
+   "capex": 739.0029999999999,
+   "da": 509.622,
+   "adquisiciones": 12.418000000000006,
+   "circulante": 278.797,
+   "capex_menos_da": 229.38099999999991
+  },
+  "suma_cartera": 9.413,
+  "den_propio": 530.009,
+  "inversion_fija_neta_historica": 251.212,
+  "C53": 0.9158541364128807,
+  "exceso_propio_2021_2025": {
+   "2021": 23.51599999999999,
+   "2022": 34.74000000000001,
+   "2023": 64.49,
+   "2024": 56.00100000000002,
+   "2025": 60.04699999999997
+  },
+  "exceso_propio_suma": 238.79399999999998,
+  "exceso_propio_medio": 47.758799999999994
+ },
+ "rf2": {
+  "casos": {
+   "REF": {
+    "V": [
+     51.80593592874469,
+     69.78054231190437,
+     85.0758026843406
+    ],
+    "ponderado": 69.24467310975967,
+    "precio_si": 64.26217677232682,
+    "pv_anios": [
+     1148.385155825796,
+     1256.3418491379587,
+     1369.3908979095447
+    ],
+    "pv_terminal": [
+     836.2786244815901,
+     1361.1359234949473,
+     1786.5718113953508
+    ]
+   },
+   "X41": {
+    "V": [
+     32.51245739247228,
+     49.03401624555757,
+     63.42647412152103
+    ],
+    "ponderado": 48.6081960501332,
+    "precio_si": 44.00941357651579,
+    "pv_anios": [
+     786.809747536759,
+     894.7664408489217,
+     1007.8154896205076
+    ],
+    "pv_terminal": [
+     518.6078274226202,
+     992.3091350921784,
+     1385.9609583017623
+    ]
+   },
+   "X41c": {
+    "V": [
+     35.14894665372178,
+     62.296489107801726,
+     83.3742260345771
+    ],
+    "ponderado": 61.082528002340815,
+    "precio_si": 53.6729333313068,
+    "pv_anios": [
+     786.809747536759,
+     1093.3961591468624,
+     1309.4851903779713
+    ],
+    "pv_terminal": [
+     611.42806835417,
+     1260.5980363824056,
+     1786.5718113953508
+    ]
+   },
+   "X41t": {
+    "V": [
+     32.869220930166804,
+     46.739776382897986,
+     59.214435836432045
+    ],
+    "ponderado": 46.46059718305856,
+    "precio_si": 42.577346825089485,
+    "pv_anios": [
+     786.809747536759,
+     894.7664408489217,
+     1007.8154896205076
+    ],
+    "pv_terminal": [
+     531.1680445306938,
+     911.5381264873851,
+     1237.671938436919
+    ]
+   },
+   "P5x0": {
+    "V": [
+     35.505710191416306,
+     60.00224924514213,
+     79.66277645699131
+    ],
+    "ponderado": 59.0350468767668,
+    "precio_si": 52.31237925238094,
+    "pv_anios": [
+     786.809747536759,
+     1093.3961591468624,
+     1309.4851903779713
+    ],
+    "pv_terminal": [
+     623.9882854622435,
+     1179.8270277776119,
+     1655.9065175668652
+    ]
+   }
+  },
+  "efectos": {
+   "ponderado": {
+    "caida_X41": -20.636477059626472,
+    "credito_con_convencion_X41": 12.474331952207613,
+    "credito_con_convencion_P5x0": 12.574449693708239,
+    "convencion_sin_credito": -2.1475988670746418,
+    "convencion_con_credito": -2.0474811255740164,
+    "interaccion": 0.10011774150062536,
+    "shapley_credito": 12.524390822957926,
+    "shapley_convencion": -2.097539996324329,
+    "P5x0_menos_X41": 10.426850826633597,
+    "fraccion_caida_X41_atribuida_al_credito": 0.6044797237515211,
+    "fraccion_4_8_retirada": 0.5052631220196422
+   },
+   "precio_si": {
+    "caida_X41": -20.252763195811035,
+    "credito_con_convencion_X41": 9.663519754791011,
+    "credito_con_convencion_P5x0": 9.735032427291458,
+    "convencion_sin_credito": -1.432066751426305,
+    "convencion_con_credito": -1.3605540789258583,
+    "interaccion": 0.07151267250044668,
+    "shapley_credito": 9.699276091041234,
+    "shapley_convencion": -1.3963104151760817,
+    "P5x0_menos_X41": 8.302965675865153,
+    "fraccion_caida_X41_atribuida_al_credito": 0.477145743588695,
+    "fraccion_4_8_retirada": 0.4099670546477574
+   }
+  },
+  "por_escenario": {
+   "MALO": {
+    "REF": 51.80593592874469,
+    "X41": 32.51245739247228,
+    "X41c": 35.14894665372178,
+    "X41t": 32.869220930166804,
+    "P5x0": 35.505710191416306
+   },
+   "NORMAL": {
+    "REF": 69.78054231190437,
+    "X41": 49.03401624555757,
+    "X41c": 62.296489107801726,
+    "X41t": 46.739776382897986,
+    "P5x0": 60.00224924514213
+   },
+   "BUENO": {
+    "REF": 85.0758026843406,
+    "X41": 63.42647412152103,
+    "X41c": 83.3742260345771,
+    "X41t": 59.214435836432045,
+    "P5x0": 79.66277645699131
+   }
+  },
+  "referencias_externas": {
+   "REF": [
+    69.2446731,
+    64.2621768
+   ],
+   "X41": [
+    48.6081961,
+    44.0094136
+   ],
+   "X41c": [
+    61.082528,
+    53.6729333
+   ],
+   "P5x0": [
+    59.0350469,
+    52.3123793
+   ]
+  }
+ },
+ "rf1": {
+  "alternativas": {
+   "REF": {
+    "V": [
+     51.80593592874469,
+     69.78054231190437,
+     85.0758026843406
+    ],
+    "ponderado": 69.24467310975967,
+    "precio_si": 64.26217677232682,
+    "peso_terminal": [
+     0.42137042696071514,
+     0.5200181402594256,
+     0.5660940815707056
+    ]
+   },
+   "P0": {
+    "V": [
+     52.295066867803165,
+     70.26967325096284,
+     85.56493362339907
+    ],
+    "ponderado": 69.73380404881814,
+    "precio_si": 64.7513077113853,
+    "peso_terminal": [
+     0.41774576979452305,
+     0.5166193101913543,
+     0.563021981862795
+    ]
+   },
+   "H·L1.10": {
+    "V": [
+     49.88621212191109,
+     70.26967325096284,
+     85.56493362339907
+    ],
+    "ponderado": 69.25203309963973,
+    "precio_si": 63.718941391717266,
+    "peso_terminal": [
+     0.4362256681662947,
+     0.5166193101913543,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "L1.10",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.10; terminal con la amortización proporcional a las ventas",
+    "Rh": 50.02090000000004,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·L1.10": {
+    "V": [
+     47.8122575503492,
+     64.80472845857665,
+     79.42499422932767
+    ],
+    "ponderado": 64.33028743108136,
+    "precio_si": 59.61085032230074,
+    "peso_terminal": [
+     0.4139030246220592,
+     0.5132635597357633,
+     0.5597578139905821
+    ],
+    "estructura": "S",
+    "requisito": "L1.10",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.10; terminal con la amortización proporcional a las ventas",
+    "Rh": 50.02090000000004,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·L1.10": {
+    "V": [
+     47.8122575503492,
+     65.41841028079811,
+     80.37309284696838
+    ],
+    "ponderado": 64.88811624794238,
+    "precio_si": 60.00929947720147,
+    "peso_terminal": [
+     0.4139030246220592,
+     0.5087628967301635,
+     0.5535098112904341
+    ],
+    "estructura": "SR1",
+    "requisito": "L1.10",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.10; terminal con la amortización proporcional a las ventas",
+    "Rh": 50.02090000000004,
+    "f": 1.1042127919421336,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1062973795256061
+   },
+   "SR2·L1.10": {
+    "V": [
+     48.09248623078093,
+     66.22926034400396,
+     81.6334349753292
+    ],
+    "ponderado": 65.6827404476244,
+    "precio_si": 60.656953528526266,
+    "peso_terminal": [
+     0.4170219563362089,
+     0.5143891815406644,
+     0.5600379770593436
+    ],
+    "estructura": "SR2",
+    "requisito": "L1.10",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.10; terminal con la amortización proporcional a las ventas",
+    "Rh": 50.02090000000004,
+    "f": 1.1042127919421336,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1062973795256061
+   },
+   "SRF·L1.10": {
+    "V": [
+     48.33723074306307,
+     67.44552917189858,
+     83.49663253222296
+    ],
+    "ponderado": 66.83409015819636,
+    "precio_si": 61.54927318244398,
+    "peso_terminal": [
+     0.4197189205110267,
+     0.5155126555588935,
+     0.5607380365927999
+    ],
+    "estructura": "SRF",
+    "requisito": "L1.10",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.10; terminal con la amortización proporcional a las ventas",
+    "Rh": 50.02090000000004,
+    "f": 1.0,
+    "f_fija": 0.8008817253952835,
+    "f_primera_version": null
+   },
+   "H·L1.15": {
+    "V": [
+     48.20734215287174,
+     70.26967325096284,
+     85.56493362339907
+    ],
+    "ponderado": 68.91625910583187,
+    "precio_si": 62.9994256907004,
+    "peso_terminal": [
+     0.44111296410494705,
+     0.5166193101913543,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·L1.15": {
+    "V": [
+     45.57085289162224,
+     62.07225606238356,
+     76.35502453229199
+    ],
+    "ponderado": 61.62852912221298,
+    "precio_si": 57.04062162775848,
+    "peso_terminal": [
+     0.41172396781438386,
+     0.5113792858383285,
+     0.5579399789653866
+    ],
+    "estructura": "S",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·L1.15": {
+    "V": [
+     45.57085289162224,
+     62.99277879571575,
+     77.77717245875306
+    ],
+    "ponderado": 62.46527234750451,
+    "precio_si": 57.63829536010957,
+    "peso_terminal": [
+     0.41172396781438386,
+     0.5044115807481304,
+     0.5483039154322994
+    ],
+    "estructura": "SR1",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.1649121665646653,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1683961014411712
+   },
+   "SR2·L1.15": {
+    "V": [
+     45.99119591226983,
+     64.20905389052453,
+     79.66768565129426
+    ],
+    "ponderado": 63.65720864702753,
+    "precio_si": 58.60977643709676,
+    "peso_terminal": [
+     0.4166149250612279,
+     0.5131758564823251,
+     0.5584415199022355
+    ],
+    "estructura": "SR2",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.1649121665646653,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1683961014411712
+   },
+   "SRF·L1.15": {
+    "V": [
+     46.35831268069303,
+     66.03345713236645,
+     82.46248198663494
+    ],
+    "ponderado": 65.38423321288546,
+    "precio_si": 59.948255917973334,
+    "peso_terminal": [
+     0.4208205086393049,
+     0.5149261271007659,
+     0.5595553545697489
+    ],
+    "estructura": "SRF",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.0,
+    "f_fija": 0.7013225880929257,
+    "f_primera_version": null
+   },
+   "H·L1.25": {
+    "V": [
+     43.72453283541779,
+     69.86329987204391,
+     85.56493362339907
+    ],
+    "ponderado": 67.77587321498972,
+    "precio_si": 60.90406167796916,
+    "peso_terminal": [
+     0.43911407604596836,
+     0.5191755296312427,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "L1.25",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.25; terminal con la amortización proporcional a las ventas",
+    "Rh": 125.05225,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·L1.25": {
+    "V": [
+     41.08804357416829,
+     56.60731126999736,
+     70.2150851382206
+    ],
+    "ponderado": 56.22501250447619,
+    "precio_si": 51.90016423867393,
+    "peso_terminal": [
+     0.40672397722242615,
+     0.5071057485523487,
+     0.5538565517615854
+    ],
+    "estructura": "S",
+    "requisito": "L1.25",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.25; terminal con la amortización proporcional a las ventas",
+    "Rh": 125.05225,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·L1.25": {
+    "V": [
+     41.08804357416829,
+     58.14151582555101,
+     72.58533168232239
+    ],
+    "ponderado": 57.619584546628744,
+    "precio_si": 52.89628712592575,
+    "peso_terminal": [
+     0.40672397722242615,
+     0.4946990670296979,
+     0.5368411561145656
+    ],
+    "estructura": "SR1",
+    "requisito": "L1.25",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.25; terminal con la amortización proporcional a las ventas",
+    "Rh": 125.05225,
+    "f": 1.308803964867853,
+    "f_fija": 1.0,
+    "f_primera_version": 1.316152764390791
+   },
+   "SR2·L1.25": {
+    "V": [
+     41.78861527524761,
+     60.16864098356563,
+     75.7361870032244
+    ],
+    "ponderado": 59.60614504583378,
+    "precio_si": 54.51542225423773,
+    "peso_terminal": [
+     0.4156901585350474,
+     0.5105220206286541,
+     0.5550141264824076
+    ],
+    "estructura": "SR2",
+    "requisito": "L1.25",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.25; terminal con la amortización proporcional a las ventas",
+    "Rh": 125.05225,
+    "f": 1.308803964867853,
+    "f_fija": 1.0,
+    "f_primera_version": 1.316152764390791
+   },
+   "SRF·L1.25": {
+    "V": [
+     42.40047655595295,
+     63.209313053302175,
+     80.39418089545883
+    ],
+    "ponderado": 62.48451932226366,
+    "precio_si": 56.74622138903202,
+    "peso_terminal": [
+     0.4233021697342913,
+     0.513679750669984,
+     0.5571036165832189
+    ],
+    "estructura": "SRF",
+    "requisito": "L1.25",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.25; terminal con la amortización proporcional a las ventas",
+    "Rh": 125.05225,
+    "f": 1.0,
+    "f_fija": 0.5022043134882092,
+    "f_primera_version": null
+   },
+   "H·T0.25": {
+    "V": [
+     50.087812100763784,
+     70.26967325096284,
+     85.56493362339907
+    ],
+    "ponderado": 69.29235309541028,
+    "precio_si": 63.805341382654134,
+    "peso_terminal": [
+     0.43461660275272546,
+     0.5166193101913543,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "T0.25",
+    "texto_requisito": "θ = 0.25 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 59.698499999999996,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·T0.25": {
+    "V": [
+     48.22524964039752,
+     65.3178267391717,
+     80.0068927314186
+    ],
+    "ponderado": 64.83712451786624,
+    "precio_si": 60.09087455287518,
+    "peso_terminal": [
+     0.4146693014046675,
+     0.513952460163184,
+     0.5604031233290863
+    ],
+    "estructura": "S",
+    "requisito": "T0.25",
+    "texto_requisito": "θ = 0.25 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 59.698499999999996,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·T0.25": {
+    "V": [
+     48.22524964039752,
+     66.05023827642688,
+     81.13842105908212
+    ],
+    "ponderado": 65.50287710575206,
+    "precio_si": 60.566412115650756,
+    "peso_terminal": [
+     0.4146693014046675,
+     0.5086219630572322,
+     0.5530043802878324
+    ],
+    "estructura": "SR1",
+    "requisito": "T0.25",
+    "texto_requisito": "θ = 0.25 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 59.698499999999996,
+    "f": 1.1269342274943892,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1295266301075617
+   },
+   "SR2·T0.25": {
+    "V": [
+     48.55969448002963,
+     67.01796441686605,
+     82.64260300202892
+    ],
+    "ponderado": 66.45123814653134,
+    "precio_si": 61.339368527530844,
+    "peso_terminal": [
+     0.4183540971960059,
+     0.5152646947406998,
+     0.5607141176472656
+    ],
+    "estructura": "SR2",
+    "requisito": "T0.25",
+    "texto_requisito": "θ = 0.25 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 59.698499999999996,
+    "f": 1.1269342274943892,
+    "f_fija": 1.0,
+    "f_primera_version": 1.1295266301075617
+   },
+   "SRF·T0.25": {
+    "V": [
+     48.85178998943619,
+     68.46954614814372,
+     84.86627549393178
+    ],
+    "ponderado": 67.82534078555983,
+    "precio_si": 62.40432627238164,
+    "peso_terminal": [
+     0.4215345570884424,
+     0.5165693286220099,
+     0.5615200114488056
+    ],
+    "estructura": "SRF",
+    "requisito": "T0.25",
+    "texto_requisito": "θ = 0.25 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 59.698499999999996,
+    "f": 1.0,
+    "f_fija": 0.7623580879894273,
+    "f_primera_version": null
+   },
+   "H·T0.50": {
+    "V": [
+     46.79192167424137,
+     70.26967325096284,
+     85.56493362339907
+    ],
+    "ponderado": 68.63317501010579,
+    "precio_si": 62.392816914144525,
+    "peso_terminal": [
+     0.4413109291165764,
+     0.5166193101913543,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "T0.50",
+    "texto_requisito": "θ = 0.50 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 119.39699999999999,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·T0.50": {
+    "V": [
+     44.15543241299187,
+     60.36598022738052,
+     74.44885183943815
+    ],
+    "ponderado": 59.940444986914315,
+    "precio_si": 55.43044139436504,
+    "peso_terminal": [
+     0.4110788735679666,
+     0.5108788571299018,
+     0.5574158391716416
+    ],
+    "estructura": "S",
+    "requisito": "T0.50",
+    "texto_requisito": "θ = 0.50 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 119.39699999999999,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·T0.50": {
+    "V": [
+     44.15543241299187,
+     61.8308033018909,
+     76.7119084947652
+    ],
+    "ponderado": 61.271950162685954,
+    "precio_si": 56.38151651991621,
+    "peso_terminal": [
+     0.4110788735679666,
+     0.49960818735060236,
+     0.5418956452815373
+    ],
+    "estructura": "SR1",
+    "requisito": "T0.50",
+    "texto_requisito": "θ = 0.50 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 119.39699999999999,
+    "f": 1.2907781555336912,
+    "f_fija": 1.0,
+    "f_primera_version": 1.2976004426730874
+   },
+   "SR2·T0.50": {
+    "V": [
+     44.82432209225608,
+     63.76625558276926,
+     79.72027238065878
+    ],
+    "ponderado": 63.16867224424453,
+    "precio_si": 57.9274293436764,
+    "peso_terminal": [
+     0.4190544379972843,
+     0.5137811576313441,
+     0.5582462210526569
+    ],
+    "estructura": "SR2",
+    "requisito": "T0.50",
+    "texto_requisito": "θ = 0.50 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 119.39699999999999,
+    "f": 1.2907781555336912,
+    "f_fija": 1.0,
+    "f_primera_version": 1.2976004426730874
+   },
+   "SRF·T0.50": {
+    "V": [
+     45.408513111069226,
+     66.6694190453246,
+     84.16761736446449
+    ],
+    "ponderado": 65.9168775223015,
+    "precio_si": 60.057344833378,
+    "peso_terminal": [
+     0.4258454343514494,
+     0.5165168210064808,
+     0.5599943892858953
+    ],
+    "estructura": "SRF",
+    "requisito": "T0.50",
+    "texto_requisito": "θ = 0.50 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 119.39699999999999,
+    "f": 1.0,
+    "f_fija": 0.5247161759788546,
+    "f_primera_version": null
+   },
+   "H·T0.75": {
+    "V": [
+     42.72210444683573,
+     68.67660657783352,
+     85.56493362339907
+    ],
+    "ponderado": 66.86337156074708,
+    "precio_si": 59.965866671058116,
+    "peso_terminal": [
+     0.4399045224787396,
+     0.5194834338746999,
+     0.563021981862795
+    ],
+    "estructura": "H",
+    "requisito": "T0.75",
+    "texto_requisito": "θ = 0.75 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 179.0955,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·T0.75": {
+    "V": [
+     40.08561518558623,
+     55.41413371558937,
+     68.89081094745771
+    ],
+    "ponderado": 55.043765455962415,
+    "precio_si": 50.770008235854924,
+    "peso_terminal": [
+     0.40683395318910426,
+     0.5072977604063849,
+     0.5539765007300308
+    ],
+    "estructura": "S",
+    "requisito": "T0.75",
+    "texto_requisito": "θ = 0.75 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 179.0955,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·T0.75": {
+    "V": [
+     40.08561518558623,
+     57.611368327354924,
+     72.28539593044827
+    ],
+    "ponderado": 57.04102321961985,
+    "precio_si": 52.19662092418167,
+    "peso_terminal": [
+     0.40683395318910426,
+     0.489371057837797,
+     0.5295072367599694
+    ],
+    "estructura": "SR1",
+    "requisito": "T0.75",
+    "texto_requisito": "θ = 0.75 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 179.0955,
+    "f": 1.5103693645300054,
+    "f_fija": 1.0,
+    "f_primera_version": 1.5244370066808102
+   },
+   "SR2·T0.75": {
+    "V": [
+     41.088949704482545,
+     60.51454674867249,
+     76.79794175928866
+    ],
+    "ponderado": 59.88610634195773,
+    "precio_si": 54.515490159821965,
+    "peso_terminal": [
+     0.41986937663918916,
+     0.5121493746747663,
+     0.5556010487378241
+    ],
+    "estructura": "SR2",
+    "requisito": "T0.75",
+    "texto_requisito": "θ = 0.75 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 179.0955,
+    "f": 1.5103693645300054,
+    "f_fija": 1.0,
+    "f_primera_version": 1.5244370066808102
+   },
+   "SRF·T0.75": {
+    "V": [
+     41.96523623270225,
+     64.86929194250547,
+     83.46895923499721
+    ],
+    "ponderado": 64.00841425904318,
+    "precio_si": 57.71036339437434,
+    "peso_terminal": [
+     0.4307943020286096,
+     0.5164615908823373,
+     0.5584445522690641
+    ],
+    "estructura": "SRF",
+    "requisito": "T0.75",
+    "texto_requisito": "θ = 0.75 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 179.0955,
+    "f": 1.0,
+    "f_fija": 0.28707426396828184,
+    "f_primera_version": null
+   },
+   "H·T1.00": {
+    "V": [
+     38.65228721943008,
+     63.724760066042364,
+     83.69943500731839
+    ],
+    "ponderado": 62.705200484975116,
+    "precio_si": 55.83293955196224,
+    "peso_terminal": [
+     0.4382332422110784,
+     0.516962051446203,
+     0.5576610674357929
+    ],
+    "estructura": "H",
+    "requisito": "T1.00",
+    "texto_requisito": "θ = 1.00 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 238.79399999999998,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "S·T1.00": {
+    "V": [
+     36.01579795818058,
+     50.46228720379822,
+     63.33277005547726
+    ],
+    "ponderado": 50.1470859250105,
+    "precio_si": 46.10957507734481,
+    "peso_terminal": [
+     0.40173763405287416,
+     0.5030721684072115,
+     0.5499740971088384
+    ],
+    "estructura": "S",
+    "requisito": "T1.00",
+    "texto_requisito": "θ = 1.00 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 238.79399999999998,
+    "f": 1.0,
+    "f_fija": 1.0,
+    "f_primera_version": null
+   },
+   "SR1·T1.00": {
+    "V": [
+     36.01579795818058,
+     53.39193335281897,
+     67.85888336613135
+    ],
+    "ponderado": 52.810096276553764,
+    "precio_si": 48.01172532844714,
+    "peso_terminal": [
+     0.40173763405287416,
+     0.4776433922522043,
+     0.5156045219661571
+    ],
+    "estructura": "SR1",
+    "requisito": "T1.00",
+    "texto_requisito": "θ = 1.00 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 238.79399999999998,
+    "f": 1.8199921020551824,
+    "f_fija": 1.0,
+    "f_primera_version": 1.8473822045265824
+   },
+   "SR2·T1.00": {
+    "V": [
+     37.35357731670901,
+     57.262837914575684,
+     73.87561113791851
+    ],
+    "ponderado": 56.603540439670915,
+    "precio_si": 51.10355097596751,
+    "peso_terminal": [
+     0.42082954720357024,
+     0.5103459565456983,
+     0.5527587878002076
+    ],
+    "estructura": "SR2",
+    "requisito": "T1.00",
+    "texto_requisito": "θ = 1.00 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 238.79399999999998,
+    "f": 1.8199921020551824,
+    "f_fija": 1.0,
+    "f_primera_version": 1.8473822045265824
+   },
+   "SRF·T1.00": {
+    "V": [
+     38.52195935433528,
+     63.069164839686344,
+     82.77030110552994
+    ],
+    "ponderado": 62.09995099578485,
+    "precio_si": 55.363381955370684,
+    "peso_terminal": [
+     0.4365341074375721,
+     0.5164034208718521,
+     0.5568699192749808
+    ],
+    "estructura": "SRF",
+    "requisito": "T1.00",
+    "texto_requisito": "θ = 1.00 × 47.76 M€/año (exceso medio 2021–2025 sobre la amortización que se repone); terminal × ventas₁₁ ÷ ventas₀",
+    "Rh": 238.79399999999998,
+    "f": 1.0,
+    "f_fija": 0.04943235195770901,
+    "f_primera_version": null
+   },
+   "P1s_4_8": {
+    "V": [
+     48.20734215287174,
+     67.59355802040407,
+     83.39951357103037
+    ],
+    "ponderado": 66.87750595702286,
+    "precio_si": 61.54317344155111,
+    "peso_terminal": [
+     0.44111296410494705,
+     0.5357784439755302,
+     0.5768815717152584
+    ],
+    "estructura": "SR1 en los años 1–10 y H en el terminal (incoherente)",
+    "requisito": "L1.15",
+    "texto_requisito": "(λ − 1) × (amortización − cartera), λ = 1.15; terminal con la amortización proporcional a las ventas",
+    "Rh": 75.03134999999996,
+    "f": 1.1683961014411715
+   }
+  },
+  "rango_por_requisito": {
+   "L1.10": {
+    "min": 64.33028743108136,
+    "max": 69.25203309963973,
+    "por_estructura": {
+     "H": 69.25203309963973,
+     "S": 64.33028743108136,
+     "SR1": 64.88811624794238,
+     "SR2": 65.6827404476244,
+     "SRF": 66.83409015819636
+    }
+   },
+   "L1.15": {
+    "min": 61.62852912221298,
+    "max": 68.91625910583187,
+    "por_estructura": {
+     "H": 68.91625910583187,
+     "S": 61.62852912221298,
+     "SR1": 62.46527234750451,
+     "SR2": 63.65720864702753,
+     "SRF": 65.38423321288546
+    }
+   },
+   "L1.25": {
+    "min": 56.22501250447619,
+    "max": 67.77587321498972,
+    "por_estructura": {
+     "H": 67.77587321498972,
+     "S": 56.22501250447619,
+     "SR1": 57.619584546628744,
+     "SR2": 59.60614504583378,
+     "SRF": 62.48451932226366
+    }
+   },
+   "T0.25": {
+    "min": 64.83712451786624,
+    "max": 69.29235309541028,
+    "por_estructura": {
+     "H": 69.29235309541028,
+     "S": 64.83712451786624,
+     "SR1": 65.50287710575206,
+     "SR2": 66.45123814653134,
+     "SRF": 67.82534078555983
+    }
+   },
+   "T0.50": {
+    "min": 59.940444986914315,
+    "max": 68.63317501010579,
+    "por_estructura": {
+     "H": 68.63317501010579,
+     "S": 59.940444986914315,
+     "SR1": 61.271950162685954,
+     "SR2": 63.16867224424453,
+     "SRF": 65.9168775223015
+    }
+   },
+   "T0.75": {
+    "min": 55.043765455962415,
+    "max": 66.86337156074708,
+    "por_estructura": {
+     "H": 66.86337156074708,
+     "S": 55.043765455962415,
+     "SR1": 57.04102321961985,
+     "SR2": 59.88610634195773,
+     "SRF": 64.00841425904318
+    }
+   },
+   "T1.00": {
+    "min": 50.1470859250105,
+    "max": 62.705200484975116,
+    "por_estructura": {
+     "H": 62.705200484975116,
+     "S": 50.1470859250105,
+     "SR1": 52.810096276553764,
+     "SR2": 56.603540439670915,
+     "SRF": 62.09995099578485
+    }
+   }
+  },
+  "equivalencias_4_8": {
+   "H·L1.15": "P1",
+   "H·L1.10": "P1b",
+   "H·L1.25": "P1a",
+   "H·T1.00": "P5",
+   "SR1·L1.15": "P1s coherente (terminal sin crédito; ROIC sin cambio)",
+   "SR2·L1.15": "P1s coherente (terminal sin crédito; ROIC × f)"
+  },
+  "convencion_anios_ventas": {
+   "H·L1.10": {
+    "ponderado": 69.27038951292667,
+    "precio_si": 63.758276563046394,
+    "d_ponderado": 0.018356413286937823,
+    "d_precio_si": 0.039335171329128116
+   },
+   "S·L1.10": {
+    "ponderado": 64.11020259890742,
+    "precio_si": 59.47987031830069,
+    "d_ponderado": -0.2200848321739386,
+    "d_precio_si": -0.13098000400005105
+   },
+   "SR1·L1.10": {
+    "ponderado": 64.66803141576844,
+    "precio_si": 59.878319473201415,
+    "d_ponderado": -0.2200848321739386,
+    "d_precio_si": -0.13098000400005816
+   },
+   "SR2·L1.10": {
+    "ponderado": 65.46265561545044,
+    "precio_si": 60.5259735245262,
+    "d_ponderado": -0.2200848321739528,
+    "d_precio_si": -0.13098000400006526
+   },
+   "SRF·L1.10": {
+    "ponderado": 66.61400532602241,
+    "precio_si": 61.418293178443925,
+    "d_ponderado": -0.2200848321739528,
+    "d_precio_si": -0.13098000400005816
+   },
+   "H·L1.15": {
+    "ponderado": 68.94379372576226,
+    "precio_si": 63.0584284476941,
+    "d_ponderado": 0.027534619930392523,
+    "d_precio_si": 0.05900275699369928
+   },
+   "S·L1.15": {
+    "ponderado": 61.298401873952066,
+    "precio_si": 56.844151621758385,
+    "d_ponderado": -0.330127248260915,
+    "d_precio_si": -0.1964700060000979
+   },
+   "SR1·L1.15": {
+    "ponderado": 62.13514509924359,
+    "precio_si": 57.441825354109476,
+    "d_ponderado": -0.3301272482609221,
+    "d_precio_si": -0.1964700060000979
+   },
+   "SR2·L1.15": {
+    "ponderado": 63.32708139876663,
+    "precio_si": 58.41330643109667,
+    "d_ponderado": -0.3301272482609008,
+    "d_precio_si": -0.1964700060000908
+   },
+   "SRF·L1.15": {
+    "ponderado": 65.05410596462454,
+    "precio_si": 59.75178591197324,
+    "d_ponderado": -0.3301272482609221,
+    "d_precio_si": -0.1964700060000908
+   },
+   "H·L1.25": {
+    "ponderado": 67.43927293968831,
+    "precio_si": 60.72919152877862,
+    "d_ponderado": -0.33660027530140724,
+    "d_precio_si": -0.17487014919053934
+   },
+   "S·L1.25": {
+    "ponderado": 55.67480042404134,
+    "precio_si": 51.57271422867379,
+    "d_ponderado": -0.5502120804348536,
+    "d_precio_si": -0.32745001000014184
+   },
+   "SR1·L1.25": {
+    "ponderado": 57.0693724661939,
+    "precio_si": 52.56883711592561,
+    "d_ponderado": -0.5502120804348465,
+    "d_precio_si": -0.32745001000014184
+   },
+   "SR2·L1.25": {
+    "ponderado": 59.05593296539893,
+    "precio_si": 54.18797224423759,
+    "d_ponderado": -0.5502120804348465,
+    "d_precio_si": -0.32745001000013474
+   },
+   "SRF·L1.25": {
+    "ponderado": 61.93430724182882,
+    "precio_si": 56.41877137903189,
+    "d_ponderado": -0.5502120804348394,
+    "d_precio_si": -0.32745001000013474
+   },
+   "H·T0.25": {
+    "ponderado": 69.30883849328929,
+    "precio_si": 63.84066723525202,
+    "d_ponderado": 0.016485397879009156,
+    "d_precio_si": 0.0353258525978859
+   },
+   "S·T0.25": {
+    "ponderado": 64.63947228761779,
+    "precio_si": 59.97324495681059,
+    "d_ponderado": -0.19765223024845113,
+    "d_precio_si": -0.11762959606458878
+   },
+   "SR1·T0.25": {
+    "ponderado": 65.3052248755036,
+    "precio_si": 60.44878251958617,
+    "d_ponderado": -0.19765223024846534,
+    "d_precio_si": -0.11762959606458878
+   },
+   "SR2·T0.25": {
+    "ponderado": 66.25358591628289,
+    "precio_si": 61.22173893146626,
+    "d_ponderado": -0.19765223024845113,
+    "d_precio_si": -0.11762959606458168
+   },
+   "SRF·T0.25": {
+    "ponderado": 67.62768855531138,
+    "precio_si": 62.28669667631705,
+    "d_ponderado": -0.19765223024845113,
+    "d_precio_si": -0.11762959606458878
+   },
+   "H·T0.50": {
+    "ponderado": 68.66614580586382,
+    "precio_si": 62.46346861934032,
+    "d_ponderado": 0.03297079575803252,
+    "d_precio_si": 0.07065170519579311
+   },
+   "S·T0.50": {
+    "ponderado": 59.54514052641741,
+    "precio_si": 55.19518220223588,
+    "d_ponderado": -0.39530446049690227,
+    "d_precio_si": -0.23525919212916335
+   },
+   "SR1·T0.50": {
+    "ponderado": 60.876645702189045,
+    "precio_si": 56.14625732778704,
+    "d_ponderado": -0.39530446049690937,
+    "d_precio_si": -0.23525919212917046
+   },
+   "SR2·T0.50": {
+    "ponderado": 62.77336778374762,
+    "precio_si": 57.692170151547224,
+    "d_ponderado": -0.3953044604969165,
+    "d_precio_si": -0.23525919212917756
+   },
+   "SRF·T0.50": {
+    "ponderado": 65.52157306180459,
+    "precio_si": 59.82208564124882,
+    "d_ponderado": -0.3953044604969165,
+    "d_precio_si": -0.23525919212917756
+   },
+   "H·T0.75": {
+    "ponderado": 66.47697704268799,
+    "precio_si": 59.76052229192599,
+    "d_ponderado": -0.38639451805909175,
+    "d_precio_si": -0.20534437913212855
+   },
+   "S·T0.75": {
+    "ponderado": 54.45080876521703,
+    "precio_si": 50.41711944766116,
+    "d_ponderado": -0.5929566907453818,
+    "d_precio_si": -0.35288878819376635
+   },
+   "SR1·T0.75": {
+    "ponderado": 56.448066528874485,
+    "precio_si": 51.843732135987906,
+    "d_ponderado": -0.5929566907453676,
+    "d_precio_si": -0.35288878819376635
+   },
+   "SR2·T0.75": {
+    "ponderado": 59.29314965121236,
+    "precio_si": 54.1626013716282,
+    "d_ponderado": -0.5929566907453676,
+    "d_precio_si": -0.35288878819376635
+   },
+   "SRF·T0.75": {
+    "ponderado": 63.4154575682978,
+    "precio_si": 57.357474606180574,
+    "d_ponderado": -0.5929566907453747,
+    "d_precio_si": -0.35288878819376635
+   },
+   "H·T1.00": {
+    "ponderado": 61.93092669772491,
+    "precio_si": 55.37408912037791,
+    "d_ponderado": -0.774273787250209,
+    "d_precio_si": -0.4588504315843309
+   },
+   "S·T1.00": {
+    "ponderado": 49.35647700401666,
+    "precio_si": 45.639056693086445,
+    "d_ponderado": -0.7906089209938401,
+    "d_precio_si": -0.47051838425836223
+   },
+   "SR1·T1.00": {
+    "ponderado": 52.01948735555993,
+    "precio_si": 47.54120694418878,
+    "d_ponderado": -0.790608920993833,
+    "d_precio_si": -0.47051838425836223
+   },
+   "SR2·T1.00": {
+    "ponderado": 55.81293151867709,
+    "precio_si": 50.63303259170916,
+    "d_ponderado": -0.7906089209938258,
+    "d_precio_si": -0.470518384258348
+   },
+   "SRF·T1.00": {
+    "ponderado": 61.30934207479102,
+    "precio_si": 54.892863571112336,
+    "d_ponderado": -0.790608920993833,
+    "d_precio_si": -0.470518384258348
+   }
+  }
+ },
+ "controles": {
+  "replica_4_8": true,
+  "motor_reproduce_4_8": true,
+  "referencias_externas_RF2": true,
+  "descomposicion_cierra": true,
+  "identidad_fcf": true,
+  "credito_solo_en_H": true,
+  "srf_con_rho_cero_es_S": true,
+  "srf_fila_a_fila": true
+ },
+ "cruce_con_la_4_8": {
+  "REF": true,
+  "P0": true,
+  "X41": true,
+  "P5x0": true,
+  "P1": true,
+  "P5": true,
+  "P1s": true,
+  "H·L1.15=P1": true,
+  "H·L1.10=P1b": true,
+  "H·L1.25=P1a": true,
+  "H·T1.00=P5": true
+ },
+ "replica_4_8": {
+  "pm1_alternativas.csv": true,
+  "pm1_anio_a_anio.csv": true,
+  "pm1_conciliacion_anual.csv": true,
+  "pm1_evidencia.json": true,
+  "pm1_resultados.json": true,
+  "pm1_salida.txt": true,
+  "pm1_segmentos.csv": true
+ }
+}

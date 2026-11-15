@@ -1,0 +1,3879 @@
+{
+ "generado_por": "n4_investigacion.py (entrega 4.9)",
+ "referencia": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_6_1/Vidrala",
+ "libro_sha256": "1020bb53643d47cb466dd520970b0e0da4499e784d03cf6c8d23ee9cd2e5431b",
+ "fase1_v63_sha256": "8afd98798895026ec8543b9626346086b5a5c913e41f14fc36508725baab8b0b",
+ "recuento": {
+  "pendientes_en_fase1_v63": 38,
+  "ceros_heredados_csv_vidrala": 39,
+  "en_csv_y_no_pendientes": [
+   [
+    2023,
+    "adquisiciones"
+   ]
+  ],
+  "pendientes_no_en_csv": [],
+  "por_partida": {
+   "adquisiciones": 5,
+   "intereses_financiacion": 10,
+   "arrendamientos_principal": 2,
+   "arrendamientos": 1,
+   "minoritarios": 10,
+   "otros_activos_financieros": 10
+  },
+  "con_fila_en_la_historia": 28,
+  "auxiliares_sin_fila": 10,
+  "celdas_marcadas_dato_no_verificable_en_el_libro": [
+   "Análisis!C48",
+   "Historia!C13:L13",
+   "Historia!C16:L16",
+   "Historia!C17:L17",
+   "Historia!C23:L23",
+   "Historia!C26:L26"
+  ],
+  "explicacion": "El recuento real es 38 (fase1_v63.json → pendientes_verificacion), igual al del encargo. ceros_heredados_H1.csv tiene 39 entradas de Vidrala: la 39.ª (adquisiciones, AR_2023.json, columna 2022) no se usa en la Historia porque la sustituye el comparativo del informe siguiente (usado_en_historia = «no (lo sustituye el comparativo del informe siguiente)»). De las 38, 28 alimentan cinco filas de la Historia (13, 16, 17, 23 y 26) y 10 son la partida auxiliar otros_activos_financieros, sin fila propia: solo contaría en la caja si fase1_metadatos.json lo declarara, y declara caja_incluye_otros_activos_financieros = False. Análisis!C48 no es un cero propio: es la media 2023–2025 de intereses_financiacion (fase1_historia.DEP_ANALISIS), y hereda su estado."
+ },
+ "cobertura": {
+  "investigadas": 38,
+  "respaldadas_clase_1_o_2": 35,
+  "de_ellas_con_reserva": 8,
+  "no_aplicables_clase_4": 3,
+  "sin_evidencia_suficiente_clase_3": 0,
+  "discrepantes_clase_5": 0,
+  "por_clase": {
+   "1": 0,
+   "2": 35,
+   "3": 0,
+   "4": 3,
+   "5": 0
+  },
+  "aviso": "Cobertura documental de la IA. No es una confirmación humana (ningún cero cambia de estado en el pipeline) ni un porcentaje de fiabilidad para invertir."
+ },
+ "efectos": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_9/n4/efectos/efectos_n4.json",
+ "matriz": [
+  {
+   "id": "N4-adquisiciones-2018",
+   "partida": "adquisiciones",
+   "concepto": "Adquisiciones netas (positivo)",
+   "anio": 2018,
+   "celda": "Historia!E13",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2018.json → partidas.adquisiciones.cero",
+    "texto": "texto/CF_2018.txt",
+    "pagina_pdf": 13,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1291_en-2018_consolidated_financial_information.pdf",
+    "pdf_sha256": "907687f9e3f05df84099fdf84638ba64ea643373d8bd1958cba1af5732308492",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Acquisition of a subsidiary, net of the cash acquired (235,233)",
+   "motivo_extraccion": "Sin importe 2018 en la linea 'Acquisition of a subsidiary' del flujo; el neto de inversion (101,773) se explica sin ella",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_inversion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -101773.0,
+      -324007.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [
+      {
+       "linea": "Acquisition of a subsidiary, net of the cash acquired (235,233)",
+       "importe": -235233.0,
+       "columna": "anterior"
+      }
+     ],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from investing activities",
+      "Proceeds from sale of property, plant and equipment (99,541) -",
+      "Acquisition of property, plant and equipment (2,245) (86,479)",
+      "Acquisition of intangible assets 13 (2,541)",
+      "Acquisition of financial assets - 246",
+      "Acquisition of a subsidiary, net of the cash acquired (235,233)",
+      "Net cash used in investing activities (101,773) (324,007)"
+     ]
+    },
+    "linea_adquisiciones_un_importe": [
+     {
+      "linea": "Acquisition of a subsidiary, net of the cash acquired (235,233)",
+      "importe": -235233.0,
+      "columna": "anterior"
+     }
+    ],
+    "linea_adquisiciones_dos_importes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El bloque de inversión de 2018 cuadra de forma completa en las dos columnas (5 líneas = total -101.773 / -324.007) sin importe de adquisiciones en 2018: la única línea de adquisición del estado tiene un importe que solo cuadra en la columna comparativa (-235.233). Cero por diferencia. Aviso de la extracción: en el texto inglés los rótulos de este bloque están desplazados respecto de los importes (p. ej. «Proceeds from sale of property, plant and equipment» con el pago de inmovilizado); el cuadre no depende de los rótulos.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo = compras netas; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2018 del informe 2019 (p. 12): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "medias de la Historia (reinversión histórica) sin efecto numérico en las salidas medidas; regla de tipos",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "E13_I13_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-adquisiciones-2019",
+   "partida": "adquisiciones",
+   "concepto": "Adquisiciones netas (positivo)",
+   "anio": 2019,
+   "celda": "Historia!F13",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2019.json → partidas.adquisiciones.cero",
+    "texto": "texto/CF_2019.txt",
+    "pagina_pdf": 12,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1297_en-2019_consolidated_financial_information.pdf",
+    "pdf_sha256": "9c38b260482bb501673b0bb1a0382846405fb4d4ee636d668a4e5ed64814a6c3",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Net cash used in investing activities (107,169) (101,773)",
+   "motivo_extraccion": "El estado de flujos no tiene linea de adquisiciones ni ventas de negocios; inversion solo en inmovilizado (suma = total de actividades de inversion).",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_inversion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -107169.0,
+      -101773.0
+     ],
+     "n_lineas": 3,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from investing activities",
+      "Proceeds from sale of property, plant and equipment (103,622) (99,541)",
+      "Acquisition of property, plant and equipment (3,547) (2,245)",
+      "Acquisition of intangible assets - 13",
+      "Net cash used in investing activities (107,169) (101,773)"
+     ]
+    },
+    "linea_adquisiciones_un_importe": [],
+    "linea_adquisiciones_dos_importes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El bloque de inversión de 2019 cuadra de forma completa en las dos columnas (3 líneas = total -107.169 / -101.773) sin importe de adquisiciones en 2019; no hay línea de adquisiciones. Cero por diferencia. Aviso de la extracción: en el texto inglés los rótulos de este bloque están desplazados respecto de los importes (p. ej. «Proceeds from sale of property, plant and equipment» con el pago de inmovilizado); el cuadre no depende de los rótulos.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo = compras netas; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2019 del informe 2020 (p. 13): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "medias de la Historia (reinversión histórica) sin efecto numérico en las salidas medidas; regla de tipos",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "E13_I13_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-adquisiciones-2020",
+   "partida": "adquisiciones",
+   "concepto": "Adquisiciones netas (positivo)",
+   "anio": 2020,
+   "celda": "Historia!G13",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2020.json → partidas.adquisiciones.cero",
+    "texto": "texto/CF_2020.txt",
+    "pagina_pdf": 13,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1304_en-2020_consolidated_financial_information.pdf",
+    "pdf_sha256": "35264bc723624779682c504b9e7057f85aaf11b68600a7b351a128c08188b10e",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Net cash used in investing activities (134,248) (107,169)",
+   "motivo_extraccion": "El estado de flujos no tiene línea de adquisiciones ni ventas de negocios; las actividades de inversión son solo las dos líneas de inmovilizado",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_inversion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -134248.0,
+      -107169.0
+     ],
+     "n_lineas": 2,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from investing activities",
+      "Proceeds from sale of property, plant and equipment (132,117) (103,622)",
+      "Acquisition of property, plant and equipment (2,131) (3,547)",
+      "Net cash used in investing activities (134,248) (107,169)"
+     ]
+    },
+    "linea_adquisiciones_un_importe": [],
+    "linea_adquisiciones_dos_importes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El bloque de inversión de 2020 cuadra de forma completa en las dos columnas (2 líneas = total -134.248 / -107.169) sin importe de adquisiciones en 2020; no hay línea de adquisiciones. Cero por diferencia. Aviso de la extracción: en el texto inglés los rótulos de este bloque están desplazados respecto de los importes (p. ej. «Proceeds from sale of property, plant and equipment» con el pago de inmovilizado); el cuadre no depende de los rótulos.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo = compras netas; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2020 del informe 2021 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "medias de la Historia (reinversión histórica) sin efecto numérico en las salidas medidas; regla de tipos",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "E13_I13_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-adquisiciones-2021",
+   "partida": "adquisiciones",
+   "concepto": "Adquisiciones netas (positivo)",
+   "anio": 2021,
+   "celda": "Historia!H13",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2021.json → partidas.adquisiciones.cero",
+    "texto": "texto/CF_2021.txt",
+    "pagina_pdf": 7,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1413_en-2021_consolidated_financial_information.pdf",
+    "pdf_sha256": "2b966a4188615e6dfce4ee1051c2314c5faec9c272f27ea4525763a5f3958494",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Net cash used in investing activities (109,800) (134,248)",
+   "motivo_extraccion": "El estado de flujos de inversion solo tiene dos lineas de inmovilizado; no hay pagos ni cobros por adquisicion o venta de negocios",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_inversion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -109800.0,
+      -134248.0
+     ],
+     "n_lineas": 2,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from investing activities",
+      "Proceeds from sale of property, plant and equipment (107.604) (132,117)",
+      "Acquisition of property, plant and equipment (2,196) (2,131)",
+      "Net cash used in investing activities (109,800) (134,248)"
+     ]
+    },
+    "linea_adquisiciones_un_importe": [],
+    "linea_adquisiciones_dos_importes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El bloque de inversión de 2021 cuadra de forma completa en las dos columnas (2 líneas = total -109.800 / -134.248) sin importe de adquisiciones en 2021; no hay línea de adquisiciones. Cero por diferencia. Aviso de la extracción: en el texto inglés los rótulos de este bloque están desplazados respecto de los importes (p. ej. «Proceeds from sale of property, plant and equipment» con el pago de inmovilizado); el cuadre no depende de los rótulos.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo = compras netas; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2021 del informe 2022 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "medias de la Historia (reinversión histórica) sin efecto numérico en las salidas medidas; regla de tipos",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "E13_I13_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-adquisiciones-2022",
+   "partida": "adquisiciones",
+   "concepto": "Adquisiciones netas (positivo)",
+   "anio": 2022,
+   "celda": "Historia!I13",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2022.json → partidas.adquisiciones.cero",
+    "texto": "texto/CF_2022.txt",
+    "pagina_pdf": 7,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1668_en-2022_consolidated_financial_information.pdf",
+    "pdf_sha256": "180b3608c7e910a8010018bb40b33f0808ff1247170acef38c783d65aeb8382b",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Net cash used in investing activities (120,200) (109,800)",
+   "motivo_extraccion": "El estado de flujos de inversion solo tiene pagos de PP&E e intangibles; sin linea de adquisiciones ni ventas de negocios.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_inversion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -120200.0,
+      -109800.0
+     ],
+     "n_lineas": 2,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from investing activities",
+      "Payments from sale of property, plant and equipment (117,296) (107.604)",
+      "Payments from sale of other intangible assets (2,904) (2,196)",
+      "Net cash used in investing activities (120,200) (109,800)"
+     ]
+    },
+    "linea_adquisiciones_un_importe": [],
+    "linea_adquisiciones_dos_importes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El bloque de inversión de 2022 cuadra de forma completa en las dos columnas (2 líneas = total -120.200 / -109.800) sin importe de adquisiciones en 2022; no hay línea de adquisiciones. Cero por diferencia. Aviso de la extracción: en el texto inglés los rótulos de este bloque están desplazados respecto de los importes (p. ej. «Proceeds from sale of property, plant and equipment» con el pago de inmovilizado); el cuadre no depende de los rótulos.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo = compras netas; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2022 del informe 2023 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "medias de la Historia (reinversión histórica) sin efecto numérico en las salidas medidas; regla de tipos",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "E13_I13_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-intereses_financiacion-2016",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2016,
+   "celda": "Historia!C16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2016.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2016.txt",
+    "pagina_pdf": 9,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1279_en-2016_consolidated_financial_information.pdf",
+    "pdf_sha256": "53849fe52385ae7e62a0806bb4ba0e8f06c9fe0a6778cd335bd58b0e70940b7b",
+    "idioma_del_texto": "español"
+   },
+   "cita": "Pagos de intereses (9.776) (10.313)",
+   "motivo_extraccion": "Los pagos de intereses figuran en actividades de explotación; el bloque de financiación no tiene línea de intereses",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -118254.0,
+      338241.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Flujo de efectivo de actividades de financiación",
+      "Cobros procedentes de la emisión de acciones propias e instrumentos",
+      "de patrimonio propio 1.214 7.231",
+      "Cobros procedentes de las deudas con entidades de crédito 12.808 440.000",
+      "Pagos procedentes del rescate de acciones propias y otros instrumentos",
+      "de patrimonio propio (3.757) (6.498)",
+      "Pagos procedentes de las deudas con entidades de crédito (110.000) (89.492)",
+      "Dividendos pagados (18.519) (16.750)",
+      "Subvenciones, donaciones y legados recibidos - 3.750",
+      "Efectivo neto generado por actividades de financiación (118.254) 338.241"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Pagos de intereses (9.776) (10.313)",
+      [
+       -9776.0,
+       -10313.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": "no procede",
+     "explicacion": "sin arrendamientos en balance (2016: solo operativos, a gasto; 2017: ninguno)"
+    }
+   },
+   "reserva": null,
+   "explicacion": "Los intereses pagados de 2016 (-9.776 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (6 líneas = total -118.254 / 338.241) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2016 del informe 2017 (p. 14): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-intereses_financiacion-2017",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2017,
+   "celda": "Historia!D16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2017.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2017.txt",
+    "pagina_pdf": 14,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1285_en-2017_consolidated_financial_information.pdf",
+    "pdf_sha256": "da068c8b28642e59bfc498893b46b3a853a8a1c4707522d39fa4f4b5d4bac6ae",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (7,230) (9,776)",
+   "motivo_extraccion": "Intereses pagados figuran en actividades de explotacion",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      167382.0,
+      -118254.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from issue of treasury shares and own equity instruments 3,170 1,214",
+      "Proceeds from loans and borrowings 201,268 12,808",
+      "Payments to redeem own shares and other own equity instruments (3,529) (3,757)",
+      "Payments of loans and borrowings (13,700) (110,000)",
+      "Dividends paid (19,827) (18,519)",
+      "Net cash from/(used in) financing activities 167,382 (118,254)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (7,230) (9,776)",
+      [
+       -7230.0,
+       -9776.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": "no procede",
+     "explicacion": "sin arrendamientos en balance (2016: solo operativos, a gasto; 2017: ninguno)"
+    }
+   },
+   "reserva": null,
+   "explicacion": "Los intereses pagados de 2017 (-7.230 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total 167.382 / -118.254) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2017 del informe 2018 (p. 13): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-intereses_financiacion-2018",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2018,
+   "celda": "Historia!E16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2018.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2018.txt",
+    "pagina_pdf": 13,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1291_en-2018_consolidated_financial_information.pdf",
+    "pdf_sha256": "907687f9e3f05df84099fdf84638ba64ea643373d8bd1958cba1af5732308492",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (7,917) (7,230)",
+   "motivo_extraccion": "Intereses pagados figuran en actividades de explotacion",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -120363.0,
+      167382.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from issue of treasury shares and own equity instruments 2,428 3,170",
+      "Proceeds from loans and borrowings 25,000 201,268",
+      "Payments to redeem own shares and other own equity instruments (2,852) (3,529)",
+      "Payments of loans and borrowings (121,155) (13,700)",
+      "Dividends paid (23,784) (19,827)",
+      "(120,363) 167,382",
+      "Net cash from/(used in) financing activities"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (7,917) (7,230)",
+      [
+       -7917.0,
+       -7230.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2018 (-7.917 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total -120.363 / 167.382) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2018 del informe 2019 (p. 12): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2019",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2019,
+   "celda": "Historia!F16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2019.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2019.txt",
+    "pagina_pdf": 12,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1297_en-2019_consolidated_financial_information.pdf",
+    "pdf_sha256": "9c38b260482bb501673b0bb1a0382846405fb4d4ee636d668a4e5ed64814a6c3",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (4,450) (7,917)",
+   "motivo_extraccion": "Los intereses pagados figuran en actividades de explotacion; el bloque de financiacion no los incluye.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -114057.0,
+      -120363.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from issue of treasury shares and own equity instruments - 2,428",
+      "Proceeds from loans and borrowings 41,698 25,000",
+      "Proceeds from other debts 15 100,000 -",
+      "Payments to redeem own shares and other own equity instruments 13 (16,512) (2,852)",
+      "Payments of loans and borrowings (211,772) (121,155)",
+      "Dividends paid 13 (27,471) (23,784)",
+      "(114,057) (120,363)",
+      "Net cash from/(used in) financing activities"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (4,450) (7,917)",
+      [
+       -4450.0,
+       -7917.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2019 (-4.450 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (6 líneas = total -114.057 / -120.363) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2019 del informe 2020 (p. 13): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2020",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2020,
+   "celda": "Historia!G16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2020.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2020.txt",
+    "pagina_pdf": 13,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1304_en-2020_consolidated_financial_information.pdf",
+    "pdf_sha256": "35264bc723624779682c504b9e7057f85aaf11b68600a7b351a128c08188b10e",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (5,279) (4,450)",
+   "motivo_extraccion": "Los intereses pagados figuran en actividades de explotación",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -55722.0,
+      -114057.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 15 10,000 41,698",
+      "Proceeds from other debts 15 50,000 100,000",
+      "Payments to redeem own shares and other own equity instruments 13 (6,191) (16,512)",
+      "Payments of loans and borrowings (78,033) (211,772)",
+      "Dividends paid 13 (31,498) (27,471)",
+      "Net cash from/(used in) financing activities (55,722) (114,057)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (5,279) (4,450)",
+      [
+       -5279.0,
+       -4450.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2020 (-5.279 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total -55.722 / -114.057) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2020 del informe 2021 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2021",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2021,
+   "celda": "Historia!H16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2021.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2021.txt",
+    "pagina_pdf": 7,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1413_en-2021_consolidated_financial_information.pdf",
+    "pdf_sha256": "2b966a4188615e6dfce4ee1051c2314c5faec9c272f27ea4525763a5f3958494",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (3,260) (5,279)",
+   "motivo_extraccion": "Intereses pagados figuran en actividades de explotacion; financiacion no tiene linea de intereses",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -122587.0,
+      -55722.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 15 25,000 10,000",
+      "Proceeds from other debts 15 - 50,000",
+      "Payments to redeem own shares and other own equity instruments 13 (1,567) (6,191)",
+      "Payments of loans and borrowings (28,043) (78,033)",
+      "Payments from other debts (85,000) -",
+      "Dividends paid 13 (32,977) (31,498)",
+      "Net cash from/(used in) financing activities (122,587) (55,722)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (3,260) (5,279)",
+      [
+       -3260.0,
+       -5279.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2021 (-3.260 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (6 líneas = total -122.587 / -55.722) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2021 del informe 2022 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2022",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2022,
+   "celda": "Historia!I16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2022.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2022.txt",
+    "pagina_pdf": 7,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1668_en-2022_consolidated_financial_information.pdf",
+    "pdf_sha256": "180b3608c7e910a8010018bb40b33f0808ff1247170acef38c783d65aeb8382b",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (4,070) (3,260)",
+   "motivo_extraccion": "Los intereses pagados figuran en actividades de explotacion; financiacion no tiene linea de intereses.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -435.0,
+      -122587.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 15 112,500 25,000",
+      "Payments to redeem own shares and other own equity instruments 13 (31,765) (1,567)",
+      "Payments of loans and borrowings (24,500) (28,043)",
+      "Payments from other debts 13 (22,063) (85,000)",
+      "Dividends paid 13 (34,607) (32,977)",
+      "Net cash from/(used in) financing activities (435) (122,587)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (4,070) (3,260)",
+      [
+       -4070.0,
+       -3260.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2022 (-4.070 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total -435 / -122.587) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2022 del informe 2023 (p. 7): no comprobable por una errata del texto (Proceeds from loans and borrowings 16 257,877 112,5000 (columna anterior)), sin línea de intereses: no la contradice",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": null,
+   "dependencias": "solo la regla de tipos de Historia C5:L26: ninguna fórmula ni media de Análisis usa ese año",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "fila16_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2023",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2023,
+   "celda": "Historia!J16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2023.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2023.txt",
+    "pagina_pdf": 7,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_1831_descarga_2026-11-08/1831_en-2023_consolidated_financial_information.pdf",
+    "pdf_sha256": "8f88818c624bc253d99ca92eed47dc1639bd77e1d76ba7924fcb5fb89aab195d",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (12,320) (4,070)",
+   "motivo_extraccion": "Intereses pagados figuran en actividades de explotacion",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": false,
+     "actual_cuadra": true,
+     "anterior_cuadra": false,
+     "total": [
+      69826.0,
+      -435.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [
+      {
+       "linea": "Proceeds from loans and borrowings 16 257,877 112,5000",
+       "columna": "anterior"
+      }
+     ],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 16 257,877 112,5000",
+      "Payments to redeem own shares and other own equity instruments 14 - (31,765)",
+      "Payments of loans and borrowings (4,500) (24,500)",
+      "Payments from other debts 14 (146,000) (22,063)",
+      "Dividends paid 14 (37,551) (34,607)",
+      "Net cash from/(used in) financing activities 69,826 (435)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (12,320) (4,070)",
+      [
+       -12320.0,
+       -4070.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 14,
+     "columna": "comparativa 2023 del informe 2024",
+     "cuadre_financiacion": true,
+     "total_financiacion": [
+      -410796.0,
+      69826.0
+     ],
+     "lineas_intereses_en_financiacion": [],
+     "intereses_pagados_en_explotacion": [
+      [
+       "Pagos de intereses (32.100) (12.320)",
+       [
+        -32100.0,
+        -12320.0
+       ]
+      ]
+     ],
+     "rotulos_no_reconocidos": []
+    }
+   },
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2023 (-12.320 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total 69.826 / -435) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia. La columna comparativa de este estado tiene una errata del texto (Proceeds from loans and borrowings 16 257,877 112,5000 (columna anterior)): el cuadre que acredita el cero es el de la columna 2023. Igual en la versión española (prevalece), en la columna comparativa 2023 del informe 2024.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2023 del informe 2024 (p. 7): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "Análisis!C48 = media 2023–2025 (valor escrito por la fase 1, fase1_historia.DEP_ANALISIS) → C52 FCF base normalizado → f (Historia!C58/C80, Diagnóstico V6!C12), su control de rango (C50), precio ÷ FCF (Diagnóstico V6!B65/D65) y el disparador de quiebra de referencias_mecanicas.py; NO entra en la valoración del motor B",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C48_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": -1.0,
+     "f (Diagnóstico V6!C12)": 0.00067,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false,
+    "hipotesis_C48": {
+     "H_C48_int_arrend": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -2.254,
+      "f (Diagnóstico V6!C12)": 0.001509,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     },
+     "H_C48_doble_computo": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -21.74,
+      "f (Diagnóstico V6!C12)": 0.014555,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     }
+    }
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2024",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2024,
+   "celda": "Historia!K16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2024.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2024.txt",
+    "pagina_pdf": 7,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_2145_descarga_2026-11-08/2145_en-2024_consolidated_financial_information.pdf",
+    "pdf_sha256": "c2d4c12ea89ad43896b05f2645c289bf4d37fb9ef0ee98c10aa9836c0b4f1325",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (32,100) (12,320)",
+   "motivo_extraccion": "Los intereses pagados figuran en actividades de explotacion; el bloque de financiacion no tiene linea de intereses",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -410796.0,
+      69826.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 16 229,495 257,877",
+      "Payments to redeem own shares and other own equity instruments 14 (31,122) -",
+      "Payments of loans and borrowings (201,931) (4,500)",
+      "Payments from other debts 14 (233,300) (146,000)",
+      "Dividends paid 14 (173,938) (37,551)",
+      "Net cash from/(used in) financing activities (410,796) 69,826"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (32,100) (12,320)",
+      [
+       -32100.0,
+       -12320.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 14,
+     "columna": "del año",
+     "cuadre_financiacion": true,
+     "total_financiacion": [
+      -410796.0,
+      69826.0
+     ],
+     "lineas_intereses_en_financiacion": [],
+     "intereses_pagados_en_explotacion": [
+      [
+       "Pagos de intereses (32.100) (12.320)",
+       [
+        -32100.0,
+        -12320.0
+       ]
+      ]
+     ],
+     "rotulos_no_reconocidos": []
+    },
+    "esef_2025": {
+     "InterestPaidClassifiedAsOperatingActivities": 32100.0,
+     "InterestPaidClassifiedAsFinancingActivities": null,
+     "CashFlowsFromUsedInFinancingActivities": -410796.0,
+     "zip_sha256": "14264d1f0a07f1bc3c7273450e393ddbe0587855293b487447319dcd1c7bde90"
+    }
+   },
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2024 (-32.100 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (5 líneas = total -410.796 / 69.826) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia. Igual en la versión española (prevalece) y en el ESEF 2025 (solo InterestPaidClassifiedAsOperatingActivities; ningún hecho de intereses en financiación).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "columna comparativa 2024 del informe 2025 (p. 7): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "Análisis!C48 = media 2023–2025 (valor escrito por la fase 1, fase1_historia.DEP_ANALISIS) → C52 FCF base normalizado → f (Historia!C58/C80, Diagnóstico V6!C12), su control de rango (C50), precio ÷ FCF (Diagnóstico V6!B65/D65) y el disparador de quiebra de referencias_mecanicas.py; NO entra en la valoración del motor B",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C48_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": -1.0,
+     "f (Diagnóstico V6!C12)": 0.00067,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false,
+    "hipotesis_C48": {
+     "H_C48_int_arrend": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -2.254,
+      "f (Diagnóstico V6!C12)": 0.001509,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     },
+     "H_C48_doble_computo": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -21.74,
+      "f (Diagnóstico V6!C12)": 0.014555,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     }
+    }
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-intereses_financiacion-2025",
+   "partida": "intereses_financiacion",
+   "concepto": "Intereses pagados en financiación (IFRS)",
+   "anio": 2025,
+   "celda": "Historia!L16",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2025.json → partidas.intereses_financiacion.cero",
+    "texto": "texto/CF_2025.txt",
+    "pagina_pdf": 7,
+    "pdf": "contrastes/piloto_Vidrala_2025/fuentes/en_2355_descarga_2026-11-08/2355_en-2025_consolidated_financial_information.pdf",
+    "pdf_sha256": "c548c2fac0418d8ccf5e167fc1c931377b596d64338ee10c4b4a2b1db0d54ae4",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Interest paid (20,800) (32,100)",
+   "motivo_extraccion": "Los intereses pagados figuran en actividades de explotacion; financiacion no tiene linea de intereses",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -183526.0,
+      -410796.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from loans and borrowings 16 2,626 229,495",
+      "Proceeds from other debts 219,500 -",
+      "Payments to redeem own shares and other own equity instruments 14 (1,294) (31,122)",
+      "Payments of loans and borrowings (125,259) (201,931)",
+      "Payments from other debts 14 (227,266) (233,300)",
+      "Dividends paid 14 (51,833) (173,938)",
+      "Net cash from/(used in) financing activities (183,526) (410,796)"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (20,800) (32,100)",
+      [
+       -20800.0,
+       -32100.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/piloto_Vidrala_2025/fuentes/es_2308_descarga_2026-11-08/2308_es-informacion_financiera_consolidada_2025.pdf",
+     "pdf_sha256": "29fd6a299d37270279195e8eb194820869a1bb2c513dd6a646963034698f14e7",
+     "pagina": 14,
+     "columna": "del año",
+     "cuadre_financiacion": true,
+     "total_financiacion": [
+      -183526.0,
+      -410796.0
+     ],
+     "lineas_intereses_en_financiacion": [],
+     "intereses_pagados_en_explotacion": [
+      [
+       "Pagos de intereses (20.800) (32.100)",
+       [
+        -20800.0,
+        -32100.0
+       ]
+      ]
+     ],
+     "rotulos_no_reconocidos": []
+    },
+    "esef_2025": {
+     "InterestPaidClassifiedAsOperatingActivities": 20800.0,
+     "InterestPaidClassifiedAsFinancingActivities": null,
+     "CashFlowsFromUsedInFinancingActivities": -183526.0,
+     "zip_sha256": "14264d1f0a07f1bc3c7273450e393ddbe0587855293b487447319dcd1c7bde90"
+    }
+   },
+   "clasificacion": 2,
+   "componentes": {
+    "intereses_de_deudas": {
+     "clasificacion": 2,
+     "explicacion": "en explotación («Interest paid» / «Pagos de intereses»); el bloque de financiación cuadra sin línea de intereses"
+    },
+    "intereses_de_arrendamientos": {
+     "clasificacion": 3,
+     "explicacion": "no consta en qué línea del estado de flujos están (contraste 4.2, INFORME_2023_Y_ARRENDAMIENTOS.md: «No consta»; el ESEF etiqueta el total de «Pagos de intereses» sin desglose). Por NIIF 16.50 b) seguirían la política de intereses (explotación), pero es una inferencia normativa, no un dato publicado"
+    }
+   },
+   "reserva": "componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos",
+   "explicacion": "Los intereses pagados de 2025 (-20.800 miles) están en explotación, dentro del CFO. El bloque de financiación cuadra de forma completa (6 líneas = total -183.526 / -410.796) y no tiene ninguna línea de intereses: la parte en financiación es 0 por diferencia. Igual en la versión española (prevalece) y en el ESEF 2025 (solo InterestPaidClassifiedAsOperatingActivities; ningún hecho de intereses en financiación).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "la plantilla resta C48 en positivo: un 0 no tiene signo",
+    "periodo_y_comparativa": "último ejercicio (2025): sin informe siguiente; contraste con la versión española y el ESEF",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "Análisis!C48 = media 2023–2025 (valor escrito por la fase 1, fase1_historia.DEP_ANALISIS) → C52 FCF base normalizado → f (Historia!C58/C80, Diagnóstico V6!C12), su control de rango (C50), precio ÷ FCF (Diagnóstico V6!B65/D65) y el disparador de quiebra de referencias_mecanicas.py; NO entra en la valoración del motor B",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C48_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": -1.0,
+     "f (Diagnóstico V6!C12)": 0.00067,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false,
+    "hipotesis_C48": {
+     "H_C48_int_arrend": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -2.254,
+      "f (Diagnóstico V6!C12)": 0.001509,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     },
+     "H_C48_doble_computo": {
+      "MALO (Análisis!B78)": 0.0,
+      "NORMAL (Análisis!C78)": 0.0,
+      "BUENO (Análisis!D78)": 0.0,
+      "ponderado (Análisis!C83)": 0.0,
+      "puente (Diagnóstico V6!C16)": 0.0,
+      "FCF simplificado (Análisis!C52)": -21.74,
+      "f (Diagnóstico V6!C12)": 0.014555,
+      "control de rango de f (Diagnóstico V6!C50)": null,
+      "estado técnico (Motor!B255)": null,
+      "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+     }
+    }
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace; reserva: componente de arrendamientos no acreditado (ligado a P3 y a Análisis!C49): no cambia el cero de los intereses de deudas; ver la hipótesis de C48 en la sección de efectos"
+  },
+  {
+   "id": "N4-arrendamientos_principal-2016",
+   "partida": "arrendamientos_principal",
+   "concepto": "Principal de arrendamientos (IFRS 16)",
+   "anio": 2016,
+   "celda": "Historia!C17",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2016.json → partidas.arrendamientos_principal.cero",
+    "texto": "texto/CF_2016.txt",
+    "pagina_pdf": 9,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1279_en-2016_consolidated_financial_information.pdf",
+    "pdf_sha256": "53849fe52385ae7e62a0806bb4ba0e8f06c9fe0a6778cd335bd58b0e70940b7b",
+    "idioma_del_texto": "español"
+   },
+   "cita": "Flujo de efectivo de actividades de financiación",
+   "motivo_extraccion": "Informe previo a NIIF 16: sin pasivos por arrendamiento; el estado de flujos de financiación no tiene línea de pagos de arrendamiento",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -118254.0,
+      338241.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Flujo de efectivo de actividades de financiación",
+      "Cobros procedentes de la emisión de acciones propias e instrumentos",
+      "de patrimonio propio 1.214 7.231",
+      "Cobros procedentes de las deudas con entidades de crédito 12.808 440.000",
+      "Pagos procedentes del rescate de acciones propias y otros instrumentos",
+      "de patrimonio propio (3.757) (6.498)",
+      "Pagos procedentes de las deudas con entidades de crédito (110.000) (89.492)",
+      "Dividendos pagados (18.519) (16.750)",
+      "Subvenciones, donaciones y legados recibidos - 3.750",
+      "Efectivo neto generado por actividades de financiación (118.254) 338.241"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Pagos de intereses (9.776) (10.313)",
+      [
+       -9776.0,
+       -10313.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "notas_arrendamientos_2016": [
+     [
+      {
+       "pagina": 21,
+       "contexto": "iene cedido el derecho de uso de determinados activos bajo contratos de arrendamiento. • Arrendamientos operativos Las cuotas derivadas de los arrendamientos operativos, netas de los incentivos recibidos, se reconocen como gasto de forma lineal durante el plazo del arrendamiento. (g)"
+      }
+     ]
+    ]
+   },
+   "contrastes": {},
+   "clasificacion": 4,
+   "explicacion": "Ejercicio anterior a la NIIF 16 (en vigor desde 2019): el concepto «principal de arrendamientos NIIF 16» no existe. Los arrendamientos eran operativos (nota 3 f: «Las cuotas derivadas de los arrendamientos operativos … se reconocen como gasto»), así que su pago está dentro del CFO; no hay arrendamientos financieros. El bloque de financiación cuadra sin línea de arrendamientos (6 líneas = -118.254 / 338.241). No es un cero publicado ni derivado: es un concepto no aplicable, cuya representación numérica en la plantilla (0, coherente con un CFO que ya descuenta las cuotas) es una decisión, no un hecho. Decisión registrada en fase1_decisiones.json, sin fecha ni firma en el archivo: arrendamientos_principal 2017 = 0 («antes de NIIF 16»).",
+   "valor_propuesto": "no aplicable (representación numérica 0 a decidir)",
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo en la plantilla; 0 sin signo",
+    "periodo_y_comparativa": "partida sin comparativa útil (concepto no aplicable o NIC 17)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "solo la regla de tipos (Análisis!C49 es la media 2023–2025, que no usa 2016 ni 2018)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {
+     "2017": {
+      "valor_mm": 0.0,
+      "fuente": "antes de NIIF 16: sin pasivos por arrendamiento NIIF 16"
+     }
+    },
+    "con_fecha_y_firma": [],
+    "regla_registrada": "Arrendamientos = solo pasivos NIIF 16. Los arrendamientos financieros que no son NIIF 16 (leasing de maquinaria de dic-2018; sale & leaseback de 2022, «Finance Lease - Others») van en deuda, como hace la propia Vidrala desde 2024. Importes de las notas de deuda; la suma deuda + arrendamientos no cambia.",
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C17_E17_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "sin valor documentado alternativo",
+    "material": false
+   },
+   "carencia_o_decision": "decisión de la persona responsable: extender a este año la representación como 0 que ya tienen las decisiones registradas de 2017–2018 (sin fecha ni firma en el archivo; conviene confirmarlas si se quiere apoyar en ellas), coherente con la definición de la plantilla y con la regla «Arrendamientos = solo pasivos NIIF 16», o dejarlo vacío (= desconocido)"
+  },
+  {
+   "id": "N4-arrendamientos_principal-2018",
+   "partida": "arrendamientos_principal",
+   "concepto": "Principal de arrendamientos (IFRS 16)",
+   "anio": 2018,
+   "celda": "Historia!E17",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2018.json → partidas.arrendamientos_principal.cero",
+    "texto": "texto/CF_2018.txt",
+    "pagina_pdf": 13,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1291_en-2018_consolidated_financial_information.pdf",
+    "pdf_sha256": "907687f9e3f05df84099fdf84638ba64ea643373d8bd1958cba1af5732308492",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash flows from financing activities",
+   "motivo_extraccion": "El flujo de financiacion no tiene linea de pago de arrendamientos (arrendamiento financiero 2018 sin flujo de principal)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_financiacion": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      -120363.0,
+      167382.0
+     ],
+     "n_lineas": 5,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Cash flows from financing activities",
+      "Proceeds from issue of treasury shares and own equity instruments 2,428 3,170",
+      "Proceeds from loans and borrowings 25,000 201,268",
+      "Payments to redeem own shares and other own equity instruments (2,852) (3,529)",
+      "Payments of loans and borrowings (121,155) (13,700)",
+      "Dividends paid (23,784) (19,827)",
+      "(120,363) 167,382",
+      "Net cash from/(used in) financing activities"
+     ]
+    },
+    "lineas_intereses_en_financiacion": [],
+    "lineas_arrendamientos_en_financiacion": [],
+    "intereses_pagados_en_explotacion": [
+     [
+      "Interest paid (7,917) (7,230)",
+      [
+       -7917.0,
+       -7230.0
+      ]
+     ]
+    ],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {},
+   "clasificacion": 4,
+   "condiciones_clase_4": {
+    "anterior_a_niif16": true,
+    "financiacion_cuadra_sin_arrendamientos": true,
+    "finance_lease_40916_en_AR_2018": true,
+    "regla_registrada": true,
+    "deuda_2018_registrada_433_767_igual_a_Historia_E22": true
+   },
+   "explicacion": "Ejercicio anterior a la NIIF 16 (aplicada desde 2019 sin reexpresar): el concepto «principal de arrendamientos NIIF 16» no existe. Existía un arrendamiento financiero de NIC 17: la nota 15 de 2018 (p. 57) muestra un «Finance Lease» de 40.916 no corriente y «-» corriente, nacido en 2018. La regla registrada en fase1_decisiones.json (_regla: «Arrendamientos = solo pasivos NIIF 16. Los arrendamientos financieros que no son NIIF 16 (leasing de maquinaria de dic-2018 …) van en deuda») lo lleva a la deuda (decisión registrada deuda 2018 = 433,767, que incluye los 40.916) y deja arrendamientos 2018 = 0; por coherencia, cualquier pago de su principal corresponde a la deuda, no a la fila 17 (en el estado de flujos solo podría estar en «Payments of loans and borrowings», 121.155, que no lo separa). El bloque de financiación cuadra sin línea de arrendamientos (5 líneas = -120.363 / 167.382). Decisión registrada (sin fecha ni firma): arrendamientos_principal 2017 = 0 («antes de NIIF 16»). Concepto no aplicable bajo esa regla; su representación numérica (0, como en 2017) es una decisión, no un dato publicado.",
+   "valor_propuesto": "no aplicable (representación numérica 0 a decidir, como la decisión registrada de 2017)",
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "positivo en la plantilla; 0 sin signo",
+    "periodo_y_comparativa": "partida sin comparativa útil (concepto no aplicable o NIC 17)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "solo la regla de tipos (Análisis!C49 es la media 2023–2025, que no usa 2016 ni 2018)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {
+     "2017": {
+      "valor_mm": 0.0,
+      "fuente": "antes de NIIF 16: sin pasivos por arrendamiento NIIF 16"
+     }
+    },
+    "con_fecha_y_firma": [],
+    "regla_registrada": "Arrendamientos = solo pasivos NIIF 16. Los arrendamientos financieros que no son NIIF 16 (leasing de maquinaria de dic-2018; sale & leaseback de 2022, «Finance Lease - Others») van en deuda, como hace la propia Vidrala desde 2024. Importes de las notas de deuda; la suma deuda + arrendamientos no cambia.",
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C17_E17_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "sin valor documentado alternativo",
+    "material": false
+   },
+   "carencia_o_decision": "decisión de la persona responsable: extender a este año la representación como 0 que ya tienen las decisiones registradas de 2017–2018 (sin fecha ni firma en el archivo; conviene confirmarlas si se quiere apoyar en ellas), coherente con la definición de la plantilla y con la regla «Arrendamientos = solo pasivos NIIF 16», o dejarlo vacío (= desconocido)"
+  },
+  {
+   "id": "N4-arrendamientos-2016",
+   "partida": "arrendamientos",
+   "concepto": "Pasivo por arrendamientos",
+   "anio": 2016,
+   "celda": "Historia!C23",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2016.json → partidas.arrendamientos.cero",
+    "texto": "texto/CF_2016.txt",
+    "pagina_pdf": 5,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1279_en-2016_consolidated_financial_information.pdf",
+    "pdf_sha256": "53849fe52385ae7e62a0806bb4ba0e8f06c9fe0a6778cd335bd58b0e70940b7b",
+    "idioma_del_texto": "español"
+   },
+   "cita": "Pasivos financieros con entidades de crédito 15 310.288 415.832",
+   "motivo_extraccion": "Informe previo a NIIF 16; el balance no tiene pasivos por arrendamiento (solo arrendamientos operativos con cuota a gasto, nota 3(f))",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_no_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      406781.0,
+      508910.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Pasivos no corrientes",
+      "Ingresos diferidos 14 31.535 33.663",
+      "Pasivos financieros con entidades de crédito 15 310.288 415.832",
+      "Instrumentos financieros derivados 8 5.263 5.638",
+      "Pasivos por impuestos diferidos 9 47.866 47.402",
+      "Provisiones 19 10.684 3.771",
+      "Otros pasivos no corrientes 1.145 2.604",
+      "406.781 508.910"
+     ]
+    },
+    "cuadre_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      214528.0,
+      214757.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Pasivos corrientes",
+      "Pasivos financieros con entidades de crédito 15 12.402 4.050",
+      "Instrumentos financieros derivados 8 50 6.399",
+      "Acreedores comerciales y otras cuentas a pagar 16 174.506 167.721",
+      "Pasivos por impuestos sobre las ganancias corrientes 5.188 7.039",
+      "Provisiones 19 1.071 -",
+      "Otros pasivos corrientes 12 21.311 29.548",
+      "214.528 214.757"
+     ]
+    },
+    "lineas_arrendamiento_en_pasivo": [],
+    "notas_arrendamientos": [
+     {
+      "pagina": 21,
+      "contexto": "iene cedido el derecho de uso de determinados activos bajo contratos de arrendamiento. • Arrendamientos operativos Las cuotas derivadas de los arrendamientos operativos, netas de los incentivos recibidos, se reconocen como gasto de forma lineal durante el plazo del arrendamiento. (g)"
+     }
+    ],
+    "menciones_arrendamiento_financiero": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 4,
+   "explicacion": "Ejercicio anterior a la NIIF 16: el «pasivo por arrendamientos (IFRS 16)» de la plantilla no existe. Los pasivos no corrientes y corrientes del balance 2016 cuadran con sus subtotales (406.781 / 508.910 y 214.528 / 214.757) sin ninguna línea de arrendamiento, y la nota 3 f solo describe arrendamientos operativos (a gasto). No hay arrendamientos financieros que estuvieran dentro de la deuda. Concepto no aplicable; su representación numérica (0) es una decisión, no un dato. Decisiones registradas en fase1_decisiones.json, sin fecha ni firma en el archivo: arrendamientos 2017 = 0 y 2018 = 0 («antes de NIIF 16»), con la regla «Arrendamientos = solo pasivos NIIF 16».",
+   "valor_propuesto": "no aplicable (representación numérica 0 a decidir)",
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "partida sin comparativa útil (concepto no aplicable o NIC 17)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "Historia!C64 solo usa el último año; regla de tipos; deuda media de C63 solo usa 2024–2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {
+     "2017": {
+      "valor_mm": 0.0,
+      "fuente": "CF_2018.txt p.57: antes de NIIF 16; Loans and borrowings 2017 = 476,265 + 11,554 sin línea de Finance Lease"
+     },
+     "2018": {
+      "valor_mm": 0.0,
+      "fuente": "antes de NIIF 16 (aplicada desde 2019 sin reexpresar, CF_2019.txt p.19)"
+     },
+     "2019": {
+      "valor_mm": 1.672,
+      "fuente": "CF_2019.txt p.19: pasivo NIIF 16 924 + 748"
+     },
+     "2020": {
+      "valor_mm": 1.303,
+      "fuente": "CF_2020.txt p.20: pasivo NIIF 16 1,303"
+     },
+     "2021": {
+      "valor_mm": 0.0,
+      "fuente": "CF_2021.txt p.58: pasivo NIIF 16 no separado del balance (derecho de uso 770 miles); queda dentro de la deuda: aproximación declarada"
+     },
+     "2022": {
+      "valor_mm": 2.346,
+      "fuente": "CF_2023.txt p.65: Finance Lease NIIF 16 2022 = 2,346"
+     }
+    },
+    "con_fecha_y_firma": [],
+    "regla_registrada": "Arrendamientos = solo pasivos NIIF 16. Los arrendamientos financieros que no son NIIF 16 (leasing de maquinaria de dic-2018; sale & leaseback de 2022, «Finance Lease - Others») van en deuda, como hace la propia Vidrala desde 2024. Importes de las notas de deuda; la suma deuda + arrendamientos no cambia.",
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C23_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "sin valor documentado alternativo",
+    "material": false
+   },
+   "carencia_o_decision": "decisión de la persona responsable: extender a este año la representación como 0 que ya tienen las decisiones registradas de 2017–2018 (sin fecha ni firma en el archivo; conviene confirmarlas si se quiere apoyar en ellas), coherente con la definición de la plantilla y con la regla «Arrendamientos = solo pasivos NIIF 16», o dejarlo vacío (= desconocido)"
+  },
+  {
+   "id": "N4-minoritarios-2016",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2016,
+   "celda": "Historia!C26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2016.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2016.txt",
+    "pagina_pdf": 5,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1279_en-2016_consolidated_financial_information.pdf",
+    "pdf_sha256": "53849fe52385ae7e62a0806bb4ba0e8f06c9fe0a6778cd335bd58b0e70940b7b",
+    "idioma_del_texto": "español"
+   },
+   "cita": "patrimonio neto de la dominante 474.934 476.536",
+   "motivo_extraccion": "El balance no tiene línea de participaciones no dominantes y el beneficio del ejercicio coincide con el atribuible a la dominante",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     474934.0,
+     476536.0
+    ],
+    "total_pasivo": [
+     621309.0,
+     723667.0
+    ],
+    "total_pn_y_pasivo": [
+     1096243.0,
+     1200203.0
+    ],
+    "resultado_ejercicio": [
+     67671.0,
+     60860.0
+    ],
+    "resultado_atribuido": [
+     67671.0,
+     60860.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [],
+    "n_menciones_nci": 0
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2016 (las dos columnas): patrimonio atribuido a la dominante 474.934 / 476.536 + total pasivo 621.309 / 723.667 = total patrimonio neto y pasivo 1.096.243 / 1.200.203; y de la cuenta de resultados: resultado del ejercicio 67.671 / 60.860 = atribuido a la dominante 67.671 / 60.860. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La memoria del texto no menciona intereses no dominantes.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2016 del informe 2017 (p. 10): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2017",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2017,
+   "celda": "Historia!D26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2017.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2017.txt",
+    "pagina_pdf": 10,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1285_en-2017_consolidated_financial_information.pdf",
+    "pdf_sha256": "da068c8b28642e59bfc498893b46b3a853a8a1c4707522d39fa4f4b5d4bac6ae",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 528,136 474,934",
+   "motivo_extraccion": "El patrimonio del balance solo incluye el atribuido a la dominante (total equity = 528,136); sin participaciones no dominantes",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     528136.0,
+     474934.0
+    ],
+    "total_pasivo": [
+     876763.0,
+     621309.0
+    ],
+    "total_pn_y_pasivo": [
+     1404899.0,
+     1096243.0
+    ],
+    "resultado_ejercicio": [
+     89146.0,
+     67671.0
+    ],
+    "resultado_atribuido": [
+     89146.0,
+     67671.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 25,
+      "contexto": "assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations"
+     }
+    ],
+    "n_menciones_nci": 1
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2017 (las dos columnas): patrimonio atribuido a la dominante 528.136 / 474.934 + total pasivo 876.763 / 621.309 = total patrimonio neto y pasivo 1.404.899 / 1.096.243; y de la cuenta de resultados: resultado del ejercicio 89.146 / 67.671 = atribuido a la dominante 89.146 / 67.671. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La única mención de intereses minoritarios o no dominantes de la memoria es de política contable (definición del fondo de comercio); no es un interés de terceros en el patrimonio de Vidrala (contexto en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2017 del informe 2018 (p. 9): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2018",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2018,
+   "celda": "Historia!E26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2018.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2018.txt",
+    "pagina_pdf": 9,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1291_en-2018_consolidated_financial_information.pdf",
+    "pdf_sha256": "907687f9e3f05df84099fdf84638ba64ea643373d8bd1958cba1af5732308492",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 609,998 528,136",
+   "motivo_extraccion": "Balance sin partida de participaciones no dominantes; todo el resultado y patrimonio atribuido a la dominante",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     609998.0,
+     528136.0
+    ],
+    "total_pasivo": [
+     797337.0,
+     876763.0
+    ],
+    "total_pn_y_pasivo": [
+     1407335.0,
+     1404899.0
+    ],
+    "resultado_ejercicio": [
+     115958.0,
+     89146.0
+    ],
+    "resultado_atribuido": [
+     115958.0,
+     89146.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 23,
+      "contexto": "d. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group. Go"
+     }
+    ],
+    "n_menciones_nci": 1
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2018 (las dos columnas): patrimonio atribuido a la dominante 609.998 / 528.136 + total pasivo 797.337 / 876.763 = total patrimonio neto y pasivo 1.407.335 / 1.404.899; y de la cuenta de resultados: resultado del ejercicio 115.958 / 89.146 = atribuido a la dominante 115.958 / 89.146. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La única mención de intereses minoritarios o no dominantes de la memoria es de política contable (definición del fondo de comercio); no es un interés de terceros en el patrimonio de Vidrala (contexto en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2018 del informe 2019 (p. 8): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2019",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2019,
+   "celda": "Historia!F26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2019.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2019.txt",
+    "pagina_pdf": 8,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1297_en-2019_consolidated_financial_information.pdf",
+    "pdf_sha256": "9c38b260482bb501673b0bb1a0382846405fb4d4ee636d668a4e5ed64814a6c3",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 723,359 609,998",
+   "motivo_extraccion": "El patrimonio del balance es todo atribuible a la dominante y el resultado se atribuye integramente a la dominante; sin participaciones no dominantes.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     723359.0,
+     609998.0
+    ],
+    "total_pasivo": [
+     734502.0,
+     797337.0
+    ],
+    "total_pn_y_pasivo": [
+     1457861.0,
+     1407335.0
+    ],
+    "resultado_ejercicio": [
+     143275.0,
+     115958.0
+    ],
+    "resultado_atribuido": [
+     143275.0,
+     115958.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 24,
+      "contexto": "d. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group. Go"
+     }
+    ],
+    "n_menciones_nci": 1
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2019 (las dos columnas): patrimonio atribuido a la dominante 723.359 / 609.998 + total pasivo 734.502 / 797.337 = total patrimonio neto y pasivo 1.457.861 / 1.407.335; y de la cuenta de resultados: resultado del ejercicio 143.275 / 115.958 = atribuido a la dominante 143.275 / 115.958. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La única mención de intereses minoritarios o no dominantes de la memoria es de política contable (definición del fondo de comercio); no es un interés de terceros en el patrimonio de Vidrala (contexto en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2019 del informe 2020 (p. 9): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2020",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2020,
+   "celda": "Historia!G26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2020.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2020.txt",
+    "pagina_pdf": 9,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1304_en-2020_consolidated_financial_information.pdf",
+    "pdf_sha256": "35264bc723624779682c504b9e7057f85aaf11b68600a7b351a128c08188b10e",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 816,156 723,359",
+   "motivo_extraccion": "Todo el resultado y el patrimonio se atribuyen a la dominante; el balance no tiene línea de participaciones no dominantes",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     816156.0,
+     723359.0
+    ],
+    "total_pasivo": [
+     705291.0,
+     734502.0
+    ],
+    "total_pn_y_pasivo": [
+     1521447.0,
+     1457861.0
+    ],
+    "resultado_ejercicio": [
+     159463.0,
+     143275.0
+    ],
+    "resultado_atribuido": [
+     159463.0,
+     143275.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 24,
+      "contexto": "arned. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group."
+     }
+    ],
+    "n_menciones_nci": 1
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2020 (las dos columnas): patrimonio atribuido a la dominante 816.156 / 723.359 + total pasivo 705.291 / 734.502 = total patrimonio neto y pasivo 1.521.447 / 1.457.861; y de la cuenta de resultados: resultado del ejercicio 159.463 / 143.275 = atribuido a la dominante 159.463 / 143.275. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La única mención de intereses minoritarios o no dominantes de la memoria es de política contable (definición del fondo de comercio); no es un interés de terceros en el patrimonio de Vidrala (contexto en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2020 del informe 2021 (p. 3): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2021",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2021,
+   "celda": "Historia!H26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2021.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2021.txt",
+    "pagina_pdf": 3,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1413_en-2021_consolidated_financial_information.pdf",
+    "pdf_sha256": "2b966a4188615e6dfce4ee1051c2314c5faec9c272f27ea4525763a5f3958494",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 966,902 816,156",
+   "motivo_extraccion": "El balance solo muestra patrimonio atribuido a la dominante; todo el resultado es atribuible a la dominante",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     966902.0,
+     816156.0
+    ],
+    "total_pasivo": [
+     736344.0,
+     705291.0
+    ],
+    "total_pn_y_pasivo": [
+     1703246.0,
+     1521447.0
+    ],
+    "resultado_ejercicio": [
+     145157.0,
+     159463.0
+    ],
+    "resultado_atribuido": [
+     145157.0,
+     159463.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 15,
+      "contexto": "arned. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group."
+     }
+    ],
+    "n_menciones_nci": 1
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2021 (las dos columnas): patrimonio atribuido a la dominante 966.902 / 816.156 + total pasivo 736.344 / 705.291 = total patrimonio neto y pasivo 1.703.246 / 1.521.447; y de la cuenta de resultados: resultado del ejercicio 145.157 / 159.463 = atribuido a la dominante 145.157 / 159.463. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La única mención de intereses minoritarios o no dominantes de la memoria es de política contable (definición del fondo de comercio); no es un interés de terceros en el patrimonio de Vidrala (contexto en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2021 del informe 2022 (p. 3): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2022",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2022,
+   "celda": "Historia!I26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2022.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2022.txt",
+    "pagina_pdf": 3,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1668_en-2022_consolidated_financial_information.pdf",
+    "pdf_sha256": "180b3608c7e910a8010018bb40b33f0808ff1247170acef38c783d65aeb8382b",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 1,033,624 966,902",
+   "motivo_extraccion": "El balance no presenta participaciones no dominantes; todo el patrimonio es de la dominante y resultado total atribuido a la Parent.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     1033624.0,
+     966902.0
+    ],
+    "total_pasivo": [
+     919903.0,
+     736344.0
+    ],
+    "total_pn_y_pasivo": [
+     1953527.0,
+     1703246.0
+    ],
+    "resultado_ejercicio": [
+     153686.0,
+     145157.0
+    ],
+    "resultado_atribuido": [
+     153686.0,
+     145157.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 16,
+      "contexto": "d. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group. Go"
+     },
+     {
+      "pagina": 72,
+      "contexto": "fter the reporting period On 9 February 2023 Vidrala announced the acquisition, through its subsidiary Inverbeira Sociedad de Promoción de Empresas S.A., of a minority stake of 29.36% of the share capital of the Brazilian company Vidroporto, S.A. for 297 million Brazilian reals, approximately"
+     }
+    ],
+    "n_menciones_nci": 2
+   },
+   "contrastes": {},
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2022 (las dos columnas): patrimonio atribuido a la dominante 1.033.624 / 966.902 + total pasivo 919.903 / 736.344 = total patrimonio neto y pasivo 1.953.527 / 1.703.246; y de la cuenta de resultados: resultado del ejercicio 153.686 / 145.157 = atribuido a la dominante 153.686 / 145.157. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. Las 2 menciones de intereses minoritarios o no dominantes de la memoria son 1 de política contable (definición del fondo de comercio) y 1 sobre participaciones que el grupo adquiere en otras sociedades (Vidroporto); ninguna es un interés de terceros en el patrimonio de Vidrala (contextos en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2022 del informe 2023 (p. 3): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2023",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2023,
+   "celda": "Historia!J26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2023.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2023.txt",
+    "pagina_pdf": 3,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_1831_descarga_2026-11-08/1831_en-2023_consolidated_financial_information.pdf",
+    "pdf_sha256": "8f88818c624bc253d99ca92eed47dc1639bd77e1d76ba7924fcb5fb89aab195d",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 1,224,332 1,033,624",
+   "motivo_extraccion": "El balance no presenta participaciones no dominantes: el patrimonio total es el atribuido a la dominante",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     1224332.0,
+     1033624.0
+    ],
+    "total_pasivo": [
+     1257579.0,
+     919903.0
+    ],
+    "total_pn_y_pasivo": [
+     2481911.0,
+     1953527.0
+    ],
+    "resultado_ejercicio": [
+     233395.0,
+     153686.0
+    ],
+    "resultado_atribuido": [
+     233395.0,
+     153686.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 16,
+      "contexto": "enew. (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group. Go"
+     },
+     {
+      "pagina": 32,
+      "contexto": "f Vidroporto, S.A. On 9 February 2023 Vidrala announced the acquisition, through its subsidiary Inverbeira Sociedad de Promoción de Empresas S.A., of a 29.36% non-controlling interest in the share capital of Vidroporto S.A. from Brazil for 297 million Brazilian reais, approximately Euros 53 mi"
+     }
+    ],
+    "n_menciones_nci": 2
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 10,
+     "columna": "comparativa 2023 del informe 2024 (las dos columnas cuadran)",
+     "cuadre_balance": true,
+     "cuadre_resultado": true,
+     "patrimonio_atribuido": [
+      1309830.0,
+      1224332.0
+     ],
+     "total_pasivo": [
+      998342.0,
+      1284595.0
+     ],
+     "total_pn_y_pasivo": [
+      2308172.0,
+      2508927.0
+     ],
+     "coincide_con_el_texto_ingles": false
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2023 (las dos columnas): patrimonio atribuido a la dominante 1.224.332 / 1.033.624 + total pasivo 1.257.579 / 919.903 = total patrimonio neto y pasivo 2.481.911 / 1.953.527; y de la cuenta de resultados: resultado del ejercicio 233.395 / 153.686 = atribuido a la dominante 233.395 / 153.686. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. La versión española (prevalece; comparativa 2023 del informe 2024 (las dos columnas cuadran)) también cuadra, pero con cifras reexpresadas: total pasivo 1.284.595 y total patrimonio neto y pasivo 2.508.927, frente a 1.257.579 y 2.481.911 del texto inglés de 2023; el patrimonio atribuido coincide. La reexpresión no cambia el cero: en las dos versiones el balance cuadra sin participaciones no dominantes. Las 2 menciones de intereses minoritarios o no dominantes de la memoria son 1 de política contable (definición del fondo de comercio) y 1 sobre participaciones que el grupo adquiere en otras sociedades (Vidroporto); ninguna es un interés de terceros en el patrimonio de Vidrala (contextos en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2023 del informe 2024 (p. 3): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2024",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2024,
+   "celda": "Historia!K26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2024.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2024.txt",
+    "pagina_pdf": 3,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_2145_descarga_2026-11-08/2145_en-2024_consolidated_financial_information.pdf",
+    "pdf_sha256": "c2d4c12ea89ad43896b05f2645c289bf4d37fb9ef0ee98c10aa9836c0b4f1325",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 1,309,830 1,224,332",
+   "motivo_extraccion": "El patrimonio solo muestra 'Equity attributed to equity holders of the Parent' (1,309,830 = activos 2,308,172 - pasivos 998,342); no hay linea de participaciones no dominantes",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     1309830.0,
+     1224332.0
+    ],
+    "total_pasivo": [
+     998342.0,
+     1284595.0
+    ],
+    "total_pn_y_pasivo": [
+     2308172.0,
+     2508927.0
+    ],
+    "resultado_ejercicio": [
+     298315.0,
+     233395.0
+    ],
+    "resultado_atribuido": [
+     298315.0,
+     233395.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 10,
+      "contexto": "tions in the perimeter • Acquisition, dated May 21, 2024, through the subsidiary Inverbeira, Sociedad de Promoción de Empresas, S.A., of a minority stake of 45% in Envasados Eva, S.A. for a total amount of 1,500 thousand euros. • Acquisition, dated Feb"
+     },
+     {
+      "pagina": 10,
+      "contexto": ". for a total amount of 1,500 thousand euros. • Acquisition, dated February 29, 2024, through the subsidiary of Encirc Limited Group, of a minority stake of 20% in the Glassco Recycling Ltd subgroup for a total amount of 4,500 thousand euros (3,800 thousand Brit"
+     },
+     {
+      "pagina": 17,
+      "contexto": "ounts (e) Intangible assets (i) Goodwill Goodwill corresponds to the excess between the consideration paid plus the value assigned to non-controlling interests and the net amount of assets acquired and liabilities assumed in business combinations made by the Group. Go"
+     },
+     {
+      "pagina": 31,
+      "contexto": "f Vidroporto, S.A. On 9 February 2023 Vidrala announced the acquisition, through its subsidiary Inverbeira Sociedad de Promoción de Empresas S.A., of a 29.36% non-controlling interest in the share capital of Vidroporto S.A. from Brazil for 297 million Brazilian reais, approximately Euros 53 mi"
+     },
+     {
+      "pagina": 33,
+      "contexto": "actual cash outflow made, although the cost of the business combination for the Group amounts to 384 million euros. This figure includes the minority interest acquired at the beginning of the year, the remaining majority interest acquired later, and the debt assumed in"
+     },
+     {
+      "pagina": 37,
+      "contexto": "for the year ended 31 December 2023. Investments accounted for using the equity method The movement during the fiscal year 2024, following the acquisition of minority interests in Envasados Eva, S.A. and the Glassco Recycling Ltd subgroup detailed in Note 1 of these consolidated annual accounts"
+     }
+    ],
+    "n_menciones_nci": 6
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 10,
+     "columna": "del año",
+     "cuadre_balance": true,
+     "cuadre_resultado": true,
+     "patrimonio_atribuido": [
+      1309830.0,
+      1224332.0
+     ],
+     "total_pasivo": [
+      998342.0,
+      1284595.0
+     ],
+     "total_pn_y_pasivo": [
+      2308172.0,
+      2508927.0
+     ],
+     "coincide_con_el_texto_ingles": true
+    },
+    "esef_2025": {
+     "ProfitLoss": 298315.0,
+     "ProfitLossAttributableToOwnersOfParent": 298315.0,
+     "iguales": true,
+     "hechos_de_intereses_no_dominantes": [],
+     "zip_sha256": "14264d1f0a07f1bc3c7273450e393ddbe0587855293b487447319dcd1c7bde90"
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2024 (las dos columnas): patrimonio atribuido a la dominante 1.309.830 / 1.224.332 + total pasivo 998.342 / 1.284.595 = total patrimonio neto y pasivo 2.308.172 / 2.508.927; y de la cuenta de resultados: resultado del ejercicio 298.315 / 233.395 = atribuido a la dominante 298.315 / 233.395. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. Igual en la versión española (prevalece). En el ESEF 2025: ProfitLoss = ProfitLossAttributableToOwnersOfParent; ningún hecho de intereses no dominantes. Las 6 menciones de intereses minoritarios o no dominantes de la memoria son 1 de política contable (definición del fondo de comercio) y 5 sobre participaciones que el grupo adquiere en otras sociedades (Envasados Eva, Glassco, Vidroporto); ninguna es un interés de terceros en el patrimonio de Vidrala (contextos en comprobaciones.menciones_nci_en_notas).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2024 del informe 2025 (p. 3): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "solo la regla de tipos de Historia C5:L26 (Motor!E234): ninguna fórmula usa el valor de años anteriores a 2025",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "C26_K26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": 0.0,
+     "NORMAL (Análisis!C78)": 0.0,
+     "BUENO (Análisis!D78)": 0.0,
+     "ponderado (Análisis!C83)": 0.0,
+     "puente (Diagnóstico V6!C16)": 0.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": 0.0
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-minoritarios-2025",
+   "partida": "minoritarios",
+   "concepto": "Minoritarios (intereses no dominantes)",
+   "anio": 2025,
+   "celda": "Historia!L26",
+   "valor_actual": 0,
+   "estado_actual": "pendiente de verificación (H1): cita sin contrastar; en el libro «Dato no verificable» [H1]",
+   "fuente": {
+    "json": "fase1_partes/AR_2025.json → partidas.minoritarios.cero",
+    "texto": "texto/CF_2025.txt",
+    "pagina_pdf": 3,
+    "pdf": "contrastes/piloto_Vidrala_2025/fuentes/en_2355_descarga_2026-11-08/2355_en-2025_consolidated_financial_information.pdf",
+    "pdf_sha256": "c548c2fac0418d8ccf5e167fc1c931377b596d64338ee10c4b4a2b1db0d54ae4",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Equity attributed to equity holders of the Parent 1,412,878 1,309,830",
+   "motivo_extraccion": "El balance solo muestra 'Equity attributed to equity holders of the Parent' = total equity; sin participaciones no dominantes",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_balance": true,
+    "cuadre_resultado": true,
+    "patrimonio_atribuido": [
+     1412878.0,
+     1309830.0
+    ],
+    "total_pasivo": [
+     901354.0,
+     998342.0
+    ],
+    "total_pn_y_pasivo": [
+     2314232.0,
+     2308172.0
+    ],
+    "resultado_ejercicio": [
+     209341.0,
+     298315.0
+    ],
+    "resultado_atribuido": [
+     209341.0,
+     298315.0
+    ],
+    "unidad": true,
+    "excepciones_estructura": [],
+    "menciones_nci_en_notas": [
+     {
+      "pagina": 29,
+      "contexto": "Vidroporto, S.A. On 9 February 2023, Vidrala announced the acquisition, through its subsidiary Inverbeira Sociedad de Promoción de Empresas S.A., of a 29.36% minority interest in the share capital of the Brazilian company Vidroporto S.A. for BRL 297 million (approximately EUR 53 million). Furt"
+     },
+     {
+      "pagina": 30,
+      "contexto": "actual cash outflow made, although the cost of the business combination for the Group amounted to 384 million euros. This figure included the minority interest acquired at the beginning of the year, the remaining majority interest acquired later, and the debt assumed in"
+     },
+     {
+      "pagina": 32,
+      "contexto": "(1,639) equivalents Investments accounted for using the equity method The movement during the fiscal year 2025, following the acquisition of minority interests in Envasados Eva, S.A. and the Glassco Recycling Ltd subgroup detailed in Note 1 of these consolidated annual accounts"
+     }
+    ],
+    "n_menciones_nci": 3
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/piloto_Vidrala_2025/fuentes/es_2308_descarga_2026-11-08/2308_es-informacion_financiera_consolidada_2025.pdf",
+     "pdf_sha256": "29fd6a299d37270279195e8eb194820869a1bb2c513dd6a646963034698f14e7",
+     "pagina": 10,
+     "columna": "del año",
+     "cuadre_balance": true,
+     "cuadre_resultado": true,
+     "patrimonio_atribuido": [
+      1412878.0,
+      1309830.0
+     ],
+     "total_pasivo": [
+      901354.0,
+      998342.0
+     ],
+     "total_pn_y_pasivo": [
+      2314232.0,
+      2308172.0
+     ],
+     "coincide_con_el_texto_ingles": true
+    },
+    "esef_2025": {
+     "ProfitLoss": 209341.0,
+     "ProfitLossAttributableToOwnersOfParent": 209341.0,
+     "iguales": true,
+     "hechos_de_intereses_no_dominantes": [],
+     "zip_sha256": "14264d1f0a07f1bc3c7273450e393ddbe0587855293b487447319dcd1c7bde90"
+    },
+    "sociedades_dependientes": {
+     "pagina": 9,
+     "porcentajes_distintos_de_100": [
+      "20",
+      "45"
+     ],
+     "texto": "The aforementioned subsidiaries are consolidated using the full consolidation method, except for Envasados Eva, S.A. and the Glassco Recycling Ltd. subgroup, which are measured using the equity method."
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "Sin línea de participaciones no dominantes. Cuadre completo del balance 2025 (las dos columnas): patrimonio atribuido a la dominante 1.412.878 / 1.309.830 + total pasivo 901.354 / 998.342 = total patrimonio neto y pasivo 2.314.232 / 2.308.172; y de la cuenta de resultados: resultado del ejercicio 209.341 / 298.315 = atribuido a la dominante 209.341 / 298.315. Por tanto los intereses no dominantes son 0 por diferencia, no por una cifra impresa. Igual en la versión española (prevalece). En el ESEF 2025: ProfitLoss = ProfitLossAttributableToOwnersOfParent; ningún hecho de intereses no dominantes. Las 3 menciones de intereses minoritarios o no dominantes de la memoria son 3 sobre participaciones que el grupo adquiere en otras sociedades (Envasados Eva, Glassco, Vidroporto); ninguna es un interés de terceros en el patrimonio de Vidrala (contextos en comprobaciones.menciones_nci_en_notas). La tabla de sociedades dependientes (p. 9) da el 100 % en todas las consolidadas por integración global; los únicos porcentajes distintos (20 %, 45 %) son de sociedades por puesta en equivalencia.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo de patrimonio: 0 sin signo",
+    "periodo_y_comparativa": "último ejercicio (2025): sin informe siguiente; contraste con la versión española y el ESEF",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "Historia!C65 (pensiones + minoritarios del último año) → Diagnóstico V6!C16 (puente del motor B = deuda + arrendamientos + pensiones + minoritarios − caja) → valor por acción de los tres escenarios (Análisis!B78:D78), ponderado (C83) y precio de Sí",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": "L26_mas_1",
+    "delta_por_1_mm": {
+     "MALO (Análisis!B78)": -0.028404,
+     "NORMAL (Análisis!C78)": -0.028404,
+     "BUENO (Análisis!D78)": -0.028404,
+     "ponderado (Análisis!C83)": -0.028404,
+     "puente (Diagnóstico V6!C16)": 1.0,
+     "FCF simplificado (Análisis!C52)": 0.0,
+     "f (Diagnóstico V6!C12)": 0.0,
+     "control de rango de f (Diagnóstico V6!C50)": null,
+     "estado técnico (Motor!B255)": null,
+     "precio de Sí (precio_de_si.p_estrella, k = 3)": -0.028404
+    },
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": true
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2016",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2016,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2016.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2016.txt",
+    "pagina_pdf": 4,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1279_en-2016_consolidated_financial_information.pdf",
+    "pdf_sha256": "53849fe52385ae7e62a0806bb4ba0e8f06c9fe0a6778cd335bd58b0e70940b7b",
+    "idioma_del_texto": "español"
+   },
+   "cita": "Efectivo y otros medios líquidos equivalentes 424 15.720",
+   "motivo_extraccion": "El activo corriente del balance no contiene depósitos ni inversiones financieras temporales (solo derivados, otros activos corrientes y efectivo); 'Otros activos financieros' de 287 es no corriente",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      387855.0,
+      433793.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Activos corrientes",
+      "Existencias 10 180.973 201.010",
+      "Deudores comerciales y otras cuentas a cobrar 11 194.456 205.278",
+      "Activos por impuestos sobre las ganancias corrientes 391 5.049",
+      "Instrumentos financieros derivados 8 2.777 -",
+      "Otros activos corrientes 12 8.834 6.736",
+      "Efectivo y otros medios líquidos equivalentes 424 15.720",
+      "387.855 433.793"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2016 cuadra de forma completa (6 líneas = subtotal 387.855 / 433.793) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2016 del informe 2017 (p. 9): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2017",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2017,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2017.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2017.txt",
+    "pagina_pdf": 9,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1285_en-2017_consolidated_financial_information.pdf",
+    "pdf_sha256": "da068c8b28642e59bfc498893b46b3a853a8a1c4707522d39fa4f4b5d4bac6ae",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 42,043 424",
+   "motivo_extraccion": "El activo corriente no tiene inversiones financieras temporales ni depositos (solo inventarios, deudores, derivados, otros activos y caja)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      451339.0,
+      387855.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 189,829 180,973",
+      "Trade and other receivables 11 206,381 194,456",
+      "Current tax assets 391 391",
+      "Derivative financial instruments 8 3,568 2,777",
+      "Other current assets 12 9,127 8,834",
+      "Cash and cash equivalents 42,043 424",
+      "451,339 387,855"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2017 cuadra de forma completa (6 líneas = subtotal 451.339 / 387.855) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2017 del informe 2018 (p. 8): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2018",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2018,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2018.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2018.txt",
+    "pagina_pdf": 8,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1291_en-2018_consolidated_financial_information.pdf",
+    "pdf_sha256": "907687f9e3f05df84099fdf84638ba64ea643373d8bd1958cba1af5732308492",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 22,673 42,043",
+   "motivo_extraccion": "El activo corriente no tiene depositos ni inversiones financieras temporales (solo inventarios, deudores, impuestos, derivados, otros activos, caja)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      448973.0,
+      451339.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 185,147 189,829",
+      "Trade and other receivables 11 219,086 206,381",
+      "Current tax assets 426 391",
+      "Derivative financial instruments 8 8,623 3,568",
+      "Other current assets 12 13,018 9,127",
+      "Cash and cash equivalents 22,673 42,043",
+      "448,973 451,339"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2018 cuadra de forma completa (6 líneas = subtotal 448.973 / 451.339) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2018 del informe 2019 (p. 7): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2019",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2019,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2019.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2019.txt",
+    "pagina_pdf": 7,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1297_en-2019_consolidated_financial_information.pdf",
+    "pdf_sha256": "9c38b260482bb501673b0bb1a0382846405fb4d4ee636d668a4e5ed64814a6c3",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 28,795 22,673",
+   "motivo_extraccion": "El balance no tiene depositos ni inversiones financieras corrientes; el activo corriente solo muestra existencias, deudores, derivados, otros activos corrientes (IVA) y caja.",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      488828.0,
+      448973.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 194,617 185,147",
+      "Trade and other receivables 11 248,534 219,086",
+      "Current tax assets 656 426",
+      "Derivative financial instruments 8 5,646 8,623",
+      "Other current assets 12 10,580 13,018",
+      "Cash and cash equivalents 28,795 22,673",
+      "488,828 448,973"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2019 cuadra de forma completa (6 líneas = subtotal 488.828 / 448.973) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2019 del informe 2020 (p. 8): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2020",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2020,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2020.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2020.txt",
+    "pagina_pdf": 8,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1304_en-2020_consolidated_financial_information.pdf",
+    "pdf_sha256": "35264bc723624779682c504b9e7057f85aaf11b68600a7b351a128c08188b10e",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 112,178 28,795",
+   "motivo_extraccion": "El activo corriente del balance no tiene depósitos ni inversiones financieras temporales (solo inventarios, deudores, impuestos, derivados, otros activos corrientes y caja)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      514188.0,
+      488828.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 161,514 194,617",
+      "Trade and other receivables 11 220,949 248,534",
+      "Current tax assets 5,883 656",
+      "Derivative financial instruments 8 1,378 5,646",
+      "Other current assets 12 12,286 10,580",
+      "Cash and cash equivalents 112,178 28,795",
+      "514,188 488,828"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2020 cuadra de forma completa (6 líneas = subtotal 514.188 / 488.828) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2020 del informe 2021 (p. 2): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2021",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2021,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2021.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2021.txt",
+    "pagina_pdf": 2,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1413_en-2021_consolidated_financial_information.pdf",
+    "pdf_sha256": "2b966a4188615e6dfce4ee1051c2314c5faec9c272f27ea4525763a5f3958494",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 160,540 112,178",
+   "motivo_extraccion": "El balance no tiene activos financieros corrientes distintos de caja (solo derivados, otros activos corrientes y 'Other financial assets' no corriente de 26)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      622367.0,
+      514188.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 166,491 161,514",
+      "Trade and other receivables 11 240,536 220,949",
+      "Current tax assets 17,016 5,883",
+      "Derivative financial instruments 8 24,010 1,378",
+      "Other current assets 12 13,774 12,286",
+      "Cash and cash equivalents 160,540 112,178",
+      "622,367 514,188"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2021 cuadra de forma completa (6 líneas = subtotal 622.367 / 514.188) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2021 del informe 2022 (p. 2): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2022",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2022,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2022.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2022.txt",
+    "pagina_pdf": 2,
+    "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo/fuentes/cuentas_consolidadas_2016_2022/1668_en-2022_consolidated_financial_information.pdf",
+    "pdf_sha256": "180b3608c7e910a8010018bb40b33f0808ff1247170acef38c783d65aeb8382b",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 154,029 160,540",
+   "motivo_extraccion": "El balance no tiene activos financieros corrientes distintos de caja (solo 'Other financial assets' no corriente de 33).",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      780702.0,
+      622367.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 10 254,683 166,491",
+      "Trade and other receivables 11 318,696 240,536",
+      "Current tax assets 11,317 17,016",
+      "Derivative financial instruments 8 1,114 24,010",
+      "Other current assets 12 40,863 13,774",
+      "Cash and cash equivalents 154,029 160,540",
+      "780,702 622,367"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2022 cuadra de forma completa (6 líneas = subtotal 780.702 / 622.367) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false.",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2022 del informe 2023 (p. 2): coherente (cuadra igual)",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2023",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2023,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2023.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2023.txt",
+    "pagina_pdf": 2,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_1831_descarga_2026-11-08/1831_en-2023_consolidated_financial_information.pdf",
+    "pdf_sha256": "8f88818c624bc253d99ca92eed47dc1639bd77e1d76ba7924fcb5fb89aab195d",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 81,506 154,029",
+   "motivo_extraccion": "El balance no tiene activos financieros corrientes distintos de caja (solo 'Other financial assets' no corrientes 6,994 / 33 y 'Other current assets' son IVA y administraciones publicas)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      821341.0,
+      780702.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 11 339,230 254,683",
+      "Trade and other receivables 12 356,029 318,696",
+      "Current tax assets 9,123 11,317",
+      "Derivative financial instruments 9 - 1,114",
+      "Other current assets 13 35,453 40,863",
+      "Cash and cash equivalents 81,506 154,029",
+      "821,341 780,702"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 9,
+     "columna": "comparativa 2023 del informe 2024",
+     "cuadre_activo_corriente": true,
+     "total": [
+      752728.0,
+      816395.0
+     ],
+     "coincide_con_el_texto_ingles": false,
+     "rotulos_no_reconocidos": []
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2023 cuadra de forma completa (6 líneas = subtotal 821.341 / 780.702) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false. La versión española (prevalece; comparativa 2023 del informe 2024) también cuadra sin inversiones financieras corrientes, con el total reexpresado (816.395 frente a 821.341 del texto inglés de 2023).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2023 del informe 2024 (p. 2): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2024",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2024,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2024.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2024.txt",
+    "pagina_pdf": 2,
+    "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/en_2145_descarga_2026-11-08/2145_en-2024_consolidated_financial_information.pdf",
+    "pdf_sha256": "c2d4c12ea89ad43896b05f2645c289bf4d37fb9ef0ee98c10aa9836c0b4f1325",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 100,094 81,506",
+   "motivo_extraccion": "El activo corriente (pag. 2) no tiene inversiones financieras temporales ni depositos; solo hay 'Other financial assets' no corriente (1,570) y derivados",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      752728.0,
+      816395.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 11 249,077 336,011",
+      "Trade and other receivables 12 342,215 354,302",
+      "Current tax assets 16,345 9,123",
+      "Derivative financial instruments 9 25,567 -",
+      "Other current assets 13 19,430 35,453",
+      "Cash and cash equivalents 100,094 81,506",
+      "752,728 816,395"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/vidrala_2023_arrendamientos/fuentes/es_2118_descarga_2026-11-08/2118_es-informacion_financiera_consolidada_2024.pdf",
+     "pdf_sha256": "365eea9eb1238ea2536a4e3c465c61401bfd9ce01c34ce9fca50235d9b7e7dcf",
+     "pagina": 9,
+     "columna": "del año",
+     "cuadre_activo_corriente": true,
+     "total": [
+      752728.0,
+      816395.0
+     ],
+     "coincide_con_el_texto_ingles": true,
+     "rotulos_no_reconocidos": []
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2024 cuadra de forma completa (6 líneas = subtotal 752.728 / 816.395) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false. Igual en la versión española (prevalece).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "columna comparativa 2024 del informe 2025 (p. 2): coherente (cuadra igual)",
+    "perimetro": "2024: Italia como discontinuada en el informe 2024 (columna 2023 reexpresada); no afecta a estas partidas"
+   },
+   "comparativa_coherente": true,
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2025",
+   "partida": "otros_activos_financieros",
+   "concepto": "Otros activos financieros corrientes (partida auxiliar de la caja)",
+   "anio": 2025,
+   "celda": null,
+   "valor_actual": 0.0,
+   "estado_actual": "pendiente de verificación (H1); partida auxiliar sin celda propia",
+   "fuente": {
+    "json": "fase1_partes/AR_2025.json → partidas.otros_activos_financieros.cero",
+    "texto": "texto/CF_2025.txt",
+    "pagina_pdf": 2,
+    "pdf": "contrastes/piloto_Vidrala_2025/fuentes/en_2355_descarga_2026-11-08/2355_en-2025_consolidated_financial_information.pdf",
+    "pdf_sha256": "c548c2fac0418d8ccf5e167fc1c931377b596d64338ee10c4b4a2b1db0d54ae4",
+    "idioma_del_texto": "inglés (traducción libre; «In the event of discrepancy, the Spanish-language version prevails»)"
+   },
+   "cita": "Cash and cash equivalents 108,352 100,094",
+   "motivo_extraccion": "El balance no tiene inversiones financieras corrientes ni depositos a plazo; solo 'Other financial assets' no corriente (1,436)",
+   "cita_en_su_pagina": true,
+   "comprobaciones": {
+    "cuadre_activo_corriente": {
+     "ok": true,
+     "actual_cuadra": true,
+     "anterior_cuadra": true,
+     "total": [
+      712559.0,
+      752728.0
+     ],
+     "n_lineas": 6,
+     "lineas_un_importe": [],
+     "ilegibles": [],
+     "lineas": [
+      "Current assets",
+      "Inventories 11 252,454 249,077",
+      "Trade and other receivables 12 315,821 342,215",
+      "Current tax assets 17,487 16,345",
+      "Derivative financial instruments 9 1,157 25,567",
+      "Other current assets 13 17,288 19,430",
+      "Cash and cash equivalents 108,352 100,094",
+      "712,559 752,728"
+     ]
+    },
+    "lineas_inversiones_financieras_corrientes": [],
+    "rotulos_no_reconocidos": [],
+    "unidad": true,
+    "excepciones_estructura": []
+   },
+   "contrastes": {
+    "version_espanola": {
+     "pdf": "contrastes/piloto_Vidrala_2025/fuentes/es_2308_descarga_2026-11-08/2308_es-informacion_financiera_consolidada_2025.pdf",
+     "pdf_sha256": "29fd6a299d37270279195e8eb194820869a1bb2c513dd6a646963034698f14e7",
+     "pagina": 9,
+     "columna": "del año",
+     "cuadre_activo_corriente": true,
+     "total": [
+      712559.0,
+      752728.0
+     ],
+     "coincide_con_el_texto_ingles": true,
+     "rotulos_no_reconocidos": []
+    }
+   },
+   "clasificacion": 2,
+   "explicacion": "El activo corriente de 2025 cuadra de forma completa (6 líneas = subtotal 712.559 / 752.728) y no tiene inversiones financieras corrientes ni depósitos: solo existencias, deudores, impuestos, derivados, otros activos corrientes y efectivo. «Otros activos financieros» es una partida NO corriente. Cero por diferencia. La partida no entra en el modelo: no tiene fila en la Historia y fase1_metadatos.json declara caja_incluye_otros_activos_financieros = false. Igual en la versión española (prevalece).",
+   "valor_propuesto": 0.0,
+   "comprobacion_general": {
+    "unidad_y_moneda": "miles de euros en el estado → mm en la Historia (÷ 1.000); moneda EUR",
+    "signo": "saldo; 0 sin signo",
+    "periodo_y_comparativa": "último ejercicio (2025): sin informe siguiente; contraste con la versión española y el ESEF",
+    "perimetro": "sin cambio de perímetro que afecte a la partida"
+   },
+   "dependencias": "ninguna: sin fila en la Historia y sin sumarse a la caja (convención declarada false)",
+   "condiciones_generales_no_cumplidas": [],
+   "registro_en_fase1_decisiones": {
+    "decision_registrada_para_esta_entrada": false,
+    "decisiones_registradas_de_la_partida": {},
+    "con_fecha_y_firma": [],
+    "regla_registrada": null,
+    "nota": "Salvo P1 (circulante 2024, con fecha y firma), las entradas de fase1_decisiones.json no tienen fecha ni confirmado_por en el archivo (sesión de construcción del 3-nov-2026; autoría no constatada)."
+   },
+   "efecto": {
+    "variante_unitaria": null,
+    "delta_por_1_mm": null,
+    "efecto_del_valor_documentado": "nulo: el valor documentado coincide con el actual (0)",
+    "material": false
+   },
+   "carencia_o_decision": "ninguna carencia documental; queda la confirmación humana (fase1_decisiones.json), que la IA no hace"
+  }
+ ]
+}

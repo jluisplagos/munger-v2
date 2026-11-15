@@ -1,0 +1,552 @@
+[
+ {
+  "grupo": "permisos",
+  "caso": "control_sin_cambios_como_otro_usuario",
+  "via": "informe",
+  "esperado": "vigente",
+  "cumple": true,
+  "rc": 0,
+  "traza": false,
+  "ultima": "OK: informe.md (13 secciones)",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_estado_pipeline.json",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 6,
+  "traza": false,
+  "ultima": "ESTADO DEL PIPELINE ILEGIBLE (estado_pipeline.json: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_estado_pipeline.json__pas): restaurarlo desde una cop",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué respues"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_cierre_vigente.json",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué salidas "
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_material_auditoria.json",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué material se aprobó; la apr",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué mate"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_ficha.json",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "ficha.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): la salida oficial no se puede a"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_auditoria.md",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_auditoria.md__paso14/exp/Vidrala/auditoria.md'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": ""
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_resultados.json",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_resultados.json__paso14/exp/Vidrala/resultados.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_estado_pipeline.json",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no ",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué respues"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_cierre_vigente.json",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no c",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué salidas "
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_material_auditoria.json",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué mate"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_ficha.json",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 0,
+  "traza": false,
+  "ultima": "ficha.py: AVISO: se ha sustituido una ficha cerrada y su aprobación queda archivada; la ficha nueva NO es vigente hasta una auditoría nueva del pipeline (informe.py y resumen.py la rechazarán)",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "sustituida por una ficha oficial nueva"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_auditoria.md",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_auditoria.md__ficha/exp/Vidrala/auditoria.md'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": ""
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_resultados.json",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_resultados.json__ficha/exp/Vidrala/resultados.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_estado_pipeline.json",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué r",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_cierre_vigente.json",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué sa",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta "
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_material_auditoria.json",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qu",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no con"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_ficha.json",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: ficha.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): la salida oficial no se p",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: ficha.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): la salida oficial n"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_auditoria.md",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_auditoria.md__informe/exp/Vidrala/auditoria.md'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": ""
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_resultados.json",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_resultados.json__informe/exp/Vidrala/resultados.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_estado_pipeline.json",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: estado_pipeline.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_cierre_vigente.json",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta qué ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: cierre_vigente.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta "
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_material_auditoria.json",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no consta ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: material_auditoria.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): no con"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_ficha.json",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: ficha.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): la salida oficial no se",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: ficha.json no se puede leer (PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permiso): la salida oficial n"
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_auditoria.md",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_auditoria.md__resumen/exp/Vidrala/auditoria.md'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": ""
+ },
+ {
+  "grupo": "permisos",
+  "caso": "sin_lectura_resultados.json",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "PermissionError: [Errno 13] Permission denied: '/home/claude/vigencia2_4_9/tmp/escenarios/permisos__sin_lectura_resultados.json__resumen/exp/Vidrala/resultados.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ }
+]

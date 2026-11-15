@@ -1,0 +1,106 @@
+{
+ "tipo": "Propuestas humanas de la entrega 4.10.1, agrupadas y SIN FIRMAR",
+ "aviso": "Ningún campo humano está relleno. Las diez decisiones de la 4.10 (propuestas/decisiones_4_10.json de su expediente) siguen pendientes y no se repiten aquí.",
+ "pendientes_de_la_4_10": [
+  "D-N7",
+  "D-N6",
+  "D-N4-OAF",
+  "D-N4-reg-4.10",
+  "D-N8",
+  "D-N5",
+  "D-P3",
+  "D-N6-tau",
+  "D-N10",
+  "D-PN1"
+ ],
+ "nuevas": [
+  {
+   "id": "D-TAU-HOJA",
+   "grupo": "financiera (convención de la plantilla)",
+   "pregunta": "¿Qué tipo impositivo usa la hoja para Vidrala (Historia C52, que hoy es la media de la serie, 20,0 %) frente al tipo efectivo de 2025 (24,3 %)?",
+   "efecto_conocido": "con el 24,3 %, el precio de Sí bajaría de 66,52 a 62,71 € (−5,7 %); zona y acción no cambian (caro · esperar). Fase C del ensayo y auditoría, punto 5.",
+   "relacion": "amplía D-N6-tau de la 4.10 (τ solo en r_op): aquí es el τ de la hoja, que usan el motor y r_op",
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-C8-MARGEN",
+   "grupo": "financiera (dato que falta)",
+   "pregunta": "¿Se pide a Relación con Inversores el EBIT o EBITDA por segmento 2019–2023 del perímetro de 2025 para sustituir la media mezclada de C49 (16,9 %) como margen de partida, y mientras tanto se mantiene «Media del ciclo»?",
+   "efecto_conocido": "acotado entre 16,9 % y 19,9 %: de 0 a +2,7 % del precio de Sí; ni zona ni cubo cambian (Diagnóstico V6!B222:B223).",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-REBASE",
+   "grupo": "diseño (pipeline)",
+   "pregunta": "¿Se adopta un mecanismo general y declarado para cambiar la base económica de un expediente cuyos datos de Análisis heredados de la etapa 1 tienen otra fecha (hoy rellenar_fase1_v63.py no pisa un valor migrado y el ensayo lo resolvió con una copia de ensayo de la etapa 1)?",
+   "efecto_conocido": "en este ensayo, siete celdas (C24, C31, C33, C34, C42, C53, C54) reexpresadas a 31-dic-2025; ningún efecto en la valoración del motor B, pero sí en juicios (quiebra, tesis) y en la coherencia del material.",
+   "relacion": "resultados/reexpresion_2025.md; configuracion_ensayo_2025.json → datos_heredados_reexpresados_a_2025",
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-EVIDENCIA-2026",
+   "grupo": "documental",
+   "pregunta": "¿Se limpian, en una regeneración con auditoría nueva, los textos heredados con cifras o fechas de la base anterior que quedan en la evidencia de Control maestro de celdas con valor de 2025 (M41 y M52: capitalización y acciones de la etapa 1, 88,70 × 34,185 = 3.032,2 mm y 34,185; N41, N52, C28, C32, C40, C46, C50, G82) y en las _notas heredadas de fase1_metadatos.json y fase1_v63.json (Trading Economics de noviembre de 2026; 35,206 M acciones), y la valoración externa C38 (Simply Wall St, 08-oct-2026), o se dejan identificados?",
+   "efecto_conocido": "ninguno en la valoración ni en la conclusión; están identificados uno a uno en resultados/concordancia_2025*.md. Corregirlos en el libro cerrado cambia el material auditado y exige una auditoría nueva (revisión interna, H-1 y H-2).",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-FICHA-ETAPA1",
+   "grupo": "técnica (salidas)",
+   "pregunta": "¿Se corrige ficha.py para separar en ficha.etapa1 el cubo y el precio de Sí del texto C104 de la etapa 1 (hoy `cubo` copia el texto entero y `precio_de_si` queda vacío)?",
+   "efecto_conocido": "ninguno en la conclusión; aviso de la auditoría, punto 12.",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-C97-RECUENTO",
+   "grupo": "regla",
+   "pregunta": "¿Una celda técnica de la fase A (C97, insiders sin hechos verificados) debe figurar en hipotesis_sin_fundamento o basta con recuento_clases?",
+   "efecto_conocido": "ninguno en la conclusión; aviso de la auditoría, punto 11.",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-MALO-CAPITAL",
+   "grupo": "plantilla",
+   "pregunta": "¿Se añade a la plantilla una forma de representar ventas que bajan con reinversión que sigue (hoy, con S2C, las ventas que caen liberan capital)?",
+   "efecto_conocido": "quitar esa liberación movería el precio de Sí un −1,3 % (fase C del ensayo).",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  },
+  {
+   "id": "D-RF-FUENTE",
+   "grupo": "documental (fuente)",
+   "pregunta": "¿Se incorpora al paquete una copia del PDF del Bundesbank (rendbund-data.pdf) que sostiene rf = 2,85 % de fin de diciembre de 2025?",
+   "efecto_conocido": "ninguno en la valoración del motor B (con las mismas palancas, C1, con rf 0,0329, y el ensayo, con 0,0285, dan el mismo valor: resultados/comparacion_C1.md); trazabilidad de la fuente.",
+   "relacion": null,
+   "recomendacion": null,
+   "decision": null,
+   "fecha": null,
+   "decidido_por": null
+  }
+ ]
+}

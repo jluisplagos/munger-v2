@@ -1,0 +1,87 @@
+REQUISITO DE CIERRE: VERIFICACIÓN COMPLETA DE LAS ENTRADAS FINANCIERAS UTILIZADAS
+
+Se mantiene el encargo de cierre vigente y el trabajo válido ya realizado. Se incorpora este requisito obligatorio antes de declarar un expediente apto para apoyar decisiones con dinero real.
+
+1. COBERTURA
+
+Para cada empresa procesada, identificar todas las entradas financieras que alimentan la valoración, sus referencias históricas, sensibilidades y conclusión.
+
+No bastará una muestra ni se considerarán verificadas por proceder de un Excel evaluado anteriormente.
+
+El universo incluirá los datos de origen y sus transformaciones. Las hipótesis económicas se identificarán aparte: no se presentarán como cifras publicadas.
+
+No se exige revisar ahora las 116 empresas. El control será obligatorio al procesar cada expediente.
+
+2. CONTRASTE DOCUMENTAL
+
+Cada dato publicado deberá contrastarse con:
+- Documento y versión identificados, con huella cuando se conserven sus bytes.
+- Página y tabla, nota o pasaje.
+- Concepto contable.
+- Columna y período.
+- Unidad y escala.
+- Signo y tratamiento aplicado.
+- Perímetro: consolidado, continuadas, segmento u otro.
+- Comparativos reexpresados, cuando corresponda.
+
+Encontrar los mismos dígitos en una página no acredita el contraste.
+
+Se comprobarán especialmente deuda y arrendamientos, caja, acciones, capex, amortización, circulante, impuestos, adquisiciones y minoritarios, según su intervención real en el modelo.
+
+3. DATOS DERIVADOS E HIPÓTESIS
+
+Una entrada derivada deberá mostrar:
+- Datos de origen.
+- Fórmula o transformación.
+- Conciliación y resultado.
+
+Solo se considerará comprobada cuando sus datos de origen y la transformación estén verificados.
+
+Una hipótesis conservará su identificación, fundamento, alternativas y límites. No se marcará como dato publicado ni se dará por demostrada mediante una firma humana.
+
+Se distinguirán cero comprobado, dato ausente y no aplicable justificado.
+
+4. REGISTRO Y REVISIÓN
+
+Generar una matriz:
+entrada → uso → fuente → comprobación → resultado → incidencia.
+
+Declarar el número total de entradas, las comprobadas y las pendientes, evitando contar una misma entrada varias veces para aparentar cobertura.
+
+El contraste documental tendrá revisión independiente del extractor. Si se utilizan agentes, no se limitarán a aceptar su registro: examinarán las fuentes correspondientes.
+
+Los controles automáticos verificarán cobertura, conciliaciones y coherencia. No se afirmará que demuestran por sí solos la corrección semántica.
+
+5. INTEGRACIÓN OBLIGATORIA
+
+El pipeline deberá exigir el registro vigente y su cobertura antes de admitir la conclusión correspondiente.
+
+Un dato material no verificado, contradictorio o con incertidumbre que no pueda delimitarse impedirá presentar la conclusión afectada como apta para dinero real.
+
+Una aprobación anterior no sustituye este requisito.
+
+Los cambios en entradas, fuentes o transformaciones invalidarán las comprobaciones dependientes y la aprobación correspondiente. Las llamadas manuales no deberán permitir publicar salidas que el pipeline bloquearía.
+
+6. REUTILIZACIÓN Y CORRECCIONES
+
+Se reutilizarán verificaciones documentadas únicamente si siguen coincidiendo dato, fuente, período, perímetro y transformación. “Ya estaba analizado” no es evidencia suficiente.
+
+No se modificarán los expedientes históricos. Las correcciones se harán en copias nuevas.
+
+Si aparece un error:
+- Registrar original, corrección y evidencia.
+- Identificar las dependencias.
+- Recalcular y repetir únicamente lo afectado.
+- Obtener una auditoría nueva del material final cuando corresponda.
+
+No se cambiarán fórmulas o palancas para compensar un dato corregido.
+
+7. ACEPTACIÓN Y PLAZO
+
+Añadir pruebas de cobertura incompleta, columna equivocada, unidades, signo, perímetro, dato derivado con origen pendiente y reutilización desactualizada. Mantener controles positivos y negativos.
+
+Incluir este requisito en el siguiente hito con implementación, cobertura conseguida, pendientes e impacto real sobre el plazo.
+
+No declararlo cumplido por añadir una tabla: deben funcionar el contraste, la revisión, el bloqueo y la invalidación.
+
+Continuar en paralelo con las reparaciones independientes ya autorizadas.

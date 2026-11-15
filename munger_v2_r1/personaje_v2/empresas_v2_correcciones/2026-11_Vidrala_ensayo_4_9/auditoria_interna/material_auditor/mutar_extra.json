@@ -1,0 +1,53 @@
+[
+ {
+  "id": "X1",
+  "descripcion": "texto_fiel usa NFKC (equivalencia de compatibilidad, no canónica) en vez de NFC",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ },
+ {
+  "id": "X2",
+  "descripcion": "texto_fiel quita todos los espacios finales del archivo, no solo los saltos",
+  "detectada": true,
+  "resultado": "62/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": [
+   "FALLA · C transformaciones inocuas y no admitidas · espacios añadidos al final de una línea · paso 14: no es una transformación admitida, se retira la aprobació"
+  ]
+ },
+ {
+  "id": "X3",
+  "descripcion": "texto_fiel elimina caracteres de formato invisibles (categoría Cf: ZWSP, BOM interior…)",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ },
+ {
+  "id": "X4",
+  "descripcion": "sin estado del pipeline se ignora la huella fiel de cierre_vigente.json (vuelve la comparación de bytes)",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ },
+ {
+  "id": "X5",
+  "descripcion": "texto_fiel convierte los espacios no separables en espacios",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ },
+ {
+  "id": "X6",
+  "descripcion": "no se comprueba que la respuesta aceptada sea del material fijado (resp/sol)",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ },
+ {
+  "id": "X7",
+  "descripcion": "texto_fiel trata los separadores de línea Unicode (VT, FF, U+2028…) como saltos",
+  "detectada": false,
+  "resultado": "63/63 pruebas de integridad de la auditoría vigente PASAN",
+  "fallan": []
+ }
+]

@@ -1,0 +1,1948 @@
+{
+ "turno": 2,
+ "una_sola_historia": {
+  "coherente": true,
+  "incoherencias": [
+   "Rentabilidad del capital nuevo del NORMAL frente a la década: en los años 1–10 cada euro nuevo rinde un 15,7 % (resultados.json, salto_anio_11: 0,1574 = S2C 1,1 × f 1,1136 × margen 0,165 × (1 − 0,2212)); sin f sería un 14,1 %, cerca de Historia C55 (14,3 %). La rentabilidad incremental observada fue ≈9,0 % en 2016–2025 (NOPAT +39,3 M€ sobre +436,3 M€ de capital invertido) y ≈7,4 % en 2021–2025, pero ≈18,9 % en 2019–2025, saliendo del mínimo de margen [cálculo, Historia filas ebit y capital_invertido, t = 22,12 %; ninguna de esas cifras cambia con las correcciones de la 4.14, que solo tocan el capital invertido de 2017]. No es una palanca mal derivada (S2C = B155 redondeado; margen = media 2019–2025): la incremental fue baja porque el margen de toda la base cayó del 21,1 % al 16,4 % y el circulante subió 106,1 y 90,6 M€ en 2022–2023 (Historia I14 y J14; J14 corregido sin la variación de provisiones [CF_2024.txt, PDF p. 9]). El NORMAL afirma que el margen deja de caer; si sigue cayendo, es el MALO. Se resuelve con palabras, pero es la hipótesis de la que más depende la conclusión (punto 8).",
+   "La configuración ensancha el salto del año 11: con SR1 el S2C de los años se multiplica por f (1,1136; datos_v63.md sección 0) y el ROIC del terminal no. Sin f los saltos serían ≈0,7 / 3,1 / 6,2 puntos; con f son 1,7 / 4,7 / 8,3 (resultados.json, salto_anio_11: 0,0171 / 0,0474 / 0,0829). Las justificaciones de G8 de la fase B usaban las bases heredadas (1 − C52 y S2C sin f): los números que valen en esta fase son los de la hoja. El BUENO pasa de 5 puntos con o sin f, así que G8 no es un artefacto de la configuración. La lectura de Q-ROIC1 sobre cómo se anclaron B18:D18 está en el punto 9 (PM1.roic_terminal).",
+   "El apoyo de B69 está mal casado con la frecuencia: llama «márgenes de MALO» a 2019, 2022 y 2023 (15,3 %, 15,7 %, 15,1 %), que están dentro del rango del NORMAL que usa C69 (15,1–18,0 %), y ningún año de la década llegó al 14 % del MALO (0 de 10; Historia fila 29). Lo que sí sostiene la probabilidad es el mecanismo (repercusión parcial documentada en 2022 y 2023 [CF_2022 p. 93; IA_2023 p. 246]) y la convención de no castigar dos veces un margen que ya está por debajo del mínimo observado. No es una palanca mal derivada (no hay aritmética, perímetro ni dato equivocado: es una convención argumentada). Calculado con la fórmula de la escalera (scripts/precio_de_si.py, p_estrella) sobre los V de precio.json: con 0,25 / 0,6 / 0,15 el precio de Sí sería 38,19 € (−1,61 €, −4,0 %); con 0,3 / 0,5 / 0,2, 37,67 € (−5,3 %); con 0,15 / 0,6 / 0,25, 41,65 € (+1,85 €). Ningún vector de probabilidades saca el precio de caro, porque el precio de Sí tiene tope en el NORMAL (43,77 €) y el precio es 54,70 €. No pido revisarla; queda en celdas_corregidas sin cambio. Para el objetivo, en cambio, un paso de la lista mueve el precio de Sí más que mi criterio de materialidad: lo declaro como límite del objetivo (decisión pendiente D7, punto 9).",
+   "El FCF del NORMAL crece un 6,2 % anual (resultados.json, crecimiento_fcf_implicito 0,0621) y C25 = No: es mecánica del motor B (el crecimiento baja del 4,5 % al 2 % y con él la reinversión) y es otra medida (flujo operativo de la empresa frente al FCF al accionista de la fila 35, que lleva el circulante de 2022–2023 y el capex de 115,6 M€ de 2022). No contradice C25.",
+   "El valor del MALO (29,78 €) queda por debajo del valor sin crecimiento (34,28 €): el crecimiento del MALO resta valor (−4,50 €; resultados.json, valor_del_crecimiento) porque el margen baja al 14 % y el ROIC del terminal (0,08) queda 0,27 puntos bajo la tasa del motor (8,27 %, Diagnóstico V6 C15) por el redondeo a 0,01. Es coherente con un MALO sin exceso de rentabilidad; el efecto del redondeo es pequeño (g = 1 %).",
+   "Las celdas de la fase C que hoy tiene el libro (B101, B102, C104 en resultados.json → celdas_juicio_analisis) son las heredadas de la etapa 1: hablan de un precio de Sí de 25,1 € y de un «0 %» en C104. Son de otra base, de otro precio y de otra regla. Se reescriben enteras en el turno 2 (C104 sin ningún porcentaje, D16).",
+   "Recompras por encima de mi valor: en 2025 se recompraron 94,0 M€ (extracto: AR_2025 p. 144) en un año con un precio medio diario de 59,47 € (p. 147); la nota 12.4 da el coste de las 1.599.709 acciones propias compradas en 2025: 93.752 miles de € [AR_2025.txt, PDF p. 83; el número de acciones también en PDF p. 143], ≈58,6 € por acción [cálculo: 93.752 ÷ 1.599.709]. Las dos cifras superan mi NORMAL (43,77 €). La fase A lo leyó como el mecanismo de la retribución flexible (las recompras absorben el dividendo en acciones, nota de C28) y dejó C98 = Aceptable en el borde: lo mantengo, pero va a lo no numerable y a la tesis inversa.",
+   "Número de acciones (decisión D3 de la persona responsable, 14-nov-2026; ya no es una decisión pendiente): C55 = 45,993399 M, las acciones en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]), en lugar de la media ponderada «diluida» de la nota 20.2 (45,479209 M), que contradice su definición (queda por debajo de la básica, 45,656226). La capitalización C41 pasa a 54,70 € (C37, boletín de BME del 3-nov-2026, PDF p. 3) × 45,993399 M = 2.515,8 M€. Efecto medido sobre la rama (resultados/efecto_decisiones_viscofan.json): el precio de Sí pasa de 40,30282 a 39,79819 € (−0,50462 €, −1,25 %); por separado, −0,45057 € es el denominador con E fijo y −0,05466 € la capitalización, que entra por la r operativa (Diagnóstico V6 C15: 8,2603 % → 8,2677 %; resultados.json, r_operativa_C15); los dos efectos no suman exactamente el conjunto. E1 (C47–C50 con los valores exactos: 77,533 / 8,294 / 5,547 / 3,707 M€) mueve 0,000 €: solo entran en el FCF del motor A (C52 pasa de 97,29 a 97,22 M€), y el motor es el B. Fechas distintas: el precio es del 3-nov-2026 y las acciones son las de las cuentas de 2025; no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio es la de 30-jun-2026: 46.000.000 emitidas tras la amortización de mayo de 2026 y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]. No la adopto: D3 fija la base de 2025 y la elección no es una actualización a 2026; con ese divisor el precio de Sí subiría ≈+0,34 € por el solo denominador [estimación proporcional mía con E fijo, no calculada en la hoja ni en ninguna variante]; la hoja lo avisa: «Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)», resultados.json → causas_activas). Dilución potencial, declarada aparte y no adoptada: el plan de incentivos 2025–2027 prevé hasta 315.000 acciones (incentivo objetivo) o 472.500 (máximo), con entrega en el primer semestre de 2028 y sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]; con ellas el precio de Sí sería 39,52748 € (−0,27 €) o 39,39350 € (−0,40 €), siempre en caro (resultados/efecto_decisiones_viscofan.json). No cambia mi conclusión: el precio está un 37,4 % por encima del precio de Sí (÷ precio de Sí). Corrijo lo que decía la rama: su «−0,31 € con los datos de esta rama» era la diferencia frente a la activa de la 4.13, no frente a la rama (DECISIONES_ENTRADAS_4_14.md, fila E5).",
+   "Tipo impositivo: Historia C52 (19,83 %) incluye el 10,1 % de 2025 por la activación de bases negativas de EE. UU. (18,0 M€; extracto: AR_2025 p. 142); la configuración usa N1 = 22,12 %. G7 usa las bases heredadas (tipo y S2C de la Historia, sin f) y las referencias mecánicas del S2C se anclan en el S2C histórico del perímetro NIIF 16 (Configuración V6.4!B155 = 1,0675) sin f (datos_v63.md sección 0): son lecturas con bases parciales, no comprobaciones del modelo experimental.",
+   "Datos corregidos de la rama 4.14 (CORRECCIONES_ENTRADAS_4_14.md): pensiones a la prestación definida neta (Historia L25 = 14,878 M€ en lugar de 20,989 [AR_2025.txt, PDF pp. 87–88]), circulante sin la variación de provisiones (F14, G14, J14:L14), deuda de 2017 (D22 = 93,698) y adquisiciones de 2020 (G13 = 0). Con las fases A y B sin cambiar ninguna celda, el precio de Sí pasa de 40,16401 a 40,30282 € (+0,13881 €): +0,13437 € por la fila 25 de pensiones (solo L25 entra en el puente, Historia C65 = 20,3 M€ en lugar de 26,4) y +0,00444 € por la fila 14 de circulante; el puente del motor B baja de 279,9 a 273,8 M€ (resultados.json, pasivos_netos_B_C16); reproducido en resultados/efecto_correcciones_viscofan.md del ensayo 4.14. No cambia la historia: cambian cifras, no el relato ni el cubo. Sobre esa base de la rama, este expediente aplica D3 y E1 (punto anterior): 40,30282 → 39,79819 €; las fases A y B no cambian ninguna celda frente a la rama.",
+   "Identificación de la configuración y divisor (auditoría SA-5560fe3438e5febb, punto 10): la versión auditada de configuracion_economica.json → naturaleza terminaba en «N sigue en 45,479209 (VISCOFAN-ACCIONES)», y la sección 14 del informe y ficha.configuracion_economica lo copiaban como si fuera el divisor vigente. No lo es: el divisor efectivo es Análisis!C55 = 45,993399 M, las acciones en circulación a 31-dic-2025 (decisión D3; resultados.json, C55 = 45,993399), el que usan el libro, precio.json y todas las cifras de esta fase. La orquestación ya corrigió esa frase como cambio editorial (la versión anterior queda en configuracion_economica.antes_naturaleza_D3.json) y la naturaleza vigente dice N = 45,993399 M (D3, base 2025, no es una actualización a 2026). 45,479209 M es solo la media ponderada «diluida» de la nota 20.2 que D3 sustituyó: en esta fase no figura como acciones activas en ningún sitio. No es un fallo de palanca (fase B) ni de celda de la fase A y no mueve ninguna cifra.",
+   "Análisis!C42 (EV/EBITDA 9,47) sigue con la capitalización anterior a D3: su evidencia (Control maestro J42; datos_v63.md §2, fila C42) calcula EV 2.746,6 = capitalización 2.487,7 (54,70 € × 45,479209 M) + deuda financiera 304,075 + arrendamientos 12,243 − caja 62,790 + minoritarios 5,422 (Historia L22–L26), ÷ EBITDA 2025 289,990 (L7 + L8). Con C41 = 2.515,8 M€ (D3) el EV sería 2.774,8 M€ y el múltiplo ≈9,57 [cálculo: (2.515,839 + 304,075 + 12,243 − 62,790 + 5,422) ÷ 289,990 = 9,569]. Es un dato de entrada, no una celda de juicio de A ni de B: no lo reescribo aquí y la corrección corresponde a quien escribe las entradas (cambiar_base.py o la fase 1). Efecto: C42 no entra en el motor B ni en precio.json, así que no mueve el precio de Sí (39,80 €), la zona ni el cubo; la Observación de C13 de la fase A lo cita como 9,47 «solo contraste», y con 9,57 (algo más caro) C13 = No se sostiene igual."
+  ]
+ },
+ "lo_que_dice_la_hoja": {
+  "valores_por_escenario": {
+   "MALO": 29.78,
+   "NORMAL": 43.77,
+   "BUENO": 57.95,
+   "ponderado_C83": 43.81,
+   "precio_C37": 54.7,
+   "valor_sin_crecimiento": 34.28
+  },
+  "semaforos_relevantes": [
+   "fila 41 · margen por encima del Q3 del sector en los tres escenarios (G5, justificado: el mínimo propio de la década, 15,1 %, ya supera el Q3 de Food Processing, 10,2 %)",
+   "fila 48 · r del 9,0 % por debajo de la r mínima del 9,5 % (r heredada, S-3: se informa)",
+   "filas 40, 42, 43, 44, 46, 47, 49 y 50 · pasan; fila 45 (cuota implícita) sin calcular porque C24 está vacía",
+   "D84 / D85 / D86 · banderas de poco margen, asimetría débil y crecimiento implícito por encima del BUENO",
+   "cuánto pagas por crecer: 20,42 € por crecimiento frente a 9,48 € que vale el crecimiento del NORMAL (2,2 veces)",
+   "aviso del motor · salto del año 11 por encima de 5 puntos (solo el BUENO, 8,3 puntos): G8, justificado abajo"
+  ],
+  "peso_terminal_NORMAL": 0.581,
+  "peso_terminal": {
+   "MALO": 0.494,
+   "NORMAL": 0.581,
+   "BUENO": 0.626
+  },
+  "salto_anio_11": {
+   "MALO": 0.017,
+   "NORMAL": 0.047,
+   "BUENO": 0.083,
+   "explicacion": "Rentabilidad marginal de los años 1–10 de 9,7 % / 15,7 % / 20,3 % (S2C × f × margen × (1 − t), con f = 1,1136 y t = 22,12 %) frente a un ROIC terminal de 8 % / 11 % / 12 %. Solo el BUENO pasa de 5 puntos: en los años 1–10 se llena capacidad ya construida o comprometida y el margen sube al 18 %, dos cosas que ocurren una vez; en el año 11 el euro nuevo vuelve a pagar planta a coste completo (G8). Unos 1,0 / 1,6 / 2,1 puntos de los saltos los pone f (SR1 reestima el S2C de los años y no el ROIC del terminal). En el MALO el ROIC terminal es la tasa del motor redondeada: la ventaja que queda se pierde en el año 11."
+  },
+  "dcf_inverso": "Con el margen, el S2C y el terminal del NORMAL, el precio de 54,70 € descuenta un crecimiento de ventas del 10,1 % anual en los años 1–5 (C86 = 0,1009): más que mi BUENO (7 %) y que la mejor racha de la década (5,8 % anual en 2016–2021 [cálculo, Historia ventas]). El precio de Sí (39,80 €) descuenta un 2,0 % (precio.json, g_impl_si = 0,0198), por debajo de mi NORMAL (4,5 %). La tabla del DCF inverso es monótona y coincide con C86 (precio.json).",
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt)",
+  "tornado_euros_por_accion": {
+   "Tasa de descuento (±1 pt)": 9.9,
+   "Margen / ROE objetivo (±2 pts)": 6.35,
+   "ROIC / ROE largo plazo (±5 pts)": 5.63,
+   "Crecimiento 1–5 (±2 pts)": 3.55,
+   "S2C (±0,3)": 2.52,
+   "g perpetuo (±0,5 pts)": 1.1
+  },
+  "nota": "el tornado es información, no criterio; la palanca que más mueve el valor es la tasa de descuento (r heredada): el valor depende sobre todo de la rentabilidad exigida",
+  "escalera_leida": {
+   "precio_escenario_malo": 29.78,
+   "precio_si": 39.8,
+   "ponderado": 43.81,
+   "zona": "caro",
+   "tope_normal_aplicado": false,
+   "distancia_a_precio_si": 0.272,
+   "distancia_a_malo": 0.456,
+   "C156_regla_antigua": 29.78,
+   "distancias_con_denominador": "el precio de Sí (39,80 €) está un 27,2 % por debajo del precio (÷ precio); el precio (54,70 €) está un 37,4 % por encima del precio de Sí (÷ precio de Sí) y un 24,9 % por encima del ponderado (÷ ponderado)",
+   "sensibilidad_del_precio_de_si": "con el MALO por debajo y el NORMAL por encima del precio de Sí, P* = (0,6 × V_NORMAL + 0,2 × V_BUENO + 0,6 × V_MALO) ÷ 1,4: un euro más en el NORMAL o en el MALO sube el precio de Sí 0,43 €; un euro más en el BUENO, 0,14 € [cálculo con p_estrella sobre precio.json]; un paso de la lista de probabilidades entre las colas lo mueve −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25)"
+  },
+  "veredicto_A6": "DESCARTADA POR FILTRO PABRAI (C13 = No). Mi cubo es Vigilar: el caso típico de buen negocio sin valor claro al precio.",
+  "estado_tecnico": "INCOMPLETO solo por las tres predicciones (Palancas A38:A40), que escribo en el turno 2; sin bloqueo del valor (B252 y B254 falsos), 0 errores de gramática. Estado de las evidencias (Control maestro D250): INCOMPLETAS · datos 15 de 17 · 2 no verificables (Historia C23:L23 y C26:L26; revisión de datos ausentes, punto 6).",
+  "bases_parciales": "G7 usa las bases heredadas (tipo de la Historia, 19,83 %, y S2C de la Historia, sin f); las referencias mecánicas del S2C se anclan en Configuración V6.4!B155 (1,0675, perímetro NIIF 16), también sin f (datos_v63.md sección 0): no son una comprobación del modelo experimental. La cartera es «legado», así que el valor sin crecimiento (34,28 €) no tiene la salvedad de P0."
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G8",
+   "escenario": "BUENO",
+   "clase": "fundamentada",
+   "justificacion": "En los años 1–10 cada euro nuevo rinde un 20,3 % (1,3 × 1,1136 × 0,18 × (1 − 0,2212)) porque se juntan dos cosas que solo ocurren una vez: se llena capacidad ya construida o comprometida al cierre de 2025 (colágeno en EE. UU., plásticos en México, extrusión en Serbia; el 37 % de la inversión de 2025 fue a capacidad y quedan 52,0 M€ de compromisos) y el margen sube del 16,4 % al 18 % de 2020–2021 al repartir costes fijos, que es crecimiento por eficiencia y es finito (GV p. 32; I1). Con las plantas llenas y el margen en su techo, el euro nuevo vuelve a pagar planta a coste completo y lo dejo en un 12 %, el ROIC del peor año de la década (12,1 % en 2019): en el año 11 no se pierde el foso (12 % sigue 3,7 puntos sobre la tasa del motor, 8,27 %), se acaban la capacidad ociosa ya pagada y el recorrido del margen. Tengo precedente propio en los dos sentidos: S2C de 1,57 en el ciclo de construir y llenar de 2016–2021 (1,70 antes de corregir el circulante de 2019–2020) y rentabilidad incremental de ≈18,9 % en 2019–2025 saliendo del mínimo de margen, frente a ≈9,0 % en toda la década. Unos 2,1 de los 8,3 puntos los pone f (SR1); sin f el salto sería de 6,2 y seguiría por encima de 5. «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM). No cambio la clase ni la cifra de D18: lo contaré en la tesis.",
+   "hechos": [
+    "resultados.json salto_anio_11 (BUENO 0,0829; rentabilidad marginal 0,2029; ROIC terminal 0,12)",
+    "Historia F33 (ROIC 12,1 % en 2019) y G33:H33 (15,3 % con margen del 18 %)",
+    "Historia G29:H29 (17,9 % y 18,0 %)",
+    "[AR_2025 p. 65] (proyectos de capacidad y compromisos de 52,0 M€)",
+    "[AR_2025 p. 143] (30,9 M€, 37 % de la inversión de 2025, a capacidad)",
+    "Historia filas ventas y reinversion_neta_total (S2C 1,57 en 2016–2021 [cálculo]: 238,4 M€ de ventas sobre 152,2 M€ de reinversión neta de 2017–2021, con F31 y G31 corregidos)",
+    "Historia filas ebit y capital_invertido (≈18,9 % en 2019–2025 y ≈9,0 % en 2016–2025 [cálculo, t = 22,12 %])",
+    "datos_v63.md sección 0 (f = 1,11355; t NOPAT 22,12 %)"
+   ]
+  },
+  {
+   "comprobacion": "G5",
+   "escenario": "MALO",
+   "clase": "fundamentada",
+   "justificacion": "El 14 % del MALO supera el Q3 del sector (10,2 %) sin ninguna mejora: es una compresión desde el 16,4 % de 2025 hasta por debajo del mínimo propio de la década (15,1 % en 2023). El Q3 es de Food Processing, no del nicho de envolturas, y el margen de Viscofan ha estado por encima de ese Q3 los diez años. La mejora se la quedan el cliente y el proveedor de pieles.",
+   "hechos": [
+    "Historia C29:L29 (21,1 % → 15,1 % → 16,4 %)",
+    "Historia C50 (mínimo 15,1 %)",
+    "Palancas I15 (Q3 del sector 10,2 %)",
+    "[AR_2025 p. 436]",
+    "[CF_2022 p. 93]",
+    "[IA_2023 p. 246]"
+   ]
+  },
+  {
+   "comprobacion": "G5",
+   "escenario": "NORMAL",
+   "clase": "fundamentada",
+   "justificacion": "El 16,5 % es la media de 2019–2025 de su propio margen (16,4 %), dentro de su rango de siete años y por debajo de su máximo (21,1 %). Supera el Q3 del sector porque el sector asignado no es su nicho; no hay mejora que repartir: precio que sigue al coste con retraso y escala que sostiene el margen sin ampliarlo.",
+   "hechos": [
+    "Historia F29:L29",
+    "Historia C51 (21,1 %)",
+    "[AR_2025 p. 141] (margen EBITDA comparable 23,7 % en 2024 y 2025)"
+   ]
+  },
+  {
+   "comprobacion": "G5",
+   "escenario": "BUENO",
+   "clase": "fundamentada",
+   "justificacion": "El 18 % es el margen que la empresa ya tuvo en 2020 y 2021, por debajo de su máximo de 2016 (21,1 %). Mecanismo: escala sobre capacidad nueva ya construida que reparte costes fijos y gama completa que sostiene precio; se queda la mejora la empresa solo si la cuota se gana con producto y no con precio.",
+   "hechos": [
+    "Historia G29 y H29",
+    "Historia C51",
+    "[AR_2025 p. 65]",
+    "[AR_2025 p. 180]",
+    "[CF_2022 p. 200]"
+   ]
+  }
+ ],
+ "autocomprobacion": [
+  {
+   "sesgo": "anclaje en la etapa 1",
+   "hallazgo": "La etapa 1 dejó Vigilar con un precio de Sí de 25,1 € (regla antigua, motor A) y un C104 con «0 %», que es lo que el libro de la rama tiene hoy en B101, B102 y C104. Revisé las celdas que heredan algo de ella en las fases A y B: C97 cambió con la evidencia de fase 1 (Neutral → Comprando), C62 cambió de motor por la trayectoria de la deuda, C76 cambió por definición; las g heredadas (0,01 / 0,02 / 0,025) tienen argumento propio con hechos (IA_2016 p. 42; IA_2023 p. 146; AR_2025 p. 181). Miré también el anclaje en la fase C de la rama 4.14 (copiada en fase_c.rama.json y fase_c.rama.md): conservo sus juicios solo donde siguen valiendo con las cifras de D3 y E1, y cambio lo que esas decisiones invalidan (sección «Cambios frente a la rama» de fase_c.md).",
+   "cambio": "Ninguno en celdas; B101, B102 y C104 se reescriben enteros en el turno 2 con la escalera de precio.json."
+  },
+  {
+   "sesgo": "anclaje en el precio o en la fuente externa",
+   "hallazgo": "El NORMAL (43,77 €) queda un 20,0 % por debajo del precio (÷ precio) y el ponderado (43,81 €) un 19,9 %; no se acercaron a la cotización. No usé el valor de Simply Wall St (118,26 €, C38) ni el consenso (69,29 €): «Few psychological tendencies do more damage to correct thinking» (PCA p.579; HIM). Tampoco ancla la r: es la heredada (9 %), por debajo de la r mínima (9,46 %), y no la muevo.",
+   "cambio": "Ninguno."
+  },
+  {
+   "sesgo": "consistencia y compromiso",
+   "hallazgo": "El cubo Vigilar se decidió en la fase A y lo sostuvieron la 4.13 y la rama. Lo puse a prueba buscando qué lo rompería: con cualquier vector de probabilidades el precio de Sí tiene tope en el NORMAL (43,77 €) y el precio está por encima; en las dieciocho variantes calculadas la zona sigue en caro (precio de Sí de 38,13 a 42,98 €); el precio descuenta un 10,1 % de crecimiento, más que mi BUENO. En el otro sentido, el paso a No depende de si la compresión del margen es estructural, y eso no lo sé. Para el compromiso con la 4.13: corregí lo que ya no vale (la afirmación de que solo constaba el desglose del capex de 2025, el circulante de 2023, el S2C de 2016–2021) en lugar de defenderlo. Con la rama: no defiendo lo que D3 invalida (las acciones ya no son una decisión pendiente) y corrijo su cifra de −0,31 €, que no era el efecto frente a la rama.",
+   "cambio": "Ninguno en celdas; la frontera con No queda escrita como la hipótesis que más condiciona (C15)."
+  },
+  {
+   "sesgo": "historia bonita / viento de cola atribuido a la empresa",
+   "hallazgo": "Del 4,5 % de crecimiento del NORMAL, unos 3 puntos son del nicho (mercado del 2–4 % en volumen; sustitución de tripa animal de la mitad del mercado en 2016 al 44 % en 2023 [AR_2025 p. 181; IA_2016 p. 42; IA_2023 p. 146]), 1–1,5 de precio que sigue al coste y solo lo que reste de cuota. La cuota es de la empresa, pero con varias definiciones publicadas y sin cifra desde 2022. «how much of your present prosperity is causes [sic] by talents and momentum» (AIWTK p.136; HIM).",
+   "cambio": "La tesis del turno 2 dirá que el crecimiento es sobre todo del nicho y que la parte de la empresa (cuota) es la menos medida."
+  },
+  {
+   "sesgo": "optimismo del BUENO frente a la tasa base",
+   "hallazgo": "El BUENO pide un 7 % anual (la mejor racha de la década dio un 5,8 %) y un 20,3 % por euro nuevo en los años 1–10, más que el mejor ROIC de la década (16,7 %, 2016); unos 2,1 puntos los pone f. Sus ventas del año 10 (2.166,6 M€) serían ≈32 % del mercado en valor si este creciera un 3 % anual desde 5.100 M€, frente a ≈24,5 % hoy [cálculo; AR_2025 p. 181]. Plausible, en el borde, con la misma probabilidad que el MALO y no más. El precio de Sí solo se mueve 0,14 € por euro de BUENO.",
+   "cambio": "Ninguno; lo llamo la historia menos probada en la tesis."
+  },
+  {
+   "sesgo": "doble castigo del mismo riesgo",
+   "hallazgo": "Miré la deuda, el margen y la reposición. La deuda solo la resta el motor B (puente de 273,8 M€, con las pensiones netas corregidas) y C22 = 0 con argumento: no está además en la r ni en la probabilidad. El margen está como gravedad (14 % en el MALO, g 1 %) y no además como frecuencia (0,2). La reposición puede contarse en parte dos veces en el terminal si el ROIC contable se mantiene y se suma el requisito (SR1); SR2 lo evitaría (+0,57 €). Una quiebra sobre un riesgo que ya está en el MALO sería contarlo dos veces (PA pp. 20–21; E6). En el juicio sobre el objetivo evité contar dos veces la misma alternativa: PM1.roic_terminal solo se contrasta con estructura_SR2, que ya es una de las estructuras de PM1.estructura.",
+   "cambio": "Anotado en el punto 9 (PM1.roic_terminal, confianza baja); no cambia la acción."
+  },
+  {
+   "sesgo": "disponibilidad (lo vívido del extracto)",
+   "hallazgo": "Lo vívido es la «inflación sustancial del coste unitario» de las pieles y las coberturas de divisa superadas (extracto: AR_2025 p. 436), y la noticia de Danville. Lo contrasté con la fila 29: la pendiente del margen existe desde 2016 y 2024–2025 (16,7 % y 16,4 %) están por encima de 2023 (15,1 %). «An idea or a fact is not worth more merely because it is easily available to you» (PCA p.587; HIM).",
+   "cambio": "Ninguno: el MALO se apoya en la fila 29, no en la frase."
+  },
+  {
+   "sesgo": "autoridad (guía de la dirección como hecho)",
+   "hallazgo": "Ninguna palanca copia la guía de 2026 (ventas +5 % a +7 %, posterior a la base): el NORMAL es un 4,5 %. La cuota (30 % → 41 %) es una estimación de la empresa con definiciones cambiantes; C18 se sostiene con el ROIC de las cuentas (fila 33). Tampoco tomo la configuración como autoridad: θ = 0,5 es el punto medio del dominio, no una medida. Y no tomo como autoridad la clasificación de la inversión por tipo que publica la empresa: es evidencia a favor de θ bajo, pero «capacidad y maquinaria» puede incluir maquinaria de reposición, y aceptarla como método es una decisión pendiente (D2, D5). «will frequently be a lie» (TCI p.60; HIM).",
+   "cambio": "La tesis lo dirá; θ queda como condicionante del objetivo (punto 9)."
+  },
+  {
+   "sesgo": "¿el MALO es de verdad malo?",
+   "hallazgo": "Sí en margen: lo lleva al 14 %, por debajo del mínimo de la década, con el ROIC terminal en la tasa y g del 1 %; vale 29,78 €, menos que el valor sin crecimiento (34,28 €). No cubre perder volumen o cuota frente a un competidor que no sé nombrar (extracto: AR_2025 p. 399): el volumen sigue al mercado (1,5 %). Por eso no es un suelo. «We don't think because it's never happened that it won't» (AIWTK p.55; HIM).",
+   "cambio": "La tesis inversa del turno 2 contará la pérdida de cuota como el caso que el MALO no recoge."
+  },
+  {
+   "sesgo": "lo no numerable que pesa y no está en las palancas",
+   "hallazgo": "El reparto por encima de la caja con deuda bancaria a un año de 227,4 M€ (AR_2025 p. 98); recompras de 94,0 M€ en 2025 a un precio medio en torno a 59 € (AR_2025 pp. 144, 147), por encima de mi NORMAL; un dividendo «extraordinario» repetido tres años; la noticia de Danville sin desenlace (p. 94); un competidor sin nombre; una media de acciones «diluida» publicada que contradice su definición (ya no es el divisor: por D3, C55 son las acciones en circulación a 31-dic-2025) y la dilución potencial del plan 2025–2027 (hasta 0,315 o 0,4725 M de acciones en 2028 [AR_2025.txt, PDF p. 130]), que no está en el divisor; y, a favor, compras en mercado de directivos (Control maestro fila 76). «practically everybody (1) overweighs the stuff that can be numbered» (PCA pp.412–414; HIM).",
+   "cambio": "Va a la tesis inversa, a B222 y a lo que me haría cambiar a No; C98 se mantiene en el borde; la dilución potencial se declara aparte (39,53 / 39,39 €), sin adoptarla."
+  }
+ ],
+ "revisar_palancas": false,
+ "instrucciones_revision": null,
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": null
+ },
+ "cubo_provisional": "Vigilar",
+ "conclusion_provisional": "esperar",
+ "revision_datos_ausentes": {
+  "revisados": [
+   {
+    "dato": "evidencia Historia!C23:L23",
+    "que_falta": "documento verificable de los ceros de 2016–2018 del pasivo por arrendamientos NIIF 16 (la fase 1 los conserva como ceros pendientes de verificación)",
+    "conclusion_afectada": "ninguna celda de juicio: el puente del motor B usa L23 (12,243 M€ a 31-dic-2025 [AR_2025.txt, PDF p. 22]), que está documentado; los ceros solo tocan el capital invertido y el ROIC de 2016–2018 de la Historia",
+    "material_para_conclusion_favorable": false,
+    "porque": "En 2016–2018 no se aplicaba la NIIF 16 (obligatoria desde el 1-1-2019) y los arrendamientos financieros NIC 17 ya están en la deuda (datos_v63.md, Historia fila arrendamientos; la rama los reclasificó como «no aplicable» en verificacion_entradas.json, pendiente de revisión independiente, CORRECCIONES_ENTRADAS_4_14.md §5). Un cero es la cifra económica correcta, no un hueco. Ninguna palanca usa esos años: el S2C se ancla en 2021–2025 (B155), el ROIC terminal en F33:L33 y C55, y el mínimo y el máximo de la década (12,1 % y 16,7 %) no dependen de un pasivo que no existía. No cambia la acción ni el precio de Sí; deja las evidencias en «INCOMPLETAS» (Control maestro D250), que se informa."
+   },
+   {
+    "dato": "evidencia Historia!C26:L26",
+    "que_falta": "minoritarios de 2021 y 2022 (sin dato) y documento verificable de los ceros de 2019 y 2020",
+    "conclusion_afectada": "ninguna celda de juicio: el puente usa L26 (5,422 M€ a 31-dic-2025), documentado; la serie histórica de minoritarios no entra en ninguna palanca",
+    "material_para_conclusion_favorable": false,
+    "porque": "El balance consolidado de 2021 y 2022 no tiene línea de participaciones no dominantes ni imprime cifra [CF_2021.txt, PDF p. 3; CF_2022_compilacion.txt, PDF p. 20]; los minoritarios aparecen con la compra del 60 % de Brasfibra y Master Couros (4,551 M€ en 2024; Historia K26). Antes de esa compra son, como mucho, del orden de 0,2 M€ (2016–2018: 0,217 / 0,135 / 0,013, Historia C26:E26), nada frente a 1.181 M€ de capital invertido. No cambia ni la acción ni el objetivo."
+   },
+   {
+    "dato": "evidencia Historia!C17:L17",
+    "que_falta": "confirmación registrada de los ceros de 2016–2018 del principal de arrendamientos (NIIF 16)",
+    "conclusion_afectada": "ninguna celda de juicio: el principal de arrendamientos solo entra en el FCF del motor A (Análisis C49, media de 2023–2025 = 5,547 M€, valor exacto por la decisión E1), y el motor elegido es el B",
+    "material_para_conclusion_favorable": false,
+    "porque": "Antes de 2019 no había pagos de pasivos por arrendamiento NIIF 16 que separar (datos_v63.md, Historia fila arrendamientos_principal); la media que usa la hoja es la de 2023–2025 (5,296 / 5,843 / 5,503 M€, J17:L17), con fuente. El motor B no resta esos pagos (los arrendamientos son capital y deuda en el puente). Sin efecto en la acción ni en el precio de Sí."
+   },
+   {
+    "dato": "evidencia Historia!C18:L18",
+    "que_falta": "confirmación registrada de los ceros de 2016–2018 de la SBC",
+    "conclusion_afectada": "ninguna celda de juicio: la SBC entra por Análisis C50 (media de 2023–2025 = 3,707 M€, valor exacto por la decisión E1), que solo usa J18:L18 y el FCF del motor A",
+    "material_para_conclusion_favorable": false,
+    "porque": "No había plan de pagos en acciones en 2016–2017 según las notas citadas por la fase 1 (datos_v63.md, Historia fila sbc) y la serie desde 2019 es pequeña (0,26 a 6,8 M€). La fase A usa solo 2023–2025 (C50) y el motor B valora desde el margen EBIT, sin usar la fila 18. Sin efecto en la acción ni en el precio de Sí."
+   },
+   {
+    "dato": "Palancas!C24",
+    "que_falta": "tamaño del mercado a diez años de fuente primaria",
+    "conclusion_afectada": "C24 (vacía) y la cuota implícita (fila 45 sin calcular, G17 no evaluable); la plausibilidad del BUENO",
+    "material_para_conclusion_favorable": false,
+    "porque": "No hay cifra primaria del mercado a diez años, solo 5.100 M€ en 2025 y un 2-4 % de volumen [AR_2025 p. 181]. Con un 3 % anual el BUENO del año 10 sería ≈32 % del mercado en valor y el NORMAL ≈26 % [cálculo], frente a ≈24,5 % hoy: plausible. La conclusión esperar no depende del BUENO (el precio está por encima del NORMAL y del ponderado) y el precio de Sí solo se mueve 0,14 € por euro de BUENO."
+   },
+   {
+    "dato": "extracto_v63: Hecho del extracto anterior sin contrastar (pasaje no encontrado en las publicaciones recuperadas): nuevas líneas de celulosa (Danville) y colágeno (New Jersey)",
+    "que_falta": "contraste de la previsión de 2024 de las líneas de EE. UU.",
+    "conclusion_afectada": "ninguna celda de juicio: la capacidad de EE. UU. del BUENO se apoya en AR_2025 p. 65 e IA_2023 p. 131",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las ediciones conservadas de 2023 dicen que las líneas de Danville y New Jersey se pusieron en marcha en 2023 [IA_2023_es.txt, PDF p. 131; IA_2023_es.txt, PDF p. 246; CA_2023_es.txt, PDF p. 98]; la previsión para 2024 era del extracto anterior y no se usa. Nada de las fases A y B depende de esa fecha."
+   },
+   {
+    "dato": "extracto_v63: Saldo de minoritarios de 2021 y 2022: el balance consolidado no tiene línea de participaciones no dominantes ni imprime cifra [CF_2021.txt, PDF p. 3; CF_2022_co",
+    "que_falta": "el saldo de minoritarios a 31-dic-2021 y 31-dic-2022",
+    "conclusion_afectada": "ninguna celda de juicio (el mismo hueco que evidencia Historia!C26:L26)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Mismo motivo que Historia C26:L26: sin línea en el balance de esos años [CF_2021.txt, PDF p. 3; CF_2022_compilacion.txt, PDF p. 20], con un saldo que antes de la compra de Brasfibra era del orden de décimas de millón; el valor usa solo el de 2025 (L26 = 5,422 M€). La fase A ya lo dice en el descalificador sin historial (fase_a.md §13, punto 3)."
+   },
+   {
+    "dato": "extracto_v63: Cuota de mercado de Viscofan en 2023, 2024 y 2025 con la definición B (solo productores de envoltura a medida): No encontrada; la última cifra es 41 % en 2022.",
+    "que_falta": "cuota de 2023–2025 entre productores de envoltura a medida",
+    "conclusion_afectada": "D65/D66 (BUENO), la prueba del foso de C18 y la tesis",
+    "material_para_conclusion_favorable": false,
+    "porque": "La última cifra comparable es 41 % en 2022 [CF_2022 p. 182]; para 2025 solo hay la frase de la presidencia (+3 puntos en el tradicional [AR_2025 p. 137]). Afecta a cuánto pesa la empresa frente al nicho, no a la acción: con esperar el precio está por encima de mi NORMAL, que no supone ganar cuota. Sería material para un comprar que dependiera del BUENO."
+   },
+   {
+    "dato": "extracto_v63: Tamaño de mercado de 2024 (valor y volumen): no hallado en las publicaciones recuperadas de ese año (CF_2024.txt es de cuentas anuales); sí está el de 2025 (5.1",
+    "que_falta": "valor y volumen del mercado en 2024",
+    "conclusion_afectada": "ninguna celda de juicio",
+    "material_para_conclusion_favorable": false,
+    "porque": "Está el de 2025 (5.100 M€, +4 % en volumen [AR_2025 p. 181]) y la serie 2016–2023; el año que falta no cambia ninguna palanca ni la lectura del NORMAL."
+   },
+   {
+    "dato": "extracto_v63: Nombre de competidores, cuota de cada uno, su capacidad o su comportamiento de precios: no aparecen en los documentos.",
+    "que_falta": "quiénes son, su cuota, su capacidad y su conducta de precios",
+    "conclusion_afectada": "C18 (prueba «quién me mata»), alcance del MALO (no recoge pérdida de cuota) y B102",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es la mayor laguna cualitativa y la digo en B222/B102. No es material para esperar: el MALO ya lleva el margen por debajo del mínimo de la década y el precio está por encima del NORMAL. Sería material para un comprar: sin él no puedo descartar un MALO de pérdida de cuota."
+   },
+   {
+    "dato": "extracto_v63: Margen o resultado por segmento (tradicional, nuevos negocios, energía): no publicado; la empresa declara un único segmento.",
+    "que_falta": "margen del tradicional, de nuevos negocios y de energía",
+    "conclusion_afectada": "D66 (nuevos negocios en el BUENO) y la base del margen C8",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa declara un solo segmento [AR_2025 p. 111]; la energía es el 4,7 % de las ventas. El margen consolidado de diez años basta para el NORMAL; la falta afecta a la calidad del BUENO, que no decide esperar."
+   },
+   {
+    "dato": "extracto_v63: Margen o resultado por región (EE. UU., Europa, Asia, Sudamérica): no publicado (solo ventas y activos).",
+    "que_falta": "margen de EE. UU., Europa, Asia y Sudamérica",
+    "conclusion_afectada": "D66 (EE. UU. con resultado) y la lectura del MALO",
+    "material_para_conclusion_favorable": false,
+    "porque": "EE. UU. tuvo resultados negativos años y EBITDA positivo en 2024 y 2025 [AR_2025 pp. 66, 140]; el NORMAL usa el margen consolidado. No cambia la acción ni el precio de Sí, que dependen del margen del grupo."
+   },
+   {
+    "dato": "extracto_v63: Descomposición volumen, precio y mezcla del crecimiento de ventas con cifras: no publicada para 2025; solo la frase «mezcla de precios ligeramente inferior».",
+    "que_falta": "efecto precio, volumen y mezcla del crecimiento de 2025",
+    "conclusion_afectada": "C15 del NORMAL frente a B15 del MALO: si la cuota se paga con precio",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el dato que más mejoraría el precio de Sí (lo nombro en que_lo_resolveria). Con esperar no es material: el precio está un 37,4 % por encima del precio de Sí (÷ precio de Sí) y la falta solo mueve el objetivo dentro del rango que ya cubren el MALO (14 %) y el NORMAL (16,5 %)."
+   },
+   {
+    "dato": "extracto_v63: Plan de capex de 2026 y de los años siguientes con cifra por destino: no hallado en el informe de 2025.",
+    "que_falta": "capex de 2026 en adelante por destino",
+    "conclusion_afectada": "ninguna celda de las fases A y B; θ y la estructura de la configuración (PM1.parametro, PM1.estructura)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Un plan futuro sería guía, no hecho. Lo que acota θ es el desglose histórico de la inversión por tipo, y ese sí está en el paquete para 2021 (IA_2021_es.txt, PDF p. 213), 2022 (CF_2022_compilacion.txt, PDF p. 202), 2023 (IA_2023_es.txt, PDF p. 250) y 2025 (AR_2025.txt, PDF p. 143); falta 2024 en un documento conservado. θ es una hipótesis sin fundamento suficiente del punto 9, no un dato ausente."
+   },
+   {
+    "dato": "extracto_v63: Objetivos numéricos de Beat'30 (ventas, EBITDA, capex, cuota, dividendo a 2030): no hallados.",
+    "que_falta": "objetivos numéricos del plan 2026–2030",
+    "conclusion_afectada": "ninguna celda de juicio",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es guía de la dirección, que no uso para ninguna palanca por método («will frequently be a lie», TCI p.60; HIM). Su ausencia no cambia nada."
+   },
+   {
+    "dato": "extracto_v63: Guía numérica de 2025 hecha un año antes: no hallada, así que no puedo comprobar su cumplimiento.",
+    "que_falta": "guía de 2025 hecha un año antes",
+    "conclusion_afectada": "C98 y la lectura de la gestión (cumplimiento de guías)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Hay cumplimiento documentado de 2021 y 2022 [IA_2021 p. 210; CF_2022 p. 199]; la de 2025 solo serviría de contraste de credibilidad, sin efecto en palancas ni en la escalera."
+   },
+   {
+    "dato": "extracto_v63: Importe de I+D como porcentaje de ventas y total de I+D incluida la capitalizada: no publicado; solo el gasto de 4.084 miles de € en otros gastos de explotación",
+    "que_falta": "I+D total y su peso en ventas",
+    "conclusion_afectada": "Palancas C9 = No y C10 vacía",
+    "material_para_conclusion_favorable": false,
+    "porque": "El gasto es 4,084 M€, el 0,33 % de las ventas [cálculo; AR_2025 p. 117]: aunque hubiera I+D capitalizada no publicada, quedaría muy lejos del 5 % que pediría capitalizarla. No cambia C9."
+   },
+   {
+    "dato": "extracto_v63: Múltiplo de compra de Pet Mania, Brasfibra y Master Couros: no publicado (solo precio y activos netos identificables).",
+    "que_falta": "múltiplos pagados en Pet Mania, Brasfibra y Master Couros",
+    "conclusion_afectada": "C98 (asignación de capital)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Son compras pequeñas (5,6 M€ y 14,4 M€ [AR_2025 pp. 31, 32]) frente a 1.181 M€ de capital invertido; sin el múltiplo C98 se juzga por el historial de diez años, y no entra en ninguna palanca."
+   },
+   {
+    "dato": "extracto_v63: Covenants financieros de los préstamos y las líneas: no hallados.",
+    "que_falta": "umbrales de los covenants",
+    "conclusion_afectada": "C22 = 0 (quiebra) y la financiación del MALO",
+    "material_para_conclusion_favorable": false,
+    "porque": "Al cierre de 2025: deuda neta 0,87x EBITDA, EBIT 23 veces los intereses, 155,3 M€ de líneas sin disponer y sin impagos [AR_2025 pp. 98, 122]. Con esos niveles un covenant habitual no muerde; no es material para esperar."
+   },
+   {
+    "dato": "extracto_v63: Rating crediticio: no hallado.",
+    "que_falta": "calificación crediticia",
+    "conclusion_afectada": "C22 y la r operativa del motor B",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa no publica rating; su coste implícito de deuda (Historia C63, 3,1 %) y los niveles de 2025 bastan para C22 = 0. Sin efecto en la acción."
+   },
+   {
+    "dato": "extracto_v63: Coste medio de la deuda bancaria (tipo efectivo medio): no hallado; solo la referencia a Euribor, Libor o SOFR más diferencial.",
+    "que_falta": "tipo efectivo medio de la deuda bancaria",
+    "conclusion_afectada": "la r operativa del motor B (Diagnóstico V6 C15) y el escudo (N1.escudo)",
+    "material_para_conclusion_favorable": false,
+    "porque": "La hoja usa el coste implícito de la Historia (3,1 %); la variante que cambia el escudo mueve el precio de Sí −0,06 € (escudo_alternativo, 39,74 €). La deuda es pequeña frente a la capitalización: inmaterial."
+   },
+   {
+    "dato": "extracto_v63: Calendario de renovación de las líneas de crédito y cuánto de los 227,4 M€ a un año ya está renovado: no hallado más allá de la frase general de renovación.",
+    "que_falta": "cuánto de los 227,4 M€ a un año está renovado",
+    "conclusion_afectada": "C22, Análisis C34 y el riesgo de refinanciación del MALO",
+    "material_para_conclusion_favorable": false,
+    "porque": "Hay 218,1 M€ de tesorería más crédito disponible [AR_2025 p. 122] y la empresa dice que las cuentas de crédito se renuevan cada año (lo de después del cierre no es base). Es riesgo de coste, no de supervivencia: ya está en el MALO."
+   },
+   {
+    "dato": "extracto_v63: Cartera de pedidos: no existe como métrica publicada.",
+    "que_falta": "cartera de pedidos",
+    "conclusion_afectada": "ninguna celda de juicio",
+    "material_para_conclusion_favorable": false,
+    "porque": "No es una métrica de este negocio de suministro recurrente; ninguna palanca la necesita."
+   },
+   {
+    "dato": "extracto_v63: Tamaño del mercado a diez años (Palancas!C24): no hallado; los documentos solo dan un crecimiento histórico de 2-4 % en volumen y 5.100 M€ en 2025.",
+    "que_falta": "tamaño del mercado a diez años",
+    "conclusion_afectada": "C24 y la cuota implícita (el mismo hueco que Palancas!C24)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Mismo motivo que Palancas!C24: el BUENO no decide esperar y con un 3 % anual quedaría en ≈32 % del mercado [cálculo]."
+   },
+   {
+    "dato": "extracto_v63: Ratios regulatorios de capital: no aplican (no es financiera).",
+    "que_falta": "ratios de capital regulatorio",
+    "conclusion_afectada": "ninguna celda de juicio: no es financiera (C6 = Ninguno, motor B)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No aplican; el único elemento regulado es la retribución de la cogeneración (4,7 % de las ventas [AR_2025 p. 40])."
+   },
+   {
+    "dato": "extracto_v63: Compras y ventas de acciones de directivos: no hallado en los textos consultados.",
+    "que_falta": "las operaciones de directivos fechadas frente a la base",
+    "conclusion_afectada": "C97 (Comprando)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No es un dato ausente: el extracto no las encontró, pero la evidencia de fase 1 sí las tiene (Control maestro fila 76; CNMV, art. 19 MAR, 7-oct-2025 a 7-oct-2026: 10 compras en mercado de 6 personas frente a 1 venta) y la fase A ya corrigió C97. Falta solo fechar cada compra frente al 31-dic-2025; no entra en ninguna palanca ni en la escalera."
+   },
+   {
+    "dato": "extracto_v63: Archivo `etapa1/extracto.md`: no existe en la carpeta; no pude comparar contra el extracto de la etapa 1 y puede haber datos repetidos.",
+    "que_falta": "el extracto de la etapa 1",
+    "conclusion_afectada": "ninguna celda de juicio",
+    "material_para_conclusion_favorable": false,
+    "porque": "Los hechos con páginas están en extracto_v63.md y datos_v63.md, que son las entradas de esta fase; la comparación con la etapa 1 se hace con su libro y sus Observaciones (datos_v63.md sección 6)."
+   }
+  ],
+  "alguno_material": false
+ },
+ "fundamento_material": {
+  "hipotesis_sin_fundamento": [],
+  "comprobacion_conjunta": {
+   "procede": false,
+   "combinacion": null,
+   "coherencia_economica": null,
+   "sobrevive": null
+  },
+  "resultado": "no_procede",
+  "hipotesis_que_mas_condiciona": "Palancas!C15",
+  "que_lo_resolveria": "La descomposición de la variación de las ventas y del margen en volumen, precio y mezcla y coste de pieles, por tecnología y región, que la empresa no publica (extracto: AR_2025 p. 139, solo «mezcla de precios ligeramente inferior»): se pide a Relación con Inversores. Y, como comprobación, el margen EBIT publicado de 2026 y 2027 frente a la inflación de pieles (AR_2025 p. 436): por encima del 16 % con volumen al alza sostiene el NORMAL; por debajo del 15 % con volumen récord, el MALO."
+ },
+ "celdas_corregidas": {
+  "C62": {
+   "antes": "No · financiación cambia mucho",
+   "despues": "No · financiación cambia mucho",
+   "motivo": "Revisada como si fuera de otro: la deuda financiera pasó de 116,8 a 304,1 M€ y la deuda neta sin arrendamientos de 25,4 a 241,3 M€ en 2021–2025 (Historia filas deuda y caja; la corrección de D22 solo toca 2017) para pagar al accionista (AR_2025 p. 144). El motor B valora la operación y resta la deuda de la base; calcula los tres escenarios y no hay límite del modelo. Se mantiene."
+  },
+  "C97": {
+   "antes": "Comprando",
+   "despues": "Comprando",
+   "motivo": "Revisada: la evidencia de fase 1 (Control maestro fila 76) da 10 compras en mercado de 6 personas frente a 1 venta en la ventana de 12 meses; la regla da Comprando. Queda sin fechar qué compras son anteriores al 31-dic-2025. No entra en ninguna palanca. Se mantiene."
+  },
+  "C98": {
+   "antes": "Aceptable",
+   "despues": "Aceptable",
+   "motivo": "Revisada con lo que la fase A no ponderó del todo: recompras de 94,0 M€ en 2025 a un precio medio en torno a 59 € (AR_2025 pp. 144, 147), por encima de mi NORMAL (43,77 €). Pesan en contra, pero absorben sobre todo el dividendo en acciones (nota de C28) y el resto del historial (adquisiciones pequeñas, ≈32,5 M€ en diez años con G13 = 0; capex 1,16 veces la amortización) sostiene el borde. Se mantiene en el borde; pasaría a Dudosa con deuda neta por encima de 1,5x EBITDA por el reparto."
+  },
+  "B69": {
+   "antes": 0.2,
+   "despues": 0.2,
+   "motivo": "Apoyo de frecuencia mal casado (los años citados están en el rango del NORMAL y ninguno llega al 14 % del MALO), pero la probabilidad se sostiene por el mecanismo (repercusión parcial en 2022 y 2023) y por no castigar dos veces el margen. No es una palanca mal derivada; calculado con p_estrella sobre precio.json: con 0,25 / 0,6 / 0,15 el precio de Sí sería 38,19 € (−4,0 %), sin cambio de zona (caro) ni de cubo, y ningún vector de probabilidades saca el precio de caro (tope del NORMAL, 43,77 €). Se mantiene; su efecto sobre el objetivo (un paso de la lista, −1,61 / +1,85 €) queda declarado como límite (D7)."
+  },
+  "Palancas!C15": {
+   "antes": 0.165,
+   "despues": 0.165,
+   "motivo": "Revisada la aritmética: media 2019–2025 de 16,44 % (F29:L29) redondeada a 0,005. Es la hipótesis de la que más depende la conclusión (el margen deja de comprimirse) y su fundamento es la Historia de siete años; la de diez años empuja hacia el MALO. Se mantiene."
+  }
+ },
+ "estado_analisis": "concluido",
+ "cubo_final": "Vigilar",
+ "escalera": {
+  "de": "precio.json",
+  "precio_escenario_malo": 29.7797012085668,
+  "precio_si": 39.79819353512519,
+  "ponderado": 43.8055904657485,
+  "zona": "caro",
+  "precio": 54.7,
+  "k": 3.0,
+  "tope_normal_aplicado": false,
+  "C156_regla_antigua": 29.7797012085668,
+  "g_impl_actual": 0.10091047676364358,
+  "g_impl_si": 0.019773308206957933,
+  "rango_precio_si_variantes_calculadas": [
+   38.13,
+   42.98
+  ],
+  "nota": "convención experimental del ejercicio (k = 3); la zona no mide riesgo ni fundamento; el MALO no es un suelo de valor ni la pérdida máxima posible; el rango es el de las dieciocho variantes calculadas de la configuración (configuracion_v64_variantes.md), no un intervalo de confianza ni una robustez frente a hipótesis no exploradas: no cubre la familia Λ de P-M1, que ninguna variante calcula. Precio del 3-nov-2026 y acciones en circulación a 31-dic-2025 (D3): fechas distintas, no es una actualización a 2026"
+ },
+ "decision": {
+  "accion": "esperar",
+  "precio_objetivo": 39.8,
+  "condicion": null,
+  "condiciones_revision": {
+   "al_alza": "Subiría el precio de Sí si el margen EBIT publicado de 2026 y 2027 se sostiene en el 16,5 % o más con volumen al alza (el NORMAL deja de ser una hipótesis), si la descomposición de ventas muestra que la cuota se gana con producto y no con precio, o si se documenta que la inversión de 2021–2024 clasificada como «capacidad y maquinaria» fue crecimiento y no sustituyó capacidad existente (θ bajo: 41,47 € en la variante θ = 0, parametro_minimo, configuracion_v64_variantes.md).",
+   "a_la_baja": "Bajaría si el margen EBIT cae por debajo del 15 % con volumen récord (el MALO pasa a ser el caso central), si la deuda bancaria neta pasa de 1,5 veces el EBITDA por el reparto, o si se documenta que el exceso de inversión de 2021–2022 fue sobre todo reposición (θ alto: 38,13 € en la variante θ = 1, parametro_maximo, configuracion_v64_variantes.md). La dilución potencial del plan 2025–2027, no adoptada, lo llevaría a 39,53 € (incentivo objetivo) o 39,39 € (máximo) si se entregara con acciones nuevas (AR_2025.txt, PDF pp. 129–130; resultados/efecto_decisiones_viscofan.json)."
+  }
+ },
+ "insumos_decision_cartera": {
+  "precio_actual": 54.7,
+  "zona": "caro",
+  "precio_de_si": 39.79819353512519,
+  "precio_escenario_malo": 29.7797012085668,
+  "ponderado": 43.8055904657485,
+  "distancia_a_precio_si": 0.2724279061220258,
+  "distancia_a_malo": 0.45558133073918106,
+  "distancias_con_denominador": "el precio de Sí (39,80 €) está un 27,2 % por debajo del precio (÷ precio); el precio (54,70 €) está un 37,4 % por encima del precio de Sí (÷ precio de Sí); el precio del escenario MALO (29,78 €) está un 45,6 % por debajo del precio (÷ precio); el MALO no es un suelo de valor ni la pérdida máxima posible (precio.json, nota_malo)",
+  "fundamento": "no procede (conclusión no favorable): lista D10 vacía y sin comprobación conjunta (no existe comprobacion_conjunta.json). Objetivo condicionado (provisional) por tres hipótesis de la configuración experimental sin fundamento suficiente (PM1.estructura, PM1.familia y PM1.parametro); rango del precio de Sí en las dieciocho variantes calculadas de 38,13 a 42,98 €, todas en caro; la familia Λ no está calculada. Datos aplicados por decisión de la persona responsable (14-nov-2026): D3 (C55 = 45,993399 M de acciones en circulación a 31-dic-2025; precio del 3-nov-2026: fechas distintas, no es una actualización a 2026; la autocartera al 3-nov-2026 no consta y la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41], citada y no adoptada: por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía, no calculada en la hoja]) y E1 (C47–C50 con los valores exactos; no mueve el precio de Sí con el motor B). Dilución potencial del plan 2025–2027, declarada aparte y no adoptada: 39,53 / 39,39 € (−0,27 / −0,40 €). Límites del objetivo que vienen de decisiones pendientes que no adopto: D7 (un paso de la lista de probabilidades mueve el precio de Sí −1,61 / +1,85 €, sin variante que lo contraste), D4 (+0,65 € con el perímetro «Caja»), D2 (si P-M1 no se acepta como delimitada, el objetivo se bloquearía) y D8 (la recomendación pendiente es no usar esta entrega para dinero real mientras D1 y D2 sigan abiertas).",
+  "datos_ausentes_materiales": [],
+  "descalificadores_considerados": [
+   "no puedo explicar de dónde viene la caja: no aplica (un segmento [AR_2025 p. 111], CFO positivo los diez años, Historia fila 11)",
+   "valor que depende de predecir macro, divisas o materias primas: no aplica, vigilado (depende de si repercute pieles, energía y dólar a lo largo del ciclo, AR_2025 p. 436; lo hizo en parte en 2022–2023, CF_2022 p. 93 e IA_2023 p. 246)",
+   "cambio tecnológico que no deja juzgar el foso: no aplica (la tripa animal pasó de ≈50 % del mercado en 2016 a 44 % en 2023, IA_2016 p. 42; IA_2023 p. 146)",
+   "gestión en la que no confío: no aplica (23,7 % de votos en contra del informe de remuneraciones, AR_2025 p. 449, e indemnización de 1,312 M€ al presidente, pp. 127, 164: dudas que no llegan a desconfianza)",
+   "deuda que puede matar en un mal año: no aplica (deuda neta 0,87 veces el EBITDA a dic-2025, nota de C33; 227,4 M€ de deuda bancaria a un año con 155,3 M€ de líneas disponibles y sin impagos, AR_2025 pp. 98, 122)",
+   "reinvertir toda la caja con retornos mediocres: no aplica, vigilado (reparte más que su FCF: 145,1 M€ frente a 93,8 M€ en 2025, AR_2025 p. 144 e Historia fila 35; rentabilidad del capital nuevo ≈9 % en 2016–2025, Historia filas 7 y 32 [cálculo])",
+   "demasiadas piezas móviles, sin historial, reestructuración: no aplican (un negocio, diez años de Historia; Beat'30 es posterior a la base y no lo uso, AR_2025 p. 138)"
+  ],
+  "r": 0.09,
+  "r_minima": 0.0946343075645323,
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt; 9,90 € por acción en el tornado) · información, no criterio: el valor depende sobre todo de la rentabilidad exigida (r heredada del 9,0 %, por debajo de la r mínima del 9,46 %)"
+ },
+ "herencia": {
+  "C93": {
+   "etapa1": "Sí",
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 lo sostenía con el mercado del 2-4 % y un capex parecido a la amortización. Ahora la hoja da el salto del año 11 del NORMAL (4,7 puntos, bajo el aviso de 5; resultados.json, salto_anio_11) y el peso del terminal (58 %): con g 0,02 y ROIC terminal 0,11 el terminal reinvierte el 18 % del NOPAT, que un mercado que crece un 2-4 % en volumen [AR_2025 p. 181] sostiene."
+  },
+  "B101": {
+   "etapa1": "Viscofan es el mayor fabricante de envolturas para embutidos y el único con todas las tecnologías; vende a más de 1.700 clientes de la industria cárnica en más de 100 países y, según sus propias estimaciones, ha ganado cuota durante una década. Creo que es un buen negocio, no uno extraordinario: margen EBITDA del 22-26 %, ROIC del 12,6 % y una caja libre para el accionista que no ha crecido desde 2019 porque la absorben el capex, el circulante y los impuestos. La dirección cuenta las malas noticias y hace compras pequeñas, pero reparte más de lo que genera y lo paga con deuda bancaria que vence en su mayor parte en un año. A 53,6 € el precio descuenta, según mi estimación, que la caja libre crezca un 9-10 % anual diez años, algo que en caja la empresa no ha hecho en el periodo que tengo. Vigilar: precio de Sí de 25,1 € según la hoja recalculada, o revisarlo si la caja libre demuestra que crece.",
+   "decision": "cambia",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La conclusión (buen negocio, no extraordinario; precio por encima del valor) se mantiene con la Historia de diez años (filas 29, 33 y 35), pero la tesis se reescribe: la V6.3 valora con el motor B y tres escenarios de palancas, no con el crecimiento del FCF al accionista, y la escalera de la sección 15 da un precio de Sí de 39,80 € (precio.json, con las acciones en circulación a 31-dic-2025 por D3), no los 25,1 € de la regla antigua; el precio es el del 3-nov-2026 (54,70 €), no 53,6 €."
+  },
+  "B102": {
+   "etapa1": "Defiendo el No: Viscofan transforma pieles bovinas, celulosa y gas en un insumo industrial, y sus márgenes dependen de esas materias, de los derechos de CO2 y del dólar; en 2022 el margen bruto cayó 3,2 puntos y en 2T26 otros 3,5, así que leo que no traslada los costes a tiempo. La cuota sube, pero en 2025 el precio-mezcla bajó con volumen récord y en 2T26 las ventas de Norteamérica bajaron un 0,7 % por las divisas y ‘el entorno competitivo’: puede que la cuota se esté pagando con precio. Siete años de EBITDA al alza (+6,3 % anual) no han dado más caja al accionista (108,7 M€ en 2019, 100,5 M€ en 2025), y la empresa reparte por encima de esa caja: la deuda bancaria neta pasó de 1,8 M€ en 2021 a 283,3 M€ en junio de 2026, con 227 M€ de deuda bancaria a menos de un año al cierre de 2025 y un dividendo ‘extraordinario’ de 1 € repetido tres años. La inversión en EE. UU. dio resultados negativos durante años, los nuevos negocios llevan cinco años en el 12 % de las ventas con el mismo ‘potencial de más de 5.000 M€’, la última compra (Pet Mania) redujo mucho su actividad por un arancel seis meses después, y en la junta de 2025 el 23,7 % de los votos fue contra el informe de remuneraciones del ejercicio en que se pagaron 1,3 M€ de indemnización a un presidente que sigue siendo presidente (lo cuento como secuencia de hechos; el informe no da la causa del voto). Si la caja libre sigue plana, que es lo que ha pasado, la hoja da 25,1 € por acción en ese escenario (B78) con r del 9 %, y el mercado paga más del doble.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Mantengo los argumentos de la etapa 1 que siguen siendo hechos de la base (repercusión parcial, CF_2022 p. 93 e IA_2023 p. 246; mezcla a la baja, AR_2025 p. 139; reparto con deuda, p. 144; EE. UU., p. 66; Pet Mania, p. 140) y quito los de 2026 (2T26, deuda de junio de 2026), que no son base. Añado lo que da la Historia de diez años: margen EBIT del 21,1 % al 15,1 % y rentabilidad del capital nuevo de ≈9 % (filas 29 y 32), y las recompras de 2025 en un año con una cotización media de 59,47 €, por encima de mi valor (AR_2025 pp. 144, 147)."
+  },
+  "C103": {
+   "etapa1": "No",
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia con diez años: ROIC entre el 12,1 % y el 16,7 % (Historia fila 33) con un margen que se estrecha (fila 29) y un FCF al accionista de 2025 (93,8 M€) por debajo del de 2019 (108,5 M€; fila 35). No es un negocio que se tiene sin mirar el precio."
+  },
+  "C104": {
+   "etapa1": "0% · Watchlist · precio de Sí 25,1 €",
+   "decision": "cambia",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La V2 no decide la posición (D16): C104 pasa al texto fijo de la sección 15, sin porcentaje, con la escalera de precio.json (precio de Sí 39,80 €, MALO 29,78 €, ponderado 43,81 €) y la etiqueta de fundamento de la tabla cerrada (cierre_v2.FUNDAMENTO_C104); el precio de Sí de 25,1 € era la regla antigua (mín(MALO, 0,75 × ponderado)) con el motor A (etapa1/Viscofan_respuesta.md). El valor de la etapa 1 se copia como dato histórico, no es mi C104."
+  }
+ },
+ "comparacion_etapa_1": {
+  "cubo_v1": "Vigilar",
+  "precio_de_si_v1": 25.1,
+  "cubo_v2": "Vigilar",
+  "precio_de_si_v2": 39.8,
+  "por_que_difieren": "El cubo coincide: buen negocio de nicho, en el círculo, a un precio sin margen. El precio de Sí sube de 25,1 € a 39,80 € por cuatro cosas, ninguna de las cuales es que el negocio haya mejorado. (1) La regla: la v1 tomaba mín(MALO, 0,75 × ponderado); la v2 usa la escalera de k = 3 con tope en el NORMAL. Con la regla antigua sobre los valores de la v2 saldrían 29,78 € (C156, precio.json). (2) El motor: la v1 proyectaba con el motor A un FCF base de 97 M€ con un MALO de caja plana (25,1 €; etapa1/Viscofan_respuesta.md); la v2 valora la operación con el motor B (margen, S2C y ROIC por escenario) y resta la deuda de la base (puente de 273,8 M€, resultados.json), y su MALO (29,78 €) es una compresión del margen al 14 %. (3) La base y el precio: la v1 mezclaba datos de 2026 (1S26, deuda de junio) y un precio de 53,6 €; la v2 usa el cierre de 2025, con los datos corregidos de la rama 4.14, y 54,70 € del 3-nov-2026. (4) El divisor: la v1 dividía entre 45,6 M de acciones diluidas; la v2 usa 45,993399 M en circulación a 31-dic-2025 por la decisión D3 de la persona responsable, que baja el precio de Sí 0,50 € frente a la rama (40,30 → 39,80 €). La v1 no tenía la Historia de diez años: ahora C27 = Comprimiendo y C25 = No se sostienen con filas, y C97 pasa de Neutral (sin registro) a Comprando con la evidencia de fase 1 (Control maestro fila 76). La v1 escribió un porcentaje de posición en C104; la v2 no lo hace."
+ },
+ "celdas": {
+  "C93": "Sí",
+  "C103": "No",
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 39.80 · zona caro · precio de Sí ≤ 39.80 · precio esc. MALO 29.78 · ponderado 43.81 · fundamento no procede (conclusión no favorable) · objetivo condicionado (provisional): lo condicionan la estructura del mantenimiento, θ y la familia de P-M1 de la configuración experimental (la familia, sin calcular); rango del precio de Sí en las variantes calculadas 38.13 a 42.98, dieciocho variantes, todas en caro; acciones en circulación a 31-dic-2025 (D3) y precio del 3-nov-2026: fechas distintas",
+  "B101": "Viscofan es el mayor fabricante de envolturas para embutidos y el único con todas las tecnologías (extracto: AR_2025 p. 180), con un ROIC de entre el 12,1 % y el 16,7 % en diez años (Historia fila 33) y una cuota que subió del 30 % al 41 % entre los productores de envoltura a medida en 2015-2022 (AR_2019 p. 121; CF_2022 p. 182). Es un buen negocio, no uno extraordinario: las ventas crecieron un 71 % en la década, pero el margen EBIT bajó del 21,1 % al 16,4 % (fila 29), el capital nuevo rindió en torno a un 9 % (filas 7 y 32) y el FCF al accionista de 2025 (93,8 M€) quedó por debajo del de 2019 (108,5 M€; fila 35), mientras la deuda sube para repartir más de lo que genera (AR_2025 p. 144). Con mis tres escenarios (29,78 / 43,77 / 57,95 €) el precio de 54,70 € del 3-nov-2026 está por encima del NORMAL y del ponderado (43,81 €) y descuenta un crecimiento de ventas del 10,1 % anual, más que mi BUENO (C86). Vigilar: espero a un precio de Sí de 39,80 €, con las acciones en circulación a 31-dic-2025 (D3), objetivo condicionado por las hipótesis de mantenimiento de la configuración experimental (de 38,13 a 42,98 € en las dieciocho variantes calculadas, todas en caro). La frontera con No es una sola: si la compresión del margen es estructural.",
+  "B102": "Defiendo el No. Viscofan transforma pieles bovinas, celulosa y gas en un insumo industrial y no ha sabido trasladar sus costes: el margen EBIT cayó del 21,1 % de 2016 al 15,1 % de 2023 (Historia fila 29), las subidas de precio solo compensaron en parte en 2022 y 2023 (extracto: CF_2022 p. 93; IA_2023 p. 246) y en 2025 la mezcla de precios bajó con volumen récord (AR_2025 p. 139): la cuota se puede estar pagando con precio, frente a competidores que ni siquiera sé nombrar (AR_2025 p. 399). En diez años el capital invertido creció 436 M€ y el beneficio operativo después de impuestos 39 M€, un 9 % sobre el capital nuevo, tan cerca de la r que crecer apenas crea valor, y el FCF al accionista de 2025 (93,8 M€) es menor que el de 2019 (108,5 M€; Historia filas 32 y 35). Mientras, reparte más de lo que genera: 145,1 M€ en 2025 frente a 93,8 M€ de FCF, con un dividendo «extraordinario» repetido tres años y recompras de 94,0 M€ en un año con una cotización media de 59,47 € (AR_2025 pp. 144, 147), por encima de lo que creo que vale; la deuda financiera pasó de 116,8 a 304,1 M€ en 2021-2025 (fila 22), con 227,4 M€ de deuda bancaria a un año (AR_2025 p. 98). La inversión en EE. UU. dio resultados negativos durante años (AR_2025 p. 66), Danville arrastra avisos de las agencias ambientales desde 2020 (p. 94) y la última compra, Pet Mania, se frenó por un arancel (p. 140). Si el margen sigue la pendiente de la década, mi MALO (29,78 €) es el caso central y 54,70 € pagan un 84 % más que él.",
+  "Palancas!A38": "Las ventas consolidadas de 2027 que publique Viscofan en su informe anual de 2027 estarán entre 1.300 y 1.420 M€ (1.252,0 M€ en 2025).",
+  "Palancas!B38": "2028-03-31",
+  "Palancas!C38": 0.65,
+  "Palancas!A39": "El margen de explotación de 2027 (resultado de explotación ÷ ventas consolidadas del informe anual de 2027) estará entre el 15,5 % y el 17,5 % (16,4 % en 2025).",
+  "Palancas!B39": "2028-03-31",
+  "Palancas!C39": 0.65,
+  "Palancas!A40": "La deuda bancaria neta a 31-dic-2027, con la definición de la empresa, no superará 1,5 veces el EBITDA de 2027 (206,1 M€ sobre 290,0 M€ de EBITDA, 0,71 veces, a 31-dic-2025).",
+  "Palancas!B40": "2028-03-31",
+  "Palancas!C40": 0.7,
+  "Diagnóstico V6!B222": "Lista D10 vacía: la hipótesis fundamentada de la que más depende la conclusión es Palancas!C15, que el margen EBIT del NORMAL deje de comprimirse en el 16,5 % (media de 2019-2025) en vez de seguir la pendiente de la década (del 21,1 % al 16,4 %, Historia fila 29). Si la compresión es estructural, el NORMAL es el MALO y el cubo es No. El objetivo lo condicionan además tres hipótesis de la configuración experimental sin fundamento suficiente: la estructura del mantenimiento, θ (qué parte del exceso de inversión de 2021-2025 fue reposición) y la familia de P-M1, que ninguna variante calcula.",
+  "Diagnóstico V6!B223": "La descomposición de la variación de ventas y de margen de 2023-2025 en volumen, precio y mezcla y coste de pieles, por tecnología y región, que el informe anual no publica (solo «mezcla de precios ligeramente inferior», AR_2025 p. 139): pregunta a Relación con Inversores. Para el objetivo: qué parte de la inversión de 2021-2024 clasificada como «capacidad y maquinaria» sustituyó capacidad existente y el desglose por tipo de 2024 en un documento conservado (2021, 2022, 2023 y 2025 ya están en el paquete: IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143), y la vida útil y antigüedad media de las líneas de extrusión, conversión y cogeneración (pregunta a Relación con Inversores)."
+ },
+ "cambiaria_de_cubo": {
+  "a_si": "Un precio igual o inferior al precio de Sí (≤ 39,80 €, condicionado por la configuración) con el negocio intacto: margen EBIT de 2026 y 2027 en el 16 % o más con volumen al alza, cuota ganada con producto según el desglose de ventas, deuda bancaria neta por debajo de 1,5 veces el EBITDA, y saber quién es el competidor que más daño puede hacer (AR_2025 p. 399 no lo nombra). Antes de comprar, la comprobación conjunta tendría que superar las hipótesis de la configuración sin fundamento suficiente (estructura, θ, familia) y la lista D10 tendría que revisarse para esa compra.",
+  "a_no": "Que la compresión del margen sea estructural: un margen EBIT por debajo del 15 % dos años seguidos con volumen récord, o un desglose que muestre la cuota pagada con precio; también la deuda neta por encima de 1,5 veces el EBITDA por pagar al accionista (C98 pasaría a Dudosa) o una adquisición grande fuera del negocio.",
+  "a_demasiado_dificil": "Que el valor pase a depender de predecir el coste de las pieles bovinas o del dólar porque la empresa deja de repercutirlos (el descalificador de materias primas; AR_2025 p. 436), que un sustituto cambie el volumen del mercado de envolturas (riesgo citado sin cuantificar, AR_2025 p. 399) o que Danville se convierta en una contingencia que no pueda estimar (AR_2025 p. 94)."
+ },
+ "observaciones": {
+  "C93": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → mantiene (evidencia_nueva): ahora con el salto del año 11 y el peso del terminal de la hoja.\nApoyo: g NORMAL 0,02 con ROIC terminal 0,11: el terminal reinvierte g ÷ ROIC = 18 % del NOPAT (CV p. 13; I2). Salto del año 11 del NORMAL 4,7 puntos (bajo 5) y peso del terminal 58 % (resultados.json). Mercado 2-4 % en volumen y población +1 % (extracto: AR_2025 p. 181). g bajo la tasa sin riesgo (C57, 3,35 %) y la tasa del motor (8,27 %).\nLo sustituiría: por No lo sé si la sustitución de tripa animal se frenara y los sustitutos (AR_2025 p. 399) estancaran el volumen del mercado.",
+  "C103": "[Clase: fundamentada] [Confianza: media]\nHereda: No → mantiene (misma_evidencia): con diez años la evidencia lo confirma.\nApoyo: es propiedad del negocio, no de si se compra: «if you can buy a few great companies then you can sit on your ass» (PCA pp.85–86; HIM). Viscofan no es de esas: ROIC del 12,1 % al 16,7 % (Historia fila 33) con un margen EBIT que bajó del 21,1 % al 16,4 % (fila 29) y un FCF al accionista de 2025 menor que el de 2019 (fila 35). La vendería si el precio superara con claridad su valor.\nLo sustituiría: por Sí si el ROIC pasara del 15 % de forma sostenida con el margen estable y la caja al accionista creciendo.",
+  "C104": "[Clase: convención] [Confianza: alta]\nHereda: el C104 de la etapa 1 (porcentaje de posición, Watchlist y precio de Sí de 25,1 €) → cambia (definicion_o_medicion_distinta): la posición no la decido yo (D16) y el precio de Sí sale de la escalera de la sección 15.\nApoyo: zona caro con precio.json (precio de Sí 39,80 €, MALO 29,78 €, ponderado 43,81 €, precio 54,70 € del 3-nov-2026; acciones a 31-dic-2025 por D3); lista D10 vacía; objetivo condicionado (de 38,13 a 42,98 € en las dieciocho variantes calculadas, todas en caro; la familia sin calcular). «adapt your strategy to your own nature» (DR pp.306–307; HIM).\nLo sustituiría: saber qué parte de la capacidad de 2021-2024 fue reposición (θ) y un precio en el precio de Sí con el margen intacto.",
+  "B101": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis de la etapa 1 → cambia (definicion_o_medicion_distinta): motor B, escalera de la sección 15, base 31-dic-2025 con los datos de la rama 4.14, acciones por D3 y precio de 54,70 €.\nApoyo: Historia filas 7, 29, 32, 33 y 35; extracto: AR_2025 pp. 144, 180; AR_2019 p. 121; CF_2022 p. 182; precio.json y C86. «I know it's wonderful, but is it wonderful enough to justify that big a premium?» (DR p.308; HIM): aquí es bueno, no maravilloso.\nLo sustituiría: un margen EBIT de 2026-2027 sostenido en el 16,5 % o más con volumen al alza (tesis de compounder lento) o por debajo del 15 % con volumen récord (tesis de No).",
+  "B102": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis inversa de la etapa 1 → cambia (evidencia_nueva): quito los hechos de 2026 y añado la Historia de diez años y las recompras de 2025.\nApoyo: Historia filas 22, 29, 32 y 35; extracto: CF_2022 p. 93; IA_2023 p. 246; AR_2025 pp. 66, 94, 98, 139, 140, 144, 147, 399. «I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM). Lo que no puedo defender del No: que la deuda mate a la empresa (0,87x EBITDA) o que la cuota esté cayendo.\nLo sustituiría: saber que el volumen récord de 2025 no se compró con precio.",
+  "Palancas!A38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: el NORMAL crece un 4,5 % anual desde 1.252,0 M€ (Palancas C14; extracto: AR_2025 p. 141): ≈1.367 M€ en 2027 [cálculo]. El rango deja ±4 % porque la divisa restó 3,0 puntos a las ventas en 2025 (AR_2025 p. 141) y no la predigo. Falsable con la cuenta de resultados del informe anual de 2027.\nLo sustituiría: ventas por debajo de 1.300 M€ sin efecto divisa apuntarían al MALO; por encima de 1.420 M€, al BUENO.",
+  "Palancas!B38": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la cifra de ventas de 2027 se publica en el informe anual de 2027, en el primer trimestre de 2028; 2028-03-31 está entre 12 y 24 meses de la fecha de análisis (Análisis!D4, 2026-11-14), convención del ejercicio.\nLo sustituiría: una fecha de publicación distinta del informe anual.",
+  "Palancas!C38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: dado el NORMAL, la probabilidad de caer en 1.300-1.420 M€ es 0,65: el centro (≈1.367 M€) cae dentro, pero la divisa movió las ventas entre −3,0 y +7,7 puntos en un año en la década (AR_2025 p. 141; CF_2022 p. 200) y en 2023 el volumen del mercado cayó un 4 % (IA_2023 p. 146).\nLo sustituiría: 0,75 si el dólar dejara de restar; 0,5 si el volumen del mercado repitiera 2023.",
+  "Palancas!A39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: el NORMAL lleva el margen al 16,5 % (Palancas C15), la media de 2019-2025 (Historia F29:L29); el rango 15,5-17,5 % está dentro de lo observado esos siete años (15,1-18,0 %). Falsable con el resultado de explotación y las ventas del informe anual de 2027 (como en AR_2025 p. 141).\nLo sustituiría: un margen por debajo del 15,5 % apuntaría al MALO (compresión estructural); por encima del 17,5 %, al BUENO.",
+  "Palancas!B39": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: el margen de explotación de 2027 se publica en el informe anual de 2027, en el primer trimestre de 2028; 2028-03-31 está entre 12 y 24 meses de la fecha de análisis (Análisis!D4, 2026-11-14), convención del ejercicio.\nLo sustituiría: una fecha de publicación distinta del informe anual.",
+  "Palancas!C39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: dado el NORMAL, 0,65: en 2019-2025 el margen cayó en ese rango 3 de 7 años (15,7; 16,7; 16,4 %), con 2020-2021 justo por encima (17,9 y 18,0 %) y 2019 y 2023 justo por debajo (15,3 y 15,1 %; Historia F29:L29); el NORMAL apunta al centro del rango.\nLo sustituiría: 0,55 si el coste de pieles siguiera subiendo sin repercutirse (AR_2025 p. 436); 0,8 si la empresa demostrara repercusión en un semestre.",
+  "Palancas!A40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: deuda bancaria neta de 206,1 M€ a 31-dic-2025 (extracto: AR_2025 p. 144; definición en p. 146) y EBITDA de 290,0 M€ (p. 141): 0,71 veces [cálculo]. 1,5 veces es el umbral con el que la fase A pasaría C98 a Dudosa. Falsable con el informe anual de 2027.\nLo sustituiría: por encima de 1,5 veces, el reparto con deuda dejaría de ser aceptable; por debajo de 1 vez, el reparto se habría ajustado a la caja.",
+  "Palancas!B40": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la deuda bancaria neta a 31-dic-2027 se publica en el informe anual de 2027, en el primer trimestre de 2028; 2028-03-31 está entre 12 y 24 meses de la fecha de análisis (Análisis!D4, 2026-11-14), convención del ejercicio.\nLo sustituiría: una fecha de publicación distinta del informe anual.",
+  "Palancas!C40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: dado el NORMAL, 0,7: el EBITDA crece con las ventas y la deuda bancaria neta subió de 146,9 a 206,1 M€ en 2025 por el reparto (AR_2025 p. 144); a ese ritmo, dos años más llevarían la ratio hacia 1,0-1,1 veces [cálculo], bajo 1,5. El riesgo es que el reparto se acelere.\nLo sustituiría: 0,5 si la empresa anunciara una recompra o un extraordinario mayor que su caja; 0,85 si el reparto bajara a la caja generada."
+ },
+ "confianza_global": "media",
+ "configuracion_v64": {
+  "parametros": [
+   {
+    "clave": "N1.tipo",
+    "clase": "fundamentada",
+    "confianza": "media",
+    "materialidad": "Variación conjunta necesaria (activa_sin_N1, con su escudo): precio de Sí 41,31 € (+1,51) y ponderado 45,46 € (+1,65); caro. heredado y solo_R1 lo varían junto con otras cosas (42,98 €).",
+    "evaluacion": "El tipo de la Historia (19,83 %) lleva el 10,1 % de 2025, que la empresa atribuye a la activación de bases negativas de EE. UU. (18,0 M€); sin las activaciones de 2024 y 2025 la media 2021–2025 es 22,12 %. Es el tipo repetible: fundado en las conciliaciones publicadas. Mueve el objetivo de forma material (juicio con mi criterio de 1 €) y está fundado, así que no lo condiciona.",
+    "material_para_accion": false,
+    "material_para_objetivo": true,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado",
+     "solo_R1",
+     "activa_sin_N1"
+    ],
+    "material_para_conclusion": true,
+    "cobertura": "variacion_conjunta_necesaria",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante activa_sin_N1 (variación conjunta necesaria con N1.escudo)",
+     "configuracion_economica.json → N1 (AR_2025 p. 109; CF_2024 p. 85; CF_2022_compilacion p. 74)",
+     "extracto: AR_2025 p. 142 (10,1 % por 18,0 M€ de activación en EE. UU.)",
+     "Historia fila tipo_impositivo (2021–2025: 24,6 / 24,1 / 16,5 / 23,8 / 10,1 %)"
+    ],
+    "hechos": [
+     "activa_sin_N1: precio de Sí 41,3078 €, ponderado 45,4582 €, zona caro",
+     "tipo efectivo 2025 del 10,1 % frente a 23,8 % en 2024 por 18,0 M€ de bases activadas [AR_2025 p. 142]",
+     "Historia C52 = 0,19834; N1 = 0,221191"
+    ],
+    "inferencias": [
+     "+1,51 € en el precio de Sí supera mi criterio de 1 € (juicio propio, no umbral adoptado): material para el objetivo, pero fundado, así que no lo condiciona",
+     "La activación de 2025 no se repite cada año: un tipo sin ella describe mejor la caja futura; queda la duda menor de la deducción de 2023 (ICMS), no cuantificada"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Con el tipo repetible (22,12 %) en lugar del de la Historia (19,83 %), el precio de Sí se desplaza más de lo que el objetivo puede callar (1 € o más).",
+     "contraste": [
+      {
+       "variante": "activa_sin_N1",
+       "descripcion": "la activa sin N1 (tipo de la Historia; el escudo va ligado a N1)",
+       "precio_si": 41.307823024359564,
+       "delta_eur": 1.5096294892343707,
+       "delta_pct": 0.037932110860810754,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta_necesaria",
+     "limites": [
+      "El contraste quita N1 entero (tipo y escudo ligado): no separa el efecto del tipo en el NOPAT del de los intereses.",
+      "No calcula tipos intermedios (p. ej., la media 2021–2025 con la activación de 2023, 16,5 %).",
+      "No cubre un cambio futuro del tipo legal ni del reparto geográfico del beneficio.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": true,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "El contraste atribuible (activa_sin_N1) mueve el precio de Sí +1,51 €, más que mi criterio de 1 € y del orden de un paso de la lista de probabilidades (1,61 €): es material para el objetivo.",
+      "Tiene fundamento suficiente (causa publicada y cuantificada del 10,1 % de 2025), así que no condiciona el objetivo: lo informo como hipótesis fundada de la que depende."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, N1.tipo: activa_sin_N1 41,3078 € (+1,51, +3,79 %)",
+      "extracto: AR_2025 p. 142; configuracion_economica.json → N1"
+     ]
+    }
+   },
+   {
+    "clave": "N1.escudo",
+    "clase": "convención",
+    "confianza": "media",
+    "materialidad": "Contraste aislado (escudo_alternativo, escudo al tipo de la Historia): precio de Sí 39,74 € (−0,06) y ponderado 43,74 € (−0,07); caro.",
+    "evaluacion": "Mismo tipo en el NOPAT y en el escudo de la deuda: los intereses se deducen al tipo normal, no al de un año con activaciones. Convención con razón y efecto despreciable porque la deuda financiera (304,1 M€) es pequeña frente a la capitalización y su coste implícito es un 3,1 % (Historia C63).",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado",
+     "solo_R1",
+     "activa_sin_N1",
+     "escudo_alternativo"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante escudo_alternativo",
+     "Historia C63 (coste implícito de la deuda 3,1 %) y fila deuda (304,1 M€ en 2025)"
+    ],
+    "hechos": [
+     "escudo_alternativo: precio de Sí 39,7394 €, ponderado 43,7389 €, zona caro"
+    ],
+    "inferencias": [
+     "−0,06 € mueve el precio de Sí a dos decimales, pero es una vigésima parte de mi criterio de 1 €: no material para el objetivo (juicio)"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Usar en el escudo el tipo de la Historia en lugar del de N1 no desplaza el precio de Sí más de lo que el objetivo puede declarar.",
+     "contraste": [
+      {
+       "variante": "escudo_alternativo",
+       "descripcion": "la activa con el escudo «Tipo de la Historia (separado)»",
+       "precio_si": 39.739444303812625,
+       "delta_eur": -0.05874923131256793,
+       "delta_pct": -0.0014761783411278927,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_N1",
+       "descripcion": "la activa sin N1 (tipo de la Historia; el escudo va ligado a N1)",
+       "precio_si": 41.307823024359564,
+       "delta_eur": 1.5096294892343707,
+       "delta_pct": 0.037932110860810754,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "Solo contrasta el tipo de la Historia; no un escudo a un tipo marginal distinto por país.",
+      "Depende del tamaño de la deuda de la base: con más deuda el efecto crecería.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "resolucion_de_las_palancas",
+      "valor_eur": 1.6068,
+      "fuente": "un paso de la lista de probabilidades (0,2/0,6/0,2 → 0,25/0,6/0,15) lleva el precio de Sí de 39,7982 a 38,1914 € [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre V = 29,7797 / 43,7671 / 57,9470 de precio.json]; es el menor de los dos pasos (el otro, +1,8540 €)"
+     },
+     "razonamiento": [
+      "El contraste aislado mueve el precio de Sí −0,06 €, menos de una vigésima parte de mi criterio de 1 € y de un paso de la lista de probabilidades (1,61 €).",
+      "Mecanismo: los intereses de 2025 (8,9 M€, Historia L15) son pequeños; la diferencia de tipos (22,12 % frente a 19,83 %) sobre ellos apenas mueve la caja."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, N1.escudo: escudo_alternativo 39,7394 € (−0,06, −0,15 %)",
+      "Historia L15 y C63"
+     ]
+    }
+   },
+   {
+    "clave": "N3.regla",
+    "clase": "convención",
+    "confianza": "media",
+    "materialidad": "Variación conjunta necesaria (solo_N1 y activa_R0_sin_PM1, R0 sin P-M1): precio de Sí 41,47 € (+1,67); caro. activa_sin_PM1 (R1 sin P-M1) da exactamente lo mismo, 41,4698 €: toda la diferencia es de P-M1, no de la regla.",
+    "evaluacion": "R1 es una convención de la plantilla (la configuración la llama hipótesis; el vocabulario de la fase C no tiene esa clase): solo actúa cuando las ventas caen, y en mis tres escenarios no caen ningún año (B14 ≥ 0,015 y g ≥ 0,01); los avisos terminal_r1_sin_maximo_conservado y s2c_inerte están inactivos. Su hipótesis económica (capacidad conservada cuando las ventas caen) no está demostrada en Viscofan: en 2024, con ventas −1,8 %, el circulante subió 8,9 M€ (Historia K14, corregido sin la variación de provisiones) en vez de liberarse. No mueve el valor de este expediente.",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "Cómo se comportan el capital fijo y el circulante en los años de ventas a la baja: solo hay uno en la década (2024, −1,8 %), con el circulante al alza (Historia K14: +8,862 M€) y la inversión casi igual a la amortización (0,97); haría falta una serie más larga o el desglose de la variación de existencias por causa.",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "activa_R0_sin_PM1"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "variacion_conjunta_necesaria",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variantes solo_N1, activa_R0_sin_PM1 y activa_sin_PM1",
+     "configuracion_v64_variantes.md, avisos de dominio (terminal_r1_sin_maximo_conservado y s2c_inerte inactivos)",
+     "Historia filas ventas y circulante (2024; K14 corregido [AR_2025.txt, PDF p. 27])"
+    ],
+    "hechos": [
+     "solo_N1 = activa_R0_sin_PM1 = activa_sin_PM1 = 41,4698 € de precio de Sí",
+     "crecimiento de ventas en los tres escenarios: 1,5 % / 4,5 % / 7 % (Palancas B14:D14) y g 1 % / 2 % / 2,5 %",
+     "2024: ventas −1,8 % y aumento del circulante de 8,862 M€ (Historia K14)"
+    ],
+    "inferencias": [
+     "La igualdad exacta entre R0 sin P-M1 y R1 sin P-M1 indica que, con ventas crecientes, la regla no cambia el valor: el +1,67 € del contraste es el de quitar P-M1"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "El desplazamiento de +1,67 € de los contrastes de N3.regla es el de quitar P-M1 (exigido para usar R0), no el de la regla: con ventas que no caen en ningún escenario, R1 frente a R0 no mueve el precio de Sí.",
+     "contraste": [
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": true
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta_necesaria",
+     "limites": [
+      "R0 con P-M1 no está especificado: el efecto de la regla con P-M1 activa no está definido ni calculado.",
+      "No hay ningún escenario con ventas a la baja, que es donde R1 y R0 se separan; un MALO de volumen (pérdida de cuota) no está calculado.",
+      "Un solo año de ventas a la baja en la década (2024) para juzgar la hipótesis.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "otra_hipotesis_calculada",
+      "valor_eur": 1.6717,
+      "fuente": "configuracion_v64_variantes.md: activa_sin_PM1 (R1, sin P-M1) 41,4698 € frente a la activa 39,7982 € (+1,6717); activa_R0_sin_PM1 (R0, sin P-M1) da también 41,4698 €, así que la diferencia R0 − R1 sin P-M1 es 0,0000 €"
+     },
+     "razonamiento": [
+      "El contraste atribuible (+1,6717 €) es idéntico, al céntimo, al de quitar P-M1 con R1 (activa_sin_PM1, +1,6717 €): la parte de la regla es 0,00 €.",
+      "Mecanismo: R1 solo cambia la reinversión cuando las ventas caen (avisos s2c_inerte y terminal_r1_sin_maximo_conservado inactivos), y no caen en ningún escenario.",
+      "Su efecto sobre el objetivo queda dentro de lo que ya declara PM1 (estructura y θ condicionan el objetivo); con mi criterio de 1 €, la regla no es material para el objetivo."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, N3.regla: solo_N1 y activa_R0_sin_PM1 41,4698 € (+1,67, +4,20 %)",
+      "configuracion_v64_variantes.md: activa_sin_PM1 41,4698 €; avisos de dominio inactivos",
+      "Palancas B14:D14 y B68:D68 (ventas y g positivos en los tres escenarios)"
+     ]
+    }
+   },
+   {
+    "clave": "N3.circulante",
+    "clase": "fundamentada",
+    "confianza": "alta",
+    "materialidad": "Solo variación conjunta (heredado, solo_N1, activa_R0_sin_PM1), que quitan además P-M1 o N1; no hay contraste aislado. Todas en caro.",
+    "evaluacion": "Circulante del balance de 2025 (existencias + deudores − acreedores) sobre ventas: 48,28 % (48,04 % en 2024). Es un dato publicado. Con R1 y ventas crecientes reparte la reinversión entre fijo y circulante; el total lo fija el S2C × f, así que no mueve el valor (activa_sin_PM1 = activa_R0_sin_PM1). Solo pesaría en el dominio de la inversión fija negativa (S2C × f > 1 ÷ NWC ≈ 2,07), lejos del máximo de la activa (1,45).",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "activa_R0_sin_PM1"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "variacion_conjunta",
+    "base_de_la_materialidad": "juicio_economico",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "configuracion_economica.json → N3 (AR_2025 pp. 21–22; notas 9 y 14)",
+     "aviso inversion_fija_para_crecer_negativa (inactivo; uno ÷ NWC = 2,07; S2C × f máximo 1,45)",
+     "variantes activa_sin_PM1 y activa_R0_sin_PM1"
+    ],
+    "hechos": [
+     "existencias 386,859 + deudores 321,044 − acreedores 103,388 = 604,5 M€, 48,28 % de las ventas de 2025",
+     "activa_sin_PM1 y activa_R0_sin_PM1 dan el mismo precio de Sí (41,4698 €)"
+    ],
+    "inferencias": [
+     "Con ventas crecientes la ratio solo cambia el reparto entre fijo y circulante de una reinversión total fijada por el S2C × f (definición de R1 en la plantilla): ni la acción ni el objetivo dependen de ella en estos escenarios (juicio, no contraste)"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "La ratio de circulante (48,28 % de las ventas) no desplaza el precio de Sí más de lo que el objetivo puede declarar mientras las ventas crezcan.",
+     "contraste": [
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta",
+     "limites": [
+      "No hay contraste atribuible: ninguna variante cambia solo la ratio.",
+      "No cubre un escenario con ventas a la baja ni el dominio de la inversión fija negativa (S2C × f > 2,07).",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "Sin contraste atribuible, el juicio es de mecanismo: con R1 y ventas crecientes la ratio reparte una reinversión total que fijan el S2C y f; la igualdad activa_sin_PM1 = activa_R0_sin_PM1 lo confirma para la regla.",
+      "Está fundada en el balance publicado, así que no condicionaría el objetivo aunque lo moviera."
+     ],
+     "evidencia": [
+      "configuracion_economica.json → N3 (AR_2025 pp. 21–22)",
+      "configuracion_v64_variantes.md: activa_sin_PM1 y activa_R0_sin_PM1, 41,4698 €"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.estructura",
+    "clase": "técnico",
+    "confianza": "baja",
+    "materialidad": "Contraste aislado: H 41,47 € (+1,67), S 39,18 € (−0,62), SRF 41,71 € (+1,91); SR2, con su ROIC del terminal ligado, 40,37 € (+0,57). Rango de 39,18 a 41,71 €, todas en caro.",
+    "evaluacion": "SR1 la eligió la orquestación para calcular; no hay hechos que la separen de H. S y SRF son menos coherentes con esta empresa (punto 9, mantenimiento) y, por Q-ROIC1, SR2 lo es más que SR1 dado cómo se anclaron B18:D18. El desglose de la inversión por tipo que la empresa publica (2021–2023 y 2025 en el paquete) no separa si reposición y crecimiento se solapan o se suman. Mueve el objetivo hasta 1,91 € y no tiene fundamento suficiente: condiciona el objetivo; no cambia la acción.",
+    "material_para_accion": false,
+    "material_para_objetivo": true,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "Si en los años de capacidad nueva la reposición y la inversión para crecer se solaparon (H) o se sumaron (S, SR1, SR2, SRF): el desglose por tipo de 2021 (IA_2021_es.txt, PDF p. 213), 2022 (CF_2022_compilacion.txt, PDF p. 202), 2023 (IA_2023_es.txt, PDF p. 250) y 2025 (AR_2025.txt, PDF p. 143) no lo dice, porque «capacidad y maquinaria» puede incluir maquinaria de reposición; haría falta la parte de esa inversión que sustituyó capacidad existente (pregunta a Relación con Inversores) y la respuesta a Q-ROIC1 (si el ROIC de largo plazo es neto de reposición).",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "estructura_H",
+     "estructura_S",
+     "estructura_SR2",
+     "estructura_SRF"
+    ],
+    "material_para_conclusion": true,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variantes estructura_H, estructura_S, estructura_SRF y estructura_SR2",
+     "conciliación de arrendamientos 2021–2025 (2026-11_Vidrala_ensayo_4_13/resultados/conciliacion_arrendamientos_viscofan.md)",
+     "desglose de la inversión por tipo: IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143",
+     "CORRECCIONES_ECONOMICAS_VIDRALA_4_13.md §1 y §3 (condiciones generales de Q-ROIC1 y de H)"
+    ],
+    "hechos": [
+     "estructura_H 41,4698 €; estructura_S 39,1768 €; estructura_SRF 41,7085 €; estructura_SR2 40,3708 €; activa (SR1) 39,7982 €; todas en caro",
+     "inversión (capex + altas de derechos de uso) ÷ D&A: 1,37 (2021), 1,50 (2022), 1,00 (2023), 0,97 (2024), 1,02 (2025) [cálculo, conciliación de arrendamientos y Historia filas capex y da]"
+    ],
+    "inferencias": [
+     "Un recorrido de 2,53 € entre estructuras (S a SRF) es material para el objetivo (juicio con mi criterio de 1 €)",
+     "Sin saber qué parte de la inversión de capacidad fue sustitución no se puede decir si reposición y crecimiento se solaparon o se sumaron"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "La estructura del mantenimiento (SR1 frente a H, S, SR2 o SRF) desplaza el precio de Sí más de lo que el objetivo puede callar.",
+     "contraste": [
+      {
+       "variante": "estructura_H",
+       "descripcion": "misma configuración con la estructura H (entradas compatibles)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": true
+      },
+      {
+       "variante": "estructura_S",
+       "descripcion": "misma configuración con la estructura S (entradas compatibles)",
+       "precio_si": 39.17675788973335,
+       "delta_eur": -0.6214356453918413,
+       "delta_pct": -0.015614669666937846,
+       "atribuible": true
+      },
+      {
+       "variante": "estructura_SRF",
+       "descripcion": "misma configuración con la estructura SRF (entradas compatibles)",
+       "precio_si": 41.708538723511396,
+       "delta_eur": 1.9103451883862022,
+       "delta_pct": 0.04800080151125866,
+       "atribuible": true
+      },
+      {
+       "variante": "estructura_SR2",
+       "descripcion": "misma configuración con la estructura SR2 (entradas compatibles)",
+       "precio_si": 40.37080489975529,
+       "delta_eur": 0.5726113646300988,
+       "delta_pct": 0.014387873261752997,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "Cada estructura se calcula con θ = 0,5 y la familia Θ: las combinaciones con otros θ no están calculadas (con θ = 0 las estructuras convergen en 41,47 €).",
+      "No cubre la familia Λ ni estructuras fuera de la plantilla.",
+      "La elección de la estructura no se delimita con el desglose de la inversión por tipo (decisión pendiente D2).",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": true,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "Tres de los cuatro contrastes aislados (H +1,67; SRF +1,91; S −0,62) y el recorrido entero (2,53 €) superan mi criterio de 1 € o se le acercan: es material para el objetivo.",
+      "Sin fundamento suficiente: condiciona el objetivo (protocolo objetivo_condicionado)."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.estructura (estructura_H, estructura_S, estructura_SRF, estructura_SR2)",
+      "fase_c.md §9, mantenimiento"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.familia",
+    "clase": "técnico",
+    "confianza": "baja",
+    "materialidad": "Solo variación conjunta (heredado, solo_N1, solo_R1, activa_R0_sin_PM1, activa_sin_PM1), que quitan P-M1 entera: ninguna calcula la familia Λ. Todas en caro.",
+    "evaluacion": "Θ parte del exceso observado (64,9 M€ en 2021–2025 con NIIF 16) y está acotada; Λ necesitaría λ, que no se observa, y con estas bases SRF solo estaría definida hasta λ = 1,2011. Elegir Θ es elegir lo calculable, no lo demostrado. Su efecto en el objetivo no está calculado: queda no determinado y condiciona el objetivo.",
+    "material_para_accion": false,
+    "material_para_objetivo": null,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "El coste de reposición frente a la amortización a coste histórico de las líneas de extrusión, conversión y cogeneración (vida útil y antigüedad media de los activos, no publicadas en el extracto), o un índice de precios de bienes de equipo con la vida de esos activos, que permitiría observar λ y calcular la familia Λ.",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "variacion_conjunta",
+    "base_de_la_materialidad": "juicio_economico",
+    "base_de_la_materialidad_objetivo": "no_determinada",
+    "evidencia": [
+     "configuracion_economica.json → PM1 y naturaleza (λ no observado; SRF definida hasta λ = 1,2011 con NIIF 16)",
+     "variantes que quitan P-M1 (activa_sin_PM1: 41,4698 €)",
+     "precio.json (precio 54,70 €; precio de Sí 39,7982 €)"
+    ],
+    "hechos": [
+     "quitar toda P-M1 sube el precio de Sí 1,67 € (activa_sin_PM1)",
+     "para cambiar la acción el precio de Sí tendría que subir 14,90 € (37,4 % sobre el precio de Sí)"
+    ],
+    "inferencias": [
+     "Para que otra familia cambiara la acción tendría que liberar capital en una cuantía de unas casi nueve veces el efecto entero de P-M1 activa, lo contrario de lo que muestran 2023–2025 (inversión igual a la amortización): no es material para la acción (juicio)",
+     "Su efecto en el objetivo no se puede afirmar sin una variante Λ: no determinado"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Calcular el requisito con la familia Λ en lugar de Θ no desplazaría el precio de Sí más de lo que el objetivo puede declarar.",
+     "contraste": [
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta",
+     "limites": [
+      "Ninguna variante calcula Λ: el cambio no está definido (no es 0).",
+      "λ no se observa; con estas bases SRF solo estaría definida hasta λ = 1,2011.",
+      "Quitar P-M1 entera (activa_sin_PM1) no demuestra el efecto de su familia.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "no_determinada",
+     "material": null,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "Sin contraste no puedo declarar con qué comparar un efecto que no conozco: la materialidad para el objetivo queda no determinada y, como no tiene fundamento suficiente, condiciona el objetivo."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.familia: solo variaciones conjuntas no atribuibles",
+      "configuracion_economica.json → naturaleza (λ = 1,2011)"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.parametro",
+    "clase": "técnico",
+    "confianza": "baja",
+    "materialidad": "Contraste aislado: θ = 0 da 41,47 € (+1,67) y θ = 1 da 38,13 € (−1,67); con el perímetro «Caja», 41,47 € y 39,43 €. Todas en caro.",
+    "evaluacion": "θ = 0,5 es el punto medio del dominio, sin central económica. Los hechos apuntan al extremo bajo: el exceso de 2021–2025 se concentra en 2021–2022, años de capacidad nueva y de crecimiento (+6,3 % y +23,9 %), y en 2023–2025 la inversión igualó a la amortización (1,00 / 0,97 / 1,02). La clasificación que publica la empresa va en la misma dirección: en cada uno de los cuatro años con desglose en el paquete (2021, 2022, 2023 y 2025), la inversión que no es de capacidad (proceso, sostenibilidad y seguridad, ordinaria) queda por debajo de la D&A (55,3 / 70,3 / 70,3 / 54,8 M€ frente a 72,3 / 78,1 / 83,7 / 85,2 M€ [cálculo]), así que el exceso lo explica la capacidad. Pero «capacidad y maquinaria» puede incluir maquinaria de reposición (solo 2025 dice «aimed at increasing capacity»), la D&A es a coste histórico, 2024 no está en un documento conservado y aceptar este método es una decisión pendiente (D2, D5). Mueve el objetivo ±1,67 € y no está fundado: condiciona el objetivo.",
+    "material_para_accion": false,
+    "material_para_objetivo": true,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "Qué parte de la inversión clasificada como «capacidad y maquinaria» en 2021–2024 sustituyó capacidad existente (pregunta a Relación con Inversores), el desglose por tipo de 2024 en un documento conservado (en el paquete están 2021, 2022, 2023 y 2025: IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143) y la decisión de la persona responsable sobre si acepta ese método para θ (D2, D5).",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "parametro_minimo",
+     "parametro_maximo",
+     "perimetro_alternativo_parametro_minimo",
+     "perimetro_alternativo_parametro_maximo"
+    ],
+    "material_para_conclusion": true,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variantes parametro_minimo y parametro_maximo (y sus pares con «Caja»)",
+     "conciliación de arrendamientos 2021–2025 (capex de caja, altas y D&A por año)",
+     "desglose por tipo: IA_2021_es.txt, PDF p. 213 (44 % capacidad y maquinaria); CF_2022_compilacion.txt, PDF p. 202 (40 %); IA_2023_es.txt, PDF p. 250 (16 %); AR_2025.txt, PDF p. 143 (30,9 M€, 37 %, «aimed at increasing capacity»)",
+     "extracto: AR_2025 p. 66 (Chequia, posterior a la base)",
+     "EVIDENCIA_ECONOMICA_4_14.md §a (método propuesto, no adoptado)"
+    ],
+    "hechos": [
+     "parametro_minimo 41,4698 €; parametro_maximo 38,1265 €; zona caro en los dos",
+     "exceso por año (capex + altas − D&A, M€): 26,5 (2021), 39,1 (2022), −0,0 (2023), −2,3 (2024), 1,7 (2025); suma 64,9 [cálculo, conciliación]",
+     "inversión que no es de capacidad ÷ D&A, con el porcentaje publicado sobre capex + altas: 2021 55,3 / 72,3; 2022 70,3 / 78,1; 2023 70,3 / 83,7; 2025 54,8 / 85,2 M€ [cálculo]",
+     "D&A de activos propios 2025 = 85,196 − 5,503 = 79,693 M€"
+    ],
+    "inferencias": [
+     "±1,67 € es material para el objetivo (juicio con mi criterio de 1 €)",
+     "El patrón de 2021–2025 y la clasificación de la empresa son más compatibles con un θ bajo (cerca de 0, 41,47 €) que con el punto medio; para θ = 0,5 habría que tratar como reposición una parte grande de lo que la empresa llama capacidad, pero no puedo excluirlo con lo publicado"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "θ (la parte del exceso histórico que fue reposición) desplaza el precio de Sí más de lo que el objetivo puede callar dentro de su dominio [0, 1].",
+     "contraste": [
+      {
+       "variante": "parametro_minimo",
+       "descripcion": "estructura activa con θ = 0.0 (extremo del rango declarado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": true
+      },
+      {
+       "variante": "parametro_maximo",
+       "descripcion": "estructura activa con θ = 1.0 (extremo del rango declarado)",
+       "precio_si": 38.12654110388348,
+       "delta_eur": -1.6716524312417107,
+       "delta_pct": -0.042003223833924505,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "perimetro_alternativo_parametro_minimo",
+       "descripcion": "perímetro «Caja» con θ = 0.0 (extremo del rango declarado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "perimetro_alternativo_parametro_maximo",
+       "descripcion": "perímetro «Caja» con θ = 1.0 (extremo del rango declarado)",
+       "precio_si": 39.43214517981911,
+       "delta_eur": -0.36604835530608426,
+       "delta_pct": -0.009197612323358756,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "θ < 0 (inversión de reposición por debajo de la D&A, que es lo que sugiere el desglose) está fuera del dominio de la familia y no se calcula.",
+      "Los extremos se calculan con SR1 y la familia Θ; con otras estructuras y con Λ no están calculados.",
+      "El efecto del perímetro existe solo a través de θ (con «Caja», 39,43 € en θ = 1).",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": true,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "Los dos contrastes aislados (±1,67 €) superan mi criterio de 1 € y equivalen a un paso de la lista de probabilidades: es material para el objetivo.",
+      "La evidencia nueva (desglose por tipo de 2021–2023 y 2025) apunta a θ bajo, es decir, a un objetivo por encima del activo (hasta 41,47 €), pero sin aceptar el método (D2, D5) no fundamenta θ: sigue condicionando el objetivo."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.parametro: parametro_minimo 41,4698 € (+1,67) y parametro_maximo 38,1265 € (−1,67)",
+      "IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.convencion_anios",
+    "clase": "convención",
+    "confianza": "baja",
+    "materialidad": "Contraste aislado (convencion_anios_alternativa, proporcional a las ventas): precio de Sí 39,63 € (−0,17) y ponderado 43,59 € (−0,21); caro.",
+    "evaluacion": "La razón de «Plana» (con R1 la capacidad se conserva cuando las ventas caen) no aplica aquí: en mis escenarios las ventas no caen. El hecho de la empresa apunta al otro lado: la D&A sobre ventas fue la misma en 2016 y 2025 (6,8 %), es decir, la base que se repone creció con el negocio. Sin fundamento suficiente, pero inmaterial: no condiciona el objetivo.",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "Si el requisito adicional (la reposición por encima de la amortización histórica) crece con la base instalada como la D&A: hace falta saber qué parte de la inversión fue reposición, la misma información que fundaría θ.",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "convencion_anios_alternativa"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante convencion_anios_alternativa",
+     "Historia filas da y ventas (49,7 / 730,8 en 2016 y 85,2 / 1.252,0 en 2025)"
+    ],
+    "hechos": [
+     "convencion_anios_alternativa: precio de Sí 39,6265 €, ponderado 43,5926 €, zona caro",
+     "D&A ÷ ventas: 6,8 % en 2016 y 6,8 % en 2025 [cálculo, Historia]"
+    ],
+    "inferencias": [
+     "−0,17 € es menos de lo que el objetivo sabe con precisión: no material para el objetivo (juicio)",
+     "La D&A proporcional a las ventas sugiere que la convención proporcional describe mejor esta empresa que la plana"
+    ],
+    "contradicciones_revisadas": [
+     {
+      "discrepancia": "confianza_distinta",
+      "resolucion": "La configuración le da confianza media porque «Plana» es coherente con R1 cuando las ventas caen; yo le doy baja porque en este expediente las ventas no caen en ningún escenario y el único hecho de la empresa (D&A del 6,8 % de las ventas en 2016 y en 2025) apunta a la proporcional. Mantengo baja; no cambia nada (−0,17 €, caro)."
+     }
+    ],
+    "juicio_objetivo": {
+     "hipotesis": "Que el requisito de los años 1–10 sea plano en lugar de proporcional a las ventas no desplaza el precio de Sí más de lo que el objetivo puede declarar.",
+     "contraste": [
+      {
+       "variante": "convencion_anios_alternativa",
+       "descripcion": "estructura activa con los años «Proporcional a las ventas»",
+       "precio_si": 39.626546176609324,
+       "delta_eur": -0.17164735851586954,
+       "delta_pct": -0.0043129434597169985,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "Se calcula con θ = 0,5: el efecto escala con el requisito (nulo con θ = 0, mayor con θ = 1) y esas combinaciones no están calculadas.",
+      "No cubre escenarios con ventas a la baja, donde la convención plana tiene su razón.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "resolucion_de_las_palancas",
+      "valor_eur": 1.6068,
+      "fuente": "un paso de la lista de probabilidades (0,2/0,6/0,2 → 0,25/0,6/0,15) lleva el precio de Sí de 39,7982 a 38,1914 € [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre V = 29,7797 / 43,7671 / 57,9470 de precio.json]; es el menor de los dos pasos (el otro, +1,8540 €)"
+     },
+     "razonamiento": [
+      "El contraste aislado mueve el precio de Sí −0,17 €: una décima parte de un paso de la lista de probabilidades (1,61 €) y menos de una quinta parte de mi criterio de 1 €.",
+      "El efecto depende del tamaño del requisito, que ya es la hipótesis θ que condiciona el objetivo: con θ = 0 desaparece."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.convencion_anios: convencion_anios_alternativa 39,6265 € (−0,17, −0,43 %)",
+      "Historia filas da y ventas (6,8 % en 2016 y 2025)"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.convencion_terminal",
+    "clase": "convención",
+    "confianza": "media",
+    "materialidad": "Contraste aislado (convencion_terminal_alternativa, crece con g): precio de Sí 40,17 € (+0,37) y ponderado 44,27 € (+0,47); caro.",
+    "evaluacion": "En la perpetuidad la base de activos crece con el negocio: el requisito proporcional a las ventas es coherente con el estado estable (CV p. 13; I2) y con una D&A que fue el 6,8 % de las ventas en 2016 y en 2025. Fundada e inmaterial.",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "convencion_terminal_alternativa"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante convencion_terminal_alternativa",
+     "Historia filas da y ventas"
+    ],
+    "hechos": [
+     "convencion_terminal_alternativa: precio de Sí 40,1687 €, ponderado 44,2735 €, zona caro",
+     "D&A ÷ ventas del 6,8 % en 2016 y 2025 [cálculo, Historia]"
+    ],
+    "inferencias": [
+     "+0,37 € no es material para el objetivo (juicio)"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Que el requisito del terminal sea proporcional a las ventas en lugar de crecer con g no desplaza el precio de Sí más de lo que el objetivo puede declarar.",
+     "contraste": [
+      {
+       "variante": "convencion_terminal_alternativa",
+       "descripcion": "estructura activa con el terminal «Crece con g»",
+       "precio_si": 40.168741633958696,
+       "delta_eur": 0.3705480988335026,
+       "delta_pct": 0.00931067633777054,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "Se calcula con θ = 0,5 y SR1; con otro θ o estructura el efecto cambia y no está calculado.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "resolucion_de_las_palancas",
+      "valor_eur": 1.6068,
+      "fuente": "un paso de la lista de probabilidades (0,2/0,6/0,2 → 0,25/0,6/0,15) lleva el precio de Sí de 39,7982 a 38,1914 € [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre V = 29,7797 / 43,7671 / 57,9470 de precio.json]; es el menor de los dos pasos (el otro, +1,8540 €)"
+     },
+     "razonamiento": [
+      "El contraste aislado mueve el precio de Sí +0,37 €, menos de la mitad de mi criterio de 1 € y una cuarta parte de un paso de la lista de probabilidades.",
+      "Además está fundada en el estado estable y en la D&A proporcional a las ventas de la propia empresa."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.convencion_terminal: convencion_terminal_alternativa 40,1687 € (+0,37, +0,93 %)",
+      "CV p. 13; I2"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.roic_terminal",
+    "clase": "convención",
+    "confianza": "baja",
+    "materialidad": "Variación conjunta necesaria (estructura_SR2: ROIC × f en el terminal): precio de Sí 40,37 € (+0,57) y ponderado 44,50 € (+0,69); caro.",
+    "evaluacion": "Q-ROIC1: si el ROIC de largo plazo es neto de reposición, lo coherente con sumar el requisito es SR1 (ROIC sin cambio); si se midió sobre una inversión total que ya incluye la reposición, es SR2. B18:D18 se anclaron en ROIC contables sobre todo el capital invertido (Historia fila 33: F33 12,1 %, G33:H33, C55), construido con el exceso de inversión de la década: es la segunda lectura, y SR2 sería la combinación coherente. Sin fundamento suficiente para «sin cambio»; efecto pequeño (+0,57 €) y su única alternativa calculada es una de las estructuras que ya condicionan el objetivo.",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": false,
+    "informacion_que_falta": "Un ROIC histórico neto de reposición (NOPAT menos la reposición por encima de la amortización, sobre el capital sin esa reposición), que exige saber qué parte de la inversión fue reposición (la misma información que θ); o la decisión de la persona responsable sobre Q-ROIC1.",
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "estructura_SR2"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "variacion_conjunta_necesaria",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante estructura_SR2",
+     "fase_b.json → roic_lp (anclas: Historia F33, G33:H33, C55)",
+     "configuracion_economica.json → trazabilidad PM1.roic_terminal (Q-ROIC1)",
+     "CORRECCIONES_ECONOMICAS_VIDRALA_4_13.md §1 (condición general, sin cifras de Vidrala)"
+    ],
+    "hechos": [
+     "estructura_SR2: precio de Sí 40,3708 €, ponderado 44,4986 €, zona caro",
+     "Historia fila roic: 12,1 % (2019) a 16,7 % (2016); C55 = 14,3 % (2017 pasa de 16,6 % a 16,4 % con D22 corregido; no cambia el rango)"
+    ],
+    "inferencias": [
+     "Las anclas de B18:D18 son ROIC sobre el capital total, que ya incluye lo invertido en reponer: por Q-ROIC1 la combinación coherente sería SR2",
+     "+0,57 € no es material para el objetivo por sí solo y su alternativa ya está dentro de PM1.estructura, que condiciona el objetivo (juicio)"
+    ],
+    "contradicciones_revisadas": [
+     {
+      "discrepancia": "confianza_distinta",
+      "resolucion": "La configuración le da confianza media porque «sin cambio» es la definición de SR1; yo le doy baja porque las anclas de la fase B son ROIC contables sobre todo el capital, la lectura en la que Q-ROIC1 pide reestimar el ROIC (SR2). Mantengo baja; no adopto SR2 (no me toca) y el efecto es +0,57 €, sin cambio de zona."
+     }
+    ],
+    "juicio_objetivo": {
+     "hipotesis": "Mantener el ROIC del terminal sin cambio (SR1) en lugar de reestimarlo con f (SR2) no desplaza el precio de Sí más de lo que el objetivo ya declara con la estructura del mantenimiento.",
+     "contraste": [
+      {
+       "variante": "estructura_SR2",
+       "descripcion": "misma configuración con la estructura SR2 (entradas compatibles)",
+       "precio_si": 40.37080489975529,
+       "delta_eur": 0.5726113646300988,
+       "delta_pct": 0.014387873261752997,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta_necesaria",
+     "limites": [
+      "Solo se puede contrastar junto con la estructura (SR2): no hay un ROIC × f con SR1.",
+      "Se calcula con θ = 0,5; con θ = 1 (f = 1,2562) la diferencia sería mayor y no está calculada.",
+      "Q-ROIC1 sigue sin decidir.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "otra_hipotesis_calculada",
+      "valor_eur": 2.5318,
+      "fuente": "contraste_objetivo_v64.md, PM1.estructura: recorrido de los contrastes aislados de 39,1768 € (S) a 41,7085 € (SRF); estructura_SR2 (40,3708 €), el único contraste de PM1.roic_terminal, está dentro y PM1.estructura ya condiciona el objetivo"
+     },
+     "razonamiento": [
+      "Su único contraste atribuible es la variante estructura_SR2 (+0,57 €), que es a la vez una de las alternativas de PM1.estructura: el objetivo, condicionado a la estructura, ya la recoge.",
+      "+0,57 € es poco más de la mitad de mi criterio de 1 € y un tercio de un paso de la lista de probabilidades; nombrarlo como condicionante aparte contaría dos veces la misma alternativa."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.roic_terminal: estructura_SR2 40,3708 € (+0,57, +1,44 %)",
+      "contraste_objetivo_v64.md, PM1.estructura (39,1768 a 41,7085 €)"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.cartera",
+    "clase": "convención",
+    "confianza": "media",
+    "materialidad": "Solo variación conjunta (heredado, que quita toda la configuración); no hay contraste aislado de P0 porque no está definida. Caro.",
+    "evaluacion": "La única cartera de clientes identificada (altas de 1,294 M€ en 2025, vida de 12 años) es inmaterial (≈0,11 M€ al año) y no hay datos que confirmen ceros en 2021–2024; tratarla como «legado» es lo razonable. Fundada por importe; sin efecto.",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "variacion_conjunta",
+    "base_de_la_materialidad": "juicio_economico",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "configuracion_economica.json → PM1.cartera (AR_2025 p. 33)",
+     "variante heredado"
+    ],
+    "hechos": [
+     "cartera de clientes de 1,294 M€ con vida de 12 años en 2025",
+     "heredado: precio de Sí 42,9767 €, zona caro"
+    ],
+    "inferencias": [
+     "Un importe de ≈0,11 M€ al año frente a una D&A de 85,2 M€ no puede mover ni la acción ni el objetivo (juicio)"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Tratar la cartera de clientes como «legado» en lugar de reponerla aparte (P0) no desplaza el precio de Sí más de lo que el objetivo puede declarar.",
+     "contraste": [
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "variacion_conjunta",
+     "limites": [
+      "P0 no está definida para esta empresa: no hay contraste atribuible y el cambio no está definido.",
+      "Solo se conoce la cartera de 2025; no hay datos de 2021–2024.",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": null,
+     "razonamiento": [
+      "Sin contraste, juicio por importe: ≈0,11 M€ al año (1,294 M€ en 12 años) es el 0,1 % de la D&A; capitalizado al 8,27 % serían ≈1,3 M€, unos 0,03 € por acción [cálculo], muy por debajo de mi criterio de 1 €.",
+      "Está fundada por importe, así que no condicionaría el objetivo."
+     ],
+     "evidencia": [
+      "configuracion_economica.json → PM1.cartera (AR_2025 p. 33)",
+      "Historia L8 (D&A 85,196 M€)"
+     ]
+    }
+   },
+   {
+    "clave": "PM1.perimetro",
+    "clase": "fundamentada",
+    "confianza": "media",
+    "materialidad": "Contraste aislado (perimetro_alternativo, «Caja»): precio de Sí 40,45 € (+0,65) y ponderado 44,47 € (+0,67); con θ = 0 los dos perímetros dan 41,47 € y con θ = 1, 39,43 € («Caja») frente a 38,13 € (NIIF 16). Todas en caro.",
+    "evaluacion": "NIIF 16 es el perímetro coherente con el motor B: los arrendamientos están en el capital invertido y en el puente como deuda, el NOPAT ya descuenta la amortización de sus derechos de uso y no resta sus pagos; «Caja» compara una D&A que incluye 27,1 M€ de amortización de derechos de uso con un capex que no incluye sus 24,1 M€ de altas, y rebaja el exceso de 64,9 a 40,8 M€. La propia empresa define su CapEx, en la tabla de taxonomía del informe de 2025, como inversión en intangibles, inmovilizado material y derechos de uso (AR_2025.txt, PDF p. 275). Fundado. Su efecto solo existe a través de θ (nulo con θ = 0). La elección formal es humana (decisión pendiente D4, VISCOFAN-PERIMETRO).",
+    "material_para_accion": false,
+    "material_para_objetivo": false,
+    "fundamento_suficiente": true,
+    "informacion_que_falta": null,
+    "ambito": [
+     "heredado",
+     "solo_N1",
+     "solo_R1",
+     "activa_R0_sin_PM1",
+     "activa_sin_PM1",
+     "perimetro_alternativo",
+     "perimetro_alternativo_parametro_minimo",
+     "perimetro_alternativo_parametro_maximo"
+    ],
+    "material_para_conclusion": false,
+    "cobertura": "contraste_aislado",
+    "base_de_la_materialidad": "calculada",
+    "base_de_la_materialidad_objetivo": "juicio_economico",
+    "evidencia": [
+     "variante perimetro_alternativo y sus extremos de θ",
+     "2026-11_Vidrala_ensayo_4_13/resultados/conciliacion_arrendamientos_viscofan.md (altas 24,110; amortización de derechos de uso 27,051)",
+     "AR_2025.txt, PDF p. 275 (tabla de taxonomía: la empresa define su CapEx como inversión en intangibles, inmovilizado material y activos por derechos de uso)"
+    ],
+    "hechos": [
+     "perimetro_alternativo: precio de Sí 40,4510 €, ponderado 44,4729 €, zona caro",
+     "altas de derechos de uso 2021–2025: 24,110 M€; su amortización: 27,051 M€ (conciliación)",
+     "exceso histórico: 64,923 M€ (NIIF 16) frente a 40,813 M€ («Caja»)"
+    ],
+    "inferencias": [
+     "+0,65 € con el θ activo no es material para el objetivo; llegaría a 1,31 € solo con θ = 1, el extremo que los hechos hacen menos probable, y esa incertidumbre ya está en PM1.parametro (juicio)"
+    ],
+    "contradicciones_revisadas": [],
+    "juicio_objetivo": {
+     "hipotesis": "Medir la inversión de P-M1 con el perímetro «Caja» en lugar de NIIF 16 no desplaza el precio de Sí más de lo que el objetivo puede declarar con el θ activo.",
+     "contraste": [
+      {
+       "variante": "perimetro_alternativo",
+       "descripcion": "estructura activa con el perímetro «Caja» (mismas entradas)",
+       "precio_si": 40.45099557309299,
+       "delta_eur": 0.6528020379677955,
+       "delta_pct": 0.01640280575528243,
+       "atribuible": true
+      },
+      {
+       "variante": "heredado",
+       "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_N1",
+       "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "solo_R1",
+       "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+       "precio_si": 42.97666333736768,
+       "delta_eur": 3.178469802242489,
+       "delta_pct": 0.07986467525057958,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_R0_sin_PM1",
+       "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "activa_sin_PM1",
+       "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "perimetro_alternativo_parametro_minimo",
+       "descripcion": "perímetro «Caja» con θ = 0.0 (extremo del rango declarado)",
+       "precio_si": 41.469845966366876,
+       "delta_eur": 1.6716524312416823,
+       "delta_pct": 0.04200322383392379,
+       "atribuible": false
+      },
+      {
+       "variante": "perimetro_alternativo_parametro_maximo",
+       "descripcion": "perímetro «Caja» con θ = 1.0 (extremo del rango declarado)",
+       "precio_si": 39.43214517981911,
+       "delta_eur": -0.36604835530608426,
+       "delta_pct": -0.009197612323358756,
+       "atribuible": false
+      }
+     ],
+     "cobertura": "contraste_aislado",
+     "limites": [
+      "El efecto depende de θ: con θ = 1 la diferencia es 1,31 € (39,43 frente a 38,13 €), por encima de mi criterio; con θ = 0, nula.",
+      "No cubre un perímetro de solo activos propios (no coherente sin reexpresar el NOPAT, el capital y el puente; no calculado).",
+      "La elección del perímetro es una decisión humana pendiente (D4).",
+      "El rango calculado no incluye las probabilidades: un paso de la lista mueve el precio de Sí −1,61 / +1,85 € y no hay variante que lo contraste (decisión pendiente D7).",
+      "Acciones (decisión D3 de la persona responsable, no un parámetro de la configuración): C55 = 45,993399 M en circulación a 31-dic-2025 (46.500.000 emitidas − 506.601 propias [AR_2025.txt, PDF pp. 76, 83]) y C41 = 54,70 € × C55 = 2.515,8 M€, con el precio del 3-nov-2026 (boletín de BME, PDF p. 3): fechas distintas, no es una actualización a 2026 (la autocartera al 3-nov-2026 no consta; la última cifra oficial anterior al precio, a 30-jun-2026, es de 46.000.000 emitidas y 396.357 propias, 45,603643 M en circulación [datos_v63.md §2, evidencia de C41]: no la adopto y ninguna variante la calcula; por el solo denominador subiría el precio de Sí ≈+0,34 € [estimación proporcional mía]). La dilución potencial del plan de incentivos 2025–2027 (hasta 315.000 acciones con el incentivo objetivo y 472.500 con el máximo, entrega en el primer semestre de 2028, sin decir si con autocartera o con acciones nuevas [AR_2025.txt, PDF pp. 129–130]) no está en C55 ni en ninguna variante: llevaría el precio de Sí a 39,53 € (−0,27 €) o a 39,39 € (−0,40 €) (resultados/efecto_decisiones_viscofan.json; no adoptada).",
+      "Interacciones: cada contraste mueve un parámetro con los demás en la activa; los efectos conjuntos no son aditivos y no están calculados (salvo heredado y las variantes sin P-M1)."
+     ],
+     "base": "juicio_economico",
+     "material": false,
+     "criterio": {
+      "origen": "juicio_propio_del_agente",
+      "descripcion": "Llamo material para el objetivo a un desplazamiento del precio de Sí atribuible al parámetro de 1 € o más (≈2,5 % de 39,80 €). Es mi juicio, no una política ni un umbral adoptado: la decisión D1 está pendiente. Razón con cifras de este expediente: un solo paso de la lista de probabilidades (0,05 entre las colas) mueve el precio de Sí −1,61 € (0,25/0,6/0,15) o +1,85 € (0,15/0,6/0,25) [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre los V de precio.json], y es la palanca en la que ya discreparon dos agentes en Viscofan (fases B de la 4.12 y de la 4.13: +1,63 a +1,66 €, DECISIONES_PENDIENTES_4_14.md §2.7). Un desplazamiento menor que 1 € es más preciso de lo que el objetivo sabe; uno mayor, el objetivo tiene que declararlo. Es el mismo criterio que el de la rama 4.14 y el mismo orden que el de la 4.13 («del orden de 1 €»): las cifras de D3 y E1 no exigen cambiarlo (ningún contraste atribuible cruza 1 € frente a la rama; el más cercano por debajo es «Caja», +0,65 €) y no lo muevo para cambiar de lado ningún parámetro.",
+      "referencia": "fase_c.md §9 (criterio propio del juicio sobre el objetivo)"
+     },
+     "comparado_con": {
+      "referencia": "resolucion_de_las_palancas",
+      "valor_eur": 1.6068,
+      "fuente": "un paso de la lista de probabilidades (0,2/0,6/0,2 → 0,25/0,6/0,15) lleva el precio de Sí de 39,7982 a 38,1914 € [cálculo exacto con scripts/precio_de_si.py, p_estrella, sobre V = 29,7797 / 43,7671 / 57,9470 de precio.json]; es el menor de los dos pasos (el otro, +1,8540 €)"
+     },
+     "razonamiento": [
+      "Con el θ activo el contraste aislado mueve el precio de Sí +0,65 €, menos que mi criterio de 1 € y que un paso de la lista de probabilidades.",
+      "Solo supera 1 € en θ = 1, y esa parte del efecto es de θ, que ya condiciona el objetivo; está fundado en la coherencia con el motor B y en la definición de CapEx de la propia empresa."
+     ],
+     "evidencia": [
+      "contraste_objetivo_v64.md, PM1.perimetro: perimetro_alternativo 40,4510 € (+0,65, +1,64 %); perimetro_alternativo_parametro_maximo 39,4321 €",
+      "AR_2025.txt, PDF p. 275"
+     ]
+    }
+   }
+  ],
+  "mantenimiento": {
+   "evaluacion": "¿Supera la reposición a la amortización? Con los hechos del cierre de 2025, no se ve. En la década la inversión fue 1,16 veces la amortización, pero el exceso se concentra en los años de capacidad nueva y de crecimiento: con el perímetro coherente con el motor B (capex de caja + altas de derechos de uso frente a toda la D&A) fue 1,37 en 2021 y 1,50 en 2022 (ventas +6,3 % y +23,9 %; colágeno en España, Alemania, Serbia, China y EE. UU., celulósica en Danville) y 1,00 / 0,97 / 1,02 en 2023–2025 (ventas +2,1 %, −1,8 % y +4,0 %). En 2024, el único año sin crecimiento, la inversión quedó por debajo de la amortización: si la reposición la superara, ese año la habría pagado entera con cualquier estructura. La clasificación por tipo que publica la empresa apunta en la misma dirección: en 2021, 2022, 2023 y 2025 (los años con desglose en el paquete) la inversión que no es de capacidad (proceso, sostenibilidad y seguridad, ordinaria) quedó por debajo de la D&A del año (55,3 / 70,3 / 70,3 / 54,8 M€ frente a 72,3 / 78,1 / 83,7 / 85,2 M€ [cálculo con los porcentajes publicados sobre capex + altas]); en 2025, de 84,1 M€ invertidos, 30,9 fueron capacidad y 53,2 medio ambiente, mejoras y ordinarias, menos que la amortización de activos propios (79,7 M€). Límite de esa lectura: «capacidad y maquinaria» (2016–2024) puede incluir maquinaria de reposición, la D&A es a coste histórico y 2024 no está en un documento conservado. No hay hornos: son líneas de extrusión y conversión y una cogeneración, sin vida útil publicada en el extracto. La planta de Chequia (misma capacidad, 1.250 millones de CZK) sería reposición pura y escalonada, pero es posterior a la base. La cartera de clientes es inmaterial («legado»). Lectura: θ hacia el extremo bajo, donde las estructuras convergen (sin requisito, 41,47 €). ¿Qué estructura? (1) S es la menos coherente: el S2C del NORMAL se ancló en B155, que ya incluye el exceso, y S no lo reestima, así que lo cuenta dos veces. (2) SR1 frente a SRF depende de la mezcla: en 2021–2025 el fijo fue el 25,5 % de la reinversión (F_hist 81,1 de D_hist 318,3) y cada euro de ventas añadido pidió ≈0,24 € de fijo y ≈0,70 € de circulante; en el modelo, con NWC del 48,3 % y S2C 1,1, el fijo es ≈0,43 € por euro. SR1 quita ≈0,093 € por euro de crecimiento, casi el exceso histórico por euro (32,5 ÷ 339,8 = 0,096); SRF, con f_fija = 1 − Rh ÷ F_hist ≈ 0,60 sobre un fijo 1,8 veces el histórico, quita ≈0,17 €, el doble de lo que muestra la historia [cálculo con la definición de R1 de la plantilla]. (3) SR2 frente a SR1: por Q-ROIC1, con B18:D18 anclados en ROIC sobre todo el capital, la combinación coherente con sumar el requisito es SR2. (4) H no queda excluida: un año sin crecimiento paga todo el requisito también en H, y en 2021–2022 la capacidad nueva incluyó renovación tecnológica (Danville), donde reposición y crecimiento se solapan. El desglose por tipo no separa H de SR2: sin saber qué parte de la capacidad sustituyó capacidad existente no hay base para elegir. Efecto en el precio de Sí: S 39,18 · SR1 39,80 (activa) · SR2 40,37 · H 41,47 · SRF 41,71 €, todas en caro. No se adopta nada.",
+   "evidencia": "Historia filas capex, da y ventas (2016–2025); 2026-11_Vidrala_ensayo_4_13/resultados/conciliacion_arrendamientos_viscofan.md (altas 3,010 / 1,633 / 6,554 / 6,419 / 6,494 M€; amortización de derechos de uso 27,051 M€ en 2021–2025); datos_v63.md sección 0 (D_hist 318,334; F_hist 81,084; Rh 32,4615; f 1,1136; NWC 0,4828); desglose por tipo: IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143; extracto: AR_2025 p. 27 (pagos de 80,4 M€), p. 65 (proyectos y compromisos), p. 66 (Chequia, posterior a la base); CA_2023 p. 98 e IA_2021 p. 210 (destino de 2021–2023); fase_b.json → roic_lp y s2c (anclas); CORRECCIONES_ECONOMICAS_VIDRALA_4_13.md §1–§3 (condiciones generales; ninguna cifra de Vidrala); EVIDENCIA_ECONOMICA_4_14.md §a (método propuesto, no adoptado); configuracion_v64_variantes.md (estructuras y θ).",
+   "estructura_mas_coherente": null,
+   "adoptada": false
+  },
+  "zona_igual_en_variantes_calculadas": true,
+  "observaciones": "Ensayo, no adopción. Las dieciocho variantes calculadas dan zona caro (configuracion_v64_variantes.md). El juicio sobre el objetivo va separado del juicio sobre la acción (contrato 4.14): la materialidad para el objetivo es un juicio mío con un criterio declarado (1 € de precio de Sí, por debajo de un paso de la lista de probabilidades, 1,61 €), no una política ni un umbral adoptado (D1 pendiente). Que la acción no cambie en las variantes no prueba que los parámetros no identificados (la familia) sean inmateriales: el rango es una sensibilidad condicional, no un intervalo de confianza. Lecturas con bases parciales (G7 con el tipo y el S2C de la Historia; referencias mecánicas del S2C en B155 sin f) no se presentan como comprobación del modelo experimental. Divisor efectivo: Análisis!C55 = 45,993399 M en circulación a 31-dic-2025 (decisión D3; resultados.json). El texto anterior de configuracion_economica.json → naturaleza, que conservaba el divisor de la 4.13 (45,479209 M), estaba desfasado y lo corrigió la orquestación (auditoría SA-5560fe3438e5febb, punto 10): 45,479209 M no es el divisor de ninguna cifra de esta fase.",
+  "avisos_de_dominio": [
+   {
+    "id": "factor_de_reestimacion",
+    "material_para_conclusion": false,
+    "consecuencia": "Lo digo en el diagnóstico. En la activa f = 1,1136 (D_hist 318,3 frente a Rh 32,5) sube el S2C efectivo a 0,89 / 1,22 / 1,45 y la rentabilidad marginal de los años a 9,7 / 15,7 / 20,3 %, lejos de que f deje de estar definida y sin el aviso de inversión fija negativa (S2C × f máximo 1,45 frente a 1 ÷ NWC = 2,07). Rh = θ × exceso, así que su incertidumbre es la de PM1.parametro, que ya condiciona el objetivo: no la cuento dos veces y no cambia la conclusión ni el objetivo por sí sola."
+   }
+  ],
+  "avisos_de_dominio_variantes": [
+   {
+    "id": "factor_de_reestimacion",
+    "material_para_conclusion": false,
+    "consecuencia": "Afecta al valor de la activa, al extremo inferior del rango calculado del precio de Sí y a su interior, no a la invariancia de la acción (las dieciocho variantes quedan en caro). f va de 1,0000 (θ = 0 y SRF) a 1,2562 (θ = 1 con NIIF 16). En el extremo inferior (parametro_maximo, 38,13 €) el S2C efectivo del NORMAL sería 1,38 y su rentabilidad marginal un 17,8 %, el doble de la incremental de la década (≈9 %), con un salto del año 11 por encima de 5 puntos también en el NORMAL: ese extremo junta un requisito alto con un capital nuevo que rinde mucho más que en la historia, una lectura menos coherente con los hechos que θ bajo. Lo digo en el diagnóstico y en el rango del objetivo; no es un límite del modelo material."
+   }
+  ],
+  "objetivo": {
+   "protocolo": "objetivo_condicionado",
+   "hipotesis_que_condicionan": [
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro"
+   ],
+   "informacion_no_disponible": [
+    "Qué parte de la inversión de 2021–2024 clasificada por la empresa como «capacidad y maquinaria» sustituyó capacidad existente, y el desglose por tipo de 2024 en un documento conservado (2021, 2022, 2023 y 2025 están en el paquete: IA_2021_es.txt, PDF p. 213; CF_2022_compilacion.txt, PDF p. 202; IA_2023_es.txt, PDF p. 250; AR_2025.txt, PDF p. 143), con la decisión sobre si ese método funda θ (D2, D5).",
+    "Si en los años con crecimiento la reposición y la inversión para crecer se solaparon (H) o se sumaron (S, SR1, SR2, SRF), y cómo se midió el ROIC de largo plazo (Q-ROIC1).",
+    "El coste de reposición frente a la amortización histórica de las líneas de extrusión, conversión y cogeneración (vida útil y antigüedad media), que haría observable λ y permitiría calcular la familia Λ."
+   ],
+   "accion_sostenida_en_ambito": true,
+   "ambito": [
+    "heredado",
+    "solo_N1",
+    "solo_R1",
+    "activa_sin_N1",
+    "escudo_alternativo",
+    "activa_R0_sin_PM1",
+    "activa_sin_PM1",
+    "estructura_H",
+    "estructura_S",
+    "estructura_SR2",
+    "estructura_SRF",
+    "parametro_minimo",
+    "parametro_maximo",
+    "perimetro_alternativo",
+    "perimetro_alternativo_parametro_minimo",
+    "perimetro_alternativo_parametro_maximo",
+    "convencion_anios_alternativa",
+    "convencion_terminal_alternativa"
+   ],
+   "tratamiento": "objetivo_condicionado",
+   "origen_del_bloqueo": null,
+   "motivo": "Esperar por precio: 54,70 € está en caro, por encima del ponderado (43,81 €) y del precio de Sí (39,80 €). Lo condicionan tres hipótesis de la configuración sin fundamento suficiente: la estructura del mantenimiento (39,18–41,71 € según la estructura), θ (38,13–41,47 €) y la familia Θ, cuyo efecto no está calculado (ninguna variante calcula Λ; no está cubierta por el ámbito). La lista D10 de las fases A y B está vacía y no se ejecutó la comprobación conjunta (conclusión no favorable). En las dieciocho variantes calculadas la zona sigue en caro (precio de Sí de 38,13 a 42,98 €) y ningún condicionante es material para la acción: la acción se sostiene en todo el ámbito calculado y el precio de Sí (39,80 €) se emite como objetivo condicionado (provisional). Ese rango es el de una tabla de sensibilidad, no un intervalo de confianza. El número de acciones ya no es una decisión pendiente: es la decisión D3 de la persona responsable (45,993399 M en circulación a 31-dic-2025 con el precio del 3-nov-2026: fechas distintas, no es una actualización a 2026). La dilución potencial del plan 2025–2027, no adoptada, llevaría el precio de Sí a 39,53 € (incentivo objetivo) o 39,39 € (máximo), −0,27 / −0,40 €, por debajo de mi criterio de 1 € y fuera de las variantes: la declaro, no la cuento como condicionante. Límites declarados fuera del ámbito, de decisiones pendientes que no adopto: las probabilidades (D7; un paso de la lista mueve el precio de Sí −1,61 / +1,85 €, por encima de mi criterio, sin variante que lo contraste), el perímetro (D4; +0,65 € con «Caja»), la delimitación de P-M1 y el protocolo (D2: si no se acepta que P-M1 está delimitada, el objetivo se bloquearía) y la política de uso (D8: la recomendación pendiente es no usar la entrega para dinero real)."
+  }
+ }
+}

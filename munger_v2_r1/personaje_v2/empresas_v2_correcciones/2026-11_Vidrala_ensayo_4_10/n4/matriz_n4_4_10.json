@@ -1,0 +1,820 @@
+{
+ "generado_por": "scripts/n4_revision.py (4.10)",
+ "base_4_9": "../2026-11_Vidrala_ensayo_4_9/n4/matriz_n4.json",
+ "base_4_9_sha256": "43cb273249c96f99a86fb0faddef51f3b8cc3a693ebbce34de748baf33a74e53",
+ "definicion": {
+  "otros_activos_financieros": {
+   "especificacion_vigente": "prompts/historia_anio.md: «activos financieros corrientes que no son caja (depósitos a plazo, inversiones financieras temporales)»; prompts/metadatos_fase1.md: caja_incluye_otros_activos_financieros = true «solo si la empresa mantiene una parte material de su liquidez en depósitos a plazo u otras inversiones financieras corrientes líquidas».",
+   "lectura_estrecha_propuesta": {
+    "incluye": [
+     "depósitos a plazo y otros depósitos bancarios no clasificados como equivalentes de efectivo",
+     "inversiones financieras temporales líquidas (renta fija a corto, fondos monetarios, pagarés) no incluidas en «efectivo y equivalentes»"
+    ],
+    "excluye": [
+     "instrumentos financieros derivados (de cobertura o no): su valor razonable no es liquidez del accionista, revierte con la partida cubierta y tiene contrapartida en pasivos derivados y en la reserva de coberturas",
+     "deudores comerciales y otras cuentas a cobrar (activos financieros del circulante operativo)",
+     "activos por impuestos y administraciones públicas",
+     "otros activos corrientes operativos",
+     "activos financieros NO corrientes (p. ej., «Otros activos financieros» no corrientes)"
+    ],
+    "razon_economica": "la partida es una ampliación posible de la CAJA (convención caja_incluye_otros_activos_financieros): solo tiene sentido para activos que son liquidez disponible, no para coberturas ni para el circulante operativo"
+   },
+   "lectura_amplia_literal": "«activos financieros corrientes que no son caja»: incluiría los derivados corrientes (y, en sentido estricto de la NIIF 9, también los deudores comerciales, lo que muestra que no es la intención de la especificación)",
+   "convencion_de_la_referencia": "fase1_metadatos.json: caja_incluye_otros_activos_financieros = false: la partida no entra en la caja ni en la valoración"
+  }
+ },
+ "recuento": {
+  "completa": {
+   "n": 18,
+   "por_partida": {
+    "adquisiciones": [
+     2018,
+     2019,
+     2020,
+     2021,
+     2022
+    ],
+    "intereses_financiacion": [
+     2016,
+     2017
+    ],
+    "minoritarios": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ],
+    "otros_activos_financieros": [
+     2023
+    ]
+   }
+  },
+  "parcial": {
+   "n": 8,
+   "por_partida": {
+    "intereses_financiacion": [
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ]
+   }
+  },
+  "no_aplicable": {
+   "n": 3,
+   "por_partida": {
+    "arrendamientos_principal": [
+     2016,
+     2018
+    ],
+    "arrendamientos": [
+     2016
+    ]
+   }
+  },
+  "depende_de_la_definicion": {
+   "n": 9,
+   "por_partida": {
+    "otros_activos_financieros": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2024,
+     2025
+    ]
+   }
+  }
+ },
+ "total": 38,
+ "nota_dependencia": "las 28 entradas con fila alimentan Historia C5:L26; las 10 auxiliares (otros_activos_financieros) quedan fuera mientras no entren en caja",
+ "matriz": [
+  {
+   "id": "N4-adquisiciones-2018",
+   "partida": "adquisiciones",
+   "anio": 2018,
+   "celda": "Historia!E13",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-adquisiciones-2019",
+   "partida": "adquisiciones",
+   "anio": 2019,
+   "celda": "Historia!F13",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-adquisiciones-2020",
+   "partida": "adquisiciones",
+   "anio": 2020,
+   "celda": "Historia!G13",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-adquisiciones-2021",
+   "partida": "adquisiciones",
+   "anio": 2021,
+   "celda": "Historia!H13",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-adquisiciones-2022",
+   "partida": "adquisiciones",
+   "anio": 2022,
+   "celda": "Historia!I13",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-intereses_financiacion-2016",
+   "partida": "intereses_financiacion",
+   "anio": 2016,
+   "celda": "Historia!C16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-intereses_financiacion-2017",
+   "partida": "intereses_financiacion",
+   "anio": 2017,
+   "celda": "Historia!D16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-intereses_financiacion-2018",
+   "partida": "intereses_financiacion",
+   "anio": 2018,
+   "celda": "Historia!E16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2019",
+   "partida": "intereses_financiacion",
+   "anio": 2019,
+   "celda": "Historia!F16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2020",
+   "partida": "intereses_financiacion",
+   "anio": 2020,
+   "celda": "Historia!G16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2021",
+   "partida": "intereses_financiacion",
+   "anio": 2021,
+   "celda": "Historia!H16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2022",
+   "partida": "intereses_financiacion",
+   "anio": 2022,
+   "celda": "Historia!I16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2023",
+   "partida": "intereses_financiacion",
+   "anio": 2023,
+   "celda": "Historia!J16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2024",
+   "partida": "intereses_financiacion",
+   "anio": 2024,
+   "celda": "Historia!K16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-intereses_financiacion-2025",
+   "partida": "intereses_financiacion",
+   "anio": 2025,
+   "celda": "Historia!L16",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "parcial",
+   "componente_sin_acreditar": "intereses de arrendamientos (NIIF 16 desde 2019; arrendamiento financiero NIC 17 en 2018): la línea del estado de flujos en que se pagan no se publica (clase 3 en ese componente)",
+   "componente_acreditado": "intereses de deuda: pagados en explotación («Pagos de intereses»), así que no hay intereses de deuda en financiación"
+  },
+  {
+   "id": "N4-arrendamientos_principal-2016",
+   "partida": "arrendamientos_principal",
+   "anio": 2016,
+   "celda": "Historia!C17",
+   "clase_4_9": 4,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "no_aplicable",
+   "motivo": "no es un cero publicado: NIIF 16 no estaba en vigor"
+  },
+  {
+   "id": "N4-arrendamientos_principal-2018",
+   "partida": "arrendamientos_principal",
+   "anio": 2018,
+   "celda": "Historia!E17",
+   "clase_4_9": 4,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "no_aplicable",
+   "motivo": "no es un cero publicado: NIIF 16 no estaba en vigor; en 2018 depende además de la regla registrada que lleva el arrendamiento financiero NIC 17 a deuda («Arrendamientos = solo pasivos NIIF 16»), escrita en fase1_decisiones.json sin fecha ni firma (no se atribuye a una persona)"
+  },
+  {
+   "id": "N4-arrendamientos-2016",
+   "partida": "arrendamientos",
+   "anio": 2016,
+   "celda": "Historia!C23",
+   "clase_4_9": 4,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "no_aplicable",
+   "motivo": "no es un cero publicado: NIIF 16 no estaba en vigor"
+  },
+  {
+   "id": "N4-minoritarios-2016",
+   "partida": "minoritarios",
+   "anio": 2016,
+   "celda": "Historia!C26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2017",
+   "partida": "minoritarios",
+   "anio": 2017,
+   "celda": "Historia!D26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2018",
+   "partida": "minoritarios",
+   "anio": 2018,
+   "celda": "Historia!E26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2019",
+   "partida": "minoritarios",
+   "anio": 2019,
+   "celda": "Historia!F26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2020",
+   "partida": "minoritarios",
+   "anio": 2020,
+   "celda": "Historia!G26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2021",
+   "partida": "minoritarios",
+   "anio": 2021,
+   "celda": "Historia!H26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2022",
+   "partida": "minoritarios",
+   "anio": 2022,
+   "celda": "Historia!I26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2023",
+   "partida": "minoritarios",
+   "anio": 2023,
+   "celda": "Historia!J26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2024",
+   "partida": "minoritarios",
+   "anio": 2024,
+   "celda": "Historia!K26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-minoritarios-2025",
+   "partida": "minoritarios",
+   "anio": 2025,
+   "celda": "Historia!L26",
+   "clase_4_9": 2,
+   "valor_actual": 0,
+   "dependencia": "Historia C5:L26 (fila con dependencias en la valoración y los diagnósticos)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "evidencia": "completa",
+   "motivo": "cuadre completo y contrastes de la 4.9 sin reserva"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2016",
+   "partida": "otros_activos_financieros",
+   "anio": 2016,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 2.777,
+   "linea_derivados": "Instrumentos financieros derivados 8 2.777 -",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 2.777,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (2.777 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2017",
+   "partida": "otros_activos_financieros",
+   "anio": 2017,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 3.568,
+   "linea_derivados": "Derivative financial instruments 8 3,568 2,777",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 3.568,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (3.568 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2018",
+   "partida": "otros_activos_financieros",
+   "anio": 2018,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 8.623,
+   "linea_derivados": "Derivative financial instruments 8 8,623 3,568",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 8.623,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (8.623 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2019",
+   "partida": "otros_activos_financieros",
+   "anio": 2019,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 5.646,
+   "linea_derivados": "Derivative financial instruments 8 5,646 8,623",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 5.646,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (5.646 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2020",
+   "partida": "otros_activos_financieros",
+   "anio": 2020,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 1.378,
+   "linea_derivados": "Derivative financial instruments 8 1,378 5,646",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 1.378,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (1.378 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2021",
+   "partida": "otros_activos_financieros",
+   "anio": 2021,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 24.01,
+   "linea_derivados": "Derivative financial instruments 8 24,010 1,378",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 24.01,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (24.010 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2022",
+   "partida": "otros_activos_financieros",
+   "anio": 2022,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 1.114,
+   "linea_derivados": "Derivative financial instruments 8 1,114 24,010",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 1.114,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (1.114 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2023",
+   "partida": "otros_activos_financieros",
+   "anio": 2023,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 0.0,
+   "linea_derivados": "Derivative financial instruments 9 - 1,114",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 0.0,
+   "evidencia": "completa",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales y sin derivados corrientes: cero con las dos lecturas"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2024",
+   "partida": "otros_activos_financieros",
+   "anio": 2024,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 25.567,
+   "linea_derivados": "Derivative financial instruments 9 25,567 -",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 25.567,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (25.567 mm) no son cero"
+  },
+  {
+   "id": "N4-otros_activos_financieros-2025",
+   "partida": "otros_activos_financieros",
+   "anio": 2025,
+   "celda": null,
+   "clase_4_9": 2,
+   "valor_actual": 0.0,
+   "dependencia": "ninguna mientras caja_incluye_otros_activos_financieros = false (partida auxiliar sin fila)",
+   "registro": {
+    "decision": null,
+    "fecha": null,
+    "confirmado_por": null,
+    "nota": "campos humanos vacíos: la IA no confirma ceros; una firma no sustituye un dato que falta"
+   },
+   "definicion_aplicada": "lectura estrecha propuesta (ver «definicion»)",
+   "lineas_de_liquidez_no_caja": [],
+   "derivados_corrientes_mm": 1.157,
+   "linea_derivados": "Derivative financial instruments 9 1,157 25,567",
+   "valor_lectura_estrecha": 0.0,
+   "valor_lectura_amplia": 1.157,
+   "evidencia": "depende_de_la_definicion",
+   "motivo": "cuadre completo sin depósitos ni inversiones temporales (cero con la lectura estrecha); con la lectura amplia, los derivados corrientes (1.157 mm) no son cero"
+  }
+ ]
+}

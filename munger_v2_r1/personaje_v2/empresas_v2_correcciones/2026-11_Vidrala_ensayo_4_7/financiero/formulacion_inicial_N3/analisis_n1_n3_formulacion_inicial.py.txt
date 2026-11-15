@@ -1,0 +1,398 @@
+#!/usr/bin/env python3
+"""Validación financiera material N1–N3 del piloto Vidrala (entrega 4.7, bloque B). Solo lectura del expediente de referencia.
+
+Uso: python3 -I analisis_n1_n3.py   (escribe ../financiero/: evidencia.json/.md, matriz.json/.csv/.md, n3_anio_a_anio.csv, salida.txt)
+
+1. EVIDENCIA. Cada dato publicado se vuelve a extraer de los textos del expediente (CF_AAAA.txt, generados con pdf_a_texto.py a
+   partir de los PDF oficiales conservados) por patrón de línea y columna, y se compara con el valor registrado; se anotan archivo,
+   página PDF, página impresa (último número aislado de la página, si existe), concepto, columna, período, perímetro, unidad y signo.
+   Si un dato no se reproduce, el script termina con código 1.
+2. RÉPLICA del motor B del libro (la misma de descomponer_contraste.py, ampliada con la regla de reinversión en ventas que caen) y
+   CONTROL: reproduce los valores del libro de referencia (53,67 / 70,77 / 86,49; ponderado 70,50; precio de Sí 65,69) con
+   tolerancia 0,005 €; si no, código 1.
+3. N1 (tipo), N2 (margen de partida), N3 (MALO y reinversión): reconstrucciones y alternativas, con sus fundamentos fijados en
+   ALTERNATIVAS antes de calcular ningún valor.
+4. MATRIZ 3 × 3 × 3 = 27 combinaciones (r = 0,09; probabilidades 0,2 / 0,6 / 0,2; k = 3; palancas de la fase B; caja 108,352;
+   puente 160,784): r_op se recalcula con el tipo de cada variante (efecto derivado de la fórmula de la hoja, no un cambio de r).
+Los rangos son hipótesis o sensibilidades, no límites demostrados. Nada de esto es una valoración comparable con el precio.
+"""
+import csv
+import json
+import os
+import re
+import sys
+
+AQUI = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+CORR = os.path.dirname(AQUI)
+REF = os.path.join(CORR, "2026-11_Vidrala_ensayo_4_6_1", "Vidrala")
+TXT = os.path.join(REF, "texto")
+SAL = os.path.join(AQUI, "financiero")
+TOL = 0.005
+os.makedirs(SAL, exist_ok=True)
+LOG = []
+
+
+def log(s=""):
+    LOG.append(s)
+    print(s)
+
+
+# ---------------------------------------------------------------- 1. evidencia
+_cache = {}
+
+
+def paginas(f):
+    if f not in _cache:
+        t = open(os.path.join(TXT, f), encoding="utf-8").read()
+        partes = re.split(r"\[PDF PAGE (\d+)\]", t)
+        _cache[f] = [(int(partes[i]), partes[i + 1]) for i in range(1, len(partes), 2)]
+    return _cache[f]
+
+
+def numeros(linea):
+    out = []
+    for m in re.finditer(r"\(?-?\d{1,3}(?:[,.]\d{3})+\)?|\(?-?\d+\)?", linea):
+        s = m.group(0)
+        neg = s.startswith("(") or s.startswith("-")
+        v = float(re.sub(r"[(),.\-]", "", s))
+        out.append(-v if neg else v)
+    return out
+
+
+E = []  # evidencia registrada
+
+
+def ev(clave, f, patron, col, esperado_miles, concepto, periodo, perimetro, signo="importe con el signo del estado", pagina=None, nota="", ocurrencia=1):
+    """Busca la primera línea que casa con `patron` (en la página dada, si se da) y toma el número `col` de los que siguen al
+    patrón (0 = primera columna numérica, normalmente el año del informe; 1 = comparativo)."""
+    for pag, tx in paginas(f):
+        if pagina and pag != pagina:
+            continue
+        vistas = 0
+        for l in tx.splitlines():
+            m = re.search(patron, l)
+            if m:
+                vistas += 1
+                if vistas < ocurrencia:
+                    continue
+                ns = numeros(l[m.end():])
+                ns = [x for x in ns if not (len(ns) > 2 and abs(x) < 40 and x == int(x) and ns.index(x) == 0)]  # quita el nº de nota
+                if len(ns) > col:
+                    impresa = [x for x in re.findall(r"^\s*(\d{1,3})\s*$", tx, flags=re.M)]
+                    rec = {"clave": clave, "archivo": f, "pagina_pdf": pag, "pagina_impresa": int(impresa[-1]) if impresa else None, "linea": l.strip()[:160],
+                           "concepto": concepto, "columna": col, "periodo": periodo, "perimetro": perimetro, "unidad": "miles de euros", "signo": signo,
+                           "valor_miles": ns[col], "esperado_miles": esperado_miles, "reproduce": abs(abs(ns[col]) - abs(esperado_miles)) < 0.5, "nota": nota}
+                    E.append(rec)
+                    return abs(esperado_miles) / 1000.0
+    E.append({"clave": clave, "archivo": f, "reproduce": False, "nota": "no encontrado"})
+    return abs(esperado_miles) / 1000.0
+
+
+# N1 · impuestos (cuenta de resultados, conciliación y flujo de caja)
+PBT, GASTO, ESTAT, DEDUC, PERM, CORR_T, PAGADO = {}, {}, {}, {}, {}, {}, {}
+for y, f, p_is, p_rec in ((2021, "CF_2021.txt", 4, 49), (2022, "CF_2022.txt", 4, 51), (2023, "CF_2023.txt", 4, 56), (2024, "CF_2024.txt", 4, 60), (2025, "CF_2025.txt", 4, 57)):
+    pass
+PBT[2021] = ev("pbt_2021", "CF_2021.txt", r"Profit before income tax from continuing operations", 0, 172514, "Resultado antes de impuestos (continuadas)", "2021", "publicado 2021 (con Italia)")
+GASTO[2021] = ev("gasto_2021", "CF_2021.txt", r"^\s*Income tax expense", 0, 27357, "Gasto por impuesto", "2021", "publicado 2021 (con Italia)")
+ESTAT[2021] = ev("estat_2021", "CF_2021.txt", r"Tax calculated at the tax rate of each country", 0, 38682, "Impuesto al tipo de cada país (conciliación)", "2021", "publicado 2021")
+DEDUC[2021] = ev("deduc_2021", "CF_2021.txt", r"Deductions for the year", 0, 7466, "Deducciones del año", "2021", "publicado 2021", "reduce el gasto")
+PERM[2021] = ev("perm_2021", "CF_2021.txt", r"Permanent differences", 0, 5760, "Diferencias permanentes", "2021", "publicado 2021", "reduce el gasto")
+PAGADO[2021] = ev("pagado_2021", "CF_2021.txt", r"Income tax paid", 0, 27800, "Impuesto pagado (flujo de caja)", "2021", "publicado 2021", "salida de caja")
+PBT[2022] = ev("pbt_2022", "CF_2022.txt", r"Profit before income tax from continuing operations", 0, 187748, "Resultado antes de impuestos (continuadas)", "2022", "publicado 2022 (con Italia)")
+GASTO[2022] = ev("gasto_2022", "CF_2022.txt", r"^\s*Income tax expense", 0, 34062, "Gasto por impuesto", "2022", "publicado 2022 (con Italia)")
+ESTAT[2022] = ev("estat_2022", "CF_2022.txt", r"Tax calculated at the tax rate of each country", 0, 43733, "Impuesto al tipo de cada país", "2022", "publicado 2022")
+DEDUC[2022] = ev("deduc_2022", "CF_2022.txt", r"Deductions for the year", 0, 9885, "Deducciones del año", "2022", "publicado 2022", "reduce el gasto")
+PERM[2022] = ev("perm_2022", "CF_2022.txt", r"Permanent differences", 0, 1124, "Diferencias permanentes", "2022", "publicado 2022", "reduce el gasto")
+PAGADO[2022] = ev("pagado_2022", "CF_2022.txt", r"Income tax paid", 0, 8600, "Impuesto pagado", "2022", "publicado 2022", "salida de caja")
+CORR_T[2021] = ev("corriente_2021", "CF_2022.txt", r"^\s*Present year", 1, 15878, "Impuesto corriente del año («Current tax · Present year»)", "2021 (comparativo del informe 2022)", "publicado 2021",
+                  nota="sin el ajuste de años anteriores (+84)")
+CORR_T[2022] = ev("corriente_2022", "CF_2023.txt", r"^\s*Current tax\s", 1, 23599, "Impuesto corriente", "2022 (comparativo del informe 2023)", "publicado 2022", pagina=56)
+PBT[2023] = ev("pbt_2023_reexpresado", "CF_2024.txt", r"Profit before income tax from continuing operations", 1, 268649, "Resultado antes de impuestos (continuadas)", "2023 (comparativo reexpresado del informe 2024)", "continuadas, sin Italia")
+GASTO[2023] = ev("gasto_2023_reexpresado", "CF_2024.txt", r"^\s*Income tax expense", 1, 54813, "Gasto por impuesto", "2023 (comparativo reexpresado)", "continuadas, sin Italia")
+ESTAT[2023] = ev("estat_2023", "CF_2023.txt", r"Tax calculated at the tax rate of each country", 0, 68685, "Impuesto al tipo de cada país", "2023", "publicado 2023 (con Italia; PBT 287,493)")
+DEDUC[2023] = ev("deduc_2023", "CF_2023.txt", r"Deductions for the year", 0, 2961, "Deducciones del año", "2023", "publicado 2023 (con Italia)", "reduce el gasto")
+PERM[2023] = ev("perm_2023", "CF_2023.txt", r"Permanent differences", 0, 9673, "Diferencias permanentes", "2023", "publicado 2023 (con Italia)", "reduce el gasto")
+PBT_2023_PUB = ev("pbt_2023_publicado", "CF_2023.txt", r"Profit before income tax from continuing operations", 0, 287493, "Resultado antes de impuestos", "2023", "publicado 2023 (con Italia)")
+CORR_T[2023] = ev("corriente_2023", "CF_2023.txt", r"^\s*Current tax\s", 0, 63249, "Impuesto corriente", "2023", "publicado 2023", pagina=56)
+PAGADO[2023] = ev("pagado_2023", "CF_2023.txt", r"Income tax paid", 0, 45021, "Impuesto pagado", "2023", "publicado 2023", "salida de caja")
+PBT[2024] = ev("pbt_2024", "CF_2025.txt", r"Profit before income tax from continuing operations", 1, 303218, "Resultado antes de impuestos (continuadas)", "2024 (comparativo del informe 2025)", "continuadas")
+GASTO[2024] = ev("gasto_2024", "CF_2025.txt", r"^\s*Income tax expense", 1, 64968, "Gasto por impuesto", "2024 (comparativo)", "continuadas")
+ESTAT[2024] = ev("estat_2024", "CF_2025.txt", r"Tax calculated at the tax rate of each country", 1, 99939, "Impuesto al tipo de cada país", "2024 (comparativo)", "continuadas")
+DEDUC[2024] = ev("deduc_2024", "CF_2025.txt", r"Deductions for the year", 1, 3215, "Deducciones del año", "2024 (comparativo)", "continuadas", "reduce el gasto")
+PERM[2024] = ev("perm_2024", "CF_2025.txt", r"Permanent differences", 1, 28095, "Diferencias permanentes (exención de la plusvalía de Italia, nota del informe)", "2024 (comparativo)", "continuadas", "reduce el gasto")
+CORR_T[2024] = ev("corriente_2024", "CF_2025.txt", r"^\s*Current tax\s", 1, 65376, "Impuesto corriente", "2024 (comparativo)", "continuadas", pagina=56)
+PAGADO[2024] = ev("pagado_2024", "CF_2025.txt", r"Income tax paid", 1, 70100, "Impuesto pagado", "2024 (comparativo)", "continuadas", "salida de caja")
+PBT[2025] = ev("pbt_2025", "CF_2025.txt", r"Profit before income tax from continuing operations", 0, 276661, "Resultado antes de impuestos (continuadas)", "2025", "continuadas")
+GASTO[2025] = ev("gasto_2025", "CF_2025.txt", r"^\s*Income tax expense", 0, 67320, "Gasto por impuesto", "2025", "continuadas")
+ESTAT[2025] = ev("estat_2025", "CF_2025.txt", r"Tax calculated at the tax rate of each country", 0, 67155, "Impuesto al tipo de cada país", "2025", "continuadas")
+DEDUC[2025] = ev("deduc_2025", "CF_2025.txt", r"Deductions for the year", 0, 2292, "Deducciones del año", "2025", "continuadas", "reduce el gasto")
+PERM[2025] = ev("perm_2025", "CF_2025.txt", r"Permanent differences", 0, 5769, "Diferencias permanentes", "2025", "continuadas", "reduce el gasto")
+CORR_T[2025] = ev("corriente_2025", "CF_2025.txt", r"^\s*Current tax\s", 0, 56136, "Impuesto corriente", "2025", "continuadas", pagina=56)
+PAGADO[2025] = ev("pagado_2025", "CF_2025.txt", r"Income tax paid", 0, 40757, "Impuesto pagado", "2025", "continuadas", "salida de caja")
+# N2 · segmento Italia (cuenta por segmentos) y Brasil 2024
+ITA = {}
+for y, f, pag, rev, pbt, fc, fi in ((2020, "CF_2020.txt", 39, 72273, 9833, 1271, 22), (2021, "CF_2021.txt", 30, 83933, 2905, 1691, 0), (2022, "CF_2022.txt", 30, 106009, 4421, 1600, 0)):
+    r_ = ev(f"ita_ingresos_{y}", f, r"^\s*Revenues", 1, rev, "Ingresos del segmento Italia", str(y), "segmento Italia", pagina=pag)
+    p_ = ev(f"ita_pbt_{y}", f, r"^\s*operations", 1, pbt, "Resultado antes de impuestos del segmento Italia", str(y), "segmento Italia", pagina=pag)
+    c_ = ev(f"ita_gfin_{y}", f, r"Finance costs", 1, fc, "Gastos financieros del segmento Italia", str(y), "segmento Italia", "gasto", pagina=pag)
+    i_ = fi / 1000.0
+    ITA[y] = (r_, p_ + c_ - i_)
+r23 = ev("ita_ingresos_2023", "CF_2024.txt", r"^\s*Revenues(?=\s+\d)", 0, 131292, "Ingresos de Italia (operación interrumpida, 2023)", "2023", "Italia", pagina=35)
+p23 = ev("ita_pbt_2023", "CF_2024.txt", r"Profit before income tax from discontinuing operations", 0, 18844, "Resultado antes de impuestos de Italia", "2023", "Italia", pagina=35)
+c23 = ev("ita_gfin_2023", "CF_2024.txt", r"^\s*Finance cost\s", 0, 3486, "Gastos financieros de Italia", "2023", "Italia", "gasto", pagina=35)
+ITA[2023] = (r23, p23 + c23)
+BR_REV = ev("brasil_ingresos_2024", "CF_2024.txt", r"^\s*Revenues", 3, 199852, "Ingresos del segmento Brasil", "2024", "segmento Brasil", pagina=30)
+# Brasil (Vidroporto, desde nov-2023) e Italia residual de 2024: EBIT aproximado = resultado antes de impuestos + gastos − ingresos financieros
+# (la misma identidad reproduce el EBIT consolidado de la Historia: 2025 = 276,661 + 31,001 − 15,101 − 493 = 292,068)
+BR = {}
+BR[2023] = (ev("brasil_ingresos_2023", "CF_2024.txt", r"^\s*Revenues", 2, 19147, "Ingresos del segmento Brasil", "2023 (comparativo reexpresado)", "segmento Brasil", pagina=30, ocurrencia=2, nota="columna 2: Italia sin importe («-») en el comparativo"),
+            ev("brasil_pbt_2023", "CF_2024.txt", r"^\s*continuing operations", 2, 9989, "Resultado antes de impuestos del segmento Brasil", "2023", "segmento Brasil", pagina=30, ocurrencia=2),
+            ev("brasil_gfin_2023", "CF_2024.txt", r"Finance costs", 2, 2594, "Gastos financieros del segmento Brasil", "2023", "segmento Brasil", "gasto", pagina=30, ocurrencia=2),
+            ev("brasil_ifin_2023", "CF_2024.txt", r"Finance income", 2, 114, "Ingresos financieros del segmento Brasil", "2023", "segmento Brasil", "ingreso", pagina=30, ocurrencia=2, nota="columna 2 de los números de la línea porque Italia no tiene importe"),
+            ev("brasil_valor_razonable_2023", "CF_2024.txt", r"^\s+-\s+-\s+-(?=\s+5,607)", 0, 5607, "Cambio de valor razonable de instrumentos financieros (Brasil; no operativo)", "2023", "segmento Brasil", "ingreso", pagina=30,
+               nota="línea de importes de «Change in fair value financial instruments» (el texto del concepto va partido en dos líneas); la Historia también lo excluye del EBIT de 2023: 268,649 + 12,949 − 8,483 − 5,607 = 267,508"))
+BR[2024] = (BR_REV,
+            ev("brasil_pbt_2024", "CF_2024.txt", r"^\s*continuing operations", 3, 41589, "Resultado antes de impuestos del segmento Brasil", "2024", "segmento Brasil", pagina=30),
+            ev("brasil_gfin_2024", "CF_2024.txt", r"Finance costs", 3, 27644, "Gastos financieros del segmento Brasil", "2024", "segmento Brasil", "gasto", pagina=30),
+            ev("brasil_ifin_2024", "CF_2024.txt", r"Finance income", 2, 3584, "Ingresos financieros del segmento Brasil", "2024", "segmento Brasil", "ingreso", pagina=30, nota="columna 2 de los números de la línea porque Italia no tiene importe"))
+BR[2025] = (ev("brasil_ingresos_2025", "CF_2025.txt", r"^\s*Revenues", 2, 178267, "Ingresos del segmento Brasil", "2025", "segmento Brasil", pagina=27),
+            ev("brasil_pbt_2025", "CF_2025.txt", r"^continuing operations", 2, 39539, "Resultado antes de impuestos del segmento Brasil", "2025", "segmento Brasil", pagina=27),
+            ev("brasil_gfin_2025", "CF_2025.txt", r"Finance costs", 2, 18907, "Gastos financieros del segmento Brasil", "2025", "segmento Brasil", "gasto", pagina=27),
+            ev("brasil_ifin_2025", "CF_2025.txt", r"Finance income", 2, 4572, "Ingresos financieros del segmento Brasil", "2025", "segmento Brasil", "ingreso", pagina=27))
+ITA24 = (ev("ita_ingresos_2024", "CF_2024.txt", r"^\s*Revenues", 1, 17016, "Ingresos de Italia incluidos en continuadas (2024, hasta la venta)", "2024", "segmento Italia", pagina=30),
+         ev("ita_pbt_2024", "CF_2024.txt", r"^\s*continuing operations", 1, 2139, "Resultado antes de impuestos de Italia en continuadas", "2024", "segmento Italia", pagina=30),
+         ev("ita_gfin_2024", "CF_2024.txt", r"Finance costs", 1, 614, "Gastos financieros de Italia en continuadas", "2024", "segmento Italia", "gasto", pagina=30))
+# N3 · circulante comercial y compromisos de inversión 2025
+INV = ev("existencias_2025", "CF_2025.txt", r"^\s*Inventories", 0, 252454, "Existencias", "31-dic-2025", "continuadas", pagina=2)
+CLI = ev("clientes_2025", "CF_2025.txt", r"Trade and other receivables", 0, 315821, "Deudores comerciales y otros", "31-dic-2025", "continuadas", pagina=2)
+PRO = ev("proveedores_2025", "CF_2025.txt", r"Trade and other payables", 0, 352841, "Acreedores comerciales y otros", "31-dic-2025", "continuadas", pagina=3)
+COMP = ev("compromisos_inmovilizado_2025", "CF_2025.txt", r"Technical installations and machinery", 0, 66610, "Compromisos de compra de inmovilizado (instalaciones y maquinaria)", "31-dic-2025", "grupo", "compromiso", pagina=45)
+COMP24 = ev("compromisos_inmovilizado_2024", "CF_2025.txt", r"Technical installations and machinery", 1, 9622, "Compromisos de compra de inmovilizado", "31-dic-2024", "grupo", "compromiso", pagina=45)
+fallos = [e for e in E if not e.get("reproduce")]
+
+# ------------------------------------------------------------------- datos del libro de referencia
+res = json.load(open(os.path.join(REF, "resultados.json"), encoding="utf-8"))
+pal = res["palancas"]
+ESC = [(pal[c + "14"], pal[c + "15"], pal[c + "16"], res["g_perpetuo"][i], pal[c + "18"]) for i, c in enumerate("BCD")]
+PROB = res["probabilidades"]
+V0, M0, T0 = res["V0"], res["m0"], res["t"]
+ACC, PUENTE = res["valores"]["C55"], res["pasivos_netos_B_C16"]
+R = res["valores"]["C56"]
+import openpyxl  # noqa: E402
+hv = openpyxl.load_workbook(os.path.join(REF, "recalc", "Vidrala_v63_evaluada.xlsx"), data_only=True)
+H, AN = hv["Historia"], hv["Análisis"]
+E_MERC, D_FIN, I_DEUDA = AN["C41"].value, H["C64"].value, H["C63"].value
+VENTAS = {2016 + i: H.cell(6, 3 + i).value for i in range(10)}
+EBIT = {2016 + i: H.cell(7, 3 + i).value for i in range(10)}
+TIPO_H = {2016 + i: H.cell(10, 3 + i).value for i in range(10)}
+
+
+def r_op(t):
+    return (R * E_MERC + I_DEUDA * (1 - t) * D_FIN) / (E_MERC + D_FIN)
+
+
+# ------------------------------------------------------------------- 2. réplica del motor B
+def proyeccion(t, m0, regla, esc):
+    """Año a año (1–10): ventas, margen, NOPAT, reinversión neta, capital liberado y FCF. regla: 'simetrica' (la de la plantilla:
+    reinversión = ΔV/S2C también si ΔV < 0), 'circulante' (con ventas que caen solo se libera el circulante comercial:
+    ΔV × NWC/ventas; la inversión fija no se recupera) o 'ninguna' (con ventas que caen no se libera capital)."""
+    g1, m5, s2c, g, roic = esc
+    V = [V0]
+    filas = []
+    for k in range(1, 11):
+        gk = g1 if k <= 5 else g1 + (g - g1) * (k - 5) / 5
+        V.append(V[-1] * (1 + gk))
+        mk = m0 + (m5 - m0) * min(k, 5) / 5
+        nopat = V[k] * mk * (1 - t)
+        dv = V[k] - V[k - 1]
+        if dv >= 0 or regla == "simetrica":
+            rein = dv / s2c
+        elif regla == "circulante":
+            rein = dv * NWC_RATIO
+        else:
+            rein = 0.0
+        filas.append({"anio": k, "ventas": V[k], "margen": mk, "nopat": nopat, "reinversion": rein, "capital_liberado": max(0.0, -rein), "fcf": nopat - rein})
+    return V, filas
+
+
+def valor(t, m0, regla, esc, r=None):
+    r = r_op(t) if r is None else r
+    g1, m5, s2c, g, roic = esc
+    V, fil = proyeccion(t, m0, regla, esc)
+    pv = sum(f["fcf"] / (1 + r) ** f["anio"] for f in fil)
+    n11 = V[10] * (1 + g) * m5 * (1 - t)
+    tv = n11 * (1 - g / roic) / (r - g)
+    pvt = tv / (1 + r) ** 10
+    return (pv + pvt - PUENTE) / ACC, pvt / (pv + pvt), fil
+
+
+def escalera(Vs, p, K=3.0):
+    lo, hi = 0.0, max(Vs)
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        G = sum(pi * max(v - mid, 0) for v, pi in zip(Vs, p))
+        L = sum(pi * max(mid - v, 0) for v, pi in zip(Vs, p))
+        lo, hi = (mid, hi) if G >= K * L else (lo, mid)
+    return min(lo, Vs[1]), sum(v * pi for v, pi in zip(Vs, p))
+
+
+NWC_RATIO = (INV + CLI - PRO) / VENTAS[2025]
+pr = json.load(open(os.path.join(REF, "precio.json"), encoding="utf-8"))
+base = [valor(T0, M0, "simetrica", e) for e in ESC]
+ps_b, pond_b = escalera([b[0] for b in base], PROB)
+control = all(abs(b[0] - h) < TOL for b, h in zip(base, pr["V"])) and abs(pond_b - pr["ponderado"]) < TOL and abs(ps_b - pr["precio_si"]) < TOL and abs(r_op(T0) - res["r_operativa_C15"]) < 1e-9
+
+# ------------------------------------------------------------------- 3. alternativas (fundamentos fijados antes de calcular valores)
+tasa = {y: GASTO[y] / PBT[y] for y in PBT}
+estat = {y: ESTAT[y] / (PBT[y] if y != 2023 else PBT_2023_PUB) for y in ESTAT}
+ded = {y: DEDUC[y] / (PBT[y] if y != 2023 else PBT_2023_PUB) for y in DEDUC}
+perm = {y: PERM[y] / (PBT[y] if y != 2023 else PBT_2023_PUB) for y in PERM}
+ded_rec = sum(ded[y] for y in (2023, 2024, 2025)) / 3
+T_REC = estat[2025] - ded_rec
+marg_ex = {}
+for y in range(2020, 2026):
+    if y in (2020, 2021, 2022):
+        rv, eb = ITA[y]
+        marg_ex[y] = (EBIT[y] - eb) / (VENTAS[y] - rv)
+    else:
+        marg_ex[y] = EBIT[y] / VENTAS[y]  # 2023 reexpresado sin Italia (comparativo del informe 2024); 2024–2025 continuadas
+M_REC = sum(marg_ex.values()) / len(marg_ex)
+M_2025 = EBIT[2025] / VENTAS[2025]
+BR_EBIT = {y: (v[0], v[1] + v[2] - v[3] - (v[4] if len(v) > 4 else 0.0)) for y, v in BR.items()}
+ITA24_EBIT = ITA24[1] + ITA24[2]
+marg_exb = dict(marg_ex)  # sin Italia y sin Brasil: el perímetro más homogéneo en el tiempo (no el actual)
+for y in (2023, 2024, 2025):
+    ve, eb = VENTAS[y] - BR_EBIT[y][0], EBIT[y] - BR_EBIT[y][1]
+    if y == 2024:
+        ve, eb = ve - ITA24[0], eb - ITA24_EBIT
+    marg_exb[y] = eb / ve
+M_EXB = sum(marg_exb.values()) / len(marg_exb)
+m10 = (sum(EBIT[y] / VENTAS[y] for y in range(2016, 2020)) + sum(marg_ex[y] for y in range(2020, 2026))) / 10
+ALTERNATIVAS = {
+    "N1": [("T0", "base", T0, "media 2021–2025 del tipo efectivo de la Historia (C52): mezcla perímetros (2021–2022 con Italia) y años con deducciones por inversión de 4–5 puntos y 2024 con la exención de la plusvalía de Italia"),
+           ("T1", "recomendada", T_REC, "tipo de cada país sobre el perímetro de 2025 (conciliación 2025) menos las deducciones recurrentes medias de 2023–2025; excluye las diferencias permanentes, de composición no acreditada"),
+           ("T2", "adversa", tasa[2025], "tipo efectivo de 2025 (≈ tipo de cada país, sin deducciones extraordinarias)")],
+    "N2": [("M0", "base", M0, "media 2016–2025 de la Historia (C49): 2016–2022 con Italia, 2016 sin Santos Barosa, Brasil solo desde 2023"),
+           ("M1", "recomendada", M_REC, "media del ciclo 2020–2025 en perímetro de continuadas: 2020–2022 sin el segmento Italia (EBIT aproximado = resultado antes de impuestos + gastos − ingresos financieros del segmento), 2023 reexpresado, 2024–2025 publicados"),
+           ("M2", "optimista", M_2025, "margen publicado de 2025 (C48, «Último año»): perímetro actual; incluye otros ingresos sin detalle")],
+    "N3": [("R0", "base", "simetrica", "plantilla: con ventas que caen se libera capital a ΔV ÷ S2C (≈ 16 mm el año 1 del MALO)"),
+           ("R1", "recomendada", "circulante", f"solo se libera el circulante comercial (existencias + deudores − acreedores = {100 * NWC_RATIO:.1f} % de las ventas de 2025); la inversión fija no se recupera con ventas que caen"),
+           ("R2", "adversa", "ninguna", "no se libera capital con ventas que caen (2025: ventas −123,1 mm, reinversión orgánica neta +54,8 mm)")],
+}
+
+# ------------------------------------------------------------------- 4. matriz
+filas = []
+for tk, tc, tv, _ in ALTERNATIVAS["N1"]:
+    for mk, mc, mv, _ in ALTERNATIVAS["N2"]:
+        for rk, rc, rv, _ in ALTERNATIVAS["N3"]:
+            vals = [valor(tv, mv, rv, e) for e in ESC]
+            Vs = [x[0] for x in vals]
+            ps, pond = escalera(Vs, PROB)
+            fcf = [[f["fcf"] for f in x[2]] for x in vals]
+            con_error = tk == "T0" or mk == "M0"
+            filas.append({"combinacion": f"{tk}·{mk}·{rk}", "N1": tk, "N2": mk, "N3": rk, "t": tv, "r_op": r_op(tv), "m0": mv, "regla_N3": rv,
+                          "V_malo": Vs[0], "V_normal": Vs[1], "V_bueno": Vs[2], "ponderado": pond, "precio_si": ps,
+                          "peso_terminal": [x[1] for x in vals], "fcf1": [f[0] for f in fcf], "fcf_min": [min(f) for f in fcf],
+                          "capital_liberado_malo_10a": sum(f["capital_liberado"] for f in vals[0][2]),
+                          "reinversion_malo_1_5": sum(f["reinversion"] for f in vals[0][2][:5]),
+                          "fcf_malo_1_5": sum(f["fcf"] for f in vals[0][2][:5]),
+                          "cobertura_compromisos_malo": vals[0][2][0]["fcf"] / COMP,
+                          "d_ponderado": pond - pond_b, "d_precio_si": ps - ps_b,
+                          "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)" if con_error else
+                                   ("hipótesis coherente recomendada" if (tc, mc, rc) == ("recomendada", "recomendada", "recomendada") else "hipótesis coherente alternativa")})
+
+# ------------------------------------------------------------------- salidas
+log("VALIDACIÓN FINANCIERA N1–N3 · Vidrala · entrega 4.7 (resultados mecánicos de un ensayo; no comparables con el precio)")
+log(f"evidencia: {len(E)} datos, {len(E) - len(fallos)} reproducen el valor registrado" + (f" · NO REPRODUCEN: {[f['clave'] for f in fallos]}" if fallos else ""))
+log(f"control de la réplica frente al libro de referencia: {'REPRODUCE' if control else 'NO REPRODUCE'} · V {[round(b[0], 4) for b in base]} (libro {[round(x, 4) for x in pr['V']]}) · ponderado {pond_b:.4f} ({pr['ponderado']:.4f}) · precio de Sí {ps_b:.4f} ({pr['precio_si']:.4f}) · r_op {r_op(T0):.6f}")
+log("\nN1 · tipo impositivo")
+for y in range(2021, 2026):
+    log(f"  {y}: tipo efectivo de la Historia {TIPO_H[y]:.4f} · reconstruido {tasa[y]:.4f} · al tipo de cada país {estat[y]:.4f} · deducciones {ded[y]:.4f} · permanentes {perm[y]:.4f} · corriente {CORR_T.get(y, float('nan')):.3f} · pagado {PAGADO[y]:.3f} · gasto {GASTO[y]:.3f}")
+log(f"  C52 reconstruido = media 2021–2025 = {sum(tasa.values()) / 5:.5f} (hoja {T0:.5f}) · media 2023–2025 = {sum(tasa[y] for y in (2023, 2024, 2025)) / 3:.4f}")
+log(f"  T1 = {estat[2025]:.4f} − {ded_rec:.4f} = {T_REC:.4f}")
+log("\nN2 · margen de partida")
+for y in range(2016, 2026):
+    extra = f" · sin Italia {marg_ex[y]:.4f} (Italia: ingresos {ITA[y][0]:.1f}, EBIT aprox. {ITA[y][1]:.2f}, margen {ITA[y][1] / ITA[y][0]:.4f})" if y in ITA and y < 2023 else (f" · continuadas {marg_ex[y]:.4f}" if y in marg_ex else "")
+    log(f"  {y}: ventas {VENTAS[y]:.1f} · EBIT {EBIT[y]:.1f} · margen de la Historia {EBIT[y] / VENTAS[y]:.4f}{extra}")
+log(f"  Italia 2023 (interrumpida): ingresos {ITA[2023][0]:.1f}, EBIT aprox. {ITA[2023][1]:.2f}, margen {ITA[2023][1] / ITA[2023][0]:.4f}")
+for y in (2023, 2024, 2025):
+    log(f"  Brasil {y}: ingresos {BR_EBIT[y][0]:.1f}, EBIT aprox. {BR_EBIT[y][1]:.2f}, margen {BR_EBIT[y][1] / BR_EBIT[y][0]:.4f} · grupo sin Italia ni Brasil {marg_exb[y]:.4f}")
+log(f"  Italia residual 2024 (en continuadas): ingresos {ITA24[0]:.1f}, EBIT aprox. {ITA24_EBIT:.2f}")
+log(f"  M1b (2020–2025 sin Italia ni Brasil; sensibilidad complementaria fuera de la matriz) {M_EXB:.4f}")
+log(f"  descomposición de M0 → M1: perímetro Italia 2020–2022 {m10 - M0:+.4f} · ventana del ciclo (quitar 2016–2019) {M_REC - m10:+.4f} · Brasil en 2023–2025 (estructural, dentro de M1) {M_REC - M_EXB:+.4f}")
+log(f"  C49 (media 2016–2025) {M0:.4f} · M1 (2020–2025 continuadas) {M_REC:.4f} · 10 años con Italia excluida donde se conoce (2016–2019 publicados) {m10:.4f} · 2025 {M_2025:.4f}")
+log("\nN3 · MALO año a año (base T0·M0), regla de la plantilla y alternativas")
+for regla in ("simetrica", "circulante", "ninguna"):
+    _, _, fil = valor(T0, M0, regla, ESC[0])
+    log(f"  regla {regla}: " + " | ".join(f"a{f['anio']} V {f['ventas']:.1f} NOPAT {f['nopat']:.1f} rein {f['reinversion']:+.1f} FCF {f['fcf']:.1f}" for f in fil[:3]) + f" … capital liberado 10 años {sum(f['capital_liberado'] for f in fil):.1f}")
+_, _, fn = valor(T0, M0, "simetrica", ESC[1])
+log(f"  NORMAL año 1: V {fn[0]['ventas']:.1f} NOPAT {fn[0]['nopat']:.1f} rein {fn[0]['reinversion']:+.1f} FCF {fn[0]['fcf']:.1f}")
+log(f"  circulante comercial 2025 = {INV:.3f} + {CLI:.3f} − {PRO:.3f} = {INV + CLI - PRO:.3f} ({100 * NWC_RATIO:.2f} % de las ventas) · compromisos de inmovilizado {COMP:.3f} (2024: {COMP24:.3f})")
+log("\nDESCOMPOSICIONES Y ELASTICIDADES (cálculos derivados de la réplica)")
+def pond(t, m0, regla, r=None):
+    Vs = [valor(t, m0, regla, e, r)[0] for e in ESC]
+    return escalera(Vs, PROB)[1], escalera(Vs, PROB)[0], Vs
+p_t1_rfijo = pond(T_REC, M0, "simetrica", r=r_op(T0))
+p_t1 = pond(T_REC, M0, "simetrica")
+DESC = {"n1_efecto_nopat": p_t1_rfijo[0] - pond_b, "n1_efecto_r_op": p_t1[0] - p_t1_rfijo[0]}
+log(f"  N1 T0→T1 (M0·R0): ponderado {pond_b:.4f} → {p_t1[0]:.4f} = NOPAT y terminal {DESC['n1_efecto_nopat']:+.4f} (r_op fijo en {r_op(T0):.6f}) + r_op derivado {DESC['n1_efecto_r_op']:+.4f} (r_op {r_op(T_REC):.6f})")
+c = pond(T_REC, M_REC, "circulante")
+for nombre, (dt, dm) in (("tipo +1 pp", (0.01, 0)), ("margen de partida +1 pp", (0, 0.01))):
+    x = pond(T_REC + dt, M_REC + dm, "circulante")
+    DESC[f"elasticidad_{nombre}"] = (x[0] - c[0], x[1] - c[1])
+    log(f"  en T1·M1·R1, {nombre}: ponderado {x[0] - c[0]:+.4f} · precio de Sí {x[1] - c[1]:+.4f}")
+xb = pond(T_REC, M_EXB, "circulante")
+DESC["m1b"] = (xb[0], xb[1])
+log(f"  M1b ({M_EXB:.4f}) en lugar de M1 con T1·R1 (sensibilidad complementaria, fuera de la matriz): ponderado {xb[0]:.4f} ({xb[0] - c[0]:+.4f}) · precio de Sí {xb[1]:.4f} ({xb[1] - c[1]:+.4f})")
+for t_, m_, r_, et in ((T0, M0, "simetrica", "T0·M0·R0"), (T_REC, M_REC, "circulante", "T1·M1·R1")):
+    fm, fnn = valor(t_, m_, r_, ESC[0])[2][0], valor(t_, m_, r_, ESC[1])[2][0]
+    DESC[f"fcf1_{et}"] = {"malo": fm, "normal": fnn}
+    log(f"  FCF año 1 {et}: MALO {fm['fcf']:.2f} − NORMAL {fnn['fcf']:.2f} = {fm['fcf'] - fnn['fcf']:+.2f} = ΔNOPAT {fm['nopat'] - fnn['nopat']:+.2f} − Δreinversión {fm['reinversion'] - fnn['reinversion']:+.2f}")
+DA25, CAPEX25 = H["L8"].value, H["L12"].value
+for et, t_, m_, r_ in (("T0·M0·R0", T0, M0, "simetrica"), ("T1·M1·R1", T_REC, M_REC, "circulante")):
+    f1 = valor(t_, m_, r_, ESC[0])[2][0]
+    capex_impl = DA25 + f1["reinversion"]
+    DESC[f"realizabilidad_{et}"] = {"capex_implicito_malo_a1": capex_impl, "compromisos": COMP, "fcf1_malo": f1["fcf"]}
+    log(f"  realizabilidad {et}: inversión bruta implícita del MALO año 1 ≈ D&A 2025 {DA25:.1f} + reinversión neta {f1['reinversion']:+.1f} = {capex_impl:.1f} "
+        f"frente a compromisos de inmovilizado {COMP:.1f} (cubiertos) · FCF1 MALO {f1['fcf']:.1f} · 2025 real: ventas {VENTAS[2025] - VENTAS[2024]:+.1f}, inversión {CAPEX25:.1f} > D&A {DA25:.1f}")
+pag_pbt = {y: PAGADO[y] / (PBT[y] if y != 2023 else PBT_2023_PUB) for y in PAGADO}
+log("  impuesto pagado ÷ resultado antes de impuestos: " + " · ".join(f"{y} {v:.3f}" for y, v in pag_pbt.items()) + f" · media {sum(pag_pbt.values()) / 5:.3f}")
+log(f"  2025: gasto {GASTO[2025]:.3f} = corriente {CORR_T[2025]:.3f} + diferido {GASTO[2025] - CORR_T[2025]:.3f}; pagado {PAGADO[2025]:.3f}")
+DESC["pagado_sobre_pbt"] = pag_pbt
+log("\nMATRIZ (27 combinaciones; T·M·R; ponderado y precio de Sí mecánicos; Δ frente a la base)")
+for f in filas:
+    log(f"  {f['combinacion']}: V {f['V_malo']:.2f}/{f['V_normal']:.2f}/{f['V_bueno']:.2f} · ponderado {f['ponderado']:.2f} ({f['d_ponderado']:+.2f}) · Sí {f['precio_si']:.2f} ({f['d_precio_si']:+.2f}) · r_op {f['r_op']:.4f} · FCF1 MALO {f['fcf1'][0]:.1f} · FCFmín MALO {f['fcf_min'][0]:.1f} · {f['clase']}")
+json.dump(E, open(os.path.join(SAL, "evidencia.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+json.dump({"alternativas": ALTERNATIVAS, "matriz": filas, "control": control, "nwc_ratio": NWC_RATIO, "t_rec": T_REC, "m_rec": M_REC, "m_exb": M_EXB, "m10": m10, "descomposiciones": DESC,
+           "margenes": {"historia": {y: EBIT[y] / VENTAS[y] for y in VENTAS}, "sin_italia": marg_ex, "sin_italia_ni_brasil": marg_exb},
+           "tipos": {"efectivo": tasa, "estatutario": estat, "deducciones": ded, "permanentes": perm, "corriente": CORR_T, "pagado": PAGADO, "gasto": GASTO}}, open(os.path.join(SAL, "matriz.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
+with open(os.path.join(SAL, "matriz.csv"), "w", encoding="utf-8", newline="") as fh:
+    w = csv.writer(fh)
+    w.writerow(["combinacion", "t", "r_op", "m0", "regla_N3", "V_malo", "V_normal", "V_bueno", "ponderado", "precio_si", "d_ponderado", "d_precio_si", "peso_terminal_normal", "fcf1_malo", "fcf1_normal", "fcf_min_malo", "capital_liberado_malo_10a", "reinversion_malo_1_5", "fcf_malo_1_5", "cobertura_compromisos_malo", "clase"])
+    for f in filas:
+        w.writerow([f["combinacion"], round(f["t"], 6), round(f["r_op"], 6), round(f["m0"], 6), f["regla_N3"], round(f["V_malo"], 4), round(f["V_normal"], 4), round(f["V_bueno"], 4), round(f["ponderado"], 4), round(f["precio_si"], 4),
+                    round(f["d_ponderado"], 4), round(f["d_precio_si"], 4), round(f["peso_terminal"][1], 4), round(f["fcf1"][0], 3), round(f["fcf1"][1], 3), round(f["fcf_min"][0], 3), round(f["capital_liberado_malo_10a"], 3), round(f["reinversion_malo_1_5"], 3), round(f["fcf_malo_1_5"], 3), round(f["cobertura_compromisos_malo"], 3), f["clase"]])
+mm = ["# Matriz conjunta N1 × N2 × N3 (27 combinaciones; resultados mecánicos de un ensayo, no comparables con el precio)", "",
+      "Constantes: r = 0,09; probabilidades 0,2 / 0,6 / 0,2; k = 3; caja 108,352; puente 160,784; palancas de la fase B. r_op se recalcula con el tipo de cada variante (fórmula de Diagnóstico V6!C15).", "",
+      "| Combinación | t | r_op | m0 | Regla MALO | V MALO | V NORMAL | V BUENO | Ponderado | Δ | Precio de Sí | Δ | Peso terminal NORMAL | FCF1 MALO | FCF1 NORMAL | FCF mín. MALO | Capital liberado MALO 10 a | Reinversión MALO 1–5 | FCF MALO 1–5 | FCF1 MALO / compromisos | Clase |",
+      "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+for f in filas:
+    mm.append(f"| {f['combinacion']} | {f['t']:.4f} | {f['r_op']:.5f} | {f['m0']:.4f} | {f['regla_N3']} | {f['V_malo']:.2f} | {f['V_normal']:.2f} | {f['V_bueno']:.2f} | {f['ponderado']:.2f} | {f['d_ponderado']:+.2f} | {f['precio_si']:.2f} | {f['d_precio_si']:+.2f} | {f['peso_terminal'][1]:.3f} | {f['fcf1'][0]:.1f} | {f['fcf1'][1]:.1f} | {f['fcf_min'][0]:.1f} | {f['capital_liberado_malo_10a']:.1f} | {f['reinversion_malo_1_5']:+.1f} | {f['fcf_malo_1_5']:.1f} | {f['cobertura_compromisos_malo']:.2f} | {f['clase']} |")
+open(os.path.join(SAL, "matriz.md"), "w", encoding="utf-8").write("\n".join(mm) + "\n")
+with open(os.path.join(SAL, "n3_anio_a_anio.csv"), "w", encoding="utf-8", newline="") as fh:
+    w = csv.writer(fh)
+    w.writerow(["base", "escenario", "regla", "anio", "ventas", "margen", "nopat", "reinversion_neta", "capital_liberado", "fcf"])
+    for base_, t_, m_ in (("T0·M0", T0, M0), ("T1·M1", T_REC, M_REC)):
+        for ie, esc_ in ((0, "MALO"), (1, "NORMAL")):
+            for regla in ("simetrica", "circulante", "ninguna"):
+                if ie == 1 and regla != "simetrica":
+                    continue  # con ventas que crecen las tres reglas coinciden
+                for f in valor(t_, m_, regla, ESC[ie])[2]:
+                    w.writerow([base_, esc_, regla, f["anio"], round(f["ventas"], 3), round(f["margen"], 6), round(f["nopat"], 3), round(f["reinversion"], 3), round(f["capital_liberado"], 3), round(f["fcf"], 3)])
+md = ["# Evidencia N1–N3 (generada por scripts/analisis_n1_n3.py)", "", "| Clave | Archivo | Pág. PDF | Pág. impresa | Concepto | Columna | Período | Perímetro | Valor (miles €) | Reproduce |", "|---|---|---|---|---|---|---|---|---|---|"]
+md += [f"| {e['clave']} | {e.get('archivo')} | {e.get('pagina_pdf')} | {e.get('pagina_impresa')} | {e.get('concepto')} | {e.get('columna')} | {e.get('periodo')} | {e.get('perimetro')} | {e.get('valor_miles')} | {'sí' if e.get('reproduce') else 'NO'} |" for e in E]
+open(os.path.join(SAL, "evidencia.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+ok = control and not fallos
+log(f"\nRESULTADO: {'evidencia y control correctos' if ok else 'ERROR en la evidencia o en el control'}")
+open(os.path.join(SAL, "salida.txt"), "w", encoding="utf-8").write("\n".join(LOG) + "\n")
+sys.exit(0 if ok else 1)

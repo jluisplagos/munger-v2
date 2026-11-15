@@ -1,0 +1,243 @@
+# Propuesta humana única de la entrega 4.11 (agrupada, sin firmar)
+
+**Qué es.** Las decisiones que la persona responsable del proyecto tendría que tomar para pasar de la integración experimental a una primera versión integrada supervisada. Cada una lleva una recomendación argumentada, las alternativas, la evidencia, los efectos calculados y lo que pasa si no se adopta. **Ningún campo humano está relleno** (`propuesta_humana_4_11.json`: `decision`, `fecha` y `decidido_por` = null): la IA recomienda; no decide.
+
+**Contexto.** Piloto 4.11 (base 31-dic-2025, palancas de su fase B; precio 90,10 €): heredado ponderado 70,77 y precio de Sí 66,02 (zona caro); configuración de demostración (T1 · M1 · R1 · SR1 · Λ 1,15 · P0) ponderado 62,62 y precio de Sí 57,74 (zona caro). Variantes calculadas sobre copias del libro evaluado (piloto/Vidrala/configuracion_v64_variantes.md); la zona es «caro» en todas. El precio de Sí usa k = 3, que sigue siendo una convención experimental, y el ensayo no es un backtest: la fecha de análisis es la real y la base, el 31-dic-2025.
+
+**Ya resueltas por ejecución en la 4.11** (el encargo las autorizaba como trabajo técnico; no se vuelven a preguntar): D-REBASE: mecanismo general implementado (personaje_v2/scripts/cambiar_base.py) y usado en el control y el piloto; D-EVIDENCIA-2026: evidencia activa limpiada en los expedientes nuevos de la 4.11 (el libro cerrado de la 4.10.1 no se reescribe); D-MALO-CAPITAL: R1 ya es representable: la decisión pasa a D411-N3.
+
+**Siguen pendientes, sin repetirlas aquí:** D-N7, D-N6, D-N4-OAF, D-N4-reg-4.10, D-N8, D-N5, D-N6-tau (ver D411-N1), D-N10, D-PN1, D-FICHA-ETAPA1, D-C97-RECUENTO, D-TAU-HOJA (ver D411-N1), D-C8-MARGEN (ver D411-N2), Q-E1–Q-E7, Q-ROIC1, Q-N4a, Q-T1–Q-T6.
+
+## D411-PLANTILLA · diseño (plantilla y pipeline)
+
+**Pregunta.** ¿Se usa la plantilla V6.4 experimental (motor B) en los ensayos supervisados con dos o tres empresas ya analizadas, con la V6.3 como plantilla por omisión y el modo heredado como control?
+
+**Recomendación (argumentada, no adoptada).** Sí, como plantilla de ENSAYO, no como sustituta de la V6.3. El modo heredado reproduce la V6.3 celda a celda (0 diferencias en 120.168 celdas) y el pipeline de la 4.10.1 (|Δ| = 0); la réplica independiente coincide en 117/117 casos; las configuraciones incompletas se rechazan con su motivo; la conciliación anual y terminal es visible; la configuración forma parte del material auditado y su cambio retira la aprobación.
+
+**Alternativas.** No usarla hasta adoptar las convenciones (N1–N3 y P-M1 no podrían ensayarse en otras empresas); hacerla la plantilla por omisión (no recomendado: las convenciones siguen sin firmar).
+
+**Evidencia.** REGISTRO_PRUEBAS_4_11.md (batería de 58, réplica 117/117, control heredado); resultados/seleccion_inversa_4_11.md; v6/v64_experimental/docs/README_V6.4_experimental.md.
+
+**Efectos calculados.** Ninguno en los expedientes V6.3: la selección es explícita y un expediente de una versión se detiene con código 2, sin escribir nada, en la otra, en los dos sentidos (también una copia de un expediente V6.3 cerrado: resultados/seleccion_inversa_4_11.md); las filas V6.4 se publican en su propio resumen (resumen_v2_v64_experimental.csv); si la fase A de otra empresa elige el motor A o el C, el expediente termina en el límite del modelo, sin forzar el motor.
+
+**Si no se adopta.** La integración queda construida pero sin uso: el siguiente hito (dos o tres empresas) no puede ejecutarse con N1–N3 y P-M1.
+
+**Relación.** ESPECIFICACION_INTEGRACION_4_10.md; encargo 4.11.
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-N1 · financiera (convención de Vidrala)
+
+**Pregunta.** ¿Qué tipo impositivo aplica el motor B de Vidrala al NOPAT: el de la Historia (C52, 20,0 %, media de cinco años), T1 (22,05 %, media 2023–2025 de continuadas con toda la conciliación) u otro (T2, 24,3 %, el tipo efectivo de 2025)? ¿El escudo de la deuda en r_op usa el mismo tipo o el de la Historia?
+
+**Recomendación (argumentada, no adoptada).** T1 con el escudo vinculado, como tipo normalizado del ensayo; T2 como sensibilidad. C52 mezcla 2021–2022 con Italia y deducciones extraordinarias; T1 es la media de continuadas con toda la conciliación (4.7). Es una convención: no se ha medido un tipo «verdadero».
+
+**Alternativas.** C52 (20,0 %, heredado); T2 (24,3 %); T1 con el escudo al tipo de la Historia (separado).
+
+**Evidencia.** …_4_7_1/financiero/matriz.json (t_rec); …_4_7/INFORME_FINANCIERO_N1_N3.md; fase C del piloto (configuracion_v64.parametros N1).
+
+**Efectos calculados.** Solo N1 frente al heredado: −1,97 € de ponderado y −1,79 € de precio de Sí; con T2 (4.10.1, libro 4.10.1) el precio de Sí bajaba de 66,52 a 62,71 €.
+
+**Si no se adopta.** Se mantiene C52: el NOPAT usa un tipo que incluye un perímetro y deducciones que ya no están (en este piloto, el ponderado queda 1,97 € más alto que con T1).
+
+**Relación.** D-N1 (4.7); D-TAU-HOJA (4.10.1); D-N6-τ (4.10).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-N2 · financiera (convención de Vidrala)
+
+**Pregunta.** ¿Qué margen EBIT de partida (año 0) usa el motor B de Vidrala: la regla de Palancas C8 («Media del ciclo» = C49, 16,9 %, que mezcla Italia hasta 2022 y Brasil desde 2023) o M1 (18,55 %, media 2020–2025 de continuadas)?
+
+**Recomendación (argumentada, no adoptada).** M1 como margen de partida mientras no llegue el dato por segmento del perímetro de 2025 (D-C8-MARGEN). Es el margen del año 0, no el objetivo del NORMAL, que sigue siendo un juicio de la fase B.
+
+**Alternativas.** Palancas C8 (heredado); el último año (2025).
+
+**Evidencia.** …_4_7_1/financiero/matriz.json (m_rec); fase C del piloto (configuracion_v64.parametros N2).
+
+**Efectos calculados.** Solo N2 frente al heredado: +1,00 € de ponderado y +0,98 € de precio de Sí.
+
+**Si no se adopta.** El año 0 parte de una media con otro perímetro (con M1, el ponderado de este piloto cambiaría +1,00 €).
+
+**Relación.** D-N2 (4.7); D-C8-MARGEN (4.10.1).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-N3 · financiera (regla del modelo)
+
+**Pregunta.** ¿Qué regla de reinversión con ventas que caen usa el motor B: R0 (simétrica: al caer las ventas se libera capital fijo) o R1 (solo se libera circulante; la capacidad se conserva y sirve a la recuperación)?
+
+**Recomendación (argumentada, no adoptada).** R1 para Vidrala: en una empresa de hornos de vidrio la capacidad no se vende cuando cae la demanda. Límite declarado: el terminal no usa la capacidad conservada (definición de la 4.7.1/4.8.1, prudente) y, en un escenario cuyas ventas no superan el máximo anterior en ningún año, la palanca S2C no actúa (MALO del piloto).
+
+**Alternativas.** R0 (heredada).
+
+**Evidencia.** …_4_7_1/INFORME_N3_SUBSANACION.md; batería B (caída, recuperación y nuevo máximo); fase C del piloto (configuracion_v64.parametros N3).
+
+**Efectos calculados.** Solo R1 frente al heredado: −0,38 € de ponderado (solo cambia el MALO: 54,13 → 52,25).
+
+**Si no se adopta.** Con R0 el MALO libera capital fijo al caer las ventas (D-MALO-CAPITAL), lo que da más valor al escenario malo.
+
+**Relación.** D-N3 (4.7.1); D-MALO-CAPITAL (4.10.1).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-PM1-ESTRUCTURA · financiera (P-M1: estructura de la reposición)
+
+**Pregunta.** ¿Qué estructura relaciona la reposición por encima de la amortización con la inversión para crecer en Vidrala: sin requisito adicional, H (la inversión para crecer también repone), S (se suman sin reestimar), SR1 (suma con el S2C reestimado), SR2 (SR1 y ROIC del terminal × f) o SRF (suma con la inversión fija reestimada)?
+
+**Recomendación (argumentada, no adoptada).** No adoptar todavía una estructura central: λ y θ no están medidos (faltan el desglose de la inversión y el calendario de hornos, Q-E1–Q-E3) y la elección entre SR1 y SR2 depende de Q-ROIC1. Para los ensayos supervisados, usar una configuración declarada como ensayo y enseñar siempre el rango de las estructuras. Evaluación de la fase C del piloto, íntegra: «La reposición supera la amortización: capex ≥ 1,10 × amortización todos los años desde 2017 y 1,45 × en 2021-2025 (739,0 frente a 509,6 mm), con volumen orgánico plano o a la baja (−5,4 % en 2025) y la renovación de hornos como destino principal; 66,6 mm de maquinaria comprometida y descarbonización desde 2026. La magnitud no la mido: λ = 1,15 es ~33 % del exceso histórico (75,0 de 229,4 mm) y el extremo «todo reposición» daría λ ≈ 1,46. Estructura: H no encaja (supone que la reposición viaja con el crecimiento, y en 2025 el capex fue 1,42 × la amortización con ventas orgánicas a la baja); S cuenta dos veces (C53 ya lleva el exceso); SR1 quita exactamente el exceso histórico por euro de ventas añadido (75,0 ÷ 476,8 = 0,157 €), SRF quita 0,288 €, más de lo que muestra la historia, y SR2 corrige un ROIC que en el NORMAL es convención y en el BUENO está medido en bruto (+1,95 %, no material). La más coherente es SR1, con confianza baja; pesa menos que λ, que es técnico. No se adopta nada.» (estructura más coherente según la fase C: SR1). Nota de la revisión interna (O8): el 33 % y λ ≈ 1,46 se miden sobre el exceso respecto de la amortización total (229,4); con la base que usa la hoja, el exceso sobre la amortización que se repone (238,8), serían un 31 % y λ ≈ 1,48.
+
+**Alternativas.** Sin requisito adicional (reposición = amortización, límite declarado de la V6.3); H; S; SR1; SR2; SRF.
+
+**Evidencia.** …_4_8_1/INFORME_REINVERSION_4_8_1.md; piloto/Vidrala/fase_c.json (configuracion_v64.mantenimiento); configuracion_v64_variantes.md.
+
+**Efectos calculados.** Con Λ = 1,15 y P0, frente a la activa sin P-M1 (69,40): H 69,08, SRF 66,10, SR2 64,03, SR1 62,62, S 61,62 de ponderado; precios de Sí de 57,03 a 63,11; zona caro en todas.
+
+**Si no se adopta.** El modelo sigue suponiendo reposición = amortización (sin requisito), que es la hipótesis que P-M1 cuestiona: según la estructura, el ponderado de este piloto estaría entre 0,33 y 7,79 € por encima.
+
+**Relación.** D-N3b revisada y D-N3e (4.8.1); Q-ROIC1 (4.9); Q-E1–Q-E3.
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-PM1-PARAMETRO · financiera (P-M1: parámetro y convenciones)
+
+**Pregunta.** Si se usa una estructura con requisito: ¿λ (familia Λ) como un punto (1,15) o como un rango (1,10–1,25)? ¿Requisito plano o proporcional a las ventas en los años 1–10, y proporcional a las ventas o creciendo con g en el terminal? ¿ROIC del terminal sin cambio (salvo SR2)?
+
+**Recomendación (argumentada, no adoptada).** λ como rango de sensibilidad (1,10–1,25), no como un punto; años planos y terminal proporcional a las ventas (continuidad con el crecimiento perpetuo); ROIC sin cambio salvo en SR2. Son convenciones: λ es una hipótesis de inflación de reposición, no una medición.
+
+**Alternativas.** Λ = 1,15 como punto; familia Θ (θ × exceso histórico; θ no observado); años proporcionales a las ventas; terminal que crece con g.
+
+**Evidencia.** …_4_8/INFORME_PM1.md; …_4_8_1/financiero/rf_resultados.json; configuracion_v64_variantes.md.
+
+**Efectos calculados.** Extremos del rango, recalculados en el libro (resultados/rango_lambda_4_11.md): λ = 1,10, ponderado 65,04 y precio de Sí 60,12 (+2,37 €); λ = 1,25, ponderado 57,76 y precio de Sí 53,00 (−4,75 €); zona caro y caro. Convención de los años alternativa: −0,42 €; del terminal: +0,94 € de ponderado frente a la activa.
+
+**Si no se adopta.** Cada ensayo tendrá que declarar sus convenciones (la plantilla no tiene ninguna por omisión).
+
+**Relación.** D-N3b revisada (4.8.1).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-PM1-CARTERA · financiera (P-M1: cartera de clientes)
+
+**Pregunta.** ¿La amortización de la cartera de clientes de Vidroporto (4,492 al año; valor neto 21,858) se trata como no repuesta (P0) o como el resto de la amortización (legado)?
+
+**Recomendación (argumentada, no adoptada).** P0: la amortización de una relación con clientes adquirida no es una inversión de reposición; está documentada en la nota de intangibles y se agota en unos cinco años. Nota de la revisión interna (O3): los ceros históricos de 2021–2023 son compatibles con la nota 7 de las cuentas de 2021 a 2024, que muestra una cartera anterior (Santos Barosa, coste 13,237) totalmente amortizada a 31-dic-2020, y la de Vidroporto, que entra en el saldo reexpresado de 2023; el texto de la fuente podría ser más preciso. Ningún cero se confirma aquí: eso corresponde a la persona responsable.
+
+**Alternativas.** Legado (se repone con la amortización).
+
+**Evidencia.** …_4_8/scripts/analisis_pm1.py; ES 2025 págs. 52–53.
+
+**Efectos calculados.** P0 sin requisito frente a la activa sin P-M1: +0,49 € de ponderado.
+
+**Si no se adopta.** Se trata como reposición una amortización que no se repone (en este piloto, 0,49 € de ponderado).
+
+**Relación.** D-N3c (4.8).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-TERMINAL-R1 · regla del modelo (límite)
+
+**Pregunta.** ¿Se mantiene el terminal prudente con R1 (carga la inversión fija para crecer al ritmo g aunque en el MALO las ventas sigan por debajo del máximo conservado) o se especifica un terminal que reconozca la capacidad sobrante?
+
+**Recomendación (argumentada, no adoptada).** Mantener el prudente (definición de la 4.7.1/4.8.1) y especificar la alternativa solo si en otra empresa el MALO depende materialmente de ello.
+
+**Alternativas.** Especificar y probar un terminal con capacidad sobrante (exige una regla nueva, réplica y pruebas).
+
+**Evidencia.** Réplica: 16,39 millones de inversión fija en el año 11 del MALO de H_L1.15 con las ventas por debajo del máximo.
+
+**Efectos calculados.** No calculado: no hay especificación alternativa (el efecto iría solo al MALO y sería a favor del valor).
+
+**Si no se adopta.** Sigue la regla prudente, declarada como límite.
+
+**Relación.** Observación de la réplica independiente (replica/INFORME_REPLICA.md).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-P3 · financiera (dato condicionado)
+
+**Pregunta.** ¿C49 (arrendamientos · principal) sigue en 4,5 (supuesto heredado, situación A de P3) o pasa a 6,764 (pago total P+I de la nota 8 que construye fase1_historia.py)?
+
+**Recomendación (argumentada, no adoptada).** Mantener 4,5 marcado como condicionado hasta Q-N4a (como recomendó la 4.10); no tiene efecto en la valoración del motor B.
+
+**Alternativas.** C49 = 6,764 (pago total); situación B de la 4.10 (C48 = 2,254 y C49 = 4,5).
+
+**Evidencia.** resultados/aislamiento_entradas_4_11.md; …_4_10/INFORME_FINANCIERO_4_10.md.
+
+**Efectos calculados.** En el piloto: 0,000000 € de ponderado y 0,000000 € de precio de Sí; FCF base (C52) 161,200 → 158,936.
+
+**Si no se adopta.** Sigue el supuesto heredado, declarado; el FCF base y f quedan con esa reserva.
+
+**Relación.** D-P3 (4.10); D-N4-C48 (4.9); Q-N4a.
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-C46C47 · precisión de entrada
+
+**Pregunta.** En expedientes nuevos, ¿C46 y C47 toman los valores que construye fase1_historia.py (335,413 y 169,668) en lugar de la precisión de referencia (335,4 y 169,7)?
+
+**Recomendación (argumentada, no adoptada).** Sí en los expedientes nuevos: es precisión, no juicio. En este ensayo se conserva la de referencia para comparar con la 4.10.1.
+
+**Alternativas.** Conservar la precisión de referencia.
+
+**Evidencia.** resultados/aislamiento_entradas_4_11.md.
+
+**Efectos calculados.** En el piloto: 0,000000 € de ponderado; FCF base (C52) 161,200 → 161,245.
+
+**Si no se adopta.** Ninguna consecuencia en el valor del motor B; una diferencia de redondeo en el FCF base.
+
+**Relación.** 4.10.1 (variante de precisión, 0 €).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-RF-FUENTE · documental (fuente)
+
+**Pregunta.** ¿Se incorpora al paquete el PDF del Bundesbank (rendbund-data.pdf, ejemplar de 11-nov-2026) que sostiene rf = 2,85 % de fin de diciembre de 2025, con su huella?
+
+**Recomendación (argumentada, no adoptada).** Sí: que la persona responsable adjunte el PDF descargado (la revisión externa registró SHA-256 6ace5ac7785ecca9f8f3d56ce12f49fb2acbe4b9418dd84def46fc63c516a9dd) para incorporarlo con su huella en la siguiente entrega. Desde esta consola no se puede descargar (proxy 403).
+
+**Alternativas.** Mantener la cita documentada sin el PDF (límite declarado).
+
+**Evidencia.** configuracion/cambio_de_base_piloto.json (metadatos.tasa_sin_riesgo.fuente).
+
+**Efectos calculados.** Ninguno en la valoración del motor B (4.10.1: C1 con rf 0,0329 y el ensayo con 0,0285 dan el mismo valor); trazabilidad de la fuente.
+
+**Si no se adopta.** La rf sigue apoyada en una lectura web sin bytes conservados.
+
+**Relación.** D-RF-FUENTE (4.10.1).
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-MATERIALIDAD · regla del personaje (estado y conclusión)
+
+**Pregunta.** Cuando un parámetro experimental es material solo para el precio objetivo y no para la acción, ¿qué regla manda? (A) La de datos ausentes (S-19): si sin el dato no se sostiene «esperar con precio objetivo», no se emite, el cubo queda en Vigilar sin acción y el estado es pendiente_de_datos. (B) La del fundamento (B.6.7): concluido con «esperar» y el objetivo marcado provisional, con la hipótesis que lo condiciona.
+
+**Recomendación (argumentada, no adoptada).** (B), con el rango del objetivo a la vista y con el campo separado en dos. Argumentos: la acción no depende de la configuración (en las 13 variantes calculadas y en los dos extremos de λ la zona es «caro»: el precio, 90,10 €, supera el ponderado, que como máximo es 71,77); el objetivo sí depende (precio de Sí de 57,03 a 67,00 en las variantes, y de 53,00 a 60,12 en el rango de λ). Casi ninguna empresa publica el desglose entre reposición y crecimiento: con (A), todo expediente con P-M1 activa acabaría en pendiente_de_datos y se perdería una conclusión cuya acción no depende del dato. Para que la regla se pueda comprobar: separar material_para_conclusion en material_para_accion y material_para_objetivo, y que coherencia_v64 exija, con el primero en true, la regla (A), y con solo el segundo, el objetivo provisional con el rango de las variantes calculadas.
+
+**Alternativas.** (A) datos ausentes: pendiente_de_datos en cuanto el objetivo dependa de un parámetro sin medir; (B) con un umbral: provisional mientras el rango del objetivo en las variantes calculadas no supere un porcentaje que fije la persona responsable; por encima, (A); dejarlo al criterio de la fase C, caso por caso, como en el piloto (no se puede comprobar mecánicamente).
+
+**Evidencia.** piloto/Vidrala/fase_c.json (configuracion_v64.parametros y revision_datos_ausentes); piloto/Vidrala/auditoria.md (tercer aviso); revision_interna/REVISION_INTERNA_4_11.md (H4); resultados/rango_lambda_4_11.md.
+
+**Efectos calculados.** En el piloto: con (B), concluido · Vigilar · esperar, objetivo provisional 57,74 €; con (A), pendiente_de_datos, cubo Vigilar, sin acción ni objetivo; en los dos casos, sin compra. En modo heredado el mismo dato ausente no mueve ninguna cifra (la V6.3 no tiene parámetro de reposición).
+
+**Si no se adopta.** Cada fase C lo decide caso por caso y la auditoría no tiene una regla con la que comprobarlo: conviene decidirlo antes de probar otras empresas.
+
+**Relación.** Revisión interna H4; tercer aviso de la auditoría del piloto; personaje §14 y §15; Anexo B §B.6.7; Anexo D §D.12.
+
+Decisión: — · Fecha: — · Decidido por: —
+
+## D411-DOMINIOS · regla del modelo (avisos de dominio)
+
+**Pregunta.** ¿Se añaden avisos (no rechazos) para los dominios que la plantilla no comprueba: f por encima de un umbral, inversión fija para crecer negativa (1 ÷ (S2C·f) < NWC, en los años o en el terminal, también en SRF) y g ≤ 0 con R1 en un libro escrito a mano? ¿Con qué umbral para f?
+
+**Recomendación (argumentada, no adoptada).** Sí, como avisos en el libro o en el pipeline que lleguen a la fase C y a la auditoría; ninguno debe rechazar ni recortar, porque el encargo prohíbe recortar dominios. Como punto de partida para el umbral, f > 1,5 (el S2C reestimado más de un 50 % por encima del histórico; en el piloto, f = 1,16); el umbral es una convención que fija la persona responsable.
+
+**Alternativas.** Solo declararlos como límites (como ahora); rechazarlos (no recomendado: sería un recorte de dominio encubierto).
+
+**Evidencia.** revision_interna/REVISION_INTERNA_4_11.md (H13); v6/v64_experimental/docs/README_V6.4_experimental.md §8.
+
+**Efectos calculados.** Ninguno en las cifras entregadas: en el piloto y en los 117 casos no aparece ninguna de esas situaciones.
+
+**Si no se adopta.** En una empresa con poco activo fijo y mucho circulante, la inversión para crecer podría salir negativa sin que nada lo señale.
+
+**Relación.** Revisión interna H13; README de la V6.4 §8.9.
+
+Decisión: — · Fecha: — · Decidido por: —

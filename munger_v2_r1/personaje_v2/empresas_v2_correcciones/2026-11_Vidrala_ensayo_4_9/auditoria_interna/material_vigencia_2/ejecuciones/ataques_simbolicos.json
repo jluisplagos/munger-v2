@@ -1,0 +1,728 @@
+[
+ {
+  "grupo": "simbolicos",
+  "caso": "estado_roto",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "FileNotFoundError: [Errno 2] No such file or directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos__estado_roto__paso14/exp/Vidrala/estado_pipeline.json'",
+  "estado": "?",
+  "auditoria": "?",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_roto",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_roto",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "ficha_rota",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 0,
+  "traza": false,
+  "ultima": "estado final: no_entregable · paso 14 · causa: fallo_de_implementacion: ficha.json no cumple su esquema (criterio 7 †; estado previsto: concluido): no existe: /home/claude/vigencia2_4_9/tmp/escenarios",
+  "estado": "no_entregable",
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_rota",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: no hay auditoria.md. No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "no hay auditoria.md"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_a_dev_null",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registraron al cerra"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_a_carpeta",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva. No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditorí",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_a_carpeta",
+  "via": "paso14",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 4,
+  "traza": false,
+  "ultima": "CIERRE RECHAZADO: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no consta qué material se aprobó; la a",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no consta qué ma"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "estado_roto",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 0,
+  "traza": false,
+  "ultima": "OK: ficha.json · estado concluido · cubo Vigilar · acción esperar",
+  "estado": "?",
+  "auditoria": "?",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_roto",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "FileNotFoundError: [Errno 2] No such file or directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos__cv_roto__ficha/exp/Vidrala/cierre_vigente.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_roto",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json. Salidas oficiales anteriores archivadas en historia",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "ficha_rota",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 1,
+  "traza": true,
+  "ultima": "FileNotFoundError: [Errno 2] No such file or directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos__ficha_rota__ficha/exp/Vidrala/ficha.json'",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_rota",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: no hay auditoria.md. Salidas oficiales anteriores archivadas en historial_cierres/03_74b94f8072dd58c1. Para el material de la auditoría, usa -",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "no hay auditoria.md"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_a_dev_null",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se re",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registraron al cerra"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_a_carpeta",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva. Salidas oficiales anteriores archivadas ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_a_carpeta",
+  "via": "ficha",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "ficha.py: no se confirma «concluido» en la ficha oficial: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos)",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no consta qué ma"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "estado_roto",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 0,
+  "traza": false,
+  "ultima": "OK: informe.md (13 secciones)",
+  "estado": "?",
+  "auditoria": "?",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_roto",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada. Salidas oficiales anteriores archivadas en historial_cierres/",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_roto",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json. Salidas oficiales anteriores archivadas en historial_cierres/03",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "ficha_rota",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: no hay ficha.json oficial (para el material de la auditoría, usa --provisional)",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_rota",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: no hay auditoria.md. Salidas oficiales anteriores archivadas en historial_cierres/03_74b94f8072dd58c1.",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: no hay auditoria.md"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_a_dev_null",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registraron al",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registra"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_a_carpeta",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva. Salidas oficiales anteriores archivadas en historial",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_a_carpeta",
+  "via": "informe",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "informe.py: no se publica el informe oficial: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no consta ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "informe.py: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no c"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "estado_roto",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": false,
+  "rc": 0,
+  "traza": false,
+  "ultima": "OK: fila de Vidrala, S.A. en /home/claude/vigencia2_4_9/tmp/escenarios/simbolicos__estado_roto__resumen/exp/resumen_v2.csv",
+  "estado": "?",
+  "auditoria": "?",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   ""
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_roto",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: no hay cierre_vigente.json: la ficha oficial no está ligada a ninguna aprobación registrada"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_roto",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: el material aprobado registrado en el pipeline no es el fijado en material_auditoria.json"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "ficha_rota",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no hay ficha.json: no se escribe ninguna fila",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": false,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_rota",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: no hay auditoria.md",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: no hay auditoria.md"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "cv_a_dev_null",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registraron ",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: cierre_vigente.json no se puede leer (JSONDecodeError: Expecting value: line 1 column 1 (char 0)): no consta qué salidas y qué auditoría se registra"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_a_carpeta",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: auditoria.md no se puede leer (IsADirectoryError): la aprobación se retira hasta una auditoría nueva"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "material_a_carpeta",
+  "via": "resumen",
+  "esperado": "retira",
+  "cumple": true,
+  "rc": 3,
+  "traza": false,
+  "ultima": "resumen.py: no se escribe la fila como vigente: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no const",
+  "estado": null,
+  "auditoria": null,
+  "ficha_cerrada": false,
+  "ficha_existe": false,
+  "cv_existe": false,
+  "pred": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "extra": [
+   "SIN APROBACIÓN VIGENTE"
+  ],
+  "retirada": "resumen.py: material_auditoria.json no se puede leer (IsADirectoryError: [Errno 21] Is a directory: '/home/claude/vigencia2_4_9/tmp/escenarios/simbolicos): no c"
+ },
+ {
+  "grupo": "simbolicos",
+  "caso": "auditoria_enlace_mismo_contenido",
+  "via": "informe",
+  "esperado": "vigente",
+  "cumple": true,
+  "rc": 0,
+  "traza": false,
+  "ultima": "OK: informe.md (13 secciones)",
+  "estado": "concluido",
+  "auditoria": "APROBADO",
+  "ficha_cerrada": true,
+  "ficha_existe": true,
+  "cv_existe": true,
+  "pred": [
+   "APROBADO"
+  ],
+  "extra": [
+   "APROBADO"
+  ],
+  "retirada": "se pidió una auditoría nueva (solicitud SA-f8af9685a95a2a25): el cierre anterior no vale hasta su respuesta"
+ }
+]

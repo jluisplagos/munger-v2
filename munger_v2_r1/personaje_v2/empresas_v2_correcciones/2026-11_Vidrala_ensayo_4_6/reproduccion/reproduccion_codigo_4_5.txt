@@ -1,0 +1,21 @@
+REPRODUCCIÓN DE LAS CUATRO INCIDENCIAS · código de /home/claude/entrega45/munger_v2_r1
+expediente de partida: personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_5/Vidrala
+
+I1a · paso 11 sin auditoría: código 0; ficha.json oficial = 'concluido'; ficha_provisional.json = False
+     REPRODUCIDA: la salida oficial confirma «concluido» antes de la auditoría
+I1b · --desde 14 sin auditoría: código 0; ficha.json oficial = 'concluido'; última línea: estado final: concluido · paso 14
+     REPRODUCIDA: cierra sin aprobación
+
+I2 · necesarios_para_listo_provisional: 6 (evidencia Historia!C23:L23; evidencia Historia!C26:L26; evidencia Análisis!C48; evidencia Historia!C13:L13; evidencia Historia!C16:L16; evidencia Historia!C17:L17)
+     marca en la ficha regenerada con este código: False; en la sección 1 del informe regenerado: False
+     REPRODUCIDA: falta la marca obligatoria
+
+I3 · resultado 'no_procede'; etiqueta de C104: «fundamento no procede (conclusión no favorable; hipótesis Palancas C8 acotada)»
+     coherencia_fase_c (fase C real): None
+     coherencia_fase_c con «fundamento XYZ inventada» y resultado no_procede: None
+     coherencia_fase_c con «fundamento lista vacía» y resultado no_procede: None
+     REPRODUCIDA: no hay correspondencia: acepta etiquetas desconocidas o contradictorias con el JSON
+
+I4 · alcance_v2.json en el expediente: False (sin ese metadato explícito ningún código añade avisos)
+     sección 6 (DCF inverso) con aviso de alcance: False; sección 7 (escalera y zona) con aviso: False
+     REPRODUCIDA: las secciones 6 y 7 comparan con el precio sin aviso local

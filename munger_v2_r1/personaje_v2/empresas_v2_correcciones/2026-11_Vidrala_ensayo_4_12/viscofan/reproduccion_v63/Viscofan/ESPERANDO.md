@@ -1,0 +1,1 @@
+ESPERANDO al agente **fase_c_turno1** (paso 10). Entradas: fase_a.json, fase_b.json, resultados.json, precio.json, gramatica.md, datos_ausentes.json, datos_v63.md, extractos. Escribe **fase_c.json** en esta carpeta y vuelve a lanzar pipeline.py.

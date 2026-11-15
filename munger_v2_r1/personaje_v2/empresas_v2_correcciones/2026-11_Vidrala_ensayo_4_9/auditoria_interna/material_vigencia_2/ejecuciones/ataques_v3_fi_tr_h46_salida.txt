@@ -1,0 +1,42 @@
+CRLF escrito: True
+cv0 {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+cv1 {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'} rc 0 OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+cv2 {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'} rc 0 OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+   tras restaurar · informe: rc 0 · traza False · ficha cerrada True · pred ['APROBADO'] · extra ['APROBADO'] · OK: informe.md (13 secciones)
+   tras restaurar · resumen: rc 0 · traza False · ficha cerrada True · pred [''] · extra ['APROBADO'] · OK: fila de Vidrala, S.A. en /home/claude/vigencia2_4_9/tmp/escenarios/v3__sin_estado_crlf
+OK   · v3 · sin_estado_crlf · informe · rc 0 · traza False · estado '?'/'?' · ficha cerrada True · cv True · pred ['APROBADO'] · extra ['APROBADO'] · OK: informe.md (13 secciones)
+MAL  · v3 · sin_estado_crlf · resumen · rc 0 · traza False · estado '?'/'?' · ficha cerrada True · cv True · pred [''] · extra ['APROBADO'] · OK: fila de Vidrala, S.A. en /home/claude/vigencia2_4_9/tmp/escenarios/v3__sin_estado_crlf__resumen/exp/resume
+con_estado · ficha.py: rc 0 · traza False · estado None/None · ficha cerrada True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE']
+      | OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+      | ficha.py: AVISO: se ha sustituido una ficha cerrada y su aprobación queda archivada; la ficha nueva NO es vigente hasta una auditoría nueva del pipeline (informe.py y resumen.py la rechazarán)
+      cv antes: {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+      cv después: {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+      después · informe.py: rc 3 · ficha cerrada False · informe.py: no se publica el informe oficial: el pipeline no registró una auditoría APROBADO válida (auditoria = None). Salidas oficiales anteriores a
+sin_estado · ficha.py: rc 0 · traza False · estado '?'/'?' · ficha cerrada True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE']
+      | OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+      | ficha.py: AVISO: se ha sustituido una ficha cerrada y su aprobación queda archivada; la ficha nueva NO es vigente hasta una auditoría nueva del pipeline (informe.py y resumen.py la rechazarán)
+      cv antes: {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+      cv después: {'solicitud': 'None', 'auditoria_fiel': 'None', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+      después · informe.py: rc 0 · ficha cerrada True · OK: informe.md (13 secciones)
+sin_estado_crlf · ficha.py: rc 0 · traza False · estado '?'/'?' · ficha cerrada True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE']
+      | OK: ficha.json · estado concluido · cubo Vigilar · acción esperar
+      | ficha.py: AVISO: se ha sustituido una ficha cerrada y su aprobación queda archivada; la ficha nueva NO es vigente hasta una auditoría nueva del pipeline (informe.py y resumen.py la rechazarán)
+      cv antes: {'solicitud': 'SA-f8af9685a95a2', 'auditoria_fiel': '466098557e8bde0f', 'auditoria_sha256': 'f29285bf5fc9dbdc'}
+      cv después: {'solicitud': 'None', 'auditoria_fiel': 'None', 'auditoria_sha256': 'a8ad298592fd5d0e'}
+      después · informe.py: rc 0 · ficha cerrada True · OK: informe.md (13 secciones)
+      tras restaurar los bytes aceptados · informe.py: rc 3 · ficha cerrada False · informe.py: no se publica el informe oficial: auditoria.md no es la auditoría registrada en cierre_vigente.json al cerrar (cierre anterior a la 4.8.1). Salidas 
+MAL  · traversal · material_auditado_con_barras · ficha · rc 0 · traza False · estado None/None · ficha cerrada True · cv True · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · ficha.py: AVISO: se ha sustituido una ficha cerrada y su aprobación queda archivada; la ficha nueva NO es vige
+       ¿carpeta creada fuera del expediente (traversal__material_auditado_con_barras__ficha/FUERA_DEL_EXPEDIENTE)? False · contenido None
+OK   · traversal · material_auditado_con_barras · informe · rc 3 · traza False · estado None/None · ficha cerrada False · cv False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · informe.py: no se publica el informe oficial: la ficha oficial pertenece a la aprobación del material ../../..
+       ¿carpeta creada fuera del expediente (traversal__material_auditado_con_barras__informe/FUERA_DEL_EXPEDIENTE)? False · contenido None
+OK   · traversal · material_auditado_con_barras · resumen · rc 3 · traza False · estado None/None · ficha cerrada False · cv False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · resumen.py: no se escribe la fila como vigente: la ficha oficial pertenece a la aprobación del material ../../
+       ¿carpeta creada fuera del expediente (traversal__material_auditado_con_barras__resumen/FUERA_DEL_EXPEDIENTE)? False · contenido None
+OK   · traversal · material_auditado_con_barras · paso14 · rc 4 · traza False · estado None/None · ficha cerrada False · cv False · pred ['SIN APROBACIÓN VIGENTE'] · extra ['SIN APROBACIÓN VIGENTE'] · CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna s
+       ¿carpeta creada fuera del expediente (traversal__material_auditado_con_barras__paso14/FUERA_DEL_EXPEDIENTE)? False · contenido None
+motivo_rechazo_cierre(copia 4.6): no consta la respuesta de auditoría aprobada (ni estado_pipeline.json → auditoria_respuesta ni cierre_vigente.json la registran): no se atribuye la aprobación al auditoria.md actual; hace falta una auditoría nueva (paso 13)
+motivo_vigencia(copia 4.6): no consta la respuesta de auditoría aprobada (ni estado_pipeline.json → auditoria_respuesta ni cierre_vigente.json la registran): no se atribuye la aprobación al auditoria.md actual; hace falta una auditoría nueva (paso 13)
+¿cierre_vigente.json en el original? False · ¿estado_pipeline.json? True
+estado 4.6: auditoria APROBADO · auditoria_respuesta None · solicitudes None
+sha256 4.6/Vidrala/auditoria.md: 57f48faa24caa6d312c674e396f29425118d12d7dec2dbacf16f08e4fc00a60f
+
+7 de 9 casos con el resultado esperado · /home/claude/vigencia2_4_9/tmp/ejecuciones/ataques_v3_ficha_ilegible_traversal_h46.json

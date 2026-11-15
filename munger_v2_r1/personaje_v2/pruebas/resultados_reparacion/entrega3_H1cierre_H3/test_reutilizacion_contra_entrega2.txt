@@ -1,0 +1,19 @@
+PASA  · H1 reutilización · preparación: libro de datos con la Historia limpia (sbc y C50 «Rellenado y verificado») · pipeline --hasta 2 código 0
+FALLA · H1 reutilización · caso A sin --sobrescribir: sbc, adquisiciones y C50 pasan a «Dato no verificable» [H1]; ninguna etiqueta verificada se conserva · código 0 · {"Historia!C18:L18": "Rellenado y verificado", "Historia!C13:L13": "Rellenado y verificado", "Análisis!C50": "Rellenado y verificado"}
+FALLA · H1 reutilización · caso A sin --sobrescribir: el valor de C50 solo cambia si se pide --sobrescribir · C50 conservado = 4.64 (la Historia nueva daría 0.0; la nota lo dice)
+FALLA · H1 reutilización · caso A con --sobrescribir: sbc, adquisiciones y C50 pasan a «Dato no verificable» [H1]; ninguna etiqueta verificada se conserva · código 0 · {"Historia!C18:L18": "Rellenado y verificado", "Historia!C13:L13": "Rellenado y verificado", "Análisis!C50": "Dato no verificable"}
+PASA  · H1 reutilización · caso A con --sobrescribir: el valor de C50 solo cambia si se pide --sobrescribir · C50 = 0 (Historia nueva 0.0, escrito por --sobrescribir)
+FALLA · H1 reutilización · caso B: C50 de los metadatos (misma Historia y ventana) hereda el pendiente sin cambiar su valor · código 0 · {"valor": 4.64, "pendiente_verificacion": null}
+FALLA · H1 reutilización · caso B: en el libro, C50 queda «Dato no verificable» [H1] · código 0
+FALLA · H1 reutilización · caso B: una fuente independiente con respaldo explícito y trazable (fuente con página, fecha, persona) no hereda el pendiente · código 0 · {"pendiente_verificacion": null, "independiente_confirmado": null}
+FALLA · H1 reutilización · caso B: fuente independiente declarada sin respaldo → sigue pendiente · código 0
+FALLA · H1 reutilización · caso B: fuente independiente firmada por un agente → sigue pendiente y queda anotada como no aceptada · código 0
+FALLA · H1 reutilización · caso B: fuente independiente sin página → sigue pendiente y queda anotada como no aceptada · código 0
+FALLA · H1 reutilización · caso C: tras la confirmación, sbc y C50 pasan a «Rellenado y verificado» y adquisiciones 2017 sigue «Dato no verificable» · código 0 · {"Historia!C18:L18": "Dato no verificable", "Análisis!C50": "Dato no verificable", "Historia!C13:L13": "Dato no verificable"}
+PASA  · H1 reutilización · caso C: el cambio de estado no modifica ningún valor · ningún valor cambia
+PASA  · H1 reutilización · caso C: solo cambian las evidencias afectadas (las demás conservan su estado) · {"Historia!C6:L6": ["Rellenado y verificado", "Rellenado y verificado"], "Análisis!C46": ["Rellenado y verificado", "Rellenado y verificado"], "Análisis!C47": ["Rellenado y verificado", "Rellenado y verificado"]}
+FALLA · H1 reutilización · caso C sin soporte: C50 pendiente con un valor distinto del de la Historia confirmada → rechazo expreso (código 5), sin escribir el libro y pidiendo regenerar · código 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos
+PASA  · H1 reutilización · caso C sin soporte, regenerado con --sobrescribir: C50 toma el valor de la Historia confirmada y queda «Rellenado y verificado» · código 0
+
+5/16 comprobaciones PASAN
+codigo_salida=1

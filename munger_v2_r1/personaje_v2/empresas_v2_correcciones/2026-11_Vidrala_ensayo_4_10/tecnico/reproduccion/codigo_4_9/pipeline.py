@@ -1,0 +1,1222 @@
+#!/usr/bin/env python3
+"""Orquestador del pipeline por empresa (encargo §4.7, pasos 0–14). Una orden por paso; cada paso deja un archivo.
+
+Uso: pipeline.py CARPETA_EMPRESA [--config config_v2.json] [--agentes-simulados DIR] [--hasta N] [--reiniciar] [--desde N]
+
+CARPETA_EMPRESA contiene: etapa1/<E>_evaluada.xlsx (+ respuesta.md, juicio.json, extracto.md), fase1_v63.json, texto/ (opcional).
+Los pasos de agente (5 extracción, 6 fase A, 8 fase B, 10 fase C en dos turnos, 13 verificación) NO se ejecutan aquí: el pipeline
+escribe prompts_generados/<paso>.md con el prompt y las entradas, deja ESPERANDO.md y termina con código 10. Cuando el archivo
+de salida del agente exista (fase_a.json, fase_b.json, fase_c.json, extracto_v63.md, auditoria.md), se vuelve a lanzar y continúa.
+Con --agentes-simulados DIR, toma de DIR los archivos de los agentes (fase_a.json, fase_b.json, fase_b.intento2.json, fase_c.turno1.json,
+fase_c.turno2.json, auditoria.md …) para las pruebas con datos sintéticos (§10.2).
+Estados finales: concluido · pendiente_de_datos · pendiente_de_investigacion · modelo_no_aplicable · no_entregable. Agotar un límite
+de correcciones NUNCA aprueba: termina en no_entregable con diagnostico.md (D17, D18).
+Códigos: 0 terminado (cualquier estado final, con sus salidas) · 10 esperando a un agente · 2 uso · 1 fallo mecánico no previsto ·
+4 cierre rechazado (paso 14 sin una auditoría APROBADO válida del material vigente; reparación del cierre, entrega 4.6).
+5 retirada pendiente: una aprobación publicada en un destino registrado del resumen no se pudo retirar (reparación 4.7).
+(4.8) Una ficha que no cumple su esquema en el paso 14 termina en no_entregable por fallo de implementación con código 0 (estado final) y el
+diagnóstico «continuar desde el paso 13»; en las terminaciones que no cierran, el estado fijado por terminar() se conserva aunque se
+archive una ficha cerrada anterior (X-a). La última línea dice el estado, la causa y el paso desde el que se continúa.
+(4.8.1, R-T1) El paso 13 registra una SOLICITUD de auditoría identificable y persistente (estado_pipeline.json → solicitudes_auditoria,
+solicitud_auditoria.json), ligada al material fijado y conservada en los relanzamientos mientras esté pendiente; al registrarla anota
+como conocidas todas las auditorías del expediente (también en auditorias_conocidas.json) y archiva un cierre vigente. Solo acepta
+como respuesta un auditoria.md que la nombre («Solicitud de auditoría: SA-…») y que, si aprueba, no sea ninguna auditoría conocida
+ni por su huella SHA-256 ni por su contenido sin formato (cierre_v2.huella_contenido); las fechas de los archivos no intervienen. Con
+una solicitud pendiente no se cierra; un cierre de la 4.8.1 exige que auditoria.md sea la respuesta registrada. Código 6: el
+registro auditorias_conocidas.json existe y no se puede leer (no se acepta ninguna auditoría hasta restaurarlo); (4.9) también si
+estado_pipeline.json no se puede leer, después de retirar una salida oficial cerrada que ya no puede acreditarse.
+(4.9, R-V1) La respuesta aceptada se registra también con su huella fiel (cierre_v2.huella_fiel: contenido y orden íntegros salvo
+cierre_v2.TRANSFORMACIONES_INOCUAS). Después del cierre, la vigencia comprueba por separado la solicitud, el material y esa huella: el
+contenido sin orden (huella_contenido) solo detecta reutilizaciones en el paso 13 y ya no acredita la identidad de la respuesta.
+Cierre (4.6, cierre_v2.py): la fase C propone el estado; el paso 11 escribe solo material provisional (ficha_provisional.json,
+informe_provisional.md); el paso 13 fija el material auditado (material_auditoria.json) y la auditoría tiene que nombrarlo; la
+ficha y el informe oficiales se escriben en el paso 14 solo con esa aprobación, o por terminar() en los estados que no pasan por la
+auditoría (no_entregable, pendiente_de_datos o modelo_no_aplicable tempranos).
+Vigencia (4.6.1): al empezar cada ejecución, en el paso 11 y en el rechazo del paso 14, una salida oficial cerrada que ya no corresponde a
+una aprobación válida del material actual se archiva en historial_cierres/ (con RETIRADA.json, la fila del resumen y el historial).
+"""
+import argparse
+import datetime as dt
+import glob
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+import config_v2  # noqa: E402
+import celdas_v2 as C  # noqa: E402
+import cierre_v2 as CIE  # noqa: E402
+
+PY = sys.executable
+
+
+class Esperando(Exception):
+    pass
+
+
+class CierreRechazado(Exception):
+    pass
+
+
+class Pipeline:
+    def __init__(self, carpeta, cfg, simulados=None):
+        self.c = os.path.abspath(carpeta)
+        self.E = os.path.basename(self.c)
+        self.cfg = cfg
+        self.sim = simulados
+        self.lim = cfg.get("limites", {})
+        # perfil de LibreOffice propio de cada empresa (recalc.sh lo crea): dos soffice sobre el mismo perfil se bloquean (§4.7, en paralelo)
+        self.perfil = os.path.join(self.c, ".lo_perfil") if cfg.get("recalc", {}).get("perfil_por_empresa", True) else cfg.get("recalc", {}).get("perfil", os.path.join(self.c, ".lo_perfil"))
+        self.estado_path = os.path.join(self.c, "estado_pipeline.json")
+        self.st = json.load(open(self.estado_path, encoding="utf-8")) if os.path.exists(self.estado_path) else {
+            "paso": 0, "estado_analisis": None, "intentos": {"fase_b": 0, "fase_c": 0, "auditoria": 0, "vueltas_c_a_b": 0, "vueltas_b_a_a": 0},
+            "historial": [], "motor": None, "fase_b_escrita": False, "fase_c_escrita": False, "esperando": None, "inicio": dt.datetime.now().isoformat(timespec="seconds")}
+        if not isinstance(self.st, dict):
+            # (4.9, control de vigencia V-2) un JSON válido que no es un objeto es tan ilegible como uno roto
+            raise ValueError("estado_pipeline.json no es un objeto JSON")
+        m = CIE._motivo_estructura(self.st, None, None)
+        if m:
+            # (segundo control de vigencia, W-1) solicitudes sin «id», historial, cierres_archivados o paso con tipos erróneos
+            raise ValueError(m)
+
+    # ---------- utilidades ----------
+    def p(self, *x):
+        return os.path.join(self.c, *x)
+
+    def guardar(self):
+        json.dump(self.st, open(self.estado_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+    def log(self, msg):
+        self.st["historial"].append(f"{dt.datetime.now().isoformat(timespec='seconds')} · paso {self.st['paso']} · {msg}")
+        print(f"[paso {self.st['paso']}] {msg}")
+        self.guardar()
+
+    def run(self, cmd, ok=(0,)):
+        r = subprocess.run(cmd, capture_output=True, text=True, cwd=self.c)
+        salida = (r.stdout + r.stderr).strip()
+        self.st["historial"].append(f"  $ {' '.join(os.path.basename(str(x)) for x in cmd)} → {r.returncode} · {salida.splitlines()[-1][:200] if salida else ''}")
+        return r.returncode, salida
+
+    def script(self, nombre):
+        return os.path.join(AQUI, nombre)
+
+    def comprobaciones_dagger(self):
+        """Criterios † de §10.2 (1 y 3), exigidos en todos los estados: libro evaluado íntegro y celdas de las fases escritas
+        correctas. Devuelve None si pasan (o no hay libro evaluado todavía) o el detalle del fallo."""
+        libro_ev = self.p(f"{self.E}_v63_evaluada.xlsx")
+        libro_datos = self.p(f"{self.E}_v63_datos.xlsx")
+        if not os.path.exists(libro_ev):
+            return None
+        rc, out = self.run([PY, self.cfg["plantilla"]["verificador"], libro_ev, self.cfg["plantilla"]["referencia"]])
+        if rc != 0:
+            return "criterio 1 †: verificar_v63.py sobre el libro evaluado: " + out[-300:]
+        fases = "A" + (",B" if self.st.get("fase_b_escrita") else "") + (",C" if self.st.get("fase_c_escrita") else "")
+        if os.path.exists(libro_datos):
+            # el motor de la fase A manda sobre las reglas condicionales (C76, B16:D16) aunque C62 se haya corregido a «otro método»
+            rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", fases] + (["--motor", self.st["motor"]] if self.st.get("motor") else []))
+            if rc != 0:
+                return f"criterio 3 †: comprobar_celdas_v2.py (fases {fases}): " + out[-300:]
+        return None
+
+    def terminar(self, estado, tipo, detalle, paso, comprobacion=None, categoria=None, que_hace_falta="", desde=None):
+        if estado != "no_entregable":
+            fallo = self.comprobaciones_dagger()
+            if fallo:
+                self.log(f"el estado {estado} no se puede entregar: {fallo[:160]}")
+                estado, tipo, detalle = "no_entregable", "fallo_de_implementacion", f"{fallo} (estado previsto: {estado}; {detalle})"
+        self.st["estado_analisis"] = estado
+        self.guardar()
+        self.run([PY, self.script("diagnostico.py"), self.c, "--estado", estado, "--tipo", tipo, "--detalle", detalle, "--paso", str(paso)]
+                 + (["--comprobacion", comprobacion] if comprobacion else []) + (["--categoria", categoria] if categoria else [])
+                 + ["--que-hace-falta", que_hace_falta or detalle, "--desde-paso", str(desde if desde is not None else paso)])
+        if self.salidas_finales(cierre=False):
+            # (4.8, Z-g de la auditoría interna) la ficha no cumplió su esquema: el FIN dice la causa real (la del diagnóstico)
+            dg = json.load(open(self.p("diagnostico.json"), encoding="utf-8")) if os.path.exists(self.p("diagnostico.json")) else {}
+            tipo, detalle = (dg.get("causa") or {}).get("tipo") or "fallo_de_implementacion", (dg.get("causa") or {}).get("detalle") or detalle
+        self.log(f"FIN · estado {self.st.get('estado_analisis')} · {tipo}: {detalle[:160]}")
+
+    def salidas_finales(self, cierre=False):
+        """Escribe ficha, informe y resumen del estado de self.st. `cierre` = True solo en el paso 14 (estado que confirma una
+        auditoría APROBADO); False en las terminaciones que no pasan por la auditoría (terminar()). Devuelve True si la ficha no
+        cumplió su esquema y el análisis quedó en no_entregable por fallo de implementación (criterio 7 †; X-c, entrega 4.8)."""
+        previsto = self.st.get("estado_analisis")
+        archivados_al_empezar = len(self.st.get("cierres_archivados") or [])
+        if previsto == "concluido":
+            # un diagnóstico de una ejecución anterior no debe quedar junto a un resultado concluido (p. ej. al reanudar con --desde)
+            for f in ("diagnostico.md", "diagnostico.json"):
+                if os.path.exists(self.p(f)):
+                    os.replace(self.p(f), self.p(f + ".anterior"))
+        # (4.8, X-a) en una terminación que no cierra, el estado que fijó terminar() es legítimo y se conserva aunque ficha.py archive
+        # la ficha cerrada anterior; en el paso 14, el archivo manda (W-e de la 4.7.1)
+        conservar = not cierre
+        self.run([PY, self.script("ficha.py"), self.c, "--estado", previsto])
+        self.adoptar_archivo(conservar_estado=conservar)
+        rc, out = self.run([PY, self.script("validar_esquema.py"), self.p("ficha.json"), "ficha", "--salida", self.p("esquema_ficha.json.txt")])
+        self.st["ficha_valida"] = rc == 0
+        fallo_esquema = False
+        if rc != 0 and previsto == "no_entregable":
+            # (4.8, Z-g) ya era no_entregable: se deja constancia de que, además, la ficha no cumple su esquema
+            self.log("aviso: ficha.json (no_entregable) tampoco cumple su esquema (criterio 7 †; ver esquema_ficha.json.txt)")
+        if rc != 0 and previsto != "no_entregable":
+            # criterio 7 †: una ficha que no cumple su esquema es un fallo de implementación, no un aviso. (4.8, X-c) El estado previsto
+            # es el que se pidió escribir (no el que haya dejado un archivo intermedio); la ficha no_entregable nunca lleva «cierre»
+            # (ficha.py), y en el paso 14 la vía de subsanación es corregir el código o el esquema y pedir una auditoría nueva (paso 13):
+            # la ficha cerrada anterior queda archivada en historial_cierres/ y su aprobación no se reutiliza.
+            fallo_esquema = True
+            paso_fallo = 14 if cierre else self.st.get("paso", 14)
+            self.st["estado_analisis"] = "no_entregable"
+            self.st["paso"] = paso_fallo
+            self.guardar()
+            que = ("corregir ficha.py o esquema/ficha.esquema.json (ver esquema_ficha.json.txt) y relanzar pipeline.py --desde 13: el cierre no se escribió, "
+                   "la ficha cerrada anterior queda archivada en historial_cierres/ y hace falta una auditoría nueva del material"
+                   if cierre else "corregir ficha.py o esquema/ficha.esquema.json (ver esquema_ficha.json.txt) y relanzar desde el paso indicado")
+            self.run([PY, self.script("diagnostico.py"), self.c, "--estado", "no_entregable", "--tipo", "fallo_de_implementacion",
+                      "--detalle", f"ficha.json no cumple su esquema (criterio 7 †; estado previsto: {previsto}): " + out[-300:], "--paso", str(paso_fallo),
+                      "--que-hace-falta", que, "--desde-paso", str(13 if cierre else paso_fallo)])
+            self.run([PY, self.script("ficha.py"), self.c, "--estado", "no_entregable"])
+            conservar = True  # no_entregable es un estado final legítimo que no se cierra con auditoría
+            self.adoptar_archivo(conservar_estado=True)  # archivar_salidas registra la aprobación archivada y la retira
+            if cierre and self.st.get("auditoria") == "APROBADO":
+                self.st["auditoria"] = None  # la aprobación era del material de un cierre que no se ha podido escribir
+                self.guardar()
+            rc2, _ = self.run([PY, self.script("validar_esquema.py"), self.p("ficha.json"), "ficha", "--salida", self.p("esquema_ficha.json.txt")])
+            self.st["ficha_valida"] = rc2 == 0
+            self.log(f"ficha.json no cumplía su esquema: estado {previsto} → no_entregable (fallo de implementación; ver diagnostico.md)")
+        self.run([PY, self.script("informe.py"), self.c])
+        self.adoptar_archivo(conservar_estado=conservar)
+        csv = CIE.ruta_resumen(self.c, self.cfg)
+        rc_res, _ = self.run([PY, self.script("resumen.py"), self.c, csv])
+        self.adoptar_archivo(conservar_estado=conservar)
+        # (4.8, Z-a de la auditoría interna) si resumen.py no pudo publicar la fila del estado final (p. ej. retirada pendiente, código 5),
+        # queda anotado: la siguiente ejecución, una vez completadas las retiradas, la vuelve a publicar aunque el estado sea final
+        self.st["resumen_pendiente"] = rc_res != 0
+        if conservar and self.st.get("estado_analisis") and not os.path.exists(self.p("ficha.json")) \
+                and len(self.st.get("cierres_archivados") or []) > archivados_al_empezar:
+            # (4.8, Z-f) un estado final sin ficha oficial no se conserva cuando un generador la ARCHIVÓ en esta llamada (V-b del control de
+            # vigencia: si ficha.py no llegó a escribirla, p. ej. alcance_v2.json ilegible, el estado y su diagnóstico se conservan)
+            self.log(f"el estado {self.st.get('estado_analisis')} no tiene ficha oficial tras las salidas finales: queda sin estado final")
+            self.st["estado_analisis"] = None
+            self.st["paso"] = min(self.st.get("paso") or 13, 13)
+        self.guardar()
+        return fallo_esquema
+
+    def adoptar_archivo(self, conservar_estado=False):
+        """(4.7.1, W-e de la auditoría interna) ficha.py, informe.py y resumen.py pueden archivar las salidas oficiales (sustitución de
+        una ficha cerrada, salida que ya no es vigente) y dejar en el disco el estado sin cierre. Ese estado manda sobre el de la
+        memoria en lo que toca al cierre: no se sobrescribe, y el pipeline no declara después un cierre que ya no existe.
+        (4.8, X-a) Con `conservar_estado` (terminación que no cierra: terminar(), o no_entregable por fallo de esquema) se adoptan la
+        auditoría retirada, los cierres archivados y el historial, pero se conservan el estado_analisis y el paso de la memoria: son
+        el resultado legítimo de esta ejecución, y el disco queda con ese mismo estado en la primera ejecución."""
+        disco = json.load(open(self.estado_path, encoding="utf-8")) if os.path.exists(self.estado_path) else {}
+        nuevos = (disco.get("cierres_archivados") or [])[len(self.st.get("cierres_archivados") or []):]
+        if not nuevos:
+            return False
+        self.st["cierres_archivados"] = disco["cierres_archivados"]
+        for k in (("auditoria",) if conservar_estado else ("estado_analisis", "auditoria", "paso")):
+            self.st[k] = disco.get(k)
+        ya = set(self.st.get("historial") or [])
+        self.st.setdefault("historial", []).extend(h for h in (disco.get("historial") or []) if h not in ya)
+        self.guardar()
+        return True
+
+    def consumir(self, salida):
+        """Registra que la salida actual del agente ya se usó: una petición posterior del mismo archivo exige uno más nuevo
+        (vuelta C→B, vuelta B→A, auditoría tras una corrección de la fase C)."""
+        destino = self.p(salida)
+        self.st.setdefault("consumidos", {})[salida] = os.path.getmtime(destino) if os.path.exists(destino) else 0
+        self.st["esperando"] = None
+        self.st["motivo_correccion"] = None
+        self.guardar()
+
+    def agente(self, paso, nombre, salida, entradas, alternativas=()):
+        """Si existe una salida del agente NUEVA (o una simulada), la consume y sigue; si no, deja el prompt y ESPERANDO.md
+        y lanza Esperando. Tras pedir una corrección (pedir_correccion), exige un archivo más nuevo que la petición; tras
+        consumir una salida, exige un archivo más nuevo que el consumido (nunca se relee la misma salida como si fuera otra)."""
+        destino = self.p(salida)
+        marca = f"{paso}:{salida}"
+        if self.sim:
+            for alt in list(alternativas) + [salida]:
+                src = os.path.join(self.sim, alt)
+                if os.path.exists(src):
+                    shutil.copy(src, destino)
+                    os.utime(destino, None)
+                    self.log(f"agente simulado: {alt} → {salida}")
+                    self.consumir(salida)
+                    return
+        consumido = self.st.get("consumidos", {}).get(salida)
+        if os.path.exists(destino):
+            mt = os.path.getmtime(destino)
+            if self.st.get("esperando") == marca:
+                if mt >= self.st.get("esperando_desde", 0) and (consumido is None or mt > consumido):
+                    self.consumir(salida)
+                    return
+            elif consumido is None or mt > consumido:
+                self.consumir(salida)
+                return
+        motivo = self.st.get("motivo_correccion") if self.st.get("esperando") == marca else None
+        self.escribir_prompt(paso, nombre, salida, entradas, motivo)
+        if self.st.get("esperando") != marca or "esperando_desde" not in self.st:
+            self.st["esperando_desde"] = dt.datetime.now().timestamp()
+        self.st["esperando"] = marca
+        self.guardar()
+        raise Esperando(f"{nombre} → {salida}")
+
+    # ---------- solicitudes de auditoría (4.8.1, R-T1) ----------
+    def solicitud_auditoria_vigente(self):
+        """Solicitud pendiente del material fijado: se conserva en los relanzamientos (también con --desde 13) mientras siga pendiente
+        y el material sea el mismo; si no hay ninguna pendiente, o el material cambió, se registra una nueva. Las solicitudes no se
+        borran: estado_pipeline.json → solicitudes_auditoria guarda todas, con su estado (pendiente, respondida, sustituida)."""
+        st = self.st
+        lista = st.setdefault("solicitudes_auditoria", [])
+        mat = st.get("material_auditoria")
+        ahora = dt.datetime.now().astimezone().isoformat(timespec="seconds")
+        actual = lista[-1] if lista and lista[-1].get("estado") == "pendiente" else None
+        if actual and actual.get("material") == mat:
+            CIE.escribir_solicitud(self.c, actual)
+            return actual
+        if actual:
+            actual["estado"] = "sustituida"
+            actual["sustituida"] = ahora
+            actual["motivo_sustitucion"] = f"el material fijado es {mat}, no {actual.get('material')}"
+        motivo = (f"corrección pedida por el pipeline: {str(st.get('motivo_correccion'))[:200]}" if st.get("esperando") == "13:auditoria.md" and st.get("motivo_correccion")
+                  else "auditoría del material fijado en el paso 13")
+        nueva = CIE.nueva_solicitud(mat, motivo, ahora)
+        # (auditoría interna de la 4.8.1, Y-b; control de vigencia, V-2) todas las auditorías que ya hay en el expediente (cualquier
+        # archivo de texto con forma de auditoría, con cualquier nombre y en cualquier subcarpeta, y la que registra cierre_vigente.json)
+        # quedan anotadas como conocidas antes de la solicitud: ninguna puede acreditar una aprobación que la responda. Ninguna recibe una
+        # solicitud: no se asigna retroactivamente. El registro persiste en auditorias_conocidas.json.
+        shas, conts = CIE.auditorias_del_expediente(self.c, self.veredicto_auditoria)
+        st["anteriores_sha256"] = sorted(set(st.get("anteriores_sha256") or []) | shas)
+        st["anteriores_contenido"] = sorted(set(st.get("anteriores_contenido") or []) | conts)
+        CIE.anotar_auditorias(self.c, shas, conts, f"solicitud {nueva['id']}")
+        lista.append(nueva)
+        CIE.escribir_solicitud(self.c, nueva)
+        F = json.load(open(self.p("ficha.json"), encoding="utf-8")) if os.path.exists(self.p("ficha.json")) else None
+        if CIE.ficha_cerrada(F):
+            # (Y-h) pedir una auditoría nueva retira el cierre vigente hasta su respuesta, en la misma ejecución (ficha, informe y fila del
+            # resumen se archivan con su retirada; la aprobación registrada se retira)
+            CIE.archivar_salidas(self.c, f"se pidió una auditoría nueva (solicitud {nueva['id']}): el cierre anterior no vale hasta su respuesta",
+                                 CIE.ruta_resumen(self.c, self.cfg), st)
+            self.log(f"cierre vigente archivado al registrar la solicitud {nueva['id']}")
+        st["auditoria"] = None
+        self.log(f"solicitud de auditoría {nueva['id']} registrada para el material {mat}" + (f" (sustituye a {actual['id']})" if actual else ""))
+        self.guardar()
+        return nueva
+
+    def huellas_auditorias_usadas(self):
+        return (set(self.st.get("anteriores_sha256") or []) | CIE.registro_auditorias(self.c)[0]
+                | {s.get("respuesta_sha256") for s in self.st.get("solicitudes_auditoria") or [] if s.get("respuesta_sha256")})
+
+    def contenidos_auditorias_usadas(self):
+        return (set(self.st.get("anteriores_contenido") or []) | CIE.registro_auditorias(self.c)[1]
+                | {s.get("respuesta_contenido") for s in self.st.get("solicitudes_auditoria") or [] if s.get("respuesta_contenido")})
+
+    def agente_auditoria(self, sol, alternativas=()):
+        """Paso 13 (4.8.1, R-T1): acepta auditoria.md solo si responde a la solicitud vigente: una sola línea «Solicitud de auditoría:
+        <id>» con el id de `sol` y, si aprueba según H2, ni su huella SHA-256 ni su contenido sin formato (huella_contenido: sin
+        formato, tildes ni orden de líneas) son los de una auditoría conocida del expediente o ya usada; una REPETIR puede repetir
+        contenido, porque no cierra nada. Las fechas de modificación no intervienen. Si no la hay, deja el prompt (con el id) y ESPERANDO.md, con el motivo por el que no se aceptó el archivo presente,
+        y lanza Esperando (código 10). La regla H2 y la vinculación al material se aplican después, sin cambios."""
+        st = self.st
+        destino = self.p("auditoria.md")
+        marca = "13:auditoria.md"
+        if self.sim:
+            for alt in list(alternativas) + ["auditoria.md"]:
+                src = os.path.join(self.sim, alt)
+                if os.path.exists(src):
+                    # agente simulado: responde a la solicitud que ve (marcador {SOLICITUD_AUDITORIA} del archivo simulado)
+                    open(destino, "w", encoding="utf-8").write(open(src, encoding="utf-8").read().replace("{SOLICITUD_AUDITORIA}", sol["id"]))
+                    self.log(f"agente simulado: {alt} → auditoria.md")
+                    break
+        no_aceptada = None
+        if os.path.exists(destino):
+            h = CIE.sha_archivo(destino)
+            try:
+                txt = open(destino, "rb").read().decode("utf-8-sig")
+                utf8 = True
+            except UnicodeDecodeError:
+                txt, utf8 = open(destino, encoding="utf-8", errors="replace").read(), False
+            ida = CIE.id_solicitud_en_auditoria(txt)
+            otras = {s["id"]: s.get("estado") for s in st.get("solicitudes_auditoria") or []}
+            hc = CIE.huella_contenido(txt)
+            # una auditoría ya usada no puede acreditar una APROBACIÓN nueva; una respuesta que no aprueba (REPETIR según H2) puede repetir
+            # el contenido de otra (un auditor que vuelve a encontrar lo mismo), porque no cierra nada
+            aprobaria = self.veredicto_auditoria(txt) == "APROBADO"
+            if not utf8:
+                # (tercera revisión de la 4.8.1, W-3) el cierre lee auditoria.md en UTF-8 estricto: no se consume una respuesta que no lo es
+                no_aceptada = "auditoria.md no es texto UTF-8 válido: se vuelve a guardar en UTF-8 y se relanza (no se ha consumido)"
+            elif aprobaria and h in self.huellas_auditorias_usadas():
+                no_aceptada = "auditoria.md es una auditoría ya usada (su huella SHA-256 es la de una respuesta anterior): no responde a la solicitud vigente"
+            elif aprobaria and hc in self.contenidos_auditorias_usadas():
+                no_aceptada = ("auditoria.md repite el contenido de una auditoría ya usada (solo cambian la línea de solicitud o el formato): "
+                               "una respuesta nueva es una auditoría hecha de nuevo sobre el material vigente")
+            elif ida is None:
+                no_aceptada = "auditoria.md no tiene exactamente una línea «Solicitud de auditoría: <id>»: no consta a qué solicitud responde"
+            elif ida != sol["id"]:
+                no_aceptada = f"auditoria.md responde a la solicitud {ida} ({otras.get(ida, 'desconocida')}), no a la vigente {sol['id']}"
+            else:
+                # (4.9, R-V1) además del detector (contenido sin orden, función A), la huella fiel de la respuesta aceptada (función B):
+                # contenido y orden íntegros salvo cierre_v2.TRANSFORMACIONES_INOCUAS; la vigencia del cierre solo acepta esta
+                hf = CIE.huella_fiel(open(destino, "rb").read())
+                sol.update(estado="respondida", respuesta_sha256=h, respuesta_contenido=hc, respuesta_fiel=hf, respondida=dt.datetime.now().astimezone().isoformat(timespec="seconds"))
+                st["auditoria_respuesta"] = {"solicitud": sol["id"], "sha256": h, "contenido": hc, "fiel": hf, "material": sol.get("material")}
+                CIE.anotar_auditorias(self.c, [h], [hc], f"respuesta a la solicitud {sol['id']}")
+                st.setdefault("consumidos", {})["auditoria.md"] = os.path.getmtime(destino)  # compatibilidad: ya no decide nada en el paso 13
+                st["esperando"] = None
+                st["motivo_correccion"] = None
+                self.log(f"auditoría consumida: respuesta a la solicitud {sol['id']} (SHA-256 {h[:12]}…)")
+                self.guardar()
+                return txt
+        motivo = st.get("motivo_correccion") if st.get("esperando") == marca else None
+        aviso = "; ".join(x for x in (motivo, f"auditoria.md presente NO aceptada: {no_aceptada}" if no_aceptada else None) if x)
+        self.escribir_prompt(13, "verificacion", "auditoria.md", ["todo lo de la carpeta (sin los prompts de las fases)", "material_auditoria.json (el material que se audita)",
+                                                                  f"solicitud_auditoria.json (la solicitud a la que se responde: {sol['id']})"], aviso or None)
+        if st.get("esperando") != marca or "esperando_desde" not in st:
+            st["esperando_desde"] = dt.datetime.now().timestamp()
+        st["esperando"] = marca
+        if no_aceptada:
+            st["ultima_auditoria_no_aceptada"] = {"motivo": no_aceptada, "sha256": CIE.sha_archivo(destino), "solicitud_vigente": sol["id"]}
+        self.guardar()
+        raise Esperando(f"verificacion → auditoria.md (solicitud {sol['id']})" + (f"; {no_aceptada}" if no_aceptada else ""))
+
+    def validar_esquema(self, archivo, esquema, paso, nombre, turno=None):
+        """Valida la salida de un agente contra su esquema (Anexo D). Inválida → corrección al mismo agente; agotadas
+        max_correcciones_esquema (2) → no_entregable (nunca se sigue con un JSON que no cumple el esquema). Devuelve
+        None si es válida, "continuar" si se pidió corrección, o "fin" si terminó."""
+        cmd = [PY, self.script("validar_esquema.py"), self.p(archivo), esquema] + (["--turno", str(turno)] if turno else []) + ["--salida", self.p(f"esquema_{archivo}.txt")]
+        rc, out = self.run(cmd)
+        if rc == 0:
+            return None
+        if rc != 1:
+            return self.terminar("no_entregable", "fallo_de_implementacion", f"validar_esquema.py no pudo validar {archivo}: " + out[-300:], paso) or "fin"
+        clave = f"esquema_{nombre}"
+        self.st["intentos"][clave] = self.st["intentos"].get(clave, 0) + 1
+        if self.st["intentos"][clave] > self.lim.get("max_correcciones_esquema", 2):
+            self.terminar("no_entregable", "fallo_de_implementacion", f"{archivo} ({nombre}) no cumple su esquema tras {self.lim.get('max_correcciones_esquema', 2)} correcciones: " + out[-300:], paso,
+                          que_hace_falta=f"revisar el prompt de {nombre} (esquema del Anexo D) · ver esquema_{archivo}.txt", desde=paso)
+            return "fin"
+        self.pedir_correccion(paso, nombre, archivo, f"{archivo} no cumple el esquema del Anexo D (ver esquema_{archivo}.txt): " + out[:600])
+        self.log(f"esquema de {archivo} inválido: corrección {self.st['intentos'][clave]} a {nombre}")
+        return "continuar"
+
+    def correccion_formato(self, archivo, paso, nombre, motivo):
+        """Defecto de formato de una salida de agente detectado después del esquema (claves de celdas, Observaciones, vocabulario):
+        corrección al mismo agente con el contador de esquema (max_correcciones_esquema por agente); agotado → no_entregable."""
+        clave = f"esquema_{nombre}"
+        self.st["intentos"][clave] = self.st["intentos"].get(clave, 0) + 1
+        if self.st["intentos"][clave] > self.lim.get("max_correcciones_esquema", 2):
+            self.terminar("no_entregable", "fallo_de_implementacion", f"{archivo} ({nombre}) sigue fuera de formato tras {self.lim.get('max_correcciones_esquema', 2)} correcciones: {motivo[:300]}", paso,
+                          que_hace_falta=f"revisar el prompt de {nombre} (Anexo A / Anexo D)", desde=paso)
+            return "fin"
+        self.st["paso"] = paso
+        self.pedir_correccion(paso, nombre, archivo, motivo[:600])
+        self.log(f"formato de {archivo}: corrección {self.st['intentos'][clave]} a {nombre}")
+        return "continuar"
+
+    def citas_fase(self, archivo, paso, nombre):
+        """v2.1: comprueba las citas de una fase en cuanto llega su salida (su .md y todos los textos de su JSON), con páginas
+        estrictas y principio↔página de Damodaran (verify_quotes_v2.py). Un fallo vuelve al mismo agente como corrección de
+        formato: así se corrige en la fase que lo escribió, y no lo descubre la auditoría cuando ya no hay vuelta (prueba de
+        variabilidad de Rational, 3-nov-2026). Devuelve None, "continuar" o "fin"."""
+        base = archivo.rsplit(".", 1)[0]
+        tmp = self.p(f"citas_{base}.md")
+        try:
+            d = json.load(open(self.p(archivo), encoding="utf-8"))
+        except Exception:
+            return None  # el esquema ya lo habría rechazado
+        lineas = []
+
+        def hojas(x, ruta):
+            if isinstance(x, dict):
+                for k, v in x.items():
+                    hojas(v, f"{ruta}.{k}")
+            elif isinstance(x, list):
+                for i, v in enumerate(x):
+                    hojas(v, f"{ruta}[{i}]")
+            elif isinstance(x, str) and x.strip():
+                lineas.append(f"- {ruta}: {x}")
+        hojas(d, base)
+        open(tmp, "w", encoding="utf-8").write("\n".join(lineas) + "\n")
+        textos = [tmp] + ([self.p(base + ".md")] if os.path.exists(self.p(base + ".md")) else [])
+        cmd = [PY, self.script("verify_quotes_v2.py"), "--corpus", self.cfg.get("kit_v1", {}).get("corpus_munger", ""), "--corpus", self.cfg.get("corpus", {}).get("damodaran", ""), "--paginas-estrictas"] + textos
+        rc, out = self.run(cmd)
+        open(self.p(f"citas_{base}.txt"), "w", encoding="utf-8").write(out)
+        if rc == 0:
+            return None
+        malos = [l for l in out.splitlines() if l.startswith("  ")][:20]
+        return self.correccion_formato(archivo, paso, nombre, f"citas de {archivo} o {base}.md que no superan verify_quotes_v2.py (cita literal, página o principio↔página; ver citas_{base}.txt): " + " | ".join(m.strip() for m in malos))
+
+    def pedir_correccion(self, paso, nombre, salida, motivo):
+        self.st["esperando"] = f"{paso}:{salida}"
+        self.st["esperando_desde"] = dt.datetime.now().timestamp()
+        self.st["motivo_correccion"] = motivo
+        self.escribir_prompt(paso, nombre, salida, ["gramatica.md / motivo de la corrección"], motivo)
+        self.guardar()
+
+    def escribir_prompt(self, paso, nombre, salida, entradas, motivo=None):
+        os.makedirs(self.p("prompts_generados"), exist_ok=True)
+        plantilla = os.path.join(AQUI, "..", "prompts", f"{nombre}.md")
+        texto = open(plantilla, encoding="utf-8").read() if os.path.exists(plantilla) else f"(prompt de {nombre}: pendiente de la pieza 4)"
+        texto = texto.replace("{CARPETA}", self.c).replace("{EMPRESA}", self.E).replace("{MATERIAL_AUDITORIA}", str(self.st.get("material_auditoria") or "(sin fijar)"))
+        pend = [s for s in self.st.get("solicitudes_auditoria") or [] if s.get("estado") == "pendiente"]
+        texto = texto.replace("{SOLICITUD_AUDITORIA}", pend[-1]["id"] if pend else "(sin solicitud registrada)")
+        texto = texto.replace("{RAIZ_CORPUS}", os.path.dirname(self.cfg.get("corpus", {}).get("damodaran", "") or os.path.join(AQUI, "..", "corpus", "x"))).replace("{RAIZ}", os.path.abspath(os.path.join(AQUI, "..")))
+        raiz = os.path.abspath(os.path.join(AQUI, ".."))
+        rutas = [f"carpeta de la empresa: {self.c}", f"raíz del personaje v2 (personaje_munger_v2.md, ANEXO_*.md, ENCARGO_personaje_v2.md, scripts/, esquema/): {raiz}",
+                 f"corpus Munger (munger.md): {self.cfg.get('kit_v1', {}).get('corpus_munger', '')}", f"corpus Damodaran (damodaran.md, si existe): {self.cfg.get('corpus', {}).get('damodaran', '')}",
+                 f"modelo y esfuerzo previstos (config_v2.json → modelos): {json.dumps(self.cfg.get('modelos', {}).get(nombre.replace('_turno1', '').replace('_turno2', ''), {}), ensure_ascii=False)}"]
+        cab = f"# Paso {paso} · {nombre}\n\nEntradas (en {self.c}): " + ", ".join(entradas) + f"\n\nSalida esperada: {salida}\n\nRutas:\n" + "".join(f"- {r}\n" for r in rutas) + "\n"
+        if motivo:
+            cab += f"**CORRECCIÓN pedida por el pipeline:** {motivo}\n\n"
+        open(self.p("prompts_generados", f"{paso:02d}_{nombre}.md"), "w", encoding="utf-8").write(cab + "---\n\n" + texto)
+        open(self.p("ESPERANDO.md"), "w", encoding="utf-8").write(f"ESPERANDO al agente **{nombre}** (paso {paso}). " + (f"CORRECCIÓN: {motivo} " if motivo else "") + f"Entradas: {', '.join(entradas)}. Escribe **{salida}** en esta carpeta y vuelve a lanzar pipeline.py.\n")
+
+    # ---------- pasos mecánicos ----------
+    def escribir(self, fase_json, fase, libro_in, libro_out):
+        cj = self.p(f"celdas_{fase}.json")
+        rc, out = self.run([PY, self.script("fase_a_celdas.py"), self.p(fase_json), fase, cj])
+        if rc != 0:
+            return 11, out  # 11 = claves u Observaciones de la fase ausentes (defecto del agente, no del libro)
+        return self.run([PY, self.script("escribir_v63.py"), libro_in, libro_out, "--celdas", cj, "--verificar", self.cfg["plantilla"]["referencia"]])
+
+    def bloqueo_de_lectura(self):
+        """Tras la fase B, precio.json con `sin_lectura` significa que la hoja bloquea el valor o la lectura del precio
+        (Motor!B252/B253/B254). Un bloqueo nunca se convierte en aviso: según su causa (reglas del Motor) termina en
+        pendiente_de_datos (DATOS INVÁLIDOS), modelo_no_aplicable solo si la fase A lo declaró, o no_entregable."""
+        pr = json.load(open(self.p("precio.json"), encoding="utf-8")) if os.path.exists(self.p("precio.json")) else {}
+        if "sin_lectura" not in pr:
+            return False
+        res = json.load(open(self.p("resultados.json"), encoding="utf-8")) if os.path.exists(self.p("resultados.json")) else {}
+        reglas = [r for r in (res.get("reglas_motor") or []) if r.get("aplica") and r.get("resultado") in ("DATOS INVÁLIDOS", "MODELO NO APLICABLE", "INCOMPLETO") and r.get("nivel") in (1, 2)]
+        detalle = f"la hoja bloquea la lectura del precio tras la fase B: {pr['sin_lectura']} · reglas: " + "; ".join(f"{r.get('id')} {r.get('resultado')} ({r.get('causa', '')})" for r in reglas)[:400]
+        if any(r.get("resultado") == "DATOS INVÁLIDOS" for r in reglas):
+            self.terminar("pendiente_de_datos", "falta_de_datos", detalle, self.st["paso"], que_hace_falta="corregir el dato inválido en fase1_v63.json o en la etapa 1", desde=2)
+        else:
+            self.terminar("no_entregable", "fallo_de_implementacion", detalle, self.st["paso"], desde=8)
+        return True
+
+    def recalc_leer_precio(self, libro):
+        rc, out = self.run(["bash", self.script("recalc.sh"), libro, self.p("recalc"), self.perfil])
+        if rc != 0:
+            return False, "recálculo: " + out[-300:]
+        rec = self.p("recalc", os.path.basename(libro))
+        rc, out = self.run([PY, self.script("leer_resultados.py"), rec, self.p("resultados.json"), "--exigir-recalculo-forzado"])
+        if rc != 0:
+            return False, "lectura/recálculo no forzado: " + out[-300:]
+        if os.path.exists(self.p("precio.json")):
+            os.remove(self.p("precio.json"))  # nunca se lee una escalera de una pasada anterior
+        rc, out = self.run([PY, self.script("precio_de_si.py"), self.p("resultados.json"), self.p("precio.json"), "--k", str(self.cfg.get("convenciones", {}).get("k_asimetria", 3))])
+        if rc not in (0, 5) or not os.path.exists(self.p("precio.json")):
+            return False, f"precio_de_si.py terminó con código {rc}: " + out[-300:]
+        return True, rec
+
+    # ---------- flujo ----------
+    def correr(self, hasta=14):
+        st = self.st
+        libro_base, libro_datos, libro_ev = self.p(f"{self.E}_v63_base.xlsx"), self.p(f"{self.E}_v63_datos.xlsx"), self.p(f"{self.E}_v63_evaluada.xlsx")
+        while st["paso"] <= hasta and st["estado_analisis"] is None:
+            paso = st["paso"]
+            if paso == 0:
+                rc, out = self.run(["bash", self.script("comprobar_entorno.sh")])
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "entorno incompleto: " + out[-300:], 0)
+            elif paso == 1:
+                ev = [f for f in os.listdir(self.p("etapa1")) if f.endswith(".xlsx")] if os.path.isdir(self.p("etapa1")) else []
+                if not ev:
+                    return self.terminar("pendiente_de_datos", "falta_de_datos", "falta etapa1/<E>_evaluada.xlsx (V5.3 decidida por el v1, D2)", 1, que_hace_falta="José Luis: la V5.3 evaluada de la etapa 1 (S-1)", desde=1)
+                rc, out = self.run([PY, self.script("migrar_v53_a_v63.py"), self.p("etapa1", ev[0]), self.cfg["plantilla"]["archivo"], libro_base])
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "migración: " + out[-300:], 1)
+            elif paso == 2:
+                if not os.path.exists(self.p("fase1_v63.json")):
+                    # pieza 7: si hay informes en texto/, la Historia y los metadatos se construyen con agentes (fase1_historia.py)
+                    if not glob.glob(self.p("texto", "*.txt")):
+                        return self.terminar("pendiente_de_datos", "falta_de_datos", "falta fase1_v63.json y no hay informes en texto/ para construirlo", 2, que_hace_falta="José Luis: informes anuales de 10 años (PDF → texto/) o fase1_v63.json (S-2)", desde=2)
+                    rc, out = self.run([PY, self.script("fase1_historia.py"), "preparar", self.c, self.E])
+                    if rc == 10:
+                        self.st["esperando"] = "2:fase1"
+                        self.guardar()
+                        open(self.p("ESPERANDO.md"), "w", encoding="utf-8").write(open(self.p("ESPERANDO_FASE1.md"), encoding="utf-8").read())
+                        raise Esperando("fase 1 · Historia por año y metadatos (ver ESPERANDO.md)")
+                    if rc != 0:
+                        return self.terminar("pendiente_de_datos", "falta_de_datos", "fase1_historia preparar: " + out[-300:], 2, que_hace_falta="informes anuales con estados financieros en texto/", desde=2)
+                    rc, out = self.run([PY, self.script("fase1_historia.py"), "construir", self.c])
+                    if rc != 0:
+                        return self.terminar("pendiente_de_datos", "falta_de_datos", "fase1_historia construir: " + out[-400:], 2, que_hace_falta="ver historia_revision.md (datos esenciales ausentes o salidas inválidas)", desde=2)
+                    self.st["esperando"] = None
+                rc, out = self.run([PY, self.script("rellenar_fase1_v63.py"), libro_base, self.p("fase1_v63.json"), libro_datos])
+                if rc != 0:
+                    return self.terminar("no_entregable" if rc == 1 else "pendiente_de_datos", "fallo_de_implementacion" if rc == 1 else "falta_de_datos", "rellenar_fase1: " + out[-300:], 2)
+            elif paso == 3:
+                rc, out = self.run([PY, self.script("comprobar_entrada_v63.py"), libro_datos, self.c])
+                if rc == 1 and not os.path.exists(self.p("entrada_v63.json")):
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "comprobar_entrada_v63.py terminó con 1 sin escribir entrada_v63.json: " + out[-300:], 3)
+                if rc == 1:
+                    ent = json.load(open(self.p("entrada_v63.json"), encoding="utf-8"))
+                    return self.terminar("pendiente_de_datos", "falta_de_datos", "bloqueante en la entrada: " + "; ".join(f"{x['dato']}: {x.get('que', '')}" for x in ent["bloqueantes"])[:600], 3,
+                                         que_hace_falta="; ".join(f"{x['dato']} ← {x.get('origen_esperado', '')}" for x in ent["bloqueantes"])[:600], desde=2)
+                if rc not in (0,):
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "comprobar_entrada: " + out[-300:], 3)
+            elif paso == 4:
+                rc, out = self.run([PY, self.script("volcar_datos_v63.py"), self.p("recalc", os.path.basename(libro_datos)), self.c])
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "volcar_datos: " + out[-300:], 4)
+            elif paso == 5:
+                self.agente(5, "extraccion_v63", "extracto_v63.md", ["texto/", "extracto.md (etapa1)", "datos_v63.md"])
+            elif paso == 6:
+                self.agente(6, "fase_a", "fase_a.json", ["datos_v63.md", "extracto.md", "extracto_v63.md", "personaje_munger_v2.md"], alternativas=["fase_a.intento2.json"] if st["intentos"]["vueltas_b_a_a"] else [])
+                v = self.validar_esquema("fase_a.json", "fase_a", 6, "fase_a")
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                v = self.citas_fase("fase_a.json", 6, "fase_a")
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                fa = json.load(open(self.p("fase_a.json"), encoding="utf-8"))
+                motor = {"Sí": "A", "No · financiación cambia mucho": "B", "No · banco o aseguradora": "C"}.get((fa.get("celdas") or {}).get("C62"))
+                st["motor"] = motor
+                c62 = (fa.get("celdas") or {}).get("C62")
+                if motor is None and c62 != "No · este tipo de empresa requiere otro método":
+                    return self.terminar("no_entregable", "fallo_de_implementacion", f"Análisis!C62 = {c62!r} fuera del vocabulario (el esquema debía rechazarlo)", 6)
+                if (fa.get("limite_del_modelo") or {}).get("aplica") or motor is None:
+                    rc, out = self.escribir("fase_a.json", "A", libro_datos, libro_ev)
+                    if rc != 0:
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "escritura de la fase A: " + out[-300:], 6)
+                    rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", "A"])
+                    if rc != 0:
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "celdas de la fase A (límite del modelo): " + out[-400:], 6)
+                    return self.terminar("modelo_no_aplicable", "limite_del_modelo", (fa.get("limite_del_modelo") or {}).get("porque") or "C62 = otro método", 6, comprobacion=(fa.get("limite_del_modelo") or {}).get("cual"), categoria="límite del modelo")
+            elif paso == 7:
+                rc, out = self.escribir("fase_a.json", "A", libro_datos, libro_ev)
+                if rc == 11:  # claves u Observaciones de la fase A que faltan: es el agente quien corrige (D17), no un fallo mecánico
+                    v = self.correccion_formato("fase_a.json", 6, "fase_a", "celdas u Observaciones de la fase A ausentes o mal nombradas: " + out[-400:])
+                    if v == "continuar":
+                        continue
+                    return
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "escritura de la fase A: " + out[-300:], 7)
+                rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", "A"])
+                if rc != 0:
+                    v = self.correccion_formato("fase_a.json", 6, "fase_a", "celdas de la fase A fuera de regla (comprobar_celdas_v2): " + out[-400:])
+                    if v == "continuar":
+                        continue
+                    return
+                rc, out = self.run([PY, self.script("comprobar_entrada_v63.py"), libro_ev, self.c, "--motor", st["motor"]])
+                if rc == 1 and "Traceback" in out:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "comprobar_entrada_v63.py falló: " + out[-300:], 7)
+                if rc == 1:
+                    return self.terminar("pendiente_de_datos", "falta_de_datos", f"el motor {st['motor']} elegido por la fase A no es calculable: " + out[-300:], 7, que_hace_falta="datos de Historia que exige el motor (Contrato_de_relleno_V6.3.csv)", desde=2)
+                rc, out = self.run([PY, self.script("volcar_datos_v63.py"), self.p("recalc", os.path.basename(libro_ev)), self.c, "--referencias-mecanicas"])
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "referencias mecánicas: " + out[-300:], 7)
+            elif paso == 8:
+                n = st["intentos"]["fase_b"]
+                if st["intentos"]["vueltas_b_a_a"] and not st.get("esperando") and not self.sim and st.get("consumidos", {}).get("fase_b.json"):
+                    self.pedir_correccion(8, "fase_b", "fase_b.json", f"la fase A corrigió el motor o el caso especial tras un límite del modelo (vuelta B→A única): el motor es ahora {st.get('motor')}; traduce de nuevo las palancas con las referencias mecánicas nuevas")
+                self.agente(8, "fase_b", "fase_b.json", ["fase_a.json", "datos_v63.md", "referencias_mecanicas.json", "extracto_v63.md", "gramatica.md (si hay corrección)"],
+                            alternativas=[f"fase_b.intento{n + 1}.json"] if n else [])
+                v = self.validar_esquema("fase_b.json", "fase_b", 8, "fase_b")
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                v = self.citas_fase("fase_b.json", 8, "fase_b")
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                rc, out = self.run([PY, self.script("comprobar_gramatica.py"), self.c, "--antes-de-recalculo"])
+                if rc not in (0, 1, 2, 3):
+                    return self.terminar("no_entregable", "fallo_de_implementacion", f"comprobar_gramatica.py terminó con código {rc}: " + out[-300:], 8)
+                fb = json.load(open(self.p("fase_b.json"), encoding="utf-8"))
+                if (fb.get("limite_del_modelo") or {}).get("aplica") and rc != 3:
+                    # la fase B señala un límite del modelo al traducir (Anexo D §D.4): misma vuelta a la fase A que el código 3
+                    rc, out = 3, "límite del modelo declarado por la fase B: " + str((fb.get("limite_del_modelo") or {}).get("porque"))[:300]
+                if rc == 3:
+                    if st["intentos"]["vueltas_b_a_a"] >= self.lim.get("max_vueltas_fase_b_a_a_por_limite_del_modelo", 1):
+                        # nadie declaró el límite (la fase A tuvo su vuelta y no corrigió el motor ni lo declaró): no es un estado legítimo, es un fallo
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "límite del modelo (código 3) que la fase A no resolvió ni declaró en su vuelta: " + out[-200:], 8, categoria="límite del modelo", desde=6)
+                    st["intentos"]["vueltas_b_a_a"] += 1
+                    st["paso"] = 6
+                    self.pedir_correccion(6, "fase_a", "fase_a.json", "gramática código 3 (límite del modelo): la fase A tiene que corregir el motor o declarar el límite (una vuelta)")
+                    self.log("gramática código 3: vuelve a la fase A con la pregunta concreta (una vez)")
+                    continue
+                if rc in (1, 2):
+                    st["intentos"]["fase_b"] += 1
+                    if st["intentos"]["fase_b"] > self.lim.get("max_correcciones_fase_b", 2):
+                        g = json.load(open(self.p("gramatica.json"), encoding="utf-8")) if os.path.exists(self.p("gramatica.json")) else {"hallazgos": []}
+                        h = next((x for x in g["hallazgos"] if x["categoria"] == "error"), next((x for x in g["hallazgos"] if x["categoria"] == "desviación" and not x["justificada"]), {}))
+                        return self.terminar("no_entregable", "fallo_de_implementacion", f"gramática código {rc} tras {self.lim.get('max_correcciones_fase_b', 2)} correcciones de la fase B: {h.get('id')} {h.get('detalle', '')[:200]}", 8,
+                                             comprobacion=h.get("id"), categoria=h.get("categoria"), que_hace_falta="revisar el prompt de la fase B en la regla indicada (nunca se aprueba por agotamiento)", desde=8)
+                    self.pedir_correccion(8, "fase_b", "fase_b.json", f"gramática código {rc}: ver gramatica.md (corrección {st['intentos']['fase_b']})")
+                    self.log(f"gramática código {rc}: corrección {st['intentos']['fase_b']} de la fase B (gramatica.md)")
+                    continue
+            elif paso == 9:
+                rc, out = self.escribir("fase_b.json", "B", libro_ev, libro_ev + ".tmp.xlsx")
+                if rc == 11:
+                    v = self.correccion_formato("fase_b.json", 8, "fase_b", "celdas u Observaciones de la fase B ausentes o mal nombradas: " + out[-400:])
+                    if v == "continuar":
+                        continue
+                    return
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "escritura de la fase B: " + out[-300:], 9)
+                os.replace(libro_ev + ".tmp.xlsx", libro_ev)
+                st["fase_b_escrita"] = True
+                rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", "A,B"])
+                if rc != 0:
+                    v = self.correccion_formato("fase_b.json", 8, "fase_b", "celdas de la fase B fuera de regla (comprobar_celdas_v2): " + out[-400:])
+                    if v == "continuar":
+                        continue
+                    return
+                ok, rec = self.recalc_leer_precio(libro_ev)
+                if not ok:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", rec, 9)
+                rc, out = self.run([PY, self.script("comprobar_gramatica.py"), self.c, "--tras-recalculo"])
+                if rc not in (0, 1, 2, 3):
+                    return self.terminar("no_entregable", "fallo_de_implementacion", f"comprobar_gramatica.py terminó con código {rc}: " + out[-300:], 9)
+                if rc == 3:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "límite del modelo detectado tras el recálculo (debió detectarse antes del recálculo): " + out[-200:], 9, categoria="límite del modelo", desde=6)
+                if rc < 2 and self.bloqueo_de_lectura():
+                    return
+                if rc >= 2:
+                    g = json.load(open(self.p("gramatica.json"), encoding="utf-8")) if os.path.exists(self.p("gramatica.json")) else {"hallazgos": []}
+                    solo_g19 = all(x["id"] == "G19" for x in g["hallazgos"] if x["categoria"] == "error")
+                    if solo_g19:
+                        # G19 (valores por acción desordenados): vuelta a la fase B UNA vez; si persiste, no_entregable (§B.3)
+                        st["intentos"]["vueltas_g19"] = st["intentos"].get("vueltas_g19", 0) + 1
+                        if st["intentos"]["vueltas_g19"] > 1:
+                            return self.terminar("no_entregable", "fallo_de_implementacion", "G19 persiste tras su única vuelta a la fase B: " + out[-200:], 9, comprobacion="G19", categoria="error", desde=8)
+                    else:
+                        st["intentos"]["fase_b"] += 1
+                        if st["intentos"]["fase_b"] > self.lim.get("max_correcciones_fase_b", 2):
+                            return self.terminar("no_entregable", "fallo_de_implementacion", "error de gramática tras el recálculo que persiste: " + out[-200:], 9, categoria="error", desde=8)
+                    st["paso"] = 8
+                    self.pedir_correccion(8, "fase_b", "fase_b.json", f"gramática tras el recálculo código {rc}: ver gramatica.md (" + ("vuelta única por G19" if solo_g19 else f"corrección {st['intentos']['fase_b']}") + ")")
+                    self.log(f"gramática tras recálculo código {rc}: vuelve a la fase B")
+                    continue
+            elif paso == 10:
+                n = st["intentos"]["fase_c"]
+                if st.get("turno_c") != 2:
+                    if st["intentos"]["vueltas_c_a_b"] and not st.get("esperando") and not self.sim:
+                        # la única vuelta C→B ya se consumió: el turno 1 nuevo tiene que saberlo (un segundo revisar_palancas termina en no_entregable)
+                        self.pedir_correccion(10, "fase_c_turno1", "fase_c.json", "la fase B ya revisó las palancas en la única vuelta C→B admitida (§4.5): el libro está recalculado con las palancas nuevas; otro revisar_palancas termina en no_entregable")
+                    self.agente(10, "fase_c_turno1", "fase_c.json", ["fase_a.json", "fase_b.json", "resultados.json", "precio.json", "gramatica.md", "datos_ausentes.json", "datos_v63.md", "extractos"],
+                                alternativas=[f"fase_c.turno1.intento{n + 1}.json"] if n else ["fase_c.turno1.json"])
+                    v = self.validar_esquema("fase_c.json", "fase_c", 10, "fase_c_turno1", turno=1)
+                    if v == "continuar":
+                        continue
+                    if v == "fin":
+                        return
+                    v = self.citas_fase("fase_c.json", 10, "fase_c_turno1")
+                    if v == "continuar":
+                        continue
+                    if v == "fin":
+                        return
+                    fc = json.load(open(self.p("fase_c.json"), encoding="utf-8"))
+                    if fc.get("revisar_palancas"):
+                        if st["intentos"]["vueltas_c_a_b"] >= self.lim.get("max_vueltas_fase_c_a_b", 1):
+                            return self.terminar("no_entregable", "fallo_de_implementacion", "la fase C pide revisar palancas por segunda vez (máximo una vuelta)", 10, desde=8)
+                        st["intentos"]["vueltas_c_a_b"] += 1
+                        st["paso"] = 8
+                        self.pedir_correccion(8, "fase_b", "fase_b.json", "la fase C pide revisar palancas: " + str(fc.get("instrucciones_revision"))[:400])
+                        self.log("fase C pide revisar_palancas: vuelve a la fase B una sola vez")
+                        continue
+                    if (fc.get("limite_del_modelo") or {}).get("aplica"):
+                        fin = self.limite_declarado_por_c(fc, libro_ev)
+                        if fin == "continuar":
+                            continue
+                        return
+                    fm = fc.get("fundamento_material") or {}
+                    rda = fc.get("revision_datos_ausentes") or {}
+                    da = json.load(open(self.p("datos_ausentes.json"), encoding="utf-8")) if os.path.exists(self.p("datos_ausentes.json")) else []
+                    revisados = {x.get("dato") for x in (rda.get("revisados") or [])}
+                    sin_revisar = [x["dato"] for x in da if x["dato"] not in revisados]
+                    if sin_revisar:
+                        if self.correccion_c("revisión de datos ausentes incompleta (S-19): faltan " + ", ".join(sin_revisar)[:300], 10) == "continuar":
+                            continue
+                        return
+                    if (fm.get("comprobacion_conjunta") or {}).get("procede") and not rda.get("alguno_material"):
+                        if os.path.exists(self.p("comprobacion_conjunta.json")):
+                            os.remove(self.p("comprobacion_conjunta.json"))  # nunca se lee la de una pasada anterior
+                        rc, out = self.run([PY, self.script("comprobacion_conjunta.py"), self.c, libro_ev])
+                        if rc == 3:
+                            # combinación mal formada por el agente (celda ajena, de la fase C, valor no numérico): corrección a la fase C (D17), no fallo mecánico
+                            if self.correccion_c("combinación de la comprobación conjunta mal formada: " + out[-300:], 10) == "continuar":
+                                continue
+                            return
+                        if rc != 0:
+                            return self.terminar("no_entregable", "fallo_de_implementacion", "comprobación conjunta: " + out[-300:], 10)
+                if st.get("turno_c") != 2:
+                    st["turno_c"] = 2
+                    pendiente = st.get("motivo_correccion_c")
+                    self.pedir_correccion(10, "fase_c_turno2", "fase_c.json", "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)" + (f" · CORRECCIÓN PENDIENTE que motivó esta pasada: {pendiente}" if pendiente else ""))
+                self.agente(10, "fase_c_turno2", "fase_c.json", ["fase_c.json (turno 1)", "comprobacion_conjunta.json (si existe)"],
+                            alternativas=[f"fase_c.turno2.intento{n + 1}.json"] if n else ["fase_c.turno2.json"])
+                v = self.validar_esquema("fase_c.json", "fase_c", 10, "fase_c_turno2", turno=2)
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                v = self.citas_fase("fase_c.json", 10, "fase_c_turno2")
+                if v == "continuar":
+                    continue
+                if v == "fin":
+                    return
+                st["turno_c"] = None
+                st["estado_pendiente"] = None
+                st["estado_analisis_fase_c"] = None
+                st["motivo_correccion_c"] = None
+                fc = json.load(open(self.p("fase_c.json"), encoding="utf-8"))
+                if (fc.get("limite_del_modelo") or {}).get("aplica"):
+                    # límite declarado en el segundo turno: mismo tratamiento que en el primero (no se escriben las 16 celdas ni hay escalera)
+                    fin = self.limite_declarado_por_c(fc, libro_ev)
+                    if fin == "continuar":
+                        continue
+                    return
+                err = self.coherencia_fase_c(fc)
+                if err:
+                    if self.correccion_c("fase C incoherente: " + err, 10) == "continuar":
+                        continue
+                    return
+                rc, out = self.escribir("fase_c.json", "C", libro_ev, libro_ev + ".tmp.xlsx")
+                if rc == 11:
+                    if self.correccion_c("celdas u Observaciones de la fase C ausentes o mal nombradas: " + out[-400:], 10) == "continuar":
+                        continue
+                    return
+                if rc != 0:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "escritura de la fase C: " + out[-300:], 10)
+                os.replace(libro_ev + ".tmp.xlsx", libro_ev)
+                st["fase_c_escrita"] = True
+                rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", "A,B,C"])
+                if rc != 0:
+                    if self.correccion_c("celdas de la fase C: " + out[-400:], 10) == "continuar":
+                        continue
+                    return
+                ok, rec = self.recalc_leer_precio(libro_ev)
+                if not ok:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", rec, 10)
+                if self.bloqueo_de_lectura():
+                    return
+                rc, out = self.run([PY, self.script("comprobar_gramatica.py"), self.c, "--tras-recalculo", "--con-fase-c"])
+                if rc not in (0, 1, 2, 3):
+                    return self.terminar("no_entregable", "fallo_de_implementacion", f"comprobar_gramatica.py terminó con código {rc}: " + out[-300:], 10)
+                if rc >= 1:
+                    if self.correccion_c(f"gramática código {rc} tras la fase C (toda desviación tiene que estar justificada; ningún error): " + out[-200:], 10) == "continuar":
+                        continue
+                    return
+                st["estado_analisis_fase_c"] = fc.get("estado_analisis")
+            elif paso == 11:
+                est = st.get("estado_analisis_fase_c") or "concluido"
+                if est == "concluido":
+                    for f in ("diagnostico.md", "diagnostico.json"):
+                        if os.path.exists(self.p(f)):
+                            os.replace(self.p(f), self.p(f + ".anterior"))
+                    st["estado_pendiente"] = None
+                if est != "concluido":
+                    tipo = {"pendiente_de_investigacion": "incertidumbre_no_acotada", "pendiente_de_datos": "falta_de_datos", "modelo_no_aplicable": "limite_del_modelo"}[est]
+                    fc = json.load(open(self.p("fase_c.json"), encoding="utf-8"))
+                    fm = fc.get("fundamento_material") or {}
+                    det = fm.get("hipotesis_que_mas_condiciona") or ""
+                    que_falta, desde = (fm.get("que_lo_resolveria") or det or ""), "8"
+                    if est == "pendiente_de_datos":
+                        materiales = [x for x in (fc.get("revision_datos_ausentes") or {}).get("revisados", []) if x.get("material_para_conclusion_favorable")]
+                        det = "; ".join(f"{x.get('dato')}: {x.get('porque', '')}" for x in materiales)
+                        que_falta = "; ".join(f"{x.get('dato')} ← {x.get('que_falta') or 'dato ausente'} (afecta a: {x.get('conclusion_afectada', '')})" for x in materiales)
+                        desde = "2"  # los datos entran por fase1_v63.json / etapa 1: se reanuda desde el relleno de la fase 1
+                    st["estado_analisis"] = est
+                    self.guardar()
+                    self.run([PY, self.script("diagnostico.py"), self.c, "--estado", est, "--tipo", tipo, "--detalle", (det or est)[:500], "--paso", "10",
+                              "--que-hace-falta", que_falta[:500], "--desde-paso", desde, "--quien", "José Luis (datos o documentos) / Claude Code"])
+                    st["estado_analisis"] = None  # sigue hasta el paso 14 con las salidas
+                    st["estado_pendiente"] = est
+                # material PROVISIONAL para la auditoría (reparación del cierre, 4.6): la salida oficial no confirma el estado antes de
+                # una auditoría APROBADO del material vigente; una salida oficial anterior no convive con un material nuevo sin auditar
+                # (4.6.1) se archivan con su registro de retirada, la fila del resumen y el historial, no se renombran
+                CIE.archivar_salidas(self.c, "nuevo material provisional en el paso 11: la salida oficial anterior queda como antecedente", CIE.ruta_resumen(self.c, self.cfg), self.st)
+                self.run([PY, self.script("ficha.py"), self.c, "--estado", st.get("estado_pendiente") or "concluido", "--provisional"])
+                self.run([PY, self.script("informe.py"), self.c, "--provisional"])
+            elif paso == 12:
+                # se verifica siempre sobre un recálculo del libro tal como está ahora (al reanudar con --desde, resultados.json
+                # y recalc/ podían ser de una pasada anterior: visto con Vidrala, 3-nov-2026)
+                ok, rec = self.recalc_leer_precio(libro_ev)
+                if not ok:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", rec, 12)
+                rc, out = self.run(["bash", self.script("verificar_todo.sh"), self.c, libro_ev, libro_datos])
+                if rc != 0:
+                    fallos = [l.strip() for l in out.splitlines() if l.strip().startswith("FAIL")]
+                    return self.terminar("no_entregable", "fallo_de_implementacion", "verificar_todo.sh con FAIL: " + ("; ".join(fallos) or out[-400:])[:500], 12, que_hace_falta="ver verificacion_*.txt en la carpeta")
+            elif paso == 13:
+                n = st["intentos"]["auditoria"]
+                if st.get("esperando") != "13:auditoria.md" or not CIE.material_fijado(self.c):
+                    # el material provisional se regenera después del paso 12 (verificar_todo.sh deja el libro evaluado con sus cachés: la
+                    # huella de la ficha provisional tiene que ser la del libro auditado) y se fija ANTES de pedir la auditoría (no mientras
+                    # se espera: un cambio posterior tiene que notarse)
+                    self.run([PY, self.script("ficha.py"), self.c, "--estado", st.get("estado_pendiente") or "concluido", "--provisional"])
+                    self.run([PY, self.script("informe.py"), self.c, "--provisional"])
+                    st["material_auditoria"] = CIE.fijar_material(self.c, self.E)
+                    self.guardar()
+                # (4.8.1, R-T1) la auditoría responde a una solicitud identificable y persistente, ligada al material fijado; ni la fecha
+                # ni el formato de un informe anterior lo convierten en la respuesta a una solicitud nueva
+                sol = self.solicitud_auditoria_vigente()
+                txt = self.agente_auditoria(sol, alternativas=[f"auditoria.intento{n + 1}.md"] if n else [])
+                st["auditoria"] = self.veredicto_auditoria(txt)
+                sol["veredicto"] = st["auditoria"]
+                self.guardar()
+                if st["auditoria"] == "APROBADO":
+                    motivo = CIE.motivo_auditoria_no_corresponde(self.c, txt, self.E)
+                    if motivo:
+                        # una aprobación que no nombra el material vigente no cierra nada: se pide otra auditoría (no se aprueba ni se pasa a la fase C)
+                        st["auditoria"] = None
+                        st["intentos"]["auditoria_material"] = st["intentos"].get("auditoria_material", 0) + 1
+                        if st["intentos"]["auditoria_material"] > self.lim.get("max_correcciones_esquema", 2):
+                            return self.terminar("no_entregable", "fallo_de_implementacion", "auditoría que no corresponde al material vigente tras agotar las correcciones: " + motivo, 13, desde=13)
+                        self.pedir_correccion(13, "verificacion", "auditoria.md", f"auditoría inválida para el cierre: {motivo}. El material vigente es {st.get('material_auditoria')} (material_auditoria.json): repite las dieciséis comprobaciones sobre él y escribe «Material auditado: {st.get('material_auditoria')}»")
+                        self.log(f"auditoría APROBADO que no corresponde al material vigente: {motivo[:160]}")
+                        continue
+                if st["auditoria"] == "REPETIR":
+                    st["intentos"]["auditoria"] += 1
+                    if st["intentos"]["auditoria"] > self.lim.get("max_correcciones_auditoria", 2):
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "auditoría en REPETIR tras agotar las correcciones (nunca se aprueba por agotamiento)", 13, desde=10)
+                    st["paso"] = 10
+                    st["turno_c"] = 1
+                    st["intentos"]["fase_c"] = max(st["intentos"]["fase_c"], 1)
+                    self.pedir_correccion(10, "fase_c_turno1", "fase_c.json", "auditoría REPETIR: ver auditoria.md")
+                    self.log(f"auditoría REPETIR: corrección {st['intentos']['auditoria']} desde el paso 10 (fase C)")
+                    continue
+            elif paso == 14:
+                pendientes = [s for s in st.get("solicitudes_auditoria") or [] if s.get("estado") == "pendiente"]
+                # (4.8.1, R-T1) con una solicitud de auditoría pendiente, el cierre exige su respuesta: no lo cierra una aprobación anterior
+                motivo = (f"hay una solicitud de auditoría pendiente ({pendientes[-1]['id']}): el cierre exige su respuesta, no una aprobación anterior"
+                          if pendientes else CIE.motivo_rechazo_cierre(self.c, self.veredicto_auditoria, st, self.E))
+                if motivo:
+                    # ningún cierre oficial sin auditoría APROBADO válida del material vigente (también con --desde 14)
+                    st["paso"] = 13
+                    CIE.archivar_salidas(self.c, "cierre rechazado en el paso 14: " + motivo, CIE.ruta_resumen(self.c, self.cfg), st)
+                    st["paso"] = 13
+                    self.log(f"CIERRE RECHAZADO: {motivo}")
+                    raise CierreRechazado(motivo)
+                est = st.get("estado_pendiente") or "concluido"
+                st["estado_analisis"] = est
+                st["fin"] = dt.datetime.now().isoformat(timespec="seconds")
+                self.guardar()
+                if self.salidas_finales(cierre=True):
+                    # (4.8, X-c) la ficha no cumplió su esquema: el análisis termina en no_entregable por fallo de implementación
+                    # (diagnóstico con la causa y la vía de subsanación); no es un rechazo del cierre por la auditoría
+                    self.log(f"FIN · estado no_entregable · fallo_de_implementacion: ficha.json no cumple su esquema (estado previsto: {est}); ver diagnostico.md")
+                    return
+                if self.st.get("estado_analisis") != est or not os.path.exists(self.p("ficha.json")):
+                    # (4.7.1, W-e) un generador archivó la salida oficial (p. ej., ficha.py sustituyó la ficha cerrada y la nueva no
+                    # tiene aprobación registrada): no queda ningún cierre vigente; nunca se declara completado
+                    ultimo = ((self.st.get("cierres_archivados") or [{}])[-1] or {}).get("motivo") or "salida oficial archivada por un generador"
+                    self.st["paso"] = min(self.st.get("paso") or 13, 13)
+                    self.log(f"CIERRE RECHAZADO tras las salidas finales: {ultimo[:160]}")
+                    raise CierreRechazado(f"las salidas finales archivaron la salida oficial ({ultimo[:200]}); hace falta una auditoría nueva del material vigente")
+                self.log(f"FIN · estado {est} · auditoría {st.get('auditoria')}")
+                return
+            st["paso"] += 1
+            self.guardar()
+
+    def limite_declarado_por_c(self, fc, libro_ev):
+        """Límite del modelo declarado por la fase C (en cualquiera de los dos turnos): si corrige C62, se escribe (con E/F/N de su
+        fila; la clase y la confianza son convención del pipeline para esta única corrección mecánica, el apoyo es el motivo del
+        personaje) y se verifica; el análisis termina en modelo_no_aplicable sin escribir las 16 celdas ni escalera (§4.7, §7.3)."""
+        corr = {k: v for k, v in (fc.get("celdas_corregidas") or {}).items() if k in ("C62", "Análisis!C62") and v.get("despues") != v.get("antes")}
+        if corr:
+            v = list(corr.values())[0]
+            if v.get("despues") not in C.CELDAS["Análisis"]["C62"]["lista"]:
+                return self.correccion_c(f"la fase C corrige C62 a {v.get('despues')!r}, fuera del vocabulario de Análisis!C62", 10)
+            fila = C.CELDAS["Análisis"]["C62"]["cm"]
+            obs = f"[Clase: convención] [Confianza: media]\nHereda: {v.get('antes')} → cambia (razonamiento_corregido): corregida en la fase C al declarar el límite del modelo (clase y confianza: convención del pipeline para esta corrección). Apoyo (motivo del personaje): {str(v.get('motivo'))[:550]}. Lo sustituiría: un motor que capture esta empresa."
+            cj = self.p("celdas_C_limite.json")
+            json.dump({"Análisis!C62": v.get("despues"), f"Control maestro!E{fila}": C.E_LISTO, f"Control maestro!F{fila}": C.F_ESTIMACION, f"Control maestro!N{fila}": obs[:900]}, open(cj, "w", encoding="utf-8"), ensure_ascii=False)
+            rc, out = self.run([PY, self.script("escribir_v63.py"), libro_ev, libro_ev + ".tmp.xlsx", "--celdas", cj, "--verificar", self.cfg["plantilla"]["referencia"]])
+            if rc != 0:
+                if os.path.exists(libro_ev + ".tmp.xlsx"):
+                    os.remove(libro_ev + ".tmp.xlsx")
+                self.terminar("no_entregable", "fallo_de_implementacion", "escritura de C62 corregida por la fase C: " + out[-300:], 10)
+                return "fin"
+            os.replace(libro_ev + ".tmp.xlsx", libro_ev)
+        self.terminar("modelo_no_aplicable", "limite_del_modelo", (fc.get("limite_del_modelo") or {}).get("porque") or "límite del modelo declarado por la fase C", 10, categoria="límite del modelo")
+        return "fin"
+
+    def correccion_c(self, motivo, paso):
+        st = self.st
+        st["intentos"]["fase_c"] += 1
+        if st["intentos"]["fase_c"] > self.lim.get("max_correcciones_fase_c", self.lim.get("max_correcciones_fase_b", 2)):
+            self.terminar("no_entregable", "fallo_de_implementacion", f"fase C tras agotar las correcciones: {motivo}", paso, desde=10, que_hace_falta="revisar el prompt de la fase C en la regla indicada")
+            return "fin"
+        st["turno_c"] = 1
+        st["paso"] = 10
+        st["motivo_correccion_c"] = motivo[:400]
+        self.pedir_correccion(10, "fase_c_turno1", "fase_c.json", motivo[:400])
+        self.log(f"corrección {st['intentos']['fase_c']} de la fase C: {motivo[:200]}")
+        return "continuar"
+
+    @staticmethod
+    def veredicto_auditoria(txt):
+        """Regla de la reparación H2 (8-nov-2026; Anexo D §D.9, prompts/verificacion.md, DECISIONES.md).
+
+        APROBADO solo si se cumplen las tres condiciones:
+          1. formato válido: los puntos 1 a 16, cada uno una sola vez y ningún otro número. Un punto es una línea
+             «N. PASA» o «N. FALLA» (se admiten marcas de markdown delante y alrededor: `**`, `-`, `#`, `>`, `_`);
+          2. los 16 puntos en PASA y la palabra «FALLA» en ninguna parte de la auditoría (una observación que no impide
+             aprobar se escribe dentro de un punto en PASA como «Aviso: …»);
+          3. exactamente una línea «Veredicto: …» y dice APROBADO, sin coletillas.
+        Encabezado (cierre de H2, 8-nov-2026): toda línea que empieza, tras marcas de markdown, por un número de 1 a 3 cifras
+        seguido de «.», «)», «:», «·» o un guion que no va seguido de otra cifra («17. PENDIENTE», «100. PASA», «8) PASA»,
+        «(9) …», «**9.** …», «8 – …»), o seguido de una palabra en mayúsculas («8 PENDIENTE»). Cada
+        encabezado tiene que ser un punto válido (número 1–16, separador «.», estado PASA o FALLA); uno solo que no lo sea basta
+        para REPETIR, sea cual sea su número o su estado. No son encabezados las cifras de la evidencia: «1.036 mm», «14,6»,
+        «3.463», «12:30» (separador seguido de cifra) ni los años o importes de 4 o más cifras al principio («2016: −238»).
+        Cualquier otra cosa es REPETIR: la duda nunca aprueba (D17)."""
+        import re
+        limpio = txt.replace("\\.", ".")
+        lineas = [l for l in limpio.splitlines() if re.match(r"^[\s>*#_-]*veredicto[\s*_]*:", l, re.I)]
+        if len(lineas) != 1:
+            return "REPETIR"
+        resto = re.sub(r"^[\s>*#_-]*veredicto[\s*_]*:", "", lineas[0], flags=re.I).strip().strip("*_ ").strip()
+        if not re.fullmatch(r"APROBADO[\s.]*", resto, flags=re.I):
+            return "REPETIR"
+        if re.search(r"\bFALLA\b", limpio, flags=re.I):
+            return "REPETIR"
+        encabezado = re.compile(r"^[\s>*#_|-]*\(?(\d{1,3})(?:\)|\s*[.:)·–—-])(?!\d)|^[\s>*#_|-]*(\d{1,3})\s+\**[A-ZÁÉÍÓÚÑ]{4,}\b")
+        valido = re.compile(r"^[\s>*#_|-]*(\d{1,2})\.[\s*_]*(PASA|FALLA)\b", flags=re.I)
+        puntos = []
+        for l in limpio.splitlines():
+            if not encabezado.match(l):
+                continue
+            m = valido.match(l)
+            if not m or not 1 <= int(m.group(1)) <= 16:
+                return "REPETIR"
+            puntos.append((int(m.group(1)), m.group(2).upper()))
+        numeros = [n for n, _ in puntos]
+        if sorted(numeros) != list(range(1, 17)):
+            return "REPETIR"
+        if any(estado != "PASA" for _, estado in puntos):
+            return "REPETIR"
+        return "APROBADO"
+
+    def coherencia_fase_c(self, fc):
+        """Coherencia del cierre de la fase C (encargo §8, Anexo D §D.6, S-19, D10, D16). No se fía solo de lo que escribe el
+        agente: cruza con precio.json (zona), comprobacion_conjunta.json (sobrevive del script) y la lista de hipótesis."""
+        est = fc.get("estado_analisis")
+        dec = fc.get("decision") or {}
+        acc = dec.get("accion")
+        cubo = fc.get("cubo_final")
+        fm = fc.get("fundamento_material") or {}
+        cc = fm.get("comprobacion_conjunta") or {}
+        hs = fm.get("hipotesis_sin_fundamento") or []
+        rda = fc.get("revision_datos_ausentes") or {}
+        revisados = rda.get("revisados") or []
+        precio = json.load(open(self.p("precio.json"), encoding="utf-8")) if os.path.exists(self.p("precio.json")) else {}
+        ccj = json.load(open(self.p("comprobacion_conjunta.json"), encoding="utf-8")) if os.path.exists(self.p("comprobacion_conjunta.json")) else None
+        zona = precio.get("zona")
+        if est not in ("concluido", "pendiente_de_investigacion", "modelo_no_aplicable", "pendiente_de_datos"):
+            return f"estado_analisis {est!r} no válido"
+        if cubo not in C.CUBOS:
+            return f"cubo_final {cubo!r} no válido"
+        if acc not in C.ACCIONES + (None,):
+            return f"accion {acc!r} no válida"
+        # S-19: la materialidad declarada por dato manda sobre el resumen
+        material_real = any(x.get("material_para_conclusion_favorable") for x in revisados)
+        if bool(rda.get("alguno_material")) != material_real:
+            return f"alguno_material = {rda.get('alguno_material')} pero los datos revisados dicen {material_real} (S-19)"
+        if material_real and est != "pendiente_de_datos" and not (est == "concluido" and acc in ("descartar", "demasiado_dificil")) and est != "modelo_no_aplicable":
+            # un dato material para la conclusión favorable solo convive con descartar/demasiado_dificil (§8: el descalificador va antes) o con el límite del modelo
+            return "revisión de datos ausentes material pero estado ≠ pendiente_de_datos (S-19); solo descartar/demasiado_dificil pueden convivir con un dato material"
+        if est == "pendiente_de_datos" and not material_real:
+            return "pendiente_de_datos sin ningún dato ausente declarado material (S-19)"
+        if est == "pendiente_de_datos" and (acc is not None or cubo == "Sí"):
+            return "pendiente_de_datos exige acción null y cubo ≠ Sí"
+        if est == "pendiente_de_investigacion" and (acc is not None or cubo != "Vigilar"):
+            return "pendiente_de_investigacion exige cubo Vigilar y acción null"
+        if est == "modelo_no_aplicable":
+            if not (fc.get("limite_del_modelo") or {}).get("aplica"):
+                return "modelo_no_aplicable sin limite_del_modelo.aplica"
+            if acc in ("comprar", "esperar") or cubo == "Sí":
+                return "modelo_no_aplicable no admite comprar/esperar ni cubo Sí"
+        # autocomprobación (P-1): diez entradas que cubran las diez tendencias de la sección 16 (se reconocen por palabras clave)
+        claves = [("anclaje", "etapa 1"), ("precio|fuente externa",), ("consistencia|compromiso",), ("historia bonita|viento de cola",),
+                  ("optimismo|tasa base",), ("doble castigo|mismo riesgo",), ("disponibilidad|v[ií]vido",), ("autoridad|gu[ií]a de la direcci",),
+                  ("malo",), ("no numerable|no está en las palancas|no esta en las palancas",)]
+        sesgos = [str(x.get("sesgo") or "").lower() for x in (fc.get("autocomprobacion") or [])]
+        if len(sesgos) != 10:
+            return f"autocomprobacion con {len(sesgos)} entradas (tienen que ser las diez tendencias de la sección 16)"
+        for patrones in claves:
+            if not any(all(re.search(pt, sg) for pt in patrones) for sg in sesgos):
+                return f"autocomprobacion: falta la tendencia «{' + '.join(patrones)}» (sección 16)"
+        # celdas_corregidas: solo C62 (límite del modelo) puede cambiar de valor; lo demás se documenta sin cambiar (una vuelta C→A no existe)
+        for k, v in (fc.get("celdas_corregidas") or {}).items():
+            if k not in ("C62", "Análisis!C62") and v.get("despues") != v.get("antes"):
+                return f"celdas_corregidas[{k}] cambia el valor ({v.get('antes')!r} → {v.get('despues')!r}): la fase C no reescribe celdas de A/B; pide revisar_palancas o deja despues = antes y lo anota en incoherencias"
+        # fundamento material (D10)
+        sin_base = [h.get("celda") for h in hs if not ((h.get("alternativas_defendibles") or {}).get("hay_base"))]
+        res_fm = fm.get("resultado")
+        if est == "concluido":
+            if acc is None:
+                return "concluido sin acción"
+            if (acc == "comprar") != (cubo == "Sí"):
+                return "comprar ⇔ cubo Sí"
+            if acc == "comprar":
+                if "sin_lectura" in precio or "sin_escalera" in precio or zona not in ("cumple_regla_k", "bajo_malo"):
+                    return f"comprar con zona {zona!r} de precio.json (solo cumple_regla_k o bajo_malo)"
+                if not hs:
+                    if res_fm != "sin_limitacion":
+                        return f"comprar sin hipótesis sin fundamento exige resultado sin_limitacion (hay {res_fm!r})"
+                else:
+                    if res_fm != "comprobacion_conjunta_superada":
+                        return f"comprar con {len(hs)} hipótesis sin fundamento exige comprobacion_conjunta_superada (hay {res_fm!r})"
+                    if sin_base:
+                        return f"comprar con hipótesis sin base para acotar: {sin_base}"
+                    if not cc.get("procede") or not cc.get("combinacion"):
+                        return "comprar con hipótesis sin fundamento pero sin comprobación conjunta (procede/combinacion)"
+                    if ccj is None:
+                        return "comprar con comprobación conjunta declarada pero sin comprobacion_conjunta.json (el script no la ejecutó)"
+                    if cc.get("sobrevive") is not True or ccj.get("sobrevive") is not True:
+                        return f"comprar con comprobación conjunta no superada (fase C: {cc.get('sobrevive')}; script: {ccj.get('sobrevive')})"
+            if acc == "esperar":
+                if cubo != "Vigilar":
+                    return "esperar ⇔ cubo Vigilar"
+                po = dec.get("precio_objetivo"); psi = precio.get("precio_si")
+                if zona in ("cumple_regla_k", "bajo_malo"):
+                    if not (dec.get("condicion") or "").strip():
+                        return f"esperar con zona {zona}: exige una condición concreta que no sea de precio"
+                elif not (isinstance(po, (int, float)) and isinstance(psi, (int, float)) and abs(po - psi) <= 0.005 * max(1, abs(psi))):
+                    return f"esperar: precio_objetivo {po!r} ≠ precio de Sí de precio.json {psi!r}"
+            if acc == "descartar" and cubo != "No":
+                return "descartar ⇔ cubo No"
+            if acc == "demasiado_dificil" and cubo != "Demasiado difícil":
+                return "demasiado_dificil ⇔ cubo Demasiado difícil"
+            if res_fm == "pendiente_de_investigacion":
+                return "fundamento_material pendiente_de_investigacion con estado concluido"
+        if est == "pendiente_de_investigacion" and res_fm != "pendiente_de_investigacion":
+            return f"pendiente_de_investigacion exige fundamento_material.resultado = pendiente_de_investigacion (hay {res_fm!r})"
+        if cc.get("sobrevive") is not None and ccj is not None and cc.get("sobrevive") != ccj.get("sobrevive"):
+            return f"sobrevive de la fase C ({cc.get('sobrevive')}) ≠ sobrevive del script ({ccj.get('sobrevive')})"
+        if cc.get("sobrevive") is not None and ccj is None:
+            return "sobrevive informado sin comprobacion_conjunta.json"
+        # C104 (D16) coherente con el estado y la acción
+        c104 = str((fc.get("celdas") or {}).get("C104") or "")
+        if not c104.startswith(C.C104_PREFIJO) or "%" in c104:
+            return f"C104 no empieza por «{C.C104_PREFIJO}» o contiene un porcentaje (D16)"
+        esperado = {"comprar": "comprar al precio actual", "esperar": "esperar", "descartar": "descartar", "demasiado_dificil": "demasiado difícil"}.get(acc)
+        if est == "pendiente_de_datos":
+            esperado = "sin conclusión (pendiente de datos"
+        elif est == "pendiente_de_investigacion":
+            esperado = "sin conclusión (pendiente de investigación)"
+        if esperado and esperado.lower() not in c104.lower():
+            return f"C104 no dice «{esperado}» (estado {est}, acción {acc})"
+        if est != "modelo_no_aplicable":
+            # correspondencia cerrada D10 ↔ estado ↔ acción ↔ etiqueta visible de C104 (cierre_v2.FUNDAMENTO_C104; reparación 4.6)
+            motivo = CIE.motivo_c104_fundamento(est, acc, res_fm, c104)
+            if motivo:
+                return motivo
+        sin_escalera = "sin escalera aplicable" in c104.lower()
+        if sin_escalera and (acc in ("comprar", "esperar") or est in ("pendiente_de_datos", "pendiente_de_investigacion")):
+            return "C104 dice «sin escalera aplicable» con una conclusión que necesita la escalera"
+        if not sin_escalera:
+            for clave, valor in (("precio de Sí", precio.get("precio_si")), ("precio esc. MALO", precio.get("precio_escenario_malo")), ("ponderado", precio.get("ponderado"))):
+                if isinstance(valor, (int, float)):
+                    formas = {f"{valor:.2f}", f"{valor:.1f}", f"{valor:.0f}"}
+                    formas |= {f.replace(".", ",") for f in formas}
+                    if not any(f in c104 for f in formas):
+                        if acc in ("descartar", "demasiado_dificil") or est == "modelo_no_aplicable":
+                            return f"C104 no lleva el {clave} de precio.json ({valor:.2f}) ni dice «sin escalera aplicable»"
+                        return f"C104 no lleva el {clave} de precio.json ({valor:.2f})"
+        return None
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("carpeta")
+    ap.add_argument("--config", default=os.path.join(AQUI, "..", "config_v2.json"))
+    ap.add_argument("--agentes-simulados")
+    ap.add_argument("--hasta", type=int, default=14)
+    ap.add_argument("--reiniciar", action="store_true")
+    ap.add_argument("--desde", type=int)
+    a = ap.parse_args()
+    cfg = config_v2.cargar(a.config)
+    if a.reiniciar and os.path.exists(os.path.join(a.carpeta, "estado_pipeline.json")):
+        os.remove(os.path.join(a.carpeta, "estado_pipeline.json"))
+    try:
+        p = Pipeline(a.carpeta, cfg, a.agentes_simulados)
+    except (ValueError, OSError) as e:
+        # (4.9, Z-2 de la auditoría interna; V-2 del control de vigencia: también si es una carpeta) estado_pipeline.json ilegible: el pipeline no puede continuar, pero antes retira una salida
+        # oficial cerrada que ya no puede acreditarse (ficha, informe y filas de todos los destinos registrados del resumen)
+        motivo, archivo = CIE.asegurar_vigencia(a.carpeta, Pipeline.veredicto_auditoria, os.path.basename(os.path.abspath(a.carpeta)), CIE.ruta_resumen(a.carpeta, cfg))
+        pend = CIE.sincronizar_resumenes(a.carpeta, Pipeline.veredicto_auditoria) or CIE.retiradas_pendientes(a.carpeta)
+        print(f"ESTADO DEL PIPELINE ILEGIBLE (estado_pipeline.json: {str(e)[:120]}): restaurarlo desde una copia o relanzar con --reiniciar."
+              + (f" Salidas oficiales archivadas en {os.path.relpath(archivo, a.carpeta)}: {motivo}." if archivo else "")
+              + (f" RETIRADA PENDIENTE en {pend}." if pend else ""))
+        return 5 if pend else 6
+    # vigencia (4.6.1): antes de nada, una salida oficial cerrada que ya no corresponde a una aprobación válida del material actual
+    # se archiva como antecedente (historial_cierres/), con la fila del resumen y el estado del pipeline; nunca sigue como vigente
+    motivo, archivo = CIE.asegurar_vigencia(p.c, p.veredicto_auditoria, p.E, CIE.ruta_resumen(p.c, cfg), p.st)
+    if archivo:
+        p.guardar()
+        print(f"SALIDAS OFICIALES ARCHIVADAS ({os.path.relpath(archivo, p.c)}): {motivo}")
+    # (4.7) la aprobación publicada se retira en todos los destinos registrados del resumen (también si ficha, informe y
+    # cierre_vigente.json ya estaban archivados); un destino inaccesible deja la retirada pendiente y detiene con código 5
+    pend = CIE.sincronizar_resumenes(p.c, p.veredicto_auditoria, p.E) or CIE.retiradas_pendientes(p.c)
+    if pend:
+        print(f"RETIRADA PENDIENTE de la aprobación publicada en {pend}: no se continúa hasta completarla (ver {CIE.REGISTRO_RESUMEN})")
+        return 5
+    if a.desde is None and p.st.get("estado_analisis") and p.st.get("resumen_pendiente"):
+        # (4.8, Z-a) la fila del estado final no se pudo publicar en la ejecución anterior: se publica ahora que las retiradas están completas
+        rc_res, out_res = p.run([PY, p.script("resumen.py"), p.c, CIE.ruta_resumen(p.c, cfg)])
+        p.adoptar_archivo(conservar_estado=True)
+        p.st["resumen_pendiente"] = rc_res != 0
+        p.log(f"publicación pendiente del resumen: resumen.py → {rc_res}")
+    if a.desde is not None:
+        if p.st.get("estado_analisis") not in (None, "concluido"):
+            # (4.8, Z-h) al reanudar desde un estado final, su diagnóstico pasa a antecedente (como se hace con concluido)
+            for f in ("diagnostico.md", "diagnostico.json"):
+                if os.path.exists(p.p(f)):
+                    os.replace(p.p(f), p.p(f + ".anterior"))
+        p.st["paso"] = a.desde
+        p.st["estado_analisis"] = None
+        p.st["esperando"] = None
+        p.guardar()  # verificar_todo.sh lee estado_pipeline.json del disco: no debe ver el estado final de la ejecución anterior
+    try:
+        p.correr(a.hasta)
+    except Esperando as e:
+        print(f"ESPERANDO: {e} (ver ESPERANDO.md y prompts_generados/)")
+        return _pendientes_al_terminar(p, 10)
+    except CierreRechazado as e:
+        print(f"CIERRE RECHAZADO: {e}. No queda ninguna salida oficial vigente; el pipeline vuelve al paso 13 (auditoría).")
+        return _pendientes_al_terminar(p, 4)
+    except CIE.RegistroAuditoriasIlegible as e:
+        # (4.8.1, V-9 del control de vigencia) falla del lado seguro, con un motivo explícito
+        print(f"REGISTRO DE AUDITORÍAS ILEGIBLE: {e}")
+        return 6
+    if os.path.exists(p.p("ESPERANDO.md")) and p.st.get("esperando") is None:
+        os.remove(p.p("ESPERANDO.md"))
+    causa = ""
+    dg = json.load(open(p.p("diagnostico.json"), encoding="utf-8")) if p.st.get("estado_analisis") not in (None, "concluido") and os.path.exists(p.p("diagnostico.json")) else {}
+    if dg and dg.get("estado_analisis") == p.st.get("estado_analisis"):
+        # (4.8, X-c) la última línea dice también la causa y por dónde se sigue (diagnostico.md); (V-a del control de vigencia) solo
+        # con un diagnóstico del mismo estado final, nunca sin estado
+        causa = (f" · causa: {(dg.get('causa') or {}).get('tipo')}: {(str((dg.get('causa') or {}).get('detalle') or '').splitlines() or [''])[0][:140]}"
+                 f" · continuar desde el paso {(dg.get('para_continuar') or {}).get('desde_que_paso')} (ver diagnostico.md)")
+    print(f"estado final: {p.st.get('estado_analisis')} · paso {p.st['paso']}{causa}")
+    return _pendientes_al_terminar(p, 0)
+
+
+def _pendientes_al_terminar(p, rc):
+    """(4.7, H-9 de la auditoría interna) una retirada pendiente nacida DENTRO de la ejecución (paso 11, rechazo del paso 14,
+    resumen.py en las salidas finales) también detiene con código 5."""
+    pend = CIE.retiradas_pendientes(p.c)
+    if pend:
+        print(f"RETIRADA PENDIENTE de la aprobación publicada en {pend} (ver {CIE.REGISTRO_RESUMEN}); código {rc} sustituido por 5")
+        return 5
+    return rc
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,2324 @@
+{
+ "empresa": "Viscofan",
+ "unidad": "mm",
+ "fechas": {
+  "ejecucion": "2026-11-13",
+  "base_ultimo_ejercicio": 2025,
+  "precio": "2026-11-03",
+  "acciones": "2025-12-31",
+  "revision_de_fuentes": "2026-11-13"
+ },
+ "huella_entradas_economicas": "2c143b0451a71d730e4b1dd74941837b0a2eed56144b5bb61c7406f8eed298e4",
+ "n_celdas_economicas": 232,
+ "clases_de_identificador": {
+  "D": "dato publicado",
+  "C": "cálculo derivado de datos publicados",
+  "V": "convención",
+  "H": "hipótesis (juicio)"
+ },
+ "entradas": [
+  {
+   "id": "D-precio",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "Bolsamania, cierre del 2026-11-03 17:35 (54,70 EUR, rango día 54,50-55,30). Otras fuentes más antiguas: Investing.com 54,00 EUR (2026-10-28), Google Finance 55,20 EUR (2026-10-23)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "cierre del 2026-11-03",
+    "unidad": "EUR/acción",
+    "periodo_que_usa_el_calculo": "fecha de valoración (Palancas C45)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "fecha 2026-11-03 · moneda de cotización EUR",
+    "naturaleza": "Dato objetivo de mercado"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C37",
+    "valor": 54.7
+   },
+   "magnitud": "precio en una fecha",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (lectura del precio)"
+   }
+  },
+  {
+   "id": "C-capitalizacion",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "Precio 54,70 EUR (cierre del 3-nov-2026) × 45,479209 millones (media ponderada «diluida» de 2025): fechas mezcladas, precio de 2026 y acciones medias de 2025",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "precio del 3-nov-2026 × acciones medias de 2025",
+    "unidad": "millones de EUR",
+    "periodo_que_usa_el_calculo": "fecha de valoración, en la moneda de cotización"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "Con las acciones en circulación a 30-jun-2026 (45,604) sería 2.494,5; a 31-dic-2025 (45,993), 2.515,8. Solo contraste.",
+    "naturaleza": "Dato objetivo de mercado"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C41",
+    "valor": 2487.7
+   },
+   "magnitud": "stock en una fecha",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (bloquea el valor si falta; peso de financiación en B)"
+   }
+  },
+  {
+   "id": "C-acciones",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR_2025, nota 20.2: media ponderada «diluida» de acciones en circulación de 2025, la publicada (45,479209 millones). Contradice su propia definición: queda por debajo de la básica (45,656226) con el mismo numerador, y su BPA (3,52) supera al básico (3,50); en 2024 sí la superaba. Otras cifras con su concepto y fecha: en circulación 45,993399 a 31-dic-2025 y 45,603643 a 30-jun-2026 (CNMV); no hay cifra al 3-nov-2026. La cifra no se sustituye (decisión VISCOFAN-ACCIONES, sin firmar): 2026-11_Vidrala_ensayo_4_13/fuentes/CONCILIACION_ACCIONES_VISCOFAN_4_13.md",
+    "pagina": "119",
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "media ponderada del ejercicio 2025 (publicada como diluida)",
+    "unidad": "millones de acciones",
+    "periodo_que_usa_el_calculo": "acciones vigentes en la fecha de valoración (no la media del ejercicio)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "Sensibilidad de definición (no corrección): básica media 2025 45,656; en circulación 45,993 (31-dic-2025) y 45,604 (30-jun-2026); plan de incentivos 2025–2027 hasta 0,315 (objetivo) o 0,4725 (máximo) millones de acciones en 2028. Precio de Sí con cada una en resultados/alternativas_acciones_viscofan.md; todas en «caro».",
+    "naturaleza": "Dato objetivo condicionado a definición"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C55",
+    "valor": 45.479209
+   },
+   "magnitud": "número de acciones en una fecha",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre"
+   }
+  },
+  {
+   "id": "C-cfo_media",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR2025; CCAA2022–24; IF_1S26",
+    "pagina": "EFE AR2025 p.27; IF_1S26 p.15",
+    "url": "Documento adjunto por el inversor",
+    "tipo_fuente": "Cuentas anuales auditadas + intermedios"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "3 años 2023–25",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "media de 3–5 ejercicios (declara cuál en la columna G)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": "Decisión del inversor (23-oct-2026): FCF base con media 3 años 2023–25 (CFO, capex, intereses y leases en financiación, SBC = ajuste del EFE) → C46 = 192.3. Antes: CFO: 5a 183,8 · 3a 192,3 · LTM 216,5. La elección del periodo cambia el FCF base >10% (84,1 / 100,9 / 122,4 antes de SBC) → normalización discrecional del inversor.",
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "Causa: acumulación de circulante 2022–23 (−106 / −91 mm). Intereses y leases en financiación (C48/C49 aplican).",
+    "naturaleza": "Dato objetivo / cash flow"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C46",
+    "valor": 192.3
+   },
+   "magnitud": "flujo (media de ejercicios)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "siempre en A (FCF base)"
+   }
+  },
+  {
+   "id": "C-capex_media",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR2025; IF_1S26",
+    "pagina": "EFE AR2025 p.27; IF_1S26 p.15",
+    "url": "Documento adjunto por el inversor",
+    "tipo_fuente": "Cuentas anuales auditadas + intermedios"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "3 años 2023–25",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "media de 3–5 ejercicios"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": "Decisión del inversor (23-oct-2026): FCF base con media 3 años 2023–25 (CFO, capex, intereses y leases en financiación, SBC = ajuste del EFE) → C47 = 77.5. Antes: Capex en caja (material + intangible), positivo, sin adquisiciones de negocios: 5a 88,8 · 3a 77,5 · LTM 79,4.",
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "Signo original negativo en el EFE. Adquisiciones (media 5a 3,2 mm) excluidas del capex.",
+    "naturaleza": "Dato objetivo / cash flow"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C47",
+    "valor": 77.5
+   },
+   "magnitud": "flujo (media de ejercicios)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "siempre en A"
+   }
+  },
+  {
+   "id": "C-int_fin_media",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR2025; IF_1S26",
+    "pagina": "EFE AR2025 p.27; IF_1S26 p.15",
+    "url": "Documento adjunto por el inversor",
+    "tipo_fuente": "Cuentas anuales auditadas + intermedios"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "3 años 2023–25",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "media de 3–5 ejercicios"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": "Decisión del inversor (23-oct-2026): FCF base con media 3 años 2023–25 (CFO, capex, intereses y leases en financiación, SBC = ajuste del EFE) → C48 = 8.3. Antes: Intereses pagados, clasificados en FINANCIACIÓN todos los años → aplica C48: 5a 5,5 · 3a 8,3 · LTM 9,2.",
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "Ojo: los intereses suben con la deuda (deuda bancaria 341 mm a jun-26); la media 5a infraestima el coste actual.",
+    "naturaleza": "Dato objetivo / revisión IFRS"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C48",
+    "valor": 8.3
+   },
+   "magnitud": "flujo (media de ejercicios)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "siempre en A (0 explícito si no hay)"
+   }
+  },
+  {
+   "id": "C-leases_media",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR2025",
+    "pagina": "EFE AR2025 p.27; p.79–80",
+    "url": "Documento adjunto por el inversor",
+    "tipo_fuente": "Cuentas anuales auditadas"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "3 años 2023–25",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "media de 3–5 ejercicios"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": "Decisión del inversor (23-oct-2026): FCF base con media 3 años 2023–25 (CFO, capex, intereses y leases en financiación, SBC = ajuste del EFE) → C49 = 5.5. Antes: Pagos por arrendamientos en FINANCIACIÓN → aplica C49: 5a 5,4 · 3a 5,5 · LTM ≈5,5 (estimado).",
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "—",
+    "naturaleza": "Dato objetivo / revisión IFRS"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C49",
+    "valor": 5.5
+   },
+   "magnitud": "flujo (media de ejercicios)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "siempre en A (0 explícito si no hay)"
+   }
+  },
+  {
+   "id": "C-sbc_media",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "AR2025; ARR24",
+    "pagina": "EFE AR2025 p.27 (ajuste \"share-based payments\")",
+    "url": "Documento adjunto por el inversor",
+    "tipo_fuente": "Cuentas anuales auditadas"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "3 años 2023–25",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "media de 3–5 ejercicios"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": "Decisión del inversor (23-oct-2026): FCF base con media 3 años 2023–25 (CFO, capex, intereses y leases en financiación, SBC = ajuste del EFE) → C50 = 3.71. Antes: SBC = ajuste del estado de flujos (misma base que el CFO): 5a 2,77 · 3a 3,71 · FY25 6,78. Peso ≈2–3% del FCF → no material.",
+    "clasificacion": "Rellenado y verificado",
+    "observacion": "El ajuste del EFE (6,8 en 2025) no cuadra con la dotación a patrimonio (1,2) ni con el pasivo del plan (4,7): planes mixtos efectivo + acciones, entregadas con autocartera. Sens.: solo parte en patrimonio 1,92 (5a); coste económico del ILP ≈6,5/año.",
+    "naturaleza": "Dato objetivo / cash flow"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C50",
+    "valor": 3.71
+   },
+   "magnitud": "flujo (media de ejercicios)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "siempre en A (0 explícito si no hay)"
+   }
+  },
+  {
+   "id": "D-h_anios",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (años de la Historia; fuente en cada partida)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "todos los ejercicios cargados"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C5:L5",
+    "valor": [
+     2016,
+     2017,
+     2018,
+     2019,
+     2020,
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ]
+   },
+   "magnitud": "metadato (ejercicio)",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (años consecutivos, el último en L)"
+   }
+  },
+  {
+   "id": "D-h_ventas",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.8 (comparativo del informe siguiente); 2017 AR_2018.txt p.8 (comparativo del informe siguiente); 2018 AR_2019.txt p.8 (comparativo del informe siguiente); 2019 AR_2020.txt p.5 (comparativo del informe siguiente); 2020 AR_2021.txt p.21 (comparativo del informe siguiente); 2021 AR_2022.txt p.21 (comparativo del informe siguiente); 2022 AR_2023.txt p.20 (comparativo del informe siguiente); 2023 AR_2024.txt p.4 (comparativo del informe siguiente); 2024 AR_2025.txt p.23 (comparativo del informe siguiente); 2025 AR_2025.txt p.23",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f (Historia C57) y último ejercicio; toda la serie si Palancas C8 = «Media del ciclo»"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C6:L6",
+    "valor": [
+     730.833,
+     778.136,
+     786.049,
+     849.697,
+     912.16,
+     969.237,
+     1201.028,
+     1225.787,
+     1203.994,
+     1251.983
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B"
+   }
+  },
+  {
+   "id": "D-h_ebit",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.8 (comparativo del informe siguiente); 2017 AR_2018.txt p.8 (comparativo del informe siguiente); 2018 AR_2019.txt p.8 (comparativo del informe siguiente); 2019 AR_2020.txt p.5 (comparativo del informe siguiente); 2020 AR_2021.txt p.21 (comparativo del informe siguiente); 2021 AR_2022.txt p.21 (comparativo del informe siguiente); 2022 AR_2023.txt p.20 (comparativo del informe siguiente); 2023 AR_2024.txt p.4 (comparativo del informe siguiente); 2024 AR_2025.txt p.23 (comparativo del informe siguiente); 2025 AR_2025.txt p.23",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f y último ejercicio; toda la serie con «Media del ciclo»"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C7:L7",
+    "valor": [
+     154.366,
+     154.853,
+     146.321,
+     130.283,
+     162.907,
+     174.389,
+     189.026,
+     184.686,
+     201.54,
+     204.794
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B"
+   }
+  },
+  {
+   "id": "D-h_da",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.12 (comparativo del informe siguiente); 2017 AR_2018.txt p.12 (comparativo del informe siguiente); 2018 AR_2019.txt p.12 (comparativo del informe siguiente); 2019 AR_2020.txt p.8 (comparativo del informe siguiente); 2020 AR_2021.txt p.25 (comparativo del informe siguiente); 2021 AR_2022.txt p.25 (comparativo del informe siguiente); 2022 AR_2023.txt p.24 (comparativo del informe siguiente); 2023 AR_2024.txt p.9 (comparativo del informe siguiente); 2024 AR_2025.txt p.27 (comparativo del informe siguiente); 2025 AR_2025.txt p.27",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C8:L8",
+    "valor": [
+     49.699,
+     56.382,
+     62.438,
+     70.674,
+     71.526,
+     72.281,
+     78.148,
+     83.713,
+     83.794,
+     85.196
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A"
+   }
+  },
+  {
+   "id": "D-h_beneficio",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.8 (comparativo del informe siguiente); 2017 AR_2018.txt p.8 (comparativo del informe siguiente); 2018 AR_2019.txt p.8 (comparativo del informe siguiente); 2019 AR_2020.txt p.5 (comparativo del informe siguiente); 2020 AR_2021.txt p.21 (comparativo del informe siguiente); 2021 AR_2022.txt p.22 (comparativo del informe siguiente); 2022 AR_2023.txt p.20 (comparativo del informe siguiente); 2023 AR_2024.txt p.4 (comparativo del informe siguiente); 2024 AR_2025.txt p.23 (comparativo del informe siguiente); 2025 AR_2025.txt p.23",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L9)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C9:L9",
+    "valor": [
+     125.084,
+     122.101,
+     123.833,
+     105.577,
+     122.513,
+     132.997,
+     139.43,
+     140.962,
+     157.019,
+     159.917
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "C",
+    "condicion": "C"
+   }
+  },
+  {
+   "id": "C-h_tipo",
+   "clase": "cálculo derivado de datos publicados",
+   "fuente": {
+    "documento": "impuestos ÷ resultado antes de impuestos; 2016 AR_2017.txt p.8 (comparativo del informe siguiente) / AR_2017.txt p.8 (comparativo del informe siguiente); 2017 AR_2018.txt p.8 (comparativo del informe siguiente) / AR_2018.txt p.8 (comparativo del informe siguiente); 2018 AR_2019.txt p.8 (comparativo del informe siguiente) / AR_2019.txt p.8 (comparativo del informe siguiente); 2019 AR_2020.txt p.5 (comparativo del informe siguiente) / AR_2020.txt p.5 (comparativo del informe siguiente); 2020 AR_2021.txt p.21 (comparativo del informe siguiente) / AR_2021.txt p.21 (comparativo del informe siguiente); 2021 AR_2022.txt p.21 (comparativo del informe siguiente) / AR_2022.txt p.21 (comparativo del informe siguiente); 2022 AR_2023.txt p.20 (comparativo del informe siguiente) / AR_2023.txt p.20 (comparativo del informe siguiente); 2023 AR_2024.txt p.4 (comparativo del informe siguiente) / AR_2024.txt p.4 (comparativo del informe siguiente); 2024 AR_2025.txt p.23 (comparativo del informe siguiente) / AR_2025.txt p.23 (comparativo del informe siguiente); 2025 AR_2025.txt p.23 / AR_2025.txt p.23",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f (A) · media de 5 ejercicios (A y B)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C10:L10",
+    "valor": [
+     0.1948,
+     0.1606,
+     0.1601,
+     0.1883,
+     0.2326,
+     0.2461,
+     0.2414,
+     0.1654,
+     0.2379,
+     0.1009
+    ]
+   },
+   "magnitud": "tasa del ejercicio",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B"
+   }
+  },
+  {
+   "id": "D-h_capex",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.12 (comparativo del informe siguiente); 2017 AR_2018.txt p.12 (comparativo del informe siguiente); 2018 AR_2019.txt p.12 (comparativo del informe siguiente); 2019 AR_2020.txt p.8 (comparativo del informe siguiente); 2020 AR_2021.txt p.25 (comparativo del informe siguiente); 2021 AR_2022.txt p.25 (comparativo del informe siguiente); 2022 AR_2023.txt p.24 (comparativo del informe siguiente); 2023 AR_2024.txt p.9 (comparativo del informe siguiente); 2024 AR_2025.txt p.27 (comparativo del informe siguiente); 2025 AR_2025.txt p.27",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C12:L12",
+    "valor": [
+     80.747,
+     111.561,
+     71.949,
+     62.755,
+     55.32,
+     95.779,
+     115.566,
+     77.126,
+     75.027,
+     80.447
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A"
+   }
+  },
+  {
+   "id": "D-h_circulante",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.12 (comparativo del informe siguiente); 2017 AR_2018.txt p.12 (comparativo del informe siguiente); 2018 AR_2019.txt p.12 (comparativo del informe siguiente); 2019 AR_2020.txt p.8 (comparativo del informe siguiente); 2020 AR_2021.txt p.25 (comparativo del informe siguiente); 2021 AR_2022.txt p.25 (comparativo del informe siguiente); 2022 AR_2023.txt p.24 (comparativo del informe siguiente); 2023 AR_2024.txt p.9 (comparativo del informe siguiente); 2024 AR_2025.txt p.27 (comparativo del informe siguiente); 2025 AR_2025.txt p.27",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "ventana de f"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C14:L14",
+    "valor": [
+     27.162,
+     21.778,
+     48.18,
+     -12.134,
+     19.349,
+     -18.294,
+     106.103,
+     83.032,
+     15.452,
+     53.222
+    ]
+   },
+   "magnitud": "flujo del ejercicio (aumento del circulante)",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A"
+   }
+  },
+  {
+   "id": "D-h_intereses",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.12 (comparativo del informe siguiente); 2017 AR_2018.txt p.12 (comparativo del informe siguiente); 2018 AR_2019.txt p.12 (comparativo del informe siguiente); 2019 AR_2020.txt p.8 (comparativo del informe siguiente); 2020 AR_2021.txt p.25 (comparativo del informe siguiente); 2021 AR_2022.txt p.25 (comparativo del informe siguiente); 2022 AR_2023.txt p.24 (comparativo del informe siguiente); 2023 AR_2024.txt p.9 (comparativo del informe siguiente); 2024 AR_2025.txt p.27 (comparativo del informe siguiente); 2025 AR_2025.txt p.27",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L15)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C15:L15",
+    "valor": [
+     1.708,
+     1.836,
+     2.182,
+     1.909,
+     1.8,
+     0.887,
+     1.569,
+     6.275,
+     9.726,
+     8.881
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-h_patrimonio",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.11 (comparativo del informe siguiente); 2017 AR_2018.txt p.11 (comparativo del informe siguiente); 2018 AR_2019.txt p.11 (comparativo del informe siguiente); 2019 AR_2020.txt p.4 (comparativo del informe siguiente); 2020 AR_2021.txt p.20 (comparativo del informe siguiente); 2021 AR_2022.txt p.20 (comparativo del informe siguiente); 2022 AR_2023.txt p.19 (comparativo del informe siguiente); 2023 AR_2024.txt p.8 (comparativo del informe siguiente); 2024 AR_2025.txt p.26 (comparativo del informe siguiente); 2025 AR_2025.txt p.25",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L21)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C21:L21",
+    "valor": [
+     707.864,
+     727.546,
+     757.613,
+     784.366,
+     736.246,
+     822.776,
+     906.87,
+     957.772,
+     937.22,
+     927.63
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "C",
+    "condicion": "C"
+   }
+  },
+  {
+   "id": "D-h_deuda",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.83 (comparativo del informe siguiente); 2017 AR_2018.txt p.88,89 (comparativo del informe siguiente); 2018 AR_2019.txt p.11 (comparativo del informe siguiente); 2019 AR_2020.txt p.4 (comparativo del informe siguiente); 2020 AR_2021.txt p.20 (comparativo del informe siguiente); 2021 AR_2022.txt p.20 (comparativo del informe siguiente); 2022 AR_2023.txt p.19 (comparativo del informe siguiente); 2023 AR_2024.txt p.3 (comparativo del informe siguiente); 2024 AR_2025.txt p.22 (comparativo del informe siguiente); 2025 AR_2025.txt p.22",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "dos últimos ejercicios (K22, L22)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C22:L22",
+    "valor": [
+     82.019,
+     82.794,
+     134.924,
+     122.337,
+     119.591,
+     116.751,
+     183.899,
+     222.027,
+     238.005,
+     304.075
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-h_arrend",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2016.txt p.6 (cero: Ejercicio 2016, anterior a IFRS 16: el balance no tiene pasivos por arrendamiento NIIF 16); 2017 AR_2017.txt p.11 (cero: NIIF 16 no vigente en 2017; balance sin pasivos por arrendamiento NIIF 16); 2018 AR_2018.txt p.21 (cero: NIIF 16 se aplicará desde el 1-1-2019 sin reexpresar comparativas; no hay pasivos por arrendamiento NIIF 16 en el balance 2018 (importe estimado a reconocer 19,57 millones)); 2019 AR_2020.txt p.4 (comparativo del informe siguiente); 2020 AR_2021.txt p.20 (comparativo del informe siguiente); 2021 AR_2022.txt p.20 (comparativo del informe siguiente); 2022 AR_2023.txt p.19 (comparativo del informe siguiente); 2023 AR_2024.txt p.3 (comparativo del informe siguiente); 2024 AR_2025.txt p.22 (comparativo del informe siguiente); 2025 AR_2025.txt p.22",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "dos últimos ejercicios (K23, L23)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C23:L23",
+    "valor": [
+     0,
+     0,
+     0,
+     19.295,
+     15.685,
+     13.891,
+     10.49,
+     11.541,
+     11.849,
+     12.243
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-h_caja",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.10 (comparativo del informe siguiente); 2017 AR_2018.txt p.10 (comparativo del informe siguiente); 2018 AR_2019.txt p.10 (comparativo del informe siguiente); 2019 AR_2020.txt p.4 (comparativo del informe siguiente); 2020 AR_2021.txt p.19 (comparativo del informe siguiente); 2021 AR_2022.txt p.19 (comparativo del informe siguiente); 2022 AR_2023.txt p.18 (comparativo del informe siguiente); 2023 AR_2024.txt p.2 (comparativo del informe siguiente); 2024 AR_2025.txt p.21 (comparativo del informe siguiente); 2025 AR_2025.txt p.21",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L24)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C24:L24",
+    "valor": [
+     45.054,
+     28.143,
+     31.05,
+     51.37,
+     51.99,
+     91.352,
+     51.193,
+     51.996,
+     55.143,
+     62.79
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-h_pensiones",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.73 (comparativo del informe siguiente); 2017 AR_2018.txt p.79 (comparativo del informe siguiente); 2018 AR_2019.txt p.78 (comparativo del informe siguiente); 2019 AR_2020.txt p.4 (comparativo del informe siguiente); 2020 AR_2021.txt p.20 (comparativo del informe siguiente); 2021 AR_2022.txt p.20 (comparativo del informe siguiente); 2022 AR_2023.txt p.85 (comparativo del informe siguiente); 2023 AR_2024.txt p.3 (comparativo del informe siguiente); 2024 AR_2025.txt p.22 (comparativo del informe siguiente); 2025 AR_2025.txt p.22",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L25); superávit = 0 con aviso"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C25:L25",
+    "valor": [
+     19.733,
+     18.361,
+     18.012,
+     33.294,
+     37.871,
+     29.133,
+     16.278,
+     25.916,
+     19.145,
+     20.989
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-h_minoritarios",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.11 (comparativo del informe siguiente); 2017 AR_2018.txt p.11 (comparativo del informe siguiente); 2018 AR_2019.txt p.11 (comparativo del informe siguiente); 2019 AR_2019.txt p.11 (cero: Balance 2019: Non-controlling interests con '-' (sin minoritarios al cierre)); 2020 AR_2020.txt p.4 (cero: Non-controlling interests figura con \"-\" en 2020 y 2019 en el balance); 2021 AR_2021.txt p.20 (cero: El patrimonio neto no tiene linea de participaciones no dominantes y las transacciones con no dominantes son 0 en el estado de cambios en el patrimonio); 2022 AR_2022.txt p.20 (cero: El balance consolidado no tiene linea de intereses minoritarios; el patrimonio total es atribuido a la dominante y el estado de cambios en patrimonio muestra transacciones con minoritarios a 0); 2023 AR_2024.txt p.3 (comparativo del informe siguiente); 2024 AR_2025.txt p.22 (comparativo del informe siguiente); 2025 AR_2025.txt p.22",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "último ejercicio (L26)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C26:L26",
+    "valor": [
+     0.217,
+     0.135,
+     0.013,
+     0,
+     0,
+     0,
+     0,
+     0,
+     4.551,
+     5.422
+    ]
+   },
+   "magnitud": "stock a cierre",
+   "calculo": {
+    "motores": "B",
+    "condicion": "B"
+   }
+  },
+  {
+   "id": "D-moneda_cotizacion",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (metadatos)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "fecha de valoración"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / metadata V6.1"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C48",
+    "valor": "EUR"
+   },
+   "magnitud": "metadato",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (comparabilidad; en B también el valor)"
+   }
+  },
+  {
+   "id": "D-moneda_modelo",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (metadatos)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "moneda de los estados financieros"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / metadata"
+   },
+   "entrada_del_modelo": {
+    "celda": "'Control maestro'!H4",
+    "valor": "EUR"
+   },
+   "magnitud": "metadato",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre"
+   }
+  },
+  {
+   "id": "D-ratio_adr",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (metadatos)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "fecha de valoración"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / metadata"
+   },
+   "entrada_del_modelo": {
+    "celda": "'Control maestro'!D5",
+    "valor": null
+   },
+   "magnitud": "metadato",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "si Palancas C47 = «ADR o ADS» o D5 informado"
+   }
+  },
+  {
+   "id": "D-unidad",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (metadatos)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "unidad de todos los importes (mm, miles…)"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / metadata"
+   },
+   "entrada_del_modelo": {
+    "celda": "'Control maestro'!J4",
+    "valor": "mm"
+   },
+   "magnitud": "metadato",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (metadato: sin él ninguna cifra se interpreta)"
+   }
+  },
+  {
+   "id": "D-norma",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "fase1_v63.json (metadatos)",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "marco contable de los estados"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / metadata"
+   },
+   "entrada_del_modelo": {
+    "celda": "'Control maestro'!L4",
+    "valor": "IFRS (IFRS-EU)"
+   },
+   "magnitud": "metadato",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (metadato: IFRS / US GAAP cambia intereses y arrendamientos)"
+   }
+  },
+  {
+   "id": "H-motor",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media] Hereda: Sí → cambia (evidencia_nueva): la serie de diez años muestra que la financiación cambió mucho. Apoyo: deuda financiera de 116,8 a 304,1 M€ y deuda neta sin arrendamientos de 25,4 a 241,3 M€ en 2021-25 (Historia filas 22 y 24), 0,10x → 0,87x EBITDA [cálculo]; intereses de 0,9 a 8,9 M€ (fila 15); en 2025 pagó 145,1 M€ al accionista frente a 93,8 M€ de FCF (fila 35) [AR_2025.txt, PDF p. 144]. Con deuda que crece para pagar al accionista, el flujo al accionista no mide la caja repetible; el motor B valora la operación y resta deuda, arrendamientos, pensiones y minoritarios menos caja. Calculable (entrada_v63). Elegido por criterio, no por la configuración experimental. Lo sustituiría: por Sí si la deuda neta se estabilizara varios años.",
+    "naturaleza": "Juicio metodológico del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C62",
+    "valor": "No · financiación cambia mucho"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (elección del motor)"
+   }
+  },
+  {
+   "id": "V-r",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: media] Hereda: 0,09 → mantiene (misma_evidencia): r heredada, no la cambio (S-3). Apoyo: representa la alternativa de un inversor en renta variable diversificada en euros, 5,65 puntos sobre el Bund a 10 años de 3,35 % (C57): «it's your alternatives that matter» (AIWTK p.163; HIM). Está por debajo de la r mínima de la hoja, 9,46 % (Diagnóstico V6!C17): lo informo y no la muevo para acercar valor y precio. La única tasa que publica la empresa es el 8,7 % después de impuestos del test de deterioro de EE. UU. [AR_2025.txt, PDF p. 66], que no es mi alternativa. Lo sustituiría: la r que fije el inversor.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C56",
+    "valor": 0.09
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (r exigida; en B entra en la r operativa)"
+   }
+  },
+  {
+   "id": "H-caso_especial",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: un solo segmento [AR_2025.txt, PDF p. 111]; no es financiera; la cogeneración (4,7 % de las ventas) va bajo el régimen RECORE [AR_2025.txt, PDF p. 40], poco para «Regulada»; I+D 0,3 % de las ventas (Historia fila 19); no es materia prima: vende un producto transformado con margen EBIT de 15-21 % (fila 29), aunque sus costes dependen de pieles, gas y CO2 [AR_2025.txt, PDF pp. 124, 436]; el mercado solo cayó en 2023 (-4 % [IA_2023_es.txt, PDF p. 146]). Coherente con el motor B. Lo sustituiría: por Cíclica o materias primas si el margen se moviera con el precio de las pieles más que con el volumen.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C6",
+    "valor": "Ninguno"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (aplicabilidad del motor: «Financiera» bloquea A y B)"
+   }
+  },
+  {
+   "id": "H-base_margen",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: el margen de 2025 (16,4 %, Historia C48) no es el máximo (21,1 %, C51) ni el mínimo (15,1 %, C50) de la serie y coincide con la media 2019-25 (16,4 % [cálculo, fila 29]); C6 no es cíclica. La media de diez años (17,5 %, C49) incluye 2016-18, que con C27 = Comprimiendo no leo repetibles (UD; E5). Lo sustituiría: por Media del ciclo si 2026 se alejara más de 2 puntos de 16,4 % por un choque de costes.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C8",
+    "valor": "Último año"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B (margen de partida: último año o media del ciclo)"
+   }
+  },
+  {
+   "id": "V-anios_f",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: alta] Años de la media del FCF base = 3: los mismos años que C46–C50 (fase1_v63.json / etapa 1). La fase A puede corregirlo.",
+    "naturaleza": "Dato objetivo / metadata"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C57",
+    "valor": 3
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A (ventana que calibra f)"
+   }
+  },
+  {
+   "id": "V-restar_sbc",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: alta] Hereda: Sí → mantiene (misma_evidencia): regla del ejercicio con evidencia. Apoyo: «A stock option is both an expense and dilution» (PCA pp.126–127; HIM). C50 = 3,71 M€ es la media 2023-25 del ajuste del flujo (2,3; 2,0; 6,8 M€; Historia fila 18); el de 2025 casi dobla la media y la nota de C50 estima el coste económico del plan en ≈6,5 M€ al año. No cambio la base del FCF. Lo sustituiría: no lo sustituiría; es regla del ejercicio.",
+    "naturaleza": "Decisión del inversor / metodología elegida"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C51",
+    "valor": "Sí"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A, si la SBC (C50) no es 0"
+   }
+  },
+  {
+   "id": "H-crec_MALO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–5"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: −0,01 (mín(Q1, NORMAL − σ)). Decisión: 0,015. Desviación: +0,025 porque mi MALO es de margen, no de volumen: el volumen sigue al mercado y la cuota se defiende con precio. Tomo el peor tramo de tres años de la década, que ya lleva la caída del mercado de 2023.\nApoyo: Historia C45 (1,4 %) y K28 (−1,8 %); mercado −4 % en 2023 [IA_2023 p. 146]; mezcla de precios inferior [AR_2025 p. 139]; repercusión parcial en 2022 y 2023 [CF_2022 p. 93; IA_2023 p. 246]. Rango 0–0,025.\nLo sustituiría: −0,01 si cayera el volumen propio (cuota perdida); 0,025 si la mezcla dejara de restar.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!B14",
+    "valor": 0.015
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre"
+   }
+  },
+  {
+   "id": "H-margen_MALO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 5 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,165 (máx(mín(m0, media), mínimo)). Decisión: 0,14. Desviación: −0,025 porque el MALO de la fase A vuelve al 15 % de 2023 o algo menos y no se recupera: prolongo cinco años la tendencia de la década (−0,5 puntos al año) y quedo bajo el mínimo propio. La mejora se la quedan el cliente y el proveedor de pieles. Supera el Q3 del sector (Food Processing, no este nicho): justificado en G5.\nApoyo: Historia C29, J29, L29 y C50; [CF_2022 p. 93; IA_2023 p. 246]; pieles [AR_2025 p. 436]; «We don't think because it's never happened that it won't» (AIWTK p.55; HIM). Rango 0,13–0,15.\nLo sustituiría: 0,15 si 2026-2027 sostuvieran el 16 % con la inflación de pieles.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!B15",
+    "valor": 0.14
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (margen objetivo; ROE objetivo en C)"
+   }
+  },
+  {
+   "id": "H-s2c_MALO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–10"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,8 (0,75 × Configuración V6.4!B155 = 1,06). Decisión: 0,8. Desviación: ninguna porque cae en lo que la empresa hizo en sus tramos lentos (0,90 en 2016-2019, 0,97 en 2021-2025, 0,34 en 2022-2025 [cálculo, filas 6 y 31]) y en el cruce por componentes (ventas +1,5 %, existencias del 30,9 %, capex 1,16 veces la amortización: 0,8-1,0). No la bajo por la reposición: la aplica la estructura.\nApoyo: Historia filas 6, 8, 12 y 31; C53; existencias [AR_2025 p. 140]. Rango 0,6–1,0.\nLo sustituiría: 0,6 si la capacidad nueva quedara ociosa con el capex comprometido [AR_2025 p. 65]; 1,0 si el capex bajara a la amortización.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!B16",
+    "valor": 0.8
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B (reinversión)"
+   }
+  },
+  {
+   "id": "H-roic_MALO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,08 (tasa del motor, 8,26 %, redondeada). Decisión: 0,08. Desviación: ninguna porque en el MALO la cuota se defiende con precio y, después del año 10, el capital nuevo no rinde más que su coste; 0,09 pondría un exceso que esta historia no tiene. Salto del año 11 pequeño: la rentabilidad marginal de los años 1–10 es ≈ 9 % [cálculo, 0,8 × 0,14 × (1 − C52)].\nApoyo: Historia fila 29 y J33 (13,5 % con el margen mínimo); mezcla inferior [AR_2025 p. 139]; retorno terminal como mínimo el coste de capital (MR p. 63; E2). Rango 0,08–0,09.\nLo sustituiría: 0,09 si el margen del MALO se quedara en el 15 % con la cuota estable.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!B18",
+    "valor": 0.08
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (rentabilidad terminal)"
+   }
+  },
+  {
+   "id": "H-g_MALO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,01 → mantiene (misma_evidencia): la población (+1 % al año) es el impulsor del mercado que no se agota, y en el MALO no hay precio real.\nReferencia mecánica: 0,015 (NORMAL − 0,01). Decisión: 0,01. Desviación: −0,005 porque mi NORMAL es 0,02 y conservo la distancia de la regla; queda muy bajo la tasa del motor (8,26 %).\nApoyo: impulsores [AR_2025 p. 181]; repercusión parcial [CF_2022 p. 93; IA_2023 p. 246]; «all man's desired geometric progressions, if a high rate of growth is chosen, at last come to grief on a finite earth» (PCA p.394; HIM). Rango 0–0,015.\nLo sustituiría: 0 si el volumen del mercado se estancara por sustitutos [AR_2025 p. 399]; 0,015 si repercutiera los costes enteros.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!B68",
+    "valor": 0.01
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (crecimiento terminal)"
+   }
+  },
+  {
+   "id": "V-prob_MALO",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: media]\nHereda: 0,2 → mantiene (evidencia_nueva): la Historia da hechos a las dos colas y la tendencia a la baja ya está en el 14 % del MALO.\nReferencia mecánica: 0,2 (0,2/0,6/0,2, convención). Decisión: 0,2. Desviación: ninguna porque márgenes de MALO (15,1-15,7 %) hubo en 2019, 2022 y 2023, y de BUENO (17,9-18,0 %) en 2020 y 2021; subir la probabilidad del MALO castigaría dos veces el riesgo de margen (convención del ejercicio).\nApoyo: Historia F29, I29 y J29; Análisis C27; [CF_2022 p. 93]; [IA_2023 p. 246]; escenarios que cubren el rango (PA p. 4; E6).\nLo sustituiría: 0,25 si 2026 cerrara con el margen bajo el 15,5 % con volumen al alza.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!B69",
+    "valor": 0.2
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (ponderación)"
+   }
+  },
+  {
+   "id": "H-crec_NORMAL",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–5"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,065 (CAGR de 5 años, Historia C46). Decisión: 0,045. Desviación: −0,02 porque el CAGR lleva el +23,9 % de 2022 (materias primas +47 % y 7,7 puntos de divisa), que no es repetible. Por componentes: mercado 3 % en volumen, cuota estable, precio y mezcla +1 a +1,5, nuevos negocios +0,3, energía −0,1. La divisa es la marea: no la predigo.\nApoyo: mercado 2-4 % [AR_2025 p. 181]; [CF_2022 p. 200; CF_2022 p. 31]; Historia I28; nuevos negocios +8,4 % y energía −2,5 % [AR_2025 p. 141]. Rango 0,035–0,055.\nLo sustituiría: 0,055 si el volumen propio creciera dos años por encima del 4 % sin inflación; 0,035 si el mercado se quedara en el 2 %.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C14",
+    "valor": 0.045
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre"
+   }
+  },
+  {
+   "id": "H-margen_NORMAL",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 5 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,165 (m0, último año). Decisión: 0,165. Desviación: ninguna porque la media de 2019-2025 (16,4 % [cálculo, F29:L29]) redondea igual: el NORMAL deja el margen en ese rango. Precio que sigue al coste con retraso; la escala sostiene el margen sin ampliarlo y la eficiencia pasa al cliente. Supera el Q3 del sector: justificado en G5 con su propia historia.\nApoyo: Historia F29:L29; margen EBITDA comparable 23,7 % en 2024 y 2025 [AR_2025 p. 141]; «how much is going to stay home and how much is just going to flow through to the customer» (PCA p.189; HIM). Rango 0,155–0,175.\nLo sustituiría: 0,155 si 2026 cerrara bajo el 15,5 % con volumen al alza; 0,175 si repercutiera en un semestre.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C15",
+    "valor": 0.165
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (margen objetivo; ROE objetivo en C)"
+   }
+  },
+  {
+   "id": "H-s2c_NORMAL",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–10"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 1,1 (B155 = 1,06, perímetro NIIF 16). Decisión: 1,1. Desviación: ninguna porque el NORMAL reinvierte como la historia: el S2C de 2020-2025 es 1,06 con las altas de derechos de uso y 1,15 con el perímetro Caja (C53), y los dos redondean a 1,1. Con las bases heredadas implica ≈ 14,6 % de rentabilidad marginal, como el ROIC de 2019-2025 (14,1 % [cálculo, fila 33]).\nApoyo: Configuración V6.4!B155; Historia C53, C55, filas 31 y 33; existencias del 30,9 % de las ventas [AR_2025 p. 140]. Rango 1,0–1,3.\nLo sustituiría: 1,3 si las existencias bajaran del 30 % de las ventas; 1,0 si el capex de capacidad siguiera sobre 1,2 veces la amortización sin más volumen.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C16",
+    "valor": 1.1
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B (reinversión)"
+   }
+  },
+  {
+   "id": "H-roic_NORMAL",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,08 (tasa del motor). Decisión: 0,11. Desviación: +0,03 porque el foso dura pero se estrecha (fase A; C18 = Sí): en diez años el ROIC no bajó del 12,1 % (F33) con el margen cayendo cinco puntos. Dejo dos puntos sobre r a perpetuidad; la referencia supone que el foso acaba en el año 11. Salto del año 11 ≈ 3,5-5 puntos: mi hipótesis de pérdida de ventaja (G8).\nApoyo: Historia C33:L33 y C55; Palancas H18 (12,0 %, contexto); «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM); exceso a perpetuidad de 2-3 puntos (MR p. 63; E2). Rango 0,10–0,12.\nLo sustituiría: 0,09 si el ROIC de 2026-2027 bajara del 12 %; 0,12 si el margen volviera al 17 % con cuota al alza.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C18",
+    "valor": 0.11
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (rentabilidad terminal)"
+   }
+  },
+  {
+   "id": "H-g_NORMAL",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,02 → mantiene (evidencia_nueva): la Historia de diez años muestra un margen cinco puntos más bajo (fila 29), es decir, una repercusión incompleta.\nReferencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque la sustitución de tripa animal (la mitad del mercado en 2016, 44 % en 2023) y la carne per cápita en emergentes se agotan; queda la población y un precio que sigue al coste con retraso y no del todo. Bajo rf (C57) como orientación (CV p. 5; E1).\nApoyo: [IA_2016 p. 42]; [IA_2023 p. 146]; [AR_2025 p. 181]; Historia fila 29. Rango 0,015–0,025.\nLo sustituiría: 0,025 si demostrara repercusión completa en un ciclo de costes; 0,015 si la sustitución se frenara.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C68",
+    "valor": 0.02
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (crecimiento terminal)"
+   }
+  },
+  {
+   "id": "V-prob_NORMAL",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: media]\nHereda: 0,6 → mantiene (evidencia_nueva): con diez años el centro es lo más frecuente.\nReferencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque el margen de 2019-2025 se movió en el rango del NORMAL (15,1-18,0 %) y las ventas solo bajaron un año; no la ajusto para cuadrar con la cotización. Suman 1 con 0,2 y 0,2.\nApoyo: Historia fila 28 (K28, único año negativo) y F29:L29.\nLo sustituiría: 0,5 si el margen saliera del rango 2019-2025 en 2026-2027 por cualquiera de los dos lados.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C69",
+    "valor": 0.6
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (ponderación)"
+   }
+  },
+  {
+   "id": "H-crec_BUENO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–5"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,10 (mín(NORMAL + σ, Q3, 1,5 × C46)). Decisión: 0,07. Desviación: −0,03 porque 1,5 × C46 infla 2022. En 2016-2021, con la cuota del 30 % al 38 %, las ventas crecieron un 5,8 % anual [cálculo, Historia C6 y H6]; sumo la aceleración del BUENO: mercado 3-4 % + 2 puntos de cuota + 1,5 de precio y mezcla + nuevos negocios.\nApoyo: cuota [AR_2019 p. 121; IA_2021 p. 133; CF_2022 p. 182]; capacidad nueva y compromisos de 52,0 M€ [AR_2025 p. 65]; nuevos negocios +8,4 % [AR_2025 p. 141]. Rango 0,06–0,085.\nLo sustituiría: 0,085 si la cuota publicada pasara del 45 % con mezcla al alza; 0,06 si los nuevos negocios siguieran en el 12-13 % de las ventas.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!D14",
+    "valor": 0.07
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre"
+   }
+  },
+  {
+   "id": "H-margen_BUENO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 5 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,165 (máx(m0, mín(máximo, Q3)); el Q3 del sector queda bajo m0). Decisión: 0,18. Desviación: +0,015 porque el BUENO vuelve al 18 % de 2020-2021, un nivel que la empresa ya tuvo y bajo su máximo: escala sobre la capacidad nueva y gama completa que sostiene precio. Se queda la mejora la empresa solo si la cuota se gana con producto (justificado en G5).\nApoyo: Historia G29, H29 y C51; [AR_2025 p. 180]; [AR_2025 p. 65]; volumen y «mayor mezcla de precios» en 2022 [CF_2022 p. 200]. Rango 0,17–0,19.\nLo sustituiría: 0,17 si la cuota siguiera subiendo con mezcla a la baja; 0,19 si la mezcla subiera dos años con volumen récord.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!D15",
+    "valor": 0.18
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (margen objetivo; ROE objetivo en C)"
+   }
+  },
+  {
+   "id": "H-s2c_BUENO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "años 1–10"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 1,3 (1,25 × 1,06). Decisión: 1,3. Desviación: ninguna porque en el BUENO se llena capacidad ya construida (EE. UU., México, Serbia, Tailandia): la historia de construir y llenar dio 1,70 en 2016-2021, y la década entera 1,21 [cálculo, filas 6 y 31]. A un 7 % anual hará falta capacidad nueva en la segunda mitad y las existencias crecen con las ventas: no subo más.\nApoyo: Historia filas 6 y 31; [AR_2025 p. 65]; [IA_2023 p. 153]; [AR_2025 p. 140]. Rango 1,2–1,5.\nLo sustituiría: 1,5 si las plantas nuevas se llenaran dos años sin capex adicional; 1,2 si hiciera falta otra ronda como la de 2022 [CF_2022 p. 199].",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!D16",
+    "valor": 1.3
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "AB",
+    "condicion": "A y B (reinversión)"
+   }
+  },
+  {
+   "id": "H-roic_BUENO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,12 (mín(C55; C56 + 0,03)). Decisión: 0,12. Desviación: ninguna porque a perpetuidad le doy tres puntos sobre r y no la media de cinco años (14,3 %): es madura y ni con escala mantuvo el margen; 12 % es su mínimo de diez años. Salto del año 11 ≈ 7-8 puntos: en los años 1–10 se llena capacidad ya construida (≈ 19 % [cálculo, 1,3 × 0,18 × (1 − C52)]); el llenado es de una vez (G8).\nApoyo: Historia F33, C55 y G33:H33 (15,3 % con margen del 18 %); Análisis C18 = Sí; (MR p. 63; E2). Rango 0,12–0,14.\nLo sustituiría: 0,13 si la cuota siguiera subiendo con margen del 18 % hasta 2030; 0,11 si el margen volviera a bajar.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!D18",
+    "valor": 0.12
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (rentabilidad terminal)"
+   }
+  },
+  {
+   "id": "H-g_BUENO",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "año 11 en adelante"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,025 → mantiene (misma_evidencia): con la misma cuota publicada, el recorrido de cuota es finito.\nReferencia mecánica: 0,03 (mín(NORMAL + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque con un 41 % entre los productores de envoltura a medida y la tripa animal en el 44 % el recorrido se acaba; medio punto sobre el NORMAL por una posición más fuerte. El 3 % quedaría a 0,35 puntos de rf.\nApoyo: [CF_2022 p. 182]; [IA_2023 p. 146]; Análisis C57; (CV p. 5; E1); «Almost all great records eventually dwindle» (AIWTK p.140; HIM). Rango 0,02–0,03.\nLo sustituiría: 0,03 si la cuota siguiera subiendo después de 2030 con margen al alza; 0,02 si se estancara.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!D68",
+    "valor": 0.025
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (crecimiento terminal)"
+   }
+  },
+  {
+   "id": "V-prob_BUENO",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: media]\nHereda: 0,2 → mantiene (evidencia_nueva): el 18 % es alcanzable, pero la cuota subió con el margen a la baja.\nReferencia mecánica: 0,2 (convención). Decisión: 0,2. Desviación: ninguna porque el BUENO pide cuota y margen a la vez, y la década solo los juntó en 2020-2021; no hay razón estructural escrita para darle más que al MALO.\nApoyo: Historia G29 y H29; cuota 30 % → 41 % [AR_2019 p. 121; CF_2022 p. 182]; mezcla inferior en 2025 [AR_2025 p. 139].\nLo sustituiría: 0,15 si la mezcla de precios siguiera bajando en 2026; 0,25 si la cuota publicada subiera con la mezcla al alza.",
+    "naturaleza": "Decisión del inversor"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!D69",
+    "valor": 0.2
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "siempre (ponderación)"
+   }
+  },
+  {
+   "id": "H-p_quiebra",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "10 años"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,05 (convención con disparador: C34 = No; deuda + arrendamientos 316,3 M€ > 3 × FCF base). Decisión: 0. Desviación: −0,05 porque los disparadores son mecánicos y el cierre de 2025 no da una causa de quiebra: deuda neta 0,87x EBITDA, EBIT 23 veces los intereses, 155,3 M€ de líneas sin disponer, sin impagos y CFO positivo diez años. El riesgo real (refinanciar más caro, recortar el reparto) ya está en el MALO: no lo cuento dos veces.\nApoyo: Historia C64, C66, C62, L7, L15 y fila 11; [AR_2025 p. 98; AR_2025 p. 122]; «Three things ruin people: drugs, liquor, and leverage» (TCI p.68; HIM).\nLo sustituiría: 0,05 si la deuda neta pasara de 2x EBITDA con las líneas a un año sin renovar.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C22",
+    "valor": 0
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "si está informada y es > 0 (vacía = 0 por convención, con aviso)"
+   }
+  },
+  {
+   "id": "V-recuperacion",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "valor presente"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nReferencia mecánica: 0 (convención: C23 = 0). Decisión: 0. Desviación: ninguna porque con C22 = 0 la recuperación no pesa en el valor, y la escribo explícita para que la quiebra quede decidida y no vacía; si algún día hubiera quiebra, la recuperación del accionista sería casi siempre 0.\nApoyo: convención del ejercicio; deuda financiera de 304,1 M€ (Historia L22) por delante del accionista en una liquidación.\nLo sustituiría: solo un C22 > 0 con un valor de liquidación calculable para el accionista.",
+    "naturaleza": "Juicio del inversor / V6"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C23",
+    "valor": 0
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "si la probabilidad de quiebra es > 0"
+   }
+  },
+  {
+   "id": "V-exceso_caja",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "saldo de hoy, sin descontar"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: alta]\nHereda: 0 → cambia (definicion_o_medicion_distinta): la etapa 1 usaba el motor A; con el motor B la hoja resta deuda, arrendamientos, pensiones y minoritarios menos caja, y C76 queda vacía.\nReferencia mecánica: vacía en el motor B (0 salvo evidencia, solo en A). Decisión: vacía. Desviación: ninguna porque sumar la caja aquí la contaría dos veces.\nApoyo: Historia C64 (316,3 M€), C65 (26,4 M€) y C66 (62,8 M€); tampoco habría caja sobrante: 62,8 M€ de efectivo frente a 227,4 M€ de deuda bancaria a un año [AR_2025 p. 98].\nLo sustituiría: solo un cambio de motor a A con caja por encima de la deuda a corto.",
+    "naturaleza": "Juicio del inversor / balance"
+   },
+   "entrada_del_modelo": {
+    "celda": "Análisis!C76",
+    "valor": null
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A, si está informado y no es 0"
+   }
+  },
+  {
+   "id": "H-naturaleza_fcf",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: FCF base C52 = 97,29 M€ > 0 (media 2023-25 por decisión del inversor, Control maestro fila 43): no hay naturaleza que declarar, y C43 es solo del motor A (elijo B en C62). El FCF al accionista de 2022 fue -3,3 M€ (Historia fila 35) por un circulante de 106,1 M€ (fila 14), pero no está en la base. Lo sustituiría: si la base del FCF fuera ≤ 0.",
+    "naturaleza": "Juicio del inversor / V6.1"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C43",
+    "valor": "No aplica"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A, si el FCF base (Análisis C52) ≤ 0"
+   }
+  },
+  {
+   "id": "V-fcf_normalizado",
+   "clase": "convención",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "—"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nReferencia mecánica: vacía (solo si C43 = Transitorio o Extraordinario). Decisión: vacía. Desviación: ninguna porque la fase A no declaró el FCF base transitorio ni extraordinario: C52 = 97,29 M€ > 0, Palancas C43 = No aplica y el motor es B (C43 y C44 son del motor A).\nApoyo: Análisis C52; Historia I35 (−3,3 M€ en 2022, fuera de la base de 2023-2025).\nLo sustituiría: que la fase A declarara el FCF base transitorio o extraordinario.",
+    "naturaleza": "Juicio del inversor / V6.1 · documentar el cálculo"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C44",
+    "valor": null
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "A",
+    "condicion": "A, si C52 ≤ 0 y la naturaleza es Transitorio o Extraordinario (calibra f)"
+   }
+  },
+  {
+   "id": "H-causa_desviacion",
+   "clase": "hipótesis",
+   "fuente": {
+    "documento": null,
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "unidad": null,
+    "periodo_que_usa_el_calculo": "fecha de valoración"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Estimación declarada",
+    "observacion": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: la conciliación precio × acciones ≈ capitalización no lo pide: V22, V26 y V27 en OK (datos_v63 §5); C41 = 54,70 € × 45,479209 M. Queda el aviso V28 (precio del 3-nov-2026, acciones medias de 2025). Con las acciones en circulación a 31-dic-2025 (45,993 M) serían 2.515,8 M€, un 1,1 % más (nota de C41). N = 45,479209 M es la media ponderada «diluida» publicada de 2025, que contradice su definición (queda por debajo de la básica, 45,656 M); qué cifra usar es decisión humana pendiente (VISCOFAN-ACCIONES) y no la tomo. Lo sustituiría: por Fechas distintas o Básicas frente a diluidas si la desviación superara la tolerancia.",
+    "naturaleza": "Juicio del inversor / V6.1"
+   },
+   "entrada_del_modelo": {
+    "celda": "Palancas!C47",
+    "valor": "Ninguna"
+   },
+   "magnitud": "tasa o parámetro",
+   "calculo": {
+    "motores": "ABC",
+    "condicion": "si la desviación capitalización ÷ (precio × acciones) supera el umbral (Diagnóstico C91) o hay causa declarada"
+   }
+  },
+  {
+   "id": "D-h_adquisiciones",
+   "clase": "dato publicado",
+   "fuente": {
+    "documento": "2016 AR_2017.txt p.12 (comparativo del informe siguiente); 2017 AR_2018.txt p.12 (comparativo del informe siguiente); 2018 AR_2019.txt p.12 (comparativo del informe siguiente); 2019 AR_2020.txt p.8 (comparativo del informe siguiente); 2020 desconocido; 2021 AR_2022.txt p.25 (comparativo del informe siguiente); 2022 AR_2022.txt p.25; 2023 AR_2023.txt p.24 (cero: El estado de flujos de inversión solo trae pagos de inmovilizado, cobros por ventas de inmovilizado e intereses cobrados; la nota 2.1 no recoge adquisiciones de negocios en 2023 ni 2022.); 2024 AR_2025.txt p.27 (comparativo del informe siguiente); 2025 AR_2025.txt p.27",
+    "pagina": null,
+    "url": null,
+    "tipo_fuente": null
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2016–2025",
+    "unidad": "mm EUR",
+    "periodo_que_usa_el_calculo": "las columnas H:L (cinco últimos ejercicios) entran en las bases"
+   },
+   "transformacion_o_supuesto": {
+    "ajuste_o_criterio": null,
+    "clasificacion": "Rellenado y verificado",
+    "observacion": null,
+    "naturaleza": "Dato objetivo / serie histórica"
+   },
+   "entrada_del_modelo": {
+    "celda": "Historia!C13:L13",
+    "valor": [
+     -1.11,
+     8.792,
+     7.128,
+     1.544,
+     null,
+     0,
+     0,
+     0,
+     7.213,
+     8.948
+    ]
+   },
+   "magnitud": "flujo del ejercicio",
+   "calculo": {
+    "motores": "B (V6.4 experimental: D_hist y F_hist de P-M1)",
+    "condicion": "modo experimental de la V6.4 (bases de «Configuración V6.4»)"
+   },
+   "vacias": [
+    "Historia!G13"
+   ]
+  },
+  {
+   "id": "H-config-N3.regla",
+   "clase": "hipótesis",
+   "fuente": {
+    "fuente_o_condicion": "regla R1 de la plantilla V6.4 (D-N3 sin firmar)"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "con ventas que caen no se recupera capital fijo: solo se libera circulante, que en Viscofan es alto (48,28 % de las ventas); la capacidad conservada sirve a la recuperación. Que la regla cuadre no demuestra la conservación ni que las existencias bajen en proporción a las ventas",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C; solo actúa cuando las ventas caen"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B28": "R1 · solo circulante; capacidad conservada"
+    }
+   },
+   "magnitud": "regla",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "H-config-PM1.estructura",
+   "clase": "hipótesis",
+   "fuente": {
+    "fuente_o_condicion": "estructuras de la plantilla V6.4 (D-N3b revisada sin firmar); ninguna elegida"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "SR1 evita contar dos veces la parte de reposición: el S2C histórico (C53, 1,146) sale de la reinversión neta 2021–2025, que incluye el exceso de capex sobre D&A; si una parte fue reposición, el requisito adicional se suma y el S2C de los años se reestima con f. Las demás estructuras se calculan como variantes",
+    "confianza": "baja",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B36": "SR1 · suma con S2C reestimado"
+    }
+   },
+   "magnitud": "estructura",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-PM1.cartera",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "nota de combinaciones de negocios de 2025 (AR_2025 p. 33): cartera de clientes de 1,294 con vida de 12 años"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "cartera inmaterial (≈0,11 al año) y sin datos que confirmen ceros en 2021–2024: no se usa P0 y la amortización de la cartera se trata como la del resto (legado). La ausencia de una cartera identificada no confirma ningún cero",
+    "confianza": "media",
+    "materialidad_declarada": "inmaterial por importe; P0 no se calcula porque exigiría importes que no constan (combinación no definida)"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B43": "Legado · se repone con la amortización",
+     "Configuración V6.4!B44": null,
+     "Configuración V6.4!B45": null,
+     "Configuración V6.4!B46": null,
+     "Configuración V6.4!B47": null,
+     "Configuración V6.4!B48": null,
+     "Configuración V6.4!B49": null,
+     "Configuración V6.4!B50": null
+    }
+   },
+   "magnitud": "flujo anual (amortización de la cartera); flujo del ejercicio; regla; stock a la fecha del balance base (valor neto)",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "C-config-N1.tipo",
+   "clase": "derivado de datos publicados",
+   "fuente": {
+    "fuente_o_condicion": "conciliaciones del impuesto 2021–2025 (AR_2025 p. 109; CF_2024 p. 85; CF_2022_compilacion p. 74) y causa del 10,1 % de 2025 (AR_2025 p. 142)"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2021–2025 (media de los tipos anuales, como la regla heredada C52)",
+    "perimetro": "consolidado, actividades continuadas (sin actividades interrumpidas en 2021–2025)"
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "la regla heredada (C52, 19,83 %) incluye el 10,1 % de 2025, que la empresa atribuye a la activación de bases imponibles negativas de Estados Unidos (18,009); sin las activaciones de 2024 y 2025 la media 2021–2025 es 22,12 %. Sin además los ajustes de ejercicios anteriores sería 22,66 % (lectura); la deducción de 2023 (ICMS en Brasil) no está cuantificada y no se ajusta",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B11": 0.22119083805359852
+    }
+   },
+   "magnitud": "tasa (parámetro)",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-N1.escudo",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "configuración de compatibilidad de la V6.3 (el mismo tipo en NOPAT y en el escudo)"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": "2021–2025 (media de los tipos anuales, como la regla heredada C52)",
+    "perimetro": "consolidado, actividades continuadas (sin actividades interrumpidas en 2021–2025)"
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "no se separa el escudo sin una decisión (D-N6-τ de la 4.10); la deuda financiera es pequeña frente a la capitalización, así que el efecto es menor",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B16": "Vinculado al tipo aplicado a NOPAT"
+    }
+   },
+   "magnitud": "convención",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "D-config-N3.circulante",
+   "clase": "dato publicado",
+   "fuente": {
+    "fuente_o_condicion": "balance consolidado a 31-dic-2025 (AR_2025 pp. 21–22), conciliado con las notas 9 y 14"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "circulante = existencias + deudores − acreedores del balance, sobre las ventas de 2025 (48,28 %; 48,04 % en 2024; 46,79 % solo con las partidas comerciales de las notas)",
+    "confianza": "alta",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B29": 386.859,
+     "Configuración V6.4!B30": 321.044,
+     "Configuración V6.4!B31": 103.388
+    }
+   },
+   "magnitud": "stock a la fecha del balance base",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "H-config-PM1.familia",
+   "clase": "hipótesis",
+   "fuente": {
+    "fuente_o_condicion": "familias de la plantilla V6.4; análisis viscofan/configuracion/analisis_configuracion_viscofan.md"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "Θ parte del exceso observado: con el perímetro NIIF 16, Σ (capex + altas de derechos de uso − D&A) 2021–2025 = 64,923 (40,813 con «Caja»); θ está acotado en [0, 1]; Λ necesitaría λ, no observado",
+    "confianza": "baja",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B37": "Θ · θ × exceso histórico medio"
+    }
+   },
+   "magnitud": "familia",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "H-config-PM1.parametro",
+   "clase": "hipótesis",
+   "fuente": {
+    "fuente_o_condicion": "θ no observado: punto medio del dominio [0, 1], sin central económica adoptada; extremos calculados (theta_rango)"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "θ es la parte del exceso histórico que fue reposición; las cuentas no la separan. θ = 0 (todo fue crecimiento) y θ = 1 (todo fue reposición) se calculan como variantes, también con el perímetro «Caja»; con NIIF 16 la D&A de los derechos de uso se compara con sus altas (4.13 §7)",
+    "confianza": "baja",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro, con los extremos θ = 0 y θ = 1) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B38": null,
+     "Configuración V6.4!B39": 0.5
+    }
+   },
+   "magnitud": "parámetro",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-PM1.convencion_anios",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "convención de la plantilla para el requisito de los años 1–10"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "con R1 la capacidad se conserva cuando las ventas caen, así que su reposición no baja con ellas: nivel plano; la proporcional a las ventas se calcula como variante",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B40": "Plana"
+    }
+   },
+   "magnitud": "convención",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-PM1.convencion_terminal",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "convención de la plantilla para el terminal"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "en la perpetuidad la base de activos crece con el negocio: requisito proporcional a las ventas; «crece con g» se calcula como variante",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B41": "Proporcional a las ventas"
+    }
+   },
+   "magnitud": "convención",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-PM1.roic_terminal",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "definición de SR1: el ROIC del terminal no cambia"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "(4.13 §8, condición de PRECISION_ROIC_4_9.md) Q-ROIC1 sigue sin decidir: si el ROIC de largo plazo de la fase B es neto de reposición (rendimiento de la inversión que excede el mantenimiento), la combinación coherente con la suma del requisito es la que NO reestima el ROIC del terminal (SR1); si se midió sobre una inversión total que ya incluye la reposición, la coherente es la que lo reestima (SR2, ROIC × f). SR2 se calcula como variante; ninguna se elige por su valor",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (paso 10, variantes calculadas sobre copias del libro) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B42": "ROIC de la fase B sin cambio"
+    }
+   },
+   "magnitud": "convención",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  },
+  {
+   "id": "V-config-PM1.perimetro",
+   "clase": "convención",
+   "fuente": {
+    "fuente_o_condicion": "plantilla V6.4.1 experimental (4.13 §7); altas de derechos de uso conciliadas 2021–2025 (24,110) frente a su amortización (27,051)"
+   },
+   "dato_extraido_y_periodo": {
+    "periodo": null,
+    "perimetro": null
+   },
+   "transformacion_o_supuesto": {
+    "justificacion": "NIIF 16 completo: el motor B trata los arrendamientos como capital (Historia fila 32) y como deuda (puente), su NOPAT ya descuenta la amortización de los derechos de uso y no resta sus pagos; la inversión que repone esos activos son las altas. Con «Caja» (la V6.4) la D&A incluye la de los derechos de uso y el capex no incluye sus altas. Es el punto de cálculo, no una adopción: «Caja» se calcula como variante (perimetro_alternativo) y la elección es VISCOFAN-PERIMETRO",
+    "confianza": "media",
+    "materialidad_declarada": "la mide configuracion_v64_variantes.json (variante perimetro_alternativo y sus extremos de θ) y la evalúa la fase C"
+   },
+   "entrada_del_modelo": {
+    "celdas": {
+     "Configuración V6.4!B146": "NIIF 16 · capex de caja + altas de derechos de uso frente a toda la D&A",
+     "Configuración V6.4!B147": 3.01,
+     "Configuración V6.4!B148": 1.633,
+     "Configuración V6.4!B149": 6.554,
+     "Configuración V6.4!B150": 6.419,
+     "Configuración V6.4!B151": 6.494
+    }
+   },
+   "magnitud": "convención (perímetro); flujo del ejercicio (altas de derechos de uso)",
+   "calculo": {
+    "motores": "B",
+    "condicion": "modo experimental"
+   }
+  }
+ ],
+ "resultado": {
+  "V": [
+   30.0158463006955,
+   44.1839566126552,
+   58.5486415301981
+  ],
+  "probabilidades": [
+   0.2,
+   0.6,
+   0.2
+  ],
+  "ponderado": 44.2232715337719,
+  "precio_si": 40.164007181464314,
+  "precio": 54.7,
+  "zona": "caro",
+  "motor": "B"
+ },
+ "conclusion": {
+  "estado_propuesto": "concluido",
+  "accion": "esperar",
+  "precio_objetivo": 40.16,
+  "objetivo": "objetivo_condicionado"
+ },
+ "avisos": [
+  "AVISO unidad · C-capitalizacion: unidad declarada «millones de EUR» y unidad del libro «mm»"
+ ],
+ "nota": "cadena fuente → dato → transformación o supuesto → entrada → cálculo → resultado → conclusión, tal como la declaran el libro y la configuración; no la valida: los avisos señalan lo que hay que mirar, sin recortar entradas ni adoptar umbrales"
+}

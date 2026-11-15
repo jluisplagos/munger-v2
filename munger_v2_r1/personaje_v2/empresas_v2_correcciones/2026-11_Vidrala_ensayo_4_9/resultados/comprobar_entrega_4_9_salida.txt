@@ -1,0 +1,47 @@
+ENTREGA 4.9 · R-V1 y N4 · controles (solo escriben en temporales)
+====================================================================================================
+1. CONSERVACIÓN
+CUMPLE   · [recalcula] Frente al manifiesto de la 4.8.1 (1539 archivos) solo cambian los archivos declarados y ninguno desaparece; originales, expedientes anteriores, libro de referencia y decisiones registradas intactos · 12 cambiados, todos declarados
+CUMPLE   · [recalcula] Los archivos nuevos del manifiesto están en el expediente 4.9, salvo la batería nueva de R-V1 · personaje_v2/pruebas/test_integridad_auditoria_v2.py
+CUMPLE   · [recalcula] El registro humano de P1 conserva su huella b4e47afc…c445a4 y fase1_decisiones.json de la referencia no cambia: ninguna de las 38 entradas está registrada (ningún cero confirmado por la IA) · partidas registradas: deuda, arrendamientos, arrendamientos_principal, circulante_lineas
+CUMPLE   · [recalcula] La regla H2 (Pipeline.veredicto_auditoria) es idéntica a la de la 4.7.1, la 4.8 y la 4.8.1 · 9edf6252ca48c800
+CUMPLE   · [recalcula] Las copias del código de la 4.8.1 de reproduccion/codigo_4_8_1/ (cierre_v2.py, pipeline.py, ficha.py, resumen.py e informe.py: todo el código que cambia la 4.9) tienen las huellas del manifiesto de la 4.8.1
+2. R-V1 · INTEGRIDAD DE LA RESPUESTA DE AUDITORÍA VIGENTE
+CUMPLE   · [reejecuta] Batería de integridad con el código actual: 103/103 y el mismo estado de cada prueba que la salida conservada · 103/103 pruebas de integridad de la auditoría vigente PASAN
+CUMPLE   · [reejecuta] La misma batería con el código de la 4.8.1 reproduce el defecto (24/100) con el mismo estado de cada prueba que la reproducción conservada · 24/100 pruebas de integridad de la auditoría vigente PASAN
+CUMPLE   · [recalcula] Con el código 4.8.1, la solicitud cambiada, eliminada o duplicada y las mismas palabras con otro significado siguen APROBADO por las cuatro vías (16 casos) · 16 casos
+CUMPLE   · [recalcula] Hallazgos Z-1 y Z-2 de la auditoría interna: con el código 4.8.1 fallan los casos sin registro de la respuesta, no UTF-8 y archivos de control ilegibles (el defecto era anterior a la 4.9); con el actual pasan todos · 16 de 16 fallan con el 4.8.1
+CUMPLE   · [recalcula] Hallazgos V-1 a V-3 del control de vigencia: con el código 4.8.1 fallan los casos de material_auditoria.json y ficha.json ilegibles, JSON que no es un objeto, carpetas y el registro sin estado; con el actual pasan todos · 23 de 23 fallan con el 4.8.1
+CUMPLE   · [recalcula] Consecuencia declarada de Z-1 sobre el expediente histórico de la 4.6 (sin cierre_vigente.json): motivo_rechazo_cierre ya no lo acepta («no consta la respuesta de auditoría aprobada»), por eso su control da 23 de 24; el expediente no cambia · no consta la respuesta de auditoría aprobada (ni estado_pipe
+CUMPLE   · [reejecuta] Mutaciones del código de R-V1 (también las de los límites de la lista cerrada, de Z-1 y Z-2 y de V-1 a V-3 y W-1 a W-4): las 31 hacen fallar la batería (detección igual a la conservada) · 31 de 31
+CUMPLE   · [reejecuta] Control de integración del verificador comprobar_integracion_verificador_49.py: 13 de 13
+CUMPLE   · [reejecuta] Control de integración del verificador comprobar_integracion_verificador_481.py: 13 de 13
+CUMPLE   · [constata] verificar_paquete.sh: el bloque de integridad (mínimo 103) va antes de los de solicitudes, estados, resumen y cierre, en ese orden
+CUMPLE   · [recalcula] Ejemplo del encargo: las dos frases tienen la misma huella de contenido (detector A) y distinta huella fiel (identidad B); CRLF no cambia la huella fiel
+CUMPLE   · [constata] Anexo D: la identidad de la respuesta aceptada se comprueba por solicitud, material y huella fiel, con la lista cerrada de transformaciones inocuas
+3. N4 · CEROS PENDIENTES DE VIDRALA
+CUMPLE   · [reejecuta] efectos_n4.py: el recálculo forzado de la base reproduce la referencia, los valores y efectos de las 10 variantes son idénticos a los conservados y las copias llevan su LEEME de copias exploratorias · 10 variantes
+CUMPLE   · [reejecuta] n4_investigacion.py: matriz, recuento, CSV y propuestas idénticos a los conservados
+CUMPLE   · [reejecuta] Pruebas de las comprobaciones N4 contra falsos positivos (también los rótulos alternativos y las condiciones generales de la auditoría interna, Z-4, y los engaños estructurales del control de vigencia, V-4): 19/19
+CUMPLE   · [recalcula] Recuento real: 38 pendientes en fase1_v63.json (28 con fila y 10 auxiliares) frente a 39 en ceros_heredados_H1.csv, con la diferencia explicada (adquisiciones de AR_2023, sustituida por el comparativo)
+CUMPLE   · [recalcula] Cobertura: 38 investigadas; 35 respaldadas (8 con reserva), 3 no aplicables, 0 sin evidencia suficiente, 0 discrepantes; ninguna de las 38 con decisión registrada
+CUMPLE   · [recalcula] L26: cuadre completo en el texto inglés, en la versión española (1.412.878 + 901.354 = 2.314.232) y en el ESEF (ProfitLoss = atribuido); clase 2, valor documentado 0
+CUMPLE   · [recalcula] Efecto de L26: −1/35,206 € por acción por millón en MALO, NORMAL, BUENO y ponderado, y lo mismo en el precio de Sí (k = 3) · -0.028404; precio de Sí -0.028404
+CUMPLE   · [recalcula] Efecto de C48: ninguno en la valoración del motor B (B78:D78, C83) ni en el precio de Sí; −1 en el FCF base; el doble cómputo (C48 = 21,74) baja el FCF base a 139,46 y convierte el aviso de f en un PASA falso
+CUMPLE   · [recalcula] C48 (2023–2025): intereses pagados en explotación y financiación cuadrada sin intereses (también en español y en el ESEF 2024–2025), con la reserva de arrendamientos declarada
+CUMPLE   · [constata] Propuestas N4 agrupadas por partida y clase (sin una solicitud por celda dependiente), con decision, fecha y confirmado_por vacíos
+CUMPLE   · [constata] Decisiones y preguntas de la 4.9: campos humanos vacíos y ninguna pregunta enviada
+4. PRECISIÓN DEL ROIC, AUTOMATIZACIÓN Y DOCUMENTACIÓN
+CUMPLE   · [recalcula] La justificación del ROIC terminal está en fase_b.json → palancas → roic_lp (porque y apoyo en los tres escenarios) y en fase_b.md; PRECISION_ROIC_4_9.md lo corrige sin elegir estructura
+CUMPLE   · [constata] La propuesta de automatización está separada y declara que no está activada ni cambia el contrato de confirmaciones
+CUMPLE   · [constata] VERSION, CONTINUIDAD.md y PROMPT_NUEVA_VENTANA.md describen la 4.9: versión, ZIP, batería de integridad de 103, LEEME de la 4.9 y este control
+CUMPLE   · [constata] CONTINUIDAD.md §2 remite a los resultados de los controles históricos del LEEME de la 4.9 (sin los esperados de versiones anteriores)
+CUMPLE   · [constata] existe INFORME_RV1_4_9.md
+CUMPLE   · [constata] existe INFORME_N4_4_9.md
+CUMPLE   · [constata] existe REGISTRO_ENTREGA_4.9.md
+CUMPLE   · [constata] existe resultados/LEEME_BATERIAS_HISTORICAS.md
+CUMPLE   · [constata] existe AUDITORIA_INTERNA_4_9.md
+CUMPLE   · [constata] existe AUDITORIA_INTERNA_4_9_vigencia.md
+CUMPLE   · [constata] existe AUDITORIA_INTERNA_4_9_vigencia_2.md
+Tipos de control: 8 reejecutan, 17 recalculan y 14 solo constatan.
+RESULTADO: 39 de 39 comprobaciones cumplen.

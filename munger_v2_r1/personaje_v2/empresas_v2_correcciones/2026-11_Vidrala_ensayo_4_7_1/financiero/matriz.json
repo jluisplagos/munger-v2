@@ -1,0 +1,1867 @@
+{
+ "alternativas": {
+  "N1": [
+   [
+    "T0",
+    "base",
+    0.20032,
+    "media 2021–2025 del tipo efectivo de la Historia (C52): incluye 2021–2022, con Italia y con deducciones del año de 4,3–5,3 puntos (frente a 0,8–1,1 en 2023–2025) y un ajuste por cambio de tipo de +3,2 puntos en 2021"
+   ],
+   [
+    "T1",
+    "recomendada",
+    0.220541332769837,
+    "media del tipo efectivo 2023–2025 del perímetro de continuadas, con todas las líneas de la conciliación (interpretación: la plusvalía de Italia de 2024 y su exención se compensan en la conciliación; la plusvalía consolidada está en operaciones interrumpidas); sin las líneas no recurrentes sería casi igual"
+   ],
+   [
+    "T2",
+    "adversa",
+    0.24333028507812807,
+    "tipo efectivo de 2025, el último año de una serie que sube (20,4 → 21,4 → 24,3 %); incluye +1,9 puntos de otros ajustes sin acreditar y +1,1 de diferidos"
+   ]
+  ],
+  "N2": [
+   [
+    "M0",
+    "base",
+    0.16856077530716,
+    "media 2016–2025 de la Historia (C49): 2016–2022 con Italia, 2016 sin Santos Barosa, Brasil solo desde 2023"
+   ],
+   [
+    "M1",
+    "recomendada",
+    0.18546672136199518,
+    "media del ciclo 2020–2025 en perímetro de continuadas: 2020–2022 sin el segmento Italia (EBIT aproximado = resultado antes de impuestos + gastos − ingresos financieros del segmento), 2023 reexpresado, 2024–2025 publicados"
+   ],
+   [
+    "M2",
+    "optimista",
+    0.19934205138005404,
+    "margen publicado de 2025 (C48, «Último año»): perímetro actual; incluye otros ingresos sin detalle"
+   ]
+  ],
+  "N3": [
+   [
+    "R0",
+    "base",
+    "simetrica",
+    "plantilla: con ventas que caen se libera capital a ΔV ÷ S2C (≈ 16 mm el año 1 del MALO)"
+   ],
+   [
+    "R1",
+    "recomendada",
+    "circulante",
+    "solo se libera el circulante comercial (existencias + deudores − acreedores = 14.7 % de las ventas de 2025); la inversión fija no se recupera con ventas que caen y queda como capacidad para la recuperación"
+   ],
+   [
+    "R2",
+    "adversa",
+    "ninguna",
+    "no se libera capital con ventas que caen (2025: ventas −123,1 mm, reinversión orgánica neta +54,8 mm); el capital conservado sirve a la recuperación"
+   ]
+  ]
+ },
+ "matriz": [
+  {
+   "combinacion": "T0·M0·R0",
+   "N1": "T0",
+   "N2": "M0",
+   "N3": "R0",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.16856077530716,
+   "regla_N3": "simetrica",
+   "V_malo": 53.67041958341559,
+   "V_normal": 70.77219668235989,
+   "V_bueno": 86.48876244558326,
+   "ponderado": 70.49515441521571,
+   "precio_si": 65.68808732041566,
+   "peso_terminal": [
+    0.4175298342511882,
+    0.5252115410110298,
+    0.5703140344733569
+   ],
+   "fcf1": [
+    207.49448569273994,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "fcf_min": [
+    153.3189548144795,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 975.1473496585907,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": 0.0,
+   "d_precio_si": 0.0,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M0·R1",
+   "N1": "T0",
+   "N2": "M0",
+   "N3": "R1",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.16856077530716,
+   "regla_N3": "circulante",
+   "V_malo": 52.25681825770826,
+   "V_normal": 70.77219668235989,
+   "V_bueno": 86.48876244558326,
+   "ponderado": 70.21243415007424,
+   "precio_si": 65.08225818082681,
+   "peso_terminal": [
+    0.4279166980164678,
+    0.5252115410110298,
+    0.5703140344733569
+   ],
+   "fcf1": [
+    193.3692701371845,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "fcf_min": [
+    165.72547366546766,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 905.9197387056385,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -0.28272026514146376,
+   "d_precio_si": -0.6058291395888489,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M0·R2",
+   "N1": "T0",
+   "N2": "M0",
+   "N3": "R2",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.16856077530716,
+   "regla_N3": "ninguna",
+   "V_malo": 52.041219574060094,
+   "V_normal": 70.77219668235989,
+   "V_bueno": 86.48876244558326,
+   "ponderado": 70.16931441334461,
+   "precio_si": 64.9898587449776,
+   "peso_terminal": [
+    0.42954646770215094,
+    0.5252115410110298,
+    0.5703140344733569
+   ],
+   "fcf1": [
+    191.2149301371845,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "fcf_min": [
+    165.80035105175207,
+    171.62076483906822,
+    160.75259006077303
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 895.3613291157951,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -0.32584000187110007,
+   "d_precio_si": -0.6982285754380655,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M1·R0",
+   "N1": "T0",
+   "N2": "M1",
+   "N3": "R0",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.18546672136199518,
+   "regla_N3": "simetrica",
+   "V_malo": 54.60795032681622,
+   "V_normal": 71.76513690056395,
+   "V_bueno": 87.51029693098016,
+   "ponderado": 71.48273159189765,
+   "precio_si": 66.66136551616009,
+   "peso_terminal": [
+    0.41091474809859935,
+    0.5183795036411307,
+    0.5639867877252931
+   ],
+   "fcf1": [
+    223.18242673323937,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "fcf_min": [
+    153.3189548144795,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 1013.9769608044716,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": 0.9875771766819383,
+   "d_precio_si": 0.9732781957444274,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M1·R1",
+   "N1": "T0",
+   "N2": "M1",
+   "N3": "R1",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.18546672136199518,
+   "regla_N3": "circulante",
+   "V_malo": 53.1943490011089,
+   "V_normal": 71.76513690056395,
+   "V_bueno": 87.51029693098016,
+   "ponderado": 71.20001132675618,
+   "precio_si": 66.05553637657124,
+   "peso_terminal": [
+    0.4209711293542404,
+    0.5183795036411307,
+    0.5639867877252931
+   ],
+   "fcf1": [
+    209.05721117768388,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "fcf_min": [
+    165.72547366546766,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 944.7493498515194,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": 0.7048569115404746,
+   "d_precio_si": 0.36744905615557855,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M1·R2",
+   "N1": "T0",
+   "N2": "M1",
+   "N3": "R2",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.18546672136199518,
+   "regla_N3": "ninguna",
+   "V_malo": 52.97875031746073,
+   "V_normal": 71.76513690056395,
+   "V_bueno": 87.51029693098016,
+   "ponderado": 71.15689159002655,
+   "precio_si": 65.96313694072202,
+   "peso_terminal": [
+    0.4225483249172464,
+    0.5183795036411307,
+    0.5639867877252931
+   ],
+   "fcf1": [
+    206.9028711776839,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "fcf_min": [
+    165.80035105175207,
+    187.78409803231003,
+    177.15361933038602
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 934.1909402616759,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": 0.6617371748108383,
+   "d_precio_si": 0.27504962030636193,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M2·R0",
+   "N1": "T0",
+   "N2": "M2",
+   "N3": "R0",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.19934205138005404,
+   "regla_N3": "simetrica",
+   "V_malo": 55.3774161954855,
+   "V_normal": 72.58007935756085,
+   "V_bueno": 88.3487077518674,
+   "ponderado": 72.29327240400708,
+   "precio_si": 67.46017063014376,
+   "peso_terminal": [
+    0.40564010929749544,
+    0.5129036029310445,
+    0.55889773553393
+   ],
+   "fcf1": [
+    236.05809536099542,
+    201.04993843666483,
+    190.61454562304013
+   ],
+   "fcf_min": [
+    153.3189548144795,
+    197.60611836739187,
+    190.61454562304013
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 1045.8458468978292,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": 1.7981179887913754,
+   "d_precio_si": 1.772083309728103,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M2·R1",
+   "N1": "T0",
+   "N2": "M2",
+   "N3": "R1",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.19934205138005404,
+   "regla_N3": "circulante",
+   "V_malo": 53.963814869778176,
+   "V_normal": 72.58007935756085,
+   "V_bueno": 88.3487077518674,
+   "ponderado": 72.01055213886562,
+   "precio_si": 66.85434149055492,
+   "peso_terminal": [
+    0.4154368958104111,
+    0.5129036029310445,
+    0.55889773553393
+   ],
+   "fcf1": [
+    221.93287980543997,
+    201.04993843666483,
+    190.61454562304013
+   ],
+   "fcf_min": [
+    165.72547366546766,
+    197.60611836739187,
+    190.61454562304013
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 976.6182359448769,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": 1.5153977236499117,
+   "d_precio_si": 1.1662541701392541,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T0·M2·R2",
+   "N1": "T0",
+   "N2": "M2",
+   "N3": "R2",
+   "t": 0.20032,
+   "r_op": 0.08692211132868466,
+   "m0": 0.19934205138005404,
+   "regla_N3": "ninguna",
+   "V_malo": 53.74821618613001,
+   "V_normal": 72.58007935756085,
+   "V_bueno": 88.3487077518674,
+   "ponderado": 71.96743240213598,
+   "precio_si": 66.7619420547057,
+   "peso_terminal": [
+    0.4169728195769482,
+    0.5129036029310445,
+    0.55889773553393
+   ],
+   "fcf1": [
+    219.77853980543998,
+    201.04993843666483,
+    190.61454562304013
+   ],
+   "fcf_min": [
+    165.80035105175207,
+    197.60611836739187,
+    190.61454562304013
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 966.0598263550336,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": 1.4722779869202753,
+   "d_precio_si": 1.0738547342900375,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T1·M0·R0",
+   "N1": "T1",
+   "N2": "M0",
+   "N3": "R0",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.16856077530716,
+   "regla_N3": "simetrica",
+   "V_malo": 52.305787003105564,
+   "V_normal": 68.81253713411752,
+   "V_bueno": 84.07992001210187,
+   "ponderado": 68.564663683512,
+   "precio_si": 63.919270346253015,
+   "peso_terminal": [
+    0.417667027474328,
+    0.5268780990857868,
+    0.5724537341354148
+   ],
+   "fcf1": [
+    202.65927569265853,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "fcf_min": [
+    149.05054545527594,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 952.5065441047517,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -1.9304907317037134,
+   "d_precio_si": -1.7688169741626467,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T1·M0·R1",
+   "N1": "T1",
+   "N2": "M0",
+   "N3": "R1",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.16856077530716,
+   "regla_N3": "circulante",
+   "V_malo": 50.891951160589215,
+   "V_normal": 68.81253713411752,
+   "V_bueno": 84.07992001210187,
+   "ponderado": 68.28189651500873,
+   "precio_si": 63.31334069946029,
+   "peso_terminal": [
+    0.4283147794840975,
+    0.5268780990857868,
+    0.5724537341354148
+   ],
+   "fcf1": [
+    188.53406013710304,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "fcf_min": [
+    161.52453143843033,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 883.2789331517994,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -2.213257900206983,
+   "d_precio_si": -2.3747466209553707,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T1·M0·R2",
+   "N1": "T1",
+   "N2": "M0",
+   "N3": "R2",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.16856077530716,
+   "regla_N3": "ninguna",
+   "V_malo": 50.6763167090662,
+   "V_normal": 68.81253713411752,
+   "V_bueno": 84.07992001210187,
+   "ponderado": 68.23876962470413,
+   "precio_si": 63.22092593452186,
+   "peso_terminal": [
+    0.42998664702625267,
+    0.5268780990857868,
+    0.5724537341354148
+   ],
+   "fcf1": [
+    186.37972013710305,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "fcf_min": [
+    161.60779393894038,
+    166.45771309775594,
+    155.39095328797768
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 872.720523561956,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -2.256384790511575,
+   "d_precio_si": -2.467161385893803,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T1·M1·R0",
+   "N1": "T1",
+   "N2": "M1",
+   "N3": "R0",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.18546672136199518,
+   "regla_N3": "simetrica",
+   "V_malo": 53.219771771261044,
+   "V_normal": 69.78054231190437,
+   "V_bueno": 85.07580268434059,
+   "ponderado": 69.52744027826294,
+   "precio_si": 64.86810641911954,
+   "peso_terminal": [
+    0.411060988969359,
+    0.5200181402594256,
+    0.5660940815707057
+   ],
+   "fcf1": [
+    217.95051920883128,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "fcf_min": [
+    149.05054545527594,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 990.354279389908,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -0.9677141369527646,
+   "d_precio_si": -0.8199809012961197,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T1·M1·R1",
+   "N1": "T1",
+   "N2": "M1",
+   "N3": "R1",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.18546672136199518,
+   "regla_N3": "circulante",
+   "V_malo": 51.80593592874469,
+   "V_normal": 69.78054231190437,
+   "V_bueno": 85.07580268434059,
+   "ponderado": 69.24467310975967,
+   "precio_si": 64.26217677232681,
+   "peso_terminal": [
+    0.42137042696071514,
+    0.5200181402594256,
+    0.5660940815707057
+   ],
+   "fcf1": [
+    203.8253036532758,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "fcf_min": [
+    161.52453143843033,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 921.1266684369557,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -1.2504813054560344,
+   "d_precio_si": -1.4259105480888508,
+   "clase": "hipótesis coherente recomendada"
+  },
+  {
+   "combinacion": "T1·M1·R2",
+   "N1": "T1",
+   "N2": "M1",
+   "N3": "R2",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.18546672136199518,
+   "regla_N3": "ninguna",
+   "V_malo": 51.59030147722167,
+   "V_normal": 69.78054231190437,
+   "V_bueno": 85.07580268434059,
+   "ponderado": 69.20154621945507,
+   "precio_si": 64.16976200738839,
+   "peso_terminal": [
+    0.42298841894629136,
+    0.5200181402594256,
+    0.5660940815707057
+   ],
+   "fcf1": [
+    201.6709636532758,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "fcf_min": [
+    161.60779393894038,
+    182.2123276295703,
+    171.37725332761283
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 910.5682588471124,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -1.2936081957606405,
+   "d_precio_si": -1.518325313027276,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T1·M2·R0",
+   "N1": "T1",
+   "N2": "M2",
+   "N3": "R0",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.19934205138005404,
+   "regla_N3": "simetrica",
+   "V_malo": 53.96991259440705,
+   "V_normal": 70.575019666642,
+   "V_bueno": 85.89316012128963,
+   "ponderado": 70.31762634312454,
+   "precio_si": 65.6468509863481,
+   "peso_terminal": [
+    0.40579330598804575,
+    0.5145199793137639,
+    0.5609791064394272
+   ],
+   "fcf1": [
+    230.50060362795887,
+    195.14271763715638,
+    184.4977961294281
+   ],
+   "fcf_min": [
+    149.05054545527594,
+    191.7181130484702,
+    184.4977961294281
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 1021.4173039502801,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -0.17752807209116384,
+   "d_precio_si": -0.04123633406756255,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T1·M2·R1",
+   "N1": "T1",
+   "N2": "M2",
+   "N3": "R1",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.19934205138005404,
+   "regla_N3": "circulante",
+   "V_malo": 52.55607675189071,
+   "V_normal": 70.575019666642,
+   "V_bueno": 85.89316012128963,
+   "ponderado": 70.03485917462127,
+   "precio_si": 65.04092133955538,
+   "peso_terminal": [
+    0.4158369812829024,
+    0.5145199793137639,
+    0.5609791064394272
+   ],
+   "fcf1": [
+    216.3753880724034,
+    195.14271763715638,
+    184.4977961294281
+   ],
+   "fcf_min": [
+    161.52453143843033,
+    191.7181130484702,
+    184.4977961294281
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 952.1896929973279,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -0.4602952405944336,
+   "d_precio_si": -0.6471659808602794,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T1·M2·R2",
+   "N1": "T1",
+   "N2": "M2",
+   "N3": "R2",
+   "t": 0.220541332769837,
+   "r_op": 0.086821731906109,
+   "m0": 0.19934205138005404,
+   "regla_N3": "ninguna",
+   "V_malo": 52.34044230036769,
+   "V_normal": 70.575019666642,
+   "V_bueno": 85.89316012128963,
+   "ponderado": 69.99173228431667,
+   "precio_si": 64.94850657461696,
+   "peso_terminal": [
+    0.41741267782466246,
+    0.5145199793137639,
+    0.5609791064394272
+   ],
+   "fcf1": [
+    214.22104807240342,
+    195.14271763715638,
+    184.4977961294281
+   ],
+   "fcf_min": [
+    161.60779393894038,
+    191.7181130484702,
+    184.4977961294281
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 941.6312834074845,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -0.5034221308990396,
+   "d_precio_si": -0.7395807457987047,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M0·R0",
+   "N1": "T2",
+   "N2": "M0",
+   "N3": "R0",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.16856077530716,
+   "regla_N3": "simetrica",
+   "V_malo": 50.763939413775354,
+   "V_normal": 66.59741919705598,
+   "V_bueno": 81.35631747792401,
+   "ponderado": 66.38250289657346,
+   "precio_si": 61.92005618720257,
+   "peso_terminal": [
+    0.4178034314589235,
+    0.52883891547058,
+    0.5749813723018318
+   ],
+   "fcf1": [
+    197.21011112241854,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "fcf_min": [
+    144.24015148044117,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 926.9909045640504,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -4.112651518642252,
+   "d_precio_si": -3.7680311332130927,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T2·M0·R1",
+   "N1": "T2",
+   "N2": "M0",
+   "N3": "R1",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.16856077530716,
+   "regla_N3": "circulante",
+   "V_malo": 49.34983930605466,
+   "V_normal": 66.59741919705598,
+   "V_bueno": 81.35631747792401,
+   "ponderado": 66.09968287502932,
+   "precio_si": 61.31401328389371,
+   "peso_terminal": [
+    0.4287613519511398,
+    0.52883891547058,
+    0.5749813723018318
+   ],
+   "fcf1": [
+    183.08489556686305,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "fcf_min": [
+    156.7901712876176,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 857.7632936110982,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -4.395471540186392,
+   "d_precio_si": -4.374074036521954,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T2·M0·R2",
+   "N1": "T2",
+   "N2": "M0",
+   "N3": "R2",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.16856077530716,
+   "regla_N3": "ninguna",
+   "V_malo": 49.13416454951131,
+   "V_normal": 66.59741919705598,
+   "V_bueno": 81.35631747792401,
+   "ponderado": 66.05654792372066,
+   "precio_si": 61.22158124537513,
+   "peso_terminal": [
+    0.4304833460477732,
+    0.52883891547058,
+    0.5749813723018318
+   ],
+   "fcf1": [
+    180.93055556686306,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "fcf_min": [
+    156.88288360878795,
+    160.63907882487,
+    149.34851849397288
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 847.2048840212549,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -4.438606491495051,
+   "d_precio_si": -4.4665060750405345,
+   "clase": "sensibilidad mecánica (contiene una medición de la base con error de perímetro)"
+  },
+  {
+   "combinacion": "T2·M1·R0",
+   "N1": "T2",
+   "N2": "M1",
+   "N3": "R0",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.18546672136199518,
+   "regla_N3": "simetrica",
+   "V_malo": 51.65137847513612,
+   "V_normal": 67.53731248013845,
+   "V_bueno": 82.32328008176071,
+   "ponderado": 67.31731919946245,
+   "precio_si": 62.841336135369204,
+   "peso_terminal": [
+    0.4112081607898033,
+    0.5219453957873933,
+    0.5685826610546132
+   ],
+   "fcf1": [
+    212.0542861359562,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "fcf_min": [
+    144.24015148044117,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 963.7320895333892,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -3.1778352157532623,
+   "d_precio_si": -2.8467511850464575,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M1·R1",
+   "N1": "T2",
+   "N2": "M1",
+   "N3": "R1",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.18546672136199518,
+   "regla_N3": "circulante",
+   "V_malo": 50.23727836741544,
+   "V_normal": 67.53731248013845,
+   "V_bueno": 82.32328008176071,
+   "ponderado": 67.0344991779183,
+   "precio_si": 62.23529323206034,
+   "peso_terminal": [
+    0.4218184646725173,
+    0.5219453957873933,
+    0.5685826610546132
+   ],
+   "fcf1": [
+    197.92907058040075,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "fcf_min": [
+    156.7901712876176,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 894.504478580437,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -3.460655237297402,
+   "d_precio_si": -3.4527940883553185,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M1·R2",
+   "N1": "T2",
+   "N2": "M1",
+   "N3": "R2",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.18546672136199518,
+   "regla_N3": "ninguna",
+   "V_malo": 50.02160361087207,
+   "V_normal": 67.53731248013845,
+   "V_bueno": 82.32328008176071,
+   "ponderado": 66.99136422660963,
+   "precio_si": 62.14286119354175,
+   "peso_terminal": [
+    0.4234850337722636,
+    0.5219453957873933,
+    0.5685826610546132
+   ],
+   "fcf1": [
+    195.77473058040076,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "fcf_min": [
+    156.88288360878795,
+    175.9330773236664,
+    164.86742873539865
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 883.9460689905936,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -3.503790188606075,
+   "d_precio_si": -3.5452261268739136,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M2·R0",
+   "N1": "T2",
+   "N2": "M2",
+   "N3": "R0",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.19934205138005404,
+   "regla_N3": "simetrica",
+   "V_malo": 52.37973226304941,
+   "V_normal": 68.30871737177989,
+   "V_bueno": 83.116901757817,
+   "ponderado": 68.08455722724122,
+   "precio_si": 63.59746438032927,
+   "peso_terminal": [
+    0.4059487669874013,
+    0.5164204894291423,
+    0.5634364508746077
+   ],
+   "fcf1": [
+    224.2374450370075,
+    188.48542285808293,
+    177.60436758649772
+   ],
+   "fcf_min": [
+    144.24015148044117,
+    185.08247365065458,
+    177.60436758649772
+   ],
+   "capital_liberado_malo_10a": 92.15279878847745,
+   "reinversion_malo_1_5": -79.78602054279564,
+   "fcf_malo_1_5": 993.8869276625641,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": -14.125215555555473,
+   "inversion_bruta_implicita_malo_a1": 118.82278444444454,
+   "d_ponderado": -2.4105971879744885,
+   "d_precio_si": -2.0906229400863907,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M2·R1",
+   "N1": "T2",
+   "N2": "M2",
+   "N3": "R1",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.19934205138005404,
+   "regla_N3": "circulante",
+   "V_malo": 50.96563215532874,
+   "V_normal": 68.30871737177989,
+   "V_bueno": 83.116901757817,
+   "ponderado": 67.80173720569708,
+   "precio_si": 62.99142147702041,
+   "peso_terminal": [
+    0.4162859813774018,
+    0.5164204894291423,
+    0.5634364508746077
+   ],
+   "fcf1": [
+    210.11222948145203,
+    188.48542285808293,
+    177.60436758649772
+   ],
+   "fcf_min": [
+    156.7901712876176,
+    185.08247365065458,
+    177.60436758649772
+   ],
+   "capital_liberado_malo_10a": 12.194955806039733,
+   "reinversion_malo_1_5": -10.558409589843414,
+   "fcf_malo_1_5": 924.6593167096119,
+   "delta_circulante_malo_a1": -2.1543399999999884,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -2.6934172095186284,
+   "d_precio_si": -2.6966658433952517,
+   "clase": "hipótesis coherente alternativa"
+  },
+  {
+   "combinacion": "T2·M2·R2",
+   "N1": "T2",
+   "N2": "M2",
+   "N3": "R2",
+   "t": 0.24333028507812807,
+   "r_op": 0.0867086067278704,
+   "m0": 0.19934205138005404,
+   "regla_N3": "ninguna",
+   "V_malo": 50.74995739878537,
+   "V_normal": 68.30871737177989,
+   "V_bueno": 83.116901757817,
+   "ponderado": 67.7586022543884,
+   "precio_si": 62.89898943850182,
+   "peso_terminal": [
+    0.4179090363135929,
+    0.5164204894291423,
+    0.5634364508746077
+   ],
+   "fcf1": [
+    207.95788948145204,
+    188.48542285808293,
+    177.60436758649772
+   ],
+   "fcf_min": [
+    156.88288360878795,
+    185.08247365065458,
+    177.60436758649772
+   ],
+   "capital_liberado_malo_10a": 0.0,
+   "reinversion_malo_1_5": 0.0,
+   "fcf_malo_1_5": 914.1009071197684,
+   "delta_circulante_malo_a1": 0.0,
+   "inversion_fija_neta_malo_a1": 0.0,
+   "inversion_bruta_implicita_malo_a1": 132.948,
+   "d_ponderado": -2.7365521608273013,
+   "d_precio_si": -2.7890978819138397,
+   "clase": "hipótesis coherente alternativa"
+  }
+ ],
+ "control": true,
+ "nwc_ratio": 0.1470378661716127,
+ "t_rec": 0.220541332769837,
+ "m_rec": 0.18546672136199518,
+ "m_exb": 0.17988422163626994,
+ "m10": 0.17220302357452094,
+ "m_1825": 0.1824156965228791,
+ "t1_inicial": 0.2330049470612573,
+ "t_sin_no_recurrentes": 0.2188433303774541,
+ "t_sin_no_rec_ni_otros": 0.21619097471403526,
+ "t_sin_2024": 0.22368115599900618,
+ "conciliaciones": {
+  "2021": {
+   "base": 172514,
+   "gasto": 27357,
+   "cuadra": true,
+   "lineas": {
+    "estat": [
+     38.682,
+     "recurrente"
+    ],
+    "deduc": [
+     -7.466,
+     "recurrente"
+    ],
+    "perm": [
+     -5.76,
+     "recurrente"
+    ],
+    "otros": [
+     -2.818,
+     "sin acreditar"
+    ],
+    "anteriores": [
+     -2.045,
+     "no recurrente"
+    ],
+    "cambio_tipo": [
+     5.5,
+     "no recurrente"
+    ],
+    "dtl_reduccion": [
+     1.264,
+     "no recurrente"
+    ]
+   }
+  },
+  "2022": {
+   "base": 187748,
+   "gasto": 34062,
+   "cuadra": true,
+   "lineas": {
+    "estat": [
+     43.733,
+     "recurrente"
+    ],
+    "deduc": [
+     -9.885,
+     "recurrente"
+    ],
+    "perm": [
+     -1.124,
+     "recurrente"
+    ],
+    "otros": [
+     1.047,
+     "sin acreditar"
+    ],
+    "anteriores": [
+     -0.189,
+     "no recurrente"
+    ],
+    "dtl_reduccion": [
+     0.48,
+     "no recurrente"
+    ]
+   }
+  },
+  "2023": {
+   "base": 287493,
+   "gasto": 54813,
+   "cuadra": true,
+   "lineas": {
+    "estat": [
+     68.685,
+     "recurrente"
+    ],
+    "deduc": [
+     -2.961,
+     "recurrente"
+    ],
+    "perm": [
+     -9.673,
+     "recurrente"
+    ],
+    "otros": [
+     0.185,
+     "sin acreditar"
+    ],
+    "anteriores": [
+     -0.018,
+     "no recurrente"
+    ],
+    "dtl_reduccion": [
+     -1.405,
+     "no recurrente"
+    ]
+   }
+  },
+  "2024": {
+   "base": 303218,
+   "gasto": 64968,
+   "cuadra": true,
+   "lineas": {
+    "estat": [
+     99.939,
+     "recurrente"
+    ],
+    "deduc": [
+     -3.215,
+     "recurrente"
+    ],
+    "perm": [
+     -28.095,
+     "recurrente"
+    ],
+    "otros": [
+     -3.641,
+     "sin acreditar"
+    ],
+    "anteriores": [
+     -0.02,
+     "no recurrente"
+    ]
+   }
+  },
+  "2025": {
+   "base": 276661,
+   "gasto": 67320,
+   "cuadra": true,
+   "lineas": {
+    "estat": [
+     67.155,
+     "recurrente"
+    ],
+    "deduc": [
+     -2.292,
+     "recurrente"
+    ],
+    "perm": [
+     -5.769,
+     "recurrente"
+    ],
+    "otros": [
+     5.333,
+     "sin acreditar"
+    ],
+    "anteriores": [
+     -0.044,
+     "no recurrente"
+    ],
+    "dtl_reduccion": [
+     2.946,
+     "no recurrente"
+    ],
+    "dtl_aumento": [
+     -0.009,
+     "no recurrente"
+    ]
+   }
+  }
+ },
+ "descomposiciones": {
+  "n1_efecto_nopat": -2.0392319897230635,
+  "n1_efecto_r_op": 0.10874125801935008,
+  "elasticidad_tipo +1 pp": [
+   -0.9689872821835621,
+   -0.8886551763990056
+  ],
+  "elasticidad_margen de partida +1 pp": [
+   0.5694899248040741,
+   0.5612439965139799
+  ],
+  "m1b": [
+   68.92675537485749,
+   63.948862326666415
+  ],
+  "fcf1_T0·M0·R0": {
+   "malo": {
+    "anio": 1,
+    "ventas": 1450.5084000000002,
+    "margen": 0.164848620245728,
+    "nopat": 191.2149301371845,
+    "reinversion": -16.27955555555546,
+    "delta_circulante": -2.1543399999999884,
+    "inversion_fija_neta": -14.125215555555473,
+    "mantenimiento_adicional": 0.0,
+    "inversion_bruta_implicita": 118.82278444444454,
+    "capital_liberado": 16.27955555555546,
+    "fcf": 207.49448569273994
+   },
+   "normal": {
+    "anio": 1,
+    "ventas": 1494.4632000000001,
+    "margen": 0.170848620245728,
+    "nopat": 204.1798759501794,
+    "reinversion": 32.55911111111118,
+    "delta_circulante": 4.3086800000000105,
+    "inversion_fija_neta": 28.25043111111117,
+    "mantenimiento_adicional": 0.0,
+    "inversion_bruta_implicita": 161.19843111111118,
+    "capital_liberado": 0.0,
+    "fcf": 171.62076483906822
+   }
+  },
+  "fcf1_T1·M1·R1": {
+   "malo": {
+    "anio": 1,
+    "ventas": 1450.5084000000002,
+    "margen": 0.17837337708959614,
+    "nopat": 201.6709636532758,
+    "reinversion": -2.1543399999999884,
+    "delta_circulante": -2.1543399999999884,
+    "inversion_fija_neta": 0.0,
+    "mantenimiento_adicional": 0.0,
+    "inversion_bruta_implicita": 132.948,
+    "capital_liberado": 2.1543399999999884,
+    "fcf": 203.8253036532758
+   },
+   "normal": {
+    "anio": 1,
+    "ventas": 1494.4632000000001,
+    "margen": 0.18437337708959614,
+    "nopat": 214.77143874068148,
+    "reinversion": 32.55911111111118,
+    "delta_circulante": 4.3086800000000105,
+    "inversion_fija_neta": 28.25043111111117,
+    "mantenimiento_adicional": 0.0,
+    "inversion_bruta_implicita": 161.19843111111118,
+    "capital_liberado": 0.0,
+    "fcf": 182.2123276295703
+   }
+  },
+  "realizabilidad_T0·M0·R0": {
+   "reinversion": -16.27955555555546,
+   "delta_circulante": -2.1543399999999884,
+   "inversion_fija_neta": -14.125215555555473,
+   "inversion_bruta_implicita": 118.82278444444454,
+   "fcf": 207.49448569273994,
+   "compromisos": 66.61
+  },
+  "realizabilidad_T0·M0·R1": {
+   "reinversion": -2.1543399999999884,
+   "delta_circulante": -2.1543399999999884,
+   "inversion_fija_neta": 0.0,
+   "inversion_bruta_implicita": 132.948,
+   "fcf": 193.3692701371845,
+   "compromisos": 66.61
+  },
+  "realizabilidad_T0·M0·R2": {
+   "reinversion": 0.0,
+   "delta_circulante": 0.0,
+   "inversion_fija_neta": 0.0,
+   "inversion_bruta_implicita": 132.948,
+   "fcf": 191.2149301371845,
+   "compromisos": 66.61
+  },
+  "realizabilidad_T1·M1·R1": {
+   "reinversion": -2.1543399999999884,
+   "delta_circulante": -2.1543399999999884,
+   "inversion_fija_neta": 0.0,
+   "inversion_bruta_implicita": 132.948,
+   "fcf": 203.8253036532758,
+   "compromisos": 66.61
+  },
+  "sensibilidades_n3": [
+   {
+    "base": "T1·M1",
+    "regla": "R1",
+    "mantenimiento": "mantenimiento = D&A",
+    "x": 0.0,
+    "alcance": "solo MALO",
+    "V": [
+     51.80593592874469,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 69.24467310975967,
+    "precio_si": 64.26217677232681,
+    "fcf1_malo": 203.8253036532758,
+    "fcf_min_malo": 161.52453143843033,
+    "inversion_bruta_a1_malo": 132.948
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "solo MALO",
+    "V": [
+     42.15919666060849,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 67.31532525613244,
+    "precio_si": 60.12785994312559,
+    "fcf1_malo": 176.04780365327582,
+    "fcf_min_malo": 133.74703143843033,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "todos los escenarios",
+    "V": [
+     42.15919666060849,
+     59.407279278730975,
+     74.25113840293082
+    ],
+    "ponderado": 58.926434579946445,
+    "precio_si": 54.13579517442131,
+    "fcf1_malo": 176.04780365327582,
+    "fcf_min_malo": 133.74703143843033,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "solo MALO",
+    "V": [
+     32.51245739247228,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 65.38597740250519,
+    "precio_si": 55.99354311392436,
+    "fcf1_malo": 148.27030365327582,
+    "fcf_min_malo": 105.96953143843035,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "todos los escenarios",
+    "V": [
+     32.51245739247228,
+     49.03401624555757,
+     63.42647412152103
+    ],
+    "ponderado": 48.6081960501332,
+    "precio_si": 44.00941357651579,
+    "fcf1_malo": 148.27030365327582,
+    "fcf_min_malo": 105.96953143843035,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "mantenimiento = D&A",
+    "x": 0.0,
+    "alcance": "solo MALO",
+    "V": [
+     51.49354152264326,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 69.18219422853939,
+    "precio_si": 64.1282934554262,
+    "fcf1_malo": 203.8253036532758,
+    "fcf_min_malo": 149.05054545527594,
+    "inversion_bruta_a1_malo": 132.948
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "solo MALO",
+    "V": [
+     41.846802254507054,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 67.25284637491215,
+    "precio_si": 59.99397662622498,
+    "fcf1_malo": 176.04780365327582,
+    "fcf_min_malo": 121.27304545527595,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "todos los escenarios",
+    "V": [
+     41.846802254507054,
+     59.407279278730975,
+     74.25113840293082
+    ],
+    "ponderado": 58.86395569872616,
+    "precio_si": 54.001911857520696,
+    "fcf1_malo": 176.04780365327582,
+    "fcf_min_malo": 121.27304545527595,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "solo MALO",
+    "V": [
+     32.200062986370845,
+     69.78054231190437,
+     85.07580268434059
+    ],
+    "ponderado": 65.3234985212849,
+    "precio_si": 55.859659797023745,
+    "fcf1_malo": 148.27030365327582,
+    "fcf_min_malo": 93.49554545527596,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T1·M1",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "todos los escenarios",
+    "V": [
+     32.200062986370845,
+     49.03401624555757,
+     63.42647412152103
+    ],
+    "ponderado": 48.545717168912915,
+    "precio_si": 43.875530259615175,
+    "fcf1_malo": 148.27030365327582,
+    "fcf_min_malo": 93.49554545527596,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1",
+    "mantenimiento": "mantenimiento = D&A",
+    "x": 0.0,
+    "alcance": "solo MALO",
+    "V": [
+     52.25681825770826,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 70.21243415007424,
+    "precio_si": 65.08225818082681,
+    "fcf1_malo": 193.3692701371845,
+    "fcf_min_malo": 165.72547366546766,
+    "inversion_bruta_a1_malo": 132.948
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "solo MALO",
+    "V": [
+     42.622411523319435,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 68.28555280319648,
+    "precio_si": 60.9532267232316,
+    "fcf1_malo": 165.59177013718448,
+    "fcf_min_malo": 137.94797366546766,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "todos los escenarios",
+    "V": [
+     42.622411523319435,
+     60.41390453050539,
+     75.68085065482514
+    ],
+    "ponderado": 59.90899515393215,
+    "precio_si": 54.96997125947137,
+    "fcf1_malo": 165.59177013718448,
+    "fcf_min_malo": 137.94797366546766,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "solo MALO",
+    "V": [
+     32.98800478893062,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 66.35867145631872,
+    "precio_si": 56.8241952656364,
+    "fcf1_malo": 137.8142701371845,
+    "fcf_min_malo": 110.17047366546768,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "todos los escenarios",
+    "V": [
+     32.98800478893062,
+     50.05561237865089,
+     64.872938864067
+    ],
+    "ponderado": 49.60555615779006,
+    "precio_si": 44.85768433811593,
+    "fcf1_malo": 137.8142701371845,
+    "fcf_min_malo": 110.17047366546768,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "mantenimiento = D&A",
+    "x": 0.0,
+    "alcance": "solo MALO",
+    "V": [
+     51.94469513128671,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 70.15000952478994,
+    "precio_si": 64.94849112664615,
+    "fcf1_malo": 193.3692701371845,
+    "fcf_min_malo": 153.3189548144795,
+    "inversion_bruta_a1_malo": 132.948
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "solo MALO",
+    "V": [
+     42.310288396897874,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 68.22312817791216,
+    "precio_si": 60.819459669050936,
+    "fcf1_malo": 165.59177013718448,
+    "fcf_min_malo": 125.54145481447951,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+20.9% de D&A",
+    "x": 0.20893507235911776,
+    "alcance": "todos los escenarios",
+    "V": [
+     42.310288396897874,
+     60.41390453050539,
+     75.68085065482514
+    ],
+    "ponderado": 59.84657052864784,
+    "precio_si": 54.8362042052907,
+    "fcf1_malo": 165.59177013718448,
+    "fcf_min_malo": 125.54145481447951,
+    "inversion_bruta_a1_malo": 160.7255
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "solo MALO",
+    "V": [
+     32.67588166250905,
+     70.77219668235989,
+     86.48876244558326
+    ],
+    "ponderado": 66.2962468310344,
+    "precio_si": 56.690428211455725,
+    "fcf1_malo": 137.8142701371845,
+    "fcf_min_malo": 97.76395481447952,
+    "inversion_bruta_a1_malo": 188.503
+   },
+   {
+    "base": "T0·M0",
+    "regla": "R1 sin capacidad",
+    "mantenimiento": "+41.8% de D&A (exceso de 2025)",
+    "x": 0.4178701447182355,
+    "alcance": "todos los escenarios",
+    "V": [
+     32.67588166250905,
+     50.05561237865089,
+     64.872938864067
+    ],
+    "ponderado": 49.54313153250575,
+    "precio_si": 44.72391728393526,
+    "fcf1_malo": 137.8142701371845,
+    "fcf_min_malo": 97.76395481447952,
+    "inversion_bruta_a1_malo": 188.503
+   }
+  ],
+  "pagado_sobre_pbt": {
+   "2021": 0.16114634174617712,
+   "2022": 0.04580608049087074,
+   "2023": 0.156598595444063,
+   "2024": 0.23118680289428725,
+   "2025": 0.14731747517720242
+  }
+ },
+ "margenes": {
+  "historia": {
+   "2016": 0.12027224427007252,
+   "2017": 0.14243241929210423,
+   "2018": 0.15394389518392843,
+   "2019": 0.17564523516743122,
+   "2020": 0.196553922114188,
+   "2021": 0.16471001673175512,
+   "2022": 0.1368999933115836,
+   "2023": 0.18739969162288883,
+   "2024": 0.20840828399758982,
+   "2025": 0.19934205138005404
+  },
+  "sin_italia": {
+   "2018": 0.16212633797349008,
+   "2019": 0.18439890603757148,
+   "2020": 0.19996354097873917,
+   "2021": 0.1739364728018372,
+   "2022": 0.14375028739086207,
+   "2023": 0.18739969162288883,
+   "2024": 0.20840828399758982,
+   "2025": 0.19934205138005404
+  },
+  "sin_italia_ni_brasil": {
+   "2020": 0.19996354097873917,
+   "2021": 0.1739364728018372,
+   "2022": 0.14375028739086207,
+   "2023": 0.18507504654462104,
+   "2024": 0.19148767061956443,
+   "2025": 0.18509231148199576
+  }
+ },
+ "inversion": {
+  "capex_historia": {
+   "2016": 54.904,
+   "2017": 89.02,
+   "2018": 101.786,
+   "2019": 107.169,
+   "2020": 134.248,
+   "2021": 109.8,
+   "2022": 120.2,
+   "2023": 151.7,
+   "2024": 168.8,
+   "2025": 188.503
+  },
+  "da_historia": {
+   "2016": 75.557,
+   "2017": 76.999,
+   "2018": 88.178,
+   "2019": 97.091,
+   "2020": 84.144,
+   "2021": 86.284,
+   "2022": 85.46,
+   "2023": 87.21,
+   "2024": 117.72,
+   "2025": 132.948
+  },
+  "x_2025": 0.4178701447182355,
+  "x_2020": 0.595455409773721,
+  "capex_estados": {
+   "2025": 188.50300000000001,
+   "2024": 168.79999999999998,
+   "2020": 134.248
+  },
+  "da_estados": {
+   "2025": 132.948,
+   "2024": 117.72,
+   "2020": 84.144
+  }
+ },
+ "control_4_7": true,
+ "control_formulacion_inicial": true,
+ "tipos": {
+  "efectivo": {
+   "2021": 0.15857843421403478,
+   "2022": 0.18142403647442315,
+   "2023": 0.2040320269198843,
+   "2024": 0.21426168631149867,
+   "2025": 0.24333028507812807
+  },
+  "estatutario": {
+   "2021": 0.22422528026710875,
+   "2022": 0.23293457187293606,
+   "2023": 0.2389101647692292,
+   "2024": 0.32959454913626496,
+   "2025": 0.24273388732058368
+  },
+  "deducciones": {
+   "2021": 0.04327764703154526,
+   "2022": 0.0526503611223555,
+   "2023": 0.010299381202324926,
+   "2024": 0.010602932543582504,
+   "2025": 0.008284507032071741
+  },
+  "permanentes": {
+   "2021": 0.033388594548848204,
+   "2022": 0.0059867481943882235,
+   "2023": 0.03364603659915198,
+   "2024": 0.09265610880620542,
+   "2025": 0.020852234322871675
+  },
+  "corriente": {
+   "2021": 15.878,
+   "2022": 23.599,
+   "2023": 63.249,
+   "2024": 65.376,
+   "2025": 56.136
+  },
+  "pagado": {
+   "2021": 27.8,
+   "2022": 8.6,
+   "2023": 45.021,
+   "2024": 70.1,
+   "2025": 40.757
+  },
+  "gasto": {
+   "2021": 27.357,
+   "2022": 34.062,
+   "2023": 54.813,
+   "2024": 64.968,
+   "2025": 67.32
+  }
+ }
+}

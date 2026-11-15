@@ -1,0 +1,85 @@
+{
+ "libro": "/home/claude/trabajo_4_14/trabajo/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/vidrala_decisiones/Vidrala/Vidrala_v63_evaluada.xlsx",
+ "recalc": "/home/claude/trabajo_4_14/trabajo/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/vidrala_decisiones/Vidrala/recalc/Vidrala_v63_evaluada.xlsx",
+ "integro": true,
+ "estado_tecnico": "INCOMPLETO",
+ "causa_tecnica": "Faltan palancas de crecimiento (Palancas B14:D14)",
+ "estado_libro": "NO LISTO · incompleto (5 pendientes)",
+ "comparable": true,
+ "motores": {
+  "A": {
+   "calculable": false,
+   "reglas_nivel_1_fallidas": [
+    "V09 INCOMPLETO: Faltan intereses en financiación o principal de arrendamientos (Análisis C48, C49): escribe 0 si la empresa no tiene; un vacío no es un cero"
+   ],
+   "C83_simulado": null,
+   "cubierto_por_configuracion_v64": false
+  },
+  "B": {
+   "calculable": true,
+   "reglas_nivel_1_fallidas": [],
+   "C83_simulado": 84.1640428686876,
+   "cubierto_por_configuracion_v64": true
+  },
+  "C": {
+   "calculable": true,
+   "reglas_nivel_1_fallidas": [],
+   "C83_simulado": 61.0893283644236,
+   "cubierto_por_configuracion_v64": false
+  }
+ },
+ "motor_elegido": "B",
+ "bloqueantes": [],
+ "necesarios_para_listo_provisional": [
+  {
+   "dato": "evidencia Historia!C23:L23",
+   "que": "Pasivo por arrendamientos: no verificable",
+   "origen_esperado": "fase1_v63.json (fuente y página del dato) o etapa 1",
+   "nota": "el dato está pero su clasificación/documento no permite LISTO·PROVISIONAL; la fase C juzga si es material"
+  },
+  {
+   "dato": "evidencia Historia!C26:L26",
+   "que": "Minoritarios: no verificable",
+   "origen_esperado": "fase1_v63.json (fuente y página del dato) o etapa 1",
+   "nota": "el dato está pero su clasificación/documento no permite LISTO·PROVISIONAL; la fase C juzga si es material"
+  },
+  {
+   "dato": "evidencia Análisis!C48",
+   "que": "Intereses pagados clasificados en financiación · IFRS: cero pendiente de verificación",
+   "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
+   "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Análisis!C48 depende de la Historia; 2023, 2024, 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
+  },
+  {
+   "dato": "evidencia Historia!C13:L13",
+   "que": "Adquisiciones netas (positivo): cero pendiente de verificación",
+   "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
+   "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, adquisiciones; 2018, 2019, 2020, 2021, 2022): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
+  },
+  {
+   "dato": "evidencia Historia!C16:L16",
+   "que": "Intereses pagados en financiación (IFRS): cero pendiente de verificación",
+   "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
+   "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, intereses_financiacion; 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
+  },
+  {
+   "dato": "evidencia Historia!C17:L17",
+   "que": "Principal de arrendamientos (IFRS 16): cero pendiente de verificación",
+   "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
+   "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, arrendamientos_principal; 2016, 2018): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
+  }
+ ],
+ "no_bloqueantes": [
+  {
+   "dato": "Palancas!C24",
+   "que": "tamaño del mercado año 10",
+   "origen_esperado": "extractos (solo con cifra de fuente primaria)",
+   "nota": ""
+  }
+ ],
+ "avisos": [
+  "V19 AVISO: Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido",
+  "V31 AVISO: Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha"
+ ],
+ "anios_con_ventas": 10,
+ "configuracion_v64_experimental": true
+}

@@ -1,0 +1,21 @@
+PASA  · importes: paréntesis = negativo, «-» = 0, separadores de millar, errata ilegible = None
+PASA  · financiación sintética que cuadra, sin intereses dentro y con «Interest paid» en explotación: se acepta
+PASA  · línea de intereses dentro de financiación: se detecta (no acredita el cero) · ['Interest paid on borrowings (3) (2)']
+PASA  · bloque de financiación que no cuadra: no se acepta · [-20.0, -11.0]
+PASA  · importe ilegible en la columna del año, aunque la suma cuadre: no se acepta; el mismo en la columna comparativa: se tolera y se declara
+PASA  · balance con intereses no dominantes: el cuadre atribuido + pasivo ≠ total lo rechaza · ((1000.0, 900.0), (500.0, 450.0), (1550.0, 1390.0))
+PASA  · resultado atribuido a la dominante ≠ resultado del ejercicio: se rechaza aunque el balance cuadre
+PASA  · adquisición con un solo importe que cuadra en la columna del año: se detecta como importe del año · [{'linea': 'Acquisition of a subsidiary, net of the cash acquired (40)', 'importe': -40.0, 'columna': 'actual'}]
+PASA  · activo corriente con depósitos a corto plazo: se detecta (no acredita el cero de otros activos financieros)
+PASA  · una cita que no está en su página no se da por contrastada
+PASA  · intereses en financiación con otro rótulo («Finance costs paid», «Gastos financieros pagados», «Borrowing costs paid»): rótulo no reconocido, no se acepta · [['Finance costs paid'], ['Gastos financieros pagados'], ['Borrowing costs paid']]
+PASA  · adquisición del año con otro rótulo (cinco variantes): rótulo no reconocido, no se acepta · [['Acquisition of businesses, net of cash acquired'], ['Business combinations, net of cash acquired'], ['Purchase of subsidiaries'], ['Adquisición de negocios, neta de la caja adquirida'], ['Combinaciones de negocios']]
+PASA  · activo financiero corriente con otro rótulo (seis variantes): rótulo no reconocido, no se acepta · [['Short-term investments'], ['Current financial assets'], ['Marketable securities'], ['Imposiciones a corto plazo'], ['Inversiones a corto plazo'], ['Activos financieros corrientes']]
+PASA  · clasificación: una cita fuera de su página, una comparativa que contradice, la unidad no localizada o un rótulo no reconocido bajan la entrada a la clase 3 (también una clase 4 sin cita) · [3, 3, 3, 3, 4]
+PASA  · línea solo con importes dentro del bloque (intereses o adquisición sin rótulo), desglose «of which» después del total y segundo bloque de financiación en la página: excepciones de estructura, no se aceptan · [['líneas solo con importes, sin rótulo, dentro del bloque: (3) (2)'], ['la página tiene un desglose «of which / de los cuales»'], ['la página tiene más de un bloque que empieza igual'], ['líneas solo con importes, sin rótulo, dentro del bloque: (40) -']]
+PASA  · unidad: una cabecera en millones con «thousands of euros» en una nota al pie no acredita la unidad; la cabecera en miles, sí
+PASA  · minoritarios incluidos en «Total liabilities» y desglosados aparte («Outside shareholders' interests»): el cuadre del balance lo rechaza
+PASA  · real 2025: minoritarios (L26) cuadran balance y resultado; financiación (C48) cuadra sin intereses y con «Interest paid» en explotación; unidad en la cabecera y sin excepciones de estructura
+PASA  · real 2023: la errata «112,5000» está en la columna comparativa; el año cuadra y se declara la errata
+
+19/19 pruebas de las comprobaciones N4 PASAN

@@ -1,0 +1,51 @@
+{
+ "titulo": "Convenciones propuestas N1–N3 (entrega 4.7). Archivo PREPARADO: sin decidir.",
+ "estado": "pendiente de la persona responsable",
+ "instrucciones": "Para cada decisión, la persona responsable escribe en «decision» una de las opciones, o otra con su motivo, y rellena «fecha» y «confirmado_por». Claude no rellena esos campos ni los sustituye. Mientras estén vacíos, el libro de referencia y sus valores (53,67 / 70,77 / 86,49; ponderado 70,50; precio de Sí 65,69) siguen siendo los vigentes del ensayo. Ningún valor de este archivo es una comparación válida con el precio de noviembre de 2026 ni una recomendación de compra o espera.",
+ "decisiones": [
+  {
+   "id": "D-N1",
+   "pregunta": "Tipo impositivo para el NOPAT proyectado y el terminal (hoy Historia!C52 = 20,03 %, media 2021–2025 del tipo efectivo).",
+   "opciones": {
+    "T0": "mantener 20,03 % (media del tipo efectivo 2021–2025: incluye 2021–2022, con Italia, deducciones del año de 4–5 puntos y el cambio de tipo de 2021)",
+    "T1": "22,05 % = media del tipo efectivo 2023–2025 del perímetro de continuadas, con todas las líneas de la conciliación (sin las no recurrentes, 21,88 %)",
+    "T2": "24,33 % = tipo efectivo de 2025, último año de una serie que sube"
+   },
+   "propuesta_de_claude": "T1",
+   "efecto_en_la_combinacion_recomendada": "ver INFORME_FINANCIERO_N1_N3.md §2 y matriz.md",
+   "representable_en_la_plantilla": "no con una entrada: exige una celda de tipo normalizado (cambio de plantilla) o sustituir Diagnóstico V6!C11 en una copia de propuesta (PROPUESTA_T1_M1.xlsx)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null,
+   "nota": "Tras la auditoría interna (H-5, H-6) se descartó la formulación anterior de T1 (23,30 % = tipo de cada país 2025 − deducciones), que elegía líneas de forma asimétrica; queda en formulacion_inicial_N1/."
+  },
+  {
+   "id": "D-N2",
+   "pregunta": "Margen de partida (hoy Historia!C49 = 16,86 %, media 2016–2025 con Italia y con 2016–2019).",
+   "opciones": {
+    "M0": "mantener 16,86 %",
+    "M1": "18,55 % = media 2020–2025 en perímetro de continuadas (2020–2022 sin el segmento Italia)",
+    "M2": "19,93 % = margen de 2025 (Palancas!C8 = «Último año», representable en la plantilla)"
+   },
+   "propuesta_de_claude": "M1",
+   "representable_en_la_plantilla": "M2 sí (Palancas!C8); M1 no con una entrada (copia de propuesta con Diagnóstico V6!C10 sustituido)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  },
+  {
+   "id": "D-N3",
+   "pregunta": "Regla de reinversión con ventas que caen en el MALO (hoy la plantilla libera ΔV ÷ S2C, ≈ 16 mm al año en los años 1–5).",
+   "opciones": {
+    "R0": "mantener la liberación simétrica de la plantilla",
+    "R1": "al caer las ventas solo se libera el circulante comercial, |ΔV| × 14,70 %; en la recuperación hasta el máximo de ventas ya alcanzado solo se repone ese circulante; por encima del máximo, ΔV ÷ S2C",
+    "R2": "al caer las ventas no se libera capital; en la recuperación hasta el máximo ya alcanzado no se reinvierte; por encima del máximo, ΔV ÷ S2C"
+   },
+   "propuesta_de_claude": "R1",
+   "representable_en_la_plantilla": "no: la reinversión es ΔV ÷ S2C en las dos direcciones; solo en el modelo auxiliar (analisis_n1_n3.py)",
+   "decision": null,
+   "fecha": null,
+   "confirmado_por": null
+  }
+ ]
+}

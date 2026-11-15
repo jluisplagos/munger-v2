@@ -1,0 +1,23 @@
+código: entrega 4.8
+X-a · copia aprobada de la 4.6.1, sin fase1_v63.json ni texto/ · pipeline.py COPIA --desde 2 (una sola ejecución)
+   código de salida: 0
+   últimas líneas: [paso 2] FIN · estado pendiente_de_datos · falta_de_datos: falta fase1_v63.json y no hay informes en texto/ para construirlo | estado final: pendiente_de_datos · paso 2 · causa: falta_de_datos: falta fase1_v63.json y no hay informes en texto/ para construirlo · continuar desde
+   estado_pipeline.json: estado_analisis='pendiente_de_datos' · auditoria=None · paso=2 · cierres_archivados=2 · ficha_valida=True
+   ficha.json: estado='pendiente_de_datos' · cierre=None
+   informe.md: sí · cierre_vigente.json: no
+   diagnostico.json: estado='pendiente_de_datos' · causa='falta_de_datos' · detalle='falta fase1_v63.json y no hay informes en texto/ para construirlo' · paso=2 · desde_que_paso=2 · que_hace_falta='José Luis: informes anuales de 10 años (PDF → texto/) o fase1_v63.json (S-2)'
+   fila del resumen: [('pendiente_de_datos', '')]
+   carpetas archivadas: [('01_74b94f8072dd58c1', 'concluido', True), ('02_74b94f8072dd58c1', 'concluido', True)]
+   X-a NO SE REPRODUCE: estado, ficha, diagnóstico y resumen coherentes en la primera ejecución; aprobación caducada retirada y archivada
+X-c · código con esquema de ficha roto (campo obligatorio inexistente) · copia aprobada de la 4.6.1 · pipeline.py COPIA --desde 14 (una sola ejecución)
+   código de salida: 0
+   últimas líneas: [paso 14] ficha.json no cumplía su esquema: estado concluido → no_entregable (fallo de implementación; ver diagnostico.md) | [paso 14] FIN · estado no_entregable · fallo_de_implementacion: ficha.json no cumple su esquema (estado previsto: concluido); ver diagnostico.md | estado final: no_entregable · paso 14 · causa: fallo_de_implementacion: ficha.json no cumple su esquema (criterio 7 †; estado previsto: concluido): IN
+   estado_pipeline.json: estado_analisis='no_entregable' · auditoria=None · paso=14 · cierres_archivados=2 · ficha_valida=False
+   ficha.json: estado='no_entregable' · cierre=None
+   informe.md: sí · cierre_vigente.json: no
+   diagnostico.json: estado='no_entregable' · causa='fallo_de_implementacion' · detalle="ficha.json no cumple su esquema (criterio 7 †; estado previsto: concluido): INVÁLIDO · ficha.json contra ficha.esquema.json\n(raíz): 'campo_inexistente" · paso=14 · desde_que_paso=13 · que_hace_falta='corregir ficha.py o esquema/ficha.esquema.json (ver esquema_ficha.json.txt) y relanzar pipeline.py --desde 13: el cierre no se escribió, la ficha cerr'
+   fila del resumen: [('no_entregable', '')]
+   carpetas archivadas: [('01_74b94f8072dd58c1', 'concluido', True), ('02_74b94f8072dd58c1', 'concluido', True)]
+   ¿alguna ficha no_entregable con «cierre» (actual o archivada)? no
+   X-c NO SE REPRODUCE: no_entregable sin cierre, atribuido al fallo de esquema en el estado, el diagnóstico y el mensaje; aprobación anterior archivada
+RESULTADO: X-A coherente · X-C coherente

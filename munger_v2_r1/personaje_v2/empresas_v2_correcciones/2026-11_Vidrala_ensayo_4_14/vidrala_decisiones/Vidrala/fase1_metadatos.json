@@ -1,0 +1,67 @@
+{
+ "empresa": "Vidrala, S.A.",
+ "ticker": "VID",
+ "fecha_analisis": "2026-11-14",
+ "sector_texto": "Fabricación y venta de envases de vidrio (botellas y tarros) para bebidas y alimentación, con plantas en España, Portugal, Reino Unido, Irlanda y Brasil",
+ "moneda_modelo": "EUR",
+ "norma_contable": "IFRS",
+ "cierre_fiscal": "diciembre",
+ "mercado": "Bolsas de Madrid y Bilbao (Mercado Continuo, BME)",
+ "ratio_adr": null,
+ "sector_damodaran": "Packaging & Container",
+ "precio": {
+  "valor": 90.1,
+  "moneda_cotizacion": "EUR",
+  "fecha": "2025-12-31",
+  "fx": null,
+  "fx_fecha": null,
+  "fuente": "Cuentas anuales consolidadas 2025 (versión española, 2308), Informe de gestión «Evolución bursátil», pág. PDF 97: «La cotización de la acción cerró 2025 en 90,10 euros lo que equivale a una capitalización bursátil de 3.172 millones de euros». Fuente del informe financiero anual depositado en la CNMV; no contrastada con el boletín de BME. Base corporativa de 31-dic-2025, sin ajustes por la liberada de 2026."
+ },
+ "acciones_diluidas": {
+  "valor": 35.182858,
+  "fecha": "2025-12-31",
+  "fuente": "(4.10.1, ensayo) Acciones EN CIRCULACIÓN a 31-dic-2025 = 35.206.258 emitidas − 23.400 propias (ES 2025, nota 14(k), pág. PDF 67); sin instrumentos dilutivos. NO es la media anual ponderada (35.206 miles, pág. PDF 82).",
+  "pagina": "PDF 67 (es_2308)"
+ },
+ "capitalizacion": {
+  "valor": 3169.9755058,
+  "fecha": "2025-12-31",
+  "fuente": "(4.10.1, ensayo) 90,10 € (cierre de 2025, ES 2025 pág. PDF 97) × 35,182858 millones de acciones en circulación = 3.169,9755058 mm. La compañía da 3.172 sobre las emitidas."
+ },
+ "tasa_sin_riesgo": {
+  "valor": 0.0285,
+  "fuente": "Deutsche Bundesbank, Kapitalmarktstatistik «Tägliche Renditen der jeweils jüngsten Bundeswertpapiere» (fin de mes), fila «Dez. 3,47 . 3,24 2,85 2,63 2,44 2,12» del bloque de 2025: Bundesanleihe a 10 años, 2,85 % a fin de diciembre de 2025 (https://www.bundesbank.de/resource/blob/772218/f561ec1a8ae1e51f3cd4d15d81d454cf/472B63F073F071307366337C94F8C870/rendbund-data.pdf). Consultado el 12-nov-2026 (ejemplar con fecha 11.11.2026) con la herramienta web, que devuelve el contenido y no los bytes: el PDF no se conserva en el paquete (la consola no tiene red hacia bundesbank.de: proxy 403) y no se calcula aquí su huella; la revisión externa registró 6ace5ac7785ecca9f8f3d56ce12f49fb2acbe4b9418dd84def46fc63c516a9dd para su ejemplar (dato de la revisión, no comprobado en esta sesión). Bund (sin riesgo del euro), no el bono español, que llevaría la prima país (sumada aparte)."
+ },
+ "geografia": [
+  {
+   "pais": "Región · Western Europe",
+   "pct": 0.487,
+   "nota": "Segmento Vidrala Europe (España, Portugal; mercados de península ibérica, Francia, Bélgica y Alemania): 714,9 M EUR de 1.467,3. Sin desglose por país; se agrupa como Europa occidental."
+  },
+  {
+   "pais": "United Kingdom",
+   "pct": 0.391,
+   "nota": "Segmento Reino Unido e Irlanda (Encirc): 574,1 M EUR; el informe no separa Irlanda, se asigna todo a Reino Unido."
+  },
+  {
+   "pais": "Brazil",
+   "pct": 0.122,
+   "nota": "Segmento Brasil (Vidroporto): 178,3 M EUR."
+  }
+ ],
+ "geografia_fuente": {
+  "fuente": "Cuentas consolidadas 2025, nota 4 (información por segmentos, ingresos 2025); cada segmento abastece su mercado geográfico",
+  "pagina": "PDF 27 (CF_2025)"
+ },
+ "convenciones": {
+  "caja_incluye_otros_activos_financieros": false,
+  "motivo_caja": "El balance 2025 solo tiene caja y equivalentes de 108,4 M EUR; los otros activos financieros son no corrientes y mínimos (1,4 M EUR), sin depósitos a plazo corrientes materiales (PDF 4)."
+ },
+ "anios_fcf_base": 3,
+ "_notas": [
+  "La geografía es por segmento operativo (ubicación de plantas, que abastecen su mercado local), no por ubicación exacta del cliente; el informe no da desglose por países.",
+  "Irlanda incluida en Reino Unido; Europe agrupado como Western Europe sin desglose España/Francia/Portugal/Alemania.",
+  "(4.11, cambio de base) Metadatos ACTIVOS con base económica 31-dic-2025, escritos por cambiar_base.py: precio de cierre de 2025 (90,10 €, ES 2025 pág. PDF 97), acciones en circulación a 31-dic-2025 (35.206.258 emitidas − 23.400 propias = 35,182858 millones; sin instrumentos dilutivos), E = 3.169,9755058 mm y rf del Bund a fin de diciembre de 2025 (2,85 %, Bundesbank). fecha_analisis es la fecha real de ejecución. Las notas de la base anterior (precio, rentabilidad sin riesgo y acciones) están en antecedentes/notas_retiradas.json y no se citan aquí.",
+  "(4.14) Metadatos sin cambios respecto a la rama 4.14 de Vidrala; el cambio afecta solo a C46–C48 (E1 y E4). (Versión 2: conserva todas las entradas `analisis` de la rama; la versión 1 las perdió y se invalidó.)"
+ ]
+}

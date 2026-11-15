@@ -1,0 +1,40 @@
+== versión
+munger_v2 · r1 · entrega 4.9 (integridad de la auditoría vigente e investigación N4 de Vidrala: R-V1, la vigencia de un cierre ya no se acepta por la huella de contenido sin orden (detector del paso 13, función A) sino por la identidad fiel de la respuesta aceptada (función B): solicitud (una sola línea, la registrada y respondida), material y texto íntegro con su orden, salvo las transformaciones inocuas declaradas (BOM, CRLF/CR, saltos finales, NFC/NFD); la solicitud cambiada, eliminada o duplicada, las mismas palabras con otro significado o las líneas reordenadas retiran la aprobación en la primera llamada por el paso 14, ficha.py, informe.py y resumen.py y en todos los destinos del resumen; cierres de la 4.8.1 solo por bytes exactos; sin registro de la respuesta aprobada no se vuelve a cerrar (Z-1) y un archivo de control ilegible o no UTF-8 retira la aprobación sin traza (Z-2, V-1, V-2); batería nueva de integridad de 103 pruebas, obligatoria, y 31 mutaciones detectadas; N4, los 38 ceros pendientes de Vidrala investigados con cuadres completos, versión española y ESEF: 35 respaldados (8 con reserva por los intereses de arrendamientos), 3 no aplicables, 0 discrepantes; L26 −0,0284 € por acción y por millón, efecto nulo con el valor documentado; C48 sin efecto en la valoración del motor B y sin doble cómputo; propuestas sin firmar; ninguna confirmación de la IA; precisión del ROIC; propuesta de automatización sin activar; documentación de continuidad armonizada; incluye la 4.8.1 y anteriores) · 2026-11-11 · base SHA-256 61c70800d0faa7c4a98888b7413820ec8041153e53484c32b0c549b26b6af87d
+== manifiesto (MANIFIESTO_SHA256.txt)
+1733 archivos en el manifiesto · modificados 0 · ausentes 0 · de más 0
+RESULTADO manifiesto: PASA
+== entorno (personaje_v2/scripts/comprobar_entorno.sh)
+autotest precio_de_si: PASA (5 casos + propiedades)
+RESULTADO entorno: PASA
+== contraste del piloto Vidrala 2025 (solo lectura; salida idéntica a la de referencia)
+35 comprobaciones CUMPLEN · salida idéntica a resultados/contraste_salida.txt
+RESULTADO piloto: PASA
+== pruebas de la reparación
+== test_comprobadores.py
+114/114 comprobaciones PASAN
+== test_pipeline_sintetico.py (LibreOffice, en secuencia)
+30/30 pruebas PASAN
+== mismos nombres de comprobación que la línea de base v2.2
+línea de base 30 · ahora 30 · faltan 0 · nuevas 0
+RESULTADO: PASA
+== batería de integridad de la auditoría vigente (personaje_v2/pruebas/test_integridad_auditoria_v2.py; obligatoria en «completa»; reparación 4.9, R-V1)
+103/103 pruebas de integridad de la auditoría vigente PASAN
+RESULTADO integridad: PASA
+== batería de solicitudes de auditoría (personaje_v2/pruebas/test_auditorias_v2.py; obligatoria en «completa»; reparación 4.8.1, R-T1)
+55/55 pruebas de solicitudes de auditoría PASAN
+RESULTADO auditorías: PASA
+== batería de coherencia de estados (personaje_v2/pruebas/test_estados_v2.py; obligatoria en «completa»; reparación 4.8, X-a y X-c)
+28/28 pruebas de coherencia de estados PASAN
+RESULTADO estados: PASA
+== batería del resumen (personaje_v2/pruebas/test_resumen_v2.py; obligatoria en «completa»; reparación 4.7)
+45/45 pruebas de aceptación del resumen PASAN
+RESULTADO resumen: PASA
+== batería de cierre (personaje_v2/pruebas/test_cierre_v2.py; obligatoria en «completa»; reparaciones 4.6 y 4.6.1)
+55/55 pruebas de aceptación del cierre PASAN
+RESULTADO cierre: PASA
+RESULTADO GLOBAL: PASA
+
+real	9m53.809s
+user	8m58.147s
+sys	0m56.036s
+CODIGO_SALIDA=0

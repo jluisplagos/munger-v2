@@ -1,0 +1,62 @@
+[
+ {
+  "id": "A1",
+  "ataque": "ambos marcadores + cierre_vigente.json eliminado · resumen.py",
+  "detectado": false,
+  "detalle": "código 0 · filas [('Vidrala, S.A.', 'pendiente_de_datos', 'APROBADO')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 · OK: fila de Vidrala, S.A. en /tmp/claude-0/-home-claude/05e1bd7e-f774-5253-9731-651a180e9190/scratchpad/rev410_zcuq2cy1/A1_resumen.py/exp/resumen_v2.csv"
+ },
+ {
+  "id": "A1",
+  "ataque": "ambos marcadores + cierre_vigente.json eliminado · informe.py",
+  "detectado": false,
+  "detalle": "código 0 · filas [('Vidrala, S.A.', 'pendiente_de_datos', 'APROBADO')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 ·  (13 secciones) | luego resumen.py → 0: p/claude-0/-home-claude/05e1bd7e-f774-5253-9731-651a180e9190/scratchpad/rev410_zcuq2cy1/A1_informe.py/exp/resumen_v2.csv"
+ },
+ {
+  "id": "A1",
+  "ataque": "ambos marcadores + cierre_vigente.json eliminado · ficha.py --estado pendiente_de_datos",
+  "detectado": false,
+  "detalle": "código 0 · filas [('Vidrala, S.A.', 'pendiente_de_datos', 'APROBADO')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 · r · acción None | luego resumen.py → 0: tmp/claude-0/-home-claude/05e1bd7e-f774-5253-9731-651a180e9190/scratchpad/rev410_zcuq2cy1/A1_ficha.py/exp/resumen_v2.csv"
+ },
+ {
+  "id": "A2",
+  "ataque": "ficha {} + cierre_vigente.json eliminado · resumen.py",
+  "detectado": false,
+  "detalle": "código 3 · filas [('Vidrala, S.A.', '', 'SIN APROBACIÓN VIGENTE ·')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 · resumen.py: la ficha oficial no dice su empresa: no se escribe ninguna fila"
+ },
+ {
+  "id": "A2",
+  "ataque": "ficha {} + cierre_vigente.json eliminado · informe.py",
+  "detectado": false,
+  "detalle": "código 0 · filas [('Vidrala, S.A.', '', 'SIN APROBACIÓN VIGENTE ·')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 · OK: informe.md (13 secciones) | luego resumen.py → 3: resumen.py: la ficha oficial no dice su empresa: no se escribe ninguna fila"
+ },
+ {
+  "id": "A2",
+  "ataque": "ficha {} + cierre_vigente.json eliminado · ficha.py --estado pendiente_de_datos",
+  "detectado": false,
+  "detalle": "código 0 · filas [('Vidrala, S.A.', 'pendiente_de_datos', 'APROBADO')] · estado_pipeline.auditoria 'APROBADO' · estado_analisis 'concluido' · historial 2 · r · acción None | luego resumen.py → 0: tmp/claude-0/-home-claude/05e1bd7e-f774-5253-9731-651a180e9190/scratchpad/rev410_zcuq2cy1/A2_ficha.py/exp/resumen_v2.csv"
+ },
+ {
+  "id": "A3",
+  "ataque": "comprobante con SHA-256 correcto y veredicto «NO ÍNTEGRO» (acreditar_libro.py lo escribe igual y sale con 1)",
+  "detectado": false,
+  "detalle": "motivo_acreditacion_libro → None"
+ },
+ {
+  "id": "A4",
+  "ataque": "comprobante que acredita el libro de DATOS (no el evaluado) con su SHA-256",
+  "detectado": true,
+  "detalle": "motivo_acreditacion_libro → 'ficha.json registra otro libro evaluado (1020bb53643d…) que el acreditado (b3b7f9413bc7…): la correspondencia no se puede acreditar' · ficha.hashes.libro_evaluado 1020bb53643d… · evaluado 1020bb53643d…"
+ },
+ {
+  "id": "A4b",
+  "ataque": "lo mismo, sin «hashes.libro_evaluado» en las fichas (solo funciones; el material ya cambió aparte)",
+  "detectado": false,
+  "detalle": "motivo_acreditacion_libro → None"
+ },
+ {
+  "id": "A5",
+  "ataque": "comprobante eliminado después de un cierre que lo tenía en el material",
+  "detectado": true,
+  "detalle": "acreditar_libro 0 · cierre 0 · en el material True · motivo_vigencia → 'el material cambió después de la auditoría (acreditacion_libro.json): la aprobación no vale para la versión nueva'"
+ }
+]

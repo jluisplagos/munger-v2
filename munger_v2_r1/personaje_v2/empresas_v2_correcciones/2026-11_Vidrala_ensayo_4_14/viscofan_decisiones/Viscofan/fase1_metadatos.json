@@ -1,0 +1,94 @@
+{
+ "empresa": "Viscofan, S.A.",
+ "ticker": "VIS (BME, Bolsa de Madrid, mercado continuo)",
+ "fecha_analisis": "2026-11-14",
+ "sector_texto": "Envolturas artificiales (colágeno, celulosa, fibrosas y plástico) para embutidos y productos cárnicos, además de negocio de nuevos productos (bolsas, ingredientes, energía)",
+ "moneda_modelo": "EUR",
+ "norma_contable": "IFRS (IFRS-EU)",
+ "cierre_fiscal": "diciembre",
+ "mercado": "Bolsa de Madrid (mercado continuo, BME)",
+ "ratio_adr": null,
+ "sector_damodaran": "Food Processing",
+ "precio": {
+  "valor": 54.7,
+  "moneda_cotizacion": "EUR",
+  "fecha": "2026-11-03",
+  "fx": null,
+  "fx_fecha": null,
+  "fuente": "Boletín de cotización de la Bolsa de Madrid (BME), sesión del 3-nov-2026, PDF p. 3, fila «MC VIS VISCOFAN»: cierre 54,7000 € (precedente 54,30; máx. 55,30; mín. 54,50; CMP 54,8454). PDF oficial conservado en fuentes_mercado/ con su SHA-256 23335f63b500af1b5423768f9b9381a12ef50e01ac7f4d6c5d469fe8abd78718 (descargado por la persona responsable el 14-nov-2026). Fecha del precio distinta de la de las acciones (31-dic-2025)."
+ },
+ "acciones_diluidas": {
+  "valor": 45.993399,
+  "fecha": "2025-12-31",
+  "fuente": "Acciones EN CIRCULACIÓN a 31-dic-2025 = 46.500.000 emitidas − 506.601 propias (AR 2025, nota 12.4, PDF p. 83; capital y número de acciones, PDF p. 76). Decisión de la persona responsable (José Luis), 14-nov-2026, en la conversación del encargo de cierre 4.14 (D3). Conciliación: 2026-11_Vidrala_ensayo_4_13/fuentes/CONCILIACION_ACCIONES_VISCOFAN_4_13.md. No es la media ponderada «diluida» de la nota 20.2 (45,479209, contradictoria con la básica 45,656226). Dilución potencial NO incluida: plan de incentivos 2025–2027, hasta 0,315 (objetivo) o 0,4725 (máximo) millones de acciones en el primer semestre de 2028 (nota 22.3), sin decir si con autocartera o acciones nuevas; su efecto se declara aparte (resultados/efecto_decisiones_viscofan.json).",
+  "pagina": "PDF 83 y 76 (AR_2025)",
+  "periodo": "31-dic-2025 (fecha de las cuentas)",
+  "unidad": "millones de acciones"
+ },
+ "capitalizacion": {
+  "valor": 2515.838925,
+  "fecha": "2026-11-03",
+  "fuente": "54,70 € (cierre del 3-nov-2026, boletín de BME) × 45,993399 millones de acciones en circulación a 31-dic-2025 = 2515.838925 mm. Fechas distintas (precio de 2026, acciones de las cuentas de 2025); derivado de D3. No es una actualización a 2026: la autocartera a 3-nov-2026 no consta (a 30-jun-2026: 396.357; emitidas 46.000.000 tras la amortización de mayo de 2026).",
+  "periodo": "precio del 3-nov-2026 × acciones a 31-dic-2025",
+  "unidad": "millones de EUR"
+ },
+ "tasa_sin_riesgo": {
+  "valor": 0.0335,
+  "fuente": "Bund alemán a 10 años, ~3,35% el 2026-11-04 por la mañana (Euronews 2026-11-04); Trading Economics ~3,3% (2026-11-03), Finimize 3,33%. Rating Alemania AAA"
+ },
+ "geografia": [
+  {
+   "pais": "Spain",
+   "pct": 0.126,
+   "nota": "Ventas externas España 2025"
+  },
+  {
+   "pais": "Región · Western Europe",
+   "pct": 0.2836,
+   "nota": "Segmento 'Resto de Europa, Oriente Medio y África' (incluye Oriente Medio y África, que no se separan en el informe); se asigna a Europa Occidental por ser su mayor peso"
+  },
+  {
+   "pais": "Región · Asia",
+   "pct": 0.1362,
+   "nota": "Segmento Asia Pacífico"
+  },
+  {
+   "pais": "Región · North America",
+   "pct": 0.3094,
+   "nota": "Segmento Norteamérica"
+  },
+  {
+   "pais": "Región · Central and South America",
+   "pct": 0.1449,
+   "nota": "Segmento Sudamérica (principalmente Brasil)"
+  }
+ ],
+ "geografia_fuente": {
+  "fuente": "AR_2025, nota de segmentos, ingresos ordinarios de clientes externos 2025 (total 1.251.983 miles EUR); reparto por segmento geográfico comercial",
+  "pagina": 112
+ },
+ "convenciones": {
+  "caja_incluye_otros_activos_financieros": false,
+  "motivo_caja": "Efectivo 62.790 miles EUR y otros activos financieros corrientes solo 974 miles EUR (inmaterial) a 2025-12-31 (AR_2025, p. 21 y nota de deuda neta p. 76)"
+ },
+ "anios_fcf_base": 3,
+ "_notas": [
+  "Bund: valor intradía aproximado (3,3%-3,35%) por falta de cotización en vivo.",
+  "Sector: Viscofan fabrica envolturas para embutidos; se asimila a Food Processing (cliente y producto alimentario) frente a Packaging & Container.",
+  "Geografía: 'Resto de Europa, Oriente Medio y África' (28,4%) se asigna entera a Región · Western Europe; Sudamérica a Región · Central and South America.",
+  "(4.14, decisiones D3 y E1 de la persona responsable, 14-nov-2026) Metadatos ACTIVOS escritos por cambiar_base.py: precio del 3-nov-2026 del boletín oficial de BME; acciones en circulación a 31-dic-2025 (45,993399 M; D3); capitalización = precio × esas acciones, con fechas distintas declaradas; rf sin cambios. fecha_analisis es la fecha real de ejecución. Las notas de la base anterior sobre las acciones y el precio están en antecedentes/notas_retiradas.json."
+ ],
+ "analisis": {
+  "C42": {
+   "valor": 9.47,
+   "fuente": "Cálculo: EV 2746.6 = capitalización 2487.7 (Análisis C41: 54,70 € del 3-nov-2026 × 45,479209 millones) + deuda financiera 304.075 + arrendamientos 12.243 − caja 62.790 (Historia L22–L24, 31-dic-2025) + minoritarios 5.422 (L26); ÷ EBITDA 2025 289.990 = EBIT 204.794 + D&A 85.196 (Historia L7 y L8)",
+   "periodo": "precio del 3-nov-2026; balance a 31-dic-2025 y EBITDA de 2025 (la base): fechas separadas",
+   "unidad": "x",
+   "nota": "(4.13) Sustituye al 9,9 de la etapa 1 (EV a 6-oct-2026 con capitalización 2.444,4, deuda a 30-jun-2026 y EBITDA de los doce meses a jun-2026). Solo lectura de contraste: no entra en el motor B."
+  }
+ },
+ "control_maestro_textos": {
+  "D88": "Balance a 31-dic-2025 (base del modelo: Historia L22–L26); EBITDA y FCF de 2025; C26 agregado 2021–2025; C60 2020→2025; precio del 3-nov-2026 (posterior a la base; fechas separadas); medias del FCF base (C46–C50) de 2023–2025. Evidencia heredada de la etapa 1 no actualizada, con su período declarado en su fila: C24, C31, C33, C34, C40, C53 y C54 (datos del primer semestre de 2026 o de los doce meses a jun-2026) y C38 (referencia externa del 28-sep-2026). Son celdas de contraste: no entran en el motor B.",
+  "E88": "Período de C46–C50 fijado por el inversor (23-oct-2026: 2023–2025). Queda por decidir si las celdas de contraste con datos de 2026 se rehacen sobre 2025."
+ }
+}

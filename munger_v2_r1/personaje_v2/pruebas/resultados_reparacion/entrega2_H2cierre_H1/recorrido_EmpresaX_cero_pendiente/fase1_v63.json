@@ -1,0 +1,553 @@
+{
+ "empresa": "Empresa X (inventada)",
+ "ticker": "EMPX",
+ "fecha_analisis": "2026-10-20",
+ "sector_texto": null,
+ "moneda_modelo": "EUR",
+ "norma_contable": "IFRS",
+ "cierre_fiscal": "diciembre",
+ "mercado": null,
+ "ratio_adr": null,
+ "sector_damodaran": "Machinery",
+ "precio": {
+  "valor": 22,
+  "moneda_cotizacion": "EUR",
+  "fecha": "2026-10-20",
+  "fx": null,
+  "fx_fecha": null,
+  "fuente": "cotización de cierre (sintética)"
+ },
+ "acciones_diluidas": {
+  "valor": 100,
+  "fecha": "2026-09-30",
+  "fuente": "informe anual sintético, nota de capital",
+  "pagina": "12"
+ },
+ "capitalizacion": {
+  "valor": 2200,
+  "fecha": "2026-10-20",
+  "fuente": "precio × acciones (sintético)"
+ },
+ "tasa_sin_riesgo": {
+  "valor": 0.03,
+  "fuente": "bono a 10 años (sintético)"
+ },
+ "geografia": [
+  {
+   "pais": "Germany",
+   "pct": 0.6
+  },
+  {
+   "pais": "Brazil",
+   "pct": 0.3
+  },
+  {
+   "pais": "United States",
+   "pct": 0.1
+  }
+ ],
+ "geografia_fuente": null,
+ "unidad": "mm",
+ "anios_fcf_base": 3,
+ "historia": {
+  "anios": [
+   2016,
+   2017,
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "partidas": {
+   "ventas": {
+    "valores": [
+     500.25,
+     540.27,
+     583.49,
+     630.17,
+     680.58,
+     735.03,
+     793.83,
+     857.34,
+     925.93,
+     1000.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "ebit": {
+    "valores": [
+     100.05,
+     108.05,
+     116.7,
+     126.03,
+     136.12,
+     147.01,
+     158.77,
+     171.47,
+     185.19,
+     200.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "da": {
+    "valores": [
+     20.01,
+     21.61,
+     23.34,
+     25.21,
+     27.22,
+     29.4,
+     31.75,
+     34.29,
+     37.04,
+     40.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "beneficio_neto": {
+    "valores": [
+     71.29,
+     76.99,
+     83.15,
+     89.8,
+     96.98,
+     104.74,
+     113.12,
+     122.17,
+     131.94,
+     142.5
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "tipo_impositivo": {
+    "valores": [
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25,
+     0.25
+    ],
+    "fuente": "impuestos ÷ resultado antes de impuestos; 2016 AR_2016.txt p.1 / AR_2016.txt p.1; 2017 AR_2017.txt p.1 / AR_2017.txt p.1; 2018 AR_2018.txt p.1 / AR_2018.txt p.1; 2019 AR_2019.txt p.1 / AR_2019.txt p.1; 2020 AR_2020.txt p.1 / AR_2020.txt p.1; 2021 AR_2021.txt p.1 / AR_2021.txt p.1; 2022 AR_2022.txt p.1 / AR_2022.txt p.1; 2023 AR_2023.txt p.1 / AR_2023.txt p.1; 2024 AR_2024.txt p.1 / AR_2024.txt p.1; 2025 AR_2025.txt p.1 / AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Vacío si el resultado antes de impuestos es ≤ 0."
+   },
+   "cfo": {
+    "valores": [
+     91.55,
+     98.87,
+     106.78,
+     115.32,
+     124.55,
+     134.51,
+     145.27,
+     156.89,
+     169.44,
+     183.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "capex": {
+    "valores": [
+     40.02,
+     43.22,
+     46.68,
+     50.41,
+     54.45,
+     58.8,
+     63.51,
+     68.59,
+     74.07,
+     80.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "adquisiciones": {
+    "valores": [
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0,
+     -0.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1 (cero: no hubo adquisiciones) (CERO PENDIENTE DE VERIFICACIÓN: cita sin contrastar); 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe). Adquisiciones = −(pagos y cobros por negocios del estado de flujos). CERO PENDIENTE DE VERIFICACIÓN en 2017: el informe no imprime cifra y la cita que lo respalda no se ha contrastado con la partida (reparación H1). El 0 se conserva; solo una decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona) lo confirma.",
+    "pendientes_verificacion": [
+     2017
+    ]
+   },
+   "circulante": {
+    "valores": [
+     5.0,
+     5.4,
+     5.83,
+     6.3,
+     6.81,
+     7.35,
+     7.94,
+     8.57,
+     9.26,
+     10.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe). Aumento del circulante = −(suma de las líneas de variación del circulante del estado de flujos): convención del ejercicio."
+   },
+   "intereses": {
+    "valores": [
+     5.0,
+     5.4,
+     5.83,
+     6.3,
+     6.81,
+     7.35,
+     7.94,
+     8.57,
+     9.26,
+     10.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "intereses_financiacion": {
+    "valores": [
+     4.0,
+     4.32,
+     4.67,
+     5.04,
+     5.44,
+     5.88,
+     6.35,
+     6.86,
+     7.41,
+     8.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "arrendamientos_principal": {
+    "valores": [
+     2.0,
+     2.16,
+     2.33,
+     2.52,
+     2.72,
+     2.94,
+     3.18,
+     3.43,
+     3.7,
+     4.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "sbc": {
+    "valores": [
+     2.5,
+     2.7,
+     2.92,
+     3.15,
+     3.4,
+     3.68,
+     3.97,
+     0,
+     0,
+     0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones) (fase1_decisiones.json) · decisión de Persona responsable del proyecto el 2026-11-08; 2024 AR_2024.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones) (fase1_decisiones.json) · decisión de Persona responsable del proyecto el 2026-11-08; 2025 AR_2025.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones) (fase1_decisiones.json) · decisión de Persona responsable del proyecto el 2026-11-08",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "id": {
+    "valores": [
+     15.01,
+     16.21,
+     17.5,
+     18.91,
+     20.42,
+     22.05,
+     23.81,
+     25.72,
+     27.78,
+     30.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "acciones_diluidas": {
+    "valores": [
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0,
+     100.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "patrimonio": {
+    "valores": [
+     300.15,
+     324.16,
+     350.09,
+     378.1,
+     408.35,
+     441.02,
+     476.3,
+     514.4,
+     555.56,
+     600.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "deuda": {
+    "valores": [
+     100.05,
+     108.05,
+     116.7,
+     126.03,
+     136.12,
+     147.01,
+     158.77,
+     171.47,
+     185.19,
+     200.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "arrendamientos": {
+    "valores": [
+     25.01,
+     27.01,
+     29.17,
+     31.51,
+     34.03,
+     36.75,
+     39.69,
+     42.87,
+     46.3,
+     50.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "caja": {
+    "valores": [
+     50.02,
+     54.03,
+     58.35,
+     63.02,
+     68.06,
+     73.5,
+     79.38,
+     85.73,
+     92.59,
+     100.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe). Solo efectivo y equivalentes (definición de la plantilla)."
+   },
+   "pensiones": {
+    "valores": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   },
+   "minoritarios": {
+    "valores": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fuente": "2016 AR_2016.txt p.1; 2017 AR_2017.txt p.1; 2018 AR_2018.txt p.1; 2019 AR_2019.txt p.1; 2020 AR_2020.txt p.1; 2021 AR_2021.txt p.1; 2022 AR_2022.txt p.1; 2023 AR_2023.txt p.1; 2024 AR_2024.txt p.1; 2025 AR_2025.txt p.1",
+    "pagina": null,
+    "nota": "Construido por fase1_historia.py: cifra más reciente publicada de cada año (comparativo del informe siguiente cuando existe)."
+   }
+  }
+ },
+ "analisis": {
+  "C24": {
+   "valor": 0.18,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C26": {
+   "valor": 1.1,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C28": {
+   "valor": "Estable",
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C31": {
+   "valor": "No",
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C32": {
+   "valor": 0.12,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C33": {
+   "valor": 0.8,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C34": {
+   "valor": "Sí",
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C53": {
+   "valor": 100,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C54": {
+   "valor": 200,
+   "fuente": "informe anual sintético",
+   "pagina": null
+  },
+  "C46": {
+   "valor": 169.777,
+   "fuente": "Historia de fase1_v63.json, media 2023–2025 de cfo: AR_2023.txt p.1; AR_2024.txt p.1; AR_2025.txt p.1",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm"
+  },
+  "C47": {
+   "valor": 74.22,
+   "fuente": "Historia de fase1_v63.json, media 2023–2025 de capex: AR_2023.txt p.1; AR_2024.txt p.1; AR_2025.txt p.1",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm"
+  },
+  "C48": {
+   "valor": 7.423,
+   "fuente": "Historia de fase1_v63.json, media 2023–2025 de intereses_financiacion: AR_2023.txt p.1; AR_2024.txt p.1; AR_2025.txt p.1",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm"
+  },
+  "C49": {
+   "valor": 3.71,
+   "fuente": "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: AR_2023.txt p.1; AR_2024.txt p.1; AR_2025.txt p.1",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm"
+  },
+  "C50": {
+   "valor": 0.0,
+   "fuente": "Historia de fase1_v63.json, media 2023–2025 de sbc: AR_2023.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones) (fase1_decisiones.json) · decisión de Persona responsable del proyecto el 2026-11-08; AR_2024.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones) (fase1_decisiones.json) · deci",
+   "pagina": null,
+   "periodo": "2023–2025",
+   "unidad": "mm"
+  }
+ },
+ "_notas": [
+  "Historia construida por scripts/fase1_historia.py (pieza 7); revisión completa en historia_revision.md.",
+  "1 ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md."
+ ],
+ "pendientes_verificacion": [
+  {
+   "partida": "adquisiciones",
+   "anio": 2017,
+   "archivo": "AR_2017.txt",
+   "pagina": 1,
+   "cita": "No business combinations took place during the year",
+   "motivo": "no hubo adquisiciones"
+  }
+ ],
+ "ceros_confirmados": [
+  {
+   "partida": "sbc",
+   "anio": 2023,
+   "valor_mm": 0,
+   "fuente": "AR_2023.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones)",
+   "fecha": "2026-11-08",
+   "confirmado_por": "Persona responsable del proyecto",
+   "cita_original": "The Group has no share-based payment programmes"
+  },
+  {
+   "partida": "sbc",
+   "anio": 2024,
+   "valor_mm": 0,
+   "fuente": "AR_2024.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones)",
+   "fecha": "2026-11-08",
+   "confirmado_por": "Persona responsable del proyecto",
+   "cita_original": "The Group has no share-based payment programmes"
+  },
+  {
+   "partida": "sbc",
+   "anio": 2025,
+   "valor_mm": 0,
+   "fuente": "AR_2025.txt p. 1: «The Group has no share-based payment programmes» (revisada la página completa: no hay plan ni gasto por pagos en acciones)",
+   "fecha": "2026-11-08",
+   "confirmado_por": "Persona responsable del proyecto",
+   "cita_original": "The Group has no share-based payment programmes"
+  }
+ ]
+}

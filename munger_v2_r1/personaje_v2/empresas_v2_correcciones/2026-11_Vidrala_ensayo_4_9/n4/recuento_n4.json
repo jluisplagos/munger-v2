@@ -1,0 +1,30 @@
+{
+ "pendientes_en_fase1_v63": 38,
+ "ceros_heredados_csv_vidrala": 39,
+ "en_csv_y_no_pendientes": [
+  [
+   2023,
+   "adquisiciones"
+  ]
+ ],
+ "pendientes_no_en_csv": [],
+ "por_partida": {
+  "adquisiciones": 5,
+  "intereses_financiacion": 10,
+  "arrendamientos_principal": 2,
+  "arrendamientos": 1,
+  "minoritarios": 10,
+  "otros_activos_financieros": 10
+ },
+ "con_fila_en_la_historia": 28,
+ "auxiliares_sin_fila": 10,
+ "celdas_marcadas_dato_no_verificable_en_el_libro": [
+  "Análisis!C48",
+  "Historia!C13:L13",
+  "Historia!C16:L16",
+  "Historia!C17:L17",
+  "Historia!C23:L23",
+  "Historia!C26:L26"
+ ],
+ "explicacion": "El recuento real es 38 (fase1_v63.json → pendientes_verificacion), igual al del encargo. ceros_heredados_H1.csv tiene 39 entradas de Vidrala: la 39.ª (adquisiciones, AR_2023.json, columna 2022) no se usa en la Historia porque la sustituye el comparativo del informe siguiente (usado_en_historia = «no (lo sustituye el comparativo del informe siguiente)»). De las 38, 28 alimentan cinco filas de la Historia (13, 16, 17, 23 y 26) y 10 son la partida auxiliar otros_activos_financieros, sin fila propia: solo contaría en la caja si fase1_metadatos.json lo declarara, y declara caja_incluye_otros_activos_financieros = False. Análisis!C48 no es un cero propio: es la media 2023–2025 de intereses_financiacion (fase1_historia.DEP_ANALISIS), y hereda su estado."
+}

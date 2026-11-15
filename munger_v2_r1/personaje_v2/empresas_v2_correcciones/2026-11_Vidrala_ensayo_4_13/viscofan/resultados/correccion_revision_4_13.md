@@ -1,0 +1,9 @@
+# Viscofan · correcciones de las entradas tras la revisión interna de la 4.13
+
+- **R5 · configuración (editorial; huella económica `75726ca4a566c9ae…` igual).** El exceso «observado» pasa a decir 64,923 con NIIF 16 (40,813 con «Caja»). La cota de SRF pasa a 1,2011 con NIIF 16 (1,1413 con «Caja»).
+- **R7 · EV/EBITDA (C42).** Pasa de 9,9 (etapa 1: capitalización del 6-oct-2026 y datos del primer semestre de 2026) a **9.47**: EV 2746.6 ÷ EBITDA 2025 289.990, con la capitalización de las entradas y el balance de la base. Es una lectura de contraste: no entra en el motor B.
+- **R7 · lista de comprobación (D88 y E88).** El texto de períodos dice ahora las fechas de las entradas. Se declaran las celdas de contraste que conservan datos de 2026 de la etapa 1 (C24, C31, C33, C34, C38, C40, C53 y C54). La acción pendiente ya no pide fijar C46–C50, que el inversor fijó el 23-oct-2026.
+- **R7 · fecha de análisis (D4).** `rellenar_fase1_v63.py` escribe ahora también su período; antes quedaba el «7-oct-2026» de la etapa 1.
+- **Conciliación de acciones.** La N del modelo no viene de la etapa 1: la introdujo la fase 1 del pipeline V2 (`fuentes/CONCILIACION_ACCIONES_VISCOFAN_4_13.md`, antecedente bajo la tabla del §3).
+- **Extracción reutilizada otra vez** (`extracto_v63.md`, `2c526eac79e73db2…`): lee los informes y no cita ninguna de las celdas que cambian. Se retira su marca de consumo para que el pipeline la vuelva a consumir.
+- **Fases A, B y C y auditoría anteriores, apartadas** a `antecedentes/ejecucion_1_4_13/` (7 archivos): se rehacen con agentes reales. fase A: error de C97 (auditoría 1) y C42 cambiado en sus entradas; fase B: la referencia del S2C se ancla en el perímetro NIIF 16 (revisión interna R6); fase C: depende de las dos. La extracción (reutilizada de la 4.12) se conserva: sus entradas no cambian.

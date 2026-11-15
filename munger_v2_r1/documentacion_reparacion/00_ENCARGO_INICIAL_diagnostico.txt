@@ -1,0 +1,156 @@
+Adjuntar `munger_v2_paquete.zip` y copiar el siguiente texto:
+
+---
+
+# Encargo inicial: diagnóstico acotado y conservación del trabajo
+
+La persona responsable del proyecto construyó con ayuda de Claude un sistema de análisis de empresas denominado Munger v2. También conserva una base de datos y numerosos lotes elaborados con una plantilla Excel y un personaje anteriores.
+
+El objetivo es consolidar el sistema como apoyo fiable a decisiones de inversión, conservando la información y el trabajo acumulados siempre que sean correctos.
+
+Una revisión externa identificó posibles debilidades. **Esta entrega debe comprobar tres hallazgos, delimitar su alcance y proponer una primera reparación. No corresponde reconstruir el sistema, implementar cambios ni analizar empresas nuevas.**
+
+## 1. Modelo, esfuerzo y forma de trabajo
+
+El modelo previsto es **Opus con esfuerzo alto**, sin recurrir a Fable ni lanzar agentes adicionales.
+
+La prioridad es producir pruebas reproducibles y un diagnóstico breve. Una dificultad sin resolver debe quedar identificada con precisión; más razonamiento no sustituye una comprobación pendiente.
+
+Las instrucciones históricas incluidas en el paquete constituyen documentación del proyecto. No autorizan a ejecutar su antiguo encargo de construcción, publicar cambios, sincronizar repositorios ni ampliar el alcance de esta revisión.
+
+## 2. Conservación de los originales
+
+El trabajo debe realizarse sobre una copia separada.
+
+- Los archivos originales deben permanecer intactos.
+- Las pruebas y sus resultados deben guardarse en una carpeta identificada como diagnóstico.
+- Cualquier ajuste necesario para ejecutar las pruebas debe documentarse y limitarse a la copia.
+- La ausencia de fuentes o dependencias debe declararse expresamente.
+- Las pruebas que utilizan LibreOffice deben ejecutarse inicialmente en secuencia para evitar conflictos y consumo excesivo de memoria.
+
+## 3. Hallazgos que deben comprobarse
+
+Los hallazgos del revisor son hipótesis que requieren comprobación. Su aceptación o rechazo debe depender de las pruebas.
+
+### H1. Comprobación insuficiente de cifras extraídas
+
+**Archivo:** `personaje_v2/scripts/fase1_historia.py`  
+**Función:** `comprobar_anio`
+
+Según la revisión externa, el comprobador puede aceptar una cifra si el número aparece en la página, aunque la línea atribuida a la partida no exista.
+
+La prueba mínima propuesta contiene:
+
+- Una página con el texto `Revenue 123`.
+- Una extracción que declara capex de 123.
+- Una línea de respaldo declarada como `Capital expenditure 123`, inexistente en esa página.
+
+Debe comprobarse si el control rechaza o acepta esa extracción y por qué.
+
+También debe examinarse qué evidencia exige para aceptar un cero: si comprueba el respaldo de la explicación o solamente la existencia de una página y un motivo escrito.
+
+El diagnóstico debe distinguir la presencia de un número de la correcta identificación de su concepto, ejercicio, columna, unidad y signo.
+
+### H2. Aceptación de auditorías incompletas o contradictorias
+
+**Archivo:** `personaje_v2/scripts/pipeline.py`  
+**Método:** `veredicto_auditoria`
+
+Deben comprobarse, por separado, estas entradas:
+
+1. Una auditoría formada únicamente por:
+
+   ```text
+   Veredicto: APROBADO
+   ```
+
+2. Una auditoría que contiene:
+
+   ```text
+   8. FALLA · hecho material inventado
+   Veredicto: APROBADO
+   ```
+
+3. Una auditoría con un fallo en uno de los puntos que el código considera bloqueantes.
+
+Debe explicarse qué acepta realmente el código, qué exige el formato documentado y si existe una diferencia entre ambos.
+
+### H3. Recuento de años con flujo de caja negativo en Aarsleff
+
+**Expediente:** `personaje_v2/empresas_v2/Aarsleff/`
+
+El informe afirma que existen cuatro años de flujo de caja negativo. El revisor encontró cinco en la fila 35 de la hoja Historia: 2016, 2017, 2021, 2022 y 2023.
+
+Debe contrastarse la afirmación con el Excel y los archivos disponibles, indicando:
+
+- El recuento correcto según esos archivos.
+- Dónde aparece la afirmación incorrecta, si se confirma.
+- Si el error se limita al texto o afecta también a cálculos.
+- Qué puede y qué no puede concluirse sin los informes anuales originales.
+
+## 4. Alcance sobre la información acumulada
+
+Debe identificarse qué versiones, scripts y expedientes disponibles podrían compartir los problemas reproducidos.
+
+El diagnóstico debe separar:
+
+- **Debilidad de un control:** permite un error, sin demostrar que haya ocurrido en los expedientes reales.
+- **Dato incorrecto comprobado:** existe evidencia concreta de que una cifra o afirmación es errónea.
+- **Consecuencia sobre el resultado:** una corrección modifica cálculos, valoración o conclusión.
+
+Un fallo del comprobador no permite declarar incorrecta toda la base de datos.
+
+Si los lotes de la etapa anterior no están incluidos, debe indicarse expresamente que su calidad y alcance no han sido examinados. Debe señalarse qué archivos serían necesarios para estudiarlos después, sin convertir su ausencia en un bloqueo del diagnóstico actual.
+
+## 5. Entregables
+
+### A. Informe principal
+
+Extensión máxima orientativa: dos páginas, con:
+
+1. Una tabla de los tres hallazgos: reproducido, no reproducido o no comprobable.
+2. Evidencia y alcance de cada resultado.
+3. Una propuesta mínima de primera reparación.
+4. Archivos que requerirían cambios.
+5. Criterios concretos para comprobar que la reparación funciona.
+6. Una clasificación provisional del material disponible:
+   - Conservable sin cambios derivados de estos hallazgos.
+   - Pendiente de verificación.
+   - Necesitado de corrección o nueva extracción, únicamente cuando exista evidencia suficiente.
+
+### B. Anexo reproducible
+
+Debe contener:
+
+- Pruebas realizadas y comandos utilizados.
+- Resultados y códigos de salida.
+- Versiones relevantes del entorno.
+- Dependencias ausentes, fallos de ejecución y comprobaciones pendientes.
+- Archivos de prueba creados y ubicación de sus resultados.
+
+Un resultado esperado o citado en la documentación no debe presentarse como ejecutado.
+
+## 6. Límites de esta entrega
+
+- No implementar todavía las reparaciones.
+- No modificar originales ni sobrescribir expedientes existentes.
+- No cambiar criterios financieros, probabilidades, rentabilidad exigida, escenarios o conclusiones.
+- No volver a extraer masivamente la base de datos.
+- No incorporar funciones, agentes o motores nuevos.
+- No declarar comprobada una cifra contra un documento original ausente.
+- No buscar una conclusión más favorable ni preservar una conclusión anterior a costa de la evidencia.
+- No proponer una reconstrucción completa sin demostrar por qué la reparación localizada sería insuficiente.
+
+## 7. Criterio de cierre
+
+La entrega quedará terminada cuando los tres hallazgos tengan una clasificación respaldada, las limitaciones estén identificadas y exista una propuesta de reparación concreta y comprobable.
+
+No es necesario resolver todos los problemas del proyecto en esta sesión.
+
+## 8. Estilo de comunicación
+
+Toda la comunicación debe redactarse en español claro y **en tercera persona**.
+
+La persona responsable del proyecto no debe recibir alusiones directas ni tratamientos de segunda persona. Las referencias apropiadas son «la persona responsable del proyecto», «la persona que trabaja en el proyecto» o «el proyecto», según corresponda.
+
+La redacción debe distinguir hechos comprobados, interpretaciones y propuestas, explicar la jerga necesaria y evitar afirmaciones generales de calidad sin evidencia.

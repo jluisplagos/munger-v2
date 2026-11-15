@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""Compara los VALORES calculados de dos libros recalculados, celda a celda, en las hojas comunes de la V6.3.
+
+Uso: python3 -I comparar_libros.py A_recalculado.xlsx B_recalculado.xlsx [--tol 1e-12] [--hojas H1,H2] [--excluir Hoja!A1,…] [--json salida.json]
+Números: |a − b| ≤ tol × max(1, |a|); texto, booleanos y vacíos: iguales. Código 0 si no hay diferencias; 1 si las hay.
+Por defecto excluye las celdas de etiqueta de versión que la V6.4 cambia a propósito (Análisis!A1, Panel!A1, Guía V6!A1,
+Control maestro!A3) y Panel!B18:C18 (línea nueva de configuración), y compara solo las once hojas de la V6.3.
+"""
+import json
+import sys
+
+from openpyxl import load_workbook
+
+HOJAS_V63 = ["Panel", "Análisis", "Palancas", "Diagnóstico V6", "Historia", "Sector", "Riesgo país", "Guía V6", "Opciones", "Control maestro", "Motor"]
+EXCLUIR = {"Análisis!A1", "Panel!A1", "Guía V6!A1", "Control maestro!A3", "Panel!B18", "Panel!C18",
+           "Diagnóstico V6!E10", "Diagnóstico V6!E11", "Diagnóstico V6!E176", "Diagnóstico V6!E177"}
+
+
+def valores(path, hojas):
+    wb = load_workbook(path, data_only=True)
+    out = {}
+    for h in hojas:
+        ws = wb[h]
+        for row in ws.iter_rows(max_col=72):   # columnas A:BT (las de la V6.3; BU:DY son nuevas en Motor)
+            for c in row:
+                out[f"{h}!{c.coordinate}"] = c.value
+    return out
+
+
+def igual(a, b, tol):
+    if isinstance(a, bool) or isinstance(b, bool):
+        return a == b
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        return abs(a - b) <= tol * max(1.0, abs(a))
+    na = a in (None, "")
+    nb = b in (None, "")
+    if na or nb:
+        return na and nb
+    return a == b
+
+
+def comparar(a, b, tol=1e-12, hojas=None, excluir=None):
+    hojas = hojas or HOJAS_V63
+    excluir = EXCLUIR | set(excluir or ())
+    va, vb = valores(a, hojas), valores(b, hojas)
+    dif = []
+    for k in sorted(set(va) | set(vb)):
+        if k in excluir:
+            continue
+        x, y = va.get(k), vb.get(k)
+        if not igual(x, y, tol):
+            dif.append((k, x, y))
+    return dif, len(set(va) | set(vb))
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print(__doc__)
+        sys.exit(2)
+    tol = float(sys.argv[sys.argv.index("--tol") + 1]) if "--tol" in sys.argv else 1e-12
+    hojas = sys.argv[sys.argv.index("--hojas") + 1].split(",") if "--hojas" in sys.argv else None
+    exc = sys.argv[sys.argv.index("--excluir") + 1].split(",") if "--excluir" in sys.argv else None
+    dif, n = comparar(sys.argv[1], sys.argv[2], tol, hojas, exc)
+    print(f"{n} celdas comparadas · {len(dif)} diferencias (tolerancia {tol:g})")
+    for k, x, y in dif[:40]:
+        print(f"  {k}: {x!r} ≠ {y!r}")
+    if "--json" in sys.argv:
+        json.dump({"celdas": n, "diferencias": [[k, str(x), str(y)] for k, x, y in dif]}, open(sys.argv[sys.argv.index("--json") + 1], "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    sys.exit(0 if not dif else 1)

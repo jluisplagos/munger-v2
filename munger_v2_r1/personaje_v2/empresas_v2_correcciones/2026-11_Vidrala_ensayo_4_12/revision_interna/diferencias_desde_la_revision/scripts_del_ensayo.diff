@@ -1,0 +1,38 @@
+diff -ru '--exclude=__pycache__' antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/comprobar_entrega_4_12.py despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/comprobar_entrega_4_12.py
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/comprobar_entrega_4_12.py	2026-11-12 22:52:20.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/comprobar_entrega_4_12.py	2026-11-13 00:04:08.615142142 +0100
+@@ -179,8 +179,8 @@
+     vp = leer(os.path.join(RAIZ, "verificar_paquete.sh"))
+     pos = [vp.find(f'echo "== batería {x}') for x in ("de la integración V6.4", "de trazabilidad", "de integridad de la auditoría vigente",
+                                                      "de solicitudes de auditoría", "de coherencia de estados", "del resumen", "de cierre")]
+-    comprobar("constata", "verificar_paquete.sh completa exige la batería de la V6.4 con al menos 123 pruebas, la primera de las obligatorias, y conserva las demás con sus mínimos",
+-              "test_integracion_v64.py" in vp and "-ge 123" in vp and all(x > 0 for x in pos) and pos == sorted(pos) and all(f"-ge {n}" in vp for n in (78, 103, 55, 28, 45)))
++    comprobar("constata", "verificar_paquete.sh completa exige la batería de la V6.4 con al menos 127 pruebas, la primera de las obligatorias, y conserva las demás con sus mínimos",
++              "test_integracion_v64.py" in vp and "-ge 127" in vp and all(x > 0 for x in pos) and pos == sorted(pos) and all(f"-ge {n}" in vp for n in (78, 103, 55, 28, 45)))
+     tv = leer(os.path.join(PV, "pruebas", "test_integracion_v64.py"))
+     comprobar("constata", "la batería de la V6.4 tiene los grupos E (vigencia), F (materialidad y protocolos) y G (coherencia) además de A–D",
+               all(re.search(rf"def grupo_{g.lower()}\b", tv) for g in "ABCDEFG"))
+Only in despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts: dominios_variantes_4_12.py
+diff -ru '--exclude=__pycache__' antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/propuesta_humana_4_12.py despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/propuesta_humana_4_12.py
+--- antes/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/propuesta_humana_4_12.py	2026-11-12 23:09:50.000000000 +0100
++++ despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts/propuesta_humana_4_12.py	2026-11-12 23:36:06.600721386 +0100
+@@ -82,6 +82,18 @@
+                           f"(el mismo valor calculado condicional, no emitido)"),
+               "si_no_se_adopta": "cada expediente experimental tiene que declarar su protocolo; sin él no se emite ningún objetivo oficial (objetivo_sin_protocolo)",
+               "sustituye_a": "D411-MATERIALIDAD"})
++    D.append({"id": "D412-FUNDAMENTO", "grupo": "uso del sistema",
++              "pregunta": ("Las banderas por parámetro de la fase C (material para el objetivo, fundamento suficiente) deciden qué hipótesis condicionan el objetivo y, con "
++                           "«comprar», qué entra en D10, y ninguna regla las contrasta. ¿Se exige que, con «comprar», todo parámetro activo que la propia configuración "
++                           "clasifica como «hipótesis» cuente como sin fundamento suficiente (y vaya a D10 y a la comprobación conjunta)?"),
++              "recomendacion": ("Sí, para «comprar»: es una regla conservadora que impide que un juicio sin contraste deje una hipótesis no observada fuera de D10. Con "
++                                "«esperar» no cambia nada en los expedientes de la 4.12. Para el objetivo, mantener el juicio de la fase C y revisar en la auditoría "
++                                "que cada «fundamento suficiente» de un parámetro de clase «hipótesis» tenga evidencia con página."),
++              "alternativas": ["dejarlo al juicio de la fase C (como ahora)", "aplicar la regla conservadora también al objetivo (cambiaría las hipótesis que lo condicionan)"],
++              "evidencia": "revision_interna/REVISION_INTERNA_4_12.md (R5); INFORME_INTEGRACION_4_12.md §9.6 (L15); Anexo D §D.13",
++              "efectos": ("ninguno en los expedientes de la 4.12 (ninguno concluye «comprar»). Diferencias de juicio observadas: la regla R1 sale con fundamento suficiente en "
++                          "Vidrala y sin él en Viscofan, y la familia de P-M1 de Viscofan es «hipótesis» en la configuración y está fundamentada para la fase C"),
++              "si_no_se_adopta": "una compra podría dejar fuera de D10 un parámetro no observado que la fase C dé por fundado"})
+     D.append({"id": "D412-DOMINIOS", "grupo": "uso del sistema",
+               "pregunta": "¿Los avisos de dominio (factor f, inversión fija para crecer negativa, terminal de R1 sin máximo conservado, S2C inerte) siguen como avisos sin umbral o se fijan umbrales que impidan una conclusión favorable?",
+               "recomendacion": ("Siguen como avisos con sus valores, sin umbral, mientras solo haya dos empresas: con las bases de Viscofan la estructura SRF deja de "
+Only in despues/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_12/scripts: sensibilidad_derechos_de_uso_viscofan.py

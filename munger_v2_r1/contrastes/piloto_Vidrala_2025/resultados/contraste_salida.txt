@@ -1,0 +1,95 @@
+CONTRASTE ACOTADO · VIDRALA 2025 · salida reproducible (miles de euros salvo que se indique mm)
+====================================================================================================
+
+0 · CORRESPONDENCIA ENTRE AR_2025.json Y EL TEXTO NUEVO
+  [CUMPLE] cada «linea» de AR_2025.json está, carácter a carácter, en su página del texto nuevo · 61 de 61
+  páginas del texto nuevo: 80 · archivo citado en AR_2025.json: CF_2025.txt · unidad: miles
+
+4.1 · CFO · estado de flujos consolidado, PDF p.7 (versión inglesa) y PDF p.14 (versión española)
+  [CUMPLE] 2025: suma de los 10 ajustes = subtotal impreso sin rótulo · 224,195 = 224,195
+  [CUMPLE] 2025: suma de las 5 líneas de circulante (lectura estricta) = «Cash used in operating activities» · 799 = 799
+  [CUMPLE] 2025: beneficio + ajustes + circulante + intereses pagados + intereses cobrados + impuestos pagados = CFO impreso · 209,341 + 224,195 + 799 + (-20,800) + 7,509 + (-40,757) = 380,287 · impreso 380,287
+  [CUMPLE] 2024: suma de los 10 ajustes = subtotal impreso sin rótulo · 240,195 = 240,195
+  [CUMPLE] 2024: suma de las 5 líneas de circulante (lectura estricta) = «Cash used in operating activities» · -84,994 = -84,994
+  [CUMPLE] 2024: beneficio + ajustes + circulante + intereses pagados + intereses cobrados + impuestos pagados = CFO impreso · 298,315 + 240,195 + -84,994 + (-32,100) + 11,200 + (-70,100) = 362,516 · impreso 362,516
+  avisos de lectura en la versión inglesa: ['paréntesis desequilibrado en «106,417)»']
+  [CUMPLE] versión española (prevalece): «Otros activos y pasivos corrientes y no corrientes» 2024 impreso «(106.417)», negativo
+  [CUMPLE] estado de flujos EN (PDF p.7) y ES (PDF p.14): mismas cifras salvo el signo de 106.417 en 2024 · solo EN {'106417': 1} · solo ES {'-106417': 1}
+  [CUMPLE] el lector del sistema (fase1_historia.numero) convierte «106,417)» en +106.417 (signo perdido) · numero('106,417)') = 106,417
+  AR_2025.json, circulante_lineas.anterior: impreso «106,417)», signo (no declarado → 1)
+  AR_2025.json, nota: «2024 'Other current liabilities' impreso '106,417)' (parentesis de apertura omitido): por cuadre del subtotal (-84,994) es -106,417. Variacion de prov…»
+  circulante 2024 que construye el sistema desde AR_2025.json = −(suma) = -127.840 mm
+  circulante 2024 desde AR_2024.json (informe 2024, subtotal impreso «(84,994)») = 84.994 mm
+  [CUMPLE] historia_revision.md registra la diferencia 84,994 frente a −127,84 y aplica el comparativo más reciente
+  [CUMPLE] no hay decisión registrada para circulante_lineas en fase1_decisiones.json
+  fase1_v63.json: cfo 2024/2025 = 362.516 / 380.287 · circulante 2024/2025 = -127.84 / -0.799
+
+4.2 · Capex · PDF p.7 (EN) y PDF p.14 (ES)
+  EN rótulo 1: «Payments from sale of property, plant and equipment» → ['(178,746)', '(160,063)']
+  EN rótulo 2: «Payments from sale of other intangible assets» (sin cifras en su línea); línea siguiente: «(9,757)            (8,737)»
+  [CUMPLE] ES: «Pagos por la adquisición de inmovilizado material | (178.746) | (160.063)»
+  [CUMPLE] ES: «Pagos por la adquisición de activos intangibles | (9.757) | (8.737)»
+  [CUMPLE] ES: no hay línea de cobros por venta de inmovilizado en inversión
+  [CUMPLE] 2025: suma de las líneas de inversión = total impreso · -188,503 = -188,503
+  [CUMPLE] 2024: suma de las líneas de inversión = total impreso · 66,868 = 66,868
+  [CUMPLE] 2025: capex del sistema = −(PP&E + intangibles) / 1000 · 188.503 = −(-178,746 + -9,757)/1000
+  [CUMPLE] 2024: capex del sistema = −(PP&E + intangibles) / 1000 · 168.8 = −(-160,063 + -8,737)/1000
+
+4.3 · Arrendamientos · nota 8, PDF p.52 (EN) y PDF p.58 (ES); nota 16, PDF p.66–68; estado de flujos p.7
+  [CUMPLE] 2025: movimiento del pasivo por arrendamiento cuadra (inicial + altas + gasto devengado + pagos + otros + conversión = final) · 49,300 = 49,300
+  [CUMPLE] 2024: movimiento del pasivo por arrendamiento cuadra (inicial + altas + gasto devengado + pagos + otros + conversión = final) · 44,904 = 44,904
+  [CUMPLE] HALLAZGO EN EL DOCUMENTO (EN): «Expenses related to short-term leases…» repite exactamente los pagos 8,314 / 6,117 · [8314, 6117] frente a pagos [-8314, -6117]
+  [CUMPLE] HALLAZGO EN EL DOCUMENTO (ES): «Gastos relacionados con arrendamientos corrientes y de poco valor | 8.314 | 6.117»
+  [CUMPLE] el bloque de financiación (p.7) no tiene línea propia de arrendamientos ni de intereses · Proceeds from loans and borrowings | Proceeds from other debts | Payments to redeem own shares and other own equity instruments | Payments of loans and borrowings | Payments from other debts | Dividends paid
+  flujos de deuda en financiación 2025 (cobros y pagos de préstamos y otras deudas) = -130,399; variación del saldo de la nota 16 (incluye arrendamientos NIIF 16 y «Finance Lease - Others») = -130,399
+  conciliación NIC 7 (p.67), préstamos corrientes: [92688, -25724, -131, 0, 66833] · no corrientes: [300624, -103730, -814, 0, 196080] (columna «Other» vacía para préstamos)
+  [CUMPLE] NIC 7: flujos + conversión de préstamos = variación total del saldo de la nota 16 (no aparecen altas, devengos ni «Otros» de arrendamientos) · -129,454 + (-945) = -130,399
+  AR_2025.json arrendamientos_principal: actual «(8,314)», anterior «(6,117)» · nota: «No hay linea separada en el estado de flujos; es el pago total de la nota 8 (incluye intereses devengados 2,452 / 2,179); principal no impreso.»
+  fase1_v63.json arrendamientos_principal 2023–2025 = {2023: 5.861, 2024: 6.117, 2025: 8.314} (pagos totales de la nota 8, no principal)
+  gasto financiero devengado de arrendamientos: 2025 2.452 · 2024 2.179 (p.52) · 2023 2.131 (solo consta en la nota del lector 2024 de fase1_v63.json; CF_2024 no está en el paquete)
+  media 2023–2025 de pagos totales = 6.764 · media de (pagos − devengado) = 4.51
+  [CUMPLE] Análisis C49 = 4,5 coincide con la media de (pagos − gasto devengado), no con la de pagos totales · C49 = 4.5
+  [CUMPLE] Análisis C48 (intereses en financiación) = 0
+  Historia L17 (rotulada «Principal de arrendamientos») = 8.314
+
+4.4 · Adquisiciones y desinversiones · PDF p.7 (EN) y PDF p.14 (ES)
+  EN «Acquisition of companies accounted for using the equity method»: 2025 0 · 2024 -6,000
+  EN «Cash flows from loss of control of subsidiaries»: 2025 0 · 2024 230,000
+  EN «Other effects of disposal»: 2025 0 · 2024 11,668
+  [CUMPLE] EN «Acquisition of a subsidiary, net of cash acquired» sin importes en ningún año · «Acquisition of a subsidiary, net of cash acquired»
+  [CUMPLE] ES «Otros efectos enajenación | - | 11.668» (enajenación = venta)
+  [CUMPLE] ES «Flujos de efectivo procedentes pérdida de control de dependientes | - | 230.000»
+  [CUMPLE] la memoria sitúa la venta de Vidrala Italia el 4-jul-2024
+  [CUMPLE] adquisiciones del sistema = −(suma impresa de negocios dependientes): 2024 = −(230,000 + 11,668)/1000; 2025 = 0 · {2024: -241.668, 2025: -0.0}
+  la compra de participadas por puesta en equivalencia (6,000 en 2024) queda fuera: convención «negocios/dependientes» (prompts/historia_anio.md)
+
+5 · DATO EFECTIVO EN EL LIBRO (Vidrala_v63_evaluada.xlsx, valores en caché) Y USO EN EL CÁLCULO
+  Historia fila 11 «Caja de las operaciones (CFO)»: 2023 263.437 · 2024 362.516 · 2025 380.287
+  Historia fila 12 «Capex (positivo)»: 2023 151.7 · 2024 168.8 · 2025 188.503
+  Historia fila 13 «Adquisiciones netas (positivo)»: 2023 254.086 · 2024 -241.668 · 2025 0
+  Historia fila 14 «Aumento del circulante (+ consume caja)»: 2023 78.805 · 2024 -127.84 · 2025 -0.799
+  Historia fila 15 «Intereses pagados (total)»: 2023 12.32 · 2024 32.1 · 2025 20.8
+  Historia fila 16 «Intereses pagados en financiación (IFRS)»: 2023 0 · 2024 0 · 2025 0
+  Historia fila 17 «Principal de arrendamientos (IFRS 16)»: 2023 5.861 · 2024 6.117 · 2025 8.314
+  Historia fila 35 «FCF al accionista (CFO − capex − int. fin. − arrend. − SBC)»: 2023 105.876 · 2024 187.599 · 2025 183.47
+  Análisis C46 «Caja de las operaciones (mm)»: 335.4
+  Análisis C47 «Capex: inversión en activos (mm)»: 169.7
+  Análisis C48 «Intereses pagados en «financiación» (mm) · solo IFRS»: 0
+  Análisis C49 «Pagos por arrendamientos · principal (mm) · IFRS 16»: 4.5
+  Análisis C50 «Stock-based compensation (SBC) (mm)»: 0
+  Análisis C52 «→ Caja libre (FCF) base normalizada (mm)»: 161.2
+  fórmulas que leen Historia fila 13 (adquisiciones): 12 → Historia!C31, Historia!C58, Historia!D31, Historia!E31, Historia!F31, Historia!G31, Historia!H31, Historia!I31, Historia!J31, Historia!K31, Historia!L31, Motor!E234
+  fórmulas que leen Historia fila 14 (circulante): 14 → Historia!C30, Historia!C58, Historia!C76, Historia!D30, Historia!E30, Historia!F30, Historia!G30, Historia!H30, Historia!I30, Historia!J30, Historia!K30, Historia!L30 …
+  fórmulas que leen Historia fila 17 (arrendamientos): 11 → Historia!C35, Historia!D35, Historia!E35, Historia!F35, Historia!G35, Historia!H35, Historia!I35, Historia!J35, Historia!K35, Historia!L35, Motor!E234
+  fórmulas que leen Historia fila 35 (FCF histórico): 0 → 
+  fórmulas que leen Historia C53 (S2C marginal): 2 → Historia!C67, Palancas!F16
+  fórmulas que leen Historia C58 (f): 7 → Diagnóstico V6!C12, Historia!C74, Historia!C75, Historia!C76, Historia!C78, Historia!C81, Motor!E236
+  [CUMPLE] motor activo = A y f del motor (Motor L6) = Historia C58 · Diagnóstico V6 C5 = A · C58 = 0.0198902473163874
+  [CUMPLE] la réplica de C74:C80 reproduce la f del libro · réplica 0.0198902473 · libro 0.0198902473 · C76 40.4303 · C79 29.7087
+  con el circulante 2024 = 84.994 (en lugar de -127.84): C76 40.4303 → 111.3750 · C79 29.7087 → -41.2359 · f 0.019890 → -0.027608 (variación -0.047498)
+  sensibilidad arrendamientos: con C49 = media de pagos totales (6.8) el FCF base sería 158.9 (libro 161.2) y f 0.019890 → 0.021430 (variación +0.001540)
+  [CUMPLE] réplica de S2C marginal (Historia C53) · 1.549217
+  S2C marginal con el circulante 2024 corregido: 1.5492 → 0.9159 (Palancas F16: solo referencia visual; ninguna fórmula del motor la usa)
+
+====================================================================================================
+RESULTADO: todas las comprobaciones esperadas se cumplen

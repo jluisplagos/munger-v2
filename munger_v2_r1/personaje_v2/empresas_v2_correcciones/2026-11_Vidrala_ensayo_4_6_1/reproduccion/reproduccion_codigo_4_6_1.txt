@@ -1,0 +1,45 @@
+REPRODUCCIÓN DEL CASO DE VIGENCIA · código de /home/claude/entrega461/munger_v2_r1
+
+-- estado inicial (expediente aprobado, copia temporal)
+   pipeline: paso 14 · estado 'concluido' · auditoría 'APROBADO'
+   ficha.json: estado 'concluido' · cierre {'auditoria': 'APROBADO', 'material_auditado': '74b94f8072dd58c1'}
+   informe.md: presente · # Vidrala, S.A. (VID) · informe del personaje v2 · 2026-11-0 · «Estado `concluido`» True · tesis de prueba False
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': 'concluido', 'verificacion': 'APROBADO'}
+   historial_cierres/: no existe
+
+modificación: fase_c.json → celdas.B101 += «[TESIS DE PRUEBA AÑADIDA DESPUÉS DE LA AUDITORÍA]» (SHA-256 4874c9b89151… → 9c36c65632e0…)
+
+$ pipeline.py <copia> --desde 14 → código 4
+   CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No se escribe ninguna salida oficial; el pipeline vuelve al paso 13 (auditoría).
+
+-- después del rechazo
+   pipeline: paso 13 · estado None · auditoría None
+   ficha.json: ausente
+   informe.md: ausente
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': '', 'verificacion': 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del material 74b94f8072dd58c1) archivado en resumen_v2_historial.csv'}
+   historial_cierres/: ['01_74b94f8072dd58c1']
+
+$ informe.py <copia> (directo) → código 3
+   informe.py: no se publica el informe oficial: no hay ficha.json oficial (para el material de la auditoría, usa --provisional)
+
+-- después de informe.py directo
+   pipeline: paso 13 · estado None · auditoría None
+   ficha.json: ausente
+   informe.md: ausente
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': '', 'verificacion': 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del material 74b94f8072dd58c1) archivado en resumen_v2_historial.csv'}
+   historial_cierres/: ['01_74b94f8072dd58c1']
+
+$ ficha.py <copia> --estado concluido (directo) → código 3
+   ficha.py: no se confirma «concluido» en la ficha oficial: el pipeline no registró una auditoría APROBADO válida (auditoria = None). Para el material de la auditoría, usa --provisional.
+
+-- después de ficha.py directo
+   pipeline: paso 13 · estado None · auditoría None
+   ficha.json: ausente
+   informe.md: ausente
+   fila del resumen: {'empresa': 'Vidrala, S.A.', 'estado_analisis': '', 'verificacion': 'SIN APROBACIÓN VIGENTE · cierre anterior (APROBADO del material 74b94f8072dd58c1) archivado en resumen_v2_historial.csv'}
+   historial_cierres/: ['01_74b94f8072dd58c1']
+
+VEREDICTO
+  --desde 14: NO SE REPRODUCE: código 4 y ninguna salida ni fila presenta la versión modificada como concluida y aprobada
+  informe.py directo: NO SE REPRODUCE: código 3; no publica el contenido nuevo como aprobado
+  ficha.py directo: NO SE REPRODUCE: código 3; ninguna ficha oficial presenta concluido

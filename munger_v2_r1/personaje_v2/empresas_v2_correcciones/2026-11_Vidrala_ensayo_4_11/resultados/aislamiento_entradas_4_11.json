@@ -1,0 +1,113 @@
+{
+ "expediente": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_11/piloto/Vidrala",
+ "libro": "Vidrala_v63_evaluada.xlsx",
+ "libro_sha256": "cd88f96d6017a591fb552748d6d8bc17aa6a4d716ad8d4a86429cad77da5b18d",
+ "configuracion_economica_sha256": "a50f097c437770bc734aa22125c494e884f47a6af422c5f1bc8730be46c15be6",
+ "precio_del_expediente": {
+  "precio": 90.1,
+  "ponderado": 62.6151093424602,
+  "precio_si": 57.74229205598012,
+  "zona": "caro"
+ },
+ "caso_principal": {
+  "C46": 335.4,
+  "C47": 169.7,
+  "C48": 0,
+  "C49": 4.5
+ },
+ "construido_por_fase1_historia": {
+  "C46": 335.413,
+  "C47": 169.668,
+  "C48": 0.0,
+  "C49": 6.764
+ },
+ "variantes": [
+  {
+   "clave": "control",
+   "descripcion": "caso principal del ensayo (sin cambios; debe reproducir precio.json)",
+   "celdas": {},
+   "V": [
+    45.56024883978,
+    61.9263678031479,
+    81.7361944630772
+   ],
+   "ponderado": 62.6151093424602,
+   "precio_si": 57.74229205598012,
+   "zona": "caro",
+   "fcf_base_C52": 161.2,
+   "estado_tecnico": "COMPLETO Y VÁLIDO",
+   "configuracion_valida": true,
+   "hash_copia": "eb858e698e3a1b3dcd640da9da489a2ae1208df45dbe80cb944ba2ac30304f91",
+   "delta_ponderado": 0.0,
+   "delta_precio_si": 0.0
+  },
+  {
+   "clave": "C46_C47_precisos",
+   "descripcion": "C46 335.413 y C47 169.668 (los que construye fase1_historia.py; precisión, no juicio)",
+   "celdas": {
+    "Análisis!C46": 335.413,
+    "Análisis!C47": 169.668
+   },
+   "V": [
+    45.56024883978,
+    61.9263678031479,
+    81.7361944630772
+   ],
+   "ponderado": 62.6151093424602,
+   "precio_si": 57.74229205598012,
+   "zona": "caro",
+   "fcf_base_C52": 161.245,
+   "estado_tecnico": "COMPLETO Y VÁLIDO",
+   "configuracion_valida": true,
+   "hash_copia": "147ad5e818e9998d401c3750df8bf79a7d94401d3064c07c5672c2652ceed854",
+   "delta_ponderado": 0.0,
+   "delta_precio_si": 0.0
+  },
+  {
+   "clave": "C49_pago_total",
+   "descripcion": "C49 6.764 (pago total de arrendamientos P+I de la nota 8, en lugar del supuesto heredado 4,5; P3)",
+   "celdas": {
+    "Análisis!C49": 6.764
+   },
+   "V": [
+    45.56024883978,
+    61.9263678031479,
+    81.7361944630772
+   ],
+   "ponderado": 62.6151093424602,
+   "precio_si": 57.74229205598012,
+   "zona": "caro",
+   "fcf_base_C52": 158.936,
+   "estado_tecnico": "COMPLETO Y VÁLIDO",
+   "configuracion_valida": true,
+   "hash_copia": "90d8d2d7c98106940f776b9f7f203774193cde8b068273f63b0ae553ec427185",
+   "delta_ponderado": 0.0,
+   "delta_precio_si": 0.0
+  },
+  {
+   "clave": "combinada",
+   "descripcion": "las dos a la vez",
+   "celdas": {
+    "Análisis!C46": 335.413,
+    "Análisis!C47": 169.668,
+    "Análisis!C49": 6.764
+   },
+   "V": [
+    45.56024883978,
+    61.9263678031479,
+    81.7361944630772
+   ],
+   "ponderado": 62.6151093424602,
+   "precio_si": 57.74229205598012,
+   "zona": "caro",
+   "fcf_base_C52": 158.981,
+   "estado_tecnico": "COMPLETO Y VÁLIDO",
+   "configuracion_valida": true,
+   "hash_copia": "fb9f6e1723dc1e41978aa165d9e012451d97bef460b5249bfe744f844ec6131d",
+   "delta_ponderado": 0.0,
+   "delta_precio_si": 0.0
+  }
+ ],
+ "control_reproduce_el_expediente": true,
+ "nota": "Aislamiento mecánico (encargo 4.11 §9). C46/C47 es un cambio de PRECISIÓN; C49 = 6,764 es una alternativa de JUICIO (P3, abierto): ninguna se adopta y los ceros pendientes siguen pendientes."
+}

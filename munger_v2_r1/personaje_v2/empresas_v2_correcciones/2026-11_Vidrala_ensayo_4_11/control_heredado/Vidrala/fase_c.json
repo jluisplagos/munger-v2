@@ -1,0 +1,651 @@
+{
+ "turno": 2,
+ "una_sola_historia": {
+  "coherente": true,
+  "incoherencias": [
+   "Margen de partida (Palancas C8 = Media del ciclo → m0 = Historia!C49 = 16,9 %). Los años 1–4 de los tres escenarios parten de una media que mezcla perímetros (Italia en 2016–2022, 2016–2018 con otra base industrial, Brasil consolidado solo desde diciembre de 2023), mientras que las tres historias de la fase A parten del 19,9 % de 2025 (Historia L29). En el NORMAL la hoja dibuja un margen que sube del 16,9 % al 18,5 %; la historia dice que baja del 19,9 % hacia el 18,5 % con las bajadas de precio de 2026 [ES_2025, PDF p. 54]. Efecto con una réplica del motor B que reproduce la hoja al céntimo: con m0 = 18,1 % (media de 2019–2025) el precio de Sí sube un 1,1 %; con 18,6 % (sin la dilución de Italia), un 1,5 %; con 19,9 %, un 2,7 % (66,52 → 68,29). Zona y cubo no cambian. Es un sesgo conservador de un dato elegido por una regla correcta de la fase A (la que el método pide para una cíclica y la que exige la coherencia tipo/motor de la hoja, Diagnóstico V6 fila 6), no una palanca mal derivada: no lo reescribo y lo llevo, acotado, a la lista de D10.",
+   "MALO con capital liberado (límite de traducción que anotó la fase B). La historia de la fase A dice que la reinversión no baja; el motor, con ventas que caen, libera ΔV ÷ S2C, unos 16 mm al año en los años 1–5. Por eso el flujo del año 1 del MALO (207,5) supera al del NORMAL (172,8) y a la caja al accionista de 2025 (183,5, Historia L35), cuando en 2025 las ventas cayeron 123,1 mm, el capital invertido solo 35,6 mm y la reinversión orgánica fue de +54,8 mm (Historia K6:L6, K32:L32 y L30). Sin esa liberación el MALO vale 51,67 en vez de 53,66 y el precio de Sí 65,67 (−1,3 %); con el S2C del MALO en los extremos de su rango (0,7 y 1,2), ±0,3 %. La plantilla no tiene palanca para ventas que bajan con reinversión que sigue: no hay cifra que corregir en la fase B.",
+   "Tipo impositivo de la hoja (Historia C52 = 20,0 %, media de 2021–2025). La serie sube cada año: 15,9 %, 18,1 %, 20,4 %, 21,4 % y 24,3 % (Historia H10:L10). Las fases A y B lo usaron sin examinarlo (la caja que espera la fase A y las rentabilidades marginales van al 20 %). Con el tipo medio de 2023–2025 (22,0 %) el precio de Sí baja un 2,7 % (64,73); con el de 2025 (24,3 %), un 5,7 % (62,71), con el ponderado en 67,49 y la zona en caro. En sentido contrario, los impuestos pagados de 2025 quedaron unos 26,6 mm por debajo del gasto (Control maestro, C40). No es una palanca ni algo que la fase B pueda corregir: es una celda de datos de la plantilla (convención: media de cinco años) que la fase C no cambia. La dejo visible como la sensibilidad de datos más grande que encuentro, para la persona responsable.",
+   "Celdas heredadas que siguen en el libro con texto de la etapa 1: C93 (Sí), B101 (Chile desde el 30-mar-2026 y 0,69 veces el EBITDA a 30-jun-2026), B102 (Chile en el perímetro), C103 (No) y C104 (un porcentaje de posición y el precio de Sí antiguo, ≈48 €). No cuentan la historia de este ensayo. Son del turno 2: B101 se reescribe con 0,36 veces a 31-dic-2025 (C33) y sin Chile; B102 conserva sus hechos de 2025 y pasa Chile a hecho posterior; C104 sigue la sección 15 sin porcentaje.",
+   "Texto de 2026 en Observaciones o documentos de celdas de datos con valor de 2025 (C28, C32, C40, C41, C46, C47, C50 y C55: recompras de 2026, balance a 30-jun-2026, autocartera semanal, liberada de 2026). Sus valores son de la base 2025 y ninguno entra en el motor B salvo C41 y C55, que son los del ensayo (90,10 × 35,182858). No uso ese texto; C38 (Simply Wall St, 08-oct-2026) es contexto posterior a la base y tampoco lo uso."
+  ]
+ },
+ "lo_que_dice_la_hoja": {
+  "aviso_de_lectura": "Resultado mecánico de un ensayo exploratorio con base económica 2025: valores, precio (90,10 €, cierre de 2025, con derecho al dividendo a cuenta) y acciones (35,182858 millones en circulación) comparten el 31-dic-2025. No es un backtest ni una recomendación.",
+  "valores_por_accion": {
+   "MALO": 53.66,
+   "NORMAL": 72.74,
+   "BUENO": 86.44,
+   "ponderado_C83": 71.66,
+   "valor_sin_crecimiento": 59.96
+  },
+  "escalera_de_precio_json": {
+   "precio_C37": 90.1,
+   "precio_escenario_malo": 53.66,
+   "precio_de_si": 66.52,
+   "P_estrella": 66.52,
+   "tope_normal_aplicado": false,
+   "ponderado": 71.66,
+   "zona": "caro",
+   "distancia_a_precio_si": 0.262,
+   "distancia_a_malo": 0.404,
+   "regla_antigua_C156": 53.66,
+   "nota": "lectura de precio.json (k = 3, convención experimental): la zona no es la conclusión ni mide riesgo"
+  },
+  "fcf_anio_1": {
+   "MALO": 207.5,
+   "NORMAL": 172.8,
+   "BUENO": 160.8
+  },
+  "fcf_anio_10": {
+   "MALO": 153.3,
+   "NORMAL": 225.3,
+   "BUENO": 272.1
+  },
+  "puente_motor_B": "Pasivos netos 160,784 = deuda 213,613 + arrendamientos 49,3 + provisión de personal 6,223 (como pensiones) + minoritarios 0 (cero pendiente) − caja 108,352, todo a 31-dic-2025; la caja lleva dentro el dividendo a cuenta pendiente (43,338) y no se resta otra vez.",
+  "r_operativa_C15": 0.087,
+  "r_minima_C17": 0.0817,
+  "semaforos_relevantes": [
+   "Fila 41 (margen frente a su máximo y al Q3 del sector): REVISAR en los tres escenarios por el Q3 del sector (9,4 %); ninguno supera el máximo propio (20,8 %). Es G5, justificada con hechos.",
+   "Filas 40, 42, 43 y 44 (crecimiento, ROIC marginal, ROIC a largo plazo y peso del terminal): PASA en los tres.",
+   "Fila 45 (cuota implícita): sin calcular, porque Palancas C24 está vacía.",
+   "Filas 46 a 49 (S2C medio frente al sector, orden de los escenarios, r frente a r mínima 0,09 ≥ 0,0817, tipo y motor): PASA.",
+   "Fila 50 (f = −2,8 % de las ventas): REVISAR (aviso A6), pero f no entra en el motor B; es una de las razones por las que la fase A eligió el motor B.",
+   "Lecturas de precio D84 (poco margen), D85 (asimetría débil) y D86 (precio por encima del BUENO): mecánicas, con precio y valor de la misma fecha.",
+   "Estado técnico INCOMPLETO solo por las tres predicciones (turno 2); sin bloqueo del valor ni de la lectura (B252 y B254 falsos); gramática tras el recálculo con código 0."
+  ],
+  "peso_terminal_NORMAL": 0.526,
+  "peso_terminal": {
+   "MALO": 0.417,
+   "NORMAL": 0.526,
+   "BUENO": 0.57
+  },
+  "salto_anio_11": {
+   "MALO": 0.018,
+   "NORMAL": 0.023,
+   "BUENO": 0.04,
+   "explicacion": "Rentabilidad marginal de los años 1–10 (S2C × margen × (1 − t)) frente al ROIC terminal: 10,8 → 9 % en el MALO, 13,3 → 11 % en el NORMAL y 16,0 → 12 % en el BUENO. Ninguno llega a 5 puntos (G8 no salta). Es la hipótesis de pérdida de ventaja que irá en la tesis: en el NORMAL, en el año 11 el capital nuevo deja de rendir como en 2019–2025 y se queda en dos puntos sobre r, porque no sé quién me mata; en el BUENO, la mezcla de Brasil y la eficiencia de los hornos renovados no duran para siempre y el terminal conserva el ROIC de los peores años desde 2018 (Historia fila 33); en el MALO el foso se diluye hasta la tasa."
+  },
+  "dcf_inverso": "Con las demás palancas del NORMAL, el precio de 90,10 descuenta un crecimiento de ventas del 9,2 % anual en los años 1–5 (C86 = 0,0916), por encima del BUENO (3,5 %), del CAGR de 2020–2025 (8,2 %, Historia C46, que lleva Vidroporto y el salto de precio de 2022) y del 1,3 % anual de Europa y Reino Unido sin Italia ni Brasil en 2022–2025. El precio de Sí equivale a un −1,4 %. Aquí precio y valor comparten fecha y derecho al dividendo, así que la lectura vale dentro del ensayo: el precio de cierre de 2025 pedía mucho más crecimiento que mi BUENO, o, con mi NORMAL, una tasa del orden del 7,5 % en vez de la r operativa de 0,087. No lo leo como lo que espera el mercado: es lo que exigiría mi NORMAL.",
+  "tornado": {
+   "tasa_de_descuento_1pt": 13.52,
+   "margen_objetivo_2pts": 7.99,
+   "roic_lp_5pts": 7.52,
+   "crecimiento_1_5_2pts": 4.2,
+   "s2c_0_3": 3.25,
+   "g_perpetuo_0_5pts": 1.37,
+   "unidad": "€ por acción en el NORMAL (mayor efecto absoluto)"
+  },
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt)",
+  "nota": "el tornado es información, no criterio: el valor depende sobre todo de la rentabilidad exigida (aviso A5), que es heredada",
+  "cuanto_pagas_por_crecer": "Valor sin crecimiento 59,96 € (con m0 = 16,9 %); el precio paga 30,14 € por crecimiento y el NORMAL le da 12,78: pagas 2,4 veces lo que vale (REVISAR). Contexto, no juez.",
+  "veredicto_hoja_A6": "DESCARTADA POR FILTRO PABRAI (C13 = No). Mi cubo provisional es Vigilar: es el caso típico de la regla 4 (C11 Sí, C12 Sí, C13 No), un buen negocio sin valor claro a ojo al precio de cierre.",
+  "variante_precision_C46_C47": "La variante con 335,413 / 169,668 no cambia ningún valor del motor B (C46:C47 solo entran en el FCF base del motor A); la orquestación la calcula aparte."
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G5",
+   "escenario": "MALO",
+   "justificacion": "Revisada como si fuera de otro: el margen permanente del MALO (15 %) supera el Q3 del sector de la hoja (9,4 %), que es el de envases en general, porque Vidrala ha estado por encima de ese Q3 los diez años, también en su mínimo de 2016 (12,0 %) y en el valle de energía de 2022 (13,7 %; ≈14,5 % sin Italia). Mecanismo: un producto que viaja mal servido desde plantas cercanas y el traslado del coste por contratos. En el MALO el cliente se queda el ahorro de energía y la empresa conserva solo parte de su diferencial: baja hacia su valle, no hacia el sector.",
+   "hechos": [
+    "Historia C50 (12,0 %) e I29 (13,7 %)",
+    "Palancas I15 (Q3 del sector, 9,4 %)",
+    "Gastos de venta con logística, almacenaje y transporte de 116,5 mm [ES_2025, PDF p. 80]",
+    "Traslado por mecanismos contractuales o renegociaciones [ES_2025, PDF p. 98]"
+   ],
+   "clase": "fundamentada"
+  },
+  {
+   "comprobacion": "G5",
+   "escenario": "NORMAL",
+   "justificacion": "El NORMAL (18,5 %) supera el Q3 del sector pero no el máximo propio (20,8 %, C51). No supone una mejora nueva: es la media del ciclo de energía 2019–2025, que he comprobado (18,1 % publicada; 18,6 % sin la dilución de Italia, calculada con el beneficio antes de impuestos por segmento). Mecanismo: fórmulas de precio que trasladan el coste con retraso, clientes diversificados y escala regional; la empresa conserva el diferencial de la década y reparte con el cliente el ahorro de energía.",
+   "hechos": [
+    "Historia F29:L29 (media 18,1 %) y C51 (20,8 %)",
+    "Beneficio antes de impuestos por segmento de 2019–2022 [CF_2019.txt, PDF p. 38], [CF_2021.txt, PDF p. 30] y [CF_2023.txt, PDF p. 29]",
+    "Fórmulas de tarificación adaptadas [ES_2025, PDF p. 101]",
+    "Diez primeros clientes algo más del 35 % de las ventas y ninguno por encima del 10 % [ES_2025, PDF p. 104]",
+    "Palancas I15 (Q3 del sector, 9,4 %)"
+   ],
+   "clase": "fundamentada"
+  },
+  {
+   "comprobacion": "G5",
+   "escenario": "BUENO",
+   "justificacion": "El BUENO (20 %) es el margen de 2025 (19,9 %, L29) mantenido, por debajo del máximo de 2024 (20,8 %, K29); el EBIT recurrente de 2025, sin la reestructuración, ya fue del 20,9 % de las ventas. Mecanismo: más peso de Brasil (margen EBITDA del 42,4 % frente al 32,4 % de la Península) y menor coste propio por hornos renovados, subvenciones PERTE y el PPA. La empresa se queda la eficiencia propia y el cliente el ahorro de energía; esa última parte es lectura de la fase A sin dato que la pruebe, de ahí la confianza baja. Pesa poco: el BUENO en 0,195 mueve el precio de Sí un −0,5 %.",
+   "hechos": [
+    "Historia L29 (19,9 %) y K29 (20,8 %)",
+    "EBIT recurrente de 305,7 mm [ES_2025, PDF p. 93]",
+    "EBITDA y margen por segmento de 2025 [ES_2025, PDF p. 107]",
+    "Renovación de hornos [ES_2025, PDF p. 50], PERTE [ES_2025, PDF p. 72] y PPA [ES_2025, PDF p. 59]"
+   ],
+   "clase": "fundamentada"
+  }
+ ],
+ "autocomprobacion": [
+  {
+   "sesgo": "anclaje en la etapa 1",
+   "hallazgo": "Revisé las cifras que coinciden con la etapa 1. g (0,01 / 0,02 / 0,025) y probabilidades (0,2 / 0,6 / 0,2) son las mismas, pero la fase B las sostiene con hechos del informe español de 2025 (IPC [ES_2025, PDF p. 56], perpetuidad del 1–3 % [ES_2025, PDF p. 55], un solo valle en la fila 29) y sin Chile. El cubo Vigilar coincide; el precio de Sí no (≈48 € del motor antiguo frente a 66,52). Siguen en el libro cinco celdas heredadas que no son de este ensayo (C93, B101, B102, C103 y C104). También leí, sin copiarla, la fase C del antecedente 4.6.1: tenía otro precio (87,90 €, de noviembre de 2026), las acciones emitidas en vez de las de circulación y citas del texto inglés; no reutilizo ninguna de sus cifras.",
+   "cambio": "Ninguna celda cambia en este turno; en el turno 2 reescribo B101, B102 y C104 sin datos de 2026 (0,36 veces a 31-dic-2025, Chile como hecho posterior) y re-decido C93 y C103 con el salto del año 11 y el peso del terminal de este libro."
+  },
+  {
+   "sesgo": "anclaje en el precio o en la fuente externa",
+   "hallazgo": "Ninguna palanca usa el precio de 90,10, el valor de Simply Wall St (C38 = 171,8, posterior a la base) ni el precio objetivo de analistas de su Observación. La hoja dice que el precio supera incluso mi BUENO (D86) y que descontaría un crecimiento del 9,2 % anual (C86): miré si eso me empujaba a subir el BUENO. Con todas las palancas en el extremo optimista de los rangos de la fase B y m0 = 19,9 %, el precio de Sí llega a 77,9 y el ponderado a 83,1, los dos por debajo de 90,10; con mi NORMAL, el precio equivale a descontar a un 7,5 % en vez de al 8,7 % de la r operativa. «Few psychological tendencies do more damage to correct thinking» (PCA p.579; HIM).",
+   "cambio": "Ninguno: la distancia al precio la explica sobre todo la rentabilidad exigida, que es heredada (S-3), no unas palancas tímidas."
+  },
+  {
+   "sesgo": "consistencia y compromiso",
+   "hallazgo": "El cubo Vigilar y el motor B se fijaron en la fase A, antes de ver valores. Comprobé si las palancas se ajustaron para que saliera caro: las desviaciones de la fase B van en los dos sentidos (margen del NORMAL +0,015 sobre la referencia; S2C del MALO +0,2, que empeora el MALO; crecimientos muy por debajo de la referencia porque esta lleva compras), y la zona no depende de ellas: ni la combinación optimista ni la pesimista dentro de los rangos de la fase B (precio de Sí 77,9 y 60,1) salen de caro. «a quickly reached conclusion, triggered by Doubt-Avoidance Tendency» (PCA p.525; HIM).",
+   "cambio": "Ninguno: la conclusión provisional sobrevive a mover juntas todas las palancas dentro de sus rangos."
+  },
+  {
+   "sesgo": "historia bonita / viento de cola atribuido a la empresa",
+   "hallazgo": "Parte del margen de 2023–2025 es el desfase entre subidas de precio y normalización de la energía que la propia empresa describía [CF_2022.txt, PDF p. 45], no foso. El NORMAL no lo extrapola (18,5 %, media del ciclo 2019–2025, y no el 19,8 % de 2023–2025); el BUENO sí mantiene el margen de 2025, con confianza baja y peso 0,2. Tampoco separo cuánto del margen de Brasil (EBITDA del 42,4 % [ES_2025, PDF p. 107]) es de Vidroporto y cuánto del mercado. C17 = No: no atribuyo viento de cola. «how much is going to stay home and how much is just going to flow through to the customer» (PCA pp.187–189; HIM).",
+   "cambio": "Ninguno en las cifras; en la tesis inversa del turno 2 pongo primero que el margen de 2023–2025 es en parte ciclo."
+  },
+  {
+   "sesgo": "optimismo del BUENO frente a la tasa base",
+   "hallazgo": "El BUENO crece al 3,5 %, el doble del 1,6 % de la prueba de deterioro de la empresa [ES_2025, PDF p. 55], pero por componentes y sin compras; su margen (20 %) es el de 2025 y no supera el máximo (20,8 %); su ROIC terminal (12 %) queda por debajo de la media de cinco años (13,8 %, C55) y su g (2,5 %), por debajo de rf. Contraste de frecuencias: en diez años solo 2024 tuvo un margen igual o superior al del BUENO, y solo 2016, 2017 y 2022 uno inferior al del MALO (uno de ocho años desde 2018); 0,2 / 0,6 / 0,2 cae dentro de lo observado, aunque la frecuencia de un año no es la probabilidad de un estado permanente. Sin C24 no puedo probar la cuota implícita de unas ventas del año 10 de 2.007 mm. «What a man wishes, that also will he believe» (PCA p.564; HIM).",
+   "cambio": "Ninguno: el BUENO no pide más de lo que la empresa ya hizo y no es más probable que el MALO."
+  },
+  {
+   "sesgo": "doble castigo del mismo riesgo",
+   "hallazgo": "Encuentro uno pequeño y mecánico: el riesgo de un margen de 2025 en lo alto del ciclo está en el objetivo del NORMAL (18,5 % frente a 19,9 %) y otra vez en el arranque de los años 1–4 desde C49 (16,9 %), que la fase B no compensó para no mezclar las dos cosas. Quitarlo sube el precio de Sí entre un 1,1 % y un 2,7 %. Las bajadas de precio de 2026 están en el crecimiento y no también en las probabilidades; no hay prima de quiebra en r ni en C22; el dividendo a cuenta está dentro de la caja y no se resta otra vez.",
+   "cambio": "Ninguno en celdas (C8 es de la fase A y su regla es correcta): queda como la hipótesis de la lista de D10, acotada, y en incoherencias."
+  },
+  {
+   "sesgo": "disponibilidad (lo vívido del extracto)",
+   "hallazgo": "Lo más vívido del extracto no entra en las cifras: la tormenta Kristin y Toro son hechos posteriores al cierre [ES_2025, PDF p. 85], el apagón no fue material según la empresa [ES_2025, PDF p. 78] y la reestructuración de 13,7 mm del Reino Unido [ES_2025, PDF p. 34] es de un año. Ninguno se extrapola: el MALO se ancla en el valle de 2022 de la fila 29, no en un titular, y el NORMAL en siete años de margen. Kristin costaría 0,28–0,43 € por acción sin seguro. «An idea or a fact is not worth more merely because it is easily available to you» (PCA p.587; HIM).",
+   "cambio": "Ninguno: los hechos posteriores se valoran como tales, sin tocar balance, perímetro ni cifras de partida."
+  },
+  {
+   "sesgo": "autoridad (guía de la dirección como hecho)",
+   "hallazgo": "El volumen +1 % [ES_2025, PDF p. 54], el IPC [ES_2025, PDF p. 56] y la perpetuidad del 1–3 % [ES_2025, PDF p. 55] de las pruebas de deterioro alimentan el crecimiento y la g del NORMAL; van declarados como hipótesis de la empresa, no como dato. Sin ese volumen (crecimiento del NORMAL del 1 %) el precio de Sí baja un 1,2 %. La bajada de precio de 2026 que supone la empresa la uso en contra de la tesis, no a favor, y la frase «en línea con las expectativas anticipadas» [ES_2025, PDF p. 94] no la cuento. «A projection prepared by… an executive trying to justify a particular course of action will frequently be a lie» (TCI p.60; HIM).",
+   "cambio": "Ninguno: ninguna palanca copia una guía, y las que usan supuestos de la empresa los llevan como supuesto, con efecto pequeño."
+  },
+  {
+   "sesgo": "¿el MALO es de verdad malo?",
+   "hallazgo": "En margen y retorno, sí: 15 % para siempre (por debajo de todos los años desde 2018 salvo 2022), ROIC terminal igual a r, ventas del año 10 por debajo de las de 2025 y un valor (53,66) inferior al valor sin crecimiento (59,96). Pero lleva un maquillaje mecánico: con ventas que caen, el motor libera unos 16 mm al año de capital en los años 1–5, y su flujo del año 1 (207,5) supera al del NORMAL (172,8) y a la caja de 2025 (183,5, L35), cuando la historia dice que la reinversión no baja. Sin esa liberación vale 51,67; con el valle de 2022 (13,7 %) para siempre y sin liberación, 47,58 (precio de Sí −3,9 %). «We don't think because it's never happened that it won't» (AIWTK p.55; HIM).",
+   "cambio": "Ninguno en celdas: la plantilla no tiene palanca para ventas que bajan con reinversión que sigue, el efecto queda por debajo del 5 % y no cambia la zona; lo dejo en incoherencias y en la tesis inversa del turno 2."
+  },
+  {
+   "sesgo": "lo no numerable que pesa y no está en las palancas",
+   "hallazgo": "Lo que pesa y ninguna celda recoge: no sé quién me mata (ningún competidor con cuota), no sé si el vidrio perderá terreno frente a otros envases, el coste del CO2 (provisión de 46,4 mm [ES_2025, PDF p. 77]) y de la descarbonización sin un plan con importes, los insiders sin verificar (C97 técnico), Toro como compra condicionada a un ajuste organizativo y una tendencia del tipo impositivo (del 15,9 % de 2021 al 24,3 % de 2025, Historia H10:L10) que la hoja promedia en el 20 %. «practically everybody (1) overweighs the stuff that can be numbered» (PCA pp.412–414; HIM).",
+   "cambio": "Van a la tesis inversa (B102) y a B222 en el turno 2; el tipo impositivo queda además en incoherencias como la sensibilidad de datos más grande (−5,7 % con el de 2025)."
+  }
+ ],
+ "revisar_palancas": false,
+ "instrucciones_revision": null,
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": "El motor B calcula los tres escenarios y cumple sus condiciones: g < r operativa (0,087) y ROIC > g en los tres, S2C > 0, probabilidades de la lista que suman 1, escenarios ordenados y tipo y motor coherentes. Los límites que encuentro (margen de partida de C8 y capital liberado en el MALO) son de representación y mueven el precio de Sí menos de un 3 %: no son un motor que no sirva para Vidrala."
+ },
+ "cubo_provisional": "Vigilar",
+ "conclusion_provisional": "esperar",
+ "revision_datos_ausentes": {
+  "revisados": [
+   {
+    "dato": "evidencia Historia!C23:L23",
+    "que_falta": "Documento y clasificación que permitan dar por verificable la serie de pasivos por arrendamiento (la fase 1 la marca como no verificable).",
+    "conclusion_afectada": "Puente del motor B (Historia L23 = 49,3 dentro de C64 = 262,913; Diagnóstico V6 C16) y, en la serie, capital invertido y ROIC de contexto (Historia filas 32 y 33).",
+    "material_para_conclusion_favorable": false,
+    "porque": "El saldo de 2025 está en la nota de arrendamientos: 43.162 no corriente + 6.138 corriente = 49.300 [ES_2025, PDF p. 58], y C64 = 262,913 es el total de pasivos financieros de la nota 16 (196.080 + 66.833) [ES_2025, PDF p. 72]. El puente y C63 usan la suma de deuda y arrendamientos, así que reclasificar entre las dos filas no los mueve. En los años anteriores solo entra en la fila 32, también como suma; la nota del lector de 2023 deja dudoso si el sale and leaseback (unos 61 mm) quedó fuera ese año: si fuera así, el ROIC de 2023 sería ≈11,8 % y no 12,2 %, sin cambiar ninguna palanca redondeada (B18:D18 = 0,09 / 0,11 / 0,12). no material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "evidencia Historia!C26:L26",
+    "que_falta": "Confirmación (decisión humana registrada) del cero de minoritarios, hoy cero pendiente de verificación (N4).",
+    "conclusion_afectada": "Puente del motor B (Historia L26 dentro de C65 = 6,223) y, con él, los tres valores por acción, el ponderado y el precio de Sí.",
+    "material_para_conclusion_favorable": false,
+    "porque": "No confirmo el cero ni activo su verificación. Juzgo su materialidad: cada millón de minoritarios resta 0,028 € por acción en los tres escenarios y en el precio de Sí; harían falta unos 117 mm para moverlo un 5 % (66,52 → 63,20, réplica del motor; la zona sigue en caro). El balance de 2025 no tiene línea de participaciones no dominantes [ES_2025, PDF p. 10] y las dependientes figuran al 100 %, con Envasados Eva y Glassco por puesta en equivalencia [ES_2025, PDF p. 16]: no veo de dónde saldría una cifra de ese orden. El dato sigue pendiente y visible; no material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "evidencia Análisis!C48",
+    "que_falta": "Confirmación del cero de intereses pagados en financiación de 2023–2025 (Análisis C48 = 0, supuesto heredado de la referencia; P3 abierto, junto con C49 = 4,5, que tampoco es un principal acreditado).",
+    "conclusion_afectada": "FCF base (Análisis C52) y f (Historia C58), que solo usa el motor A; en el motor B no entra en el valor (Motor!L6:L8 = 0). Solo podría tocar C63 si hubiera intereses pagados fuera de la fila 15.",
+    "material_para_conclusion_favorable": false,
+    "porque": "No lo declaro resuelto; juzgo su materialidad para esta conclusión. El valor del motor B no usa C48 ni C49: la variante de precisión de C46:C47 que calculó la orquestación tampoco cambia ningún valor. C63 sale de los intereses pagados totales de la fila 15 (20,8 en 2025), que el estado de flujos lleva en explotación, sin línea de intereses ni de arrendamientos en financiación [ES_2025, PDF p. 14]. Si los 2,452 de gasto financiero de arrendamientos [ES_2025, PDF p. 58] estuvieran fuera de esa fila, C63 pasaría de 0,063 a 0,071 y el precio de Sí bajaría un 0,7 %. En el motor A, C49 = 4,5 frente al pago total P+I de 6,764 movería C52 unos 2,3 mm (≈1,4 %). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "evidencia Historia!C13:L13",
+    "que_falta": "Confirmación de los ceros de adquisiciones netas de 2018–2022 (pendientes de verificación).",
+    "conclusion_afectada": "Reinversión neta total (Historia fila 31) y S2C marginal de la hoja (Historia C53, ventana 2021–2025), que es la referencia mecánica de B16:D16; lectura del historial de compras en C98.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las S2C de la fase B no se apoyan en C53 sino en C54 (0,93) y en Δventas ÷ Δcapital invertido de 2016–2025 (0,90, Historia filas 6 y 32), que salen del balance y no de la fila 13: un importe positivo en 2021–2022 solo bajaría la referencia. La venta de MD Verre de 2019 (pérdida de 5,977 [CF_2019.txt, PDF p. 40]) cae fuera de esa ventana y es una desinversión pequeña. Ningún valor del motor B cambia, y C98 se juzgó con las operaciones grandes, que sí constan (Santos Barosa, Vidroporto, Italia). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "evidencia Historia!C16:L16",
+    "que_falta": "Confirmación de los ceros de intereses pagados en financiación de 2016–2025 (pendientes de verificación).",
+    "conclusion_afectada": "FCF al accionista (Historia fila 35), FCF base (C52) y f (motor A); lectura de C25 y C13. No entra en el motor B.",
+    "material_para_conclusion_favorable": false,
+    "porque": "El estado de flujos de 2025 lleva los intereses pagados (20.800) en explotación y no tiene línea de intereses en financiación [ES_2025, PDF p. 14]: el cero es coherente con el documento aunque no esté confirmado. Si hubiera intereses en financiación, la caja al accionista de la fila 35 bajaría, lo que refuerza C13 = No (unas 17 veces la caja de 2025) en vez de debilitarlo. No toca el valor del motor B; no material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "evidencia Historia!C17:L17",
+    "que_falta": "Confirmación de los ceros de principal de arrendamientos de 2016 y 2018 (antes de la NIIF 16); además, la fila lleva en 2023–2025 pagos totales P+I y no un principal acreditado (P3).",
+    "conclusion_afectada": "Historia fila 35 de esos años (lectura de C25) y, para 2023–2025, Análisis C49 y el FCF base del motor A.",
+    "material_para_conclusion_favorable": false,
+    "porque": "2016 y 2018 son anteriores a la NIIF 16 y solo tocan la serie de contexto de C25, que no cambia de sentido por unos pocos millones. Para 2025 la nota da pagos de 8,314 con 2,452 de gasto financiero [ES_2025, PDF p. 58]: la fila 35 de 2025 estaría entre 183,5 y 185,9, una rentabilidad de la caja al precio del 5,8–5,9 %, que no cambia C13. No entra en el valor del motor B; no material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "Palancas!C24",
+    "que_falta": "Tamaño del mercado en el año 10 de fuente primaria (Palancas C24).",
+    "conclusion_afectada": "Cuota implícita del BUENO (Diagnóstico V6 fila 45, comprobación G17), que queda sin calcular.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Sin cifra primaria la celda queda vacía por regla y G17 no se evalúa. El BUENO lleva las ventas del año 10 a 2.007 mm (+37 % sobre 2025) con crecimiento orgánico dentro del perímetro de 2025 y pesa 0,2; llevar su crecimiento al suelo de su rango (0,03) mueve el precio de Sí un −0,3 %. No puedo probar el realismo de cuota del BUENO, pero eso no cambia la zona ni el cubo: no material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Tamaño del mercado de envases de vidrio (toneladas, unidades o euros) en cualquiera de las regiones: no encontrado en los documentos.",
+    "que_falta": "Tamaño del mercado de envases de vidrio en cualquiera de las regiones (toneladas, unidades o euros).",
+    "conclusion_afectada": "Palancas C24 y la prueba de realismo del BUENO; contexto de C17 (viento de cola = No).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el origen del dato anterior. Sin tamaño no hay cuota implícita ni viento de cola demostrable, y por eso C17 = No y el NORMAL usa el volumen de un mercado maduro como hipótesis de la empresa [ES_2025, PDF p. 54]. Afecta a la confianza, no a la zona: con todas las palancas en el extremo optimista de los rangos de la fase B y m0 = 19,9 %, el precio de Sí llega a 77,9 y el ponderado a 83,1, los dos por debajo de 90,10. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Cuota de mercado de Vidrala en Iberia, Reino Unido e Irlanda o Brasil: no encontrada (solo Italia ≈3 % antes de su venta, y la cualitativa «estabilidad» de Enci",
+    "que_falta": "Cuota de mercado de Vidrala por región (solo hay la de Italia antes de su venta y la estabilidad cualitativa de Encirc).",
+    "conclusion_afectada": "Análisis C18 (foso Sí, confianza baja), ROIC a largo plazo del NORMAL (Palancas C18 = 0,11) y la tesis inversa.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el borde del círculo que nombró la fase A: sin cuotas no sé quién me mata. Sostengo esperar porque C18 descansa en el historial (ROIC ≥ 11,9 % cada año desde 2018, Historia fila 33, frente a r = 0,09 y al 9,3 % del sector, Palancas H18), no en una cuota. Si las cuotas mostraran pérdidas, C18 pasaría a No y el cubo a No, no a otro precio de Sí; dentro del Vigilar, el ROIC del NORMAL entre 0,10 y 0,12 mueve el precio de Sí ±0,6 %, y sin foso (0,09) un −1,3 %. No material para esperar con el precio de Sí de 66,52; es lo primero que pediría si el precio se acercara al de Sí."
+   },
+   {
+    "dato": "extracto_v63: Crecimiento real del mercado (dato, no supuesto de deterioro): no encontrado en los documentos.",
+    "que_falta": "Crecimiento real del mercado como dato (no como supuesto de las pruebas de deterioro).",
+    "conclusion_afectada": "Análisis C17, crecimiento del NORMAL (Palancas C14 = 0,02) y g para siempre (Análisis B68:D68).",
+    "material_para_conclusion_favorable": false,
+    "porque": "El NORMAL usa el +1 % de volumen que supone la empresa [ES_2025, PDF p. 54], declarado como hipótesis. Su rango (0,015–0,025) mueve el precio de Sí ±0,6 %; sin crecimiento de volumen (0,01), −1,2 %; g del NORMAL entre 0,015 y 0,025, ±0,9 %. Ninguno cambia la zona. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Competidores nombrados con cuota o capacidad: no encontrados (Verallia solo aparece como comprador de Italia).",
+    "que_falta": "Competidores nombrados con cuota o capacidad (Verallia solo aparece como comprador de Italia).",
+    "conclusion_afectada": "Análisis C18 (quién me mata), conducta de la competencia en un mal año (MALO) y la tesis inversa (B102).",
+    "material_para_conclusion_favorable": false,
+    "porque": "No sé si los competidores se comportan con racionalidad o bajan precio para llenar hornos; por eso C18 va con confianza baja y el ROIC del NORMAL queda en dos puntos sobre r y no en tres. Un MALO con el margen de 2022 (13,7 %) para siempre baja el precio de Sí un 2,6 %. La conclusión de esperar no depende de identificar al competidor: depende de que el precio (90,10) supera al ponderado (71,66) en un 25,7 %. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Volúmenes vendidos (toneladas o unidades) por año y segmento: no encontrados en los documentos.",
+    "que_falta": "Volúmenes vendidos por año y segmento.",
+    "conclusion_afectada": "Análisis C19 (No) y C17 (No); crecimiento por componentes (Palancas B14:D14).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Sin volúmenes la fase B razonó volumen × precio con el supuesto de la empresa y lo dejó escrito como supuesto. Los tres crecimientos (−1 %, 2 % y 3,5 %) se mueven dentro de sus rangos (−0,02 a 0,045) con efectos de menos del 1 % cada uno en el precio de Sí. Esperar no depende de separar unidades de precio. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Precio medio de venta por unidad o tonelada y desglose precio/volumen/mezcla de la variación de ventas: no encontrado en los documentos.",
+    "que_falta": "Precio medio de venta por unidad y desglose precio/volumen/mezcla de la variación de ventas.",
+    "conclusion_afectada": "Crecimiento por componentes (B14:D14), Análisis C27 y quién se queda la mejora de margen (B15:D15).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Sin desglose, el reparto de la mejora entre empresa y cliente es una lectura de la fase A apoyada en la serie de margen (Historia fila 29) y en los supuestos de precio de la empresa [ES_2025, PDF p. 54]. El margen del NORMAL entre 0,18 y 0,19 mueve el precio de Sí ±1,3 %; el del MALO entre 0,14 y 0,16, ±2,0 %. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Reparto de ventas por categoría de producto (vino, cerveza, refrescos, conservas): no encontrado en los documentos (solo la lista de productos).",
+    "que_falta": "Reparto de las ventas por categoría de producto (vino, cerveza, refrescos, conservas).",
+    "conclusion_afectada": "Ninguna celda de juicio lo usa directamente; afinaría la historia del MALO (qué categoría cae).",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase A juzgó la demanda con el 95 % de ingresos en envases de vidrio [ES_2025, PDF p. 141] y con los supuestos de volumen de la empresa. Un reparto por categoría diría qué parte del MALO es vino o cerveza, pero el margen del MALO ya se mueve entre 0,14 y 0,16 (±2,0 % del precio de Sí). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Ventas por país de destino distinto de España: no encontradas en los documentos.",
+    "que_falta": "Ventas por país de destino distinto de España.",
+    "conclusion_afectada": "Reparto por región de Palancas A28:B33 (r mínima) y la lectura de divisas.",
+    "material_para_conclusion_favorable": false,
+    "porque": "La hoja reparte por segmento (Europa occidental 48,7 %, Reino Unido 39,1 %, Brasil 12,2 %) y con eso calcula una r mínima de 0,0817, por debajo de r = 0,09 (heredada): un reparto por país dentro de Europa no llevaría la r mínima por encima de r. La exposición a libra y real (48,8 % de las ventas [ES_2025, PDF p. 103]) ya está nombrada en la fase A. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Variación orgánica (tipo constante y perímetro comparable) por segmento en 2025 y a tipo constante de 2017 a 2024: no encontrada en los documentos (solo grupo, ",
+    "que_falta": "Variación orgánica por segmento en 2025 y a tipo constante en 2017–2024.",
+    "conclusion_afectada": "Crecimiento del NORMAL y del MALO (B14:C14): separación entre precio, divisa y perímetro.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Consta la variación orgánica del grupo en 2025 (−5,4 % en ventas [ES_2025, PDF p. 88]) y la fase B calculó el 1,3 % anual de Europa y Reino Unido sin Italia ni Brasil en 2022–2025 con las ventas por segmento. El dato por segmento afinaría ese cálculo, no lo cambiaría de orden. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: EBITDA y margen por segmento de 2016 a 2023: no encontrados (solo 2024 y 2025 en el Anexo I del informe de gestión).",
+    "que_falta": "EBITDA y margen por segmento de 2016 a 2023 (solo constan 2024 y 2025).",
+    "conclusion_afectada": "Palancas C8 (margen de partida m0 = Historia C49 = 16,9 %) y el margen objetivo del NORMAL (Palancas C15).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el dato que resolvería la hipótesis de C8: una media de ciclo del perímetro de 2025. Sin él la acoto entre 16,9 % y 19,9 % (fundamento_material) y su efecto va de 0 a +2,7 % del precio de Sí, en el sentido de subirlo; el NORMAL entre 0,18 y 0,19 mueve ±1,3 %. La zona sigue en caro y el cubo en Vigilar. No material para esperar con el precio de Sí de 66,52; es lo que propongo para B223."
+   },
+   {
+    "dato": "extracto_v63: Capacidad instalada de Vidrala en toneladas y tasa de utilización: no encontradas en los documentos.",
+    "que_falta": "Capacidad instalada en toneladas y tasa de utilización.",
+    "conclusion_afectada": "Crecimiento del BUENO (D14: volumen en hornos sin plena utilización) y mecanismo del MALO (coste fijo que no se ajusta).",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase B usó el supuesto contable de plena utilización «aunque no haya sido el caso» [ES_2025, PDF p. 54] solo como indicio. El BUENO entre 0,03 y 0,045 mueve el precio de Sí −0,3 % / +0,7 %; el margen del MALO entre 0,14 y 0,16, ±2,0 %. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Toneladas totales de vidrio fundido (producción) de 2025 en cifra absoluta: no localizadas en los documentos.",
+    "que_falta": "Toneladas de vidrio fundido de 2025 en cifra absoluta.",
+    "conclusion_afectada": "Ninguna celda de juicio: sin serie, una cifra de un año no da crecimiento ni utilización.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Un dato aislado de producción no entra en ninguna palanca ni cambia C19 o C17, que necesitan una serie. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Plan de capex plurianual con importes por destino (hornos, descarbonización, renovables) y capex previsto para 2026: no encontrado en los documentos (solo compr",
+    "que_falta": "Plan de capex plurianual con importes por destino y capex previsto para 2026.",
+    "conclusion_afectada": "S2C (Palancas B16:D16), la caja que espera la fase A y la tesis inversa (descarbonización).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Los compromisos de compra de inmovilizado pasan de 9,6 a 66,6 mm [ES_2025, PDF p. 51] y las subvenciones PERTE financian parte desde 2026 [ES_2025, PDF p. 72]. Un plan que añadiera capital sin ventas llevaría el S2C del NORMAL a 0,8 (−0,5 % del precio de Sí) o, en un extremo, a 0,7 (−1,2 %). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Gasto de I+D reconocido en resultados y su % sobre ventas: no encontrado en los documentos.",
+    "que_falta": "Gasto de I+D reconocido en resultados y su peso sobre ventas.",
+    "conclusion_afectada": "Palancas C9 (No) y C10 (vacía).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las altas de desarrollo capitalizado son 433 miles en 2025 [ES_2025, PDF p. 52], muy lejos del 5 % de unas ventas de 1.465 mm, y C6 no es Intangibles: C9 = No no depende de esa cifra. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Múltiplo pagado por Vidroporto, The Park, Santos Barosa o Cristalerías Toro según la empresa: no encontrado en los documentos (se dan precio, EBITDA y deuda por",
+    "que_falta": "Múltiplo pagado por Vidroporto, The Park, Santos Barosa o Cristalerías Toro según la empresa.",
+    "conclusion_afectada": "Análisis C98 (asignación de capital, Buena).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Se aproxima con lo publicado: Vidroporto, 384 mm con deuda frente a 55,5 mm de EBITDA pro forma de 2023, unas 7 veces [ES_2025, PDF p. 36] y [ES_2025, PDF p. 37]; Toro, hecho posterior al cierre, unos 77 mm frente a unos 12 de EBITDA ajustado, unas 6,4 veces [ES_2025, PDF p. 85]. C98 se juzgó con el ROIC posterior a las compras (Historia fila 33), no con el múltiplo, y nada de esto entra en el valor. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Guía numérica de ventas, margen, capex o EBITDA para 2026: no encontrada en los documentos (solo propuestas de dividendo y el programa de recompra).",
+    "que_falta": "Guía numérica de ventas, margen, capex o EBITDA para 2026.",
+    "conclusion_afectada": "Ninguna celda de juicio: no uso guías como hecho (sección 3 del personaje).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las palancas usan supuestos de las pruebas de deterioro, etiquetados como hipótesis de la empresa; una guía numérica no sustituiría a la historia de la empresa y su ausencia evita un anclaje en la autoridad. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Expectativas concretas de la dirección frente a las que medir el cumplimiento de 2025 («en línea con las expectativas anticipadas»): no encontradas en los docum",
+    "que_falta": "Expectativas concretas de la dirección frente a las que medir el cumplimiento de 2025.",
+    "conclusion_afectada": "Señal sobre la honradez de la gestión (seis preguntas y C98), que la fase A no contó ni a favor ni en contra.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Sin la cifra, la frase «en línea con las expectativas anticipadas» [ES_2025, PDF p. 94] no aporta nada en ningún sentido; no mueve ninguna celda ni ningún número. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Covenants vigentes a 31-dic-2025 y sus indicadores certificados: no encontrados en los documentos.",
+    "que_falta": "Covenants vigentes a 31-dic-2025 y sus indicadores certificados.",
+    "conclusion_afectada": "Descalificador de deuda, Palancas C22 (quiebra vacía) y Análisis C20.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Con deuda con arrendamientos menos caja de 0,36 veces el EBITDA (C33), caja que cubre 1,62 veces la deuda a corto (C34) y 258 mm no dispuestos [ES_2025, PDF p. 75], un covenant de deuda neta sobre EBITDA no se acerca a su límite; la ratio certificada de 2024 era de 0,55 veces [CF_2024.txt, PDF p. 73]. No hay disparador de quiebra. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Umbrales numéricos de los covenants (2016–2024): no encontrados en los documentos.",
+    "que_falta": "Umbrales numéricos de los covenants de 2016–2024.",
+    "conclusion_afectada": "Historial de financiación (motor B, C62) y Palancas C22.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las ratios publicadas se cumplieron (1,9 veces en 2016, 1,08 en 2023 y 0,55 en 2024 [CF_2016.txt, PDF p. 97], [CF_2023.txt, PDF p. 68] y [CF_2024.txt, PDF p. 73]); el umbral no cambia ninguna celda ni el motor. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Rating crediticio de Vidrala: no encontrado en los documentos.",
+    "que_falta": "Rating crediticio de la sociedad.",
+    "conclusion_afectada": "Ninguna celda de juicio; contexto de C22 y C20.",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa no lo publica. Con el patrimonio en el 61,05 % del total [ES_2025, PDF p. 68] y la deuda de 0,36 veces el EBITDA, la quiebra queda vacía por falta de disparador, no por un rating. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Coste de la deuda por instrumento (bilaterales, debentures en CDI): no encontrado en los documentos.",
+    "que_falta": "Coste de la deuda por instrumento (bilaterales y debentures en CDI).",
+    "conclusion_afectada": "Historia C63 (i) y la r operativa del motor B (Diagnóstico V6 C15).",
+    "material_para_conclusion_favorable": false,
+    "porque": "C63 = 0,063 sale de los intereses pagados de 2025 sobre la deuda media 2024–2025 y coincide con el tipo medio publicado de 6,29 % [ES_2025, PDF p. 75]; un punto más en i baja el precio de Sí un 0,9 %. La deuda en reales expuesta al CDI [ES_2025, PDF p. 104] es de 55 mm [ES_2025, PDF p. 105]. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Obligación bruta, activos y déficit del plan de pensiones británico: no encontrados en los documentos.",
+    "que_falta": "Obligación bruta, activos y déficit del plan de pensiones británico.",
+    "conclusion_afectada": "Puente del motor B (Historia L25 = 6,223, que entra como pensiones).",
+    "material_para_conclusion_favorable": false,
+    "porque": "Toda la provisión de personal son 0,18 € por acción (0,27 % del precio de Sí). El déficit del plan británico no se publica [ES_2025, PDF p. 77] y [ES_2025, PDF p. 78], y su efecto en otro resultado global fue de (163) en 2025 [ES_2025, PDF p. 70]: no veo indicio de un déficit de otro orden. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Desglose de la provisión de personal entre pensiones y otras obligaciones: no encontrado en los documentos.",
+    "que_falta": "Desglose de la provisión de personal entre prestación definida y otras obligaciones con empleados.",
+    "conclusion_afectada": "Puente del motor B (L25) y la posibilidad de un doble cómputo con los flujos proyectados.",
+    "material_para_conclusion_favorable": false,
+    "porque": "La provisión (6.223) junta prestación definida y otras obligaciones con empleados sin desglose [ES_2025, PDF p. 77]. El motor B no proyecta desde el CFO sino desde el EBIT, así que el hecho de que las aportaciones vayan en el CFO no prueba aquí que no haya doble cómputo. Si una parte son retribuciones devengadas cuyo gasto ya está en el EBIT histórico, restarla en el puente la cuenta dos veces; si es déficit de prestación definida, su reparación no pasa por el EBIT y restarla es correcto. No lo puedo separar: el error posible está acotado por la provisión entera, 0,18 € por acción (0,27 %). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Detalle de «Otros» ingresos de 43.124 en 2025: no encontrado en los documentos.",
+    "que_falta": "Detalle de los «Otros» ingresos de explotación de 43.124 en 2025.",
+    "conclusion_afectada": "Margen de 2025 (Historia L29), que sostiene el BUENO (Palancas D15 = 0,20), y una de las fuerzas a la baja del NORMAL.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Los «Otros» pasan de 26.211 a 43.124 [ES_2025, PDF p. 79]. Si la diferencia (≈16,9 mm) no fuera recurrente, el margen de 2025 sería ≈18,8 % y el BUENO estaría en el suelo de su rango (0,195: −0,5 % del precio de Sí). La fase B ya la contó como fuerza a la baja del NORMAL. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Cartera de pedidos y duración media de los contratos con clientes: no encontradas en los documentos.",
+    "que_falta": "Cartera de pedidos y duración media de los contratos con clientes.",
+    "conclusion_afectada": "Velocidad del traslado de costes al precio (senda de margen de los años 1–4 y MALO).",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase A lee el traslado con retraso en la serie de margen (valle de 2022 y vuelta en 2023, Historia fila 29) y en las fórmulas de tarificación [ES_2025, PDF p. 101]. La duración de los contratos cambiaría la senda, no el margen permanente: el MALO entre 0,14 y 0,16 mueve el precio de Sí ±2,0 %. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Número total de clientes: no encontrado en los documentos.",
+    "que_falta": "Número total de clientes.",
+    "conclusion_afectada": "Ninguna celda de juicio: la concentración que importa ya consta.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Los diez primeros clientes son algo más del 35 % de las ventas y ninguno pasa del 10 % [ES_2025, PDF p. 104]; el número total no cambia C18 ni ninguna palanca. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Evidencia cuantitativa de pérdida de volumen tras subidas de precio: no encontrada en los documentos.",
+    "que_falta": "Evidencia cuantitativa de pérdida de volumen tras subidas de precio.",
+    "conclusion_afectada": "Poder de precio dentro de C18 (foso, confianza baja) y el mecanismo del MALO.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es la prueba que separaría foso de simple traslado de costes; por eso la fase A dejó C18 con confianza baja. No lleva el precio de Sí fuera de los rangos ya calculados (±2,0 % por el margen del MALO). No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Cumplimiento del dividendo propuesto para 2017 (83,16 céntimos): no comprobado en los textos.",
+    "que_falta": "Comprobación del dividendo propuesto para 2017 (83,16 céntimos).",
+    "conclusion_afectada": "Ninguna celda de juicio; sería una señal menor de gestión.",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase A no lo usó; para C98 cuenta el historial de dividendos y recompras de 2022–2025, que consta [ES_2025, PDF p. 70]. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Impacto económico del apagón del 28-abr-2025: no cuantificado en los documentos («no es material»).",
+    "que_falta": "Impacto económico del apagón del 28-abr-2025.",
+    "conclusion_afectada": "Margen de 2025 (Historia L29) y la lectura del BUENO.",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa estima que «no es material» [ES_2025, PDF p. 78]; si acaso deprimió algo el margen de 2025, y no se extrapola a ninguna palanca. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Impacto económico definitivo de la tormenta Kristin (2026): solo estimación preliminar de 10 a 15 millones de euros; sin dato definitivo en los documentos.",
+    "que_falta": "Impacto económico definitivo de la tormenta Kristin (solo hay una estimación preliminar de 10 a 15 mm).",
+    "conclusion_afectada": "Ninguna celda de juicio: es un hecho posterior al cierre y no entra en el balance, el perímetro ni las cifras de partida.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Lo valoro como hecho posterior: 10–15 mm sin seguro serían 0,28–0,43 € por acción, menos del 0,7 % del precio de Sí, y la empresa espera mitigarlo con seguros y ayudas [ES_2025, PDF p. 85]. Es puntual, no estructural. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Antecedente del ensayo 4.6.1: todos los hechos reutilizados se comprobaron en los textos de `texto/`; no se incorporó ningún hecho sin comprobar.",
+    "que_falta": null,
+    "conclusion_afectada": "Ninguna celda de juicio: es una declaración de método del extracto, no un dato que falte.",
+    "material_para_conclusion_favorable": false,
+    "porque": "No falta nada: el extracto dice que del antecedente 4.6.1 solo reutilizó hechos comprobados en los textos. Yo leo ese antecedente como tal (base de noviembre de 2026, precio de 87,90 €) y no copio sus cifras: aquí precio, acciones y valor son del 31-dic-2025. No material para esperar con el precio de Sí de 66,52."
+   },
+   {
+    "dato": "extracto_v63: Discrepancias entre versiones y dentro de la versión española (se dan en las secciones 2, 4 y 6): año de la cifra 48,8 % / 49,6 % (inglés «2024», español «2025»",
+    "que_falta": "Coherencia entre versiones y dentro del informe español (año del 48,8 % / 49,6 %, coste medio de 2024, nominal de coberturas, pasivo de derivados, inicio de los debentures, deuda «íntegramente en euros», dividendo de 2024 por acción).",
+    "conclusion_afectada": "Ninguna celda de juicio: son contexto de divisas, coste de la deuda y coberturas.",
+    "material_para_conclusion_favorable": false,
+    "porque": "Ninguna discrepancia entra en una palanca ni en el puente: el 48,8 % / 49,6 % es contexto de divisas; el coste medio de 2024 (5,31 % frente a 4,03 %) no entra en C63, que sale de la Historia; coberturas, derivados, vencimientos de los debentures y la frase sobre los euros no cambian la deuda de 2025 (C64 = 262,913 [ES_2025, PDF p. 72]). No material para esperar con el precio de Sí de 66,52."
+   }
+  ],
+  "alguno_material": false
+ },
+ "fundamento_material": {
+  "hipotesis_sin_fundamento": [
+   {
+    "celda": "Palancas!C8",
+    "hipotesis": "Base del margen = Media del ciclo, que en la hoja fija el margen de partida de los tres escenarios en m0 = Historia!C49 = 16,9 % (senda de margen de los años 1–4 y valor sin crecimiento).",
+    "clase": "fundamentada (la regla); sin hechos del perímetro de 2025 para su consecuencia numérica",
+    "porque_sin_fundamento": "La elección de la regla está fundamentada (empresa cíclica: UD; E5) y la exige la coherencia tipo/motor de la hoja, pero la cifra que produce no: C49 promedia diez años con Italia en 2016–2022, 2016–2018 con otra base industrial y Brasil solo desde diciembre de 2023. La fase A escribió que queda por debajo de una media de ciclo del perímetro de 2025, que no se puede calcular, y la fase B que no la compensaba subiendo el objetivo. Ningún hecho del perímetro de 2025 sostiene un margen de partida del 16,9 %.",
+    "alternativas_defendibles": {
+     "hay_base": true,
+     "rango": {
+      "margen_de_partida_m0": [
+       0.169,
+       0.199
+      ]
+     },
+     "evidencia": "Suelo 0,169 = Historia C49, la media publicada: las dos correcciones de perímetro que puedo medir con datos de la empresa la suben, ninguna la baja. Sin Italia, el margen de 2019–2022 sube entre 0,4 y 1,0 puntos (beneficio antes de impuestos por segmento [CF_2019.txt, PDF p. 38], [CF_2021.txt, PDF p. 30] y [CF_2023.txt, PDF p. 29]), y Brasil es el segmento de más margen (EBITDA del 42,4 % frente al 32,4 % de la Península [ES_2025, PDF p. 107]). Techo 0,199 = Historia L29, el único año de perímetro homogéneo: partir de más exigiría que el margen subiera desde 2025, y la empresa supone bajadas de precio en 2026 en Vidrala Europa y Encirc [ES_2025, PDF p. 54]. No es una celda numérica de las fases A o B: se traduce a C8 = Último año en el techo. Efecto en el precio de Sí (réplica del motor): de 0 a +2,7 % (66,52 → 68,29); con la media de 2019–2025 sin Italia (18,6 %), +1,5 %. Ningún extremo cambia la zona ni el cubo."
+    }
+   }
+  ],
+  "comprobacion_conjunta": {
+   "procede": false,
+   "combinacion": null,
+   "coherencia_economica": null,
+   "sobrevive": null
+  },
+  "resultado": "no_procede",
+  "hipotesis_que_mas_condiciona": "Palancas!C8",
+  "que_lo_resolveria": "El EBIT o el EBITDA por segmento de 2019–2023 (la empresa solo publica el EBITDA por segmento de 2024 y 2025 [ES_2025, PDF p. 107] y solo reexpresó 2023 sin Italia [CF_2024.txt, PDF p. 30]) o una cuenta de operaciones continuadas reexpresada sin Italia para 2019–2022, para calcular una media de ciclo del perímetro de 2025 y compararla con C49 = 16,9 %. Es una pregunta concreta a Relación con Inversores."
+ },
+ "celdas_corregidas": {
+  "Palancas!C8": {
+   "antes": "Media del ciclo",
+   "despues": "Media del ciclo",
+   "motivo": "Revisada como si fuera de otro: la regla es la del método para una cíclica y la que pide la coherencia tipo/motor de la hoja; su consecuencia numérica (m0 = Historia C49 = 16,9 %) queda por debajo de cualquier media de ciclo del perímetro de 2025 que pueda estimar. Con el techo (19,9 %) el precio de Sí sube un 2,7 % y con 18,6 % un 1,5 %; ni la zona ni el cubo cambian. Es de la fase A: no la reescribo; queda en incoherencias y como hipótesis acotada de D10."
+  },
+  "Palancas!B16": {
+   "antes": 0.9,
+   "despues": 0.9,
+   "motivo": "Revisada: la aritmética es correcta (C54 = 0,93; Δventas ÷ Δcapital 2016–2025 = 0,90). Con ventas que caen, el motor libera capital que la historia del MALO no libera; sin esa liberación el precio de Sí baja un 1,3 %, y con el S2C del MALO en 0,7 o 1,2, ±0,3 %. No es una palanca mal derivada sino un límite de la plantilla: no pido revisión."
+  },
+  "Palancas!C15": {
+   "antes": 0.185,
+   "despues": 0.185,
+   "motivo": "Revisada la duda que dejó la fase B: la media de 2019–2025 es del 18,1 % (Historia F29:L29) y del 18,57 % sin la dilución de Italia que calculo con el beneficio antes de impuestos por segmento (0,80; 0,44; 1,04 y 0,84 puntos en 2019–2022). El redondeo a 0,185 es correcto; su rango (0,18–0,19) mueve el precio de Sí ±1,3 % sin cambiar la zona."
+  },
+  "C62": {
+   "antes": "No · financiación cambia mucho",
+   "despues": "No · financiación cambia mucho",
+   "motivo": "Revisada: la financiación cambia mucho en la ventana del FCF base (deuda con arrendamientos 599,0 → 393,3 → 262,9, Historia filas 22 y 23) y f = −2,8 % no es representativa (A6); V0 y el puente comparten el perímetro de 31-dic-2025. Descontar a r en vez de a la r operativa bajaría el precio de Sí un 4,3 %, sin cambiar la zona. Se mantiene el motor B; no hay límite del modelo."
+  },
+  "B69": {
+   "antes": 0.2,
+   "despues": 0.2,
+   "motivo": "Revisada con frecuencias: solo 2022 tuvo un margen inferior al del MALO desde 2018 (tres años de diez contando 2016–2017, con otro perímetro) y solo 2024 uno igual o superior al del BUENO (Historia fila 29). 0,2 / 0,6 / 0,2 cae dentro; 0,3 / 0,5 / 0,2 bajaría el precio de Sí un 4,2 % y 0,15 / 0,6 / 0,25 lo subiría un 3,4 %, sin cambiar la zona."
+  }
+ },
+ "estado_analisis": "concluido",
+ "cubo_final": "Vigilar",
+ "escalera": {
+  "de": "precio.json",
+  "convencion": "escalera experimental del ejercicio (D11), k = 3; la zona no es la conclusión: no mide riesgo ni fundamento",
+  "precio_actual": 90.1,
+  "precio_escenario_malo": 53.66,
+  "precio_de_si": 66.52,
+  "P_estrella": 66.52,
+  "tope_normal_aplicado": false,
+  "ponderado": 71.66,
+  "zona": "caro",
+  "regla_antigua_C156": 53.66,
+  "g_implicito_precio_actual": 0.0916,
+  "g_implicito_precio_de_si": -0.0143
+ },
+ "decision": {
+  "accion": "esperar",
+  "precio_objetivo": 66.52,
+  "condicion": null,
+  "condiciones_revision": {
+   "al_alza": "Subiría el precio de Sí con una media de ciclo del perímetro de 2025 publicada por encima de C49 = 16,9 % (hasta +2,7 % con el 19,9 % de 2025), con un margen EBIT de 2026–2027 que se sostenga cerca del 19–20 % sin un choque de energía que lo explique, o con cuotas estables publicadas que me dejen subir el ROIC terminal del NORMAL hacia 0,12 (+0,5 %).",
+   "a_la_baja": "Lo bajaría si el tipo impositivo de 2025 (24,3 %, Historia L10) resultara el normal (hasta 62,71, −5,7 %), si los márgenes de 2026–2027 quedaran por debajo del 18 % sin choque de energía (NORMAL en 0,18: −1,3 %; MALO a 0,25 de probabilidad: −2,2 %), si la descarbonización añadiera capital sin ventas (S2C del NORMAL en 0,8: −0,5 %) o si aparecieran minoritarios o pensiones mayores que los registrados."
+  }
+ },
+ "insumos_decision_cartera": {
+  "precio_actual": 90.1,
+  "zona": "caro",
+  "precio_de_si": 66.52,
+  "precio_escenario_malo": 53.66,
+  "ponderado": 71.66,
+  "distancia_a_precio_si": 0.262,
+  "distancia_a_malo": 0.404,
+  "fundamento": "no procede (conclusión no favorable): una hipótesis sin fundamento, Palancas C8 (margen de partida de C49), acotada con hechos entre 16,9 % y 19,9 % (de 0 a +2,7 % del precio de Sí); sin comprobación conjunta",
+  "datos_ausentes_materiales": [],
+  "descalificadores_considerados": [
+   "no puedo explicar de dónde viene la caja: no aplica",
+   "el valor depende de predecir macro, divisas o materias primas: no aplica (el más cercano: la energía mueve el margen, pero el valor depende del traslado al precio)",
+   "cambio tecnológico que no me deja juzgar si el foso dura: no aplica (transición de proceso, no de producto)",
+   "gestión en la que no confío: no aplica",
+   "deuda que puede matar la empresa en un mal año: no aplica (0,36 veces el EBITDA a 31-dic-2025, C33)",
+   "reinvierte toda la caja solo para mantenerse con retornos mediocres: no aplica (ROIC medio de cinco años 13,8 %, C55)",
+   "demasiadas piezas móviles: no aplica",
+   "sin historial: no aplica (diez años de Historia)",
+   "reestructuración o «la nueva dirección lo arreglará»: no aplica"
+  ],
+  "r": 0.09,
+  "r_minima": 0.0817,
+  "r_operativa_motor_B": 0.087,
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt) · información, no criterio: el valor depende sobre todo de la rentabilidad exigida (heredada)",
+  "sensibilidad_de_datos": "Tipo impositivo de la hoja (Historia C52 = 20,0 % frente al 24,3 % de 2025): con el de 2025 el precio de Sí sería 62,71; decisión de convención para la persona responsable, no una palanca",
+  "nota": "resultado mecánico de un ensayo exploratorio con base económica 2025 (precio de cierre de 2025 con derecho al dividendo a cuenta); el tamaño de la posición es de José Luis"
+ },
+ "herencia": {
+  "C93": {
+   "etapa1": "Sí",
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 lo apoyaba en una g terminal del 1–2,5 % y en una reinversión que cabe en la caja. La V6.3 añade las pruebas que pide la celda: g del NORMAL 0,02 por debajo de rf (0,0285, C57) y de la r operativa (0,087), reinversión terminal g ÷ ROIC ≈ 18 %, salto del año 11 de 2,3 puntos (Diagnóstico V6 C178) y peso del terminal del 52,6 % (D93 terminal coherente). Sostienen el Sí."
+  },
+  "B101": {
+   "etapa1": "Vidrala fabrica envases de vidrio para alimentación y bebidas en Iberia, Reino Unido e Irlanda, Brasil y, desde el 30-mar-2026, Chile, para más de 1.600 clientes sin ninguno por encima del 10 % de las ventas. Leo que gana dinero porque, según su historial de 2021-2024, traslada el coste de la energía al precio con uno o dos años de retraso, y porque opera con poca deuda (0,69x EBITDA a 30-jun-2026 según C33; 0,2x a cierre de 2025 según la empresa). El margen EBITDA del 30 % de 2025 es el máximo de la serie y la propia empresa supone bajadas de precio de venta en 2026. A 88,7 € pago más que mi valor normal estimado (~74 €) y no tengo margen de seguridad. Vigilar: la compraría hacia 48 €, donde el escenario malo queda pagado.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La tesis heredada usaba datos de 2026 que no son de esta base: Chile en el perímetro desde el 30-mar-2026 y 0,69 veces a 30-jun-2026. La reescribo con la deuda de 31-dic-2025 (0,36 veces, C33), con Toro y Kristin como hechos posteriores [ES_2025, PDF p. 85], con la Historia de diez años (filas 29 y 33) y con los valores del motor B (B78:D78) y la escalera de precio.json, en lugar del valor normal de ~74 € y del precio de ≈48 € del motor antiguo."
+  },
+  "B102": {
+   "etapa1": "Leo el envase de vidrio como un producto poco diferenciado que sale de hornos que operan en continuo, 24 horas los 365 días: cuando la demanda cae, supongo que la industria baja precio o apaga hornos, y la empresa ya escribía en 2025 que estaba «adaptando nuestra capacidad industrial a la realidad del mercado». El margen del 30 % lo leo como regalo de la energía más barata tras 2022 que se irá al cliente: la propia empresa supone bajadas de precio en 2026, el volumen no crece (demanda débil en 2023, 2024 y 2025) y el ROIC de la plantilla es del 13 %, no de foso. La dirección invierte «más que nunca» y se va a Brasil y Chile —real devaluado un 20 % en 2024, deuda local a CDI, una compra condicionada a un plan de ajuste organizativo— justo cuando Europa se estanca, y la mitad de las ventas ya está en libra y real. Hay ruido en las cuentas: 48 mm de «otros ingresos de explotación» en 2025 frente a 28 mm en 2024 sin detalle, impuestos pagados de 40,8 mm frente a 67,3 mm de gasto, un plan de pensiones británico sin cifras y una reestructuración en Reino Unido que se excluye del resultado «recurrente». Y no puedo decir quién es el competidor que más daño puede hacer: los informes no nombran competidores, y los pares de múltiplos que cita Control maestro (Verallia, O-I, Vetropack, Zignago, fuente secundaria) no traen cuotas ni mercados.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Sus hechos de 2025 siguen en pie (bajadas de precio de 2026 [ES_2025, PDF p. 54], volumen europeo a la baja [ES_2025, PDF p. 33], «Otros» ingresos sin detalle [ES_2025, PDF p. 79], impuestos pagados por debajo del gasto en Control maestro C40, reestructuración [ES_2025, PDF p. 34], sin competidores). Chile pasa a hecho posterior [ES_2025, PDF p. 85]. Añado lo que ahora calcula la hoja: el tipo impositivo de Historia C52 frente al de 2025 (L10), un MALO que libera capital mientras la reinversión real no bajó (K32:L32, L30) y el peso de la tasa en el valor."
+  },
+  "C103": {
+   "etapa1": "No",
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La Historia de diez años confirma la propiedad del negocio que daba la etapa 1: margen EBIT que pasa del 19,7 % (2020) al 13,7 % (2022) y vuelve al 20,8 % (2024) con la energía (fila 29), ROIC entre el 9,4 % y el 16,2 % (fila 33) y un foso estrecho sin competidores identificados. Una cíclica así no es de las que se guardan sin mirar."
+  },
+  "C104": {
+   "etapa1": "0% · Vigilar · precio de Sí ≈ 48 € (estimado)",
+   "decision": "cambia",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La V6.3 no admite ningún porcentaje de posición (D16) y C104 sigue el texto cerrado de la sección 15. El precio de Sí ya no es el mínimo del valor malo y ¾ del ponderado del motor antiguo, sino la escalera k = 3 de precio.json sobre los valores del motor B (66,52; la regla antigua da 53,66 en C156)."
+  }
+ },
+ "comparacion_etapa_1": {
+  "cubo_v1": "Vigilar",
+  "precio_de_si_v1": 48,
+  "cubo_v2": "Vigilar",
+  "precio_de_si_v2": 66.52,
+  "por_que_difieren": "El cubo coincide y por la misma razón de fondo: un buen negocio cíclico, con foso estrecho y gestión de fiar, que no se ve barato sin la hoja (C13 = No). El precio de Sí no es comparable: el de la etapa 1 (≈48, estimado) salía del motor A con un FCF base de 161 mm que mezcla perímetros (CFO de 2023–2024 con Italia), de datos de 2026 (Chile, saldos a 30-jun-2026) y de la regla antigua mín(valor malo, ¾ del ponderado) sobre sus propios valores (≈48 y ≈57). El de la V6.3 (66,52) sale del motor B con base de 31-dic-2025, palancas fundamentadas y la escalera k = 3; con la regla antigua sobre estos valores saldría 53,66 (C156). Cambian también C27 (Estable), C62 (motor B) y C97 (Neutral técnico). La diferencia es de método y de datos, no de juicio sobre el negocio."
+ },
+ "celdas": {
+  "C93": "Sí",
+  "C103": "No",
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 66.52 · zona caro · precio de Sí ≤ 66.52 · precio esc. MALO 53.66 · ponderado 71.66 · fundamento no procede (conclusión no favorable)",
+  "B101": "Vidrala fabrica envases de vidrio para alimentación y bebidas en la Península, Reino Unido e Irlanda y Brasil, para clientes diversificados (los diez primeros, algo más del 35 % de las ventas y ninguno por encima del 10 % [ES_2025, PDF p. 104]), y traslada el coste de la energía al precio con retraso: el margen EBIT cayó al 13,7 % en 2022 y volvió al 18,7–20,8 % en 2023–2025 (Historia fila 29). Rinde por encima de su capital, con un ROIC de al menos el 11,9 % cada año desde 2018 (fila 33), y a 31-dic-2025 debía poco, 0,36 veces el EBITDA con arrendamientos (C33); Toro (Chile) y la tormenta Kristin son hechos posteriores que no entran en las cifras [ES_2025, PDF p. 85]. Leo un foso estrecho de escala regional y un margen de 2025 que la propia empresa supone que bajará con los precios de 2026 [ES_2025, PDF p. 54], así que mi NORMAL es la media del ciclo 2019–2025 (18,5 %) y en el año 11 el capital nuevo pasa de rendir un 13,3 % a dos puntos sobre r. Con mis palancas el motor B da 53,66 / 72,74 / 86,44 € por acción a 31-dic-2025 y un precio de Sí de 66,52, frente a un precio de cierre de 90,10 que pedía un 9,2 % anual de crecimiento (C86). Vigilar: lo entiendo y es de calidad, pero al precio de cierre de 2025 no da margen.",
+  "B102": "No hay un foso demostrado: ningún informe nombra a un competidor con cuota (extracto §9), el ROIC medio de cinco años solo supera a r en 4,8 puntos (Historia C55) y el margen que parece de foso supera al Q3 del sector porque ese sector es el de envases en general (Palancas I15). El margen de 2023–2025 es en buena parte el desfase de un ciclo de coste, como la propia empresa explicaba [CF_2022.txt, PDF p. 45], y para 2026 ya supone bajadas de precio en Vidrala Europa y Encirc [ES_2025, PDF p. 54]: si el NORMAL vuelve a la media publicada de diez años (16,9 %, C49), pierde unos 6,4 € por acción. El volumen no crece: las ventas de Vidrala Europe bajan de 799,7 a 714,9 mm en 2023–2025 [CF_2024.txt, PDF p. 30] y [ES_2025, PDF p. 33], con un consumo «globalmente inferior a lo previsto» [ES_2025, PDF p. 94]. La reinversión no da tregua: capex de 188,5 frente a 132,9 de amortización (Historia L12 y L8) y compromisos de 66,6 mm frente a 9,6 [ES_2025, PDF p. 51]; en 2025 las ventas cayeron 123,1 mm y el capital invertido solo 35,6 (K6:L6 y K32:L32), así que mi MALO, que libera capital, es más amable que la realidad. La caja de 2025 está inflada y el modelo es generoso con el fisco: el impuesto pagado quedó unos 26,6 mm por debajo del gasto (Control maestro, C40), hay 43,1 mm de «Otros» ingresos sin detalle [ES_2025, PDF p. 79] y la hoja grava el EBIT al 20,0 % (C52) cuando el tipo de 2025 fue del 24,3 % (L10), lo que solo resta un 5,7 % al precio de Sí. Casi la mitad de las ventas está en libra y real [ES_2025, PDF p. 103], Brasil carga 18,9 mm de gastos financieros [ES_2025, PDF p. 33], Toro llega después del cierre condicionada a un ajuste organizativo y a una refinanciación [ES_2025, PDF p. 85], y el valor depende sobre todo de la tasa exigida, no de algo que yo sepa del negocio.",
+  "Palancas!A38": "Margen EBIT consolidado de 2027 (resultado de explotación ÷ ventas de las cuentas anuales consolidadas de 2027) entre el 16,0 % y el 20,5 %, ambos incluidos (19,9 % en 2025).",
+  "Palancas!B38": "2028-03-31",
+  "Palancas!C38": 0.7,
+  "Palancas!A39": "Ventas y prestación de servicios del segmento Vidrala Europe en 2027 entre 680 y 770 millones de euros, según la nota de segmentos de las cuentas consolidadas de 2027 (714,9 en 2025).",
+  "Palancas!B39": "2028-03-31",
+  "Palancas!C39": 0.75,
+  "Palancas!A40": "Pagos por adquisición de inmovilizado material e intangible del estado de flujos consolidado de 2027 por encima de la amortización consolidada del mismo año (188,5 frente a 132,9 millones en 2025).",
+  "Palancas!B40": "2028-03-31",
+  "Palancas!C40": 0.8,
+  "Diagnóstico V6!B222": "Palancas C8 (base del margen = Media del ciclo): la hoja arranca los tres escenarios en un margen del 16,9 % (Historia C49) que mezcla Italia, los años 2016–2018 y un Brasil parcial y que ningún hecho del perímetro de 2025 sostiene; acotado entre el 16,9 % y el 19,9 %, mueve el precio de Sí de 0 a +2,7 % sin cambiar zona ni cubo. Queda además para la persona responsable el tipo impositivo de la hoja (Historia C52 = 20,0 % frente al 24,3 % de 2025: −5,7 % del precio de Sí).",
+  "Diagnóstico V6!B223": "El EBIT o el EBITDA por segmento de 2019–2023, o una cuenta de operaciones continuadas reexpresada sin Italia para 2019–2022 (la empresa solo publica el EBITDA por segmento de 2024 y 2025 [ES_2025, PDF p. 107] y solo reexpresó 2023 [CF_2024.txt, PDF p. 30]): pregunta a Relación con Inversores para calcular una media de ciclo del perímetro de 2025 y compararla con C49."
+ },
+ "cambiaria_de_cubo": {
+  "a_si": "Un precio igual o inferior al precio de Sí (66,52, valor a 31-dic-2025) con el negocio igual: margen EBIT de 2026–2027 en torno al 18 % o más sin choque de energía y ROIC por encima del 11 % con el perímetro de 2025; y, antes de comprar, cuotas o competidores publicados que no muestren pérdidas, porque hoy el foso es estrecho y con confianza baja.",
+  "a_no": "Que el margen EBIT quede por debajo de su media de diez años (16,9 %, Historia C49) dos años seguidos sin choque de costes, que aparezcan pérdidas de cuota, que el ROIC baje de r (0,09) con el perímetro de 2025, o que Toro o Brasil pidan capital sin retorno mientras la deuda pasa de 2 veces el EBITDA.",
+  "a_demasiado_dificil": "Que el valor pase a depender de Sudamérica (real, deuda a CDI, Toro) más que de Europa, que aparezca evidencia de sustitución del vidrio por otros envases que no sé medir, o que la descarbonización exija un capital cuya rentabilidad no pueda estimar."
+ },
+ "observaciones": {
+  "C93": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → mantiene (evidencia_nueva): con el libro de la V6.3 la g del NORMAL sigue siendo sostenible y ahora lo comprueban el salto del año 11 y el peso del terminal.\nApoyo: g del NORMAL 0,02 (Análisis C68), por debajo de rf (0,0285, C57) y de la r operativa (0,087, Diagnóstico V6 C15); reinversión terminal g ÷ ROIC = 0,02 ÷ 0,11 ≈ 18 % del beneficio operativo; salto del año 11 de 2,3 puntos (Diagnóstico V6 C178) y peso del terminal del 52,6 % (D93: terminal coherente); IPC supuesto del 2,0 % [ES_2025, PDF p. 56] en un producto maduro [ES_2025, PDF p. 55]. «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM).\nLo sustituiría: No lo sé si una serie de volumen mostrara una caída estructural de la demanda de vidrio.",
+  "C103": "[Clase: fundamentada] [Confianza: media]\nHereda: No → mantiene (evidencia_nueva): diez años de Historia confirman que es una cíclica con foso estrecho, no un negocio para no mirar.\nApoyo: margen EBIT del 19,7 % (2020) al 13,7 % (2022) y de vuelta al 20,8 % (2024) con la energía (Historia fila 29); ROIC entre el 9,4 % y el 16,2 % (fila 33), 4,8 puntos de media sobre r (C55); bajadas de precio supuestas para 2026 [ES_2025, PDF p. 54]; ningún competidor con cuota (extracto §9). «if you can buy a few great companies then you can sit on your ass» (PCA pp.85–86; HIM): esta no es de esas.\nLo sustituiría: Sí si cinco años más mostraran margen y ROIC altos sin ayuda del ciclo y cuotas estables publicadas.",
+  "C104": "[Clase: convención] [Confianza: alta]\nHereda: porcentaje de posición · Vigilar · precio de Sí ≈ 48 € (estimado) → cambia (definicion_o_medicion_distinta): la V6.3 no admite porcentajes de posición (D16) y el precio de Sí sale de la escalera k = 3 sobre los valores del motor B.\nApoyo: precio.json: precio de Sí 66,52 (P*, sin tope del NORMAL), precio esc. MALO 53,66 y ponderado 71,66, zona caro con el precio de cierre de 90,10 (C37); conclusión esperar, cubo Vigilar; fundamento no procede (conclusión no favorable; la única hipótesis de D10, Palancas C8, está acotada). La escalera es convención experimental y la posición es de José Luis. «Missing out on some opportunity never bothers us» (TCI p.57; HIM).\nLo sustituiría: otros valores por acción (tipo impositivo de la hoja: hasta 62,71; C8: hasta 68,29).",
+  "B101": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis de la etapa 1 con Chile desde el 30-mar-2026, 0,69 veces el EBITDA a 30-jun-2026 y precio de Sí ≈48 € → cambia (evidencia_nueva): la reescribo con la base de 31-dic-2025, Chile como hecho posterior y los valores del motor B.\nApoyo: resume C11, C14, C18, C13 y la escalera: clientes [ES_2025, PDF p. 104]; Historia filas 29 y 33; C33 = 0,36; bajadas de precio de 2026 [ES_2025, PDF p. 54]; Toro y Kristin posteriores [ES_2025, PDF p. 85]; B78:D78, precio.json y C86. Mis lecturas van como tales («leo»).\nLo sustituiría: un cambio de cubo, o una media de ciclo del perímetro de 2025 o un tipo impositivo distintos que movieran el precio de Sí.",
+  "B102": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis inversa de la etapa 1 (margen como regalo de la energía, Brasil y Chile, ruido contable, sin competidores) → cambia (evidencia_nueva): conserva sus hechos de 2025, pasa Chile a hecho posterior y añade lo que la hoja calcula (tipo impositivo, MALO con capital liberado).\nApoyo: escrita contra mi tesis con los hechos que más le dañan: [CF_2022.txt, PDF p. 45], [ES_2025, PDF p. 54] y [ES_2025, PDF p. 79]; Historia C49, C52, C55, L10, L8, L12, K32:L32; Control maestro C40. «I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM).\nLo sustituiría: datos de cuota, competidores y volumen que desmontaran alguno de sus puntos.",
+  "Palancas!A38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: comprueba el margen del NORMAL (Palancas C15 = 0,185) con la métrica de la Historia fila 29: margen EBIT del 19,9 % en 2025 (L29), media del 18,1 % en 2019–2025 (F29:L29) y bajadas de precio supuestas para 2026 [ES_2025, PDF p. 54]. Por encima del rango, el ahorro de energía se habría quedado en casa; por debajo, estaría en el MALO. Es sobre el negocio y se comprueba con las cuentas publicadas. «comparing predictions with outcomes» (PCA p.606; HIM).\nLo sustituiría: un cambio de perímetro material (Toro) que obligara a medir sin él.",
+  "Palancas!B38": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: las cuentas de 2025 se formularon el 24-feb-2026 [ES_2025, PDF p. 87], así que las de 2027 estarán publicadas antes del 31-mar-2028, dentro de la ventana de 12–24 meses desde la fecha de análisis (11-nov-2026, Análisis D4), que es convención del ejercicio.\nLo sustituiría: un calendario de publicación de la empresa distinto.",
+  "Palancas!C38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: dado el NORMAL (margen en torno al 18,5 % sin choque de energía), el rango deja unos dos puntos a cada lado. En 2019–2025 solo el valle de energía de 2022 (13,7 %) y 2024 (20,8 %) quedaron fuera (Historia fila 29), y el NORMAL no contiene un choque: 0,7.\nLo sustituiría: 0,6 si 2026 trajera un nuevo choque de energía o precios más bajos de lo supuesto.",
+  "Palancas!A39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: comprueba el volumen de un mercado maduro y el traslado del coste en el NORMAL: ventas de Vidrala Europe de 799,7 (2023), 742,3 y 714,9 mm (2025) [CF_2024.txt, PDF p. 30] y [ES_2025, PDF p. 33]; volumen +1 % supuesto por la empresa [ES_2025, PDF p. 54]. Por debajo de 680 mm, el volumen europeo estaría cayendo como en el MALO.\nLo sustituiría: una reorganización de los segmentos que impidiera comparar Vidrala Europe con 2025.",
+  "Palancas!B39": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la nota de segmentos de las cuentas de 2027 estará publicada antes del 31-mar-2028 (las de 2025 se formularon el 24-feb-2026 [ES_2025, PDF p. 87]), dentro de la ventana de 12–24 meses desde el 11-nov-2026 (Análisis D4), convención del ejercicio.\nLo sustituiría: un calendario de publicación de la empresa distinto.",
+  "Palancas!C39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: dado el NORMAL, Vidrala Europe queda casi plana: bajada de precio en 2026 y luego volumen ≈1 % y precio que sigue al coste dan unos 720 mm en 2027; el rango deja ≈5 % por debajo y ≈7 % por encima. En contra, sus ventas bajaron dos años seguidos (742,3 y 714,9 mm [ES_2025, PDF p. 33]): 0,75.\nLo sustituiría: 0,65 si las ventas de 2026 de Vidrala Europe bajaran más de un 5 %.",
+  "Palancas!A40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: comprueba que la renovación y descarbonización de hornos se paga con caja propia y que la reinversión no baja: capex de 188,5 frente a una amortización de 132,9 en 2025 (Historia L12 y L8); pagos de inmovilizado material de 178.746 e intangible de 9.757 [ES_2025, PDF p. 14]; compromisos de compra de inmovilizado de 66,6 mm [ES_2025, PDF p. 51].\nLo sustituiría: un cambio de presentación del estado de flujos que juntara estas partidas con otras.",
+  "Palancas!B40": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: el estado de flujos de 2027 estará publicado antes del 31-mar-2028 (las cuentas de 2025 se formularon el 24-feb-2026 [ES_2025, PDF p. 87]), dentro de la ventana de 12–24 meses desde el 11-nov-2026 (Análisis D4), convención del ejercicio.\nLo sustituiría: un calendario de publicación de la empresa distinto.",
+  "Palancas!C40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: el capex superó a la amortización en nueve de los diez años de la Historia (filas 8 y 12; solo 2016 quedó por debajo), y hay compromisos de 66,6 mm frente a 9,6 un año antes [ES_2025, PDF p. 51] y subvenciones PERTE para hornos desde 2026 [ES_2025, PDF p. 72]. El riesgo es un capex recortado si la demanda sigue débil: 0,8.\nLo sustituiría: 0,7 si la empresa anunciara un aplazamiento de la renovación de hornos."
+ },
+ "confianza_global": "media"
+}

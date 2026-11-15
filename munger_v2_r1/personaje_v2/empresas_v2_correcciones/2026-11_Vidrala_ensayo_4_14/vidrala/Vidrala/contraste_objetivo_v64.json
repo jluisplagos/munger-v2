@@ -1,0 +1,658 @@
+{
+ "formato": "4.14",
+ "precio_si_activa": 56.002005168244615,
+ "por_parametro": {
+  "N3.regla": {
+   "cobertura": "variacion_conjunta_necesaria",
+   "contraste": [
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.estructura": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "activa_solo_P0",
+     "descripcion": "la activa sin requisito adicional, con P0",
+     "precio_si": 63.11470693526011,
+     "delta_eur": 7.112701767015494,
+     "delta_pct": 0.12700798383284823,
+     "atribuible": true
+    },
+    {
+     "variante": "estructura_H",
+     "descripcion": "misma configuración con la estructura H (entradas compatibles)",
+     "precio_si": 61.36952771733541,
+     "delta_eur": 5.367522549090793,
+     "delta_pct": 0.09584518506016627,
+     "atribuible": true
+    },
+    {
+     "variante": "estructura_S",
+     "descripcion": "misma configuración con la estructura S (entradas compatibles)",
+     "precio_si": 55.519482772004295,
+     "delta_eur": -0.48252239624032,
+     "delta_pct": -0.008616162846146259,
+     "atribuible": true
+    },
+    {
+     "variante": "estructura_SRF",
+     "descripcion": "misma configuración con la estructura SRF (entradas compatibles)",
+     "precio_si": 58.23872498740856,
+     "delta_eur": 2.2367198191639446,
+     "delta_pct": 0.039939995227746855,
+     "atribuible": true
+    },
+    {
+     "variante": "estructura_SR2",
+     "descripcion": "misma configuración con la estructura SR2 (entradas compatibles)",
+     "precio_si": 57.02629521239385,
+     "delta_eur": 1.0242900441492324,
+     "delta_pct": 0.018290238734702414,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.cartera": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "cartera_legado",
+     "descripcion": "la activa con la cartera legado (se repone con la amortización)",
+     "precio_si": 55.4569123722288,
+     "delta_eur": -0.5450927960158154,
+     "delta_pct": -0.009733451407288268,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "N1.tipo": {
+   "cobertura": "variacion_conjunta_necesaria",
+   "contraste": [
+    {
+     "variante": "activa_sin_N1",
+     "descripcion": "la activa sin N1 (tipo de la Historia; el escudo va ligado a N1)",
+     "precio_si": 57.75017819768099,
+     "delta_eur": 1.7481730294363729,
+     "delta_pct": 0.031216257778349285,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    }
+   ]
+  },
+  "N1.escudo": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "escudo_alternativo",
+     "descripcion": "la activa con el escudo «Tipo de la Historia (separado)»",
+     "precio_si": 55.9219960692726,
+     "delta_eur": -0.08000909897201325,
+     "delta_pct": -0.0014286827539772026,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_N1",
+     "descripcion": "la activa sin N1 (tipo de la Historia; el escudo va ligado a N1)",
+     "precio_si": 57.75017819768099,
+     "delta_eur": 1.7481730294363729,
+     "delta_pct": 0.031216257778349285,
+     "atribuible": false
+    }
+   ]
+  },
+  "N2.margen": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "activa_sin_N2",
+     "descripcion": "la activa sin N2 (margen de partida de Palancas C8)",
+     "precio_si": 55.06035736144328,
+     "delta_eur": -0.9416478068013348,
+     "delta_pct": -0.01681453733616108,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    }
+   ]
+  },
+  "N3.circulante": {
+   "cobertura": "variacion_conjunta",
+   "contraste": [
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.familia": {
+   "cobertura": "variacion_conjunta",
+   "contraste": [
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.parametro": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "parametro_minimo",
+     "descripcion": "estructura activa con λ = 1.1 (extremo del rango declarado)",
+     "precio_si": 58.372905757249775,
+     "delta_eur": 2.37090058900516,
+     "delta_pct": 0.04233599461094932,
+     "atribuible": true
+    },
+    {
+     "variante": "parametro_maximo",
+     "descripcion": "estructura activa con λ = 1.25 (extremo del rango declarado)",
+     "precio_si": 51.26020399023426,
+     "delta_eur": -4.7418011780103555,
+     "delta_pct": -0.08467198922189928,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.convencion_anios": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "convencion_anios_alternativa",
+     "descripcion": "estructura activa con los años «Proporcional a las ventas»",
+     "precio_si": 55.87534090196578,
+     "delta_eur": -0.1266642662788371,
+     "delta_pct": -0.002261780911206744,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.convencion_terminal": {
+   "cobertura": "contraste_aislado",
+   "contraste": [
+    {
+     "variante": "convencion_terminal_alternativa",
+     "descripcion": "estructura activa con el terminal «Crece con g»",
+     "precio_si": 56.402898200892835,
+     "delta_eur": 0.40089303264822007,
+     "delta_pct": 0.007158547831346984,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  },
+  "PM1.roic_terminal": {
+   "cobertura": "variacion_conjunta_necesaria",
+   "contraste": [
+    {
+     "variante": "estructura_SR2",
+     "descripcion": "misma configuración con la estructura SR2 (entradas compatibles)",
+     "precio_si": 57.02629521239385,
+     "delta_eur": 1.0242900441492324,
+     "delta_pct": 0.018290238734702414,
+     "atribuible": true
+    },
+    {
+     "variante": "heredado",
+     "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+     "precio_si": 64.75222545947766,
+     "delta_eur": 8.750220291233042,
+     "delta_pct": 0.15624833905402316,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N1",
+     "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+     "precio_si": 63.03914449175743,
+     "delta_eur": 7.037139323512818,
+     "delta_pct": 0.1256587027977198,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_N2",
+     "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+     "precio_si": 65.71813435862349,
+     "delta_eur": 9.716129190378872,
+     "delta_pct": 0.17349609466998706,
+     "atribuible": false
+    },
+    {
+     "variante": "solo_R1",
+     "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+     "precio_si": 63.39709057205946,
+     "delta_eur": 7.395085403814846,
+     "delta_pct": 0.13205036822517485,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_R0_sin_PM1",
+     "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+     "precio_si": 63.98079229855869,
+     "delta_eur": 7.978787130314075,
+     "delta_pct": 0.1424732401338795,
+     "atribuible": false
+    },
+    {
+     "variante": "activa_sin_PM1",
+     "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+     "precio_si": 62.62534174748255,
+     "delta_eur": 6.623336579237936,
+     "delta_pct": 0.11826963265582557,
+     "atribuible": false
+    }
+   ]
+  }
+ }
+}
