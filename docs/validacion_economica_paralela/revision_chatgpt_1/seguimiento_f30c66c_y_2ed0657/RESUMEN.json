@@ -1,0 +1,99 @@
+{
+  "economic_commit": "f30c66c8651dba134b4e66fff9a08c2b50359b6c",
+  "technical_commit": "2ed065769f6f6c52f27ac960f3d37ca05703d9c3",
+  "source_verification": {
+    "filas": 716,
+    "ok": 702,
+    "pendientes": 14,
+    "fallos": 0,
+    "por_dimension": {
+      "literal": {
+        "OK": 716
+      },
+      "ejercicio": {
+        "OK": 716
+      },
+      "unidad": {
+        "OK": 663,
+        "PENDIENTE": 14,
+        "NO_APLICA": 39
+      },
+      "perimetro": {
+        "OK": 677,
+        "NO_APLICA": 39
+      },
+      "edicion": {
+        "OK": 716
+      }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+  },
+  "source_verification_exit_code": 2,
+  "economic_contrast": {
+    "comprobaciones": 236,
+    "fallidas": 0,
+    "por_clase": {
+      "fuente": 72,
+      "libro": 136,
+      "algebraica": 28
+    },
+    "libro_contrastado": true,
+    "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
+    "entradas_usadas": 363,
+    "entradas_usadas_pendientes": [],
+    "copia_recalculada_con_caja_no_nula": true
+  },
+  "economic_tests_passed": 42,
+  "residue_tests_passed": 7,
+  "technical_cases": [
+    {
+      "case": "control_positivo_sintetico",
+      "apto_por_entradas": true,
+      "errors": [],
+      "discrepancies": [],
+      "pending": []
+    },
+    {
+      "case": "pagina_999999",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [
+        "Historia!F6: la página 999999 no existe en el texto de la fuente (páginas 1–259, 259 marcas) (fuentes_sinteticas/fuente.txt)"
+      ],
+      "pending": []
+    },
+    {
+      "case": "fuente_local_ausente_sin_sha",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [],
+      "pending": [
+        "Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible"
+      ]
+    },
+    {
+      "case": "pagina_y_cita_negativas_con_valor_fuente_positivo",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [
+        "Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el modelo (R415-SIGNO)"
+      ],
+      "pending": []
+    },
+    {
+      "case": "cita_recortada_para_ocultar_signo_negativo_de_pagina",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [
+        "Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el modelo (R415-SIGNO)"
+      ],
+      "pending": []
+    }
+  ],
+  "independent_economic_followup": "pending_in_author_status; reviewer branch remains47551a2",
+  "financial_F1_accepted": false,
+  "full_technical_regression_executed_here": false,
+  "nonzero_cash_recalculated_here": false,
+  "note": "Los18 contrastes de caja no nula utilizan el resultado de recalculo de LibreOffice aportado por el autor; no se repitio LibreOffice aquí."
+}
