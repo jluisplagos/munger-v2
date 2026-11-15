@@ -1,0 +1,306 @@
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/pruebas/test_integracion_v64.py instantaneas/i5/munger_v2_r1/personaje_v2/pruebas/test_integracion_v64.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/pruebas/test_integracion_v64.py	2026-11-14 11:37:24.005330550 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/pruebas/test_integracion_v64.py	2026-11-14 16:17:34.754067537 +0100
+@@ -571,6 +571,56 @@
+          "; ".join(o.strip().splitlines()[-1][:80] for _, _, _, o in hechos if o.strip()))
+     rc, out = run([PY, "-I", os.path.join(PV, "scripts", "cambiar_base.py"), "preparar", hechos[0][2]], cwd=RAIZ)
+     paso("D", "no sobrescribe un expediente ya preparado", rc != 0 and "no se sobrescribe" in out)
++    # (4.14, incidente del 14-nov-2026) un CAMBIO que no declara una entrada `analisis` del origen que construir no reproduce se detiene
++    # (y no deja el destino a medias); descartarla de forma explícita, con su motivo, sí se admite y queda registrado
++    # origen de prueba: copia del origen con una entrada `analisis` que construir no reproduce (como las reexpresadas del incidente)
++    orig_p = os.path.join(base, "origen_con_C53", "Vidrala")
++    shutil.copytree(os.path.join(RAIZ, conf0["origen"]), orig_p, ignore=shutil.ignore_patterns(".lo_perfil", "__pycache__"))
++    f1o = json.load(open(os.path.join(orig_p, "fase1_v63.json"), encoding="utf-8"))
++    f1o.setdefault("analisis", {})["C53"] = {"valor": 108.352, "fuente": "(prueba) entrada reexpresada de un cambio anterior", "pagina": None, "periodo": "2025", "unidad": "mm"}
++    json.dump(f1o, open(os.path.join(orig_p, "fase1_v63.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++    for n, descarte in (("sin_declarar", None), ("descartada", {"C53": "(prueba) se descarta de forma explícita"})):
++        conf = copy.deepcopy(conf0)
++        conf["origen"] = orig_p
++        conf["analisis"].pop("C53", None)
++        conf["destino"] = os.path.join(base, n)
++        if descarte:
++            conf["analisis_que_se_descartan"] = descarte
++        p = os.path.join(base, f"cfg_{n}", "cambio_de_base.json")
++        os.makedirs(os.path.dirname(p), exist_ok=True)
++        json.dump(conf, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++        hechos.append((*run([PY, "-I", os.path.join(PV, "scripts", "cambiar_base.py"), "preparar", p], cwd=RAIZ, timeout=900), n))
++    (rc_s, out_s, _), (rc_d, out_d, _) = hechos[-2], hechos[-1]
++    paso("D", "(4.14) un CAMBIO que perdería una entrada `analisis` del origen sin declararla se detiene y retira el destino; descartarla con su motivo se admite",
++         rc_s != 0 and "PREPARACIÓN DETENIDA" in out_s and "Análisis!C53" in out_s and not os.path.exists(os.path.join(base, "sin_declarar", "Vidrala"))
++         and rc_d == 0 and os.path.exists(os.path.join(base, "descartada", "Vidrala", "fase1_v63.json")), (out_s.strip().splitlines() or [""])[-1][:200])
++    # (4.14, decisión E6 de Elis) corrección de EXTRACCIÓN en fase1_partes: con lo esperado se aplica antes de construir la Historia y
++    # queda registrada (originales en antecedentes); si lo encontrado no es lo esperado, se detiene y retira el destino
++    p25 = json.load(open(os.path.join(RAIZ, conf0["origen"], "fase1_partes", "AR_2025.json"), encoding="utf-8"))
++    ent_a, ent_b = p25["partidas"]["ventas"]["actual"][0], p25["partidas"]["ventas"]["anterior"][0]
++    f1_0 = json.load(open(os.path.join(d1, "fase1_v63.json"), encoding="utf-8"))["historia"]["partidas"]["ventas"]["valores"]
++    for n, esperado in (("partes_mal", "no-es-lo-impreso"), ("partes_bien", ent_a["impreso"])):
++        conf = copy.deepcopy(conf0)
++        conf["destino"] = os.path.join(base, n)
++        conf["correcciones_fase1_partes"] = [{"archivo": "AR_2025.json", "partida": "ventas", "lado": "actual", "indice": 0, "esperado": {"impreso": esperado},
++                                              "nuevo": dict(ent_a, impreso=ent_b["impreso"]), "fuente": "(prueba) misma página", "motivo": "(prueba) corrección de extracción"}]
++        p = os.path.join(base, f"cfg_{n}", "cambio_de_base.json")
++        os.makedirs(os.path.dirname(p), exist_ok=True)
++        json.dump(conf, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++        hechos.append((*run([PY, "-I", os.path.join(PV, "scripts", "cambiar_base.py"), "preparar", p], cwd=RAIZ, timeout=900), n))
++    (rc_m, out_m, _), (rc_b, out_b, _) = hechos[-2], hechos[-1]
++    ok_b = rc_b == 0
++    if ok_b:
++        f1_b = json.load(open(os.path.join(base, "partes_bien", "Vidrala", "fase1_v63.json"), encoding="utf-8"))["historia"]["partidas"]["ventas"]["valores"]
++        reg_b = json.load(open(os.path.join(base, "partes_bien", "resultados", "cambio_de_base.json"), encoding="utf-8"))
++        ok_b = (abs(f1_b[-1] - f1_0[-2]) < 1e-9 and f1_b[:-1] == f1_0[:-1] and len(reg_b.get("correcciones_fase1_partes") or []) == 1
++                and os.path.exists(os.path.join(base, "partes_bien", "antecedentes", "fase1_partes_original", "AR_2025.json"))
++                and json.load(open(os.path.join(RAIZ, conf0["origen"], "fase1_partes", "AR_2025.json"), encoding="utf-8")) == p25)
++    paso("D", "(4.14) una corrección de extracción en fase1_partes con el valor esperado cambia solo esa celda de la Historia, se registra y deja el original en antecedentes "
++              "(el origen no se toca); con un valor esperado distinto se detiene y retira el destino",
++         ok_b and rc_m != 0 and "PREPARACIÓN DETENIDA" in out_m and not os.path.exists(os.path.join(base, "partes_mal", "Vidrala")),
++         (out_m.strip().splitlines() or [""])[-1][:200])
++    hechos = hechos[:2]
+     reg = json.load(open(os.path.join(hechos[0][1]["destino"], "resultados", "cambio_de_base.json"), encoding="utf-8"))
+     ant = json.load(open(os.path.join(hechos[0][1]["destino"], "antecedentes", "evidencia_anterior.json"), encoding="utf-8"))
+     paso("D", "la copia de ensayo de la etapa 1 solo cambia las celdas declaradas y los textos anteriores quedan en antecedentes",
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_414.py instantaneas/i5/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_414.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_414.py	2026-11-14 11:53:07.896124004 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_414.py	2026-11-14 14:53:31.162030024 +0100
+@@ -154,6 +154,10 @@
+ paso("H", "hipótesis presentada como dato publicado: error", any(k_hip in x and "hipótesis" in x for x in r["errores"]), r["errores"][:1])
+ r = con(lambda g: ent(g, k_hip).update(hipotesis={"fundamento": "(prueba)", "alternativas": [], "limites": ["x"]}))
+ paso("H", "hipótesis sin alternativas: error (conserva fundamento, alternativas y límites)", any(k_hip in x for x in r["errores"]), r["errores"][:1])
++r = con(lambda g: ent(g, k_hip).setdefault("comprobacion", {}).update(resultado="discrepancia", revisor="revisor sintético", nota="(prueba) el fundamento ya no describe el dato vigente"))
++paso("H", "(14-nov) una discrepancia registrada por el revisor en una hipótesis cuenta: no apta (antes se ignoraba)", any(k_hip in x for x in r["discrepancias"]) and not r["apto_por_entradas"], r["discrepancias"][:1])
++r = con(lambda g: ent(g, k_hip).setdefault("comprobacion", {}).update(resultado="pendiente", revisor=None, nota="(prueba) texto sustituido, pendiente de confirmación del revisor"))
++paso("H", "(14-nov) una hipótesis con la comprobación explícitamente pendiente: pendiente, no apta (antes contaba como comprobada)", any(k_hip in x for x in r["pendientes"]) and not r["apto_por_entradas"], r["pendientes"][:1])
+ r = con(lambda g: ent(g, k_dato).update(clase="dato_ausente", justificacion="(prueba)"))
+ paso("Z", "dato ausente con un valor en el libro: error (es un dato o un cero que hay que contrastar)", any(k_dato in x and "ausente" in x for x in r["errores"]), r["errores"][:1])
+ r = con(lambda g: ent(g, k_dato).update(clase="cero_comprobado"))
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/scripts/cambiar_base.py instantaneas/i5/munger_v2_r1/personaje_v2/scripts/cambiar_base.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/scripts/cambiar_base.py	2026-11-12 14:00:28.000000000 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/scripts/cambiar_base.py	2026-11-14 16:24:57.910093880 +0100
+@@ -49,6 +49,9 @@
+     "fuentes_adicionales": [{"pdf": "ruta", "sha256": "…", "texto": "texto/<nombre>.txt"}],
+     "metadatos": {"precio": {}, "acciones_diluidas": {}, "capitalizacion": {}, "tasa_sin_riesgo": {}},
+     "notas_que_se_retiran": ["patrón regex", "…"],
++    "correcciones_fase1_partes": [{"archivo": "AR_2025.json", "partida": "pensiones", "lado": "actual|anterior", "indice": 0,
++                                   "esperado": {"impreso": "valor impreso que debe encontrarse"}, "nuevo": {"concepto": "…", "impreso": "…", "pagina": 0, "linea": "…"},
++                                   "fuente": "documento, página y línea", "motivo": "por qué la extracción estaba mal"}],
+     "analisis": {"C24": {"valor": 0, "fuente": "…", "pagina": "…", "periodo": "…", "unidad": "…", "vaciar_en_etapa1": True, "evidencia": {"M": "…", "N": "…"}}},
+     "evidencia": {"Análisis!C28": {"N": "…"}},
+     "textos_prohibidos": ["patrón regex de restos de la base anterior que no puede quedar en la evidencia activa ni en las notas"],
+@@ -173,6 +176,43 @@
+     meta["_notas"] = [n for n in notas if not any(p.search(str(n)) for p in patrones)] + ([conf["nota_metadatos"]] if conf.get("nota_metadatos") else [])
+     retiradas += [{"de": "fase1_metadatos.json", "nota": n} for n in notas if any(p.search(str(n)) for p in patrones)]
+     json.dump(meta, open(os.path.join(dest, "fase1_metadatos.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
++    # --- (4.14, decisión E6 de Elis) correcciones de EXTRACCIÓN en fase1_partes/ (la Historia la construye fase1_historia.py desde
++    # ellas): cada corrección declara archivo, partida, lado (actual|anterior), índice, el valor impreso que espera encontrar y la entrada
++    # nueva con su fuente; si lo encontrado no es lo esperado, se detiene y retira el destino. Los originales van a antecedentes.
++    corregidas_partes = []
++    if conf.get("correcciones_fase1_partes"):
++        partes = os.path.join(dest, "fase1_partes")
++        if not os.path.isdir(partes):
++            shutil.rmtree(dest, ignore_errors=True)
++            shutil.rmtree(ant, ignore_errors=True)
++            raise SystemExit("PREPARACIÓN DETENIDA: hay correcciones_fase1_partes pero fase1_partes no está en `conservar`")
++        orig_partes = os.path.join(ant, "fase1_partes_original")
++        os.makedirs(orig_partes, exist_ok=True)
++        for c in conf["correcciones_fase1_partes"]:
++            arch = os.path.join(partes, c["archivo"])
++            if not os.path.exists(os.path.join(orig_partes, c["archivo"])):
++                shutil.copy2(arch, os.path.join(orig_partes, c["archivo"]))
++            d = json.load(open(arch, encoding="utf-8"))
++            lista = ((d.get("partidas") or {}).get(c["partida"]) or {}).get(c["lado"])
++            i = int(c.get("indice", 0))
++            ent = lista[i] if isinstance(lista, list) and len(lista) > i else None
++            esperado = (c.get("esperado") or {}).get("impreso")
++            nuevo = c.get("nuevo") or {}
++            if ent is None or esperado is None or str(ent.get("impreso")) != str(esperado) or not nuevo.get("impreso") or not nuevo.get("pagina") \
++                    or not str(c.get("fuente") or "").strip() or not str(c.get("motivo") or "").strip():
++                shutil.rmtree(dest, ignore_errors=True)
++                shutil.rmtree(ant, ignore_errors=True)
++                raise SystemExit(f"PREPARACIÓN DETENIDA: corrección de fase1_partes no aplicable ({c.get('archivo')} · {c.get('partida')} · {c.get('lado')}[{i}]): "
++                                 f"se esperaba impreso {esperado!r} y hay {None if ent is None else ent.get('impreso')!r}, o falta la entrada nueva, la fuente o el motivo")
++            lista[i] = dict(nuevo)
++            nota_antes = None
++            if c.get("nota_partida") is not None:
++                # la nota de la partida (pasa a la columna de notas de la Historia) se sustituye si la corrección lo declara
++                nota_antes = d["partidas"][c["partida"]].get("nota")
++                d["partidas"][c["partida"]]["nota"] = c["nota_partida"]
++            corregidas_partes.append({"archivo": c["archivo"], "partida": c["partida"], "lado": c["lado"], "indice": i, "antes": ent, "despues": nuevo,
++                                      "nota_antes": nota_antes, "nota_despues": c.get("nota_partida"), "fuente": c["fuente"], "motivo": c["motivo"]})
++            json.dump(d, open(arch, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+     # --- fase1_v63.json: reconstrucción y entradas declaradas
+     r = subprocess.run([sys.executable, "-B", os.path.join(AQUI, "fase1_historia.py"), "construir", dest], capture_output=True, text=True)
+     if r.returncode != 0:
+@@ -187,6 +227,31 @@
+         f1.setdefault("analisis", {})[celda] = {"valor": d["valor"], "fuente": d["fuente"], "pagina": d.get("pagina"), "periodo": d.get("periodo"), "unidad": d.get("unidad")}
+         sustituidas[celda] = {"construido_por_fase1_historia": antes, "valor": d["valor"], "naturaleza": d.get("naturaleza"), "perimetro": d.get("perimetro"),
+                               "fecha": d.get("fecha"), "derivacion": d.get("derivacion")}
++    # (4.14, incidente del 14-nov-2026) una entrada `analisis` del ORIGEN que el CAMBIO no declara y que `construir` no reproduce con el
++    # mismo valor se perdería en silencio (p. ej. entradas reexpresadas de un cambio de base anterior). Se detiene la preparación, salvo
++    # que el CAMBIO la descarte de forma explícita en `analisis_que_se_descartan` ({celda: motivo}); el destino creado se retira.
++    f1_origen = {}
++    try:
++        f1_origen = json.load(open(os.path.join(origen, "fase1_v63.json"), encoding="utf-8"))
++    except (OSError, ValueError):
++        pass
++    descartes = conf.get("analisis_que_se_descartan") or {}
++    _v = lambda d: d.get("valor") if isinstance(d, dict) else d  # noqa: E731
++    perdidas = []
++    for celda, d in (f1_origen.get("analisis") or {}).items():
++        if celda in (conf.get("analisis") or {}) or celda in descartes:
++            continue
++        v0, v1 = _v(d), _v((f1.get("analisis") or {}).get(celda))
++        igual = (v0 == v1) or (isinstance(v0, (int, float)) and isinstance(v1, (int, float)) and abs(v0 - v1) <= 1e-9 * max(1.0, abs(v0)))
++        if not igual:
++            perdidas.append(f"Análisis!{celda}: origen {v0!r} → {v1!r}")
++    if perdidas:
++        shutil.rmtree(dest, ignore_errors=True)
++        shutil.rmtree(ant, ignore_errors=True)
++        raise SystemExit("PREPARACIÓN DETENIDA: el CAMBIO perdería entradas `analisis` del origen que no declara ni descarta (se retira el destino): "
++                         + "; ".join(perdidas) + ". Declárelas en `analisis` (para conservarlas) o en `analisis_que_se_descartan` con su motivo.")
++    if descartes:
++        retiradas.append({"de": "fase1_v63.json (analisis del origen descartadas por el CAMBIO)", "nota": descartes})
+     notas = f1.get("_notas") or []
+     f1["_notas"] = [n for n in notas if not any(p.search(str(n)) for p in patrones)]
+     retiradas += [{"de": "fase1_v63.json", "nota": n} for n in notas if any(p.search(str(n)) for p in patrones)]
+@@ -207,7 +272,7 @@
+            "heredados_movidos": len(inv), "conservados": sorted(conservar), "fuentes_adicionales": adicionales,
+            "etapa1": {"original": os.path.relpath(e1_orig, ens), "original_sha256": sha(e1_orig), "copia_de_ensayo_sha256": sha(e1), "miembros_cambiados": miembros,
+                       "vaciadas": vaciadas, "evidencia_escrita": escritas},
+-           "sustituidas_en_fase1_v63": sustituidas, "notas_retiradas": len(retiradas),
++           "sustituidas_en_fase1_v63": sustituidas, "correcciones_fase1_partes": corregidas_partes, "notas_retiradas": len(retiradas),
+            "configuracion_economica": bool(conf.get("configuracion_economica")), "alcance": bool(conf.get("alcance"))}
+     json.dump(reg, open(os.path.join(res, "cambio_de_base.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
+     md = [f"# Cambio de base económica · {emp} · base {conf['base_economica']['fecha']}", "", conf["base_economica"].get("descripcion", ""), "",
+@@ -218,6 +283,8 @@
+           + "; ".join(f"{c} ({''.join(sorted(k.split('!')[1][0] for k, x in escritas.items() if x['celda'] == c))})" for c in sorted({x['celda'] for x in escritas.values()}))
+           + ". Los textos anteriores están en `antecedentes/evidencia_anterior.json`.",
+           f"- Entradas sustituidas en fase1_v63.json: " + "; ".join(f"{c} → {x['valor']!r}" for c, x in sustituidas.items()),
++          f"- Correcciones de extracción en fase1_partes (antes de construir la Historia; originales en `antecedentes/fase1_partes_original/`): "
++          + ("; ".join(f"{x['archivo']} · {x['partida']} · {x['lado']} {x['antes'].get('impreso')!r} → {x['despues'].get('impreso')!r}" for x in corregidas_partes) or "ninguna"),
+           f"- Notas retiradas de los metadatos y de fase1_v63.json: {len(retiradas)} (`antecedentes/notas_retiradas.json`).",
+           f"- Fechas: ejecución {meta['fecha_analisis']} (real) · base {conf['base_economica']['fecha']} · precio {(conf.get('fechas') or {}).get('precio')} · acciones {(conf.get('fechas') or {}).get('acciones')} · fuentes: {(conf.get('fechas') or {}).get('publicacion_fuentes')}.",
+           f"- Configuración económica V6.4: {'sí' if conf.get('configuracion_economica') else 'no'} · alcance: {'sí' if conf.get('alcance') else 'no'}."]
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/scripts/informe.py instantaneas/i5/munger_v2_r1/personaje_v2/scripts/informe.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/scripts/informe.py	2026-11-14 10:57:15.233492817 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/scripts/informe.py	2026-11-14 16:18:45.796370380 +0100
+@@ -207,7 +207,7 @@
+         ve = apt.get("verificacion_entradas") if isinstance(apt.get("verificacion_entradas"), dict) else None
+         if ve is not None:
+             # (4.14) verificación completa de las entradas financieras: condición necesaria para presentar la conclusión como apta para dinero real
+-            linea += (f" **Verificación de las entradas financieras:** {ve.get('comprobadas')} de {ve.get('universo')} celdas del universo comprobadas "
++            linea += (f" **Verificación de las entradas financieras:** {ve.get('comprobadas_universo', ve.get('comprobadas'))} de {ve.get('universo')} celdas del universo comprobadas "
+                       f"(+{ve.get('auxiliares')} datos de origen auxiliares) · {ve.get('materiales_no_comprobadas')} materiales sin comprobar · "
+                       f"{ve.get('discrepancias')} discrepancias · {ve.get('desactualizadas')} desactualizadas · apta por entradas: "
+                       f"{'sí' if ve.get('apto_por_entradas') else 'no'}. Apta para dinero real: no"
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/scripts/pipeline.py instantaneas/i5/munger_v2_r1/personaje_v2/scripts/pipeline.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/scripts/pipeline.py	2026-11-14 10:57:29.248857260 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/scripts/pipeline.py	2026-11-14 16:18:45.795612226 +0100
+@@ -951,7 +951,7 @@
+                 import verificacion_entradas as VE
+                 _apto_e, _ve = VE.aptitud(self.c)
+                 st["verificacion_entradas"] = _ve
+-                self.log(f"verificación de las entradas financieras: {_ve.get('comprobadas')} de {_ve.get('universo')} comprobadas · "
++                self.log(f"verificación de las entradas financieras: {_ve.get('comprobadas_universo', _ve.get('comprobadas'))} de {_ve.get('universo')} celdas del universo comprobadas · "
+                          f"apta por entradas: {'sí' if _apto_e else 'no'}" + (f" ({_ve.get('motivo')[:200]})" if _ve.get("motivo") else ""))
+                 # (4.12 §9) huellas de los libros tal como quedan verificados (verificar_todo.sh deja el evaluado con sus cachés): el paso 13
+                 # no fija material ni pide auditoría con unos libros distintos de los verificados
+diff -ru instantaneas/i4/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py instantaneas/i5/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py
+--- instantaneas/i4/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-14 11:53:07.895288834 +0100
++++ instantaneas/i5/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-14 16:18:45.793367786 +0100
+@@ -317,6 +317,14 @@
+     def revisar_comprobacion(k, e):
+         clase = e.get("clase")
+         c = e.get("comprobacion") if isinstance(e.get("comprobacion"), dict) else {}
++        if clase in ("hipotesis", "convencion") and c.get("resultado") == "discrepancia":
++            # (14-nov-2026, hallazgo del revisor RD) una hipótesis o convención no exige revisor, pero si un revisor registra una
++            # discrepancia (p. ej. su fundamento ya no describe el dato vigente), cuenta: antes se ignoraba y el registro salía «apto»
++            return problema(k, "discrepancia", f"el revisor registra una discrepancia en la {clase}: {str(c.get('nota') or e.get('incidencia') or '')[:120]}")
++        if clase in ("hipotesis", "convencion") and c.get("resultado") == "pendiente":
++            # (14-nov-2026, hallazgo de la orquestación) una hipótesis o convención cuyo registro queda explícitamente «pendiente»
++            # (p. ej. texto sustituido a la espera de la confirmación del revisor) no está comprobada: antes contaba como comprobada
++            return problema(k, "pendiente", f"la {clase} tiene la comprobación pendiente: {str(c.get('nota') or '')[:120]}")
+         if clase not in ("hipotesis", "convencion"):
+             if c.get("resultado") not in RESULTADOS:
+                 return problema(k, "pendiente", "sin resultado de la comprobación")
+@@ -334,15 +342,21 @@
+         if k not in estado:
+             revisar_una(k, e)
+     out["comprobadas"] = sorted(k for k, v in estado.items() if v == "comprobada")
++    # (14-nov-2026, aviso de la auditoría) «comprobadas» incluye los datos de origen auxiliares; la cobertura del universo se cuenta aparte
++    out["comprobadas_universo"] = sum(1 for k in inst["celdas"] if estado.get(k) == "comprobada")
+     for k in out["sin_entrada"]:
+         out["pendientes"].append(f"{k}: sin entrada en el registro")
+     mat_no = [k for k in inst["celdas"] if (por_celda.get(k) or {}).get("material", True) is not False
+               and (por_celda.get(k) or {}).get("clase") not in ("hipotesis", "convencion") and estado.get(k) != "comprobada"]
++    # (14-nov-2026) una hipótesis o convención material con la comprobación explícitamente pendiente también bloquea
++    mat_no += [k for k in inst["celdas"] if (por_celda.get(k) or {}).get("material", True) is not False
++               and (por_celda.get(k) or {}).get("clase") in ("hipotesis", "convencion")
++               and ((por_celda.get(k) or {}).get("comprobacion") or {}).get("resultado") == "pendiente"]
+     out["materiales_no_comprobadas"] = mat_no
+     bloqueos = out["sin_entrada"] or out["sobrantes"] or out["repetidas"] or out["errores"] or out["desactualizadas"] or out["discrepancias"] or mat_no
+     out["apto_por_entradas"] = not bloqueos
+     if bloqueos:
+-        out["motivo"] = (f"{len(out['comprobadas'])} de {inst['n']} celdas del universo comprobadas (+{out['auxiliares']} datos de origen auxiliares); "
++        out["motivo"] = (f"{out['comprobadas_universo']} de {inst['n']} celdas del universo comprobadas (+{out['auxiliares']} datos de origen auxiliares); "
+                          f"{len(mat_no)} entradas materiales sin comprobar; {len(out['desactualizadas'])} desactualizadas; {len(out['discrepancias'])} discrepancias; "
+                          f"{len(out['errores'])} errores del contrato; {len(out['sin_entrada'])} sin entrada")
+     return out
+@@ -351,7 +365,7 @@
+ def aptitud(carpeta):
+     """(apto_por_entradas, resumen) para la ficha y el informe."""
+     r = comprobar(carpeta)
+-    return r["apto_por_entradas"], {"universo": r["universo"], "comprobadas": len(r["comprobadas"]), "auxiliares": r["auxiliares"],
++    return r["apto_por_entradas"], {"universo": r["universo"], "comprobadas": len(r["comprobadas"]), "comprobadas_universo": r.get("comprobadas_universo"), "auxiliares": r["auxiliares"],
+                                     "pendientes": len(r["pendientes"]), "desactualizadas": len(r["desactualizadas"]), "discrepancias": len(r["discrepancias"]),
+                                     "errores": len(r["errores"]), "materiales_no_comprobadas": len(r["materiales_no_comprobadas"]),
+                                     "apto_por_entradas": r["apto_por_entradas"], "motivo": r["motivo"], "huella_entradas_economicas": r["huella_entradas_economicas"],
+@@ -387,7 +401,7 @@
+     if "--json" in sys.argv:
+         print(json.dumps(r, ensure_ascii=False, indent=1, default=str))
+     else:
+-        print(f"universo {r['universo']} · comprobadas {len(r['comprobadas'])} · pendientes {len(r['pendientes'])} · desactualizadas {len(r['desactualizadas'])} · "
++        print(f"universo {r['universo']} · comprobadas del universo {r.get('comprobadas_universo')} · comprobadas en total {len(r['comprobadas'])} · pendientes {len(r['pendientes'])} · desactualizadas {len(r['desactualizadas'])} · "
+               f"discrepancias {len(r['discrepancias'])} · errores {len(r['errores'])} · auxiliares {r['auxiliares']} · apto por entradas: {r['apto_por_entradas']}")
+         for cat in ("errores", "discrepancias", "desactualizadas"):
+             for x in r[cat][:10]:
+diff -ru instantaneas/i4/munger_v2_r1/verificar_paquete.sh instantaneas/i5/munger_v2_r1/verificar_paquete.sh
+--- instantaneas/i4/munger_v2_r1/verificar_paquete.sh	2026-11-14 10:59:24.561803199 +0100
++++ instantaneas/i5/munger_v2_r1/verificar_paquete.sh	2026-11-14 17:50:57.373045124 +0100
+@@ -15,10 +15,10 @@
+ #                                        test_integracion_v64.py (4.11: plantilla, 117 casos con la réplica independiente, pipeline y cambio
+ #                                        de base; 4.12: grupos E vigencia y selección, F materialidad y protocolos del objetivo, G coherencia,
+ #                                        variantes y fórmulas alteradas; 4.13: guardas de estructura, salto del protocolo, cobertura y H
+-#                                        V6.4.1 experimental; igual de obligatoria; al menos 195 pruebas) y, antes de ella, la batería de
++#                                        V6.4.1 experimental; 4.14: cambio de base con correcciones de extracción; igual de obligatoria; al menos 197 pruebas) y, antes de ella, la batería de
+ #                                        vigencia H5 test_vigencia_h5.py (4.13.1; al menos 59 pruebas) y la del juicio sobre el objetivo
+ #                                        test_juicio_objetivo_414.py (4.14; al menos 27 pruebas) y la de la verificación de las entradas test_verificacion_entradas_414.py
+-#                                        (4.14; al menos 27 pruebas), igual de obligatorias (≈ 30–45 min en total)
++#                                        (4.14; al menos 33 pruebas), igual de obligatorias (≈ 30–45 min en total)
+ # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
+ # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
+ # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
+@@ -126,10 +126,10 @@
+   fi
+   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la verificación de las entradas \(4\.14\) PASAN$' "$SALIDA_VE" | tail -1)"
+   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 27 ]; then
++  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 33 ]; then
+     echo "$linea"; echo "RESULTADO verificación de las entradas: PASA"
+   else
+-    tail -5 "$SALIDA_VE"; echo "RESULTADO verificación de las entradas: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 27 pruebas; ver $SALIDA_VE)"; fallos=$((fallos+1))
++    tail -5 "$SALIDA_VE"; echo "RESULTADO verificación de las entradas: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 33 pruebas; ver $SALIDA_VE)"; fallos=$((fallos+1))
+   fi
+ else
+   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+@@ -145,10 +145,10 @@
+   fi
+   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de integración V6.4 PASAN$' "$SALIDA_V64" | tail -1)"
+   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 195 ]; then
++  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 197 ]; then
+     echo "$linea"; echo "RESULTADO integración V6.4: PASA"
+   else
+-    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 195 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
++    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 197 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
+   fi
+ else
+   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

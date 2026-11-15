@@ -11,6 +11,6 @@ Cuando termine:
 5. Ejecutar los controles que la entrega establece sobre la copia materializada y registrar resultados reales. La subida a GitHub no convierte pruebas anteriores en pruebas de esta copia.
 6. Revisar las reparaciones contra los contraejemplos externos y los bloqueos económicos documentados. No dar por apto un resultado financiero solo porque las comprobaciones de software pasen.
 
-Para la base histórica aún faltan 462 archivos de texto y 194 binarios. La fuente más directa para completarla es el ZIP original 4.14 que ya tiene la persona responsable o el entorno anterior de Claude. Si los originales se han preservado, puede subirse ese ZIP completo a una Release de base y verificarse con baselines/4.14.json. No reconstruirlo mezclando las correcciones nuevas.
+La base histórica ya está completa y verificada: el ZIP original de la Release base-4.14 conserva los 1008 binarios y Git contiene los 5790 archivos de texto, además del manifiesto. Materializar y verificar esa base permite comparar la nueva entrega sin confundir ausencias locales con altas de archivos.
 
-El paquete parcial de binarios preparado localmente contiene objetos deduplicados y todavía no está subido a GitHub. Su restituidor restaura las rutas originales y comprueba sus SHA-256; no sustituye al ZIP original completo.
+La alternativa parcial de binarios preparada inicialmente no llegó a subirse y queda sustituida por el ZIP original completo. No volver a pedir las 54 partes para esta base: ya está conservada en GitHub.

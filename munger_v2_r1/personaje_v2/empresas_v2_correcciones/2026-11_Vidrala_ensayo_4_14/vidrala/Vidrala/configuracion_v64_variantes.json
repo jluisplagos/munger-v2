@@ -1,0 +1,2182 @@
+{
+ "aplica": true,
+ "libro_origen": "Vidrala_v63_evaluada.xlsx",
+ "libro_origen_sha256": "4326beb8961e6e1f43c4779324ae18b508d9666fc15883a9d08898c6d164fd91",
+ "configuracion_economica_sha256": "a3e88c94e6f5100eed1c03012a1cd0dd2fb4ac00b7edd3570d9ee9529ca3ec34",
+ "precio": 90.1,
+ "k": 3.0,
+ "variantes": [
+  {
+   "clave": "heredado",
+   "descripcion": "modo heredado (V6.3 efectiva: R0, sin P-M1, tipo de la Historia, margen de Palancas C8)",
+   "resumen_configuracion": "modo heredado (V6.3 efectiva)",
+   "parametros_variados": [
+    "modo",
+    "N1.tipo",
+    "N1.escudo",
+    "N2.margen",
+    "N3.regla",
+    "N3.circulante",
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    54.0332042708668,
+    67.9363129452086,
+    87.3570265681175
+   ],
+   "ponderado": 69.039833934922,
+   "precio_si": 64.75222545947766,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "6fb2964e0a1591eaef7764bb204d8019ec60797303729791aaec00b878321942",
+   "delta_ponderado_frente_a_activa": 8.365715768220298,
+   "delta_precio_si_frente_a_activa": 8.750220291233042,
+   "delta_ponderado_frente_a_heredado": 0.0,
+   "delta_precio_si_frente_a_heredado": 0.0,
+   "avisos_de_dominio_activos": []
+  },
+  {
+   "clave": "activa",
+   "descripcion": "configuración del expediente",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.3217226721019,
+    60.1901164149973,
+    78.4785189164147
+   ],
+   "ponderado": 60.6741181667017,
+   "precio_si": 56.002005168244615,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "4326beb8961e6e1f43c4779324ae18b508d9666fc15883a9d08898c6d164fd91",
+   "delta_ponderado_frente_a_activa": 0.0,
+   "delta_precio_si_frente_a_activa": 0.0,
+   "delta_ponderado_frente_a_heredado": -8.365715768220298,
+   "delta_precio_si_frente_a_heredado": -8.750220291233042,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "solo_N1",
+   "descripcion": "solo N1 (tipo normalizado), con R0 y sin P-M1",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 vacío (Palancas C8) · R0 · P-M1 sin requisito adicional · cartera legado",
+   "parametros_variados": [
+    "N2.margen",
+    "N3.regla",
+    "N3.circulante",
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    52.7041160486585,
+    66.071859818318,
+    84.9460838413726
+   ],
+   "ponderado": 67.173155868997,
+   "precio_si": 63.03914449175743,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "43f1de19e6fa1e68004cede95eb3927f4e69562795b7e2e0dd9af89d0284febe",
+   "delta_ponderado_frente_a_activa": 6.499037702295297,
+   "delta_precio_si_frente_a_activa": 7.037139323512818,
+   "delta_ponderado_frente_a_heredado": -1.8666780659250009,
+   "delta_precio_si_frente_a_heredado": -1.7130809677202237,
+   "avisos_de_dominio_activos": [
+    "inversion_fija_para_crecer_negativa"
+   ]
+  },
+  {
+   "clave": "solo_N2",
+   "descripcion": "solo N2 (margen de partida), con R0 y sin P-M1",
+   "resumen_configuracion": "modo experimental · N1 vacío (tipo de la Historia) · N2 0.185467 · R0 · P-M1 sin requisito adicional · cartera legado",
+   "parametros_variados": [
+    "N1.tipo",
+    "N1.escudo",
+    "N3.regla",
+    "N3.circulante",
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    54.9622270770876,
+    68.9203834446212,
+    88.3791089452381
+   ],
+   "ponderado": 70.0204972712378,
+   "precio_si": 65.71813435862349,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "25f56c59ca8c8e782c3c19df5f6d8917540ad8d0a1d51cf5f8a1d5760a96bd75",
+   "delta_ponderado_frente_a_activa": 9.346379104536098,
+   "delta_precio_si_frente_a_activa": 9.716129190378872,
+   "delta_ponderado_frente_a_heredado": 0.9806633363157999,
+   "delta_precio_si_frente_a_heredado": 0.9659088991458304,
+   "avisos_de_dominio_activos": [
+    "inversion_fija_para_crecer_negativa"
+   ]
+  },
+  {
+   "clave": "solo_R1",
+   "descripcion": "solo N3 · R1, sin N1, N2 ni P-M1",
+   "resumen_configuracion": "modo experimental · N1 vacío (tipo de la Historia) · N2 vacío (Palancas C8) · R1 · P-M1 sin requisito adicional · cartera legado",
+   "parametros_variados": [
+    "N1.tipo",
+    "N1.escudo",
+    "N2.margen",
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    50.871222866891,
+    67.9363129452086,
+    87.3570265681175
+   ],
+   "ponderado": 68.4074376541269,
+   "precio_si": 63.39709057205946,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "9119fe0c529d670264fa8836c0cc8f8e3359e6ca0f8a96561fe5ac3f1e9a797f",
+   "delta_ponderado_frente_a_activa": 7.733319487425192,
+   "delta_precio_si_frente_a_activa": 7.395085403814846,
+   "delta_ponderado_frente_a_heredado": -0.6323962807951062,
+   "delta_precio_si_frente_a_heredado": -1.3551348874181954,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "activa_sin_N1",
+   "descripcion": "la activa sin N1 (tipo de la Historia; el escudo va ligado a N1)",
+   "resumen_configuracion": "modo experimental · N1 vacío (tipo de la Historia) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "N1.tipo",
+    "N1.escudo"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    45.6828783849349,
+    62.0908894348358,
+    80.9299439244548
+   ],
+   "ponderado": 62.5770981227794,
+   "precio_si": 57.75017819768099,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "f6d61d4a3dd3b834a59b752439f6559f3f2df0773445c79cb3dfb7b611065fa9",
+   "delta_ponderado_frente_a_activa": 1.9029799560776937,
+   "delta_precio_si_frente_a_activa": 1.7481730294363729,
+   "delta_ponderado_frente_a_heredado": -6.462735812142604,
+   "delta_precio_si_frente_a_heredado": -7.002047261796669,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "escudo_alternativo",
+   "descripcion": "la activa con el escudo «Tipo de la Historia (separado)»",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo al tipo de la Historia) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "N1.escudo"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.2666313988588,
+    60.1018100254907,
+    78.3486482118597
+   ],
+   "ponderado": 60.5841419374381,
+   "precio_si": 55.9219960692726,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "b3a5fb981593992ca14c5b3656a2891b014615b0a3dc586cab1d3e2a63c64779",
+   "delta_ponderado_frente_a_activa": -0.08997622926360549,
+   "delta_precio_si_frente_a_activa": -0.08000909897201325,
+   "delta_ponderado_frente_a_heredado": -8.455691997483903,
+   "delta_precio_si_frente_a_heredado": -8.830229390205055,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "activa_sin_N2",
+   "descripcion": "la activa sin N2 (margen de partida de Palancas C8)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 vacío (Palancas C8) · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "N2.margen"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    43.416036075761,
+    59.2307624105909,
+    77.4821060710473
+   ],
+   "ponderado": 59.7180858757162,
+   "precio_si": 55.06035736144328,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "167b1a04d5bf04320bd29a0aa02ebe7b7bbbdd7c82d790fd5c55d78a27efe4fc",
+   "delta_ponderado_frente_a_activa": -0.9560322909855046,
+   "delta_precio_si_frente_a_activa": -0.9416478068013348,
+   "delta_ponderado_frente_a_heredado": -9.321748059205802,
+   "delta_precio_si_frente_a_heredado": -9.691868098034377,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "activa_R0_sin_PM1",
+   "descripcion": "la activa con R0, que exige quitar P-M1 (R0 + P-M1 no está especificado): variación conjunta necesaria",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R0 · P-M1 sin requisito adicional · cartera legado",
+   "parametros_variados": [
+    "N3.regla",
+    "N3.circulante",
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    53.6098026449993,
+    67.0312138227243,
+    85.9424966867401
+   ],
+   "ponderado": 68.1291881599825,
+   "precio_si": 63.98079229855869,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "48c73a51341fb3e4af1dcf16938ae47433c112fe3cc7be99ff7d0c02a03cb062",
+   "delta_ponderado_frente_a_activa": 7.4550699932808016,
+   "delta_precio_si_frente_a_activa": 7.978787130314075,
+   "delta_ponderado_frente_a_heredado": -0.9106457749394963,
+   "delta_precio_si_frente_a_heredado": -0.7714331609189671,
+   "avisos_de_dominio_activos": [
+    "inversion_fija_para_crecer_negativa"
+   ]
+  },
+  {
+   "clave": "cartera_legado",
+   "descripcion": "la activa con la cartera legado (se repone con la amortización)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · cartera legado",
+   "parametros_variados": [
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    43.7589527061577,
+    59.6533092080781,
+    77.9616008628943
+   ],
+   "ponderado": 60.1360962386573,
+   "precio_si": 55.4569123722288,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "a2ee8d74f8e66a39abdbb663e1a6f37aadf968b03435d898b48edf9fc07cda14",
+   "delta_ponderado_frente_a_activa": -0.538021928044401,
+   "delta_precio_si_frente_a_activa": -0.5450927960158154,
+   "delta_ponderado_frente_a_heredado": -8.903737696264699,
+   "delta_precio_si_frente_a_heredado": -9.295313087248857,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "activa_sin_PM1",
+   "descripcion": "la activa sin P-M1 (sin requisito adicional y cartera legado)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 sin requisito adicional · cartera legado",
+   "parametros_variados": [
+    "PM1.estructura",
+    "PM1.familia",
+    "PM1.parametro",
+    "PM1.convencion_anios",
+    "PM1.convencion_terminal",
+    "PM1.roic_terminal",
+    "PM1.cartera"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    50.4470846924883,
+    67.0312138227243,
+    85.9424966867401
+   ],
+   "ponderado": 67.4966445694803,
+   "precio_si": 62.62534174748255,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "96f75b50a4abc35bdab7ec21524a632eab7b98913c860a53baa045d168c2905b",
+   "delta_ponderado_frente_a_activa": 6.822526402778593,
+   "delta_precio_si_frente_a_activa": 6.623336579237936,
+   "delta_ponderado_frente_a_heredado": -1.5431893654417053,
+   "delta_precio_si_frente_a_heredado": -2.126883711995106,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "activa_solo_P0",
+   "descripcion": "la activa sin requisito adicional, con P0",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 sin requisito adicional · P0",
+   "parametros_variados": [
+    "PM1.estructura"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    50.9364498802658,
+    67.5205790105019,
+    86.4318618745177
+   ],
+   "ponderado": 67.9860097572578,
+   "precio_si": 63.11470693526011,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "5a14ffa3e2e726ffa44821b0b19fdba2df5e085676e8aae952f757758322175f",
+   "delta_ponderado_frente_a_activa": 7.311891590556101,
+   "delta_precio_si_frente_a_activa": 7.112701767015494,
+   "delta_ponderado_frente_a_heredado": -1.0538241776641968,
+   "delta_precio_si_frente_a_heredado": -1.6375185242175476,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "estructura_H",
+   "descripcion": "misma configuración con la estructura H (entradas compatibles)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 H · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.estructura"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    46.8643650384415,
+    67.5205790105019,
+    86.4318618745177
+   ],
+   "ponderado": 67.171592788893,
+   "precio_si": 61.36952771733541,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "3d3d440a4317f33ecb179e9918e4211d59c61cbbc2b8138fe5f9befdd3ff5e30",
+   "delta_ponderado_frente_a_activa": 6.497474622191291,
+   "delta_precio_si_frente_a_activa": 5.367522549090793,
+   "delta_ponderado_frente_a_heredado": -1.868241146029007,
+   "delta_precio_si_frente_a_heredado": -3.3826977421422484,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "estructura_S",
+   "descripcion": "misma configuración con la estructura S (entradas compatibles)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 S · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.estructura"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.3217226721019,
+    59.4814275949826,
+    77.2269286027766
+   ],
+   "ponderado": 59.9985868119653,
+   "precio_si": 55.519482772004295,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "1235edd8b7a9a63f62ede9cde2b06166f02dcc9f1ef5dbd4b8d9474a4f490bd5",
+   "delta_ponderado_frente_a_activa": -0.6755313547363997,
+   "delta_precio_si_frente_a_activa": -0.48252239624032,
+   "delta_ponderado_frente_a_heredado": -9.041247122956698,
+   "delta_precio_si_frente_a_heredado": -9.232742687473362,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "estructura_SR2",
+   "descripcion": "misma configuración con la estructura SR2 (entradas compatibles)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR2 · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.estructura",
+    "PM1.roic_terminal"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.7140258756781,
+    61.5786596952512,
+    80.3060097739691
+   ],
+   "ponderado": 61.9512029470802,
+   "precio_si": 57.02629521239385,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "458ce389ae268cbaec44580bd39df032d35ddee061fd71a5bf4c4fa010afcc13",
+   "delta_ponderado_frente_a_activa": 1.2770847803784946,
+   "delta_precio_si_frente_a_activa": 1.0242900441492324,
+   "delta_ponderado_frente_a_heredado": -7.088630987841803,
+   "delta_precio_si_frente_a_heredado": -7.725930247083809,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "estructura_SRF",
+   "descripcion": "misma configuración con la estructura SRF (entradas compatibles)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SRF · Λ 1.15 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.estructura"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    45.0312506746073,
+    63.3006809370592,
+    82.6752800768605
+   ],
+   "ponderado": 63.5217147125291,
+   "precio_si": 58.23872498740856,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "038337ff2163bb0b5307c4900ab267d4bb5b5f0a7e5fe283c6a28fcd6175b34d",
+   "delta_ponderado_frente_a_activa": 2.8475965458274004,
+   "delta_precio_si_frente_a_activa": 2.2367198191639446,
+   "delta_ponderado_frente_a_heredado": -5.518119222392897,
+   "delta_precio_si_frente_a_heredado": -6.513500472069097,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "parametro_minimo",
+   "descripcion": "estructura activa con λ = 1.1 (extremo del rango declarado)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.1 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.parametro"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    46.5266317414898,
+    62.6336039468322,
+    81.1296332357824
+   ],
+   "ponderado": 63.1114153635537,
+   "precio_si": 58.372905757249775,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "7369bb31a7737def3dc3c58948f83d28db3ce32e3f5c57431d991ea64bd4d751",
+   "delta_ponderado_frente_a_activa": 2.4372971968519934,
+   "delta_precio_si_frente_a_activa": 2.37090058900516,
+   "delta_ponderado_frente_a_heredado": -5.928418571368304,
+   "delta_precio_si_frente_a_heredado": -6.379319702227882,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "parametro_maximo",
+   "descripcion": "estructura activa con λ = 1.25 (extremo del rango declarado)",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.25 · años Plana · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.parametro"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    39.9119045333259,
+    55.3031413513276,
+    73.1762902776794
+   ],
+   "ponderado": 55.7995237729976,
+   "precio_si": 51.26020399023426,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "b3c5591bbc85bee58e0c95025b0597b76db3cae5f9d6e6c817e1998057551a5c",
+   "delta_ponderado_frente_a_activa": -4.8745943937041005,
+   "delta_precio_si_frente_a_activa": -4.7418011780103555,
+   "delta_ponderado_frente_a_heredado": -13.240310161924398,
+   "delta_precio_si_frente_a_heredado": -13.492021469243397,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "convencion_anios_alternativa",
+   "descripcion": "estructura activa con los años «Proporcional a las ventas»",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Proporcional a las ventas · terminal Proporcional a las ventas · P0",
+   "parametros_variados": [
+    "PM1.convencion_anios"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.5352015133615,
+    59.9015607054697,
+    77.8170996572669
+   ],
+   "ponderado": 60.4113966574075,
+   "precio_si": 55.87534090196578,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "ccc325873782f02dd6b4c6a3ad2f4d9af87998fd318d0674777c6d103710bdb7",
+   "delta_ponderado_frente_a_activa": -0.26272150929420235,
+   "delta_precio_si_frente_a_activa": -0.1266642662788371,
+   "delta_ponderado_frente_a_heredado": -8.6284372775145,
+   "delta_precio_si_frente_a_heredado": -8.876884557511879,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  },
+  {
+   "clave": "convencion_terminal_alternativa",
+   "descripcion": "estructura activa con el terminal «Crece con g»",
+   "resumen_configuracion": "modo experimental · N1 0.220541 (escudo vinculado) · N2 0.185467 · R1 · P-M1 SR1 · Λ 1.15 · años Plana · terminal Crece con g · P0",
+   "parametros_variados": [
+    "PM1.convencion_terminal"
+   ],
+   "valida_en_el_libro": true,
+   "motivo_si_no_valida": null,
+   "V": [
+    44.0858124032574,
+    60.8580153389557,
+    79.9888041796106
+   ],
+   "ponderado": 61.329732519947,
+   "precio_si": 56.402898200892835,
+   "zona": "caro",
+   "sin_lectura": null,
+   "conciliacion": {
+    "MALO": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "NORMAL": "✓ cuadra: identidad anual y terminal y VP iguales al motor",
+    "BUENO": "✓ cuadra: identidad anual y terminal y VP iguales al motor"
+   },
+   "hash_copia": "f7d72b9012c33e31e082d945356400856b0ff35f43bfa313407f8f0e1081db48",
+   "delta_ponderado_frente_a_activa": 0.6556143532452978,
+   "delta_precio_si_frente_a_activa": 0.40089303264822007,
+   "delta_ponderado_frente_a_heredado": -7.710101414975,
+   "delta_precio_si_frente_a_heredado": -8.349327258584822,
+   "avisos_de_dominio_activos": [
+    "terminal_r1_sin_maximo_conservado",
+    "s2c_inerte"
+   ]
+  }
+ ],
+ "zonas_calculadas": [
+  "caro"
+ ],
+ "variantes_sin_zona": [],
+ "zona_igual_en_todas_las_calculadas": true,
+ "formato": "4.13",
+ "entradas_economicas": {
+  "huella": "0c61984c22e1c5c67f77ac280ed960ea0510f5d096b15b40cb9d49f625831c62",
+  "n": 226,
+  "celdas": {
+   "Análisis!C37": 90.1,
+   "Análisis!C41": 3169.9755058,
+   "Análisis!C55": 35.182858,
+   "Análisis!C46": 335.4,
+   "Análisis!C47": 169.7,
+   "Análisis!C48": 0,
+   "Análisis!C49": 4.5,
+   "Análisis!C50": 0,
+   "Historia!C5": 2016,
+   "Historia!D5": 2017,
+   "Historia!E5": 2018,
+   "Historia!F5": 2019,
+   "Historia!G5": 2020,
+   "Historia!H5": 2021,
+   "Historia!I5": 2022,
+   "Historia!J5": 2023,
+   "Historia!K5": 2024,
+   "Historia!L5": 2025,
+   "Historia!C6": 773.57,
+   "Historia!D6": 822.72,
+   "Historia!E6": 955.426,
+   "Historia!F6": 1010.833,
+   "Historia!G6": 988.37,
+   "Historia!H6": 1084.166,
+   "Historia!I6": 1345.61,
+   "Historia!J6": 1427.473,
+   "Historia!K6": 1588.267,
+   "Historia!L6": 1465.16,
+   "Historia!C7": 93.039,
+   "Historia!D7": 117.182,
+   "Historia!E7": 147.082,
+   "Historia!F7": 177.548,
+   "Historia!G7": 194.268,
+   "Historia!H7": 178.573,
+   "Historia!I7": 184.214,
+   "Historia!J7": 267.508,
+   "Historia!K7": 331.008,
+   "Historia!L7": 292.068,
+   "Historia!C8": 75.557,
+   "Historia!D8": 76.999,
+   "Historia!E8": 88.178,
+   "Historia!F8": 91.088,
+   "Historia!G8": 84.144,
+   "Historia!H8": 86.284,
+   "Historia!I8": 85.46,
+   "Historia!J8": 87.21,
+   "Historia!K8": 117.72,
+   "Historia!L8": 132.948,
+   "Historia!C9": 67.671,
+   "Historia!D9": 89.146,
+   "Historia!E9": 115.958,
+   "Historia!F9": 143.275,
+   "Historia!G9": 159.463,
+   "Historia!H9": 145.157,
+   "Historia!I9": 153.686,
+   "Historia!J9": 233.395,
+   "Historia!K9": 298.315,
+   "Historia!L9": 209.341,
+   "Historia!C10": 0.1967,
+   "Historia!D10": 0.1878,
+   "Historia!E10": 0.1742,
+   "Historia!F10": 0.1368,
+   "Historia!G10": 0.157,
+   "Historia!H10": 0.1586,
+   "Historia!I10": 0.1814,
+   "Historia!J10": 0.204,
+   "Historia!K10": 0.2143,
+   "Historia!L10": 0.2433,
+   "Historia!C12": 54.904,
+   "Historia!D12": 89.02,
+   "Historia!E12": 101.786,
+   "Historia!F12": 107.169,
+   "Historia!G12": 134.248,
+   "Historia!H12": 109.8,
+   "Historia!I12": 120.2,
+   "Historia!J12": 151.7,
+   "Historia!K12": 168.8,
+   "Historia!L12": 188.503,
+   "Historia!C14": 5.6,
+   "Historia!D14": -20.077,
+   "Historia!E14": 25.544,
+   "Historia!F14": 18.206,
+   "Historia!G14": -9.125,
+   "Historia!H14": -1.749,
+   "Historia!I14": 117.546,
+   "Historia!J14": 78.805,
+   "Historia!K14": 84.994,
+   "Historia!L14": -0.799,
+   "Historia!C15": 9.776,
+   "Historia!D15": 7.23,
+   "Historia!E15": 7.917,
+   "Historia!F15": 4.45,
+   "Historia!G15": 5.279,
+   "Historia!H15": 3.26,
+   "Historia!I15": 4.07,
+   "Historia!J15": 12.32,
+   "Historia!K15": 32.1,
+   "Historia!L15": 20.8,
+   "Historia!C21": 474.934,
+   "Historia!D21": 528.136,
+   "Historia!E21": 609.998,
+   "Historia!F21": 723.359,
+   "Historia!G21": 816.156,
+   "Historia!H21": 966.902,
+   "Historia!I21": 1033.624,
+   "Historia!J21": 1224.332,
+   "Historia!K21": 1309.83,
+   "Historia!L21": 1412.878,
+   "Historia!C22": 322.69,
+   "Historia!D22": 529.338,
+   "Historia!E22": 433.767,
+   "Historia!F22": 362.021,
+   "Historia!G22": 344.357,
+   "Historia!H22": 257.616,
+   "Historia!I22": 321.207,
+   "Historia!J22": 553.666,
+   "Historia!K22": 348.408,
+   "Historia!L22": 213.613,
+   "Historia!C23": 0,
+   "Historia!D23": 0,
+   "Historia!E23": 0,
+   "Historia!F23": 1.672,
+   "Historia!G23": 1.303,
+   "Historia!H23": 0,
+   "Historia!I23": 2.346,
+   "Historia!J23": 45.382,
+   "Historia!K23": 44.904,
+   "Historia!L23": 49.3,
+   "Historia!C24": 0.424,
+   "Historia!D24": 42.043,
+   "Historia!E24": 22.673,
+   "Historia!F24": 28.795,
+   "Historia!G24": 112.178,
+   "Historia!H24": 160.54,
+   "Historia!I24": 154.029,
+   "Historia!J24": 81.506,
+   "Historia!K24": 100.094,
+   "Historia!L24": 108.352,
+   "Historia!C25": 5.099,
+   "Historia!D25": 6.352,
+   "Historia!E25": 6.021,
+   "Historia!F25": 6.244,
+   "Historia!G25": 9.071,
+   "Historia!H25": 6.342,
+   "Historia!I25": 0.262,
+   "Historia!J25": 4.355,
+   "Historia!K25": 6.053,
+   "Historia!L25": 6.223,
+   "Historia!C26": 0,
+   "Historia!D26": 0,
+   "Historia!E26": 0,
+   "Historia!F26": 0,
+   "Historia!G26": 0,
+   "Historia!H26": 0,
+   "Historia!I26": 0,
+   "Historia!J26": 0,
+   "Historia!K26": 0,
+   "Historia!L26": 0,
+   "Palancas!C48": "EUR",
+   "Control maestro!H4": "EUR",
+   "Control maestro!D5": null,
+   "Control maestro!J4": "mm",
+   "Control maestro!L4": "IFRS",
+   "Análisis!C62": "No · financiación cambia mucho",
+   "Análisis!C56": 0.09,
+   "Palancas!C6": "Cíclica o materias primas",
+   "Palancas!C8": "Media del ciclo",
+   "Historia!C57": 3,
+   "Análisis!C51": "Sí",
+   "Palancas!B14": -0.015,
+   "Palancas!B15": 0.15,
+   "Palancas!B16": 0.7,
+   "Palancas!B18": 0.09,
+   "Análisis!B68": 0.01,
+   "Análisis!B69": 0.2,
+   "Palancas!C14": 0.015,
+   "Palancas!C15": 0.18,
+   "Palancas!C16": 0.9,
+   "Palancas!C18": 0.09,
+   "Análisis!C68": 0.02,
+   "Análisis!C69": 0.6,
+   "Palancas!D14": 0.035,
+   "Palancas!D15": 0.2,
+   "Palancas!D16": 1.1,
+   "Palancas!D18": 0.12,
+   "Análisis!D68": 0.025,
+   "Análisis!D69": 0.2,
+   "Palancas!C22": null,
+   "Palancas!C23": null,
+   "Análisis!C76": null,
+   "Palancas!C43": "No aplica",
+   "Palancas!C44": null,
+   "Palancas!C47": "Ninguna",
+   "Historia!C13": 0,
+   "Historia!D13": 235.233,
+   "Historia!E13": 0,
+   "Historia!F13": 0,
+   "Historia!G13": 0,
+   "Historia!H13": 0,
+   "Historia!I13": 0,
+   "Historia!J13": 254.086,
+   "Historia!K13": -224,
+   "Historia!L13": 0,
+   "Configuración V6.4!B4": "Experimental",
+   "Configuración V6.4!B11": 0.220541332769837,
+   "Configuración V6.4!B16": "Vinculado al tipo aplicado a NOPAT",
+   "Configuración V6.4!B21": 0.18546672136199518,
+   "Configuración V6.4!B28": "R1 · solo circulante; capacidad conservada",
+   "Configuración V6.4!B29": 252.454,
+   "Configuración V6.4!B30": 315.821,
+   "Configuración V6.4!B31": 352.841,
+   "Configuración V6.4!B36": "SR1 · suma con S2C reestimado",
+   "Configuración V6.4!B37": "Λ · (λ − 1) × amortización que se repone",
+   "Configuración V6.4!B38": 1.15,
+   "Configuración V6.4!B39": null,
+   "Configuración V6.4!B40": "Plana",
+   "Configuración V6.4!B41": "Proporcional a las ventas",
+   "Configuración V6.4!B42": "ROIC de la fase B sin cambio",
+   "Configuración V6.4!B43": "P0 · no se repone (explícito)",
+   "Configuración V6.4!B44": 4.492,
+   "Configuración V6.4!B45": 21.858,
+   "Configuración V6.4!B46": 0,
+   "Configuración V6.4!B47": 0,
+   "Configuración V6.4!B48": 0,
+   "Configuración V6.4!B49": 4.921,
+   "Configuración V6.4!B50": 4.492
+  },
+  "tipos": {
+   "Análisis!C37": "dato",
+   "Análisis!C41": "dato",
+   "Análisis!C55": "dato",
+   "Análisis!C46": "dato",
+   "Análisis!C47": "dato",
+   "Análisis!C48": "dato",
+   "Análisis!C49": "dato",
+   "Análisis!C50": "dato",
+   "Historia!C5": "dato",
+   "Historia!D5": "dato",
+   "Historia!E5": "dato",
+   "Historia!F5": "dato",
+   "Historia!G5": "dato",
+   "Historia!H5": "dato",
+   "Historia!I5": "dato",
+   "Historia!J5": "dato",
+   "Historia!K5": "dato",
+   "Historia!L5": "dato",
+   "Historia!C6": "dato",
+   "Historia!D6": "dato",
+   "Historia!E6": "dato",
+   "Historia!F6": "dato",
+   "Historia!G6": "dato",
+   "Historia!H6": "dato",
+   "Historia!I6": "dato",
+   "Historia!J6": "dato",
+   "Historia!K6": "dato",
+   "Historia!L6": "dato",
+   "Historia!C7": "dato",
+   "Historia!D7": "dato",
+   "Historia!E7": "dato",
+   "Historia!F7": "dato",
+   "Historia!G7": "dato",
+   "Historia!H7": "dato",
+   "Historia!I7": "dato",
+   "Historia!J7": "dato",
+   "Historia!K7": "dato",
+   "Historia!L7": "dato",
+   "Historia!C8": "dato",
+   "Historia!D8": "dato",
+   "Historia!E8": "dato",
+   "Historia!F8": "dato",
+   "Historia!G8": "dato",
+   "Historia!H8": "dato",
+   "Historia!I8": "dato",
+   "Historia!J8": "dato",
+   "Historia!K8": "dato",
+   "Historia!L8": "dato",
+   "Historia!C9": "dato",
+   "Historia!D9": "dato",
+   "Historia!E9": "dato",
+   "Historia!F9": "dato",
+   "Historia!G9": "dato",
+   "Historia!H9": "dato",
+   "Historia!I9": "dato",
+   "Historia!J9": "dato",
+   "Historia!K9": "dato",
+   "Historia!L9": "dato",
+   "Historia!C10": "dato",
+   "Historia!D10": "dato",
+   "Historia!E10": "dato",
+   "Historia!F10": "dato",
+   "Historia!G10": "dato",
+   "Historia!H10": "dato",
+   "Historia!I10": "dato",
+   "Historia!J10": "dato",
+   "Historia!K10": "dato",
+   "Historia!L10": "dato",
+   "Historia!C12": "dato",
+   "Historia!D12": "dato",
+   "Historia!E12": "dato",
+   "Historia!F12": "dato",
+   "Historia!G12": "dato",
+   "Historia!H12": "dato",
+   "Historia!I12": "dato",
+   "Historia!J12": "dato",
+   "Historia!K12": "dato",
+   "Historia!L12": "dato",
+   "Historia!C14": "dato",
+   "Historia!D14": "dato",
+   "Historia!E14": "dato",
+   "Historia!F14": "dato",
+   "Historia!G14": "dato",
+   "Historia!H14": "dato",
+   "Historia!I14": "dato",
+   "Historia!J14": "dato",
+   "Historia!K14": "dato",
+   "Historia!L14": "dato",
+   "Historia!C15": "dato",
+   "Historia!D15": "dato",
+   "Historia!E15": "dato",
+   "Historia!F15": "dato",
+   "Historia!G15": "dato",
+   "Historia!H15": "dato",
+   "Historia!I15": "dato",
+   "Historia!J15": "dato",
+   "Historia!K15": "dato",
+   "Historia!L15": "dato",
+   "Historia!C21": "dato",
+   "Historia!D21": "dato",
+   "Historia!E21": "dato",
+   "Historia!F21": "dato",
+   "Historia!G21": "dato",
+   "Historia!H21": "dato",
+   "Historia!I21": "dato",
+   "Historia!J21": "dato",
+   "Historia!K21": "dato",
+   "Historia!L21": "dato",
+   "Historia!C22": "dato",
+   "Historia!D22": "dato",
+   "Historia!E22": "dato",
+   "Historia!F22": "dato",
+   "Historia!G22": "dato",
+   "Historia!H22": "dato",
+   "Historia!I22": "dato",
+   "Historia!J22": "dato",
+   "Historia!K22": "dato",
+   "Historia!L22": "dato",
+   "Historia!C23": "dato",
+   "Historia!D23": "dato",
+   "Historia!E23": "dato",
+   "Historia!F23": "dato",
+   "Historia!G23": "dato",
+   "Historia!H23": "dato",
+   "Historia!I23": "dato",
+   "Historia!J23": "dato",
+   "Historia!K23": "dato",
+   "Historia!L23": "dato",
+   "Historia!C24": "dato",
+   "Historia!D24": "dato",
+   "Historia!E24": "dato",
+   "Historia!F24": "dato",
+   "Historia!G24": "dato",
+   "Historia!H24": "dato",
+   "Historia!I24": "dato",
+   "Historia!J24": "dato",
+   "Historia!K24": "dato",
+   "Historia!L24": "dato",
+   "Historia!C25": "dato",
+   "Historia!D25": "dato",
+   "Historia!E25": "dato",
+   "Historia!F25": "dato",
+   "Historia!G25": "dato",
+   "Historia!H25": "dato",
+   "Historia!I25": "dato",
+   "Historia!J25": "dato",
+   "Historia!K25": "dato",
+   "Historia!L25": "dato",
+   "Historia!C26": "dato",
+   "Historia!D26": "dato",
+   "Historia!E26": "dato",
+   "Historia!F26": "dato",
+   "Historia!G26": "dato",
+   "Historia!H26": "dato",
+   "Historia!I26": "dato",
+   "Historia!J26": "dato",
+   "Historia!K26": "dato",
+   "Historia!L26": "dato",
+   "Palancas!C48": "dato",
+   "Control maestro!H4": "dato",
+   "Control maestro!D5": "dato",
+   "Control maestro!J4": "dato",
+   "Control maestro!L4": "dato",
+   "Análisis!C62": "hipótesis",
+   "Análisis!C56": "hipótesis",
+   "Palancas!C6": "hipótesis",
+   "Palancas!C8": "hipótesis",
+   "Historia!C57": "hipótesis",
+   "Análisis!C51": "hipótesis",
+   "Palancas!B14": "hipótesis",
+   "Palancas!B15": "hipótesis",
+   "Palancas!B16": "hipótesis",
+   "Palancas!B18": "hipótesis",
+   "Análisis!B68": "hipótesis",
+   "Análisis!B69": "hipótesis",
+   "Palancas!C14": "hipótesis",
+   "Palancas!C15": "hipótesis",
+   "Palancas!C16": "hipótesis",
+   "Palancas!C18": "hipótesis",
+   "Análisis!C68": "hipótesis",
+   "Análisis!C69": "hipótesis",
+   "Palancas!D14": "hipótesis",
+   "Palancas!D15": "hipótesis",
+   "Palancas!D16": "hipótesis",
+   "Palancas!D18": "hipótesis",
+   "Análisis!D68": "hipótesis",
+   "Análisis!D69": "hipótesis",
+   "Palancas!C22": "hipótesis",
+   "Palancas!C23": "hipótesis",
+   "Análisis!C76": "hipótesis",
+   "Palancas!C43": "hipótesis",
+   "Palancas!C44": "hipótesis",
+   "Palancas!C47": "hipótesis",
+   "Historia!C13": "dato",
+   "Historia!D13": "dato",
+   "Historia!E13": "dato",
+   "Historia!F13": "dato",
+   "Historia!G13": "dato",
+   "Historia!H13": "dato",
+   "Historia!I13": "dato",
+   "Historia!J13": "dato",
+   "Historia!K13": "dato",
+   "Historia!L13": "dato",
+   "Configuración V6.4!B4": "configuracion",
+   "Configuración V6.4!B11": "configuracion",
+   "Configuración V6.4!B16": "configuracion",
+   "Configuración V6.4!B21": "configuracion",
+   "Configuración V6.4!B28": "configuracion",
+   "Configuración V6.4!B29": "configuracion",
+   "Configuración V6.4!B30": "configuracion",
+   "Configuración V6.4!B31": "configuracion",
+   "Configuración V6.4!B36": "configuracion",
+   "Configuración V6.4!B37": "configuracion",
+   "Configuración V6.4!B38": "configuracion",
+   "Configuración V6.4!B39": "configuracion",
+   "Configuración V6.4!B40": "configuracion",
+   "Configuración V6.4!B41": "configuracion",
+   "Configuración V6.4!B42": "configuracion",
+   "Configuración V6.4!B43": "configuracion",
+   "Configuración V6.4!B44": "configuracion",
+   "Configuración V6.4!B45": "configuracion",
+   "Configuración V6.4!B46": "configuracion",
+   "Configuración V6.4!B47": "configuracion",
+   "Configuración V6.4!B48": "configuracion",
+   "Configuración V6.4!B49": "configuracion",
+   "Configuración V6.4!B50": "configuracion"
+  },
+  "ids": {
+   "Análisis!C37": "precio",
+   "Análisis!C41": "capitalizacion",
+   "Análisis!C55": "acciones",
+   "Análisis!C46": "cfo_media",
+   "Análisis!C47": "capex_media",
+   "Análisis!C48": "int_fin_media",
+   "Análisis!C49": "leases_media",
+   "Análisis!C50": "sbc_media",
+   "Historia!C5": "h_anios",
+   "Historia!D5": "h_anios",
+   "Historia!E5": "h_anios",
+   "Historia!F5": "h_anios",
+   "Historia!G5": "h_anios",
+   "Historia!H5": "h_anios",
+   "Historia!I5": "h_anios",
+   "Historia!J5": "h_anios",
+   "Historia!K5": "h_anios",
+   "Historia!L5": "h_anios",
+   "Historia!C6": "h_ventas",
+   "Historia!D6": "h_ventas",
+   "Historia!E6": "h_ventas",
+   "Historia!F6": "h_ventas",
+   "Historia!G6": "h_ventas",
+   "Historia!H6": "h_ventas",
+   "Historia!I6": "h_ventas",
+   "Historia!J6": "h_ventas",
+   "Historia!K6": "h_ventas",
+   "Historia!L6": "h_ventas",
+   "Historia!C7": "h_ebit",
+   "Historia!D7": "h_ebit",
+   "Historia!E7": "h_ebit",
+   "Historia!F7": "h_ebit",
+   "Historia!G7": "h_ebit",
+   "Historia!H7": "h_ebit",
+   "Historia!I7": "h_ebit",
+   "Historia!J7": "h_ebit",
+   "Historia!K7": "h_ebit",
+   "Historia!L7": "h_ebit",
+   "Historia!C8": "h_da",
+   "Historia!D8": "h_da",
+   "Historia!E8": "h_da",
+   "Historia!F8": "h_da",
+   "Historia!G8": "h_da",
+   "Historia!H8": "h_da",
+   "Historia!I8": "h_da",
+   "Historia!J8": "h_da",
+   "Historia!K8": "h_da",
+   "Historia!L8": "h_da",
+   "Historia!C9": "h_beneficio",
+   "Historia!D9": "h_beneficio",
+   "Historia!E9": "h_beneficio",
+   "Historia!F9": "h_beneficio",
+   "Historia!G9": "h_beneficio",
+   "Historia!H9": "h_beneficio",
+   "Historia!I9": "h_beneficio",
+   "Historia!J9": "h_beneficio",
+   "Historia!K9": "h_beneficio",
+   "Historia!L9": "h_beneficio",
+   "Historia!C10": "h_tipo",
+   "Historia!D10": "h_tipo",
+   "Historia!E10": "h_tipo",
+   "Historia!F10": "h_tipo",
+   "Historia!G10": "h_tipo",
+   "Historia!H10": "h_tipo",
+   "Historia!I10": "h_tipo",
+   "Historia!J10": "h_tipo",
+   "Historia!K10": "h_tipo",
+   "Historia!L10": "h_tipo",
+   "Historia!C12": "h_capex",
+   "Historia!D12": "h_capex",
+   "Historia!E12": "h_capex",
+   "Historia!F12": "h_capex",
+   "Historia!G12": "h_capex",
+   "Historia!H12": "h_capex",
+   "Historia!I12": "h_capex",
+   "Historia!J12": "h_capex",
+   "Historia!K12": "h_capex",
+   "Historia!L12": "h_capex",
+   "Historia!C14": "h_circulante",
+   "Historia!D14": "h_circulante",
+   "Historia!E14": "h_circulante",
+   "Historia!F14": "h_circulante",
+   "Historia!G14": "h_circulante",
+   "Historia!H14": "h_circulante",
+   "Historia!I14": "h_circulante",
+   "Historia!J14": "h_circulante",
+   "Historia!K14": "h_circulante",
+   "Historia!L14": "h_circulante",
+   "Historia!C15": "h_intereses",
+   "Historia!D15": "h_intereses",
+   "Historia!E15": "h_intereses",
+   "Historia!F15": "h_intereses",
+   "Historia!G15": "h_intereses",
+   "Historia!H15": "h_intereses",
+   "Historia!I15": "h_intereses",
+   "Historia!J15": "h_intereses",
+   "Historia!K15": "h_intereses",
+   "Historia!L15": "h_intereses",
+   "Historia!C21": "h_patrimonio",
+   "Historia!D21": "h_patrimonio",
+   "Historia!E21": "h_patrimonio",
+   "Historia!F21": "h_patrimonio",
+   "Historia!G21": "h_patrimonio",
+   "Historia!H21": "h_patrimonio",
+   "Historia!I21": "h_patrimonio",
+   "Historia!J21": "h_patrimonio",
+   "Historia!K21": "h_patrimonio",
+   "Historia!L21": "h_patrimonio",
+   "Historia!C22": "h_deuda",
+   "Historia!D22": "h_deuda",
+   "Historia!E22": "h_deuda",
+   "Historia!F22": "h_deuda",
+   "Historia!G22": "h_deuda",
+   "Historia!H22": "h_deuda",
+   "Historia!I22": "h_deuda",
+   "Historia!J22": "h_deuda",
+   "Historia!K22": "h_deuda",
+   "Historia!L22": "h_deuda",
+   "Historia!C23": "h_arrend",
+   "Historia!D23": "h_arrend",
+   "Historia!E23": "h_arrend",
+   "Historia!F23": "h_arrend",
+   "Historia!G23": "h_arrend",
+   "Historia!H23": "h_arrend",
+   "Historia!I23": "h_arrend",
+   "Historia!J23": "h_arrend",
+   "Historia!K23": "h_arrend",
+   "Historia!L23": "h_arrend",
+   "Historia!C24": "h_caja",
+   "Historia!D24": "h_caja",
+   "Historia!E24": "h_caja",
+   "Historia!F24": "h_caja",
+   "Historia!G24": "h_caja",
+   "Historia!H24": "h_caja",
+   "Historia!I24": "h_caja",
+   "Historia!J24": "h_caja",
+   "Historia!K24": "h_caja",
+   "Historia!L24": "h_caja",
+   "Historia!C25": "h_pensiones",
+   "Historia!D25": "h_pensiones",
+   "Historia!E25": "h_pensiones",
+   "Historia!F25": "h_pensiones",
+   "Historia!G25": "h_pensiones",
+   "Historia!H25": "h_pensiones",
+   "Historia!I25": "h_pensiones",
+   "Historia!J25": "h_pensiones",
+   "Historia!K25": "h_pensiones",
+   "Historia!L25": "h_pensiones",
+   "Historia!C26": "h_minoritarios",
+   "Historia!D26": "h_minoritarios",
+   "Historia!E26": "h_minoritarios",
+   "Historia!F26": "h_minoritarios",
+   "Historia!G26": "h_minoritarios",
+   "Historia!H26": "h_minoritarios",
+   "Historia!I26": "h_minoritarios",
+   "Historia!J26": "h_minoritarios",
+   "Historia!K26": "h_minoritarios",
+   "Historia!L26": "h_minoritarios",
+   "Palancas!C48": "moneda_cotizacion",
+   "Control maestro!H4": "moneda_modelo",
+   "Control maestro!D5": "ratio_adr",
+   "Control maestro!J4": "unidad",
+   "Control maestro!L4": "norma",
+   "Análisis!C62": "motor",
+   "Análisis!C56": "r",
+   "Palancas!C6": "caso_especial",
+   "Palancas!C8": "base_margen",
+   "Historia!C57": "anios_f",
+   "Análisis!C51": "restar_sbc",
+   "Palancas!B14": "crec_MALO",
+   "Palancas!B15": "margen_MALO",
+   "Palancas!B16": "s2c_MALO",
+   "Palancas!B18": "roic_MALO",
+   "Análisis!B68": "g_MALO",
+   "Análisis!B69": "prob_MALO",
+   "Palancas!C14": "crec_NORMAL",
+   "Palancas!C15": "margen_NORMAL",
+   "Palancas!C16": "s2c_NORMAL",
+   "Palancas!C18": "roic_NORMAL",
+   "Análisis!C68": "g_NORMAL",
+   "Análisis!C69": "prob_NORMAL",
+   "Palancas!D14": "crec_BUENO",
+   "Palancas!D15": "margen_BUENO",
+   "Palancas!D16": "s2c_BUENO",
+   "Palancas!D18": "roic_BUENO",
+   "Análisis!D68": "g_BUENO",
+   "Análisis!D69": "prob_BUENO",
+   "Palancas!C22": "p_quiebra",
+   "Palancas!C23": "recuperacion",
+   "Análisis!C76": "exceso_caja",
+   "Palancas!C43": "naturaleza_fcf",
+   "Palancas!C44": "fcf_normalizado",
+   "Palancas!C47": "causa_desviacion",
+   "Historia!C13": "h_adquisiciones",
+   "Historia!D13": "h_adquisiciones",
+   "Historia!E13": "h_adquisiciones",
+   "Historia!F13": "h_adquisiciones",
+   "Historia!G13": "h_adquisiciones",
+   "Historia!H13": "h_adquisiciones",
+   "Historia!I13": "h_adquisiciones",
+   "Historia!J13": "h_adquisiciones",
+   "Historia!K13": "h_adquisiciones",
+   "Historia!L13": "h_adquisiciones",
+   "Configuración V6.4!B4": "modo",
+   "Configuración V6.4!B11": "N1.tipo",
+   "Configuración V6.4!B16": "N1.escudo",
+   "Configuración V6.4!B21": "N2.margen",
+   "Configuración V6.4!B28": "N3.regla",
+   "Configuración V6.4!B29": "N3.circulante",
+   "Configuración V6.4!B30": "N3.circulante",
+   "Configuración V6.4!B31": "N3.circulante",
+   "Configuración V6.4!B36": "PM1.estructura",
+   "Configuración V6.4!B37": "PM1.familia",
+   "Configuración V6.4!B38": "PM1.parametro",
+   "Configuración V6.4!B39": "PM1.parametro",
+   "Configuración V6.4!B40": "PM1.convencion_anios",
+   "Configuración V6.4!B41": "PM1.convencion_terminal",
+   "Configuración V6.4!B42": "PM1.roic_terminal",
+   "Configuración V6.4!B43": "PM1.cartera",
+   "Configuración V6.4!B44": "PM1.cartera",
+   "Configuración V6.4!B45": "PM1.cartera",
+   "Configuración V6.4!B46": "PM1.cartera",
+   "Configuración V6.4!B47": "PM1.cartera",
+   "Configuración V6.4!B48": "PM1.cartera",
+   "Configuración V6.4!B49": "PM1.cartera",
+   "Configuración V6.4!B50": "PM1.cartera"
+  },
+  "nota": "entradas materiales de la valoración y de la lectura del precio (relación independiente de la V6.3) y, en la V6.4, las de «Configuración V6.4» sin sus metadatos; los textos de juicio, las predicciones, la evidencia y la trazabilidad no entran (son editoriales)",
+  "version": "4.12+H13"
+ },
+ "configuracion_huella_economica": "e9bf4676b7fc7eb50289a937f7b1e1fcdf99a49f8938b99cc1c4283fc7c79f2f",
+ "vector_escenarios_activa": {
+  "V": [
+   44.3217226721019,
+   60.1901164149973,
+   78.4785189164147
+  ],
+  "probabilidades": [
+   0.2,
+   0.6,
+   0.2
+  ],
+  "ponderado": 60.6741181667017,
+  "precio_si": 56.002005168244615,
+  "precio": 90.1,
+  "zona": "caro"
+ },
+ "avisos_de_dominio": [
+  {
+   "id": "inversion_fija_para_crecer_negativa",
+   "activo": false,
+   "valores": {
+    "negativos": [],
+    "nwc_efectivo": 0.147037866171613,
+    "f_s2c": 1.15874757336707,
+    "s2c_por_f": {
+     "MALO": 0.811123301356949,
+     "NORMAL": 1.042872816030363,
+     "BUENO": 1.2746223307037772
+    },
+    "uno_entre_nwc": 6.8009692063462435
+   },
+   "motivo": "la inversión fija para crecer sale negativa cuando S2C·f > 1 ÷ NWC: el modelo liberaría capital fijo al crecer (dominio declarado en la 4.11, H13)"
+  },
+  {
+   "id": "factor_de_reestimacion",
+   "activo": null,
+   "valores": {
+    "f": 1.15874757336707,
+    "estructura": "SR1",
+    "f_s2c": 1.15874757336707,
+    "f_roic": 1,
+    "f_fija": 1,
+    "D_hist": 547.677,
+    "Rh": 75.03135,
+    "D_hist_menos_Rh": 472.64565000000005,
+    "lambda": 1.15,
+    "lambda_en_que_f_deja_de_estar_definida": 2.0948963333326667
+   },
+   "motivo": "f = D_hist ÷ (D_hist − Rh) no tiene cota superior adoptada: el S2C y el ROIC reestimados pierden sentido mucho antes de que f deje de estar definida (4.11, H13). Se muestra siempre que la estructura reestima (SR1, SR2, SRF); no hay umbral"
+  },
+  {
+   "id": "terminal_r1_sin_maximo_conservado",
+   "activo": true,
+   "valores": {
+    "regla": "R1",
+    "escenarios": [
+     {
+      "escenario": "MALO",
+      "ventas_anio_10": 1358.35071893599,
+      "maximo_conservado": 1465.16,
+      "inversion_fija_terminal": 15.8254771448017
+     }
+    ]
+   },
+   "motivo": "con R1, el terminal carga la inversión fija para crecer al ritmo g aunque las ventas del año 10 sigan por debajo del máximo conservado (definición prudente de la 4.7.1/4.8.1; la regla del máximo no se aplica en el terminal)"
+  },
+  {
+   "id": "s2c_inerte",
+   "activo": true,
+   "valores": {
+    "regla": "R1",
+    "escenarios": [
+     {
+      "escenario": "MALO",
+      "s2c": 0.7,
+      "ventas_maximas_anios_1_10": 1443.1826,
+      "maximo_conservado": 1465.16
+     }
+    ]
+   },
+   "motivo": "con R1, en un escenario cuyas ventas no superan el máximo conservado en ningún año 1–10, la inversión fija para crecer es 0 y la palanca S2C de ese escenario no actúa en esos años (4.11, H12)"
+  }
+ ],
+ "avisos_de_dominio_variantes": {
+  "inversion_fija_para_crecer_negativa": {
+   "variantes": [
+    "solo_N1",
+    "solo_N2",
+    "activa_R0_sin_PM1"
+   ],
+   "lecturas": [],
+   "en_la_activa": false,
+   "afecta": [
+    "extremo superior del rango calculado del precio de Sí",
+    "interior del rango calculado"
+   ],
+   "conclusiones": [
+    "objetivo (rango calculado)"
+   ],
+   "valores_por_variante": {
+    "solo_N1": {
+     "negativos": [
+      {
+       "escenario": "MALO",
+       "anio": 1,
+       "valor": -31.3962857142857
+      },
+      {
+       "escenario": "MALO",
+       "anio": 2,
+       "valor": -30.9253414285714
+      },
+      {
+       "escenario": "MALO",
+       "anio": 3,
+       "valor": -30.4614613071427
+      },
+      {
+       "escenario": "MALO",
+       "anio": 4,
+       "valor": -30.0045393875358
+      },
+      {
+       "escenario": "MALO",
+       "anio": 5,
+       "valor": -29.5544712967226
+      },
+      {
+       "escenario": "MALO",
+       "anio": 6,
+       "valor": -19.4074361515147
+      },
+      {
+       "escenario": "MALO",
+       "anio": 7,
+       "valor": -9.6066808949997
+      }
+     ],
+     "nwc_efectivo": 0,
+     "f_s2c": 1,
+     "s2c_por_f": {
+      "MALO": 0.7,
+      "NORMAL": 0.9,
+      "BUENO": 1.1
+     },
+     "uno_entre_nwc": null
+    },
+    "solo_N2": {
+     "negativos": [
+      {
+       "escenario": "MALO",
+       "anio": 1,
+       "valor": -31.3962857142857
+      },
+      {
+       "escenario": "MALO",
+       "anio": 2,
+       "valor": -30.9253414285714
+      },
+      {
+       "escenario": "MALO",
+       "anio": 3,
+       "valor": -30.4614613071427
+      },
+      {
+       "escenario": "MALO",
+       "anio": 4,
+       "valor": -30.0045393875358
+      },
+      {
+       "escenario": "MALO",
+       "anio": 5,
+       "valor": -29.5544712967226
+      },
+      {
+       "escenario": "MALO",
+       "anio": 6,
+       "valor": -19.4074361515147
+      },
+      {
+       "escenario": "MALO",
+       "anio": 7,
+       "valor": -9.6066808949997
+      }
+     ],
+     "nwc_efectivo": 0,
+     "f_s2c": 1,
+     "s2c_por_f": {
+      "MALO": 0.7,
+      "NORMAL": 0.9,
+      "BUENO": 1.1
+     },
+     "uno_entre_nwc": null
+    },
+    "activa_R0_sin_PM1": {
+     "negativos": [
+      {
+       "escenario": "MALO",
+       "anio": 1,
+       "valor": -31.3962857142857
+      },
+      {
+       "escenario": "MALO",
+       "anio": 2,
+       "valor": -30.9253414285714
+      },
+      {
+       "escenario": "MALO",
+       "anio": 3,
+       "valor": -30.4614613071427
+      },
+      {
+       "escenario": "MALO",
+       "anio": 4,
+       "valor": -30.0045393875358
+      },
+      {
+       "escenario": "MALO",
+       "anio": 5,
+       "valor": -29.5544712967226
+      },
+      {
+       "escenario": "MALO",
+       "anio": 6,
+       "valor": -19.4074361515147
+      },
+      {
+       "escenario": "MALO",
+       "anio": 7,
+       "valor": -9.6066808949997
+      }
+     ],
+     "nwc_efectivo": 0,
+     "f_s2c": 1,
+     "s2c_por_f": {
+      "MALO": 0.7,
+      "NORMAL": 0.9,
+      "BUENO": 1.1
+     },
+     "uno_entre_nwc": null
+    }
+   }
+  },
+  "factor_de_reestimacion": {
+   "variantes": [],
+   "lecturas": [
+    "activa",
+    "activa_sin_N1",
+    "escudo_alternativo",
+    "activa_sin_N2",
+    "cartera_legado",
+    "estructura_SR2",
+    "estructura_SRF",
+    "parametro_minimo",
+    "parametro_maximo",
+    "convencion_anios_alternativa",
+    "convencion_terminal_alternativa"
+   ],
+   "en_la_activa": true,
+   "afecta": [
+    "valor de la activa (precio de Sí y ponderado)",
+    "extremo inferior del rango calculado del precio de Sí",
+    "interior del rango calculado"
+   ],
+   "conclusiones": [
+    "objetivo (rango calculado)"
+   ],
+   "valores_por_variante": {
+    "activa": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "activa_sin_N1": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "escudo_alternativo": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "activa_sin_N2": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "cartera_legado": {
+     "f": 1.16552592813618,
+     "estructura": "SR1",
+     "D_hist": 538.264,
+     "Rh": 76.4433,
+     "lambda": 1.15
+    },
+    "estructura_SR2": {
+     "f": 1.15874757336707,
+     "estructura": "SR2",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "estructura_SRF": {
+     "f": 1,
+     "estructura": "SRF",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "parametro_minimo": {
+     "f": 1.10051298477,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 50.0209,
+     "lambda": 1.1
+    },
+    "parametro_maximo": {
+     "f": 1.295894289201,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 125.05225,
+     "lambda": 1.25
+    },
+    "convencion_anios_alternativa": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    },
+    "convencion_terminal_alternativa": {
+     "f": 1.15874757336707,
+     "estructura": "SR1",
+     "D_hist": 547.677,
+     "Rh": 75.03135,
+     "lambda": 1.15
+    }
+   },
+   "f_minimo": 1,
+   "f_maximo": 1.295894289201
+  },
+  "terminal_r1_sin_maximo_conservado": {
+   "variantes": [
+    "activa",
+    "solo_R1",
+    "activa_sin_N1",
+    "escudo_alternativo",
+    "activa_sin_N2",
+    "cartera_legado",
+    "activa_sin_PM1",
+    "activa_solo_P0",
+    "estructura_H",
+    "estructura_S",
+    "estructura_SR2",
+    "estructura_SRF",
+    "parametro_minimo",
+    "parametro_maximo",
+    "convencion_anios_alternativa",
+    "convencion_terminal_alternativa"
+   ],
+   "lecturas": [],
+   "en_la_activa": true,
+   "afecta": [
+    "valor de la activa (precio de Sí y ponderado)",
+    "extremo inferior del rango calculado del precio de Sí",
+    "interior del rango calculado"
+   ],
+   "conclusiones": [
+    "objetivo (rango calculado)"
+   ],
+   "valores_por_variante": {
+    "activa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "solo_R1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 16.2878494535485
+      }
+     ]
+    },
+    "activa_sin_N1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 16.2878494535485
+      }
+     ]
+    },
+    "escudo_alternativo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "activa_sin_N2": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "cartera_legado": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "activa_sin_PM1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "activa_solo_P0": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "estructura_H": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "estructura_S": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "estructura_SR2": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 13.3837710424345
+      }
+     ]
+    },
+    "estructura_SRF": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 11.4093550287327
+      }
+     ]
+    },
+    "parametro_minimo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "parametro_maximo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "convencion_anios_alternativa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    },
+    "convencion_terminal_alternativa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "ventas_anio_10": 1358.35071893599,
+       "maximo_conservado": 1465.16,
+       "inversion_fija_terminal": 15.8254771448017
+      }
+     ]
+    }
+   }
+  },
+  "s2c_inerte": {
+   "variantes": [
+    "activa",
+    "solo_R1",
+    "activa_sin_N1",
+    "escudo_alternativo",
+    "activa_sin_N2",
+    "cartera_legado",
+    "activa_sin_PM1",
+    "activa_solo_P0",
+    "estructura_H",
+    "estructura_S",
+    "estructura_SR2",
+    "estructura_SRF",
+    "parametro_minimo",
+    "parametro_maximo",
+    "convencion_anios_alternativa",
+    "convencion_terminal_alternativa"
+   ],
+   "lecturas": [],
+   "en_la_activa": true,
+   "afecta": [
+    "valor de la activa (precio de Sí y ponderado)",
+    "extremo inferior del rango calculado del precio de Sí",
+    "interior del rango calculado"
+   ],
+   "conclusiones": [
+    "objetivo (rango calculado)"
+   ],
+   "valores_por_variante": {
+    "activa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "solo_R1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "activa_sin_N1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "escudo_alternativo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "activa_sin_N2": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "cartera_legado": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "activa_sin_PM1": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "activa_solo_P0": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "estructura_H": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "estructura_S": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "estructura_SR2": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "estructura_SRF": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "parametro_minimo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "parametro_maximo": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "convencion_anios_alternativa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    },
+    "convencion_terminal_alternativa": {
+     "regla": "R1",
+     "escenarios": [
+      {
+       "escenario": "MALO",
+       "s2c": 0.7,
+       "ventas_maximas_anios_1_10": 1443.1826,
+       "maximo_conservado": 1465.16
+      }
+     ]
+    }
+   }
+  }
+ },
+ "nota": "Variantes mecánicas de la configuración económica (encargo 4.11). Ninguna se elige ni se adopta; la materialidad la evalúa la fase C. «No cambia la zona» solo vale para estas variantes calculadas."
+}

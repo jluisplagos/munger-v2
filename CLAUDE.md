@@ -2,7 +2,7 @@
 
 Idioma: español claro.
 Leer primero README.md, docs/MIGRATION_STATUS.json y la revisión externa de docs/.
-Esta copia está incompleta hasta que tools/base_414.py verify --git-only confirme complete:true.
+La base histórica está completa: 5790 archivos de texto en Git y los 1008 binarios dentro del ZIP original de la Release base-4.14. La descarga y los 6798 archivos del manifiesto se verificaron. Confirmar la materialización local con tools/base_414.py verify antes de ejecutar el pipeline.
 No declarar completa la migración ni iniciar el pipeline financiero por el mero hecho de poder leer este repositorio.
 
 La versión de referencia es 4.14, experimental supervisada; no apta para dinero real.
@@ -32,4 +32,4 @@ El encargo correctivo vigente pegado por la persona responsable prevalece sobre 
 
 No interrumpir el encargo que ya corre en otra sesión de Claude. Las correcciones aún en curso no se han importado. Esperar su entrega final y conservarla; después importar como nueva versión sobre una copia completa, nunca sobrescribirla con la base histórica.
 
-Para recuperar los binarios históricos, leer la sección de archivos pesados del README. Para una nueva entrega, seguir docs/RECEPCION_ENTREGA_CLAUDE.md. El ZIP de recuperación parcial y sus herramientas son exclusivos de la base 4.14.
+Para recuperar los binarios históricos, leer la sección de archivos pesados del README. Para una nueva entrega, seguir docs/RECEPCION_ENTREGA_CLAUDE.md. Usar el ZIP original completo de la Release base-4.14; la alternativa de recuperación parcial quedó sustituida. Las herramientas de recuperación son exclusivas de la base histórica 4.14.
