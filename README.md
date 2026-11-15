@@ -50,3 +50,9 @@ La integración GitHub del chat permite consultar archivos; la ejecución y el g
 No añadir credenciales al repositorio. LibreOffice y los pipelines que lo usan van en secuencia. Mantener originales, fuentes y evidencias; no reactivar aprobaciones retiradas ni aceptar una auditoría de material distinto.
 
 Los registros históricos de la migración parcial se conservan para trazabilidad. `baselines/4.14_assets.json` y `tools/restore_assets_414.py` describen una alternativa parcial que no llegó a subirse: queda sustituida por el ZIP original completo de la Release.
+
+## Revisión intermedia recibida: 4.15, hito 1
+
+La rama [revision/4.15-hito1](https://github.com/jluisplagos/munger-v2/tree/revision/4.15-hito1) conserva el parche recibido de Claude y su revisión externa. El informe está en [REVISION.md](https://github.com/jluisplagos/munger-v2/blob/revision/4.15-hito1/docs/revision_externa_4_15_hito1/REVISION.md), con [mensaje completo para Claude](https://github.com/jluisplagos/munger-v2/blob/revision/4.15-hito1/docs/revision_externa_4_15_hito1/PROMPT_PARA_CLAUDE.md).
+
+Resultado: 7004 archivos contrastados, 178 pruebas dirigidas superadas y ocho reconstrucciones repetidas; queda un hallazgo importante sobre el signo de las cifras publicadas y los límites declarados del hito. La rama no está fusionada con main. Las correcciones actuales de Claude continúan aparte.
