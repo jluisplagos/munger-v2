@@ -277,6 +277,23 @@ paso("B", "(h8a; N5; N7) descarta C42 y reconoce el resto con su motivo: C42 fue
      and json.load(open(os.path.join(ens, "Elis", "entrada_efectiva.json"), encoding="utf-8"))["modo"] == "registrada", out.strip()[-200:] if rc else sorted(regb.get("analisis_heredadas_conservadas") or {}))
 rc, out, ens = preparar2("b_reg", analisis_que_se_conservan={c: "(prueba)" for c in mA}, entrada_efectiva={"modo": "registrada"})
 paso("B", "(N7) modo «registrada» sin motivo: rechazado", rc != 0 and "sin motivo" in out, out.strip()[-160:])
+# (4.15, hito 2, H-P1/X2) textos declarativos del Control maestro (F5 y C86:E102) que la etapa 1 trae desfasados: el CAMBIO los declara, pasan a
+# las entradas declaradas (fase1_metadatos.json → fase1_v63.json) y rellenar_fase1_v63.py los escribe guardando el anterior; otra celda se avisa
+TX = {"F5": "(prueba X2) Periodo usado en medias DCF: 2023–2025", "C90": "(prueba X2) texto de la lista de comprobación de la base nueva", "Z1": "(prueba X2) no admitida"}
+rc, out, ens = preparar2("b_textos", analisis_que_se_conservan={c: "(prueba)" for c in mA}, control_maestro_textos=TX)
+mt = json.load(open(os.path.join(ens, "Elis", "fase1_metadatos.json"), encoding="utf-8")) if rc == 0 else {}
+ft = json.load(open(os.path.join(ens, "Elis", "fase1_v63.json"), encoding="utf-8")) if rc == 0 else {}
+ok_x2 = rc == 0 and (mt.get("control_maestro_textos") or {}) == TX and (ft.get("control_maestro_textos") or {}) == TX
+if ok_x2:
+    outx = os.path.join(TMP, "x2.xlsx")
+    rcx, txtx = rellenar(base, os.path.join(ens, "Elis", "fase1_v63.json"), outx)
+    regx = json.load(open(outx + ".fase1.registro.json", encoding="utf-8")) if os.path.exists(outx + ".fase1.registro.json") else {}
+    sust = {x["celda"] for x in regx.get("evidencias_sustituidas") or []}
+    lx = LibroV63(outx) if os.path.exists(outx) else None
+    ok_x2 = (rcx == 0 and {"Control maestro!F5", "Control maestro!C90"} <= sust and lx is not None and lx.leer("Control maestro", "F5") == TX["F5"]
+             and lx.leer("Control maestro", "C90") == TX["C90"] and any("Z1" in x for x in regx.get("avisos") or []))
+paso("B", "(hito 2, H-P1/X2) textos del Control maestro declarados en el CAMBIO: llegan a fase1_metadatos.json y fase1_v63.json, rellenar los escribe en F5 y C90 "
+          "guardando el anterior en su registro, y una celda fuera de F5 y C86:E102 se avisa e ignora", ok_x2, out.strip()[-160:] if rc else "")
 # ------------------------------------------------------------------ P · modo de la entrada efectiva en el pipeline (N7)
 import pipeline as PL  # noqa: E402
 dP = os.path.join(TMP, "modo")
