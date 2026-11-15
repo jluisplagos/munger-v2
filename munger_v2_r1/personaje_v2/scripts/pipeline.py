@@ -99,18 +99,37 @@ def modo_entrada_efectiva(carpeta):
             raise ValueError("el modo «registrada» exige su motivo")
         if meta_modo is not None and meta_modo != d["modo"]:
             raise ValueError(f"entrada_efectiva.json dice {d['modo']!r} y fase1_metadatos.json registra {meta_modo!r}")
+        if d["modo"] == "registrada" and _alcance_modo(carpeta) == "estricta":
+            # (4.15, hito 2, U6 c) dos declaraciones contradictorias: no gana la permisiva en silencio
+            raise ValueError("entrada_efectiva.json dice «registrada» y alcance_v2.json declara «estricta»: declaraciones contradictorias")
         return d["modo"], "entrada_efectiva.json"
-    pa = os.path.join(carpeta, "alcance_v2.json")
-    if os.path.exists(pa):
-        try:
-            a = json.load(open(pa, encoding="utf-8"))
-        except (OSError, ValueError):
-            a = None  # un alcance ilegible lo trata cierre_v2.alcance; aquí solo importa la clave
-        if isinstance(a, dict) and "entrada_efectiva" in a:
-            if a["entrada_efectiva"] != "estricta":  # (T5) una errata no deja el modo en «registrada» en silencio
-                raise ValueError(f"alcance_v2.json declara «entrada_efectiva»: {a['entrada_efectiva']!r}; el único valor admitido es «estricta»")
-            return "estricta", "alcance_v2.json"
+    if _alcance_modo(carpeta) == "estricta":
+        return "estricta", "alcance_v2.json"
     return "registrada", None
+
+
+def _alcance_modo(carpeta):
+    """(4.15, hito 2, U6 b) «estricta» si alcance_v2.json la declara; None si no declara nada. Falla en cerrado (ValueError) si el alcance
+    existe pero no se puede leer o no es un objeto, si la clave lleva otro valor o si una clave es una errata de «entrada_efectiva»
+    («entrada_efectiba», «Entrada-Efectiva»…): antes, cualquiera de esos casos dejaba el modo en «registrada» en silencio."""
+    import difflib
+    pa = os.path.join(carpeta, "alcance_v2.json")
+    if not os.path.exists(pa):
+        return None
+    try:
+        a = json.load(open(pa, encoding="utf-8"))
+    except (OSError, ValueError) as ex:
+        raise ValueError(f"alcance_v2.json no se puede leer ({type(ex).__name__}): no se puede determinar el modo de la entrada efectiva") from None
+    if not isinstance(a, dict):
+        raise ValueError("alcance_v2.json no es un objeto: no se puede determinar el modo de la entrada efectiva")
+    parecidas = [k for k in a if k != "entrada_efectiva" and difflib.SequenceMatcher(None, re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva").ratio() >= 0.8]
+    if parecidas:
+        raise ValueError(f"alcance_v2.json tiene la clave {parecidas[0]!r}, que parece una errata de «entrada_efectiva»")
+    if "entrada_efectiva" in a:
+        if a["entrada_efectiva"] != "estricta":  # (T5) una errata no deja el modo en «registrada» en silencio
+            raise ValueError(f"alcance_v2.json declara «entrada_efectiva»: {a['entrada_efectiva']!r}; el único valor admitido es «estricta»")
+        return "estricta"
+    return None
 
 class Pipeline:
     def __init__(self, carpeta, cfg, simulados=None):

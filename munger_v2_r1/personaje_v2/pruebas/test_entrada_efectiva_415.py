@@ -308,6 +308,26 @@ json.dump({"tipo": "ensayo_exploratorio", "aviso": "x", "fuente": "x", "entrada_
 e_alc = error(lambda: PL.modo_entrada_efectiva(dP))
 paso("P", "(tercera revisión, T5) borrar entrada_efectiva.json que fase1_metadatos.json registra, contradecirlo, otra grafía o una errata en alcance_v2.json: error, no «registrada» en silencio",
      all((e_falta, e_dist, e_graf, e_alc)), (e_falta, e_dist, e_graf, e_alc))
+# (4.15, hito 2, U6 b y c) erratas de la clave, alcance ilegible o que no es un objeto, y declaraciones contradictorias: error, no «registrada»
+dU = os.path.join(TMP, "u6", "X")
+os.makedirs(dU)
+casos_u6 = {}
+for nombre_u6, alc in (("clave con errata «entrada_efectiba»", {"tipo": "x", "entrada_efectiba": "estricta"}), ("clave «Entrada-Efectiva»", {"Entrada-Efectiva": "estricta"}),
+                       ("alcance en forma de lista", ["entrada_efectiva", "estricta"]), ("alcance ilegible", None)):
+    if alc is None:
+        open(os.path.join(dU, "alcance_v2.json"), "w").write("{ilegible")
+    else:
+        json.dump(alc, open(os.path.join(dU, "alcance_v2.json"), "w"))
+    casos_u6[nombre_u6] = error(lambda: PL.modo_entrada_efectiva(dU))
+json.dump({"tipo": "x", "entrada_efectiva": "estricta"}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+json.dump({"modo": "registrada", "motivo": "x"}, open(os.path.join(dU, "entrada_efectiva.json"), "w"))
+casos_u6["entrada_efectiva.json «registrada» frente a alcance_v2.json «estricta»"] = error(lambda: PL.modo_entrada_efectiva(dU))
+os.remove(os.path.join(dU, "entrada_efectiva.json"))
+ok_u6_pos = PL.modo_entrada_efectiva(dU) == ("estricta", "alcance_v2.json")
+json.dump({"tipo": "x", "aviso": "y", "entrada": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)
+paso("P", "(hito 2, U6 b y c) erratas de la clave en alcance_v2.json, alcance ilegible o que no es un objeto y «registrada» frente a «estricta»: error (antes: «registrada» en silencio); sin declaración, «registrada»; «estricta» válida, aplicada",
+     all(casos_u6.values()) and ok_u6_pos, {k_: (v_ or "")[:70] for k_, v_ in casos_u6.items()})
 paso("B", "(N7; T5) el expediente nuevo registra el modo también en fase1_metadatos.json", ok and meta.get("entrada_efectiva") == "estricta", meta.get("entrada_efectiva"))
 sust = regc.get("sustituidas_en_fase1_v63") or {}
 paso("B", "(N5; tercera revisión, T7) el diagnóstico de lo que daría la Historia dice None en las celdas que la Historia no construye (no repite el valor del CAMBIO)",
