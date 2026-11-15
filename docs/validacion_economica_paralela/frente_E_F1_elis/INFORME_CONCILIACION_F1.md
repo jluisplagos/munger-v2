@@ -10,16 +10,32 @@ Marcas usadas en todo el informe:
 
 ## 0. Resumen
 
-1. **Base y evidencia.** Base 4.14 materializada desde el ZIP original y verificada (6.798/6.798 + manifiesto). Árbol del hito 4.15 (059f4f6) verificado con su propio manifiesto (7.004/7.004). El libro de Elis es idéntico en ambos (SHA-256 `d2593777…92385`). 683 cifras de cinco informes anuales de Elis verificadas contra los bytes de los PDF, con página, literal y signo; 10/10 contraejemplos rechazados (signo invertido, redondeo, página inexistente o equivocada, fuente ausente o con otra huella).
+1. **Base y evidencia.** Base 4.14 materializada desde el ZIP original y verificada (6.798/6.798 + manifiesto). Árbol del hito 4.15 (059f4f6) verificado con su propio manifiesto (7.004/7.004). El libro de Elis es idéntico en ambos (SHA-256 `d2593777…92385`).
+   - 707 cifras y citas de cinco informes anuales de Elis verificadas contra los bytes de los PDF, con página, literal y signo.
+   - En 670 filas de tabla se comprueba además automáticamente que la columna corresponde al ejercicio declarado; 1 queda con control manual justificado.
+   - Test 16/16: el control positivo se acepta y se rechazan los 15 contraejemplos: signo invertido, redondeo, página inexistente o equivocada, fuente ausente, con otra huella o sin huella, posición distinta con el mismo literal, columna, bloque o saldo de otro ejercicio y control manual sin justificar.
 2. **Conciliación 2023–2025.** Todas las identidades cierran con residuos de ±0,1 de redondeo de la cifra impresa, salvo dos residuos explicados: 0,4 entre interés de arrendamientos de caja (29,6) y devengado (29,2) en 2025 y −0,2 en el free cash flow publicado de 2024 frente a sus componentes. Ninguno es material [D].
 3. **FCF base 307,933** reproducido por dos vías independientes (CFO y free cash flow publicado menos SBC). **C48 = 108** se mantiene con su derivación: 82,933 de intereses financieros + 25,067 de interés implícito de caja de arrendamientos [D][DH E6].
 4. **f = 4,168 %** se descompone exactamente en: pagos de arrendamientos 153,2 (principal 128,1 + interés de caja 25,1), intereses financieros 82,9, efectos fiscales −24,9 y otros −21,1. **Ni la amortización de derechos de uso ni la de intangibles adquiridos están dentro de f**: aparecen en la reinversión histórica (−81,2) [D].
 5. **Motor A** reimplementado desde sus ecuaciones documentadas: reproduce los 30 flujos anuales, los 3 del año 11 y los 3 flujos sin crecimiento del libro con diferencias < 10⁻⁹ [D]. Su flujo sin crecimiento, 248,5, es el FCF base −59,4: +39,6 por el nivel del EBIT 2025, −8,0 por el cambio de tipo impositivo, −9,9 por escalar f a las ventas 2025 y −81,2 porque la proyección no reproduce la reinversión histórica [D].
-6. **Arrendamientos: inconsistencia demostrada en la definición del modelo** [D]. En la calibración el coste de arrendamiento se cuenta una vez (los pagos); en la proyección se cuenta dos veces (amortización ROU dentro del margen y pagos completos dentro de f). El exceso equivale a la amortización ROU: 2,9–3,1 % de las ventas (139,4 en la base 2025 si se corrige f). Ocurre a crecimiento cero y en el terminal, y no depende del reparto entre reposición y crecimiento. Es un defecto de definición, no un error de datos. No se corrige aquí.
-7. **Intangibles adquiridos: doble cómputo no demostrado.** La V6.3 los trata implícitamente como una reposición monetaria necesaria de 85,7 al año. Hechos publicados: la amortización no es salida de caja, se está agotando y no es deducible en caja. El valor neto de las relaciones con clientes es 275,1 frente a 83,5 de amortización anual, y el diferido de intangibles aporta 15,5/20,3/17,5. La tasa de bajas de clientes no se publica. Requiere una decisión de política [P][I][H].
-8. **Reinversión necesaria frente a crecimiento: dato no publicado** en los URD 2021–2025 [P]. Se acota por inferencia, con premisas explícitas, entre la D&A propia (736,0 de media) y el capex propio (867,2). La V6.3 implica 954,0, por encima de lo que Elis invirtió mientras crecía [I]. Es material: el flujo de partida va de 339,8 a 477,8 según el reparto, frente a 248,5 en la V6.3 [D].
+6. **Arrendamientos: inconsistencia demostrada en la definición del modelo** [D], condicionada a una premisa económica explícita y respaldada por la propia práctica de Elis (§5.3).
+   - En la calibración el coste de arrendamiento se cuenta una vez: los pagos.
+   - En la proyección se cuenta dos veces: la amortización ROU dentro del margen y los pagos completos dentro de f.
+   - El exceso equivale a la amortización ROU: 2,9–3,1 % de las ventas, 139,4 en la base 2025 si se corrige f.
+   - Es íntegro a crecimiento cero y en el terminal, y no depende del reparto entre reposición y crecimiento. En los años 1–10 solo se compensaría en parte si la palanca S2C se anclara en C53, que no es el caso de este expediente.
+   - Es un defecto de definición, no un error de datos. No se corrige aquí.
+7. **Intangibles adquiridos: doble cómputo no demostrado.** La V6.3 los trata implícitamente como una reposición monetaria necesaria de 85,7 al año.
+   - Publicado [P]: la amortización no es salida de caja y el valor neto de las relaciones con clientes es 275,1 frente a 83,5 de amortización anual. Las altas de 2025 son provisionales.
+   - Inferido [I]: la amortización es mayoritariamente no deducible en caja, porque el ingreso por diferido de intangibles, 15,5/20,3/17,5, equivale al 18–24 % de la amortización.
+   - El crecimiento orgánico, neto de bajas, fue positivo y con efecto volumen: en la ventana la cartera se repuso orgánicamente. Es evidencia parcial contra la reposición monetaria, no una refutación para el futuro.
+   - La tasa de bajas no se publica. Requiere una decisión de política [P][I][H].
+8. **Reinversión necesaria frente a crecimiento: no publicada como importe** [P]. Lo único cuantitativo publicado es una proporción parcial: dos tercios de la inversión en lino plano mantienen el stock en circulación, según un factor de riesgo repetido en los URD 2021–2025. Para todo el capex propio no cierra el dato (§6.1).
+   - Se acota por inferencia, con premisas explícitas, entre la D&A propia (736,0 de media) y el capex propio (867,2). La premisa de volumen tiene apoyo publicado cualitativo; la referencia inferior tiene evidencia publicada en contra como caso central [I].
+   - La V6.3 implica 954,0, por encima de lo que Elis invirtió mientras crecía [I].
+   - Es material: el flujo de partida va de 339,8 a 477,8 según el reparto, frente a 248,5 en la V6.3 [D]. Todos esos niveles llevan unos +27,9 de partidas puntuales de la ventana (§4.2).
 9. **Alternativas** A1, A1′, A2 y cota B calculadas, con sus consecuencias en f, el flujo de partida y el ancla de S2C. **Ninguna adoptada**. Especificación con reglas de control y criterios de prueba en [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md).
-10. **Pendiente:** decisión F1 (a/b/c con política completa), política de intangibles adquiridos, dato o estimación documentada de la reinversión necesaria, perímetro de S2C. Dos observaciones de la plantilla quedan fuera de F1: la ventana del tipo impositivo y la escala de intereses sin endeudamiento nuevo. La conclusión de nivel de Elis sigue **pendiente_de_datos**.
+10. **Pendiente:** decisión F1 (a/b/c con política completa), política de intangibles adquiridos, dato o estimación documentada de la reinversión necesaria, perímetro de S2C y del margen. Dos observaciones de la plantilla quedan fuera de F1: la ventana del tipo impositivo y la escala de intereses sin endeudamiento nuevo. La conclusión de nivel de Elis sigue **pendiente_de_datos**.
+11. **Revisión independiente n.º 1:** 17 objeciones, 3 materiales. Ninguna invierte una conclusión material. Todas se aceptan y se responden en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), con los cambios que no proceden de la revisión. La segunda pasada sobre lo corregido está **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)).
 
 ---
 
@@ -27,18 +43,23 @@ Marcas usadas en todo el informe:
 
 | Elemento | Identificación | Comprobación |
 |---|---|---|
-| Base 4.14 | ZIP `munger_v2_r1_entrega4.14_cierre_verificacion_entradas.zip`, 1.130.912.246 bytes, SHA-256 `bb51942c…b97b93e` | Descargado por la API REST de la Release (la descarga por GraphQL de `gh release download` está bloqueada en esta sesión); `tools/base_414.py materialize` + `verify`: 6.798/6.798, `complete:true` (`/home/user/e_work/inventario/`, fuera del repositorio) |
+| Base 4.14 | ZIP `munger_v2_r1_entrega4.14_cierre_verificacion_entradas.zip`, 1.130.912.246 bytes, SHA-256 `bb51942c…b97b93e` | Descargado por la API REST de la Release (la descarga por GraphQL de `gh release download` está bloqueada en esta sesión); `tools/base_414.py materialize` + `verify`: 6.798/6.798, `complete:true`. Informes en `evidencias/preparacion/` |
 | Hito 4.15 | `revision/4.15-hito1` = `059f4f68dca7acf465b5f5b21de2dede84c885ff` | Binarios 4.14 copiados sin sobrescribir; `sha256sum -c` de su MANIFIESTO: 7.004 OK, 0 fallos, 0 archivos de más. No se ejecutó `base_414.py` sobre la 4.15 |
 | Libro | `…_4_14/elis_decisiones/Elis/Elis_v63_evaluada.xlsx`, SHA-256 `d2593777650f…9c92385` | Idéntico en 4.14 y 4.15. Solo lectura de valores en caché con openpyxl |
 | Fuentes | URD 2021, 2022, 2023 y 2025 (inglés) y DEU 2024 (francés) de `elis_decisiones/Elis/fuentes_pdf/` | SHA-256 de [datos/fuentes.json](datos/fuentes.json); coinciden con `HUELLAS_PDF.txt` y con los homónimos de `elis_motor_A` |
-| Frente técnico | `claude/hopeful-bardeen-qap6y0`, observado en `d1f1fa9` (hito 2) y en `c0dcbd0` (15-nov, 17:25 UTC) | Hasta `d1f1fa9` solo añade a los componentes de C48 la cifra publicada con su signo (`valor_fuente` negativo, `signo` −1): no cambia valores, el 108,0 ni la plantilla V6.3. `bc48f9d`, `c554cc0` y `c0dcbd0` cambian el verificador de entradas, el pipeline y sus pruebas (U6, U7, H-P1/X2), sin tocar `v6/`, los datos de Elis ni `fase1_historia.py`. Sin cambios de datos o definiciones que afecten a F1. **Recomprobar al integrar** |
+| Frente técnico | `claude/hopeful-bardeen-qap6y0`, observado en `d1f1fa9` (hito 2), en `c0dcbd0` (15-nov, 17:25 UTC) y en `56fca94` (15-nov, 19:20 UTC) | Hasta `d1f1fa9` solo añade a los componentes de C48 la cifra publicada con su signo (`valor_fuente` negativo, `signo` −1): no cambia valores, el 108,0 ni la plantilla V6.3. `bc48f9d`, `c554cc0` y `c0dcbd0` cambian el verificador de entradas, el pipeline y sus pruebas (U6, U7, H-P1/X2). `10018ad` y `56fca94` limitan el bloque `verificacion_entradas` de la ficha a los expedientes con registro de entradas o declaración del modo (I20), ajustan pruebas y `verificar_paquete.sh` y registran la regresión. Ninguno toca `v6/`, los datos de Elis ni `fase1_historia.py`. Sin cambios de datos o definiciones que afecten a F1. **Recomprobar al integrar** |
 
 **Regla de edición** [D]: cada ejercicio se toma de la publicación más reciente que lo presenta, que es la regla de la Historia. 2025 y 2024 proceden del URD 2025; 2023 del DEU 2024 reexpresado; 2022 del URD 2023 reexpresado; 2021 del URD 2022 reexpresado. Las reexpresiones son pequeñas y proceden sobre todo de la contabilización definitiva de combinaciones: la PPA pasa de 80,1 a 82,9 en 2022, de 85,1 a 85,7 en 2023 y de 84,9 a 85,0 en 2024. Hay además un cambio de presentación: hasta el URD 2023 los intereses de arrendamientos iban dentro de «Net interest paid» (90,2 en 2023); desde el DEU 2024 van dentro de los pagos de arrendamientos (70,5 + 130,8) [P: URD23 p.266, p.279; DEU24 p.273].
 
 **Evidencia reproducible.** Todas las rutas son relativas a esta carpeta.
-- `datos/cifras_fuente.csv`: 683 cifras con documento, página PDF, etiqueta de línea, posición, literal impreso y valor con signo.
-- `scripts/verificar_cifras.py`: comprueba huella, página, literal y signo sobre los PDF. `scripts/test_verificar_cifras.py` ejecuta 10 contraejemplos.
-- `scripts/contraste_f1.py`: 129 comprobaciones aritméticas y de libro, todas OK. Resultados en `resultados/contraste_f1.{json,md}`.
+- `datos/cifras_fuente.csv`: 707 filas (671 de tabla y 36 de texto) con documento, página PDF, etiqueta de línea, posición, literal impreso, valor con signo y modo de control del ejercicio.
+- `scripts/verificar_cifras.py`: comprueba huella, página, literal, signo y que la columna o el bloque correspondan al ejercicio declarado (670 automáticas, 1 manual justificada). `scripts/test_verificar_cifras.py` ejecuta 16 casos: un control positivo y 15 contraejemplos.
+- `scripts/contraste_f1.py`: 186 comprobaciones, todas OK, de tres clases distintas:
+  - 115 contra el libro;
+  - 58 de fuente: dos vías independientes del FCF base y 57 residuos de conciliación afirmados con tolerancia de ±0,15 y dos excepciones declaradas;
+  - 13 identidades algebraicas, que documentan los puentes pero no prueban los datos.
+
+  Resultados en `resultados/contraste_f1.{json,md}`.
 - `resultados/tabla_conciliacion.md`: tabla de cifras con literal y página.
 - `evidencias/paginas/`: texto de cada página citada, con la huella de su PDF.
 
@@ -123,7 +144,12 @@ Fuentes [P]: URD21 p.211 y p.226; URD22 p.243, 247, 258, 261 y 284; URD23 p.261,
 - **C53 (S2C marginal de 5 años) = 9,04** [D]: (4.796,8 − 2.806,3) ÷ Σ₂₀₂₁₋₂₅ (capex − D&A total + circulante + adquisiciones) = 1.990,5 ÷ 220,2. Su denominador usa la D&A total, que incluye ROU y PPA sin contrapartida en el capex. Con el mismo cálculo y la D&A propia sale 1,61; sin ROU, 2,45 (§9) [D]. Las palancas S2C del expediente (1 / 1,2 / 1,5) no usan C53. La fase C las ancló en «la inversión propia sobre la amortización propia de 2024–25 (S2C ≈ 1,5)» (`elis_decisiones/Elis/fase_c.json`, desviación G7) [I]. **El perímetro de las palancas S2C (propio) no es el de f (D&A total).**
 - **Ruptura de presentación en las filas 15/16** [P][D]: 2021 y 2022 incluyen los intereses de arrendamientos (74,6 y 72,9, «including interest on lease liabilities», URD22 p.261), mientras 2023–2025 los excluyen. No afecta a C48, que usa 2023–25 y suma el interés de caja de arrendamientos aparte, ni a C58. Sí afecta a la comparabilidad de la fila 35 de 2021–22 y debe declararse si se amplía la ventana.
 - **Fila 18 de 2021** [P][D]: 28,0 procede de la nota 5.2 («Equity-settled share-based payments», URD22 p.287); el EFE da 24,4 (URD22 p.261). Los demás años usan el EFE. Fuera de la ventana de f; se declara como incoherencia de fuente de la fila.
-- **El crecimiento orgánico de 2022–23 fue en buena parte precio** [P: «price effect of +9% on average», URD23 p.261]. Las anclas S2C calculadas sobre crecimiento orgánico nominal sobrestiman la productividad del capital en volumen [I].
+- **El crecimiento orgánico incluye precio en todos los años de la ventana** [P]:
+  - en 2023, «price effect of +9% on average» (URD23 p.261);
+  - en 2024, «effet prix … et … effet volume», con dinámica de precios favorable ligada a la inflación salarial (DEU24 p.121, 252–253);
+  - en 2025, «price effect from residual inflation in 2025, and a volume effect», más ajustes de precio en Latinoamérica y en Reino Unido e Irlanda (URD25 p.122, 307).
+
+  El reparto precio/volumen solo se cuantifica para 2023. Las anclas S2C calculadas sobre crecimiento orgánico nominal sobrestiman la productividad del capital en volumen, también en 2024–25 [I] (revisión, O2).
 
 ---
 
@@ -176,11 +202,18 @@ Consecuencias [D]:
   - el componente de earnout y otros no monetarios (−13,0 de media, dominado por el cargo de −48,4 de 2023) baja f en 0,29 puntos de ventas;
   - las plusvalías netas de la ventana (+3,8 de media; +23,1 en 2025) la suben en 0,08 puntos.
 
-  Además, la plusvalía de 2025 (+25,7 en OOIE) eleva m0 (13,13 %) unos 0,54 puntos. Son efectos de calibración documentados, no decisiones.
+  Además, la plusvalía de 2025 (+25,7 en OOIE, con «a high level of insurance benefits in 2025», URD25 p.309 [P]) eleva m0 (13,13 %) unos 0,54 puntos.
+
+  En el flujo sin crecimiento de la base 2025 estas partidas suman **+27,9**, común a todos los perímetros [D] (revisión, O9):
+  - +13,7 del earnout dentro de f; si se cuenta también su efecto en el tipo de 2023, por no ser deducible, el efecto sube a ≈ 18,6;
+  - −4,0 de las plusvalías dentro de f;
+  - +18,3 de la plusvalía dentro de m0.
+
+  No alteran las diferencias entre alternativas, pero equivalen al 20 % de la anchura del intervalo de §6.4. Son efectos de calibración documentados, no decisiones. Normalizarlos requeriría una regla decidida (especificación, E8).
 
 ### 4.3 Motor A: réplica y flujo de partida
 
-Ecuaciones de la V6.3 (Convenciones §1–§3), reimplementadas sin leer las fórmulas de las celdas. Coinciden con los 33 flujos (AU6:BD8), los 3 flujos del año 11 (BF6:BF8) y el flujo sin crecimiento (BL·r) con diferencias < 10⁻⁹ [D]:
+Ecuaciones de la V6.3 (Convenciones §1–§3), reimplementadas sin leer las fórmulas de las celdas. Coinciden con los 30 flujos anuales (AU6:BD8), los 3 flujos del año 11 (BF6:BF8) y los 3 flujos sin crecimiento, (BL − exceso de caja)·r, con diferencias < 10⁻⁹ [D]:
 
 - flujo_t = V_t·[m_t·(1 − τ) − f] − (V_t − V_{t−1}) ÷ S2C; terminal = V₁₀·(1+g)·[m_obj·(1 − τ)·(1 − g/ROIC) − f].
 - V₀ = 4.796,8; m₀ = 630,0/4.796,8 = 13,134 %; τ = 28,82 % (media de 5 años de la fila 10); f = 4,168 %.
@@ -244,9 +277,12 @@ El −81,2 es una identidad de las entradas. **Por sí solo no prueba un doble c
 | | Calibración (2023–25) | Proyección (base 2025) |
 |---|---|---|
 | Amortización ROU dentro del EBIT/NOPAT | −132,5 | −149,5 (dentro de m₀) |
-| Devolución de la amortización ROU por la reinversión (− D&A total en C76) | +132,5 | 0 (ΔV/S2C no la devuelve) |
+| Devolución de la amortización ROU por la reinversión (− D&A total en C76) | +132,5 | 0 (ΔV/S2C no la devuelve)¹ |
 | Pagos de arrendamiento dentro del FCF base y de f | −153,2 | −161,1 (f·V₀) |
-| **Coste de arrendamiento reconocido** | **−153,2 (una vez: los pagos)** | **−310,6 (dos veces)** |
+| **Coste de arrendamiento reconocido** | **−153,2 (una vez: los pagos)** | **−310,6 (dos veces)**² |
+
+¹ A crecimiento cero y en el terminal. En los años 1–10, si la palanca S2C se anclara en C53 (perímetro de D&A total), ΔV/S2C devolvería una parte que crece con el crecimiento (§5.3, alcance). En este expediente las palancas no usan C53.
+² Ilustración: suma la amortización ROU de 2025, antes de impuestos, con los pagos medios escalados. El exceso exacto en la base 2025 es **139,4**: la amortización ROU media escalada, antes de impuestos, porque el impuesto real ya está dentro de f (revisión, O17).
 
 ### 5.3 Demostración (derivación) y su alcance
 
@@ -254,8 +290,11 @@ El −81,2 es una identidad de las entradas. **Por sí solo no prueba un doble c
 - (i) Las altas ROU no son salidas de caja: las financia el arrendador y aumentan el pasivo [P: URD25 p.366; estado de flujos sin capex ROU].
 - (ii) El FCF base resta los pagos completos de arrendamiento (C48 + C49) [DH registrada].
 - (iii) La proyección del motor es NOPAT − f·V − ΔV/S2C, sin ningún término que devuelva la amortización ROU [P: Convenciones V6.3; réplica exacta, §4.3].
+- (iv) **Premisa económica** [I]: el activo arrendado se repone con nuevos contratos cuyo coste son los pagos, de modo que la amortización ROU no exige además un desembolso propio.
+  - Es la práctica de la propia Elis en sus pruebas de deterioro, que definen el flujo como «adjusted EBITDA … − income tax at standard rate − capital expenditure (including lease renewal)» [P: URD25 p.368; DEU24 p.314; URD23 p.322; URD22 p.303].
+  - Es decir, cuenta el arrendamiento una sola vez, como renovación dentro de la inversión y sobre un EBITDA sin coste de arrendamiento. Es el mismo esquema que la alternativa A1′ (revisión, O5).
 
-**Conclusión** [D]. Con crecimiento cero (y en el valor terminal cuando g → 0), el flujo del motor es NOPAT − f·V: resta la amortización ROU dentro del margen y los pagos completos dentro de f. El coste económico de caja del arrendamiento para el accionista son los pagos; con pasivo constante, el principal se repone con nuevos contratos no monetarios. Por tanto el motor carga **de más, aproximadamente, la amortización ROU**:
+**Conclusión** [D, condicionada a la premisa iv]. Con crecimiento cero (y en el valor terminal cuando g → 0), el flujo del motor es NOPAT − f·V: resta la amortización ROU dentro del margen y los pagos completos dentro de f. El coste económico de caja del arrendamiento para el accionista son los pagos; con pasivo constante, el principal se repone con nuevos contratos no monetarios. Por tanto el motor carga **de más, aproximadamente, la amortización ROU**:
 - 2,906 % de las ventas en media 2023–25 y 3,117 % en 2025;
 - 139,4 en la base 2025 si se corrige f con la media de la ventana;
 - 43 % del FCF base.
@@ -264,8 +303,14 @@ La demostración sintética de `contraste_f1.py` lo confirma con números redond
 
 **Alcance:**
 - No depende del reparto entre reposición y crecimiento.
-- No depende de la palanca S2C, porque se produce a crecimiento cero.
+- **A crecimiento cero y en el terminal**, que reinvierte con g/ROIC y no con S2C, el exceso es íntegro y no depende de la palanca S2C.
+- **En los años 1–10 depende del ancla de S2C** (revisión, O4) [D]. La plantilla es coherente consigo misma solo en su senda histórica: si la palanca se anclara en C53, que comparte el perímetro de D&A total con f, ΔV/S2C devolvería la reinversión neta histórica, que ya lleva restadas la amortización ROU y la PPA.
+  - Con el ancla propia de cada perímetro y el crecimiento del escenario NORMAL (4,5 %), la brecha frente a A0 baja de 139,4 a 81,3 (A1) y de 229,3 a 129,6 (A2) en el año 1.
+  - La brecha se anula con un aumento de ventas de 517,6 (A1) o 496,6 (A2), un 10–11 %, del orden del crecimiento compuesto de 2020–2025 (11,3 %).
+
+  En este expediente las palancas (1 / 1,2 / 1,5) no usan C53 sino un perímetro propio (§3): el exceso se aplica entero en todos los años (`resultados/contraste_f1.md`, tabla «Palanca S2C anclada en el C53»).
 - No depende del margen objetivo, salvo que se definiera como margen después de pagos de arrendamiento. No es el caso: la fase C ancla los márgenes en el EBIT NIIF 16 publicado [I, `fase_c.json` G5].
+- La revisión independiente no encontró ninguna lectura razonable de la plantilla, de las palancas del expediente o del FCF base registrado bajo la que el coste se cuente una sola vez a crecimiento cero y en el terminal (REVISION_INDEPENDIENTE_1 §5).
 
 Es un **defecto de definición** de la calibración de f en el motor A para empresas con NIIF 16 material, no un error de datos. **No cuantifica por sí solo el error de valor**: este depende también de §6 y de las palancas. **No autoriza una corrección**: corresponde a la decisión F1 [DH pendiente].
 
@@ -279,14 +324,41 @@ En 2023 y 2024 coinciden (19,8 y 25,8). En 2025 difieren en 0,4 [D]. Las notas p
 
 En el motor A el pasivo por arrendamientos (703,2) no se resta: es coherente con un flujo al accionista que ya paga los arrendamientos dentro de f [D]. Entre 2022 y 2025 el pasivo creció de 485,4 a 703,2 por altas no monetarias superiores al principal [P]. Con f proporcional a las ventas, los pagos crecen con el negocio, lo que equivale a suponer que la cartera arrendada crece con él [I].
 
+**Tendencia (revisión, O10)** [P][D]. En la ventana la cartera arrendada creció bastante más deprisa que las ventas:
+
+| | 2023 | 2024 | 2025 |
+|---|---|---|---|
+| Pagos ÷ ventas | 3,04 % | 3,30 % | 3,71 % |
+| Amortización ROU ÷ ventas | 2,69 % | 2,89 % | 3,12 % |
+| Pasivo: variación anual | +10,9 % | +12,6 % | +16,0 % |
+| Ventas: variación anual | +12,8 % | +6,1 % | +4,9 % |
+
+- f aplica la media, 3,359 % de las ventas: 161,1 sobre las ventas de 2025, frente a 177,9 pagados (16,8 menos).
+- En A1 y A2 el margen de partida lleva la amortización ROU de 2025 (149,5) y f devuelve la media escalada (139,4): quedan 10,1 sin devolver.
+
+Es una limitación de proyectar una razón constante, no un defecto de las alternativas. Debe declararse al calificarlas de coherentes con los arrendamientos.
+
 ---
 
 ## 6. Intangibles adquiridos y reinversión necesaria frente a crecimiento
 
 ### 6.1 Búsqueda del desglose [P]
 
-Se buscó en los cinco informes 2021–2025 y en el comunicado de resultados de 2025. Términos en inglés y francés: «maintenance capex», «growth capex», «replacement», «renewal», «churn», «attrition», «retention rate», «investissements de maintenance/de croissance», «renouvellement», «taux de perte». **No hay importes de reparto entre mantenimiento y crecimiento.** Lo publicado:
+**Alcance de la búsqueda.**
+- El autor buscó en los cinco informes 2021–2025 y en el comunicado de resultados de 2025. Términos en inglés y francés: «maintenance capex», «growth capex», «replacement», «renewal», «churn», «attrition», «retention rate», «investissements de maintenance/de croissance», «renouvellement», «taux de perte».
+- La búsqueda **no encontró** la frase de mantenimiento del lino plano que sigue. La localizó la revisión independiente (O1), que buscó además en los documentos de 2016 a 2020 de la misma carpeta y no halló importes de reparto. El Registration Document 2017 (p.52) describe el capex de mantenimiento solo de forma cualitativa.
 
+**No hay importes de reparto entre mantenimiento y crecimiento.** Lo publicado:
+
+- **Proporción parcial de mantenimiento del lino plano** [P], repetida en el factor de riesgo de la hostelería: «investments in linen are automatically impacted, particularly flat linen, two-thirds of which ensures the maintenance of the stock in circulation, which is greatly reduced in the event of a downturn» (URD25 p.137; URD23 p.239; URD22 p.221; URD21 p.189). En francés: «le linge plat dont les deux tiers assurent la maintenance du stock en circulation» (DEU24 p.135).
+
+  Límites que impiden usarla para cerrar M1:
+  - Se refiere solo al lino plano, que fueron 2.217,4 de 4.796,8 de ventas en 2025, un 46,2 % (URD25 p.347) [P][D]. Las compras de lino no se publican separadas entre lino plano y ropa de trabajo.
+  - «Mantenimiento del stock en circulación» no es la reinversión necesaria para sostener las ventas: no incluye la dotación de clientes nuevos que sustituyen a los perdidos [I].
+  - Es un texto fijo, idéntico en todos los informes, sin importes.
+  - No se puede extender mecánicamente a todo el lino. Dos tercios de las compras de lino de 2025 serían 396, por debajo de su amortización de 565,1 [D]. Es una ilustración del límite, no una estimación.
+
+  Es evidencia que una estimación documentada (perímetro `A3_estimado` de la especificación) debería considerar.
 - La inversión industrial «covers investments for both growth (new plants or to increase capacity) and maintenance (equipment replacement)» (URD25 p.312; DEU24 p.258).
 - Gasto en lino: «Growth investments thus make up a large percentage of this expenditure because of the initial outlay required to set up a new customer» (URD25 p.312). No da porcentaje.
 - «customer attrition rates are monitored at the Executive Committee», pero la tasa no se publica (URD25 p.141).
@@ -299,29 +371,52 @@ Fuentes que podrían contenerlo y **no están en la base**: presentaciones de me
 
 - **[D]** Inversión neta propia (capex − D&A propia + circulante): −7,4 / 140,0 / 153,9 / 146,4 / 110,0 en 2021–2025. En lino: 19,8 / 94,8 / 102,2 / 56,7 / 29,1. En 2025 el lino casi iguala su amortización y el resto del inmovilizado la supera en 71,6.
 - **[I] Cota superior de la reinversión necesaria: el capex propio.** Elis creció en todos los ejercicios: orgánico de 3,8 % en 2025 y 5,2 % en 2024. Además declara que una parte grande del lino y parte de la inversión industrial son crecimiento. Por tanto, su reinversión necesaria para sostener las ventas fue menor que el capex propio (867,2 de media). Premisa: el crecimiento orgánico tuvo un componente de volumen, no solo de precio.
-  - Evidencia cualitativa publicada, sin importes [P]: el crecimiento de 2025 fue «driven by a price effect from residual inflation in 2025, and a volume effect» (URD25 p.122) y el de 2024 «tirée par l'effet prix … et par l'effet volume» (DEU24 p.121). Los costes de proceso de 2025 subieron «in connection with the continued growth in volumes processed» (URD25 p.309).
-  - En 2023 el efecto precio fue ≈ +9 % sobre el 11,8 % orgánico (URD23 p.261).
-  - El reparto cuantitativo precio/volumen de 2024–25 no se publica.
+  - **La premisa tiene apoyo publicado** para 2024 y 2025, sin cifra [P] (revisión, O2):
+    - el crecimiento de 2025 fue «driven by a price effect from residual inflation in 2025, and a volume effect» (URD25 p.122);
+    - el de 2024 fue «tirée par l'effet prix … et par l'effet volume» (DEU24 p.121);
+    - los costes de proceso de 2025 subieron «in connection with the continued growth in volumes processed» y los de distribución por «volume growth and cost inflation» (URD25 p.309).
+  - El crecimiento de esos años tampoco fue solo volumen: hubo dinámica de precios favorable ligada a la inflación salarial (DEU24 p.252–253; URD25 p.307). En 2023 el efecto precio fue ≈ +9 % sobre el 11,8 % orgánico (URD23 p.261).
+  - **Lo que falta es la cuantificación** del reparto precio/volumen de 2024–25 a nivel de grupo, no su existencia.
+  - **Límite** [I] (revisión, O6): si en 2025 hubiera habido infrainversión, la cota superior no valdría para ese año. Hay señales de contención del capex que la empresa presenta como eficiencia y normalización, no como infrainversión:
+    - «effective management of capital expenditure, particularly in linen, has kept depreciation under control» y «capex contained despite new workwear contracts and expenditure under the Climate plan» (URD25 p.122);
+    - «The Group's capital expenditure has returned to normal levels since 2024» (URD25 p.312) y «They remained stable after the sharp increase in previous years» (URD25 p.311);
+    - la inversión neta en lino cae de 102,2 a 56,7 y a 29,1 en 2023–2025, con compras planas y amortización creciente [D].
+
+    No demuestran infrainversión, pero son la evidencia pertinente y deben pesar en cualquier estimación.
 - **[I] Referencia inferior: la D&A propia** (736,0 de media). No es una cota demostrada. Con inflación, reponer a coste actual cuesta más que la amortización a coste histórico, sobre todo en edificios y maquinaria de vida larga. El lino, con vidas de 18 meses a 5 años, se aproxima más a su amortización.
+  - **Evidencia publicada en contra de tomarla como caso central** [P] (revisión, O6): los planes de negocio de las pruebas de deterioro suponen «the Group's climate plan, with a level of investment greater than the amortization and depreciation historically recorded» (URD25 p.369; DEU24 p.315 «supérieur aux amortissements historiquement constatés»), y esas hipótesis «include additional future investments» (URD25 p.333). La empresa planifica invertir por encima de la amortización histórica.
+  - El plan climático es además un tercer tipo de inversión, ni reposición ni crecimiento de ventas, que la definición de §9 no contemplaba. Se añade como pendiente de definición.
 - **[D] La V6.3 implica una reinversión necesaria igual a la D&A total** (954,0 de media; 1.003,5 en la base 2025): 86,8 más que el capex propio medio mientras la empresa crecía. Con las premisas anteriores, esa hipótesis implícita es **incompatible con la historia publicada** [I].
 
 ### 6.3 Reposición económica de los intangibles adquiridos [P][D][I]
 
 - **Composición [P].** La PPA de 85,7 (2025) son relaciones con clientes, 83,5, y marcas, 2,2 (URD25 p.364). Las relaciones con clientes se amortizan en 4–14 años (URD25 p.364; DEU24 p.310).
-- **Agotamiento [P/D].** Valor neto de las relaciones con clientes: 471,5 (1-ene-2023) → 414,9 → 351,6 (reexpresado) → **275,1** (31-dic-2025). Las altas por combinaciones fueron pequeñas: 20,6 / 32,3 / 3,7. Sin compras nuevas, el ritmo actual de amortización no puede durar más de unos 3,3 años (275,1 ÷ 83,5) [D]. Bruto acumulado 1.444,5, del que 1.169,4 ya está amortizado: es sobre todo la cartera de compras anteriores.
-- **Fiscalidad [P].** El diferido de intangibles aporta un ingreso de 15,5 / 20,3 / 17,5 en 2023–2025 (URD23 p.346; DEU24 p.338; URD25 p.393): la amortización de lo adquirido reduce el gasto por impuesto, pero no el impuesto de caja.
+- **Agotamiento [P/D].** Valor neto de las relaciones con clientes: 471,5 (1-ene-2023) → 414,9 → 351,6 (reexpresado) → **275,1** (31-dic-2025). Las altas por combinaciones fueron 20,6 / 32,3 / 3,7. Sin compras nuevas, el ritmo actual de amortización no puede durar más de unos 3,3 años (275,1 ÷ 83,5) [D]. Bruto acumulado 1.444,5, del que 1.169,4 ya está amortizado: es sobre todo la cartera de compras anteriores.
+
+  Salvedades (revisión, O7):
+  - **Las altas de 2025 (3,7) son provisionales** [P: «the amounts above are only provisional», URD25 p.340]. Hay precedente en la misma serie: las de 2024 eran 18,0 en el DEU 2024 (p.310) y son 32,3 reexpresadas en el URD 2025 (p.364).
+  - La amortización no caerá de golpe, porque las vidas van de 4 a 14 años.
+  - Las compras siguen reponiendo cartera a un ritmo de 20–32 al año.
+- **Fiscalidad.** Publicado [P]: el diferido de la fila «Intangible assets» aporta un ingreso de 15,5 / 20,3 / 17,5 en 2023–2025 (URD23 p.346; DEU24 p.338; URD25 p.393).
+
+  Inferido [I]: la amortización de lo adquirido es **mayoritariamente no deducible** en caja. Ese ingreso equivale al 18,3 %, 24,2 % y 21,0 % de la amortización de relaciones con clientes (84,6 / 83,9 / 83,5) [D], cerca de los tipos nominales. Hay dos límites: la fila incluye también marcas y otros intangibles, y el fondo de comercio con amortización fiscal tiene una fila aparte (revisión, O7).
 - **Interpretación [I].** Las relaciones adquiridas se consumen a medida que se van clientes. Elis las repone (a) orgánicamente, con coste comercial ya incluido en el EBIT y lino para clientes nuevos ya incluido en el capex propio, o (b) con nuevas adquisiciones, que son caja fuera del FCF base e incluidas en C53 a través de la fila 13. La amortización contable de lo adquirido no mide ninguna de las dos. Que no sea salida de caja **no demuestra** que la cartera se mantenga gratis. Lo que indica es que su coste de reposición está en el EBIT y en el capex, o en las compras, y no en la PPA.
-- **Hipótesis implícita de la V6.3 [H].** Cargar la PPA de forma perpetua equivale a suponer una reposición monetaria igual a la PPA, unos 85,7 al año. No hay dato publicado que la sostenga ni que la refute: no se publica la tasa de bajas ni las bajas de clientes adquiridos. **Doble cómputo no demostrado. Requiere decisión de política** (§10).
+- **Evidencia parcial de la ventana (revisión, O8)** [P][I].
+  - El crecimiento orgánico se mide sobre las ventas totales, netas de clientes perdidos, adquiridos o no. Fue positivo todos los años y con efecto volumen positivo publicado en 2024 y 2025. Eso indica que, en la ventana, la cartera se repuso orgánicamente, con un coste que ya está en el EBIT y en el capex propio.
+  - Es evidencia parcial contra la hipótesis de reposición monetaria igual a la PPA. No la refuta para el futuro, que es una hipótesis de proyección.
+  - Otros hechos publicados: «contracts are usually valid for an initial four-year term», con renovación automática y penalización por rescisión de casi todo el valor residual (URD25 p.141). En 2024, la calidad del servicio «a permis de baisser le taux de pertes» (DEU24 p.121). La tasa sigue sin publicarse.
+- **Hipótesis implícita de la V6.3 [H].** Cargar la PPA de forma perpetua equivale a suponer una reposición monetaria igual a la PPA, unos 85,7 al año. Ningún dato publicado la sostiene; la evidencia de la ventana se inclina en contra, sin demostrarlo. **Doble cómputo no demostrado. Requiere decisión de política** (§10).
+  - Compensación numérica que no debe confundirse con coherencia [D] (revisión, O8). El nivel de A0 coincide casi con «todo el capex propio es reposición y además la PPA se repone con caja»: 339,8 − 89,9 = 249,9, frente a 248,5. La razón es que el capex menos la D&A propia (131,2) casi iguala a la amortización ROU (132,5). Son dos efectos que se compensan, no ausencia de doble cómputo, y la contradice la evidencia anterior.
 
 ### 6.4 Qué falta, cuánto pesa y qué impide concluir
 
 | # | Dato que falta | Materialidad (flujo, base 2025) | Conclusión que bloquea |
 |---|---|---|---|
-| M1 | Reparto de la inversión propia entre reposición y crecimiento, por bloque (lino, otros artículos, industrial/TI) y año | Flujo de partida entre 339,8 (todo el capex es reposición) y 477,8 (reposición = D&A propia); intervalo de 138, el 45 % del FCF base | Nivel del flujo de partida del motor A y, con él, cualquier nivel de valor del motor A; anclaje de S2C |
-| M2 | Tasa de bajas de clientes, en particular de los adquiridos, y desembolso inicial por cliente nuevo | Política PPA: 85,7 al año (28 % del FCF base); diferencia entre A1 y A2 en el flujo de partida: 89,9 | Si la PPA es un coste de reposición |
+| M1 | Reparto de la inversión propia entre reposición y crecimiento, por bloque (lino, otros artículos, industrial/TI, plan climático) y año, como importe. Publicado solo: dos tercios de la inversión en lino plano mantienen el stock (§6.1) | Flujo de partida entre 339,8 (todo el capex es reposición) y 477,8 (reposición = D&A propia); intervalo de 138, el 45 % del FCF base. Ambos extremos llevan +27,9 de partidas puntuales de la ventana (§4.2) | Nivel del flujo de partida del motor A y, con él, cualquier nivel de valor del motor A; anclaje de S2C |
+| M2 | Tasa de bajas de clientes, en particular de los adquiridos, y desembolso inicial por cliente nuevo. Publicado: contratos de cuatro años y bajada cualitativa de la tasa de pérdidas en 2024 | Política PPA: 85,7 al año (28 % del FCF base); diferencia entre A1 y A2 en el flujo de partida: 89,9 | Si la PPA es un coste de reposición |
 | M3 | Política de proyección: crecimiento orgánico frente a crecimiento con adquisiciones | Cambia el ancla de S2C: en A2, 1,61 con adquisiciones frente a 2,07–3,13 orgánico; en A1, 2,45 frente a 5,52–13,85 | Coherencia entre crecimiento proyectado, inversión y PPA |
 | M4 | Puente caja/devengo del interés de arrendamientos de 2025 | 0,4 (0,04 % del FCF base) | Ninguna |
-| M5 | Efecto precio y volumen del crecimiento orgánico 2024–25 | Anclas S2C orgánicas | Calibración de las palancas S2C, no de f |
+| M5 | **Cuantificación** del efecto precio y del efecto volumen del crecimiento orgánico de 2024–25. Su existencia está publicada (§6.2) | Anclas S2C orgánicas | Calibración de las palancas S2C, no de f |
 
 M1 y M2 son materiales y no se pueden resolver con la base. **Se conserva `pendiente_de_datos` para la conclusión de nivel**, como ya hace el expediente.
 
@@ -344,8 +439,9 @@ M1 y M2 son materiales y no se pueden resolver con la base. **Se conserva `pendi
 | CVAE/IRAP incluidos en el gasto | 4,6 | 3,5 | 3,7 | [P] |
 
 - No se toma el gasto (126,2) por el impuesto de caja (146,7). f recoge, como fuga, la diferencia entre el impuesto pagado y el nocional [D].
-- **Tratamiento fiscal de los ajustes ROU y PPA.** Las alternativas de §9 cambian un concepto de caja antes de impuestos: el perímetro de la reinversión. La identidad de calibración se mantiene exacta y no necesita un ajuste fiscal adicional. Los efectos fiscales reales ya están en los impuestos pagados que calibran f: la no deducibilidad en caja de la PPA y el efecto casi neutro de NIIF 16 [D].
+- **Tratamiento fiscal de los ajustes ROU y PPA.** Las alternativas de §9 cambian un concepto de caja antes de impuestos: el perímetro de la reinversión. La identidad de calibración se mantiene exacta y no necesita un ajuste fiscal adicional [D]. Los efectos fiscales reales ya están en los impuestos pagados que calibran f: la PPA es mayoritariamente no deducible en caja [I, §6.3] y NIIF 16 tiene un efecto casi neutro [P].
   - **Limitación [I]:** en la proyección esos efectos se escalan con las ventas, aunque la PPA se agote. El escudo nocional τ·PPA dentro del NOPAT es 25,4 / 23,4 / 21,9 y queda compensado en la historia por el diferido de intangibles.
+  - La limitación de proyección no es solo fiscal: en A2, f devuelve la PPA entera de forma perpetua (1,87 % de las ventas). Eso solo es coherente si el margen objetivo incluye una PPA de ese orden. Por eso la especificación añade un perímetro declarado del margen (E2 y V-F1h; revisión, O12).
 - **Observación fuera de F1 [D]:** f se calibra con el τ de cada año (media efectiva ponderada ≈ 27,4 %) y la proyección aplica el τ de 5 años (28,82 %, que incluye el 33,1 % de 2021). Efecto en la base: −8,0 al año. Es una convención (Convenciones §4 y C52), no un error. Si se revisa, debe decidirse expresamente.
 
 ---
@@ -366,7 +462,11 @@ M1 y M2 son materiales y no se pueden resolver con la base. **Se conserva `pendi
 
 Fuentes [P]: DEU24 p.259, 273 y 329; URD25 p.314, 327 y 384. El puente publicado de la deuda neta cierra en 2025 (FCF 358,6 − adquisiciones 117,6 − deuda adquirida 9,1 − otros flujos 12,7 − dividendos 105,1 − capital y acciones propias 139,0 + otros 42,7 = 17,8 de reducción) y en 2024 con un residuo de 0,1 [D].
 
-- **Deuda constante [D/I].** El FCF base resta intereses pero no amortizaciones ni nuevas emisiones de deuda financiera: equivale a un flujo al accionista con la deuda refinanciada. La deuda neta fue estable en 2023–25 (3.025 → 3.038 → 3.020), lo que es coherente con esa lectura histórica.
+- **Deuda constante [D/I].** El FCF base resta intereses pero no amortizaciones ni nuevas emisiones de deuda financiera: equivale a un flujo al accionista con la deuda refinanciada. La deuda neta fue estable en 2023–25 (3.025 → 3.038 → 3.020), lo que es coherente con esa lectura histórica. Tiene cuatro límites (revisión, O11):
+  1. **Los arrendamientos no están en base de deuda constante.** El FCF base resta su principal (128,1) y no acredita las altas no monetarias (159,0 / 194,3 / 245,6). La financiación se trata de forma asimétrica: deuda financiera renovada y arrendamientos amortizados. Es legítimo, pero es el origen de F1 y la razón de que A1′ sea la variante simétrica.
+  2. **Deuda constante no es interés constante.** Con la deuda neta plana, los intereses netos pagados subieron un 41 %, de 70,5 a 99,4, por la refinanciación a tipos más altos y el reembolso anticipado del bono de 2026 [P: «refinancing transactions in 2024 and 2025 at higher interest rates», URD25 p.312]. f usa la media, 82,9, que escalada a 2025 da 87,2, por debajo del último dato.
+  3. **Lo estable es la deuda neta.** La bruta bajó de 3.690,7 a 3.418,3 y la caja de 665,3 a 398,1 [P].
+  4. **El devengo no monetario de la OCEANE** (9,7 en 2025 [P: URD25 p.314]) aumenta el pasivo sin caja. No está en C48 por la decisión E6, que no se discute, pero significa que ese pasivo no es constante.
 - **Observación fuera de F1 [D][I].** En la proyección, f escala los intereses con las ventas (1,82 % de las ventas) sin el endeudamiento nuevo que haría falta para que la deuda creciera con el negocio. En el año 1:
   - los intereses adicionales son 1,7 / 3,9 / 4,8 (MALO / NORMAL / BUENO);
   - si la deuda neta se mantuviera en el 63 % de las ventas, el endeudamiento neto omitido sería 60,4 / 135,9 / 166,1.
@@ -383,6 +483,8 @@ Fuentes [P]: DEU24 p.259, 273 y 329; URD25 p.314, 327 y 384. El puente publicado
 - **Inversión de crecimiento:** capex propio − R + circulante.
 - **D&A propia:** D&A total − ROU − PPA.
 - **Perímetro de la reinversión:** el conjunto de D&A que se supone repuesto con capex propio. Debe ser el mismo en la calibración de f, en el ancla de S2C y en la proyección.
+- **Perímetro del margen:** qué costes no monetarios incluye el margen proyectado: EBIT NIIF 16 con PPA constante, con PPA decreciente o sin PPA. Debe casar con el perímetro de la reinversión (revisión, O12).
+- **Inversión del plan climático:** ni reposición ni crecimiento de ventas. Queda **pendiente de definición**; no se asigna a ninguno de los dos (revisión, O6).
 
 | | A0 · V6.3 actual | A1 · sin ROU | A1′ · arrendamientos como deuda renovada | A2 · perímetro propio | B · cota |
 |---|---|---|---|---|---|
@@ -393,10 +495,12 @@ Fuentes [P]: DEU24 p.259, 273 y 329; URD25 p.314, 327 y 384. El puente publicado
 | Flujo sin crecimiento (base 2025) | 248,5 | 387,9 | 383,2 | 477,8 | 339,8 |
 | S2C total 2021–25 (con adquisiciones) | 9,04 | 2,45 | — | 1,61 | 2,65 |
 | S2C orgánico 2023–25 / 2021–25 | no definido | 5,52 / 13,85 | — | 2,07 / 3,13 | no significativo |
-| Coherencia con los arrendamientos | **No** (§5.3) | Sí | Sí, en estado estacionario (principal ≈ amortización ROU) | Sí | Sí |
-| Tratamiento de la PPA | Reposición monetaria implícita | Reposición monetaria implícita | Reposición monetaria implícita | No monetaria, sin reposición | Incluida en el capex observado |
-| Evidencia | Hipótesis implícita contraria a la historia (R > capex) [I] | Lease: [D]; PPA: [H] | Lease: [D]; cambia una entrada registrada | Lease: [D]; PPA: [I]/[H]; R = D&A propia: [H] | Cota: [I] |
+| Coherencia con los arrendamientos³ | **No** (§5.3) | Sí | Sí, en estado estacionario (principal ≈ amortización ROU) | Sí | Sí |
+| Tratamiento de la PPA | Reposición monetaria implícita | Reposición monetaria implícita | Reposición monetaria implícita | No monetaria, sin reposición; exige un margen con PPA de ese orden | Incluida en el capex observado |
+| Evidencia | Hipótesis implícita contraria a la historia (R > capex) [I] | Lease: [D]; PPA: [H] | Lease: [D], y es el esquema que usa Elis en sus pruebas de deterioro: «capital expenditure (including lease renewal)» (URD25 p.368) [P]; cambia una entrada registrada | Lease: [D]; PPA: [I]/[H], con evidencia parcial a favor en la ventana (§6.3); R = D&A propia: [H], con evidencia publicada en contra como caso central (§6.2) | Cota: [I] |
 | Límites | Doble coste de arrendamiento | Mantiene la hipótesis PPA | Sustituye el principal de caja (128,1) por la amortización ROU (132,5); **modifica C49, registrado: requiere decisión** | Si la reposición a coste actual supera la D&A propia, sobrestima el flujo | No es una alternativa: supone crecimiento sin inversión |
+
+³ Con una salvedad común a todas las columnas: los pagos y la amortización ROU crecieron más deprisa que las ventas en la ventana, y una razón constante no lo proyecta (§5.5). Todos los flujos llevan +27,9 de partidas puntuales (§4.2).
 
 Fuente: `resultados/contraste_f1.md`, tabla «Alternativas».
 
@@ -422,8 +526,10 @@ Lectura [I], sin adoptar nada:
 2. Si (b): **política de arrendamientos**. Para que el motor A sea coherente, el perímetro debe excluir la amortización ROU (A1/A2) o el FCF base debe excluir el principal (A1′, que modifica C49).
 3. Si (b): **política de intangibles adquiridos** (A1 frente a A2, o modelización explícita de adquisiciones). Requiere M2 y M3.
 4. Si (b): **reinversión necesaria**: dato (M1) o estimación documentada con rango, evidencia operativa y responsable. Si no existe, se mantiene `pendiente_de_datos`.
-5. **Perímetro de S2C** coherente con el anterior. El ancla C53 y las palancas deben declarar el mismo perímetro.
-6. Observaciones de la plantilla fuera de F1 (§7 y §8): ventana del tipo impositivo y escala de intereses sin endeudamiento nuevo. Requieren revisión económica propia.
+5. **Perímetro de S2C y del margen** coherentes con el anterior. El ancla C53, las palancas S2C y el margen objetivo deben declarar el mismo perímetro.
+6. **Tratamiento de la inversión del plan climático** (§6.2): ni reposición ni crecimiento. Hace falta una definición antes de usarla en una estimación.
+7. **Normalización de partidas puntuales** de la ventana (+27,9; §4.2): solo con una regla decidida.
+8. Observaciones de la plantilla fuera de F1 (§7 y §8): ventana del tipo impositivo y escala de intereses sin endeudamiento nuevo. Requieren revisión económica propia.
 
 **Incertidumbres que no se pueden acotar con la base:** M1 y M2 (§6.4). La conclusión afectada, el nivel del flujo y del valor del motor A para Elis, **queda pendiente**.
 
@@ -435,7 +541,13 @@ Ver [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md). Es una pro
 
 ## 12. Revisión independiente
 
-Estado y documentos en [revision/](revision/). La revisión debe hacerla un agente distinto del autor, con contexto separado (Fable 5.2, esfuerzo máximo según el encargo). La configuración real que exponga el entorno se registra en [REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md). Mientras no conste el informe del revisor con sus objeciones y respuestas, **la revisión independiente queda pendiente**.
+Estado y documentos en [revision/](revision/).
+
+- **Revisión n.º 1:** sobre el commit 96a69ca, hecha por una sesión distinta de la del autor, con contexto separado y la configuración que el encargo asigna a la revisión, comprobada en los metadatos de su sesión ([REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md)).
+  - El informe, los scripts y las salidas del revisor están en su rama `auditoria/economica-f1-frente-e-revision` (commit 47551a2). Se copian sin cambios y en las mismas rutas en `revision/`, con procedencia y huellas en [revision/PROCEDENCIA_REVISOR.md](revision/PROCEDENCIA_REVISOR.md).
+  - Resultado: 17 objeciones, 3 materiales. Ninguna invierte una conclusión material.
+  - Respuestas en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
+- **Segunda pasada** sobre lo afectado por las correcciones materiales: ver `revision/ESTADO.md`. Mientras no conste, las correcciones de esta versión **no están revisadas**.
 
 ## 13. Reproducción
 

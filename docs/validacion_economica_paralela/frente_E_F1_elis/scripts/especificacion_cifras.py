@@ -506,6 +506,9 @@ Y = "URD2021"
 dos(Y, 226, "Revenue", "IS_VENTAS_U21", 2021, "3048.3", 2020, "2806.3", "Ventas (2020 = base de S2C)")
 t(Y, 211, "re:^\\s*TOTAL\\s{2,}", 0, [(-2, 2021, "CREC_PUB_2021", "8.6"), (-1, 2021, "CREC_ORG_2021", "7.4")], "Crecimiento de ventas 2021: publicado / orgánico", "%")
 
+t(U, 347, "Flat linen", 0, [(-1, 2025, "VENTAS_LINO_PLANO_2025", "2217.4")], "Ventas de lino plano 2025 (nota 4.2, total de segmentos)",
+  nota="Tabla de un solo ejercicio: el título «2025» va encima de la tabla y la p.348 presenta 2024; control manual del ejercicio")
+
 # ---------------- Literales de texto (prosa) ----------------
 TXT = [
     ("TXT_CAPEX_AMBOS", 2025, U, 312, "It therefore covers investments for both growth (new plants or to increase capacity) and maintenance (equipment replacement)", "La inversión industrial cubre crecimiento y mantenimiento; no se publica el reparto."),
@@ -521,7 +524,53 @@ TXT = [
     ("TXT_VOLUMEN_2025", 2025, U, 122, "driven by a price effect from residual inflation in 2025, and a volume effect", "Crecimiento orgánico 2025: efecto precio y efecto volumen (sin importes)."),
     ("TXT_VOLUMEN_2024", 2024, D, 121, "tirée par l'effet prix, en raison de l'inflation résiduelle en 2024, et par l'effet volume", "Crecimiento orgánico 2024: efecto precio y efecto volumen (sin importes)."),
     ("TXT_VOLUMEN_COSTES", 2025, U, 309, "in connection with the continued growth in volumes processed", "Costes de proceso 2025 al alza por crecimiento de volúmenes procesados."),
+    # Revisión independiente n.º 1, O1: proporción publicada de mantenimiento del lino plano (factor de riesgo)
+    ("TXT_LINO_2TERCIOS_2025", 2025, U, 137, "particularly flat linen, two-thirds of which ensures the maintenance of the stock in circulation", "Dos tercios de la inversión en lino plano mantienen el stock en circulación (factor de riesgo de la hostelería)."),
+    ("TXT_LINO_2TERCIOS_2024", 2024, D, 135, "en particulier le linge plat dont les deux tiers assurent la maintenance du stock en circulation", "Ídem, DEU 2024."),
+    ("TXT_LINO_2TERCIOS_2023", 2023, W, 239, "particularly flat linen, two-thirds of which ensures the maintenance of the stock in circulation", "Ídem, URD 2023."),
+    ("TXT_LINO_2TERCIOS_2022", 2022, X, 221, "particularly flat linen, two-thirds of which ensures the maintenance of the stock in circulation", "Ídem, URD 2022."),
+    ("TXT_LINO_2TERCIOS_2021", 2021, Y, 189, "particularly flat linen, two-thirds of which ensures the maintenance of the stock in circulation", "Ídem, URD 2021."),
+    # O2: efecto precio en 2024–25 (sin cuantificar)
+    ("TXT_PRECIO_2024_GRUPO", 2024, D, 252, "une dynamique de prix favorable en lien avec l'inflation du coût de la main-d'œuvre", "Efecto precio 2024 a nivel de grupo, sin cifra."),
+    ("TXT_PRECIO_2025_LATAM", 2025, U, 307, "Price momentum is favorable, in line with labor cost inflation", "Efecto precio 2025 en Latinoamérica, sin cifra."),
+    ("TXT_PRECIO_2025_UK", 2025, U, 307, "adjustments implemented in the region to offset cost inflation", "Ajustes de precio 2025 en Reino Unido e Irlanda, sin cifra."),
+    # O5: la propia Elis cuenta el arrendamiento como renovación dentro de la inversión en sus pruebas de deterioro
+    ("TXT_RENOV_ARR_2025", 2025, U, 368, "capital expenditure (including lease renewal)", "Flujo de las pruebas de deterioro: inversión que incluye la renovación de arrendamientos."),
+    # O6: evidencia contra la D&A propia como caso central y señales de contención del capex
+    ("TXT_PLAN_CLIMA_A", 2025, U, 369, "the Group's climate plan, with a level of investment greater than", "Hipótesis de deterioro: plan climático con inversión superior a… (frase partida entre columnas)."),
+    ("TXT_PLAN_CLIMA_B", 2025, U, 369, "the amortization and depreciation historically recorded", "…la amortización históricamente registrada (continuación de la frase anterior)."),
+    ("TXT_PLAN_CLIMA_FR", 2024, D, 315, "supérieur aux amortissements historiquement constatés", "Ídem, DEU 2024."),
+    ("TXT_INVERSIONES_FUTURAS", 2025, U, 333, "include additional future investments", "Las hipótesis de deterioro incluyen inversiones futuras adicionales."),
+    ("TXT_CAPEX_CONTROL", 2025, U, 122, "effective management of capital expenditure, particularly in linen, has kept depreciation under control", "Contención del capex de lino en 2025."),
+    ("TXT_CAPEX_CONTENIDO", 2025, U, 122, "capex contained despite new workwear contracts and expenditure under the Climate plan", "Capex contenido en 2025 pese a contratos nuevos y al plan climático."),
+    ("TXT_CAPEX_NORMAL", 2025, U, 312, "The Group's capital expenditure has returned to normal levels since 2024", "Capex normalizado desde 2024."),
+    ("TXT_CAPEX_ESTABLE", 2025, U, 311, "They remained stable after the sharp increase in previous years", "Inversión neta estable tras el aumento de años anteriores."),
+    # O7: altas de 2025 provisionales
+    ("TXT_ALTAS_PROVIS", 2025, U, 340, "the amounts above are only provisional", "Contabilización provisional de las combinaciones de 2025."),
+    # O8: datos sobre la cartera de clientes
+    ("TXT_CONTRATOS_4A", 2025, U, 141, "contracts are usually valid for an initial four-year term", "Contratos con plazo inicial habitual de cuatro años."),
+    ("TXT_PERDIDAS_2024", 2024, D, 121, "a permis de baisser le taux de pertes", "En 2024 bajó la tasa de pérdidas de clientes (sin cifra)."),
+    # O9: partida puntual de 2025
+    ("TXT_SEGUROS_2025", 2025, U, 309, "a high level of insurance benefits in 2025", "Indemnizaciones de seguros elevadas en 2025 (otros ingresos y gastos operativos)."),
+    # O11: intereses y devengo no monetario de la OCEANE
+    ("TXT_REFIN_TIPOS", 2025, U, 312, "refinancing transactions in 2024 and 2025 at higher interest rates", "Intereses pagados al alza por refinanciación a tipos mayores."),
+    ("TXT_OCEANE_DEVENGO", 2025, U, 314, "-€9.7 million in 2025", "Revalorización no monetaria del componente de deuda de la OCEANE en 2025."),
 ]
+
+
+def modo_anio(idf):
+    """Modo de control del ejercicio de cada fila (ver verificar_cifras.py)."""
+    if idf == "VENTAS_LINO_PLANO_2025":
+        return "manual"
+    if idf.startswith("CREC_"):
+        return "crecimiento"
+    if idf.startswith("TAXDIF_"):
+        return "max_cabecera"
+    if "_SALDO_" in idf or idf.startswith("INT_RC_VNC"):
+        return "saldo"
+    if idf.startswith(("LS_", "PPE_", "INT_")):
+        return "movimientos"
+    return "dos_columnas"
 
 
 def main():
@@ -545,7 +594,8 @@ def main():
         if not cand:
             errores.append(f"{doc} p{pag} «{etq}» occ{occ}: sin línea")
             continue
-        toks_por_linea = [V.tokens_numericos(l, idioma) for l in cand]
+        lineas = texto.splitlines()
+        toks_por_linea = [V.tokens_numericos(l, idioma) for _, l in cand]
         for pos, anio, idf, leido in cols:
             try:
                 literales = {tk[pos] for tk in toks_por_linea}
@@ -563,9 +613,14 @@ def main():
             if idf in ids:
                 errores.append(f"id repetido {idf}")
             ids.add(idf)
-            filas.append({"id": idf, "anio": anio, "concepto": concepto, "doc": doc, "pagina": pag, "tipo": "tabla",
-                          "etiqueta": etq, "ocurrencia": occ, "pos": pos, "literal": lit, "valor_publicado": leido,
-                          "unidad": unidad, "perimetro": "consolidado IFRS, grupo Elis", "nota": nota})
+            fila = {"id": idf, "anio": anio, "concepto": concepto, "doc": doc, "pagina": pag, "tipo": "tabla",
+                    "etiqueta": etq, "ocurrencia": occ, "pos": pos, "literal": lit, "valor_publicado": leido,
+                    "unidad": unidad, "perimetro": "consolidado IFRS, grupo Elis", "nota": nota, "control_anio": modo_anio(idf)}
+            for i, _ in cand:
+                est, det = V.comprobar_anio(lineas, i, fila)
+                if est == "FALLO":
+                    errores.append(f"{idf}: ejercicio: {det}")
+            filas.append(fila)
     for idf, anio, doc, pag, lit, nota in TXT:
         r = V.comprobar_texto(pdf[doc], {"pagina": pag, "literal": lit})
         if r["estado"] != "OK":
@@ -573,7 +628,7 @@ def main():
             continue
         filas.append({"id": idf, "anio": anio, "concepto": nota, "doc": doc, "pagina": pag, "tipo": "texto",
                       "etiqueta": "", "ocurrencia": 0, "pos": 0, "literal": lit, "valor_publicado": "",
-                      "unidad": "", "perimetro": "", "nota": nota})
+                      "unidad": "", "perimetro": "", "nota": nota, "control_anio": "texto"})
     if errores:
         print("\n".join(errores))
         sys.exit(1)

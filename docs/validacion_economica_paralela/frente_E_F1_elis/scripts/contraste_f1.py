@@ -214,10 +214,12 @@ def main():
     R = {"comprobaciones": [], "tablas": {}}
     md = []
 
-    def check(nombre, calculado, referencia, tolerancia=Fr(0), nota=""):
+    def check(nombre, calculado, referencia, tolerancia=Fr(0), nota="", clase="libro"):
+        """clase: «libro» (frente al libro en caché), «fuente» (dos vías independientes o identidades de las cifras
+        publicadas con tolerancia de redondeo) o «algebraica» (identidad que se cumple por construcción; documenta, no prueba datos)."""
         dif = calculado - referencia
         ok = abs(dif) <= tolerancia
-        R["comprobaciones"].append({"nombre": nombre, "calculado": f6(calculado), "referencia": f6(referencia),
+        R["comprobaciones"].append({"nombre": nombre, "clase": clase, "calculado": f6(calculado), "referencia": f6(referencia),
                                     "diferencia": f6(dif, 9), "tolerancia": f6(tolerancia), "ok": ok, "nota": nota})
         return ok
 
@@ -252,6 +254,14 @@ def main():
         }
         conc[y] = r
     R["tablas"]["conciliaciones_residuos"] = {str(y): {k: f6(v, 3) for k, v in conc[y].items()} for y in VENTANA}
+    # (Revisión independiente n.º 1, O3) Las identidades se AFIRMAN: ±0,15 por redondeo de cifras impresas a un decimal,
+    # salvo excepciones declaradas y explicadas en el informe (§2 y §5.4).
+    EXCEPCIONES = {(2024, "R11"): (Fr("0.25"), "FCF 2024 impreso 346,3 (346,4 en el DEU 2024) frente a 346,5 de sus componentes"),
+                   (2025, "R13"): (Fr("0.45"), "interés de arrendamientos 2025: caja 29,6 frente a devengo 29,2, sin puente publicado")}
+    for y in VENTANA:
+        for k, v in conc[y].items():
+            tol, nota = EXCEPCIONES.get((y, k.split(" ")[0]), (Fr("0.15"), "redondeo de cifras impresas"))
+            check(f"residuo {k.split(' ')[0]} {y} dentro de tolerancia", v, Fr(0), tol, nota, clase="fuente")
 
     # ======================= A. FCF base por dos vías y Análisis C46–C52
     fcfb = {}
@@ -274,7 +284,7 @@ def main():
                                "C52_via_cfo": f6(C52), "C52_via_fcf_publicado": f6(C52_apm),
                                "variante_no_adoptada_C48_con_interes_devengado": f6(C48_devengo),
                                "variante_no_adoptada_C48_sin_interes_arr": f6(avg(lambda d: d["int"]))}
-    check("C52 vía CFO = vía FCF publicado − SBC", C52, C52_apm)
+    check("C52 vía CFO = vía FCF publicado − SBC", C52, C52_apm, clase="fuente")
     if L:
         for celda, val in [("Análisis!C46", C46), ("Análisis!C47", C47), ("Análisis!C48", C48), ("Análisis!C49", C49),
                            ("Análisis!C50", C50), ("Análisis!C52", C52)]:
@@ -336,9 +346,9 @@ def main():
         }
         comp[y] = c
         fs_y = nopat[y] - reinv[y] - fcfb[y]["fcf_base_via_cfo"]
-        check(f"descomposición económica de f·ventas {y} = definición de la plantilla", sum(c.values()), fs_y)
+        check(f"descomposición económica de f·ventas {y} = definición de la plantilla", sum(c.values()), fs_y, clase="algebraica")
     comp_avg = {k: sum(comp[y][k] for y in VENTANA) / 3 for k in comp[2025]}
-    check("descomposición media de f·ventas = C79", sum(comp_avg.values()), FS)
+    check("descomposición media de f·ventas = C79", sum(comp_avg.values()), FS, clase="algebraica")
     R["tablas"]["f"] = {"ventas_medias": f6(S_avg), "nopat_medio": f6(NOPAT_avg), "reinversion_media": f6(REINV_avg),
                         "flujo_implicito": f6(NOPAT_avg - REINV_avg), "fcf_base": f6(C52), "fugas_mm": f6(FS), "f": f6(f, 12),
                         "componentes_por_anio": {str(y): {k: f6(v, 3) for k, v in comp[y].items()} for y in VENTANA},
@@ -365,8 +375,8 @@ def main():
                 check(f"Motor!{c}{fila} flujo año {t+1} {nombre}: réplica = libro", mo["flujos"][t], Fr(L[f"Motor!{c}{fila}"]), Fr(1, 10 ** 9))
             check(f"Motor!BF{fila} flujo año 11 {nombre}: réplica = libro", mo["flujo_11"], Fr(L[f"Motor!BF{fila}"]), Fr(1, 10 ** 9))
             r_ = Fr(str(L[f"Motor!J{fila}"]))
-            check(f"Motor!BL{fila}·r − exceso de caja = flujo sin crecimiento {nombre}", mo["flujo_sin_crecimiento"],
-                  Fr(L[f"Motor!BL{fila}"]) * r_ - Fr(str(L["Análisis!C76"])), Fr(1, 10 ** 8))
+            check(f"(Motor!BL{fila} − exceso de caja)·r = flujo sin crecimiento {nombre}", mo["flujo_sin_crecimiento"],
+                  (Fr(L[f"Motor!BL{fila}"]) - Fr(str(L["Análisis!C76"]))) * r_, Fr(1, 10 ** 8))
     F0 = V0 * (m0 * (1 - tau5) - f_libro)
 
     # ======================= E. puentes
@@ -379,7 +389,7 @@ def main():
         "+ reinversión histórica media que el motor no proyecta (C76)": REINV_avg,
     }
     puente0["= flujo sin crecimiento del motor (V0·[m0(1−τ) − f])"] = sum(puente0.values())
-    check("puente FCF base → flujo sin crecimiento", puente0["= flujo sin crecimiento del motor (V0·[m0(1−τ) − f])"], F0)
+    check("puente FCF base → flujo sin crecimiento", puente0["= flujo sin crecimiento del motor (V0·[m0(1−τ) − f])"], F0, clase="algebraica")
     dR = {y: A[y]["da_rou"] for y in VENTANA}
     dP = {y: A[y]["da_ppa"] for y in VENTANA}
     reinv_desc = {
@@ -392,7 +402,7 @@ def main():
         "− amortización de derechos de uso NIIF 16": -sum(dR.values()) / 3,
         "− amortización de intangibles de combinaciones (PPA)": -sum(dP.values()) / 3,
     }
-    check("descomposición de la reinversión media = C76", sum(reinv_desc.values()), REINV_avg)
+    check("descomposición de la reinversión media = C76", sum(reinv_desc.values()), REINV_avg, clase="algebraica")
     puente1 = {}
     for nombre, (p, mo) in escenarios.items():
         V1 = mo["V"][0]
@@ -404,7 +414,7 @@ def main():
             "− reinversión de crecimiento ΔV/S2C": -(V1 - V0) / p["s2c"],
         }
         puente1[nombre]["= flujo del año 1"] = sum(puente1[nombre].values())
-        check(f"puente flujo sin crecimiento → año 1 {nombre}", puente1[nombre]["= flujo del año 1"], mo["flujos"][0])
+        check(f"puente flujo sin crecimiento → año 1 {nombre}", puente1[nombre]["= flujo del año 1"], mo["flujos"][0], clase="algebraica")
     R["tablas"]["puentes"] = {"fcf_base_a_flujo_sin_crecimiento": {k: f6(v, 3) for k, v in puente0.items()},
                               "reinversion_media_descompuesta": {k: f6(v, 3) for k, v in reinv_desc.items()},
                               "flujo_sin_crecimiento_a_anio_1": {n: {k: f6(v, 3) for k, v in pp.items()} for n, pp in puente1.items()},
@@ -439,6 +449,14 @@ def main():
         "proyección (base 2025): coste de arrendamiento total cargado": -A[2025]["da_rou"] - P_avg / S_avg * V0,
     }
     R["tablas"]["arrendamientos_ubicacion"] = {k: f6(v, 3) for k, v in ubicacion.items()}
+    # (O17) exceso exacto en la base 2025 = amortización ROU media escalada (antes de impuestos; el impuesto real ya está en f)
+    R["tablas"]["arrendamientos_exceso_exacto_base_2025"] = f6(dR_avg / S_avg * V0, 3)
+    # (O10) tendencia: pagos y amortización ROU crecen más deprisa que las ventas
+    R["tablas"]["arrendamientos_tendencia"] = {
+        "pagos_medios_escalados_a_2025 (f)": f6(P_avg / S_avg * V0, 3), "pagos_2025": f6(A[2025]["leasepay"], 3),
+        "diferencia_pagos_2025_menos_escalados": f6(A[2025]["leasepay"] - P_avg / S_avg * V0, 3),
+        "amortizacion_ROU_2025_en_m0": f6(A[2025]["da_rou"], 3), "amortizacion_ROU_media_escalada_devuelta_en_A1_A2": f6(dR_avg / S_avg * V0, 3),
+        "ROU_2025_no_devuelta_en_A1_A2": f6(A[2025]["da_rou"] - dR_avg / S_avg * V0, 3)}
 
     # ======================= G. alternativas de perímetro (consecuencias, no propuestas adoptadas)
     defs = {
@@ -496,6 +514,44 @@ def main():
         check("S2C total A0 = Historia!C53", Fr(alt["A0 V6.3 actual: reinversión necesaria = D&A total"]["S2C_total_2021_25 (ΔV 2020→2025 ÷ Σ reinversión + adquisiciones)"]).limit_denominator(10 ** 4),
               Fr(L["Historia!C53"]), Fr(1, 10 ** 4))
     R["tablas"]["alternativas"] = alt
+    # (O4) Con la palanca S2C anclada en el C53 de cada perímetro, el exceso de los años 1–10 decrece con el crecimiento.
+    s2c_ancla = {}
+    for nombre, DX in defs.items():
+        den = sum(A[y]["capex"] - DX(A[y]) + A[y]["dwc"] + A[y]["adq"] for y in HORIZONTE)
+        s2c_ancla[nombre.split(" ")[0]] = (ventas[2025] - S2020) / den if den > 0 else None
+    f_por = {nombre.split(" ")[0]: (NOPAT_avg - avg(lambda d, DX=DX: d["capex"] - DX(d) + d["dwc"]) - C52_libro) / S_avg for nombre, DX in defs.items()}
+    o4 = {}
+    if "NORMAL" in escenarios:
+        pN = escenarios["NORMAL"][0]
+        V1 = V0 * (1 + pN["g15"])
+        m1 = m0 + (pN["m_obj"] - m0) / 5
+        for k in ("A0", "A1", "A2"):
+            o4[k] = {"S2C_ancla_C53": s2c_ancla[k], "f": f_por[k],
+                     "flujo_sin_crecimiento": V0 * (m0 * (1 - tau5) - f_por[k]),
+                     "flujo_año_1_NORMAL_con_S2C_ancla": V1 * (m1 * (1 - tau5) - f_por[k]) - (V1 - V0) / s2c_ancla[k]}
+        for k in ("A1", "A2"):
+            df_ = f_por["A0"] - f_por[k]
+            dinv = 1 / s2c_ancla[k] - 1 / s2c_ancla["A0"]
+            o4[k]["brecha_frente_a_A0_sin_crecimiento"] = o4[k]["flujo_sin_crecimiento"] - o4["A0"]["flujo_sin_crecimiento"]
+            o4[k]["brecha_frente_a_A0_año_1"] = o4[k]["flujo_año_1_NORMAL_con_S2C_ancla"] - o4["A0"]["flujo_año_1_NORMAL_con_S2C_ancla"]
+            o4[k]["aumento_de_ventas_que_anula_la_brecha"] = V0 * df_ / (dinv - df_)
+    R["tablas"]["S2C_anclada_en_C53"] = {k: {kk: f6(vv, 4) for kk, vv in v.items()} for k, v in o4.items()}
+    # (O9) Partidas puntuales de la ventana dentro del flujo sin crecimiento (comunes a todos los perímetros)
+    earn_f = -comp_avg["earnout y otros no monetarios"] / S_avg * V0          # su presencia baja f → sube el flujo
+    plusv_f = -comp_avg["plusvalías por enajenación (no monetarias en EBIT)"] / S_avg * V0
+    plusv_m0 = A[2025]["ooie_plusv"] * (1 - tau5)
+    R["tablas"]["partidas_puntuales_en_flujo_sin_crecimiento"] = {
+        "earnout y otros no monetarios dentro de f": f6(earn_f, 3),
+        "plusvalías netas de la ventana dentro de f": f6(plusv_f, 3),
+        "resultado por bajas de inmovilizado 2025 (+25,7 en OOIE) dentro de m0, después de τ": f6(plusv_m0, 3),
+        "efecto neto común a todos los perímetros": f6(earn_f + plusv_f + plusv_m0, 3)}
+    # (O13) Flujos de referencia de los años 1–11 con las palancas actuales para A1 y A2 (contraste de implementación)
+    flujos_ref = {}
+    for k in ("A1", "A2"):
+        flujos_ref[k] = {}
+        for nombre, (p, _) in escenarios.items():
+            mo_k = motor_a(V0, m0, tau5, f_por[k], **p)
+            flujos_ref[k][nombre] = [f6(x, 12) for x in mo_k["flujos"]] + [f6(mo_k["flujo_11"], 12)]
 
     # ======================= materialidad
     mat = {
@@ -555,8 +611,8 @@ def main():
             fS_ = ebit - (capex - DX) - fcf_verdadero          # calibración de f con la historia estacionaria
             fila[f"motor sin crecimiento · {alt_n}"] = ebit - fS_  # NOPAT − f·V (τ = 0)
         sint[nombre] = fila
-        check(f"sintético {nombre}: A2 reproduce el FCF verdadero", fila["motor sin crecimiento · A2 (propia)"], fcf_verdadero)
-        check(f"sintético {nombre}: A0 queda por debajo en ROU + PPA", fcf_verdadero - fila["motor sin crecimiento · A0 (D&A total)"], dR + dP)
+        check(f"sintético {nombre}: A2 reproduce el FCF verdadero", fila["motor sin crecimiento · A2 (propia)"], fcf_verdadero, clase="algebraica")
+        check(f"sintético {nombre}: A0 queda por debajo en ROU + PPA", fcf_verdadero - fila["motor sin crecimiento · A0 (D&A total)"], dR + dP, clase="algebraica")
     R["tablas"]["demostracion_sintetica"] = {n: {k: f6(v, 3) for k, v in fl.items()} for n, fl in sint.items()}
 
     # Valores de referencia para los criterios de prueba de la especificación (12 decimales; entradas registradas)
@@ -572,11 +628,15 @@ def main():
     if L:
         for nombre, (p, mo) in escenarios.items():
             ref.setdefault("A0_flujos_libro", {})[nombre] = [f6(x, 12) for x in mo["flujos"]] + [f6(mo["flujo_11"], 12)]
+    ref["A1_A2_flujos_palancas_actuales"] = flujos_ref
     R["referencia_especificacion"] = ref
 
     ok = all(c["ok"] for c in R["comprobaciones"])
+    por_clase = {}
+    for c in R["comprobaciones"]:
+        por_clase[c["clase"]] = por_clase.get(c["clase"], 0) + 1
     R["resumen"] = {"comprobaciones": len(R["comprobaciones"]), "fallidas": sum(not c["ok"] for c in R["comprobaciones"]),
-                    "libro_contrastado": bool(L), "libro_sha256": L["sha256"] if L else None}
+                    "por_clase": por_clase, "libro_contrastado": bool(L), "libro_sha256": L["sha256"] if L else None}
     a.salida.parent.mkdir(parents=True, exist_ok=True)
     a.salida.write_text(json.dumps(R, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -587,7 +647,7 @@ def main():
             md.append("| " + " | ".join("" if x is None else (f"{x:,.3f}".replace(",", " ") if isinstance(x, float) else str(x)) for x in fl) + " |")
 
     md.append("# Contraste independiente F1 · Elis · resultados calculados\n")
-    md.append(f"Generado por `scripts/contraste_f1.py`. Comprobaciones: {R['resumen']['comprobaciones']}, fallidas: {R['resumen']['fallidas']}. "
+    md.append(f"Generado por `scripts/contraste_f1.py`. Comprobaciones: {R['resumen']['comprobaciones']} ({', '.join(f'{k}: {v}' for k, v in sorted(R['resumen']['por_clase'].items()))}), fallidas: {R['resumen']['fallidas']}. "
               f"Libro contrastado: {'sí, SHA-256 ' + L['sha256'] if L else 'no'}. Millones de euros salvo indicación.")
     tabla("Residuos de las conciliaciones anuales (0 = cuadra exactamente; ±0,1 = redondeo de la cifra impresa)",
           [[k] + [R["tablas"]["conciliaciones_residuos"][str(y)][k] for y in VENTANA] for k in conc[2025]], ["Identidad", "2023", "2024", "2025"])
@@ -606,6 +666,14 @@ def main():
     claves_alt = list(next(iter(alt.values())).keys())
     tabla("Alternativas de perímetro de la reinversión necesaria (consecuencias calculadas; ninguna adoptada)",
           [[k] + [alt[n][k] for n in alt] for k in claves_alt], ["Magnitud"] + [n.split(":")[0] for n in alt])
+    tabla("Palanca S2C anclada en el C53 de cada perímetro (escenario NORMAL; revisión O4)",
+          [[k] + [R["tablas"]["S2C_anclada_en_C53"][x].get(k) for x in R["tablas"]["S2C_anclada_en_C53"]] for k in
+           ["S2C_ancla_C53", "f", "flujo_sin_crecimiento", "flujo_año_1_NORMAL_con_S2C_ancla", "brecha_frente_a_A0_sin_crecimiento",
+            "brecha_frente_a_A0_año_1", "aumento_de_ventas_que_anula_la_brecha"]], ["Magnitud"] + list(R["tablas"]["S2C_anclada_en_C53"]))
+    tabla("Partidas puntuales dentro del flujo sin crecimiento (revisión O9)",
+          [[k, v] for k, v in R["tablas"]["partidas_puntuales_en_flujo_sin_crecimiento"].items()], ["Partida", "mm"])
+    tabla("Tendencia de los arrendamientos frente a la razón constante de f (revisión O10)",
+          [[k, v] for k, v in R["tablas"]["arrendamientos_tendencia"].items()], ["Magnitud", "mm"])
     tabla("Materialidad (porcentaje sobre las ventas del mismo período: medias 2023–25 o 2025)",
           [[k, v["mm"], v["%_FCF_base"], v["%_ventas_del_periodo"]] for k, v in R["tablas"]["materialidad"].items()],
           ["Partida", "mm", "% FCF base (C52)", "% ventas del período"])
@@ -617,7 +685,7 @@ def main():
           ["Concepto"] + [str(y) for y in HORIZONTE])
     md.append("\n### Comprobaciones\n")
     for c in R["comprobaciones"]:
-        md.append(f"- {'OK' if c['ok'] else 'FALLO'} · {c['nombre']}: {c['calculado']} frente a {c['referencia']} (dif. {c['diferencia']})")
+        md.append(f"- {'OK' if c['ok'] else 'FALLO'} · [{c['clase']}] {c['nombre']}: {c['calculado']} frente a {c['referencia']} (dif. {c['diferencia']}; tol. {c['tolerancia']})")
     a.informe.write_text("\n".join(md) + "\n", encoding="utf-8")
     print(json.dumps(R["resumen"], ensure_ascii=False))
     for c in R["comprobaciones"]:

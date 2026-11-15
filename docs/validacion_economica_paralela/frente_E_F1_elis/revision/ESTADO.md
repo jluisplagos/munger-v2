@@ -1,9 +1,8 @@
 # Revisión independiente · estado
 
-**Pendiente.** La revisión independiente de las conclusiones materiales y de sus cálculos todavía no consta.
+| Pasada | Material revisado | Resultado | Documentos |
+|---|---|---|---|
+| 1 | Commit 96a69ca | 17 objeciones (3 materiales, 10 menores, 4 de forma). Ninguna invierte una conclusión material. Se aceptan todas | [REVISION_INDEPENDIENTE_1.md](REVISION_INDEPENDIENTE_1.md), `scripts_revisor/` y `resultados_revisor/`: copia sin cambios, en las mismas rutas, del commit 47551a2 de la rama del revisor ([PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md)) · [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md) |
+| 2 | Lo afectado por las correcciones (ver RESPUESTAS_AUTOR_1.md, «Segunda pasada solicitada») | **Pendiente** | Se copiará igual desde la rama del revisor |
 
-- El encargo la asigna a Fable 5.2 con esfuerzo máximo, en un contexto separado del autor.
-- Cuando exista, esta carpeta contendrá el informe del revisor, la lista de objeciones y la respuesta del autor a cada una.
-- La configuración real que exponga el entorno quedará registrada en ../REGISTRO_CONFIGURACION.md.
-
-Mientras tanto, ninguna conclusión del informe debe presentarse como revisada.
+Mientras la segunda pasada no conste, las correcciones posteriores al commit 96a69ca **no están revisadas**. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.
