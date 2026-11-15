@@ -1,0 +1,65 @@
+python 3.13.18
+== A · no visible en el navegador
+   A1 comentario sin cerrar hasta el final                                        navegador: oculta   control: ausente
+   A2 comentario cerrado con --!>                                                 navegador: oculta   control: ausente
+   A3 CDATA en HTML (comentario espurio)                                          navegador: oculta   control: ausente
+   A4 comentario condicional de IE                                                navegador: oculta   control: ausente
+   A5 instrucción de proceso <? … >                                               navegador: oculta   control: ausente
+   A6 etiqueta de cierre espuria </ … >                                           navegador: oculta   control: ausente
+   A7 declaración espuria <! … >                                                  navegador: oculta   control: ausente
+   A8 style con display:none y comentario CSS                                     navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A9 clase CSS que oculta (hoja de estilo en <style>)                            navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A10 font-size:0                                                                navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A11 opacity:0                                                                  navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A12 fuera de pantalla (left:-9999px)                                           navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A13 <details> cerrado                                                          navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A14 <dialog> sin abrir                                                         navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A15 contenido alternativo de <canvas>                                          navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A16 contenido alternativo de <video>/<audio>                                   navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A17 <noembed> / <noframes>                                                     navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A18 <datalist><option>                                                         navegador: oculta   control: ausente
+   A19 <div hidden/> (en HTML la barra se ignora: sigue abierto)                  navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A20 <script/> (en HTML la barra se ignora: todo lo que sigue es script)        navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A21 <title/> en el body                                                        navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A22 </div> dentro de una celda no cierra el div oculto exterior                navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A23 atributo title / alt / value                                               navegador: oculta   control: ausente
+   A24 <xmp> (texto literal) con la cita dentro de una etiqueta oculta            navegador: visible  control: presente
+   A25 JSON en <script type=application/ld+json>                                  navegador: oculta   control: ausente
+   A26 texto solo para lectores de pantalla (clase sr-only)                       navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A27 <rp> (paréntesis de ruby) y <rt>                                           navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A28 comentario <!--> … (en HTML5 «<!-->» es un comentario vacío)               navegador: visible  control: presente
+== B · visible en el navegador
+   B1 párrafo normal                                                              navegador: visible  control: presente
+   B2 sin </head> (cierre opcional en HTML5)                                      navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B3 sin <html>, <head> ni <body> (opcionales)                                   navegador: visible  control: presente
+   B4 <meta> y <link> en el head y body implícito                                 navegador: visible  control: presente
+   B5 <p hidden> seguido de otro <p> (cierre implícito)                           navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B6 <li hidden> seguido de otro <li>                                            navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B7 aria-hidden=true (visible en pantalla)                                      navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B8 iXBRL: (<ix:nonFraction>849.697</ix:nonFraction>) con paréntesis fuera      navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B9 iXBRL: <ix:nonFraction> dentro de un párrafo                                navegador: visible  control: presente
+   B10 etiquetas en línea no listadas (<ins>, <label>, <big>, <tt>)               navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B11 <input type=text value=…> (el valor se ve)                                 navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B12 <textarea> (se ve)                                                         navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B13 <svg><text> (se ve)                                                        navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B14 <select><option selected>                                                  navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B15 guion blando dentro de una palabra (&shy;)                                 navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B16 espacio de ancho cero en la cifra                                          navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B17 entidades numéricas en la cifra                                            navegador: visible  control: presente
+   B18 <br> entre rótulo y cifra                                                  navegador: visible  control: presente
+   B19 celdas contiguas (rótulo | cifra)                                          navegador: visible  control: presente
+   B20 comentario condicional revelado <![if !IE]>                                navegador: visible  control: presente
+   B21 <noscript> (se ve sin JavaScript)                                          navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   B22 nombre de etiqueta en mayúsculas y atributos sin comillas                  navegador: visible  control: presente
+== C · codificación
+   C1 ISO-8859-1 declarado, con bytes de windows-1252 (€, –: el navegador lo lee como cp1252) navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   C2 windows-1252 declarado                                                      navegador: visible  control: presente
+   C3 UTF-16 LE sin BOM y sin declaración (bytes válidos como UTF-8)              navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   C4 charset=rot13 (códec de Python que no es de texto)                          navegador: visible  control: EXCEPCIÓN (LookupError: 'rot13' is not a text encoding; use codecs.decode() to handle arbitrary codec)   <<< se rechaza un texto que el navegador muestra
+   C5 charset=unicode_escape con la cifra escapada                                navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   C6 charset=utf-7 con la cifra codificada                                       navegador: oculta   control: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   C7 <meta charset> dentro de un comentario (no cuenta) y página en UTF-8        navegador: visible  control: ausente   <<< se rechaza un texto que el navegador muestra
+   C8 UTF-8 declarado con un byte inválido suelto                                 navegador: visible  control: pendiente (el HTML declara la codificación 'utf-8' pero no se puede decodificar con ella)   <<< se rechaza un texto que el navegador muestra
+   C9 BOM UTF-8 y meta ISO-8859-1 (manda el BOM)                                  navegador: visible  control: presente
+   C10 declaración XML de XHTML                                                   navegador: visible  control: presente
+   C11 «charset=» en el contenido de otra meta antes de la buena                  navegador: visible  control: pendiente (el HTML declara la codificación 'foo', que no se reconoce)   <<< se rechaza un texto que el navegador muestra

@@ -1,0 +1,40 @@
+
+=== elis_decisiones/Elis (66 páginas citadas)
+      11  U+002D -: a UN espacio de una cifra o «(»
+     167  U+002D -: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+       4  U+002D -: pegado a una cifra
+       3  U+2013 –: a UN espacio de una cifra o «(»
+      20  U+2013 –: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+       2  U+2212 −: a UN espacio de una cifra o «(»
+       1  U+2212 −: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+   -- «−» (U+2212) a UN espacio de una cifra: 2 líneas
+         ('Elis - 2025 Universal Registration Document.txt', '355', 'NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     67.1              91.6')
+         ('Elis_Universal Registration Document_2023_EN.txt', '307', 'NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     74.9               47.4')
+   -- «−» (U+2212) aislado y seguido, en la misma línea, de una cifra a 2+ espacios: 1 líneas
+         ('Elis - 2017 Registration Document.txt', '228', 'Net gains on site disposals                                                                                     −                 42.2')
+
+=== vidrala_decisiones/Vidrala (62 páginas citadas)
+     410  U+002D -: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+      14  U+002D -: pegado a una cifra
+   -- «−» (U+2212) a UN espacio de una cifra: 0 líneas
+   -- «−» (U+2212) aislado y seguido, en la misma línea, de una cifra a 2+ espacios: 0 líneas
+
+=== viscofan_decisiones/Viscofan (61 páginas citadas)
+     178  U+002D -: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+     410  U+002D -: pegado a una cifra
+       3  U+2013 –: a UN espacio de una cifra o «(»
+     155  U+2014 —: aislado (espacio o inicio antes; 2+ espacios o fin de línea después)
+     115  U+2212 −: pegado a una cifra
+   -- «−» (U+2212) a UN espacio de una cifra: 0 líneas
+   -- «−» (U+2212) aislado y seguido, en la misma línea, de una cifra a 2+ espacios: 0 líneas
+
+=== lo que lee el control
+   _cita_cifra('Acquisitions  −   (12.3)', 0) -> ('ausente', 'la cifra no aparece como cifra completa')
+   _cita_cifra('Acquisitions  -   (12.3)', 0) -> ('ok', 'cero impreso como guion')
+   _cita_cifra('Acquisitions −', 0) -> ('ausente', 'la cifra no aparece como cifra completa')
+   _cita_cifra('Dividends − 42.2', 42.2) -> ('signo_distinto', 'la cita la publica en negativo y valor_fuente es positivo')
+   _cita_cifra('Dividends − 42.2', -42.2) -> ('ok', 'signo publicado igual al de valor_fuente')
+   _cita_cifra('Dividends - 42.2', 42.2) -> ('signo_indeterminado', 'apariciones de la cifra en la cita: indeterminado')
+   _cita_cifra('Dividends - 42.2', -42.2) -> ('signo_indeterminado', 'apariciones de la cifra en la cita: indeterminado')
+   _cita_cifra('Dividends −                 42.2', 42.2) -> ('ok', 'signo publicado igual al de valor_fuente')
+   _cita_cifra('Dividends −                 42.2', -42.2) -> ('signo_distinto', 'la cita la publica en positivo y valor_fuente es negativo')

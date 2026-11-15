@@ -1,0 +1,46 @@
+== A · V6.3 (Elis, copia de elis_decisiones) con su registro real
+   códigos (ficha, informe, esquema): (0, 0, 0) | plantilla: V6.3 | claves de aptitud: ['verificacion_entradas']
+   informe: > **Entradas financieras:** apta por entradas: no (0 de 292 celdas del universo comprobadas); motivo: 0 de 292 celdas del universo comprobadas (0 de 193 de cálculo y 0 de 99 de juicio; +137 datos de origen auxiliares); 0 lecturas externas sin bytes; 1 entradas del FCF base no reproducibles; 0 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materiali. Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: registrada (sin declaración). Apta para dinero real: no.
+
+== B · V6.3 con un registro sintético completo y apto, con 1 derivado, 1 de juicio no material revisada y 1 lectura externa no material
+   control positivo: True 292 de 292 celdas del universo comprobadas (193 de 193 de cálculo y 99 de 99 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin r []
+   informe (apto, sin nada que declarar): > **Entradas financieras:** apta por entradas: sí (292 de 292 celdas del universo comprobadas). Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: registrada (sin declaración). Apta para dinero real: no.
+   derivado Historia!C6 = o["Historia!F5"] - (5*100 + 6*1 + 2/10) (valor 1512.8); no materiales ['Análisis!C24', 'Análisis!C26']
+   comprobar: True | 291 de 292 celdas del universo comprobadas (193 de 193 de cálculo y 98 de 99 de juicio); 2 entradas declaradas no materiales (de juicio o auxiliares) (1 con el juicio de materialidad revisado, 0 sin revisar); 0 datos tratados como hipótesis o convención; 11 no aplicables; 1 lecturas externas sin bytes; 1 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)
+   errores/discrepancias/pendientes: []
+   ficha.verificacion_entradas.resumen (recuentos): {'comprobadas_universo': 291, 'universo': 292, 'derivados_comprobados': 1, 'no_materiales': 2, 'no_materiales_sin_revisar': 0, 'lecturas_externas': 1, 'datos_como_hipotesis': 0, 'no_aplicables': 11}
+   informe V6.3: > **Entradas financieras:** apta por entradas: sí (291 de 292 celdas del universo comprobadas). Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: registrada (sin declaración). Apta para dinero real: no.
+   ¿el informe V6.3 menciona derivados, no materiales, lecturas externas o no aplicables?: {'derivados comprobados': False, 'no materiales': False, 'lecturas externas': False, 'no aplicables': False}
+
+== C · modo aplicado en el paso 2 ≠ modo declarado ahora; y declaración ilegible
+   ficha.entrada_efectiva: {'aplicada_en_paso_2': {'modo': 'estricta', 'declarado_en': 'entrada_efectiva.json'}, 'declarada': {'modo': 'registrada', 'declarado_en': 'entrada_efectiva.json'}, 'coinciden': False} | apto_por_entradas: True | esquema: 0
+   informe: > **Entradas financieras:** apta por entradas: sí (291 de 292 celdas del universo comprobadas). Entrada efectiva: modo aplicado en el paso 2: estricta (declarado en entrada_efectiva.json); declarado ahora: registrada (entrada_efectiva.json); **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.
+   ilegible → ficha.entrada_efectiva: {'aplicada_en_paso_2': {'modo': 'estricta', 'declarado_en': 'entrada_efectiva.json'}, 'declarada': {'modo': None, 'declarado_en': None, 'error': 'no se puede leer (JSONDecodeError)'}, 'coinciden': False} | apto_por_entradas: True | esquema: 0
+   informe: > **Entradas financieras:** apta por entradas: sí (291 de 292 celdas del universo comprobadas). Entrada efectiva: modo aplicado en el paso 2: estricta (declarado en entrada_efectiva.json); declaración actual con error: no se puede leer (JSONDecodeError); **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.
+   usos de «coinciden» en scripts/ (¿algún control lo consulta?):
+       ficha.py:83:                                 "coinciden": (aplicada or {}).get("modo") == declarada.get("modo") if aplicada else None},
+       verificacion_entradas.py:23:    una transformación cambiados invalidan la comprobación y las que dependen de ella: reutilización solo si coinciden);
+       informe.py:215:                  + ("; **el modo aplicado no coincide con el declarado**" if _ee.get("coinciden") is False else "")
+       pipeline.py:1223:            # el archivo cambió de bytes pero no de contenido aplicado (p. ej., un texto de la naturaleza): los libros ya coinciden;
+       comprobar_gramatica.py:15:Si coinciden varias, prevalece el mayor (3 › 2 › 1). Código 4: el script no pudo ejecutarse (archivo ausente, excepción): el
+
+== D · V6.4.1 (Viscofan, copia de viscofan_decisiones)
+   códigos (ficha, informe, esquema): (0, 0, 0) OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar | plantilla: V6.4.1 experimental
+   informe (I20): > **Entradas financieras:** apta por entradas: no (0 de 321 celdas del universo comprobadas); motivo: 0 de 321 celdas del universo comprobadas (0 de 232 de cálculo y 0 de 89 de juicio; +98 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 0 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materialid. Entrada efectiva
+   informe (aptitud): > **Aptitud de uso (evaluación de la entrega 4.14, separada  … Verificación de las entradas financieras:** 0 de 321 celdas del universo comprobadas (0 de 232 de cálculo y 0 de 89 usadas por el juicio) (+98 datos de origen auxiliares) · 321 materiales sin comprobar · 11 no aplicables · 3 discrepancias · 0 desactualizadas · apta por entradas: no. Apta para dinero real: no (verificación de las entradas financieras incompleta: 0 de 32
+   apto_por_entradas en los dos bloques de la ficha: False False | «apta por entradas» en el informe: ['no', 'no']
+
+== E · esquema nuevo con fichas oficiales anteriores (4.14) y con una ficha nueva sin el bloque
+   elis_decisiones/Elis/ficha.json (4.14, sin el bloque): código 0 VÁLIDO · ficha.json contra ficha.esquema.json
+   viscofan_decisiones/Viscofan/ficha.json (4.14, sin el bloque): código 0 VÁLIDO · ficha.json contra ficha.esquema.json
+   vidrala_decisiones/Vidrala/ficha.json (4.14, sin el bloque): código 0 VÁLIDO · ficha.json contra ficha.esquema.json
+   ficha nueva (4.15, hito 2) a la que se le quita el bloque verificacion_entradas: código 0 VÁLIDO · ficha_sin_bloque.json contra ficha.esquema.json  (0 = el esquema no lo exige)
+   ficha con verificacion_entradas.apto_para_dinero_real = true: código 1 INVÁLIDO · ficha_dinero_real.json contra ficha.esquema.json
+verificacion_entradas/apto_para_dinero_real: False was expected
+   ficha con aptitud_de_uso.apto_para_dinero_real = true (bloque de la 4.14): código 0 VÁLIDO · ficha_dinero_real2.json contra ficha.esquema.json
+
+== F · verify_quotes_v2.py sobre los informes provisionales generados (como verificar_todo.sh)
+   corpus: True True
+   A (V6.3, registro real): código 0 · Citas textuales comprobadas: 5 | referencias sueltas: 12 · RESULTADO: PASS
+   B (V6.3, sintético): código 0 · Citas textuales comprobadas: 5 | referencias sueltas: 12 · RESULTADO: PASS
+   D (V6.4.1): código 0 · Citas textuales comprobadas: 6 | referencias sueltas: 8 · RESULTADO: PASS

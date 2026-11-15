@@ -19,6 +19,9 @@ Grupos:
   U  · (4.15, hito 2) límites de la cuarta revisión: U2 empates del redondeo de importes (sin tolerancia general), U3 coste acotado de
        round y de las fórmulas, U4 rechazos falsos del control de sensibilidad y un caso que solo detecta el de constantes, U1 derivados
        contados y listados, U5 texto visible y codificación de las fuentes HTML, U7 unidad monetaria no reconocida.
+  RV · (4.15, hito 2) hallazgos de la revisión independiente: cita recortada o cortada dentro de un número (H1), «−» como cero y moneda,
+       porcentaje, fechas (H4, H5), sensibilidad independiente de la escritura (H6), HTML (H7) y signo −1 sin tratamiento (H14); y, en N,
+       los dos bloques de aptitud del informe por separado (H2).
   SG · (4.15, hito 2, R415-SIGNO) signo de la cifra publicada: contraejemplos completos en los dos sentidos, paréntesis contables, menos
        ASCII y Unicode, guiones de cero y signos indeterminados; positivos con la transformación justificada (signo −1).
 Uso: python3 -B test_verificacion_entradas_415.py [--json salida.json]
@@ -186,6 +189,24 @@ def ent(reg, k):
 
 def con_k(r, k, cats=("errores", "discrepancias", "pendientes", "desactualizadas")):
     return [f"{cat}: {x}" for cat in cats for x in r[cat] if x.startswith(k + ":")]
+
+
+def bloques_aptitud(inf):
+    """(4.15, hito 2, H2) Los dos bloques del informe que hablan de la aptitud, por separado: el párrafo de aptitud de la V6.4 (desde
+    «Verificación de las entradas financieras:») y la línea de las entradas financieras de todas las plantillas (I20)."""
+    import re as _re
+    v64 = _re.search(r"\*\*Verificación de las entradas financieras:\*\*[^\n]*", inf)
+    i20 = _re.search(r"\*\*Entradas financieras:\*\*[^\n]*", inf)
+    return (v64.group(0) if v64 else None), (i20.group(0) if i20 else None)
+
+
+def aptitud_en_informe(inf, apta_entradas):
+    """Cada bloque presente dice «apta por entradas: sí|no» según el registro y «Apta para dinero real: no»; ninguna parte del informe
+    dice «Apta para dinero real: sí»; hay una frase «Apta para dinero real: no» por bloque."""
+    b = [x for x in bloques_aptitud(inf) if x is not None]
+    esp = "apta por entradas: " + ("sí" if apta_entradas else "no")
+    return (bool(b) and all(esp in x and "Apta para dinero real: no" in x for x in b) and "Apta para dinero real: sí" not in inf
+            and "apta por entradas: " + ("no" if apta_entradas else "sí") not in " ".join(b) and inf.count("Apta para dinero real: no") == len(b))
 
 
 K = "Historia!F6"  # la entrada del contraejemplo de la revisión externa
@@ -756,14 +777,17 @@ r = con_signo(f"Partida sintética de {K}: -({VF_K:.3f})", vf=-VF_K, signo=-1, t
 paso("SG", "dos marcas pegadas «-(849697.000)»: pendiente", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
 r = con_signo(f"Partida sintética de {K}: {VF_K:.3f}-", vf=VF_K)
 paso("SG", "menos detrás de la cifra «849697.000-»: pendiente", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
-casos_ok = [("Importe: (149.5)", -149.5), ("Importe: \u2212149,5", -149.5), ("Importe: \u2212 149,5", -149.5), ("Importe: -149,5", -149.5),
+casos_ok = [("Importe: (149.5)", -149.5), ("Importe: \u2212149,5", -149.5), ("Importe: -149,5", -149.5),
             ("Importe: \u2014149,5", -149.5), ("(\u20ac149,5)", -149.5), ("(149,5 \u20ac)", -149.5), ("-\u20ac149,5", -149.5), ("+149,5", 149.5),
             ("Importe: 149,5", 149.5), ("Saldo 0", 0), ("Saldo (0)", 0), ("Saldo -0", 0), ("Acquisitions  -   (12.3)", 0), ("Acquisitions  -   (12.3)", -12.3),
-            ("Payments -55.320 -62.755", -62755), ("Interest paid (7,230) (9,776)", -9776), ("2019-2020", 2019)]
+            ("Payments -55.320 -62.755", -62755), ("Interest paid (7,230) (9,776)", -9776), ("2019-2020", 2019),
+            ("2019-2020", 2020)]  # (hito 2, H5) un guion pegado a otra cifra es un intervalo o una fecha, no un signo
 casos_no = [("Importe: -149.5", 149.5, "signo_distinto"), ("Importe: 149.5", -149.5, "signo_distinto"), ("Importe: (149.5)", 149.5, "signo_distinto"),
             ("Importe: \u2212149,5", 149.5, "signo_distinto"), ("Importe - 149,5", 149.5, "signo_indeterminado"), ("Importe - 149,5", -149.5, "signo_indeterminado"),
             ("x 149,5 (149,5)", 149.5, "signo_indeterminado"), ("-(149,5)", -149.5, "signo_indeterminado"), ("(149,5", -149.5, "signo_indeterminado"),
-            ("149,5-", 149.5, "signo_indeterminado"), ("2019-2020", 2020, "signo_indeterminado"), ("EBITDA-149,5", -149.5, "signo_indeterminado"),
+            # (hito 2, H4) «−» a un espacio: una fuente real (Elis 2017) usa «−» para imprimir un cero, así que es tan ambiguo como el guion
+            ("Importe: \u2212 149,5", -149.5, "signo_indeterminado"),
+            ("149,5-", 149.5, "signo_indeterminado"), ("EBITDA-149,5", -149.5, "signo_indeterminado"),
             ("Importe: 150", 149.5, "ausente"), ("Importe: -150", -149.5, "ausente")]
 mal = [(c_, v_, VE._cita_cifra(c_, v_)) for c_, v_ in casos_ok if VE._cita_cifra(c_, v_)[0] != "ok"]
 mal += [(c_, v_, VE._cita_cifra(c_, v_)) for c_, v_, esp in casos_no if VE._cita_cifra(c_, v_)[0] != esp]
@@ -898,6 +922,70 @@ paso("U", "(U7) un precio por acción («EUR por acción», «euros por acción�
 r = con()
 paso("U", "el control positivo sigue apto después de los casos U", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
+# ------------------------------------------------------------------ RV · hallazgos de la revisión independiente del hito 2 (H1, H4–H7, H14)
+r = con_signo(f"Partida sintética de {K}: -{VF_K:.3f}", cita=f"{VF_K:.3f}")
+paso("RV", "(H1) la variante de la sonda externa: la página publica «-849697.000» y la cita se recorta a «849697.000»: discrepancia (antes: apta y comprobada)",
+     not r["apto_por_entradas"] and K not in r["comprobadas"] and any("R415-SIGNO" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: ({VF_K:,.3f})", cita=f"{VF_K:,.3f}")
+paso("RV", "(H1) página con paréntesis contables y cita recortada a la cifra: discrepancia", not r["apto_por_entradas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: \u2212{VF_K:.3f}", cita=f"{VF_K:.3f}")
+paso("RV", "(H1) página con menos Unicode pegado y cita recortada: discrepancia", not r["apto_por_entradas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: {VF_K * 10:.0f}", cita=f"Partida sintética de {K}: {VF_K:.0f}")
+paso("RV", "(H1/R3) cita cortada dentro de un número (la página publica 8496970 y la cita «…: 849697»): discrepancia (la cifra completa es la de la página)",
+     not r["apto_por_entradas"] and any("cifra completa de la página" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: 1{VF_K:.3f}", cita=f"{VF_K:.3f}")
+paso("RV", "(H1/R3) cita que empieza dentro de un número (página 1849697.000, cita «849697.000»): discrepancia", not r["apto_por_entradas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: {VF_K:.3f} y otra línea\nPartida sintética de {K}: -{VF_K:.3f}", cita=f"{VF_K:.3f}")
+paso("RV", "(H1) la cita aparece dos veces en la página con lecturas distintas (positiva y con signo menos): pendiente", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: ({VF_K:,.3f})", cita=f"{VF_K:,.3f}", vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("RV", "(H1, positivo) cita recortada a la cifra con valor_fuente negativo y la transformación declarada: apta (la cifra y su signo son los de la página)",
+     r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+r = con(lambda g: ent(g, K)["fuente"].update(signo=-1, valor_fuente=-ent(g, K)["fuente"]["valor_fuente"], tratamiento="ninguno"), resellar=True)
+paso("RV", "(H14) signo −1 con el tratamiento «ninguno»: error (un cambio de signo declara su tratamiento)", not r["apto_por_entradas"] and any("tratamiento" in x for x in con_k(r, K, ("errores",))), con_k(r, K))
+casos_rv = {("Acquisitions \u2212", 0): "ok", ("Acquisitions  \u2212   (12.3)", 0): "ok", ("Dividends \u2212 42.2", 42.2): "signo_indeterminado",
+            ("Dividends \u2212 42.2", -42.2): "signo_indeterminado", ("Importe (EUR 149,5)", -149.5): "ok", ("Importe (EUR 149,5)", 149.5): "signo_distinto",
+            ("Margen (3,2 %)", -3.2): "ok", ("Importe $-149,5", -149.5): "ok", ("Importe $-149,5", 149.5): "signo_distinto", ("Cierre 31-12-2024", 2024): "ok",
+            ("Ejercicio 2019-2020", 2020): "ok"}
+mal_rv = {k_: VE._cita_cifra(*k_) for k_, e_ in casos_rv.items() if VE._cita_cifra(*k_)[0] != e_}
+paso("RV", "(H4, H5) «−» aislado como cero; «− x» a un espacio, indeterminado como con el guion; moneda con código y porcentaje dentro de los paréntesis; «$-x»; fechas e intervalos",
+     not mal_rv, mal_rv)
+pag_rv = "Partida A: 849697.000\nPartida A: -849697.000"
+paso("RV", "(H1) _cita_cifra con la página: no localizada → «no_localizada»; dos apariciones con lecturas distintas → indeterminado; cifra recortada → la de la página",
+     VE._cita_cifra("Partida Z: 1", 1, pag_rv)[0] == "no_localizada" and VE._cita_cifra("849697.000", 849697, pag_rv)[0] == "signo_indeterminado"
+     and VE._cita_cifra("849697.000", 849697, "Total -849697.000")[0] == "signo_distinto" and VE._cita_cifra("Partida: 0", 0, "Partida: 0.49")[0] == "ausente")
+esc_max = ['max(o["a"], o["b"])', 'max( o["a"] ,o["b"] )', 'max(o["b"], o["a"])', '(max(o["a"], o["b"]))', 'max(o["a"],\n o["b"])']
+vers = {f_: VE._sensibilidad(f_, {"a": 849.697, "b": 100.25}, ["a", "b"])[0] for f_ in esc_max}
+paso("RV", "(H6) escrituras equivalentes de max(a, b) con b el menor: el mismo veredicto (ningún origen inerte) en todas", all(v_ == [] for v_ in vers.values()), vers)
+ine_s, loc_s = VE._sensibilidad('max(o["a"] - o["b"], 0)', {"a": 2.0, "b": 5.0}, ["a", "b"])
+paso("RV", "(H6) max(a − b, 0) cuando actúa el suelo: sin orígenes inertes, constante en el punto real pero con suelo cero declarado (se acepta como la regla de la fórmula)",
+     ine_s == [] and not loc_s and VE._suelo_cero('max(o["a"] - o["b"], 0)') and not VE._suelo_cero('min(o["a"], 12)'), (ine_s, loc_s))
+h7 = {"details cerrado": (f"<html><body><details><summary>Resumen</summary><p>{CITA_K}</p></details><p>otro</p></body></html>", False),
+      "summary de un details cerrado": (f"<html><body><details><summary>{CITA_K}</summary><p>x</p></details></body></html>", True),
+      "dialog sin open": (f"<html><body><dialog><p>{CITA_K}</p></dialog><p>otro</p></body></html>", False),
+      "<div hidden/> (la barra no cierra)": (f"<html><body><div hidden/><p>{CITA_K}</p></div><p>otro</p></body></html>", False),
+      "aria-hidden (visible en pantalla)": (f'<html><body><p aria-hidden="true">{CITA_K}</p></body></html>', True),
+      "sin </head>": (f"<html><head><title>t</title><body><p>{CITA_K}</p></body></html>", True),
+      "iXBRL en línea": ("<html><body><p>" + CITA_K.replace(f"{VF_K:.3f}", f"<ix:nonFraction name='x'>{VF_K:.3f}</ix:nonFraction>") + "</p></body></html>", True)}
+mal_h7 = {}
+for i_, (n_, (h_, visible)) in enumerate(h7.items()):
+    open(os.path.join(FS, f"h7_{i_}.html"), "w", encoding="utf-8").write(h_)
+    est_, t_ = VE._texto_html_visible(os.path.join(FS, f"h7_{i_}.html"))
+    if est_ != "ok" or (VE._cmp_txt_espacios(CITA_K) in VE._cmp_txt_espacios(t_)) != visible:
+        mal_h7[n_] = (est_, t_[:80])
+open(os.path.join(FS, "h7_cp1252.html"), "wb").write(f'<html><head><meta charset="iso-8859-1"></head><body><p>\u20ac 5 \u2013 {CITA_K}</p></body></html>'.encode("cp1252"))
+est_, t_ = VE._texto_html_visible(os.path.join(FS, "h7_cp1252.html"))
+if not (est_ == "ok" and "\u20ac" in t_ and "\u2013" in t_):
+    mal_h7["ISO-8859-1 con bytes de windows-1252"] = (est_, t_[:80])
+open(os.path.join(FS, "h7_utf7.html"), "wb").write(b'<html><head><meta charset="utf-7"></head><body><p>x</p></body></html>')
+if VE._texto_html_visible(os.path.join(FS, "h7_utf7.html"))[0] != "pendiente":
+    mal_h7["charset=utf-7"] = "no pendiente"
+open(os.path.join(FS, "h7_menciona.html"), "w", encoding="utf-8").write(f"<html><body><p>El formato %PDF-1.4</p><p>{CITA_K}</p></body></html>")
+if VE._tipo_fuente(os.path.join(FS, "h7_menciona.html")) != "html":
+    mal_h7["HTML que menciona %PDF-"] = VE._tipo_fuente(os.path.join(FS, "h7_menciona.html"))
+paso("RV", f"(H7) HTML: {', '.join(list(h7) + ['ISO-8859-1 con bytes de windows-1252', 'charset=utf-7 (pendiente)', 'HTML que menciona %PDF-'])}", not mal_h7, mal_h7)
+r = con()
+paso("RV", "el control positivo sigue apto después de los casos RV", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
+
 # ------------------------------------------------------------------ N · recuentos (I9) en la ficha y el informe
 env = dict(os.environ, MUNGER_CONFIG=CFG)
 con()
@@ -914,10 +1002,14 @@ subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "informe.py"),
 inf = open(os.path.join(c, "informe_provisional.md"), encoding="utf-8").read()
 m = re.search(r"(\d+) de (\d+) celdas del universo comprobadas", inf)
 paso("N", "con una entrada menos, el informe baja el recuento (N < M) y dice «apta por entradas: no»", bool(m) and int(m.group(1)) < int(m.group(2)) and "apta por entradas: no" in inf, m.group(0) if m else "")
+paso("N", "(hito 2, H2) con una entrada menos: cada bloque de aptitud del informe (el de la V6.4 y la línea de las entradas) dice «apta por entradas: no» y «Apta para dinero real: no»; ninguno dice «sí»",
+     aptitud_en_informe(inf, False) and bloques_aptitud(inf)[0] is not None and bloques_aptitud(inf)[1] is not None, bloques_aptitud(inf))
 con()
 subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "ficha.py"), c, "--provisional"], capture_output=True, text=True, env=env)
 subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "informe.py"), c, "--provisional"], capture_output=True, text=True, env=env)
 inf = open(os.path.join(c, "informe_provisional.md"), encoding="utf-8").read()
+paso("N", "(hito 2, H2) con el registro apto: cada bloque de aptitud dice «apta por entradas: sí» y «Apta para dinero real: no»; ninguno dice «Apta para dinero real: sí»",
+     aptitud_en_informe(inf, True) and bloques_aptitud(inf)[0] is not None and bloques_aptitud(inf)[1] is not None, bloques_aptitud(inf))
 paso("N", "(N1/N2; tercera revisión, T7) con el registro apto, el informe da igualmente los «no aplicables»", "apta por entradas: sí" in inf and re.search(r"\d+ no aplicables", inf) is not None,
      (re.findall(r"Verificación de las entradas financieras:.{0,400}", inf) or [""])[0][:300])
 

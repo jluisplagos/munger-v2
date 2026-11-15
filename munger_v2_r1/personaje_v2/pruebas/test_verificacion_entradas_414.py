@@ -262,16 +262,36 @@ def salidas():
     return r1.returncode, r2.returncode, F.get("aptitud_de_uso") or {}, inf
 
 
+def bloques_aptitud(inf):
+    """(4.15, hito 2, H2) Los dos bloques del informe que hablan de la aptitud, por separado: el párrafo de aptitud de la V6.4 (desde
+    «Verificación de las entradas financieras:») y la línea de las entradas financieras de todas las plantillas (I20)."""
+    import re as _re
+    v64 = _re.search(r"\*\*Verificación de las entradas financieras:\*\*[^\n]*", inf)
+    i20 = _re.search(r"\*\*Entradas financieras:\*\*[^\n]*", inf)
+    return (v64.group(0) if v64 else None), (i20.group(0) if i20 else None)
+
+
+def aptitud_en_informe(inf, apta_entradas):
+    """Cada bloque presente dice «apta por entradas: sí|no» según el registro y «Apta para dinero real: no»; ninguna parte del informe
+    dice «Apta para dinero real: sí»; hay una frase «Apta para dinero real: no» por bloque."""
+    b = [x for x in bloques_aptitud(inf) if x is not None]
+    esp = "apta por entradas: " + ("sí" if apta_entradas else "no")
+    return (bool(b) and all(esp in x and "Apta para dinero real: no" in x for x in b) and "Apta para dinero real: sí" not in inf
+            and "apta por entradas: " + ("no" if apta_entradas else "sí") not in " ".join(b) and inf.count("Apta para dinero real: no") == len(b))
+
+
 os.remove(os.path.join(c, VE.REGISTRO))
 rf, ri, apt, inf = salidas()
 paso("G", "sin registro: la ficha y el informe dicen «apta por entradas: no» y nunca «apta para dinero real»",
      rf == 0 and ri == 0 and (apt.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and apt.get("apto_para_dinero_real") is False
-     and "apta por entradas: no" in inf and "Apta para dinero real: no" in inf, f"{rf}/{ri} · {apt.get('motivos_no_apto')}")
+     and "apta por entradas: no" in inf and "Apta para dinero real: no" in inf and aptitud_en_informe(inf, False) and bloques_aptitud(inf)[0] is not None,
+     f"{rf}/{ri} · {apt.get('motivos_no_apto')}")
 con()
 rf, ri, apt, inf = salidas()
 paso("G", "con el registro completo: apta por entradas, pero la conclusión sigue sin presentarse como apta para dinero real (condición necesaria, no suficiente)",
      rf == 0 and ri == 0 and (apt.get("verificacion_entradas") or {}).get("apto_por_entradas") is True and apt.get("apto_para_dinero_real") is False
-     and "apta por entradas: sí" in inf and "Apta para dinero real: no" in inf, f"{rf}/{ri} · {apt.get('motivos_no_apto')}")
+     and "apta por entradas: sí" in inf and "Apta para dinero real: no" in inf and aptitud_en_informe(inf, True) and bloques_aptitud(inf)[0] is not None,
+     f"{rf}/{ri} · {apt.get('motivos_no_apto')}")
 
 # M · el registro es material: cambiarlo invalida la aprobación
 import pipeline as PL  # noqa: E402

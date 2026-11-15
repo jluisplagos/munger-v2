@@ -147,14 +147,6 @@ def _igual_exacto(a, b):
     return EE.iguales(a, b) if hasattr(EE, "iguales") else a == b
 
 
-def _igual_libro(calculado, vm):
-    """(4.15, hallazgo 5) El valor calculado es el del modelo exactamente o con el redondeo declarado del libro (3 decimales; TOL_ABS): se
-    compara round(calculado, 3) con el valor del libro, no con una holgura (0,2511 no es 0,25)."""
-    if not (_num(calculado) and _num(vm)):
-        return _igual_exacto(calculado, vm)
-    return _igual_exacto(calculado, vm) or abs(round(calculado, 3) - vm) <= 1e-9 * max(1.0, abs(vm))
-
-
 def _importe_libro_exacto(exacto, vm):
     """(4.15, hito 2, U2) Un IMPORTE del libro es el resultado EXACTO (fracción) o uno de sus redondeos a 3 decimales: el libro tiene como
     mucho 3 decimales y |exacto − libro| ≤ 0,0005. En un empate (x,xxx5 exacto) valen los dos vecinos, porque el generador (coma
@@ -442,20 +434,24 @@ GUIONES = "-‐‑‒–—﹣－"  # guion ASCII y guiones tipográficos: signo
 MONEDAS = "€$£¥"
 
 
+MONEDA_RE = r"(?:[€$£¥]|\b(?:EUR|USD|GBP|CHF|JPY|DKK|SEK|NOK|BRL)\b)"
+
+
 def _signo_en_cita(t, ini, fin):
-    """(4.15, R415-SIGNO) Signo con que la cita PUBLICA la cifra que ocupa t[ini:fin]: +1, −1 o None si no puede determinarse.
-      −1: «−149,5» o «− 149,5» (signo menos Unicode); «-149,5», «–149,5» o «—149,5» con el guion pegado a la cifra y precedido de un
-          espacio, el principio o un signo de puntuación; «(149,5)» (paréntesis contables, también «(149,5 €)» o «(€149,5)»).
-      +1: la cifra sin marca, o con «+».
-      None: un guion separado de la cifra por UN espacio (puede ser un cero de la columna anterior o un signo menos: «Interests - 13»),
-          un guion pegado a una palabra o a otra cifra («2019-2020»), un paréntesis que no se cierra, dos marcas pegadas («-(149,5)») o
-          un menos detrás de la cifra («149,5-»). Un símbolo de moneda entre la marca y la cifra no cambia el signo.
-    Un guion separado de la cifra por dos o más espacios es otra columna (el cero impreso como guion, la misma convención que el control
-    del cero): no es el signo de la cifra. Por eso se evalúa el pasaje de la página con sus espacios originales (_cita_cifra con
-    `pagina`), no la cita con los espacios normalizados."""
+    """(4.15, R415-SIGNO) Signo con que el texto t PUBLICA la cifra que ocupa t[ini:fin]: +1, −1 o None si no puede determinarse.
+      −1: un guion o un menos («-», «−», «–», «—») PEGADO a la cifra y precedido de un espacio, el principio, un signo de puntuación o una
+          moneda («$-149,5»); paréntesis contables «(149,5)», también con moneda («(€149,5)», «(EUR 149,5)», «(149,5 €)») o porcentaje
+          («(3,2 %)»).
+      +1: la cifra sin marca o con «+»; un guion pegado a otra cifra es un intervalo o una fecha («2019-2020», «31-12-2024»), no un signo.
+      None: un guion o un menos separado de la cifra por UN espacio (puede ser un cero de la columna anterior o un signo: «Interests - 13»;
+          (hito 2, H4) también «−», que una fuente real usa para imprimir un cero), un guion pegado a una palabra, un paréntesis que no se
+          cierra, dos marcas pegadas («-(149,5)») o un menos detrás de la cifra («149,5-»).
+    Un guion separado por dos o más espacios es otra columna (el cero impreso como guion, la misma convención que el control del cero).
+    Límite declarado (hito 2, H3): esa convención lee como positiva una cifra con un signo menos separado por varios espacios; en las
+    fuentes reales la regla acierta. El texto tiene que ser el de la página (con sus espacios), no la cita: lo hace _cita_cifra."""
     antes, despues = t[:ini], t[fin:]
-    antes = re.sub("[" + MONEDAS + r"]\s?$", "", antes)
-    despues = re.sub(r"^\s?[" + MONEDAS + "]", "", despues)
+    antes = re.sub(MONEDA_RE + r"\s?$", "", antes, flags=re.I)
+    despues = re.sub(r"^\s?(?:" + MONEDA_RE + r"|%)", "", despues, flags=re.I)
     marcas = re.escape(GUIONES + MENOS_UNICODE)
     m_par = re.search(r"\(\s*$", antes)
     if m_par:
@@ -464,12 +460,12 @@ def _signo_en_cita(t, ini, fin):
         return -1 if re.match(r"\s*\)", despues) else None
     if re.match("[" + marcas + r"](?!\d)", despues):
         return None  # «149,5-»: menos detrás de la cifra (un guion seguido de otra cifra es un intervalo y no la afecta)
-    if re.search(MENOS_UNICODE + r"\s?$", antes):
-        return -1
-    m = re.search("[" + re.escape(GUIONES) + r"](\s*)$", antes)
+    m = re.search("[" + marcas + r"](\s*)$", antes)
     if m:
         previo = antes[:m.start()]
-        if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|]$", previo)):
+        if m.group(1) == "" and re.search(r"\d$", previo):
+            return 1  # intervalo o fecha: «2019-2020», «31-12-2024»
+        if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|€$£¥]$", previo)):
             return -1
         if len(m.group(1)) >= 2 and (previo == "" or re.search(r"\s$", previo)):
             return 1  # guion aislado de otra columna (un cero), separado de la cifra por dos o más espacios
@@ -477,38 +473,38 @@ def _signo_en_cita(t, ini, fin):
     return 1
 
 
-def _pasaje_en_pagina(cita, pagina):
-    """(4.15, R415-SIGNO) El pasaje de la página que corresponde a la cita, con sus espacios originales (la cita se compara con los
-    espacios normalizados y sin distinguir mayúsculas: _norm_txt). None si no se encuentra."""
+def _apariciones_en_pagina(cita, pagina):
+    """(4.15, hito 2, H1) Cada aparición de la cita en la página: (línea o líneas completas de la página que la contienen, inicio y fin de
+    la cita en ese texto). La cifra y su signo se leen en la LÍNEA de la página, no en la cita: una cita recortada a la cifra («849697.000»
+    frente a «-849697.000» o «(849,697.000)») o cortada dentro de un número («849697» de «8496970», «0» de «0,49») no cambia lo publicado."""
     palabras = str(cita or "").split()
     if not palabras or pagina is None:
-        return None
+        return []
     t = re.sub(r"[   ]", " ", str(pagina))
-    m = re.search(r"\s+".join(re.escape(w) for w in palabras), t, re.I)
-    return m.group(0) if m else None
+    out = []
+    for m in re.finditer(r"\s+".join(re.escape(w) for w in palabras), t, re.I):
+        ini = t.rfind("\n", 0, m.start()) + 1
+        fin = t.find("\n", m.end())
+        fin = len(t) if fin < 0 else fin
+        out.append((t[ini:fin], m.start() - ini, m.end() - ini))
+    return out
 
 
-def _cita_cifra(cita, vf, pagina=None):
-    """(4.15, R415-SIGNO) Contraste de una cifra de la fuente con la cita, CON SU SIGNO. «valor_fuente» es la cifra tal como se publica,
-    antes de aplicar el «signo» y la «escala» que la llevan al modelo (un pago publicado «(130,8)» es valor_fuente −130,8; con signo −1 se
-    transforma en la magnitud positiva del modelo, y esa transformación sigue siendo válida). Devuelve (estado, detalle):
-      «ok»: alguna aparición de la cifra (formato equivalente, R3) tiene el signo de vf y ninguna tiene el contrario;
-      «signo_distinto»: la cifra solo aparece con el signo contrario (discrepancia);
-      «signo_indeterminado»: aparece con signos contrarios a la vez, o solo con un signo que no puede determinarse (pendiente: no lo
-          resuelve una declaración del revisor, sino una cita en la que el signo publicado sea inequívoco);
-      «ausente»: la cifra no aparece como cifra completa (discrepancia).
-    Un cero no tiene signo: «0», «-0», «(0)» y el guion aislado que representa un cero valen para 0.
-    Con `pagina` (el texto de la página citada), el signo se lee en el pasaje de la página que corresponde a la cita, con sus espacios
-    originales: un guion de otra columna se distingue así de un signo menos. Si el pasaje no se encuentra, se lee en la cita."""
-    t = re.sub(r"[   ]", " ", str((_pasaje_en_pagina(cita, pagina) if pagina is not None else None) or cita or ""))
-    if not _num(vf):
-        return "ausente", "valor no numérico"
-    if vf == 0 and (re.search(r"(?<![\w.,])[-–—](?![\w.,]| ?[\d(])", t) or re.search(r"(?<=[\d)] )[-–—](?= [\d(])", t)):
-        return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
+def _lectura_cifra(t, vf, ventana=None):
+    """(estado, detalle) de la cifra vf en el texto t; con `ventana` (ini, fin), solo las apariciones de la cifra completa (límites
+    evaluados en t entero) que se solapan con la ventana."""
+    t = re.sub(r"[   ]", " ", str(t or ""))
+    def dentro(a, b):
+        return ventana is None or (a < ventana[1] and b > ventana[0])
+    if vf == 0:
+        for rx in (r"(?<![\w.,])[-–—−](?![\w.,]| ?[\d(])", r"(?<=[\d)] )[-–—−](?= [\d(])"):
+            if any(dentro(m.start(), m.end()) for m in re.finditer(rx, t)):
+                return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
     signos = []
     for c in _cifras(vf):
         for m in re.finditer(r"(?<![\d.,])" + re.escape(c) + r"(?!\d|[.,]\d)", t):
-            signos.append(_signo_en_cita(t, m.start(), m.end()))
+            if dentro(m.start(), m.end()):
+                signos.append(_signo_en_cita(t, m.start(), m.end()))
     if not signos:
         return "ausente", "la cifra no aparece como cifra completa"
     if vf == 0:
@@ -518,8 +514,36 @@ def _cita_cifra(cita, vf, pagina=None):
     if s in signos and -s not in signos:
         return "ok", "signo publicado igual al de valor_fuente"
     if -s in signos and s not in signos and None not in signos:
-        return "signo_distinto", f"la cita la publica en {'negativo' if s == 1 else 'positivo'} y valor_fuente es {'positivo' if s == 1 else 'negativo'}"
-    return "signo_indeterminado", f"apariciones de la cifra en la cita: {', '.join(vistos)}"
+        return "signo_distinto", f"la página la publica en {'negativo' if s == 1 else 'positivo'} y valor_fuente es {'positivo' if s == 1 else 'negativo'}"
+    return "signo_indeterminado", f"apariciones de la cifra: {', '.join(vistos)}"
+
+
+def _cita_cifra(cita, vf, pagina=None):
+    """(4.15, R415-SIGNO) Contraste de una cifra de la fuente CON SU SIGNO. «valor_fuente» es la cifra tal como se publica, antes de aplicar
+    el «signo» y la «escala» que la llevan al modelo (un pago publicado «(130,8)» es valor_fuente −130,8; con signo −1 se transforma en la
+    magnitud positiva del modelo, y esa transformación sigue siendo válida). Devuelve (estado, detalle):
+      «ok»: alguna aparición de la cifra (formato equivalente, R3) tiene el signo de vf y ninguna tiene el contrario;
+      «signo_distinto»: la cifra solo aparece con el signo contrario (discrepancia);
+      «signo_indeterminado»: aparece con signos contrarios a la vez, solo con un signo que no puede determinarse, o la cita aparece varias
+          veces en la página con lecturas distintas (pendiente: no lo resuelve una declaración del revisor);
+      «no_localizada»: con `pagina`, la cita no se encuentra en la página con sus palabras (pendiente);
+      «ausente»: la cifra no aparece como cifra completa (discrepancia).
+    (hito 2, H1) Con `pagina` (el texto de la página citada) la cifra se lee en la LÍNEA de la página donde está cada aparición de la cita:
+    sus límites de cifra completa y su signo son los de la página, no los de la cita. Sin `pagina` se lee en la propia cita (solo para
+    comprobaciones de formato: el contraste documental siempre la pasa).
+    Un cero no tiene signo: «0», «-0», «(0)» y el guion aislado que representa un cero valen para 0."""
+    if not _num(vf):
+        return "ausente", "valor no numérico"
+    if pagina is None:
+        return _lectura_cifra(cita, vf)
+    apar = _apariciones_en_pagina(cita, pagina)
+    if not apar:
+        return "no_localizada", "la cita no se encuentra en la página con sus palabras y sus espacios: la cifra no puede leerse en ella"
+    lect = [_lectura_cifra(linea, vf, (a, b)) for linea, a, b in apar]
+    estados = {e for e, _ in lect}
+    if len(estados) == 1:
+        return lect[0]
+    return "signo_indeterminado", f"la cita aparece {len(apar)} veces en la página con lecturas distintas ({', '.join(sorted(estados))})"
 
 
 def _cita_contiene(cita, vf):
@@ -649,29 +673,39 @@ def _eval_formula_exacta(formula, o, sin_redondeo=False):
     return ev(arbol)
 
 
-def _sensibilidad(formula, vals, origenes, puntos=3, semilla=415):
+def _sensibilidad(formula, vals, origenes, puntos=6, semilla=415):
     """(4.15, hito 2, U4; tercera revisión, T2) Dependencia de la fórmula (sin round) respecto de cada origen, en dos sentidos:
-      - local: en los valores comprobados, el resultado cambia al perturbar el origen (v + δ·(1 + |v|), sin punto fijo: un origen −1
-        también se perturba);
-      - estructural: en `puntos` puntos genéricos (racionales pseudoaleatorios con semilla fija), el resultado cambia con el origen.
+      - local: en los valores comprobados, el resultado cambia al perturbar el origen hacia arriba o hacia abajo (v ± δ·(1 + |v|), sin
+        punto fijo: un origen −1 también se perturba);
+      - estructural: en puntos genéricos (racionales pseudoaleatorios con una semilla FIJA, independiente de cómo se escriba la fórmula) y
+        en puntos extremos de cada origen (±10⁹, que lo hacen dominante en un max o un min), el resultado cambia con el origen.
     Devuelve (inertes, locales): un origen es inerte si no influye ni local ni estructuralmente (o[x] * 0 + c, o[x] − o[x] + o[y]); y
     `locales` son los que influyen en el punto real: si no hay ninguno, el valor es una constante en ese punto (min(o[x], c) como límite).
-    Así se aceptan un producto por un cero comprobado, 0 / d y el argumento que no es el mayor de un max, que antes eran errores."""
+    Así se aceptan un producto por un cero comprobado, 0 / d y el argumento menor de un max o mayor de un min, que antes eran errores.
+    (hito 2, H6) La semilla ya no depende del texto de la fórmula: dos escrituras equivalentes dan el mismo veredicto."""
     import random as _random
     delta = fractions.Fraction(1, 10 ** 7)
     base = _eval_formula_exacta(formula, vals, sin_redondeo=True)
     locales = set()
     for o in origenes:
         v_o = _frac(vals[o])
-        try:
-            if _eval_formula_exacta(formula, dict(vals, **{o: v_o + delta * (1 + abs(v_o))}), sin_redondeo=True) != base:
+        for sg in (1, -1):
+            try:
+                if _eval_formula_exacta(formula, dict(vals, **{o: v_o + sg * delta * (1 + abs(v_o))}), sin_redondeo=True) != base:
+                    locales.add(o)
+                    break
+            except ZeroDivisionError:
                 locales.add(o)
-        except ZeroDivisionError:
-            locales.add(o)
+                break
     vivos = set(locales)
-    rnd = _random.Random(f"{semilla}|{formula}")
-    for _ in range(puntos):
-        gen = {o: fractions.Fraction(rnd.randint(-10 ** 6, 10 ** 6), rnd.randint(1, 10 ** 3)) for o in origenes}
+    rnd = _random.Random(semilla)
+    gen_pts = [{o: fractions.Fraction(rnd.randint(-10 ** 6, 10 ** 6), rnd.randint(1, 10 ** 3)) for o in origenes} for _ in range(puntos)]
+    for o in origenes:
+        for g in (1, -1):
+            pt = {x: fractions.Fraction(rnd.randint(-10 ** 3, 10 ** 3), rnd.randint(1, 10)) for x in origenes}
+            pt[o] = fractions.Fraction(g * 10 ** 9)
+            gen_pts.append(pt)
+    for gen in gen_pts:
         try:
             b = _eval_formula_exacta(formula, gen, sin_redondeo=True)
         except ZeroDivisionError:
@@ -679,12 +713,24 @@ def _sensibilidad(formula, vals, origenes, puntos=3, semilla=415):
         for o in origenes:
             if o in vivos:
                 continue
-            try:
-                if _eval_formula_exacta(formula, dict(gen, **{o: gen[o] + fractions.Fraction(rnd.randint(1, 10 ** 6), rnd.randint(1, 10 ** 3))}), sin_redondeo=True) != b:
+            for sg in (1, -1):
+                try:
+                    if _eval_formula_exacta(formula, dict(gen, **{o: gen[o] + sg * (1 + abs(gen[o])) / 1000}), sin_redondeo=True) != b:
+                        vivos.add(o)
+                        break
+                except ZeroDivisionError:
                     vivos.add(o)
-            except ZeroDivisionError:
-                vivos.add(o)
+                    break
     return [o for o in dict.fromkeys(origenes) if o not in vivos], locales
+
+
+def _suelo_cero(formula):
+    """(4.15, hito 2, H6) La fórmula tiene un 0 literal como argumento de min o max (un suelo o un techo en cero)."""
+    for n in ast.walk(ast.parse(formula, mode="eval")):
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in ("min", "max"):
+            if any(isinstance(x, ast.Constant) and isinstance(x.value, (int, float)) and not isinstance(x.value, bool) and x.value == 0 for x in n.args):
+                return True
+    return False
 
 
 def _constantes_no_admitidas(formula):
@@ -757,13 +803,16 @@ def _texto_pdf(ruta, n, layout=True):
 
 HTML_SIN_TEXTO_VISIBLE = {"script", "style", "template", "head", "title", "noscript", "iframe", "object", "svg", "math", "select", "option", "textarea"}
 HTML_EN_LINEA = {"a", "abbr", "b", "bdi", "bdo", "cite", "code", "data", "dfn", "em", "font", "i", "kbd", "mark", "q", "s", "samp", "small", "span",
-                 "strong", "sub", "sup", "time", "u", "var", "wbr", "nobr"}
+                 "strong", "sub", "sup", "time", "u", "var", "wbr", "nobr", "ins", "del", "label", "big", "tt"}
+HTML_EN_CABECERA = {"html", "head", "title", "meta", "link", "style", "script", "base", "noscript", "template"}
 HTML_VACIOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
 
 
 def _cmp_txt_espacios(s):
-    """(4.15, hito 2, U5) Como _cmp_txt, pero conserva la separación entre palabras (un espacio): «849 697.000» no es «849697.000»."""
-    return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", "" if s is None else str(s))).strip().lower()
+    """(4.15, hito 2, U5) Como _cmp_txt, pero conserva la separación entre palabras (un espacio): «849 697.000» no es «849697.000».
+    (H7) Sin guiones blandos ni espacios de ancho cero, que no se ven."""
+    t = re.sub("[\u00ad\u200b\u200c\u200d\u2060\ufeff]", "", unicodedata.normalize("NFKC", "" if s is None else str(s)))
+    return re.sub(r"\s+", " ", t).strip().lower()
 
 
 def _decodificar_html(crudo):
@@ -783,9 +832,13 @@ def _decodificar_html(crudo):
     if m:
         cod = m.group(1)
         try:
-            codecs.lookup(cod)
+            nombre = codecs.lookup(cod).name
         except LookupError:
             return None, f"el HTML declara la codificación {cod!r}, que no se reconoce"
+        if nombre in ("latin-1", "iso8859-1", "ascii"):
+            cod = "cp1252"  # (hito 2, H7) como los navegadores (WHATWG): ISO-8859-1 y ASCII se leen como windows-1252
+        elif nombre == "utf-7" or not (nombre.startswith(("utf-", "cp125", "iso8859-", "mac-", "koi8")) or nombre in ("shift_jis", "euc_jp", "gb2312", "gbk", "gb18030", "big5")):
+            return None, f"el HTML declara {cod!r}, que no es una codificación de texto admitida"
         try:
             return cod, crudo.decode(cod)
         except UnicodeDecodeError:
@@ -816,28 +869,46 @@ def _texto_html_visible(ruta):
             self.pila, self.oculto, self.trozos = [], 0, []
 
         def _es_oculto(self, tag, attrs):
+            # (hito 2, H7) aria-hidden no oculta el texto a la vista (solo a los lectores de pantalla): no se excluye; un <dialog> sin
+            # «open» no se ve; un <details> sin «open» solo deja ver su <summary> (se trata en handle_starttag)
             a = {str(k).lower(): ("" if v is None else str(v)) for k, v in attrs}
             st = re.sub(r"\s+", "", a.get("style", "").lower())
-            return (tag in HTML_SIN_TEXTO_VISIBLE or "hidden" in a or a.get("aria-hidden", "").strip().lower() == "true"
-                    or "display:none" in st or "visibility:hidden" in st or (tag == "input" and a.get("type", "").lower() == "hidden"))
+            return (tag in HTML_SIN_TEXTO_VISIBLE or "hidden" in a or "display:none" in st or "visibility:hidden" in st
+                    or (tag in ("dialog", "details") and "open" not in a) or (tag == "input" and a.get("type", "").lower() == "hidden"))
 
         def handle_starttag(self, tag, attrs):
             tag = tag.lower()
-            if tag not in HTML_EN_LINEA:
+            en_linea = tag in HTML_EN_LINEA or ":" in tag  # (hito 2, H7) etiquetas con espacio de nombres (iXBRL «ix:nonFraction»): en línea
+            if not en_linea:
                 self.trozos.append(" ")
             if tag in HTML_VACIOS:
                 return
-            oc = self._es_oculto(tag, attrs)
+            if any(t == "head" for t, _ in self.pila) and tag not in HTML_EN_CABECERA:
+                # (hito 2, H7) </head> omitido: un elemento del cuerpo cierra la cabecera (como en un navegador)
+                while self.pila and any(t == "head" for t, _ in self.pila):
+                    t, oc = self.pila.pop()
+                    self.oculto -= oc
+            if tag == "summary":
+                det = next((oc for t, oc in reversed(self.pila) if t == "details"), None)
+                if det:  # el <summary> de un <details> cerrado se ve
+                    self.pila.append((tag, -1))
+                    self.oculto -= 1
+                    return
+            oc = 0 if ":" in tag else int(bool(self._es_oculto(tag, attrs)))
             self.pila.append((tag, oc))
             self.oculto += oc
 
         def handle_startendtag(self, tag, attrs):
-            if tag.lower() not in HTML_EN_LINEA:
-                self.trozos.append(" ")
+            # (hito 2, H7) la barra de cierre no vale en un elemento que no es vacío («<div hidden/>» oculta lo que sigue)
+            if tag.lower() in HTML_VACIOS:
+                if tag.lower() not in HTML_EN_LINEA:
+                    self.trozos.append(" ")
+            else:
+                self.handle_starttag(tag, attrs)
 
         def handle_endtag(self, tag):
             tag = tag.lower()
-            if tag not in HTML_EN_LINEA:
+            if tag not in HTML_EN_LINEA and ":" not in tag:
                 self.trozos.append(" ")
             if not any(t == tag for t, _ in self.pila):
                 return
@@ -868,7 +939,9 @@ def _tipo_fuente(ruta):
     except OSError:
         cab = b""
     ext = str(ruta).lower()
-    if b"%PDF-" in cab[:1024] or ext.endswith(".pdf"):  # (4.15, hito 2, U5) la cabecera puede ir tras bytes previos (como lo acepta pdftotext)
+    texto_o_html = ext.endswith((".htm", ".html", ".xhtml", ".txt")) or cab.lstrip()[:1] == b"<"
+    if cab.lstrip().startswith(b"%PDF-") or ext.endswith(".pdf") or (b"%PDF-" in cab[:1024] and not texto_o_html):
+        # (4.15, hito 2, U5 y H7) la cabecera puede ir tras bytes previos (como lo acepta pdftotext), salvo en un HTML o un texto que la mencionen
         return "pdf"
     c = cab.lstrip().lower()
     if ext.endswith((".htm", ".html", ".xhtml")) or c.startswith((b"<!doctype html", b"<html")):
@@ -992,13 +1065,13 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         # (4.15, R415-SIGNO) la cifra publicada se contrasta CON SU SIGNO; «signo» y «escala» son la transformación hacia el modelo
         est, det = _cita_cifra(f.get("cita"), vf, pag)
         if est == "ausente":
-            return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa (formato equivalente, sin redondear)"
+            return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa de la página (formato equivalente, sin redondear)"
         if est == "signo_distinto":
-            return "discrepancia", (f"la cita no publica el valor de la fuente {vf!r} con su signo ({det}): «valor_fuente» es la cifra publicada "
+            return "discrepancia", (f"la página no publica el valor de la fuente {vf!r} con su signo ({det}): «valor_fuente» es la cifra publicada "
                                     "con su signo; «signo» y «escala» la transforman después hacia el modelo (R415-SIGNO)")
-        if est == "signo_indeterminado":
-            return "pendiente", (f"el signo con que la cita publica {vf!r} no puede determinarse ({det}): hace falta una cita en la que el signo "
-                                 "publicado sea inequívoco; una declaración del revisor no lo sustituye (R415-SIGNO)")
+        if est in ("signo_indeterminado", "no_localizada"):
+            return "pendiente", (f"el signo con que la página publica {vf!r} no puede determinarse ({det}): hace falta una cita en la "
+                                 "que la cifra publicada y su signo sean inequívocos; una declaración del revisor no lo sustituye (R415-SIGNO)")
     return None
 
 
@@ -1180,6 +1253,9 @@ def comprobar(carpeta, _presellar=frozenset()):
             # (4.15, hito 2, U2) en un importe, signo × escala × valor_fuente se calcula EXACTO (fracciones) y se compara con el redondeo del libro
             if not (_importe_libro_exacto(sig * _frac(esc) * _frac(vf), vm) if importe else _igual_exacto(sig * esc * vf, vm)):
                 return problema(k, "discrepancia", f"signo × escala × valor_fuente = {sig * esc * vf!r} ≠ valor del modelo {vm!r}")
+            if sig == -1 and _norm_txt(f.get("tratamiento")) in ("", "ninguno", "ninguna", "-", "—", "no", "n/a", "sin tratamiento"):
+                # (4.15, hito 2, H14) un cambio de signo es una transformación: se declara su tratamiento (p. ej. «pago publicado entre paréntesis»)
+                return problema(k, "error", "signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifra publicada se declara en «tratamiento»")
             if clase == "cero_comprobado" and not _igual_exacto(vm, 0):
                 return problema(k, "error", "cero comprobado con un valor distinto de cero")
             m = re.match(r"^Historia!([C-L])(\d+)$", k)
@@ -1241,7 +1317,8 @@ def comprobar(carpeta, _presellar=frozenset()):
                 return problema(k, "error", f"fórmula no evaluable ({type(ex).__name__}: {str(ex)[:80]})")
             if inertes:
                 return problema(k, "error", f"los orígenes {inertes} no influyen en el resultado de la fórmula: el valor no se deriva de ellos")
-            if not locales:
+            if not locales and not (r_ex == 0 and _suelo_cero(d["formula"])):
+                # (hito 2, H6) salvo el 0 de un suelo o techo declarado («max(o[a] − o[b], 0)» cuando actúa): es la regla de la fórmula
                 return problema(k, "error", "con los valores comprobados, el resultado no depende de ningún origen (es una constante en ese punto: p. ej. "
                                             "min(o[x], c) como límite): el valor no se deriva de ellos (hito 2, U4)")
             vm = e.get("valor_modelo") if k.startswith("aux:") else inst["celdas"].get(k)

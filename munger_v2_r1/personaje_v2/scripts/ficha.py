@@ -78,9 +78,14 @@ def verificacion_y_entrada_efectiva(c, pipe):
     except ValueError as ex:
         declarada = {"modo": None, "declarado_en": None, "error": str(ex)}
     aplicada = (pipe or {}).get("entrada_efectiva") if isinstance((pipe or {}).get("entrada_efectiva"), dict) else None
-    return {"apto_por_entradas": bool(apto_e), "resumen": resumen, "apto_para_dinero_real": False,
-            "entrada_efectiva": {"aplicada_en_paso_2": aplicada, "declarada": declarada,
-                                 "coinciden": (aplicada or {}).get("modo") == declarada.get("modo") if aplicada else None},
+    coinciden = (aplicada or {}).get("modo") == declarada.get("modo") if aplicada else None
+    # (4.15, hito 2, H9) un modo aplicado distinto del declarado, o una declaración con error, impide «apto por entradas»: las entradas
+    # efectivas del libro no corresponden a la declaración vigente (hay que repetir el expediente desde el paso 2)
+    motivo_modo = (f"la declaración del modo de la entrada efectiva tiene un error: {declarada.get('error')}" if declarada.get("error")
+                   else "el modo aplicado en el paso 2 no es el declarado ahora: hay que repetir el expediente desde el paso 2" if coinciden is False else None)
+    return {"apto_por_entradas": bool(apto_e) and motivo_modo is None, "resumen": resumen, "apto_para_dinero_real": False,
+            "motivo_modo": motivo_modo,
+            "entrada_efectiva": {"aplicada_en_paso_2": aplicada, "declarada": declarada, "coinciden": coinciden},
             "nota": ("condición necesaria, no suficiente: superar los controles de software no acredita la aptitud para dinero real "
                      "(motor A sin validar: F1; plantillas y criterios económicos no adoptados)")}
 

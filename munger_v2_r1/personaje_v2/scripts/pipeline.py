@@ -365,7 +365,14 @@ class Pipeline:
             actual["motivo_sustitucion"] = f"el material fijado es {mat}, no {actual.get('material')}"
         motivo = (f"corrección pedida por el pipeline: {str(st.get('motivo_correccion'))[:200]}" if st.get("esperando") == "13:auditoria.md" and st.get("motivo_correccion")
                   else "auditoría del material fijado en el paso 13")
+        rel = (st.get("relevos_caducados") or [None])[-1]
+        if isinstance(rel, dict) and not rel.get("solicitud"):
+            # (4.15, hito 2, H9) el auditor ve que la solicitud sustituye a un relevo caducado y qué archivos cambiaron
+            motivo = (f"relevo caducado: el material fijado {rel.get('material_fijado')} ya no era el vigente (cambian: "
+                      f"{', '.join(rel.get('archivos_cambiados') or [])[:300]}); se repitió la verificación (paso 12). " + motivo)
         nueva = CIE.nueva_solicitud(mat, motivo, ahora)
+        if isinstance(rel, dict) and not rel.get("solicitud"):
+            rel["solicitud"] = nueva.get("id")
         # (auditoría interna de la 4.8.1, Y-b; control de vigencia, V-2) todas las auditorías que ya hay en el expediente (cualquier
         # archivo de texto con forma de auditoría, con cualquier nombre y en cualquier subcarpeta, y la que registra cierre_vigente.json)
         # quedan anotadas como conocidas antes de la solicitud: ninguna puede acreditar una aprobación que la responda. Ninguna recibe una

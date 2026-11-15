@@ -208,9 +208,12 @@ def main():
         _rs = vef.get("resumen") or {}
         linea += (f"\n\n> **Entradas financieras:** apta por entradas: {'sí' if vef.get('apto_por_entradas') else 'no'}"
                   + (f" ({_rs.get('comprobadas_universo')} de {_rs.get('universo')} celdas del universo comprobadas)" if _rs.get("universo") is not None and _rs.get("comprobadas_universo") is not None else "")
-                  + (f"; motivo: {str(_rs.get('motivo')).replace('«', '').replace('»', '')[:300]}" if not vef.get("apto_por_entradas") and _rs.get("motivo") else "")
+                  # (4.15, hito 2, H8) también con el registro apto, lo que no se contrastó (resumen) y, si no lo es, el motivo completo
+                  + (f"; {str(_rs.get('resumen')).replace('«', '').replace('»', '')}" if _rs.get("resumen") else "")
+                  + (f"; motivo: {str(_rs.get('motivo')).replace('«', '').replace('»', '')}" if not vef.get("apto_por_entradas") and _rs.get("motivo") else "")
+                  + (f"; {str(vef.get('motivo_modo')).replace('«', '').replace('»', '')}" if vef.get("motivo_modo") else "")
                   + f". Entrada efectiva: modo aplicado en el paso 2: {_ap.get('modo') or 'sin registro'}"
-                  + (f" (declarado en {_ap.get('declarado_en')})" if _ap.get("declarado_en") else (" (sin declaración: expediente anterior a la 4.15)" if _ap.get("modo") else ""))
+                  + (f" (declarado en {_ap.get('declarado_en')})" if _ap.get("declarado_en") else (" (sin declaración del modo)" if _ap.get("modo") else ""))
                   + (f"; declarado ahora: {_de.get('modo')} ({_de.get('declarado_en') or 'sin declaración'})" if not _de.get("error") else f"; declaración actual con error: {str(_de.get('error')).replace('«', '').replace('»', '')}")
                   + ("; **el modo aplicado no coincide con el declarado**" if _ee.get("coinciden") is False else "")
                   + ". Apta para dinero real: no.")

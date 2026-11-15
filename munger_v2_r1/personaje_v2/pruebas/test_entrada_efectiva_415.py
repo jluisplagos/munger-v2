@@ -102,6 +102,8 @@ cmps = CALC["componentes"]["pagos_arrendamientos_con_intereses"]
 paso("C", "(R415-SIGNO) con la cifra publicada negativa, signo −1 y tratamiento declarados: 108,0, mismos términos y valores, transformación visible en la fuente",
      r_sg["valor"] == 108.0 and all(c_["valor"] > 0 and c_["valor_fuente"] == -c_["valor"] and c_["signo"] == -1 for c_ in cmps.values())
      and [t["signo"] for t in CALC["terminos"]] == [1, 1, -1] and "publicado" in r_sg["fuente"], r_sg["fuente"][:200])
+paso("C", "(hito 2, H10) la fuente del cálculo de C48 no se recorta: lleva la página y la fuente del último componente y el último término",
+     "2025 arrendamientos_principal" in r_sg["fuente"] and r_sg["fuente"].count("p.327") >= 2 and r_sg["fuente"].endswith(CALC.get("decision", "")[-40:]), len(r_sg["fuente"]))
 paso("C", "(R415-SIGNO) los valores, la operación y los términos del cálculo no cambian respecto al hito 1 (solo se añade la declaración de la cifra publicada)",
      {a_: c_["valor"] for a_, c_ in cmps.items()} == {a_: c_["valor"] for a_, c_ in CALC_H1["componentes"]["pagos_arrendamientos_con_intereses"].items()}
      and CALC["terminos"] == CALC_H1["terminos"] and CALC["anios"] == CALC_H1["anios"] and CALC["operacion"] == CALC_H1["operacion"])
@@ -398,6 +400,21 @@ fi, inf, rcs = ficha_inf(dI)
 ee = (fi.get("verificacion_entradas") or {}).get("entrada_efectiva") or {}
 paso("I20", "una declaración ilegible se muestra como error en la ficha y el informe (no se sustituye por «registrada»)",
      (ee.get("declarada") or {}).get("modo") is None and "no se puede leer" in str((ee.get("declarada") or {}).get("error")) and "declaración actual con error" in inf, ee)
+# (hito 2, H9) un modo aplicado en el paso 2 distinto del declarado ahora impide «apto por entradas» y se dice por qué; (H8) el informe da
+# el resumen de lo que no se contrastó y el motivo completo
+json.dump({"modo": "estricta", "fecha": "2026-11-15"}, open(os.path.join(dI, "entrada_efectiva.json"), "w"))
+stp = os.path.join(dI, "estado_pipeline.json")
+st_i = json.load(open(stp, encoding="utf-8"))
+st_i["entrada_efectiva"] = {"modo": "registrada", "declarado_en": None}
+json.dump(st_i, open(stp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+fi, inf, rcs = ficha_inf(dI)
+vef = fi.get("verificacion_entradas") or {}
+paso("I20", "(hito 2, H9) modo aplicado en el paso 2 («registrada») distinto del declarado («estricta»): no apta por entradas, con su motivo en la ficha y el informe",
+     vef.get("apto_por_entradas") is False and (vef.get("entrada_efectiva") or {}).get("coinciden") is False and "repetir el expediente desde el paso 2" in str(vef.get("motivo_modo"))
+     and "no coincide" in inf and "repetir el expediente desde el paso 2" in inf, (vef.get("motivo_modo"), rcs))
+lin = (re.findall(r"\*\*Entradas financieras:\*\*[^\n]*", inf) or [""])[0]
+paso("I20", "(hito 2, H8) la línea de las entradas da el resumen (derivados, no materiales, lecturas externas, no aplicables) y el motivo sin recortar",
+     "derivados comprobados" in lin and "lecturas externas sin bytes" in lin and "no aplicables" in lin and "errores del contrato" in lin and "sin entrada" in lin, lin[-300:])
 os.remove(os.path.join(dI, "entrada_efectiva.json"))
 os.remove(os.path.join(dI, "verificacion_entradas.json"))
 fi, inf, rcs = ficha_inf(dI)

@@ -1,0 +1,94 @@
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+
+== A · formatos con el menos separado de la cifra
+   A1 formato de contabilidad de Excel (es-ES): menos a la izquierda de la celda, cifra a la derecha; valor_fuente POSITIVO
+      página='Partida sintética de Historia!F6:   -          849,697.000 €'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   A2 lo mismo con valor_fuente NEGATIVO y signo −1 (lo que publica la página)
+      página='Partida sintética de Historia!F6:   -          849,697.000 €'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> no apta   <<< rechazo falso
+         discrepancias: Historia!F6: la cita no publica el valor de la fuente -849697.0 con su signo (la cita la publica en positivo y valor_fuente es negativo
+   A3 «-£   849,697.000» (contabilidad en-GB); valor_fuente POSITIVO
+      página='Partida sintética de Historia!F6: -£   849,697.000'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   A4 menos Unicode a dos espacios «−  849 697,000»; valor_fuente POSITIVO
+      página='Partida sintética de Historia!F6: −  849 697,000'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   A5 menos Unicode a UN espacio en una tabla estrecha, donde «−» es el cero de la columna anterior (como en Elis 2017, p. 228); valor_fuente NEGATIVO y signo −1
+      página='Partida sintética de Historia!F6 − 849697.000'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   A6 lo mismo con valor_fuente POSITIVO (la cifra de la segunda columna es positiva)
+      página='Partida sintética de Historia!F6 − 849697.000'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> no apta   <<< rechazo falso
+         discrepancias: Historia!F6: la cita no publica el valor de la fuente 849697.0 con su signo (la cita la publica en negativo y valor_fuente es positivo)
+
+== B · paréntesis y moneda
+   B1 «(EUR 849,697.000)»: negativo contable con el código de moneda dentro; valor_fuente POSITIVO
+      página='Partida sintética de Historia!F6: (EUR 849,697.000)'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   B2 «(849,697.000 m)» negativo con unidad dentro; valor_fuente NEGATIVO, signo −1
+      página='Partida sintética de Historia!F6: (849,697.000 m)'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> no apta   <<< rechazo falso
+         pendientes: Historia!F6: el signo con que la cita publica -849697.0 no puede determinarse (apariciones de la cifra en la cita: indeterminado): hace fa
+   B3 «$-849,697.000»; valor_fuente NEGATIVO, signo −1
+      página='Partida sintética de Historia!F6: $-849,697.000'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> no apta   <<< rechazo falso
+         pendientes: Historia!F6: el signo con que la cita publica -849697.0 no puede determinarse (apariciones de la cifra en la cita: indeterminado): hace fa
+   B4 «(-849697.000)»; valor_fuente NEGATIVO, signo −1
+      página='Partida sintética de Historia!F6: (-849697.000)'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> no apta   <<< rechazo falso
+         pendientes: Historia!F6: el signo con que la cita publica -849697.0 no puede determinarse (apariciones de la cifra en la cita: indeterminado): hace fa
+   B5 signo −1 con tratamiento «ninguno» (la transformación no se explica)
+      página='Partida sintética de Historia!F6: (849,697.000)'
+      cita='(la página)' valor_fuente=-849697.0 signo=-1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+
+== C · dos apariciones de la cita en la página (el control lee la primera)
+   C1 primera aparición con el guion en otra columna y segunda con el guion a un espacio
+      página='Total       -      849697.000\nResumen\nTotal - 849697.000'
+      cita='Total - 849697.000' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   C2 al revés
+      página='Total - 849697.000\nResumen\nTotal       -      849697.000'
+      cita='Total - 849697.000' valor_fuente=849697.0 signo=1
+      -> no apta
+         pendientes: Historia!F6: el signo con que la cita publica 849697.0 no puede determinarse (apariciones de la cifra en la cita: indeterminado): hace fal
+
+== D · el pasaje no se encuentra con re.I pero la cita normalizada sí está en la página (se lee el signo en la CITA)
+   D1 página con «İ» (U+0130) y guion a UN espacio; la cita escribe «i̇» y DOS espacios
+      página='İmporte - 849697.000'
+      cita='i̇mporte -  849697.000' valor_fuente=849697.0 signo=1
+      -> apta   <<< ACEPTADA con un signo que la página no publica así
+   D2 control: la misma página con la cita literal
+      página='İmporte - 849697.000'
+      cita='(la página)' valor_fuente=849697.0 signo=1
+      -> no apta
+         pendientes: Historia!F6: el signo con que la cita publica 849697.0 no puede determinarse (apariciones de la cifra en la cita: indeterminado): hace fal
+
+== E · cero impreso como «−» (U+2212), como en Elis 2017 p. 228
+   E1 cero comprobado (Historia!C23) cuya página imprime «−» en su columna
+      página='Net gains on site disposals        −                 42.2'
+      cita='(la página)' valor_fuente=0 signo=1
+      -> no apta   <<< rechazo falso
+         discrepancias: Historia!C23: la cita no contiene el valor de la fuente 0 como cifra completa (formato equivalente, sin redondear)
+   E2 lo mismo con guion ASCII (control)
+      página='Net gains on site disposals        -                 42.2'
+      cita='(la página)' valor_fuente=0 signo=1
+      -> apta
+
+== F · auxiliar (dato de origen de un derivado): ¿se contrasta también con su signo?
+   F1 auxiliar con página «-…» y valor_fuente positivo: no apta  discrepancias: aux:a1: la cita no publica el valor de la fuente 730833 con su signo (la cita la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifr; pendientes: Historia!C6: el origen aux:a1 no está comprobado (discrepancia)
+   F2 auxiliar con página y valor_fuente positivos (control): apta  
+
+14 casos distintos de lo esperado por el revisor
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada

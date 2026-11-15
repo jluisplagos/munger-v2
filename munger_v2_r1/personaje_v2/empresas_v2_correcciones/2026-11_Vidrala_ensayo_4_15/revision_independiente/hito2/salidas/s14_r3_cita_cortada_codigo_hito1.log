@@ -1,0 +1,30 @@
+código: hito 1 · control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 
+   1 la página publica una cifra DIEZ veces mayor; la cita se corta antes del último dígito
+      la página publica: 'Partida sintética de Historia!F6: 8496970'
+      cita: 'Partida sintética de Historia!F6: 849697' · valor_fuente declarado: 849697.0
+      -> APTA y comprobada  
+   2 la página publica 1849697.000; la cita empieza en el segundo dígito
+      la página publica: 'Partida sintética de Historia!F6: 1849697.000'
+      cita: '849697.000' · valor_fuente declarado: 849697.0
+      -> APTA y comprobada  
+   3 la página publica 849697.499 (más precisión); la cita se corta en el punto decimal (truncar no es el valor publicado)
+      la página publica: 'Partida sintética de Historia!F6: 849697.499'
+      cita: 'Partida sintética de Historia!F6: 849697' · valor_fuente declarado: 849697.0
+      -> APTA y comprobada  
+   4 la página publica 849.697.123 (miles con punto); la cita se corta tras el segundo grupo
+      la página publica: 'Partida sintética de Historia!F6: 849.697.123'
+      cita: 'Partida sintética de Historia!F6: 849.697' · valor_fuente declarado: 849697.0
+      -> APTA y comprobada  
+   5 cero comprobado (Historia!C23): la página publica 0.49; la cita se corta tras el 0 (contraejemplo «0,49 no es 0» de la revisión externa de la 4.14)
+      la página publica: 'Partida: 0.49'
+      cita: 'Partida: 0' · valor_fuente declarado: 0
+      -> APTA y comprobada  
+   6 cero comprobado (Historia!C23): la página publica 2019; la cita es «0» (el «0» de «2019»)
+      la página publica: 'Ejercicio 2019'
+      cita: '0' · valor_fuente declarado: 0
+      -> APTA y comprobada  
+   7 control: las mismas citas completas se rechazan
+      la página publica: 'Partida sintética de Historia!F6: 8496970'
+      cita: 'Partida sintética de Historia!F6: 8496970' · valor_fuente declarado: 849697.0
+      -> no apta  discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa (formato equivalente, sin redondear)
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 

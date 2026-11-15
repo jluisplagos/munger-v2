@@ -421,7 +421,7 @@ def calcular_entrada(celda, d, H, anios, carpeta=None):
     desc = " ".join(("+" if t.get("signo", 1) == 1 else "−") + " " + (t.get("partida") or t.get("componente")) for t in terms).lstrip("+ ")
     out = {k: v for k, v in d.items() if k != "calculo"}
     out.update(valor=val, calculo=cal, periodo=d.get("periodo") or f"{min(sel)}–{max(sel)}", unidad=d.get("unidad") or "mm", valor_sin_redondear=bruto,
-               fuente=(f"Cálculo declarado ({op} {sel[0]}–{sel[-1]} de: {desc}; redondeo a {red} decimales; sin redondear {bruto!r}): " + "; ".join(fuentes))[:1500]
+               fuente=(f"Cálculo declarado ({op} {sel[0]}–{sel[-1]} de: {desc}; redondeo a {red} decimales; sin redondear {bruto!r}): " + "; ".join(fuentes))  # (4.15, hito 2, H10) sin recortar: se perdían la fuente y la página del último año
                + (f". {cal['decision']}" if cal.get("decision") else ""))
     if pend:
         out["pendiente_verificacion"] = sorted(set(out.get("pendiente_verificacion") or []) | pend)

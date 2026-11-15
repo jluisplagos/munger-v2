@@ -66,6 +66,10 @@ def t_relevo_caducado():
              and rel.get("material_fijado") == m0 and rel.get("material_vigente") is not None and "verificacion_entradas.json" in (rel.get("archivos_cambiados") or [])
              and "relevo caducado" in (r.stdout + r.stderr) and st.get("paso") == 13 and st.get("esperando") == "13:auditoria.md",
              f"código {r.returncode} · material {m0} → {m1} · solicitudes {[(x['id'][:10], x['estado']) for x in sols]} · relevo {rel}")
+        sol_v = json.load(open(os.path.join(c, "solicitud_auditoria.json"), encoding="utf-8"))
+        paso("19 (hito 2, H9) la solicitud nueva comunica al auditor el relevo caducado y los archivos que cambiaron, y el relevo registra la solicitud",
+             "relevo caducado" in str(sols[1].get("motivo")) and "verificacion_entradas.json" in str(sols[1].get("motivo")) and sol_v.get("id") == sols[1]["id"]
+             and "relevo caducado" in str(sol_v.get("motivo")) and rel.get("solicitud") == sols[1]["id"], (sols[1].get("motivo") or "")[:200])
         TS.AG.auditoria(c, "APROBADO", material=m0, solicitud=sols[0]["id"])  # responde a la solicitud ANTIGUA sobre el material antiguo
         r = subprocess.run([TS.PY, TS.PIPE, c], capture_output=True, text=True)
         st = TS.estado(c)
@@ -89,4 +93,4 @@ if __name__ == "__main__":
         paso("excepción " + str(e)[:120], False)
     n = sum(ok for _, ok in RES)
     print(f"{n}/{len(RES)} pruebas del relevo caducado (4.15) PASAN")
-    sys.exit(0 if n == len(RES) and n >= 4 else 1)
+    sys.exit(0 if n == len(RES) and n >= 5 else 1)

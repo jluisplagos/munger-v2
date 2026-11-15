@@ -1,0 +1,36 @@
+== A · fronteras
+   exacto=            339879/400 libro=849.697                -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=            339879/400 libro=849.698                -> True   (hito 1, _igual_libro sobre float: False)
+   exacto= 84969750001/100000000 libro=849.697                -> False   (hito 1, _igual_libro sobre float: False)
+   exacto= 84969749999/100000000 libro=849.698                -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=          1699393/2000 libro=849.697                -> True   (hito 1, _igual_libro sobre float: True)
+   exacto= 84969649999/100000000 libro=849.697                -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=                1/2000 libro=0.0                    -> True   (hito 1, _igual_libro sobre float: False)
+   exacto=                1/2000 libro=0                      -> True   (hito 1, _igual_libro sobre float: False)
+   exacto=       50001/100000000 libro=0.0                    -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=               -1/2000 libro=0.0                    -> True   (hito 1, _igual_libro sobre float: False)
+   exacto=                1/2500 libro=0.001                  -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=           849697/1000 libro=849.6970000000001      -> False   (hito 1, _igual_libro sobre float: True)
+   exacto=8496970000000001/10000000000000 libro=849.697                -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=                   1/3 libro=0.333                  -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=                   1/3 libro=0.3333                 -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=                   2/3 libro=0.667                  -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=                   2/3 libro=0.666                  -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=2500000000000000001/2500 libro=1000000000000000.0     -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=          4248487/5000 libro=849.6972               -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=                   849 libro=849.697                -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=                   849 libro=849                    -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=          2122501/2500 libro=849                    -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=          2122499/2500 libro=849                    -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=            2511/10000 libro=0.25                   -> False   (hito 1, _igual_libro sobre float: False)
+   exacto=              313/1250 libro=0.25                   -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=               156/625 libro=0.25                   -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=           -339879/400 libro=-849.697               -> True   (hito 1, _igual_libro sobre float: True)
+   exacto=           -339879/400 libro=-849.698               -> True   (hito 1, _igual_libro sobre float: False)
+   exacto=            339879/400 libro=-849.698               -> False   (hito 1, _igual_libro sobre float: False)
+
+== B · barrido aleatorio
+   pares: 200000
+   hito 2 acepta y hito 1 rechazaba: 27100; de ellos, empates exactos (|exacto − libro| = 0,0005): 27100; máxima distancia: 0.0005
+   hito 1 aceptaba y hito 2 rechaza: 0; ejemplos: []
+   hito 2 distinto de la definición «exacto o redondeo a 3 decimales con cualquier regla de empate»: 0; ejemplos: []
