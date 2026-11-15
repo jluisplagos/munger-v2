@@ -1,0 +1,86 @@
+2026-11-15T17:14:37+00:00
+== versión
+munger_v2 · r1 · entrega 4.15 · hito 1 (corrección tras la revisión externa de la 4.14: R1–R3 del contraste documental de las entradas —página inexistente, fuente local ausente y redondeo aceptado como cifra exacta—, vigencia del fundamento de cada comprobación (I13), cobertura de las cifras usadas por el juicio (I8), recuentos (I9) y reproducibilidad de C48 de Elis por la vía generativa (cálculo declarado, conflicto explícito con el valor migrado y reconstrucción en carpeta limpia); los registros de entradas de los tres expedientes finales de la 4.14 pasan a «no apto por entradas» con las reglas nuevas hasta su regeneración; sin regenerar expedientes, sin I19, I20 ni F1; aptitud: uso supervisado experimental, no apto para decisiones con dinero real; sobre la entrega 4.14, ZIP SHA-256 bb51942cefb848e409a4828e3faeb70f94aa4d29af39cda6d90cd0a97cb7b93e) · 2026-11-15 · base SHA-256 61c70800d0faa7c4a98888b7413820ec8041153e53484c32b0c549b26b6af87d
+== manifiesto (MANIFIESTO_SHA256.txt)
+7031 archivos en el manifiesto · modificados 0 · ausentes 0 · de más 0
+RESULTADO manifiesto: PASA
+== entorno (personaje_v2/scripts/comprobar_entorno.sh)
+autotest precio_de_si: PASA (5 casos + propiedades)
+RESULTADO entorno: PASA
+== contraste del piloto Vidrala 2025 (solo lectura; salida idéntica a la de referencia)
+35 comprobaciones CUMPLEN · salida idéntica a resultados/contraste_salida.txt
+RESULTADO piloto: PASA
+== pruebas de la reparación
+== test_comprobadores.py
+114/114 comprobaciones PASAN
+== test_pipeline_sintetico.py (LibreOffice, en secuencia)
+30/30 pruebas PASAN
+== mismos nombres de comprobación que la línea de base v2.2
+línea de base 30 · ahora 30 · faltan 0 · nuevas 0
+RESULTADO: PASA
+== batería de vigencia H5 (personaje_v2/pruebas/test_vigencia_h5.py; obligatoria en «completa»; reparación 4.13.1)
+59/59 pruebas de vigencia H5 (4.13.1) PASAN
+RESULTADO vigencia H5: PASA
+== batería del juicio sobre el objetivo (personaje_v2/pruebas/test_juicio_objetivo_414.py; obligatoria en «completa»; contrato 4.14)
+27/27 pruebas del juicio sobre el objetivo (4.14) PASAN
+RESULTADO juicio sobre el objetivo: PASA
+== batería de la verificación de las entradas (personaje_v2/pruebas/test_verificacion_entradas_414.py; obligatoria en «completa»; requisito de cierre 4.14)
+33/33 pruebas de la verificación de las entradas (4.14) PASAN
+RESULTADO verificación de las entradas: PASA
+== batería de la corrección de la verificación de las entradas (personaje_v2/pruebas/test_verificacion_entradas_415.py; obligatoria en «completa»; encargo correctivo 4.15: R1–R3, I13, I8 e I9)
+141/141 pruebas de la corrección de la verificación de las entradas (4.15) PASAN
+RESULTADO verificación de las entradas 4.15: PASA
+== batería de la entrada efectiva del FCF base (personaje_v2/pruebas/test_entrada_efectiva_415.py; obligatoria en «completa»; encargo correctivo 4.15: C48 de Elis)
+52/52 pruebas de la entrada efectiva (4.15) PASAN
+RESULTADO entrada efectiva: PASA
+== batería del relevo caducado (personaje_v2/pruebas/test_relevo_i19_415.py; obligatoria en «completa»; 4.15, hito 2: I19)
+4/4 pruebas del relevo caducado (4.15) PASAN
+RESULTADO relevo caducado: PASA
+== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)
+199/199 pruebas de integración V6.4 PASAN
+RESULTADO integración V6.4: PASA
+== batería de trazabilidad de la 4.10 (personaje_v2/pruebas/test_trazabilidad_v2.py; obligatoria en «completa»; BOM, marcadores de cierre y libro final)
+78/78 pruebas de trazabilidad de la 4.10 PASAN
+RESULTADO trazabilidad: PASA
+== batería de integridad de la auditoría vigente (personaje_v2/pruebas/test_integridad_auditoria_v2.py; obligatoria en «completa»; reparación 4.9, R-V1)
+PASA  · G unidades · huella_fiel: fuera de la lista cerrada, también son distintos un carácter de compatibilidad (NFKC: «²»), un espacio de anchura cero, un espacio no separable y los separadores U+2028 y VT
+PASA  · G unidades · huella_contenido (detector A) sigue siendo un detector conservador: no distingue el orden de las palabras ni la línea de solicitud, y por eso no acredita la identidad
+PASA  · G unidades · Pipeline.veredicto_auditoria es idéntica a la de la 4.7.1 (H2 sin cambios) · 9edf6252ca48c800
+
+101/103 pruebas de integridad de la auditoría vigente PASAN
+RESULTADO integridad: FALLA (código 1; la batería no pasó, no llegó a ejecutarse o tiene menos de 103 pruebas; ver /tmp/tmp.d7ZVhExcuI)
+== batería de solicitudes de auditoría (personaje_v2/pruebas/test_auditorias_v2.py; obligatoria en «completa»; reparación 4.8.1, R-T1)
+FALLA · F cierre histórico sin solicitudes · el cierre aprobado de la 4.6.1 sigue vigente (sin --desde y con --desde 14) y no recibe ninguna solicitud retroactiva · 0 4
+PASA  · G regla H2 · Pipeline.veredicto_auditoria es idéntica a la de la 4.7.1 (16 puntos únicos, todos PASA, un único APROBADO, ningún FALLA ni encabezado inválido) · 9edf6252ca48c800
+PASA  · G regla H2 · el identificador de solicitud solo se lee en una línea propia («Solicitud de auditoría: SA-<16 hex>»), exactamente una vez
+
+54/55 pruebas de solicitudes de auditoría PASAN
+RESULTADO auditorías: FALLA (código 1; la batería no pasó, no llegó a ejecutarse o tiene menos de 55 pruebas; ver /tmp/tmp.NZXmRtO678)
+== batería de coherencia de estados (personaje_v2/pruebas/test_estados_v2.py; obligatoria en «completa»; reparación 4.8, X-a y X-c)
+PASA  · E rechazo de material modificado · código 4 (cierre rechazado), sin ficha ni informe oficiales, estado sin cierre (None, paso 13), auditoría retirada · CIERRE RECHAZADO: el pipeline no registró una auditoría APROBADO válida (auditoria = None). No queda ninguna salida ofic
+PASA  · E rechazo de material modificado · archivo con el motivo del material cambiado, fila del resumen SIN APROBACIÓN VIGENTE y aprobación en el historial del resumen · el material cambió después de la auditoría (fase_c.json): la aprobación no vale para la versión nueva
+PASA  · F regla H2 · Pipeline.veredicto_auditoria es idéntica a la de la 4.7.1 (la detección H2 no se rebaja) · 9edf6252ca48c800
+
+27/28 pruebas de coherencia de estados PASAN
+RESULTADO estados: FALLA (código 1; la batería no pasó, no llegó a ejecutarse o tiene menos de 28 pruebas; ver /tmp/tmp.zpgP2v6jmJ)
+== batería del resumen (personaje_v2/pruebas/test_resumen_v2.py; obligatoria en «completa»; reparación 4.7)
+FALLA · resumen · W-f: la fila aprobada que reaparece en un destino ya registrado como «retirada» se vuelve a retirar (resumen.py sin ficha, código 3) · True False 3
+FALLA · resumen · W-e: la sustitución dentro del pipeline termina con código 4 (no «concluido»), sin salidas oficiales, con el estado sin aprobación y los dos archivos registrados; filas retiradas; el relanzamiento sigue rechazado y no publica · 4 4 · dirs 3→3 · 3
+PASA  · resumen · estado temprano sin auditoría (pendiente_de_datos) con resumen configurado: se publica como antes y no se registra como aprobación
+
+17/45 pruebas de aceptación del resumen PASAN
+RESULTADO resumen: FALLA (código 1; la batería no pasó, no llegó a ejecutarse o tiene menos de 45 pruebas; ver /tmp/tmp.33JCQgCHNA)
+== batería de cierre (personaje_v2/pruebas/test_cierre_v2.py; obligatoria en «completa»; reparaciones 4.6 y 4.6.1)
+PASA  · I4 alcance · los valores financieros permanecen iguales a los de la ficha 4.5 · iguales
+PASA  · I4 alcance · expediente ordinario (sin alcance_v2.json): ninguna advertencia exploratoria inventada
+PASA  · I4 alcance · alcance_v2.json mal formado: ficha.py se detiene (código 1) · ficha.py: alcance_v2.json mal formado: hace falta tipo = ensayo_exploratorio, aviso y fuente no vací
+
+54/55 pruebas de aceptación del cierre PASAN
+RESULTADO cierre: FALLA (código 1; la batería no pasó, no llegó a ejecutarse o tiene menos de 55 pruebas; ver /tmp/tmp.2jhiKOzGCq)
+RESULTADO GLOBAL: FALLA (5 bloques)
+
+real	59m51.992s
+user	50m4.590s
+sys	8m59.119s
+codigo=5
+2026-11-15T18:14:29+00:00
