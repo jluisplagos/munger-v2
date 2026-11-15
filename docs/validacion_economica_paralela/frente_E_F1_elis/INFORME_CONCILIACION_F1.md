@@ -11,10 +11,14 @@ Marcas usadas en todo el informe:
 ## 0. Resumen
 
 1. **Base y evidencia.** Base 4.14 materializada desde el ZIP original y verificada (6.798/6.798 + manifiesto). Árbol del hito 4.15 (059f4f6) verificado con su propio manifiesto (7.004/7.004). El libro de Elis es idéntico en ambos (SHA-256 `d2593777…92385`).
-   - 707 cifras y citas de cinco informes anuales de Elis verificadas contra los bytes de los PDF, con página, literal y signo.
-   - En 670 filas de tabla se comprueba además automáticamente que la columna corresponde al ejercicio declarado; 1 queda con control manual justificado.
-   - Test 16/16: el control positivo se acepta y se rechazan los 15 contraejemplos: signo invertido, redondeo, página inexistente o equivocada, fuente ausente, con otra huella o sin huella, posición distinta con el mismo literal, columna, bloque o saldo de otro ejercicio y control manual sin justificar.
-2. **Conciliación 2023–2025.** Todas las identidades cierran con residuos de ±0,1 de redondeo de la cifra impresa, salvo dos residuos explicados: 0,4 entre interés de arrendamientos de caja (29,6) y devengado (29,2) en 2025 y −0,2 en el free cash flow publicado de 2024 frente a sus componentes. Ninguno es material [D].
+   - 716 cifras y citas de cinco informes anuales de Elis verificadas contra los bytes de los PDF en cinco dimensiones: literal (página, posición y signo), ejercicio de la columna, unidad, perímetro y edición. 702 quedan acreditadas en todas, 14 quedan PENDIENTE y ninguna falla. Las 14 son filas de arrendamientos de la página del URD 2022 que no imprime la unidad (p.302), y ningún cálculo las usa.
+   - Test del verificador: 39/39. Acepta 7 positivos reales y rechaza 32 contraejemplos, cada uno en la dimensión que debe detectarlo. Entre ellos están los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor.
+   - Test de los residuos: 7/7. Con el verificador saltado a propósito, los residuos hacen fallar por sí solos el cálculo ante una cifra de otro año, y la única excepción fijada no absorbe un error nuevo.
+2. **Conciliación 2023–2025.** Las 71 identidades cierran dentro de su cota de redondeo [D]:
+   - la cota es la suma de media unidad de la última cifra impresa de cada cifra que interviene (de 0,10 a 0,50 según la identidad);
+   - el −0,2 del free cash flow de 2024 frente a sus componentes está dentro de su cota de 0,35 (siete cifras impresas): ya no es una excepción;
+   - la única excepción es el +0,4 de 2025 entre el interés de arrendamientos de caja (29,6) y el devengado (29,2), una diferencia de concepto sin puente publicado. Se fija en su valor exacto, de modo que un error nuevo en sus tres cifras hace fallar la comprobación. No es material;
+   - 71 de las 72 entradas clave de la ventana quedan contrastadas por una identidad entre páginas distintas. La otra, las adquisiciones de 2023, se contrasta con la Historia del libro.
 3. **FCF base 307,933** reproducido por dos vías independientes (CFO y free cash flow publicado menos SBC). **C48 = 108** se mantiene con su derivación: 82,933 de intereses financieros + 25,067 de interés implícito de caja de arrendamientos [D][DH E6].
 4. **f = 4,168 %** se descompone exactamente en: pagos de arrendamientos 153,2 (principal 128,1 + interés de caja 25,1), intereses financieros 82,9, efectos fiscales −24,9 y otros −21,1. **Ni la amortización de derechos de uso ni la de intangibles adquiridos están dentro de f**: aparecen en la reinversión histórica (−81,2) [D].
 5. **Motor A** reimplementado desde sus ecuaciones documentadas: reproduce los 30 flujos anuales, los 3 del año 11 y los 3 flujos sin crecimiento del libro con diferencias < 10⁻⁹ [D]. Su flujo sin crecimiento, 248,5, es el FCF base −59,4: +39,6 por el nivel del EBIT 2025, −8,0 por el cambio de tipo impositivo, −9,9 por escalar f a las ventas 2025 y −81,2 porque la proyección no reproduce la reinversión histórica [D].
@@ -35,7 +39,7 @@ Marcas usadas en todo el informe:
    - Es material: el flujo de partida va de 339,8 a 477,8 según el reparto, frente a 248,5 en la V6.3 [D]. Todos esos niveles llevan unos +27,9 de partidas puntuales de la ventana (§4.2).
 9. **Alternativas** A1, A1′, A2 y cota B calculadas, con sus consecuencias en f, el flujo de partida y el ancla de S2C. **Ninguna adoptada**. Especificación con reglas de control y criterios de prueba en [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md).
 10. **Pendiente:** decisión F1 (a/b/c con política completa), política de intangibles adquiridos, dato o estimación documentada de la reinversión necesaria, perímetro de S2C y del margen. Dos observaciones de la plantilla quedan fuera de F1: la ventana del tipo impositivo y la escala de intereses sin endeudamiento nuevo. La conclusión de nivel de Elis sigue **pendiente_de_datos**.
-11. **Revisión independiente n.º 1:** 17 objeciones, 3 materiales. Ninguna invierte una conclusión material. Todas se aceptan y se responden en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), con los cambios que no proceden de la revisión. La segunda pasada sobre lo corregido está **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)).
+11. **Revisión independiente n.º 1:** 17 objeciones, 3 materiales. Ninguna invierte una conclusión material. La respuesta individual a cada una, con su commit y su prueba, está en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), junto con la respuesta al contraste externo sobre 6fb9294. La revisión independiente de lo corregido, sobre un commit congelado, está **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)).
 
 ---
 
@@ -52,12 +56,23 @@ Marcas usadas en todo el informe:
 **Regla de edición** [D]: cada ejercicio se toma de la publicación más reciente que lo presenta, que es la regla de la Historia. 2025 y 2024 proceden del URD 2025; 2023 del DEU 2024 reexpresado; 2022 del URD 2023 reexpresado; 2021 del URD 2022 reexpresado. Las reexpresiones son pequeñas y proceden sobre todo de la contabilización definitiva de combinaciones: la PPA pasa de 80,1 a 82,9 en 2022, de 85,1 a 85,7 en 2023 y de 84,9 a 85,0 en 2024. Hay además un cambio de presentación: hasta el URD 2023 los intereses de arrendamientos iban dentro de «Net interest paid» (90,2 en 2023); desde el DEU 2024 van dentro de los pagos de arrendamientos (70,5 + 130,8) [P: URD23 p.266, p.279; DEU24 p.273].
 
 **Evidencia reproducible.** Todas las rutas son relativas a esta carpeta.
-- `datos/cifras_fuente.csv`: 707 filas (671 de tabla y 36 de texto) con documento, página PDF, etiqueta de línea, posición, literal impreso, valor con signo y modo de control del ejercicio.
-- `scripts/verificar_cifras.py`: comprueba huella, página, literal, signo y que la columna o el bloque correspondan al ejercicio declarado (670 automáticas, 1 manual justificada). `scripts/test_verificar_cifras.py` ejecuta 16 casos: un control positivo y 15 contraejemplos.
-- `scripts/contraste_f1.py`: 186 comprobaciones, todas OK, de tres clases distintas:
-  - 115 contra el libro;
-  - 58 de fuente: dos vías independientes del FCF base y 57 residuos de conciliación afirmados con tolerancia de ±0,15 y dos excepciones declaradas;
-  - 13 identidades algebraicas, que documentan los puentes pero no prueban los datos.
+- `datos/cifras_fuente.csv`: 716 filas (677 de tabla y 39 de texto). Cada una lleva documento, página PDF, etiqueta de línea, posición, literal impreso, valor con signo, unidad, perímetro, edición («vigente» o «anterior») y modo de control del ejercicio.
+- `scripts/verificar_cifras.py` comprueba cada fila en cinco dimensiones y deja cada una en OK, PENDIENTE (motivo escrito) o FALLO:
+  - **literal:** huella declarada, página, etiqueta, posición, literal y signo;
+  - **ejercicio:** cabecera de dos ejercicios, tabla de crecimiento, bloque de movimientos, saldo con fecha, apertura y cierre en la cabecera, o año aislado sobre una tabla de un solo ejercicio. En la prosa, el ejercicio de la publicación;
+  - **unidad:** la declaración de unidades de la tabla, o el «%» del literal;
+  - **perímetro:** la cabecera de la página debe ser de estados consolidados o de resultados del grupo; en una matriz por segmentos solo vale la columna «Total»;
+  - **edición:** el pie de cada página («Elis | Universal Registration Document AAAA») debe coincidir con la fuente, y la fuente debe ser la que exige la regla de edición de la Historia o estar declarada «anterior».
+
+  Resultado: 702 OK, 14 PENDIENTE por unidad no impresa (URD 2022 p.302) y 0 FALLO. Código de salida 2: hay pendientes.
+- `scripts/test_verificar_cifras.py`: 39 casos, 7 positivos reales y 32 contraejemplos. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
+- `scripts/contraste_f1.py`: 236 comprobaciones, todas OK, de tres clases:
+  - 136 contra el libro. 18 de ellas son de una copia temporal del libro recalculada con LibreOffice con exceso de caja de 0, 250 y −80 (`scripts/prueba_caja_no_nula.py`);
+  - 72 de fuente: las dos vías independientes del FCF base y 71 residuos de conciliación, cada uno afirmado con su cota de redondeo y una sola diferencia de concepto fijada;
+  - 28 identidades algebraicas, que documentan los puentes, la identidad del exceso de caja, A3_estimado con valores sintéticos y el control del año 11. No prueban los datos.
+
+  Solo usa cifras sin FALLO, de la edición vigente, del perímetro del grupo y con la unidad que pide cada cálculo: 359 entradas, ninguna pendiente.
+- `scripts/test_contraste_residuos.py`: 7 casos. Salta a propósito el verificador y comprueba que los residuos hacen fallar el cálculo con una cifra de otro año, con un error nuevo en las cifras de la excepción fijada o en el FCF de 2024, y con ventas mal transcritas. Documenta también el límite de detección: un error menor que la cota de redondeo no lo detecta ninguna identidad.
 
   Resultados en `resultados/contraste_f1.{json,md}`.
 - `resultados/tabla_conciliacion.md`: tabla de cifras con literal y página.
@@ -110,11 +125,14 @@ La tabla completa, con literal impreso y página de cada cifra, está en [result
 | Línea del EFE «amortizaciones y provisiones» = D&A total + subvención + provisiones | 0,0 | 0,0 | 0,0 | Exacta: 1.020,8 = 1.019,4 + 1,0 + 0,4. **No se sustituye 1.019,4 por 1.020,8**: la diferencia son subvenciones y provisiones |
 | Capex bruto del EFE = lino + otros + resto | 0,0 | −0,1 | 0,0 | Redondeo |
 | Capex neto = bruto − cesiones − subvenciones | +0,1 | 0,0 | 0,0 | 2023: 820,8 publicado frente a 820,7 de las líneas; ya registrado en C47 |
-| FCF publicado = suma de sus componentes | +0,1 | **−0,2** | 0,0 | 2024: la tabla del URD 2025 imprime 346,3 (346,4 en el DEU 2024) frente a 346,5 de sus componentes. Redondeo y reexpresión; no afecta a C52, que se construye por la vía CFO |
-| Interés de arrendamientos: caja − devengo | 0,0 | 0,0 | **+0,4** | Ver §5.4 |
+| FCF publicado = suma de sus componentes | +0,1 | **−0,2** | 0,0 | 2024: la tabla del URD 2025 imprime 346,3 (346,4 en el DEU 2024) frente a 346,5 de sus componentes. Dentro de la cota de redondeo de sus siete cifras impresas (0,35); no afecta a C52, que se construye por la vía CFO |
+| Interés de arrendamientos: caja − devengo | 0,0 | 0,0 | **+0,4** | Diferencia de concepto, fijada en +0,4 (§5.4) |
 | Movimiento del pasivo y del ROU | 0,0 | 0,0 / −0,1 | 0,0 | Redondeo |
 | Impuesto corriente + diferido = gasto | −0,1 | 0,0 | 0,0 | Redondeo |
 | Deuda bruta − caja = deuda neta | 0,0 | +0,1 | 0,0 | Caja 622,0 frente a 622,1 entre ediciones |
+| Segundas presentaciones en otra página: resultado financiero (nota 9), resultado antes de impuestos (conciliación del impuesto), PPA (cuenta de resultados frente a nota de D&A), ventas (información por segmentos) y adquisiciones (puente de la deuda neta; 2024–25) | 0,0 | 0,0 | 0,0 | Contraste entre páginas de las entradas clave |
+
+Cada identidad se **afirma** con su cota de redondeo: para cada cifra impresa que interviene, |coeficiente| × media unidad de su última cifra (0,05 con un decimal). Es el error máximo que puede producir el redondeo de las cifras publicadas. No hay tolerancia global: un residuo mayor que su cota hace fallar el cálculo, salvo la diferencia de concepto de 2025, que se exige en su valor exacto (+0,4 ± 0,15). La tabla `residuos_con_cota` de `resultados/contraste_f1.json` da, para cada identidad y año, el residuo, la cota, las cifras y las páginas que intervienen, y si el contraste es entre páginas o dentro de una.
 
 **Historia y Análisis frente a la fuente** [D]. Se contrastaron 72 celdas de Historia y todas coinciden exactamente con las cifras publicadas:
 - 64 de filas: 6, 7, 8, 10, 11, 12, 13, 14, 15, 17 y 18 de 2021–2025, y 22, 23 y 24 de 2023–2025;
@@ -213,7 +231,7 @@ Consecuencias [D]:
 
 ### 4.3 Motor A: réplica y flujo de partida
 
-Ecuaciones de la V6.3 (Convenciones §1–§3), reimplementadas sin leer las fórmulas de las celdas. Coinciden con los 30 flujos anuales (AU6:BD8), los 3 flujos del año 11 (BF6:BF8) y los 3 flujos sin crecimiento, (BL − exceso de caja)·r, con diferencias < 10⁻⁹ [D]:
+Ecuaciones de la V6.3 (Convenciones §1–§3), reimplementadas sin leer las fórmulas de las celdas. Coinciden con los 30 flujos anuales (AU6:BD8), los 3 flujos del año 11 (BF6:BF8) y los 3 flujos sin crecimiento, con diferencias < 10⁻⁹ [D]. El flujo sin crecimiento se obtiene del libro como (Motor!BL − Motor!M)·r: Motor!BL = C·(D·(1 − K) − L)/J + M, y M es el exceso de caja del motor A (= Análisis!C76). La identidad se comprobó también con un exceso de caja de 250 y de −80 en una copia temporal del libro recalculada con LibreOffice. La identidad anterior, BL·r − C76, solo acierta con caja cero, que es el caso del libro (revisión, O15):
 
 - flujo_t = V_t·[m_t·(1 − τ) − f] − (V_t − V_{t−1}) ÷ S2C; terminal = V₁₀·(1+g)·[m_obj·(1 − τ)·(1 − g/ROIC) − f].
 - V₀ = 4.796,8; m₀ = 630,0/4.796,8 = 13,134 %; τ = 28,82 % (media de 5 años de la fila 10); f = 4,168 %.
@@ -293,6 +311,13 @@ El −81,2 es una identidad de las entradas. **Por sí solo no prueba un doble c
 - (iv) **Premisa económica** [I]: el activo arrendado se repone con nuevos contratos cuyo coste son los pagos, de modo que la amortización ROU no exige además un desembolso propio.
   - Es la práctica de la propia Elis en sus pruebas de deterioro, que definen el flujo como «adjusted EBITDA … − income tax at standard rate − capital expenditure (including lease renewal)» [P: URD25 p.368; DEU24 p.314; URD23 p.322; URD22 p.303].
   - Es decir, cuenta el arrendamiento una sola vez, como renovación dentro de la inversión y sobre un EBITDA sin coste de arrendamiento. Es el mismo esquema que la alternativa A1′ (revisión, O5).
+  - **Evidencia contraria buscada.** La premisa fallaría si reponer el activo arrendado exigiera además caja propia, fuera de los pagos, o si parte del coste de arrendamiento estuviera fuera de los pagos y del ROU. Se revisó lo publicado:
+    - el estado de flujos no tiene ninguna salida de inversión por derechos de uso, y las altas de ROU (159,0 / 194,3 / 245,6) entran en el pasivo, no en el capex [P: URD25 p.327 y p.366];
+    - las mejoras en locales arrendados y cualquier compra de un activo al vencer el contrato son inmovilizado propio. Si existen, están en el capex propio y en la D&A propia, no en el ROU: no generan un tercer cómputo, y su importe no se publica por separado [I];
+    - los arrendamientos de bajo valor (2,0), a corto plazo (5,9) y los pagos variables (0,9) de 2025 se registran como gasto [P: URD25 p.366]. Están dentro del margen y no en el ROU ni en los pagos del pasivo, así que tampoco se cuentan dos veces;
+    - los pagos crecieron más deprisa que las ventas en la ventana (§5.5). Eso no contradice la premisa, pero limita la razón constante que usa f.
+
+    No se ha encontrado evidencia publicada contra la premisa (iv). La conclusión sigue condicionada a ella.
 
 **Conclusión** [D, condicionada a la premisa iv]. Con crecimiento cero (y en el valor terminal cuando g → 0), el flujo del motor es NOPAT − f·V: resta la amortización ROU dentro del margen y los pagos completos dentro de f. El coste económico de caja del arrendamiento para el accionista son los pagos; con pasivo constante, el principal se repone con nuevos contratos no monetarios. Por tanto el motor carga **de más, aproximadamente, la amortización ROU**:
 - 2,906 % de las ventas en media 2023–25 y 3,117 % en 2025;
@@ -318,7 +343,9 @@ Es un **defecto de definición** de la calibración de f en el motor A para empr
 
 En 2023 y 2024 coinciden (19,8 y 25,8). En 2025 difieren en 0,4 [D]. Las notas publicadas no traen un puente: el movimiento del pasivo no muestra los intereses devengados por separado. Posibles causas no verificables [H]: interés devengado no pagado al cierre, efecto del tipo de cambio en las fechas de pago, modificaciones de contratos o el residuo de «otros movimientos» (0,3).
 
-**Materialidad:** 0,133 en C48 (0,04 % del FCF base). **Tratamiento:** se conserva la cifra de caja, coherente con un FCF de caja, y se registra el residuo. No se intercambian los datos.
+**Materialidad:** 0,133 en C48 (0,04 % del FCF base). **Tratamiento:** se conserva la cifra de caja, coherente con un FCF de caja y con la derivación registrada de C48, y se registra el residuo. No se intercambian los datos.
+
+**En el contraste** el residuo se fija en +0,4 con la cota de redondeo de sus tres cifras (0,15), no con una tolerancia ampliada. Si cambia cualquiera de ellas (pagos 177,9, principal 148,3 o gasto 29,2), la comprobación falla: lo prueban dos casos de `test_contraste_residuos.py`. Su explicación identificada es la diferencia de concepto entre pago y devengo, verificable en las etiquetas publicadas. Su causa concreta no se publica [H].
 
 ### 5.5 Pasivo por arrendamientos y deuda
 
@@ -347,6 +374,12 @@ Es una limitación de proyectar una razón constante, no un defecto de las alter
 **Alcance de la búsqueda.**
 - El autor buscó en los cinco informes 2021–2025 y en el comunicado de resultados de 2025. Términos en inglés y francés: «maintenance capex», «growth capex», «replacement», «renewal», «churn», «attrition», «retention rate», «investissements de maintenance/de croissance», «renouvellement», «taux de perte».
 - La búsqueda **no encontró** la frase de mantenimiento del lino plano que sigue. La localizó la revisión independiente (O1), que buscó además en los documentos de 2016 a 2020 de la misma carpeta y no halló importes de reparto. El Registration Document 2017 (p.52) describe el capex de mantenimiento solo de forma cualitativa.
+- Después de la revisión, el autor repitió la búsqueda en todos los textos extraídos de la carpeta de fuentes de Elis: URD 2016–2023 y 2025, DEU 2024, comunicado de 2025 y documentos del primer semestre de 2026. Se usaron, además, «two-thirds/two thirds», «deux tiers», «maintenance capital», «churn», «attrition rate» y «retention rate». Resultado:
+  - las demás apariciones de «dos tercios» son de otros temas (remuneración, plantas, salas blancas);
+  - la retención y la pérdida de clientes solo se describen de forma cualitativa: «attrition rates are monitored» (URD 2019–2025), mejoras de retención en el URD 2019 y, en la presentación del primer semestre de 2026, «new client wins outpacing churn» y «lower churn»;
+  - ningún documento publica una tasa ni un importe de reposición.
+
+  Los documentos de 2016–2020 y de 2026 no están entre las cinco fuentes verificadas de este informe: se citan solo como alcance de la búsqueda, no como cifra.
 
 **No hay importes de reparto entre mantenimiento y crecimiento.** Lo publicado:
 
@@ -412,7 +445,7 @@ Fuentes que podrían contenerlo y **no están en la base**: presentaciones de me
 
 | # | Dato que falta | Materialidad (flujo, base 2025) | Conclusión que bloquea |
 |---|---|---|---|
-| M1 | Reparto de la inversión propia entre reposición y crecimiento, por bloque (lino, otros artículos, industrial/TI, plan climático) y año, como importe. Publicado solo: dos tercios de la inversión en lino plano mantienen el stock (§6.1) | Flujo de partida entre 339,8 (todo el capex es reposición) y 477,8 (reposición = D&A propia); intervalo de 138, el 45 % del FCF base. Ambos extremos llevan +27,9 de partidas puntuales de la ventana (§4.2) | Nivel del flujo de partida del motor A y, con él, cualquier nivel de valor del motor A; anclaje de S2C |
+| M1 | Reparto de la inversión propia entre reposición y crecimiento, como importe, por bloque (lino, otros artículos, industrial/TI, plan climático) y año. Lo publicado no lo cierra (§6.1). Solo se publica una proporción parcial: dos tercios de la inversión en lino plano mantienen el stock en circulación. Siguen pendientes: (a) el importe invertido en lino plano, que no se publica separado de la ropa de trabajo, y por tanto también el importe de esos dos tercios; (b) la proporción de mantenimiento del resto del lino, de los otros artículos, de la inversión industrial y de TI, y del plan climático; (c) cuánto de la dotación a clientes nuevos repone clientes perdidos, que es reinversión necesaria aunque no sea «mantenimiento del stock» (enlaza con M2); (d) la fecha y la base de la estimación de los dos tercios, un texto fijo desde al menos el URD 2020 | Flujo de partida entre 339,8 (todo el capex es reposición) y 477,8 (reposición = D&A propia); intervalo de 138, el 45 % del FCF base. Ambos extremos llevan +27,9 de partidas puntuales de la ventana (§4.2) | Nivel del flujo de partida del motor A y, con él, cualquier nivel de valor del motor A; anclaje de S2C |
 | M2 | Tasa de bajas de clientes, en particular de los adquiridos, y desembolso inicial por cliente nuevo. Publicado: contratos de cuatro años y bajada cualitativa de la tasa de pérdidas en 2024 | Política PPA: 85,7 al año (28 % del FCF base); diferencia entre A1 y A2 en el flujo de partida: 89,9 | Si la PPA es un coste de reposición |
 | M3 | Política de proyección: crecimiento orgánico frente a crecimiento con adquisiciones | Cambia el ancla de S2C: en A2, 1,61 con adquisiciones frente a 2,07–3,13 orgánico; en A1, 2,45 frente a 5,52–13,85 | Coherencia entre crecimiento proyectado, inversión y PPA |
 | M4 | Puente caja/devengo del interés de arrendamientos de 2025 | 0,4 (0,04 % del FCF base) | Ninguna |
@@ -431,7 +464,7 @@ M1 y M2 son materiales y no se pueden resolver con la base. **Se conserva `pendi
 | Gasto por impuesto | 110,3 | 128,3 | 126,2 | [P] |
 | · diferencia = escudo del gasto financiero τ·financiero | 36,9 | 35,9 | 35,1 | [D] |
 | Corriente / diferido | 120,3 / −10,1 | 127,7 / 0,6 | 147,2 / −21,0 | [P] DEU24 p.337; URD25 p.392 |
-| · diferido por intangibles (ingreso no monetario) | 15,5 | 20,3 | 17,5 | [P] URD23 p.346 (edición original); DEU24 p.338; URD25 p.393 |
+| · diferido por intangibles (ingreso no monetario) | 15,5 | 20,3 | 17,5 | [P] URD23 p.346 (la única publicación que presenta el movimiento de 2023); DEU24 p.338; URD25 p.393 |
 | · diferido de ROU + pasivos por arrendamiento | −0,4 | 2,3 | 1,7 | [P] ídem |
 | Impuestos pagados | 126,4 | 124,9 | 146,7 | [P] |
 | Pagado − nocional (componente fiscal de f) | −20,8 | −39,3 | −14,6 | [D] |
@@ -546,8 +579,11 @@ Estado y documentos en [revision/](revision/).
 - **Revisión n.º 1:** sobre el commit 96a69ca, hecha por una sesión distinta de la del autor, con contexto separado y la configuración que el encargo asigna a la revisión, comprobada en los metadatos de su sesión ([REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md)).
   - El informe, los scripts y las salidas del revisor están en su rama `auditoria/economica-f1-frente-e-revision` (commit 47551a2). Se copian sin cambios y en las mismas rutas en `revision/`, con procedencia y huellas en [revision/PROCEDENCIA_REVISOR.md](revision/PROCEDENCIA_REVISOR.md).
   - Resultado: 17 objeciones, 3 materiales. Ninguna invierte una conclusión material.
-  - Respuestas en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
-- **Segunda pasada** sobre lo afectado por las correcciones materiales: ver `revision/ESTADO.md`. Mientras no conste, las correcciones de esta versión **no están revisadas**.
+- **Contraste externo** sobre 6fb9294 (`docs/validacion_economica_paralela/revision_chatgpt_1/` de la rama `auditoria/economica-f1`): confirma O1 y O2 en los PDF y reproduce O3 con los mutantes del revisor sobre la versión de entonces.
+- **Respuestas** a O1–O17 y al contraste externo, cada una con su commit y su prueba: [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
+- **Revisión de lo afectado** por las correcciones, sobre un commit congelado y en contexto separado: **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)).
+  - Se encargó una segunda pasada sobre eb77dea, que la sesión del autor interrumpió a los pocos minutos porque ese commit iba a cambiar justo en lo que revisaba (O3). No produjo informe y no cuenta como revisión.
+  - Mientras no conste la nueva revisión, las correcciones posteriores a 96a69ca **no están revisadas**.
 
 ## 13. Reproducción
 
@@ -555,12 +591,18 @@ Desde esta carpeta, con un árbol `munger_v2_r1` materializado (base 4.14 o hito
 
 ```bash
 cd scripts
+LIBRO=<ruta>/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_decisiones/Elis/Elis_v63_evaluada.xlsx
 python3 -I verificar_cifras.py --raiz <ruta>/munger_v2_r1 --datos ../datos/cifras_fuente.csv --fuentes ../datos/fuentes.json --salida ../resultados/verificacion_cifras.json --exportar-paginas ../evidencias/paginas
 python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
-python3 -I contraste_f1.py --cifras ../datos/cifras_fuente.csv --verificacion ../resultados/verificacion_cifras.json --libro <ruta>/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_decisiones/Elis/Elis_v63_evaluada.xlsx --salida ../resultados/contraste_f1.json --informe ../resultados/contraste_f1.md
+python3 -I prueba_caja_no_nula.py --libro "$LIBRO" --salida ../resultados/caja_no_nula.json
+python3 -I contraste_f1.py --cifras ../datos/cifras_fuente.csv --verificacion ../resultados/verificacion_cifras.json --libro "$LIBRO" --caja-no-nula ../resultados/caja_no_nula.json --salida ../resultados/contraste_f1.json --informe ../resultados/contraste_f1.md
+python3 -I test_contraste_residuos.py --libro "$LIBRO"
 python3 -I tabla_conciliacion.py --cifras ../datos/cifras_fuente.csv --salida ../resultados/tabla_conciliacion.md
 ```
 
-`especificacion_cifras.py` regenera el CSV desde los PDF y se detiene si una lectura del autor no coincide con el literal impreso.
+- `verificar_cifras.py` termina con código 2 porque hay 14 filas PENDIENTE; su informe las lista con el motivo.
+- `contraste_f1.py` termina con 0 si ninguna comprobación falla y ninguna entrada que usa está pendiente; con 2 si usa alguna pendiente; con 1 si falla algo.
+- `prueba_caja_no_nula.py` necesita LibreOffice (python3-uno). Trabaja sobre una copia temporal y comprueba que el libro original no cambia. No debe correr a la vez que otro pipeline de LibreOffice.
+- `especificacion_cifras.py` regenera el CSV desde los PDF. Se detiene si una lectura del autor no coincide con el literal impreso o si alguna dimensión falla, y lista las que quedan pendientes.
 
 **Lo que este informe no hace:** no valora la empresa, no emite precio objetivo ni recomendación, no cambia la plantilla, no regenera expedientes, no declara aptitud para dinero real y no sustituye la integración, réplica y auditoría del material final, que se comprobarán después.

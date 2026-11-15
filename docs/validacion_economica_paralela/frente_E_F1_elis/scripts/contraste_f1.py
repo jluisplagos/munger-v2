@@ -35,27 +35,107 @@ def f6(x, n=6):
 
 
 # ---------------------------------------------------------------- datos de fuente
+PERIMETRO_GRUPO = "consolidado IFRS, grupo Elis"
+
+
 class Fuente:
+    """Cifras verificadas. Solo entrega a los cálculos filas sin FALLO, de la edición vigente, del perímetro del grupo
+    y con la unidad que pide cada cálculo; anota las que se usan con alguna dimensión PENDIENTE."""
+
     def __init__(self, ruta_csv, ruta_verif):
         verif = json.loads(Path(ruta_verif).read_text(encoding="utf-8"))
         if verif["resumen"]["fallos"]:
             sys.exit("la verificación de cifras tiene fallos: no se calcula sobre datos no verificados")
-        ok = {r["id"] for r in verif["cifras"] if r["estado"] == "OK"}
-        self.v, self.ref = {}, {}
+        est = {r["id"]: r for r in verif["cifras"]}
+        self.v, self.ref, self.meta = {}, {}, {}
+        self.usadas, self.pendientes = set(), {}
         for r in csv.DictReader(Path(ruta_csv).open(encoding="utf-8"), delimiter=";"):
             if r["tipo"] != "tabla":
                 continue
-            if r["id"] not in ok:
+            e = est.get(r["id"])
+            if e is None or e["estado"] == "FALLO":
                 sys.exit(f"cifra sin verificar: {r['id']}")
             self.v[r["id"]] = Fr(r["valor_publicado"])
             self.ref[r["id"]] = f"{r['doc']} p.{r['pagina']} «{r['literal']}»"
+            self.meta[r["id"]] = {"unidad": r["unidad"], "perimetro": r["perimetro"], "edicion": r["edicion"], "doc": r["doc"],
+                                  "pagina": int(r["pagina"]), "decimales": e["decimales"], "estado": e["estado"],
+                                  "motivo": e.get("motivo", "")}
 
-    def __call__(self, i):
+    def __call__(self, i, unidad="mm EUR"):
+        m = self.meta[i]
+        if m["edicion"] != "vigente":
+            sys.exit(f"{i}: un cálculo usa una cifra de edición «{m['edicion']}»; solo vale la edición vigente")
+        if m["unidad"] != unidad:
+            sys.exit(f"{i}: el cálculo pide {unidad} y la cifra está en {m['unidad']}")
+        if m["perimetro"] != PERIMETRO_GRUPO:
+            sys.exit(f"{i}: perímetro {m['perimetro']!r}, no el del grupo")
+        self.usadas.add(i)
+        if m["estado"] == "PENDIENTE":
+            self.pendientes[i] = m["motivo"]
         return self.v[i]
 
-    def m(self, i):
-        """Magnitud de una salida publicada con signo negativo (p. ej. «(177.9)» → 177.9)."""
-        return -self.v[i]
+    def pct(self, i):
+        return self(i, "%")
+
+    def epsilon(self, i):
+        """Media unidad de la última cifra impresa: el error máximo de redondeo de la cifra publicada."""
+        return Fr(5, 10 ** (self.meta[i]["decimales"] + 1))
+
+
+class Q:
+    """Cantidad lineal con su procedencia: valor exacto y coeficiente de cada cifra impresa que interviene."""
+    __slots__ = ("v", "t")
+
+    def __init__(self, v=0, t=None):
+        self.v = Fr(v)
+        self.t = {k: c for k, c in (t or {}).items() if c != 0}
+
+    @staticmethod
+    def de(x):
+        return x if isinstance(x, Q) else Q(x)
+
+    def __add__(self, o):
+        o = Q.de(o)
+        t = dict(self.t)
+        for k, c in o.t.items():
+            t[k] = t.get(k, 0) + c
+        return Q(self.v + o.v, t)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return Q(-self.v, {k: -c for k, c in self.t.items()})
+
+    def __sub__(self, o):
+        return self + (-Q.de(o))
+
+    def __rsub__(self, o):
+        return Q.de(o) - self
+
+    def __mul__(self, k):
+        if isinstance(k, Q):
+            raise TypeError("producto de dos cantidades: no es lineal")
+        return Q(self.v * k, {i: c * k for i, c in self.t.items()})
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, k):
+        if isinstance(k, Q):
+            raise TypeError("cociente de dos cantidades: no es lineal")
+        return self * (Fr(1) / Fr(k))
+
+
+class FuenteQ:
+    """Misma interfaz que Fuente, pero devuelve cantidades con procedencia (para las tolerancias de redondeo)."""
+
+    def __init__(self, F):
+        self.F = F
+
+    def __call__(self, i, unidad="mm EUR"):
+        return Q(self.F(i, unidad), {i: 1})
+
+    def pct(self, i):
+        return Q(self.F.pct(i), {i: 1})
 
 
 def datos_anio(F, y):
@@ -96,8 +176,13 @@ def datos_anio(F, y):
         d["int_ls_dev"] = -F(g("FIN_INTLS"))
         d["tax_corr"], d["tax_dif"], d["tax_real"], d["tax_cvae"] = F(g("TAX_CORR")), F(g("TAX_DIF")), F(g("TAX_REAL")), F(g("TAX_CVAE"))
         d["deu_bruta"], d["deu_caja"], d["deu_neta"], d["oceane"] = F(g("DEU_BRUTA")), F(g("DEU_CAJA")), F(g("DEU_NETA")), F(g("DEU_OCEANE"))
+        # segundas presentaciones en otras páginas (contraste entre páginas de las entradas clave)
+        d["fin_nota"], d["tax_bai"], d["is_ppa"] = -F(g("FIN_TOT")), F(g("TAX_BAI")), -F(g("IS_PPA"))
+        d["ventas_seg"] = F({2025: "VENTAS_SEG_2025", 2024: "VENTAS_SEG_2024", 2023: "VENTAS_SEG_FR_2023"}[y])
+        if y != 2023:                                   # el DEU 2024 no se usa para el puente de la deuda neta de 2023
+            d["dn_adq"] = -F(f"DN_ADQ_{y}")
         d["sbc_ifrs2"] = -F(g("EBITA_SBC")) if y != 2023 else F("EBITA_SBC_FR_2023")
-        d["crec_org"] = F(f"CREC_ORG_{y}")
+        d["crec_org"] = F.pct(f"CREC_ORG_{y}")
         d["taxdif_int"], d["taxdif_rou"], d["taxdif_ls"] = F(f"TAXDIF_INT_{y}"), F(f"TAXDIF_ROU_{y}"), F(f"TAXDIF_LS_{y}")
         # arrendamientos
         ly = str(y)
@@ -132,7 +217,7 @@ def datos_anio(F, y):
         d["da_subv"] = F("DA_SUBV" + u)
         d["int_ls_dev"] = -F("FIN_INTLS" + u)
         d["fcf_apm"] = F("FCF_FCF" + u)
-        d["crec_org"] = F("CREC_ORG_2022")
+        d["crec_org"] = F.pct("CREC_ORG_2022")
     elif y == 2021:
         u = "_U22_2021"
         d["ventas"] = F("IS_VENTAS" + u)
@@ -151,11 +236,12 @@ def datos_anio(F, y):
         d["da_subv"] = F("DA_SUBV" + u)
         d["int_ls_dev"] = -F("FIN_INTLS" + u)
         d["fcf_apm"] = F("FCF_FCF" + u)
-        d["crec_org"] = F("CREC_ORG_2021")
+        d["crec_org"] = F.pct("CREC_ORG_2021")
     # derivadas comunes
     d["ebit_h"] = d["bai"] + d["fin"]                        # definición de la Historia (v2.2)
-    d["tau"] = Fr(round(d["imp"] / d["bai"], 4)).limit_denominator(10 ** 4)   # fila 10: 4 decimales
-    d["tau_exacto"] = d["imp"] / d["bai"]
+    if not isinstance(d["bai"], Q):                          # τ no es lineal: solo con valores exactos
+        d["tau"] = Fr(round(d["imp"] / d["bai"], 4)).limit_denominator(10 ** 4)   # fila 10: 4 decimales
+        d["tau_exacto"] = d["imp"] / d["bai"]
     d["capex"] = d["capint"] + d["capmat"]
     d["dwc"] = -(d["wc_lineas"] + d["empl"])                 # fila 14: + consume caja
     d["d_own"] = d["da_total"] - d["da_rou"] - d["da_ppa"]  # D&A propia (lino, otros artículos, resto, subv., deterioro)
@@ -206,6 +292,7 @@ def main():
     ap.add_argument("--libro", type=Path)
     ap.add_argument("--salida", required=True, type=Path)
     ap.add_argument("--informe", required=True, type=Path)
+    ap.add_argument("--caja-no-nula", type=Path, help="resultados de prueba_caja_no_nula.py (copia del libro recalculada)")
     a = ap.parse_args()
     F = Fuente(a.cifras, a.verificacion)
     A = {y: datos_anio(F, y) for y in HORIZONTE}
@@ -227,11 +314,9 @@ def main():
         return sum(fn(A[y]) for y in anios) / len(anios)
 
     # ======================= B. conciliaciones anuales 2023–2025
-    conc = {}
-    for y in VENTANA:
-        d = A[y]
+    def residuos(d):
         ebit_cf = d["cf_bn"] + d["cf_imp"] + d["cf_fin"]
-        r = {
+        return {
             "R1 EBIT publicado − (BAI + resultado financiero)": d["ebit_pub"] - d["ebit_h"],
             "R2 EBIT del EFE (BN+impuesto+financiero) − EBIT publicado": ebit_cf - d["ebit_pub"],
             "R3 caja antes de financieros e impuestos − suma de sus líneas": d["cf_antes"] - (ebit_cf + d["sbc"] + d["dap"] + d["cf_subv"] + d["plusv"] + d["earn"]),
@@ -251,17 +336,64 @@ def main():
             "R17 impuesto corriente + diferido − gasto por impuesto": d["tax_corr"] + d["tax_dif"] - d["imp"],
             "R18 SBC no monetario + cargas sociales − gasto IFRS 2 total": d["sbc"] + d["sbcsoc"] - d["sbc_ifrs2"],
             "R19 deuda bruta − caja − deuda neta": d["deu_bruta"] - d["deu_caja"] - d["deu_neta"],
-        }
-        conc[y] = r
+            "R20 resultado financiero: cuenta de resultados − total de la nota de resultado financiero": d["fin"] - d["fin_nota"],
+            "R21 resultado antes de impuestos: cuenta de resultados − conciliación del impuesto": d["bai"] - d["tax_bai"],
+            "R22 amortización PPA: cuenta de resultados − nota de D&A": d["is_ppa"] - d["da_ppa"],
+            "R23 ventas: cuenta de resultados − información por segmentos (total)": d["ventas"] - d["ventas_seg"],
+        } | ({"R24 adquisiciones: EFE − puente de la deuda neta": d["adq"] - d["dn_adq"]} if "dn_adq" in d else {})
+
+    conc = {y: residuos(A[y]) for y in VENTANA}
     R["tablas"]["conciliaciones_residuos"] = {str(y): {k: f6(v, 3) for k, v in conc[y].items()} for y in VENTANA}
-    # (Revisión independiente n.º 1, O3) Las identidades se AFIRMAN: ±0,15 por redondeo de cifras impresas a un decimal,
-    # salvo excepciones declaradas y explicadas en el informe (§2 y §5.4).
-    EXCEPCIONES = {(2024, "R11"): (Fr("0.25"), "FCF 2024 impreso 346,3 (346,4 en el DEU 2024) frente a 346,5 de sus componentes"),
-                   (2025, "R13"): (Fr("0.45"), "interés de arrendamientos 2025: caja 29,6 frente a devengo 29,2, sin puente publicado")}
+    # (O3; contraste externo sobre 6fb9294) Cada identidad se AFIRMA con su propia cota de redondeo: la suma, para cada
+    # cifra impresa que interviene, de |coeficiente| × media unidad de su última cifra (0,05 en millones con un decimal).
+    # Es el error máximo que puede producir el redondeo de las cifras publicadas; un residuo mayor es un dato erróneo o una
+    # diferencia de concepto. No hay tolerancia global. La única excepción es una diferencia de concepto fijada en su
+    # valor exacto: se exige |residuo − valor fijado| ≤ cota, así que un error nuevo en sus cifras la hace fallar.
+    FQ = FuenteQ(F)
+    AQ = {y: datos_anio(FQ, y) for y in VENTANA}
+    concQ = {y: residuos(AQ[y]) for y in VENTANA}
+    EXCEPCIONES = {
+        (2025, "R13"): (Fr("0.4"), "diferencia de concepto 2025: interés implícito de caja 29,6 (pagos 177,9 del EFE p.327 "
+                                   "− principal 148,3 de la nota 6.3 p.366) frente al gasto devengado 29,2 (nota 9 p.379); "
+                                   "la fuente no publica el puente; en 2023 y 2024 la diferencia es 0,0"),
+    }
+    res_det, codigo_q = {}, {}
     for y in VENTANA:
-        for k, v in conc[y].items():
-            tol, nota = EXCEPCIONES.get((y, k.split(" ")[0]), (Fr("0.15"), "redondeo de cifras impresas"))
-            check(f"residuo {k.split(' ')[0]} {y} dentro de tolerancia", v, Fr(0), tol, nota, clase="fuente")
+        res_det[str(y)] = {}
+        for k, q in concQ[y].items():
+            cod = k.split(" ")[0]
+            codigo_q[(y, cod)] = q
+            assert q.v == conc[y][k], k
+            cota = sum(abs(c) * F.epsilon(i) for i, c in q.t.items())
+            paginas = sorted({(F.meta[i]["doc"], F.meta[i]["pagina"]) for i in q.t})
+            excep = (y, cod) in EXCEPCIONES
+            esperado, nota = EXCEPCIONES.get((y, cod), (Fr(0), f"redondeo de {len(q.t)} cifras impresas"))
+            ok = check(f"residuo {cod} {y} dentro de su cota de redondeo" + (" (diferencia de concepto fijada)" if excep else ""),
+                       q.v, esperado, cota, nota, clase="fuente")
+            res_det[str(y)][cod] = {"identidad": k, "residuo": f6(q.v, 3), "cota_de_redondeo": f6(cota, 3), "cifras": len(q.t),
+                                    "paginas": [f"{dd} p.{pp}" for dd, pp in paginas],
+                                    "contraste": "misma página" if len(paginas) == 1 else "entre páginas",
+                                    "valor_fijado": f6(esperado, 3) if excep else None, "ok": ok}
+    R["tablas"]["residuos_con_cota"] = res_det
+    # Cobertura: qué entradas de los cálculos clave quedan contrastadas por una identidad entre páginas distintas
+    CLAVE = {"ventas": "ventas", "bai": "resultado antes de impuestos", "fin": "resultado financiero", "imp": "gasto por impuesto",
+             "cfo": "CFO (C46)", "capnet": "capex neto (C47)", "int": "intereses financieros pagados (C48)",
+             "leasepay": "pagos de arrendamientos (C48 y C49)", "ls_princ": "principal de arrendamientos (C49)",
+             "sbc": "pagos en acciones (C50)", "capex": "capex bruto", "da_total": "D&A total", "da_rou": "amortización ROU",
+             "da_ppa": "amortización PPA", "dwc": "circulante", "adq": "adquisiciones", "fcf_apm": "FCF publicado"}
+    cobertura = {}
+    for y in VENTANA:
+        for k, nombre in CLAVE.items():
+            for i in sorted(AQ[y][k].t):
+                entre = [c for (yy, c), q in codigo_q.items() if yy == y and i in q.t and res_det[str(y)][c]["contraste"] == "entre páginas"]
+                misma = [c for (yy, c), q in codigo_q.items() if yy == y and i in q.t and res_det[str(y)][c]["contraste"] == "misma página"]
+                cobertura[i] = {"magnitud": nombre, "anio": y, "fuente": F.ref[i], "identidades_entre_paginas": entre,
+                                "identidades_misma_pagina": misma,
+                                "estado": "contrastada entre páginas" if entre else ("solo identidad de la misma página" if misma else "solo literal (sin identidad)")}
+    R["tablas"]["cobertura_entradas_clave"] = {
+        "resumen": {e: sum(1 for v in cobertura.values() if v["estado"] == e) for e in
+                    ("contrastada entre páginas", "solo identidad de la misma página", "solo literal (sin identidad)")},
+        "entradas": cobertura}
 
     # ======================= A. FCF base por dos vías y Análisis C46–C52
     fcfb = {}
@@ -362,7 +494,7 @@ def main():
     # ======================= D. motor A desde la convención
     tau5 = sum(A[y]["tau"] for y in HORIZONTE) / 5
     V0, m0 = A[2025]["ventas"], A[2025]["ebit_h"] / A[2025]["ventas"]
-    escenarios = {}
+    escenarios, tasas, caja = {}, {}, {}
     if L:
         check("Historia!C52 (τ 5 años) libro = fuente", tau5, Fr(str(L["Historia!C52"])), Fr(1, 10 ** 12))
         for fila, nombre, col in [(6, "MALO", "B"), (7, "NORMAL", "C"), (8, "BUENO", "D")]:
@@ -375,9 +507,39 @@ def main():
                 check(f"Motor!{c}{fila} flujo año {t+1} {nombre}: réplica = libro", mo["flujos"][t], Fr(L[f"Motor!{c}{fila}"]), Fr(1, 10 ** 9))
             check(f"Motor!BF{fila} flujo año 11 {nombre}: réplica = libro", mo["flujo_11"], Fr(L[f"Motor!BF{fila}"]), Fr(1, 10 ** 9))
             r_ = Fr(str(L[f"Motor!J{fila}"]))
-            check(f"(Motor!BL{fila} − exceso de caja)·r = flujo sin crecimiento {nombre}", mo["flujo_sin_crecimiento"],
-                  (Fr(L[f"Motor!BL{fila}"]) - Fr(str(L["Análisis!C76"]))) * r_, Fr(1, 10 ** 8))
+            M_ = Fr(str(L[f"Motor!M{fila}"]))
+            # (O15) Motor!BL = C·(D·(1−K) − L)/J + M: el exceso de caja M se resta ANTES de multiplicar por r
+            check(f"(Motor!BL{fila} − Motor!M{fila})·r = flujo sin crecimiento {nombre}", mo["flujo_sin_crecimiento"],
+                  (Fr(L[f"Motor!BL{fila}"]) - M_) * r_, Fr(1, 10 ** 8))
+            check(f"Motor!M{fila} (exceso de caja del motor A) = Análisis!C76", M_, Fr(str(L["Análisis!C76"])))
+            tasas[nombre], caja[nombre] = r_, M_
     F0 = V0 * (m0 * (1 - tau5) - f_libro)
+    # (O15) Exceso de caja distinto de cero. Fórmula de Motor!BL (leída del libro): BL = C·(D·(1−K) − L)/J + M, con
+    # M = Análisis!C76 en el motor A. La identidad corregida (BL − M)·r recupera F0 con cualquier M; la anterior,
+    # BL·r − M, se desvía en M·(r − 1) y solo acierta con M = 0, que es el caso del libro.
+    caja_no_nula = {}
+    if tasas:
+        r_n = tasas["NORMAL"]
+        for X in (Fr(0), Fr(250), Fr(-80)):
+            BL_X = F0 / r_n + X
+            caja_no_nula[str(X)] = {"BL": f6(BL_X, 9), "(BL − M)·r": f6((BL_X - X) * r_n, 9), "BL·r − M (anterior)": f6(BL_X * r_n - X, 9)}
+            check(f"exceso de caja {X}: (BL − M)·r = flujo sin crecimiento (fórmula de Motor!BL)", (BL_X - X) * r_n, F0, clase="algebraica")
+            if X:
+                check(f"exceso de caja {X}: la identidad anterior se desvía en M·(r − 1) (control negativo)", BL_X * r_n - X - F0,
+                      X * (r_n - 1), clase="algebraica", nota="distinto de cero: la identidad anterior fallaría")
+    if a.caja_no_nula:
+        cn = json.loads(a.caja_no_nula.read_text(encoding="utf-8"))
+        if cn.get("libro_sha256") != SHA_LIBRO:
+            sys.exit("la prueba de caja no nula no se hizo sobre una copia del libro de referencia")
+        for X, filas in cn["resultados"].items():
+            for fila, nombre in [("6", "MALO"), ("7", "NORMAL"), ("8", "BUENO")]:
+                v = filas[fila]
+                check(f"copia recalculada, exceso de caja {X}: Motor!M{fila} = Análisis!C76", Fr(str(v["M"])), Fr(X),
+                      Fr(1, 10 ** 9), nota="LibreOffice sobre copia temporal", clase="libro")
+                check(f"copia recalculada, exceso de caja {X}: (Motor!BL{fila} − M)·r = flujo sin crecimiento {nombre}",
+                      (Fr(str(v["BL"])) - Fr(str(v["M"]))) * Fr(str(v["J"])), F0, Fr(1, 10 ** 8),
+                      nota="LibreOffice sobre copia temporal", clase="libro")
+    R["tablas"]["exceso_de_caja_no_nulo"] = caja_no_nula
 
     # ======================= E. puentes
     EBIT_avg = avg(lambda d: d["ebit_h"])
@@ -545,6 +707,21 @@ def main():
         "plusvalías netas de la ventana dentro de f": f6(plusv_f, 3),
         "resultado por bajas de inmovilizado 2025 (+25,7 en OOIE) dentro de m0, después de τ": f6(plusv_m0, 3),
         "efecto neto común a todos los perímetros": f6(earn_f + plusv_f + plusv_m0, 3)}
+    # (O13) Prueba de implementación de A3_estimado con estimaciones SINTÉTICAS de la reinversión necesaria D_X.
+    # No son datos de Elis ni estimaciones propuestas: solo comprueban que la fórmula se aplica bien.
+    def f_y_F0(DX):
+        f_x = (NOPAT_avg - avg(lambda d: d["capex"] - DX(d) + d["dwc"]) - C52_libro) / S_avg
+        return f_x, V0 * (m0 * (1 - tau5) - f_x)
+    fB_, F0B_ = f_y_F0(lambda d: d["capex"])
+    fA2_, F0A2_ = f_y_F0(lambda d: d["d_own"])
+    f3m, F03m = f_y_F0(lambda d: (d["capex"] + d["d_own"]) / 2)
+    check("A3 sintético con D_X = capex propio: f de la cota B", fB_, f_por["B"], clase="algebraica")
+    check("A3 sintético con D_X = D&A propia: f de A2", fA2_, f_por["A2"], clase="algebraica")
+    check("A3 sintético con D_X = (capex + D&A propia)/2: f en el punto medio de A2 y B", f3m, (fB_ + fA2_) / 2, clase="algebraica")
+    check("A3 sintético con D_X = (capex + D&A propia)/2: flujo sin crecimiento en el punto medio", F03m, (F0B_ + F0A2_) / 2, clase="algebraica")
+    a3_ref = {"D_X = capex propio (reproduce B)": {"f": f6(fB_, 15), "flujo_sin_crecimiento": f6(F0B_, 12)},
+              "D_X = D&A propia (reproduce A2)": {"f": f6(fA2_, 15), "flujo_sin_crecimiento": f6(F0A2_, 12)},
+              "D_X = (capex + D&A propia)/2 (sintético)": {"f": f6(f3m, 15), "flujo_sin_crecimiento": f6(F03m, 12)}}
     # (O13) Flujos de referencia de los años 1–11 con las palancas actuales para A1 y A2 (contraste de implementación)
     flujos_ref = {}
     for k in ("A1", "A2"):
@@ -552,6 +729,12 @@ def main():
         for nombre, (p, _) in escenarios.items():
             mo_k = motor_a(V0, m0, tau5, f_por[k], **p)
             flujos_ref[k][nombre] = [f6(x, 12) for x in mo_k["flujos"]] + [f6(mo_k["flujo_11"], 12)]
+            # control negativo: una implementación que cambie f en los años 1–10 y no en el terminal no reproduce el año 11
+            mo_0 = motor_a(V0, m0, tau5, f_por["A0"], **p)
+            parcial_11 = mo_0["flujo_11"]
+            check(f"{k} {nombre}: el año 11 de una implementación parcial (f de A0 en el terminal) difiere de la referencia",
+                  mo_k["flujo_11"] - parcial_11, mo_k["V"][-1] * (1 + p["g_inf"]) * (f_por["A0"] - f_por[k]), clase="algebraica",
+                  nota="diferencia distinta de cero: la referencia del año 11 detecta la implementación parcial")
 
     # ======================= materialidad
     mat = {
@@ -575,6 +758,12 @@ def main():
                        "diferido_intangibles_(ingreso; PPA no deducible en caja)": d["taxdif_int"],
                        "diferido_ROU_+_pasivos_arrendamiento": d["taxdif_rou"] + d["taxdif_ls"],
                        "tau_por_PPA_(escudo nocional dentro del NOPAT)": d["tau"] * d["da_ppa"]}
+        # (O7) ingreso por diferido de intangibles frente a la amortización de relaciones con clientes: base de la
+        # inferencia «mayoritariamente no deducible» (la fila incluye también marcas y otros intangibles)
+        am_rc = -F(f"INT_RC_AM_{y}")
+        imp[str(y)]["amortizacion_relaciones_con_clientes"] = am_rc
+        imp[str(y)]["diferido_intangibles_÷_amortizacion_relaciones_con_clientes"] = d["taxdif_int"] / am_rc
+    imp["2025"]["anios_de_agotamiento_relaciones_con_clientes_(VNC ÷ amortización 2025)"] = F("INT_RC_VNC_2025") / -F("INT_RC_AM_2025")
     R["tablas"]["impuestos"] = {y: {k: f6(v, 4) for k, v in t_.items()} for y, t_ in imp.items()}
     fin_ = {}
     for y in VENTANA:
@@ -629,6 +818,8 @@ def main():
         for nombre, (p, mo) in escenarios.items():
             ref.setdefault("A0_flujos_libro", {})[nombre] = [f6(x, 12) for x in mo["flujos"]] + [f6(mo["flujo_11"], 12)]
     ref["A1_A2_flujos_palancas_actuales"] = flujos_ref
+    ref["A1_A2_flujos_detalle"] = {k: {n: {"anios_1_10": v[:10], "anio_11_terminal": v[10]} for n, v in d_.items()} for k, d_ in flujos_ref.items()}
+    ref["A3_estimado_sintetico"] = a3_ref
     R["referencia_especificacion"] = ref
 
     ok = all(c["ok"] for c in R["comprobaciones"])
@@ -636,7 +827,10 @@ def main():
     for c in R["comprobaciones"]:
         por_clase[c["clase"]] = por_clase.get(c["clase"], 0) + 1
     R["resumen"] = {"comprobaciones": len(R["comprobaciones"]), "fallidas": sum(not c["ok"] for c in R["comprobaciones"]),
-                    "por_clase": por_clase, "libro_contrastado": bool(L), "libro_sha256": L["sha256"] if L else None}
+                    "por_clase": por_clase, "libro_contrastado": bool(L), "libro_sha256": L["sha256"] if L else None,
+                    "entradas_usadas": len(F.usadas), "entradas_usadas_pendientes": sorted(F.pendientes),
+                    "copia_recalculada_con_caja_no_nula": bool(a.caja_no_nula)}
+    R["tablas"]["entradas_usadas_pendientes"] = F.pendientes
     a.salida.parent.mkdir(parents=True, exist_ok=True)
     a.salida.write_text(json.dumps(R, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -650,7 +844,7 @@ def main():
     md.append(f"Generado por `scripts/contraste_f1.py`. Comprobaciones: {R['resumen']['comprobaciones']} ({', '.join(f'{k}: {v}' for k, v in sorted(R['resumen']['por_clase'].items()))}), fallidas: {R['resumen']['fallidas']}. "
               f"Libro contrastado: {'sí, SHA-256 ' + L['sha256'] if L else 'no'}. Millones de euros salvo indicación.")
     tabla("Residuos de las conciliaciones anuales (0 = cuadra exactamente; ±0,1 = redondeo de la cifra impresa)",
-          [[k] + [R["tablas"]["conciliaciones_residuos"][str(y)][k] for y in VENTANA] for k in conc[2025]], ["Identidad", "2023", "2024", "2025"])
+          [[k] + [R["tablas"]["conciliaciones_residuos"][str(y)].get(k) for y in VENTANA] for k in conc[2025]], ["Identidad", "2023", "2024", "2025"])
     tabla("FCF base por año y media (C46–C52)", [[k] + [R["tablas"]["fcf_base"]["por_anio"][str(y)][k] for y in VENTANA] for k in fcfb[2025]],
           ["Concepto", "2023", "2024", "2025"])
     tabla("Composición económica de las fugas f·ventas (media 2023–25 y por año)",
@@ -677,7 +871,7 @@ def main():
     tabla("Materialidad (porcentaje sobre las ventas del mismo período: medias 2023–25 o 2025)",
           [[k, v["mm"], v["%_FCF_base"], v["%_ventas_del_periodo"]] for k, v in R["tablas"]["materialidad"].items()],
           ["Partida", "mm", "% FCF base (C52)", "% ventas del período"])
-    tabla("Impuestos", [[k] + [R["tablas"]["impuestos"][str(y)][k] for y in VENTANA] for k in imp["2025"]], ["Concepto", "2023", "2024", "2025"])
+    tabla("Impuestos", [[k] + [R["tablas"]["impuestos"][str(y)].get(k) for y in VENTANA] for k in imp["2025"]], ["Concepto", "2023", "2024", "2025"])
     tabla("Demostración sintética (τ = 0, sin crecimiento): flujo del motor frente al FCF verdadero",
           [[k] + [R["tablas"]["demostracion_sintetica"][n][k] for n in sint] for k in next(iter(sint.values()))], ["Magnitud"] + list(sint))
     tabla("Financiación y accionista", [[k] + [R["tablas"]["financiacion"][str(y)][k] for y in VENTANA] for k in fin_["2025"]], ["Concepto", "2023", "2024", "2025"])
@@ -691,7 +885,9 @@ def main():
     for c in R["comprobaciones"]:
         if not c["ok"]:
             print("FALLO", c["nombre"], c["calculado"], c["referencia"], c["diferencia"])
-    return 0 if ok else 1
+    if not ok:
+        return 1
+    return 2 if F.pendientes else 0
 
 
 if __name__ == "__main__":

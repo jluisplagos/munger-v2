@@ -1,17 +1,40 @@
-OK  control positivo → pasa
-OK  signo invertido en el literal → rechazado
-OK  signo invertido solo en el valor → rechazado
-OK  redondeo 150 frente a 149,5 → rechazado
-OK  valor redondeado con literal correcto → rechazado
-OK  página inexistente → rechazado
-OK  página equivocada → rechazado
-OK  fuente con huella distinta → rechazado
-OK  fuente ausente → rechazado
-OK  posición distinta con el mismo literal → rechazado
-OK  columna de otro ejercicio con su propio literal → rechazado
-OK  pagos de arrendamiento de 2024 declarados como 2025 → rechazado
-OK  bloque de movimientos de otro ejercicio → rechazado
-OK  saldo de otra fecha → rechazado
-OK  fuente sin huella declarada → rechazado
-OK  control manual sin justificación → rechazado
-16/16 casos con el resultado esperado
+OK  positivo: pagos de arrendamiento y amortización ROU de 2025 → OK
+OK  positivo: columna de 2024 declarada como 2024 (año, posición y literal coherentes) → OK
+OK  positivo: total de la matriz por segmentos (lino plano 2025) → OK
+OK  positivo: cifra de la edición anterior declarada «anterior» → OK
+OK  positivo: saldo de apertura de un bloque de movimientos → OK
+OK  positivo: porcentaje de crecimiento orgánico → OK
+OK  positivo: prosa del factor de riesgo (dos tercios del lino plano) → OK
+OK  signo invertido en el literal → FALLO
+OK  signo invertido solo en el valor → FALLO
+OK  redondeo 150 frente a 149,5 → FALLO
+OK  valor redondeado con literal correcto → FALLO
+OK  página inexistente → FALLO
+OK  página equivocada → FALLO
+OK  fuente con huella distinta → FALLO
+OK  fuente ausente → FALLO
+OK  fuente sin huella declarada: diagnóstico controlado → FALLO
+OK  posición distinta con el mismo literal → FALLO
+OK  M1: columna de 2024 con su literal declarada como 2025 → FALLO
+OK  pagos de arrendamiento de 2024 declarados como 2025 → FALLO
+OK  bloque de movimientos de otro ejercicio → FALLO
+OK  saldo de otra fecha → FALLO
+OK  año alterado (2031) → FALLO
+OK  tabla de un solo ejercicio declarada de otro año → FALLO
+OK  prosa declarada de un ejercicio distinto del de la publicación → FALLO
+OK  control manual sin justificación → FALLO
+OK  control manual justificado: PENDIENTE, nunca OK → PENDIENTE
+OK  unidad «%» para una cifra en millones → FALLO
+OK  unidad «mm EUR» para un porcentaje → FALLO
+OK  unidad no reconocida → FALLO
+OK  tabla en miles de euros (sociedad matriz) declarada en millones → FALLO
+OK  perímetro «segmento Francia» en la cuenta de resultados consolidada → FALLO
+OK  columna de un segmento (Francia) declarada como grupo → FALLO
+OK  perímetro no reconocido → FALLO
+OK  edición original de 2023 (URD 2023) declarada vigente en lugar del DEU 2024 → FALLO
+OK  edición vigente declarada anterior → FALLO
+OK  edición sin declarar → FALLO
+OK  fuente con ejercicio declarado distinto del pie de página → FALLO
+OK  fuente sin ejercicio declarado → FALLO
+OK  M4: metadatos falsos en dos filas → FALLO
+39/39 casos con el resultado esperado

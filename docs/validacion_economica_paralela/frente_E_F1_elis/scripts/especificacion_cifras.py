@@ -7,7 +7,9 @@ valor leído: es un doble control de transcripción (lectura del autor frente a 
 La comprobación reproducible para terceros es verificar_cifras.py sobre el CSV resultante.
 
 Ediciones: cada ejercicio se toma de la publicación MÁS RECIENTE que lo presenta (comparativo reexpresado),
-la misma regla que la Historia del libro. Las cifras originales que difieren se registran aparte (sufijo _orig).
+la misma regla que la Historia del libro. Cada fila de tabla declara en «edicion» si su fuente es la vigente para
+ese ejercicio según esa regla o una publicación «anterior» (las cifras de la edición original, que se conservan
+para comparar ediciones). verificar_cifras.py lo contrasta con el pie de página de cada página citada.
 
 Uso: python3 -I especificacion_cifras.py --raiz <ruta>/munger_v2_r1 --fuentes ../datos/fuentes.json --salida ../datos/cifras_fuente.csv
 """
@@ -215,6 +217,7 @@ for etq, idb, v24, v23, c in [
     ("Résultat financier net", "IS_FIN", "-130.4", "-124.6", "Resultado financiero neto"),
     ("Résultat avant impôt", "IS_BAI", "466.0", "372.2", "Resultado antes de impuestos"),
     ("Charge d'impôt", "IS_IMP", "-128.3", "-110.3", "Gasto por impuesto"),
+    ("re:^\\s*d'entreprises\\s{2,}", "IS_PPA", "-84.9", "-85.7", "Amortización de intangibles reconocidos en combinaciones (PPA)"),
     ("re:^\\s*RÉSULTAT NET\\s{2,}", "IS_BN", "337.8", "261.9", "Resultado neto"),
 ]:
     dos(D, 270, etq, idb + "_FR", 2024, v24, 2023, v23, c)
@@ -333,6 +336,9 @@ for etq, idb, v24, v23, c in [
     dos(D, 337, etq, idb + "_FR", 2024, v24, 2023, v23, c)
 t(D, 310, "VALEUR NETTE COMPTABLE AU 1er JANVIER 2023", 0, [(-3, 2022, "INT_RC_VNC_2022", "471.5")], "Relaciones con clientes: valor neto a 1-ene-2023")
 t(D, 310, "Acquisitions par voie de regroupements d'entreprises", 1, [(-3, 2023, "INT_RC_COMB_2023", "20.6")], "Relaciones con clientes: altas por combinaciones 2023")
+# (O7) altas de 2024 tal como las publicó el DEU 2024 (edición anterior a la reexpresión del URD 2025: 32,3)
+t(D, 310, "Acquisitions par voie de regroupements d'entreprises", 2, [(-3, 2024, "INT_RC_COMB_FR_2024", "18.0")],
+  "Relaciones con clientes: altas por combinaciones 2024 en el DEU 2024 (edición anterior)")
 t(D, 310, "Amortissements de l'exercice", 1, [(-3, 2023, "INT_RC_AM_2023", "-84.6")], "Relaciones con clientes: amortización 2023")
 t(D, 310, "VALEUR NETTE COMPTABLE AU 31 DÉCEMBRE 2023", 0, [(-3, 2023, "INT_RC_VNC_2023_FR", "414.9")], "Relaciones con clientes: valor neto a 31-dic-2023")
 
@@ -508,6 +514,11 @@ t(Y, 211, "re:^\\s*TOTAL\\s{2,}", 0, [(-2, 2021, "CREC_PUB_2021", "8.6"), (-1, 2
 
 t(U, 347, "Flat linen", 0, [(-1, 2025, "VENTAS_LINO_PLANO_2025", "2217.4")], "Ventas de lino plano 2025 (nota 4.2, total de segmentos)",
   nota="Tabla de un solo ejercicio: el título «2025» va encima de la tabla y la p.348 presenta 2024; control manual del ejercicio")
+# Ventas en la información por segmentos (columna «Total»): contraste entre páginas de la cifra de la cuenta de resultados
+t(U, 347, "re:^\\s*REVENUE\\s{2,}", 0, [(-1, 2025, "VENTAS_SEG_2025", "4796.8")], "Ventas 2025 en la nota 4.2 (total de segmentos)")
+t(U, 345, "SEGMENT REVENUE", 0, [(-1, 2024, "VENTAS_SEG_2024", "4573.7")], "Ventas 2024 en la información por segmentos (total)")
+t("DEU2024FR", 290, "Clients externes", 2, [(-1, 2023, "VENTAS_SEG_FR_2023", "4309.4")],
+  "Ventas 2023 en la información por segmentos del DEU 2024 (clientes externos, total)")
 
 # ---------------- Literales de texto (prosa) ----------------
 TXT = [
@@ -536,6 +547,10 @@ TXT = [
     ("TXT_PRECIO_2025_UK", 2025, U, 307, "adjustments implemented in the region to offset cost inflation", "Ajustes de precio 2025 en Reino Unido e Irlanda, sin cifra."),
     # O5: la propia Elis cuenta el arrendamiento como renovación dentro de la inversión en sus pruebas de deterioro
     ("TXT_RENOV_ARR_2025", 2025, U, 368, "capital expenditure (including lease renewal)", "Flujo de las pruebas de deterioro: inversión que incluye la renovación de arrendamientos."),
+    # Premisa (iv): arrendamientos fuera del ROU, registrados como gasto (evidencia contraria buscada)
+    ("TXT_ARR_BAJO_VALOR_2025", 2025, U, 366, "leases of low-value assets totaling €2.0 million", "Arrendamientos de bajo valor registrados como gasto en 2025 (nota 6.3)."),
+    ("TXT_ARR_CORTO_2025", 2025, U, 366, "short-term leases totaling €5.9 million", "Arrendamientos a corto plazo registrados como gasto en 2025 (nota 6.3)."),
+    ("TXT_ARR_VARIABLE_2025", 2025, U, 366, "variable lease payments totaling €0.9 million", "Pagos variables de arrendamiento registrados como gasto en 2025 (nota 6.3)."),
     # O6: evidencia contra la D&A propia como caso central y señales de contención del capex
     ("TXT_PLAN_CLIMA_A", 2025, U, 369, "the Group's climate plan, with a level of investment greater than", "Hipótesis de deterioro: plan climático con inversión superior a… (frase partida entre columnas)."),
     ("TXT_PLAN_CLIMA_B", 2025, U, 369, "the amortization and depreciation historically recorded", "…la amortización históricamente registrada (continuación de la frase anterior)."),
@@ -560,8 +575,8 @@ TXT = [
 
 def modo_anio(idf):
     """Modo de control del ejercicio de cada fila (ver verificar_cifras.py)."""
-    if idf == "VENTAS_LINO_PLANO_2025":
-        return "manual"
+    if idf == "VENTAS_LINO_PLANO_2025" or idf.startswith("VENTAS_SEG_"):
+        return "titulo"
     if idf.startswith("CREC_"):
         return "crecimiento"
     if idf.startswith("TAXDIF_"):
@@ -584,7 +599,8 @@ def main():
     for s, p in pdf.items():
         if V.sha256_file(p) != fuentes[s]["sha256"]:
             sys.exit(f"huella distinta: {s}")
-    filas, errores, ids = [], [], set()
+    ejercicios = {f["ejercicio"] for f in fuentes.values()}
+    filas, errores, ids, pendientes = [], [], set(), []
     for doc, pag, etq, occ, cols, concepto, unidad, nota in T:
         idioma = fuentes[doc]["idioma"]
         texto = V.texto_pagina(pdf[doc], pag)
@@ -613,22 +629,36 @@ def main():
             if idf in ids:
                 errores.append(f"id repetido {idf}")
             ids.add(idf)
+            modo = modo_anio(idf)
+            e_doc = fuentes[doc]["ejercicio"]
+            ey = max(anio, e_doc - 1) if modo == "saldo" else anio
+            regla = V.regla_edicion(ey, modo, ejercicios)
+            if e_doc > regla:
+                errores.append(f"{idf}: publicación {e_doc} posterior a la que exige la regla ({regla})")
+                continue
             fila = {"id": idf, "anio": anio, "concepto": concepto, "doc": doc, "pagina": pag, "tipo": "tabla",
                     "etiqueta": etq, "ocurrencia": occ, "pos": pos, "literal": lit, "valor_publicado": leido,
-                    "unidad": unidad, "perimetro": "consolidado IFRS, grupo Elis", "nota": nota, "control_anio": modo_anio(idf)}
-            for i, _ in cand:
-                est, det = V.comprobar_anio(lineas, i, fila)
-                if est == "FALLO":
-                    errores.append(f"{idf}: ejercicio: {det}")
+                    "unidad": unidad, "perimetro": V.PERIMETRO_GRUPO, "edicion": "vigente" if e_doc == regla else "anterior",
+                    "nota": nota, "control_anio": modo}
+            # la fila escrita no puede fallar en ninguna dimensión; lo que no se acredita automáticamente se lista
+            r = V.comprobar_tabla(pdf[doc], {k: str(v) for k, v in fila.items()}, idioma, fuentes[doc], ejercicios)
+            for k, dv in r["dimensiones"].items():
+                if dv["estado"] == "PENDIENTE":
+                    pendientes.append(f"{idf}: {k}: {dv['detalle']}")
+                elif dv["estado"] != "OK":
+                    errores.append(f"{idf}: {k} {dv['estado']}: {dv['detalle']}")
             filas.append(fila)
     for idf, anio, doc, pag, lit, nota in TXT:
-        r = V.comprobar_texto(pdf[doc], {"pagina": pag, "literal": lit})
-        if r["estado"] != "OK":
-            errores.append(f"{idf}: texto no encontrado en {doc} p{pag}")
+        fila = {"id": idf, "anio": anio, "concepto": nota, "doc": doc, "pagina": pag, "tipo": "texto",
+                "etiqueta": "", "ocurrencia": 0, "pos": 0, "literal": lit, "valor_publicado": "",
+                "unidad": "", "perimetro": "", "edicion": "", "nota": nota, "control_anio": "texto"}
+        r = V.comprobar_texto(pdf[doc], {k: str(v) for k, v in fila.items()}, fuentes[doc], ejercicios)
+        malos = [f"{k} {dv['estado']}: {dv['detalle']}" for k, dv in r["dimensiones"].items() if dv["estado"] not in ("OK", "NO_APLICA", "PENDIENTE")]
+        pendientes += [f"{idf}: {k}: {dv['detalle']}" for k, dv in r["dimensiones"].items() if dv["estado"] == "PENDIENTE"]
+        if malos:
+            errores.append(f"{idf}: {doc} p{pag}: " + "; ".join(malos))
             continue
-        filas.append({"id": idf, "anio": anio, "concepto": nota, "doc": doc, "pagina": pag, "tipo": "texto",
-                      "etiqueta": "", "ocurrencia": 0, "pos": 0, "literal": lit, "valor_publicado": "",
-                      "unidad": "", "perimetro": "", "nota": nota, "control_anio": "texto"})
+        filas.append(fila)
     if errores:
         print("\n".join(errores))
         sys.exit(1)
@@ -638,6 +668,9 @@ def main():
         w.writeheader()
         w.writerows(filas)
     print(f"{len(filas)} filas escritas en {a.salida}")
+    if pendientes:
+        print(f"{len(pendientes)} dimensiones sin acreditación automática (quedan PENDIENTE en verificar_cifras.py):")
+        print("\n".join("  " + x for x in pendientes))
 
 
 if __name__ == "__main__":

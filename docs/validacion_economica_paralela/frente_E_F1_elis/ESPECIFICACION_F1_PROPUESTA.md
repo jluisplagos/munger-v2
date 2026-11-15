@@ -49,6 +49,18 @@ Combinaciones coherentes con `perimetro_reinversion`:
 - `margen_despues_de_arrendamientos` exige quitar los pagos de arrendamiento de f, o no contarlos en el margen.
 - Cualquier otra combinación dispara V-F1h.
 
+**Matriz de coherencia de los tres perímetros** (revisión, O4 y O12). El margen objetivo, la reinversión que calibra f (E3) y el ancla de la palanca S2C (E4) deben describir el mismo tratamiento del arrendamiento y de la PPA:
+
+| `perimetro_reinversion` | `perimetro_margen` coherente | f (E3) | Ancla de la palanca S2C (E4) | Si no casa |
+|---|---|---|---|---|
+| `A0_total` | EBIT NIIF 16 con PPA constante | Reinversión con D&A total | C53 con D&A total | V-F1a si hay arrendamientos materiales |
+| `A1_sin_ROU` | `EBIT_NIIF16_PPA_constante`: la PPA se trata como coste de reposición que persiste | Reinversión con D&A total − ROU | C53 con el mismo D_X | V-F1h (margen) o V-F1g (ancla) |
+| `A2_propio` | `EBIT_NIIF16_PPA_constante`; con `…_decreciente`, f devuelve solo la PPA proyectada | Reinversión con D&A propia; f devuelve la PPA entera | C53 con D&A propia | V-F1h o V-F1g |
+| `A3_estimado` | El que declare la estimación para la PPA; si no lo declara, el de `A2_propio` | Reinversión con la D_X estimada (E1) | C53 con la misma D_X | V-F1d (estimación incompleta), V-F1h o V-F1g |
+| Cualquiera con `margen_despues_de_arrendamientos` | — | Sin pagos de arrendamiento en f (variante A1′ del informe) | C53 sin ROU | V-F1h |
+
+En este expediente las palancas S2C (1 / 1,2 / 1,5) no se anclan en C53 sino en un perímetro propio (informe §3). Con cualquier perímetro de reinversión, la regla V-F1g avisaría.
+
 ## E3. Calibración de f
 
 Misma ventana (C57) y mismas guardas que el C58 actual, sustituyendo la D&A total por D_X en la reinversión:
@@ -107,14 +119,21 @@ Ambas son admisibles. Lo que no se admite es presentar un redondeo como exacto.
 
 ## E9. Criterios de prueba
 
-Tolerancia 10⁻⁹ salvo indicación. Los valores de referencia están en `resultados/contraste_f1.json → referencia_especificacion` y proceden de cifras verificadas contra los PDF. Incluyen las partidas puntuales de la ventana, sin normalizar (E8.4).
+Tolerancia 10⁻⁹ salvo indicación. Los valores de referencia están en `resultados/contraste_f1.json → referencia_especificacion` y proceden de cifras verificadas contra los PDF.
+
+**Límites de los valores de referencia.** Son valores de prueba de una implementación, no estimaciones económicas:
+- se calculan con los datos, las palancas y la convención de redondeo actuales (E7). Si cambia cualquiera de ellos, hay que recalcularlos con `contraste_f1.py`;
+- incluyen las partidas puntuales de la ventana sin normalizar, +27,9 en el flujo sin crecimiento (E8.4);
+- los flujos de A1 y A2 usan las palancas S2C actuales, que no están ancladas en el perímetro de cada alternativa (V-F1g);
+- los de `A3_estimado` usan estimaciones sintéticas de D_X, que no son datos de Elis;
+- no son valores por acción ni sirven para elegir un perímetro.
 
 | Id | Prueba | Resultado esperado |
 |---|---|---|
 | T1 | Elis, perímetro `A0_total` (comparación, con V-F1a desactivada solo en la prueba) | f = 0,041681455273796; flujo sin crecimiento = 248,496395342656; flujos MALO/NORMAL/BUENO de los años 1–11 = los del libro actual (`A0_flujos_libro`); C53 = 9,039509536785 |
-| T2 | Elis, `A1_sin_ROU` | f = 0,012624225323285; flujo sin crecimiento = 387,878115969269; C53 = 2,445331695332; flujos MALO/NORMAL/BUENO de los años 1–10 y 11 con las palancas actuales = `A1_A2_flujos_palancas_actuales.A1` (detecta una implementación que cambie f en un término y no en otro; revisión, O13) |
-| T3 | Elis, `A2_propio` | f = −0,006118601744165; flujo sin crecimiento = 477,783708846410; C53 = 1,612524303305; flujos de los años 1–11 = `A1_A2_flujos_palancas_actuales.A2` |
-| T3b | `A3_estimado` con una estimación sintética (D_X = capex propio en cada año) | Reproduce la cota B: f = 0,022646228408102; flujo sin crecimiento = 339,804571572014. Sin fuente, método, rango o responsable dispara V-F1d |
+| T2 | Elis, `A1_sin_ROU` | f = 0,012624225323285; flujo sin crecimiento = 387,878115969269; C53 = 2,445331695332. Flujos MALO/NORMAL/BUENO con las palancas actuales: los años 1–10 y el año 11 terminal = `A1_A2_flujos_detalle.A1` (año 11: 294,942490201187 / 413,845194930899 / 488,862107627977). Detecta una implementación que cambie f en un término y no en otro (revisión, O13). Control negativo: si el terminal conserva la f de A0, el año 11 se desvía en V₁₀·(1+g)·(f_A0 − f_A1), distinto de cero en los tres escenarios |
+| T3 | Elis, `A2_propio` | f = −0,006118601744165; flujo sin crecimiento = 477,783708846410; C53 = 1,612524303305. Años 1–10 y año 11 terminal = `A1_A2_flujos_detalle.A2` (año 11: 402,413237593105 / 546,310847791079 / 633,271006526708). Mismo control negativo del terminal |
+| T3b | `A3_estimado` con estimaciones **sintéticas** de D_X, que no son datos de Elis (`A3_estimado_sintetico`) | (a) D_X = capex propio en cada año: reproduce la cota B, f = 0,022646228408102 y flujo sin crecimiento = 339,804571572014. (b) D_X = D&A propia: reproduce A2. (c) D_X = (capex propio + D&A propia)/2: f = 0,008263813331969 y flujo sin crecimiento = 408,794140209212, el punto medio exacto de A2 y B, porque f es lineal en la D_X media. (d) Sin fuente, método, rango o responsable de la estimación, dispara V-F1d. No se usa la proporción de dos tercios del lino plano: es parcial y no es una proporción del capex total (informe §6.1) |
 | T4 | Identidad de calibración | Para cualquier perímetro, f·ventas medias = NOPAT medio − reinversión media − FCF base. En A0, la suma de los componentes del informe §4.2 = f·ventas con medias exactas (190,065713333…); con las entradas registradas de C46/C47/C50, C79 = 190,066046666667. La diferencia, 0,000333, es el redondeo de E7 |
 | T5 | Caso sintético solo con arrendamientos (τ = 0, sin crecimiento: EBITDA 100; capex propio = D&A propia = 20; ROU 10; pagos 12 = 10 + 2) | FCF verdadero 68; A1 y A2 dan 68; A0 da 58 (prueba negativa que documenta el defecto) |
 | T6 | Caso sintético con PPA 5 sin reposición | A2 = 68; A1 = 63; A0 = 53 |
@@ -123,7 +142,9 @@ Tolerancia 10⁻⁹ salvo indicación. Los valores de referencia están en `resu
 | T9 | Signos | D&A ROU y PPA publicados «(149.5)»/«(85.7)» se aceptan con `valor_fuente` negativo, `signo` −1 y `tratamiento`. La magnitud positiva sin esa declaración se rechaza (coherente con R415-SIGNO) |
 | T10 | Invariantes de Elis | C46–C52, C48 = 108, C70 = 307,933, acciones, OCEANE y decisiones E1/D3/E2/E6 sin cambios. Solo cambian f (C58), C53, los flujos del motor y lo que dependa de ellos |
 | T11 | Motor B (Viscofan, Vidrala) | Sin cambios en resultados de valoración (f = 0). Si cambia C53, solo cambian semáforos de diagnóstico, y se documenta |
-| T12 | Reproducción independiente (revisión, O3) | Sobre el material regenerado, por separado:<br>(a) `verificar_cifras.py`: 0 fallos en las 707 filas, con el ejercicio de la columna comprobado (670 automáticas y 1 manual justificada) y `test_verificar_cifras.py` 16/16, incluido el contraejemplo de columna de otro ejercicio con su propio literal;<br>(b) `contraste_f1.py`: 0 fallos en cada clase. Las 115 comparaciones con el libro y las 58 de fuente prueban datos: incluyen 57 residuos dentro de ±0,15, con solo las excepciones declaradas del FCF de 2024 (0,2) y del interés de arrendamientos de 2025 (0,4). Las 13 identidades algebraicas documentan, no prueban;<br>(c) la réplica del motor coincide con los flujos del libro regenerado.<br>El código de salida 0 no basta por sí solo |
+| T12 | Reproducción independiente (revisión, O3; contraste externo sobre 6fb9294) | Sobre el material regenerado y por separado:<br>(a) `verificar_cifras.py`: 0 FALLO en las 716 filas y en cada una de las cinco dimensiones (literal, ejercicio, unidad, perímetro, edición). Las PENDIENTE deben ser solo las listadas en su salida, con su motivo: hoy 14, por unidad no impresa en URD 2022 p.302, y ninguna la usa un cálculo. `test_verificar_cifras.py` 39/39: cada contraejemplo detectado en su dimensión, incluidos los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor;<br>(b) `contraste_f1.py`: 0 fallos en cada clase y ninguna entrada usada con dimensión PENDIENTE. Los 71 residuos dentro de su cota de redondeo, calculada por cifra y no global. La única excepción es la diferencia de concepto fijada de 2025 (+0,4 ± 0,15); el −0,2 del FCF de 2024 está dentro de su cota (0,35). Las entradas clave sin contraste entre páginas deben estar listadas (`cobertura_entradas_clave`); hoy es una, las adquisiciones de 2023, contrastada con la Historia. `test_contraste_residuos.py` 7/7. Las identidades algebraicas documentan, no prueban;<br>(c) la réplica del motor coincide con los flujos del libro regenerado.<br>Ni el código de salida 0 ni el número de comprobaciones bastan por sí solos |
+| T13 | Exceso de caja distinto de cero (revisión, O15) | En una copia del libro recalculada con Análisis!C76 = 250 y = −80 (`prueba_caja_no_nula.py`): Motor!M6:M8 = C76 y (Motor!BL − Motor!M)·r = 248,496395342656 en los tres escenarios. Control negativo: la identidad anterior, BL·r − C76, se desvía en C76·(r − 1), que es −227,5 con 250 y +72,8 con −80 |
+| T14 | Verificación de entradas del frente técnico | Debe rechazar los mismos contraejemplos que `test_verificar_cifras.py`: página inexistente o equivocada, fuente ausente, sin huella o con otra huella, redondeo, signo, posición distinta con el mismo literal, y columna, bloque, saldo, unidad, perímetro o edición distintos de los declarados. Debe aceptar sus siete positivos reales. Responde a los huecos de la revisión externa del hito 4.15 |
 
 ## E10. Lo que esta especificación no decide
 

@@ -8,12 +8,14 @@ Carpeta propia del frente económico. Solo contiene documentos y cálculos de co
 | [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md) | Especificación propuesta para el frente técnico, con reglas de control y criterios de prueba. No adoptada |
 | [REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md) | Modelos, esfuerzo y separación de contextos según lo que expone el entorno |
 | [revision/](revision/) | Estado de la revisión independiente; informe, scripts y salidas del revisor (copia sin cambios de su rama, con procedencia y huellas); respuesta del autor a cada objeción |
-| `datos/fuentes.json` | Fuentes primarias con huella SHA-256 y ruta en el árbol materializado |
-| `datos/cifras_fuente.csv` | 707 filas (671 cifras de tabla y 36 literales de texto) con documento, página PDF, literal impreso, signo, unidad, período y modo de control del ejercicio |
-| `scripts/verificar_cifras.py` | Verifica cada fila contra los bytes del PDF: huella declarada, página, etiqueta, posición del literal, signo y ejercicio de la columna (670 filas comprobadas automáticamente y 1 con control manual justificado) |
-| `scripts/test_verificar_cifras.py` | Un control positivo y 15 contraejemplos que deben fallar: signo, redondeo, página inexistente o equivocada, huella distinta, fuente ausente o sin huella declarada, posición distinta con el mismo literal, columna, bloque o saldo de otro ejercicio y control manual sin justificar |
-| `scripts/especificacion_cifras.py` | Regenera el CSV desde los PDF y lo contrasta con la lectura del autor |
-| `scripts/contraste_f1.py` | Cálculo independiente con 186 comprobaciones: 115 contra el libro, 58 contra la fuente (incluidos los residuos de conciliación, con tolerancia declarada) y 13 algebraicas, que no prueban nada frente a datos externos |
+| `datos/fuentes.json` | Fuentes primarias con huella SHA-256, ruta en el árbol materializado y ejercicio de la publicación |
+| `datos/cifras_fuente.csv` | 716 filas (677 cifras de tabla y 39 literales de texto) con documento, página PDF, literal impreso, signo, unidad, perímetro, edición («vigente» o «anterior»), período y modo de control del ejercicio |
+| `scripts/verificar_cifras.py` | Verifica cada fila contra los bytes del PDF en cinco dimensiones, cada una OK, PENDIENTE (con motivo) o FALLO: literal (huella, página, etiqueta, posición, signo), ejercicio, unidad, perímetro y edición. Hoy: 702 OK, 14 PENDIENTE (unidad no impresa en URD 2022 p.302; filas que no usa ningún cálculo), 0 FALLO |
+| `scripts/test_verificar_cifras.py` | 39 casos: 7 positivos reales y 32 contraejemplos, cada uno detectado en su dimensión. Incluye los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor |
+| `scripts/especificacion_cifras.py` | Regenera el CSV desde los PDF, lo contrasta con la lectura del autor y se detiene si alguna dimensión falla |
+| `scripts/contraste_f1.py` | Cálculo independiente con 236 comprobaciones: 136 contra el libro (18 sobre una copia recalculada con exceso de caja no nulo), 72 contra la fuente (71 residuos, cada uno con su cota de redondeo, y la doble vía del FCF base) y 28 algebraicas, que no prueban nada frente a datos externos. Solo usa cifras sin fallo, de la edición vigente, del grupo y con la unidad pedida |
+| `scripts/test_contraste_residuos.py` | 7 casos: con el verificador saltado a propósito, los residuos hacen fallar el cálculo ante datos erróneos y la excepción fijada no absorbe errores nuevos |
+| `scripts/prueba_caja_no_nula.py` | Recalcula con LibreOffice una copia temporal del libro con exceso de caja 0, 250 y −80 para la identidad del flujo sin crecimiento (revisión, O15) |
 | `scripts/tabla_conciliacion.py` | Genera la tabla de conciliación con literal y página |
 | `resultados/` | Salidas reproducibles de los scripts |
 | `evidencias/paginas/` | Texto de las páginas citadas, con la huella del PDF de origen. La evidencia primaria es el PDF |
