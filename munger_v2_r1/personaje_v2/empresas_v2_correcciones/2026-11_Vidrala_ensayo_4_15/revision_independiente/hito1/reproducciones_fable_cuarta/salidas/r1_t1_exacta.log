@@ -1,0 +1,36 @@
+árbol: /tmp/rev_fable4/congelado4/personaje_v2
+
+=== A · aritmética exacta y round de la hoja
+   120,4 − 120,4: o["a"] - o["b"] → 0 = 0.0 | claves según _claves_formula: ['a', 'b']
+   0,1 + 0,2: o["a"] + o["b"] → 3/10 = 0.3 | claves según _claves_formula: ['a', 'b']
+   1e9 + 0,4 − (1e9 + 0,1): o["a"] - o["b"] → 3/10 = 0.3 | claves según _claves_formula: ['a', 'b']
+   round(2,5) · round(−2,5) · round(0,125; 2) · round(2,675; 2): round(o["a"]) * 1000000 + round(o["b"]) * 1000 + round(o["c"], 2) * 100 + round(o["d"], 2) / 1000 → 74925325067/25000 = 2997013.00268 | claves según _claves_formula: ['a', 'b', 'c', 'd']
+   round(x, 1.0) (decimales como float entero): round(o["a"], 1.0) → 3/10 = 0.3 | claves según _claves_formula: ['a']
+   round(x, 1.5) (decimales no enteros): round(o["a"], 1.5) → ValueError: round(…, n) exige un entero n
+   sum(a, b) (sin lista; Python lo rechazaría): sum(o["a"], o["b"]) → 4 = 4.0 | claves según _claves_formula: ['a', 'b']
+   abs(a, b) (el segundo argumento se ignora): abs(o["a"], o["b"]) → 3/2 = 1.5 | claves según _claves_formula: ['a', 'b']
+   x["b"] sobre algo que no es o: (o["a"],)["b"] se evalúa como o["b"]: (o["a"],)["b"] → 5/2 = 2.5 | claves según _claves_formula: ['a']
+
+=== B1 · medias con el generador real (fase1_historia.calcular_entrada, operación «media», redondeo 3) frente al comprobador
+   media de 2 valores: 20000 casos · empates exactos (x,xxx5) 9971 · el valor que escribe el generador, RECHAZADO con unidad «mm»: 2197 (11.0 %) · con round(…, 3) en la fórmula: 5052 (25.3 %)
+      p. ej. valores [1120.148, 1528.871] → generador 1324.51 · exacto 1324.5095 · round(float(exacto), 3) = 1324.509
+      p. ej. valores [45.143, 331.83] → generador 188.486 · exacto 188.4865 · round(float(exacto), 3) = 188.487
+   media de 3 valores: 20000 casos · empates exactos (x,xxx5) 0 · el valor que escribe el generador, RECHAZADO con unidad «mm»: 0 (0.0 %) · con round(…, 3) en la fórmula: 0 (0.0 %)
+   media de 4 valores: 20000 casos · empates exactos (x,xxx5) 4956 · el valor que escribe el generador, RECHAZADO con unidad «mm»: 639 (3.2 %) · con round(…, 3) en la fórmula: 2399 (12.0 %)
+      p. ej. valores [511.79, 1622.582, 1250.967, 383.571] → generador 942.228 · exacto 942.2275 · round(float(exacto), 3) = 942.227
+      p. ej. valores [402.653, 1086.048, 1339.048, 795.413] → generador 905.791 · exacto 905.7905 · round(float(exacto), 3) = 905.79
+   media de 5 valores: 20000 casos · empates exactos (x,xxx5) 0 · el valor que escribe el generador, RECHAZADO con unidad «mm»: 0 (0.0 %) · con round(…, 3) en la fórmula: 0 (0.0 %)
+   media de 6 valores: 20000 casos · empates exactos (x,xxx5) 3293 · el valor que escribe el generador, RECHAZADO con unidad «mm»: 847 (4.2 %) · con round(…, 3) en la fórmula: 1674 (8.4 %)
+      p. ej. valores [260.641, 89.893, 1049.284, 185.241, 141.94, 1286.81] → generador 502.302 · exacto 502.3015 · round(float(exacto), 3) = 502.301
+      p. ej. valores [54.829, 648.8, 1259.47, 332.332, 711.202, 1866.39] → generador 812.171 · exacto 812.1705 · round(float(exacto), 3) = 812.17
+
+=== B2 · en el registro: Historia!D6 = 778,136 como media de dos orígenes (678,210 y 878,061), con derivacion.unidad = «mm»
+   libro: 778.136 | media con floats (como el generador): (678.21 + 878.061) / 2 = 778.1355000000001 → round(…, 3) = 778.136
+[Historia!D6 = (o["aux:m1"] + o["aux:m2"]) / 2 · unidad 'mm']
+      apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!D6: la fórmula da 778.1355 y el modelo 778.136 (ni exacto ni con el redondeo del libro a 3 decimales; una transformación distinta se declara en la fórmula, p. ej. round(…, 4))
+[Historia!D6 = round((o["aux:m1"] + o["aux:m2"]) / 2, 3) · unidad None]
+      apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[Historia!D6 = round((o["aux:m1"] + o["aux:m2"]) / 2, 3) · unidad 'mm']
+      apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[Historia!D6 = round(sum(o["aux:m1"], o["aux:m2"]) / 2, 3) · unidad None]
+      apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada

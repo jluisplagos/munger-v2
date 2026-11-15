@@ -1,0 +1,40 @@
+=== A · sintética
+K: Historia!F6 página 22 | cita: Partida sintética de Historia!F6: 849697.000
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno.pdf' + archivo_texto sintético con su huella] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: el archivo de la fuente no es un PDF (sin cabecera %PDF): el texto conservado no puede ser el de ese documento (fuentes_sinteticas/ajeno.pdf)
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno.PDF' + archivo_texto sintético con su huella] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: el archivo de la fuente no es un PDF (sin cabecera %PDF): el texto conservado no puede ser el de ese documento (fuentes_sinteticas/ajeno.PDF)
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno.pdf.bak' + archivo_texto sintético con su huella] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno.bin' + archivo_texto sintético con su huella] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno.html' + archivo_texto sintético con su huella] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A1 · «fuente conservada» de bytes ajenos llamada 'ajeno_pdf' + archivo_texto sintético con su huella] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A1 · «fuente conservada» de bytes ajenos llamada 'informe_anual' + archivo_texto sintético con su huella] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A2 · PDF verdadero con el MISMO texto, pero la cita está en la página siguiente del PDF] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en la página 22 del PDF 'fuentes_sinteticas/otra_pagina.pdf' (pdftotext): el texto conservado no es el de ese documento
+[A3 · control positivo: PDF verdadero y fiel a su texto conservado] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[A4 · PDF verdadero cuya página citada NO tiene capa de texto (escaneado; el texto conservado sería un OCR)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en la página 22 del PDF 'fuentes_sinteticas/escaneado.pdf' (pdftotext): el texto conservado no es el de ese documento
+[A5 · la cita es solo la cifra; el texto conservado dice «Partida sintética de K», el PDF dice «Otro concepto distinto»] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+A6 · VE._cmp_txt (forma de comparación con el PDF):
+   'Beneficio 1 234,5' == 'Beneficio 1\xa0234,5': True
+   'beneficio' == 'beneﬁcio': True
+   'Resultado -12,3' == 'Resultado −12,3': False
+   'Resultado -12,3' == 'Resultado –12,3': False
+   "l'exercice" == 'l’exercice': False
+   'consolidated' == 'consoli\xaddated': False
+   'consolidated' == 'consoli-\ndated': False
+   'EBITDA 12,3' == 'EBITDA12,3': True
+   'œuvre' == 'oeuvre': False
+   '€' == 'EUR': False
+A6 · VE._contiene_texto (valor de texto como palabra completa):
+   'EUR' en 'Divisa: NEURROS': False
+   'eur' en 'Divisa: EUR (millones)': True
+   'EUR' en 'Importes en EUR.': True
+   'EUR' en 'en millones de euros (EUR)': True
+   'EUR' en 'EUR/USD': True
+   'EUR' en 'EUR_miles': False
+   'NIIF' en 'NIIF-UE': True
+   'IFRS' en 'normas IFRS-EU': True
+   'IFRS' en 'IFRS16': False
+   'IFRS (IFRS-EU)' en 'IFRS (IFRS-EU)': True
+   'EUR' en "cifras en EUR'000": True
+   '€' en '€': True
+   '€' en 'importes en € (miles)': True
+   'continuo' en 'Mercado continuo': True
+   'C++' en 'C++ y más': True

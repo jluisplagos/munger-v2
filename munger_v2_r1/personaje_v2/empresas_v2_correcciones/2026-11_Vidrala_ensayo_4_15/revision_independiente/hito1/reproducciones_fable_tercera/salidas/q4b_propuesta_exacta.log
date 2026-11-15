@@ -1,0 +1,17 @@
+   DISTINTO viscofan_decisiones/Viscofan Historia!L10: actual True (0.10089983773417908) · propuesto False (0.10089983773417908) · modelo 0.1009 · o["aux:AR2025_p23_impuesto_2025"] / o["aux:AR2025_p23_bai_2025"]
+viscofan_decisiones/Viscofan: 45 derivados · «exacto» con la regla actual: 32 · con la aritmética exacta propuesta: 31
+vidrala_decisiones/Vidrala: 56 derivados · «exacto» con la regla actual: 44 · con la aritmética exacta propuesta: 44
+elis_decisiones/Elis: 47 derivados · «exacto» con la regla actual: 34 · con la aritmética exacta propuesta: 34
+total 148 derivados reales · decisiones distintas: 1
+
+contraejemplos de q4 (deben rechazarse) y controles (deben aceptarse):
+   [ratio 0,887 con orígenes ≈1e9 que dan 0,25] regla actual: ACEPTA · aritmética exacta propuesta: rechaza
+   [ratio 0,887 con orígenes en miles que dan 0,8874] regla actual: ACEPTA · aritmética exacta propuesta: rechaza
+   [importe 849,697 con origen en unidades que da 849,0] regla actual: ACEPTA · aritmética exacta propuesta: rechaza
+   [C55 con 40.000 acciones de menos] regla actual: ACEPTA · aritmética exacta propuesta: rechaza
+   [control: C55 con las cifras exactas] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA
+   [control: 120,4 − 120,4 = 0 (el ruido que motivó la tolerancia)] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA
+   [control: 0,1 + 0,2 = 0,3] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA
+   [control: 1e9 + 0,4 − (1e9 + 0,1) = 0,3] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA
+   [control: round(n/d, 4) = 0,1948] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA
+   [control: n/d sin redondear, modelo con todos los decimales] regla actual: ACEPTA · aritmética exacta propuesta: ACEPTA

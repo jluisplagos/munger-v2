@@ -1,0 +1,15 @@
+árbol: /tmp/rev_fable4/congelado4/personaje_v2
+CAMBIO del control heredado: «entrada_efectiva» = (no la declara)
+
+[tres · entrada_efectiva del CAMBIO: (sin declarar)] cambiar_base preparar → rc 0
+   entrada_efectiva.json: {'modo': 'estricta', 'motivo': 'expediente nuevo de la 4.15 (modo por defecto)'} | fase1_metadatos.json: 'estricta'
+   pipeline --hasta 4 → rc 0 · paso 2 · estado 'pendiente_de_datos' · entrada_efectiva {'modo': 'estricta', 'declarado_en': 'entrada_efectiva.json'}
+   historial (relleno): ['$ python3 rellenar_fase1_v63.py Vidrala_v63_base.xlsx fase1_v63.json Vidrala_v63_datos.xlsx --estricta → 7 · - Análisis!C50: libro 0 · fase1_v63.json None · valor migrado de la etapa 1 sin declaración en fase1_v63.json: la vía generativa no lo produce']
+   libro de datos escrito: False | LibreOffice invocado (sustituto) en el historial: False
+   EXPRESIÓN DEL CASO NUEVO DE LA BATERÍA (grupo D): PASA
+
+[uno · entrada_efectiva del CAMBIO: {'modo': 'registrada', 'motivo': '(4.15) control heredado de la 4.11: C50 de Vidrala lo sostiene solo la etapa 1 (no reproducible, lo bloquea el comprobador de entradas); este caso prueba la concordancia del cambio de base'}] cambiar_base preparar → rc 0
+   entrada_efectiva.json: {'modo': 'registrada', 'motivo': '(4.15) control heredado de la 4.11: C50 de Vidrala lo sostiene solo la etapa 1 (no reproducible, lo bloquea el comprobador de entradas); este caso prueba la concordancia del cambio de base'} | fase1_metadatos.json: 'registrada'
+   pipeline --hasta 2 → rc 0 · paso 3 · estado None · entrada_efectiva {'modo': 'registrada', 'declarado_en': 'entrada_efectiva.json'}
+   historial (relleno): ['$ python3 rellenar_fase1_v63.py Vidrala_v63_base.xlsx fase1_v63.json Vidrala_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+   libro de datos escrito: True | LibreOffice invocado (sustituto) en el historial: False

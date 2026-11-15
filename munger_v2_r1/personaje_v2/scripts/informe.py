@@ -207,8 +207,18 @@ def main():
         ve = apt.get("verificacion_entradas") if isinstance(apt.get("verificacion_entradas"), dict) else None
         if ve is not None:
             # (4.14) verificación completa de las entradas financieras: condición necesaria para presentar la conclusión como apta para dinero real
-            linea += (f" **Verificación de las entradas financieras:** {ve.get('comprobadas_universo', ve.get('comprobadas'))} de {ve.get('universo')} celdas del universo comprobadas "
-                      f"(+{ve.get('auxiliares')} datos de origen auxiliares) · {ve.get('materiales_no_comprobadas')} materiales sin comprobar · "
+            # (4.15, revisión independiente, hallazgo 16) sin «comprobadas_universo» (ficha anterior) no se da un recuento: «comprobadas» incluye los auxiliares
+            _n_u = ve.get("comprobadas_universo")
+            linea += (f" **Verificación de las entradas financieras:** " + (f"{_n_u} de {ve.get('universo')} celdas del universo comprobadas " if _n_u is not None
+                      else "ficha anterior a la corrección del recuento: sin recuento del universo ")
+                      + (f"({ve.get('comprobadas_calculo')} de {ve.get('universo_calculo')} de cálculo y {ve.get('comprobadas_juicio')} de {ve.get('universo_juicio')} usadas por el juicio) "
+                         if ve.get("universo_calculo") is not None else "")
+                      + f"(+{ve.get('auxiliares')} datos de origen auxiliares) · {ve.get('materiales_no_comprobadas')} materiales sin comprobar · "
+                      + (f"{ve.get('lecturas_externas')} lecturas externas sin bytes · " if ve.get("lecturas_externas") else "")
+                      # (4.15, segunda revisión independiente, N1 y N2) lo que no se contrastó y por qué, también con el registro apto
+                      + (f"{ve.get('no_materiales')} de juicio declaradas no materiales ({ve.get('no_materiales_sin_revisar') or 0} sin revisar) · " if ve.get("no_materiales") else "")
+                      + (f"{ve.get('datos_como_hipotesis')} datos tratados como hipótesis o convención · " if ve.get("datos_como_hipotesis") else "")
+                      + (f"{ve.get('no_aplicables')} no aplicables · " if ve.get("no_aplicables") else "") + 
                       f"{ve.get('discrepancias')} discrepancias · {ve.get('desactualizadas')} desactualizadas · apta por entradas: "
                       f"{'sí' if ve.get('apto_por_entradas') else 'no'}. Apta para dinero real: no"
                       + (f" ({'; '.join(apt.get('motivos_no_apto') or [])})" if apt.get("motivos_no_apto") else "") + ".")

@@ -16,6 +16,13 @@ fuente, pagina, periodo, unidad. Escribe:
   y toda celda de Análisis que dependa de él (C46–C50 con `pendiente_verificacion`; las derivadas C24, C26, C28, C33 si usan un año
   pendiente; la reclasificación IFRS de C48/C49) quedan «Dato no verificable» con la explicación en N, nunca «Rellenado y verificado».
 Sin --sobrescribir, una celda de datos ya presente (migrada de la etapa 1) no se pisa, salvo precio, capitalización y acciones (siempre frescos).
+(4.15, C48 de Elis) Una entrada del FCF base (Análisis C46–C50) migrada de la etapa 1 cuyo valor no es el declarado en fase1_v63.json se
+sigue conservando (regla de la v2.2), pero ya no en silencio: queda en el registro («entradas_migradas_distintas») y verificacion_entradas.py
+la marca como no reproducible por la vía generativa hasta que su cálculo se declare (fase1_metadatos.json o CAMBIO.analisis). También se
+registra una entrada del FCF base que el libro tiene de la etapa 1 y fase1_v63.json no declara. Con --estricta (el pipeline lo pasa si
+entrada_efectiva.json declara el modo «estricta», que cambiar_base.py escribe por defecto en todo expediente nuevo de la 4.15;
+pipeline.modo_entrada_efectiva), cualquiera de las dos detiene el relleno
+con el código 7 sin escribir nada; sin él (la línea de base v2.2) solo queda registrada y marcada.
 Reutilización de un libro ya rellenado (cierre de H1, 8-nov-2026): las filas de Historia se reclasifican siempre con la Historia
 actual; las celdas de Análisis que dependen de la Historia (fase1_historia.DEP_ANALISIS) se revisan aunque ya tengan valor: con un
 cero pendiente en su ventana pasan a «Dato no verificable» conservando su valor (salvo --sobrescribir); una celda antes pendiente
@@ -44,6 +51,7 @@ FILAS = {"anio": 5, "ventas": 6, "ebit": 7, "da": 8, "beneficio_neto": 9, "tipo_
          "circulante": 14, "intereses": 15, "intereses_financiacion": 16, "arrendamientos_principal": 17, "sbc": 18, "id": 19,
          "acciones_diluidas": 20, "patrimonio": 21, "deuda": 22, "arrendamientos": 23, "caja": 24, "pensiones": 25, "minoritarios": 26}
 COLS = "CDEFGHIJKL"
+ENTRADAS_FCF_BASE = {f"Análisis!{c}" for c in ("C46", "C47", "C48", "C49", "C50")}  # (4.15) entradas del FCF base de la valoración
 DATOS_ANALISIS_PERMITIDOS = {"C24", "C26", "C28", "C31", "C32", "C33", "C34", "C38", "C40", "C42", "C46", "C47", "C48", "C49", "C50", "C53", "C54", "C57", "C60", "C88", "C96", "B4"}
 F_OK, F_NOVERIF = "Rellenado y verificado", "Dato no verificable"
 # (4.13 §6) celdas que se escriben SIEMPRE frescas desde la fase 1: precio, capitalización, acciones y tasa sin riesgo. Su evidencia de
@@ -78,6 +86,7 @@ def main():
     ap.add_argument("salida")
     ap.add_argument("--config", default=None)  # (4.11) None → MUNGER_CONFIG (la del pipeline) o config_v2.json
     ap.add_argument("--sobrescribir", action="store_true")
+    ap.add_argument("--estricta", action="store_true", help="(4.15) entrada efectiva estricta: código 7 si una entrada del FCF base la sostiene solo un valor migrado")
     ap.add_argument("--sin-verificar", action="store_true")
     a = ap.parse_args()
     cfg = config_v2.cargar(a.config)
@@ -160,6 +169,11 @@ def main():
                 f_prev, j_prev, n_prev = cm_prev(fila)
                 if pendiente:   # el valor del libro se conserva; cambia solo su estado, y la nota lo dice
                     marcar_pendiente(fila, clave, pendiente, derivada or fuente, periodo, unidad, conservado=actual, nuevo=valor)
+                    if clave in ENTRADAS_FCF_BASE and valor is not None and num(actual) is not None and not iguales(actual, valor):
+                        # (4.15, observación 22 de la revisión independiente) también en la rama H1
+                        registro.setdefault("entradas_migradas_distintas", []).append(
+                            {"celda": clave, "libro": actual, "fase1_v63": valor, "evidencia_libro": cm_prev(fila)[1],
+                             "motivo": "valor migrado de la etapa 1 conservado (con ceros pendientes en su ventana); fase1_v63.json declara otro"})
                     return True
                 if es_h1(n_prev):
                     if iguales(actual, valor):   # confirmación posterior: misma cifra, ya sin pendiente
@@ -171,6 +185,14 @@ def main():
                 if de_historia(j_prev) and not iguales(actual, valor):
                     rechazos.append(f"{clave}: el valor {actual} procede de otra Historia (Control maestro J: «{str(j_prev)[:80]}»); la actual da {valor}")
                     return False
+                if clave in ENTRADAS_FCF_BASE and valor is not None and num(actual) is not None and not iguales(actual, valor):
+                    # (4.15, C48 de Elis) la regla de la v2.2 se mantiene (el valor de la etapa 1 prevalece sobre la media de la Historia), pero
+                    # ya no en silencio: la entrada efectiva no la reproduce la vía generativa (fase1_v63.json declara otra) y queda registrada;
+                    # verificacion_entradas.py la marca como no reproducible hasta que se declare su cálculo (fase1_metadatos.json o CAMBIO.analisis)
+                    registro.setdefault("entradas_migradas_distintas", []).append(
+                        {"celda": clave, "libro": actual, "fase1_v63": valor, "evidencia_libro": j_prev,
+                         "motivo": "valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa"})
+                    registro["avisos"].append(f"{clave}: se conserva {actual} de la etapa 1 y fase1_v63.json declara {valor}: entrada efectiva NO reproducible por la vía generativa (declare su cálculo)")
             registro["no_pisadas"].append({"celda": clave, "actual": actual, "nuevo": valor})
             return False
         celdas[clave] = {"valor": valor, "tipo": tipo} if tipo else valor
@@ -291,7 +313,8 @@ def main():
         """Años pendientes (H1) de una celda de Análisis que depende de la Historia, venga de donde venga su valor. Solo un respaldo
         independiente explícito y válido en la entrada de fase1_v63.json (`independiente`) la libra; declararlo no basta."""
         if ref not in FH.DEP_ANALISIS:
-            return []
+            # (4.15) una entrada con cálculo declarado fuera de DEP_ANALISIS hereda los pendientes de las partidas que usa
+            return sorted(set(entrada.get("pendiente_verificacion") or [])) if isinstance(entrada, dict) else []
         if isinstance(entrada, dict) and entrada.get("independiente") is not None and FH.defecto_independiente(entrada["independiente"]) is None:
             return []
         pv = set(FH.pendientes_celda(ref, partidas, anios, n_fcf))
@@ -527,6 +550,24 @@ def main():
             marcar_pendiente(fila, clave, nota_pend(f"{clave} depende de la Historia", pv), j_prev or "valor previo del libro", conservado=actual)
         elif es_h1(n_prev):
             rechazos.append(f"{clave}: figuraba pendiente de verificación y la Historia actual ya no lo está, pero su valor ({actual}) no procede de esta pasada: su evidencia anterior no puede restaurarse")
+    # ---- (4.15, C48 de Elis; revisión independiente, hallazgo 4) entradas del FCF base migradas sin declaración en fase1_v63.json ----
+    for clave in sorted(ENTRADAS_FCF_BASE):
+        ref = clave.split("!")[1]
+        d_f1 = (f1.get("analisis") or {}).get(ref)
+        v_f1 = d_f1.get("valor") if isinstance(d_f1, dict) else d_f1
+        actual = libro.leer("Análisis", ref)
+        if num(actual) is not None and num(v_f1) is None and clave not in celdas:
+            registro.setdefault("entradas_migradas_distintas", []).append(
+                {"celda": clave, "libro": actual, "fase1_v63": v_f1, "evidencia_libro": cm_prev(cm[clave])[1] if cm.get(clave) else None,
+                 "motivo": "valor migrado de la etapa 1 sin declaración en fase1_v63.json: la vía generativa no lo produce"})
+            registro["avisos"].append(f"{clave}: el libro conserva {actual} de la etapa 1 y fase1_v63.json no la declara: entrada efectiva NO reproducible por la vía generativa")
+    if a.estricta and registro.get("entradas_migradas_distintas"):
+        json.dump(registro, open(a.salida + ".fase1.registro.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
+        print("RECHAZADO (código 7, entrada efectiva estricta): entradas del FCF base que solo sostiene un valor migrado de la etapa 1; no se ha"
+              " escrito el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.")
+        for x in registro["entradas_migradas_distintas"]:
+            print(f"- {x['celda']}: libro {x['libro']!r} · fase1_v63.json {x['fase1_v63']!r} · {x['motivo']}")
+        return 7
     # ---- H1: reutilización no soportada → no se escribe nada ----
     if rechazos:
         registro["rechazos_reutilizacion"] = rechazos

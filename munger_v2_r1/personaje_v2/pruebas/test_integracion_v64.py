@@ -556,8 +556,15 @@ def grupo_d():
     base = os.path.join(TMP, "cambio_de_base")
     shutil.rmtree(base, ignore_errors=True)
     hechos = []
+    # (4.15, segunda revisión independiente, N7) desde la 4.15 cambiar_base.py prepara los expedientes nuevos con la entrada efectiva
+    # «estricta» por defecto. Este control heredado de la 4.11 tiene C50 de Vidrala sostenido solo por la etapa 1 (no reproducible, como
+    # declara el hito 1 de la 4.15) y prueba la concordancia del cambio de base, no la entrada efectiva: declara el modo «registrada» con su
+    # motivo. La parada del modo estricto con este mismo CAMBIO se prueba aparte, al final del grupo («tres»).
+    MOTIVO_REG = ("(4.15) control heredado de la 4.11: C50 de Vidrala lo sostiene solo la etapa 1 (no reproducible, lo bloquea el comprobador "
+                  "de entradas); este caso prueba la concordancia del cambio de base")
     for n in ("uno", "dos"):
         conf = copy.deepcopy(conf0)
+        conf["entrada_efectiva"] = {"modo": "registrada", "motivo": MOTIVO_REG}
         conf["destino"] = os.path.join(base, n)
         p = os.path.join(base, f"cfg_{n}", "cambio_de_base.json")  # mismo nombre de archivo: la nota de fase1_v63.json lo cita
         os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -637,6 +644,25 @@ def grupo_d():
     ok_c = run([PY, "-I", os.path.join(PV, "scripts", "cambiar_base.py"), "comprobar", hechos[0][2]], cwd=RAIZ)
     paso("D", "tras los pasos 0–4 (V6.4 heredado), las entradas concuerdan y no queda ningún resto de la base anterior en la evidencia activa ni en las notas",
          ok_c[0] == 0 and "CONCUERDA Y SIN RESTOS" in ok_c[1], ok_c[1].strip().splitlines()[-1] if ok_c[1].strip() else "")
+    # (4.15, N7) el mismo CAMBIO sin declarar el modo: «estricta» por defecto, y el paso 2 se detiene por C50 (código 7 de rellenar)
+    conf3 = copy.deepcopy(conf0)
+    conf3["destino"] = os.path.join(base, "tres")
+    p3 = os.path.join(base, "cfg_tres", "cambio_de_base.json")
+    os.makedirs(os.path.dirname(p3), exist_ok=True)
+    json.dump(conf3, open(p3, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    rc3, out3 = run([PY, "-I", os.path.join(PV, "scripts", "cambiar_base.py"), "preparar", p3], cwd=RAIZ, timeout=900)
+    d3 = os.path.join(base, "tres", "Vidrala")
+    est3 = {}
+    if rc3 == 0:
+        run([PY, PIPE, d3, "--config", CFG64, "--hasta", "4"], timeout=900)
+        try:
+            est3 = json.load(open(os.path.join(d3, "estado_pipeline.json"), encoding="utf-8"))
+        except (OSError, ValueError):
+            est3 = {}
+    hist3 = " ".join(est3.get("historial") or [])
+    paso("D", "(4.15, N7) el mismo CAMBIO sin declarar el modo: entrada efectiva «estricta»; el paso 2 se detiene por C50 (rellenar --estricta → 7) sin escribir el libro de datos",
+         rc3 == 0 and est3.get("paso") == 2 and (est3.get("entrada_efectiva") or {}).get("modo") == "estricta" and "--estricta → 7" in hist3 and "Análisis!C50" in hist3
+         and not os.path.exists(os.path.join(d3, "Vidrala_v63_datos.xlsx")), (est3.get("estado_analisis"), est3.get("entrada_efectiva"), hist3[-200:]))
     neg = os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_10_1", "Vidrala", "Vidrala_v63_evaluada.xlsx")
     sys.path.insert(0, os.path.join(PV, "scripts"))
     restos = []

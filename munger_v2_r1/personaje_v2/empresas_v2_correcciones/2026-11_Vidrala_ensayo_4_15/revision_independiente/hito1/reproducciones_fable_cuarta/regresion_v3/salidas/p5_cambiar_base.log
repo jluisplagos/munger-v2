@@ -1,0 +1,20 @@
+A (CAMBIO 4.15 de Elis): rc 0 
+  (8c) sustituidas (construido_por_fase1_historia → valor): {'C24': (None, 0.097), 'C31': (None, 'Sí'), 'C33': (None, 2.22), 'C34': (None, 'No'), 'C40': (None, 323.9), 'C42': (None, 5.53), 'C53': (None, 398.1), 'C54': (None, 4121.5), 'C46': (1429.433, 1429.433), 'C47': (867.167, 857.167), 'C50': (28.233, 28.233), 'C48': (82.933, 108.0)}
+  nota de fase1_v63.json: (cambio de base, 2025-12-31) Entradas sustituidas por cambiar_base.py desde cambioA.json: C24 None → 0.097; C31 None → 'Sí'; C33 None → 2.22; C34 None → 'No'; C40 None → 323.9; C42 None → 5.53; C53 None → 398.1; C54 None → 4121.5; C46 1429.433 → 1429.433; C47 867.167 → 857.167; C50 28.233 → 28.233; C48 82.933 → 108.0
+  fase1_metadatos.analisis: {'C24': 0.097, 'C31': 'Sí', 'C33': 2.22, 'C34': 'No', 'C40': 323.9, 'C42': 5.53, 'C53': 398.1, 'C54': 4121.5, 'C46': 1429.433, 'C47': 857.167, 'C50': 28.233, 'C48': 'calculo'}
+  analisis de fase1_v63.json: {'C24': 0.097, 'C31': 'Sí', 'C33': 2.22, 'C34': 'No', 'C40': 323.9, 'C42': 5.53, 'C53': 398.1, 'C54': 4121.5, 'C46': 1429.433, 'C47': 857.167, 'C50': 28.233, 'C48': 108.0, 'C49': 128.1}
+  archivos sobrantes del primer construir (diagnóstico) en el destino: ['alcance_v2.json', 'entrada_efectiva.json', 'etapa1', 'fase1_fuentes.json', 'fase1_metadatos.json', 'fase1_partes', 'fase1_v63.json', 'fuentes_2026', 'fuentes_mercado', 'fuentes_pdf', 'historia_revision.md', 'texto', 'verificacion_entradas.json']
+  claves del registro cambio_de_base.json: ['alcance', 'analisis_descartadas', 'analisis_heredadas_conservadas', 'base_economica', 'cambio', 'cambio_sha256', 'configuracion_economica', 'conservados', 'correcciones_fase1_partes', 'destino', 'entrada_efectiva', 'etapa1', 'fechas', 'fuentes_adicionales', 'heredados_movidos', 'notas_retiradas', 'origen', 'sustituidas_en_fase1_v63']
+
+B (origen = A; analisis = {}; descarta C42; no reconoce el resto): rc 1 | PREPARACIÓN DETENIDA: los metadatos del origen declaran entradas `analisis` que el CAMBIO no declara, no descarta ni reconoce (se retira el destino): C24, C31, C33, C34, C40, C46, C47, C48, C50, C53, C54. Declárelas en `analisis`, en `analisis_que_se_descartan` o en `analisis_que_se_conservan` con su motivo. | destino retirado: True
+
+B1 (descarta C42; reconoce las otras 11 en analisis_que_se_conservan): rc 0 
+  (8a) C42 en el fase1_v63.json nuevo: (no está) | en fase1_metadatos.analisis: False | registrado como descartado: [{'de': 'fase1_v63.json (analisis del origen descartadas por el CAMBIO)', 'nota': {'C42': '(prueba) ya no vale'}}]
+  (8b) entradas conservadas en el expediente nuevo: {'C24': 0.097, 'C31': 'Sí', 'C33': 2.22, 'C34': 'No', 'C40': 323.9, 'C53': 398.1, 'C54': 4121.5, 'C46': 1429.433, 'C47': 857.167, 'C50': 28.233, 'C48': 108.0, 'C49': 128.1}
+  ¿el registro cambio_de_base.json/.md lista las entradas heredadas y reconocidas?: True / True | sustituidas: {}
+
+B2 (reconoce todas con motivo VACÍO): rc 1 | se_conservan: C46 sin motivo | analisis_que_se_conservan: C47 sin motivo | analisis_que_se_conservan: C50 sin motivo | analisis_que_se_conservan: C48 sin motivo
+B3 (C42 a la vez en descartan y en conservan; conserva además una celda Z99 que el origen no declara): rc 1 | CAMBIO NO VÁLIDO (no se ha creado nada): celdas a la vez en analisis_que_se_conservan y analisis_que_se_descartan: C42 | C42 en metadatos nuevos: None
+B4 (C42 declarada y descartada a la vez): rc 1 | CAMBIO NO VÁLIDO (no se ha creado nada): celdas a la vez en analisis y analisis_que_se_descartan: C42
+
+C (descarta C48 con cálculo heredado): rc 0 | C48 en el fase1_v63.json nuevo: 82.933 (lo que da la Historia)

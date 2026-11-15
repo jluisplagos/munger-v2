@@ -1,0 +1,35 @@
+=== 1 · calcular_entrada
+media sin redondear (redondeo=12): valor=108.0
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=0: valor=108.0 | con valor declarado 108: valor=108.0
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=-1: valor=110.0 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 110.0
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=-2: valor=100.0 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 100.0
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=None: TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType' | con valor declarado 108: TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo='3': valor=108.367 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 108.367
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=2.5: valor=108.37 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 108.37
+años repetidos [2025, 2025, 2025]: valor=129.0
+años salteados [2019, 2022, 2025] (sin componente de 2019/2022): ValueError: el componente pagos_arrendamientos_con_intereses de 2019 no tiene valor, fuente y página
+años como texto y decimal: valor=108.0
+un año None: TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+signo True: valor=108.0
+componente con fuente inexistente, página 99999 y sin cita: valor=108.0
+componente 2025 = 1779,0 (errata ×10), nada lo contrasta con la página: valor=641.7
+valor declarado True: ValueError: el valor declarado True no es el calculado 108.0 | valor declarado '108': ValueError: el valor declarado '108' no es el calculado 108.0
+media 2016–2018 de intereses_financiacion − arrendamientos_principal (los tres 0,0 de arrendamientos_principal están PENDIENTES de verificación): valor=55.233
+   pendientes de la Historia: {'arrendamientos_principal': [2016, 2017, 2018], 'arrendamientos': [2016, 2017, 2018]} | pendientes_celda('C48'): []
+
+=== 2 · construir + rellenar con un cálculo que usa ceros pendientes (H1)
+construir: rc 0 _v63.json escrito (10 años, 71 diferencias con el comparativo, 16 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)
+   C48: {'valor': 55.233, 'periodo': '2016–2018'} | C49: {'valor': 128.1}
+rellenar: rc 0 | C48 = 55.233 | Control maestro F45 = Rellenado y verificado | J45 = Cálculo declarado (media 2016–2018 de: intereses_financiacion − arrendamientos_principal): 2016 intereses_fina
+   pendientes_verificacion del registro de rellenar: ['Historia!C17:L17', 'Historia!C23:L23']
+
+=== 3 · entradas_no_reproducibles: casos que no detecta
+Elis 4.14 tal cual: {'Análisis!C48': (108, 82.933)}
+(a) sin fase1_v63.json en la carpeta: {}
+(b) fase1_v63.json ilegible: {}
+(c) fase1_v63.json sin declarar C48 (el libro sigue con 108 migrado): {}
+(d) fase1_v63.json editado a mano: C48.valor = 108 (sin cálculo, con la fuente de la media 82,933): {} | fuente que sigue declarando: Historia de fase1_v63.json, media 2023–2025 de intereses_financiacion: Elis_Document d'enr
+(e) valor declarado como texto «82.933»: {}
+(f) Vidrala final 4.14 (dato real): libro C50 = 0 | base C50 = 0 | fase1_v63.json declara C50: False | entradas_no_reproducibles: {}
+    Vidrala reconstruida sin los valores migrados del FCF base: rc 0 → {'C46': 335.413, 'C47': 169.668, 'C48': None, 'C49': 4.5, 'C50': None} | libro final: {'C46': 335.413, 'C47': 169.668, 'C48': None, 'C49': 4.5, 'C50': 0}
+    rellenar sobre la base de Vidrala (C50 = 0 migrado, sin declarar): rc 0 | entradas_migradas_distintas: None | avisos sobre C50: [] | no_pisadas C50: []

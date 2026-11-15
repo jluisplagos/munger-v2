@@ -30,20 +30,71 @@ independiente, que examina la fuente):
   - revisión: revisor distinto del extractor, resultado «verificado» y fuente examinada declarada.
 `aptitud(carpeta)`: apto_por_entradas solo con cobertura completa y todas las entradas materiales comprobadas, vigentes y sin discrepancia.
 Es condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real.
+(4.15, encargo correctivo tras la revisión externa de la 4.14)
+  R1 · página: una fuente que exige contraste de página no está comprobada si la página no existe o no puede examinarse. «pagina» es la
+       página del PDF (marcas «[PDF PAGE n]» del texto extraído); el folio impreso va aparte, en «folio». Página inexistente →
+       discrepancia; página no inequívoca, o fuente sin texto con marcas de página («archivo_texto» para un PDF u HTML) → pendiente.
+  R2 · conservación: «conservacion» = «local» (por defecto si hay «archivo») o «externa». Una fuente local tiene que existir y tener su
+       sha256 registrado y vigente; si falta el archivo o la huella, la entrada queda pendiente: su contraste no es reproducible, y lo
+       que declaren el extractor o el revisor no lo sustituye. Una lectura externa sin bytes exige «lectura_externa» {referencia, fecha,
+       evidencia, limitaciones}; aunque esté completa no cuenta como comprobada: se lista aparte («lecturas_externas») y, si es material,
+       impide la aptitud por entradas.
+  R3 · cifras: la cita tiene que contener el valor de la fuente con formato numéricamente equivalente (separadores de miles y decimales,
+       ceros finales); un número distinto que solo coincide al redondear no vale. Si la fuente publica menos precisión, el registro
+       declara el valor publicado y la transformación (derivado), nunca una precisión inventada.
+  I13 · vigencia del fundamento: cada comprobación lleva «vinculo» {huella, elementos, sellado_por, fecha}: la huella de su fundamento,
+       evidencia y transformación (clase, valor, fuente, derivación, hipótesis, justificación y la fila de evidencia del Control maestro de
+       la celda en el libro). Si cambia cualquiera de ellos, la comprobación queda desactualizada aunque el número coincida; sin vínculo
+       (registros 4.14) queda pendiente. La huella incluye además quién, cuándo y con qué resultado se comprobó, las huellas de los orígenes
+       de un derivado y la declaración de la entrada en fase1_v63.json (FCF base). `sellar` solo sella la revisión de hoy, de ese revisor y de
+       entradas que pasan todos los controles; no impide escribir un vínculo a mano: detecta cambios, no acredita autoría (eso lo cubren el
+       registro como material auditado y la auditoría).
+  I8 · cobertura del juicio: además de las entradas de cálculo (instantánea de entradas_economicas, que sigue mandando en las variantes),
+       el universo incluye las cifras financieras que se dan a las fases de juicio (datos de Análisis de datos_v63.md y filas de la Historia
+       que no entran en el cálculo), con «ambito» = «juicio». Bloquean igual; su cambio no invalida las variantes (dependencias distintas).
+  (4.15, segunda revisión independiente)
+  N1 · una entrada de juicio no material (con «justificacion_materialidad») que no está comprobada solo deja de bloquear si un revisor
+       independiente ha revisado y sellado ese juicio de materialidad (resultado «verificado», fuente examinada, vínculo vigente); se
+       cuenta siempre, también cuando el registro es apto.
+  N2 · un DATO del modelo que se obtiene como derivado de una hipótesis o convención (directa o indirectamente, p. ej. un auxiliar
+       «convención») es un dato presentado como hipótesis: exige «justificacion_clase» y se lista; la fórmula de un derivado tiene que
+       usar todos sus orígenes y solo ellos; «no aplicable» se cuenta aparte.
+  N4 · el redondeo del libro a 3 decimales solo vale en un derivado que declara un importe («derivacion.unidad» monetaria); en
+       cualquier otra magnitud el resultado es exacto o el redondeo se declara en la fórmula (round).
+  12 · una fuente PDF tiene que ser un PDF y la cita tiene que estar en esa página del PDF (pdftotext), no solo en su texto conservado.
 Uso: verificacion_entradas.py comprobar <expediente> [--json] | plantilla <expediente> (escribe verificacion_entradas.plantilla.json)
+     | sellar <expediente> --revisor NOMBRE --fecha AAAA-MM-DD(hoy) CELDA [CELDA …]
 """
 import ast
+import datetime as dt
+import decimal
+import fractions
 import hashlib
 import json
 import os
 import re
 import sys
+import unicodedata
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import entradas_economicas as EE  # noqa: E402
 
-FORMATO = "4.14"
+FORMATO = "4.15"
+FORMATOS_ADMITIDOS = ("4.14", "4.15")
+CONSERVACION = ("local", "externa")
+CAMPOS_LECTURA_EXTERNA = ("referencia", "fecha", "evidencia", "limitaciones")
+# (4.15, I8) datos de Análisis que datos_v63.md da a las fases de juicio (volcar_datos_v63.DATOS_ANALISIS) que no son de identificación ni
+# fórmulas del libro; la batería comprueba que es un subconjunto de esa lista
+DATOS_JUICIO_ANALISIS = ("C24", "C26", "C28", "C31", "C32", "C33", "C34", "C38", "C40", "C42", "C46", "C47", "C48", "C49", "C50", "C53", "C54",
+                         "C55", "C57", "C60", "C88", "C96")
+FILAS_HISTORIA_JUICIO = (6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26)  # leer_v63.FILAS_HISTORIA sin el año
+# (4.15, revisión independiente, hallazgo 6) también lo que datos_v63.md da al juicio desde Palancas: el sector de Damodaran (C7, decide
+# qué cuartiles ve el juicio), las fechas del precio y de las acciones (C45, C46) y el reparto geográfico (A28:B33, filas con dato), que
+# fija la r mínima que la fase A compara con la r del inversor. Las cifras del extracto (extracto_v63.md) quedan fuera de este control:
+# las cubre la verificación de citas de las fases.
+DATOS_JUICIO_PALANCAS = ("C7", "C45", "C46")
+FILAS_GEOGRAFIA = range(28, 34)
 REGISTRO = "verificacion_entradas.json"
 CLASES = ("dato_publicado", "derivado", "cero_comprobado", "dato_ausente", "no_aplicable", "hipotesis", "convencion")
 CAMPOS_FUENTE = ("documento", "version", "pagina", "ubicacion", "concepto", "columna", "periodo", "unidad", "escala", "signo", "tratamiento",
@@ -65,9 +116,38 @@ def _num(x):
 
 
 def _igual(a, b):
+    """Igualdad con el redondeo declarado del libro (3 decimales en mm): (4.15, revisión independiente, hallazgo 5) solo para IMPORTES."""
     if _num(a) and _num(b):
         return abs(a - b) <= max(TOL_ABS, TOL_REL * max(abs(a), abs(b)))
     return EE.iguales(a, b) if hasattr(EE, "iguales") else a == b
+
+
+def _igual_exacto(a, b):
+    """(4.15, hallazgo 5) Igualdad sin la tolerancia de importes: relativa 1e-9 (tasas, ratios, probabilidades, escalas y vigencia)."""
+    if _num(a) and _num(b):
+        return abs(a - b) <= 1e-9 * max(abs(a), abs(b)) + 1e-15
+    return EE.iguales(a, b) if hasattr(EE, "iguales") else a == b
+
+
+def _igual_libro(calculado, vm):
+    """(4.15, hallazgo 5) El valor calculado es el del modelo exactamente o con el redondeo declarado del libro (3 decimales; TOL_ABS): se
+    compara round(calculado, 3) con el valor del libro, no con una holgura (0,2511 no es 0,25)."""
+    if not (_num(calculado) and _num(vm)):
+        return _igual_exacto(calculado, vm)
+    return _igual_exacto(calculado, vm) or abs(round(calculado, 3) - vm) <= 1e-9 * max(1.0, abs(vm))
+
+
+def _canon(x):
+    """(4.15, hallazgo 17) Forma canónica para la huella: números por su valor (849697.0 = 849697), textos en NFC sin espacios de más."""
+    if isinstance(x, dict):
+        return {str(k): _canon(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [_canon(v) for v in x]
+    if isinstance(x, float) and x == x and abs(x) != float("inf") and x.is_integer():
+        return int(x)
+    if isinstance(x, str):
+        return re.sub(r"\s+", " ", unicodedata.normalize("NFC", x)).strip()
+    return x
 
 
 def libro_de(carpeta):
@@ -78,9 +158,149 @@ def libro_de(carpeta):
     return None
 
 
-def universo(carpeta):
+def universo_calculo(carpeta):
+    """Entradas de cálculo: la instantánea de entradas_economicas (valoración, sensibilidades y lectura del precio)."""
     lb = libro_de(carpeta)
     return EE.instantanea(lb) if lb else None
+
+
+def _es_formula(v):
+    return isinstance(v, (list, tuple)) and len(v) >= 1 and v[0] == "="
+
+
+def universo(carpeta):
+    """(4.15, I8) Universo completo: las entradas de cálculo («ambito» = «calculo») y las cifras financieras que se dan a las fases de juicio
+    y no entran en el cálculo («ambito» = «juicio»). «huella» sigue siendo la de las entradas de cálculo (variantes y vigencia)."""
+    lb = libro_de(carpeta)
+    if not lb:
+        return None
+    inst = EE.instantanea(lb)
+    inst = dict(inst, celdas=dict(inst["celdas"]), tipos=dict(inst["tipos"]), ids=dict(inst["ids"]))
+    inst["ambito"] = {k: "calculo" for k in inst["celdas"]}
+    lec = EE._Lector(lb)
+    hojas = set(lec.lb.hojas())
+    extra = []
+    if "Análisis" in hojas:
+        extra += [("Análisis", r, f"juicio_{r}") for r in DATOS_JUICIO_ANALISIS]
+    if "Historia" in hojas:
+        extra += [("Historia", f"{c}{f}", f"juicio_h{f}") for f in FILAS_HISTORIA_JUICIO for c in "CDEFGHIJKL"]
+    if "Palancas" in hojas:
+        extra += [("Palancas", r, f"juicio_{r}") for r in DATOS_JUICIO_PALANCAS]
+        for f in FILAS_GEOGRAFIA:
+            if lec.leer("Palancas", f"A{f}") not in (None, "") or lec.leer("Palancas", f"B{f}") not in (None, ""):
+                extra += [("Palancas", f"A{f}", f"juicio_geografia_{f}"), ("Palancas", f"B{f}", f"juicio_geografia_{f}")]
+    for hoja, ref, ident in extra:
+        k = f"{hoja}!{ref}"
+        if k in inst["celdas"]:
+            continue
+        v = EE._norm(lec.leer(hoja, ref))
+        if _es_formula(v) or lec.lb.tiene_formula(hoja, ref):
+            continue  # transformación del libro sobre otras celdas: lo que se contrasta son sus orígenes
+        inst["celdas"][k] = v
+        inst["tipos"][k] = "dato"
+        inst["ids"][k] = ident
+        inst["ambito"][k] = "juicio"
+    inst["n_calculo"] = sum(1 for a in inst["ambito"].values() if a == "calculo")
+    inst["n_juicio"] = sum(1 for a in inst["ambito"].values() if a == "juicio")
+    inst["n"] = len(inst["celdas"])
+    return inst
+
+
+def evidencia_libro(carpeta):
+    """(4.15, I13) Fila de evidencia del Control maestro (filas 17–175: B = celda; C:N) de cada celda, tal como está en el libro."""
+    lb = libro_de(carpeta)
+    if not lb:
+        return {}
+    lec = EE._Lector(lb)
+    if "Control maestro" not in set(lec.lb.hojas()):
+        return {}
+    out = {}
+    for r in range(17, 176):
+        b = lec.leer("Control maestro", f"B{r}")
+        if not isinstance(b, str) or "!" not in b:
+            continue
+        fila = {c: EE._norm(lec.leer("Control maestro", f"{c}{r}")) for c in "CDEFGHIJKLMN"}
+        fila = {c: (None if _es_formula(v) else v) for c, v in fila.items()}
+        try:
+            celdas = EE._expandir(b.replace("'", ""))
+        except ValueError:
+            continue
+        for hoja, ref in celdas:
+            out.setdefault(f"{hoja}!{ref}", {"fila": r, **fila})
+    # (4.15, revisión independiente, hallazgo 14) las celdas de «Configuración V6.4» no tienen fila en el Control maestro: su evidencia son
+    # las celdas de trazabilidad de su clave (fuente, período, perímetro…)
+    CE = EE.CE
+    if CE.HOJA in set(lec.lb.hojas()):
+        for clave, refs in CE.TRAZA_CELDAS.items():
+            meta = {m: EE._norm(lec.leer(CE.HOJA, m)) for m in refs if m in CE.CELDAS_METADATOS}
+            for r_ in refs:
+                if r_ not in CE.CELDAS_METADATOS:
+                    out.setdefault(f"{CE.HOJA}!{r_}", {"clave": clave, "trazabilidad": meta})
+    return out
+
+
+CAMPOS_COMPROBACION_EN_HUELLA = ("extractor", "revisor", "fecha", "resultado", "fuente_examinada")
+
+
+def huella_fundamento(e, evid=None, extra=None):
+    """(4.15, I13) Huella del fundamento, la evidencia y la transformación de una entrada: lo que el revisor examinó. (Revisión independiente,
+    hallazgos 3, 4, 9 y 17) Incluye también quién, cuándo y con qué resultado se comprobó (CAMPOS_COMPROBACION_EN_HUELLA), y en `extra` las
+    huellas vigentes de los orígenes de un derivado y, en las entradas del FCF base, su declaración en fase1_v63.json. Forma canónica."""
+    base = {c: e.get(c) for c in ("celda", "clase", "material", "valor_modelo", "fuente", "derivacion", "hipotesis", "justificacion",
+                                  "justificacion_clase", "justificacion_materialidad")}
+    c = e.get("comprobacion") if isinstance(e.get("comprobacion"), dict) else {}
+    base["comprobacion"] = {k: c.get(k) for k in CAMPOS_COMPROBACION_EN_HUELLA}
+    base["evidencia_libro"] = evid
+    base["extra"] = extra
+    t = json.dumps(_canon(base), ensure_ascii=False, sort_keys=True, default=str, separators=(",", ":"))
+    return hashlib.sha256(t.encode("utf-8")).hexdigest()
+
+
+def _f1_declaraciones(carpeta):
+    """{celda de Análisis: declaración} de fase1_v63.json, o None si no hay fase1_v63.json legible como objeto."""
+    try:
+        f1 = json.load(open(os.path.join(carpeta, "fase1_v63.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if not isinstance(f1, dict):
+        return None
+    a = f1.get("analisis")
+    return a if isinstance(a, dict) else {}
+
+
+def huellas_registro(carpeta, reg=None, evid=None):
+    """(4.15) {celda: huella vigente} de todas las entradas del registro, con los orígenes de los derivados (recursivo, con ciclos marcados)
+    y la declaración de fase1_v63.json de las entradas del FCF base. Es lo que `comprobar` exige y lo que `sellar` escribe."""
+    if reg is None:
+        reg, _ = cargar(carpeta)
+    evid = evidencia_libro(carpeta) if evid is None else evid
+    por = {str(e.get("celda")): e for e in (reg or {}).get("entradas") or [] if isinstance(e, dict)}
+    decl = _f1_declaraciones(carpeta)
+    memo, en_curso = {}, set()
+
+    def h(k):
+        if k in memo:
+            return memo[k]
+        if k in en_curso:
+            return "ciclo"
+        en_curso.add(k)
+        e = por.get(k) or {}
+        extra = {}
+        d = e.get("derivacion") if isinstance(e.get("derivacion"), dict) else {}
+        if e.get("clase") == "derivado" and isinstance(d.get("origenes"), list):
+            extra["origenes"] = {str(o): (h(str(o)) if str(o) in por else None) for o in d["origenes"]}
+        if k in ENTRADAS_FCF_BASE:
+            extra["declaracion_fase1_v63"] = None if decl is None else decl.get(k.split("!")[1])
+        en_curso.discard(k)
+        memo[k] = huella_fundamento(e, evid.get(k), extra or None)
+        return memo[k]
+    return {k: h(k) for k in por}
+
+
+ELEMENTOS_VINCULO = ["clase", "material", "valor_modelo", "fuente (documento, archivo, sha256, página, cita, escala, signo…)", "derivacion (orígenes, fórmula, conciliación)",
+                     "hipotesis (fundamento, alternativas, límites)", "justificacion (y la de la clase y la materialidad)", "fila de evidencia del Control maestro de la celda en el libro "
+                     "(o la trazabilidad de su clave en «Configuración V6.4»)", "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+                     "huellas vigentes de los orígenes de un derivado", "declaración de la entrada en fase1_v63.json (FCF base)"]
 
 
 def _anios(inst):
@@ -88,30 +308,55 @@ def _anios(inst):
 
 
 def _ruta_fuente(carpeta, archivo):
-    if not archivo:
+    """Ruta de una fuente conservada. (4.15, hallazgo 11) Solo rutas relativas que quedan dentro del expediente o del paquete: una ruta
+    absoluta o que sale de ellos no es una fuente conservada con el expediente."""
+    if not archivo or os.path.isabs(str(archivo)):
         return None
     for base in (carpeta, os.path.dirname(AQUI), os.path.dirname(os.path.dirname(AQUI))):
-        p = os.path.normpath(os.path.join(base, archivo))
-        if os.path.isfile(p):
+        b = os.path.realpath(base)
+        p = os.path.realpath(os.path.join(base, str(archivo)))
+        if p.startswith(b + os.sep) and os.path.isfile(p):
             return p
     return None
 
 
 def _texto_pagina(ruta_txt, pagina):
-    """Texto de la página `pagina` de un .txt con marcas «[PDF PAGE n]» (extract_pdf_text.py); None si no se puede."""
+    """Texto de la página `pagina` de un .txt con marcas «[PDF PAGE n]» (extract_pdf_text.py); None si no se puede.
+    (Se conserva por compatibilidad; el contraste usa _pagina_examinable, que distingue por qué no se puede.)"""
+    r = _pagina_examinable(ruta_txt, pagina)
+    return r[1] if r[0] == "ok" else None
+
+
+def _numero_pagina(pagina):
+    """(4.15, R1) Página del PDF como entero ≥ 1: un entero, «12» o «PDF 12»/«pdf p. 12». Cualquier otra forma («12-13», «p. 12 y 14»,
+    «folio 76», vacío) no identifica una sola página del PDF → None."""
+    if isinstance(pagina, bool):
+        return None
+    if isinstance(pagina, int):
+        return pagina if pagina >= 1 else None
+    if isinstance(pagina, float) and pagina.is_integer():
+        return int(pagina) if pagina >= 1 else None
+    m = re.fullmatch(r"\s*(?:pdf\s*(?:p(?:ág(?:ina)?|age)?\.?\s*)?)?(\d+)\s*", str(pagina or ""), re.I)
+    return int(m.group(1)) if m and int(m.group(1)) >= 1 else None
+
+
+def _pagina_examinable(ruta_txt, pagina):
+    """(4.15, R1) («ok», texto) · («pendiente», motivo) si no se puede examinar · («discrepancia», motivo) si la página no existe."""
+    n = _numero_pagina(pagina)
+    if n is None:
+        return "pendiente", f"la página declarada {pagina!r} no identifica una página del PDF (un entero; el folio impreso va en «folio»)"
     try:
         t = open(ruta_txt, encoding="utf-8", errors="replace").read()
-    except OSError:
-        return None
-    m = re.search(r"\d+", str(pagina or ""))
-    if not m:
-        return None
-    n = int(m.group(0))
+    except OSError as ex:
+        return "pendiente", f"el texto de la fuente no se puede leer ({type(ex).__name__}): la página no puede examinarse"
     partes = re.split(r"\[PDF PAGE (\d+)\]", t)
+    numeros = [int(partes[i]) for i in range(1, len(partes) - 1, 2)]
+    if not numeros:
+        return "pendiente", "el texto de la fuente no tiene marcas «[PDF PAGE n]»: la página no puede examinarse"
     for i in range(1, len(partes) - 1, 2):
         if int(partes[i]) == n:
-            return partes[i + 1]
-    return None
+            return "ok", partes[i + 1]
+    return "discrepancia", f"la página {n} no existe en el texto de la fuente (páginas {min(numeros)}–{max(numeros)}, {len(numeros)} marcas)"
 
 
 def _norm_txt(s):
@@ -119,16 +364,33 @@ def _norm_txt(s):
     return re.sub(r"\s+", " ", "" if s is None else str(s)).strip().lower()
 
 
+def _decimales_exactos(a):
+    """(4.15, R3) Decimales con que se escribe el valor sin redondear, contados en su representación decimal más corta (repr), no con una
+    tolerancia (hallazgo 10: 10000000,01 ya no se escribe «10.000.000»). None si necesita más de diez."""
+    try:
+        d = decimal.Decimal(repr(float(a))).normalize()
+    except (decimal.InvalidOperation, ValueError):
+        return None
+    n = max(0, -d.as_tuple().exponent) if d.as_tuple().exponent < 0 else 0
+    return n if n <= 10 else None
+
+
 def _cifras(x):
-    """Formas textuales de un número de la fuente (1.234,5 · 1,234.5 · 1234.5 · 1234,5)."""
+    """Formas textuales de un número de la fuente (1.234,5 · 1,234.5 · 1234.5 · 1234,5 · 4 573,7), numéricamente EQUIVALENTES:
+    (4.15, R3) solo con tantos decimales como tiene el valor o más (ceros finales: «54,7000» para 54,7); nunca menos, porque escribir
+    149,5 como «150» o 45.479,209 como «45.479» es otro número obtenido redondeando."""
     if not _num(x):
         return []
     a = abs(x)
+    d0 = _decimales_exactos(a)
+    if d0 is None:
+        return []
     out = set()
-    for dec in range(0, 7):  # (14-nov) hasta seis decimales: los boletines de cotización imprimen cuatro («54,7000»)
+    for dec in range(d0, max(d0, 10) + 1):  # (14-nov) los boletines imprimen cuatro decimales («54,7000»); (4.15) hasta diez con ceros finales
         s = f"{a:,.{dec}f}"
         out |= {s, s.replace(",", "X").replace(".", ",").replace("X", "."), s.replace(",", ""), s.replace(",", "").replace(".", ","),
-                s.replace(",", " ").replace(".", ",")}  # miles con espacio y coma decimal («4 573,7», informes en francés)
+                s.replace(",", " ").replace(".", ","),  # miles con espacio y coma decimal («4 573,7», informes en francés)
+                s.replace(",", " "), s.replace(",", "'")}  # (4.15, hallazgo 18) miles con espacio o apóstrofo y punto decimal
     return [o for o in out if o]
 
 
@@ -144,16 +406,181 @@ def _cita_contiene(cita, vf):
 
 
 def _eval_formula(formula, o):
-    """Evalúa una expresión aritmética sobre o["<origen>"] (solo números, + − × ÷, paréntesis, abs/min/max/sum)."""
+    """Evalúa una expresión aritmética sobre o["<origen>"] (solo números, + − × ÷, paréntesis, abs/min/max/sum y, desde la 4.15, round para
+    declarar un redondeo como transformación explícita)."""
+    arbol = _validar_formula(formula)
+    return eval(compile(arbol, "<formula>", "eval"), {"__builtins__": {}}, {"o": o, "abs": abs, "min": min, "max": max, "sum": sum, "round": round})
+
+
+def _validar_formula(formula):
+    """Restricciones sintácticas de una fórmula (sin evaluarla). Devuelve el árbol; ValueError si no se admite."""
     arbol = ast.parse(formula, mode="eval")
     permitidos = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant, ast.Subscript, ast.Name, ast.Load, ast.Add, ast.Sub, ast.Mult, ast.Div,
                   ast.USub, ast.UAdd, ast.Call, ast.List, ast.Tuple, ast.Index if hasattr(ast, "Index") else ast.Constant)
     for n in ast.walk(arbol):
         if not isinstance(n, permitidos):
             raise ValueError(f"elemento no permitido en la fórmula: {type(n).__name__}")
-        if isinstance(n, ast.Name) and n.id not in ("o", "abs", "min", "max", "sum"):
+        if isinstance(n, ast.Name) and n.id not in ("o", "abs", "min", "max", "sum", "round"):
             raise ValueError(f"nombre no permitido: {n.id}")
-    return eval(compile(arbol, "<formula>", "eval"), {"__builtins__": {}}, {"o": o, "abs": abs, "min": min, "max": max, "sum": sum})
+    return arbol
+
+
+def _claves_formula(formula):
+    """(4.15, N2) Orígenes que usa una fórmula: las claves literales de o["…"]."""
+    out = set()
+    for n in ast.walk(ast.parse(formula, mode="eval")):
+        if isinstance(n, ast.Subscript) and isinstance(n.value, ast.Name) and n.value.id == "o":
+            sl = n.slice.value if hasattr(ast, "Index") and isinstance(n.slice, getattr(ast, "Index")) else n.slice
+            if isinstance(sl, ast.Constant):
+                out.add(str(sl.value))
+            else:
+                out.add(None)  # índice no literal: no se puede saber qué origen usa
+    return out
+
+
+def _frac(x):
+    """Número exacto desde su representación decimal (849.697 es 849697/1000, no el binario más cercano)."""
+    if isinstance(x, bool) or not isinstance(x, (int, float, fractions.Fraction)):
+        raise ValueError(f"valor no numérico en la fórmula: {x!r}")
+    if isinstance(x, (int, fractions.Fraction)):
+        return fractions.Fraction(x)
+    if x != x or abs(x) == float("inf"):
+        raise ValueError("valor no finito en la fórmula")
+    return fractions.Fraction(repr(x))
+
+
+def _round_frac(x, n=0):
+    """ROUND de la hoja de cálculo (mitad lejos de cero), exacto."""
+    if not isinstance(n, int) and not (isinstance(n, fractions.Fraction) and n.denominator == 1):
+        raise ValueError("round(…, n) exige un entero n")
+    n = int(n)
+    q = fractions.Fraction(10) ** n
+    y = abs(x) * q
+    e = int(y)
+    if y - e >= fractions.Fraction(1, 2):
+        e += 1
+    return (e if x >= 0 else -e) / q
+
+
+def _eval_formula_exacta(formula, o, sin_redondeo=False):
+    """(4.15, tercera revisión, T1) Evalúa la fórmula con aritmética decimal EXACTA (fractions), con las mismas operaciones que
+    _eval_formula; round es el de la hoja (mitad lejos de cero). `sin_redondeo` hace de round la identidad (control de sensibilidad)."""
+    arbol = _validar_formula(formula)  # mismas restricciones sintácticas (lanza ValueError)
+
+    def ev(n):
+        if isinstance(n, ast.Expression):
+            return ev(n.body)
+        if isinstance(n, ast.Constant):
+            return _frac(n.value)
+        if isinstance(n, ast.Subscript):
+            sl = n.slice.value if hasattr(ast, "Index") and isinstance(n.slice, getattr(ast, "Index")) else n.slice
+            return _frac(o[sl.value if isinstance(sl, ast.Constant) else ev(sl)])
+        if isinstance(n, ast.UnaryOp):
+            v = ev(n.operand)
+            return -v if isinstance(n.op, ast.USub) else v
+        if isinstance(n, ast.BinOp):
+            a, b = ev(n.left), ev(n.right)
+            return {ast.Add: lambda: a + b, ast.Sub: lambda: a - b, ast.Mult: lambda: a * b, ast.Div: lambda: a / b}[type(n.op)]()
+        if isinstance(n, (ast.List, ast.Tuple)):
+            return [ev(x) for x in n.elts]
+        if isinstance(n, ast.Call):
+            args = [ev(x) for x in n.args]
+            f = n.func.id
+            if f == "round":
+                return args[0] if sin_redondeo else _round_frac(*args)
+            if f == "abs":
+                return abs(args[0])
+            seq = args[0] if len(args) == 1 and isinstance(args[0], list) else args
+            return {"min": min, "max": max, "sum": sum}[f](seq)
+        raise ValueError(f"elemento no permitido en la fórmula: {type(n).__name__}")
+    return ev(arbol)
+
+
+def _constantes_no_admitidas(formula):
+    """(4.15, tercera revisión, T2) Una cifra de la fuente no se escribe en la fórmula: solo se admiten como literales los enteros de 1 a
+    12 (p. ej. el divisor de una media), las potencias de diez (cambios de unidad) y el número de decimales de round."""
+    arbol = ast.parse(formula, mode="eval")
+    exentas = set()
+    for n in ast.walk(arbol):
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "round" and len(n.args) == 2:
+            exentas.add(id(n.args[1]))
+    malas = []
+    for n in ast.walk(arbol):
+        if isinstance(n, ast.Constant) and isinstance(n.value, (int, float)) and not isinstance(n.value, bool) and id(n) not in exentas:
+            v = fractions.Fraction(repr(n.value)) if isinstance(n.value, float) else fractions.Fraction(n.value)
+            pot10 = v > 0 and any(v == fractions.Fraction(10) ** k for k in range(-12, 13))
+            if not ((v.denominator == 1 and 1 <= v <= 12) or pot10):
+                malas.append(n.value)
+    return malas
+
+
+def _cmp_txt(s):
+    """(4.15, hallazgo 12) Forma de comparación entre el texto conservado y el extraído del PDF: NFKC (ligaduras), sin espacios, minúsculas."""
+    return re.sub(r"\s+", "", unicodedata.normalize("NFKC", "" if s is None else str(s))).lower()
+
+
+_PDF_CACHE = {}
+
+
+def _texto_pdf(ruta, n, layout=True):
+    """(4.15, hallazgo 12) («ok», texto) de la página n del PDF con pdftotext (herramienta exigida por comprobar_entorno.sh);
+    («discrepancia», motivo) si no es un PDF o la página no existe; («pendiente», motivo) si no se puede extraer."""
+    clave = (ruta, n, layout, _sha(ruta))
+    if clave in _PDF_CACHE:
+        return _PDF_CACHE[clave]
+    try:
+        cab = open(ruta, "rb").read(1024)
+    except OSError as ex:
+        return "pendiente", f"el PDF no se puede leer ({type(ex).__name__})"
+    if b"%PDF-" not in cab:
+        r = ("discrepancia", "el archivo de la fuente no es un PDF (sin cabecera %PDF): el texto conservado no puede ser el de ese documento")
+        _PDF_CACHE[clave] = r
+        return r
+    import shutil as _sh
+    import subprocess as _sp
+    if not _sh.which("pdftotext"):
+        return "pendiente", "pdftotext no está disponible: no se puede comprobar que el texto conservado es el del PDF"
+    try:
+        info = _sp.run(["pdfinfo", ruta], capture_output=True, text=True, timeout=60) if _sh.which("pdfinfo") else None
+        m = re.search(r"^Pages:\s+(\d+)", info.stdout, re.M) if info is not None else None
+        if m and n > int(m.group(1)):
+            r = ("discrepancia", f"la página {n} no existe en el PDF ({m.group(1)} páginas)")
+            _PDF_CACHE[clave] = r
+            return r
+        p = _sp.run(["pdftotext", "-q"] + (["-layout"] if layout else []) + ["-f", str(n), "-l", str(n), "-enc", "UTF-8", ruta, "-"], capture_output=True, timeout=120)
+    except (OSError, _sp.SubprocessError) as ex:
+        return "pendiente", f"pdftotext no pudo extraer la página {n} ({type(ex).__name__})"
+    if p.returncode != 0:
+        r = ("discrepancia", f"pdftotext no puede extraer la página {n} del PDF (código {p.returncode}): página inexistente o PDF ilegible")
+        _PDF_CACHE[clave] = r
+        return r
+    r = ("ok", p.stdout.decode("utf-8", errors="replace"))
+    _PDF_CACHE[clave] = r
+    return r
+
+
+def _tipo_fuente(ruta):
+    """(4.15, tercera revisión, T4) Tipo de una fuente conservada por su CONTENIDO, no por su nombre: «pdf» (cabecera %PDF-, o extensión
+    .pdf: si no tiene la cabecera, _texto_pdf lo rechaza), «html», «texto» (un .txt) u «otro»."""
+    try:
+        cab = open(ruta, "rb").read(2048)
+    except OSError:
+        cab = b""
+    ext = str(ruta).lower()
+    if cab.lstrip().startswith(b"%PDF-") or ext.endswith(".pdf"):
+        return "pdf"
+    c = cab.lstrip().lower()
+    if ext.endswith((".htm", ".html", ".xhtml")) or c.startswith((b"<!doctype html", b"<html")):
+        return "html"
+    if ext.endswith(".txt"):
+        return "texto"
+    return "otro"
+
+
+def _contiene_texto(hay, aguja):
+    """(4.15, hallazgo 12) Un valor de texto aparece en la cita como palabra completa («EUR» no vale dentro de «NEURROS»)."""
+    a, h = _norm_txt(aguja), _norm_txt(hay)
+    return bool(a) and re.search(r"(?<!\w)" + re.escape(a) + r"(?!\w)", h) is not None
 
 
 def cargar(carpeta):
@@ -166,6 +593,8 @@ def cargar(carpeta):
         return None, f"{REGISTRO} no se puede leer ({type(e).__name__})"
     if not isinstance(d, dict) or not isinstance(d.get("entradas"), list):
         return None, f"{REGISTRO} no tiene la estructura esperada (objeto con «entradas»)"
+    if str(d.get("formato") or "") not in FORMATOS_ADMITIDOS:
+        return None, f"{REGISTRO} tiene el formato {d.get('formato')!r}, que no es ninguno de {FORMATOS_ADMITIDOS}"
     return d, None
 
 
@@ -174,15 +603,107 @@ def perimetro_esperado(carpeta, reg):
     return str((reg or {}).get("perimetro_del_expediente") or "").strip() or None
 
 
-def comprobar(carpeta):
+ENTRADAS_FCF_BASE = tuple(f"Análisis!{c}" for c in ("C46", "C47", "C48", "C49", "C50"))
+
+
+def entradas_no_reproducibles(carpeta, inst):
+    """(4.15, C48 de Elis; revisión independiente, hallazgo 4) Entradas del FCF base con valor en el libro que la vía generativa no reproduce:
+    fase1_v63.json declara otro valor, no la declara (o la declara sin número), o no hay fase1_v63.json legible (no se puede determinar).
+    {celda: (valor del libro, valor declarado, motivo)}. Falla en cerrado."""
+    decl = _f1_declaraciones(carpeta)
+    out = {}
+    for k in ENTRADAS_FCF_BASE:
+        if k not in inst["celdas"]:
+            continue
+        vl = inst["celdas"].get(k)
+        if vl is None or vl == "":
+            continue
+        if decl is None:
+            out[k] = (vl, None, "no hay fase1_v63.json legible: no se puede determinar si la vía generativa reproduce la entrada efectiva")
+            continue
+        d = decl.get(k.split("!")[1])
+        vf = d.get("valor") if isinstance(d, dict) else d
+        if not _num(vf):
+            out[k] = (vl, vf, "fase1_v63.json no declara esta entrada con un número: el libro la sostiene solo por el valor de la etapa 1")
+        elif not _num(vl) or abs(vf - vl) > 1e-9 * max(1.0, abs(vf), abs(vl)):
+            out[k] = (vl, vf, "fase1_v63.json (la vía generativa) declara otro valor: el libro lo sostiene solo por el valor migrado de la etapa 1")
+    return out
+
+
+def contraste_pagina(carpeta, k, f, ruta, vf):
+    """(4.15, R1) Contraste de la cita en la página citada de una fuente local. None si pasa; si no, (categoría, motivo).
+    El texto examinable es el propio archivo si es .txt con marcas «[PDF PAGE n]», o «archivo_texto» (con su «sha256_texto») si la
+    fuente conservada es un PDF, un HTML u otro formato. Sin texto examinable, la página no puede examinarse: pendiente."""
+    if str(ruta).lower().endswith(".txt") and _tipo_fuente(ruta) == "texto":
+        ruta_txt = ruta
+    else:
+        ruta_txt = _ruta_fuente(carpeta, f.get("archivo_texto"))
+        if not f.get("archivo_texto"):
+            return "pendiente", f"la fuente {f.get('archivo')} no es un texto con marcas de página y no declara «archivo_texto»: la página citada no puede examinarse"
+        if ruta_txt is None:
+            return "pendiente", f"el texto de la fuente {f.get('archivo_texto')!r} no existe: la página citada no puede examinarse"
+        if not f.get("sha256_texto"):
+            return "pendiente", f"el texto de la fuente {f.get('archivo_texto')!r} no tiene «sha256_texto»: no se puede comprobar que es el examinado"
+        if _sha(ruta_txt) != str(f["sha256_texto"]).strip().lower():
+            return "desactualizada", f"el texto de la fuente {f.get('archivo_texto')} cambió (sha256_texto distinto del registrado)"
+    estado, pag = _pagina_examinable(ruta_txt, f.get("pagina"))
+    if estado != "ok":
+        return estado, f"{pag} ({f.get('archivo_texto') or f.get('archivo')})"
+    if not _norm_txt(f.get("cita")):
+        return "pendiente", "la cita está vacía (tras normalizar los espacios): no hay pasaje que contrastar"
+    if _norm_txt(f.get("cita")) not in _norm_txt(pag):
+        return "discrepancia", f"la cita no está en la página {f.get('pagina')} de {f.get('archivo_texto') or f.get('archivo')}"
+    tipo_f = _tipo_fuente(ruta)
+    if tipo_f == "html":
+        # (4.15, tercera revisión, T4) una fuente HTML: la cita tiene que estar en su texto (sin etiquetas), no solo en el texto conservado
+        import html as _html
+        try:
+            crudo = open(ruta, encoding="utf-8", errors="replace").read()
+        except OSError as ex:
+            return "pendiente", f"la fuente HTML no se puede leer ({type(ex).__name__})"
+        plano = _html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", crudo)))
+        if _cmp_txt(f.get("cita")) not in _cmp_txt(plano):
+            return "discrepancia", f"la cita está en el texto conservado {f.get('archivo_texto')!r}, pero no en la fuente HTML {f.get('archivo')!r}"
+    elif tipo_f == "otro" and not str(ruta).lower().endswith(".txt"):
+        return "pendiente", (f"la fuente {f.get('archivo')!r} no es un PDF, un HTML ni un texto con marcas de página: no se puede comprobar que el texto "
+                             "conservado es el de la fuente (tercera revisión, T4)")
+    if tipo_f == "pdf":
+        # (4.15, segunda revisión, hallazgo 12) el texto conservado tiene que ser el del PDF: la cita está en esa página del propio PDF
+        # (con «-layout», como texto_con_marcas de cambiar_base.py, y sin él: el orden de las columnas puede cambiar entre los dos modos)
+        est_pdf, txt_pdf = _texto_pdf(ruta, _numero_pagina(f.get("pagina")))
+        if est_pdf != "ok":
+            return est_pdf, f"{txt_pdf} ({f.get('archivo')})"
+        if not txt_pdf.strip() and not _texto_pdf(ruta, _numero_pagina(f.get("pagina")), layout=False)[1].strip():
+            return "pendiente", (f"la página {f.get('pagina')} del PDF {f.get('archivo')!r} no tiene capa de texto (pdftotext no extrae nada): el texto "
+                                 "conservado (p. ej. un OCR) no se puede contrastar con el PDF; lo revisa el revisor independiente")
+        if _cmp_txt(f.get("cita")) not in _cmp_txt(txt_pdf) and _cmp_txt(f.get("cita")) not in _cmp_txt(_texto_pdf(ruta, _numero_pagina(f.get("pagina")), layout=False)[1]):
+            return "discrepancia", (f"la cita está en el texto conservado {f.get('archivo_texto')!r}, pero no en la página {f.get('pagina')} del PDF "
+                                    f"{f.get('archivo')!r} (pdftotext): el texto conservado no es el de ese documento")
+    if vf is not None and not _num(vf):
+        # (4.15, hallazgo 12) un dato publicado de TEXTO: la cita tiene que contener el valor (o una equivalencia declarada en «equivalencia»)
+        eq = [_norm_txt(x) for x in ([vf] + ([f.get("equivalencia")] if f.get("equivalencia") else [])) if _norm_txt(x)]
+        if not any(_contiene_texto(f.get("cita"), x) for x in eq):
+            return "discrepancia", f"la cita no contiene el valor de texto {vf!r} (ni una equivalencia declarada en «equivalencia»)"
+        return None
+    if vf is not None and not _cita_contiene(f.get("cita"), vf):
+        return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa (formato equivalente, sin redondear)"
+    return None
+
+
+def comprobar(carpeta, _presellar=frozenset()):
     """Informe de la verificación: cobertura, entradas comprobadas, pendientes, desactualizadas, discrepancias y errores del contrato, con la
-    aptitud por entradas. Nunca lanza: un registro ausente o ilegible es «no verificado»."""
+    aptitud por entradas. Nunca lanza: un registro ausente o ilegible es «no verificado», y una entrada mal formada es un error del contrato.
+    `_presellar` (solo para `sellar`): celdas cuyo vínculo se da por escrito para saber si pasan todos los demás controles."""
     inst = universo(carpeta)
     out = {"formato": FORMATO, "universo": (inst or {}).get("n"), "huella_entradas_economicas": (inst or {}).get("huella"), "registro": None,
            "por_clase": {}, "comprobadas": [], "pendientes": [], "desactualizadas": [], "discrepancias": [], "errores": [], "sin_entrada": [],
-           "sobrantes": [], "repetidas": [], "auxiliares": 0, "materiales_no_comprobadas": [], "apto_por_entradas": False, "motivo": None}
+           "sobrantes": [], "repetidas": [], "auxiliares": 0, "materiales_no_comprobadas": [], "apto_por_entradas": False, "motivo": None,
+           "lecturas_externas": [], "universo_calculo": (inst or {}).get("n_calculo"), "universo_juicio": (inst or {}).get("n_juicio"),
+           "no_materiales": [], "datos_como_hipotesis": [], "entradas_no_reproducibles": [], "no_materiales_sin_revisar": [],
+           "no_materiales_revisados": [], "no_aplicables": [], "claves_lecturas_externas": [], "resumen": None}
     if inst is None:
         out["motivo"] = "no hay libro del expediente: no se puede fijar el universo de entradas"
+        out["resumen"] = out["motivo"]  # (T6) nunca None
         return out
     reg, err = cargar(carpeta)
     if reg is None:
@@ -190,8 +711,17 @@ def comprobar(carpeta):
         out["sin_entrada"] = sorted(inst["celdas"])
         out["pendientes"] = [f"{k}: sin entrada en el registro" for k in out["sin_entrada"]]
         out["materiales_no_comprobadas"] = [k for k in out["sin_entrada"] if inst["tipos"].get(k) != "hipótesis"]
+        out.update(comprobadas_universo=0, comprobadas_calculo=0, comprobadas_juicio=0)  # (4.15, I9) «0 de N», nunca «None de N»
+        out["resumen"] = out["motivo"]  # (T6) nunca None
         return out
     out["registro"] = REGISTRO
+    out["formato_registro"] = reg.get("formato")
+    evid = evidencia_libro(carpeta)
+    try:
+        huellas = huellas_registro(carpeta, reg, evid)
+    except Exception:  # noqa: BLE001  (registro mal formado: ninguna huella vigente)
+        huellas = {}
+    en_curso = set()
     anios = _anios(inst)
     per_esp = perimetro_esperado(carpeta, reg)
     unidad_modelo = str(inst["celdas"].get("Control maestro!J4") or "mm").strip().lower()
@@ -219,14 +749,58 @@ def comprobar(carpeta):
         estado[k] = cat
         out[{"error": "errores", "pendiente": "pendientes", "desactualizada": "desactualizadas", "discrepancia": "discrepancias"}[cat]].append(f"{k}: {motivo}")
 
+    def _depende_de_hipotesis(k, vistos_=None):
+        vistos_ = set() if vistos_ is None else vistos_
+        e = por_celda.get(k) or {}
+        d = e.get("derivacion") if isinstance(e.get("derivacion"), dict) else {}
+        for o in (d.get("origenes") or []) if e.get("clase") == "derivado" else []:
+            o = str(o)
+            if o in vistos_:
+                continue
+            vistos_.add(o)
+            eo = por_celda.get(o) or {}
+            if eo.get("clase") in ("hipotesis", "convencion") or _depende_de_hipotesis(o, vistos_):
+                return True
+        return False
+
     def revisar_una(k, e):
+        en_curso.add(k)
+        try:
+            return _revisar_una(k, e)
+        except Exception as ex:  # noqa: BLE001  (4.15, observación 21: nunca lanza)
+            return problema(k, "error", f"entrada mal formada ({type(ex).__name__}: {str(ex)[:100]})")
+        finally:
+            en_curso.discard(k)
+
+    def _revisar_una(k, e):
         clase = e.get("clase")
+        if not isinstance(clase, str):
+            return problema(k, "error", f"clase {clase!r} no es una de {CLASES}")
         out["por_clase"][clase] = out["por_clase"].get(clase, 0) + 1
         if clase not in CLASES:
             return problema(k, "error", f"clase {clase!r} no es una de {CLASES}")
         tipo_u = inst["tipos"].get(k)
         if tipo_u == "hipótesis" and clase not in ("hipotesis", "convencion"):
             return problema(k, "error", f"la celda es una hipótesis del modelo ({inst['ids'].get(k)}): no se presenta como {clase}")
+        # (4.15, revisión independiente, hallazgo 1) una entrada de cálculo es material por definición (relación de entradas materiales);
+        # una de juicio solo deja de serlo con su justificación, y se lista
+        if e.get("material") is False:
+            if not k.startswith("aux:") and inst["ambito"].get(k) == "calculo":
+                return problema(k, "error", "una entrada de cálculo es material por definición: «material: false» no se admite")
+            if not str(e.get("justificacion_materialidad") or "").strip():
+                return problema(k, "error", "«material: false» sin «justificacion_materialidad»")
+            out["no_materiales"].append(k)
+        # (4.15, hallazgo 2) un DATO del modelo presentado como hipótesis o convención exige su justificación de clase y la revisión
+        # independiente completa, y se lista aparte; «no aplicable» no se admite con un valor distinto de cero en el libro
+        dato_como_hip = clase in ("hipotesis", "convencion") and tipo_u == "dato"
+        if dato_como_hip:
+            if not str(e.get("justificacion_clase") or "").strip():
+                return problema(k, "error", f"la celda es un dato del modelo ({inst['ids'].get(k)}) presentado como {clase} sin «justificacion_clase»")
+            out["datos_como_hipotesis"].append(k)
+        if clase == "no_aplicable" and not k.startswith("aux:") and _num(inst["celdas"].get(k)) and inst["celdas"].get(k) != 0:
+            return problema(k, "error", f"no aplicable con un valor en el libro ({inst['celdas'].get(k)!r}): es un dato que hay que contrastar")
+        if clase == "no_aplicable" and not k.startswith("aux:"):
+            out["no_aplicables"].append(k)  # (4.15, N2) se cuentan aparte, también con el registro apto
         if clase in ("hipotesis", "convencion"):
             h = e.get("hipotesis") or {}
             falta = [c for c in ("fundamento", "alternativas", "limites") if not h.get(c)]
@@ -236,19 +810,32 @@ def comprobar(carpeta):
                 return problema(k, "error", f"{clase} presentada con un valor de fuente: no es un dato publicado")
         if not k.startswith("aux:"):
             actual = inst["celdas"].get(k)
-            if not _igual(actual, e.get("valor_modelo")):
+            if not _igual_exacto(actual, e.get("valor_modelo")):  # (4.15, hallazgo 5) vigencia exacta
                 return problema(k, "desactualizada", f"el libro dice {actual!r} y el registro {e.get('valor_modelo')!r}: la comprobación no vale para el dato actual")
         if clase in ("dato_publicado", "cero_comprobado"):
             f = e.get("fuente") if isinstance(e.get("fuente"), dict) else {}
+            conserv = str(f.get("conservacion") or ("local" if f.get("archivo") else "")).strip().lower()
+            if conserv not in CONSERVACION:
+                return problema(k, "pendiente", "la fuente no declara un archivo local conservado ni una lectura externa («conservacion»): no hay evidencia que examinar")
             falta = [c for c in CAMPOS_FUENTE if f.get(c) in (None, "")]
             if falta:
                 return problema(k, "pendiente", f"faltan campos del contraste documental: {', '.join(falta)}")
-            ruta = _ruta_fuente(carpeta, f.get("archivo"))
-            if f.get("sha256"):
+            ruta = None
+            if conserv == "local":
+                # (4.15, R2) una fuente local tiene que existir con su huella: si falta, el contraste no es reproducible (las
+                # declaraciones del extractor y del revisor no sustituyen la comprobación de la evidencia)
+                ruta = _ruta_fuente(carpeta, f.get("archivo"))
                 if ruta is None:
-                    return problema(k, "pendiente", f"la fuente conservada {f.get('archivo')!r} no está en el expediente ni en el paquete")
-                if _sha(ruta) != f["sha256"]:
+                    return problema(k, "pendiente", f"la fuente local {f.get('archivo')!r} no está en el expediente ni en el paquete: su contraste no es reproducible")
+                if not f.get("sha256"):
+                    return problema(k, "pendiente", f"la fuente local {f.get('archivo')!r} no tiene sha256 registrado: no se puede comprobar que es la que se examinó")
+                if _sha(ruta) != str(f["sha256"]).strip().lower():
                     return problema(k, "desactualizada", f"la fuente {f.get('archivo')} cambió (sha256 distinto del registrado)")
+            else:
+                le = f.get("lectura_externa") if isinstance(f.get("lectura_externa"), dict) else {}
+                falta_le = [c for c in CAMPOS_LECTURA_EXTERNA if not str(le.get(c) or "").strip()]
+                if falta_le:
+                    return problema(k, "pendiente", f"lectura externa sin {', '.join(falta_le)} (sin bytes conservados, la evidencia, la fecha y las limitaciones tienen que ser explícitas)")
             esc, sig, vf = f.get("escala"), f.get("signo"), f.get("valor_fuente")
             vm = e.get("valor_modelo") if k.startswith("aux:") else inst["celdas"].get(k)
             if vm is None and (_num(vf) or clase == "cero_comprobado"):
@@ -257,21 +844,25 @@ def comprobar(carpeta):
                 # dato publicado de texto (moneda, unidad, norma, mercado…): el valor de la fuente es el del modelo, sin escala ni signo
                 if _norm_txt(vf) != _norm_txt(vm):
                     return problema(k, "discrepancia", f"el valor de la fuente {vf!r} no es el del modelo {vm!r}")
-                if ruta and ruta.endswith(".txt"):
-                    pag = _texto_pagina(ruta, f.get("pagina"))
-                    if pag is not None and _norm_txt(f.get("cita")) not in _norm_txt(pag):
-                        return problema(k, "discrepancia", f"la cita no está en la página {f.get('pagina')} de {f.get('archivo')}")
-                return revisar_comprobacion(k, e)
+                if conserv == "local":
+                    r_pag = contraste_pagina(carpeta, k, f, ruta, vf)  # (4.15, hallazgo 12) la cita de un dato de texto contiene su valor
+                    if r_pag:
+                        return problema(k, *r_pag)
+                return revisar_comprobacion(k, e, externa=conserv == "externa")
             if not (_num(esc) and sig in (1, -1, "+1", "-1") and _num(vf)):
                 return problema(k, "error", "escala, signo (+1/−1) o valor_fuente no numéricos")
             sig = int(sig)
             u = UNIDADES.get(_norm_txt(f.get("unidad")))
             um = UNIDADES.get(unidad_modelo, 1.0)
-            if u is not None and _num(um) and um and not _igual(esc, u / um):
-                return problema(k, "error", f"escala {esc} incoherente con las unidades (fuente «{f.get('unidad')}» → modelo «{unidad_modelo}» = {u / um:g})")
-            if not _igual(sig * esc * vf, vm):
-                return problema(k, "discrepancia", f"signo × escala × valor_fuente = {sig * esc * vf:g} ≠ valor del modelo {vm!r}")
-            if clase == "cero_comprobado" and not _igual(vm, 0):
+            if u is not None and _num(um) and um and not _igual_exacto(esc, u / um):
+                return problema(k, "error", f"escala {esc!r} incoherente con las unidades (fuente «{f.get('unidad')}» → modelo «{unidad_modelo}» = {u / um!r})")
+            if u is None and not any(_igual_exacto(esc, 10.0 ** k_) for k_ in range(-12, 13)):
+                # (4.15, tercera revisión) con una unidad no monetaria (o no reconocida) la escala solo puede ser un cambio de unidad
+                return problema(k, "error", f"escala {esc!r} con la unidad «{f.get('unidad')}»: fuera de las unidades monetarias reconocidas la escala tiene que ser una potencia de diez")
+            importe = u is not None  # (4.15, hallazgo 5) la tolerancia del redondeo del libro solo vale para importes en unidades monetarias
+            if not (_igual_libro(sig * esc * vf, vm) if importe else _igual_exacto(sig * esc * vf, vm)):
+                return problema(k, "discrepancia", f"signo × escala × valor_fuente = {sig * esc * vf!r} ≠ valor del modelo {vm!r}")
+            if clase == "cero_comprobado" and not _igual_exacto(vm, 0):
                 return problema(k, "error", "cero comprobado con un valor distinto de cero")
             m = re.match(r"^Historia!([C-L])(\d+)$", k)
             if m and anios[COL_ANIO[m.group(1)]] is not None:
@@ -280,52 +871,97 @@ def comprobar(carpeta):
                     return problema(k, "error", f"la columna {m.group(1)} de la Historia es {anio}, pero el período declarado es «{f.get('periodo')}» (columna «{f.get('columna')}»)")
             if per_esp and _norm_txt(f.get("perimetro")) != _norm_txt(per_esp) and not str(f.get("perimetro_justificacion") or "").strip():
                 return problema(k, "error", f"perímetro «{f.get('perimetro')}» distinto del del expediente «{per_esp}» sin justificación")
-            if ruta and ruta.endswith(".txt"):
-                pag = _texto_pagina(ruta, f.get("pagina"))
-                if pag is not None:
-                    if _norm_txt(f.get("cita")) not in _norm_txt(pag):
-                        return problema(k, "discrepancia", f"la cita no está en la página {f.get('pagina')} de {f.get('archivo')}")
-                    if not _cita_contiene(f.get("cita"), vf):
-                        return problema(k, "discrepancia", f"la cita no contiene el valor de la fuente {vf:g} como cifra completa")
+            if conserv == "local":
+                r_pag = contraste_pagina(carpeta, k, f, ruta, vf)
+                if r_pag:
+                    return problema(k, *r_pag)
+            return revisar_comprobacion(k, e, externa=conserv == "externa")
         elif clase == "derivado":
             d = e.get("derivacion") if isinstance(e.get("derivacion"), dict) else {}
             if not d.get("origenes") or not d.get("formula") or not str(d.get("conciliacion") or "").strip():
                 return problema(k, "pendiente", "derivado sin orígenes, fórmula o conciliación")
+            if not isinstance(d["origenes"], list) or not all(isinstance(o, str) and o for o in d["origenes"]) or not isinstance(d["formula"], str):
+                return problema(k, "error", "«origenes» tiene que ser una lista de celdas o auxiliares y «formula» un texto (tercera revisión, T3)")
+            try:
+                ctes = _constantes_no_admitidas(d["formula"])
+            except (SyntaxError, ValueError) as ex:
+                return problema(k, "error", f"fórmula no evaluable ({type(ex).__name__}: {str(ex)[:80]})")
+            if ctes:
+                return problema(k, "error", f"la fórmula escribe cifras {ctes!r}: una cifra de la fuente entra como origen, con su clase y su revisión "
+                                            "(solo se admiten enteros de 1 a 12, potencias de diez y los decimales de round)")
+            try:
+                usadas = _claves_formula(d["formula"])
+            except (SyntaxError, ValueError) as ex:
+                return problema(k, "error", f"fórmula no evaluable ({type(ex).__name__}: {str(ex)[:80]})")
+            if usadas != {str(o) for o in d["origenes"]}:
+                # (4.15, N2) una fórmula constante, o que no usa todos sus orígenes, no deriva el valor de ellos
+                return problema(k, "error", f"la fórmula usa {sorted(map(str, usadas))} y los orígenes declarados son {sorted(map(str, d['origenes']))}: "
+                                            "un derivado se calcula con todos sus orígenes y solo con ellos")
             vals = {}
             for o in d["origenes"]:
                 if o not in por_celda:
                     return problema(k, "pendiente", f"el origen {o} no tiene entrada en el registro")
+                if o in en_curso:
+                    return problema(k, "error", f"derivación circular: {o} depende de {k}")
+                if por_celda[o].get("clase") not in ("dato_publicado", "cero_comprobado", "derivado", "hipotesis", "convencion"):
+                    # (4.15, tercera revisión, T2) un dato ausente o no aplicable no lleva un número del que derivar otro
+                    return problema(k, "error", f"el origen {o} es de clase {por_celda[o].get('clase')!r}: un derivado solo se obtiene de datos publicados, ceros comprobados, "
+                                                "otros derivados o hipótesis y convenciones declaradas")
                 if o not in estado:
                     revisar_una(o, por_celda[o])
                 if estado.get(o) != "comprobada":
                     return problema(k, "pendiente", f"el origen {o} no está comprobado ({estado.get(o)})")
                 vals[o] = por_celda[o].get("valor_modelo") if o.startswith("aux:") else inst["celdas"].get(o)
             try:
-                r = _eval_formula(d["formula"], vals)
+                # (4.15, tercera revisión, T1) aritmética decimal exacta: 120,4 − 120,4 es 0 sin tolerancia, y la comparación es relativa al
+                # resultado, no a los orígenes
+                r_ex = _eval_formula_exacta(d["formula"], vals)
+                r = float(r_ex)
+                # (T2) cada origen tiene que influir en el resultado (sin round): o["x"] * 0 + c, o["x"] − o["x"] + c o min(o["x"], c) no derivan
+                base_s = _eval_formula_exacta(d["formula"], vals, sin_redondeo=True)
+                inertes = []
+                for o in d["origenes"]:
+                    v_o = _frac(vals[o])
+                    pert = dict(vals, **{o: v_o * (1 + fractions.Fraction(1, 10 ** 7)) + fractions.Fraction(1, 10 ** 7)})
+                    if _eval_formula_exacta(d["formula"], pert, sin_redondeo=True) == base_s:
+                        inertes.append(o)
             except Exception as ex:  # noqa: BLE001
                 return problema(k, "error", f"fórmula no evaluable ({type(ex).__name__}: {str(ex)[:80]})")
+            if inertes:
+                return problema(k, "error", f"los orígenes {inertes} no influyen en el resultado de la fórmula: el valor no se deriva de ellos")
             vm = e.get("valor_modelo") if k.startswith("aux:") else inst["celdas"].get(k)
-            if not _igual(r, vm):
-                return problema(k, "discrepancia", f"la fórmula da {r:g} y el modelo {vm!r}")
+            importe = UNIDADES.get(_norm_txt(d.get("unidad"))) is not None  # (4.15, N4) el redondeo del libro, solo en importes
+            if not (_igual_libro(r, vm) if importe else _igual_exacto(r, vm)):
+                return problema(k, "discrepancia", f"la fórmula da {r!r} y el modelo {vm!r} (" + ("ni exacto ni con el redondeo del libro a 3 decimales" if importe else
+                                                    "no es exacto; el redondeo del libro a 3 decimales solo vale en un importe («derivacion.unidad»)")
+                                + "; una transformación distinta se declara en la fórmula, p. ej. round(…, 4))")
+            # (4.15, N2) un DATO que se obtiene de una hipótesis o convención (directa o indirectamente) es un dato presentado como hipótesis
+            if not k.startswith("aux:") and tipo_u == "dato" and _depende_de_hipotesis(k):
+                if not str(e.get("justificacion_clase") or "").strip():
+                    return problema(k, "error", f"la celda es un dato del modelo ({inst['ids'].get(k)}) derivado de una hipótesis o convención sin «justificacion_clase»")
+                out["datos_como_hipotesis"].append(k)
         elif clase in ("dato_ausente", "no_aplicable"):
             if not str(e.get("justificacion") or "").strip():
                 return problema(k, "pendiente", f"{clase} sin justificación")
+            if k.startswith("aux:") and _num(e.get("valor_modelo")) and e.get("valor_modelo") != 0:
+                return problema(k, "error", f"un auxiliar {clase} con un número ({e.get('valor_modelo')!r}): sin dato no hay valor (tercera revisión, T2)")
             if clase == "dato_ausente" and _num(inst["celdas"].get(k)) and not k.startswith("aux:"):
                 return problema(k, "error", "dato ausente con un valor en el libro: es un dato (o un cero) que hay que contrastar")
         return revisar_comprobacion(k, e)
 
-    def revisar_comprobacion(k, e):
+    def revisar_comprobacion(k, e, externa=False):
         clase = e.get("clase")
         c = e.get("comprobacion") if isinstance(e.get("comprobacion"), dict) else {}
-        if clase in ("hipotesis", "convencion") and c.get("resultado") == "discrepancia":
+        es_hip = clase in ("hipotesis", "convencion") and inst["tipos"].get(k) != "dato"  # (hallazgo 2) un dato como hipótesis se revisa entero
+        if es_hip and c.get("resultado") == "discrepancia":
             # (14-nov-2026, hallazgo del revisor RD) una hipótesis o convención no exige revisor, pero si un revisor registra una
             # discrepancia (p. ej. su fundamento ya no describe el dato vigente), cuenta: antes se ignoraba y el registro salía «apto»
             return problema(k, "discrepancia", f"el revisor registra una discrepancia en la {clase}: {str(c.get('nota') or e.get('incidencia') or '')[:120]}")
-        if clase in ("hipotesis", "convencion") and c.get("resultado") == "pendiente":
+        if es_hip and c.get("resultado") == "pendiente":
             # (14-nov-2026, hallazgo de la orquestación) una hipótesis o convención cuyo registro queda explícitamente «pendiente»
             # (p. ej. texto sustituido a la espera de la confirmación del revisor) no está comprobada: antes contaba como comprobada
             return problema(k, "pendiente", f"la {clase} tiene la comprobación pendiente: {str(c.get('nota') or '')[:120]}")
-        if clase not in ("hipotesis", "convencion"):
+        if not es_hip:
             if c.get("resultado") not in RESULTADOS:
                 return problema(k, "pendiente", "sin resultado de la comprobación")
             if c.get("resultado") == "discrepancia":
@@ -336,27 +972,87 @@ def comprobar(carpeta):
                 return problema(k, "error", "la comprobación exige un revisor independiente del extractor (los dos declarados y distintos)")
             if not str(c.get("fuente_examinada") or "").strip():
                 return problema(k, "error", "el revisor no declara qué fuente examinó (no basta con aceptar el registro del extractor)")
+        # (4.15, I13) la comprobación vale para el fundamento, la evidencia y la transformación que se examinaron, no solo para el número
+        v = c.get("vinculo") if isinstance(c.get("vinculo"), dict) else {}
+        if k not in _presellar:
+            if not v.get("huella"):
+                return problema(k, "pendiente", "la comprobación no está vinculada a su fundamento, evidencia y transformación (registro anterior a la 4.15 o sin sellar): hay que revisarla de nuevo")
+            if v.get("huella") != huellas.get(k):
+                return problema(k, "desactualizada", "el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión "
+                                                     "(huella del vínculo distinta): la comprobación no vale aunque el número coincida")
+            if _norm_txt(v.get("sellado_por")) != _norm_txt(c.get("revisor")) or str(v.get("fecha") or "") != str(c.get("fecha") or ""):
+                return problema(k, "desactualizada", "el vínculo no lo selló el revisor registrado en la fecha de la comprobación")
+        if externa:
+            estado[k] = "externa"
+            out["claves_lecturas_externas"].append(k)
+            out["lecturas_externas"].append(f"{k}: lectura externa sin bytes conservados ({str(((e.get('fuente') or {}).get('lectura_externa') or {}).get('referencia'))[:100]}); no es un contraste reproducible")
+            return
         estado[k] = "comprobada"
 
     for k, e in por_celda.items():
         if k not in estado:
             revisar_una(k, e)
+    # (4.15, C48 de Elis) una entrada del FCF base que la vía generativa no reproduce no se acredita, aunque su registro esté comprobado
+    # (4.15, C48 de Elis; hallazgo 4) una entrada del FCF base que la vía generativa no reproduce no se acredita y BLOQUEA, sea cual sea el
+    # estado o la materialidad de su registro
+    for k, (vl, vf, por_que) in entradas_no_reproducibles(carpeta, inst).items():
+        motivo = (f"el libro tiene {vl!r} y fase1_v63.json declara {vf!r}: {por_que}; no es reproducible desde las entradas declaradas: hay que "
+                  f"declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis)")
+        out["entradas_no_reproducibles"].append(f"{k}: {motivo}")
+        if estado.get(k) == "comprobada":
+            estado[k] = "discrepancia"
+            out["discrepancias"].append(f"{k}: {motivo}")
+    # (4.15, segunda revisión, N1) una entrada de juicio no material que no está comprobada solo deja de bloquear si un revisor independiente
+    # revisó y selló el juicio de materialidad (su justificación entra en la huella); si no, bloquea como cualquier entrada material
+    for k in out["no_materiales"]:
+        if estado.get(k) == "comprobada":
+            continue
+        e = por_celda.get(k) or {}
+        c = e.get("comprobacion") if isinstance(e.get("comprobacion"), dict) else {}
+        v = c.get("vinculo") if isinstance(c.get("vinculo"), dict) else {}
+        just = re.sub(r"\W", "", str(e.get("justificacion_materialidad") or ""))
+        falta = []
+        if estado.get(k) not in ("pendiente", "externa"):
+            falta.append(f"su estado es «{estado.get(k)}»")
+        if len(just) < 20:
+            falta.append("la justificación de la materialidad no explica nada (menos de 20 caracteres)")
+        if c.get("resultado") != "verificado" or not str(c.get("fuente_examinada") or "").strip():
+            falta.append("sin resultado «verificado» ni fuente examinada del revisor")
+        if not str(c.get("extractor") or "").strip() or not str(c.get("revisor") or "").strip() or _norm_txt(c.get("extractor")) == _norm_txt(c.get("revisor")):
+            falta.append("sin revisor independiente del extractor")
+        if k not in _presellar and (v.get("huella") != huellas.get(k) or _norm_txt(v.get("sellado_por")) != _norm_txt(c.get("revisor"))
+                                    or str(v.get("fecha") or "") != str(c.get("fecha") or "")):
+            falta.append("sin vínculo vigente sellado por el revisor")
+        if falta:
+            out["no_materiales_sin_revisar"].append(f"{k}: declarada no material, pero {'; '.join(falta)}: bloquea como una entrada material")
+        else:
+            out["no_materiales_revisados"].append(k)
     out["comprobadas"] = sorted(k for k, v in estado.items() if v == "comprobada")
     # (14-nov-2026, aviso de la auditoría) «comprobadas» incluye los datos de origen auxiliares; la cobertura del universo se cuenta aparte
     out["comprobadas_universo"] = sum(1 for k in inst["celdas"] if estado.get(k) == "comprobada")
+    out["comprobadas_calculo"] = sum(1 for k in inst["celdas"] if estado.get(k) == "comprobada" and inst["ambito"].get(k) == "calculo")
+    out["comprobadas_juicio"] = sum(1 for k in inst["celdas"] if estado.get(k) == "comprobada" and inst["ambito"].get(k) == "juicio")
     for k in out["sin_entrada"]:
         out["pendientes"].append(f"{k}: sin entrada en el registro")
-    mat_no = [k for k in inst["celdas"] if (por_celda.get(k) or {}).get("material", True) is not False
-              and (por_celda.get(k) or {}).get("clase") not in ("hipotesis", "convencion") and estado.get(k) != "comprobada"]
-    # (14-nov-2026) una hipótesis o convención material con la comprobación explícitamente pendiente también bloquea
-    mat_no += [k for k in inst["celdas"] if (por_celda.get(k) or {}).get("material", True) is not False
-               and (por_celda.get(k) or {}).get("clase") in ("hipotesis", "convencion")
-               and ((por_celda.get(k) or {}).get("comprobacion") or {}).get("resultado") == "pendiente"]
+    # (4.15) toda celda MATERIAL del universo que no está comprobada bloquea, también una hipótesis o convención pendiente (sin vínculo,
+    # con la comprobación explícitamente pendiente) y una lectura externa sin bytes; (14-nov-2026) ya bloqueaba la hipótesis pendiente
+    mat_no = [k for k in inst["celdas"] if (por_celda.get(k) or {}).get("material", True) is not False and estado.get(k) != "comprobada"]
     out["materiales_no_comprobadas"] = mat_no
-    bloqueos = out["sin_entrada"] or out["sobrantes"] or out["repetidas"] or out["errores"] or out["desactualizadas"] or out["discrepancias"] or mat_no
+    bloqueos = (out["sin_entrada"] or out["sobrantes"] or out["repetidas"] or out["errores"] or out["desactualizadas"] or out["discrepancias"] or mat_no
+                or out["entradas_no_reproducibles"] or out["no_materiales_sin_revisar"])
     out["apto_por_entradas"] = not bloqueos
+    # (4.15, N1 y N2) el resumen se da siempre, también con el registro apto: lo que no se contrastó y por qué se ve en el informe
+    out["resumen"] = (f"{out['comprobadas_universo']} de {inst['n']} celdas del universo comprobadas ({out['comprobadas_calculo']} de {inst['n_calculo']} de cálculo y "
+                      f"{out['comprobadas_juicio']} de {inst['n_juicio']} de juicio); {len(out['no_materiales'])} entradas declaradas no materiales (de juicio o auxiliares) "
+                      f"({len(out['no_materiales_revisados'])} con el juicio de materialidad revisado, {len(out['no_materiales_sin_revisar'])} sin revisar); "
+                      f"{len(out['datos_como_hipotesis'])} datos tratados como hipótesis o convención; {len(out['no_aplicables'])} no aplicables; "
+                      f"{len(out['lecturas_externas'])} lecturas externas sin bytes")
     if bloqueos:
-        out["motivo"] = (f"{out['comprobadas_universo']} de {inst['n']} celdas del universo comprobadas (+{out['auxiliares']} datos de origen auxiliares); "
+        out["motivo"] = (f"{out['comprobadas_universo']} de {inst['n']} celdas del universo comprobadas ({out['comprobadas_calculo']} de {inst['n_calculo']} de cálculo y "
+                         f"{out['comprobadas_juicio']} de {inst['n_juicio']} de juicio; +{out['auxiliares']} datos de origen auxiliares); "
+                         f"{len(out['lecturas_externas'])} lecturas externas sin bytes; {len(out['entradas_no_reproducibles'])} entradas del FCF base no reproducibles; "
+                         f"{len(out['datos_como_hipotesis'])} datos tratados como hipótesis o convención; {len(out['no_materiales'])} entradas de juicio no materiales "
+                         f"({len(out['no_materiales_sin_revisar'])} sin el juicio de materialidad revisado); {len(out['no_aplicables'])} no aplicables; "
                          f"{len(mat_no)} entradas materiales sin comprobar; {len(out['desactualizadas'])} desactualizadas; {len(out['discrepancias'])} discrepancias; "
                          f"{len(out['errores'])} errores del contrato; {len(out['sin_entrada'])} sin entrada")
     return out
@@ -366,6 +1062,12 @@ def aptitud(carpeta):
     """(apto_por_entradas, resumen) para la ficha y el informe."""
     r = comprobar(carpeta)
     return r["apto_por_entradas"], {"universo": r["universo"], "comprobadas": len(r["comprobadas"]), "comprobadas_universo": r.get("comprobadas_universo"), "auxiliares": r["auxiliares"],
+                                    "universo_calculo": r.get("universo_calculo"), "universo_juicio": r.get("universo_juicio"),
+                                    "comprobadas_calculo": r.get("comprobadas_calculo"), "comprobadas_juicio": r.get("comprobadas_juicio"),
+                                    "lecturas_externas": len(r.get("lecturas_externas") or []), "formato_registro": r.get("formato_registro"),
+                                    "entradas_no_reproducibles": len(r.get("entradas_no_reproducibles") or []), "datos_como_hipotesis": len(r.get("datos_como_hipotesis") or []),
+                                    "no_materiales": len(r.get("no_materiales") or []), "no_materiales_sin_revisar": len(r.get("no_materiales_sin_revisar") or []),
+                                    "no_aplicables": len(r.get("no_aplicables") or []), "resumen": r.get("resumen"),
                                     "pendientes": len(r["pendientes"]), "desactualizadas": len(r["desactualizadas"]), "discrepancias": len(r["discrepancias"]),
                                     "errores": len(r["errores"]), "materiales_no_comprobadas": len(r["materiales_no_comprobadas"]),
                                     "apto_por_entradas": r["apto_por_entradas"], "motivo": r["motivo"], "huella_entradas_economicas": r["huella_entradas_economicas"],
@@ -379,9 +1081,9 @@ def plantilla(carpeta):
     ents = []
     for k, v in inst["celdas"].items():
         t = inst["tipos"].get(k)
-        ents.append({"celda": k, "id": inst["ids"].get(k), "uso": None, "material": True,
+        ents.append({"celda": k, "id": inst["ids"].get(k), "ambito": inst["ambito"].get(k), "uso": None, "material": True,
                      "clase": "hipotesis" if t == "hipótesis" else None, "valor_modelo": v, "fuente": {}, "derivacion": None, "hipotesis": None,
-                     "justificacion": None, "comprobacion": {"extractor": None, "revisor": None, "fecha": None, "resultado": "pendiente", "fuente_examinada": None, "nota": None},
+                     "justificacion": None, "comprobacion": {"extractor": None, "revisor": None, "fecha": None, "resultado": "pendiente", "fuente_examinada": None, "nota": None, "vinculo": None},
                      "incidencia": None})
     d = {"formato": FORMATO, "empresa": os.path.basename(os.path.abspath(carpeta)), "libro": os.path.basename(libro_de(carpeta)),
          "huella_entradas_economicas": inst["huella"], "perimetro_del_expediente": None, "entradas": ents}
@@ -389,7 +1091,73 @@ def plantilla(carpeta):
     return d
 
 
+def sellar(carpeta, celdas, revisor, fecha):
+    """(4.15, I13) El REVISOR vincula su comprobación al fundamento, la evidencia y la transformación que acaba de examinar, entrada por
+    entrada. (Revisión independiente, hallazgos 3 y 15) Se niega:
+      - si no se da la lista explícita de celdas;
+      - si `fecha` no es la fecha del día (la del sistema): una comprobación fechada antes no se sella, hay que revisarla y fecharla de nuevo;
+      - si la entrada no tiene ese revisor (distinto del extractor), el resultado «verificado», la fuente examinada y esa misma fecha;
+      - si la entrada no pasa TODOS los controles automáticos (se evalúan como si el vínculo estuviera escrito).
+    Registra `sellado_en` (marca de tiempo) y solo escribe el registro si sella alguna entrada. Límite declarado: un registro JSON no impide
+    que alguien escriba el vínculo a mano; el vínculo detecta cambios, no acredita quién lo escribió. Eso lo cubre que el registro forma parte
+    del material auditado (cierre_v2.MATERIAL_FIJO) y la auditoría independiente. Devuelve (selladas, rechazadas)."""
+    if not celdas:
+        raise SystemExit("sellar exige la lista explícita de celdas revisadas")
+    hoy = dt.datetime.now().astimezone().date().isoformat()  # (4.15, N3) solo la fecha del sistema
+    if str(fecha) != hoy:
+        raise SystemExit(f"sellar solo sella la revisión de hoy ({hoy}); la fecha {fecha!r} no lo es: una comprobación anterior se revisa y se fecha de nuevo")
+    reg, err = cargar(carpeta)
+    if reg is None:
+        raise SystemExit(err or f"no hay {REGISTRO}")
+    por = {str(e.get("celda")): e for e in reg["entradas"] if isinstance(e, dict)}
+    candidatas, mal = [], []
+    for k in celdas:
+        e = por.get(k)
+        c = (e or {}).get("comprobacion") if isinstance((e or {}).get("comprobacion"), dict) else {}
+        if e is None:
+            mal.append(f"{k}: no tiene entrada"); continue
+        if _norm_txt(c.get("revisor")) != _norm_txt(revisor) or not str(revisor).strip():
+            mal.append(f"{k}: el revisor registrado es {c.get('revisor')!r}, no {revisor!r}"); continue
+        if _norm_txt(c.get("extractor")) == _norm_txt(revisor):
+            mal.append(f"{k}: el revisor es el extractor"); continue
+        if c.get("resultado") != "verificado" or not str(c.get("fuente_examinada") or "").strip():
+            mal.append(f"{k}: sin resultado «verificado» o sin fuente examinada"); continue
+        if str(c.get("fecha") or "") != hoy:
+            mal.append(f"{k}: la fecha de la comprobación ({c.get('fecha')}) no es la de esta revisión ({hoy})"); continue
+        candidatas.append(k)
+    r = comprobar(carpeta, _presellar=frozenset(candidatas)) if candidatas else {"comprobadas": [], "lecturas_externas": []}
+    validas = set(r.get("comprobadas") or []) | set(r.get("claves_lecturas_externas") or []) | set(r.get("no_materiales_revisados") or [])  # (N8; N1)
+    ok = []
+    for k in candidatas:
+        if k not in validas:
+            cats = ("no_materiales_sin_revisar", "errores", "discrepancias", "desactualizadas", "pendientes")  # (T6) primero el motivo de la no material
+            motivos = [x for cat in cats for x in r.get(cat) or [] if x.startswith(k + ": ")]
+            mal.append(f"{k}: no pasa los controles automáticos ({(motivos or ['sin motivo registrado'])[0][:200]})")
+        else:
+            ok.append(k)
+    if ok:
+        huellas = huellas_registro(carpeta, reg)
+        ahora = dt.datetime.now().astimezone().isoformat(timespec="seconds")
+        for k in ok:
+            por[k]["comprobacion"]["vinculo"] = {"huella": huellas[k], "elementos": ELEMENTOS_VINCULO, "sellado_por": revisor, "fecha": hoy, "sellado_en": ahora}
+        # las huellas de los derivados que dependen de lo sellado no cambian por el sello (el vínculo no entra en la huella)
+        reg["formato"] = FORMATO
+        json.dump(reg, open(os.path.join(carpeta, REGISTRO), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
+    return ok, mal
+
+
 if __name__ == "__main__":
+    if len(sys.argv) >= 3 and sys.argv[1] == "sellar":
+        import argparse
+        ap = argparse.ArgumentParser()
+        ap.add_argument("accion"); ap.add_argument("carpeta"); ap.add_argument("celdas", nargs="+")
+        ap.add_argument("--revisor", required=True); ap.add_argument("--fecha", required=True)
+        a = ap.parse_args()
+        ok, mal = sellar(a.carpeta, a.celdas, a.revisor, a.fecha)
+        print(f"selladas {len(ok)} · rechazadas {len(mal)}")
+        for x in mal:
+            print("  " + x)
+        sys.exit(0 if not mal else 1)
     if len(sys.argv) < 3 or sys.argv[1] not in ("comprobar", "plantilla"):
         print(__doc__)
         sys.exit(2)
@@ -408,4 +1176,5 @@ if __name__ == "__main__":
                 print(f"  {cat}: {x}")
         if r["motivo"]:
             print("  motivo: " + r["motivo"])
+        print("  resumen: " + str(r.get("resumen")))
     sys.exit(0 if r["apto_por_entradas"] else 1)

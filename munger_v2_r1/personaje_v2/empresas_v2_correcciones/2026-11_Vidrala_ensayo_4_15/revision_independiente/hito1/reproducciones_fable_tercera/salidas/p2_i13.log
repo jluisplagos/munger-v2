@@ -1,0 +1,62 @@
+[control positivo] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+fecha del sistema: 2026-11-15
+
+=== D1 · hallazgo 3: sellar una revisión antigua (registro en formato 4.14, revisado «el 14-nov»; después cambian fundamento y evidencia)
+antes de sellar: apto=False comprobadas=0/321 pend=321 desact=0 discr=0 err=0 mat_no=321 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+(a) CLI sellar --fecha 2026-11-14 (321 celdas): rc 1 | sellar solo sella la revisión de hoy (2026-11-15); la fecha '2026-11-14' no lo es: una comprobación anterior se revisa y se fecha de nuevo
+(b) CLI sellar --fecha 2026-11-15 con las comprobaciones fechadas el 14-nov: rc 1 | ['selladas 0 · rechazadas 321', '  Análisis!C37: la fecha de la comprobación (2026-11-14) no es la de esta revisión (2026-11-15)']
+    registro sin cambios tras (a) y (b): True | después: apto=False comprobadas=0/321 pend=321 desact=0 discr=0 err=0 mat_no=321 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+(c) API con hoy= : TypeError: sellar() got an unexpected keyword argument 'hoy'
+(d) fecha de las 321 comprobaciones cambiada a hoy por un script + CLI sellar en una sola orden: rc 0 | ['selladas 321 · rechazadas 0'] | después: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+
+=== D2 · vínculo escrito a mano (sin `sellar`)
+(a) vínculo = {'huella': huellas_registro(...)} sin sellado_por ni fecha: apto=False comprobadas=0/321 pend=0 desact=321 discr=0 err=0 mat_no=321 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+(b) ídem copiando sellado_por = revisor y fecha = fecha de la comprobación (14-nov), como hacen las baterías y el diagnóstico: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+(c) CLI `huella <expediente> Historia!F6`: rc 2 | primera línea: 'Verificación completa de las entradas financieras de un expediente (4.14; requisito de cierre «verificación completa de ' | ¿imprime una huella de 64 hex?: False
+
+=== D3 · cambios posteriores al sello
+[después del sello: revisor cambiado] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+[después del sello: fecha de la comprobación cambiada] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+[después del sello: fuente examinada cambiada] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+[después del sello: extractor cambiado] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+[después del sello: nota de la comprobación cambiada] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[después del sello: incidencia, uso e id cambiados] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[después del sello: ámbito declarado cambiado a «juicio»] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[después del sello: vinculo.sellado_por cambiado] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el vínculo no lo selló el revisor registrado en la fecha de la comprobación
+[después del sello: vinculo.fecha cambiada] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el vínculo no lo selló el revisor registrado en la fecha de la comprobación
+[después del sello: revisor y vinculo.sellado_por cambiados a la vez (la huella incluye al revisor)] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+[después del sello: perimetro_del_expediente del registro cambiado (y el de la fuente de K con justificación)] apto=False comprobadas=75/321 pend=0 desact=0 discr=0 err=246 mat_no=246 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: perímetro «consolidado» distinto del del expediente «otro perímetro» sin justificación
+
+=== D4 · hallazgo 9: derivado cuyo origen cambia de fundamento (con el `sellar` real)
+sellar SOLO el derivado con sus orígenes sin sellar: [] ['Historia!C5: no pasa los controles automáticos (Historia!C5: el origen aux:a no está comprobado (pendiente))']
+sellar todo (derivado y orígenes en la misma orden): selladas 323 · rechazadas 0 | apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[el origen aux:a cambia de documento, concepto, página y cita (mismo número), sin nueva revisión] apto=False comprobadas=320/321 pend=1 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!C5: el origen aux:a no está comprobado (desactualizada)
+   aux:a: ['desactualizadas: aux:a: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+   sellar el derivado mientras su origen está desactualizado: [] ['Historia!C5: no pasa los controles automáticos (Historia!C5: el origen aux:a no está comprobado (desactualizada))']
+   se revisa y se sella de nuevo SOLO el origen: ['aux:a'] []
+[después de resellar solo el origen] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!C5: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+   aux:a: comprobada
+   se sella de nuevo el derivado: ['Historia!C5'] [] | apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+   — cadena de dos niveles: K2 = o[k_der]; cambia aux:a y se resellan aux:a y k_der, no K2
+   sellar K2 y aux:z: ['Historia!D5', 'aux:z'] [] | apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+   tras cambiar aux:a y resellar aux:a y k_der: ['aux:a', 'Historia!C5'] [] | K2: ['desactualizadas: Historia!D5: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+
+=== D5 · hallazgo 17: estabilidad de la huella
+ida y vuelta por JSON y otro orden de claves: True
+valor_fuente 849697.0 → 849697: True
+mismo texto en NFD en vez de NFC: True True
+un espacio final en la cita: True
+página '22' → 22: False
+signo 1 → '+1': False
+dos espacios seguidos dentro de la cita: True
+documento en MAYÚSCULAS (cambio real de texto): False
+colisiones de la forma canónica: _canon(1.0) == _canon(1): True | _canon(True) is True: True | _canon('a\tb') = 'a b' | _canon(' 0.10 ') = '0.10'
+[registro reescrito con 849697 en vez de 849697.0 (mismo número), sin resellar] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+
+=== D9 · hallazgo 15: un sellar rechazado no reescribe el registro
+sellar rechazado (API): [] ["Historia!F6: el revisor registrado es 'revisor sintético', no 'revisor que no es'"] | formato: 4.14 | el archivo cambió: False
+sellar rechazado (CLI): rc 1 | ['selladas 0 · rechazadas 1'] | el archivo cambió: False
+sellar con una celda válida y otra inexistente: ['Historia!F6'] ['Historia!NOEXISTE: no tiene entrada'] | formato ahora: 4.15 | el archivo cambió: True
+
+=== D10 · sellar y lecturas externas / auxiliares
+sellar una lectura externa de una celda del universo y otra de un auxiliar («aux:ext»): ['Historia!F6', 'aux:ext'] []

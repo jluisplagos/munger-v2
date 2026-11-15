@@ -1,0 +1,53 @@
+[P] PASA  control positivo: 308 de 308 celdas comprobadas (232 de 232 de cálculo, 76 de 76 de juicio), apta por entradas
+[R1] PASA  página inexistente «999999» (contraejemplo de la revisión externa): discrepancia, no apta (antes: apta, sin errores ni discrepancias) · ['discrepancias: Historia!F6: la página 999999 no existe en el texto de la fuente (páginas 1–246, 246 marcas) (fuentes_sinteticas/fuente.txt)']
+[R1] PASA  página inexistente como entero: discrepancia · ['discrepancias: Historia!F6: la página 999999 no existe en el texto de la fuente (páginas 1–246, 246 marcas) (fuentes_sinteticas/fuente.txt)']
+[R1] PASA  página no inequívoca («22-23»): pendiente (no puede examinarse), no apta · ["pendientes: Historia!F6: la página declarada '22-23' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)"]
+[R1] PASA  un folio impreso en lugar de la página del PDF («folio 76»): pendiente · ["pendientes: Historia!F6: la página declarada 'folio 76' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)"]
+[R1] PASA  página del PDF «PDF n» con un folio impreso distinto declarado aparte: aceptada
+[R1] PASA  fuente conservada no textual (PDF) sin «archivo_texto»: la página no puede examinarse → pendiente · ['pendientes: Historia!F6: la fuente fuentes_sinteticas/fuente_original.pdf no es un texto con marcas de página y no declara «archivo_texto»: la página citada no puede examinarse']
+[R1] PASA  PDF con «archivo_texto» y «sha256_texto» vigentes: contraste de página hecho, aceptada
+[R1] PASA  PDF con «archivo_texto» sin su huella: pendiente · ["pendientes: Historia!F6: el texto de la fuente 'fuentes_sinteticas/fuente.txt' no tiene «sha256_texto»: no se puede comprobar que es el examinado"]
+[R1] PASA  PDF con texto examinable y página inexistente: discrepancia · ['discrepancias: Historia!F6: la página 999999 no existe en el texto de la fuente (páginas 1–246, 246 marcas) (fuentes_sinteticas/fuente.txt)']
+[R1] PASA  dato publicado de TEXTO (Palancas!C48) con página inexistente: discrepancia (la vía de texto tampoco omite el contraste) · ['discrepancias: Palancas!C48: la página 999999 no existe en el texto de la fuente (páginas 1–246, 246 marcas) (fuentes_sinteticas/fuente.txt)']
+[R1] PASA  lectura de la página: entero, «12», «PDF 12» y «pdf p. 12» valen; «12-13», vacío, 0, «folio 76» y booleanos no
+[R2] PASA  fuente local ausente con sha256 = None (contraejemplo de la revisión externa): pendiente, no apta (antes: apta) · ["pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible"]
+[R2] PASA  fuente local ausente con la huella registrada: pendiente · ["pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible"]
+[R2] PASA  la declaración del revisor de haber examinado la fuente no sustituye su existencia: pendiente · ["pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible"]
+[R2] PASA  fuente local que existe pero sin sha256: pendiente (no se puede comprobar que es la examinada) · ["pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/fuente.txt' no tiene sha256 registrado: no se puede comprobar que es la que se examinó"]
+[R2] PASA  conservación no declarada como local ni externa: pendiente · ['pendientes: Historia!F6: la fuente no declara un archivo local conservado ni una lectura externa («conservacion»): no hay evidencia que examinar']
+[R2] PASA  lectura externa sin limitaciones explícitas: pendiente · ['pendientes: Historia!F6: lectura externa sin limitaciones (sin bytes conservados, la evidencia, la fecha y las limitaciones tienen que ser explícitas)']
+[R2] PASA  lectura externa sin fecha: pendiente · ['pendientes: Historia!F6: lectura externa sin fecha (sin bytes conservados, la evidencia, la fecha y las limitaciones tienen que ser explícitas)']
+[R2] PASA  lectura externa completa de una entrada MATERIAL: listada aparte, no cuenta como comprobada y la entrada no es apta · (['Historia!F6: lectura externa sin bytes conservados (https://ejemplo.invalid/serie (página leída en pantalla)); no es un contraste reproducible'], '307 de 308 celdas del universo comprobadas (231 de 232 de cálculo y 76 de 76 de juicio; +0
+[R2] PASA  lectura externa completa de una entrada NO material: apta, pero sigue listada como lectura externa (no se equipara en silencio)
+[R3] PASA  _cita_contiene: «150» no es 149,5; «0» no es 0,49; «45479» y «45.479» no son 45.479,209; «1,23» no es 1,234 (antes: True)
+[R3] PASA  formatos legítimos aceptados: separadores de miles y decimales, ceros finales, miles con espacio, paréntesis, cero impreso «-»
+[R3] PASA  valor de la fuente 45479.209 con una cita real que solo contiene 45479 y la huella del texto actualizada (contraejemplo; restantes entradas iguales): discrepancia, no apta · ['discrepancias: aux:acciones_miles: la cita no contiene el valor de la fuente 45479.2 como cifra completa (formato equivalente, sin redondear)']
+[R3] PASA  la misma entrada con la cifra publicada completa («45.479,209»): aceptada
+[R3] PASA  menor precisión publicada: se registra el valor publicado (45479) y la transformación explícita (derivado): aceptada
+[R3] PASA  el mismo número con separador de miles «.», coma decimal y cuatro decimales (cero final): aceptado
+[R3] PASA  un valor con decimales frente a la cifra entera publicada (0,4 de diferencia): discrepancia · ['discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697 como cifra completa (formato equivalente, sin redondear)']
+[V] PASA  hipótesis con su fundamento cambiado y el mismo valor, sin nueva revisión: desactualizada (antes: comprobada) · ['desactualizadas: Análisis!C62: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+[V] PASA  dato con la transformación declarada cambiada y el mismo número: desactualizada · ['desactualizadas: Historia!F6: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+[V] PASA  dato con la evidencia (documento) cambiada y el mismo número: desactualizada · ['desactualizadas: Historia!F6: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+[V] PASA  el mismo cambio con una revisión nueva sellada: comprobada
+[V] PASA  comprobación sin vínculo: pendiente (hay que revisarla de nuevo) · ['pendientes: Historia!F6: la comprobación no está vinculada a su fundamento, evidencia y transformación (registro anterior a la 4.15 o sin sellar): hay que revisarla de nuevo']
+[V] PASA  registro de formato 4.14 (sin vínculos): todas las comprobaciones pendientes, no apto · 0 de 308 celdas del universo comprobadas (0 de 232 de cálculo y 0 de 76 de juicio; +0 datos de origen auxiliares); 0 lecturas externas sin bytes; 308 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contr
+[V] PASA  registro de un formato no admitido: no se lee (no verificado) · verificacion_entradas.json tiene el formato '4.9', que no es ninguno de ('4.14', '4.15')
+[V] PASA  evidencia del libro (Control maestro!N49, de Análisis!C51) cambiada con el mismo valor: desactualizada; el universo de cálculo no cambia · ['desactualizadas: Análisis!C51: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+[V] PASA  sellar: exige la lista de celdas; sella solo la revisada por ese revisor hoy; rechaza revisor = extractor, resultado pendiente, otro revisor y otra fecha · (['Historia!F6'], ["Historia!C5: el revisor registrado es 'extractor sintético', no 'revisor sintético'", 'Análisis!C62: sin resultado «verificado» o sin fuente examinada'], ["Historia!F6: el revisor registrado es 'revisor sintético', no 'o
+[J] PASA  las celdas de juicio son datos que datos_v63.md da a las fases (subconjunto de DATOS_ANALISIS) y las filas de la Historia sin el año
+[J] PASA  universo = cálculo (232, la instantánea de entradas_economicas, misma huella) + juicio (76); C42 (EV/EBITDA) está en el juicio
+[J] PASA  sin la entrada de C42 (cifra usada por el juicio): no apta, con C42 sin entrada · 307 de 308 celdas del universo comprobadas (232 de 232 de cálculo y 75 de 76 de juicio; +0 datos de origen auxiliares); 0 lecturas externas sin bytes; 1 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del co
+[J] PASA  C42 registrado con otro valor (p. ej. con la capitalización anterior): desactualizada, no apta · ['desactualizadas: Análisis!C42: el libro dice 9.47 y el registro 10.47: la comprobación no vale para el dato actual']
+[J] PASA  fila de la Historia usada solo por el juicio (Historia!C11) pendiente: no apta (no queda fuera por ser «descriptiva») · ['pendientes: Historia!C11: comprobación pendiente']
+[E] PASA  entradas del FCF base que la vía generativa no reproduce (libro ≠ fase1_v63.json: ['Análisis!C47', 'Análisis!C48', 'Análisis!C49', 'Análisis!C50']): discrepancia, no apta, aunque su registro esté comprobado · ['Análisis!C47: el libro tiene 77.5 y fase1_v63.json (la vía generativa) declara 77.533: la entrada efectiva la sostiene solo el valor migrado de la etapa 1 y no es reproducible desde las entradas declaradas; hay que declarar su cálculo (fa
+[E] PASA  con la declaración alineada con el libro (fixture), ninguna entrada no reproducible
+[N] PASA  el informe dice «N de M celdas» con N ≤ M y separa cálculo y juicio (antes: «330 de 232») · 308 de 308 celdas del universo comprobadas (232 de 232 de cálculo y 76 de 76 usadas por el juicio)
+[N] PASA  con una entrada menos, el informe baja el recuento (N < M) y dice «apta por entradas: no» · 307 de 308 celdas del universo comprobadas
+46/46 pruebas de la corrección de la verificación de las entradas (4.15) PASAN
+RESULTADO verificación de las entradas 4.15: PASA
+
+real	0m25.487s
+user	0m24.688s
+sys	0m0.319s
+rc=0

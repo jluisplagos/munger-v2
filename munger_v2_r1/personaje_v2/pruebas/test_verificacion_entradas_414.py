@@ -10,6 +10,12 @@ escala · S signo · R perímetro · D derivado con origen pendiente y con fórm
 (valor del libro cambiado; fuente conservada cambiada) · I revisión no independiente y sin fuente examinada · H hipótesis presentada como
 dato · Z cero comprobado, dato ausente y no aplicable · T cita fuera de la página o sin el valor · G puerta: ficha e informe (apta por
 entradas sí/no; nunca «apta para dinero real») · M el registro forma parte del material: cambiarlo retira la aprobación en la primera llamada.
+(4.15) El fixture se adapta a las reglas de la 4.15 sin quitar ni rebajar ningún caso: la fuente sintética se registra con su sha256
+(R2: una fuente local sin huella ya no se acredita) y el revisor sintético SELLA cada comprobación (I13: vínculo con su fundamento);
+la copia de fase1_v63.json declara el valor efectivo del libro en C46–C50 (entrada efectiva reproducible, C48 de Elis);
+cuando el caso describe un registro legítimamente rehecho (perímetro justificado, cifra en formato francés), se vuelve a sellar, y
+cuando la prueba reescribe la fuente sintética, se registra de nuevo su huella. Los casos nuevos de la 4.15 están en
+test_verificacion_entradas_415.py.
 Uso: python3 -B test_verificacion_entradas_414.py [--json salida.json]
 """
 import argparse, copy, hashlib, json, os, shutil, subprocess, sys, tempfile
@@ -38,6 +44,16 @@ def paso(grupo, nombre, ok, detalle=""):
 
 c = os.path.join(TMP, "viscofan", "Viscofan")
 shutil.copytree(os.path.join(E413, "viscofan", "Viscofan"), c, ignore=shutil.ignore_patterns(".lo_perfil", "variantes_v64", "recalc", "prompts_generados", "__pycache__"))
+
+# (4.15) la copia de Viscofan de la 4.13 tiene C47–C50 de la etapa 1 distintos de las medias de su fase1_v63.json (el mismo defecto que C48
+# de Elis: entrada efectiva sostenida solo por el valor migrado). El fixture declara en SU COPIA de fase1_v63.json el valor efectivo del
+# libro, para que el control positivo sea un expediente reproducible; el caso negativo está en test_verificacion_entradas_415.py.
+_f1p = os.path.join(c, "fase1_v63.json")
+_f1 = json.load(open(_f1p, encoding="utf-8"))
+for _k, (_vl, _vf, _m) in VE.entradas_no_reproducibles(c, VE.universo(c)).items():
+    _d = _f1.setdefault("analisis", {}).get(_k.split("!")[1])
+    _f1["analisis"][_k.split("!")[1]] = dict(_d, valor=_vl) if isinstance(_d, dict) else {"valor": _vl, "fuente": "(fixture sintético) valor efectivo del libro"}
+json.dump(_f1, open(_f1p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 inst = VE.universo(c)
 anios = [inst["celdas"].get(f"Historia!{x}5") for x in "CDEFGHIJKL"]
 os.makedirs(os.path.join(c, "fuentes_sinteticas"))
@@ -91,14 +107,46 @@ e_der = next(e for e in ents if e["celda"] == k_der)
 e_der.update(clase="derivado", fuente={}, derivacion={"origenes": ["aux:parte_1", "aux:parte_2"], "formula": 'o["aux:parte_1"] + o["aux:parte_2"]',
                                                     "conciliacion": "(prueba) suma de las dos partidas"})
 open(os.path.join(c, "fuentes_sinteticas", "fuente.txt"), "w", encoding="utf-8").write("".join(f"[PDF PAGE {i + 1}]\n{p}\n" for i, p in enumerate(paginas)))
+EVID = VE.evidencia_libro(c)
+
+
+def sellar_todo(reg, carpeta=None):
+    """(4.15) El revisor sintético registra la huella de la fuente sintética actual y sella cada comprobación (vínculo I13)."""
+    sha = hashlib.sha256(open(os.path.join(c, "fuentes_sinteticas", "fuente.txt"), "rb").read()).hexdigest()
+    for e in reg["entradas"]:
+        f = e.get("fuente") or {}
+        if f.get("archivo") == "fuentes_sinteticas/fuente.txt" and f.get("sha256") in (None, "__actual__"):
+            f["sha256"] = sha
+    # (4.15) el vínculo como lo escribe `sellar`: huella vigente (con orígenes y declaración de fase1_v63.json), revisor y fecha de la comprobación
+    hs = VE.huellas_registro(c if carpeta is None else carpeta, reg)
+    for e in reg["entradas"]:
+        cmp_ = e.setdefault("comprobacion", {})
+        cmp_["vinculo"] = {"huella": hs[e["celda"]], "sellado_por": cmp_.get("revisor"), "fecha": cmp_.get("fecha")}
+    return reg
+
+
+def refrescar_REG():
+    """(4.15) La prueba reescribió la fuente sintética: se registra de nuevo su huella en el registro base y se vuelve a sellar."""
+    for e in REG["entradas"]:
+        if (e.get("fuente") or {}).get("archivo") == "fuentes_sinteticas/fuente.txt":
+            e["fuente"]["sha256"] = "__actual__"
+    sellar_todo(REG)
+
+
 REG = {"formato": VE.FORMATO, "empresa": "Viscofan", "nota": "REGISTRO SINTÉTICO DE PRUEBA (no verifica ningún dato real)", "perimetro_del_expediente": "consolidado",
        "huella_entradas_economicas": inst["huella"], "entradas": ents}
+for _e in ents:
+    if (_e.get("fuente") or {}).get("archivo") == "fuentes_sinteticas/fuente.txt":
+        _e["fuente"]["sha256"] = "__actual__"
+sellar_todo(REG)
 
 
-def con(cambio=None, escribir_fuente=None):
+def con(cambio=None, escribir_fuente=None, resellar=False):
     reg = copy.deepcopy(REG)
     if cambio:
         cambio(reg)
+    if resellar:  # (4.15) el caso describe un registro rehecho y revisado de nuevo
+        sellar_todo(reg)
     json.dump(reg, open(os.path.join(c, VE.REGISTRO), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
     return VE.comprobar(c)
 
@@ -111,7 +159,7 @@ k_dato = next(e["celda"] for e in ents if e["clase"] == "dato_publicado" and e["
 k_hip = next(e["celda"] for e in ents if e["clase"] == "hipotesis")
 
 r = con()
-paso("P", f"control positivo sintético: {len(r['comprobadas'])} comprobadas de {r['universo']} (+{r['auxiliares']} auxiliares), apta por entradas",
+paso("P", f"control positivo sintético: {r['comprobadas_universo']} comprobadas de {r['universo']} (+{r['auxiliares']} auxiliares), apta por entradas",
      r["apto_por_entradas"] and not r["errores"] and not r["discrepancias"] and len([x for x in r['comprobadas'] if not x.startswith('aux:')]) == r["universo"],
      (r["errores"] + r["discrepancias"] + r["pendientes"])[:3])
 r = con(lambda g: g["entradas"].pop(3))
@@ -130,11 +178,13 @@ r = con(lambda g: ent(g, k_dato)["fuente"].update(signo=-1))
 paso("S", "signo cambiado: discrepancia", any(k_dato in x for x in r["discrepancias"]), r["discrepancias"][:1])
 r = con(lambda g: ent(g, k_dato)["fuente"].update(perimetro="segmento de envolturas"))
 paso("R", "perímetro distinto del del expediente sin justificación: error", any(k_dato in x and "perímetro" in x for x in r["errores"]), r["errores"][:1])
-r = con(lambda g: ent(g, k_dato)["fuente"].update(perimetro="segmento de envolturas", perimetro_justificacion="(prueba) la partida solo se publica por segmento"))
+r = con(lambda g: ent(g, k_dato)["fuente"].update(perimetro="segmento de envolturas", perimetro_justificacion="(prueba) la partida solo se publica por segmento"), resellar=True)
 paso("R", "perímetro distinto con su justificación declarada: aceptado (la pertinencia es del revisor)", r["apto_por_entradas"], r["motivo"])
 r = con(lambda g: ent(g, "aux:parte_2")["comprobacion"].update(resultado="pendiente"))
 paso("D", "derivado con un origen pendiente: el derivado queda pendiente", any(x.startswith(k_der) and "origen" in x for x in r["pendientes"]), [x for x in r["pendientes"] if x.startswith(k_der)][:1])
-r = con(lambda g: ent(g, k_der)["derivacion"].update(formula='o["aux:parte_1"]'))
+# (4.15, segunda revisión independiente, N2) una fórmula que no usa todos sus orígenes es ahora un error del contrato (caso en la batería 4.15);
+# este caso conserva su objeto —una fórmula que no reproduce el valor— con una fórmula que usa los dos orígenes
+r = con(lambda g: ent(g, k_der)["derivacion"].update(formula='o["aux:parte_1"] - o["aux:parte_2"]'))
 paso("D", "derivado cuya fórmula no reproduce el valor: discrepancia", any(x.startswith(k_der) for x in r["discrepancias"]), r["discrepancias"][:1])
 r = con(lambda g: ent(g, k_dato).update(valor_modelo=(ent(g, k_dato)["valor_modelo"] or 0) + 1))
 paso("A", "reutilización desactualizada (el dato del libro ya no es el registrado): desactualizada", any(k_dato in x for x in r["desactualizadas"]), r["desactualizadas"][:1])
@@ -144,6 +194,7 @@ ok1 = r["apto_por_entradas"]
 open(os.path.join(c, "fuentes_sinteticas", "fuente.txt"), "a", encoding="utf-8").write("\n(cambio)\n")
 r = con(lambda g: ent(g, k_dato)["fuente"].update(sha256=sha0))
 paso("A", "fuente conservada con su huella: vale; si la fuente cambia, la comprobación queda desactualizada", ok1 and any(k_dato in x and "cambió" in x for x in r["desactualizadas"]), r["desactualizadas"][:1])
+refrescar_REG()  # (4.15) la fuente sintética cambió: se registra de nuevo para los casos siguientes
 r = con(lambda g: ent(g, k_dato)["comprobacion"].update(revisor="extractor sintético"))
 paso("I", "revisor igual al extractor: error (revisión independiente obligatoria)", any(k_dato in x and "independiente" in x for x in r["errores"]), r["errores"][:1])
 r = con(lambda g: ent(g, k_dato)["comprobacion"].update(fuente_examinada=""))
@@ -167,6 +218,7 @@ if k_na:
     r = con(lambda g: ent(g, k_na).update(justificacion=""))
     paso("Z", "no aplicable sin justificación: pendiente", any(k_na in x for x in r["pendientes"]), r["pendientes"][:1])
 open(os.path.join(c, "fuentes_sinteticas", "fuente.txt"), "w", encoding="utf-8").write("".join(f"[PDF PAGE {i + 1}]\n{p}\n" for i, p in enumerate(paginas)))
+refrescar_REG()
 r = con(lambda g: ent(g, k_dato)["fuente"].update(pagina="1" if ent(g, k_dato)["fuente"]["pagina"] != "1" else "2"))
 paso("T", "cita que no está en la página citada: discrepancia", any(k_dato in x and "página" in x for x in r["discrepancias"]), r["discrepancias"][:1])
 r = con(lambda g: ent(g, k_dato)["fuente"].update(valor_fuente=ent(g, k_dato)["fuente"]["valor_fuente"], cita=ent(g, k_dato)["fuente"]["cita"].split(":")[0]))
@@ -176,6 +228,7 @@ paso("T", "cita sin el valor de la fuente: discrepancia (los dígitos tienen que
 def _pagina(texto):
     paginas.append(texto)
     open(os.path.join(c, "fuentes_sinteticas", "fuente.txt"), "w", encoding="utf-8").write("".join(f"[PDF PAGE {i + 1}]\n{p}\n" for i, p in enumerate(paginas)))
+    refrescar_REG()
     return str(len(paginas))
 
 
@@ -192,7 +245,7 @@ pe = _pagina(f"Partida sintética de {k_dato}: 9{vf0:.3f}9")
 r = con(lambda g: ent(g, k_dato)["fuente"].update(pagina=pe, cita=f"Partida sintética de {k_dato}: 9{vf0:.3f}9"))
 paso("T", "el valor solo aparece DENTRO de otra cifra de la cita: discrepancia (antes pasaba por coincidencia de dígitos)", any(k_dato in x and "cifra completa" in x for x in r["discrepancias"]), r["discrepancias"][:1])
 pf = _pagina(f"Partida sintética de {k_dato}: {vf0:,.3f}".replace(",", " ").replace(".", ","))
-r = con(lambda g: ent(g, k_dato)["fuente"].update(pagina=pf, cita=f"Partida sintética de {k_dato}: {vf0:,.3f}".replace(",", " ").replace(".", ",")))
+r = con(lambda g: ent(g, k_dato)["fuente"].update(pagina=pf, cita=f"Partida sintética de {k_dato}: {vf0:,.3f}".replace(",", " ").replace(".", ",")), resellar=True)
 paso("T", "cifra con miles separados por espacio y coma decimal (francés): aceptada", r["apto_por_entradas"], (r["discrepancias"] + r["errores"])[:1])
 assert VE._cita_contiene("Acquisitions  -   (12.3)", 0) and not VE._cita_contiene("Ejercicio 2019", 0) and not VE._cita_contiene("año 2012", 12) and VE._cita_contiene("4 573,7", 4573.7) and not VE._cita_contiene("Résultat - 12,3", 0) and not VE._cita_contiene("Résultat -12,3", 0) and VE._cita_contiene("Closing balance 1.662 784.366 - 784.366", 0) and VE._cita_contiene("Revenue 20.1 912.160 849.697", 849697) and VE._cita_contiene("Note 2017 2016", 2016) and VE._cita_contiene("VISCOFAN F 54,3000 02-11-26 55,3000 54,5000 54,7000 54,8454", 54.7)
 paso("T", "cero impreso como «-» aceptado; el «0» de «2019» y el «12» de «2012» no cuentan; columnas a un espacio («912.160 849.697») sí", True)

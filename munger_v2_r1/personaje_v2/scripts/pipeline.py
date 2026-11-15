@@ -66,6 +66,52 @@ class CierreRechazado(Exception):
     pass
 
 
+def modo_entrada_efectiva(carpeta):
+    """(4.15, segunda revisión independiente, N7) («estricta» | «registrada», origen de la declaración).
+    - entrada_efectiva.json (lo escribe cambiar_base.py en todo expediente nuevo; por defecto «estricta»): manda; ilegible, con otro modo o
+      «registrada» sin motivo → ValueError (falla en cerrado: el paso se detiene);
+    - si no existe, «entrada_efectiva»: «estricta» en alcance_v2.json (forma del hito 1 de la 4.15);
+    - si no hay ninguna declaración: «registrada» (expedientes anteriores a la 4.15 y línea de base v2.2: el valor de la etapa 1 prevalece,
+      pero rellenar_fase1_v63.py lo registra y verificacion_entradas.py lo bloquea si fase1_v63.json no lo reproduce)."""
+    p = os.path.join(carpeta, "entrada_efectiva.json")
+    # (4.15, tercera revisión, T5) fase1_metadatos.json registra el modo que declaró cambiar_base.py: si falta el archivo o dice otra cosa, error
+    meta_modo = None
+    try:
+        _m = json.load(open(os.path.join(carpeta, "fase1_metadatos.json"), encoding="utf-8"))
+        meta_modo = _m.get("entrada_efectiva") if isinstance(_m, dict) else None
+    except (OSError, ValueError):
+        pass
+    if os.path.lexists(p) and not os.path.isfile(p):
+        raise ValueError("entrada_efectiva.json no es un archivo legible")
+    if not os.path.exists(p) and meta_modo is not None:
+        raise ValueError(f"fase1_metadatos.json registra el modo {meta_modo!r} y falta entrada_efectiva.json")
+    otros = [n for n in os.listdir(carpeta) if n.lower() == "entrada_efectiva.json" and n != "entrada_efectiva.json"] if os.path.isdir(carpeta) else []
+    if otros:
+        raise ValueError(f"declaración con otra grafía ({', '.join(otros)}): el archivo es entrada_efectiva.json")
+    if os.path.exists(p):
+        try:
+            d = json.load(open(p, encoding="utf-8"))
+        except (OSError, ValueError) as ex:
+            raise ValueError(f"no se puede leer ({type(ex).__name__})") from None
+        if not isinstance(d, dict) or d.get("modo") not in ("estricta", "registrada"):
+            raise ValueError("el modo tiene que ser «estricta» o «registrada»")
+        if d["modo"] == "registrada" and not str(d.get("motivo") or "").strip():
+            raise ValueError("el modo «registrada» exige su motivo")
+        if meta_modo is not None and meta_modo != d["modo"]:
+            raise ValueError(f"entrada_efectiva.json dice {d['modo']!r} y fase1_metadatos.json registra {meta_modo!r}")
+        return d["modo"], "entrada_efectiva.json"
+    pa = os.path.join(carpeta, "alcance_v2.json")
+    if os.path.exists(pa):
+        try:
+            a = json.load(open(pa, encoding="utf-8"))
+        except (OSError, ValueError):
+            a = None  # un alcance ilegible lo trata cierre_v2.alcance; aquí solo importa la clave
+        if isinstance(a, dict) and "entrada_efectiva" in a:
+            if a["entrada_efectiva"] != "estricta":  # (T5) una errata no deja el modo en «registrada» en silencio
+                raise ValueError(f"alcance_v2.json declara «entrada_efectiva»: {a['entrada_efectiva']!r}; el único valor admitido es «estricta»")
+            return "estricta", "alcance_v2.json"
+    return "registrada", None
+
 class Pipeline:
     def __init__(self, carpeta, cfg, simulados=None):
         self.c = os.path.abspath(carpeta)
@@ -565,7 +611,15 @@ class Pipeline:
                     if rc != 0:
                         return self.terminar("pendiente_de_datos", "falta_de_datos", "fase1_historia construir: " + out[-400:], 2, que_hace_falta="ver historia_revision.md (datos esenciales ausentes o salidas inválidas)", desde=2)
                     self.st["esperando"] = None
-                rc, out = self.run([PY, self.script("rellenar_fase1_v63.py"), libro_base, self.p("fase1_v63.json"), libro_datos])
+                # (4.15, C48 de Elis; segunda revisión independiente, N7) modo de la entrada efectiva del expediente (entrada_efectiva.json,
+                # que cambiar_base.py escribe en todo expediente nuevo, por defecto «estricta»); un archivo ilegible detiene el paso
+                try:
+                    _modo, _origen_modo = modo_entrada_efectiva(self.c)
+                except ValueError as ex:
+                    return self.terminar("no_entregable", "fallo_de_implementacion", f"entrada_efectiva.json: {ex}", 2)
+                _estricta = _modo == "estricta"
+                self.st["entrada_efectiva"] = {"modo": _modo, "declarado_en": _origen_modo}  # (T5) queda en estado_pipeline.json
+                rc, out = self.run([PY, self.script("rellenar_fase1_v63.py"), libro_base, self.p("fase1_v63.json"), libro_datos] + (["--estricta"] if _estricta else []))
                 if rc != 0:
                     return self.terminar("no_entregable" if rc == 1 else "pendiente_de_datos", "fallo_de_implementacion" if rc == 1 else "falta_de_datos", "rellenar_fase1: " + out[-300:], 2)
                 if self.v64:
@@ -951,7 +1005,7 @@ class Pipeline:
                 import verificacion_entradas as VE
                 _apto_e, _ve = VE.aptitud(self.c)
                 st["verificacion_entradas"] = _ve
-                self.log(f"verificación de las entradas financieras: {_ve.get('comprobadas_universo', _ve.get('comprobadas'))} de {_ve.get('universo')} celdas del universo comprobadas · "
+                self.log(f"verificación de las entradas financieras: {_ve.get('comprobadas_universo')} de {_ve.get('universo')} celdas del universo comprobadas · "
                          f"apta por entradas: {'sí' if _apto_e else 'no'}" + (f" ({_ve.get('motivo')[:200]})" if _ve.get("motivo") else ""))
                 # (4.12 §9) huellas de los libros tal como quedan verificados (verificar_todo.sh deja el evaluado con sus cachés): el paso 13
                 # no fija material ni pide auditoría con unos libros distintos de los verificados

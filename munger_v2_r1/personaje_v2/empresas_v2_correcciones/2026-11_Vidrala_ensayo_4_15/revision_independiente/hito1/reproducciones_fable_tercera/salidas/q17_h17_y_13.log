@@ -1,0 +1,17 @@
+K: Historia!F6 | valor_modelo: 849.697 float | valor_fuente: 849697.0 float
+e1 es idéntica a e0 (float(x) no cambia nada): True
+expresión de la prueba (h17) con el código del árbol: True
+con la MUTACIÓN (los números ya no se canonizan): expresión de la prueba (h17): True | huella(849697.0) == huella(849697): False
+con el código del árbol: huella(valor_fuente 849697.0) == huella(valor_fuente 849697): True (la propiedad se cumple; la prueba no la ejercita)
+
+=== residuo 13 · calcular_entrada
+firma: ('celda', 'd', 'H', 'anios', 'carpeta') | años del cálculo: [2023, 2024, 2025] | componentes: {'pagos_arrendamientos_con_intereses': ['2023', '2024', '2025']}
+[cálculo declarado del CAMBIO 4.15] valor 108.0 · periodo '2023–2025' · fuente: Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendami
+[la SERIE del componente no es un objeto] ValueError: el componente 'pagos_arrendamientos_con_intereses' no es un objeto {año: {valor, fuente, página, cita}}
+[la serie del componente es una lista] ValueError: el componente 'pagos_arrendamientos_con_intereses' no es un objeto {año: {valor, fuente, página, cita}}
+[el componente del PRIMER año (2023) es un número, no un objeto] ValueError: el componente pagos_arrendamientos_con_intereses de 2023 no es un objeto {valor, fuente, página, cita}
+[el componente del primer año (2023) es un texto] ValueError: el componente pagos_arrendamientos_con_intereses de 2023 no es un objeto {valor, fuente, página, cita}
+[el componente del primer año (2023) es una lista] ValueError: el componente pagos_arrendamientos_con_intereses de 2023 no es un objeto {valor, fuente, página, cita}
+[«componentes» no es un objeto] ValueError: los componentes no son un objeto
+[años en orden inverso] valor 108.0 · periodo '2023–2025' · fuente: Cálculo declarado (media 2025–2023 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendami
+[años desordenados] valor 108.0 · periodo '2023–2025' · fuente: Cálculo declarado (media 2024–2023 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendami

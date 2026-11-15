@@ -1,0 +1,22 @@
+árbol: /tmp/rev_fable4/congelado4/personaje_v2
+
+=== A · VE._eval_formula_exacta('round(o["a"], n)') y constantes admitidas
+   n = 4: 849.697 en 0.00 s · constantes no admitidas: []
+   n = 1000: 849.697 en 0.00 s · constantes no admitidas: []
+   n = 100000: 849.697 en 0.00 s · constantes no admitidas: []
+   n = 1000000: 849.697 en 0.14 s · constantes no admitidas: []
+   n = 3000000: 849.697 en 0.75 s · constantes no admitidas: []
+   n = 10000000: 849.697 en 5.69 s · constantes no admitidas: []
+   round(o["a"], -3): constantes no admitidas = []
+   round(o["a"], -15): constantes no admitidas = [15]
+   round(o["a"], 15): constantes no admitidas = []
+   round(o["a"], 999999999999): constantes no admitidas = []
+   round(o["a"], 2 + 2): constantes no admitidas = []
+   round(o["a"], o["b"]): constantes no admitidas = []
+
+=== B · CLI `comprobar` con un derivado round(o["aux:kv"], n) en el registro (proceso hijo: 4 GB y 60 s como máximo)
+   n = 4: código 0 en 0.8 s · universo 321 · comprobadas del universo 321 · comprobadas en total 322 · pendientes 0 · desactualizadas 0 · discrepancias 0 · errores 0 · auxiliares 1 · apto por entradas: True
+          resumen: 321 de 321 celdas del universo comprobadas (232 de 232 de cálculo y 89 de 89 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 0 datos tr
+   n = 3000000: código 0 en 1.5 s · universo 321 · comprobadas del universo 321 · comprobadas en total 322 · pendientes 0 · desactualizadas 0 · discrepancias 0 · errores 0 · auxiliares 1 · apto por entradas: True
+          resumen: 321 de 321 celdas del universo comprobadas (232 de 232 de cálculo y 89 de 89 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 0 datos tr
+   n = 999999999999: `comprobar` NO TERMINA en 60 s (proceso hijo cortado por el límite de tiempo de la sonda)

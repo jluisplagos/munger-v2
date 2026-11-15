@@ -1,0 +1,242 @@
+[
+ {
+  "grupo": "C",
+  "prueba": "C48 de Elis desde la Historia y los pagos de arrendamientos con intereses declarados: 108,0 (= 82,933 + 25,067)",
+  "resultado": "PASA",
+  "detalle": "Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redon"
+ },
+ {
+  "grupo": "C",
+  "prueba": "con el valor 108 declarado además del cálculo: coincide",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "un valor declarado distinto del calculado (82,933): error explícito",
+  "resultado": "PASA",
+  "detalle": "el valor declarado 82.933 no es el calculado 108.0"
+ },
+ {
+  "grupo": "C",
+  "prueba": "un componente sin página: error (no se acepta una cifra sin su fuente)",
+  "resultado": "PASA",
+  "detalle": "el componente pagos_arrendamientos_con_intereses de 2024 no tiene valor, fuente y página"
+ },
+ {
+  "grupo": "C",
+  "prueba": "un año fuera de la Historia: error",
+  "resultado": "PASA",
+  "detalle": "años [2024, 2025, 2026] fuera de la Historia [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]"
+ },
+ {
+  "grupo": "C",
+  "prueba": "una operación no admitida: error",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "un signo distinto de ±1: error",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "una partida que no está en la Historia: error (no se rellena con cero)",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "(revisión independiente, h13) redondeo menor que 3, años repetidos o no enteros: error explícito (no TypeError)",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "(h7) un cálculo sobre años con ceros pendientes de verificación (H1) los hereda en «pendiente_verificacion»",
+  "resultado": "PASA",
+  "detalle": "([2016, 2017, 2018], [2016, 2017, 2018])"
+ },
+ {
+  "grupo": "C",
+  "prueba": "(h13) con la carpeta del expediente, un componente cuya página no existe en su texto: error",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "(h13) con la carpeta del expediente, los componentes reales de C48 se contrastan con su página y su cita: 108,0",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "F",
+  "prueba": "construir con los metadatos de la 4.14 (sin C48 declarada): fase1_v63.json da 82,933, la media de los intereses netos (el defecto I12)",
+  "resultado": "PASA",
+  "detalle": "82.933"
+ },
+ {
+  "grupo": "F",
+  "prueba": "con C48 declarada con su cálculo en fase1_metadatos.json: fase1_v63.json da 108,0 con el cálculo y su fuente",
+  "resultado": "PASA",
+  "detalle": "108.0"
+ },
+ {
+  "grupo": "F",
+  "prueba": "un componente sin valor: construir falla con el motivo (no escribe una media incompleta)",
+  "resultado": "PASA",
+  "detalle": "fase1_metadatos.json · cálculo de entradas de Análisis no reproducible: Análisis!C48: el componente pagos_arrendamientos_con_intereses de 2025 no tiene valor, fuente y página\n"
+ },
+ {
+  "grupo": "R",
+  "prueba": "libro base de Elis (C48 = 108 migrado) con el fase1_v63.json de la 4.14 (82,933): se conserva 108 (regla v2.2), pero ya no en silencio: queda registrada como entrada migrada distinta y avisada",
+  "resultado": "PASA",
+  "detalle": "(0, [{'celda': 'Análisis!C48', 'libro': 108, 'fase1_v63': 82.933, 'evidencia_libro': 'URD2025 p.327, 379; DEU2024 p.273', 'motivo': 'valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa'}])"
+ },
+ {
+  "grupo": "R",
+  "prueba": "el mismo caso con --estricta (modo de los expedientes nuevos): código 7 y ningún libro escrito",
+  "resultado": "PASA",
+  "detalle": " en la etapa 1.\n- Análisis!C48: libro 108 · fase1_v63.json 82.933 · valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa\n"
+ },
+ {
+  "grupo": "R",
+  "prueba": "el comprobador de entradas marca C48 de elis_decisiones (4.14) como no reproducible por la vía generativa (y solo C48)",
+  "resultado": "PASA",
+  "detalle": "['Análisis!C48: el libro tiene 108 y fase1_v63.json declara 82.933: fase1_v63.json (la vía generativa) declara otro valor: el libro lo sostiene solo por el valor migrado de la etapa 1; no es reproducible desde las entradas declaradas: hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis)']"
+ },
+ {
+  "grupo": "R",
+  "prueba": "con --sobrescribir se aplica la declarada de forma explícita (82,933)",
+  "resultado": "PASA",
+  "detalle": "(0, 82.933)"
+ },
+ {
+  "grupo": "R",
+  "prueba": "con la entrada efectiva declarada (108,0 con su cálculo): C48 = 108 y ninguna entrada migrada distinta",
+  "resultado": "PASA",
+  "detalle": "(0, 'OK: 568 celdas escritas en /tmp/entrada_efectiva_415_a_tp5mjm/r2.xlsx · derivadas: 0 · convenciones: [] · avisos: 2\\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\\n')"
+ },
+ {
+  "grupo": "R",
+  "prueba": "sin el valor migrado: con la declaración de la 4.14 sale 82,933 (el riesgo I12, ahora visible); con la entrada efectiva declarada sale 108",
+  "resultado": "PASA",
+  "detalle": "(0, 82.933, 0, 108)"
+ },
+ {
+  "grupo": "R",
+  "prueba": "Viscofan (expediente final de la 4.14): entradas del FCF base que solo sostiene la etapa 1 = ninguna (registro de rellenar y comprobador de entradas)",
+  "resultado": "PASA",
+  "detalle": "([], ' 524 celdas escritas en /tmp/entrada_efectiva_415_a_tp5mjm/Viscofan.xlsx · derivadas: 0 · convenciones: [] · avisos: 4\\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\\n')"
+ },
+ {
+  "grupo": "R",
+  "prueba": "Vidrala (expediente final de la 4.14): entradas del FCF base que solo sostiene la etapa 1 = ['Análisis!C50'] (registro de rellenar y comprobador de entradas)",
+  "resultado": "PASA",
+  "detalle": "(['Análisis!C50'], ': 543 celdas escritas en /tmp/entrada_efectiva_415_a_tp5mjm/Vidrala.xlsx · derivadas: 1 · convenciones: [] · avisos: 7\\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\\n')"
+ },
+ {
+  "grupo": "R",
+  "prueba": "Vidrala con --estricta (modo de los expedientes nuevos): código 7 y ningún libro escrito",
+  "resultado": "PASA",
+  "detalle": "datos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.\n- Análisis!C50: libro 0 · fase1_v63.json None · valor migrado de la etapa 1 sin declaración en fase1_v63.json: la vía generativa no lo produce\n"
+ },
+ {
+  "grupo": "B",
+  "prueba": "cambiar_base con el CAMBIO 4.15: las entradas `analisis` del CAMBIO quedan en fase1_metadatos.json (entradas declaradas), C48 con su cálculo",
+  "resultado": "PASA",
+  "detalle": "['C24', 'C31', 'C33', 'C34', 'C40', 'C42', 'C46', 'C47', 'C48', 'C50', 'C53', 'C54']"
+ },
+ {
+  "grupo": "B",
+  "prueba": "fase1_v63.json del expediente nuevo: C48 = 108,0 calculado; la copia de ensayo de la etapa 1 tiene C48 vacía (la entrada no depende del valor migrado)",
+  "resultado": "PASA",
+  "detalle": "108.0"
+ },
+ {
+  "grupo": "B",
+  "prueba": "en una carpeta limpia, construir con las entradas declaradas del expediente nuevo reproduce todas sus entradas de Análisis (sin el CAMBIO)",
+  "resultado": "PASA",
+  "detalle": "fase1_v63.json escrito (10 años, 71 diferencias con el comparativo, 16 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)\n"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N7) el expediente nuevo declara su entrada efectiva «estricta» (entrada_efectiva.json) y el registro del cambio lo dice",
+  "resultado": "PASA",
+  "detalle": "{'formato': '4.15', 'modo': 'estricta', 'motivo': 'expediente nuevo de la 4.15 (modo por defecto)', 'declarado_por': 'cambiar_base.py', 'cambio': 'cambio.json'}"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N5) reconocer entradas heredadas con un motivo vacío: rechazado antes de crear nada",
+  "resultado": "PASA",
+  "detalle": "se_conservan: C46 sin motivo | analisis_que_se_conservan: C47 sin motivo | analisis_que_se_conservan: C50 sin motivo | analisis_que_se_conservan: C48 sin motivo"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N5) una celda a la vez conservada y descartada: rechazado",
+  "resultado": "PASA",
+  "detalle": "CAMBIO NO VÁLIDO (no se ha creado nada): celdas a la vez en analisis_que_se_conservan y analisis_que_se_descartan: C42"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N5) reconocer una entrada que el origen no declara: preparación detenida, destino retirado",
+  "resultado": "PASA",
+  "detalle": "PREPARACIÓN DETENIDA: `analisis_que_se_conservan` reconoce entradas que los metadatos del origen no declaran (se retira el destino): Z99"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(h8b) entradas heredadas sin declarar ni reconocer: preparación detenida, destino retirado",
+  "resultado": "PASA",
+  "detalle": " C24, C31, C33, C34, C40, C46, C47, C48, C50, C53, C54. Declárelas en `analisis`, en `analisis_que_se_descartan` o en `analisis_que_se_conservan` con su motivo."
+ },
+ {
+  "grupo": "B",
+  "prueba": "(h8a; N5; N7) descarta C42 y reconoce el resto con su motivo: C42 fuera, las heredadas y los descartes constan en el registro del cambio, modo «registrada» con su motivo",
+  "resultado": "PASA",
+  "detalle": "['C24', 'C31', 'C33', 'C34', 'C40', 'C46', 'C47', 'C48', 'C50', 'C53', 'C54']"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N7) modo «registrada» sin motivo: rechazado",
+  "resultado": "PASA",
+  "detalle": "CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva «registrada» sin motivo (el modo por defecto de un expediente nuevo es «estricta»)"
+ },
+ {
+  "grupo": "P",
+  "prueba": "(N7) modo de la entrada efectiva: sin declaración «registrada» (línea de base); alcance_v2.json o entrada_efectiva.json «estricta»; ilegible, otro modo o «registrada» sin motivo → error (el paso se detiene)",
+  "resultado": "PASA",
+  "detalle": "(('registrada', None), ('estricta', 'alcance_v2.json'), ('estricta', 'entrada_efectiva.json'), 'no se puede leer (JSONDecodeError)', 'el modo «registrada» exige su motivo', 'el modo tiene que ser «estricta» o «registrada»')"
+ },
+ {
+  "grupo": "P",
+  "prueba": "(tercera revisión, T5) borrar entrada_efectiva.json que fase1_metadatos.json registra, contradecirlo, otra grafía o una errata en alcance_v2.json: error, no «registrada» en silencio",
+  "resultado": "PASA",
+  "detalle": "(\"fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json\", \"entrada_efectiva.json dice 'registrada' y fase1_metadatos.json registra 'estricta'\", 'declaración con otra grafía (Entrada_Efectiva.json): el archivo es entrada_efectiva.json', \"alcance_v2.json declara «entrada_efectiva»: 'Estricta'; el único valor admitido es «estricta»\")"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N7; T5) el expediente nuevo registra el modo también en fase1_metadatos.json",
+  "resultado": "PASA",
+  "detalle": "estricta"
+ },
+ {
+  "grupo": "B",
+  "prueba": "(N5; tercera revisión, T7) el diagnóstico de lo que daría la Historia dice None en las celdas que la Historia no construye (no repite el valor del CAMBIO)",
+  "resultado": "PASA",
+  "detalle": "{'C24': (None, 0.097), 'C31': (None, 'Sí'), 'C33': (None, 2.22), 'C34': (None, 'No'), 'C40': (None, 323.9), 'C42': (None, 5.53)}"
+ },
+ {
+  "grupo": "P",
+  "prueba": "(N7) cableado en el código del pipeline (comprobación del texto, no del comportamiento; el comportamiento del paso 2 lo ejecutó la revisión independiente): pasa --estricta según ese modo y se detiene si el archivo es ilegible",
+  "resultado": "PASA",
+  "detalle": ""
+ },
+ {
+  "grupo": "C",
+  "prueba": "(segunda revisión, residuo del h13) un componente que no es un objeto: error explícito (no AttributeError)",
+  "resultado": "PASA",
+  "detalle": "(\"el componente 'pagos_arrendamientos_con_intereses' no es un objeto {año: {valor, fuente, página, cita}}\", 'el componente pagos_arrendamientos_con_intereses de 2023 no es un objeto {valor, fuente, página, cita}')"
+ }
+]

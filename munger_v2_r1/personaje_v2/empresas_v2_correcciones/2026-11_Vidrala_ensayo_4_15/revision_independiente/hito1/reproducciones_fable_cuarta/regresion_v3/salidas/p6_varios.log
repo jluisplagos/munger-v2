@@ -1,0 +1,45 @@
+=== hallazgo 4 · entrada no reproducible: bloquea sea cual sea el estado de su registro
+no reproducibles con la declaración original de la 4.13: {'Análisis!C47': (77.5, 77.533), 'Análisis!C48': (8.3, 8.294), 'Análisis!C49': (5.5, 5.547), 'Análisis!C50': (3.71, 3.707)}
+[registro comprobado y sellado ANTES de restaurar la declaración original (el vínculo incluía la declaración del fixture)] apto=False comprobadas=317/321 pend=0 desact=4 discr=0 err=0 mat_no=4 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=4
+   no_repr: 4 | desactualizadas: ['Análisis!C47: el fundamento, la evidencia, la transformación', 'Análisis!C48: el fundamento, la evidencia, la transformación', 'Análisis!C49: el fundamento, la evidencia, la transformación', 'Análisis!C50: el fundamento, la evidencia, la transformación']
+[ídem con el vínculo rehecho sobre la declaración original] apto=False comprobadas=317/321 pend=0 desact=0 discr=4 err=0 mat_no=4 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=4
+   discrepancias: ['Análisis!C47: el libro tiene 77.5 y fase1_v63.json declara 77.533: fase1_v63.json (la vía ', 'Análisis!C48: el libro tiene 8.3 y fase1_v63.json declara 8.294: fase1_v63.json (la vía ge']
+[las mismas entradas con la comprobación pendiente] apto=False comprobadas=317/321 pend=4 desact=0 discr=0 err=0 mat_no=4 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=4
+[ídem con material:false (cálculo)] apto=False comprobadas=317/321 pend=0 desact=0 discr=0 err=4 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=4
+
+=== hallazgo 14 · trazabilidad de las celdas de «Configuración V6.4» en el vínculo
+celdas del universo sin evidencia del libro en el vínculo: 0 de 321 | []
+   por hoja: {}
+celdas de configuración en el universo: 29 | con trazabilidad en EVID: 19 | sin nada: []
+   TRAZA_CELDAS: {'modo': ['B4'], 'N1.tipo': ['B11', 'B12', 'B13', 'B14', 'B15'], 'N1.escudo': ['B16'], 'N2.margen': ['B21', 'B22', 'B23']} … | CELDAS_METADATOS: ['B12', 'B13', 'B14', 'B15', 'B152', 'B22', 'B23', 'B32', 'B51']
+[fuente y período del tipo impositivo (B12, B13) cambiados en el libro, sin nueva revisión] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Configuración V6.4!B11: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+   desactualizadas: ['Configuración V6.4!B11']
+   celdas de metadatos de la configuración cuyo cambio NO deja ninguna comprobación desactualizada: ninguna (de 9)
+
+=== observación 21 · robustez de comprobar («nunca lanza»)
+[hipótesis con «fuente» de texto] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Análisis!C62: entrada mal formada (AttributeError: 'str' object has no attribute 'get')
+[clase que es una lista] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: clase ['dato_publicado'] no es una de ('dato_publicado', 'derivado', 'cero_comprobado', 'dato_ausente', 'no_aplicable', 'hipotes
+[dos derivados que se citan entre sí (ciclo), resellado] no lanza · apto=False comprobadas=319/321 pend=1 desact=0 discr=0 err=1 mat_no=2 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: derivación circular: Historia!C5 depende de Historia!F6
+[página que es una lista] no lanza · apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la página declarada [22] no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fue
+[sha256 numérico] no lanza · apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: la fuente fuentes_sinteticas/fuente.txt cambió (sha256 distinto del registrado)
+[lectura_externa que no es objeto] no lanza · apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: lectura externa sin referencia, fecha, evidencia, limitaciones (sin bytes conservados, la evidencia, la fecha y las limitacio
+[vinculo que es texto] no lanza · apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la comprobación no está vinculada a su fundamento, evidencia y transformación (registro anterior a la 4.15 o sin sellar): hay
+[comprobacion que es texto] no lanza · apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: sin resultado de la comprobación
+[valor_fuente NaN] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: escala, signo (+1/−1) o valor_fuente no numéricos
+[derivacion.origenes con un origen que es una lista (no hashable)] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: «origenes» tiene que ser una lista de celdas o auxiliares y «formula» un texto (tercera revisión, T3)
+[derivacion.origenes que es un texto] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: «origenes» tiene que ser una lista de celdas o auxiliares y «formula» un texto (tercera revisión, T3)
+[celda que es un número] no lanza · apto=False comprobadas=320/321 pend=1 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+[celda que es una lista] no lanza · apto=False comprobadas=320/321 pend=1 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+[entradas con un elemento que no es objeto] no lanza · apto=False comprobadas=321/321 pend=0 desact=0 discr=0 err=1 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+[material que es un texto] no lanza · apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cambiaron después de la revisión (
+[perimetro_del_expediente que es una lista] no lanza · apto=False comprobadas=75/321 pend=0 desact=0 discr=0 err=246 mat_no=246 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+[fórmula con potencias] no aplicable: el evaluador no admite ** (ast.Pow no permitido)
+[fórmula con multiplicación de listas gigante] no lanza · apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: la fórmula usa [] y los orígenes declarados son ['Historia!C5']: un derivado se calcula con todos sus orígenes y solo con ellos
+[fase1_v63.json con C47 declarada como lista] no lanza · apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=1 | desactualizadas: Análisis!C47: el fundamento, la evidencia, la transformación, sus orígenes o la propia comprobación cam
+[registro = []] no lanza · apto=False · motivo: verificacion_entradas.json no tiene la estructura esperada (objeto con «entradas»)
+[registro roto] no lanza · apto=False · motivo: verificacion_entradas.json no se puede leer (JSONDecodeError)
+[registro con entradas = objeto] no lanza · apto=False · motivo: verificacion_entradas.json no tiene la estructura esperada (objeto con «entradas»)
+
+=== I9 · sin libro / sin registro
+aptitud en una carpeta sin libro: {'universo': None, 'comprobadas': 0, 'comprobadas_universo': None, 'universo_calculo': None, 'comprobadas_calculo': None, 'motivo': 'no hay libro del expediente: no se puede fijar el universo de entradas'}
+aptitud sin registro: {'universo': 321, 'comprobadas': 0, 'comprobadas_universo': 0, 'universo_calculo': 232, 'comprobadas_calculo': 0, 'comprobadas_juicio': 0}

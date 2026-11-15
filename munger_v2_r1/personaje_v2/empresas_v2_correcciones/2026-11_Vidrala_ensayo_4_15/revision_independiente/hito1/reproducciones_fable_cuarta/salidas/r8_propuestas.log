@@ -1,0 +1,37 @@
+árbol: /tmp/rev_fable4/congelado4/personaje_v2
+
+=== 1 · los 148 derivados reales de la 4.14 con las tres propuestas
+   148 derivados reales · con literales fuera de sitio (P1): 0 · con orígenes estructuralmente inertes (P2): 0
+
+=== 2 · P1 y P2 sobre fórmulas legítimas y sobre los contraejemplos
+   [legítima: media de tres] vigente: acepta (constantes []; inertes []) · propuesta: acepta (P1 []; P2 [])
+   [legítima: cambio de unidad] vigente: acepta (constantes []; inertes []) · propuesta: acepta (P1 []; P2 [])
+   [legítima: ratio redondeado] vigente: acepta (constantes []; inertes []) · propuesta: acepta (P1 []; P2 [])
+   [legítima: cambio de signo] vigente: acepta (constantes []; inertes []) · propuesta: acepta (P1 []; P2 [])
+   [legítima con un origen −1] vigente: RECHAZA (constantes []; inertes ['b']) · propuesta: acepta (P1 []; P2 [])
+   [legítima: producto con un cero] vigente: RECHAZA (constantes []; inertes ['a']) · propuesta: acepta (P1 []; P2 [])
+   [legítima: 0 / d] vigente: RECHAZA (constantes []; inertes ['b']) · propuesta: acepta (P1 []; P2 [])
+   [legítima: max de dos partidas] vigente: RECHAZA (constantes []; inertes ['b']) · propuesta: acepta (P1 []; P2 [])
+   [T2 de la tercera: o[x] * 0 + cifra] vigente: RECHAZA (constantes [849.697, 0]; inertes ['a']) · propuesta: RECHAZA (P1 [849.697, 0]; P2 ['a'])
+   [T2 de la tercera: o[x] − o[x] + o[y]] vigente: RECHAZA (constantes []; inertes ['a']) · propuesta: RECHAZA (P1 []; P2 ['a'])
+   [nuevo: año − cifra compuesta] vigente: acepta (constantes []; inertes []) · propuesta: RECHAZA (P1 [3, 1000, 9, 3, 10, 6, 10, 1, 1000, 1, 100]; P2 [])
+   [nuevo: cifra compuesta + max(año, año compuesto) − año compuesto (codo de max)] vigente: acepta (constantes []; inertes []) · propuesta: RECHAZA (P1 [9, 7, 1000, 9, 2, 1000, 1, 10, 9, 100, 9, 6, 10, 2, 1000, 1, 10, 8, 100, 4, 10]; P2 [])
+   [nuevo: cifra compuesta + abs(año − año compuesto)] vigente: acepta (constantes []; inertes []) · propuesta: RECHAZA (P1 [7, 1000, 9, 100, 9, 9, 6, 10, 2, 1000, 1, 10, 8, 100, 4, 10]; P2 [])
+   [nuevo: cifra compuesta + round(año, -9)] vigente: acepta (constantes []; inertes []) · propuesta: RECHAZA (P1 [7, 1000, 9, 9, 100, 9, 6, 10, 8, 100, 4, 10]; P2 [])
+   [nuevo: año × cifra compuesta ÷ año compuesto ÷ 1000] vigente: acepta (constantes []; inertes []) · propuesta: RECHAZA (P1 [9, 7, 2, 1000, 1, 10, 9, 10, 6, 100, 9, 1000, 8, 100000, 4, 10000]; P2 [])
+   [nuevo: abs(a, b) (segundo argumento ignorado)] vigente: RECHAZA (constantes []; inertes ['b']) · propuesta: RECHAZA (P1 []; P2 ['b'])
+   [nuevo: round(x, 999999999999)] vigente: acepta (constantes []; inertes (no se evalúa: no termina)) · propuesta: RECHAZA (P1 [999999999999]; P2 (no se evalúa))
+   [LÍMITE (no detectable): dígitos = diferencias entre años de la Historia] vigente: acepta (constantes []; inertes []) · propuesta: acepta (P1 []; P2 [])
+
+=== 3 · P3 (importes): el valor del generador del paquete para medias de n valores con 3 decimales, y los contraejemplos de T1
+   media de 2: rechazados con la regla vigente (_igual_libro sobre el float del exacto) 2197 de 20000 · con P3 0
+   media de 3: rechazados con la regla vigente (_igual_libro sobre el float del exacto) 0 de 20000 · con P3 0
+   media de 4: rechazados con la regla vigente (_igual_libro sobre el float del exacto) 639 de 20000 · con P3 0
+   media de 6: rechazados con la regla vigente (_igual_libro sobre el float del exacto) 863 de 20000 · con P3 0
+   [849,0 frente a 849,697] vigente: rechaza · P3: rechaza
+   [849,6974 frente a 849,697 (redondeo legítimo)] vigente: acepta · P3: acepta
+   [849,6976 frente a 849,697] vigente: rechaza · P3: rechaza
+   [849,6975 (empate) frente a 849,697] vigente: acepta · P3: acepta
+   [849,6975 (empate) frente a 849,698] vigente: rechaza · P3: acepta
+   [849,6974 frente a 849,6972 (el libro no tiene 3 decimales)] vigente: rechaza · P3: rechaza
+   [0,2511 frente a 0,25] vigente: rechaza · P3: rechaza

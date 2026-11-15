@@ -1,0 +1,439 @@
+{
+ "expediente": "../../../../../tmp/c48_4_15_jkkwrthw/ensamblado/Elis",
+ "modo_fase1": "construir",
+ "sin_migrados": true,
+ "config": "config_v2.json",
+ "carpeta_limpia": "temporal (se elimina al terminar)",
+ "entradas_declaradas": [
+  "etapa1",
+  "fase1_metadatos.json",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "texto",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "alcance_v2.json",
+  "entrada_efectiva.json"
+ ],
+ "pasos": [
+  {
+   "paso": "fase1_historia construir",
+   "rc": 0,
+   "salida": "fase1_v63.json escrito (10 años, 71 diferencias con el comparativo, 16 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)\n"
+  },
+  {
+   "paso": "migración de la etapa 1",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_5ln4t_vc/Elis/Elis_v63_base.xlsx {'conservados': 518, 'excluidos': 895, 'transformados': 3, 'conflictos': 0, 'normalizados': 4}\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "entradas del FCF base migradas vaciadas en el libro base",
+   "valores_migrados": {
+    "Análisis!C46": null,
+    "Análisis!C47": null,
+    "Análisis!C48": null,
+    "Análisis!C49": 128.1,
+    "Análisis!C50": null
+   }
+  },
+  {
+   "paso": "rellenar_fase1_v63",
+   "rc": 0,
+   "salida": "OK: 580 celdas escritas en /tmp/reconstruccion_Elis_5ln4t_vc/Elis/Elis_v63_datos.xlsx · derivadas: 0 · convenciones: [] · avisos: 2\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase A",
+   "rc": 0,
+   "salida": "OK: 116 celdas escritas en /tmp/reconstruccion_Elis_5ln4t_vc/Elis/Elis_v63_evaluada.xlsx.A.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase B",
+   "rc": 0,
+   "salida": "OK: 92 celdas escritas en /tmp/reconstruccion_Elis_5ln4t_vc/Elis/Elis_v63_evaluada.xlsx.B.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase C",
+   "rc": 0,
+   "salida": "OK: 58 celdas escritas en /tmp/reconstruccion_Elis_5ln4t_vc/Elis/Elis_v63_evaluada.xlsx.C.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "recálculo (LibreOffice)",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_5ln4t_vc/Elis/recalc/Elis_v63_evaluada.xlsx (recálculo forzado, perfil /tmp/reconstruccion_Elis_5ln4t_vc/.lo_perfil)\n"
+  },
+  {
+   "paso": "lectura de resultados",
+   "rc": 0,
+   "salida": "OK: resultados.json → /tmp/reconstruccion_Elis_5ln4t_vc/Elis/resultados.json · motor A · estado COMPLETO Y VÁLIDO · libro LISTO · PROVISIONAL (26 estimaciones justificadas)\n"
+  }
+ ],
+ "diferencias": {
+  "fase1_analisis": [],
+  "fase1_historia": [],
+  "libro_datos": {
+   "n": 8,
+   "ejemplos": [
+    {
+     "celda": "Análisis!D4",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    },
+    {
+     "celda": "Control maestro!G20",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    },
+    {
+     "celda": "Control maestro!G45",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!G46",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!H45",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!H46",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!J45",
+     "expediente": [
+      "v",
+      "URD2025 p.327, 379; DEU2024 p.273"
+     ],
+     "reconstruido": [
+      "v",
+      "Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (texto/Elis_Document d'enregistrement universel_2024_FR.txt p.273); 2023 arrendamientos_principal (Historia) 111.0; 2024 intereses_financiacion (Historia) 78.9; 2024 pagos_arrendamientos_con_intereses 150.8 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2024 arrendamientos_principal (Historia) 125.0; 2025 intereses_financiacion (Historia) 99.4; 2025 pagos_arrendamientos_con_intereses 177.9 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2025 arrendamientos_principal (Historia) 148.3. Tratamiento del inversor del 10-nov-2026 registrado en el Control maestro de la etapa 1 (filas 45 y 47: «C48 = intereses netos en financiación 82,9 + intereses de arrendamientos 25,1»), conciliado con la base E6 (cupón de la OCEANE dentro de «Net interest paid»). Intereses de arrendamientos = pagos de pasivos por arrendamiento con intereses − principal (desde el informe 2024 «Net interest paid» los excluye)."
+     ]
+    },
+    {
+     "celda": "Control maestro!J46",
+     "expediente": [
+      "v",
+      "URD2025 nota 6.3 p.366; DEU2024"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+     ]
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    }
+   ]
+  },
+  "libro_evaluado": {
+   "n": 8,
+   "ejemplos": [
+    {
+     "celda": "Análisis!D4",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    },
+    {
+     "celda": "Control maestro!G20",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    },
+    {
+     "celda": "Control maestro!G45",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!G46",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!H45",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!H46",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!J45",
+     "expediente": [
+      "v",
+      "URD2025 p.327, 379; DEU2024 p.273"
+     ],
+     "reconstruido": [
+      "v",
+      "Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (texto/Elis_Document d'enregistrement universel_2024_FR.txt p.273); 2023 arrendamientos_principal (Historia) 111.0; 2024 intereses_financiacion (Historia) 78.9; 2024 pagos_arrendamientos_con_intereses 150.8 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2024 arrendamientos_principal (Historia) 125.0; 2025 intereses_financiacion (Historia) 99.4; 2025 pagos_arrendamientos_con_intereses 177.9 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2025 arrendamientos_principal (Historia) 148.3. Tratamiento del inversor del 10-nov-2026 registrado en el Control maestro de la etapa 1 (filas 45 y 47: «C48 = intereses netos en financiación 82,9 + intereses de arrendamientos 25,1»), conciliado con la base E6 (cupón de la OCEANE dentro de «Net interest paid»). Intereses de arrendamientos = pagos de pasivos por arrendamiento con intereses − principal (desde el informe 2024 «Net interest paid» los excluye)."
+     ]
+    },
+    {
+     "celda": "Control maestro!J46",
+     "expediente": [
+      "v",
+      "URD2025 nota 6.3 p.366; DEU2024"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+     ]
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    }
+   ]
+  },
+  "valores_recalculados": {
+   "n": 11,
+   "ejemplos": [
+    {
+     "celda": "Análisis!D4",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-15"
+    },
+    {
+     "celda": "Control maestro!F4",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-15"
+    },
+    {
+     "celda": "Control maestro!G20",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-15"
+    },
+    {
+     "celda": "Control maestro!G45",
+     "expediente": "FY2023–FY2025 (media 3 años)",
+     "reconstruido": "2023–2025"
+    },
+    {
+     "celda": "Control maestro!G46",
+     "expediente": "FY2023–FY2025 (media 3 años)",
+     "reconstruido": "2023–2025"
+    },
+    {
+     "celda": "Control maestro!H45",
+     "expediente": "mm EUR (positivo)",
+     "reconstruido": "mm"
+    },
+    {
+     "celda": "Control maestro!H46",
+     "expediente": "mm EUR (positivo)",
+     "reconstruido": "mm"
+    },
+    {
+     "celda": "Control maestro!J184",
+     "expediente": "URD2025 p.327, 379; DEU2024 p.273",
+     "reconstruido": "Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (texto/Elis_Document d'enregistrement universel_2024_FR.txt p.273); 2023 arrendamientos_principal (Historia) 111.0; 2024 intereses_financiacion (Historia) 78.9; 2024 pagos_arrendamientos_con_intereses 150.8 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2024 arrendamientos_principal (Historia) 125.0; 2025 intereses_financiacion (Historia) 99.4; 2025 pagos_arrendamientos_con_intereses 177.9 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2025 arrendamientos_principal (Historia) 148.3. Tratamiento del inversor del 10-nov-2026 registrado en el Control maestro de la etapa 1 (filas 45 y 47: «C48 = intereses netos en financiación 82,9 + intereses de arrendamientos 25,1»), conciliado con la base E6 (cupón de la OCEANE dentro de «Net interest paid»). Intereses de arrendamientos = pagos de pasivos por arrendamiento con intereses − principal (desde el informe 2024 «Net interest paid» los excluye)."
+    },
+    {
+     "celda": "Control maestro!J185",
+     "expediente": "URD2025 nota 6.3 p.366; DEU2024",
+     "reconstruido": "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+    },
+    {
+     "celda": "Control maestro!J45",
+     "expediente": "URD2025 p.327, 379; DEU2024 p.273",
+     "reconstruido": "Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (texto/Elis_Document d'enregistrement universel_2024_FR.txt p.273); 2023 arrendamientos_principal (Historia) 111.0; 2024 intereses_financiacion (Historia) 78.9; 2024 pagos_arrendamientos_con_intereses 150.8 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2024 arrendamientos_principal (Historia) 125.0; 2025 intereses_financiacion (Historia) 99.4; 2025 pagos_arrendamientos_con_intereses 177.9 (texto/Elis - 2025 Universal Registration Document.txt p.327); 2025 arrendamientos_principal (Historia) 148.3. Tratamiento del inversor del 10-nov-2026 registrado en el Control maestro de la etapa 1 (filas 45 y 47: «C48 = intereses netos en financiación 82,9 + intereses de arrendamientos 25,1»), conciliado con la base E6 (cupón de la OCEANE dentro de «Net interest paid»). Intereses de arrendamientos = pagos de pasivos por arrendamiento con intereses − principal (desde el informe 2024 «Net interest paid» los excluye)."
+    },
+    {
+     "celda": "Control maestro!J46",
+     "expediente": "URD2025 nota 6.3 p.366; DEU2024",
+     "reconstruido": "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-15"
+    }
+   ]
+  }
+ },
+ "modo_entrada_efectiva": {
+  "modo": "estricta",
+  "declarado_en": "entrada_efectiva.json"
+ },
+ "entradas_migradas_distintas": [],
+ "precio_si": {
+  "expediente": 7.30205532309094,
+  "reconstruido": 7.30205532309094,
+  "diferencia": 0.0
+ },
+ "entradas_fcf_base": {
+  "Análisis!C46": {
+   "expediente": [
+    "v",
+    1429.433
+   ],
+   "reconstruido": [
+    "v",
+    1429.433
+   ]
+  },
+  "Análisis!C47": {
+   "expediente": [
+    "v",
+    857.167
+   ],
+   "reconstruido": [
+    "v",
+    857.167
+   ]
+  },
+  "Análisis!C48": {
+   "expediente": [
+    "v",
+    108
+   ],
+   "reconstruido": [
+    "v",
+    108
+   ]
+  },
+  "Análisis!C49": {
+   "expediente": [
+    "v",
+    128.1
+   ],
+   "reconstruido": [
+    "v",
+    128.1
+   ]
+  },
+  "Análisis!C50": {
+   "expediente": [
+    "v",
+    28.233
+   ],
+   "reconstruido": [
+    "v",
+    28.233
+   ]
+  }
+ },
+ "reproduce": false,
+ "reproduce_por_via_generativa": false,
+ "codigo_de_salida": 1,
+ "clasificacion": {
+  "fecha de ejecución": [
+   "Análisis!D4",
+   "Control maestro!F4",
+   "Control maestro!G20"
+  ],
+  "evidencia documental": [
+   "Control maestro!G45",
+   "Control maestro!G46",
+   "Control maestro!H45",
+   "Control maestro!H46",
+   "Control maestro!J184",
+   "Control maestro!J185",
+   "Control maestro!J45",
+   "Control maestro!J46"
+  ]
+ }
+}

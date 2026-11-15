@@ -1,3 +1,13 @@
+# Rama de revisión: 4.15, hito 1
+
+Entrega intermedia recibida de Claude, con una revisión externa en curso. No fusionada con main. El hito no contiene el cierre económico F1 ni los expedientes regenerados. Hay un contraejemplo nuevo del control de signos; consultar docs/revision_externa_4_15_hito1/.
+
+La base 4.14 completa sigue conservada en main y en su Release. Para ejecutar este hito: clonar main, recuperar y verificar sus binarios con tools/base_414.py y después cambiar a esta rama. La verificación de la 4.14 no debe aplicarse al código modificado de la 4.15; usar el MANIFIESTO_SHA256.txt de esta rama para contrastar su árbol.
+
+El trabajo actual de Claude continúa aparte. Esta rama conserva exactamente el código recibido, sin incorporar correcciones propias al producto.
+
+---
+
 # Munger V2 — código y trazabilidad
 
 La base histórica **4.14 está recuperada y verificada**: 5790 archivos de código, documentación y textos en Git; los 1008 binarios se conservan dentro del ZIP original en Releases. El manifiesto tiene 6798 entradas, además del propio manifiesto.

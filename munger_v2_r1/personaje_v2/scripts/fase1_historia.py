@@ -300,6 +300,102 @@ def preparar(carpeta, empresa):
 
 
 # ---------------------------------------------------------------- construir
+OPERACIONES_CALCULO = ("media", "suma")
+
+
+def calcular_entrada(celda, d, H, anios, carpeta=None):
+    """(4.15) Valor de una entrada de Análisis desde su `calculo` declarado:
+    {"operacion": "media"|"suma", "anios": [AAAA, …], "terminos": [{"partida": <fila de la Historia>, "signo": ±1} | {"componente": <nombre>, "signo": ±1}],
+     "componentes": {<nombre>: {"AAAA": {"valor": x, "fuente": "texto/…", "pagina": n, "cita": "…"}}}, "decision": "…", "redondeo": 3}
+    Cada año suma sus términos; la operación agrega los años. Un año sin dato, un componente sin fuente o un «valor» declarado que no
+    coincide con el calculado es un error (no se rellena ni se redondea en silencio).
+    (Revisión independiente de la 4.15, hallazgos 7 y 13) Los años tienen que ser enteros distintos; el redondeo, un entero ≥ 3 (el del libro
+    por defecto), y se dice en la fuente; con `carpeta`, cada componente se contrasta con su fuente: la cita tiene que estar en la página PDF
+    citada del texto conservado y contener el valor (verificacion_entradas). La entrada hereda los ceros pendientes de verificación (H1) de
+    las partidas y años que usa (`pendiente_verificacion`). Cualquier defecto es un ValueError."""
+    cal = d["calculo"]
+    if not isinstance(cal, dict):
+        raise ValueError("el cálculo no es un objeto")
+    op = cal.get("operacion")
+    if op not in OPERACIONES_CALCULO:
+        raise ValueError(f"operación {op!r} no admitida ({OPERACIONES_CALCULO})")
+    sel = cal.get("anios") or []
+    if not isinstance(sel, list) or not sel or any(not isinstance(a, int) or isinstance(a, bool) for a in sel):
+        raise ValueError(f"años {sel!r}: tienen que ser una lista de años enteros")
+    if len(set(sel)) != len(sel):
+        raise ValueError(f"años repetidos {sel}")
+    if any(a not in anios for a in sel):
+        raise ValueError(f"años {sel} fuera de la Historia {anios}")
+    red = cal.get("redondeo", 3)
+    if not isinstance(red, int) or isinstance(red, bool) or red < 3:
+        raise ValueError(f"redondeo {red!r}: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)")
+    terms = cal.get("terminos") or []
+    if not isinstance(terms, list) or not terms:
+        raise ValueError("sin términos")
+    comps = cal.get("componentes") or {}
+    if not isinstance(comps, dict):
+        raise ValueError("los componentes no son un objeto")
+    VE = None
+    if carpeta is not None:
+        import verificacion_entradas as VE  # noqa: N811
+    por_anio, fuentes, pend = [], [], set()
+    for a in sel:
+        i = anios.index(a)
+        tot = 0.0
+        for t in terms:
+            if not isinstance(t, dict):
+                raise ValueError(f"término no válido: {t!r}")
+            sg = t.get("signo", 1)
+            if sg not in (1, -1) or isinstance(sg, bool):
+                raise ValueError(f"signo {sg!r} no es ±1")
+            if t.get("partida"):
+                p = H.get(t["partida"])
+                vals = (p.get("valores") if isinstance(p, dict) else p) if p is not None else None
+                v = vals[i] if vals and i < len(vals) else None
+                if not isinstance(v, (int, float)) or isinstance(v, bool):
+                    raise ValueError(f"la Historia no tiene {t['partida']} de {a}")
+                if isinstance(p, dict) and a in (p.get("pendientes_verificacion") or []):
+                    pend.add(a)
+                fuentes.append(f"{a} {t['partida']} (Historia) {v}")
+            elif t.get("componente"):
+                serie = comps.get(t["componente"])
+                if serie is not None and not isinstance(serie, dict):
+                    raise ValueError(f"el componente {t['componente']!r} no es un objeto {{año: {{valor, fuente, página, cita}}}}")
+                cmp = (serie or {}).get(str(a)) or {}
+                if not isinstance(cmp, dict):  # (4.15, segunda revisión, residuo del hallazgo 13) nunca un AttributeError
+                    raise ValueError(f"el componente {t['componente']} de {a} no es un objeto {{valor, fuente, página, cita}}")
+                v = cmp.get("valor")
+                if not isinstance(v, (int, float)) or isinstance(v, bool) or not str(cmp.get("fuente") or "").strip() or cmp.get("pagina") in (None, ""):
+                    raise ValueError(f"el componente {t['componente']} de {a} no tiene valor, fuente y página")
+                if VE is not None:
+                    ruta = VE._ruta_fuente(carpeta, cmp["fuente"])
+                    if ruta is None or not ruta.lower().endswith(".txt"):
+                        raise ValueError(f"el componente {t['componente']} de {a}: su fuente {cmp['fuente']!r} no es un texto conservado en el expediente")
+                    estado, pag = VE._pagina_examinable(ruta, cmp["pagina"])
+                    if estado != "ok":
+                        raise ValueError(f"el componente {t['componente']} de {a}: {pag}")
+                    if not VE._norm_txt(cmp.get("cita")) or VE._norm_txt(cmp.get("cita")) not in VE._norm_txt(pag) or not VE._cita_contiene(cmp.get("cita"), v):
+                        raise ValueError(f"el componente {t['componente']} de {a}: la cita no está en la página {cmp['pagina']} o no contiene {v}")
+                fuentes.append(f"{a} {t['componente']} {v} ({cmp['fuente']} p.{cmp['pagina']})")
+            else:
+                raise ValueError(f"término sin partida ni componente: {t}")
+            tot += sg * v
+        por_anio.append(tot)
+    bruto = sum(por_anio) / len(por_anio) if op == "media" else sum(por_anio)
+    val = round(bruto, red)
+    if d.get("valor") is not None and not (isinstance(d["valor"], (int, float)) and not isinstance(d["valor"], bool) and abs(d["valor"] - val) <= 1e-9 * max(1.0, abs(val))):
+        raise ValueError(f"el valor declarado {d['valor']!r} no es el calculado {val!r}")
+    desc = " ".join(("+" if t.get("signo", 1) == 1 else "−") + " " + (t.get("partida") or t.get("componente")) for t in terms).lstrip("+ ")
+    out = {k: v for k, v in d.items() if k != "calculo"}
+    out.update(valor=val, calculo=cal, periodo=d.get("periodo") or f"{min(sel)}–{max(sel)}", unidad=d.get("unidad") or "mm", valor_sin_redondear=bruto,
+               fuente=(f"Cálculo declarado ({op} {sel[0]}–{sel[-1]} de: {desc}; redondeo a {red} decimales; sin redondear {bruto!r}): " + "; ".join(fuentes))[:1500]
+               + (f". {cal['decision']}" if cal.get("decision") else ""))
+    if pend:
+        out["pendiente_verificacion"] = sorted(set(out.get("pendiente_verificacion") or []) | pend)
+        out["nota"] = ((out.get("nota") or "") + f" Cálculo con ceros pendientes de verificación en {', '.join(map(str, sorted(pend)))} (H1).").strip()
+    return out
+
+
 def construir(carpeta):
     fuentes = elegir_fuentes(carpeta)
     anios = sorted(fuentes)
@@ -448,9 +544,24 @@ def construir(carpeta):
     falt = [f"{k} {a}" for k in ESENCIALES for a, v in zip(anios, serie[k]) if v is None and a >= anios[-3]]
     f1 = {k: meta.get(k) for k in ("empresa", "ticker", "fecha_analisis", "sector_texto", "moneda_modelo", "norma_contable", "cierre_fiscal", "mercado", "ratio_adr", "sector_damodaran", "precio", "acciones_diluidas", "capitalizacion", "tasa_sin_riesgo", "geografia", "geografia_fuente")}
     f1["unidad"] = "mm"
+    if isinstance(meta.get("control_maestro_textos"), dict) and meta["control_maestro_textos"]:
+        # (4.15, X2/H-P1) textos declarativos del Control maestro (cabecera F5 y lista de comprobación C86:E102) que sustituyen los de la
+        # etapa 1 cuando ya no describen el expediente; rellenar_fase1_v63.py los escribe y guarda el anterior en su registro
+        f1["control_maestro_textos"] = dict(meta["control_maestro_textos"])
     f1["anios_fcf_base"] = meta.get("anios_fcf_base", 3)
     f1["historia"] = {"anios": anios, "partidas": H}
     f1["analisis"] = meta.get("analisis") or {}
+    # (4.15, C48 de Elis) entradas de Análisis declaradas con su CÁLCULO explícito sobre la Historia y componentes con fuente: la entrada
+    # efectiva justificada se reconstruye desde las entradas declaradas (no depende de que la celda conserve un valor migrado)
+    errores_calculo = []
+    for celda, d in list(f1["analisis"].items()):
+        if isinstance(d, dict) and isinstance(d.get("calculo"), dict):
+            try:
+                f1["analisis"][celda] = calcular_entrada(celda, d, H, anios, carpeta)
+            except (ValueError, TypeError) as ex:
+                errores_calculo.append(f"Análisis!{celda}: {ex}")
+    if errores_calculo:
+        raise SystemExit("fase1_metadatos.json · cálculo de entradas de Análisis no reproducible: " + "; ".join(errores_calculo))
     # v2.2 (Nike): los datos base del DCF (Análisis C46–C50) salen de la Historia si la etapa 1 no los trae: media de los
     # últimos anios_fcf_base ejercicios. rellenar_fase1_v63.py solo los escribe en celdas vacías (no pisa la etapa 1).
     n_fcf = int(meta.get("anios_fcf_base", 3) or 3)
@@ -479,7 +590,7 @@ def construir(carpeta):
                 e["nota"] = ((e.get("nota") or "") + f" Fuente independiente de la Historia, respaldada por {e['independiente']['confirmado_por']} el {e['independiente']['fecha']}: {e['independiente']['fuente']} ({e['independiente']['motivo']}). La Historia tiene ceros pendientes en {', '.join(map(str, pend_c))}, que no afectan a esta cifra.").strip()
                 continue
             indep_rechazadas.append(f"{celda}: respaldo independiente no aceptado ({defecto})")
-        e["pendiente_verificacion"] = pend_c
+        e["pendiente_verificacion"] = sorted(set(pend_c) | set(e.get("pendiente_verificacion") or []))  # (4.15) sin perder los del cálculo
         e["nota"] = ((e.get("nota") or "") + f" Depende de la Historia con ceros pendientes en {', '.join(map(str, pend_c))}." + aviso_pend(pend_c)).strip()
     if not f1.get("capitalizacion") and f1.get("precio") and f1.get("acciones_diluidas"):
         f1["capitalizacion"] = {"valor": round(f1["precio"]["valor"] * f1["acciones_diluidas"]["valor"], 1), "fecha": f1["precio"].get("fecha"), "fuente": "precio × acciones diluidas"}

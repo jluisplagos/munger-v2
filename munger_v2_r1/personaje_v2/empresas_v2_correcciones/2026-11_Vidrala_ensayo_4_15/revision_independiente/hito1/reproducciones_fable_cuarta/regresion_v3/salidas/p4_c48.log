@@ -1,0 +1,57 @@
+=== 1 · hallazgo 13: calcular_entrada
+caso real (con carpeta): 108.0 | sin redondear: 108.0 | fuente: Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_a
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=0 (sin carpeta): ValueError: redondeo 0: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo 0: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=-1 (sin carpeta): ValueError: redondeo -1: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo -1: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=2 (sin carpeta): ValueError: redondeo 2: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo 2: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=None (sin carpeta): ValueError: redondeo None: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo None: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo='3' (sin carpeta): ValueError: redondeo '3': tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo '3': tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=2.5 (sin carpeta): ValueError: redondeo 2.5: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo 2.5: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=True (sin carpeta): ValueError: redondeo True: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm) | con valor declarado 108: ValueError: redondeo True: tiene que ser un entero ≥ 3 (el libro trabaja con 3 decimales en mm)
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=3 (sin carpeta): valor=108.367 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 108.367
+  componente 2025 = 179,0 (media exacta 108,3667) con redondeo=6 (sin carpeta): valor=108.366667 | con valor declarado 108: ValueError: el valor declarado 108 no es el calculado 108.366667
+años repetidos: ValueError: años repetidos [2025, 2025, 2025]
+años como texto y decimal: ValueError: años ['2023', 2024.0, 2025]: tienen que ser una lista de años enteros
+un año None: ValueError: años [2023, None, 2025]: tienen que ser una lista de años enteros
+años desordenados [2025, 2023, 2024]: valor=108.0 | periodo: 2023–2025
+signo True: ValueError: signo True no es ±1
+componente con fuente inexistente, página 99999 y sin cita: sin carpeta → valor=108.0 | con carpeta → ValueError: el componente pagos_arrendamientos_con_intereses de 2025: su fuente 'texto/NO_EXISTE.txt' no es un texto conservado en el expediente
+componente 2025 = 1779,0 (errata ×10): sin carpeta → valor=641.7 | con carpeta → ValueError: el componente pagos_arrendamientos_con_intereses de 2025: la cita no está en la página 327 o no contiene 1779.0
+componente 2025 = 150,8 (la cifra de la OTRA columna de la misma cita: 2024): con carpeta → valor=98.967
+componente con fuente de ruta absoluta: con carpeta → ValueError: el componente pagos_arrendamientos_con_intereses de 2025: su fuente '/etc/hostname' no es un texto conservado en el expediente
+componente con página «327-328»: con carpeta → ValueError: el componente pagos_arrendamientos_con_intereses de 2025: la página declarada '327-328' no identifica una página del PDF (un entero; el folio impreso 
+términos arbitrarios (se añade − el mismo componente y + ventas): con carpeta → valor=4514.8
+componentes que no son un objeto: ValueError: los componentes no son un objeto
+términos que no son una lista: ValueError: sin términos
+un componente que no es un objeto: ValueError: el componente 'pagos_arrendamientos_con_intereses' no es un objeto {año: {valor, fuente, página, cita}}
+valor declarado True: ValueError: el valor declarado True no es el calculado 108.0 | valor declarado '108': ValueError: el valor declarado '108' no es el calculado 108.0 | valor declarado 108.0004: ValueError: el valor declarado 108.0004 no es el calculado 108.0
+calculo que no es un objeto: ValueError el cálculo no es un objeto
+
+=== 2 · hallazgo 7: un cálculo declarado que usa ceros pendientes de verificación (H1)
+pendientes de la Historia: {'arrendamientos_principal': [2016, 2017, 2018], 'arrendamientos': [2016, 2017, 2018]} | pendientes_celda('C48'): []
+media 2016–2018 de intereses_financiacion − arrendamientos_principal: valor=55.233 pendiente_verificacion=[2016, 2017, 2018]
+construir: rc 0 _v63.json escrito (10 años, 71 diferencias con el comparativo, 16 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)
+   C48: {'valor': 55.233, 'periodo': '2016–2018', 'pendiente_verificacion': [2016, 2017, 2018], 'nota': 'Cálculo con ceros pendientes de verificación en 2016, 2017, 2018 (H1).'}
+rellenar (base sin migrados): rc 0 | C48 = 55.233 | Control maestro F45 = Dato no verificable | N45 = [H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Análisis!C48 depende de la Historia; 2016, 2017, 2018): la cita del informe no se ha contrastado con la parti
+rellenar (base CON el 108 migrado; la declarada 55,233 está pendiente por H1): rc 0 | C48 = 108 | F45 = Dato no verificable | entradas_migradas_distintas: [('Análisis!C48', 108, 55.233, 'valor migrado de la etapa 1 conservado (con ceros pendientes')]
+   ídem con --estricta: rc 7 | libro escrito: False | RECHAZADO (código 7, entrada efectiva estricta): entradas del FCF base que solo sostiene un valor migrado de la etapa 1; no se ha 
+
+=== 3 · hallazgo 4: entradas_no_reproducibles
+Elis 4.14 tal cual: {'Análisis!C48': (108, 82.933, 'fase1_v63.json (la vía generativa) declara otro valor: el li')}
+(a) sin fase1_v63.json: ['Análisis!C46', 'Análisis!C47', 'Análisis!C48', 'Análisis!C49', 'Análisis!C50'] | apto: False
+(b) fase1_v63.json ilegible: ['Análisis!C46', 'Análisis!C47', 'Análisis!C48', 'Análisis!C49', 'Análisis!C50']
+(b') fase1_v63.json = []: ['Análisis!C46', 'Análisis!C47', 'Análisis!C48', 'Análisis!C49', 'Análisis!C50'] | comprobar sin excepción: apto = False
+(b'') «analisis» que no es un objeto: ['Análisis!C46', 'Análisis!C47', 'Análisis!C48', 'Análisis!C49', 'Análisis!C50']
+(c) fase1_v63.json sin declarar C48: {'Análisis!C48': (108, None, 'fase1_v63.json no declara esta entrada con un número: el lib')}
+(d) fase1_v63.json editado a mano: C48.valor = 108 (sin cálculo, con la fuente de la media 82,933): {} | fuente que sigue declarando: Historia de fase1_v63.json, media 2023–2025 de intereses_financiacion: Elis_Document d'enr
+(e) valor declarado como texto «108»: {'Análisis!C48': (108, '108', 'fase1_v63.json no declara esta entrada con un número: el lib')}
+(e') declaración escalar C48 = 108 (sin objeto ni fuente): {}
+(e'') declaración 108.0000000005: {} | 108.0004: {'Análisis!C48': (108, 108.0004, 'fase1_v63.json (la vía generativa) declara otro valor: el li')}
+(f) Vidrala final 4.14: libro {'C46': 335.413, 'C47': 169.668, 'C48': None, 'C49': 4.5, 'C50': 0} | declaradas: {'C46': 335.413, 'C47': 169.668, 'C48': None, 'C49': 4.5, 'C50': None} | no reproducibles: {'Análisis!C50': (0, None, 'fase1_v63.json no declara esta entrada con un número: el lib')}
+(f) Viscofan final 4.14: libro {'C46': 192.3, 'C47': 77.533, 'C48': 8.294, 'C49': 5.547, 'C50': 3.707} | declaradas: {'C46': 192.3, 'C47': 77.533, 'C48': 8.294, 'C49': 5.547, 'C50': 3.707} | no reproducibles: {}
+(g) libro con C48 VACÍA y fase1_v63.json que declara 82,933 (sentido contrario): {}
+
+=== 4 · rellenar: registro de entradas migradas y --estricta en los tres expedientes finales de la 4.14
+Elis: rc 0 · entradas_migradas_distintas: [('C48', 108, 82.933)] · --estricta: rc 7, libro escrito: False, registro escrito: True
+Vidrala: rc 0 · entradas_migradas_distintas: [('C50', 0, None)] · --estricta: rc 7, libro escrito: False, registro escrito: True
+Viscofan: rc 0 · entradas_migradas_distintas: [] · --estricta: rc 0, libro escrito: True, registro escrito: True
+Elis --estricta --sobrescribir: rc 0 | C48 = 82.933 | OK: 593 celdas escritas en /tmp/rev_fable4/tmp/rev_fable_c48_24tgb3wl/rel_elis_sobre.xlsx · derivadas: 2 · convenciones: [] · avisos: 3

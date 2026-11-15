@@ -1,0 +1,38 @@
+[control positivo] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+evidencia_libro de K: {"fila": 108, "C": "Ventas", "D": "Dato objetivo / serie histórica", "E": "Listo para auditoría", "F": "Rellenado y verificado", "G": "2016–2025", "H": "mm EUR", "I": null, "J": "2016 AR_2017.txt p.8 (comparativo del informe siguiente); 2017 AR_2018.txt p.8 (comparativo del informe siguiente); 2018 AR_2019.txt p.8 (comparativo del informe siguiente); 2019 AR_2020.txt p.5 (comparativo del informe s
+evidencia_libro de Análisis!C62 : {"fila": 57, "C": "Aplicabilidad del DCF simplificado / estabilidad financiación", "D": "Juicio metodológico del inversor", "E": "Listo para auditoría", "F": "Estimación declarada", "G": null, "H": null, "I": null, "J": null, "K": null, "L": null, "M": null, "N": "[Clase: fundamentada] [Confianza: media] Hereda: Sí → cambia (evidencia_nueva): la serie de diez años muestra que la financiación cambi
+celdas del universo sin fila de evidencia en el Control maestro: 29 de 308 | ejemplos: ['Configuración V6.4!B4', 'Configuración V6.4!B11', 'Configuración V6.4!B16', 'Configuración V6.4!B21', 'Configuración V6.4!B28', 'Configuración V6.4!B29', 'Configuración V6.4!B30', 'Configuración V6.4!B31']
+
+=== D1 · sellar con fecha retroactiva legitima en bloque una revisión antigua
+antes de sellar: apto=False comprobadas=0/308 pend=308 desact=0 discr=0 err=0 mat_no=308 ext=0
+CLI sellar (una sola orden, 308 celdas, --fecha 2026-11-14): ['selladas 308 · rechazadas 0'] rc 0
+después de sellar: apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0
+   K: comprobada | Análisis!C62 : comprobada
+
+=== D2 · vínculo escrito a mano (sin `sellar`)
+vínculo = {'huella': huella_fundamento(...)} en las 308 entradas, sin sellado_por ni fecha: apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0
+
+=== D3 · cambios posteriores al sello que no lo invalidan
+[revisor, fecha, fuente examinada y nota de la comprobación cambiados DESPUÉS del sello] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[incidencia, uso e id cambiados después del sello] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[vinculo.sellado_por y vinculo.fecha cambiados (la huella es la misma)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+
+=== D4 · derivado cuyo origen cambia de fundamento
+[derivado con sus dos orígenes, todo sellado] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[el origen aux:a cambia de documento, concepto, página y cita (mismo número), sin nueva revisión] apto=False comprobadas=307/308 pend=1 desact=1 discr=0 err=0 mat_no=1 ext=0 | pendientes: Historia!C5: el origen aux:a no está comprobado (desactualizada)
+   aux:a: ['desactualizadas: aux:a: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida']
+[se revisa y se sella de nuevo SOLO el origen: el derivado, sin revisar, vuelve a valer] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+   aux:a: comprobada
+
+=== D5 · estabilidad de la huella
+ida y vuelta por JSON (ensure_ascii, otro orden de claves): True
+orden de claves de «fuente» invertido: True
+valor_fuente 849697.0 → 849697 (entero en vez de decimal, mismo número): False
+escala 0.001 → 1e-3: True
+mismo texto en NFD en vez de NFC: False
+un espacio final en la cita: False
+página '22' → 22: False
+[registro reescrito con 849697 en vez de 849697.0 (mismo número), sin resellar] apto=False comprobadas=307/308 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 | desactualizadas: Historia!F6: el fundamento, la evidencia o la transformación cambiaron después de la revisión (huella del vínculo distinta): la comprobación no vale aunque el número coincida
+
+=== D9 · sellar fallido cambia el formato del registro
+sellar rechazado: [] ["Historia!F6: el revisor registrado es 'revisor sintético', no 'revisor que no es'"] | formato ahora: 4.15 | el archivo cambió: True

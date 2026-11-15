@@ -1,0 +1,140 @@
+=== 1 · pipeline.modo_entrada_efectiva
+   sin ninguna declaración: ('registrada', None)
+   entrada_efectiva.json {modo: estricta}: ('estricta', 'entrada_efectiva.json')
+   entrada_efectiva.json {modo: Estricta} (mayúscula): ValueError: el modo tiene que ser «estricta» o «registrada»
+   entrada_efectiva.json {modo: ESTRICTA}: ValueError: el modo tiene que ser «estricta» o «registrada»
+   entrada_efectiva.json {modo: 'estricta '} (espacio final): ValueError: el modo tiene que ser «estricta» o «registrada»
+   entrada_efectiva.json {MODO: estricta} (clave en mayúsculas): ValueError: el modo tiene que ser «estricta» o «registrada»
+   entrada_efectiva.json {modo: registrada} sin motivo: ValueError: el modo «registrada» exige su motivo
+   entrada_efectiva.json {modo: registrada, motivo: '  '}: ValueError: el modo «registrada» exige su motivo
+   entrada_efectiva.json {modo: registrada, motivo: x}: ('registrada', 'entrada_efectiva.json')
+   entrada_efectiva.json = [] (lista): ValueError: el modo tiene que ser «estricta» o «registrada»
+   entrada_efectiva.json ilegible: ValueError: no se puede leer (JSONDecodeError)
+   entrada_efectiva.json vacío (0 bytes): ValueError: no se puede leer (JSONDecodeError)
+   solo alcance_v2.json {entrada_efectiva: estricta}: ('estricta', 'alcance_v2.json')
+   solo alcance_v2.json {entrada_efectiva: Estricta} (mayúscula): ('registrada', None)
+   solo alcance_v2.json {entrada_efectiva: estricto} (errata): ('registrada', None)
+   solo alcance_v2.json {entrada_efectiva: {modo: estricta}} (forma del archivo nuevo): ('registrada', None)
+   solo alcance_v2.json ilegible: ('registrada', None)
+   entrada_efectiva.json {modo: registrada, motivo: x} + alcance {entrada_efectiva: estricta} (contradictorios): ('registrada', 'entrada_efectiva.json')
+   entrada_efectiva.json es un enlace simbólico roto: ('registrada', None)
+   entrada_efectiva.json es una carpeta: ValueError: no se puede leer (IsADirectoryError)
+   el archivo se llama Entrada_Efectiva.json (mayúsculas en el nombre): ('registrada', None)
+
+=== 2 · pasos 1–2 del Pipeline real (sin LibreOffice) · Elis 4.14: C48 migrado 108 frente a 82,933 declarado en fase1_v63.json
+[sin ninguna declaración] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[paso 2] FIN · estado pendiente_de_datos · falta_de_datos: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 ·
+[entrada_efectiva.json {modo: estricta}] modo → ('estricta', 'entrada_efectiva.json')
+      estado 'pendiente_de_datos' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 7 · - Análisis!C48: libro 108 · fase1_v63.json 82.9']
+        diagnóstico: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 · fase1_v63.json 82.933 · valor migrado de la etapa 1 conservado; fase1
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[entrada_efectiva.json {modo: Estricta} (mayúscula)] modo → ValueError: el modo tiene que ser «estricta» o «registrada»
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[entrada_efectiva.json {modo: ESTRICTA}] modo → ValueError: el modo tiene que ser «estricta» o «registrada»
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[entrada_efectiva.json {modo: 'estricta '} (espacio final)] modo → ValueError: el modo tiene que ser «estricta» o «registrada»
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[entrada_efectiva.json {MODO: estricta} (clave en mayúsculas)] modo → ValueError: el modo tiene que ser «estricta» o «registrada»
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo «registrada» exige su motivo
+[entrada_efectiva.json {modo: registrada} sin motivo] modo → ValueError: el modo «registrada» exige su motivo
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo «registrada» exige su motivo
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo «registrada» exige su motivo
+[entrada_efectiva.json {modo: registrada, motivo: '  '}] modo → ValueError: el modo «registrada» exige su motivo
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo «registrada» exige su motivo
+[entrada_efectiva.json {modo: registrada, motivo: x}] modo → ('registrada', 'entrada_efectiva.json')
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[entrada_efectiva.json = [] (lista)] modo → ValueError: el modo tiene que ser «estricta» o «registrada»
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: el modo tiene que ser «estricta» o «registrada»
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: no se puede leer (JSONDecodeError)
+[entrada_efectiva.json ilegible] modo → ValueError: no se puede leer (JSONDecodeError)
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: no se puede leer (JSONDecodeError)
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: no se puede leer (JSONDecodeError)
+[entrada_efectiva.json vacío (0 bytes)] modo → ValueError: no se puede leer (JSONDecodeError)
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: None
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: no se puede leer (JSONDecodeError)
+[paso 2] FIN · estado pendiente_de_datos · falta_de_datos: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 ·
+[solo alcance_v2.json {entrada_efectiva: estricta}] modo → ('estricta', 'alcance_v2.json')
+      estado 'pendiente_de_datos' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 7 · - Análisis!C48: libro 108 · fase1_v63.json 82.9']
+        diagnóstico: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 · fase1_v63.json 82.933 · valor migrado de la etapa 1 conservado; fase1
+[solo alcance_v2.json {entrada_efectiva: Estricta} (mayúscula)] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[solo alcance_v2.json {entrada_efectiva: estricto} (errata)] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[solo alcance_v2.json {entrada_efectiva: {modo: estricta}} (forma del archivo nuevo)] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[solo alcance_v2.json ilegible] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[entrada_efectiva.json {modo: registrada, motivo: x} + alcance {entrada_efectiva: estricta} (contradictorios)] modo → ('registrada', 'entrada_efectiva.json')
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+
+=== 3 · cambiar_base preparar (CAMBIO 4.15 de Elis) con variantes de «entrada_efectiva» y de las listas
+[A · CAMBIO 4.15 de Elis sin «entrada_efectiva»] rc 0 · entrada_efectiva.json: {'formato': '4.15', 'modo': 'estricta', 'motivo': 'expediente nuevo de la 4.15 (modo por defecto)', 'declarado_por': 'cambiar_base.py', 'cambio': 'A.json'}
+      línea del registro .md: ['- Entrada efectiva del FCF base: «estricta» (`entrada_efectiva.json`; expediente nuevo de la 4.15 (modo por defecto)).']
+      pasos 1–2 del Pipeline sobre el expediente nuevo: modo → ('estricta', 'entrada_efectiva.json')
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: None
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[paso 2] FIN · estado pendiente_de_datos · falta_de_datos: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 ·
+      ídem con la etapa 1 original (108 migrado) y fase1_v63.json declarando 82,933: modo → ('estricta', 'entrada_efectiva.json')
+      estado 'pendiente_de_datos' · paso 2 · libro de datos escrito: False · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 7 · - Análisis!C48: libro 108 · fase1_v63.json 82.9']
+        diagnóstico: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 · fase1_v63.json 82.933 · valor migrado de la etapa 1 conservado; fase1
+      ídem BORRANDO entrada_efectiva.json del expediente nuevo (queda el alcance_v2.json del CAMBIO): modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108 · entradas_migradas_distintas: [('C48', 108, 82.933)]
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos']
+        diagnóstico: None
+[entrada_efectiva = {modo: Estricta}] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva tiene que ser {"modo": "estricta" | "registrada", "motivo": …} · destino creado: False
+[entrada_efectiva = 'estricta' (texto, no objeto)] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva tiene que ser {"modo": "estricta" | "registrada", "motivo": …} · destino creado: False
+[entrada_efectiva = {} (objeto vacío)] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva tiene que ser {"modo": "estricta" | "registrada", "motivo": …} · destino creado: False
+[entrada_efectiva = {modo: registrada}] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva «registrada» sin motivo (el modo por defecto de un expediente nuevo es «estricta») · destino creado: False
+[entrada_efectiva = {modo: registrada, motivo: ' '}] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): entrada_efectiva «registrada» sin motivo (el modo por defecto de un expediente nuevo es «estricta») · destino creado: False
+[entrada_efectiva = {modo: registrada, motivo: x}] rc 0 · entrada_efectiva.json: {'formato': '4.15', 'modo': 'registrada', 'motivo': 'x', 'declarado_por': 'cambiar_base.py', 'cambio': 'ee_1300.json'} · destino creado: True
+[entrada_efectiva = {modo: estricta, motivo: 7}] rc 0 · entrada_efectiva.json: {'formato': '4.15', 'modo': 'estricta', 'motivo': 7, 'declarado_por': 'cambiar_base.py', 'cambio': 'ee_3228.json'} · destino creado: True
+[analisis_que_se_conservan = lista] rc 1 · CAMBIO NO VÁLIDO (no se ha creado nada): analisis_que_se_conservan tiene que ser un objeto {celda: motivo} | celdas a la vez en analisis y analisis_que_se_conservan: C24
+[analisis_que_se_descartan con una celda que nadie declara (Z99)] rc 0 · analisis_descartadas del registro: {'Z99': '(sonda) no existe'}
+[motivo no textual (true) en analisis_que_se_descartan] rc 0 · analisis_descartadas del registro: {'C49': True}

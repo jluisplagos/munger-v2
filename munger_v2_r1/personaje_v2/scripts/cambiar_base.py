@@ -54,9 +54,40 @@ ESQUEMA = {
                                    "fuente": "documento, página y línea", "motivo": "por qué la extracción estaba mal"}],
     "analisis": {"C24": {"valor": 0, "fuente": "…", "pagina": "…", "periodo": "…", "unidad": "…", "vaciar_en_etapa1": True, "evidencia": {"M": "…", "N": "…"}}},
     "evidencia": {"Análisis!C28": {"N": "…"}},
+    "control_maestro_textos": {"F5": "(4.15) texto de la cabecera del período", "D88": "(4.15) texto de la lista de comprobación C86:E102"},
     "textos_prohibidos": ["patrón regex de restos de la base anterior que no puede quedar en la evidencia activa ni en las notas"],
     "alcance": {}, "configuracion_economica": "objeto o null",
+    "analisis_que_se_conservan": {"C49": "(4.15) motivo por el que se conserva una entrada `analisis` de los metadatos del origen"},
+    "analisis_que_se_descartan": {"C42": "(4.15) motivo por el que se descarta"},
+    "entrada_efectiva": {"modo": "estricta (por defecto) | registrada", "motivo": "obligatorio con «registrada»"},
 }
+ENTRADA_EFECTIVA = "entrada_efectiva.json"
+
+
+def validar_conf(conf):
+    """(4.15, segunda revisión independiente, N5 y N7) Comprobaciones del CAMBIO antes de crear nada: motivos no vacíos, ninguna celda en
+    dos listas y el modo de la entrada efectiva."""
+    faltas = []
+    dec = set((conf.get("analisis") or {}))
+    for nombre in ("analisis_que_se_conservan", "analisis_que_se_descartan"):
+        d = conf.get(nombre) or {}
+        if not isinstance(d, dict):
+            faltas.append(f"{nombre} tiene que ser un objeto {{celda: motivo}}")
+            continue
+        faltas += [f"{nombre}: {c} sin motivo" for c, m in d.items() if not str(m or "").strip()]
+    cons, desc = set(conf.get("analisis_que_se_conservan") or {}), set(conf.get("analisis_que_se_descartan") or {})
+    for a_, b_, n_ in ((dec, cons, "analisis y analisis_que_se_conservan"), (dec, desc, "analisis y analisis_que_se_descartan"),
+                       (cons, desc, "analisis_que_se_conservan y analisis_que_se_descartan")):
+        if a_ & b_:
+            faltas.append(f"celdas a la vez en {n_}: {', '.join(sorted(a_ & b_))}")
+    ee = conf.get("entrada_efectiva")
+    if ee is not None:
+        if not isinstance(ee, dict) or ee.get("modo") not in ("estricta", "registrada"):
+            faltas.append("entrada_efectiva tiene que ser {\"modo\": \"estricta\" | \"registrada\", \"motivo\": …}")
+        elif ee.get("modo") == "registrada" and not str(ee.get("motivo") or "").strip():
+            faltas.append("entrada_efectiva «registrada» sin motivo (el modo por defecto de un expediente nuevo es «estricta»)")
+    if faltas:
+        raise SystemExit("CAMBIO NO VÁLIDO (no se ha creado nada): " + " | ".join(faltas))
 
 
 def sha(p):
@@ -86,6 +117,7 @@ def fila_de(libro, hoja_cm, celda):
 
 
 def preparar(conf):
+    validar_conf(conf)
     origen = ruta(conf["origen"])
     ens = ruta(conf["destino"])
     emp = conf["empresa"]
@@ -172,6 +204,39 @@ def preparar(conf):
     meta["fecha_analisis"] = hoy if fe == "real" else fe
     for k, v in (conf.get("metadatos") or {}).items():
         meta[k] = v
+    # (4.15, X2/H-P1) textos declarativos del Control maestro (F5 y C86:E102) que la etapa 1 trae con fechas, períodos o cifras que ya no son
+    # los del expediente: van a las entradas declaradas (fase1_metadatos.json → fase1_v63.json → rellenar_fase1_v63.py, que conserva el anterior)
+    if conf.get("control_maestro_textos"):
+        meta["control_maestro_textos"] = dict(conf["control_maestro_textos"])
+    # (4.15, revisión independiente, hallazgo 8) entradas `analisis` ya declaradas en los metadatos del ORIGEN (cambios de base de la 4.15):
+    # no se heredan en silencio. El CAMBIO las vuelve a declarar, las descarta (`analisis_que_se_descartan`, y se quitan) o las reconoce
+    # expresamente (`analisis_que_se_conservan`, {celda: motivo}); si no, se detiene la preparación.
+    descartes_m = conf.get("analisis_que_se_descartan") or {}
+    conservadas_m = conf.get("analisis_que_se_conservan") or {}
+    heredadas = {c: v for c, v in (meta.get("analisis") or {}).items() if c not in (conf.get("analisis") or {})}
+    sin_reconocer = sorted(c for c in heredadas if c not in descartes_m and c not in conservadas_m)
+    ajenas = sorted(c for c in conservadas_m if c not in heredadas)
+    if ajenas:  # (4.15, N5) solo se reconoce lo que de verdad se hereda
+        shutil.rmtree(dest, ignore_errors=True)
+        shutil.rmtree(ant, ignore_errors=True)
+        raise SystemExit("PREPARACIÓN DETENIDA: `analisis_que_se_conservan` reconoce entradas que los metadatos del origen no declaran (se retira el destino): "
+                         + ", ".join(ajenas))
+    if sin_reconocer:
+        shutil.rmtree(dest, ignore_errors=True)
+        shutil.rmtree(ant, ignore_errors=True)
+        raise SystemExit("PREPARACIÓN DETENIDA: los metadatos del origen declaran entradas `analisis` que el CAMBIO no declara, no descarta ni reconoce "
+                         f"(se retira el destino): {', '.join(sin_reconocer)}. Declárelas en `analisis`, en `analisis_que_se_descartan` o en `analisis_que_se_conservan` con su motivo.")
+    for c in descartes_m:
+        (meta.get("analisis") or {}).pop(c, None)
+    # (4.15, C48 de Elis) las entradas `analisis` del CAMBIO quedan también en las ENTRADAS DECLARADAS del expediente (fase1_metadatos.json),
+    # con su cálculo si lo declaran: `fase1_historia.py construir` las reproduce en una carpeta limpia sin depender del CAMBIO ni de un valor migrado
+    for celda, d in (conf.get("analisis") or {}).items():
+        if d.get("derivada"):
+            continue
+        ent_m = {k: d.get(k) for k in ("valor", "fuente", "pagina", "periodo", "unidad") if d.get(k) is not None}
+        if isinstance(d.get("calculo"), dict):
+            ent_m["calculo"] = d["calculo"]
+        meta.setdefault("analisis", {})[celda] = ent_m
     notas = meta.get("_notas") or []
     meta["_notas"] = [n for n in notas if not any(p.search(str(n)) for p in patrones)] + ([conf["nota_metadatos"]] if conf.get("nota_metadatos") else [])
     retiradas += [{"de": "fase1_metadatos.json", "nota": n} for n in notas if any(p.search(str(n)) for p in patrones)]
@@ -213,6 +278,22 @@ def preparar(conf):
             corregidas_partes.append({"archivo": c["archivo"], "partida": c["partida"], "lado": c["lado"], "indice": i, "antes": ent, "despues": nuevo,
                                       "nota_antes": nota_antes, "nota_despues": c.get("nota_partida"), "fuente": c["fuente"], "motivo": c["motivo"]})
             json.dump(d, open(arch, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    # (4.15, hallazgo 8c) lo que daría la Historia sin las entradas declaradas por el CAMBIO (diagnóstico de §3: qué sostiene cada entrada)
+    meta_hist = copy.deepcopy(meta)
+    for c in list((meta_hist.get("analisis") or {})):
+        if c in (conf.get("analisis") or {}):
+            meta_hist["analisis"].pop(c)
+    # (4.15, tercera revisión, T5) el modo de la entrada efectiva queda también en las entradas declaradas: sin su archivo, el pipeline se detiene
+    meta["entrada_efectiva"] = (conf.get("entrada_efectiva") or {}).get("modo") or "estricta"
+    construido_historia, diagnostico_historia = {}, False
+    json.dump(meta_hist, open(os.path.join(dest, "fase1_metadatos.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    _r0 = subprocess.run([sys.executable, "-B", os.path.join(AQUI, "fase1_historia.py"), "construir", dest], capture_output=True, text=True)
+    if _r0.returncode == 0 and os.path.exists(os.path.join(dest, "fase1_v63.json")):
+        construido_historia = {c: (v.get("valor") if isinstance(v, dict) else v)
+                               for c, v in (json.load(open(os.path.join(dest, "fase1_v63.json"), encoding="utf-8")).get("analisis") or {}).items()}
+        os.remove(os.path.join(dest, "fase1_v63.json"))
+        diagnostico_historia = True
+    json.dump(meta, open(os.path.join(dest, "fase1_metadatos.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # --- fase1_v63.json: reconstrucción y entradas declaradas
     r = subprocess.run([sys.executable, "-B", os.path.join(AQUI, "fase1_historia.py"), "construir", dest], capture_output=True, text=True)
     if r.returncode != 0:
@@ -224,8 +305,15 @@ def preparar(conf):
         if d.get("derivada"):
             continue
         antes = (f1.get("analisis", {}).get(celda) or {}).get("valor")
+        if isinstance(d.get("calculo"), dict):
+            # (4.15) con cálculo declarado, el valor lo calcula `construir` desde las entradas declaradas: no se sustituye por una constante
+            calc = (f1.get("analisis") or {}).get(celda) or {}
+            sustituidas[celda] = {"construido_por_fase1_historia": construido_historia.get(celda), "valor": calc.get("valor"), "naturaleza": d.get("naturaleza"),
+                                  "perimetro": d.get("perimetro"), "fecha": d.get("fecha"), "derivacion": d.get("derivacion"), "calculo": d["calculo"]}
+            continue
         f1.setdefault("analisis", {})[celda] = {"valor": d["valor"], "fuente": d["fuente"], "pagina": d.get("pagina"), "periodo": d.get("periodo"), "unidad": d.get("unidad")}
-        sustituidas[celda] = {"construido_por_fase1_historia": antes, "valor": d["valor"], "naturaleza": d.get("naturaleza"), "perimetro": d.get("perimetro"),
+        # (4.15, N5) si la construcción de diagnóstico terminó bien, lo que da la Historia (None si no la construye); si no, se dice
+        sustituidas[celda] = {"construido_por_fase1_historia": construido_historia.get(celda) if diagnostico_historia else "(sin diagnóstico: la construcción sin el CAMBIO falló)", "valor": d["valor"], "naturaleza": d.get("naturaleza"), "perimetro": d.get("perimetro"),
                               "fecha": d.get("fecha"), "derivacion": d.get("derivacion")}
     # (4.14, incidente del 14-nov-2026) una entrada `analisis` del ORIGEN que el CAMBIO no declara y que `construir` no reproduce con el
     # mismo valor se perdería en silencio (p. ej. entradas reexpresadas de un cambio de base anterior). Se detiene la preparación, salvo
@@ -261,6 +349,12 @@ def preparar(conf):
     json.dump({"retiradas": retiradas}, open(os.path.join(ant, "notas_retiradas.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if conf.get("alcance"):
         json.dump(conf["alcance"], open(os.path.join(dest, "alcance_v2.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    # (4.15, segunda revisión independiente, N7) todo expediente nuevo declara su modo de entrada efectiva; por defecto «estricta»: el
+    # pipeline pasa --estricta a rellenar_fase1_v63.py y una entrada del FCF base que solo sostiene un valor migrado detiene el relleno
+    ee = dict(conf.get("entrada_efectiva") or {"modo": "estricta"})
+    ee = {"formato": "4.15", "modo": ee["modo"], "motivo": ee.get("motivo") or "expediente nuevo de la 4.15 (modo por defecto)",
+          "declarado_por": "cambiar_base.py", "cambio": os.path.basename(conf.get("_archivo") or "CAMBIO.json")}
+    json.dump(ee, open(os.path.join(dest, ENTRADA_EFECTIVA), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if conf.get("configuracion_economica"):
         import configuracion_economica as CE
         faltas = CE.validar(conf["configuracion_economica"])
@@ -273,7 +367,8 @@ def preparar(conf):
            "etapa1": {"original": os.path.relpath(e1_orig, ens), "original_sha256": sha(e1_orig), "copia_de_ensayo_sha256": sha(e1), "miembros_cambiados": miembros,
                       "vaciadas": vaciadas, "evidencia_escrita": escritas},
            "sustituidas_en_fase1_v63": sustituidas, "correcciones_fase1_partes": corregidas_partes, "notas_retiradas": len(retiradas),
-           "configuracion_economica": bool(conf.get("configuracion_economica")), "alcance": bool(conf.get("alcance"))}
+           "configuracion_economica": bool(conf.get("configuracion_economica")), "alcance": bool(conf.get("alcance")),
+           "analisis_heredadas_conservadas": dict(conservadas_m), "analisis_descartadas": dict(descartes_m), "entrada_efectiva": ee}
     json.dump(reg, open(os.path.join(res, "cambio_de_base.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
     md = [f"# Cambio de base económica · {emp} · base {conf['base_economica']['fecha']}", "", conf["base_economica"].get("descripcion", ""), "",
           f"- Origen `{conf['origen']}` (sin cambios) → expediente nuevo `{reg['destino']}`; {len(inv)} archivos heredados en `antecedentes/heredados/` con inventario.",
@@ -287,7 +382,10 @@ def preparar(conf):
           + ("; ".join(f"{x['archivo']} · {x['partida']} · {x['lado']} {x['antes'].get('impreso')!r} → {x['despues'].get('impreso')!r}" for x in corregidas_partes) or "ninguna"),
           f"- Notas retiradas de los metadatos y de fase1_v63.json: {len(retiradas)} (`antecedentes/notas_retiradas.json`).",
           f"- Fechas: ejecución {meta['fecha_analisis']} (real) · base {conf['base_economica']['fecha']} · precio {(conf.get('fechas') or {}).get('precio')} · acciones {(conf.get('fechas') or {}).get('acciones')} · fuentes: {(conf.get('fechas') or {}).get('publicacion_fuentes')}.",
-          f"- Configuración económica V6.4: {'sí' if conf.get('configuracion_economica') else 'no'} · alcance: {'sí' if conf.get('alcance') else 'no'}."]
+          f"- Configuración económica V6.4: {'sí' if conf.get('configuracion_economica') else 'no'} · alcance: {'sí' if conf.get('alcance') else 'no'}.",
+          f"- Entradas `analisis` heredadas de los metadatos del origen que se conservan: " + ("; ".join(f"{c} ({m})" for c, m in conservadas_m.items()) or "ninguna")
+          + " · que se descartan: " + ("; ".join(f"{c} ({m})" for c, m in descartes_m.items()) or "ninguna") + ".",
+          f"- Entrada efectiva del FCF base: «{ee['modo']}» (`{ENTRADA_EFECTIVA}`; {ee['motivo']})."]
     open(os.path.join(res, "cambio_de_base.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
     print("\n".join(md))
     return reg
@@ -307,9 +405,11 @@ def comprobar(conf, libro=None):
     for celda, d in (conf.get("analisis") or {}).items():
         v_l = an[celda].value
         v_f = (f1.get("analisis", {}).get(celda) or {}).get("valor")
-        ok = (v_l == d["valor"]) or (isinstance(v_l, (int, float)) and isinstance(d["valor"], (int, float)) and abs(v_l - d["valor"]) < 1e-9)
-        ok = ok and (d.get("derivada") or v_f == d["valor"])
-        filas.append({"celda": f"Análisis!{celda}", "configuracion": d["valor"], "fase1_v63": v_f if not d.get("derivada") else "(derivada)", "libro": v_l, "concuerda": bool(ok)})
+        # (4.15) con cálculo declarado y sin valor fijo, lo esperado es lo que calcula `construir` (y tiene que estar en el libro)
+        esp = d["valor"] if "valor" in d else (v_f if isinstance(d.get("calculo"), dict) else None)
+        ok = esp is not None and ((v_l == esp) or (isinstance(v_l, (int, float)) and isinstance(esp, (int, float)) and abs(v_l - esp) < 1e-9))
+        ok = ok and (d.get("derivada") or v_f == esp)
+        filas.append({"celda": f"Análisis!{celda}", "configuracion": esp, "fase1_v63": v_f if not d.get("derivada") else "(derivada)", "libro": v_l, "concuerda": bool(ok)})
     for clave, celda in (("precio", "C37"), ("capitalizacion", "C41"), ("acciones_diluidas", "C55"), ("tasa_sin_riesgo", "C57")):
         if clave in (conf.get("metadatos") or {}):
             esperado = conf["metadatos"][clave]["valor"]

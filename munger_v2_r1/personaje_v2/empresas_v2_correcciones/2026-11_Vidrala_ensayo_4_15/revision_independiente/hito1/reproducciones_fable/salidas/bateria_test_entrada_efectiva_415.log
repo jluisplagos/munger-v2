@@ -1,0 +1,34 @@
+[C] PASA  C48 de Elis desde la Historia y los pagos de arrendamientos con intereses declarados: 108,0 (= 82,933 + 25,067) · Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal): 2023 intereses_financiacion (His
+[C] PASA  con el valor 108 declarado además del cálculo: coincide
+[C] PASA  un valor declarado distinto del calculado (82,933): error explícito · el valor declarado 82.933 no es el calculado 108.0
+[C] PASA  un componente sin página: error (no se acepta una cifra sin su fuente) · el componente pagos_arrendamientos_con_intereses de 2024 no tiene valor, fuente y página
+[C] PASA  un año fuera de la Historia: error · años [2024, 2025, 2026] fuera de la Historia [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+[C] PASA  una operación no admitida: error
+[C] PASA  un signo distinto de ±1: error
+[C] PASA  una partida que no está en la Historia: error (no se rellena con cero)
+[F] PASA  construir con los metadatos de la 4.14 (sin C48 declarada): fase1_v63.json da 82,933, la media de los intereses netos (el defecto I12) · 82.933
+[F] PASA  con C48 declarada con su cálculo en fase1_metadatos.json: fase1_v63.json da 108,0 con el cálculo y su fuente · 108.0
+[F] PASA  un componente sin valor: construir falla con el motivo (no escribe una media incompleta) · fase1_metadatos.json · cálculo de entradas de Análisis no reproducible: Análisis!C48: el componente pagos_arrendamientos_con_intereses de 2025 no tiene valor, fuente y página
+
+[R] PASA  libro base de Elis (C48 = 108 migrado) con el fase1_v63.json de la 4.14 (82,933): se conserva 108 (regla v2.2), pero ya no en silencio: queda registrada como entrada migrada distinta y avisada · (0, [{'celda': 'Análisis!C48', 'libro': 108, 'fase1_v63': 82.933, 'evidencia_libro': 'URD2025 p.327, 379; DEU2024 p.273', 'motivo': 'valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible
+[R] PASA  el comprobador de entradas marca C48 de elis_decisiones (4.14) como no reproducible por la vía generativa (y solo C48) · ['Análisis!C48: el libro tiene 108 y fase1_v63.json (la vía generativa) declara 82.933: la entrada efectiva la sostiene solo el valor migrado de la etapa 1 y no es reproducible desde las entradas declaradas; hay que declarar su cálculo (fas
+[R] PASA  con --sobrescribir se aplica la declarada de forma explícita (82,933) · (0, 82.933)
+[R] PASA  con la entrada efectiva declarada (108,0 con su cálculo): C48 = 108 y ninguna entrada migrada distinta · (0, 'OK: 568 celdas escritas en /tmp/entrada_efectiva_415_d4ro6z8n/r2.xlsx · derivadas: 0 · convenciones: [] · avisos: 2\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n')
+[R] PASA  sin el valor migrado: con la declaración de la 4.14 sale 82,933 (el riesgo I12, ahora visible); con la entrada efectiva declarada sale 108 · (0, 82.933, 0, 108)
+[R] PASA  Viscofan (expediente final de la 4.14): ninguna entrada migrada distinta (las entradas declaradas y el libro concuerdan) · OK: 524 celdas escritas en /tmp/entrada_efectiva_415_d4ro6z8n/Viscofan.xlsx · derivadas: 0 · convenciones: [] · avisos: 4
+VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos
+
+[R] PASA  Vidrala (expediente final de la 4.14): ninguna entrada migrada distinta (las entradas declaradas y el libro concuerdan) · OK: 543 celdas escritas en /tmp/entrada_efectiva_415_d4ro6z8n/Vidrala.xlsx · derivadas: 1 · convenciones: [] · avisos: 6
+VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos
+
+[B] PASA  cambiar_base con el CAMBIO 4.15: las entradas `analisis` del CAMBIO quedan en fase1_metadatos.json (entradas declaradas), C48 con su cálculo · ['C24', 'C31', 'C33', 'C34', 'C40', 'C42', 'C46', 'C47', 'C48', 'C50', 'C53', 'C54']
+[B] PASA  fase1_v63.json del expediente nuevo: C48 = 108,0 calculado; la copia de ensayo de la etapa 1 tiene C48 vacía (la entrada no depende del valor migrado) · 108.0
+[B] PASA  en una carpeta limpia, construir con las entradas declaradas del expediente nuevo reproduce todas sus entradas de Análisis (sin el CAMBIO) · fase1_v63.json escrito (10 años, 71 diferencias con el comparativo, 16 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)
+
+21/21 pruebas de la entrada efectiva (4.15) PASAN
+RESULTADO entrada efectiva: PASA
+
+real	0m13.606s
+user	0m12.400s
+sys	0m0.876s
+rc=0

@@ -15,10 +15,12 @@
 #                                        test_integracion_v64.py (4.11: plantilla, 117 casos con la réplica independiente, pipeline y cambio
 #                                        de base; 4.12: grupos E vigencia y selección, F materialidad y protocolos del objetivo, G coherencia,
 #                                        variantes y fórmulas alteradas; 4.13: guardas de estructura, salto del protocolo, cobertura y H
-#                                        V6.4.1 experimental; 4.14: cambio de base con correcciones de extracción; igual de obligatoria; al menos 198 pruebas) y, antes de ella, la batería de
+#                                        V6.4.1 experimental; 4.14: cambio de base con correcciones de extracción; igual de obligatoria; al menos 199 pruebas) y, antes de ella, la batería de
 #                                        vigencia H5 test_vigencia_h5.py (4.13.1; al menos 59 pruebas) y la del juicio sobre el objetivo
 #                                        test_juicio_objetivo_414.py (4.14; al menos 27 pruebas) y la de la verificación de las entradas test_verificacion_entradas_414.py
-#                                        (4.14; al menos 33 pruebas), igual de obligatorias (≈ 30–45 min en total)
+#                                        (4.14; al menos 33 pruebas), igual de obligatorias (≈ 30–45 min en total); (4.15) después, la de la
+#                                        corrección de la verificación de las entradas test_verificacion_entradas_415.py (al menos 105 pruebas)
+#                                        y la de la entrada efectiva del FCF base test_entrada_efectiva_415.py (al menos 40), igual de obligatorias
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
 # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
@@ -135,6 +137,44 @@ else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
 fi
 
+echo "== batería de la corrección de la verificación de las entradas (personaje_v2/pruebas/test_verificacion_entradas_415.py; obligatoria en «completa»; encargo correctivo 4.15: R1–R3, I13, I8 e I9)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_verificacion_entradas_415.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_verificacion_entradas_415.py ) > "$SALIDA_X" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_verificacion_entradas_415.py" > "$SALIDA_X"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la corrección de la verificación de las entradas \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 105 ]; then
+    echo "$linea"; echo "RESULTADO verificación de las entradas 4.15: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO verificación de las entradas 4.15: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 105 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== batería de la entrada efectiva del FCF base (personaje_v2/pruebas/test_entrada_efectiva_415.py; obligatoria en «completa»; encargo correctivo 4.15: C48 de Elis)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_entrada_efectiva_415.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_entrada_efectiva_415.py ) > "$SALIDA_X" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_entrada_efectiva_415.py" > "$SALIDA_X"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la entrada efectiva \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 40 ]; then
+    echo "$linea"; echo "RESULTADO entrada efectiva: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO entrada efectiva: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 40 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
 echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_V64="$(mktemp)"
@@ -145,10 +185,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de integración V6.4 PASAN$' "$SALIDA_V64" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 198 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 199 ]; then
     echo "$linea"; echo "RESULTADO integración V6.4: PASA"
   else
-    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 198 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_V64"; echo "RESULTADO integración V6.4: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 199 pruebas; ver $SALIDA_V64)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

@@ -1,0 +1,79 @@
+{
+  "fixture": "SINTÉTICO, no datos reales",
+  "cases": [
+    {
+      "case": "control_positivo_sintetico",
+      "apto_por_entradas": true,
+      "errors": [],
+      "discrepancies": [],
+      "pending": []
+    },
+    {
+      "case": "pagina_999999",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [
+        "Historia!F6: la página 999999 no existe en el texto de la fuente (páginas 1–259, 259 marcas) (fuentes_sinteticas/fuente.txt)"
+      ],
+      "pending": []
+    },
+    {
+      "case": "fuente_local_ausente_sin_sha",
+      "apto_por_entradas": false,
+      "errors": [],
+      "discrepancies": [],
+      "pending": [
+        "Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible"
+      ]
+    },
+    {
+      "case": "pagina_y_cita_negativas_con_valor_fuente_positivo",
+      "apto_por_entradas": true,
+      "errors": [],
+      "discrepancies": [],
+      "pending": []
+    }
+  ],
+  "numeric_citation_probes": [
+    {
+      "citation": "Amortización: 150",
+      "value": 149.5,
+      "accepted": false
+    },
+    {
+      "citation": "Partida: 0",
+      "value": 0.49,
+      "accepted": false
+    },
+    {
+      "citation": "Acciones: 45479",
+      "value": 45479.209,
+      "accepted": false
+    },
+    {
+      "citation": "Importe: -149.5",
+      "value": 149.5,
+      "accepted": true
+    },
+    {
+      "citation": "Importe: 149.5",
+      "value": -149.5,
+      "accepted": true
+    },
+    {
+      "citation": "Importe: (149.5)",
+      "value": 149.5,
+      "accepted": true
+    }
+  ],
+  "sign_case": {
+    "cell": "Historia!F6",
+    "model_value": 849.697,
+    "declared_source_value": 849697.0,
+    "declared_sign": 1,
+    "declared_treatment": "ninguno",
+    "actual_page_and_citation": "Partida sintética de Historia!F6: -849697.000",
+    "apto_por_entradas": true,
+    "checked_cell": true
+  }
+}

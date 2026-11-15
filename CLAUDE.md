@@ -1,3 +1,5 @@
+Esta es la rama de revisión intermedia 4.15 hito 1. El código contiene las correcciones técnicas de ese hito, sin cierre económico ni aprobación final. Leer docs/revision_externa_4_15_hito1/ y el encargo correctivo vigente. Mantener en main la base histórica 4.14. No sobrescribir el trabajo en curso de la sesión de Claude.
+
 # Instrucciones de continuidad
 
 Idioma: español claro.

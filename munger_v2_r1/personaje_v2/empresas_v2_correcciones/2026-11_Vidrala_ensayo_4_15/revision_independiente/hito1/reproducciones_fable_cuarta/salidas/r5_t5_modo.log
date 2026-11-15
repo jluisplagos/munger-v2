@@ -1,0 +1,76 @@
+árbol: /tmp/rev_fable4/congelado4/personaje_v2
+
+=== 1 · pipeline.modo_entrada_efectiva (fase1_metadatos.json · entrada_efectiva.json · alcance_v2.json)
+   metadatos registra «estricta» y el archivo dice «estricta»: ('estricta', 'entrada_efectiva.json')
+   metadatos registra «estricta» y FALTA el archivo: ValueError: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+   metadatos registra «estricta» y el archivo dice «registrada» con motivo: ValueError: entrada_efectiva.json dice 'registrada' y fase1_metadatos.json registra 'estricta'
+   metadatos registra «Estricta» (errata) y el archivo dice «estricta»: ValueError: entrada_efectiva.json dice 'estricta' y fase1_metadatos.json registra 'Estricta'
+   metadatos registra «registrada» y el archivo dice «registrada» con motivo «x»: ('registrada', 'entrada_efectiva.json')
+   metadatos registra «» (vacío) y falta el archivo: ValueError: fase1_metadatos.json registra el modo '' y falta entrada_efectiva.json
+   metadatos SIN la clave y falta el archivo (los dos rastros retirados): ('registrada', None)
+   metadatos ILEGIBLE y falta el archivo: ('registrada', None)
+   metadatos es una lista y falta el archivo: ('registrada', None)
+   metadatos con la clave en otra grafía («Entrada_Efectiva») y falta el archivo: ('registrada', None)
+   metadatos registra «estricta», falta el archivo y el alcance dice «estricta»: ValueError: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+   sin metadatos; archivo «registrada» con motivo y alcance «estricta» (contradictorios): ('registrada', 'entrada_efectiva.json')
+   sin metadatos; alcance ILEGIBLE: ('registrada', None)
+   sin metadatos; alcance con la clave en otra grafía («entrada_efectiba»): ('registrada', None)
+   sin metadatos; alcance es una lista: ('registrada', None)
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'Entrada_Efectiva.json': ValueError: declaración con otra grafía (Entrada_Efectiva.json): el archivo es entrada_efectiva.json
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entrada_efectiva.JSON': ValueError: declaración con otra grafía (entrada_efectiva.JSON): el archivo es entrada_efectiva.json
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entrada-efectiva.json': ('registrada', None)
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entrada_efectiva.json.bak': ('registrada', None)
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entrada_efectiva .json': ('registrada', None)
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entradaefectiva.json': ('registrada', None)
+   sin metadatos; la declaración «estricta» está en un archivo llamado 'entrada_efectiva.json.txt': ('registrada', None)
+
+=== 2 · paso 2 del Pipeline real sobre el expediente nuevo de cambiar_base (estricto por defecto), con el conflicto de C48 repuesto
+cambiar_base preparar → rc 0
+   entrada_efectiva.json: {'formato': '4.15', 'modo': 'estricta', 'motivo': 'expediente nuevo de la 4.15 (modo por defecto)', 'declarado_por': 'cambiar_base.py', 'cambio': 'A.json'}
+   fase1_metadatos.json → «entrada_efectiva»: 'estricta' | alcance_v2.json → «entrada_efectiva»: '(sin la clave)'
+[paso 2] FIN · estado pendiente_de_datos · falta_de_datos: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 ·
+[intacto (control: estricto, se detiene con el código 7)] modo → ('estricta', 'entrada_efectiva.json')
+      estado 'pendiente_de_datos' · paso 2 · libro de datos escrito: False
+        estado_pipeline.json → «entrada_efectiva»: {'modo': 'estricta', 'declarado_en': 'entrada_efectiva.json'}
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 7 · - Análisis!C48: l']
+        diagnóstico: rellenar_fase1:  el libro de salida. Hay que declarar su cálculo (fase1_metadatos.json o CAMBIO.analisis) o vaciarlas en la etapa 1.
+- Análisis!C48: libro 108 · fase1_v63.json 82.933 · valor migrado d
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+[se BORRA entrada_efectiva.json] modo → ValueError: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False
+        estado_pipeline.json → «entrada_efectiva»: (sin la clave)
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+[se borra entrada_efectiva.json Y la clave «entrada_efectiva» de fase1_metadatos.json] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108
+        estado_pipeline.json → «entrada_efectiva»: {'modo': 'registrada', 'declarado_en': None}
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallo']
+        diagnóstico: None
+[se borra entrada_efectiva.json y fase1_metadatos.json queda ILEGIBLE] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108
+        estado_pipeline.json → «entrada_efectiva»: {'modo': 'registrada', 'declarado_en': None}
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallo']
+        diagnóstico: None
+[se borra entrada_efectiva.json y se BORRA fase1_metadatos.json] modo → ('registrada', None)
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108
+        estado_pipeline.json → «entrada_efectiva»: {'modo': 'registrada', 'declarado_en': None}
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallo']
+        diagnóstico: None
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: entrada_efectiva.json dice 'registrada' y fase1_metadatos.json registra 'estricta'
+[el archivo pasa a «registrada» con motivo «x» (metadatos sigue en «estricta»)] modo → ValueError: entrada_efectiva.json dice 'registrada' y fase1_metadatos.json registra 'estricta'
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False
+        estado_pipeline.json → «entrada_efectiva»: (sin la clave)
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: entrada_efectiva.json dice 'registrada' y fase1_metadatos.json registra 'estricta'
+[el archivo Y los metadatos pasan a «registrada» (motivo «x»)] modo → ('registrada', 'entrada_efectiva.json')
+      estado None · paso 3 · libro de datos escrito: True · C48 = 108
+        estado_pipeline.json → «entrada_efectiva»: {'modo': 'registrada', 'declarado_en': 'entrada_efectiva.json'}
+        orden registrada: ['$ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallo']
+        diagnóstico: None
+[paso 2] FIN · estado no_entregable · fallo_de_implementacion: entrada_efectiva.json: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+[el archivo se renombra a entrada_efectiva.json.bak] modo → ValueError: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+      estado 'no_entregable' · paso 2 · libro de datos escrito: False
+        estado_pipeline.json → «entrada_efectiva»: (sin la clave)
+        orden registrada: []
+        diagnóstico: entrada_efectiva.json: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json

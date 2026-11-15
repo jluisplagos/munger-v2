@@ -1,0 +1,42 @@
+[control positivo] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+
+=== R1
+[R1 página 'p. 22' (resellada)] apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 | pendientes: Historia!F6: la página declarada 'p. 22' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)
+[R1 página 'pág. 22' (resellada)] apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 | pendientes: Historia!F6: la página declarada 'pág. 22' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)
+[R1 página '22.0' (resellada)] apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 | pendientes: Historia!F6: la página declarada '22.0' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)
+[R1 página 'PDF22' (resellada)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 página '２２' (resellada)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 página ' 22 ' (resellada)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 página '022' (resellada)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+dato de texto: Palancas!C48 EUR | cita: Dato sintético de Palancas!C48: EUR
+[R1 dato de TEXTO con cita que NO contiene el valor] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 dato de TEXTO con cita de un espacio] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 «PDF» de bytes ajenos + archivo_texto sintético (nada los vincula)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R1 .txt legítimo SIN marcas de página (p. ej. boletín de mercado), página 1] apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 | pendientes: Historia!F6: el texto de la fuente no tiene marcas «[PDF PAGE n]»: la página no puede examinarse (fuentes_sinteticas/sin_marcas.txt)
+
+=== R2
+[R2 fuente «local» con ruta ABSOLUTA fuera del expediente y del paquete] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R2 fuente «local» con ruta relativa que sale del paquete (../../../rev_fable/fuera_del_paquete/fue…)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R2 fuente local AUSENTE + material:false (sin revisor ni sello)] apto=True comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=0 ext=0 | pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible
+[R1 página no inequívoca + material:false (sin revisor ni sello)] apto=True comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=0 ext=0 | pendientes: Historia!F6: la página declarada '22-23' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)
+[R2 TODOS los datos publicados (246) con fuente ausente y material:false] apto=True comprobadas=62/308 pend=246 desact=0 discr=0 err=0 mat_no=0 ext=0
+[dato de cálculo (ventas 2019) reetiquetado como CONVENCIÓN, sin fuente] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[ídem sin revisor ni resultado (vínculo calculado a mano)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[dato de cálculo con valor reetiquetado como NO_APLICABLE] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[TODOS los datos publicados (246) reetiquetados como convención sin fuente ni revisor] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0
+[R2 sha256 en MAYÚSCULAS (mismo valor)] apto=False comprobadas=307/308 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 | desactualizadas: Historia!F6: la fuente fuentes_sinteticas/fuente.txt cambió (sha256 distinto del registrado)
+[R2 lectura externa NO material con campos vacíos de contenido («x», «ayer», «ninguna»)] apto=True comprobadas=307/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=1 | 
+[R2 TODOS los datos publicados (246) como lectura externa no material] apto=True comprobadas=62/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=246
+
+=== R3
+K: Historia!F6 vm 849.697 vf 849697.0
+[R3 valor_fuente 849697000.45 € con una cita que solo trae 849,697,000 (céntimos redondeados)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+tasa sin riesgo del libro: 0.0335 | clase dato_publicado
+[R3 tasa del libro 0.0335 contrastada con una fuente que publica 3.25 % (0,10 pp menos)] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+g NORMAL del libro: 0.02 | clase hipotesis
+[vigencia: registro con g = 0.019 y libro con 0.02] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[R3/unidades: la misma cifra (miles) declarada en «euros» con escala 0,001] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[unidades: «euros» con escala 0,002 (cita no está en la página: solo interesa el control de escala)] apto=False comprobadas=307/308 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 | errores: Historia!F6: escala 0.002 incoherente con las unidades (fuente «euros» → modelo «mm» = 1e-06)
+[R3 separador ambiguo: «849.697» (miles, formato español) leído como 849,697 millones] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[cero comprobado (Historia!C23) con un guion de puntuación en la cita] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+[formato legítimo «849,697.0» con miles separados por espacio y punto decimal] apto=False comprobadas=307/308 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 | discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697 como cifra completa (formato equivalente, sin redondear)

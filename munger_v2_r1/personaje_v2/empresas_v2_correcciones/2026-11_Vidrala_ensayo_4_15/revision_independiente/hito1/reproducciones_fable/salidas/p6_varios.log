@@ -1,0 +1,26 @@
+=== C48 · entrada no reproducible con el registro pendiente y material:false
+no reproducibles con la declaración original: {'Análisis!C47': (77.5, 77.533), 'Análisis!C48': (8.3, 8.294), 'Análisis!C49': (5.5, 5.547), 'Análisis!C50': (3.71, 3.707)}
+[registro comprobado] apto=False comprobadas=304/308 pend=0 desact=0 discr=4 err=0 mat_no=4 ext=0
+   entradas_no_reproducibles: 4
+[las mismas entradas con material:false y la comprobación pendiente (sin revisor)] apto=True comprobadas=304/308 pend=4 desact=0 discr=0 err=0 mat_no=0 ext=0
+   entradas_no_reproducibles: 4 | discrepancias: []
+[sin fase1_v63.json en la carpeta] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0
+   entradas_no_reproducibles: []
+[fase1_v63.json = [] (JSON válido, no un objeto)] comprobar LANZA AttributeError 'list' object has no attribute 'get'
+
+=== I13 · evidencia del libro de las celdas de «Configuración V6.4» (trazabilidad) fuera del vínculo
+   celdas de trazabilidad (metadatos) de la configuración: {'B12': 'Conciliaciones del impuesto con el tipo de Navarra: AR_2025 ', 'B13': '2021–2025 (media de los tipos anuales, como la regla heredad', 'B14': 'consolidado, actividades continuadas (sin actividades interr', 'B15': 'derivado de datos publicados', 'B152': 'Altas de derechos de uso 2021–2025 (notas de arrendamientos)'}
+[fuente y período del tipo impositivo de la configuración (B12, B13) cambiados en el libro, sin nueva revisión] apto=True comprobadas=308/308 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 |  | comprobada
+
+=== Robustez de comprobar («nunca lanza»)
+[hipótesis con «fuente» de texto] LANZA AttributeError: 'str' object has no attribute 'get'
+[clase que es una lista] LANZA TypeError: unhashable type: 'list'
+[dos derivados que se citan entre sí (ciclo)] LANZA RecursionError
+[página que es una lista] no lanza · apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0
+[sha256_texto numérico con archivo PDF] no lanza · apto=False comprobadas=307/308 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0
+[lectura_externa que no es objeto] no lanza · apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0
+[vinculo que es texto] no lanza · apto=False comprobadas=307/308 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0
+[valor_fuente NaN] no lanza · apto=False comprobadas=307/308 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0
+
+=== I9 · sin libro
+aptitud en una carpeta sin libro: {'universo': None, 'comprobadas': 0, 'comprobadas_universo': None, 'universo_calculo': None, 'comprobadas_calculo': None, 'motivo': 'no hay libro del expediente: no se puede fijar el universo de entradas'}

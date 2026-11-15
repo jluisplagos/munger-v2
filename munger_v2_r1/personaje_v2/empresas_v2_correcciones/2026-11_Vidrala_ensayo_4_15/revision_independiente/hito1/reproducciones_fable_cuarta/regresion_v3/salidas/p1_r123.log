@@ -1,0 +1,107 @@
+[control positivo] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+K: Historia!F6 vm 849.697 vf 849697.0 | KJ: Análisis!C24 0.126 | k_txt: Palancas!C48 EUR
+
+=== HALLAZGO 1 · material:false
+[h1 R2 fuente local AUSENTE + material:false en CÁLCULO (sin revisor ni sello)] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: una entrada de cálculo es material por definición: «material: false» no se admite
+[h1 R1 página no inequívoca + material:false en CÁLCULO] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: una entrada de cálculo es material por definición: «material: false» no se admite
+[h1 TODOS los datos publicados (259) con fuente ausente y material:false] apto=False comprobadas=62/321 pend=0 desact=0 discr=0 err=259 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+[h1 JUICIO: material:false con una justificación de dos palabras, fuente ausente, comprobación pendiente, sin revisor ni sello] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=1 (sin_rev=1, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Análisis!C24: la fuente local 'fuentes_sinteticas/NO_EXISTE.txt' no está en el expediente ni en el paquete: su contraste no es reproducible; no_materiales_sin_revisar: Análisis!C24: declarada no material, pero la justificación de la materialidad no explica nada (menos de 20 caracteres); sin resultado «verificado» ni fuente examinada del revisor; sin revisor independiente del extractor; sin vínculo 
+[h1 TODAS las entradas de juicio con dato (88) como no materiales («x»), fuente ausente, sin revisor] apto=False comprobadas=233/321 pend=88 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=88 (sin_rev=88, rev=0) dato_hip=0 no_aplic=3 no_repr=0
+   motivo: 233 de 321 celdas del universo comprobadas (232 de 232 de cálculo y 1 de 89 de juicio; +0 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 0 datos tratados como hipótesis o convención; 88 entradas de juicio no materiales (88 sin el juicio de materialidad revisado); 3 no aplicables; 0 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada
+   no_materiales listadas: 88
+
+=== HALLAZGO 2 · reetiquetado
+[h2 dato de cálculo (ventas 2019) como CONVENCIÓN, sin fuente ni justificacion_clase] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: la celda es un dato del modelo (h_ventas) presentado como convencion sin «justificacion_clase»
+[h2 ídem con justificacion_clase «x» pero sin revisor ni resultado] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=1 no_aplic=3 no_repr=0 | pendientes: Historia!F6: sin resultado de la comprobación
+[h2 ídem con justificacion_clase «x» y la comprobación completa del fixture (revisor ≠ extractor, verificado, fuente examinada)] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=1 no_aplic=3 no_repr=0 |  | comprobada
+[h2 TODOS los datos publicados (259) como convención con justificacion_clase «x» y comprobación completa, sin fuente] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=259 no_aplic=3 no_repr=0
+   motivo: None
+[h2 dato de cálculo con valor como NO_APLICABLE] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: no aplicable con un valor en el libro (849.697): es un dato que hay que contrastar
+[h2 un CERO del libro (Historia!C23) como NO_APLICABLE (sin fuente)] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=4 no_repr=0 |  | comprobada
+[h2 dato de cálculo con valor como DATO_AUSENTE] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: dato ausente con un valor en el libro: es un dato (o un cero) que hay que contrastar
+[h2 dato de TEXTO (Palancas!C48) como NO_APLICABLE] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=4 no_repr=0 |  | comprobada
+[h2 (variante) dato de cálculo como DERIVADO de un auxiliar «convención» sin fuente ni revisor] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: la celda es un dato del modelo (h_ventas) derivado de una hipótesis o convención sin «justificacion_clase»
+
+=== HALLAZGO 5 · tolerancias
+VE._igual_exacto(0.25, 0.2511) False | _igual_libro(0.2511, 0.25) False | _igual_libro(0.2504, 0.25) True | _igual_libro(0.0334, 0.033) True | _igual_libro(0.001, 0) False | _igual_libro(0.0004, 0) True
+tasa sin riesgo del libro: 0.0335 | clase dato_publicado | ámbito juicio
+[h5 tasa del libro 0.0335 contrastada con una fuente que publica 3.25 % (0,10 pp menos)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Análisis!C57: signo × escala × valor_fuente = 0.0325 ≠ valor del modelo 0.0335
+g NORMAL del libro: 0.02 | clase hipotesis
+[h5 vigencia: registro con g = 0.019 y libro con 0.02] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Análisis!C68: el libro dice 0.02 y el registro 0.019: la comprobación no vale para el dato actual
+[h5 unidades: la misma cifra (miles) declarada en «euros» con escala 0,001] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: escala 0.001 incoherente con las unidades (fuente «euros» → modelo «mm» = 1e-06)
+tasa/ratio del libro con ≤ 3 decimales: Historia!H15 0.887
+[h5 DATO PUBLICADO: ratio del libro 0.887 con una fuente que publica 88.74 % (unidad «porcentaje»: no es importe)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!H15: signo × escala × valor_fuente = 0.8874 ≠ valor del modelo 0.887
+[h5 ídem declarando la unidad «mm» (monetaria) con escala 0,01] apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!H15: escala 0.01 incoherente con las unidades (fuente «mm» → modelo «mm» = 1.0)
+[h5 ídem con unidad «millones», escala 1 y valor_fuente 0.8874 (la cita no lo contiene: solo interesa el producto)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!H15: la cita no contiene el valor de la fuente 0.8874 como cifra completa (formato equivalente, sin redondear)
+[h5 DERIVADO: ratio del libro 0.887 = o[aux] con aux = 0.8874 (0,04 pp más), SIN round declarado en la fórmula] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!H15: la fórmula da 0.8874 y el modelo 0.887 (no es exacto; el redondeo del libro a 3 decimales solo vale en un importe («derivacion.unidad»); una transformación distinta se declara en la fórmula, p. ej. round(…, 4))
+
+=== HALLAZGO 10 · decimales
+   _cita_contiene('Ingresos: 1.234.567.890', 1234567890.45) = False
+   _cita_contiene('Ingresos: 100.000.000', 100000000.1) = False
+   _cita_contiene('Ingresos: 10.000.000', 10000000.01) = False
+   _cita_contiene('Tasa: 54,7', 54.70000001) = False
+   _cita_contiene('Partida: 0', 4.9e-10) = False
+   _cita_contiene('x 0,12345678901', 0.12345678901) = False
+   _cita_contiene('x 0,12345679', 0.12345678901) = False
+   _cita_contiene('x 0,1234567890', 0.123456789) = True
+   _cita_contiene('x 1e-07', 1e-07) = False
+   _cita_contiene('x 0,0000001', 1e-07) = True
+   _cita_contiene('x 123456789012345680', 1.2345678901234568e+17) = True
+   _cita_contiene('x 0,30000000000000004', 0.30000000000000004) = False
+   _cita_contiene('x 0,3', 0.30000000000000004) = False
+[h10 valor_fuente 849697000.45 € con una cita que solo trae 849,697,000 (céntimos redondeados)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697000.45 como cifra completa (formato equivalente, sin redondear)
+[h10/h5 positivo: valor_fuente 849697000.45 € con la cita completa y el libro en mm con 3 decimales (849.697)] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+
+=== HALLAZGO 11 · rutas
+[h11 fuente «local» con ruta ABSOLUTA fuera del expediente y del paquete] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la fuente local '/tmp/rev_fable4/tmp/fuera_del_paquete/fuente_ajena.txt' no está en el expediente ni en el paquete: su contraste no es reproducible
+[h11 ruta relativa que sale del expediente (../../../fuera_del_paquete/fuente_ajena.…)] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la fuente local '../../../fuera_del_paquete/fuente_ajena.txt' no está en el expediente ni en el paquete: su contraste no es reproducible
+[h11 ruta relativa a personaje_v2/ que sale del paquete (../../tmp/fuera_del_paquete/fuente_ajena…)] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la fuente local '../../tmp/fuera_del_paquete/fuente_ajena.txt' no está en el expediente ni en el paquete: su contraste no es reproducible
+[h11 enlace simbólico dentro del expediente que apunta fuera] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la fuente local 'fuentes_sinteticas/enlace.txt' no está en el expediente ni en el paquete: su contraste no es reproducible
+[h11 positivo: ruta con «..» que queda dentro del expediente] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[h11 «archivo_texto» con ruta absoluta fuera del paquete] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: el texto de la fuente '/tmp/rev_fable4/tmp/fuera_del_paquete/fuente_ajena.txt' no existe: la página citada no puede examinarse
+
+=== HALLAZGO 12 · texto y fuentes no textuales
+dato de texto: Palancas!C48 EUR | cita: Dato sintético de Palancas!C48: EUR
+[h12 dato de TEXTO con cita que NO contiene el valor] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Palancas!C48: la cita no contiene el valor de texto 'EUR' (ni una equivalencia declarada en «equivalencia»)
+[h12 dato de TEXTO con cita de un espacio] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Palancas!C48: la cita está vacía (tras normalizar los espacios): no hay pasaje que contrastar
+[h12 dato NUMÉRICO con cita de un espacio] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la cita está vacía (tras normalizar los espacios): no hay pasaje que contrastar
+[h12 dato de TEXTO «EUR» contenido como subcadena de otra palabra («NEURROS»)] apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Palancas!C48: la cita no contiene el valor de texto 'EUR' (ni una equivalencia declarada en «equivalencia»)
+[h12 dato de TEXTO «EUR» con cita «Moneda: dólares» y equivalencia declarada «dólares» (la equivalencia es texto libre del extractor)] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+[h12 «PDF» de bytes ajenos + archivo_texto sintético con su huella (nada los vincula)] apto=False comprobadas=320/321 pend=0 desact=1 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | desactualizadas: Historia!F6: el texto de la fuente fuentes_sinteticas/fuente.txt cambió (sha256_texto distinto del registrado)
+
+=== HALLAZGO 18 · formatos legítimos
+   _cita_contiene('x 849 697.0', 849697) = True
+   _cita_contiene('x 1 234 567.89', 1234567.89) = True
+   _cita_contiene("x 45'479.209", 45479.209) = True
+   _cita_contiene('x 149,5000000', 149.5) = True
+   _cita_contiene('x 849.697,0', 849697) = True
+   _cita_contiene('x 1’234.5', 1234.5) = False
+   _cita_contiene('x 1.234.567', 1234567) = True
+   _cita_contiene('x 1 234 567', 1234567) = True
+   _cita_contiene('x 12,5%', 12.5) = True
+   _cita_contiene('x €1,234.5', 1234.5) = True
+   _cita_contiene('x 1,234.5m', 1234.5) = True
+   _cita_contiene('x (1.234,5)', 1234.5) = True
+   _cita_contiene('x -1.234,5', 1234.5) = True
+   _cita_contiene('x 1.234,5-', 1234.5) = True
+[h18 sha256 en MAYÚSCULAS (mismo valor)] apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+   _numero_pagina('p. 22') = None
+   _numero_pagina('pág. 22') = None
+   _numero_pagina('22.0') = None
+   _numero_pagina('PDF22') = 22
+   _numero_pagina('pdf pág. 22') = 22
+   _numero_pagina('PDF page 22') = 22
+   _numero_pagina(' 22 ') = 22
+   _numero_pagina('022') = 22
+   _numero_pagina(22.0) = 22
+   _numero_pagina('２２') = 22
+[h18 página «p. n»: mensaje] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: la página declarada 'p. 22' no identifica una página del PDF (un entero; el folio impreso va en «folio») (fuentes_sinteticas/fuente.txt)
+[h18 .txt SIN marcas de página, página 1] apto=False comprobadas=320/321 pend=1 desact=0 discr=0 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | pendientes: Historia!F6: el texto de la fuente no tiene marcas «[PDF PAGE n]»: la página no puede examinarse (fuentes_sinteticas/sin_marcas.txt)
+
+=== OBSERVACIÓN 20 (no declarada como corregida) · estado actual
+   _cita_contiene('Deuda neta - total: 12,3', 0) = True
+   _cita_contiene('12,3 - 4,5', 0) = True
+   _cita_contiene('x 1.234', 1.234) = True
+   _cita_contiene('x 1.234', 1234) = True
+   _cita_contiene('(149,5)', 149.5) = True
+   _cita_contiene('(149,5)', -149.5) = True
