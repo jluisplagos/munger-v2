@@ -62,6 +62,24 @@ Es condición necesaria, no suficiente, para presentar una conclusión como apta
   N4 · el redondeo del libro a 3 decimales solo vale en un derivado que declara un importe («derivacion.unidad» monetaria); en
        cualquier otra magnitud el resultado es exacto o el redondeo se declara en la fórmula (round).
   12 · una fuente PDF tiene que ser un PDF y la cita tiene que estar en esa página del PDF (pdftotext), no solo en su texto conservado.
+  (4.15, tercera y cuarta revisión: T1–T5) aritmética exacta (fracciones) en los derivados; una fórmula solo admite como literales enteros
+       de 1 a 12, potencias de diez y los decimales de round, usa todos sus orígenes y cada uno influye; tipo de la fuente por su contenido.
+       Límite declarado (U1): estas reglas descartan las formas triviales, NO acreditan que la fórmula derive el concepto: eso lo acredita
+       solo la revisión independiente del significado económico de cada derivado (revisor distinto del extractor y vínculo sellado).
+  (4.15, hito 2, tras la revisión externa del hito 1)
+  R415-SIGNO · «valor_fuente» es la cifra PUBLICADA con su signo; «signo» y «escala» la transforman después hacia el modelo. La cita se
+       contrasta con su signo (_cita_cifra): menos ASCII o Unicode, guion pegado, paréntesis contables («(130,8)» es −130,8) o sin marca;
+       signo contrario → discrepancia; signo que no puede determinarse (guion a un espacio, dos marcas, dos signos a la vez) → pendiente;
+       un guion separado por dos o más espacios en la página es otra columna (un cero). La transformación justificada (signo −1) sigue
+       siendo válida. fase1_historia.calcular_entrada aplica la misma regla a los componentes de un cálculo declarado.
+  U1 · los derivados comprobados se cuentan y se listan («derivados_comprobados», resumen, ficha e informe).
+  U2 · un importe del libro es el resultado exacto o uno de sus redondeos a 3 decimales (|exacto − libro| ≤ 0,0005 con el libro a 3
+       decimales como mucho: los dos sentidos de un empate); no es una tolerancia general.
+  U3 · coste acotado: fórmula de 2000 caracteres y 400 nodos como mucho; round con los decimales como entero literal entre 0 y 12.
+  U4 · sensibilidad local y estructural (_sensibilidad): se aceptan un origen −1, un producto por un cero, 0 / d, el argumento menor de
+       un max y max(…, 0); siguen siendo errores o[x] * 0 + c, o[x] − o[x] + o[y] y una fórmula constante en el punto real.
+  U5 · una fuente HTML se lee con html.parser (texto visible: sin comentarios, atributos, script, style, template, head ni elementos
+       ocultos) y se decodifica por su BOM o su charset declarado; sin declaración y sin UTF-8 válido, pendiente.
 Uso: verificacion_entradas.py comprobar <expediente> [--json] | plantilla <expediente> (escribe verificacion_entradas.plantilla.json)
      | sellar <expediente> --revisor NOMBRE --fecha AAAA-MM-DD(hoy) CELDA [CELDA …]
 """
@@ -135,6 +153,19 @@ def _igual_libro(calculado, vm):
     if not (_num(calculado) and _num(vm)):
         return _igual_exacto(calculado, vm)
     return _igual_exacto(calculado, vm) or abs(round(calculado, 3) - vm) <= 1e-9 * max(1.0, abs(vm))
+
+
+def _importe_libro_exacto(exacto, vm):
+    """(4.15, hito 2, U2) Un IMPORTE del libro es el resultado EXACTO (fracción) o uno de sus redondeos a 3 decimales: el libro tiene como
+    mucho 3 decimales y |exacto − libro| ≤ 0,0005. En un empate (x,xxx5 exacto) valen los dos vecinos, porque el generador (coma
+    flotante), ROUND de la hoja y el redondeo de Python lo resuelven de forma distinta. No es una holgura: 0,2511 no es 0,25, 849,0 no es
+    849,697 y 849,6976 no es 849,697 (con 3 decimales en el libro, la distancia máxima es media unidad del tercer decimal)."""
+    if not (isinstance(exacto, fractions.Fraction) and _num(vm)):
+        return False
+    fv = fractions.Fraction(repr(float(vm)))
+    if fv == exacto:
+        return True
+    return (fv * 1000).denominator == 1 and abs(exacto - fv) <= fractions.Fraction(1, 2000)
 
 
 def _canon(x):
@@ -496,9 +527,23 @@ def _eval_formula(formula, o):
     return eval(compile(arbol, "<formula>", "eval"), {"__builtins__": {}}, {"o": o, "abs": abs, "min": min, "max": max, "sum": sum, "round": round})
 
 
+MAX_LONGITUD_FORMULA = 2000  # (4.15, hito 2, U3) coste acotado: una fórmula de un registro auditado no necesita más
+MAX_NODOS_FORMULA = 400
+DECIMALES_ROUND = range(0, 13)  # (4.15, hito 2, U3) round(x, n) con n literal entre 0 y 12
+
+
 def _validar_formula(formula):
-    """Restricciones sintácticas de una fórmula (sin evaluarla). Devuelve el árbol; ValueError si no se admite."""
+    """Restricciones sintácticas de una fórmula (sin evaluarla). Devuelve el árbol; ValueError si no se admite.
+    (4.15, hito 2, U3) Coste acotado: como mucho MAX_LONGITUD_FORMULA caracteres y MAX_NODOS_FORMULA nodos; round con uno o dos argumentos y
+    los decimales como entero LITERAL entre 0 y 12 (un número desmesurado de decimales dejaba `comprobar` sin terminar; uno negativo anulaba
+    un origen); abs con un argumento; sum con una lista; min y max con al menos un argumento; sin argumentos con nombre."""
+    if not isinstance(formula, str):
+        raise ValueError("la fórmula no es un texto")
+    if len(formula) > MAX_LONGITUD_FORMULA:
+        raise ValueError(f"fórmula de {len(formula)} caracteres: el máximo es {MAX_LONGITUD_FORMULA}")
     arbol = ast.parse(formula, mode="eval")
+    if sum(1 for _ in ast.walk(arbol)) > MAX_NODOS_FORMULA:
+        raise ValueError(f"fórmula con más de {MAX_NODOS_FORMULA} nodos")
     permitidos = (ast.Expression, ast.BinOp, ast.UnaryOp, ast.Constant, ast.Subscript, ast.Name, ast.Load, ast.Add, ast.Sub, ast.Mult, ast.Div,
                   ast.USub, ast.UAdd, ast.Call, ast.List, ast.Tuple, ast.Index if hasattr(ast, "Index") else ast.Constant)
     for n in ast.walk(arbol):
@@ -506,6 +551,23 @@ def _validar_formula(formula):
             raise ValueError(f"elemento no permitido en la fórmula: {type(n).__name__}")
         if isinstance(n, ast.Name) and n.id not in ("o", "abs", "min", "max", "sum", "round"):
             raise ValueError(f"nombre no permitido: {n.id}")
+        if isinstance(n, ast.Call):
+            if not isinstance(n.func, ast.Name) or n.func.id == "o":
+                raise ValueError("solo se admiten las funciones abs, min, max, sum y round")
+            f, na = n.func.id, len(n.args)
+            if f == "round":
+                if na not in (1, 2):
+                    raise ValueError("round admite uno o dos argumentos")
+                if na == 2:
+                    dec = n.args[1]
+                    if not (isinstance(dec, ast.Constant) and isinstance(dec.value, int) and not isinstance(dec.value, bool) and dec.value in DECIMALES_ROUND):
+                        raise ValueError("round(x, n): n tiene que ser un entero literal entre 0 y 12 (4.15, hito 2, U3)")
+            elif f == "abs" and na != 1:
+                raise ValueError("abs admite un solo argumento")
+            elif f == "sum" and not (na == 1 and isinstance(n.args[0], (ast.List, ast.Tuple))):
+                raise ValueError("sum admite una sola lista de términos")
+            elif f in ("min", "max") and na < 1:
+                raise ValueError(f"{f} sin argumentos")
     return arbol
 
 
@@ -538,6 +600,8 @@ def _round_frac(x, n=0):
     if not isinstance(n, int) and not (isinstance(n, fractions.Fraction) and n.denominator == 1):
         raise ValueError("round(…, n) exige un entero n")
     n = int(n)
+    if n not in DECIMALES_ROUND:  # (4.15, hito 2, U3) también si se llama sin pasar por _validar_formula
+        raise ValueError("round(x, n): n tiene que estar entre 0 y 12")
     q = fractions.Fraction(10) ** n
     y = abs(x) * q
     e = int(y)
@@ -580,14 +644,57 @@ def _eval_formula_exacta(formula, o, sin_redondeo=False):
     return ev(arbol)
 
 
+def _sensibilidad(formula, vals, origenes, puntos=3, semilla=415):
+    """(4.15, hito 2, U4; tercera revisión, T2) Dependencia de la fórmula (sin round) respecto de cada origen, en dos sentidos:
+      - local: en los valores comprobados, el resultado cambia al perturbar el origen (v + δ·(1 + |v|), sin punto fijo: un origen −1
+        también se perturba);
+      - estructural: en `puntos` puntos genéricos (racionales pseudoaleatorios con semilla fija), el resultado cambia con el origen.
+    Devuelve (inertes, locales): un origen es inerte si no influye ni local ni estructuralmente (o[x] * 0 + c, o[x] − o[x] + o[y]); y
+    `locales` son los que influyen en el punto real: si no hay ninguno, el valor es una constante en ese punto (min(o[x], c) como límite).
+    Así se aceptan un producto por un cero comprobado, 0 / d y el argumento que no es el mayor de un max, que antes eran errores."""
+    import random as _random
+    delta = fractions.Fraction(1, 10 ** 7)
+    base = _eval_formula_exacta(formula, vals, sin_redondeo=True)
+    locales = set()
+    for o in origenes:
+        v_o = _frac(vals[o])
+        try:
+            if _eval_formula_exacta(formula, dict(vals, **{o: v_o + delta * (1 + abs(v_o))}), sin_redondeo=True) != base:
+                locales.add(o)
+        except ZeroDivisionError:
+            locales.add(o)
+    vivos = set(locales)
+    rnd = _random.Random(f"{semilla}|{formula}")
+    for _ in range(puntos):
+        gen = {o: fractions.Fraction(rnd.randint(-10 ** 6, 10 ** 6), rnd.randint(1, 10 ** 3)) for o in origenes}
+        try:
+            b = _eval_formula_exacta(formula, gen, sin_redondeo=True)
+        except ZeroDivisionError:
+            continue
+        for o in origenes:
+            if o in vivos:
+                continue
+            try:
+                if _eval_formula_exacta(formula, dict(gen, **{o: gen[o] + fractions.Fraction(rnd.randint(1, 10 ** 6), rnd.randint(1, 10 ** 3))}), sin_redondeo=True) != b:
+                    vivos.add(o)
+            except ZeroDivisionError:
+                vivos.add(o)
+    return [o for o in dict.fromkeys(origenes) if o not in vivos], locales
+
+
 def _constantes_no_admitidas(formula):
     """(4.15, tercera revisión, T2) Una cifra de la fuente no se escribe en la fórmula: solo se admiten como literales los enteros de 1 a
     12 (p. ej. el divisor de una media), las potencias de diez (cambios de unidad) y el número de decimales de round."""
-    arbol = ast.parse(formula, mode="eval")
+    arbol = _validar_formula(formula)  # (4.15, hito 2, U3) longitud, nodos y argumentos antes de cualquier análisis
     exentas = set()
     for n in ast.walk(arbol):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "round" and len(n.args) == 2:
             exentas.add(id(n.args[1]))
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in ("min", "max"):
+            # (4.15, hito 2, U4) un 0 como límite de min o max («max(o[a] − o[b], 0)»: una partida que no puede ser negativa)
+            for x in n.args:
+                if isinstance(x, ast.Constant) and isinstance(x.value, (int, float)) and not isinstance(x.value, bool) and x.value == 0:
+                    exentas.add(id(x))
     malas = []
     for n in ast.walk(arbol):
         if isinstance(n, ast.Constant) and isinstance(n.value, (int, float)) and not isinstance(n.value, bool) and id(n) not in exentas:
@@ -643,6 +750,111 @@ def _texto_pdf(ruta, n, layout=True):
     return r
 
 
+HTML_SIN_TEXTO_VISIBLE = {"script", "style", "template", "head", "title", "noscript", "iframe", "object", "svg", "math", "select", "option", "textarea"}
+HTML_EN_LINEA = {"a", "abbr", "b", "bdi", "bdo", "cite", "code", "data", "dfn", "em", "font", "i", "kbd", "mark", "q", "s", "samp", "small", "span",
+                 "strong", "sub", "sup", "time", "u", "var", "wbr", "nobr"}
+HTML_VACIOS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+
+
+def _cmp_txt_espacios(s):
+    """(4.15, hito 2, U5) Como _cmp_txt, pero conserva la separación entre palabras (un espacio): «849 697.000» no es «849697.000»."""
+    return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", "" if s is None else str(s))).strip().lower()
+
+
+def _decodificar_html(crudo):
+    """(4.15, hito 2, U5) (codificación, texto) de un HTML: BOM (UTF-8, UTF-16, UTF-32), charset declarado (<meta charset>, http-equiv o
+    declaración XML) o UTF-8 estricto. (None, motivo) si no puede determinarse o no decodifica: no se adivina."""
+    import codecs
+    for bom, cod in ((codecs.BOM_UTF32_LE, "utf-32-le"), (codecs.BOM_UTF32_BE, "utf-32-be"), (codecs.BOM_UTF8, "utf-8"),
+                     (codecs.BOM_UTF16_LE, "utf-16-le"), (codecs.BOM_UTF16_BE, "utf-16-be")):
+        if crudo.startswith(bom):
+            try:
+                return cod, crudo[len(bom):].decode(cod)
+            except UnicodeDecodeError:
+                return None, f"el HTML empieza con el BOM de {cod} pero no se puede decodificar con esa codificación"
+    cab = crudo[:8192].decode("ascii", errors="replace")
+    m = (re.search(r"""<meta[^>]*?charset\s*=\s*["']?\s*([A-Za-z0-9_.:-]+)""", cab, re.I)
+         or re.search(r"""<\?xml[^>]*encoding\s*=\s*["']([A-Za-z0-9_.:-]+)""", cab, re.I))
+    if m:
+        cod = m.group(1)
+        try:
+            codecs.lookup(cod)
+        except LookupError:
+            return None, f"el HTML declara la codificación {cod!r}, que no se reconoce"
+        try:
+            return cod, crudo.decode(cod)
+        except UnicodeDecodeError:
+            return None, f"el HTML declara la codificación {cod!r} pero no se puede decodificar con ella"
+    try:
+        return "utf-8", crudo.decode("utf-8")
+    except UnicodeDecodeError:
+        return None, "el HTML no declara su codificación y no es UTF-8 válido: no puede determinarse (no se adivina)"
+
+
+def _texto_html_visible(ruta):
+    """(4.15, hito 2, U5) («ok», texto visible) de una fuente HTML, o («pendiente», motivo). Con html.parser, no con expresiones regulares:
+    se descartan los comentarios, los atributos, script, style, template, head (title, meta), noscript y los elementos ocultos (atributo
+    hidden, aria-hidden="true", style con display:none o visibility:hidden), también sin cerrar (lo que sigue a un <script> sin cierre no
+    es visible). Los elementos de bloque y las celdas se separan con un espacio; los elementos en línea no."""
+    from html.parser import HTMLParser
+    try:
+        crudo = open(ruta, "rb").read()
+    except OSError as ex:
+        return "pendiente", f"la fuente HTML no se puede leer ({type(ex).__name__})"
+    cod, texto = _decodificar_html(crudo)
+    if cod is None:
+        return "pendiente", texto
+
+    class _P(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.pila, self.oculto, self.trozos = [], 0, []
+
+        def _es_oculto(self, tag, attrs):
+            a = {str(k).lower(): ("" if v is None else str(v)) for k, v in attrs}
+            st = re.sub(r"\s+", "", a.get("style", "").lower())
+            return (tag in HTML_SIN_TEXTO_VISIBLE or "hidden" in a or a.get("aria-hidden", "").strip().lower() == "true"
+                    or "display:none" in st or "visibility:hidden" in st or (tag == "input" and a.get("type", "").lower() == "hidden"))
+
+        def handle_starttag(self, tag, attrs):
+            tag = tag.lower()
+            if tag not in HTML_EN_LINEA:
+                self.trozos.append(" ")
+            if tag in HTML_VACIOS:
+                return
+            oc = self._es_oculto(tag, attrs)
+            self.pila.append((tag, oc))
+            self.oculto += oc
+
+        def handle_startendtag(self, tag, attrs):
+            if tag.lower() not in HTML_EN_LINEA:
+                self.trozos.append(" ")
+
+        def handle_endtag(self, tag):
+            tag = tag.lower()
+            if tag not in HTML_EN_LINEA:
+                self.trozos.append(" ")
+            if not any(t == tag for t, _ in self.pila):
+                return
+            while self.pila:
+                t, oc = self.pila.pop()
+                self.oculto -= oc
+                if t == tag:
+                    break
+
+        def handle_data(self, data):
+            if not self.oculto:
+                self.trozos.append(data)
+
+    p = _P()
+    try:
+        p.feed(texto)
+        p.close()
+    except Exception as ex:  # noqa: BLE001 — un HTML mal formado no detiene el control
+        return "pendiente", f"la fuente HTML no se puede analizar ({type(ex).__name__})"
+    return "ok", "".join(p.trozos)
+
+
 def _tipo_fuente(ruta):
     """(4.15, tercera revisión, T4) Tipo de una fuente conservada por su CONTENIDO, no por su nombre: «pdf» (cabecera %PDF-, o extensión
     .pdf: si no tiene la cabecera, _texto_pdf lo rechaza), «html», «texto» (un .txt) u «otro»."""
@@ -651,7 +863,7 @@ def _tipo_fuente(ruta):
     except OSError:
         cab = b""
     ext = str(ruta).lower()
-    if cab.lstrip().startswith(b"%PDF-") or ext.endswith(".pdf"):
+    if b"%PDF-" in cab[:1024] or ext.endswith(".pdf"):  # (4.15, hito 2, U5) la cabecera puede ir tras bytes previos (como lo acepta pdftotext)
         return "pdf"
     c = cab.lstrip().lower()
     if ext.endswith((".htm", ".html", ".xhtml")) or c.startswith((b"<!doctype html", b"<html")):
@@ -739,15 +951,14 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         return "discrepancia", f"la cita no está en la página {f.get('pagina')} de {f.get('archivo_texto') or f.get('archivo')}"
     tipo_f = _tipo_fuente(ruta)
     if tipo_f == "html":
-        # (4.15, tercera revisión, T4) una fuente HTML: la cita tiene que estar en su texto (sin etiquetas), no solo en el texto conservado
-        import html as _html
-        try:
-            crudo = open(ruta, encoding="utf-8", errors="replace").read()
-        except OSError as ex:
-            return "pendiente", f"la fuente HTML no se puede leer ({type(ex).__name__})"
-        plano = _html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style)[^>]*>.*?</\1>", " ", crudo)))
-        if _cmp_txt(f.get("cita")) not in _cmp_txt(plano):
-            return "discrepancia", f"la cita está en el texto conservado {f.get('archivo_texto')!r}, pero no en la fuente HTML {f.get('archivo')!r}"
+        # (4.15, tercera revisión, T4) una fuente HTML: la cita tiene que estar en su texto, no solo en el texto conservado
+        # (4.15, hito 2, U5) en su texto VISIBLE (html.parser: sin comentarios, atributos, script, style, template, head ni elementos ocultos),
+        # decodificado por su BOM o su charset declarado; las celdas y bloques se separan (una cifra no se forma con dos celdas contiguas)
+        est_h, plano = _texto_html_visible(ruta)
+        if est_h != "ok":
+            return est_h, f"{plano} ({f.get('archivo')})"
+        if _cmp_txt_espacios(f.get("cita")) not in _cmp_txt_espacios(plano):
+            return "discrepancia", f"la cita está en el texto conservado {f.get('archivo_texto')!r}, pero no en el texto visible de la fuente HTML {f.get('archivo')!r}"
     elif tipo_f == "otro" and not str(ruta).lower().endswith(".txt"):
         return "pendiente", (f"la fuente {f.get('archivo')!r} no es un PDF, un HTML ni un texto con marcas de página: no se puede comprobar que el texto "
                              "conservado es el de la fuente (tercera revisión, T4)")
@@ -760,7 +971,10 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         if not txt_pdf.strip() and not _texto_pdf(ruta, _numero_pagina(f.get("pagina")), layout=False)[1].strip():
             return "pendiente", (f"la página {f.get('pagina')} del PDF {f.get('archivo')!r} no tiene capa de texto (pdftotext no extrae nada): el texto "
                                  "conservado (p. ej. un OCR) no se puede contrastar con el PDF; lo revisa el revisor independiente")
-        if _cmp_txt(f.get("cita")) not in _cmp_txt(txt_pdf) and _cmp_txt(f.get("cita")) not in _cmp_txt(_texto_pdf(ruta, _numero_pagina(f.get("pagina")), layout=False)[1]):
+        txt_pdf2 = _texto_pdf(ruta, _numero_pagina(f.get("pagina")), layout=False)[1]
+        # (4.15, hito 2) límite declarado (cuarta revisión, U5 B6): una página cuya única capa de texto es un encabezado (escaneado con sello
+        # digital) da «discrepancia»; distinguirla de una página corta legítima exigiría un umbral heurístico, que no se adopta
+        if _cmp_txt(f.get("cita")) not in _cmp_txt(txt_pdf) and _cmp_txt(f.get("cita")) not in _cmp_txt(txt_pdf2):
             return "discrepancia", (f"la cita está en el texto conservado {f.get('archivo_texto')!r}, pero no en la página {f.get('pagina')} del PDF "
                                     f"{f.get('archivo')!r} (pdftotext): el texto conservado no es el de ese documento")
     if vf is not None and not _num(vf):
@@ -793,7 +1007,7 @@ def comprobar(carpeta, _presellar=frozenset()):
            "sobrantes": [], "repetidas": [], "auxiliares": 0, "materiales_no_comprobadas": [], "apto_por_entradas": False, "motivo": None,
            "lecturas_externas": [], "universo_calculo": (inst or {}).get("n_calculo"), "universo_juicio": (inst or {}).get("n_juicio"),
            "no_materiales": [], "datos_como_hipotesis": [], "entradas_no_reproducibles": [], "no_materiales_sin_revisar": [],
-           "no_materiales_revisados": [], "no_aplicables": [], "claves_lecturas_externas": [], "resumen": None}
+           "no_materiales_revisados": [], "no_aplicables": [], "claves_lecturas_externas": [], "resumen": None, "derivados_comprobados": []}
     if inst is None:
         out["motivo"] = "no hay libro del expediente: no se puede fijar el universo de entradas"
         out["resumen"] = out["motivo"]  # (T6) nunca None
@@ -953,7 +1167,8 @@ def comprobar(carpeta, _presellar=frozenset()):
                 # (4.15, tercera revisión) con una unidad no monetaria (o no reconocida) la escala solo puede ser un cambio de unidad
                 return problema(k, "error", f"escala {esc!r} con la unidad «{f.get('unidad')}»: fuera de las unidades monetarias reconocidas la escala tiene que ser una potencia de diez")
             importe = u is not None  # (4.15, hallazgo 5) la tolerancia del redondeo del libro solo vale para importes en unidades monetarias
-            if not (_igual_libro(sig * esc * vf, vm) if importe else _igual_exacto(sig * esc * vf, vm)):
+            # (4.15, hito 2, U2) en un importe, signo × escala × valor_fuente se calcula EXACTO (fracciones) y se compara con el redondeo del libro
+            if not (_importe_libro_exacto(sig * _frac(esc) * _frac(vf), vm) if importe else _igual_exacto(sig * esc * vf, vm)):
                 return problema(k, "discrepancia", f"signo × escala × valor_fuente = {sig * esc * vf!r} ≠ valor del modelo {vm!r}")
             if clase == "cero_comprobado" and not _igual_exacto(vm, 0):
                 return problema(k, "error", "cero comprobado con un valor distinto de cero")
@@ -1011,20 +1226,17 @@ def comprobar(carpeta, _presellar=frozenset()):
                 r_ex = _eval_formula_exacta(d["formula"], vals)
                 r = float(r_ex)
                 # (T2) cada origen tiene que influir en el resultado (sin round): o["x"] * 0 + c, o["x"] − o["x"] + c o min(o["x"], c) no derivan
-                base_s = _eval_formula_exacta(d["formula"], vals, sin_redondeo=True)
-                inertes = []
-                for o in d["origenes"]:
-                    v_o = _frac(vals[o])
-                    pert = dict(vals, **{o: v_o * (1 + fractions.Fraction(1, 10 ** 7)) + fractions.Fraction(1, 10 ** 7)})
-                    if _eval_formula_exacta(d["formula"], pert, sin_redondeo=True) == base_s:
-                        inertes.append(o)
+                inertes, locales = _sensibilidad(d["formula"], vals, list(d["origenes"]))
             except Exception as ex:  # noqa: BLE001
                 return problema(k, "error", f"fórmula no evaluable ({type(ex).__name__}: {str(ex)[:80]})")
             if inertes:
                 return problema(k, "error", f"los orígenes {inertes} no influyen en el resultado de la fórmula: el valor no se deriva de ellos")
+            if not locales:
+                return problema(k, "error", "con los valores comprobados, el resultado no depende de ningún origen (es una constante en ese punto: p. ej. "
+                                            "min(o[x], c) como límite): el valor no se deriva de ellos (hito 2, U4)")
             vm = e.get("valor_modelo") if k.startswith("aux:") else inst["celdas"].get(k)
             importe = UNIDADES.get(_norm_txt(d.get("unidad"))) is not None  # (4.15, N4) el redondeo del libro, solo en importes
-            if not (_igual_libro(r, vm) if importe else _igual_exacto(r, vm)):
+            if not (_importe_libro_exacto(r_ex, vm) if importe else _igual_exacto(r, vm)):  # (4.15, hito 2, U2) exacto, en los dos sentidos del empate
                 return problema(k, "discrepancia", f"la fórmula da {r!r} y el modelo {vm!r} (" + ("ni exacto ni con el redondeo del libro a 3 decimales" if importe else
                                                     "no es exacto; el redondeo del libro a 3 decimales solo vale en un importe («derivacion.unidad»)")
                                 + "; una transformación distinta se declara en la fórmula, p. ej. round(…, 4))")
@@ -1081,6 +1293,10 @@ def comprobar(carpeta, _presellar=frozenset()):
             out["lecturas_externas"].append(f"{k}: lectura externa sin bytes conservados ({str(((e.get('fuente') or {}).get('lectura_externa') or {}).get('referencia'))[:100]}); no es un contraste reproducible")
             return
         estado[k] = "comprobada"
+        if e.get("clase") == "derivado":
+            # (4.15, hito 2, U1) los derivados se cuentan y se listan: el control descarta las fórmulas triviales, pero no acredita que la
+            # fórmula derive el concepto; eso lo acredita solo la revisión independiente de su significado económico (revisor y vínculo)
+            out["derivados_comprobados"].append(k)
 
     for k, e in por_celda.items():
         if k not in estado:
@@ -1139,7 +1355,8 @@ def comprobar(carpeta, _presellar=frozenset()):
                       f"{out['comprobadas_juicio']} de {inst['n_juicio']} de juicio); {len(out['no_materiales'])} entradas declaradas no materiales (de juicio o auxiliares) "
                       f"({len(out['no_materiales_revisados'])} con el juicio de materialidad revisado, {len(out['no_materiales_sin_revisar'])} sin revisar); "
                       f"{len(out['datos_como_hipotesis'])} datos tratados como hipótesis o convención; {len(out['no_aplicables'])} no aplicables; "
-                      f"{len(out['lecturas_externas'])} lecturas externas sin bytes")
+                      f"{len(out['lecturas_externas'])} lecturas externas sin bytes; {len(out['derivados_comprobados'])} derivados comprobados (su significado "
+                      "económico lo acredita la revisión independiente, no el control automático)")
     if bloqueos:
         out["motivo"] = (f"{out['comprobadas_universo']} de {inst['n']} celdas del universo comprobadas ({out['comprobadas_calculo']} de {inst['n_calculo']} de cálculo y "
                          f"{out['comprobadas_juicio']} de {inst['n_juicio']} de juicio; +{out['auxiliares']} datos de origen auxiliares); "
@@ -1161,6 +1378,7 @@ def aptitud(carpeta):
                                     "entradas_no_reproducibles": len(r.get("entradas_no_reproducibles") or []), "datos_como_hipotesis": len(r.get("datos_como_hipotesis") or []),
                                     "no_materiales": len(r.get("no_materiales") or []), "no_materiales_sin_revisar": len(r.get("no_materiales_sin_revisar") or []),
                                     "no_aplicables": len(r.get("no_aplicables") or []), "resumen": r.get("resumen"),
+                                    "derivados_comprobados": len(r.get("derivados_comprobados") or []),
                                     "pendientes": len(r["pendientes"]), "desactualizadas": len(r["desactualizadas"]), "discrepancias": len(r["discrepancias"]),
                                     "errores": len(r["errores"]), "materiales_no_comprobadas": len(r["materiales_no_comprobadas"]),
                                     "apto_por_entradas": r["apto_por_entradas"], "motivo": r["motivo"], "huella_entradas_economicas": r["huella_entradas_economicas"],

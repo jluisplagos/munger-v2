@@ -199,6 +199,21 @@ def main():
     if m1:
         linea += f" · **{m1.get('marca')}** (causas: {'; '.join(str(x.get('dato')) + (' — ' + str(x.get('que')) if x.get('que') else '') for x in m1.get('causas') or [])})"
     apt = F.get("aptitud_de_uso") if isinstance(F.get("aptitud_de_uso"), dict) else None
+    vef = F.get("verificacion_entradas") if isinstance(F.get("verificacion_entradas"), dict) else None
+    if vef is not None:
+        # (4.15, hito 2, I20) en todas las plantillas (también V6.3): la aptitud por entradas y el modo de la entrada efectiva con su procedencia.
+        # Sin comillas angulares: verify_quotes_v2.py lee «…» como citas textuales y las busca en el corpus
+        _ee = vef.get("entrada_efectiva") or {}
+        _ap, _de = _ee.get("aplicada_en_paso_2") or {}, _ee.get("declarada") or {}
+        _rs = vef.get("resumen") or {}
+        linea += (f"\n\n> **Entradas financieras:** apta por entradas: {'sí' if vef.get('apto_por_entradas') else 'no'}"
+                  + (f" ({_rs.get('comprobadas_universo')} de {_rs.get('universo')} celdas del universo comprobadas)" if _rs.get("universo") is not None and _rs.get("comprobadas_universo") is not None else "")
+                  + (f"; motivo: {str(_rs.get('motivo')).replace('«', '').replace('»', '')[:300]}" if not vef.get("apto_por_entradas") and _rs.get("motivo") else "")
+                  + f". Entrada efectiva: modo aplicado en el paso 2: {_ap.get('modo') or 'sin registro'}"
+                  + (f" (declarado en {_ap.get('declarado_en')})" if _ap.get("declarado_en") else (" (sin declaración: expediente anterior a la 4.15)" if _ap.get("modo") else ""))
+                  + (f"; declarado ahora: {_de.get('modo')} ({_de.get('declarado_en') or 'sin declaración'})" if not _de.get("error") else f"; declaración actual con error: {str(_de.get('error')).replace('«', '').replace('»', '')}")
+                  + ("; **el modo aplicado no coincide con el declarado**" if _ee.get("coinciden") is False else "")
+                  + ". Apta para dinero real: no.")
     if apt:
         # (4.12 §9) aptitud de uso, separada de la auditoría (solo V6.4 experimental): ni «concluido» ni APROBADO la acreditan
         dist = str(apt.get("distinta_de_la_auditoria") or "")
@@ -218,7 +233,9 @@ def main():
                       # (4.15, segunda revisión independiente, N1 y N2) lo que no se contrastó y por qué, también con el registro apto
                       + (f"{ve.get('no_materiales')} de juicio declaradas no materiales ({ve.get('no_materiales_sin_revisar') or 0} sin revisar) · " if ve.get("no_materiales") else "")
                       + (f"{ve.get('datos_como_hipotesis')} datos tratados como hipótesis o convención · " if ve.get("datos_como_hipotesis") else "")
-                      + (f"{ve.get('no_aplicables')} no aplicables · " if ve.get("no_aplicables") else "") + 
+                      + (f"{ve.get('no_aplicables')} no aplicables · " if ve.get("no_aplicables") else "")
+                      # (4.15, hito 2, U1) los derivados, con el límite del control automático
+                      + (f"{ve.get('derivados_comprobados')} derivados comprobados (significado económico: revisión independiente) · " if ve.get("derivados_comprobados") else "") + 
                       f"{ve.get('discrepancias')} discrepancias · {ve.get('desactualizadas')} desactualizadas · apta por entradas: "
                       f"{'sí' if ve.get('apto_por_entradas') else 'no'}. Apta para dinero real: no"
                       + (f" ({'; '.join(apt.get('motivos_no_apto') or [])})" if apt.get("motivos_no_apto") else "") + ".")

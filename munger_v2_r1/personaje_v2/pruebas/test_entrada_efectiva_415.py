@@ -7,6 +7,8 @@ Casos:
   C · fase1_historia.calcular_entrada: el cálculo declarado (Historia + componentes con fuente y página) da 108,0; errores explícitos.
       (4.15, hito 2, R415-SIGNO) la cita de cada componente se contrasta con la cifra publicada y su signo; la conversión de un pago
       publicado entre paréntesis a su magnitud se declara («valor_fuente», «signo», «tratamiento») y no cambia el 108.
+  I20 · (4.15, hito 2) la ficha y el informe V6.3 (copia de Elis, motor A) muestran la aptitud por entradas y el modo de la entrada
+      efectiva con su procedencia; entrada_efectiva.json forma parte del material auditado.
   F · fase1_historia construir: una entrada de fase1_metadatos.json con `calculo` sale en fase1_v63.json con su valor y su fuente.
   R · rellenar_fase1_v63: la entrada migrada que contradice la declarada se conserva (regla v2.2) pero ya no en silencio: queda registrada
       y el comprobador de entradas la marca como no reproducible; --sobrescribir aplica la declarada; con la declarada correcta, nada
@@ -17,7 +19,7 @@ Casos:
   P · (segunda revisión, N7) modo de la entrada efectiva que aplica el pipeline (falla en cerrado).
 Uso: python3 -B test_entrada_efectiva_415.py [--json salida.json]
 """
-import argparse, copy, json, os, shutil, subprocess, sys, tempfile
+import argparse, copy, json, os, re, shutil, subprocess, sys, tempfile
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 PV = os.path.dirname(AQUI)
@@ -316,6 +318,49 @@ paso("P", "(N7) cableado en el código del pipeline (comprobación del texto, no
 e = error(lambda: FH.calcular_entrada("C48", {"calculo": dict(copy.deepcopy(CALC), componentes={"pagos_arrendamientos_con_intereses": "no es un objeto"})}, H, anios))
 e2 = error(lambda: FH.calcular_entrada("C48", {"calculo": dict(copy.deepcopy(CALC), componentes={"pagos_arrendamientos_con_intereses": {"2023": 5}})}, H, anios))
 paso("C", "(segunda revisión, residuo del h13) un componente que no es un objeto: error explícito (no AttributeError)", bool(e) and bool(e2) and "no es un objeto" in e2, (e, e2))
+
+# ------------------------------------------------------------------ I20 · la ficha y el informe V6.3 muestran la aptitud por entradas y el modo
+# (4.15, hito 2, I20) en una copia de elis_decisiones (motor A, plantilla V6.3): antes, la ficha V6.3 no decía si las entradas estaban verificadas
+import cierre_v2 as CIE  # noqa: E402
+dI = os.path.join(TMP, "i20", "Elis")
+shutil.copytree(ELIS, dI, ignore=shutil.ignore_patterns(".lo_perfil", "recalc", "variantes_v64", "prompts_generados", "historial_cierres", "antecedentes"))
+
+
+def ficha_inf(d):
+    r1 = subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "ficha.py"), d, "--provisional"], capture_output=True, text=True)
+    r2 = subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "informe.py"), d, "--provisional"], capture_output=True, text=True)
+    fi = json.load(open(os.path.join(d, "ficha_provisional.json"), encoding="utf-8")) if os.path.exists(os.path.join(d, "ficha_provisional.json")) else {}
+    inf = open(os.path.join(d, "informe_provisional.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "informe_provisional.md")) else ""
+    return fi, inf, (r1.returncode, r2.returncode, (r1.stdout + r1.stderr)[-300:], (r2.stdout + r2.stderr)[-300:])
+
+
+fi, inf, rcs = ficha_inf(dI)
+vef = fi.get("verificacion_entradas") or {}
+paso("I20", "ficha V6.3 (motor A): lleva la verificación de las entradas (no apta con las reglas 4.15: registro sin vínculos) y no es apta para dinero real",
+     fi.get("versiones", {}).get("plantilla") == "V6.3" and vef.get("apto_por_entradas") is False and vef.get("apto_para_dinero_real") is False
+     and (vef.get("resumen") or {}).get("universo") is not None, (fi.get("versiones", {}).get("plantilla"), {k: vef.get(k) for k in ("apto_por_entradas", "apto_para_dinero_real")}, rcs))
+paso("I20", "ficha V6.3: modo de la entrada efectiva con su procedencia (sin declaración: «registrada», expediente anterior a la 4.15)",
+     (vef.get("entrada_efectiva") or {}).get("declarada") == {"modo": "registrada", "declarado_en": None}, vef.get("entrada_efectiva"))
+paso("I20", "informe V6.3: dice «apta por entradas: no», el modo de la entrada efectiva y «Apta para dinero real: no»",
+     "**Entradas financieras:** apta por entradas: no" in inf and "Entrada efectiva: modo aplicado en el paso 2" in inf and "Apta para dinero real: no" in inf,
+     (re.findall(r"Entradas financieras:.{0,300}", inf) or [""])[0][:300])
+paso("I20", "el esquema de la ficha valida la ficha V6.3 con el bloque nuevo (apto_para_dinero_real fijado en false)",
+     subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "validar_esquema.py"), os.path.join(dI, "ficha_provisional.json"), "ficha"], capture_output=True, text=True).returncode == 0)
+m0 = CIE.material(dI, "Elis")[0]
+json.dump({"modo": "estricta", "fecha": "2026-11-15"}, open(os.path.join(dI, "entrada_efectiva.json"), "w"))
+m1 = CIE.material(dI, "Elis")[0]
+fi, inf, rcs = ficha_inf(dI)
+ee = (fi.get("verificacion_entradas") or {}).get("entrada_efectiva") or {}
+paso("I20", "con entrada_efectiva.json «estricta»: la ficha y el informe dicen el modo declarado y su procedencia, y avisan si no coincide con el aplicado en el paso 2",
+     ee.get("declarada") == {"modo": "estricta", "declarado_en": "entrada_efectiva.json"} and "declarado ahora: estricta (entrada_efectiva.json)" in inf
+     and (ee.get("coinciden") is None or (ee.get("coinciden") is False and "no coincide" in inf)), (ee, (re.findall(r"Entrada efectiva:.{0,260}", inf) or [""])[0]))
+paso("I20", "entrada_efectiva.json forma parte del material auditado: añadirlo cambia el identificador del material (retira una aprobación)",
+     "entrada_efectiva.json" in CIE.MATERIAL_FIJO and m0 != m1, (m0, m1))
+open(os.path.join(dI, "entrada_efectiva.json"), "w").write("{ilegible")
+fi, inf, rcs = ficha_inf(dI)
+ee = (fi.get("verificacion_entradas") or {}).get("entrada_efectiva") or {}
+paso("I20", "una declaración ilegible se muestra como error en la ficha y el informe (no se sustituye por «registrada»)",
+     (ee.get("declarada") or {}).get("modo") is None and "no se puede leer" in str((ee.get("declarada") or {}).get("error")) and "declaración actual con error" in inf, ee)
 
 n_ok = sum(x["resultado"] == "PASA" for x in RES)
 print(f"{n_ok}/{len(RES)} pruebas de la entrada efectiva (4.15) PASAN")

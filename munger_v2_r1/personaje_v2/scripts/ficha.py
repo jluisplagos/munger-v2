@@ -61,6 +61,30 @@ def aptitud_de_uso(c):
     return a
 
 
+def verificacion_y_entrada_efectiva(c, pipe):
+    """(4.15, hito 2, I20) La verificación de las entradas financieras y el modo de la entrada efectiva, en TODAS las plantillas (también
+    la V6.3 del motor A, que antes no los mostraba): apto o no por entradas con su recuento, el modo aplicado en el paso 2 (estado_pipeline.json)
+    y el declarado ahora con su procedencia (entrada_efectiva.json, alcance_v2.json o ninguna). Una declaración ilegible o contradictoria se
+    muestra como error, no se sustituye. Ninguna salida es apta para dinero real por superar este control: es condición necesaria."""
+    import verificacion_entradas as VE
+    import pipeline as PL
+    try:
+        apto_e, resumen = VE.aptitud(c)
+    except Exception as ex:  # noqa: BLE001 — la ficha no se interrumpe; se dice que no está verificada
+        apto_e, resumen = False, {"motivo": f"la verificación de las entradas no se pudo ejecutar ({type(ex).__name__})"}
+    try:
+        modo, origen = PL.modo_entrada_efectiva(c)
+        declarada = {"modo": modo, "declarado_en": origen}
+    except ValueError as ex:
+        declarada = {"modo": None, "declarado_en": None, "error": str(ex)}
+    aplicada = (pipe or {}).get("entrada_efectiva") if isinstance((pipe or {}).get("entrada_efectiva"), dict) else None
+    return {"apto_por_entradas": bool(apto_e), "resumen": resumen, "apto_para_dinero_real": False,
+            "entrada_efectiva": {"aplicada_en_paso_2": aplicada, "declarada": declarada,
+                                 "coinciden": (aplicada or {}).get("modo") == declarada.get("modo") if aplicada else None},
+            "nota": ("condición necesaria, no suficiente: superar los controles de software no acredita la aptitud para dinero real "
+                     "(motor A sin validar: F1; plantillas y criterios económicos no adoptados)")}
+
+
 ILEGIBLES = []  # (4.13, revisión interna R1) archivos que existían y no se pudieron leer en esta llamada
 
 
@@ -329,6 +353,8 @@ def main():
         "datos_etapa1_incompletos": CIE.marca_etapa1(entrada),
         "alcance": alc,
     }
+    # (4.15, hito 2, I20) en todas las plantillas: la verificación de las entradas y el modo de la entrada efectiva con su procedencia
+    ficha["verificacion_entradas"] = verificacion_y_entrada_efectiva(c, pipe)
     pa = SEL.leer(c)
     if pa is not None:
         # (4.11) solo en expedientes V6.4: base, versión, configuración efectiva y límites (los expedientes V6.3 no cambian de ficha)

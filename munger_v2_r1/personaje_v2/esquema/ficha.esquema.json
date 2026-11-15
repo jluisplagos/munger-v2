@@ -906,6 +906,54 @@
      "type": "string"
     }
    }
+  },
+  "verificacion_entradas": {
+   "description": "(4.15, hito 2, I20) En todas las plantillas (también V6.3): la verificación de las entradas financieras (condición necesaria, no suficiente) y el modo de la entrada efectiva aplicado en el paso 2 y declarado, con su procedencia. Ninguna salida es apta para dinero real por superar este control.",
+   "type": "object",
+   "required": [
+    "apto_por_entradas",
+    "resumen",
+    "apto_para_dinero_real",
+    "entrada_efectiva"
+   ],
+   "properties": {
+    "apto_por_entradas": {
+     "type": "boolean"
+    },
+    "resumen": {
+     "type": "object"
+    },
+    "apto_para_dinero_real": {
+     "const": false
+    },
+    "entrada_efectiva": {
+     "type": "object",
+     "required": [
+      "aplicada_en_paso_2",
+      "declarada"
+     ],
+     "properties": {
+      "aplicada_en_paso_2": {
+       "type": [
+        "object",
+        "null"
+       ]
+      },
+      "declarada": {
+       "type": "object"
+      },
+      "coinciden": {
+       "type": [
+        "boolean",
+        "null"
+       ]
+      }
+     }
+    },
+    "nota": {
+     "type": "string"
+    }
+   }
   }
  },
  "allOf": [

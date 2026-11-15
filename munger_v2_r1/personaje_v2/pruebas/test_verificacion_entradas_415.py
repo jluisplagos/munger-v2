@@ -16,6 +16,9 @@ Grupos:
   J  · cobertura del juicio (I8): las cifras financieras que usan las fases de juicio entran en el universo con dependencias distintas.
   E  · entrada efectiva (C48 de Elis): una entrada del FCF base que fase1_v63.json no reproduce no se acredita.
   N  · recuentos (I9): el informe dice «N de M» con N ≤ M y separa cálculo y juicio.
+  U  · (4.15, hito 2) límites de la cuarta revisión: U2 empates del redondeo de importes (sin tolerancia general), U3 coste acotado de
+       round y de las fórmulas, U4 rechazos falsos del control de sensibilidad y un caso que solo detecta el de constantes, U1 derivados
+       contados y listados, U5 texto visible y codificación de las fuentes HTML.
   SG · (4.15, hito 2, R415-SIGNO) signo de la cifra publicada: contraejemplos completos en los dos sentidos, paréntesis contables, menos
        ASCII y Unicode, guiones de cero y signos indeterminados; positivos con la transformación justificada (signo −1).
 Uso: python3 -B test_verificacion_entradas_415.py [--json salida.json]
@@ -776,6 +779,115 @@ r = con(lambda g: ent(g, K)["fuente"].update(valor_fuente=float("nan")), resella
 paso("SG", "valor_fuente NaN en el registro: error del contrato, sin excepción", not r["apto_por_entradas"] and con_k(r, K, ("errores",)), con_k(r, K))
 r = con()
 paso("SG", "el control positivo sigue apto después de los casos de signo", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
+
+# ------------------------------------------------------------------ U · límites U1–U5 de la cuarta revisión (4.15, hito 2)
+import time as _time  # noqa: E402
+
+
+def montar_media(g, a, b, unidad="mm", formula='(o["aux:m1"] + o["aux:m2"]) / 2'):
+    base_f = dict(ent(g, K)["fuente"])
+    for nom, v in (("aux:m1", a), ("aux:m2", b)):
+        g["entradas"].append({"celda": nom, "id": nom, "ambito": "auxiliar", "uso": f"origen de {k_der}", "material": True, "clase": "dato_publicado", "valor_modelo": v,
+                              "fuente": dict(base_f, pagina=PG_M[nom], valor_fuente=round(v * 1000), cita=f"Partida sintética de {nom}: {round(v * 1000):d}",
+                                             periodo=ent(g, k_der)["fuente"]["periodo"], columna=ent(g, k_der)["fuente"]["columna"]),
+                              "comprobacion": dict(COMPROBADA), "incidencia": None})
+    ent(g, k_der).update(clase="derivado", fuente={}, derivacion=dict({"origenes": ["aux:m1", "aux:m2"], "formula": formula, "conciliacion": "(prueba) media de dos"},
+                                                                        **({"unidad": unidad} if unidad else {})))
+
+
+def casos_media(a, b):
+    PG_M["aux:m1"] = nueva_pagina(f"Partida sintética de aux:m1: {round(a * 1000):d}")
+    PG_M["aux:m2"] = nueva_pagina(f"Partida sintética de aux:m2: {round(b * 1000):d}")
+
+
+PG_M = {}
+v3 = round(vd, 3)
+assert abs(v3 - vd) < 1e-12
+casos_media(v3, round(v3 + 0.001, 3))  # media exacta = libro + 0,0005: empate
+r = con(lambda g: montar_media(g, v3, round(v3 + 0.001, 3)), resellar=True)
+paso("U", "(U2) importe: la media de dos valores con empate x,xxx5 (exacto = libro + 0,0005) se acepta con el valor del libro (antes: discrepancia en ~11 % de las medias pares)",
+     k_der in r["comprobadas"], con_k(r, k_der))
+casos_media(v3, round(v3 - 0.001, 3))
+r = con(lambda g: montar_media(g, v3, round(v3 - 0.001, 3)), resellar=True)
+paso("U", "(U2) el empate en el otro sentido (exacto = libro − 0,0005): también", k_der in r["comprobadas"], con_k(r, k_der))
+casos_media(v3, round(v3 + 0.003, 3))
+r = con(lambda g: montar_media(g, v3, round(v3 + 0.003, 3)), resellar=True)
+paso("U", "(U2) sin tolerancia general: la media exacta libro + 0,0015 no es el libro: discrepancia", not r["apto_por_entradas"] and any(x.startswith(k_der + ":") for x in r["discrepancias"]), con_k(r, k_der))
+casos_media(v3, round(v3 + 0.001, 3))
+r = con(lambda g: montar_media(g, v3, round(v3 + 0.001, 3), unidad=None), resellar=True)
+paso("U", "(U2) el empate solo vale en un importe: sin «derivacion.unidad» monetaria la media de empate es una discrepancia (exacta o round declarado)",
+     not r["apto_por_entradas"] and any(x.startswith(k_der + ":") for x in r["discrepancias"]), con_k(r, k_der))
+F_ = VE.fractions.Fraction
+paso("U", "(U2) _importe_libro_exacto: 849,0 no es 849,697; 849,6976 no es 849,697; 0,2511 no es 0,25; 849,6974 sí es 849,697; un libro con 4 decimales no se redondea",
+     not VE._importe_libro_exacto(F_(849), 849.697) and not VE._importe_libro_exacto(F_("849.6976"), 849.697) and not VE._importe_libro_exacto(F_("0.2511"), 0.25)
+     and VE._importe_libro_exacto(F_("849.6974"), 849.697) and not VE._importe_libro_exacto(F_("849.6974"), 849.6972) and VE._importe_libro_exacto(F_("849.6975"), 849.698))
+for nombre_u3, fml in (("round con 999999999999 decimales", 'round(o["aux:p1"], 999999999999) + o["aux:p2"]'), ("round con decimales negativos", 'round(o["aux:p1"], -9) + o["aux:p2"]'),
+                       ("round con decimales no literales", 'round(o["aux:p1"], o["aux:p2"]) + o["aux:p2"]'),
+                       ("fórmula de más de 2000 caracteres", "(" + " + ".join(['o["aux:p1"] * 1'] * 200) + ') / 200 + o["aux:p2"]')):
+    t0 = _time.time()
+    r = con(lambda g: (montar_derivado(g), ent(g, k_der)["derivacion"].update(formula=fml)), resellar=True)
+    paso("U", f"(U3) {nombre_u3}: error del contrato en un tiempo acotado (antes, con decimales enormes, comprobar no terminaba)",
+         not r["apto_por_entradas"] and any(x.startswith(k_der + ":") for x in r["errores"]) and _time.time() - t0 < 60, (round(_time.time() - t0, 1), con_k(r, k_der)[:1]))
+cli = subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "verificacion_entradas.py"), "comprobar", c], capture_output=True, text=True, timeout=300)
+paso("U", "(U3) la orden «comprobar» termina con el registro anterior (código 1, no apto)", cli.returncode == 1, cli.stdout[-160:])
+sens = {"origen −1": ('o["a"] + o["b"]', {"a": 850.697, "b": -1.0}), "producto con un cero": ('o["a"] * o["b"]', {"a": 0.25, "b": 0.0}),
+        "0 / d": ('o["a"] / o["b"]', {"a": 0.0, "b": 190.537}), "max de dos partidas": ('max(o["a"], o["b"])', {"a": 849.697, "b": 100.25}),
+        "max(a − b, 0)": ('max(o["a"] - o["b"], 0)', {"a": 5.0, "b": 2.0})}
+mal_s = {n_: VE._sensibilidad(f_, v_, list(v_)) for n_, (f_, v_) in sens.items()}
+mal_s = {n_: x for n_, x in mal_s.items() if x[0] or not x[1]} | {n_: VE._constantes_no_admitidas(f_) for n_, (f_, v_) in sens.items() if VE._constantes_no_admitidas(f_)}
+paso("U", "(U4) derivaciones legítimas en casos límite (origen −1, producto con cero, 0 / d, max de dos partidas, max(a − b, 0)): ningún origen inerte (antes: error)", not mal_s, mal_s)
+siguen = {"o[x] * 0 + 12": ('o["a"] * 0 + 12', {"a": 2019}), "o[x] − o[x] + o[y]": ('o["a"] - o["a"] + o["b"]', {"a": 2019, "b": 849.697}),
+          "min(o[x], 12) como límite": ('min(o["a"], 12)', {"a": 2019})}
+no_rech = []
+for n_, (f_, v_) in siguen.items():
+    try:
+        ine, loc = VE._sensibilidad(f_, v_, list(v_))
+        if not (ine or not loc or VE._constantes_no_admitidas(f_)):
+            no_rech.append(n_)
+    except ValueError:
+        pass
+paso("U", "(U4) siguen rechazadas las formas triviales: o[x] * 0 + c (constante 0 fuera de min/max), o[x] − o[x] + o[y] y min(o[x], c) como límite (constante en el punto real)", not no_rech, no_rech)
+PG_X = {"aux:p1": pa_, "aux:p2": pb_}
+r = con(lambda g: (montar_derivado(g), ent(g, k_der)["derivacion"].update(formula='max(o["aux:p1"] + o["aux:p2"], o["aux:p2"])')), resellar=True)
+paso("U", "(U4) en el registro: un max cuyo segundo argumento no es el mayor deriva el valor (antes: «no influye»)", k_der in r["comprobadas"], con_k(r, k_der))
+r = con(lambda g: (montar_derivado(g), ent(g, k_der)["derivacion"].update(formula='o["aux:p1"] + o["aux:p2"] + 13 - 13')), resellar=True)
+paso("U", "(U4/U8) un caso que solo detecta el control de constantes («+ 13 − 13» con el valor exacto): error «escribe cifras»",
+     not r["apto_por_entradas"] and any(x.startswith(k_der + ":") and "escribe cifras" in x for x in r["errores"]), con_k(r, k_der)[:1])
+r = con(lambda g: (montar_derivado(g)), resellar=True)
+paso("U", "(U1) los derivados comprobados se cuentan y se listan en el resumen (el control no acredita su significado económico: lo hace la revisión independiente)",
+     k_der in r["derivados_comprobados"] and "derivados comprobados" in str(r["resumen"]) and "revisión independiente" in str(r["resumen"]), r["resumen"][-200:])
+sha_txt2 = hashlib.sha256(open(os.path.join(FS, "fuente.txt"), "rb").read()).hexdigest()
+CITA_K = ent(REG, K)["fuente"]["cita"]
+
+
+def con_html(nombre, contenido_bytes):
+    open(os.path.join(FS, nombre), "wb").write(contenido_bytes)
+    sha_x = hashlib.sha256(contenido_bytes).hexdigest()
+    return con(lambda g: ent(g, K)["fuente"].update(archivo=f"fuentes_sinteticas/{nombre}", sha256=sha_x, archivo_texto="fuentes_sinteticas/fuente.txt", sha256_texto=sha_txt2), resellar=True)
+
+
+html_malos = {"en un comentario con «>»": f"<html><body><!-- nota > {CITA_K} --><p>otro texto</p></body></html>",
+              "en un atributo con «>»": f'<html><head><meta name="d" content="resumen > {CITA_K}"></head><body><p>otro</p></body></html>',
+              "en un <script> cerrado con «</script >»": f"<html><body><script>var a = '{CITA_K}';</script ><p>otro</p></body></html>",
+              "en un <script> sin cerrar": f"<html><body><p>otro</p><script>var a = '{CITA_K}';",
+              "en el <title>": f"<html><head><title>{CITA_K}</title></head><body><p>otro</p></body></html>",
+              "en un elemento oculto": f'<html><body><div style="display:none">{CITA_K}</div><p>otro</p></body></html>',
+              "en un <template>": f"<html><body><template><p>{CITA_K}</p></template><p>otro</p></body></html>",
+              "partida en dos celdas contiguas": "<html><body><table><tr><td>" + CITA_K[:-7] + "</td><td>" + CITA_K[-7:] + "</td></tr></table></body></html>"}
+mal_h = {}
+for i_, (n_, h_) in enumerate(html_malos.items()):
+    r = con_html(f"u5_{i_}.html", h_.encode("utf-8"))
+    if r["apto_por_entradas"] or K in r["comprobadas"]:
+        mal_h[n_] = con_k(r, K)[:1]
+paso("U", f"(U5) la cita que solo está {', '.join(html_malos)}: no se acredita (antes: aceptada en varios de estos casos)", not mal_h, mal_h)
+r = con_html("u5_latin1.html", f'<html><head><meta charset="iso-8859-1"></head><body><p>Página: {CITA_K}</p></body></html>'.encode("iso-8859-1"))
+paso("U", "(U5) un HTML legítimo en ISO-8859-1 con su charset declarado: aceptado (antes: discrepancia en falso)", r["apto_por_entradas"], con_k(r, K))
+r = con_html("u5_utf16.html", f"<html><body><p>{CITA_K}</p></body></html>".encode("utf-16"))
+paso("U", "(U5) un HTML legítimo en UTF-16 con BOM: aceptado", r["apto_por_entradas"], con_k(r, K))
+r = con_html("u5_sin_decl.html", f"<html><body><p>Página: {CITA_K}</p></body></html>".encode("iso-8859-1"))
+paso("U", "(U5) un HTML que no es UTF-8 y no declara su codificación: pendiente (no se adivina)", not r["apto_por_entradas"] and any("codificación" in x for x in con_k(r, K, ("pendientes",))), con_k(r, K)[:1])
+r = con()
+paso("U", "el control positivo sigue apto después de los casos U", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
 # ------------------------------------------------------------------ N · recuentos (I9) en la ficha y el informe
 env = dict(os.environ, MUNGER_CONFIG=CFG)

@@ -446,6 +446,9 @@ MATERIAL_FIJO.extend([ACREDITACION_LIBRO, "verificacion_libro_final.txt"])
 # (4.14, requisito de verificación completa de las entradas) el registro de verificación de las entradas forma parte del material: cambiar una
 # entrada, una fuente o una transformación invalida la aprobación (los expedientes que no lo tienen conservan su identificador de material)
 MATERIAL_FIJO.append("verificacion_entradas.json")
+# (4.15, hito 2, I20) la declaración del modo de la entrada efectiva forma parte del material auditado: cambiarla retira la aprobación
+# (solo existe en los expedientes que prepara cambiar_base.py desde la 4.15; los anteriores no cambian de material)
+MATERIAL_FIJO.append("entrada_efectiva.json")
 
 
 def motivo_acreditacion_libro(carpeta):

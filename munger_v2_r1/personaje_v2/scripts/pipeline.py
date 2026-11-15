@@ -1013,6 +1013,24 @@ class Pipeline:
                 self.guardar()
             elif paso == 13:
                 n = st["intentos"]["auditoria"]
+                if st.get("esperando") == "13:auditoria.md" and CIE.material_fijado(self.c):
+                    # (4.15, hito 2, I19) relevo caducado: mientras se espera la auditoría, el material vigente tiene que seguir siendo el
+                    # fijado. Si cambió (p. ej. verificacion_entradas.json escrito después de fijarlo), ninguna respuesta a la solicitud
+                    # antigua podría cerrar nada: se registra, se repite la verificación (paso 12) y el paso 13 fija el material vigente con una
+                    # solicitud nueva (la antigua queda «sustituida»). No se aprueba nada con un material distinto
+                    fijado = (CIE.material_fijado(self.c) or {}).get("id")
+                    vigente, huellas_v = CIE.material(self.c, self.E)
+                    if fijado != vigente:
+                        antes = (CIE.material_fijado(self.c) or {}).get("archivos") or {}
+                        cambiados = sorted(n_ for n_ in set(antes) | set(huellas_v) if antes.get(n_) != huellas_v.get(n_))
+                        st.setdefault("relevos_caducados", []).append({"material_fijado": fijado, "material_vigente": vigente, "archivos_cambiados": cambiados,
+                                                                       "detectado": dt.datetime.now().astimezone().isoformat(timespec="seconds")})
+                        self.log(f"relevo caducado: el material fijado {fijado} ya no es el vigente {vigente} (cambian: {', '.join(cambiados)[:300]}); "
+                                 "se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente")
+                        st["paso"] = 12
+                        st["esperando"] = None
+                        self.guardar()
+                        continue
                 if st.get("esperando") != "13:auditoria.md" or not CIE.material_fijado(self.c):
                     # (4.12 §9) antes de fijar el material: los libros tienen que ser los verificados en el paso 12. Si cambiaron (p. ej. una
                     # fórmula alterada después de un cierre, cuya retirada deja el pipeline en el paso 13) o no consta su verificación, se
