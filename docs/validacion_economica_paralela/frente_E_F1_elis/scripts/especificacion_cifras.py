@@ -518,6 +518,9 @@ TXT = [
     ("TXT_PRECIO_2023", 2023, W, 261, "with a price effect of +9% on average during the year", "Efecto precio medio en 2023 dentro del crecimiento orgánico."),
     ("TXT_PRESENT_2023", 2023, W, 266, "broken down between interest (recorded as financial expenses) and principal payments (presented on a separate line)", "Presentación 2023: intereses de arrendamientos dentro de intereses pagados."),
     ("TXT_CONTRIB_EXC", 2025, U, 392, "(€4.9 million in 2025)", "Contribución excepcional francesa 2025 dentro de diferencias de tipo."),
+    ("TXT_VOLUMEN_2025", 2025, U, 122, "driven by a price effect from residual inflation in 2025, and a volume effect", "Crecimiento orgánico 2025: efecto precio y efecto volumen (sin importes)."),
+    ("TXT_VOLUMEN_2024", 2024, D, 121, "tirée par l'effet prix, en raison de l'inflation résiduelle en 2024, et par l'effet volume", "Crecimiento orgánico 2024: efecto precio y efecto volumen (sin importes)."),
+    ("TXT_VOLUMEN_COSTES", 2025, U, 309, "in connection with the continued growth in volumes processed", "Costes de proceso 2025 al alza por crecimiento de volúmenes procesados."),
 ]
 
 

@@ -9,7 +9,7 @@ Carpeta propia del frente económico. Solo contiene documentos y cálculos de co
 | [REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md) | Modelos, esfuerzo y separación de contextos según lo que expone el entorno |
 | [revision/](revision/) | Revisión independiente, objeciones y respuestas |
 | `datos/fuentes.json` | Fuentes primarias con huella SHA-256 y ruta en el árbol materializado |
-| `datos/cifras_fuente.csv` | 680 cifras con documento, página PDF, literal impreso, signo, unidad y período |
+| `datos/cifras_fuente.csv` | 683 cifras con documento, página PDF, literal impreso, signo, unidad y período |
 | `scripts/verificar_cifras.py` | Verifica cada cifra contra los bytes del PDF: huella, página, literal y signo |
 | `scripts/test_verificar_cifras.py` | 10 contraejemplos que deben fallar |
 | `scripts/especificacion_cifras.py` | Regenera el CSV desde los PDF y lo contrasta con la lectura del autor |

@@ -103,7 +103,7 @@ Tolerancia 10⁻⁹ salvo indicación. Los valores de referencia están en `resu
 | T9 | Signos | D&A ROU y PPA publicados «(149.5)»/«(85.7)» se aceptan con `valor_fuente` negativo, `signo` −1 y `tratamiento`. La magnitud positiva sin esa declaración se rechaza (coherente con R415-SIGNO) |
 | T10 | Invariantes de Elis | C46–C52, C48 = 108, C70 = 307,933, acciones, OCEANE y decisiones E1/D3/E2/E6 sin cambios. Solo cambian f (C58), C53, los flujos del motor y lo que dependa de ellos |
 | T11 | Motor B (Viscofan, Vidrala) | Sin cambios en resultados de valoración (f = 0). Si cambia C53, solo cambian semáforos de diagnóstico, y se documenta |
-| T12 | Reproducción independiente | `scripts/contraste_f1.py` y `scripts/verificar_cifras.py` pasan sobre el material regenerado (129 y 680 comprobaciones) y la réplica del motor coincide con los flujos del libro regenerado |
+| T12 | Reproducción independiente | `scripts/contraste_f1.py` y `scripts/verificar_cifras.py` pasan sobre el material regenerado (129 y 683 comprobaciones) y la réplica del motor coincide con los flujos del libro regenerado |
 
 ## E10. Lo que esta especificación no decide
 
