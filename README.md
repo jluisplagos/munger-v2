@@ -81,20 +81,29 @@ La importación de una entrega posterior necesita su propio manifiesto y revisi�
 No es necesario volver a ejecutar el encargo para trasladar sus resultados a GitHub.
 La fuente de las correcciones es la entrega final de Claude; no esta copia parcial antigua.
 
-## Archivos pesados disponibles
+## Archivos pesados: subida pendiente
 
-Release de recuperación parcial: https://github.com/jluisplagos/munger-v2/releases/tag/base-4.14-binarios-disponibles
+Los binarios no están subidos. La conexión permite guardar código y crear el borrador de Release,
+pero uploads.github.com devuelve HTTP 401 al intentar adjuntar archivos, incluso el pequeño .sha256.
 
-Un ZIP de 466225808 bytes conserva 814 archivos binarios mediante 542 objetos únicos.
-Faltan 194 binarios de la base y los 462 archivos de texto ya declarados.
-Las rutas y huellas se conservan en baselines/4.14.json; la identidad del ZIP está en baselines/4.14_assets.json.
-Este ZIP de recuperación no se descomprime directamente encima del proyecto: los objetos están deduplicados.
+Hay un borrador en https://github.com/jluisplagos/munger-v2/releases llamado
+«Base 4.14 — ZIP original (pendiente de adjuntar)». La persona responsable puede
+adjuntar allí desde su equipo el ZIP original completo de 1130912246 bytes, cuya huella figura arriba.
+No requiere subir las 54 partes por separado ni detener el encargo que Claude está ejecutando.
+La Release debe permanecer como borrador hasta adjuntar y verificar el archivo.
 
-Con GitHub CLI, desde la raíz del repositorio clonado:
+Cuando la Release base-4.14 tenga el ZIP original verificado y esté publicada:
 
-    gh release download base-4.14-binarios-disponibles --repo jluisplagos/munger-v2 --pattern munger_4.14_binarios_disponibles.zip --dir .downloads
-    python tools/restore_assets_414.py --source .downloads/munger_4.14_binarios_disponibles.zip --report docs/VERIFICACION_BINARIOS_LOCAL.json
+    gh release download base-4.14 --repo jluisplagos/munger-v2 --pattern munger_v2_r1_entrega4.14_cierre_verificacion_entradas.zip --dir .downloads
+    python tools/base_414.py materialize --source .downloads/munger_v2_r1_entrega4.14_cierre_verificacion_entradas.zip
+    python tools/base_414.py verify --report docs/VERIFICACION_BASE_COMPLETA_LOCAL.json
 
-El código de salida esperado es 1 mientras la base esté incompleta; el informe identifica los ausentes.
-No se sobrescriben archivos distintos. No ejecutar sobre las correcciones en curso de Claude.
-Para recibir su próxima entrega, seguir docs/RECEPCION_ENTREGA_CLAUDE.md.
+La verificación completa debe devolver código 0 y complete:true.
+No ejecutar estos comandos sobre las correcciones en curso de Claude.
+
+Existe además una recuperación parcial preparada localmente: 814 binarios mediante 542 objetos únicos,
+en un ZIP de 466225808 bytes. Su identidad se conserva en baselines/4.14_assets.json
+y las herramientas restore_assets_414.py y sus pruebas están disponibles. Ese paquete tampoco se ha subido.
+Faltan aquí 194 binarios y 462 archivos de texto de la base histórica.
+
+Para recibir la próxima entrega corregida, seguir docs/RECEPCION_ENTREGA_CLAUDE.md.

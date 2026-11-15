@@ -13,4 +13,4 @@ Cuando termine:
 
 Para la base histórica aún faltan 462 archivos de texto y 194 binarios. La fuente más directa para completarla es el ZIP original 4.14 que ya tiene la persona responsable o el entorno anterior de Claude. Si los originales se han preservado, puede subirse ese ZIP completo a una Release de base y verificarse con baselines/4.14.json. No reconstruirlo mezclando las correcciones nuevas.
 
-El paquete de binarios disponibles publicado ahora es parcial y contiene objetos deduplicados. Su restituidor restaura las rutas originales y comprueba sus SHA-256; no sustituye al ZIP original completo.
+El paquete parcial de binarios preparado localmente contiene objetos deduplicados y todavía no está subido a GitHub. Su restituidor restaura las rutas originales y comprueba sus SHA-256; no sustituye al ZIP original completo.
