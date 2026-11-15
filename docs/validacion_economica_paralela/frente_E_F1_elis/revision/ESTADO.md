@@ -18,4 +18,6 @@
 
 **C6 = f30c66c8651dba134b4e66fff9a08c2b50359b6c.** **C7 = 9869def325b8820e2ee25618107495a7a7b70229.** El commit siguiente solo cambia, respecto a C7, este archivo, la línea de C7 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 4; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
 
+**C9 = c8764494d9911c59a67a530f13b56616fe86707c.** **C10 = 95b37e6da22bd4d5adb55c3f09c729b8d4e409f1.** El commit siguiente solo cambia, respecto a C10, este archivo, la línea de C10 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 5; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
+
 Las correcciones de C7 las revisó la pasada 4 (N1, solo en parte; P1–P5). Los cambios de C9 y C10 **no están revisados** de forma independiente: entran en la pasada 5. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.

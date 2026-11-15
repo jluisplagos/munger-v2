@@ -23,7 +23,7 @@
 | C7 | 9869def325b8820e2ee25618107495a7a7b70229 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 3 y su adenda: lista cerrada de modos; columna identificada por su cabecera; dimensión «columna»; contraejemplos de unidad y perímetro; huella de la verificación; 109 residuos, también en 2021–22; cobertura de todas las entradas usadas y su prueba de mutación; scripts del revisor sobre C7 |
 | C8 | 97441770f51761e28c089df7830d3de802bf87e9 | Registra el hash de C7. Congelado de la revisión n.º 4 |
 | C9 | c8764494d9911c59a67a530f13b56616fe86707c | Segunda presentación de cinco entradas del ancla de S2C (R17, R39 y R40 de 2021–22); hueco del verificador hallado por el autor: columnas por país. Sin revisar (tercera parte) |
-| C10 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 4 (P1–P5): criterio de formato de recuento, título de país o de segmento sobre la tabla, páginas sin identidad entre páginas, precisiones de forma (cuarta parte) |
+| C10 | 95b37e6da22bd4d5adb55c3f09c729b8d4e409f1 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 4 (P1–P5): criterio de formato de recuento, título de país o de segmento sobre la tabla, páginas sin identidad entre páginas, precisiones de forma (cuarta parte) |
 
 ## Marcas y pruebas
 
