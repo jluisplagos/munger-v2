@@ -10,7 +10,7 @@ La revisión externa parcial encontró:
 1. página inexistente aceptada por verificacion_entradas;
 2. fuente local ausente aceptada si no lleva huella;
 3. redondeo aceptado como si fuera la cifra exacta;
-4. C48 de Elis:108 en Excel frente a82.933 en fase1_v63;
+4. C48 de Elis: 108 en Excel frente a 82.933 en fase1_v63. Conservar la entrada 108 justificada por sus fuentes y corregir la derivación/reconstrucción; no sustituirla automáticamente por 82.933;
 5. vigencia de fundamentos, cifras de juicio y recuentos desfasados;
 6. relevo caducado y aptitud por entradas omitida en salidas V6.3;
 7. F1: el modelo A requiere conciliación y validación propias.
