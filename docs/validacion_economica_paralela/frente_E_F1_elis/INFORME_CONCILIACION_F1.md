@@ -12,7 +12,7 @@ Marcas usadas en todo el informe:
 
 1. **Base y evidencia.** Base 4.14 materializada desde el ZIP original y verificada (6.798/6.798 + manifiesto). Árbol del hito 4.15 (059f4f6) verificado con su propio manifiesto (7.004/7.004). El libro de Elis es idéntico en ambos (SHA-256 `d2593777…92385`).
    - 716 cifras y citas de cinco informes anuales de Elis verificadas contra los bytes de los PDF en cinco dimensiones: literal (página, posición y signo), ejercicio de la columna, unidad, perímetro y edición. 702 quedan acreditadas en todas, 14 quedan PENDIENTE y ninguna falla. Las 14 son filas de arrendamientos de la página del URD 2022 que no imprime la unidad (p.302), y ningún cálculo las usa.
-   - Test del verificador: 39/39. Acepta 7 positivos reales y rechaza 32 contraejemplos, cada uno en la dimensión que debe detectarlo. Entre ellos están los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor.
+   - Test del verificador: 42/42. Acepta 8 positivos reales y rechaza 34 contraejemplos, cada uno en la dimensión que debe detectarlo. Entre ellos están los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor.
    - Test de los residuos: 7/7. Con el verificador saltado a propósito, los residuos hacen fallar por sí solos el cálculo ante una cifra de otro año, y la única excepción fijada no absorbe un error nuevo.
 2. **Conciliación 2023–2025.** Las 71 identidades cierran dentro de su cota de redondeo [D]:
    - la cota es la suma de media unidad de la última cifra impresa de cada cifra que interviene (de 0,10 a 0,50 según la identidad);
@@ -64,8 +64,14 @@ Marcas usadas en todo el informe:
   - **perímetro:** la cabecera de la página debe ser de estados consolidados o de resultados del grupo; en una matriz por segmentos solo vale la columna «Total»;
   - **edición:** el pie de cada página («Elis | Universal Registration Document AAAA») debe coincidir con la fuente, y la fuente debe ser la que exige la regla de edición de la Historia o estar declarada «anterior».
 
+  Límites: el perímetro del grupo se acredita por la cabecera de la página, no de la tabla, y la unidad por la declaración más próxima por encima de la línea. En una matriz por segmentos, la columna se identifica por el orden de las ocho cabeceras.
+
   Resultado: 702 OK, 14 PENDIENTE por unidad no impresa (URD 2022 p.302) y 0 FALLO. Código de salida 2: hay pendientes.
-- `scripts/test_verificar_cifras.py`: 39 casos, 7 positivos reales y 32 contraejemplos. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
+- `scripts/sondas_metadatos.py`: reproduce las sondas externas sobre eb77dea, que cambian un solo campo con el año correcto, y las extiende a todas las filas de tabla. Primero cambia solo la unidad de cada fila; después, solo el perímetro. Resultados en `resultados/sondas_metadatos_*.json`:
+  - en eb77dea no detecta ninguna (0 de 671 en cada caso): la unidad y el perímetro no se comprobaban;
+  - en el commit congelado 1864c4e detecta 677/677 en unidad y 673/677 en perímetro. Las 4 restantes son totales de una matriz por segmentos declarados «segmento Francia», que quedaban PENDIENTE en lugar de FALLO;
+  - en la versión actual, que identifica la columna de la matriz por el orden de las cabeceras, detecta 677/677 en las dos.
+- `scripts/test_verificar_cifras.py`: 42 casos, 8 positivos reales y 34 contraejemplos. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
 - `scripts/contraste_f1.py`: 236 comprobaciones, todas OK, de tres clases:
   - 136 contra el libro. 18 de ellas son de una copia temporal del libro recalculada con LibreOffice con exceso de caja de 0, 250 y −80 (`scripts/prueba_caja_no_nula.py`);
   - 72 de fuente: las dos vías independientes del FCF base y 71 residuos de conciliación, cada uno afirmado con su cota de redondeo y una sola diferencia de concepto fijada;

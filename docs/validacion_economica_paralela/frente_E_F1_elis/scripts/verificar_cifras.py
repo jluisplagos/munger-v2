@@ -22,8 +22,9 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
              unidad declarada es FALLO. Prosa: no aplica.
   perimetro  «consolidado IFRS, grupo Elis»: la cabecera de la página es de estados consolidados o de resultados del
              grupo (si no, PENDIENTE); en una matriz por segmentos solo vale la columna «Total»; una línea cuyo rótulo
-             es un segmento es FALLO. «segmento X»: X debe ser el rótulo de la línea. Otro perímetro: FALLO.
-             Prosa: no aplica.
+             es un segmento es FALLO. «segmento X»: X debe ser el rótulo de la línea o, en una matriz por segmentos, la
+             columna del token, identificada por el orden horizontal de las ocho cabeceras (la columna «Total» es FALLO;
+             si el orden no se puede acreditar, PENDIENTE). Otro perímetro: FALLO. Prosa: no aplica.
   edicion    el pie de página («Elis | Universal Registration Document AAAA» o «Elis | Document d'enregistrement
              universel AAAA») da el ejercicio de la publicación, que debe ser el declarado en datos/fuentes.json
              (sin pie: PENDIENTE). En tablas, «edicion» es «vigente» si la fuente es la que exige la regla de la Historia
@@ -79,6 +80,11 @@ SEGMENTOS = {
     "Otros segmentos": ["Other segments", "Autres segments"],
 }
 ROTULOS_SEGMENTO = {r: es for es, rs in SEGMENTOS.items() for r in rs + [es]}
+# columnas de las matrices por segmentos de Elis, de izquierda a derecha, con la palabra de cabecera que las identifica
+# (inglés | francés). La última es el total del grupo.
+COLUMNAS_MATRIZ = [("Francia", r"France"), ("Europa central", r"Central|centrale"), ("Escandinavia y Europa del Este", r"Scandinavia|Scandinavie"),
+                   ("Reino Unido e Irlanda", r"UK\b|Royaume"), ("Latinoamérica", r"Latin|Amérique"), ("Europa del Sur", r"Southern|du Sud"),
+                   ("Otros segmentos", r"(?i:\bother\b|[ée]liminations|autres secteurs)"), ("Total", r"\bTotal\b")]
 PALABRA_SEGMENTO = re.compile(r"\b(France|Central|Scandinavia|Ireland|Latin|Southern|segments|centrale|Scandinavie|Irlande|latine|Sud)\b")
 
 ANIO = re.compile(r"(?<![\d.,/])(20\d\d)(?![\d.,])")
@@ -330,7 +336,27 @@ def matriz_segmentos(lineas, j_unidad, alto=6):
     return len(set(PALABRA_SEGMENTO.findall(zona))) >= 3, zona
 
 
-def comprobar_perimetro(lineas, i, fila, pos):
+def columna_de_matriz(lineas, j_unidad, linea, pos, idioma, alto=6):
+    """Columna (nombre en español) del token en una matriz por segmentos, si la cabecera tiene las ocho columnas en el
+    orden de Elis (comprobado por la posición horizontal de cada palabra de cabecera); None si no se puede acreditar."""
+    zona = lineas[max(0, j_unidad - alto): j_unidad + 1]
+    posiciones = []
+    for _, patron in COLUMNAS_MATRIZ:
+        rx = re.compile(patron)
+        cols = [m.start() for l in zona for m in rx.finditer(l)]
+        if not cols:
+            return None
+        posiciones.append(min(cols))
+    if posiciones != sorted(posiciones) or len(set(posiciones)) != len(posiciones):
+        return None
+    n = len(tokens_numericos(linea, idioma))
+    desde_la_derecha = -pos if pos < 0 else n - pos
+    if not 1 <= desde_la_derecha <= len(COLUMNAS_MATRIZ):
+        return None
+    return COLUMNAS_MATRIZ[len(COLUMNAS_MATRIZ) - desde_la_derecha][0]
+
+
+def comprobar_perimetro(lineas, i, fila, pos, idioma="en"):
     p = (fila.get("perimetro") or "").strip()
     seg_linea = ROTULOS_SEGMENTO.get(rotulo(lineas[i]))
     _, j = unidad_declarada(lineas, i)
@@ -341,9 +367,10 @@ def comprobar_perimetro(lineas, i, fila, pos):
         if seg_linea:
             return "FALLO", f"la línea es del segmento {seg_linea}, no del grupo"
         if es_matriz:
-            if pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total":
+            col = columna_de_matriz(lineas, j, lineas[i], pos, idioma)
+            if col == "Total" or (col is None and pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total"):
                 return "OK", "columna «Total» de una matriz por segmentos"
-            return "FALLO", "columna de un segmento en una matriz por segmentos, no el total del grupo"
+            return "FALLO", f"columna {'del segmento ' + col if col else 'de un segmento'} en una matriz por segmentos, no el total del grupo"
         return "OK", "página de estados consolidados o de resultados del grupo"
     if p.startswith("segmento "):
         es = ROTULOS_SEGMENTO.get(p[len("segmento "):].strip())
@@ -351,8 +378,15 @@ def comprobar_perimetro(lineas, i, fila, pos):
             return "FALLO", f"segmento no reconocido: {p!r}"
         if seg_linea == es:
             return "OK", f"línea del segmento {es}"
-        if es_matriz and any(r in zona for r in SEGMENTOS[es]):
-            return "PENDIENTE", f"columna del segmento {es} en una matriz: no se acredita automáticamente"
+        if es_matriz:
+            col = columna_de_matriz(lineas, j, lineas[i], pos, idioma)
+            if col is None:
+                if pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total":
+                    return "FALLO", f"declarado segmento {es}, pero la columna es el total del grupo"
+                return "PENDIENTE", f"columna de una matriz por segmentos sin orden de cabecera acreditable (declarado {es})"
+            if col == es:
+                return "OK", f"columna del segmento {es} en una matriz por segmentos"
+            return "FALLO", f"declarado segmento {es}, pero la columna es {'el total del grupo' if col == 'Total' else 'del segmento ' + col}"
         return "FALLO", f"el segmento declarado ({es}) no figura en la línea ni en la cabecera"
     return "FALLO", f"perímetro no reconocido: {p!r}"
 
@@ -471,7 +505,7 @@ def comprobar_tabla(pdf, fila, idioma, fuente, ejercicios):
     dims = {"literal": {"estado": "OK", "detalle": f"«{tok}» en la línea {vistos[0]['i'] + 1}"}}
     dims["ejercicio"] = combinar([comprobar_anio(lineas, x["i"], fila) for x in vistos])
     dims["unidad"] = combinar([comprobar_unidad(lineas, x["i"], fila) for x in vistos])
-    dims["perimetro"] = combinar([comprobar_perimetro(lineas, x["i"], fila, pos) for x in vistos])
+    dims["perimetro"] = combinar([comprobar_perimetro(lineas, x["i"], fila, pos, idioma) for x in vistos])
     e, d, info = comprobar_edicion(texto, fila, fuente, ejercicios)
     dims["edicion"] = {"estado": e, "detalle": d}
     if info:

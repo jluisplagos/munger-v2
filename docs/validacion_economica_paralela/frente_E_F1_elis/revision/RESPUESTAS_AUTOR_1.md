@@ -19,6 +19,7 @@
 | C2 | 6fb9294 | Efecto volumen de 2024–25; registro de la sesión de revisión. Lo revisó el contraste externo |
 | C3 | eb77dea | Primera respuesta a O1–O17: control del ejercicio de la columna; residuos afirmados con ±0,15 y dos excepciones; citas nuevas; informe y especificación |
 | C4 | d2e585e91638c363682a000bdb416a4b865c6cce (también en [ESTADO.md](ESTADO.md)) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
+| C6 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Adenda tras las sondas externas sobre eb77dea: columna de la matriz por segmentos para el perímetro declarado; tres casos de test; sondas de un solo campo en todas las filas (`sondas_metadatos.py`) |
 
 ## Marcas y pruebas
 
@@ -26,7 +27,8 @@
 
 **Pruebas que se citan** (todas en `scripts/`; las salidas, en `resultados/`):
 - `verificar_cifras.py`: estado de cada fila en cinco dimensiones (`verificacion_cifras.json`);
-- `test_verificar_cifras.py`: 39 casos (`test_verificar_cifras.log`);
+- `test_verificar_cifras.py`: 42 casos (`test_verificar_cifras.log`);
+- `sondas_metadatos.py`: sondas de un solo campo, unidad o perímetro, en todas las filas (`sondas_metadatos_eb77dea.json`, `sondas_metadatos_1864c4e.json`, `sondas_metadatos_C6.json`);
 - `test_contraste_residuos.py`: 7 casos (`test_contraste_residuos.log`);
 - `contraste_f1.py`: 236 comprobaciones (`contraste_f1.json`, `contraste_f1.md`);
 - `prueba_caja_no_nula.py`: copia del libro recalculada con LibreOffice (`caja_no_nula.json`);
@@ -101,7 +103,7 @@
    - **−0,2 (FCF 2024):** no es una excepción. Está dentro de la cota de sus siete cifras impresas (0,35). La explicación es verificable: la propia cota se calcula desde la precisión impresa;
    - **+0,4 (interés de arrendamientos 2025):** es la única excepción, una diferencia de concepto entre pago (29,6 = 177,9 − 148,3) y devengo (29,2). Se identifica por las etiquetas publicadas y las tres cifras se verifican en tablas distintas. La causa no se publica [H] y es inmaterial (0,133 en C48). Se exige en su valor exacto, +0,4 ± 0,15, de modo que un error nuevo en cualquiera de sus tres cifras la hace fallar.
 4. **Contraste entre páginas.** Cinco identidades nuevas comparan una cifra con su segunda presentación en otra página: resultado financiero, resultado antes de impuestos, PPA, ventas por segmentos y adquisiciones. La tabla `cobertura_entradas_clave` muestra que 71 de las 72 entradas clave de la ventana tienen contraste entre páginas. La otra, las adquisiciones de 2023, se compara con la Historia del libro. Las 28 identidades algebraicas siguen marcadas como tales: documentan, no prueban datos.
-5. **Mutantes conjuntos**, en `test_verificar_cifras.py` (39 casos). Se mantienen los 16 anteriores, el manual justificado pasa a exigirse PENDIENTE y se añaden positivos reales y mutantes:
+5. **Mutantes conjuntos**, en `test_verificar_cifras.py` (42 casos tras C6). Se mantienen los 16 anteriores, el manual justificado pasa a exigirse PENDIENTE y se añaden positivos reales y mutantes:
    - posición y literal de la columna de otro año (M1);
    - año alterado;
    - tabla de un solo ejercicio declarada de otro año;
@@ -116,7 +118,7 @@
 6. **Segunda línea de defensa** (`test_contraste_residuos.py`, 7 casos). Con el verificador saltado a propósito, los residuos hacen fallar el cálculo ante M1 (R6 y R16 de 2025), ante un error nuevo en las cifras de la excepción fijada (dos casos), en el FCF de 2024 y en las ventas. Documenta el límite: un error menor que la cota no lo detecta ninguna identidad.
 
 **Pruebas:**
-- `test_verificar_cifras.py` 39/39 y `test_contraste_residuos.py` 7/7;
+- `test_verificar_cifras.py` 42/42 y `test_contraste_residuos.py` 7/7;
 - `prueba_mutantes.py` del revisor, sin cambios, sobre C4: M1 FALLO (ejercicio); M4 FALLO (ejercicio, unidad y edición del porcentaje, y perímetro de las ventas); M2 y M3 FALLO con motivo, sin `KeyError`;
 - especificación T12 y T14.
 
@@ -255,6 +257,36 @@ Se conserva E6.
 **[D]** El exceso exacto en la base 2025 es 139,4.
 
 **Prueba:** `contraste_f1.json → arrendamientos_exceso_exacto_base_2025`.
+
+## Sondas externas de un solo campo sobre eb77dea · **confirmadas; corregidas en C4 y completadas en C6**
+
+**Evidencia externa:** `revision_chatgpt_1/seguimiento_eb77dea/` de la rama `auditoria/economica-f1` (commit e57239c). Sobre eb77dea, con los años correctos, cambiar un solo campo pasaba con código 0 y 707/707:
+- solo la unidad de `CREC_ORG_2025` («%» → «mm EUR»);
+- o solo el perímetro de `IS_VENTAS_2025` (→ «segmento Francia»).
+
+El rechazo de M4 se debía solo a su año.
+
+**Reproducción del autor** (`scripts/sondas_metadatos.py`): las mismas dos mutaciones y su extensión a todas las filas de tabla, un campo cada vez. Se ejecuta con el verificador y los datos de cada versión:
+
+| Versión | Unidad cambiada en cada fila | Perímetro cambiado en cada fila | Las dos sondas externas |
+|---|---|---|---|
+| eb77dea (C3) | 0 de 671 detectadas | 0 de 671 | Pasan (código 0) |
+| 1864c4e (C4, congelado) | 677 de 677, todas en la dimensión unidad | 673 de 677. Las 4 sin detectar son totales de una matriz por segmentos declarados «segmento Francia»: quedaban PENDIENTE en lugar de FALLO | Rechazadas (código 1) |
+| C6 | 677 de 677 | 677 de 677 | Rechazadas |
+
+**¿Hay otra vía independiente y trazable que acredite estos campos?**
+- **En eb77dea, no.** La unidad y el perímetro eran campos declarados: el verificador no los leía y `contraste_f1.py` no los usaba. Las comparaciones con la Historia del libro y los residuos acreditan magnitudes, no etiquetas: si se cambia la etiqueta y la cifra queda intacta, ningún cálculo cambia y ninguna de esas vías lo detecta. Su cobertura en eb77dea estaba pendiente.
+- **Desde C4, la vía es el propio PDF**, independiente de lo declarado y trazada fila a fila en `verificacion_cifras.json`, en las dimensiones `unidad` y `perimetro`, con su motivo:
+  - **unidad:** la declaración de unidades más próxima por encima de la línea, como «(In millions of euros)» o «(en millions d'euros)», incluida la partida en dos líneas, cuya línea queda anotada; o el «%» del literal;
+  - **perímetro:** la cabecera de la página (estados consolidados o resultados del grupo), el rótulo de la línea (segmentos) y, en las matrices por segmentos, la columna del token, que C6 identifica por el orden horizontal de las ocho cabeceras.
+- **Barrera adicional:** `contraste_f1.py` rechaza una entrada si su unidad o su perímetro declarados no son los que pide el cálculo.
+- **Vía de magnitud,** no de etiqueta: la Historia del libro y los residuos entre páginas. Una cifra en miles o de un segmento romperían esas comparaciones.
+
+**Cobertura pendiente o limitada, que se declara:**
+- 14 filas sin unidad impresa (URD 2022 p.302) quedan PENDIENTE. Ningún cálculo las usa.
+- El perímetro del grupo se acredita por la cabecera de cada página, no de cada tabla. Una tabla de otro perímetro, sin rótulos de segmento, en una página consolidada no se detectaría [límite]. Ninguna de las filas usadas está en ese caso: todas tienen su segunda presentación o su comparación con el libro.
+- La unidad se acredita por la declaración más próxima por encima de la línea. Una tabla sin declaración propia heredaría la de la tabla anterior de la misma página [límite].
+- Fuera de las matrices de ocho columnas, un segmento solo se acredita por el rótulo de la línea.
 
 ## Respuesta al contraste externo (revision_chatgpt_1)
 

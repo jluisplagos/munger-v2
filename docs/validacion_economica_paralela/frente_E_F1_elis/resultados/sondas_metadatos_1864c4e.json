@@ -1,0 +1,194 @@
+{
+ "version": "1864c4ec6239c1499d08a47c24a55b48d3585a45",
+ "filas": 716,
+ "filas_de_tabla": 677,
+ "casos": [
+  {
+   "caso": "base sin cambios",
+   "codigo_salida": 2,
+   "resumen": {
+    "filas": 716,
+    "ok": 702,
+    "pendientes": 14,
+    "fallos": 0,
+    "por_dimension": {
+     "literal": {
+      "OK": 716
+     },
+     "ejercicio": {
+      "OK": 716
+     },
+     "unidad": {
+      "OK": 663,
+      "PENDIENTE": 14,
+      "NO_APLICA": 39
+     },
+     "perimetro": {
+      "OK": 677,
+      "NO_APLICA": 39
+     },
+     "edicion": {
+      "OK": 716
+     }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+   }
+  },
+  {
+   "caso": "sonda externa: unidad de CREC_ORG_2025 «%» → «mm EUR»",
+   "codigo_salida": 1,
+   "resumen": {
+    "filas": 716,
+    "ok": 701,
+    "pendientes": 14,
+    "fallos": 1,
+    "por_dimension": {
+     "literal": {
+      "OK": 716
+     },
+     "ejercicio": {
+      "OK": 716
+     },
+     "unidad": {
+      "OK": 662,
+      "FALLO": 1,
+      "PENDIENTE": 14,
+      "NO_APLICA": 39
+     },
+     "perimetro": {
+      "OK": 677,
+      "NO_APLICA": 39
+     },
+     "edicion": {
+      "OK": 716
+     }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+   },
+   "filas_mutadas": 1,
+   "detectadas": 1,
+   "detectadas_en_la_dimension_del_campo": 1,
+   "no_detectadas": [],
+   "no_detectadas_total": 0
+  },
+  {
+   "caso": "sonda externa: perímetro de IS_VENTAS_2025 → «segmento Francia»",
+   "codigo_salida": 1,
+   "resumen": {
+    "filas": 716,
+    "ok": 701,
+    "pendientes": 14,
+    "fallos": 1,
+    "por_dimension": {
+     "literal": {
+      "OK": 716
+     },
+     "ejercicio": {
+      "OK": 716
+     },
+     "unidad": {
+      "OK": 663,
+      "PENDIENTE": 14,
+      "NO_APLICA": 39
+     },
+     "perimetro": {
+      "FALLO": 1,
+      "OK": 676,
+      "NO_APLICA": 39
+     },
+     "edicion": {
+      "OK": 716
+     }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+   },
+   "filas_mutadas": 1,
+   "detectadas": 1,
+   "detectadas_en_la_dimension_del_campo": 1,
+   "no_detectadas": [],
+   "no_detectadas_total": 0
+  },
+  {
+   "caso": "unidad cambiada en cada fila de tabla («%» ↔ «mm EUR»)",
+   "codigo_salida": 1,
+   "resumen": {
+    "filas": 716,
+    "ok": 39,
+    "pendientes": 0,
+    "fallos": 677,
+    "por_dimension": {
+     "literal": {
+      "OK": 716
+     },
+     "ejercicio": {
+      "OK": 716
+     },
+     "unidad": {
+      "FALLO": 677,
+      "NO_APLICA": 39
+     },
+     "perimetro": {
+      "OK": 677,
+      "NO_APLICA": 39
+     },
+     "edicion": {
+      "OK": 716
+     }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+   },
+   "filas_mutadas": 677,
+   "detectadas": 677,
+   "detectadas_en_la_dimension_del_campo": 677,
+   "no_detectadas": [],
+   "no_detectadas_total": 0
+  },
+  {
+   "caso": "perímetro cambiado en cada fila de tabla (→ «segmento Francia»)",
+   "codigo_salida": 1,
+   "resumen": {
+    "filas": 716,
+    "ok": 39,
+    "pendientes": 4,
+    "fallos": 673,
+    "por_dimension": {
+     "literal": {
+      "OK": 716
+     },
+     "ejercicio": {
+      "OK": 716
+     },
+     "unidad": {
+      "OK": 663,
+      "PENDIENTE": 14,
+      "NO_APLICA": 39
+     },
+     "perimetro": {
+      "FALLO": 673,
+      "PENDIENTE": 4,
+      "NO_APLICA": 39
+     },
+     "edicion": {
+      "OK": 716
+     }
+    },
+    "fuentes_verificadas": 5,
+    "fuentes_declaradas": 5
+   },
+   "filas_mutadas": 677,
+   "detectadas": 673,
+   "detectadas_en_la_dimension_del_campo": 673,
+   "no_detectadas": [
+    "VENTAS_LINO_PLANO_2025",
+    "VENTAS_SEG_2025",
+    "VENTAS_SEG_2024",
+    "VENTAS_SEG_FR_2023"
+   ],
+   "no_detectadas_total": 4
+  }
+ ]
+}

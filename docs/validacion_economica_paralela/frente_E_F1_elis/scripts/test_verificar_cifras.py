@@ -111,7 +111,8 @@ def main():
     c = dict(rou); c["unidad"] = "%"
     caso("unidad «%» para una cifra en millones", [c], "FALLO", {"DA_ROU_2025": {"unidad"}}, coherente=True)
     c = fila("CREC_ORG_2025"); c["unidad"] = "mm EUR"
-    caso("unidad «mm EUR» para un porcentaje", [c], "FALLO", {"CREC_ORG_2025": {"unidad"}}, coherente=True)
+    caso("unidad «mm EUR» para un porcentaje (sonda externa sobre eb77dea, campo separado)", [c], "FALLO", {"CREC_ORG_2025": {"unidad"}},
+         coherente=True)
     c = dict(rou); c["unidad"] = "miles EUR"
     caso("unidad no reconocida", [c], "FALLO", {"DA_ROU_2025": {"unidad"}}, coherente=True)
     c = dict(rou)
@@ -120,7 +121,16 @@ def main():
     caso("tabla en miles de euros (sociedad matriz) declarada en millones", [c], "FALLO", {"MILES_URD2025_P319": {"unidad"}})
     # ---- perímetro
     c = fila("IS_VENTAS_2025"); c["perimetro"] = "segmento Francia"
-    caso("perímetro «segmento Francia» en la cuenta de resultados consolidada", [c], "FALLO", {"IS_VENTAS_2025": {"perimetro"}}, coherente=True)
+    caso("perímetro «segmento Francia» en la cuenta de resultados consolidada (sonda externa sobre eb77dea, campo separado)", [c],
+         "FALLO", {"IS_VENTAS_2025": {"perimetro"}}, coherente=True)
+    c = fila("VENTAS_LINO_PLANO_2025"); c["perimetro"] = "segmento Francia"
+    caso("columna «Total» de una matriz por segmentos declarada como segmento Francia", [c], "FALLO",
+         {"VENTAS_LINO_PLANO_2025": {"perimetro"}}, coherente=True)
+    c = fila("VENTAS_LINO_PLANO_2025"); c.update(pos="0", literal="598.4", valor_publicado="598.4", perimetro="segmento Francia")
+    caso("positivo: columna de Francia de la matriz declarada como segmento Francia", [c], "OK")
+    c = fila("VENTAS_LINO_PLANO_2025"); c.update(pos="0", literal="598.4", valor_publicado="598.4", perimetro="segmento Europa central")
+    caso("columna de Francia de la matriz declarada como segmento Europa central", [c], "FALLO",
+         {"VENTAS_LINO_PLANO_2025": {"perimetro"}}, coherente=True)
     c = fila("VENTAS_LINO_PLANO_2025"); c.update(pos="0", literal="598.4", valor_publicado="598.4")
     caso("columna de un segmento (Francia) declarada como grupo", [c], "FALLO", {"VENTAS_LINO_PLANO_2025": {"perimetro"}}, coherente=True)
     c = dict(rou); c["perimetro"] = "grupo"
