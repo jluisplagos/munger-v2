@@ -18,7 +18,7 @@ Grupos:
   N  · recuentos (I9): el informe dice «N de M» con N ≤ M y separa cálculo y juicio.
   U  · (4.15, hito 2) límites de la cuarta revisión: U2 empates del redondeo de importes (sin tolerancia general), U3 coste acotado de
        round y de las fórmulas, U4 rechazos falsos del control de sensibilidad y un caso que solo detecta el de constantes, U1 derivados
-       contados y listados, U5 texto visible y codificación de las fuentes HTML.
+       contados y listados, U5 texto visible y codificación de las fuentes HTML, U7 unidad monetaria no reconocida.
   SG · (4.15, hito 2, R415-SIGNO) signo de la cifra publicada: contraejemplos completos en los dos sentidos, paréntesis contables, menos
        ASCII y Unicode, guiones de cero y signos indeterminados; positivos con la transformación justificada (signo −1).
 Uso: python3 -B test_verificacion_entradas_415.py [--json salida.json]
@@ -886,6 +886,15 @@ r = con_html("u5_utf16.html", f"<html><body><p>{CITA_K}</p></body></html>".encod
 paso("U", "(U5) un HTML legítimo en UTF-16 con BOM: aceptado", r["apto_por_entradas"], con_k(r, K))
 r = con_html("u5_sin_decl.html", f"<html><body><p>Página: {CITA_K}</p></body></html>".encode("iso-8859-1"))
 paso("U", "(U5) un HTML que no es UTF-8 y no declara su codificación: pendiente (no se adivina)", not r["apto_por_entradas"] and any("codificación" in x for x in con_k(r, K, ("pendientes",))), con_k(r, K)[:1])
+mal_u7 = {}
+for u7 in ("miles de €", "en miles de euros", "MM€", "USD (millones)"):
+    r = con(lambda g, u7=u7: ent(g, K)["fuente"].update(unidad=u7, escala=1, valor_fuente=VM_K), resellar=True)
+    if r["apto_por_entradas"] or not any("unidad monetaria no reconocida" in x for x in con_k(r, K, ("pendientes",))):
+        mal_u7[u7] = con_k(r, K)[:1]
+paso("U", "(U7) una unidad monetaria que el vocabulario no reconoce («miles de €», «en miles de euros», «MM€», «USD (millones)») con escala 1: pendiente (antes: comprobada)",
+     not mal_u7, mal_u7)
+paso("U", "(U7) un precio por acción («EUR por acción», «euros por acción», «EUR per share») no es una unidad monetaria sin reconocer",
+     not any(VE._unidad_monetaria_no_reconocida(x) for x in ("EUR por acción", "euros por acción", "EUR per share")) and VE._unidad_monetaria_no_reconocida("euro"))
 r = con()
 paso("U", "el control positivo sigue apto después de los casos U", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 

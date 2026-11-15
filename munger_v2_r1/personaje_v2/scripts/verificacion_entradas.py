@@ -168,6 +168,18 @@ def _importe_libro_exacto(exacto, vm):
     return (fv * 1000).denominator == 1 and abs(exacto - fv) <= fractions.Fraction(1, 2000)
 
 
+MARCAS_MONEDA = re.compile(r"(€|\$|£|¥|\beur\b|\beuros?\b|\busd\b|\bgbp\b|\bchf\b|\bdkk\b|\bsek\b|\bnok\b|\bbrl\b|\bjpy\b|\bd[oó]lar|\blibras?\b|"
+                           r"\bcoronas?\b|\breales?\b|\bfrancos?\b|\bmm€|\bmeur|\bkeur|\bk€)", re.I)
+POR_UNIDAD = re.compile(r"(por|per|/)\s*(acci[oó]n|share|t[ií]tulo|unidad|unit)", re.I)
+
+
+def _unidad_monetaria_no_reconocida(unidad):
+    """(4.15, hito 2, U7) La unidad nombra una moneda pero no está en UNIDADES (y no es un importe por acción o por unidad, cuya escala es
+    la del propio precio): su escala no puede contrastarse."""
+    t = _norm_txt(unidad)
+    return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None
+
+
 def _canon(x):
     """(4.15, hallazgo 17) Forma canónica para la huella: números por su valor (849697.0 = 849697), textos en NFC sin espacios de más."""
     if isinstance(x, dict):
@@ -520,13 +532,6 @@ def _cita_contiene(cita, vf):
     return _cita_cifra(cita, vf)[0] == "ok"
 
 
-def _eval_formula(formula, o):
-    """Evalúa una expresión aritmética sobre o["<origen>"] (solo números, + − × ÷, paréntesis, abs/min/max/sum y, desde la 4.15, round para
-    declarar un redondeo como transformación explícita)."""
-    arbol = _validar_formula(formula)
-    return eval(compile(arbol, "<formula>", "eval"), {"__builtins__": {}}, {"o": o, "abs": abs, "min": min, "max": max, "sum": sum, "round": round})
-
-
 MAX_LONGITUD_FORMULA = 2000  # (4.15, hito 2, U3) coste acotado: una fórmula de un registro auditado no necesita más
 MAX_NODOS_FORMULA = 400
 DECIMALES_ROUND = range(0, 13)  # (4.15, hito 2, U3) round(x, n) con n literal entre 0 y 12
@@ -612,7 +617,7 @@ def _round_frac(x, n=0):
 
 def _eval_formula_exacta(formula, o, sin_redondeo=False):
     """(4.15, tercera revisión, T1) Evalúa la fórmula con aritmética decimal EXACTA (fractions), con las mismas operaciones que
-    _eval_formula; round es el de la hoja (mitad lejos de cero). `sin_redondeo` hace de round la identidad (control de sensibilidad)."""
+    la evaluación anterior con coma flotante (_eval_formula, retirada en el hito 2 de la 4.15: ya no la llamaba nadie); round es el de la hoja (mitad lejos de cero). `sin_redondeo` hace de round la identidad (control de sensibilidad)."""
     arbol = _validar_formula(formula)  # mismas restricciones sintácticas (lanza ValueError)
 
     def ev(n):
@@ -1161,6 +1166,11 @@ def comprobar(carpeta, _presellar=frozenset()):
             sig = int(sig)
             u = UNIDADES.get(_norm_txt(f.get("unidad")))
             um = UNIDADES.get(unidad_modelo, 1.0)
+            if u is None and _unidad_monetaria_no_reconocida(f.get("unidad")):
+                # (4.15, hito 2, U7) «miles de €», «en miles de euros», «MM€», «USD (millones)»…: una unidad monetaria que el vocabulario no
+                # reconoce no puede quedar como «no monetaria» (solo con una potencia de diez); su escala no se puede comprobar
+                return problema(k, "pendiente", f"unidad monetaria no reconocida «{f.get('unidad')}»: la escala {esc!r} no se puede contrastar con ella "
+                                                "(se escribe con el vocabulario de UNIDADES; una conversión de divisa es un derivado con el tipo de cambio como origen)")
             if u is not None and _num(um) and um and not _igual_exacto(esc, u / um):
                 return problema(k, "error", f"escala {esc!r} incoherente con las unidades (fuente «{f.get('unidad')}» → modelo «{unidad_modelo}» = {u / um!r})")
             if u is None and not any(_igual_exacto(esc, 10.0 ** k_) for k_ in range(-12, 13)):
