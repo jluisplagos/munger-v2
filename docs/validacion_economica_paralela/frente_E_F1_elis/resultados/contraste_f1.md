@@ -1,6 +1,6 @@
 # Contraste independiente F1 · Elis · resultados calculados
 
-Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fuente: 72, libro: 136), fallidas: 0. Libro contrastado: sí, SHA-256 d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385. Millones de euros salvo indicación.
+Generado por `scripts/contraste_f1.py`. Comprobaciones: 275 (algebraica: 29, fuente: 110, libro: 136), fallidas: 0. Libro contrastado: sí, SHA-256 d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385. Millones de euros salvo indicación.
 
 ### Residuos de las conciliaciones anuales (0 = cuadra exactamente; ±0,1 = redondeo de la cifra impresa)
 
@@ -29,6 +29,13 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 | R21 resultado antes de impuestos: cuenta de resultados − conciliación del impuesto | 0.000 | 0.000 | 0.000 |
 | R22 amortización PPA: cuenta de resultados − nota de D&A | 0.000 | 0.000 | 0.000 |
 | R23 ventas: cuenta de resultados − información por segmentos (total) | 0.000 | 0.000 | 0.000 |
+| R29 flujos de inversión: total − suma de sus líneas | 0.000 | 0.000 | 0.000 |
+| R30 flujos de financiación: total − suma de sus líneas | 0.000 | 0.100 | 0.000 |
+| R31 capex neto: tabla de capex − tabla de free cash flow | 0.000 | 0.000 | 0.000 |
+| R32 crecimiento publicado − (orgánico + externo + divisa) | 0.000 | 0.000 | 0.000 |
+| R33 resultado neto: cuenta de resultados − estado de flujos | 0.000 | 0.000 | 0.000 |
+| R37 impuesto: conciliación del tipo − cuenta de resultados | 0.000 | 0.000 | 0.000 |
+| R38 otros ingresos y gastos operativos: nota − cuenta de resultados |  | 0.000 | 0.000 |
 | R24 adquisiciones: EFE − puente de la deuda neta |  | 0.000 | 0.000 |
 
 ### FCF base por año y media (C46–C52)
@@ -272,6 +279,21 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 
 ### Comprobaciones
 
+- OK · [fuente] residuo R25 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.4)
+- OK · [fuente] residuo R16 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R22 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R34 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
+- OK · [fuente] residuo R35 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
+- OK · [fuente] residuo R36 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
+- OK · [fuente] residuo R5 2021 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.4)
+- OK · [fuente] residuo R25 2022 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.4)
+- OK · [fuente] residuo R16 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R22 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R34 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
+- OK · [fuente] residuo R35 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
+- OK · [fuente] residuo R36 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
+- OK · [fuente] residuo R5 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.4)
+- OK · [fuente] residuo R32 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
 - OK · [fuente] residuo R1 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
 - OK · [fuente] residuo R2 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
 - OK · [fuente] residuo R3 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.45)
@@ -295,6 +317,12 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 - OK · [fuente] residuo R21 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R22 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R23 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R29 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.5)
+- OK · [fuente] residuo R30 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.45)
+- OK · [fuente] residuo R31 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R32 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
+- OK · [fuente] residuo R33 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R37 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R1 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
 - OK · [fuente] residuo R2 2024 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.2)
 - OK · [fuente] residuo R3 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.45)
@@ -318,7 +346,17 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 - OK · [fuente] residuo R21 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R22 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R23 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R29 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.5)
+- OK · [fuente] residuo R30 2024 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.45)
+- OK · [fuente] residuo R31 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R32 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
+- OK · [fuente] residuo R33 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R37 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R38 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R24 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R26 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R27 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R28 2024 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R1 2025 dentro de su cota de redondeo: -0.1 frente a 0.0 (dif. -0.1; tol. 0.15)
 - OK · [fuente] residuo R2 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
 - OK · [fuente] residuo R3 2025 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.45)
@@ -342,6 +380,13 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 - OK · [fuente] residuo R21 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R22 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R23 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R29 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.5)
+- OK · [fuente] residuo R30 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.45)
+- OK · [fuente] residuo R31 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R32 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
+- OK · [fuente] residuo R33 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R37 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R38 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R24 2025 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] C52 vía CFO = vía FCF publicado − SBC: 307.933333 frente a 307.933333 (dif. 0.0; tol. 0.0)
 - OK · [libro] Análisis!C46 libro = fuente (exacto a 3 decimales registrados): 1429.433333 frente a 1429.433 (dif. 0.000333333; tol. 0.001)
@@ -498,6 +543,7 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 236 (algebraica: 28, fue
 - OK · [algebraica] A3 sintético con D_X = D&A propia: f de A2: -0.006119 frente a -0.006119 (dif. 0.0; tol. 0.0)
 - OK · [algebraica] A3 sintético con D_X = (capex + D&A propia)/2: f en el punto medio de A2 y B: 0.008264 frente a 0.008264 (dif. 0.0; tol. 0.0)
 - OK · [algebraica] A3 sintético con D_X = (capex + D&A propia)/2: flujo sin crecimiento en el punto medio: 408.79414 frente a 408.79414 (dif. 0.0; tol. 0.0)
+- OK · [algebraica] A3 sintético, punto medio: C53 entre los de A2 y B: 1.0 frente a 1.0 (dif. 0.0; tol. 0.0)
 - OK · [algebraica] A1 MALO: el año 11 de una implementación parcial (f de A0 en el terminal) difiere de la referencia: 166.613191 frente a 166.613191 (dif. 0.0; tol. 0.0)
 - OK · [algebraica] A1 NORMAL: el año 11 de una implementación parcial (f de A0 en el terminal) difiere de la referencia: 205.363093 frente a 205.363093 (dif. 0.0; tol. 0.0)
 - OK · [algebraica] A1 BUENO: el año 11 de una implementación parcial (f de A0 en el terminal) difiere de la referencia: 223.878851 frente a 223.878851 (dif. 0.0; tol. 0.0)

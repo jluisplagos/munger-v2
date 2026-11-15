@@ -11,18 +11,22 @@ Marcas usadas en todo el informe:
 ## 0. Resumen
 
 1. **Base y evidencia.** Base 4.14 materializada desde el ZIP original y verificada (6.798/6.798 + manifiesto). Árbol del hito 4.15 (059f4f6) verificado con su propio manifiesto (7.004/7.004). El libro de Elis es idéntico en ambos (SHA-256 `d2593777…92385`).
-   - 716 cifras y citas de cinco informes anuales de Elis verificadas contra los bytes de los PDF en cinco dimensiones: literal (página, posición y signo), ejercicio de la columna, unidad, perímetro y edición. 702 quedan acreditadas en todas, 14 quedan PENDIENTE y ninguna falla. Las 14 son filas de arrendamientos de la página del URD 2022 que no imprime la unidad (p.302), y ningún cálculo las usa.
-   - Test del verificador: 42/42. Acepta 8 positivos reales y rechaza 34 contraejemplos, cada uno en la dimensión que debe detectarlo. Entre ellos están los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, y los M1–M4 del revisor.
-   - Test de los residuos: 7/7. Con el verificador saltado a propósito, los residuos hacen fallar por sí solos el cálculo ante una cifra de otro año, y la única excepción fijada no absorbe un error nuevo.
-2. **Conciliación 2023–2025.** Las 71 identidades cierran dentro de su cota de redondeo [D]:
+   - 736 cifras y citas de cinco informes anuales de Elis comprobadas contra los bytes de los PDF en seis dimensiones: literal (página, posición y signo), ejercicio, concepto de la columna, unidad, perímetro y edición.
+   - Resultado: 722 filas sin incoherencia detectada en ninguna dimensión, 14 PENDIENTE y ninguna en FALLO. Las 14 son filas de arrendamientos de una página del URD 2022 (p.302) en la que el verificador no encuentra ni la unidad ni la cabecera de columnas: quedan PENDIENTE en esas dos dimensiones. Solo una se usa, como contraparte de una identidad.
+   - **OK significa que las reglas automáticas no detectan ninguna incoherencia en esa dimensión, no que la cifra esté acreditada** (revisión n.º 3, N1). El concepto de la línea es una declaración: lo acreditan una identidad, el libro o una lectura independiente.
+   - Test del verificador: 63/63. Acepta 13 positivos reales, deja en PENDIENTE el control manual justificado y rechaza 49 contraejemplos, cada uno en la dimensión que debe detectarlo. Incluye los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, los M1–M4 de la revisión n.º 1, los de N1 y los contraejemplos de la adenda de la revisión n.º 3.
+   - Test de los residuos: 14/14. Con el verificador saltado a propósito, los residuos hacen fallar por sí solos el cálculo ante una cifra de otro año o de otra línea, y la excepción fijada no absorbe un error nuevo mayor que su cota. Los errores menores que la cota no los detecta ninguna identidad, y el test documenta ese límite. También falla si la verificación no es la del CSV usado.
+2. **Conciliación 2021–2025.** Las 109 identidades cierran dentro de su cota de redondeo [D] (71 de la ventana en la revisión n.º 3; ahora también 2021–2022, los totales de inversión y financiación y la coincidencia entre ediciones):
    - la cota es la suma de media unidad de la última cifra impresa de cada cifra que interviene (de 0,10 a 0,50 según la identidad);
    - el −0,2 del free cash flow de 2024 frente a sus componentes está dentro de su cota de 0,35 (siete cifras impresas): ya no es una excepción;
-   - la única excepción es el +0,4 de 2025 entre el interés de arrendamientos de caja (29,6) y el devengado (29,2), una diferencia de concepto sin puente publicado. Se fija en su valor exacto, de modo que un error nuevo en sus tres cifras hace fallar la comprobación. No es material;
-   - 71 de las 72 entradas clave de la ventana quedan contrastadas por una identidad entre páginas distintas. La otra, las adquisiciones de 2023, se contrasta con la Historia del libro.
+   - la única excepción es el +0,4 de 2025 entre el interés de arrendamientos de caja (29,6) y el devengado (29,2), una diferencia de concepto sin puente publicado. Se fija en su valor exacto con la cota de redondeo de sus tres cifras (± 0,15). Un error nuevo en ellas cuyo efecto neto supere 0,15 hace fallar la comprobación; uno menor, como 29,3 en lugar de 29,2, no (§5.4). No es material;
+   - de las 402 entradas que usa el cálculo, 211 tienen una identidad entre páginas, 151 solo una de la misma página y 9 solo la Historia del libro. Las otras 31 no tienen segunda línea y se listan en `cobertura_entradas`: diferidos, CVAE y relaciones con clientes de la tabla de impuestos, componentes de otros ingresos operativos, OCEANE y algunas del horizonte 2021–22;
+   - ninguna de esas 31 cambia los valores de referencia de la especificación. Cinco de las 9 que solo se comparan con la Historia sí los cambian: adquisiciones e impuesto de 2021 y 2022 y ventas de 2020;
+   - una prueba de mutación de las 514 filas de la edición vigente coincide con esta clasificación, sin ninguna incoherencia (§1, `scripts/cobertura_por_mutacion.py`).
 3. **FCF base 307,933** reproducido por dos vías independientes (CFO y free cash flow publicado menos SBC). **C48 = 108** se mantiene con su derivación: 82,933 de intereses financieros + 25,067 de interés implícito de caja de arrendamientos [D][DH E6].
 4. **f = 4,168 %** se descompone exactamente en: pagos de arrendamientos 153,2 (principal 128,1 + interés de caja 25,1), intereses financieros 82,9, efectos fiscales −24,9 y otros −21,1. **Ni la amortización de derechos de uso ni la de intangibles adquiridos están dentro de f**: aparecen en la reinversión histórica (−81,2) [D].
 5. **Motor A** reimplementado desde sus ecuaciones documentadas: reproduce los 30 flujos anuales, los 3 del año 11 y los 3 flujos sin crecimiento del libro con diferencias < 10⁻⁹ [D]. Su flujo sin crecimiento, 248,5, es el FCF base −59,4: +39,6 por el nivel del EBIT 2025, −8,0 por el cambio de tipo impositivo, −9,9 por escalar f a las ventas 2025 y −81,2 porque la proyección no reproduce la reinversión histórica [D].
-6. **Arrendamientos: inconsistencia demostrada en la definición del modelo** [D], condicionada a una premisa económica explícita y respaldada por la propia práctica de Elis (§5.3).
+6. **Arrendamientos: inconsistencia demostrada en la definición del modelo** [D], condicionada a una premisa económica explícita (§5.3). La práctica de Elis la apoya: en sus pruebas de deterioro cuenta el arrendamiento una sola vez, como renovación dentro de la inversión (el esquema de A1′).
    - En la calibración el coste de arrendamiento se cuenta una vez: los pagos.
    - En la proyección se cuenta dos veces: la amortización ROU dentro del margen y los pagos completos dentro de f.
    - El exceso equivale a la amortización ROU: 2,9–3,1 % de las ventas, 139,4 en la base 2025 si se corrige f.
@@ -56,29 +60,41 @@ Marcas usadas en todo el informe:
 **Regla de edición** [D]: cada ejercicio se toma de la publicación más reciente que lo presenta, que es la regla de la Historia. 2025 y 2024 proceden del URD 2025; 2023 del DEU 2024 reexpresado; 2022 del URD 2023 reexpresado; 2021 del URD 2022 reexpresado. Las reexpresiones son pequeñas y proceden sobre todo de la contabilización definitiva de combinaciones: la PPA pasa de 80,1 a 82,9 en 2022, de 85,1 a 85,7 en 2023 y de 84,9 a 85,0 en 2024. Hay además un cambio de presentación: hasta el URD 2023 los intereses de arrendamientos iban dentro de «Net interest paid» (90,2 en 2023); desde el DEU 2024 van dentro de los pagos de arrendamientos (70,5 + 130,8) [P: URD23 p.266, p.279; DEU24 p.273].
 
 **Evidencia reproducible.** Todas las rutas son relativas a esta carpeta.
-- `datos/cifras_fuente.csv`: 716 filas (677 de tabla y 39 de texto). Cada una lleva documento, página PDF, etiqueta de línea, posición, literal impreso, valor con signo, unidad, perímetro, edición («vigente» o «anterior») y modo de control del ejercicio.
-- `scripts/verificar_cifras.py` comprueba cada fila en cinco dimensiones y deja cada una en OK, PENDIENTE (motivo escrito) o FALLO:
+- `datos/cifras_fuente.csv`: 736 filas (697 de tabla y 39 de texto). Cada una lleva documento, página PDF, etiqueta de línea, posición, literal impreso, valor con signo, unidad, perímetro, edición («vigente» o «anterior») y modo de control del ejercicio.
+- `scripts/verificar_cifras.py` comprueba cada fila en seis dimensiones y deja cada una en OK (ninguna incoherencia detectada), PENDIENTE (motivo escrito), FALLO o, si no procede, NO_APLICA:
   - **literal:** huella declarada, página, etiqueta, posición, literal y signo;
-  - **ejercicio:** cabecera de dos ejercicios, tabla de crecimiento, bloque de movimientos, saldo con fecha, apertura y cierre en la cabecera, o año aislado sobre una tabla de un solo ejercicio. En la prosa, el ejercicio de la publicación;
-  - **unidad:** la declaración de unidades de la tabla, o el «%» del literal;
-  - **perímetro:** la cabecera de la página debe ser de estados consolidados o de resultados del grupo; en una matriz por segmentos solo vale la columna «Total»;
+  - **ejercicio:**
+    - en las tablas de dos ejercicios, la columna del token se identifica con su cabecera: por orden, si la cabecera tiene tantas columnas reconocidas (años, «Change», «Notes») como números la línea; si no, por alineación horizontal;
+    - en las demás, tabla de crecimiento (solo porcentajes), bloque de movimientos, saldo con fecha, apertura y cierre en la cabecera o año aislado sobre la tabla;
+    - el modo de cada concepto es una lista cerrada (`modo_admitido`): la fila no puede declarar otro;
+    - en la prosa, el ejercicio de la publicación;
+  - **columna:** en las tablas de varias columnas que no son ejercicios (crecimiento, impuestos diferidos, arrendamientos, intangibles, inmovilizado y matrices), la cabecera de la columna del token debe ser la del concepto;
+  - **unidad:** la declaración de unidades de la tabla, o el «%» del literal. Las líneas de recuentos, importes por acción, márgenes, años o euros no pueden ser «mm EUR». Una declaración de otra unidad o de otra tabla deja la fila en FALLO o PENDIENTE;
+  - **perímetro:** la cabecera de la página debe ser de estados consolidados o de resultados del grupo. No son del grupo las filas de un segmento (por rótulo, en una tabla por segmentos, o por columna en una matriz, asignada por posición horizontal) ni las de un país en una tabla por países, ni las sublíneas de un segmento;
   - **edición:** el pie de cada página («Elis | Universal Registration Document AAAA») debe coincidir con la fuente, y la fuente debe ser la que exige la regla de edición de la Historia o estar declarada «anterior».
 
-  Límites: el perímetro del grupo se acredita por la cabecera de la página, no de la tabla, y la unidad por la declaración más próxima por encima de la línea. En una matriz por segmentos, la columna se identifica por el orden de las ocho cabeceras.
+  Límites que quedan: el perímetro se reconoce por la página, los rótulos de segmento y de país y las matrices; la unidad, por la declaración más próxima y por rótulos. Una cifra de otro perímetro o de otra unidad sin ninguna de esas señales no se detectaría. Por eso cuentan la segunda línea y la cobertura de `contraste_f1.py`.
 
-  Resultado: 702 OK, 14 PENDIENTE por unidad no impresa (URD 2022 p.302) y 0 FALLO. Código de salida 2: hay pendientes.
+  Resultado: 722 sin incoherencia detectada, 14 PENDIENTE (URD 2022 p.302, sin unidad ni cabecera de columnas localizables) y 0 FALLO. Código de salida 2: hay pendientes. La salida guarda las huellas del CSV y de `fuentes.json`.
 - `scripts/sondas_metadatos.py`: reproduce las sondas externas sobre eb77dea, que cambian un solo campo con el año correcto, y las extiende a todas las filas de tabla. Primero cambia solo la unidad de cada fila; después, solo el perímetro. Resultados en `resultados/sondas_metadatos_*.json`:
   - en eb77dea no detecta ninguna (0 de 671 en cada caso): la unidad y el perímetro no se comprobaban;
   - en el commit congelado 1864c4e detecta 677/677 en unidad y 673/677 en perímetro. Las 4 restantes son totales de una matriz por segmentos declarados «segmento Francia», que quedaban PENDIENTE en lugar de FALLO;
-  - en la versión actual, que identifica la columna de la matriz por el orden de las cabeceras, detecta 677/677 en las dos.
-- `scripts/test_verificar_cifras.py`: 42 casos, 8 positivos reales y 34 contraejemplos. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
-- `scripts/contraste_f1.py`: 236 comprobaciones, todas OK, de tres clases:
-  - 136 contra el libro. 18 de ellas son de una copia temporal del libro recalculada con LibreOffice con exceso de caja de 0, 250 y −80 (`scripts/prueba_caja_no_nula.py`);
-  - 72 de fuente: las dos vías independientes del FCF base y 71 residuos de conciliación, cada uno afirmado con su cota de redondeo y una sola diferencia de concepto fijada;
-  - 28 identidades algebraicas, que documentan los puentes, la identidad del exceso de caja, A3_estimado con valores sintéticos y el control del año 11. No prueban los datos.
+  - en f30c66c, 677/677 en las dos.
 
-  Solo usa cifras sin FALLO, de la edición vigente, del perímetro del grupo y con la unidad que pide cada cálculo: 359 entradas, ninguna pendiente.
-- `scripts/test_contraste_residuos.py`: 7 casos. Salta a propósito el verificador y comprueba que los residuos hacen fallar el cálculo con una cifra de otro año, con un error nuevo en las cifras de la excepción fijada o en el FCF de 2024, y con ventas mal transcritas. Documenta también el límite de detección: un error menor que la cota de redondeo no lo detecta ninguna identidad.
+  **Qué miden** (revisión n.º 3, N10): que una etiqueta cambiada se detecta, no que se rechace una cifra de otra unidad o de otro perímetro con una etiqueta verosímil. Esos casos (P1, P2a, U1, U2, B1, B2 y C1 de la revisión n.º 3) son contraejemplos del test.
+- `scripts/test_verificar_cifras.py`: 63 casos: 13 positivos reales, 1 PENDIENTE esperado y 49 contraejemplos. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
+- `scripts/contraste_f1.py`: 275 comprobaciones, todas OK, de tres clases:
+  - 136 contra el libro. 18 de ellas son de una copia temporal del libro recalculada con LibreOffice con exceso de caja de 0, 250 y −80 (`scripts/prueba_caja_no_nula.py`);
+  - 110 de fuente: las dos vías independientes del FCF base y 109 residuos de conciliación, cada uno afirmado con su cota de redondeo y una sola diferencia de concepto fijada;
+  - 29 identidades algebraicas, que documentan los puentes, la identidad del exceso de caja, A3_estimado con valores sintéticos y el control del año 11. No prueban los datos.
+
+  Solo calcula con una verificación del mismo CSV (huella, literal y valor de cada fila) y con cifras sin FALLO, de la edición vigente, del perímetro del grupo y con la unidad que pide cada cálculo. Son 402 entradas, ninguna pendiente; una contraparte de identidad pendiente (`LS_AMORT_ROU_2021`) se anota aparte. La revisión n.º 3 cuenta, sobre 1864c4e, 320 entradas con efecto en alguna salida. Sobre C7, la prueba de mutación da 394 con efecto y 8 que el cálculo lee sin efecto en ninguna salida. La tabla `cobertura_entradas` clasifica cada entrada según qué la comprueba además de su literal.
+- `scripts/test_contraste_residuos.py`: 14 casos. Salta a propósito el verificador y comprueba que los residuos hacen fallar el cálculo con una cifra de otro año o de otra línea (2022), con un error nuevo mayor que la cota en las cifras de la excepción fijada o en el FCF de 2024, con ventas mal transcritas, con el crecimiento externo en lugar del orgánico y con una línea del circulante de 2021. También comprueba que el cálculo se niega si la verificación no es la del CSV. Documenta el límite de detección: un error menor que la cota de redondeo, como 29,3 o 29,1 en lugar de 29,2 en el gasto devengado o 178,0 en lugar de 177,9 en los pagos, no lo detecta ninguna identidad.
+- `scripts/cobertura_por_mutacion.py`: suma 3,0 a cada una de las 514 filas de tabla de la edición vigente, con el verificador saltado, y clasifica qué detecta el cambio. Es la prueba del revisor n.º 3 con un solo cambio: la verificación falsa corresponde a cada CSV mutado, porque desde C7 el contraste rechaza la de otro CSV. Resultado (`resultados/cobertura_por_mutacion.txt`):
+  - 362 detectadas por una identidad de fuente y 9 solo por la comparación con el libro;
+  - 23 cambian alguna salida sin que nada falle: son las declaradas sin segunda línea, y ninguna cambia la referencia de la especificación;
+  - 8 se leen sin efecto en ninguna salida y 112 no se usan;
+  - ninguna difiere de la clase que declara `cobertura_entradas`.
 
   Resultados en `resultados/contraste_f1.{json,md}`.
 - `resultados/tabla_conciliacion.md`: tabla de cifras con literal y página.
@@ -137,6 +153,11 @@ La tabla completa, con literal impreso y página de cada cifra, está en [result
 | Impuesto corriente + diferido = gasto | −0,1 | 0,0 | 0,0 | Redondeo |
 | Deuda bruta − caja = deuda neta | 0,0 | +0,1 | 0,0 | Caja 622,0 frente a 622,1 entre ediciones |
 | Segundas presentaciones en otra página: resultado financiero (nota 9), resultado antes de impuestos (conciliación del impuesto), PPA (cuenta de resultados frente a nota de D&A), ventas (información por segmentos) y adquisiciones (puente de la deuda neta; 2024–25) | 0,0 | 0,0 | 0,0 | Contraste entre páginas de las entradas clave |
+| Amortización ROU: nota de D&A − movimiento de arrendamientos (R16) | **−0,1** | 0,0 | 0,0 | 2023: cota 0,10, la agota. La nota 4.5 imprime 115,8 (DEU 2024 p.296) y el movimiento 115,9 (p.312: 48,2 + 64,1 + 3,6). E1 fija la nota 4.5 como fuente |
+| Totales de los flujos de inversión y de financiación; capex neto entre tabla de capex y tabla del FCF; crecimiento publicado = orgánico + externo + divisa; resultado neto; impuesto de la conciliación del tipo; otros ingresos operativos (2024–25) | 0,0 | 0,0 / +0,1 (financiación) | 0,0 | Segunda línea de entradas sin identidad en la revisión n.º 3 (N2) |
+| Saldos de cierre de 2023 en el DEU 2024 = apertura de 2024 en el URD 2025 (ROU, pasivo y relaciones con clientes) | — | 0,0 | — | Dos ediciones vigentes para la misma fecha; prevalece la más reciente si difieren (N8 f) |
+
+**Horizonte 2021–2022** (años que solo entran en el ancla de S2C): D&A total = componentes (0,0 y +0,1), amortización ROU de la nota = movimiento (0,0 y 0,0), PPA de la cuenta de resultados = nota (0,0 y 0,0), capex por tipo, EBIT y free cash flow publicado, todas dentro de su cota (N2). También el circulante del APM frente a las líneas del EFE (+0,1 y 0,0, cota 0,40): da una segunda línea entre páginas a las 14 líneas de circulante que entran en el ancla.
 
 Cada identidad se **afirma** con su cota de redondeo: para cada cifra impresa que interviene, |coeficiente| × media unidad de su última cifra (0,05 con un decimal). Es el error máximo que puede producir el redondeo de las cifras publicadas. No hay tolerancia global: un residuo mayor que su cota hace fallar el cálculo, salvo la diferencia de concepto de 2025, que se exige en su valor exacto (+0,4 ± 0,15). La tabla `residuos_con_cota` de `resultados/contraste_f1.json` da, para cada identidad y año, el residuo, la cota, las cifras y las páginas que intervienen, y si el contraste es entre páginas o dentro de una.
 
@@ -351,7 +372,7 @@ En 2023 y 2024 coinciden (19,8 y 25,8). En 2025 difieren en 0,4 [D]. Las notas p
 
 **Materialidad:** 0,133 en C48 (0,04 % del FCF base). **Tratamiento:** se conserva la cifra de caja, coherente con un FCF de caja y con la derivación registrada de C48, y se registra el residuo. No se intercambian los datos.
 
-**En el contraste** el residuo se fija en +0,4 con la cota de redondeo de sus tres cifras (0,15), no con una tolerancia ampliada. Si cambia cualquiera de ellas (pagos 177,9, principal 148,3 o gasto 29,2), la comprobación falla: lo prueban dos casos de `test_contraste_residuos.py`. Su explicación identificada es la diferencia de concepto entre pago y devengo, verificable en las etiquetas publicadas. Su causa concreta no se publica [H].
+**En el contraste** el residuo se fija en +0,4 con la cota de redondeo de sus tres cifras (0,15), no con una tolerancia ampliada. Un error nuevo cuyo efecto neto supere 0,15 la hace fallar: por ejemplo, 148,0 en lugar de 148,3 o 29,5 en lugar de 29,2. Uno menor no lo detecta: con el gasto en 29,3 o en 29,1, R13 pasa. Es el límite de detección de cualquier identidad, y un caso de `test_contraste_residuos.py` lo documenta (revisión n.º 3, N6). Su explicación identificada es la diferencia de concepto entre pago y devengo, verificable en las etiquetas publicadas. Su causa concreta no se publica [H].
 
 ### 5.5 Pasivo por arrendamientos y deuda
 
@@ -370,6 +391,11 @@ En el motor A el pasivo por arrendamientos (703,2) no se resta: es coherente con
 - En A1 y A2 el margen de partida lleva la amortización ROU de 2025 (149,5) y f devuelve la media escalada (139,4): quedan 10,1 sin devolver.
 
 Es una limitación de proyectar una razón constante, no un defecto de las alternativas. Debe declararse al calificarlas de coherentes con los arrendamientos.
+
+**Un matiz que refuerza ese límite** (revisión n.º 3, §6.3):
+- según la revisión, el informe del primer semestre de 2026 (p.10) dice que el grupo «also benefits from a rent-free period on its new headquarters, running until December 2028». Es un documento fuera de las cinco fuentes verificadas por los scripts de este informe y posterior a la fecha base, así que se cita solo como lectura de la revisión;
+- [P] las altas de derechos de uso de inmuebles fueron 57,1 en 2025, frente a 10,4 en 2024 y 26,9 en 2023 (URD 2025 p.366; DEU 2024 p.312);
+- [I] si la sede forma parte del alta de 2025, sus pagos quedan por debajo de su coste hasta 2028. No contradice la premisa (iv), que trata de un desembolso adicional a los pagos y no de su calendario. Pero la razón de pagos sobre ventas de la ventana puede quedarse corta.
 
 ---
 
@@ -582,14 +608,15 @@ Ver [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md). Es una pro
 
 Estado y documentos en [revision/](revision/).
 
-- **Revisión n.º 1:** sobre el commit 96a69ca, hecha por una sesión distinta de la del autor, con contexto separado y la configuración que el encargo asigna a la revisión, comprobada en los metadatos de su sesión ([REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md)).
-  - El informe, los scripts y las salidas del revisor están en su rama `auditoria/economica-f1-frente-e-revision` (commit 47551a2). Se copian sin cambios y en las mismas rutas en `revision/`, con procedencia y huellas en [revision/PROCEDENCIA_REVISOR.md](revision/PROCEDENCIA_REVISOR.md).
-  - Resultado: 17 objeciones, 3 materiales. Ninguna invierte una conclusión material.
-- **Contraste externo** sobre 6fb9294 (`docs/validacion_economica_paralela/revision_chatgpt_1/` de la rama `auditoria/economica-f1`): confirma O1 y O2 en los PDF y reproduce O3 con los mutantes del revisor sobre la versión de entonces.
-- **Respuestas** a O1–O17 y al contraste externo, cada una con su commit y su prueba: [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
-- **Revisión de lo afectado** por las correcciones, sobre un commit congelado y en contexto separado: **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)).
-  - Se encargó una segunda pasada sobre eb77dea, que la sesión del autor interrumpió a los pocos minutos porque ese commit iba a cambiar justo en lo que revisaba (O3). No produjo informe y no cuenta como revisión.
-  - Mientras no conste la nueva revisión, las correcciones posteriores a 96a69ca **no están revisadas**.
+- **Revisión n.º 1**, sobre 96a69ca: 17 objeciones, 3 materiales; ninguna invierte una conclusión material.
+- **Contraste externo** sobre 6fb9294 (`revision_chatgpt_1/`) y sus sondas de un solo campo sobre eb77dea (`revision_chatgpt_1/seguimiento_eb77dea/`).
+- **Revisión n.º 3**, sobre el commit congelado 1864c4e, con adenda sobre f30c66c. Sesión distinta de la del autor y con la configuración que el encargo asigna, comprobada en sus metadatos ([REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md)).
+  - Resuelve O1, O2 y O4–O17. Deja O3 parcialmente resuelta.
+  - Plantea N1 (material), N2–N5 y N9–N10 (menores) y N6–N8 (forma). No cambia ninguna conclusión material.
+  - Informe, scripts y salidas: copia sin cambios en `revision/`, con procedencia en [revision/PROCEDENCIA_REVISOR.md](revision/PROCEDENCIA_REVISOR.md).
+- **Revisión n.º 2:** no existe. Se encargó sobre eb77dea y se interrumpió a los pocos minutos, sin resultado.
+- **Respuestas** a O1–O17, al contraste externo y a N1–N10, cada una con su commit y su prueba: [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
+- **Revisión de lo afectado por las correcciones de N1–N10**, sobre un commit congelado: **pendiente** ([revision/ESTADO.md](revision/ESTADO.md)). Hasta que conste, esas correcciones no están revisadas de forma independiente.
 
 ## 13. Reproducción
 
@@ -603,6 +630,7 @@ python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
 python3 -I prueba_caja_no_nula.py --libro "$LIBRO" --salida ../resultados/caja_no_nula.json
 python3 -I contraste_f1.py --cifras ../datos/cifras_fuente.csv --verificacion ../resultados/verificacion_cifras.json --libro "$LIBRO" --caja-no-nula ../resultados/caja_no_nula.json --salida ../resultados/contraste_f1.json --informe ../resultados/contraste_f1.md
 python3 -I test_contraste_residuos.py --libro "$LIBRO"
+python3 -I cobertura_por_mutacion.py --libro "$LIBRO" > ../resultados/cobertura_por_mutacion.txt
 python3 -I tabla_conciliacion.py --cifras ../datos/cifras_fuente.csv --salida ../resultados/tabla_conciliacion.md
 ```
 

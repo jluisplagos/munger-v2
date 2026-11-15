@@ -12,6 +12,7 @@ Uso:  python3 -I test_contraste_residuos.py --libro <ruta>/Elis_v63_evaluada.xls
 """
 import argparse
 import csv
+import hashlib
 import json
 import subprocess
 import sys
@@ -22,14 +23,22 @@ AQUI = Path(__file__).resolve().parent
 RAIZ_F = AQUI.parent
 
 
-def ejecutar(filas, verif, libro):
+def ejecutar(filas, verif, libro, caducada=False):
+    """caducada=False: la verificación falsa se hace corresponder con el CSV mutado (huella y valores), como haría un
+    verificador defectuoso que lo declarase todo OK. caducada=True: se entrega la verificación original sin tocar."""
     with tempfile.TemporaryDirectory() as d:
         d = Path(d)
         with (d / "c.csv").open("w", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(filas[0].keys()), delimiter=";")
             w.writeheader()
             w.writerows(filas)
-        (d / "v.json").write_text(json.dumps(verif, ensure_ascii=False), encoding="utf-8")
+        v = json.loads(json.dumps(verif))
+        if not caducada:
+            v["huellas"]["datos"] = hashlib.sha256((d / "c.csv").read_bytes()).hexdigest()
+            por_id = {r["id"]: r for r in filas}
+            for r in v["cifras"]:
+                r["literal"], r["valor_publicado"] = por_id[r["id"]]["literal"], por_id[r["id"]]["valor_publicado"]
+        (d / "v.json").write_text(json.dumps(v, ensure_ascii=False), encoding="utf-8")
         r = subprocess.run([sys.executable, "-I", str(AQUI / "contraste_f1.py"), "--cifras", str(d / "c.csv"), "--verificacion",
                             str(d / "v.json"), "--libro", str(libro), "--salida", str(d / "k.json"), "--informe", str(d / "k.md")],
                            capture_output=True, text=True)
@@ -70,8 +79,29 @@ def main():
          1, {"residuo R23 2025"}),
         ("límite de detección: 0,05 en la amortización ROU de 2025, dentro de la cota de redondeo",
          mut({"DA_ROU_2025": {"valor_publicado": "-149.55"}}), None, set()),
+        # revisión n.º 3
+        ("H5: la amortización ROU de 2022 toma «(30.3)», la línea de otros artículos arrendados",
+         mut({"DA_ROU_U23_2022": {"literal": "(30.3)", "valor_publicado": "-30.3"}}), 1, {"residuo R25 2022", "residuo R16 2022"}),
+        ("límite de detección de la diferencia fijada (N6, H3a): gasto devengado de 2025 en 29,3",
+         mut({"FIN_INTLS_2025": {"valor_publicado": "-29.3"}}), None, set()),
+        ("límite de detección de la diferencia fijada (H3b): gasto devengado de 2025 en 29,1",
+         mut({"FIN_INTLS_2025": {"valor_publicado": "-29.1"}}), None, set()),
+        ("límite de detección de la diferencia fijada (H3c): pagos de arrendamientos de 2025 en 178,0",
+         mut({"CF_LEASE_2025": {"valor_publicado": "-178.0"}}), None, set()),
+        ("D2 con el verificador saltado: crecimiento externo de 2025 como orgánico", mut({"CREC_ORG_2025": {"literal": "+1.8%", "valor_publicado": "1.8"}}),
+         1, {"residuo R32 2025"}),
+        # cobertura por mutación sobre C7: el circulante de 2021–22 entra en el C53 de referencia y tenía solo la Historia del libro
+        ("circulante de 2021 que entra en el ancla de S2C: clientes 77,8 en lugar de 76,8", mut({"CF_CLI_U22_2021": {"valor_publicado": "-77.8"}}),
+         1, {"residuo R5 2021"}),
     ]
     malos = 0
+    # H2 (revisión n.º 3, N3): CSV cambiado después de verificar y verificación original → el contraste no calcula
+    filas_h2 = mut({"DA_ROU_U23_2022": {"valor_publicado": "-93.7"}})
+    cod, k, err = ejecutar(filas_h2, json.loads((RAIZ_F / "resultados" / "verificacion_cifras.json").read_text(encoding="utf-8")),
+                           a.libro, caducada=True)
+    bien = cod == 1 and "no corresponde a este CSV" in err
+    malos += not bien
+    print("OK " if bien else "MAL", "H2: verificación de otro CSV (cambiado después de verificar)", "" if bien else f"→ código {cod}: {err}")
     for nombre, filas, cod_esp, deben_fallar in casos:
         cod, k, err = ejecutar(filas, verif, a.libro)
         problemas = []
@@ -92,7 +122,7 @@ def main():
                 nombre += f" → ningún residuo lo detecta; comprobaciones contra el libro que sí: {len(otros)}"
         malos += bool(problemas)
         print("OK " if not problemas else "MAL", nombre, "" if not problemas else "→ " + "; ".join(problemas))
-    print(f"{len(casos) - malos}/{len(casos)} casos con el resultado esperado")
+    print(f"{len(casos) + 1 - malos}/{len(casos) + 1} casos con el resultado esperado")
     return 1 if malos else 0
 
 

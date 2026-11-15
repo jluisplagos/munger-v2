@@ -1,0 +1,99 @@
+
+================ versión eb77dea: 707 filas, 671 de tabla ================
+1. Sondas externas de un solo campo
+   CREC_ORG_2025, solo unidad: código 0 · 707/707 OK · fila: ('OK', '(sin dimensiones)') · 
+   IS_VENTAS_2025, solo perimetro: código 0 · 707/707 OK · fila: ('OK', '(sin dimensiones)') · 
+2. Un campo cambiado en cada fila de tabla
+   unidad: detectadas 0/671 (en la dimensión del campo: 0) · sin detectar: [('IS_VENTAS_2025', ('OK', '(sin dimensiones)')), ('IS_VENTAS_2024', ('OK', '(sin dimensiones)')), ('IS_PPA_2025', ('OK', '(sin dimensiones)')), ('IS_PPA_2024', ('OK', '(sin dimensiones)')), ('IS_OOIE_2025', ('OK', '(sin dimensiones)')), ('IS_OOIE_2024', ('OK', '(sin dimensiones)'))] …
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 671; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+   perimetro: detectadas 0/671 (en la dimensión del campo: 0) · sin detectar: [('IS_VENTAS_2025', ('OK', '(sin dimensiones)')), ('IS_VENTAS_2024', ('OK', '(sin dimensiones)')), ('IS_PPA_2025', ('OK', '(sin dimensiones)')), ('IS_PPA_2024', ('OK', '(sin dimensiones)')), ('IS_OOIE_2025', ('OK', '(sin dimensiones)')), ('IS_OOIE_2024', ('OK', '(sin dimensiones)'))] …
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 671; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+3. Contraejemplos: no aplican (esta versión no comprueba la unidad ni el perímetro)
+
+================ versión 1864c4e: 716 filas, 677 de tabla ================
+1. Sondas externas de un solo campo
+   CREC_ORG_2025, solo unidad: código 1 · 701/716 OK · fila: ('FALLO', 'FALLO') · unidad «mm EUR» para un literal en porcentaje
+   IS_VENTAS_2025, solo perimetro: código 1 · 701/716 OK · fila: ('FALLO', 'FALLO') · el segmento declarado (Francia) no figura en la línea ni en la cabecera
+2. Un campo cambiado en cada fila de tabla
+   unidad: detectadas 677/677 (en la dimensión del campo: 677) · sin detectar: []
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 677; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+   perimetro: detectadas 673/677 (en la dimensión del campo: 673) · sin detectar: [('VENTAS_LINO_PLANO_2025', ('PENDIENTE', 'PENDIENTE')), ('VENTAS_SEG_2025', ('PENDIENTE', 'PENDIENTE')), ('VENTAS_SEG_2024', ('PENDIENTE', 'PENDIENTE')), ('VENTAS_SEG_FR_2023', ('PENDIENTE', 'PENDIENTE'))]
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 677; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+2b. contraste_f1.py con una sola etiqueta cambiada y una verificación que declara OK todas las filas
+   CREC_ORG_2025, solo unidad: código 1 · informe escrito: False · CREC_ORG_2025: el cálculo pide % y la cifra está en mm EUR
+   IS_VENTAS_2025, solo perimetro: código 1 · informe escrito: False · IS_VENTAS_2025: perímetro 'segmento Francia', no el del grupo
+3. Contraejemplos de las heurísticas (filas nuevas)
+   P1 ventas de Alemania («Germany 621.2», tabla por países, URD 2025 p.346) declaradas del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   P2a ventas del segmento «Other» (URD 2025 p.307, «Other 35.6 30.7 …») declaradas del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   P2b la misma cifra con su perímetro CORRECTO, «segmento Otros segmentos»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        perimetro: el segmento declarado (Otros segmentos) no figura en la línea ni en la cabecera
+   U1 número medio de acciones («233,954,020», URD 2025 p.395) declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   U2 número de acciones suscritas («889,250», URD 2025 p.362; la línea anterior dice «(in millions of euros)») declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   X1 matriz por segmentos con una celda vacía (URD 2025 p.344, «Adjusted EBITDA margin»): el margen de FRANCIA, 41,9 %, declarado «segmento Europa central»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        perimetro: el segmento declarado (Europa central) no figura en la línea ni en la cabecera
+   X2 la misma cifra con su perímetro CORRECTO, «segmento Francia»
+      → PENDIENTE · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'PENDIENTE', 'edicion': 'OK'}
+        perimetro: columna del segmento Francia en una matriz: no se acredita automáticamente
+   X3 matriz con orden de cabeceras NO canónico (URD 2021 p.247: France, UK & Ireland, Central Europe…): las ventas de Reino Unido e Irlanda, 364,2, declaradas «segmento Europa central»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        perimetro: el segmento declarado (Europa central) no figura en la línea ni en la cabecera
+   X4 la misma cifra con su perímetro CORRECTO, «segmento Reino Unido e Irlanda»
+      → PENDIENTE · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'PENDIENTE', 'edicion': 'OK'}
+        perimetro: columna del segmento Reino Unido e Irlanda en una matriz: no se acredita automáticamente
+   X5 el total del grupo de esa matriz, 3.048,3, declarado del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: columna «Total» de una matriz por segmentos
+
+================ versión f30c66c: 716 filas, 677 de tabla ================
+1. Sondas externas de un solo campo
+   CREC_ORG_2025, solo unidad: código 1 · 701/716 OK · fila: ('FALLO', 'FALLO') · unidad «mm EUR» para un literal en porcentaje
+   IS_VENTAS_2025, solo perimetro: código 1 · 701/716 OK · fila: ('FALLO', 'FALLO') · el segmento declarado (Francia) no figura en la línea ni en la cabecera
+2. Un campo cambiado en cada fila de tabla
+   unidad: detectadas 677/677 (en la dimensión del campo: 677) · sin detectar: []
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 677; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+   perimetro: detectadas 677/677 (en la dimensión del campo: 677) · sin detectar: []
+      equivalencia: filas con estado distinto al mutar solo media tabla: 0 de 677; filas con estado distinto al evaluarlas solas en su CSV: 0 de 40
+2b. contraste_f1.py con una sola etiqueta cambiada y una verificación que declara OK todas las filas
+   CREC_ORG_2025, solo unidad: código 1 · informe escrito: False · CREC_ORG_2025: el cálculo pide % y la cifra está en mm EUR
+   IS_VENTAS_2025, solo perimetro: código 1 · informe escrito: False · IS_VENTAS_2025: perímetro 'segmento Francia', no el del grupo
+3. Contraejemplos de las heurísticas (filas nuevas)
+   P1 ventas de Alemania («Germany 621.2», tabla por países, URD 2025 p.346) declaradas del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   P2a ventas del segmento «Other» (URD 2025 p.307, «Other 35.6 30.7 …») declaradas del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   P2b la misma cifra con su perímetro CORRECTO, «segmento Otros segmentos»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        perimetro: el segmento declarado (Otros segmentos) no figura en la línea ni en la cabecera
+   U1 número medio de acciones («233,954,020», URD 2025 p.395) declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   U2 número de acciones suscritas («889,250», URD 2025 p.362; la línea anterior dice «(in millions of euros)») declarado en millones de euros
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: página de estados consolidados o de resultados del grupo
+   X1 matriz por segmentos con una celda vacía (URD 2025 p.344, «Adjusted EBITDA margin»): el margen de FRANCIA, 41,9 %, declarado «segmento Europa central»
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: columna del segmento Europa central en una matriz por segmentos
+   X2 la misma cifra con su perímetro CORRECTO, «segmento Francia»
+      → FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+        perimetro: declarado segmento Francia, pero la columna es del segmento Europa central
+   X3 matriz con orden de cabeceras NO canónico (URD 2021 p.247: France, UK & Ireland, Central Europe…): las ventas de Reino Unido e Irlanda, 364,2, declaradas «segmento Europa central»
+      → PENDIENTE · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'PENDIENTE', 'edicion': 'OK'}
+        perimetro: columna de una matriz por segmentos sin orden de cabecera acreditable (declarado Europa central)
+   X4 la misma cifra con su perímetro CORRECTO, «segmento Reino Unido e Irlanda»
+      → PENDIENTE · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'PENDIENTE', 'edicion': 'OK'}
+        perimetro: columna de una matriz por segmentos sin orden de cabecera acreditable (declarado Reino Unido e Irlanda)
+   X5 el total del grupo de esa matriz, 3.048,3, declarado del grupo
+      → OK · {'literal': 'OK', 'ejercicio': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+        perimetro: columna «Total» de una matriz por segmentos

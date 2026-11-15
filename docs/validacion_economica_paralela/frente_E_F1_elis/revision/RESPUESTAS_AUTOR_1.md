@@ -19,7 +19,8 @@
 | C2 | 6fb9294 | Efecto volumen de 2024–25; registro de la sesión de revisión. Lo revisó el contraste externo |
 | C3 | eb77dea | Primera respuesta a O1–O17: control del ejercicio de la columna; residuos afirmados con ±0,15 y dos excepciones; citas nuevas; informe y especificación |
 | C4 | d2e585e91638c363682a000bdb416a4b865c6cce (también en [ESTADO.md](ESTADO.md)) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
-| C6 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Adenda tras las sondas externas sobre eb77dea: columna de la matriz por segmentos para el perímetro declarado; tres casos de test; sondas de un solo campo en todas las filas (`sondas_metadatos.py`) |
+| C6 | f30c66c8651dba134b4e66fff9a08c2b50359b6c (también en [ESTADO.md](ESTADO.md)) | Adenda tras las sondas externas sobre eb77dea: columna de la matriz por segmentos para el perímetro declarado; tres casos de test; sondas de un solo campo en todas las filas (`sondas_metadatos.py`) |
+| C7 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 3 y su adenda: lista cerrada de modos; columna identificada por su cabecera; dimensión «columna»; contraejemplos de unidad y perímetro; huella de la verificación; 109 residuos, también en 2021–22; cobertura de todas las entradas usadas y su prueba de mutación; scripts del revisor sobre C7 |
 
 ## Marcas y pruebas
 
@@ -312,3 +313,197 @@ El rechazo de M4 se debía solo a su año.
 - **Integración, regeneración de expedientes, réplica y auditoría final** con el frente técnico: posteriores.
 
 Nada de lo anterior declara aptitud para dinero real.
+
+---
+
+# Respuesta a la revisión independiente n.º 3 y a su adenda
+
+**Revisión:** [REVISION_INDEPENDIENTE_3.md](REVISION_INDEPENDIENTE_3.md) de la rama `auditoria/economica-f1-frente-e-revision`. El informe principal está en el commit 11b999a, sobre el congelado 1864c4e, y la adenda en el 034301c, sobre f30c66c (C6). Copia sin cambios y procedencia: [PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md).
+
+**Resultado de la revisión:**
+- O1, O2 y O4–O17, resueltas;
+- O3, parcialmente resuelta, por N1–N3;
+- objeciones nuevas: N1 (material), N2–N5 y N9–N10 (menores) y N6–N8 (forma);
+- ninguna conclusión material cambia.
+
+**Esta respuesta** acepta las diez objeciones y las corrige en **C7**: el commit que contiene esta sección, cuyo hash consta en [ESTADO.md](ESTADO.md). Las pruebas que se citan están en `scripts/` y sus salidas en `resultados/`. Los scripts del revisor de `revision/scripts_revisor_3/` se ejecutaron sin cambios sobre C7, con salida en `resultados/revisor3_*_sobre_C7.txt`. Algunas de sus pruebas no pueden medir C7 tal como están escritas: entregan al contraste la verificación de otro CSV, que C7 rechaza (N3), o declaran modos fuera de la lista cerrada (N1). Se explica en «Los scripts del revisor sobre C7», al final de esta parte.
+
+## N1 · material · el verificador daba OK a cifras incorrectas · **aceptada y corregida** (C7)
+
+Cada caso del revisor y lo que hace ahora `verificar_cifras.py`:
+
+| Caso del revisor | Corrección en C7 | Resultado sobre C7 |
+|---|---|---|
+| F1–F3: tabla con una tercera columna «Change» | En el modo por defecto, la columna del token ya no se supone por su posición. Se identifica con su cabecera: por orden, si la cabecera tiene tantas columnas reconocidas (años, «Change», «Notes») como números la línea; si no, por alineación horizontal. Si el token no queda bajo un ejercicio, la fila queda PENDIENTE o FALLO, nunca OK | F1, FALLO en ejercicio; F2 y F3, los valores correctos, OK |
+| A1, A2, A4, H1: modo declarado | El modo es una lista cerrada por concepto (`modo_admitido`), la misma para el constructor del CSV y para el verificador. Otro modo es FALLO. «crecimiento» solo admite porcentajes y «max_cabecera» exige fechas de apertura y cierre en la cabecera | FALLO en ejercicio |
+| D1, D2: concepto de la columna | Nueva dimensión `columna`. En las tablas de varias columnas que no son ejercicios, la cabecera de la columna del token debe ser la del concepto. Abarca crecimiento, impuestos diferidos, arrendamientos, intangibles, inmovilizado y matrices | FALLO en columna. También el activo ROU declarado como pasivo |
+| B1, B2: acciones y beneficio por acción | Las líneas de recuentos, importes por acción, márgenes, años o euros no pueden ser «mm EUR». Además, una declaración de otra unidad corta la búsqueda, y una declaración de otra tabla deja la fila PENDIENTE | FALLO en unidad |
+| C1: margen de Francia | Una sublínea («As a % of revenue», «of which») bajo el rótulo de un segmento, en una tabla por segmentos, no es del grupo | FALLO en perímetro. El margen del grupo, bajo el TOTAL, queda OK |
+| H5: otra línea de la misma tabla | El concepto de la línea no lo acredita el verificador: la etiqueta es una declaración. Lo acredita una identidad (N2): R25 y R16 de 2022 hacen fallar el cálculo | Lo detecta el contraste (`test_contraste_residuos.py`) |
+
+**Lo que significa OK** (N1, corrección 5; N8 a). El informe dice ahora que OK significa «ninguna incoherencia detectada por las reglas automáticas en esa dimensión», no «acreditada». El concepto de la línea lo acreditan una identidad, el libro o una lectura independiente.
+
+**Datos reales:** las 736 filas quedan en 722 OK, 14 PENDIENTE y 0 FALLO. Ninguna fila real cambia de estado con las reglas nuevas.
+
+**Pruebas:**
+- `test_verificar_cifras.py` 63/63: 13 positivos reales, 1 PENDIENTE y 49 contraejemplos, con todos los de N1 y de la adenda;
+- `prueba_mutantes_3.py` del revisor, sin cambios, sobre C7: todos los mutantes de N1 en FALLO en su dimensión, y F2 y F3 en OK;
+- especificación T14.
+
+## N2 · menor · entradas con efecto sin segunda línea · **aceptada y corregida** (C7)
+
+**Identidades nuevas** (de 71 a 109 residuos afirmados, cada uno con su cota):
+- en 2021 y 2022:
+  - R25, componentes de la D&A frente al total;
+  - R16, amortización ROU de la nota frente al movimiento de arrendamientos;
+  - R22, PPA de la cuenta de resultados frente a la nota;
+  - R34, capex por tipo;
+  - R35, EBIT;
+  - R36, free cash flow publicado;
+  - R32, composición del crecimiento (solo 2022);
+  - R5, circulante del APM frente a las líneas del EFE, añadida tras la prueba de mutación (abajo).
+  Las cuatro entradas sin detectar que fijaban el C53 de referencia (amortización ROU y PPA de 2021 y 2022) ya tienen segunda línea;
+- en 2023–2025: R29 y R30, totales de los flujos de inversión y de financiación; R31, capex neto entre la tabla de capex y la del FCF; R32, crecimiento publicado frente a orgánico + externo + divisa; R33, resultado neto; R37, impuesto de la conciliación del tipo; R38, otros ingresos y gastos operativos (2024–25);
+- entre ediciones: R26, R27 y R28, cierre de 2023 en el DEU 2024 frente a apertura de 2024 en el URD 2025 (ROU, pasivo y relaciones con clientes). Responden también a N8 f.
+
+**Cobertura de todas las entradas usadas** (`cobertura_entradas`), no solo de las clave. Clasifica las 402 en cuatro grupos:
+
+| Estado | Entradas |
+|---|---|
+| Contrastadas entre páginas | 211 |
+| Solo identidad de la misma página | 151 |
+| Solo Historia del libro | 9 |
+| Sin segunda línea | 31 |
+
+La clasificación se hace al final del cálculo, y una aserción exige que abarque todas las entradas usadas. En un borrador de C7 se hacía antes de la sección de impuestos y dejaba fuera cuatro.
+
+Las 31 sin segunda línea se listan con sus usos:
+- de la tabla de impuestos, que sostienen el [I] de O7: diferido por naturaleza (9), CVAE/IRAP (3) y amortización (3) y valor neto contable (1) de las relaciones con clientes;
+- componentes de otros ingresos y gastos operativos (6). `OOIE_PLUSV_2025` entra en el +18,3 de las partidas puntuales;
+- OCEANE (3);
+- interés devengado de arrendamientos de 2021–22 (2), cesiones de 2021–22 (2), pagos en acciones del EFE de 2021 (1) y crecimiento orgánico de 2021 (1).
+
+Para ellas valen las reglas del verificador y su literal, y el informe lo dice donde se citan.
+
+**Cobertura por mutación** (`scripts/cobertura_por_mutacion.py`; salida en `resultados/cobertura_por_mutacion.txt`).
+- Es el script del revisor con un solo cambio: la verificación falsa, que declara OK todas las filas, corresponde a cada CSV mutado.
+- El del revisor, sin cambios, entrega a cada CSV mutado la verificación del original. C7 la rechaza (N3), y sus 514 mutaciones terminan en «aborta» (`resultados/revisor3_cobertura_por_mutacion_sobre_C7.txt`).
+
+Cada una de las 514 filas de tabla de la edición vigente se altera en +3,0:
+
+| Cobertura declarada | Resultado de la mutación | Entradas |
+|---|---|---|
+| Entre páginas | Falla una identidad de fuente | 211 |
+| Solo misma página | Falla una identidad de fuente | 151 |
+| Solo Historia del libro | Solo falla la comparación con el libro | 9 |
+| Sin segunda línea | Cambia alguna salida y no falla nada | 23 |
+| Sin segunda línea | No cambia ninguna salida | 8 |
+| No usada | No cambia ninguna salida | 112 |
+
+- **Ninguna incoherencia.** Ninguna entrada declarada con una comprobación escapa a ella, y ninguna entrada con efecto falta de la tabla.
+- **Las 23 sin detectar no cambian la referencia de la especificación.** Cambian las tablas de impuestos (16), financiación (3), arrendamientos (2) y partidas puntuales (1). El crecimiento orgánico de 2021 cambia las de alternativas y horizonte.
+- **Las 8 sin efecto** son cesiones de 2021–22 (2), pagos en acciones del EFE de 2021 (1) y, de la nota de otros ingresos y gastos operativos, el earn-out de 2023–25 (3) y las plusvalías de 2023–24 (2). El cálculo solo usa la plusvalía de 2025 de esa nota. El earn-out y las plusvalías que entran en f son los del EFE, que comprueba R3.
+- **Lo que corrigió la prueba.** La primera pasada sobre C7 encontró 14 líneas de circulante de 2021–22 que entran en el C53 de referencia y solo tenían la Historia del libro. Se añadió R5 para 2021–22 con el circulante del APM, que ya estaba registrado y verificado (URD 2022 p.250 y URD 2023 p.268). Residuos: +0,1 y 0,0, cota 0,40. No cambia ningún valor de referencia.
+- **Lo que queda.** Cinco entradas cambian la referencia y solo se comparan con la Historia del libro: adquisiciones e impuesto de 2021 y 2022 y ventas de 2020. La Historia es otra transcripción de las mismas publicaciones: no protege de un error común a las dos lecturas.
+
+**Pruebas:**
+- `contraste_f1.json` → `residuos_con_cota`, `cobertura_entradas`;
+- `test_contraste_residuos.py` 14/14, con H5 y D2 detectados por R25, R16 y R32, y una línea del circulante de 2021 por R5;
+- `cobertura_por_mutacion.py`, arriba.
+
+**Límites de las referencias de E9:** se declara de qué entradas depende el C53.
+
+## N3 · menor · verificación que no corresponde al CSV · **aceptada y corregida** (C7)
+
+`verificar_cifras.py` guarda en su salida la huella SHA-256 del CSV y de `fuentes.json`, y el literal y el valor de cada fila. `contraste_f1.py` no calcula si la huella del CSV no es la verificada, ni si el literal o el valor de una fila no son los verificados.
+
+**Pruebas:** caso H2 de `test_contraste_residuos.py`, en el que el contraste termina con código 1 y el motivo «la verificación no corresponde a este CSV»; H2 de `prueba_mutantes_3b.py` del revisor sobre C7, con el mismo resultado.
+
+## N4 · menor · dos combinaciones de la matriz de coherencia sin fórmula · **aceptada y corregida** (C7)
+
+Se retiran de las combinaciones admisibles y quedan en V-F1h hasta que se especifiquen con su fórmula y su prueba:
+- `margen_despues_de_arrendamientos`: A1′ solo quita el principal y el interés de arrendamiento seguiría en C48 y en f;
+- `EBIT_NIIF16_PPA_decreciente` con `A2_propio`: exigiría una f que varíe con el tiempo.
+
+La vía que propone el revisor queda descrita como posible definición futura, sin adoptarla: calibrar f con el NOPAT sobre el mismo margen que se proyecta.
+
+**Prueba:** especificación E2 y T8.
+
+## N5 · menor · A3 sin ancla ni flujos de referencia · **aceptada y corregida** (C7)
+
+`A3_estimado_sintetico` da para cada caso sintético el C53 y los flujos de los años 1–10 y del año 11 con las palancas actuales. Los C53 son 2,651525243106, 1,612524303305 y 2,005440531963, el del punto medio: coinciden con los del revisor.
+
+**Prueba:** comprobación «A3 sintético, punto medio: C53 entre los de A2 y B»; especificación T3b.
+
+## N6 · forma · afirmaciones sobre los residuos más fuertes que la prueba · **aceptada y corregida** (C7)
+
+1. §5.4 y estas respuestas dicen ahora que la diferencia fijada solo detecta un error neto mayor que 0,15. Con el gasto devengado en 29,3 o en 29,1, o con los pagos en 178,0, R13 pasa: es su límite de detección. Tres casos de `test_contraste_residuos.py` lo documentan (H3a–H3c), y otro comprueba que 29,5 sí falla (H4). Ninguna otra identidad los detecta: R11 y R12, que también usan los pagos, tienen cotas de 0,35 y 0,25.
+2. R16 de 2023 (−0,1 con cota 0,10) se muestra en la tabla de §2, con su causa [P]: la amortización ROU de 2023 se imprime como 115,8 en la nota 4.5 (DEU 2024 p.296) y como 115,9 en el movimiento de arrendamientos (p.312). E1 fija la nota 4.5 como fuente.
+
+## N7 · forma · «359 entradas» · **aceptada y corregida** (C7)
+
+§1 da las entradas que el cálculo lee: 402 en C7. Distingue también las que tienen efecto en alguna salida: 320 según el revisor sobre 1864c4e y, sobre C7, 394 según la prueba de mutación, más 8 que se leen sin efecto (N2).
+
+## N8 · forma · varios · **aceptada y corregida** (C6, C7)
+
+- **(a)** Ver N1, «Lo que significa OK».
+- **(b)** §0.6: Elis cuenta el arrendamiento una sola vez, como renovación dentro de la inversión (el esquema de A1′). No respalda literalmente que el coste sean los pagos.
+- **(c)** Recuentos del test: positivos, PENDIENTE esperado y contraejemplos por separado.
+- **(d)** T2 y T3 dan los desvíos del año 11 de la implementación parcial: 166,6 / 205,4 / 223,9 (A1) y 274,1 / 337,8 / 368,3 (A2).
+- **(e)** Corregida en C6.
+- **(f)** Regla de los saldos: cada movimiento se concilia con la tabla de su propio bloque. Si el cierre de un ejercicio y la apertura del siguiente difieren entre publicaciones, prevalece la más reciente para el saldo como dato, y la diferencia se muestra como reexpresión. R26–R28 lo comprueban: hoy coinciden (513,7, 538,3 y 414,9).
+
+## N9 · menor · `columna_de_matriz` contaba desde la derecha · **aceptada y corregida** (C7)
+
+La columna se asigna por la posición horizontal del token respecto a las ocho cabeceras. Con ocho números, la cuenta desde la derecha debe coincidir; si no coincide, la fila queda PENDIENTE.
+
+**Pruebas:** casos X1 (margen de Francia declarado «segmento Europa central»: FALLO) y X2 (declarado «segmento Francia»: OK) del test.
+
+## N10 · menor · las sondas presentadas como cobertura · **aceptada y corregida** (C7)
+
+**Qué miden las sondas.** Que una etiqueta cambiada se detecta. No que una cifra de otra unidad o de otro perímetro con una etiqueta verosímil se rechace. Así se dice ahora en el informe §1, en T12 y en la sección de sondas de estas respuestas.
+
+**Contraejemplos de la adenda:** los que eran OK quedan ahora en FALLO, y forman parte del test y de T14:
+- **P1**, tabla por países;
+- **P2a**, fila «Other» en una tabla por segmentos;
+- **U1 y U2**, recuentos de acciones;
+- **C1**, sublínea de un segmento.
+
+P2b (la fila «Other» declarada «segmento Otros segmentos») pasa a OK.
+
+**Corrección de una frase.** La de estas respuestas sobre la cobertura de las filas usadas era inexacta: 31 entradas usadas no tienen segunda línea (N2). Se corrige abajo.
+
+**Corrección a la sección «Sondas externas de un solo campo sobre eb77dea»:** donde dice «todas tienen su segunda presentación o su comparación con el libro», debe decir que, de las entradas usadas, 31 no tienen ni identidad ni comparación con el libro (lista en `cobertura_entradas`).
+
+## Los scripts del revisor sobre C7
+
+Se ejecutaron sin cambios. Salidas en `resultados/`:
+
+| Script | Salida | Resultado sobre C7 |
+|---|---|---|
+| `prueba_mutantes.py` (revisión n.º 1) | `mutantes_revisor_sobre_C7.txt` | M1–M4 en FALLO en su dimensión |
+| `prueba_mutantes_3.py` | `revisor3_prueba_mutantes_3_sobre_C7.txt` | Todos los mutantes de N1 en FALLO en su dimensión. F2 y F3, los valores correctos, en OK |
+| `prueba_mutantes_3b.py` | `revisor3_prueba_mutantes_3b_sobre_C7.txt` | H1, FALLO en ejercicio, y el contraste no calcula. H2: el contraste se niega. H5: fallan R25 y R16 de 2022. **H3a–H3c y H4 no miden lo que pretenden** (abajo) |
+| `sondas_revisor.py` | `revisor3_sondas_sobre_C7.txt` | Unidad y perímetro cambiados en cada fila: 697 de 697 detectados, en la dimensión del campo. Con una etiqueta cambiada y una verificación de otro CSV, el contraste se niega. Contraejemplos: abajo |
+| `cobertura_por_mutacion.py` | `revisor3_cobertura_por_mutacion_sobre_C7.txt` | 514 de 514 «aborta»: el contraste rechaza la verificación de otro CSV. La medida está en la adaptación del autor (N2) |
+
+**H3a–H3c y H4 de `prueba_mutantes_3b.py`.**
+- Entregan la verificación del CSV original a un CSV mutado. El contraste se niega y no escribe salida.
+- El script lee entonces el `k.json` que dejó H5 en la misma carpeta temporal. Por eso los cuatro muestran los fallos de R25 y R16 de 2022 y un R13 sin mutar (0,4).
+- Es un efecto del script, no de C7.
+- Los mismos cuatro casos están en `test_contraste_residuos.py`, con la verificación falsa ligada al CSV mutado. H4 (29,5) hace fallar R13. H3a (29,3), H3b (29,1) y H3c (178,0) no los detecta ninguna identidad, porque están dentro de la cota (N6). H3c hace fallar 42 comprobaciones contra el libro.
+
+**Contraejemplos de `sondas_revisor.py`.**
+- P1, P2a, U1, U2 y X1: FALLO en la dimensión que deben.
+- P2b y X2, los positivos: perímetro OK, pero FALLO en ejercicio. La sonda los crea con identificadores nuevos (`CE_…`) y les declara los modos «crecimiento» y «titulo». La lista cerrada de N1 asigna a un identificador desconocido el modo por defecto, «dos_columnas», y rechaza otro declarado. Es la defensa buscada contra el truco del modo (A1, A2, A4 y H1). Con identificadores de la lista cerrada, los mismos positivos quedan OK en el test (`MUT_OTHER_SEG` y `VENTAS_SEG_MARGEN_X2`).
+- X3 y X4 (matriz del URD 2021 p.247 con cabeceras en otro orden): perímetro PENDIENTE en los dos, porque la columna no se puede acreditar. Ni el perímetro falso ni el correcto se aceptan.
+- X5, el total de esa matriz: perímetro OK y columna PENDIENTE.
+- Ninguna fila real del CSV procede de esa matriz.
+
+## Lo que queda abierto tras C7
+
+- **Revisión independiente de lo afectado por C7**, sobre un commit congelado: pendiente ([ESTADO.md](ESTADO.md)).
+- **31 entradas usadas sin segunda línea** (N2), listadas. Ninguna cambia la referencia de la especificación. Para ellas valen el literal y las reglas automáticas.
+- **5 entradas que cambian la referencia de la especificación con la Historia del libro como única segunda línea** (N2): adquisiciones e impuesto de 2021 y 2022 y ventas de 2020.
+- **14 filas PENDIENTE** (URD 2022 p.302: el verificador no encuentra ni la unidad ni la cabecera de columnas). Una de ellas, `LS_AMORT_ROU_2021`, solo se usa como contraparte de R16 de 2021, y cuadra con la nota de D&A.
+- **Lo económico no cambia:** decisión F1, política de la PPA, dato o estimación de la reinversión necesaria (M1 a–d, M2) y perímetros declarados de S2C y del margen, todos [DH] pendientes. Sin aptitud para dinero real.

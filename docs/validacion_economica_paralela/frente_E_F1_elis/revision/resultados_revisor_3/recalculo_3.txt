@@ -1,0 +1,78 @@
+1. f, flujo sin crecimiento y C53 por perímetro (T1–T3 y cota B)
+   OK  A0 f: revisor 0.041681455274 · autor 0.041681455274
+   OK  A0 flujo sin crecimiento: revisor 248.496395342656 · autor 248.496395342656
+   OK  A0 C53: revisor 9.039509536785 · autor 9.039509536785
+   OK  A1 f: revisor 0.012624225323 · autor 0.012624225323
+   OK  A1 flujo sin crecimiento: revisor 387.878115969269 · autor 387.878115969269
+   OK  A1 C53: revisor 2.445331695332 · autor 2.445331695332
+   OK  A2 f: revisor -0.006118601744 · autor -0.006118601744
+   OK  A2 flujo sin crecimiento: revisor 477.783708846410 · autor 477.783708846410
+   OK  A2 C53: revisor 1.612524303305 · autor 1.612524303305
+   OK  B f: revisor 0.022646228408 · autor 0.022646228408
+   OK  B flujo sin crecimiento: revisor 339.804571572014 · autor 339.804571572014
+   OK  B C53: revisor 2.651525243106 · autor 2.651525243106
+
+2. Flujos de A1 y A2 con las palancas actuales (T2 y T3): años 1–10 y año 11
+   OK  A1 MALO: año 1 281.354781 · año 10 296.427827 · año 11 294.942490201187 (autor 294.942490201187; dif. máx. años 1–10 4.5e-13)
+   OK  A1 NORMAL: año 1 220.930139 · año 10 415.813125 · año 11 413.845194930899 (autor 413.845194930899; dif. máx. años 1–10 4.8e-13)
+   OK  A1 BUENO: año 1 235.967280 · año 10 505.196019 · año 11 488.862107627977 (autor 488.862107627977; dif. máx. años 1–10 3.4e-13)
+   OK  A2 MALO: año 1 373.058486 · año 10 402.834507 · año 11 402.413237593105 (autor 402.413237593105; dif. máx. años 1–10 3.4e-13)
+   OK  A2 NORMAL: año 1 314.881483 · año 10 545.681412 · año 11 546.310847791079 (autor 546.310847791079; dif. máx. años 1–10 4.5e-13)
+   OK  A2 BUENO: año 1 330.817681 · año 10 646.082750 · año 11 633.271006526708 (autor 633.271006526708; dif. máx. años 1–10 5.1e-13)
+
+3. Controles negativos de implementación parcial (¿qué referencia la detecta y por cuánto?)
+   A1 MALO: terminal con f de A0 → año 11 128.329 frente a 294.942 (desvío 166.613 = V10·(1+g)·Δf); años con f de A0 → año 1 139.185 frente a 281.355 (desvío 142.169)
+   A1 NORMAL: terminal con f de A0 → año 11 208.482 frente a 413.845 (desvío 205.363 = V10·(1+g)·Δf); años con f de A0 → año 1 75.276 frente a 220.930 (desvío 145.654)
+   A1 BUENO: terminal con f de A0 → año 11 264.983 frente a 488.862 (desvío 223.879 = V10·(1+g)·Δf); años con f de A0 → año 1 88.920 frente a 235.967 (desvío 147.048)
+   A2 MALO: terminal con f de A0 → año 11 128.329 frente a 402.413 (desvío 274.084 = V10·(1+g)·Δf); años con f de A0 → año 1 139.185 frente a 373.058 (desvío 233.873)
+   A2 NORMAL: terminal con f de A0 → año 11 208.482 frente a 546.311 (desvío 337.829 = V10·(1+g)·Δf); años con f de A0 → año 1 75.276 frente a 314.881 (desvío 239.605)
+   A2 BUENO: terminal con f de A0 → año 11 264.983 frente a 633.271 (desvío 368.288 = V10·(1+g)·Δf); años con f de A0 → año 1 88.920 frente a 330.818 (desvío 241.898)
+   (ninguno de los desvíos es cero: la referencia del año 11 detecta el primero y las de los años 1–10 el segundo)
+
+4. A3_estimado con valores sintéticos (T3b)
+   OK  D_X = capex propio (reproduce B) f: revisor 0.022646228408 · autor 0.022646228408
+   OK  D_X = capex propio (reproduce B) flujo sin crecimiento: revisor 339.804571572014 · autor 339.804571572014
+   OK  D_X = D&A propia (reproduce A2) f: revisor -0.006118601744 · autor -0.006118601744
+   OK  D_X = D&A propia (reproduce A2) flujo sin crecimiento: revisor 477.783708846410 · autor 477.783708846410
+   OK  D_X = (capex + D&A propia)/2 (sintético) f: revisor 0.008263813332 · autor 0.008263813332
+   OK  D_X = (capex + D&A propia)/2 (sintético) flujo sin crecimiento: revisor 408.794140209212 · autor 408.794140209212
+   punto medio exacto de A2 y B en f: True
+   D_X sintética no uniforme (700/820/905 en la ventana): f = 0.009744087310580; forma cerrada f_A0 − (D&A total media − D_X media)/ventas medias: True
+   una implementación que tomara solo la D_X de 2025 daría f = 0.030943 (≠ 0.009744): la referencia de f la detectaría si T3b incluyera un caso no uniforme
+   C53 que correspondería a cada caso sintético (la especificación E4 exige la misma D_X en el ancla; T3b NO da esta referencia):
+      D_X = capex propio (reproduce B): C53 = 2.651525243106
+      D_X = D&A propia (reproduce A2): C53 = 1.612524303305
+      D_X = (capex + D&A propia)/2 (sintético): C53 = 2.005440531963
+
+5. O4 · palanca S2C anclada en el C53 de cada perímetro, escenario NORMAL
+   OK  A0 flujo del año 1 con S2C = C53: revisor 231.277068987665 · autor 231.277100000000
+   OK  A1 flujo del año 1 con S2C = C53: revisor 312.537451443379 · autor 312.537500000000
+   OK  A2 flujo del año 1 con S2C = C53: revisor 360.899314764121 · autor 360.899300000000
+   OK  A1 brecha en el año 1: revisor 81.260382455715 · autor 81.260400000000
+   OK  A1 aumento de ventas que anula la brecha: revisor 517.647763014559 · autor 517.647800000000
+   OK  A2 brecha en el año 1: revisor 129.622245776457 · autor 129.622200000000
+   OK  A2 aumento de ventas que anula la brecha: revisor 496.593675921525 · autor 496.593700000000
+   crecimiento compuesto de las ventas 2020→2025: 11.3 %
+
+6. O9 · partidas puntuales en el flujo sin crecimiento
+   OK  earnout en f: revisor 13.675187684120 · autor 13.675000000000
+   OK  plusvalías en f: revisor -4.032427137625 · autor -4.032000000000
+   OK  plusvalía en m0: revisor 18.293260000000 · autor 18.293000000000
+   OK  neto: revisor 27.936020546495 · autor 27.936000000000
+
+7. O10 · tendencia de los arrendamientos
+   OK  pagos medios escalados a 2025: revisor 161.121762585984 · autor 161.122000000000
+   OK  pagos 2025 − escalados: revisor 16.778237414016 · autor 16.778000000000
+   OK  ROU 2025 no devuelta en A1/A2: revisor 10.118279373387 · autor 10.118000000000
+
+8. O7 · ingreso por diferido de intangibles ÷ amortización de relaciones con clientes
+   OK  2023: 15.5 ÷ 84.6 = 18.3 %: revisor 0.183215130024 · autor 0.183200000000
+   OK  2024: 20.3 ÷ 83.9 = 24.2 %: revisor 0.241954707986 · autor 0.242000000000
+   OK  2025: 17.5 ÷ 83.5 = 21.0 %: revisor 0.209580838323 · autor 0.209600000000
+   OK  agotamiento 275,1 ÷ 83,5 (años): revisor 3.294610778443 · autor 3.294600000000
+   variante con la amortización de 2024 de la edición original (DEU 2024 p.310, 83,8): 24.2 %
+
+9. E2 de la especificación · interés de arrendamiento que A1′ deja dentro de f
+   interés de caja medio 25.067 = 0.550 % de las ventas medias; en la base 2025: 26.4
+
+TODO COINCIDE con las referencias del autor

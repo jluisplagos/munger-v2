@@ -46,22 +46,30 @@ class Fuente:
         verif = json.loads(Path(ruta_verif).read_text(encoding="utf-8"))
         if verif["resumen"]["fallos"]:
             sys.exit("la verificación de cifras tiene fallos: no se calcula sobre datos no verificados")
+        # (revisión n.º 3, N3) la verificación debe ser la de este mismo CSV
+        h = hashlib.sha256(Path(ruta_csv).read_bytes()).hexdigest()
+        if (verif.get("huellas") or {}).get("datos") != h:
+            sys.exit("la verificación no corresponde a este CSV (huella distinta): hay que volver a verificar")
         est = {r["id"]: r for r in verif["cifras"]}
         self.v, self.ref, self.meta = {}, {}, {}
-        self.usadas, self.pendientes = set(), {}
+        self.usadas, self.pendientes, self.contrapartes_pendientes = set(), {}, {}
         for r in csv.DictReader(Path(ruta_csv).open(encoding="utf-8"), delimiter=";"):
             if r["tipo"] != "tabla":
                 continue
             e = est.get(r["id"])
             if e is None or e["estado"] == "FALLO":
                 sys.exit(f"cifra sin verificar: {r['id']}")
+            if e.get("literal") != r["literal"] or e.get("valor_publicado") != r["valor_publicado"]:
+                sys.exit(f"{r['id']}: el literal o el valor del CSV no son los verificados")
             self.v[r["id"]] = Fr(r["valor_publicado"])
             self.ref[r["id"]] = f"{r['doc']} p.{r['pagina']} «{r['literal']}»"
             self.meta[r["id"]] = {"unidad": r["unidad"], "perimetro": r["perimetro"], "edicion": r["edicion"], "doc": r["doc"],
                                   "pagina": int(r["pagina"]), "decimales": e["decimales"], "estado": e["estado"],
                                   "motivo": e.get("motivo", "")}
 
-    def __call__(self, i, unidad="mm EUR"):
+    def __call__(self, i, unidad="mm EUR", contraparte=False):
+        """contraparte=True: la cifra solo sirve de segunda presentación en una identidad. Si está PENDIENTE, se anota
+        aparte y no hace pendientes los resultados: la identidad es, precisamente, una comprobación de esa cifra."""
         m = self.meta[i]
         if m["edicion"] != "vigente":
             sys.exit(f"{i}: un cálculo usa una cifra de edición «{m['edicion']}»; solo vale la edición vigente")
@@ -71,7 +79,7 @@ class Fuente:
             sys.exit(f"{i}: perímetro {m['perimetro']!r}, no el del grupo")
         self.usadas.add(i)
         if m["estado"] == "PENDIENTE":
-            self.pendientes[i] = m["motivo"]
+            (self.contrapartes_pendientes if contraparte else self.pendientes)[i] = m["motivo"]
         return self.v[i]
 
     def pct(self, i):
@@ -131,8 +139,8 @@ class FuenteQ:
     def __init__(self, F):
         self.F = F
 
-    def __call__(self, i, unidad="mm EUR"):
-        return Q(self.F(i, unidad), {i: 1})
+    def __call__(self, i, unidad="mm EUR", contraparte=False):
+        return Q(self.F(i, unidad, contraparte), {i: 1})
 
     def pct(self, i):
         return Q(self.F.pct(i), {i: 1})
@@ -176,6 +184,12 @@ def datos_anio(F, y):
         d["int_ls_dev"] = -F(g("FIN_INTLS"))
         d["tax_corr"], d["tax_dif"], d["tax_real"], d["tax_cvae"] = F(g("TAX_CORR")), F(g("TAX_DIF")), F(g("TAX_REAL")), F(g("TAX_CVAE"))
         d["deu_bruta"], d["deu_caja"], d["deu_neta"], d["oceane"] = F(g("DEU_BRUTA")), F(g("DEU_CAJA")), F(g("DEU_NETA")), F(g("DEU_OCEANE"))
+        # (revisión n.º 3, N2) líneas y totales de inversión y financiación; composición del crecimiento
+        for k, b in [("cesfil", "CF_CESFIL"), ("prest", "CF_PREST"), ("divrec", "CF_DIVREC"), ("invtot", "CF_INVTOT"), ("fintot", "CF_FINTOT")]:
+            d[k] = F(g(b), contraparte=True)
+        d["crec_ext"], d["crec_fx"], d["crec_pub"] = (F.pct(f"CREC_EXT_{y}"), F.pct(f"CREC_FX_{y}"), F.pct(f"CREC_PUB_{y}"))
+        if y != 2023:
+            d["ooie_tot"], d["is_ooie"] = F(g("OOIE_TOT"), contraparte=True), F(g("IS_OOIE"), contraparte=True)
         # segundas presentaciones en otras páginas (contraste entre páginas de las entradas clave)
         d["fin_nota"], d["tax_bai"], d["is_ppa"] = -F(g("FIN_TOT")), F(g("TAX_BAI")), -F(g("IS_PPA"))
         d["ventas_seg"] = F({2025: "VENTAS_SEG_2025", 2024: "VENTAS_SEG_2024", 2023: "VENTAS_SEG_FR_2023"}[y])
@@ -193,6 +207,10 @@ def datos_anio(F, y):
         d["ls_fx_rou"], d["ls_fx_pas"] = F(f"LS_FX_ROU_{ly}"), F(f"LS_FX_PAS_{ly}")
         d["ls_otros_rou"], d["ls_otros_pas"] = F(f"LS_OTROS_ROU_{ly}"), F(f"LS_OTROS_PAS_{ly}")
         d["ls_deter"] = -F(f"LS_DETER_ROU_{ly}") if y != 2023 else Fr(0)
+        if y == 2024:   # cierre de 2023 en el DEU 2024 frente a la apertura de 2024 en el URD 2025 (dos ediciones vigentes)
+            d["rou_cierre_ed_ant"] = F("LS_SALDO_ROU_2023_FR", contraparte=True)
+            d["pas_cierre_ed_ant"] = F("LS_SALDO_PAS_2023_FR", contraparte=True)
+            d["rc_cierre_ed_ant"], d["rc_apertura"] = F("INT_RC_VNC_2023_FR", contraparte=True), F("INT_RC_VNC_2023", contraparte=True)
         if y == 2023:
             d["rou_ini"], d["pas_ini"] = F("LS_SALDO_ROU_2022"), F("LS_SALDO_PAS_2022")
             d["rou_fin"], d["pas_fin"] = F("LS_SALDO_ROU_2023_FR"), F("LS_SALDO_PAS_2023_FR")
@@ -218,6 +236,10 @@ def datos_anio(F, y):
         d["int_ls_dev"] = -F("FIN_INTLS" + u)
         d["fcf_apm"] = F("FCF_FCF" + u)
         d["crec_org"] = F.pct("CREC_ORG_2022")
+        # (revisión n.º 3, N2) segundas presentaciones para las identidades del horizonte
+        d["ls_amort"], d["is_ppa"] = -F("LS_AMORT_ROU_2022", contraparte=True), -F("IS_PPA" + u, contraparte=True)
+        d["bfr"] = -F("FCF_BFR" + u, contraparte=True)    # circulante del APM (URD 2023 p.268), segunda presentación
+        d["crec_ext"], d["crec_fx"], d["crec_pub"] = F.pct("CREC_EXT_2022"), F.pct("CREC_FX_2022"), F.pct("CREC_PUB_2022")
     elif y == 2021:
         u = "_U22_2021"
         d["ventas"] = F("IS_VENTAS" + u)
@@ -237,6 +259,8 @@ def datos_anio(F, y):
         d["int_ls_dev"] = -F("FIN_INTLS" + u)
         d["fcf_apm"] = F("FCF_FCF" + u)
         d["crec_org"] = F.pct("CREC_ORG_2021")
+        d["ls_amort"], d["is_ppa"] = -F("LS_AMORT_ROU_2021", contraparte=True), -F("IS_PPA" + u, contraparte=True)
+        d["bfr"] = -F("FCF_BFR" + u, contraparte=True)    # circulante del APM (URD 2022 p.250), segunda presentación
     # derivadas comunes
     d["ebit_h"] = d["bai"] + d["fin"]                        # definición de la Historia (v2.2)
     if not isinstance(d["bai"], Q):                          # τ no es lineal: solo con valores exactos
@@ -340,7 +364,35 @@ def main():
             "R21 resultado antes de impuestos: cuenta de resultados − conciliación del impuesto": d["bai"] - d["tax_bai"],
             "R22 amortización PPA: cuenta de resultados − nota de D&A": d["is_ppa"] - d["da_ppa"],
             "R23 ventas: cuenta de resultados − información por segmentos (total)": d["ventas"] - d["ventas_seg"],
-        } | ({"R24 adquisiciones: EFE − puente de la deuda neta": d["adq"] - d["dn_adq"]} if "dn_adq" in d else {})
+            "R29 flujos de inversión: total − suma de sus líneas": d["invtot"] - (-d["capint"] + d["desint"] - d["capmat"] + d["desmat"] - d["adq"]
+                                                                                  + d["cesfil"] + d["prest"] + d["divrec"] + d["subvinv"]),
+            "R30 flujos de financiación: total − suma de sus líneas": d["fintot"] - (d["ampl"] + d["autoc"] + d["div"] + d["empr"] + d["reemb"]
+                                                                                     - d["leasepay"] - d["int"] + d["ofin"]),
+            "R31 capex neto: tabla de capex − tabla de free cash flow": d["capnet_tabla"] - d["capnet"],
+            "R32 crecimiento publicado − (orgánico + externo + divisa)": d["crec_pub"] - (d["crec_org"] + d["crec_ext"] + d["crec_fx"]),
+            "R33 resultado neto: cuenta de resultados − estado de flujos": d["bn"] - d["cf_bn"],
+            "R37 impuesto: conciliación del tipo − cuenta de resultados": d["tax_real"] - d["imp"],
+        } | ({"R38 otros ingresos y gastos operativos: nota − cuenta de resultados": d["ooie_tot"] - d["is_ooie"]} if "ooie_tot" in d else {}) | ({"R24 adquisiciones: EFE − puente de la deuda neta": d["adq"] - d["dn_adq"]} if "dn_adq" in d else {}) \
+          | ({"R26 activo ROU: apertura de 2024 (URD 2025) − cierre de 2023 (DEU 2024)": d["rou_ini"] - d["rou_cierre_ed_ant"],
+              "R27 pasivo por arrendamiento: apertura de 2024 (URD 2025) − cierre de 2023 (DEU 2024)": d["pas_ini"] - d["pas_cierre_ed_ant"],
+              "R28 relaciones con clientes: apertura de 2024 (URD 2025) − cierre de 2023 (DEU 2024)": d["rc_apertura"] - d["rc_cierre_ed_ant"]}
+             if "rou_cierre_ed_ant" in d else {})
+
+    def residuos_horizonte(d):
+        """(Revisión n.º 3, N2) Identidades de 2021 y 2022, años que solo entran en el ancla de S2C (C53)."""
+        return {
+            "R25 D&A total − suma de componentes (incluidos deterioro y PPA)": d["da_total"] - (d["da_text"] + d["da_oart"] + d["da_otro"] + d["da_rou"]
+                                                                                              - d["da_subv"] + d["da_deter"] + d["da_ppa"]),
+            "R16 amortización ROU (nota de D&A) − amortización del movimiento de ROU": d["da_rou"] - d["ls_amort"],
+            "R22 amortización PPA: cuenta de resultados − nota de D&A": d["is_ppa"] - d["da_ppa"],
+            "R34 capex bruto del EFE − capex por tipo (lino + otros artículos + resto)": d["capex"] - (d["lino"] + d["oart"] + d["otro"]),
+            "R35 EBIT publicado − (BAI + resultado financiero)": d["ebit_pub"] - (d["bai"] + d["fin"]),
+            "R36 FCF publicado − (CFO − capex neto − intereses con arrendamientos − principal)": d["fcf_apm"] - (d["cfo"] - d["capnet_tabla"]
+                                                                                                             - d["int_con_ls"] - d["ls_princ"]),
+            # circulante: las líneas del EFE (que entran en el ancla de S2C) frente al circulante del APM de otra página
+            "R5 circulante APM − circulante de las líneas del EFE": d["bfr"] - d["dwc"],
+        } | ({"R32 crecimiento publicado − (orgánico + externo + divisa)": d["crec_pub"] - (d["crec_org"] + d["crec_ext"] + d["crec_fx"])}
+             if "crec_pub" in d else {})
 
     conc = {y: residuos(A[y]) for y in VENTANA}
     R["tablas"]["conciliaciones_residuos"] = {str(y): {k: f6(v, 3) for k, v in conc[y].items()} for y in VENTANA}
@@ -350,20 +402,20 @@ def main():
     # diferencia de concepto. No hay tolerancia global. La única excepción es una diferencia de concepto fijada en su
     # valor exacto: se exige |residuo − valor fijado| ≤ cota, así que un error nuevo en sus cifras la hace fallar.
     FQ = FuenteQ(F)
-    AQ = {y: datos_anio(FQ, y) for y in VENTANA}
-    concQ = {y: residuos(AQ[y]) for y in VENTANA}
+    AQ = {y: datos_anio(FQ, y) for y in HORIZONTE}
+    concQ = {y: (residuos(AQ[y]) if y in VENTANA else residuos_horizonte(AQ[y])) for y in HORIZONTE}
     EXCEPCIONES = {
         (2025, "R13"): (Fr("0.4"), "diferencia de concepto 2025: interés implícito de caja 29,6 (pagos 177,9 del EFE p.327 "
                                    "− principal 148,3 de la nota 6.3 p.366) frente al gasto devengado 29,2 (nota 9 p.379); "
                                    "la fuente no publica el puente; en 2023 y 2024 la diferencia es 0,0"),
     }
     res_det, codigo_q = {}, {}
-    for y in VENTANA:
+    for y in HORIZONTE:
         res_det[str(y)] = {}
         for k, q in concQ[y].items():
             cod = k.split(" ")[0]
             codigo_q[(y, cod)] = q
-            assert q.v == conc[y][k], k
+            assert y not in VENTANA or q.v == conc[y][k], k
             cota = sum(abs(c) * F.epsilon(i) for i, c in q.t.items())
             paginas = sorted({(F.meta[i]["doc"], F.meta[i]["pagina"]) for i in q.t})
             excep = (y, cod) in EXCEPCIONES
@@ -375,25 +427,6 @@ def main():
                                     "contraste": "misma página" if len(paginas) == 1 else "entre páginas",
                                     "valor_fijado": f6(esperado, 3) if excep else None, "ok": ok}
     R["tablas"]["residuos_con_cota"] = res_det
-    # Cobertura: qué entradas de los cálculos clave quedan contrastadas por una identidad entre páginas distintas
-    CLAVE = {"ventas": "ventas", "bai": "resultado antes de impuestos", "fin": "resultado financiero", "imp": "gasto por impuesto",
-             "cfo": "CFO (C46)", "capnet": "capex neto (C47)", "int": "intereses financieros pagados (C48)",
-             "leasepay": "pagos de arrendamientos (C48 y C49)", "ls_princ": "principal de arrendamientos (C49)",
-             "sbc": "pagos en acciones (C50)", "capex": "capex bruto", "da_total": "D&A total", "da_rou": "amortización ROU",
-             "da_ppa": "amortización PPA", "dwc": "circulante", "adq": "adquisiciones", "fcf_apm": "FCF publicado"}
-    cobertura = {}
-    for y in VENTANA:
-        for k, nombre in CLAVE.items():
-            for i in sorted(AQ[y][k].t):
-                entre = [c for (yy, c), q in codigo_q.items() if yy == y and i in q.t and res_det[str(y)][c]["contraste"] == "entre páginas"]
-                misma = [c for (yy, c), q in codigo_q.items() if yy == y and i in q.t and res_det[str(y)][c]["contraste"] == "misma página"]
-                cobertura[i] = {"magnitud": nombre, "anio": y, "fuente": F.ref[i], "identidades_entre_paginas": entre,
-                                "identidades_misma_pagina": misma,
-                                "estado": "contrastada entre páginas" if entre else ("solo identidad de la misma página" if misma else "solo literal (sin identidad)")}
-    R["tablas"]["cobertura_entradas_clave"] = {
-        "resumen": {e: sum(1 for v in cobertura.values() if v["estado"] == e) for e in
-                    ("contrastada entre páginas", "solo identidad de la misma página", "solo literal (sin identidad)")},
-        "entradas": cobertura}
 
     # ======================= A. FCF base por dos vías y Análisis C46–C52
     fcfb = {}
@@ -719,11 +752,26 @@ def main():
     check("A3 sintético con D_X = D&A propia: f de A2", fA2_, f_por["A2"], clase="algebraica")
     check("A3 sintético con D_X = (capex + D&A propia)/2: f en el punto medio de A2 y B", f3m, (fB_ + fA2_) / 2, clase="algebraica")
     check("A3 sintético con D_X = (capex + D&A propia)/2: flujo sin crecimiento en el punto medio", F03m, (F0B_ + F0A2_) / 2, clase="algebraica")
-    a3_ref = {"D_X = capex propio (reproduce B)": {"f": f6(fB_, 15), "flujo_sin_crecimiento": f6(F0B_, 12)},
-              "D_X = D&A propia (reproduce A2)": {"f": f6(fA2_, 15), "flujo_sin_crecimiento": f6(F0A2_, 12)},
-              "D_X = (capex + D&A propia)/2 (sintético)": {"f": f6(f3m, 15), "flujo_sin_crecimiento": f6(F03m, 12)}}
+    # (revisión n.º 3, N5) ancla C53 y flujos de los años 1–11 de cada caso sintético, para detectar una implementación que
+    # aplique la D_X estimada a f pero no al ancla ni al terminal
+    def c53_de(DX):
+        den = sum(A[y]["capex"] - DX(A[y]) + A[y]["dwc"] + A[y]["adq"] for y in HORIZONTE)
+        return (ventas[2025] - S2020) / den
+
+    a3_ref = {}
+    for nombre, DX, f_, F0_ in [("D_X = capex propio (reproduce B)", lambda d: d["capex"], fB_, F0B_),
+                                ("D_X = D&A propia (reproduce A2)", lambda d: d["d_own"], fA2_, F0A2_),
+                                ("D_X = (capex + D&A propia)/2 (sintético)", lambda d: (d["capex"] + d["d_own"]) / 2, f3m, F03m)]:
+        flujos_ = {}
+        for esc, (p, _) in escenarios.items():
+            mo_x = motor_a(V0, m0, tau5, f_, **p)
+            flujos_[esc] = {"anios_1_10": [f6(x, 12) for x in mo_x["flujos"]], "anio_11_terminal": f6(mo_x["flujo_11"], 12)}
+        a3_ref[nombre] = {"f": f6(f_, 15), "flujo_sin_crecimiento": f6(F0_, 12), "S2C_C53": f6(c53_de(DX), 12),
+                          "flujos_palancas_actuales": flujos_}
+    check("A3 sintético, punto medio: C53 entre los de A2 y B", Fr(1) if c53_de(defs["A2 perímetro propio: D&A total − ROU − PPA"]) < c53_de(lambda d: (d["capex"] + d["d_own"]) / 2) < c53_de(lambda d: d["capex"]) else Fr(0),
+          Fr(1), clase="algebraica")
     # (O13) Flujos de referencia de los años 1–11 con las palancas actuales para A1 y A2 (contraste de implementación)
-    flujos_ref = {}
+    flujos_ref, desvio_11 = {}, {}
     for k in ("A1", "A2"):
         flujos_ref[k] = {}
         for nombre, (p, _) in escenarios.items():
@@ -735,6 +783,7 @@ def main():
             check(f"{k} {nombre}: el año 11 de una implementación parcial (f de A0 en el terminal) difiere de la referencia",
                   mo_k["flujo_11"] - parcial_11, mo_k["V"][-1] * (1 + p["g_inf"]) * (f_por["A0"] - f_por[k]), clase="algebraica",
                   nota="diferencia distinta de cero: la referencia del año 11 detecta la implementación parcial")
+            desvio_11.setdefault(k, {})[nombre] = f6(mo_k["flujo_11"] - parcial_11, 3)
 
     # ======================= materialidad
     mat = {
@@ -820,8 +869,47 @@ def main():
     ref["A1_A2_flujos_palancas_actuales"] = flujos_ref
     ref["A1_A2_flujos_detalle"] = {k: {n: {"anios_1_10": v[:10], "anio_11_terminal": v[10]} for n, v in d_.items()} for k, d_ in flujos_ref.items()}
     ref["A3_estimado_sintetico"] = a3_ref
+    ref["desvio_anio_11_implementacion_parcial"] = desvio_11
     R["referencia_especificacion"] = ref
 
+    # Cobertura (revisión n.º 3, N2). Va al final, después de la última lectura de cifras, para que clasifique TODAS
+    # las entradas usadas, también las de la sección de impuestos. Para CADA entrada, qué la comprueba además de su literal:
+    # una identidad entre páginas distintas, una identidad dentro de la misma página, o la Historia del libro (otra
+    # extracción de las mismas publicaciones). Las que no tienen nada de eso se listan.
+    HIST_CLAVES = {6: ["ventas"], 7: ["bai", "fin"], 8: ["da_total"], 10: ["imp", "bai"], 11: ["cfo"], 12: ["capint", "capmat"],
+                   13: ["adq"], 14: ["wc_lineas", "empl"], 17: ["ls_princ"]}
+    usos = {}
+    for y in HORIZONTE:
+        for k, q in AQ[y].items():
+            if isinstance(q, Q):
+                for i in q.t:
+                    usos.setdefault(i, set()).add(f"{k} {y}")
+    por_libro = set()
+    for y in HORIZONTE:
+        claves = [c for v in HIST_CLAVES.values() for c in v] + (["int", "deu_bruta", "pas_fin", "deu_caja"] if y in VENTANA else ["int_con_ls"])
+        claves.append("sbc_nota52" if "sbc_nota52" in AQ[y] else "sbc")
+        for c in claves:
+            if c in AQ[y] and isinstance(AQ[y][c], Q):
+                por_libro |= set(AQ[y][c].t)
+    if L:
+        por_libro.add("IS_VENTAS_U21_2020")   # Historia!G6
+    directos = {"IS_VENTAS_U21_2020": "ventas 2020, base del S2C (E9)",
+                "INT_RC_VNC_2025": "años de agotamiento de las relaciones con clientes (impuestos, O7)"}
+    directos.update({f"INT_RC_AM_{y}": f"amortización de relaciones con clientes {y} (impuestos, O7)" for y in VENTANA})
+    cobertura = {}
+    for i in sorted(F.usadas):
+        entre = sorted(f"{c} {yy}" for (yy, c), q in codigo_q.items() if i in q.t and res_det[str(yy)][c]["contraste"] == "entre páginas")
+        misma = sorted(f"{c} {yy}" for (yy, c), q in codigo_q.items() if i in q.t and res_det[str(yy)][c]["contraste"] == "misma página")
+        estado = ("contrastada entre páginas" if entre else "solo identidad de la misma página" if misma
+                  else "contrastada con la Historia del libro" if i in por_libro else "sin comprobación de segunda línea")
+        cobertura[i] = {"fuente": F.ref[i], "usos": sorted(usos.get(i, [])) or [directos.get(i, "uso directo fuera de las tablas anuales")], "identidades_entre_paginas": entre,
+                        "identidades_misma_pagina": misma, "historia_del_libro": i in por_libro, "estado": estado}
+    R["tablas"]["cobertura_entradas"] = {
+        "resumen": {e: sum(1 for v in cobertura.values() if v["estado"] == e) for e in
+                    ("contrastada entre páginas", "solo identidad de la misma página", "contrastada con la Historia del libro",
+                     "sin comprobación de segunda línea")},
+        "sin_comprobacion": {i: v["usos"] for i, v in cobertura.items() if v["estado"] == "sin comprobación de segunda línea"},
+        "entradas": cobertura}
     ok = all(c["ok"] for c in R["comprobaciones"])
     por_clase = {}
     for c in R["comprobaciones"]:
@@ -829,8 +917,11 @@ def main():
     R["resumen"] = {"comprobaciones": len(R["comprobaciones"]), "fallidas": sum(not c["ok"] for c in R["comprobaciones"]),
                     "por_clase": por_clase, "libro_contrastado": bool(L), "libro_sha256": L["sha256"] if L else None,
                     "entradas_usadas": len(F.usadas), "entradas_usadas_pendientes": sorted(F.pendientes),
+                    "contrapartes_de_identidad_pendientes": sorted(F.contrapartes_pendientes),
                     "copia_recalculada_con_caja_no_nula": bool(a.caja_no_nula)}
+    assert set(cobertura) == F.usadas, "la cobertura no clasifica todas las entradas usadas"
     R["tablas"]["entradas_usadas_pendientes"] = F.pendientes
+    R["tablas"]["contrapartes_de_identidad_pendientes"] = F.contrapartes_pendientes
     a.salida.parent.mkdir(parents=True, exist_ok=True)
     a.salida.write_text(json.dumps(R, ensure_ascii=False, indent=1), encoding="utf-8")
 

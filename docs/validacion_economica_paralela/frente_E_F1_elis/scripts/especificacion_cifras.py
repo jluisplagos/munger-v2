@@ -86,6 +86,15 @@ for etq, idb, v25, v24, c in [
     ("Other cash flows related to financing activities", "CF_OFIN", "-12.7", "-4.8", "EFE: otros flujos de financiación"),
 ]:
     dos(U, 327, etq, idb, 2025, v25, 2024, v24, c)
+# (revisión n.º 3, N2) líneas y totales de los flujos de inversión y de financiación: identidades de suma
+for etq, idb, v25, v24, c in [
+    ("Proceeds from disposal of subsidiaries, net of cash transferred", "CF_CESFIL", "0.0", "0.0", "EFE: cesiones de filiales"),
+    ("Changes in loans and advances", "CF_PREST", "0.8", "-1.0", "EFE: variación de préstamos y anticipos"),
+    ("Dividends earned", "CF_DIVREC", "0.0", "0.0", "EFE: dividendos recibidos"),
+    ("NET CASH FLOWS FROM INVESTING ACTIVITIES", "CF_INVTOT", "-991.5", "-1060.3", "EFE: total de los flujos de inversión"),
+    ("NET CASH FLOWS FROM FINANCING ACTIVITIES", "CF_FINTOT", "-744.7", "-423.3", "EFE: total de los flujos de financiación"),
+]:
+    dos(U, 327, etq, idb, 2025, v25, 2024, v24, c)
 # Free cash flow y deuda neta, PDF p.314
 for etq, idb, v25, v24, c in [
     ("ADJUSTED EBITDA", "FCF_EBITDA", "1700.1", "1609.8", "APM: EBITDA ajustado"),
@@ -254,6 +263,14 @@ for etq, idb, v24, v23, c in [
     ("Paiements de passifs locatifs (y compris intérêts sur passifs locatifs)", "CF_LEASE", "-150.8", "-130.8", "EFE: pagos de arrendamientos"),
     ("Intérêts financiers nets versés", "CF_INT", "-78.9", "-70.5", "EFE: intereses financieros netos pagados"),
     ("Autres flux liés aux opérations de financement", "CF_OFIN", "-4.8", "-1.4", "EFE: otros flujos de financiación"),
+]:
+    dos(D, 273, etq, idb + "_FR", 2024, v24, 2023, v23, c)
+for etq, idb, v24, v23, c in [
+    ("Encaissements liés aux cessions de filiales", "CF_CESFIL", "0.0", "0.0", "EFE: cesiones de filiales"),
+    ("Variation des prêts et avances consentis", "CF_PREST", "-1.0", "0.5", "EFE: variación de préstamos y anticipos"),
+    ("Dividendes reçus", "CF_DIVREC", "0.0", "0.0", "EFE: dividendos recibidos"),
+    ("FLUX NETS DE TRÉSORERIE LIÉS AUX OPÉRATIONS D'INVESTISSEMENT", "CF_INVTOT", "-1060.3", "-902.3", "EFE: total de los flujos de inversión"),
+    ("FLUX NETS DE TRÉSORERIE LIÉS AUX OPÉRATIONS DE FINANCEMENT", "CF_FINTOT", "-423.3", "-46.4", "EFE: total de los flujos de financiación"),
 ]:
     dos(D, 273, etq, idb + "_FR", 2024, v24, 2023, v23, c)
 for etq, idb, v24, v23, c in [
@@ -574,7 +591,12 @@ TXT = [
 
 
 def modo_anio(idf):
-    """Modo de control del ejercicio de cada fila (ver verificar_cifras.py)."""
+    """Modo de control del ejercicio de cada fila: el que admite verificar_cifras.py (lista cerrada)."""
+    return V.modo_admitido(idf)
+
+
+def _modo_anio_anterior(idf):
+    """Definición anterior, conservada solo para comparar: debe coincidir con V.modo_admitido."""
     if idf == "VENTAS_LINO_PLANO_2025" or idf.startswith("VENTAS_SEG_"):
         return "titulo"
     if idf.startswith("CREC_"):
@@ -645,7 +667,7 @@ def main():
             for k, dv in r["dimensiones"].items():
                 if dv["estado"] == "PENDIENTE":
                     pendientes.append(f"{idf}: {k}: {dv['detalle']}")
-                elif dv["estado"] != "OK":
+                elif dv["estado"] not in ("OK", "NO_APLICA"):
                     errores.append(f"{idf}: {k} {dv['estado']}: {dv['detalle']}")
             filas.append(fila)
     for idf, anio, doc, pag, lit, nota in TXT:

@@ -132,7 +132,8 @@ def main():
     caso("columna de Francia de la matriz declarada como segmento Europa central", [c], "FALLO",
          {"VENTAS_LINO_PLANO_2025": {"perimetro"}}, coherente=True)
     c = fila("VENTAS_LINO_PLANO_2025"); c.update(pos="0", literal="598.4", valor_publicado="598.4")
-    caso("columna de un segmento (Francia) declarada como grupo", [c], "FALLO", {"VENTAS_LINO_PLANO_2025": {"perimetro"}}, coherente=True)
+    # lo detectan dos dimensiones: el perímetro (columna de un segmento) y la columna (no es la «Total»)
+    caso("columna de un segmento (Francia) declarada como grupo", [c], "FALLO", {"VENTAS_LINO_PLANO_2025": {"perimetro", "columna"}}, coherente=True)
     c = dict(rou); c["perimetro"] = "grupo"
     caso("perímetro no reconocido", [c], "FALLO", {"DA_ROU_2025": {"perimetro"}}, coherente=True)
     # ---- edición (mutante conjunto: fuente, página, etiqueta, posición, literal y valor de la edición original)
@@ -147,6 +148,69 @@ def main():
     caso("fuente con ejercicio declarado distinto del pie de página", [lease], "FALLO", {"CF_LEASE_2025": {"edicion"}}, fu=f5, coherente=True)
     f6 = json.loads(json.dumps(fuentes)); del f6["fuentes"]["URD2025"]["ejercicio"]
     caso("fuente sin ejercicio declarado", [lease], "FALLO", {"CF_LEASE_2025": {"edicion"}}, fu=f6, coherente=True)
+    # ---- revisión n.º 3 (N1): columna alineada con la cabecera, modo de la lista cerrada, unidad, perímetro y concepto
+    def nueva(rid, **c):
+        f = {k: "" for k in lease}
+        f.update(id=rid, tipo="tabla", ocurrencia="0", perimetro="consolidado IFRS, grupo Elis", edicion="vigente", unidad="mm EUR",
+                 control_anio="dos_columnas", concepto="mutante del revisor", doc="URD2025")
+        f.update(c)
+        return f
+    caso("positivo: total de 2025 en una tabla con tercera columna «Change» (revisión n.º 3, F2)",
+         [nueva("MUT_EBITDA_2025_OK", anio="2025", pagina="308", etiqueta="re:^\\s*TOTAL\\s{2,}", pos="-3", literal="1,700.1", valor_publicado="1700.1")], "OK")
+    caso("positivo: total de 2024 en esa misma tabla (F3)",
+         [nueva("MUT_EBITDA_2024_OK", anio="2024", pagina="308", etiqueta="re:^\\s*TOTAL\\s{2,}", pos="-2", literal="1,609.8", valor_publicado="1609.8")], "OK")
+    caso("F1: total de 2024 declarado de 2025 en la tabla con columna «Change»",
+         [nueva("MUT_EBITDA_2025", anio="2025", pagina="308", etiqueta="re:^\\s*TOTAL\\s{2,}", pos="-2", literal="1,609.8", valor_publicado="1609.8")],
+         "FALLO", {"MUT_EBITDA_2025": {"ejercicio"}}, coherente=True)
+    c = dict(rou); c.update(pos="-1", literal="(132.2)", valor_publicado="-132.2", control_anio="crecimiento")
+    caso("A1: M1 con el modo declarado «crecimiento»", [c], "FALLO", {"DA_ROU_2025": {"ejercicio"}})
+    c = dict(rou); c.update(pos="-1", literal="(132.2)", valor_publicado="-132.2", control_anio="max_cabecera")
+    caso("A2: M1 con el modo declarado «max_cabecera»", [c], "FALLO", {"DA_ROU_2025": {"ejercicio"}})
+    c = fila("IS_EBIT_FR_2024"); c.update(edicion="vigente", control_anio="crecimiento")
+    caso("A4: edición anterior declarada vigente con el modo «crecimiento»", [c], "FALLO", {"IS_EBIT_FR_2024": {"ejercicio"}})
+    c = fila("OOIE_PLUSV_2025"); c.update(pos="-1", literal="(1.5)", valor_publicado="-1.5", control_anio="crecimiento")
+    caso("H1: plusvalía de 2024 declarada de 2025 con el modo «crecimiento»", [c], "FALLO", {"OOIE_PLUSV_2025": {"ejercicio"}})
+    caso("B1: número de acciones declarado en millones de euros",
+         [nueva("MUT_ACCIONES", anio="2025", pagina="313", etiqueta="Number of shares, basic (C)", pos="-2", literal="234.0", valor_publicado="234.0")],
+         "FALLO", {"MUT_ACCIONES": {"unidad"}}, coherente=True)
+    caso("B2: beneficio por acción declarado en millones de euros",
+         [nueva("MUT_BPA", anio="2025", pagina="313", etiqueta="re:basic, attributable to owners of the parent = A/C", pos="-2", literal="2.00",
+                valor_publicado="2.00")], "FALLO", {"MUT_BPA": {"unidad"}})
+    caso("C1: margen de EBITDA de Francia declarado del grupo",
+         [nueva("MUT_MARGEN_FR", anio="2025", pagina="308", etiqueta="As a % of revenue", ocurrencia="1", pos="-2", literal="41.9%",
+                valor_publicado="41.9", unidad="%")], "FALLO", {"MUT_MARGEN_FR": {"perimetro"}}, coherente=True)
+    caso("positivo: margen de EBITDA del grupo (sublínea del TOTAL)",
+         [nueva("MUT_MARGEN_GRUPO", anio="2025", pagina="308", etiqueta="As a % of revenue", ocurrencia="7", pos="-2", literal="35.4%",
+                valor_publicado="35.4", unidad="%")], "OK")
+    c = fila("TAXDIF_INT_2025"); c.update(pos="-5", literal="(0.9)", valor_publicado="-0.9")
+    caso("D1: diferido de intangibles de la columna de combinaciones", [c], "FALLO", {"TAXDIF_INT_2025": {"columna"}}, coherente=True)
+    c = fila("CREC_ORG_2025"); c.update(pos="-3", literal="+1.8%", valor_publicado="1.8")
+    caso("D2: crecimiento externo declarado como orgánico", [c], "FALLO", {"CREC_ORG_2025": {"columna"}}, coherente=True)
+    c = fila("LS_NUEVO_PAS_2025"); c.update(pos="-2", literal=fila("LS_NUEVO_ROU_2025")["literal"], valor_publicado=fila("LS_NUEVO_ROU_2025")["valor_publicado"])
+    caso("columna del activo ROU declarada como pasivo por arrendamiento", [c], "FALLO", {"LS_NUEVO_PAS_2025": {"columna"}}, coherente=True)
+    # ---- adenda de la revisión n.º 3 (contraejemplos de las heurísticas de perímetro y unidad; N9)
+    caso("P1: ventas de Alemania (tabla por países) declaradas del grupo",
+         [nueva("MUT_ALEMANIA", anio="2025", pagina="346", etiqueta="Germany", ocurrencia="1", pos="-2", literal="621.2", valor_publicado="621.2")],
+         "FALLO", {"MUT_ALEMANIA": {"perimetro"}}, coherente=True)
+    caso("P2a: ventas del segmento «Other» (tabla de crecimiento) declaradas del grupo",
+         [nueva("MUT_OTHER", anio="2025", pagina="307", etiqueta="re:^Other\\s{2,}", pos="0", literal="35.6", valor_publicado="35.6")],
+         "FALLO", {"MUT_OTHER": {"perimetro"}}, coherente=True)
+    caso("P2b positivo: la misma cifra declarada «segmento Otros segmentos»",
+         [nueva("MUT_OTHER_SEG", anio="2025", pagina="307", etiqueta="re:^Other\\s{2,}", pos="0", literal="35.6", valor_publicado="35.6",
+                perimetro="segmento Otros segmentos")], "OK")
+    caso("U1: número medio ponderado de acciones declarado en millones de euros",
+         [nueva("MUT_ACC_MEDIAS", anio="2025", pagina="395", etiqueta="Weighted average number of shares", ocurrencia="1", pos="-2", literal="233,954,020",
+                valor_publicado="233954020")], "FALLO", {"MUT_ACC_MEDIAS": {"unidad"}})
+    caso("U2: número de acciones suscritas declarado en millones de euros",
+         [nueva("MUT_ACC_SUSCR", anio="2025", pagina="362", etiqueta="Number of shares subscribed", ocurrencia="1", pos="-2", literal="889,250",
+                valor_publicado="889250")], "FALLO", {"MUT_ACC_SUSCR": {"unidad"}})
+    caso("X1 (N9): margen de Francia en una matriz con una celda vacía, declarado «segmento Europa central»",
+         [nueva("VENTAS_SEG_MARGEN_X1", anio="2025", pagina="344", etiqueta="Adjusted EBITDA margin", pos="0", literal="41.9%",
+                valor_publicado="41.9", unidad="%", control_anio="titulo", perimetro="segmento Europa central")],
+         "FALLO", {"VENTAS_SEG_MARGEN_X1": {"perimetro"}}, coherente=True)
+    caso("X2 positivo (N9): el mismo margen declarado «segmento Francia»",
+         [nueva("VENTAS_SEG_MARGEN_X2", anio="2025", pagina="344", etiqueta="Adjusted EBITDA margin", pos="0", literal="41.9%",
+                valor_publicado="41.9", unidad="%", control_anio="titulo", perimetro="segmento Francia")], "OK")
     # ---- combinado (M4 del revisor): año 2031 y unidad falsa en un porcentaje, perímetro falso en las ventas
     c1 = fila("CREC_ORG_2025"); c1.update(anio="2031", unidad="mm EUR")
     c2 = fila("IS_VENTAS_2025"); c2["perimetro"] = "segmento Francia"
