@@ -5,6 +5,8 @@ Esta revisión se publica en la rama `auditoria/economica-f1-frente-e-revision`,
 
 No hay revisión n.º 2: el encargo sobre eb77dea se interrumpió a los pocos minutos y no produjo nada. Nada de aquel intento se publica aquí.
 
+**Adenda (§11).** El autor añadió después de la congelación el commit `f30c66c8651dba134b4e66fff9a08c2b50359b6c` y pidió revisarlo junto con las sondas externas de un solo campo. Está en §11, publicada en un segundo commit de esta rama.
+
 Marcas: **[P]** dato publicado (leído en el PDF) · **[D]** derivación aritmética · **[I]** interpretación · **[H]** hipótesis · **[DH]** decisión humana registrada.
 
 Este documento no contiene valoraciones, valores por acción, recomendaciones de inversión ni declaraciones de aptitud. No adopta ninguna política pendiente. No modifica el material del autor, el producto ni los libros.
@@ -28,6 +30,7 @@ Este documento no contiene valoraciones, valores por acción, recomendaciones de
 6. **Recálculos.** Coinciden con el autor a 10⁻⁹ o mejor: f, flujo sin crecimiento y C53 de A0, A1, A2 y B; los flujos de los años 1–10 y del año 11 de A1 y A2; A3 con valores sintéticos, incluido el punto medio; los ratios fiscales; O4, O9 y O10.
 7. **Otras objeciones nuevas.** Cuatro menores (N2–N5) y tres de forma (N6–N8). Están en §5.
 8. **Ninguna conclusión material cambia.** La conclusión de nivel sigue `pendiente_de_datos`. Se conservan C48 = 108 y E1/D3/E2/E6.
+9. **Adenda (§11).** Las dos sondas externas de un solo campo pasaban en eb77dea y se rechazan en 1864c4e y en f30c66c; las cifras del autor (0 de 671; 677 y 673 de 677; 677 y 677) son exactas. Esas sondas prueban que una etiqueta cambiada se detecta, no que la etiqueta correcta esté acreditada: cuatro contraejemplos reales más quedan en OK (ventas de Alemania o del segmento «Other» como grupo; recuentos de acciones como millones de euros). f30c66c no cambia ninguno de los resultados de N1–N3, añade un fallo propio en matrices con una celda vacía (N9, menor) y presenta las sondas como cobertura de la unidad y del perímetro (N10, menor).
 
 ---
 
@@ -57,7 +60,7 @@ Durante el encargo interrumpido sobre eb77dea había leído ya las diferencias d
 
 | Comprobación | Resultado |
 |---|---|
-| Commit congelado | `1864c4e` es la cabeza de la rama. Cuatro commits del autor desde 96a69ca: 6fb9294, eb77dea, d2e585e y 1864c4e. Ninguno toca nada fuera de la carpeta del frente E |
+| Commit congelado | `1864c4e` era la cabeza de la rama al empezar esta pasada, poco después de las 20:03 UTC. Cuatro commits del autor desde 96a69ca: 6fb9294, eb77dea, d2e585e y 1864c4e. Ninguno toca nada fuera de la carpeta del frente E. A las 20:10 UTC el autor añadió f30c66c, que se revisa en §11 |
 | Mis archivos de la revisión n.º 1 | Los 14 son idénticos a los del commit 47551a2 (`git diff` vacío). Coincide con `revision/PROCEDENCIA_REVISOR.md` |
 | Manifiesto del autor | `sha256sum -c MANIFIESTO_SHA256.txt`: 125 de 125 |
 | Base 4.14 | ZIP original, SHA-256 `bb51942c…b97b93e`; `tools/base_414.py verify`: 6.798/6.798. Libro de Elis `d2593777…92385` |
@@ -262,7 +265,7 @@ Los C53 que corresponden a los tres casos son 2,651525243106, 1,612524303305 y 2
 - **(b)** §0.6, «respaldada por la propia práctica de Elis». La nota 6.5 respalda que el arrendamiento se cuente una sola vez, como renovación dentro de la inversión: el esquema de A1′. No respalda literalmente que «el coste son los pagos». §5.3 ya lo matiza bien; el resumen puede decir lo mismo.
 - **(c)** «Rechaza 32 contraejemplos» (§0.1 y README). Uno de los 32 es el control manual justificado, cuyo resultado esperado es PENDIENTE, no un rechazo.
 - **(d)** El «control negativo» del año 11 es una identidad algebraica: pasaría también si la diferencia fuera cero. Los desvíos que detectaría la referencia son 166,6 / 205,4 / 223,9 en A1 y 274,1 / 337,8 / 368,3 en A2 [D] (`recalculo_3.txt`, punto 3). Conviene dar esas cifras en T2 y T3.
-- **(e)** `revision/ESTADO.md` dice que el commit congelado «solo cambia este archivo y el manifiesto» respecto a C4. Cambia también una línea de `RESPUESTAS_AUTOR_1.md`.
+- **(e)** `revision/ESTADO.md` dice que el commit congelado «solo cambia este archivo y el manifiesto» respecto a C4. Cambia también una línea de `RESPUESTAS_AUTOR_1.md`. El autor lo corrige en f30c66c.
 - **(f)** La regla de edición de los saldos da por vigentes dos publicaciones para la misma fecha: el cierre de 2023 del DEU 2024 y la apertura de 2024 del URD 2025. Hoy los valores coinciden (513,7 y 538,3) [P]. Conviene declarar cuál prevalece si difirieran.
 
 ---
@@ -373,6 +376,7 @@ No encuentro evidencia publicada contra la premisa (iv) en las cinco fuentes ver
 - **Las 28 identidades algebraicas, una a una.** He derivado de nuevo las que sostienen T3b y el control del año 11. Las demás se cumplen por construcción y no prueban datos.
 - **Configuración de la sesión del autor.** No es verificable desde esta sesión.
 - **Regeneración del libro y de los expedientes.** No se ha hecho ni correspondía. Solo se recalculó una copia temporal para O15.
+- **Versión eb77dea.** Solo he ejecutado sobre ella las sondas de §11. No he repetido su reproducción completa.
 
 ---
 
@@ -390,6 +394,8 @@ python3 -I prueba_mutantes_3b.py --raiz "$RAIZ" --autor "$AUTOR" --libro "$LIBRO
 python3 -I cobertura_por_mutacion.py --autor "$AUTOR" --libro "$LIBRO"
 python3 -I recalculo_3.py --autor-json "$AUTOR/resultados/contraste_f1.json"
 python3 -I comprobacion_tokens.py --autor "$AUTOR"
+# adenda: un worktree por versión del autor (eb77dea, 1864c4e, f30c66c)
+python3 -I sondas_revisor.py --raiz "$RAIZ" --libro "$LIBRO" --version eb77dea=<carpeta> --version 1864c4e="$AUTOR" --version f30c66c=<carpeta>
 python3 -I ../scripts_revisor/prueba_mutantes.py --raiz "$RAIZ" --autor "$AUTOR" --libro "$LIBRO"
 ```
 
@@ -402,4 +408,104 @@ Los scripts no escriben en la carpeta del autor: trabajan con copias en una carp
 | `comprobacion_tokens.txt` | Números tras el rótulo en las 546 filas reales del modo por defecto |
 | `cobertura_por_mutacion.txt` | Clase de cada una de las 499 entradas de la edición vigente |
 | `recalculo_3.txt` | Recálculo independiente y comparación con las referencias del autor |
+| `sondas_revisor.txt` | Adenda: sondas de un solo campo en las tres versiones, equivalencia con una sonda por fila y contraejemplos P1, P2a, P2b, U1, U2 y X1–X5 |
+| `prueba_mutantes_3_sobre_f30c66c.txt` y `prueba_mutantes_3b_sobre_f30c66c.txt` | Adenda: los mutantes de N1–N3 sobre f30c66c. Mismo resultado que sobre 1864c4e |
 | `prueba_mutantes_rev1_sobre_commit_congelado.txt` | Mutantes de la revisión n.º 1 sobre el commit congelado |
+
+---
+
+## 11. Adenda: sondas externas de un solo campo y commit f30c66c del autor
+
+Esta sección responde a la adenda que la sesión del autor envió el 15-nov-2026 a las 20:11 UTC. La leí a las 20:49 UTC, con el informe principal ya publicado (commit 11b999a). Las secciones anteriores no cambian, salvo tres retoques que remiten aquí: la primera fila de §2, N8 (e) y las listas de §9 y §10.
+
+### 11.1 Material añadido y reproducción
+
+- **Evidencia externa**, leída: carpeta `seguimiento_eb77dea/` del contraste externo (rama `auditoria/economica-f1`, commit e57239c2482ed02cae3b4a7236d89aef1f6a773c). Sostiene que, sobre eb77dea y con los años correctos, dos mutaciones separadas pasaban con código 0 y 707/707: la unidad de `CREC_ORG_2025` y el perímetro de `IS_VENTAS_2025`.
+- **Commit del autor posterior a la congelación:** f30c66c. Respecto a 1864c4e cambia 14 archivos, todos del frente E:
+  - `verificar_cifras.py`: función `columna_de_matriz` y su uso en el perímetro;
+  - `test_verificar_cifras.py`: 42 casos (8 positivos y 34 contraejemplos);
+  - `sondas_metadatos.py` con tres salidas, y `mutantes_revisor_sobre_C6.txt`;
+  - informe (§0.1 y §1), especificación (T12 y T14), README, estado, respuestas y manifiesto.
+- **Reproducido sobre f30c66c:** verificador (código 2, salida idéntica), test 42/42 (registro idéntico), contraste (código 0, JSON idéntico), test de residuos 7/7, manifiesto 130 de 130, mis mutantes de la revisión n.º 1 (salida idéntica a su registro) y su `sondas_metadatos.py` (677/677 y 677/677).
+- **Mis mutantes de N1–N3 sobre f30c66c** dan exactamente el mismo resultado que sobre 1864c4e. **N1, N2 y N3 valen igual para f30c66c.**
+
+### 11.2 Las sondas, reproducidas (encargo a)
+
+Script propio: `scripts_revisor_3/sondas_revisor.py`. Ejecuta el verificador de cada versión sobre el CSV de esa versión. Salida en `resultados_revisor_3/sondas_revisor.txt`.
+
+| Versión | Sonda de unidad (`CREC_ORG_2025`) | Sonda de perímetro (`IS_VENTAS_2025`) | Unidad cambiada en cada fila de tabla | Perímetro cambiado en cada fila de tabla |
+|---|---|---|---|---|
+| eb77dea | Pasa: código 0, 707/707 | Pasa: código 0, 707/707 | 0 de 671 detectadas | 0 de 671 |
+| 1864c4e | Rechazada, en unidad | Rechazada, en perímetro | 677 de 677 | 673 de 677 |
+| f30c66c | Rechazada, en unidad | Rechazada, en perímetro | 677 de 677 | 677 de 677 |
+
+- **Las cifras del autor son exactas.** Las 4 filas sin detectar en 1864c4e son los totales de matriz `VENTAS_LINO_PLANO_2025`, `VENTAS_SEG_2025`, `VENTAS_SEG_2024` y `VENTAS_SEG_FR_2023`, que quedaban PENDIENTE.
+- **La extensión del autor equivale a una sonda por fila.** Cambiar todas las filas a la vez da, en cada fila, el mismo estado que cambiar solo media tabla (0 diferencias en las tres versiones y en los dos campos) y que evaluar la fila sola en su propio CSV (0 diferencias en una muestra de 40 filas por versión y campo). Coincide con el código: cada fila se evalúa con su línea, su página y constantes.
+
+**Qué prueban estas sondas y qué no** [D, leído en el código]. Cambian la etiqueta declarada y dejan la cifra intacta. Prueban que una etiqueta cambiada se detecta. No prueban que la etiqueta correcta esté acreditada:
+- **Unidad.** La sonda cambia «mm EUR» por «%», o al revés. En las 677 detecciones decide el signo «%» del literal: 657 son «unidad % para un literal sin %» y 20, «unidad mm EUR para un literal en porcentaje». La regla que debería acreditar los millones, la declaración de unidades de la tabla, no decide ninguna.
+- **Perímetro.** La sonda declara «segmento Francia» en filas del grupo. La delata que el rótulo de la línea no es «France» o que la columna de la matriz es el total. No prueba el caso contrario, que es el que importa para los cálculos: una cifra de un segmento o de un país declarada del grupo.
+
+### 11.3 Dictamen campo por campo (encargo b)
+
+| Campo | Versión | Vía que lo acredita | ¿Independiente de lo declarado? | ¿Trazable fila a fila? | Cobertura |
+|---|---|---|---|---|---|
+| Unidad | eb77dea | Ninguna: es un campo declarado que nadie lee | — | — | Sin cobertura |
+| Unidad | 1864c4e y f30c66c (iguales) | El PDF, con dos reglas: (1) el signo «%» del literal; (2) la declaración de unidades reconocida más próxima por encima de la línea | Sí | Sí: dimensión `unidad` de `verificacion_cifras.json`, con la línea de la declaración | (1) distingue un porcentaje de un importe. (2) acredita «millones de euros» solo si esa declaración se aplica a la línea. Las 14 filas PENDIENTE son correctas. Quedan en OK los contraejemplos U1, U2, B1 y B2 |
+| Perímetro | eb77dea | Ninguna | — | — | Sin cobertura |
+| Perímetro | 1864c4e | El PDF: la cabecera de la página; el rótulo de la línea, si es un segmento; en una matriz, la última columna si la cabecera acaba en «Total». Un segmento declarado en una matriz queda PENDIENTE | Sí | Sí: dimensión `perimetro` | Acredita la página, no la tabla. Quedan en OK P1, P2a y C1 |
+| Perímetro | f30c66c | Lo anterior. En una matriz, además, la columna del token: comprueba el orden de las ocho cabeceras y cuenta la posición desde la derecha | Sí | Sí | Lo anterior. Acredita también columnas de segmento, con el fallo de N9 |
+
+**Contraejemplos de las heurísticas.** Son filas nuevas cuya cifra existe en el PDF [P]; «OK» significa OK en las cinco dimensiones.
+
+| Heurística | Contraejemplo | 1864c4e | f30c66c |
+|---|---|---|---|
+| Tabla de otro perímetro, sin rótulos de segmento, en una página consolidada | **P1.** Ventas de Alemania, 621,2, de la tabla por países de la nota 3.3 (URD 2025 p.346), declaradas del grupo | **OK** | **OK** |
+| Segmento fuera de una matriz de ocho columnas | **P2a.** Ventas del segmento «Other», 35,6 (URD 2025 p.307), declaradas del grupo. **P2b.** La misma cifra con su perímetro correcto. **C1** (N1): margen de Francia como grupo | P2a **OK**; P2b FALLO; C1 **OK** | Igual |
+| Línea o tabla en otra unidad bajo una declaración de millones | **U1.** Número medio de acciones, 233.954.020 (URD 2025 p.395), bajo «(In millions of euros)». **U2.** Acciones suscritas, 889.250 (p.362): hereda la declaración que lleva el rótulo de la línea anterior. **B1, B2** (N1) | **OK** | **OK** |
+| Matriz con orden de cabeceras no canónico | **X3–X5.** URD 2021 p.247: France, UK & Ireland, Central Europe, Scandinavia & Eastern Europe, Southern Europe, Latin America | Segmento declarado: FALLO o PENDIENTE; total del grupo: OK | Los dos segmentos, PENDIENTE; total, OK. Es el comportamiento prudente: **no es objeción** |
+| Matriz con una celda vacía (no pedida; encontrada al revisar f30c66c) | **X1, X2.** «Adjusted EBITDA margin» (URD 2025 p.344), sin cifra en la columna de eliminaciones | X1 FALLO; X2 PENDIENTE | **X1 OK; X2 FALLO** (N9) |
+
+Notas:
+- P2a usa el modo «crecimiento» porque la línea tiene seis números; el ejercicio es el correcto. P2b muestra el reverso: la declaración correcta se rechaza, de modo que la única forma de registrar esa cifra en OK es con el perímetro equivocado.
+- No he encontrado en las páginas de grupo del URD 2025 una tabla entera sin declaración de unidades debajo de otra de millones y con cabecera de dos ejercicios. Los casos reales son líneas en otra unidad dentro de una tabla de millones (U1, B1, B2) y tablas que llevan la unidad en el rótulo de cada línea (U2). La tabla de plantilla de la p.353 declara «(In number of people)»: el verificador ignora esa declaración y la deja PENDIENTE, que es lo correcto, porque no hay otra por encima.
+- En el DEU 2024 (p.293–294) la cabecera «Autres secteurs» está partida en dos líneas y el orden tampoco se acredita. Probado con una sonda sobre la p.293: f30c66c deja PENDIENTE una columna declarada «segmento Francia».
+
+### 11.4 Lo que acreditan las magnitudes y lo que acreditan las etiquetas (encargo c)
+
+- **Etiquetas** (unidad y perímetro; también ejercicio y edición). Son declaraciones del CSV. Las contrasta con el PDF solo el verificador, con las reglas y los límites de §11.3. Una mutación solo de etiqueta no cambia ningún cálculo.
+- **Barrera de `contraste_f1.py`.** Aborta si la etiqueta declarada de una entrada usada no es la que pide el cálculo. Lo he comprobado con las dos sondas y el verificador saltado: código 1 y ningún informe, en 1864c4e y en f30c66c. Esta barrera compara lo declarado con lo esperado; no lee el PDF.
+- **Magnitudes.** Las acreditan el libro (136 comprobaciones) y los residuos (71). Acreditan que el número cuadra con otra presentación. De forma indirecta acreditan también su unidad y su perímetro: una cifra en miles, por acción o de un segmento rompería la identidad.
+- **Alcance de esa vía indirecta.** Solo las entradas con identidad o con libro. De las 320 con efecto, 226 tienen identidad de fuente, 40 solo libro y **54 ninguna** (N2). En esas 54, la unidad y el perímetro descansan en las reglas del verificador y en la lectura independiente.
+
+### 11.5 Objeciones nuevas de la adenda
+
+**N9 · menor · f30c66c, `columna_de_matriz` · con una celda vacía acredita el segmento equivocado y rechaza el correcto.**
+- La función comprueba que las ocho cabeceras estén en el orden de Elis. Después obtiene la columna del token **contando desde la derecha**, no por su posición horizontal. Si la línea tiene una celda vacía, las columnas situadas a su izquierda se desplazan una posición.
+- Prueba (X1, X2): la línea «Adjusted EBITDA margin» de la matriz del URD 2025 p.344 tiene siete números, porque la columna de eliminaciones va vacía. El margen de Francia, 41,9 %, declarado «segmento Europa central», queda **OK**. Declarado «segmento Francia», que es lo correcto, queda **FALLO**. En 1864c4e el primero era FALLO y el segundo PENDIENTE.
+- Los textos de f30c66c dicen que la columna se identifica «por el orden horizontal de las ocho cabeceras». Es inexacto: el orden se comprueba; la columna se cuenta.
+- Alcance: ninguna fila real declara un segmento. Las 4 filas reales de matriz son totales, en la última posición, donde el recuento acierta.
+- Corrección propuesta: asignar la columna por la posición horizontal del token respecto a las cabeceras, o exigir ocho números en la línea y dejar PENDIENTE las demás.
+
+**N10 · menor · textos de f30c66c: respuestas («Sondas externas…»), informe §1 y especificación T12 · las sondas se presentan como cobertura de la unidad y del perímetro.**
+1. T12 añade como criterio «0 mutaciones de unidad o de perímetro sin detectar». Ese criterio se cumple y aun así P1, P2a, U1, U2, B1, B2 y C1 quedan en OK (§11.2 y §11.3). Debe decirse qué mide: etiquetas cambiadas, no cifras de otra unidad o de otro perímetro con una etiqueta verosímil.
+2. Las respuestas dicen, sobre el límite del perímetro: «Ninguna de las filas usadas está en ese caso: todas tienen su segunda presentación o su comparación con el libro». La primera parte coincide con mi lectura de los datos reales. La segunda no es exacta: 54 entradas con efecto no tienen ni una ni otra (N2).
+3. A favor: f30c66c declara por primera vez tres límites en §1 y en las respuestas (perímetro por cabecera de página; unidad por la declaración más próxima; segmento solo por el rótulo fuera de las matrices). Es la dirección correcta. Falta que las filas afectadas por esos límites queden PENDIENTE y no OK, y que los contraejemplos entren en el test y en T14.
+
+### 11.6 Estado de los requisitos de la carpeta externa (encargo d)
+
+| Requisito de `seguimiento_eb77dea/` | Estado | Motivo |
+|---|---|---|
+| Las dos mutaciones separadas no deben pasar | **Resuelto** | Se rechazan en 1864c4e y en f30c66c, cada una en su dimensión. Reproducido |
+| Comprobar si la unidad está acreditada por otra vía independiente, trazable y vigente, o dejar esa cobertura expresamente pendiente | **Parcialmente resuelto** | La vía es el PDF: independiente de lo declarado y trazable. Acredita porcentaje frente a importe; no acredita «millones» cuando la declaración más próxima no se aplica a la línea. El límite está declarado en f30c66c, pero las filas quedan OK y no PENDIENTE (U1, U2, B1, B2) |
+| Lo mismo para el perímetro | **Parcialmente resuelto** | La vía es el PDF: independiente y trazable. Acredita la página, el rótulo de segmento y la columna «Total» de una matriz; no acredita la tabla. El límite está declarado, pero las filas quedan OK (P1, P2a, C1). f30c66c añade el fallo de N9 |
+| No dar por cerrado O3 solo porque se rechace el mutante compuesto M4 | **Resuelto** | El autor no lo cierra por M4: prueba cada campo por separado. Con todo, O3 sigue parcialmente resuelta por N1 |
+| La suficiencia de la evidencia requiere una revisión sobre el commit que se fije | **Resuelto con esta revisión** | 1864c4e en §1–§10 y f30c66c en esta adenda |
+| F1 sigue abierto; sin implementación ni valoración con dinero real | **Cumplido** | Ningún documento del autor ni este lo alteran |
+
+### 11.7 Efecto en el resto de este informe
+
+- **Estados.** O3 sigue parcialmente resuelta. RE3 y RE6 siguen parcialmente cumplidos. Lo demás no cambia.
+- **Objeciones anteriores en f30c66c.** N1, N2 y N3 persisten sin cambios. N7 persiste: §1 sigue diciendo «359 entradas». N8 (e) está corregida. N8 (c) pasa a «8 positivos y 34 contraejemplos», con el mismo matiz.
+- **Conclusiones materiales.** Ninguna cambia.
+
