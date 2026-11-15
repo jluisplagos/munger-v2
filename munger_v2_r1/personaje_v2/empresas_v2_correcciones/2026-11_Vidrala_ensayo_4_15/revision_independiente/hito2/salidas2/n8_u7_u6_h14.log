@@ -1,0 +1,108 @@
+== A · unidades: ¿«unidad monetaria no reconocida» (pendiente)?
+   (real) 'EUR por acción'                       → sin cambio · en UNIDADES: False
+   (real) 'euros por acción'                     → sin cambio · en UNIDADES: False
+   (real) 'año'                                  → sin cambio · en UNIDADES: False
+   (real) 'año (ejercicio)'                      → sin cambio · en UNIDADES: False
+   (real) 'millones de euros'                    → sin cambio · en UNIDADES: True
+   (real) 'miles de euros'                       → sin cambio · en UNIDADES: True
+   (real) 'texto'                                → sin cambio · en UNIDADES: False
+   (real) 'acciones'                             → sin cambio · en UNIDADES: False
+   (real) 'moneda'                               → sin cambio · en UNIDADES: False
+   (real) 'norma'                                → sin cambio · en UNIDADES: False
+          'mm'                                   → sin cambio       · en UNIDADES: True
+          'm€'                                   → sin cambio       · en UNIDADES: True
+          '€m'                                   → sin cambio       · en UNIDADES: True
+          'k€'                                   → sin cambio       · en UNIDADES: True
+          'eur'                                  → sin cambio       · en UNIDADES: True
+          'euros'                                → sin cambio       · en UNIDADES: True
+          'MM€'                                  → PENDIENTE (U7)   · en UNIDADES: False
+          'miles de €'                           → PENDIENTE (U7)   · en UNIDADES: False
+          'en miles de euros'                    → PENDIENTE (U7)   · en UNIDADES: False
+          'millones de EUR'                      → sin cambio       · en UNIDADES: True
+          'EUR millones'                         → PENDIENTE (U7)   · en UNIDADES: False
+          'millones de euros (reexpresado)'      → PENDIENTE (U7)   · en UNIDADES: False
+          'M EUR'                                → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR m'                                → PENDIENTE (U7)   · en UNIDADES: False
+          'USD por EUR'                          → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR/USD'                              → PENDIENTE (U7)   · en UNIDADES: False
+          'USD/EUR'                              → PENDIENTE (U7)   · en UNIDADES: False
+          'tipo de cambio EUR/USD'               → PENDIENTE (U7)   · en UNIDADES: False
+          'DKK por EUR'                          → PENDIENTE (U7)   · en UNIDADES: False
+          'céntimos de euro por acción'          → sin cambio       · en UNIDADES: False
+          'EUR/acción'                           → sin cambio       · en UNIDADES: False
+          '€/acción'                             → sin cambio       · en UNIDADES: False
+          '€ por acción'                         → sin cambio       · en UNIDADES: False
+          'euros por título'                     → sin cambio       · en UNIDADES: False
+          'EUR per share'                        → sin cambio       · en UNIDADES: False
+          'DKK per aktie'                        → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR por derecho'                      → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR por ADR'                          → PENDIENTE (U7)   · en UNIDADES: False
+          'euros por bono'                       → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR por tonelada'                     → PENDIENTE (U7)   · en UNIDADES: False
+          '€/MWh'                                → PENDIENTE (U7)   · en UNIDADES: False
+          'EUR por empleado'                     → PENDIENTE (U7)   · en UNIDADES: False
+          'miles de euros por empleado'          → PENDIENTE (U7)   · en UNIDADES: False
+          '%'                                    → sin cambio       · en UNIDADES: False
+          '% (en términos reales)'               → PENDIENTE (U7)   · en UNIDADES: False
+          'tipos reales'                         → PENDIENTE (U7)   · en UNIDADES: False
+          'veces'                                → sin cambio       · en UNIDADES: False
+          'millones de acciones'                 → sin cambio       · en UNIDADES: False
+          'libras (peso)'                        → PENDIENTE (U7)   · en UNIDADES: False
+          'miles de toneladas'                   → sin cambio       · en UNIDADES: False
+          'francos suizos'                       → PENDIENTE (U7)   · en UNIDADES: False
+          'coronas danesas'                      → PENDIENTE (U7)   · en UNIDADES: False
+          'millones de DKK'                      → PENDIENTE (U7)   · en UNIDADES: False
+          'puntos básicos'                       → sin cambio       · en UNIDADES: False
+          'euro'                                 → PENDIENTE (U7)   · en UNIDADES: False
+          'Euro'                                 → PENDIENTE (U7)   · en UNIDADES: False
+          'número'                               → sin cambio       · en UNIDADES: False
+
+== B · registro sintético completo
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 
+   B1 un tipo de cambio publicado, con su unidad «USD por EUR» y escala 1 (dato de origen de una conversión de divisa)
+      -> NO comprobada pendientes: Historia!F6: unidad monetaria no reconocida «USD por EUR»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conversión de divisa es un derivado con el tipo de cambio como or
+   B2 el mismo dato con la unidad «tipo de cambio» (sin nombrar la moneda)
+      -> comprobada 
+   B3 precio por título con la unidad «EUR por ADR»
+      -> NO comprobada pendientes: Historia!F6: unidad monetaria no reconocida «EUR por ADR»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conversión de divisa es un derivado con el tipo de cambio como or
+   B4 H14 y su orden: signo −1 con «ninguno» y, además, la página publica la cifra en POSITIVO (se informa del tratamiento, no de la discrepancia con la página)
+      -> NO comprobada errores: Historia!F6: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifra publicada se declara en «tratamiento»
+   B5 lo mismo con un tratamiento escrito: ahora sí se ve la discrepancia con la página
+      -> NO comprobada discrepancias: Historia!F6: la página no publica el valor de la fuente -849697.0 con su signo (la página la publica en positivo y valor_fuente es negativo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la 
+
+== C · H14: tratamientos que no explican el cambio de signo y no están en la lista (página «(849,697.000)», valor_fuente negativo, signo −1)
+   tratamiento 'ninguno'                            → NO comprobada: errores: Historia!F6: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifr
+   tratamiento 'Ninguno.'                           → comprobada
+   tratamiento 'ninguno (dato directo)'             → comprobada
+   tratamiento 'none'                               → comprobada
+   tratamiento 'no aplica'                          → comprobada
+   tratamiento 'sin cambios'                        → comprobada
+   tratamiento 'n.a.'                               → comprobada
+   tratamiento 'N/A'                                → NO comprobada: errores: Historia!F6: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifr
+   tratamiento 'nada'                               → comprobada
+   tratamiento '—'                                  → NO comprobada: errores: Historia!F6: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifr
+   tratamiento '–'                                  → comprobada
+   tratamiento '.'                                  → comprobada
+   tratamiento 'x'                                  → comprobada
+   tratamiento 'directo'                            → comprobada
+   tratamiento '0'                                  → comprobada
+   tratamiento 'ver nota'                           → comprobada
+   tratamiento 'pago publicado entre paréntesis'    → comprobada
+   cero comprobado (Historia!C23) con signo −1 y tratamiento «ninguno» (−1 × 0 = 0: no hay cambio de signo que explicar) → NO comprobada: errores: Historia!C23: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifra publicada se declara en «tr
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 
+
+== D · U6: modo de la entrada efectiva con varios alcance_v2.json (sin entrada_efectiva.json)
+   alcance real (tipo, aviso, fuente, fecha)               → ('registrada', None)
+   + «entrada_efectiva»: «estricta»                        → ('estricta', 'alcance_v2.json')
+   + «entrada_efectiva_motivo»                             → ERROR: alcance_v2.json tiene la clave 'entrada_efectiva_motivo', que parece una errata de «entrada_efectiva»
+   + «nota_entrada_efectiva»                               → ERROR: alcance_v2.json tiene la clave 'nota_entrada_efectiva', que parece una errata de «entrada_efectiva»
+   + «tasa_efectiva»                                       → ERROR: alcance_v2.json tiene la clave 'tasa_efectiva', que parece una errata de «entrada_efectiva»
+   + «fecha_entrada_efectiva»                              → ERROR: alcance_v2.json tiene la clave 'fecha_entrada_efectiva', que parece una errata de «entrada_efectiva»
+   + «entrega_efectiva»                                    → ERROR: alcance_v2.json tiene la clave 'entrega_efectiva', que parece una errata de «entrada_efectiva»
+   + «entrada_de_efectivo»                                 → ERROR: alcance_v2.json tiene la clave 'entrada_de_efectivo', que parece una errata de «entrada_efectiva»
+   + «modo»: «estricta» (clave equivocada)                 → ('registrada', None)
+   + «entrada_estricta»: true (clave equivocada)           → ('registrada', None)
+   + «efectiva»: «estricta»                                → ('registrada', None)
+   + «modo_entrada_efectiva»: «estricta»                   → ERROR: alcance_v2.json tiene la clave 'modo_entrada_efectiva', que parece una errata de «entrada_efectiva»
+   + «entrada_efectiva»: {«modo»: «estricta»} (objeto)     → ERROR: alcance_v2.json declara «entrada_efectiva»: {'modo': 'estricta'}; el único valor admitido es «estricta»
+   + «entrada_efectiva»: «estricta » (espacio final)       → ERROR: alcance_v2.json declara «entrada_efectiva»: 'estricta '; el único valor admitido es «estricta»

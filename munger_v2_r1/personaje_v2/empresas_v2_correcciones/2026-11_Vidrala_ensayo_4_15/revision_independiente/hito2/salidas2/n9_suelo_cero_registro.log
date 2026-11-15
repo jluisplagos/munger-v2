@@ -1,0 +1,22 @@
+código: estable
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 
+ceros comprobados de cálculo en el fixture: 11 (p. ej. ['Historia!C23', 'Historia!D23', 'Historia!E23', 'Historia!F26']) · Historia!F5 = 2019 · Historia!G5 = 2020
+   1 min(año, 0): el año es positivo, el resultado es el 0 literal
+      min(o["Historia!F5"], 0)
+      -> apto=True · 11 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=11 []
+   2 max(año − año siguiente, 0): el suelo actúa siempre
+      max(o["Historia!F5"] - o["Historia!G5"], 0)
+      -> apto=True · 11 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=11 []
+   3 max(−año, 0)
+      max(-o["Historia!F5"], 0)
+      -> apto=True · 11 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=11 []
+   4 control (ya se aceptaba, U1): año − año compuesto con literales admitidos
+      o["Historia!F5"] - (2*1000 + 1*10 + 9)
+      -> apto=True · 11 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=11 []
+   5 control (tiene que rechazarse): año − año
+      o["Historia!F5"] - o["Historia!F5"]
+      -> apto=False · 0 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=0 ["errores: Historia!C23: los orígenes ['Historia!F5'] no influyen en el resultado de la fórmula: el valor no se deriva de ellos"]
+   6 control (tiene que rechazarse): min(max(año, 0), 0), constante en todo punto
+      min(max(o["Historia!F5"], 0), 0)
+      -> apto=False · 0 de 11 ceros SIN FUENTE quedan comprobados · derivados_comprobados=0 ["errores: Historia!C23: los orígenes ['Historia!F5'] no influyen en el resultado de la fórmula: el valor no se deriva de ellos"]
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 

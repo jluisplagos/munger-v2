@@ -1,0 +1,17 @@
+código: hito 2
+   A1 control: PDF fiel (a1.pdf; tipo: pdf)
+      -> comprobada 
+   A2 PDF con bytes previos y extensión .bin (a2_basura.bin; tipo: pdf)
+      -> comprobada 
+   A3 PDF con bytes previos, sin extensión (a3_basura; tipo: pdf)
+      -> comprobada 
+   A4 PDF con 1100 bytes previos (la cabecera queda fuera del primer kilobyte), extensión .bin (a4_basura_larga.bin; tipo: otro)
+      -> NO comprobada pendientes: Historia!F6: la fuente 'fuentes_sinteticas/a4_basura_larga.bin' no es un PDF, un HTML ni un texto con marcas de página: no se puede comprobar que el texto conservado es el de la fuente (tercera revi
+   B1 HTML legítimo con la cita visible que menciona «%PDF-» en su cabecera (b1_menciona.html; tipo: html)
+      -> comprobada 
+   B1' control: el mismo HTML sin «%PDF-» (b1_control.html; tipo: html)
+      -> comprobada 
+   B2 texto conservado .txt cuya primera página menciona «%PDF-» (la fuente citada es el propio .txt) (b2_fuente_con_mencion.txt; tipo: texto)
+      -> comprobada 
+   B2' control: el mismo .txt sin la mención (b2_control.txt; tipo: texto)
+      -> comprobada 

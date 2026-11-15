@@ -1,0 +1,142 @@
+A1 negativo entre paréntesis con % dentro
+      cita='Variación (3,2 %)' vf=-3.2 -> ok (signo publicado igual al de valor_fuente)
+A2 negativo entre paréntesis con % pegado dentro
+      cita='Change (3.2%)' vf=-3.2 -> ok (signo publicado igual al de valor_fuente)
+A3 negativo con paréntesis y % fuera
+      cita='Change (3.2)%' vf=-3.2 -> ok (signo publicado igual al de valor_fuente)
+A4 positivo en inciso de prosa
+      cita='un margen (12,5 % de las ventas) estable' vf=12.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A5 positivo en inciso: (2024: 150,8)
+      cita='pagos (2024: 150,8) y otros' vf=150.8 -> ok (signo publicado igual al de valor_fuente)
+A6 negativo «(-149,5)»
+      cita='variación (-149,5)' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A7 negativo «(−149,5)» Unicode
+      cita='variación (−149,5)' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A8 menos Unicode a dos espacios (columna alineada)
+      cita='Resultado −  149,5' vf=-149.5 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)   <<< distinto de lo esperado
+A8b lo mismo frente a +149,5
+      cita='Resultado −  149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A9 formato contable de Excel «-£   1,234.00»
+      cita='Charge -£   1,234.00' vf=-1234.0 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)   <<< distinto de lo esperado
+A9b lo mismo frente a +1234
+      cita='Charge -£   1,234.00' vf=1234.0 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A10 guion ASCII a 2 espacios (¿cero de otra columna o menos alineado a la izquierda?)
+      cita='Resultado  -  149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A10b lo mismo frente a −149,5
+      cita='Resultado  -  149,5' vf=-149.5 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)
+A11 menos pegado tras paréntesis de nota «(1)-149,5»
+      cita='Resultado (1)-149,5' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A12 menos tras coma «a,-149,5»
+      cita='x, -149,5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A13 «EUR -149,5»
+      cita='EUR -149,5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A14 «(EUR 149,5)» contable con código de moneda
+      cita='Pago (EUR 149,5)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A14b lo mismo frente a +149,5
+      cita='Pago (EUR 149,5)' vf=149.5 -> signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+A15 «(149,5 millones)» inciso
+      cita='deuda (149,5 millones)' vf=149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A16 fecha «31-12-2024» frente a 2024
+      cita='a 31-12-2024' vf=2024 -> ok (signo publicado igual al de valor_fuente)
+A17 fecha «31-dic-2024» frente a 2024
+      cita='a 31-dic-2024' vf=2024 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A18 «FY 2023-2024» frente a 2024
+      cita='FY 2023-2024' vf=2024 -> ok (signo publicado igual al de valor_fuente)
+A19 «149,5 CR» / «149,5 DR»
+      cita='Saldo 149,5 CR' vf=149.5 -> ok (signo publicado igual al de valor_fuente)
+A20 menos final con espacio «149,5 -»
+      cita='Saldo 149,5 -' vf=149.5 -> ok (signo publicado igual al de valor_fuente)
+A21 menos final pegado SAP «149,5-» frente a −149,5
+      cita='Saldo 149,5-' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A22 corchetes «[149,5]» como negativo
+      cita='Saldo [149,5]' vf=-149.5 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)
+A22b «[149,5]» frente a +149,5
+      cita='Saldo [149,5]' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A23 «<149,5>» negativo
+      cita='Saldo <149,5>' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A24 punto decimal y miles europeos «(1.234,5)»
+      cita='Pagos (1.234,5)' vf=-1234.5 -> ok (signo publicado igual al de valor_fuente)
+A25 miles con espacio «(4 573,7)»
+      cita='Paiements (4 573,7)' vf=-4573.7 -> ok (signo publicado igual al de valor_fuente)
+A25b miles con espacio fino U+202F «−4 573,7»
+      cita='Paiements −4 573,7' vf=-4573.7 -> ok (signo publicado igual al de valor_fuente)
+A26 «(4 573,7)» frente a 573,7 positivo (límite declarado de «4 573,7»)
+      cita='Paiements (4 573,7)' vf=573.7 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A27 «-4 573,7» frente a 573,7 positivo
+      cita='Paiements -4 573,7' vf=573.7 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A28 nota al pie «(1) 150,8»
+      cita='Pagos (1) 150,8' vf=150.8 -> ok (signo publicado igual al de valor_fuente)
+A29 nota al pie como cifra «(3)» frente a −3
+      cita='Ventas (3) 849.697' vf=-3 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A30 dos columnas «(177.9) (150.8)»
+      cita='Lease payments (177.9) (150.8)' vf=-150.8 -> ok (signo publicado igual al de valor_fuente)
+A31 salto de línea entre paréntesis y cifra
+      cita='Lease payments (\n150.8)' vf=-150.8 -> ok (signo publicado igual al de valor_fuente)
+A32 tabulador «	-149,5»
+      cita='Importe\t-149,5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A33 «+/-149,5»
+      cita='variación +/-149,5' vf=149.5 -> signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+A34 «±149,5»
+      cita='variación ±149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A35 «~149,5» / «≈ 149,5»
+      cita='aprox. ≈ 149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)
+A36 «−149,5» con U+2212 y NBSP
+      cita='Importe\xa0−\xa0149,5' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A37 guion no separable U+2011 pegado
+      cita='Importe ‑149,5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A38 raya horizontal U+2015 pegada
+      cita='Importe ―149,5' vf=-149.5 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)
+A38b raya horizontal U+2015 pegada frente a +149,5
+      cita='Importe ―149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A39 figure dash/soft hyphen U+00AD pegado
+      cita='Importe \xad149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A40 «–» pegado a letra «EBITDA–149,5»
+      cita='EBITDA–149,5' vf=149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)
+A41 negativo en rojo (sin marca) no es detectable: positivo
+      cita='Importe 149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)
+A42 «149,5)» paréntesis solo de cierre (cita recortada tras «(»)
+      cita='149,5)' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+A42b «149,5)» frente a −149,5
+      cita='149,5)' vf=-149.5 -> signo_distinto (la página la publica en positivo y valor_fuente es negativo)
+A43 «(149,5» cita recortada antes de «)»
+      cita='(149,5' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)
+A44 porcentaje negativo «-3,2 %»
+      cita='tasa -3,2 %' vf=-3.2 -> ok (signo publicado igual al de valor_fuente)
+A45 porcentaje «−3,2%» frente a +3,2
+      cita='tasa −3,2%' vf=3.2 -> signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+A46 intervalo «entre 2 y 3 %»
+      cita='entre 2 y 3 %' vf=3 -> ok (signo publicado igual al de valor_fuente)
+A47 intervalo «2-3 %» frente a 3
+      cita='rango 2-3 %' vf=3 -> ok (signo publicado igual al de valor_fuente)
+A48 intervalo «2–3 %» frente a 3
+      cita='rango 2–3 %' vf=3 -> ok (signo publicado igual al de valor_fuente)
+A49 moneda detrás «149,5€» / «-149,5 €»
+      cita='Importe -149,5 €' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A50 «€ (149,5)»
+      cita='Importe € (149,5)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A51 «(€ 149,5)»
+      cita='Importe (€ 149,5)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A52 «$(149.5)»
+      cita='Amount $(149.5)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A53 «-$149.5»
+      cita='Amount -$149.5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A54 «$-149.5»
+      cita='Amount $-149.5' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A54b «$-149.5» frente a +149.5
+      cita='Amount $-149.5' vf=149.5 -> signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+A55 «US$ (149.5)»
+      cita='Amount US$ (149.5)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A56 «(149.5)m»
+      cita='Amount (149.5)m' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A57 «(149.5m)»
+      cita='Amount (149.5m)' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A57b «(149.5m)» frente a +149.5
+      cita='Amount (149.5m)' vf=149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)
+A58 «(149.5)» con nota pegada «(149.5)(a)»
+      cita='Amount (149.5)(a)' vf=-149.5 -> ok (signo publicado igual al de valor_fuente)
+A59 «(149.5 (a))»
+      cita='Amount (149.5 (a))' vf=-149.5 -> signo_indeterminado (apariciones de la cifra: indeterminado)   <<< distinto de lo esperado
+A60 «minus 149.5» / «menos 149,5» (palabra)
+      cita='resultado de menos 149,5' vf=149.5 -> ok (signo publicado igual al de valor_fuente)   <<< distinto de lo esperado
+
+25 casos distintos de lo esperado por el revisor, de 70

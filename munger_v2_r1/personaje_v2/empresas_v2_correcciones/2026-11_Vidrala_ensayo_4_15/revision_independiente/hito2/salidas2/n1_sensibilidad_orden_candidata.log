@@ -1,0 +1,44 @@
+código: /tmp/claude-0/-home-user-munger-v2/ace24ef4-365c-50f9-bb78-93416041e669/scratchpad/rev2/fable/sondas2/../cand/munger_v2_r1/personaje_v2
+
+== A · fórmulas legítimas: todas las permutaciones de la lista de orígenes × 25 puntos reales
+   max(o["a"], o["b"])                                                  rechazos falsos:    0 de    50
+   min(o["a"], o["b"])                                                  rechazos falsos:    0 de    50
+   max(o["a"], o["b"], o["c"])                                          rechazos falsos:    0 de   150
+   min(o["a"], o["b"], o["c"])                                          rechazos falsos:  102 de   150 · en 6 de 6 órdenes, p. ej. orígenes ['a', 'b', 'c'] → inertes ['c']
+   max(o["a"] - o["b"], o["c"] - o["d"])                                rechazos falsos:    0 de   600
+   min(max(o["a"], o["b"]), o["c"])                                     rechazos falsos:   89 de   150 · en 4 de 6 órdenes, p. ej. orígenes ['a', 'b', 'c'] → inertes ['b']
+   max(min(o["a"], o["b"]), o["c"])                                     rechazos falsos:  132 de   150 · en 6 de 6 órdenes, p. ej. orígenes ['a', 'b', 'c'] → inertes ['b']
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]))                        rechazos falsos:  389 de   600 · en 24 de 24 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd'] → inertes ['a']
+   max(min(o["a"], o["b"]), min(o["c"], o["d"]))                        rechazos falsos:  442 de   600 · en 24 de 24 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd'] → inertes ['b', 'd']
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]), o["e"])                rechazos falsos: 2929 de  3000 · en 120 de 120 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd', 'e'] → inertes ['a']
+   max(o["a"], o["b"]) - min(o["c"], o["d"])                            rechazos falsos:   61 de   600 · en 4 de 24 órdenes, p. ej. orígenes ['a', 'c', 'b', 'd'] → inertes ['c']
+   max(o["a"] - o["b"], 0)                                              rechazos falsos:    0 de    50
+   min(o["a"] - o["b"], 0)                                              rechazos falsos:    0 de    50
+   max(o["a"], 0) + min(o["b"], 0)                                      rechazos falsos:    3 de    50 · en 1 de 2 órdenes, p. ej. orígenes ['b', 'a'] → inertes ['b']
+   abs(o["a"] - o["b"]) - max(o["c"], o["d"])                           rechazos falsos:    0 de   600
+   max(o["a"] / o["b"], o["c"])                                         rechazos falsos:   22 de   150 · en 2 de 6 órdenes, p. ej. orígenes ['c', 'a', 'b'] → inertes ['a', 'b']
+   min(o["a"] * o["b"], o["c"] * o["d"])                                rechazos falsos:   99 de   600 · en 8 de 24 órdenes, p. ej. orígenes ['a', 'c', 'b', 'd'] → inertes ['c']
+   max(min(o["a"], o["b"]), min(o["c"], o["d"]), min(o["e"], o["f"]))   rechazos falsos: 3000 de  3000 · en 113 de 120 órdenes, p. ej. orígenes ['a', 'b', 'c', 'e', 'f', 'd'] → inertes ['f', 'd']
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]), max(o["e"], o["f"]))   rechazos falsos: 3000 de  3000 · en 113 de 120 órdenes, p. ej. orígenes ['a', 'b', 'f', 'd', 'c', 'e'] → inertes ['f', 'e']
+   max(o["a"] - 100, 0) + o["b"]                                        rechazos falsos:    0 de    50
+   max(o["a"] - 1000000, 0) + o["b"]                                    rechazos falsos:   50 de    50 · en 2 de 2 órdenes, p. ej. orígenes ['a', 'b'] → inertes ['a']
+   min(max(o["a"] - o["b"], 0), o["c"])                                 rechazos falsos:  130 de   150 · en 6 de 6 órdenes, p. ej. orígenes ['a', 'b', 'c'] → inertes ['a', 'b']
+   max(min(max(o["a"], o["b"]), o["c"]), o["d"])                        rechazos falsos:  434 de   600 · en 23 de 24 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd'] → inertes ['a', 'b', 'c']
+   min(max(min(o["a"], o["b"]), o["c"]), o["d"])                        rechazos falsos:  523 de   600 · en 24 de 24 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd'] → inertes ['b']
+   sum([max(o["a"], o["b"]), min(o["c"], o["d"])])                      rechazos falsos:  105 de   600 · en 12 de 24 órdenes, p. ej. orígenes ['a', 'c', 'd', 'b'] → inertes ['d']
+   max(o["a"], o["b"]) / max(o["c"], o["d"])                            rechazos falsos:    0 de   600
+   total de rechazos falsos (origen que sí influye, declarado inerte): 11510
+
+== B · control: un origen de verdad inerte tiene que declararse inerte en cualquier orden
+   o["a"] - o["a"] + o["b"]                                             inerte «a» no detectado en 0 de 2 órdenes
+   min(max(o["a"], 0), 0) + o["b"]                                      inerte «a» no detectado en 0 de 2 órdenes
+   abs(o["a"]) - max(o["a"], -o["a"]) + o["b"]                          inerte «a» no detectado en 0 de 2 órdenes
+   max(o["a"], o["a"] + 1) - o["a"] + o["b"]                            inerte «a» no detectado en 0 de 2 órdenes
+   o["b"] + (o["a"] - o["a"]) / o["c"]                                  inerte «a» no detectado en 0 de 6 órdenes
+   o["b"] + max(o["a"] - 1000000000000, 0) * (o["a"] - o["a"])          inerte «a» no detectado en 0 de 2 órdenes
+
+== C · origen decorativo que pasa por los puntos extremos (±10⁹) o por una división por cero en el punto perturbado
+   o["b"] + max(o["a"] - 100000000, 0)                                         constantes no admitidas [] · inertes ['a'] · locales ['b'] · resultado 12.5 (= b: True)
+   o["b"] + max(o["a"] - 1000000000000, 0)                                     constantes no admitidas [] · inertes ['a'] · locales ['b'] · resultado 12.5 (= b: True)
+   o["b"] + (o["a"] - o["a"]) / (o["a"] - 1000000000 - 1000000 - 1/1000)       constantes no admitidas [] · inertes ['a'] · locales ['b'] · resultado 12.5 (= b: True)
+   min(o["b"], o["a"])                                                         constantes no admitidas [] · inertes [] · locales ['b'] · resultado 12.5 (= b: True)

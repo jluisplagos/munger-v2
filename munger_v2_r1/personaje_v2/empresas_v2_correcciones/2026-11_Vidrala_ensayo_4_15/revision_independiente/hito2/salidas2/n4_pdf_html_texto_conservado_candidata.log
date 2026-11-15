@@ -1,0 +1,35 @@
+código: candidata (1.ª pasada)
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   1 control: PDF y texto conservado iguales (negativo declarado)
+      fuente (pdf): 'Partida sintética de Historia!F6: (849,697.000)'
+      texto conservado: 'Partida sintética de Historia!F6: (849,697.000)' · cita: 'Partida sintética de Historia!F6: (849,697.000)' · valor_fuente -849697.0 signo -1
+      -> comprobada 
+   2 PDF «(849,697.000)»; el texto conservado perdió los paréntesis; cita = la cifra
+      fuente (pdf): 'Partida sintética de Historia!F6: (849,697.000)'
+      texto conservado: 'Partida sintética de Historia!F6: 849,697.000' · cita: '849,697.000' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+   3 PDF «-849697.000»; texto conservado sin el menos; cita = la cifra
+      fuente (pdf): 'Partida sintética de Historia!F6: -849697.000'
+      texto conservado: 'Partida sintética de Historia!F6: 849697.000' · cita: '849697.000' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+   4 PDF «8496970»; el texto conservado dice «849697»; cita = rótulo y cifra del texto conservado
+      fuente (pdf): 'Partida sintética de Historia!F6: 8496970'
+      texto conservado: 'Partida sintética de Historia!F6: 849697' · cita: 'Partida sintética de Historia!F6: 849697' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+   5 control: lo mismo que 2 con la cita completa del texto conservado (no está en el PDF)
+      fuente (pdf): 'Partida sintética de Historia!F6: (849,697.000)'
+      texto conservado: 'Partida sintética de Historia!F6: 849,697.000' · cita: 'Partida sintética de Historia!F6: 849,697.000' · valor_fuente 849697.0 signo 1
+      -> NO comprobada discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en la página 264 del PDF 'fuentes_sinteticas/
+   6 HTML «(849,697.000)» visible; texto conservado sin paréntesis; cita = la cifra
+      fuente (html): 'Partida sintética de Historia!F6: (849,697.000)'
+      texto conservado: 'Partida sintética de Historia!F6: 849,697.000' · cita: '849,697.000' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+   7 HTML «-849697.000»; texto conservado sin el menos; cita = la cifra
+      fuente (html): 'Partida sintética de Historia!F6: -849697.000'
+      texto conservado: 'Partida sintética de Historia!F6: 849697.000' · cita: '849697.000' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+   8 HTML «1849697.000»; texto conservado «849697.000»; cita = la cifra
+      fuente (html): 'Partida sintética de Historia!F6: 1849697.000'
+      texto conservado: 'Partida sintética de Historia!F6: 849697.000' · cita: '849697.000' · valor_fuente 849697.0 signo 1
+      -> comprobada    <<< ACEPTADA: la fuente no publica eso
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

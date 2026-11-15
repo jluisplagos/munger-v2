@@ -1,0 +1,44 @@
+código: estable
+
+== A · fórmulas legítimas: todas las permutaciones de la lista de orígenes × 25 puntos reales
+   max(o["a"], o["b"])                                                  rechazos falsos:    0 de    50
+   min(o["a"], o["b"])                                                  rechazos falsos:    0 de    50
+   max(o["a"], o["b"], o["c"])                                          rechazos falsos:    0 de   150
+   min(o["a"], o["b"], o["c"])                                          rechazos falsos:    0 de   150
+   max(o["a"] - o["b"], o["c"] - o["d"])                                rechazos falsos:    0 de   600
+   min(max(o["a"], o["b"]), o["c"])                                     rechazos falsos:    0 de   150
+   max(min(o["a"], o["b"]), o["c"])                                     rechazos falsos:    0 de   150
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]))                        rechazos falsos:    0 de   600
+   max(min(o["a"], o["b"]), min(o["c"], o["d"]))                        rechazos falsos:    0 de   600
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]), o["e"])                rechazos falsos: 1610 de  3000 · en 72 de 120 órdenes, p. ej. orígenes ['a', 'b', 'c', 'd', 'e'] → inertes ['b']
+   max(o["a"], o["b"]) - min(o["c"], o["d"])                            rechazos falsos:    0 de   600
+   max(o["a"] - o["b"], 0)                                              rechazos falsos:    0 de    50
+   min(o["a"] - o["b"], 0)                                              rechazos falsos:    0 de    50
+   max(o["a"], 0) + min(o["b"], 0)                                      rechazos falsos:    0 de    50
+   abs(o["a"] - o["b"]) - max(o["c"], o["d"])                           rechazos falsos:    0 de   600
+   max(o["a"] / o["b"], o["c"])                                         rechazos falsos:    0 de   150
+   min(o["a"] * o["b"], o["c"] * o["d"])                                rechazos falsos:    0 de   600
+   max(min(o["a"], o["b"]), min(o["c"], o["d"]), min(o["e"], o["f"]))   rechazos falsos:  231 de  3000 · en 9 de 120 órdenes, p. ej. orígenes ['a', 'c', 'f', 'd', 'b', 'e'] → inertes ['d']
+   min(max(o["a"], o["b"]), max(o["c"], o["d"]), max(o["e"], o["f"]))   rechazos falsos:  125 de  3000 · en 6 de 120 órdenes, p. ej. orígenes ['a', 'f', 'b', 'e', 'c', 'd'] → inertes ['d']
+   max(o["a"] - 100, 0) + o["b"]                                        rechazos falsos:    0 de    50
+   max(o["a"] - 1000000, 0) + o["b"]                                    rechazos falsos:    0 de    50
+   min(max(o["a"] - o["b"], 0), o["c"])                                 rechazos falsos:   23 de   150 · en 1 de 6 órdenes, p. ej. orígenes ['a', 'c', 'b'] → inertes ['a', 'b']
+   max(min(max(o["a"], o["b"]), o["c"]), o["d"])                        rechazos falsos:  325 de   600 · en 14 de 24 órdenes, p. ej. orígenes ['a', 'c', 'b', 'd'] → inertes ['a']
+   min(max(min(o["a"], o["b"]), o["c"]), o["d"])                        rechazos falsos:  364 de   600 · en 16 de 24 órdenes, p. ej. orígenes ['a', 'c', 'b', 'd'] → inertes ['a']
+   sum([max(o["a"], o["b"]), min(o["c"], o["d"])])                      rechazos falsos:    0 de   600
+   max(o["a"], o["b"]) / max(o["c"], o["d"])                            rechazos falsos:    0 de   600
+   total de rechazos falsos (origen que sí influye, declarado inerte): 2678
+
+== B · control: un origen de verdad inerte tiene que declararse inerte en cualquier orden
+   o["a"] - o["a"] + o["b"]                                             inerte «a» no detectado en 0 de 2 órdenes
+   min(max(o["a"], 0), 0) + o["b"]                                      inerte «a» no detectado en 0 de 2 órdenes
+   abs(o["a"]) - max(o["a"], -o["a"]) + o["b"]                          inerte «a» no detectado en 0 de 2 órdenes
+   max(o["a"], o["a"] + 1) - o["a"] + o["b"]                            inerte «a» no detectado en 0 de 2 órdenes
+   o["b"] + (o["a"] - o["a"]) / o["c"]                                  inerte «a» no detectado en 0 de 6 órdenes
+   o["b"] + max(o["a"] - 1000000000000, 0) * (o["a"] - o["a"])          inerte «a» no detectado en 0 de 2 órdenes
+
+== C · origen decorativo que pasa por los puntos extremos (±10⁹) o por una división por cero en el punto perturbado
+   o["b"] + max(o["a"] - 100000000, 0)                                         constantes no admitidas [] · inertes [] · locales ['b'] · resultado 12.5 (= b: True)
+   o["b"] + max(o["a"] - 1000000000000, 0)                                     constantes no admitidas [] · inertes ['a'] · locales ['b'] · resultado 12.5 (= b: True)
+   o["b"] + (o["a"] - o["a"]) / (o["a"] - 1000000000 - 1000000 - 1/1000)       constantes no admitidas [] · inertes [] · locales ['b'] · resultado 12.5 (= b: True)
+   min(o["b"], o["a"])                                                         constantes no admitidas [] · inertes [] · locales ['b'] · resultado 12.5 (= b: True)

@@ -1,0 +1,65 @@
+python 3.13.18
+== A · XHTML / iXBRL (sintaxis XML: «<x/>» cierra el elemento)
+   A1 XHTML: <script src=…/> autocerrado en el cuerpo                                           navegador: visible  candidata: presente  estable: ausente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   A2 XHTML: <div style="display:none"/> vacío y autocerrado antes del contenido                navegador: visible  candidata: presente  estable: ausente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   A3 XHTML: <title/> vacío en la cabecera y contenido en el cuerpo                             navegador: visible  candidata: presente  estable: presente
+   A4 XHTML: <span hidden="hidden"/> autocerrado dentro de un párrafo                           navegador: visible  candidata: presente  estable: ausente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   A5 XHTML: <style/> vacío en el cuerpo                                                        navegador: visible  candidata: presente  estable: ausente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   A6 XHTML: <textarea/> autocerrado                                                            navegador: visible  candidata: presente  estable: ausente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   A7 iXBRL habitual: cabecera ix:header dentro de <div style="display:none"> cerrado y hecho en línea navegador: visible  candidata: presente  estable: presente
+   A8 iXBRL: el hecho citado está SOLO en ix:hidden (dentro del div oculto)                     navegador: oculta   candidata: ausente   estable: ausente
+   A9 iXBRL: ix:header SIN el div oculto que lo envuelve (el texto de ix:hidden se vería)       navegador: visible  candidata: presente  estable: presente
+   A10 etiqueta con espacio de nombres y style=display:none: <ix:nonNumeric style="display:none"> navegador: oculta   candidata: ausente   estable: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la candidata lo rechazaba)
+   A11 etiqueta con espacio de nombres y atributo hidden: <x:div hidden>                        navegador: oculta   candidata: ausente   estable: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la candidata lo rechazaba)
+   A12 <svg:svg><svg:text> (SVG con prefijo en XHTML: el texto se ve)                           navegador: visible  candidata: presente  estable: presente
+== B · details / summary / dialog
+   B1 <details> cerrado con el texto en un <p>                                                  navegador: oculta   candidata: presente  estable: ausente
+   B2 <summary> de un <details> cerrado                                                         navegador: visible  candidata: presente  estable: presente
+   B3 <details open>                                                                            navegador: visible  candidata: presente  estable: presente
+   B4 <summary hidden> de un <details> cerrado                                                  navegador: oculta   candidata: ausente   estable: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la candidata lo rechazaba)
+   B5 <summary style=display:none> de un <details> cerrado                                      navegador: oculta   candidata: ausente   estable: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la candidata lo rechazaba)
+   B6 <summary> que no es hijo directo del <details> cerrado (<details><div><summary>…)         navegador: oculta   candidata: presente  estable: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   B7 segundo <summary> de un <details> cerrado (solo el primero hace de resumen)               navegador: oculta   candidata: presente  estable: presente   <<< SE ACEPTA un texto que el navegador no muestra
+   B8 <details> cerrado dentro de un <div hidden>, texto en el summary                          navegador: oculta   candidata: ausente   estable: ausente
+   B9 <details open> dentro de un <details> cerrado, texto en el summary interior               navegador: oculta   candidata: presente  estable: ausente
+   B10 <details> sin cerrar seguido de contenido normal fuera (</details> omitido por error)    navegador: visible  candidata: presente  estable: presente
+   B11 <dialog open>                                                                            navegador: visible  candidata: presente  estable: presente
+   B12 <dialog> sin open                                                                        navegador: oculta   candidata: presente  estable: ausente
+   B13 <summary> fuera de un details (sin efecto)                                               navegador: visible  candidata: presente  estable: presente
+== C · cabecera implícita y elementos de cabecera
+   C1 sin </head>: <head><title>t</title><body>…                                                navegador: visible  candidata: ausente   estable: presente
+   C2 sin </head> ni <body>: <head><title>t</title><p>…                                         navegador: visible  candidata: ausente   estable: presente
+   C3 texto suelto tras <head> sin ningún elemento del cuerpo                                   navegador: visible  candidata: ausente   estable: ausente   <<< se rechaza un texto que el navegador muestra
+   C4 <head> con <noscript><img/></noscript> y luego </head><body>                              navegador: visible  candidata: presente  estable: presente
+   C5 la cita en el <title> (no se muestra en la página)                                        navegador: oculta   candidata: ausente   estable: ausente
+   C6 la cita en <title> tras un <div> dentro de <head> sin cerrar                              navegador: oculta   candidata: ausente   estable: ausente
+   C7 la cita en un <style> que sigue a un elemento del cuerpo dentro de <head>                 navegador: oculta   candidata: ausente   estable: ausente
+   C8 <header> (no es <head>)                                                                   navegador: visible  candidata: presente  estable: presente
+   C9 dos documentos concatenados (segundo <head> a mitad)                                      navegador: visible  candidata: presente  estable: presente
+   C10 <head> dentro del cuerpo con un <p> detrás sin cerrar el head                            navegador: visible  candidata: ausente   estable: presente
+== D · startendtag en HTML (la barra se ignora) y aria-hidden
+   D1 <div hidden/> seguido del texto                                                           navegador: oculta   candidata: presente  estable: ausente
+   D2 <p/> y <span/> sin atributos (inocuos)                                                    navegador: visible  candidata: presente  estable: presente
+   D3 <br/> y <img/> (vacíos)                                                                   navegador: visible  candidata: presente  estable: presente
+   D4 aria-hidden="true" (se ve en pantalla)                                                    navegador: visible  candidata: ausente   estable: presente
+   D5 <a/> autocerrado antes del texto (ancla XHTML servida como HTML: el resto queda dentro del enlace, visible) navegador: visible  candidata: presente  estable: presente
+   D6 <iframe/> autocerrado (en HTML abre un iframe: lo que sigue no se muestra)                navegador: oculta   candidata: presente  estable: ausente
+== E · codificación y tipo
+   E1 ISO-8859-1 declarado con «–» de windows-1252                                              navegador: visible  candidata: presente  estable: presente
+   E2 us-ascii declarado con bytes altos de windows-1252                                        navegador: visible  candidata: pendiente estable: presente
+   E3 ISO-8859-15 declarado (el € es 0xA4)                                                      navegador: visible  candidata: presente  estable: presente
+   E4 windows-1250 declarado                                                                    navegador: visible  candidata: presente  estable: presente
+   E5 x-mac-roman declarado                                                                     navegador: visible  candidata: pendiente estable: pendiente   <<< se rechaza un texto que el navegador muestra
+   E6 macintosh declarado                                                                       navegador: visible  candidata: presente  estable: presente
+   E7 IBM850 declarado (página de códigos DOS)                                                  navegador: visible  candidata: presente  estable: pendiente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   E8 Shift_JIS / EUC-KR declarados                                                             navegador: visible  candidata: presente  estable: pendiente   <<< se rechaza un texto que el navegador muestra (REGRESIÓN: la candidata lo aceptaba)
+   E9 utf-16 declarado en meta con el archivo en UTF-8 (los navegadores lo leen como UTF-8)     navegador: visible  candidata: pendiente estable: pendiente   <<< se rechaza un texto que el navegador muestra
+   E10 latin1 declarado como «l1» / «cp819»                                                     navegador: visible  candidata: presente  estable: presente
+   tipo de e_menciona.html        candidata: pdf    estable: html
+   tipo de e_menciona.txt         candidata: pdf    estable: texto
+   tipo de e_sin_ext              candidata: pdf    estable: pdf
+   tipo de e_xml.xml              candidata: pdf    estable: otro
+   tipo de e_json.json            candidata: pdf    estable: pdf
+   tipo de e_md.md                candidata: pdf    estable: pdf
+   tipo de e_pdf_tras_blanco.dat  candidata: pdf    estable: pdf
+   tipo de e_lt.dat               candidata: pdf    estable: otro
