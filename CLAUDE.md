@@ -31,3 +31,5 @@ La revisión debe hacerse por un agente distinto del autor del cambio.
 El encargo correctivo vigente pegado por la persona responsable prevalece sobre propuestas antiguas de continuidad.
 
 No interrumpir el encargo que ya corre en otra sesión de Claude. Las correcciones aún en curso no se han importado. Esperar su entrega final y conservarla; después importar como nueva versión sobre una copia completa, nunca sobrescribirla con la base histórica.
+
+Para recuperar los binarios históricos, leer la sección de archivos pesados del README. Para una nueva entrega, seguir docs/RECEPCION_ENTREGA_CLAUDE.md. El ZIP de recuperación parcial y sus herramientas son exclusivos de la base 4.14.

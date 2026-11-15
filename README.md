@@ -80,3 +80,21 @@ La importación de una entrega posterior necesita su propio manifiesto y revisi�
 
 No es necesario volver a ejecutar el encargo para trasladar sus resultados a GitHub.
 La fuente de las correcciones es la entrega final de Claude; no esta copia parcial antigua.
+
+## Archivos pesados disponibles
+
+Release de recuperación parcial: https://github.com/jluisplagos/munger-v2/releases/tag/base-4.14-binarios-disponibles
+
+Un ZIP de 466225808 bytes conserva 814 archivos binarios mediante 542 objetos únicos.
+Faltan 194 binarios de la base y los 462 archivos de texto ya declarados.
+Las rutas y huellas se conservan en baselines/4.14.json; la identidad del ZIP está en baselines/4.14_assets.json.
+Este ZIP de recuperación no se descomprime directamente encima del proyecto: los objetos están deduplicados.
+
+Con GitHub CLI, desde la raíz del repositorio clonado:
+
+    gh release download base-4.14-binarios-disponibles --repo jluisplagos/munger-v2 --pattern munger_4.14_binarios_disponibles.zip --dir .downloads
+    python tools/restore_assets_414.py --source .downloads/munger_4.14_binarios_disponibles.zip --report docs/VERIFICACION_BINARIOS_LOCAL.json
+
+El código de salida esperado es 1 mientras la base esté incompleta; el informe identifica los ausentes.
+No se sobrescriben archivos distintos. No ejecutar sobre las correcciones en curso de Claude.
+Para recibir su próxima entrega, seguir docs/RECEPCION_ENTREGA_CLAUDE.md.
