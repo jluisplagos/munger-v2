@@ -1,7 +1,10 @@
-# Munger V2 — migración a repositorio privado
+# Munger V2 — código y trazabilidad
 
-Preparación local de la base 4.14. La migración todavía está incompleta:
-faltan archivos que no se han recibido en esta sesión y no se ha creado un repositorio remoto.
+Preparación de la base histórica 4.14. La migración todavía está incompleta:
+faltan archivos que no se han recibido en esta sesión.
+
+Repositorio: https://github.com/jluisplagos/munger-v2
+Visibilidad pública por indicación de la persona responsable.
 
 El estado financiero de la 4.14 sigue siendo experimental supervisado. Los bloqueos de la revisión externa se conservan en docs/.
 Subir los archivos a GitHub no acredita aptitud para decisiones con dinero real.
@@ -15,7 +18,7 @@ Subir los archivos a GitHub no acredita aptitud para decisiones con dinero real.
 - docs/: estado de migración y revisión externa.
 
 Git conserva código, contratos, instrucciones, registros y textos fuente.
-Los PDF, libros Excel y otros binarios se mantienen aparte. La propuesta es conservar el ZIP original en una versión privada
+Los PDF, libros Excel y otros binarios se mantienen aparte. La propuesta es conservar el ZIP original en una Release
 de GitHub, etiqueta base-4.14, o en otro almacenamiento autorizado. No hay binarios subidos todavía.
 El ZIP completo pesa 1130912246 bytes y su SHA-256 es
 bb51942cefb848e409a4828e3faeb70f94aa4d29af39cda6d90cd0a97cb7b93e.
@@ -44,7 +47,7 @@ Estos comandos verifican la base histórica 4.14, no una versión corregida post
 
 ## GitHub y Claude
 
-El repositorio debe ser PRIVADO.
+El repositorio es público por indicación de la persona responsable.
 Esta preparación puede publicarse como migración incompleta. Antes de declararla base de trabajo completa, completar y comprobar el inventario.
 No usar una conexión de lectura del chat como prueba de que Claude puede ejecutar el proyecto o guardar cambios.
 
