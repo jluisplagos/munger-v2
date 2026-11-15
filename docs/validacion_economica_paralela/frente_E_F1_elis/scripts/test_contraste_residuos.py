@@ -93,6 +93,15 @@ def main():
         # cobertura por mutación sobre C7: el circulante de 2021–22 entra en el C53 de referencia y tenía solo la Historia del libro
         ("circulante de 2021 que entra en el ancla de S2C: clientes 77,8 en lugar de 76,8", mut({"CF_CLI_U22_2021": {"valor_publicado": "-77.8"}}),
          1, {"residuo R5 2021"}),
+        # C9: segundas presentaciones del impuesto, las adquisiciones y las ventas de 2020 del ancla de S2C
+        ("impuesto de 2022 con la cifra original del URD 2022 (80,5) en lugar de la reexpresada (79,7)",
+         mut({"IS_IMP_U23_2022": {"valor_publicado": "-80.5"}}), 1, {"residuo R17 2022"}),
+        ("ventas de 2020 con dos dígitos permutados (2.860,3)", mut({"IS_VENTAS_U21_2020": {"valor_publicado": "2860.3"}}),
+         1, {"residuo R40 2021"}),
+        ("adquisiciones de 2022 de la columna de otra sociedad (146,2)", mut({"CF_ADQ_U23_2022": {"valor_publicado": "-146.2"}}),
+         1, {"residuo R39 2022"}),
+        ("límite: adquisiciones de 2021 con la cifra publicada antes de la reexpresión (86,9) en lugar de la reexpresada (86,8)",
+         mut({"CF_ADQ_U22_2021": {"valor_publicado": "-86.9"}}), None, set()),
     ]
     malos = 0
     # H2 (revisión n.º 3, N3): CSV cambiado después de verificar y verificación original → el contraste no calcula

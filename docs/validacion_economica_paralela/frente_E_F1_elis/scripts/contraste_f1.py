@@ -239,6 +239,9 @@ def datos_anio(F, y):
         # (revisión n.º 3, N2) segundas presentaciones para las identidades del horizonte
         d["ls_amort"], d["is_ppa"] = -F("LS_AMORT_ROU_2022", contraparte=True), -F("IS_PPA" + u, contraparte=True)
         d["bfr"] = -F("FCF_BFR" + u, contraparte=True)    # circulante del APM (URD 2023 p.268), segunda presentación
+        # (C9) impuesto de la nota 9 (p.345) y flujo neto total de la nota 2.4 (p.294): segundas presentaciones
+        d["tax_corr"], d["tax_dif"] = F("TAX_CORR" + u, contraparte=True), F("TAX_DIF" + u, contraparte=True)
+        d["adq_nota"] = -F("CF_ADQ_NOTA" + u, contraparte=True)
         d["crec_ext"], d["crec_fx"], d["crec_pub"] = F.pct("CREC_EXT_2022"), F.pct("CREC_FX_2022"), F.pct("CREC_PUB_2022")
     elif y == 2021:
         u = "_U22_2021"
@@ -261,6 +264,11 @@ def datos_anio(F, y):
         d["crec_org"] = F.pct("CREC_ORG_2021")
         d["ls_amort"], d["is_ppa"] = -F("LS_AMORT_ROU_2021", contraparte=True), -F("IS_PPA" + u, contraparte=True)
         d["bfr"] = -F("FCF_BFR" + u, contraparte=True)    # circulante del APM (URD 2022 p.250), segunda presentación
+        # (C9) impuesto de la nota 9 (p.326), flujo neto total de la nota 2.4 (p.277) y ventas de 2020 del informe
+        # de gestión del URD 2021 (p.213) frente a las de su cuenta de resultados (p.226), que son S2020
+        d["tax_corr"], d["tax_dif"] = F("TAX_CORR" + u, contraparte=True), F("TAX_DIF" + u, contraparte=True)
+        d["adq_nota"] = -F("CF_ADQ_NOTA" + u, contraparte=True)
+        d["ventas_2020"], d["ventas_2020_mr"] = F("IS_VENTAS_U21_2020"), F("IS_VENTAS_MR_U21_2020", contraparte=True)
     # derivadas comunes
     d["ebit_h"] = d["bai"] + d["fin"]                        # definición de la Historia (v2.2)
     if not isinstance(d["bai"], Q):                          # τ no es lineal: solo con valores exactos
@@ -391,8 +399,13 @@ def main():
                                                                                                              - d["int_con_ls"] - d["ls_princ"]),
             # circulante: las líneas del EFE (que entran en el ancla de S2C) frente al circulante del APM de otra página
             "R5 circulante APM − circulante de las líneas del EFE": d["bfr"] - d["dwc"],
+            # (C9) entradas del ancla de S2C que solo se cotejaban con la Historia del libro
+            "R17 impuesto corriente + diferido − gasto por impuesto": d["tax_corr"] + d["tax_dif"] - d["imp"],
+            "R39 adquisiciones: EFE − flujo neto total de la nota de combinaciones de negocio": d["adq"] - d["adq_nota"],
         } | ({"R32 crecimiento publicado − (orgánico + externo + divisa)": d["crec_pub"] - (d["crec_org"] + d["crec_ext"] + d["crec_fx"])}
-             if "crec_pub" in d else {})
+             if "crec_pub" in d else {}) \
+          | ({"R40 ventas 2020 (base de S2C): cuenta de resultados − informe de gestión": d["ventas_2020"] - d["ventas_2020_mr"]}
+             if "ventas_2020" in d else {})
 
     conc = {y: residuos(A[y]) for y in VENTANA}
     R["tablas"]["conciliaciones_residuos"] = {str(y): {k: f6(v, 3) for k, v in conc[y].items()} for y in VENTANA}

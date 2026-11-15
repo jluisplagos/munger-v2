@@ -71,6 +71,36 @@
    "nota": "redondeo de 8 cifras impresas"
   },
   {
+   "nombre": "residuo R17 2021 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.15,
+   "ok": true,
+   "nota": "redondeo de 3 cifras impresas"
+  },
+  {
+   "nombre": "residuo R39 2021 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.1,
+   "ok": true,
+   "nota": "redondeo de 2 cifras impresas"
+  },
+  {
+   "nombre": "residuo R40 2021 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.1,
+   "ok": true,
+   "nota": "redondeo de 2 cifras impresas"
+  },
+  {
    "nombre": "residuo R25 2022 dentro de su cota de redondeo",
    "clase": "fuente",
    "calculado": 0.1,
@@ -139,6 +169,26 @@
    "tolerancia": 0.4,
    "ok": true,
    "nota": "redondeo de 8 cifras impresas"
+  },
+  {
+   "nombre": "residuo R17 2022 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.15,
+   "ok": true,
+   "nota": "redondeo de 3 cifras impresas"
+  },
+  {
+   "nombre": "residuo R39 2022 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.1,
+   "ok": true,
+   "nota": "redondeo de 2 cifras impresas"
   },
   {
    "nombre": "residuo R32 2022 dentro de su cota de redondeo",
@@ -2945,6 +2995,45 @@
      "contraste": "entre páginas",
      "valor_fijado": null,
      "ok": true
+    },
+    "R17": {
+     "identidad": "R17 impuesto corriente + diferido − gasto por impuesto",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.15,
+     "cifras": 3,
+     "paginas": [
+      "URD2022 p.258",
+      "URD2022 p.326"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
+    "R39": {
+     "identidad": "R39 adquisiciones: EFE − flujo neto total de la nota de combinaciones de negocio",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.1,
+     "cifras": 2,
+     "paginas": [
+      "URD2022 p.261",
+      "URD2022 p.277"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
+    "R40": {
+     "identidad": "R40 ventas 2020 (base de S2C): cuenta de resultados − informe de gestión",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.1,
+     "cifras": 2,
+     "paginas": [
+      "URD2021 p.213",
+      "URD2021 p.226"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
     }
    },
    "2022": {
@@ -3033,6 +3122,32 @@
      "paginas": [
       "URD2023 p.268",
       "URD2023 p.279"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
+    "R17": {
+     "identidad": "R17 impuesto corriente + diferido − gasto por impuesto",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.15,
+     "cifras": 3,
+     "paginas": [
+      "URD2023 p.276",
+      "URD2023 p.345"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
+    "R39": {
+     "identidad": "R39 adquisiciones: EFE − flujo neto total de la nota de combinaciones de negocio",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.1,
+     "cifras": 2,
+     "paginas": [
+      "URD2023 p.279",
+      "URD2023 p.294"
      ],
      "contraste": "entre páginas",
      "valor_fijado": null,
@@ -4892,9 +5007,9 @@
   },
   "cobertura_entradas": {
    "resumen": {
-    "contrastada entre páginas": 211,
+    "contrastada entre páginas": 223,
     "solo identidad de la misma página": 151,
-    "contrastada con la Historia del libro": 9,
+    "contrastada con la Historia del libro": 4,
     "sin comprobación de segunda línea": 31
    },
    "sin_comprobacion": {
@@ -5365,25 +5480,53 @@
      "historia_del_libro": true,
      "estado": "solo identidad de la misma página"
     },
+    "CF_ADQ_NOTA_U22_2021": {
+     "fuente": "URD2022 p.277 «(86.8)»",
+     "usos": [
+      "adq_nota 2021"
+     ],
+     "identidades_entre_paginas": [
+      "R39 2021"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
+    "CF_ADQ_NOTA_U23_2022": {
+     "fuente": "URD2023 p.294 «(221.7)»",
+     "usos": [
+      "adq_nota 2022"
+     ],
+     "identidades_entre_paginas": [
+      "R39 2022"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
     "CF_ADQ_U22_2021": {
      "fuente": "URD2022 p.261 «(86.8)»",
      "usos": [
       "adq 2021"
      ],
-     "identidades_entre_paginas": [],
+     "identidades_entre_paginas": [
+      "R39 2021"
+     ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
-     "estado": "contrastada con la Historia del libro"
+     "estado": "contrastada entre páginas"
     },
     "CF_ADQ_U23_2022": {
      "fuente": "URD2023 p.279 «(221.7)»",
      "usos": [
       "adq 2022"
      ],
-     "identidades_entre_paginas": [],
+     "identidades_entre_paginas": [
+      "R39 2022"
+     ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
-     "estado": "contrastada con la Historia del libro"
+     "estado": "contrastada entre páginas"
     },
     "CF_AMPL_2024": {
      "fuente": "URD2025 p.327 «10.4»",
@@ -8816,20 +8959,24 @@
      "usos": [
       "imp 2021"
      ],
-     "identidades_entre_paginas": [],
+     "identidades_entre_paginas": [
+      "R17 2021"
+     ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
-     "estado": "contrastada con la Historia del libro"
+     "estado": "contrastada entre páginas"
     },
     "IS_IMP_U23_2022": {
      "fuente": "URD2023 p.276 «(79.7)»",
      "usos": [
       "imp 2022"
      ],
-     "identidades_entre_paginas": [],
+     "identidades_entre_paginas": [
+      "R17 2022"
+     ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
-     "estado": "contrastada con la Historia del libro"
+     "estado": "contrastada entre páginas"
     },
     "IS_OOIE_2024": {
      "fuente": "URD2025 p.324 «(18.5)»",
@@ -8951,15 +9098,29 @@
      "historia_del_libro": true,
      "estado": "contrastada entre páginas"
     },
+    "IS_VENTAS_MR_U21_2020": {
+     "fuente": "URD2021 p.213 «2,806.3»",
+     "usos": [
+      "ventas_2020_mr 2021"
+     ],
+     "identidades_entre_paginas": [
+      "R40 2021"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
     "IS_VENTAS_U21_2020": {
      "fuente": "URD2021 p.226 «2,806.3»",
      "usos": [
-      "ventas 2020, base del S2C (E9)"
+      "ventas_2020 2021"
      ],
-     "identidades_entre_paginas": [],
+     "identidades_entre_paginas": [
+      "R40 2021"
+     ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
-     "estado": "contrastada con la Historia del libro"
+     "estado": "contrastada entre páginas"
     },
     "IS_VENTAS_U22_2021": {
      "fuente": "URD2022 p.258 «3,048.3»",
@@ -9899,6 +10060,30 @@
      "historia_del_libro": false,
      "estado": "contrastada entre páginas"
     },
+    "TAX_CORR_U22_2021": {
+     "fuente": "URD2022 p.326 «81.4»",
+     "usos": [
+      "tax_corr 2021"
+     ],
+     "identidades_entre_paginas": [
+      "R17 2021"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
+    "TAX_CORR_U23_2022": {
+     "fuente": "URD2023 p.345 «92.6»",
+     "usos": [
+      "tax_corr 2022"
+     ],
+     "identidades_entre_paginas": [
+      "R17 2022"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
     "TAX_CVAE_2024": {
      "fuente": "URD2025 p.392 «3.5»",
      "usos": [
@@ -9960,6 +10145,30 @@
      ],
      "identidades_entre_paginas": [
       "R17 2023"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
+    "TAX_DIF_U22_2021": {
+     "fuente": "URD2022 p.326 «(24.8)»",
+     "usos": [
+      "tax_dif 2021"
+     ],
+     "identidades_entre_paginas": [
+      "R17 2021"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas"
+    },
+    "TAX_DIF_U23_2022": {
+     "fuente": "URD2023 p.345 «(12.9)»",
+     "usos": [
+      "tax_dif 2022"
+     ],
+     "identidades_entre_paginas": [
+      "R17 2022"
      ],
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
@@ -10472,16 +10681,16 @@
   }
  },
  "resumen": {
-  "comprobaciones": 275,
+  "comprobaciones": 280,
   "fallidas": 0,
   "por_clase": {
-   "fuente": 110,
+   "fuente": 115,
    "libro": 136,
    "algebraica": 29
   },
   "libro_contrastado": true,
   "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
-  "entradas_usadas": 402,
+  "entradas_usadas": 409,
   "entradas_usadas_pendientes": [],
   "contrapartes_de_identidad_pendientes": [
    "LS_AMORT_ROU_2021"

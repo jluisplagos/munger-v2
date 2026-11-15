@@ -1,15 +1,15 @@
-Filas de tabla de la edición vigente mutadas (+3): 514
-  identidad de fuente: 362
-  solo libro: 9
+Filas de tabla de la edición vigente mutadas (+3): 521
+  identidad de fuente: 374
+  solo libro: 4
   solo algebraica: 0
   aborta: 0
   SIN DETECTAR: 23
   no usada: 120
-  usadas (alguna salida cambia o alguna comprobación falla): 394; el contraste declara 402 en todas las ediciones
+  usadas (alguna salida cambia o alguna comprobación falla): 401; el contraste declara 409 en todas las ediciones
 
 == comparación con cobertura_entradas del contraste (solo filas de la edición vigente, las mutadas) ==
-  declarada «contrastada con la Historia del libro» · mutación «solo libro»: 9
-  declarada «contrastada entre páginas» · mutación «identidad de fuente»: 211
+  declarada «contrastada con la Historia del libro» · mutación «solo libro»: 4
+  declarada «contrastada entre páginas» · mutación «identidad de fuente»: 223
   declarada «no declarada» · mutación «no usada»: 112
   declarada «sin comprobación de segunda línea» · mutación «SIN DETECTAR»: 23
   declarada «sin comprobación de segunda línea» · mutación «no usada»: 8
@@ -18,7 +18,7 @@ Filas de tabla de la edición vigente mutadas (+3): 514
   usadas según la mutación y no declaradas por el contraste: 0 []
   declaradas por el contraste en las que la mutación no cambia nada (se leen sin efecto en ninguna salida): 8 ['CAPX_CES_U22_2021', 'CAPX_CES_U23_2022', 'CF_SBC_U22_2021', 'OOIE_EARN_2024', 'OOIE_EARN_2025', 'OOIE_EARN_FR_2023', 'OOIE_PLUSV_2024', 'OOIE_PLUSV_FR_2023']
   sin detectar y con efecto en la referencia de la especificación: 0 []
-  solo contrastadas con el libro y con efecto en la referencia de la especificación: 5 ['CF_ADQ_U22_2021', 'CF_ADQ_U23_2022', 'IS_IMP_U22_2021', 'IS_IMP_U23_2022', 'IS_VENTAS_U21_2020']
+  solo contrastadas con el libro y con efecto en la referencia de la especificación: 0 []
 
 == SIN DETECTAR ==
 OOIE_PLUSV_2025 · URD2025 p.350 «25.7» · declarada: sin comprobación de segunda línea ·  · tablas que cambian: partidas_puntuales_en_flujo_sin_crecimiento
@@ -47,14 +47,9 @@ CREC_ORG_2021 · URD2021 p.211 «7.4%» · declarada: sin comprobación de segun
 
 == solo libro ==
 IS_VENTAS_U23_2022 · URD2023 p.276 «3,820.9» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!I6 (2022) libro = fuente · tablas que cambian: alternativas, horizonte_2021_2025
-IS_IMP_U23_2022 · URD2023 p.276 «(79.7)» · declarada: contrastada con la Historia del libro · 47 comprobaciones del libro; p. ej. Historia!I10 (2022) libro = fuente · tablas que cambian: S2C_anclada_en_C53, alternativas, exceso_de_caja_no_nulo, partidas_puntuales_en_flujo_sin_crecimiento, puentes, referencia_especificacion
 CF_SBC_U23_2022 · URD2023 p.279 «20.3» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!I18 (2022) libro = fuente · tablas que cambian: 
-CF_ADQ_U23_2022 · URD2023 p.279 «(221.7)» · declarada: contrastada con la Historia del libro · 2 comprobaciones del libro; p. ej. Historia!I13 (2022) libro = fuente · tablas que cambian: S2C_anclada_en_C53, alternativas, horizonte_2021_2025, referencia_especificacion
 IS_VENTAS_U22_2021 · URD2022 p.258 «3,048.3» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!H6 (2021) libro = fuente · tablas que cambian: alternativas, horizonte_2021_2025
-IS_IMP_U22_2021 · URD2022 p.258 «(56.6)» · declarada: contrastada con la Historia del libro · 47 comprobaciones del libro; p. ej. Historia!H10 (2021) libro = fuente · tablas que cambian: S2C_anclada_en_C53, alternativas, exceso_de_caja_no_nulo, partidas_puntuales_en_flujo_sin_crecimiento, puentes, referencia_especificacion
-CF_ADQ_U22_2021 · URD2022 p.261 «(86.8)» · declarada: contrastada con la Historia del libro · 2 comprobaciones del libro; p. ej. Historia!H13 (2021) libro = fuente · tablas que cambian: S2C_anclada_en_C53, alternativas, horizonte_2021_2025, referencia_especificacion
 SBC_N52_U22_2021 · URD2022 p.287 «(28.0)» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!H18 (2021) libro = fuente · tablas que cambian: 
-IS_VENTAS_U21_2020 · URD2021 p.226 «2,806.3» · declarada: contrastada con la Historia del libro · 2 comprobaciones del libro; p. ej. Historia!G6 (2020) libro = fuente · tablas que cambian: S2C_anclada_en_C53, alternativas, horizonte_2021_2025, referencia_especificacion
 
 == solo algebraica ==
 
@@ -350,9 +345,11 @@ IS_PPA_U23_2022 · R22 2022
 IS_EBIT_U23_2022 · R35 2022
 IS_FIN_U23_2022 · R35 2022 (+1 del libro)
 IS_BAI_U23_2022 · R35 2022 (+48 del libro)
+IS_IMP_U23_2022 · R17 2022 (+47 del libro)
 CF_CFO_U23_2022 · R36 2022 (+1 del libro)
 CF_CAPINT_U23_2022 · R34 2022 (+2 del libro)
 CF_CAPMAT_U23_2022 · R34 2022 (+2 del libro)
+CF_ADQ_U23_2022 · R39 2022 (+2 del libro)
 CF_LSPRINC_U23_2022 · R36 2022 (+1 del libro)
 CF_INTCONLS_U23_2022 · R36 2022 (+1 del libro)
 CAPX_LINO_U23_2022 · R34 2022
@@ -378,9 +375,11 @@ IS_PPA_U22_2021 · R22 2021
 IS_EBIT_U22_2021 · R35 2021
 IS_FIN_U22_2021 · R35 2021 (+1 del libro)
 IS_BAI_U22_2021 · R35 2021 (+48 del libro)
+IS_IMP_U22_2021 · R17 2021 (+47 del libro)
 CF_CFO_U22_2021 · R36 2021 (+1 del libro)
 CF_CAPINT_U22_2021 · R34 2021 (+2 del libro)
 CF_CAPMAT_U22_2021 · R34 2021 (+2 del libro)
+CF_ADQ_U22_2021 · R39 2021 (+2 del libro)
 CF_LSPRINC_U22_2021 · R36 2021 (+1 del libro)
 CF_INTCONLS_U22_2021 · R36 2021 (+1 del libro)
 CAPX_LINO_U22_2021 · R34 2021
@@ -416,10 +415,18 @@ CF_PROV_U23_2022 · R5 2022 (+2 del libro)
 CF_PCON_U23_2022 · R5 2022 (+2 del libro)
 CF_OTRV_U23_2022 · R5 2022 (+2 del libro)
 CF_EMPL_U23_2022 · R5 2022 (+2 del libro)
+TAX_CORR_U22_2021 · R17 2021
+TAX_DIF_U22_2021 · R17 2021
+CF_ADQ_NOTA_U22_2021 · R39 2021
+TAX_CORR_U23_2022 · R17 2022
+TAX_DIF_U23_2022 · R17 2022
+CF_ADQ_NOTA_U23_2022 · R39 2022
 LS_FX_ROU_2023 · R15 2023
 LS_FX_PAS_2023 · R14 2023
 LS_OTROS_ROU_2023 · R15 2023
 LS_OTROS_PAS_2023 · R14 2023
+IS_VENTAS_U21_2020 · R40 2021 (+2 del libro)
+IS_VENTAS_MR_U21_2020 · R40 2021
 VENTAS_SEG_2025 · R23 2025
 VENTAS_SEG_2024 · R23 2024
 VENTAS_SEG_FR_2023 · R23 2023

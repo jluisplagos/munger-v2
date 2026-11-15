@@ -139,6 +139,8 @@ PAISES = re.compile(r"^(?:France|Germany|Allemagne|United Kingdom|Royaume-Uni|Sp
                     r"Austria|Autriche|Luxembourg|Czech|Tchèque|Other countries|Autres pays)\b")
 # rótulos de sublíneas que dependen de la línea anterior (márgenes, desgloses)
 SUBLINEA = re.compile(r"^(?:As a % of|En % d|of which|dont|›|o/w)", re.I)
+# los mismos países como palabras de una cabecera de columnas (tabla con una columna por país)
+PAIS_EN_CABECERA = re.compile(r"\b" + PAISES.pattern[1:])
 PALABRA_SEGMENTO = re.compile(r"\b(France|Central|Scandinavia|Ireland|Latin|Southern|segments|centrale|Scandinavie|Irlande|latine|Sud)\b")
 
 ANIO = re.compile(r"(?<![\d.,/])(20\d\d)(?![\d.,])")
@@ -369,7 +371,7 @@ def columnas_de_cabecera(lineas, zona, claves):
     return sorted(vistas.values())
 
 
-def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14):
+def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajenas=False):
     """Columna del token de la posición pos en la línea i. Si la cabecera tiene tantas columnas reconocidas como números
     la línea, se asignan por orden («orden»); si no, la columna cuyo centro está más cerca del centro del token
     («alineación», dentro de maxdist caracteres). Devuelve (clave, texto, método) o (None, None, motivo)."""
@@ -390,7 +392,45 @@ def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14):
     d, clave, txt = min((abs(c - c_tok), clave, txt) for c, clave, txt in cols)
     if d > maxdist:
         return None, None, "el token no está bajo ninguna columna reconocida"
+    # La columna reconocida más cercana no basta si el token está aún más cerca de otra palabra de la cabecera que no es
+    # de ninguna columna reconocida (un país, una sociedad, un ajuste). Caso: tabla de flujos de adquisiciones con la
+    # columna «12/31/2021» (total) seguida de «Belgium», «Brazil»…: la cifra de Bélgica quedaba asignada a 2021.
+    # Solo para las columnas de ejercicio: en las de concepto (familias) la cabecera es una frase de varias palabras y
+    # solo una casa con la clave, así que las demás no son columnas ajenas.
+    ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok) if cabeceras_ajenas else None
+    if ajena is not None and ajena[0] < d:
+        return None, None, f"el token está bajo la cabecera «{ajena[1]}», que no es una columna reconocida"
     return clave, txt, "alineación"
+
+
+# palabras de cabecera que califican una columna reconocida (no son columnas propias)
+CALIFICADOR = re.compile(r"(?i)^(?:\(?\*+\)?|\(\d+\)|restated\*?|published|reported|retrait[ée]e?s?\*?|publi[ée]e?s?|réel|actual|"
+                         r"pro|forma|\(unaudited\)|\(non|audité\))$")
+
+
+def palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok):
+    """(distancia, palabra) de la palabra de la cabecera más cercana al centro del token que no forma parte de ninguna
+    columna reconocida ni la califica. Solo cuenta lo que está a la derecha del inicio de la primera columna reconocida:
+    a la izquierda están los rótulos de fila y la declaración de unidades."""
+    reconocidos, inicio = [], None
+    for clave in claves:
+        for k in zona:
+            for m in re.finditer(FRASES_COLUMNA[clave], lineas[k]):
+                reconocidos.append((k, m.start(), m.end()))
+                inicio = m.start() if inicio is None else min(inicio, m.start())
+    if inicio is None:
+        return None
+    mejor = None
+    for k in zona:
+        for m in re.finditer(r"\S+", lineas[k]):
+            if m.start() < inicio - 2 or CALIFICADOR.match(m.group()):
+                continue
+            if any(k == kk and m.start() < e and s < m.end() for kk, s, e in reconocidos):
+                continue
+            dist = abs((m.start() + m.end()) / 2 - c_tok)
+            if mejor is None or dist < mejor[0]:
+                mejor = (dist, m.group())
+    return mejor
 
 
 def token_y_zona(lineas, i, pos, idioma):
@@ -427,7 +467,7 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
     if modo == "crecimiento" and "%" not in fila["literal"]:
         return "FALLO", "una tabla de crecimiento solo admite porcentajes"
     if modo == "dos_columnas":
-        col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"))
+        col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"), cabeceras_ajenas=True)
         if col is None:
             return "PENDIENTE", f"columna del ejercicio no acreditada: {metodo}"
         if col != "ejercicio":
@@ -601,6 +641,24 @@ def tabla_por_paises(lineas, i, j, idioma):
     return m.group(0) if m else None
 
 
+def pais_de_columna(lineas, i, pos, idioma):
+    """En una tabla con columnas por país (tres países o más en la cabecera), palabra de cabecera bajo la que está el token
+    si no es la columna del ejercicio o del total: la columna de un país o de una sociedad, no del grupo. None si no."""
+    sp = spans_numericos(lineas[i], idioma)
+    if not sp or not -len(sp) <= pos < len(sp):
+        return None
+    zona = zona_de_cabecera(lineas, i, idioma)
+    if not zona or len(set(PAIS_EN_CABECERA.findall(" ".join(lineas[k] for k in zona)))) < 3:
+        return None
+    a, b = sp[pos % len(sp)]
+    c_tok = (a + b) / 2
+    claves = ("ejercicio", "variacion", "notas", "total")
+    cols = columnas_de_cabecera(lineas, zona, claves)
+    d_rec = min((abs(c - c_tok) for c, _, _ in cols), default=float("inf"))
+    ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok)
+    return ajena[1] if ajena is not None and ajena[0] < d_rec else None
+
+
 def segmento_de_sublinea(lineas, i, j, idioma):
     """En una tabla por segmentos (tres o más filas con rótulo de segmento), segmento del que depende la línea i: una
     sublínea («As a % of revenue», «of which»…) bajo un rótulo de segmento, o la fila «Other»/«Autres» de esa tabla."""
@@ -643,6 +701,9 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en"):
             if col == "Total" or (col is None and pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total"):
                 return "OK", "columna «Total» de una matriz por segmentos"
             return "FALLO", f"columna {'del segmento ' + col if col else 'de un segmento'} en una matriz por segmentos, no el total del grupo"
+        pc = pais_de_columna(lineas, i, pos, idioma)
+        if pc:
+            return "FALLO", f"la columna es la de «{pc}» en una tabla con columnas por país, no la del grupo"
         return "OK", "página de estados consolidados o de resultados del grupo"
     if p.startswith("segmento "):
         es = ROTULOS_SEGMENTO.get(p[len("segmento "):].strip())

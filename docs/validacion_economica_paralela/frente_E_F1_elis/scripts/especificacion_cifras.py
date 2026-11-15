@@ -510,6 +510,16 @@ for etq, idb, v23, v22, c in [
     ("Employee benefits", "CF_EMPL", "-3.5", "0.7", "EFE: prestaciones a empleados"),
 ]:
     dos(W, 279, etq, idb + "_U23", 2023, v23, 2022, v22, c)
+# Segunda presentación de entradas del ancla de S2C que solo se cotejaban con la Historia del libro (C9, tras C7):
+# impuesto corriente y diferido de la nota 9 (frente al gasto de la cuenta de resultados) y flujo neto total de la nota de
+# combinaciones de negocio (frente al EFE). En la tabla de la nota 2.4 la primera columna es el total del ejercicio y las
+# demás son países (2021) o sociedades adquiridas (2022).
+t(X, 326, "Current taxes", 0, [(-1, 2021, "TAX_CORR_U22_2021", "81.4")], "Impuesto corriente 2021 (nota 9)")
+t(X, 326, "re:^\\s*Deferred taxes\\s{2,}", 0, [(-1, 2021, "TAX_DIF_U22_2021", "-24.8")], "Impuesto diferido 2021 (nota 9)")
+t(X, 277, "Net cash flow", 0, [(0, 2021, "CF_ADQ_NOTA_U22_2021", "-86.8")], "Flujo neto de las adquisiciones de 2021 (nota 2.4, columna del total)")
+t(W, 345, "Current taxes", 0, [(-1, 2022, "TAX_CORR_U23_2022", "92.6")], "Impuesto corriente 2022 reexpresado (nota 9)")
+t(W, 345, "re:^\\s*Deferred taxes\\s{2,}", 0, [(-1, 2022, "TAX_DIF_U23_2022", "-12.9")], "Impuesto diferido 2022 reexpresado (nota 9)")
+t(W, 294, "NET CASH FLOW", 0, [(0, 2022, "CF_ADQ_NOTA_U23_2022", "-221.7")], "Flujo neto de las adquisiciones de 2022 (nota 2.4, columna del total reexpresado)")
 for etq, idb, (vr, vp) in [("Écarts de conversion", "LS_FX", ("5.6", "5.9")), ("Autres mouvements", "LS_OTROS", ("-1.9", "-1.0"))]:
     t(D, 312, etq, 1, [(-2, 2023, f"{idb}_ROU_2023", vr), (-1, 2023, f"{idb}_PAS_2023", vp)], f"Arrendamientos 2023 (DEU 2024): {etq}")
 
@@ -528,6 +538,8 @@ t(W, 346, "Lease liabilities*", 0, [(-4, 2023, "TAXDIF_LS_2023", "17.0")], "Dife
 Y = "URD2021"
 dos(Y, 226, "Revenue", "IS_VENTAS_U21", 2021, "3048.3", 2020, "2806.3", "Ventas (2020 = base de S2C)")
 t(Y, 211, "re:^\\s*TOTAL\\s{2,}", 0, [(-2, 2021, "CREC_PUB_2021", "8.6"), (-1, 2021, "CREC_ORG_2021", "7.4")], "Crecimiento de ventas 2021: publicado / orgánico", "%")
+# (C9) ventas de 2020 en el informe de gestión (2021, 2020 reexpresado, variación, variación %): segunda presentación de S2020
+t(Y, 213, "re:^\\s*Revenue\\s{2,}\\d", 0, [(-3, 2020, "IS_VENTAS_MR_U21_2020", "2806.3")], "Ventas 2020 en el informe de gestión (base de S2C)")
 
 t(U, 347, "Flat linen", 0, [(-1, 2025, "VENTAS_LINO_PLANO_2025", "2217.4")], "Ventas de lino plano 2025 (nota 4.2, total de segmentos)",
   nota="Tabla de un solo ejercicio: el título «2025» va encima de la tabla y la p.348 presenta 2024; control manual del ejercicio")

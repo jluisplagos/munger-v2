@@ -217,6 +217,20 @@ def main():
     caso("M4: metadatos falsos en dos filas", [c1, c2], "FALLO",
          {"CREC_ORG_2025": {"ejercicio", "unidad", "edicion"}, "IS_VENTAS_2025": {"perimetro"}},
          coherente=True)
+    # ---- C9 (tras C7): tabla de la nota 2.4 con la columna del total del ejercicio seguida de columnas por país
+    # (URD 2022 p.277) o por sociedad adquirida (URD 2023 p.294). Sobre C7, la columna de Bélgica daba OK en todo.
+    caso("positivo C9: total de los flujos netos de adquisiciones de 2021 (columna «12/31/2021», URD 2022 p.277)",
+         [nueva("POS_ADQ_NOTA_2021", anio="2021", doc="URD2022", pagina="277", etiqueta="Net cash flow", pos="0", literal="(86.8)",
+                valor_publicado="-86.8")], "OK")
+    caso("C9: la columna de Bélgica, contigua al total, declarada del grupo",
+         [nueva("MUT_ADQ_BELGICA", anio="2021", doc="URD2022", pagina="277", etiqueta="Net cash flow", pos="1", literal="(19.0)",
+                valor_publicado="-19.0")], "FALLO", {"MUT_ADQ_BELGICA": {"perimetro"}})
+    caso("C9: la columna de Suecia, la última, declarada del grupo",
+         [nueva("MUT_ADQ_SUECIA", anio="2021", doc="URD2022", pagina="277", etiqueta="Net cash flow", pos="-1", literal="(1.4)",
+                valor_publicado="-1.4")], "FALLO", {"MUT_ADQ_SUECIA": {"perimetro"}})
+    caso("C9: la columna de una sociedad adquirida (Textilservice, URD 2023 p.294) declarada del grupo: PENDIENTE, nunca OK",
+         [nueva("MUT_ADQ_TEXTIL", anio="2022", doc="URD2023", pagina="294", etiqueta="NET CASH FLOW", pos="1", literal="(25.7)",
+                valor_publicado="-25.7")], "PENDIENTE")
 
     malos = 0
     for k in casos:

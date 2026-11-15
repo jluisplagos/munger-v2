@@ -1,6 +1,6 @@
 # Contraste independiente F1 · Elis · resultados calculados
 
-Generado por `scripts/contraste_f1.py`. Comprobaciones: 275 (algebraica: 29, fuente: 110, libro: 136), fallidas: 0. Libro contrastado: sí, SHA-256 d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385. Millones de euros salvo indicación.
+Generado por `scripts/contraste_f1.py`. Comprobaciones: 280 (algebraica: 29, fuente: 115, libro: 136), fallidas: 0. Libro contrastado: sí, SHA-256 d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385. Millones de euros salvo indicación.
 
 ### Residuos de las conciliaciones anuales (0 = cuadra exactamente; ±0,1 = redondeo de la cifra impresa)
 
@@ -286,6 +286,9 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 275 (algebraica: 29, fue
 - OK · [fuente] residuo R35 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
 - OK · [fuente] residuo R36 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
 - OK · [fuente] residuo R5 2021 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.4)
+- OK · [fuente] residuo R17 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
+- OK · [fuente] residuo R39 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
+- OK · [fuente] residuo R40 2021 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R25 2022 dentro de su cota de redondeo: 0.1 frente a 0.0 (dif. 0.1; tol. 0.4)
 - OK · [fuente] residuo R16 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R22 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
@@ -293,6 +296,8 @@ Generado por `scripts/contraste_f1.py`. Comprobaciones: 275 (algebraica: 29, fue
 - OK · [fuente] residuo R35 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
 - OK · [fuente] residuo R36 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.25)
 - OK · [fuente] residuo R5 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.4)
+- OK · [fuente] residuo R17 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
+- OK · [fuente] residuo R39 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.1)
 - OK · [fuente] residuo R32 2022 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)
 - OK · [fuente] residuo R1 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.15)
 - OK · [fuente] residuo R2 2023 dentro de su cota de redondeo: 0.0 frente a 0.0 (dif. 0.0; tol. 0.2)

@@ -507,3 +507,64 @@ Se ejecutaron sin cambios. Salidas en `resultados/`:
 - **5 entradas que cambian la referencia de la especificación con la Historia del libro como única segunda línea** (N2): adquisiciones e impuesto de 2021 y 2022 y ventas de 2020.
 - **14 filas PENDIENTE** (URD 2022 p.302: el verificador no encuentra ni la unidad ni la cabecera de columnas). Una de ellas, `LS_AMORT_ROU_2021`, solo se usa como contraparte de R16 de 2021, y cuadra con la nota de D&A.
 - **Lo económico no cambia:** decisión F1, política de la PPA, dato o estimación de la reinversión necesaria (M1 a–d, M2) y perímetros declarados de S2C y del margen, todos [DH] pendientes. Sin aptitud para dinero real.
+
+# Cambios del autor tras el congelado C8 (C9)
+
+No responden a ninguna objeción. Se hicieron mientras la revisión n.º 4 trabajaba sobre C8. **No están revisados**: entran en la pasada siguiente, junto con la respuesta a la n.º 4.
+
+**Cronología.**
+- El hueco del verificador descrito abajo lo encontré hacia las 22:05 UTC, al probar contraejemplos de las filas nuevas, sin haber leído el informe de la revisión n.º 4.
+- Ese informe se publicó a las 22:04 UTC (commit a15f706 de la rama del revisor), antes que este commit, así que git no puede acreditar el orden.
+- Si la revisión n.º 4 señala el mismo hueco, cuenta como hallazgo del revisor.
+
+## Segunda presentación de cinco entradas del ancla de S2C
+
+Tras C7, cinco entradas que cambian los valores de referencia de la especificación solo se comparaban con la Historia del libro: adquisiciones e impuesto de 2021 y 2022, y ventas de 2020 (N2, «Lo que queda»). C9 añade siete filas de las mismas publicaciones, verificadas en las seis dimensiones, y tres identidades del horizonte:
+
+| Identidad | 2021 | 2022 | Páginas |
+|---|---|---|---|
+| R17 impuesto corriente + diferido (nota 9) − gasto por impuesto | 0,0 (cota 0,15) | 0,0 (cota 0,15) | URD 2022 p.258 y p.326; URD 2023 p.276 y p.345 |
+| R39 adquisiciones del EFE − flujo neto total de la nota 2.4 | 0,0 (cota 0,10) | 0,0 (cota 0,10) | URD 2022 p.261 y p.277; URD 2023 p.279 y p.294 |
+| R40 ventas de 2020: cuenta de resultados − informe de gestión | 0,0 (cota 0,10) | — | URD 2021 p.226 y p.213 |
+
+- Los valores de referencia de E9 no cambian: C53 de A1 = 2,445331695332 y de A2 = 1,612524303305.
+- [P] El informe de gestión del URD 2022 (p.247) imprime las adquisiciones de 2021 como (86,9) bajo la cabecera «2021 restated». Es la cifra publicada antes del ajuste IFRS 3 de 0,1: la tabla de reexpresión (p.271) da (86,9) + 0,1 = (86,8), la del EFE. Por eso R39 usa la nota 2.4.
+- **Límite:** 0,1 queda dentro de la cota de R39, así que ninguna identidad distingue la cifra publicada de la reexpresada. Lo documenta un caso de `test_contraste_residuos.py`.
+
+## Hueco del verificador encontrado por el autor
+
+- **Qué.** Tabla de flujos de adquisiciones de la nota 2.4 del URD 2022 (p.277): una columna de total del ejercicio («12/31/2021») seguida de columnas por país. La cifra de Bélgica, contigua al total, declarada del grupo y de 2021, quedaba OK en las seis dimensiones:
+  - el ejercicio se asignaba por alineación a la única columna de ejercicio de la cabecera, aunque el token estuviera más cerca de «Belgium»;
+  - el perímetro no miraba las columnas por país.
+- **Alcance.** Existe en C7 y en C8, el congelado de la revisión n.º 4. Ninguna fila real lo aprovechaba: ninguna procedía de una tabla así antes de C9, y las de C9 toman la columna del total.
+- **Corrección:**
+  - ejercicio: si una palabra de la cabecera que no es una columna reconocida (un país, una sociedad, un ajuste) está más cerca del token que la columna del ejercicio, el ejercicio queda PENDIENTE. Solo se aplica a las columnas de ejercicio; en las de concepto la cabecera es una frase y solo una palabra casa con la clave;
+  - perímetro: en una tabla con tres países o más en la cabecera, la columna de un país no es del grupo (FALLO).
+- **Pruebas:**
+  - 4 casos nuevos en `test_verificar_cifras.py` (67/67): el total, OK; Bélgica y Suecia, FALLO en perímetro; una sociedad adquirida (URD 2023 p.294), PENDIENTE;
+  - las 736 filas anteriores no cambian de estado en ninguna dimensión;
+  - los scripts del revisor, sin cambios, dan sobre C9 los mismos resultados que sobre C7, salvo los recuentos de filas (`resultados/*_sobre_C9.txt`).
+- **Límite que queda:** las columnas por sociedad no se reconocen como tales. Quedan PENDIENTE en ejercicio, no FALLO en perímetro.
+
+## Resultados sobre C9
+
+| Prueba | Resultado |
+|---|---|
+| Verificador | 743 filas: 729 OK, 14 PENDIENTE, 0 FALLO |
+| `test_verificar_cifras.py` | 67/67 |
+| Contraste | 280 comprobaciones (136 libro, 115 fuente con 114 residuos, 29 algebraicas), 0 fallidas; 409 entradas |
+| Cobertura declarada | 223 entre páginas, 151 solo misma página, 4 solo Historia y 31 sin segunda línea. Ninguna de las dos últimas clases cambia la referencia |
+| `test_contraste_residuos.py` | 18/18 |
+| Mutación (521 filas vigentes) | 374 por identidad, 4 solo libro, 23 sin detectar, 8 leídas sin efecto y 112 no usadas; sin incoherencias |
+| Sondas de un solo campo | 704/704 en unidad y en perímetro |
+| Regeneración del CSV desde los PDF | Idéntico byte a byte |
+
+## Lo que queda abierto tras C9
+
+- **Revisión n.º 4** (sobre C8): publicada, pendiente de incorporar y responder.
+- **Revisión de lo afectado por C9 y por esa respuesta:** pendiente.
+- **Cobertura:** 31 entradas sin segunda línea y 4 solo con la Historia; ninguna cambia la referencia.
+- **14 filas PENDIENTE** de URD 2022 p.302.
+- **Columnas por sociedad:** PENDIENTE, no FALLO.
+- **Límites de detección por debajo de la cota:** R13 de 2025 y R39 de 2021.
+- **Decisiones económicas [DH] y aptitud:** como tras C7. Sin aptitud para dinero real.
