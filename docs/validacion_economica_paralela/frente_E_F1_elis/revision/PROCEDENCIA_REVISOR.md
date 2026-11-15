@@ -59,3 +59,24 @@ Los 5 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-
 | `scripts_revisor_4/paginas_sin_ancla.py` | `a15f706` | `7d63f7e18230733ba0d5f7c8d6b35c51d51cc682` | `d96b9ce166457dfcda420fcb6bfe29156ff5dca73812b7c77e91caac162d228a` | 2000 |
 
 Comprobación (desde la raíz del repositorio): `git diff --name-only 034301cae8e2f1a21107b017d18eb67075ec5d33 a15f70632ed1850f0d68ccfcfaf1c146a43d1796 | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree a15f70632ed1850f0d68ccfcfaf1c146a43d1796 "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
+
+## Revisión independiente n.º 5
+
+Los 12 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-e-revision`, commit `595d2f678178e41dac15e8d24b0523efe327b5b8` (padre `a15f70632ed1850f0d68ccfcfaf1c146a43d1796`), publicado el 15 de noviembre de 2026 a las 23:19:11 UTC por una sesión de revisión nueva, distinta de la de las revisiones n.º 1, 3 y 4, y se copiaron sin cambios en las mismas rutas con `git show`.
+
+| Ruta (relativa a revision/) | Commit del último cambio | Id de blob de git | SHA-256 | Bytes |
+|---|---|---|---|---|
+| `REVISION_INDEPENDIENTE_5.md` | `595d2f6` | `3709a3cbe1131196e6c0bf57020599dffb5cae53` | `9fe5623d9534047ac3044a1d2f3b1eeb45cd06fba02b1e9e49db342640dd0c8c` | 38011 |
+| `resultados_revisor_5/barrido_tablas.txt` | `595d2f6` | `09788eb1cee7f35494b122796d358516524c23b7` | `3029e719e4dedd1692bf5d20e6ed716de0d8c0e7aa2f24b54268c4a46065f51c` | 70216 |
+| `resultados_revisor_5/clases_5.txt` | `595d2f6` | `e0803e980f98542e4a7a888623ac8ba405006c88` | `20088490f7ecee391a28b7ba0375611a2557abe2b32a6623d57d101e01217b9e` | 5605 |
+| `resultados_revisor_5/cobertura_propia.txt` | `595d2f6` | `e98c20f79f2528650608b7ee3d5a62e73d8be4de` | `a8fa2406735f107ee6b9b61a501ebe5df0557cdb2be37731f24e345f0b34b815` | 3943 |
+| `resultados_revisor_5/contraejemplos_5.txt` | `595d2f6` | `2e1b080fe8444245b7dc61b2445b9e496892e22a` | `f34a685a1a25adbf33260a2766cec01375206745a8f6eba872a48137188b726f` | 31435 |
+| `resultados_revisor_5/lectura_filas_c9.txt` | `595d2f6` | `90e0fbf9659b48aa777061de05b786f875b1899e` | `0c391defa24d007a3d439323e9f711ccf0216001502e3747a1862963d72d866f` | 18078 |
+| `scripts_revisor_5/arnes.py` | `595d2f6` | `aedbce3c878f1ac19aca241115be567d92cb292d` | `52e17cc7aac114072acc9ad35890021a336bcc2cdfe7451a2f61dee8c1ec635b` | 5303 |
+| `scripts_revisor_5/barrido_tablas.py` | `595d2f6` | `ae929fbd9c147364b46a96ce82a947f7db488821` | `68d987a1d48c889bbb99577bd240cd7a7fccf6ba5a649a8dc2037f6a2c38acf3` | 17324 |
+| `scripts_revisor_5/clases_5.py` | `595d2f6` | `c700525857e9130adb78e198b03c02a1b2d9d79b` | `5dbd6b44042e082d0e0d64ba964c49a986af02281bdac637681b3c1da36b4b31` | 13902 |
+| `scripts_revisor_5/cobertura_propia.py` | `595d2f6` | `2768503376301e731bc168fd55c432fc1c6aa565` | `ab1e99304204af6308b306ccec39bf49389cf8b9c7bb76ffc1c0e02e11bbe308` | 12856 |
+| `scripts_revisor_5/contraejemplos_5.py` | `595d2f6` | `78fafc2967b387b2b0dbd536a2117ac6523ae186` | `da3171982dcef742e4a9af1af88b8a8045759967f46a2b106eaeed00bcd13255` | 14976 |
+| `scripts_revisor_5/lectura_filas_c9.py` | `595d2f6` | `1484b5c6c1872781653c19af5f6f27bb911ecdcb` | `39cae31c978dab45a0e693afeda434e389e4f957e3e0c7870435c4ae243ed0b4` | 15018 |
+
+Comprobación (desde la raíz del repositorio): `git diff --name-only a15f70632ed1850f0d68ccfcfaf1c146a43d1796 595d2f678178e41dac15e8d24b0523efe327b5b8 | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree 595d2f678178e41dac15e8d24b0523efe327b5b8 "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`

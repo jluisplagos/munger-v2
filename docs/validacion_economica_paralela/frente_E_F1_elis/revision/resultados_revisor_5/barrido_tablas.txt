@@ -1,0 +1,401 @@
+Barrido diferencial de tablas · versión nueva C11 · versión anterior C8
+
+Equivalencia módulo = ejecución oficial en C11: 704 filas de tabla del CSV real, 0 con alguna dimensión distinta
+Equivalencia módulo = ejecución oficial en C8: 697 filas de tabla del CSV real, 0 con alguna dimensión distinta
+
+Páginas con cabecera aceptada como del grupo (las únicas que pueden dar OK en perímetro):
+  DEU2024FR: 91 páginas
+  URD2021: 87 páginas
+  URD2022: 93 páginas
+  URD2023: 94 páginas
+  URD2025: 94 páginas
+Candidatas evaluadas (token × ejercicio): 48094
+
+OK en las cinco dimensiones: C8 7071 · C11 5831
+
+== Transiciones de estado C8 → C11, por dimensión ==
+  ejercicio: FALLO → PENDIENTE: 2374
+  ejercicio: OK → PENDIENTE: 1190
+  perimetro: OK → FALLO: 846
+  perimetro: OK → PENDIENTE: 2292
+  unidad: OK → PENDIENTE: 46
+
+== Las mismas transiciones, por motivo de la versión nueva (páginas y un ejemplo) ==
+
+  ejercicio: FALLO → PENDIENTE · 2374 · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: DEU2024FR p.323 (194), URD2025 p.377 (177), URD2023 p.331 (170), URD2021 p.279 (94), URD2022 p.312 (89), URD2025 p.360 (84), URD2023 p.312 (80), DEU2024FR p.327 (59), URD2021 p.261 (54), DEU2024FR p.338 (50), URD2022 p.294 (50), DEU2024FR p.306 (46), URD2025 p.393 (38), URD2021 p.291 (36) …
+     ejemplo: DEU2024FR p.253 l.52 token 1/1 «3,3%» declarado 2024 · En France, le chiffre d'affaires 2024 est en croissance de + 3,3%
+
+  perimetro: OK → PENDIENTE · 2292 · el título «…» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+     páginas: URD2022 p.274 (448), DEU2024FR p.317 (124), URD2023 p.323 (124), URD2025 p.371 (124), DEU2024FR p.316 (110), URD2021 p.271 (108), URD2022 p.304 (100), URD2025 p.370 (100), URD2022 p.305 (86), URD2021 p.258 (76), URD2023 p.310 (72), URD2023 p.324 (72), URD2025 p.358 (72), DEU2024FR p.304 (68) …
+     ejemplo: DEU2024FR p.302 l.31 token 1/2 «38,0» declarado 2024 · Valeur actualisée des engagements non financés  38,0  36,5
+
+  ejercicio: OK → PENDIENTE · 1190 · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: DEU2024FR p.338 (50), URD2025 p.360 (42), URD2025 p.393 (38), URD2021 p.291 (36), URD2022 p.320 (35), URD2022 p.327 (32), DEU2024FR p.306 (28), DEU2024FR p.330 (28), URD2023 p.346 (28), URD2025 p.377 (25), DEU2024FR p.274 (24), DEU2024FR p.323 (24), URD2022 p.263 (24), URD2023 p.312 (24) …
+     ejemplo: DEU2024FR p.253 l.52 token 1/1 «3,3%» declarado 2023 · En France, le chiffre d'affaires 2024 est en croissance de + 3,3%
+
+  perimetro: OK → FALLO · 846 · la columna es la de «…» en una tabla con columnas por país, no la del grupo
+     páginas: URD2021 p.270 (198), URD2023 p.322 (198), URD2022 p.303 (196), URD2022 p.277 (66), URD2021 p.242 (64), URD2021 p.244 (58), DEU2024FR p.285 (8), DEU2024FR p.287 (6), URD2022 p.273 (6), URD2025 p.339 (6), DEU2024FR p.289 (4), URD2021 p.211 (4), URD2022 p.243 (4), URD2023 p.261 (4) …
+     ejemplo: DEU2024FR p.253 l.86 token 1/1 «251» declarado 2024 · Elis | Document d'enregistrement universel 2024 | 251
+
+  unidad: OK → PENDIENTE · 46 · el literal «…» es un entero de seis cifras o más: formato de recuento, no de millones de euros
+     páginas: DEU2024FR p.340 (12), URD2021 p.292 (8), URD2022 p.329 (8), URD2023 p.348 (8), URD2025 p.395 (8), URD2021 p.291 (2)
+     ejemplo: DEU2024FR p.340 l.51 token 1/2 «235 896 652» declarado 2024 · Nombre moyen pondéré d'actions  235 896 652  232 122 085
+
+
+== Candidatas a FALSO POSITIVO: OK en C8, no OK en C11, y el token está bajo una cabecera del ejercicio declarado ==
+  total: 669
+
+  ejercicio · 384 · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     DEU2024FR p.271 l.47 tok 1/1 «269» 2023 · sobre: 2023 | 5 | retraité* · columna del ejercicio no acreditada: el token está bajo la cabecera «taux», que no es una  · Elis | Document d'enregistrement universel 2024 | 269
+     DEU2024FR p.302 l.42 tok 1/1 «-3,8%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «+4,4%», que no es una · Taux d'actualisation - impact d'une hausse de 0,5 pt  -3,8%
+     DEU2024FR p.302 l.43 tok 1/1 «-5,1%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «+4,4%», que no es una · Taux d'augmentation attendue des salaires ou pensions - impact d'une baisse de 0
+     DEU2024FR p.302 l.44 tok 1/1 «+5,1%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «+4,4%», que no es una · Taux d'augmentation attendue des salaires ou pensions - impact d'une hausse de 0
+     DEU2024FR p.305 l.31 tok 1/1 «- 7,3%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «8,4%», que no es una  · Taux d'actualisation - impact d'une hausse de 0,5 pt  - 7,3%
+     DEU2024FR p.305 l.32 tok 1/1 «- 0,8%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «8,4%», que no es una  · Taux d'augmentation attendue des salaires - impact d'une baisse de 0,5 pt  - 0,8
+     DEU2024FR p.317 l.61 tok 1/6 «9,3%» 2024 · sobre: Elis | 31/12/2024 · columna del ejercicio no acreditada: el token está bajo la cabecera «tests», que no es una · Taux d'actualisation  9,3%  9,0%  9,3%  9,0%  10,3%  9,6%
+     DEU2024FR p.317 l.61 tok 2/6 «9,0%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «0,0%», que no es una  · Taux d'actualisation  9,3%  9,0%  9,3%  9,0%  10,3%  9,6%
+     DEU2024FR p.317 l.62 tok 1/6 «2,0%» 2024 · sobre: Elis | 31/12/2024 · columna del ejercicio no acreditada: el token está bajo la cabecera «tests», que no es una · Taux de croissance à l'infini  2,0%  2,0%  2,0%  2,0%  2,0%  2,0%
+     DEU2024FR p.317 l.62 tok 2/6 «2,0%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «0,0%», que no es una  · Taux de croissance à l'infini  2,0%  2,0%  2,0%  2,0%  2,0%  2,0%
+     DEU2024FR p.317 l.63 tok 1/6 «1,0%» 2024 · sobre: Elis | 31/12/2024 · columna del ejercicio no acreditada: el token está bajo la cabecera «tests», que no es una · Taux de redevance  1,0%  1,0%  4,0%  4,0%  2,0%  2,0%
+     DEU2024FR p.317 l.63 tok 2/6 «1,0%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «0,0%», que no es una  · Taux de redevance  1,0%  1,0%  4,0%  4,0%  2,0%  2,0%
+     DEU2024FR p.317 l.69 tok 1/5 «1,0%» 2023 · sobre: 31/12/2023 · columna del ejercicio no acreditada: el token está bajo la cabecera «0,0%», que no es una  · (en millions d'euros)  1,0%  1,5%  2,0%  2,5%  3,0%
+     DEU2024FR p.331 l.31 tok 1/2 «0,1» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Autres participations  0,1  0,1
+     DEU2024FR p.331 l.32 tok 1/2 «7,1» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés actifs non courants (cross-currency swap)  7,1  7,1
+     DEU2024FR p.331 l.33 tok 1/2 «5,7» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés actifs courants (change à terme)  5,7  5,7
+     DEU2024FR p.331 l.34 tok 1/2 «20,6» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Actifs compensatoires  20,6  20,6
+     DEU2024FR p.331 l.35 tok 1/4 «33,5» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · ACTIFS MESURÉS À LA JUSTE VALEUR  33,5  -  12,8  20,7
+     DEU2024FR p.331 l.36 tok 1/2 «9,6» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés passifs non courants (cross-currency swap)  9,6  9,6
+     DEU2024FR p.331 l.37 tok 1/2 «0,5» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés passifs courants (change à terme)  0,5  0,5
+     DEU2024FR p.331 l.38 tok 1/2 «23,5» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dettes liées aux acquisitions  23,5  23,5
+     DEU2024FR p.331 l.39 tok 1/4 «33,6» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · PASSIFS MESURÉS À LA JUSTE VALEUR  33,6  -  10,1  23,5
+     DEU2024FR p.331 l.40 tok 1/2 «659,6» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · USPP  659,6  659,6
+     DEU2024FR p.331 l.42 tok 1/2 «357,6» 2024 · sobre: 31/12/2024 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Obligations convertibles - composante dette  357,6  357,6
+     DEU2024FR p.331 l.50 tok 1/2 «0,1» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Autres participations  0,1  0,1
+     DEU2024FR p.331 l.51 tok 1/2 «1,9» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés actifs non courants (cross-currency swap)  1,9  1,9
+     DEU2024FR p.331 l.52 tok 1/2 «1,4» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés actifs courants (change à terme)  1,4  1,4
+     DEU2024FR p.331 l.53 tok 1/2 «23,6» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Actifs compensatoires  23,6  23,6
+     DEU2024FR p.331 l.54 tok 1/4 «27,0» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · ACTIFS MESURÉS À LA JUSTE VALEUR  27,0  -  3,4  23,6
+     DEU2024FR p.331 l.55 tok 1/2 «17,1» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés passifs non courants (cross-currency swap)  17,1  17,1
+     DEU2024FR p.331 l.56 tok 1/2 «5,7» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dérivés passifs courants (change à terme)  5,7  5,7
+     DEU2024FR p.331 l.57 tok 1/2 «118,2» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Dettes liées aux acquisitions  118,2  118,2
+     DEU2024FR p.331 l.59 tok 1/2 «628,4» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · USPP  628,4  628,4
+     DEU2024FR p.331 l.61 tok 1/2 «346,0» 2023 · sobre: 31/12/2023 | valeur · columna del ejercicio no acreditada: el token está bajo la cabecera «valeur», que no es un · Obligations convertibles - composante dette  346,0  346,0
+     DEU2024FR p.338 l.16 tok 1/6 «(3,6)» 2023 · sobre: 31/12/2023 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · Goodwill (amort. fiscalement déductible)  (3,6)  0,0  (1,0)  0,0  1,0  (3,6)
+     DEU2024FR p.338 l.16 tok 6/6 «(3,6)» 2024 · sobre: 31/12/2024 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · Goodwill (amort. fiscalement déductible)  (3,6)  0,0  (1,0)  0,0  1,0  (3,6)
+     DEU2024FR p.338 l.17 tok 1/6 «(125,8)» 2023 · sobre: 31/12/2023 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · Immobilisations incorporelles  (125,8)  (3,8)  20,3  0,0  0,4  (108,9)
+     DEU2024FR p.338 l.17 tok 6/6 «(108,9)» 2024 · sobre: 31/12/2024 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · Immobilisations incorporelles  (125,8)  (3,8)  20,3  0,0  0,4  (108,9)
+     DEU2024FR p.338 l.19 tok 1/6 «(100,3)» 2023 · sobre: 31/12/2023 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · d'utilisation  (100,3)  (0,0)  (7,2)  0,0  (1,6)  (109,1)
+     DEU2024FR p.338 l.19 tok 6/6 «(109,1)» 2024 · sobre: 31/12/2024 | net · columna del ejercicio no acreditada: el token está bajo la cabecera «net», que no es una c · d'utilisation  (100,3)  (0,0)  (7,2)  0,0  (1,6)  (109,1)
+
+  perimetro · 263 · el título «…» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+     DEU2024FR p.302 l.31 tok 1/2 «38,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements non financés  38,0  36,5
+     DEU2024FR p.302 l.31 tok 2/2 «36,5» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements non financés  38,0  36,5
+     DEU2024FR p.302 l.32 tok 1/2 «11,6» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements partiellement ou totalement financés  11,6  7,
+     DEU2024FR p.302 l.32 tok 2/2 «7,6» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements partiellement ou totalement financés  11,6  7,
+     DEU2024FR p.302 l.33 tok 2/3 «49,6» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  4
+     DEU2024FR p.302 l.33 tok 3/3 «44,1» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  4
+     DEU2024FR p.302 l.34 tok 2/3 «8,6» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Juste valeur des actifs des régimes (2)  8,6  4,9
+     DEU2024FR p.302 l.34 tok 3/3 «4,9» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Juste valeur des actifs des régimes (2)  8,6  4,9
+     DEU2024FR p.302 l.35 tok 2/3 «41,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.302 l.35 tok 3/3 «39,2» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.302 l.41 tok 1/1 «+4,4%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LA FRANCE» encima de la tabla nombra un país o un segmento: el perí · Taux d'actualisation - impact d'une baisse de 0,5 pt  +4,4%
+     DEU2024FR p.303 l.17 tok 1/2 «0,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements non financés  0,0  0,0
+     DEU2024FR p.303 l.17 tok 2/2 «0,0» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements non financés  0,0  0,0
+     DEU2024FR p.303 l.18 tok 1/2 «21,4» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements partiellement ou totalement financés  21,4  22
+     DEU2024FR p.303 l.18 tok 2/2 «22,3» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Valeur actualisée des engagements partiellement ou totalement financés  21,4  22
+     DEU2024FR p.303 l.19 tok 2/3 «21,4» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  2
+     DEU2024FR p.303 l.19 tok 3/3 «22,3» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  2
+     DEU2024FR p.303 l.20 tok 2/3 «25,9» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Juste valeur des actifs des régimes (2)  25,9  26,5
+     DEU2024FR p.303 l.20 tok 3/3 «26,5» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Juste valeur des actifs des régimes (2)  25,9  26,5
+     DEU2024FR p.303 l.21 tok 2/3 «(4,5)» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.303 l.21 tok 3/3 «(4,2)» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.303 l.27 tok 1/1 «+ 8,2%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Taux d'actualisation - impact d'une baisse de 0,5 pt  + 8,2%
+     DEU2024FR p.303 l.28 tok 1/1 «- 6,5%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Taux d'actualisation - impact d'une hausse de 0,5 pt  - 6,5%
+     DEU2024FR p.303 l.29 tok 1/1 «- 1,1%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Taux d'augmentation attendue des salaires - impact d'une baisse de 0,5 pt  - 1,1
+     DEU2024FR p.303 l.30 tok 1/1 «+ 1,1%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR L'IRLANDE» encima de la tabla nombra un país o un segmento: el perí · Taux d'augmentation attendue des salaires - impact d'une hausse de 0,5 pt  + 1,1
+     DEU2024FR p.304 l.17 tok 1/2 «0,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Valeur actualisée des engagements non financés  0,0  0,0
+     DEU2024FR p.304 l.17 tok 2/2 «0,0» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Valeur actualisée des engagements non financés  0,0  0,0
+     DEU2024FR p.304 l.18 tok 1/2 «261,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Valeur actualisée des engagements partiellement ou totalement financés  261,0  2
+     DEU2024FR p.304 l.18 tok 2/2 «269,5» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Valeur actualisée des engagements partiellement ou totalement financés  261,0  2
+     DEU2024FR p.304 l.19 tok 2/3 «261,0» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  2
+     DEU2024FR p.304 l.19 tok 3/3 «269,5» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · VALEUR TOTALE DES ENGAGEMENTS RELATIFS AUX RÉGIMES À PRESTATIONS DÉFINIES (1)  2
+     DEU2024FR p.304 l.20 tok 2/3 «257,3» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Juste valeur des actifs des régimes (2)  257,3  277,7
+     DEU2024FR p.304 l.20 tok 3/3 «277,7» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Juste valeur des actifs des régimes (2)  257,3  277,7
+     DEU2024FR p.304 l.21 tok 2/3 «3,7» 2024 · sobre: 31/12/2024 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.304 l.21 tok 3/3 «(8,2)» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · VALEUR TOTALE DU PASSIF RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (
+     DEU2024FR p.304 l.26 tok 1/1 «+ 6,0%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Taux d'actualisation - impact d'une baisse de 0,5 pt  + 6,0%
+     DEU2024FR p.304 l.27 tok 1/1 «- 5,4%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Taux d'actualisation - impact d'une hausse de 0,5 pt  - 5,4%
+     DEU2024FR p.304 l.28 tok 1/1 «+ 0,0%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Taux d'augmentation attendue des salaires - impact d'une baisse de 0,5 pt  + 0,0
+     DEU2024FR p.304 l.29 tok 1/1 «+ 0,0%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Taux d'augmentation attendue des salaires - impact d'une hausse de 0,5 pt  + 0,0
+     DEU2024FR p.304 l.30 tok 1/1 «- 2,2%» 2023 · sobre: 31/12/2023 · el título «DÉTAIL POUR LE ROYAUME-UNI» encima de la tabla nombra un país o un segmento: el · Taux d'augmentation attendue des pensions - impact d'une baisse de 0,5 pt  - 2,2
+
+  unidad · 22 · el literal «…» es un entero de seis cifras o más: formato de recuento, no de millones de euros
+     DEU2024FR p.340 l.51 tok 1/2 «235 896 652» 2024 · sobre: 2024 · el literal «235 896 652» es un entero de seis cifras o más: formato de recuento, no de mil · Nombre moyen pondéré d'actions  235 896 652  232 122 085
+     DEU2024FR p.340 l.51 tok 2/2 «232 122 085» 2023 · sobre: 2023 · el literal «232 122 085» es un entero de seis cifras o más: formato de recuento, no de mil · Nombre moyen pondéré d'actions  235 896 652  232 122 085
+     DEU2024FR p.340 l.52 tok 1/2 «22 906 781» 2024 · sobre: 2024 · el literal «22 906 781» es un entero de seis cifras o más: formato de recuento, no de mill · Impact potentiel de la conversion d'obligations convertibles  22 906 781  28 177
+     DEU2024FR p.340 l.52 tok 2/2 «28 177 067» 2023 · sobre: 2023 · el literal «28 177 067» es un entero de seis cifras o más: formato de recuento, no de mill · Impact potentiel de la conversion d'obligations convertibles  22 906 781  28 177
+     DEU2024FR p.340 l.53 tok 1/2 «1 757 910» 2024 · sobre: 2024 · el literal «1 757 910» es un entero de seis cifras o más: formato de recuento, no de millo · Impact potentiel des actions dont l'émission est conditionnelle  1 757 910  2 34
+     DEU2024FR p.340 l.53 tok 2/2 «2 342 990» 2023 · sobre: 2023 · el literal «2 342 990» es un entero de seis cifras o más: formato de recuento, no de millo · Impact potentiel des actions dont l'émission est conditionnelle  1 757 910  2 34
+     URD2021 p.292 l.58 tok 1/2 «13,124,018» 2021 · sobre: 12/31/2021 · el literal «13,124,018» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  13,124,018  13,124,018
+     URD2021 p.292 l.58 tok 2/2 «13,124,018» 2020 · sobre: 12/31/2020 · el literal «13,124,018» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  13,124,018  13,124,018
+     URD2021 p.292 l.59 tok 1/2 «1,215,107» 2021 · sobre: 12/31/2021 · el literal «1,215,107» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  1,215,107  383,514
+     URD2021 p.292 l.59 tok 2/2 «383,514» 2020 · sobre: 12/31/2020 · el literal «383,514» es un entero de seis cifras o más: formato de recuento, no de millone · Effect of contingently issuable shares  1,215,107  383,514
+     URD2022 p.329 l.45 tok 1/2 «17,671,810» 2022 · sobre: 12/31/2022 · el literal «17,671,810» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  17,671,810  13,463,108
+     URD2022 p.329 l.45 tok 2/2 «13,463,108» 2021 · sobre: 12/31/2021 · el literal «13,463,108» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  17,671,810  13,463,108
+     URD2022 p.329 l.46 tok 1/2 «1,475,333» 2022 · sobre: 12/31/2022 · el literal «1,475,333» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  1,475,333  1,188,969
+     URD2022 p.329 l.46 tok 2/2 «1,188,969» 2021 · sobre: 12/31/2021 · el literal «1,188,969» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  1,475,333  1,188,969
+     URD2023 p.348 l.49 tok 1/2 «27,751,078» 2023 · sobre: 2023 · el literal «27,751,078» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  27,751,078  18,102,469
+     URD2023 p.348 l.49 tok 2/2 «18,102,469» 2022 · sobre: 2022 | restated* · el literal «18,102,469» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible notes  27,751,078  18,102,469
+     URD2023 p.348 l.50 tok 1/2 «2,676,412» 2023 · sobre: 2023 · el literal «2,676,412» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  2,676,412  1,330,259
+     URD2023 p.348 l.50 tok 2/2 «1,330,259» 2022 · sobre: 2022 | restated* · el literal «1,330,259» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  2,676,412  1,330,259
+     URD2025 p.395 l.63 tok 1/2 «23,355,764» 2025 · sobre: 2025 · el literal «23,355,764» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible bonds  23,355,764  23,355,764
+     URD2025 p.395 l.63 tok 2/2 «23,355,764» 2024 · sobre: 2024 · el literal «23,355,764» es un entero de seis cifras o más: formato de recuento, no de mill · Effect of conversion of convertible bonds  23,355,764  23,355,764
+     URD2025 p.395 l.64 tok 1/2 «1,767,869» 2025 · sobre: 2025 · el literal «1,767,869» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  1,767,869  1,679,000
+     URD2025 p.395 l.64 tok 2/2 «1,679,000» 2024 · sobre: 2024 · el literal «1,679,000» es un entero de seis cifras o más: formato de recuento, no de millo · Effect of contingently issuable shares  1,767,869  1,679,000
+
+
+== Candidatas a FALSO NEGATIVO entre las 5831 que quedan OK en las cinco dimensiones en C11 ==
+
+-- (a) ninguna palabra de cabecera alineada por la derecha con el token lleva el ejercicio declarado: 541 en 84 páginas
+   páginas: DEU2024FR p.253 (2), DEU2024FR p.254 (2), DEU2024FR p.256 (22), DEU2024FR p.257 (25), DEU2024FR p.259 (21), DEU2024FR p.260 (9), DEU2024FR p.274 (2), DEU2024FR p.280 (1), DEU2024FR p.281 (3), DEU2024FR p.283 (1), DEU2024FR p.295 (2), DEU2024FR p.321 (6), DEU2024FR p.330 (26), DEU2024FR p.331 (1), DEU2024FR p.335 (4), URD2021 p.212 (2), URD2021 p.213 (16), URD2021 p.214 (14), URD2021 p.215 (25), URD2021 p.218 (1), URD2021 p.228 (18), URD2021 p.236 (2), URD2021 p.237 (5), URD2021 p.239 (2), URD2021 p.254 (10), URD2021 p.255 (15), URD2021 p.263 (1), URD2021 p.265 (1), URD2021 p.277 (1), URD2021 p.284 (2), URD2021 p.285 (1), URD2021 p.288 (1), URD2021 p.289 (5), URD2021 p.291 (2), URD2022 p.243 (2), URD2022 p.244 (2), URD2022 p.245 (16), URD2022 p.246 (14), URD2022 p.247 (22), URD2022 p.249 (9), URD2022 p.250 (12), URD2022 p.268 (1), URD2022 p.269 (3), URD2022 p.271 (1), URD2022 p.287 (1), URD2022 p.292 (1), URD2022 p.310 (2), URD2022 p.319 (9), URD2022 p.320 (2), URD2022 p.323 (3), URD2022 p.327 (2), URD2023 p.261 (2), URD2023 p.262 (2), URD2023 p.263 (14), URD2023 p.264 (4), URD2023 p.265 (24), URD2023 p.266 (14), URD2023 p.267 (10), URD2023 p.268 (12), URD2023 p.286 (1), URD2023 p.287 (3), URD2023 p.289 (1), URD2023 p.297 (1), URD2023 p.301 (5), URD2023 p.304 (13), URD2023 p.308 (2), URD2023 p.325 (1), URD2023 p.329 (1), URD2023 p.338 (13), URD2023 p.342 (4), URD2023 p.343 (4), URD2023 p.346 (2), URD2025 p.307 (4), URD2025 p.334 (1), URD2025 p.335 (2), URD2025 p.337 (1), URD2025 p.349 (5), URD2025 p.362 (5), URD2025 p.366 (1), URD2025 p.375 (3), URD2025 p.382 (14), URD2025 p.385 (15), URD2025 p.390 (2), URD2025 p.393 (2)
+     DEU2024FR p.253 l.18 tok 1/1 «35,2%)» 2024 · sobre: —; más próxima: None; columna de 2024 (orden con la cabecera) · organique)  en hausse de + 100 pb à 35,2%)
+     DEU2024FR p.253 l.20 tok 1/1 «16,0%)» 2024 · sobre: —; más próxima: None; columna de 2024 (orden con la cabecera) · hausse de + 20 pb à 16,0%)
+     DEU2024FR p.254 l.37 tok 2/3 «1 474,8» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · TOTAL  1 609,8  1 474,8  + 9,2%
+     DEU2024FR p.254 l.38 tok 2/2 «34,2%» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (alineación con la cabecera) · En % du chiffre d'affaires  35,2%  34,2%  + 100 pb
+     DEU2024FR p.256 l.30 tok 2/2 «1 325,6» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Flux nets de trésorerie générés par l'activité  1 452,1  1 325,6
+     DEU2024FR p.256 l.31 tok 2/2 «(902,3)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Flux nets de trésorerie liés aux opérations d'investissement  (1 060,3)  (902,3)
+     DEU2024FR p.256 l.32 tok 2/2 «(46,4)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Flux nets de trésorerie liés aux opérations de financement  (423,3)  (46,4)
+     DEU2024FR p.256 l.33 tok 2/2 «377,0» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · VARIATION NETTE DE TRÉSORERIE  (31,5)  377,0
+     DEU2024FR p.256 l.44 tok 2/2 «261,9» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · Résultat net  337,8  261,9
+     DEU2024FR p.256 l.45 tok 2/2 «110,3» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Charge d'impôt  128,3  110,3
+     DEU2024FR p.256 l.46 tok 2/2 «124,6» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Résultat financier net  130,4  124,6
+     DEU2024FR p.256 l.47 tok 2/2 «22,9» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Paiements en actions  27,1  22,9
+     DEU2024FR p.256 l.48 tok 2/2 «886,0» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Dotations nettes aux amortissements et provisions  963,3  886,0
+     DEU2024FR p.256 l.49 tok 2/2 «(0,5)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Quote-part de subvention virée au compte de résultat  (0,9)  (0,5)
+     DEU2024FR p.256 l.50 tok 2/2 «4,3» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Plus et moins-values de cession d'immobilisations corporelles et incorporelles  7,3  4,3
+     DEU2024FR p.256 l.51 tok 2/2 «48,4» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Ajustements de compléments de prix et autres éléments sans impact sur la trésorerie  (9,3)
+     DEU2024FR p.256 l.52 tok 2/2 «1 457,9» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · Capacité d'autofinancement avant coût de l'endettement financier net et impôt  1 584,0  1 
+     DEU2024FR p.256 l.53 tok 2/2 «12,3» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des stocks  (14,0)  12,3
+     DEU2024FR p.256 l.54 tok 2/2 «(66,6)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des clients, autres débiteurs et actifs sur contrats  (15,8)  (66,6)
+     DEU2024FR p.256 l.55 tok 2/2 «(1,4)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des autres actifs  (3,5)  (1,4)
+     DEU2024FR p.256 l.56 tok 2/2 «1,7» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des comptes fournisseurs et autres créditeurs  10,6  1,7
+     DEU2024FR p.256 l.57 tok 2/2 «52,5» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des passifs sur contrats et autres passifs  21,3  52,5
+     DEU2024FR p.256 l.58 tok 2/2 «(0,9)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des autres postes  (3,2)  (0,9)
+     DEU2024FR p.256 l.59 tok 2/2 «(3,5)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Avantages du personnel  (2,3)  (3,5)
+     DEU2024FR p.256 l.60 tok 2/2 «(126,4)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Impôts versés  (124,9)  (126,4)
+     DEU2024FR p.256 l.61 tok 2/2 «1 325,6» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · FLUX NETS DE TRÉSORERIE GÉNÉRÉS PAR L'ACTIVITÉ  1 452,1  1 325,6
+     DEU2024FR p.257 l.12 tok 2/2 «(26,8)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Décaissements liés aux acquisitions d'immobilisations incorporelles  (26,6)  (26,8)
+     DEU2024FR p.257 l.13 tok 2/2 «0,1» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Encaissements liés aux cessions d'immobilisations incorporelles  0,0  0,1
+     DEU2024FR p.257 l.14 tok 2/2 «(797,1)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Décaissements liés aux acquisitions d'immobilisations corporelles  (860,8)  (797,1)
+     DEU2024FR p.257 l.15 tok 2/2 «2,8» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Encaissements liés aux cessions d'immobilisations corporelles  7,3  2,8
+     DEU2024FR p.257 l.16 tok 2/2 «(82,1)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Acquisition de filiales, sous déduction de la trésorerie acquise  (183,3)  (82,1)
+     DEU2024FR p.257 l.17 tok 2/2 «0,0» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Encaissements liés aux cessions de filiales, sous déduction de la trésorerie cédée  0,0  0
+     DEU2024FR p.257 l.18 tok 2/2 «0,5» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Variation des prêts et avances consentis  (1,0)  0,5
+     DEU2024FR p.257 l.19 tok 2/2 «(0,0)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Dividendes reçus  0,0  (0,0)
+     DEU2024FR p.257 l.20 tok 2/2 «0,3» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Subventions d'investissement  4,1  0,3
+     DEU2024FR p.257 l.21 tok 2/2 «(902,3)» 2023 · sobre: retraité*; más próxima: [1, 'retraité*']; columna de 2023 (orden con la cabecera) · FLUX NETS DE TRÉSORERIE LIÉS AUX OPÉRATIONS D'INVESTISSEMENT  (1 060,3)  (902,3)
+     DEU2024FR p.257 l.38 tok 2/2 «(584,3)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Achats de linge  (594,3)  (584,3)
+     DEU2024FR p.257 l.39 tok 2/2 «(37,3)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Achats d'autres articles en location-entretien  (34,6)  (37,3)
+     DEU2024FR p.257 l.40 tok 2/2 «(202,3)» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Autres acquisitions d'immobilisations corporelles et incorporelles  (258,6)  (202,3)
+     DEU2024FR p.257 l.41 tok 2/2 «2,9» 2023 · sobre: retraité*; más próxima: [0, 'retraité*']; columna de 2023 (orden con la cabecera) · Cessions d'actifs  7,3  2,9
+     … y 501 más (lista completa con --todas)
+
+-- (b) el ejercicio está sobre el token, pero también otra palabra que no es fecha, año, «restated» ni llamada: 871 en 60 páginas
+   páginas: DEU2024FR p.257 (10), DEU2024FR p.280 (17), DEU2024FR p.281 (35), DEU2024FR p.282 (25), DEU2024FR p.283 (41), DEU2024FR p.308 (4), DEU2024FR p.312 (1), DEU2024FR p.321 (4), DEU2024FR p.330 (2), DEU2024FR p.331 (5), DEU2024FR p.335 (4), DEU2024FR p.338 (4), DEU2024FR p.347 (12), URD2021 p.228 (18), URD2021 p.230 (2), URD2021 p.236 (18), URD2021 p.237 (34), URD2021 p.238 (24), URD2021 p.239 (42), URD2021 p.259 (2), URD2021 p.277 (10), URD2021 p.284 (12), URD2021 p.285 (3), URD2021 p.291 (2), URD2021 p.298 (4), URD2022 p.262 (11), URD2022 p.268 (18), URD2022 p.269 (33), URD2022 p.270 (24), URD2022 p.271 (41), URD2022 p.292 (2), URD2022 p.310 (8), URD2022 p.319 (6), URD2022 p.320 (17), URD2022 p.324 (2), URD2022 p.327 (7), URD2023 p.286 (19), URD2023 p.287 (35), URD2023 p.288 (25), URD2023 p.289 (42), URD2023 p.314 (12), URD2023 p.321 (1), URD2023 p.329 (9), URD2023 p.338 (14), URD2023 p.339 (3), URD2023 p.343 (2), URD2023 p.346 (18), URD2023 p.355 (5), URD2025 p.311 (10), URD2025 p.328 (11), URD2025 p.329 (11), URD2025 p.334 (18), URD2025 p.335 (35), URD2025 p.336 (25), URD2025 p.337 (41), URD2025 p.375 (8), URD2025 p.386 (3), URD2025 p.390 (4), URD2025 p.393 (12), URD2025 p.402 (4)
+     DEU2024FR p.257 l.12 tok 1/2 «(26,6)» 2024 · sobre: exercices | clos | 2024 · Décaissements liés aux acquisitions d'immobilisations incorporelles  (26,6)  (26,8)
+     DEU2024FR p.257 l.13 tok 1/2 «0,0» 2024 · sobre: exercices | clos | 2024 · Encaissements liés aux cessions d'immobilisations incorporelles  0,0  0,1
+     DEU2024FR p.257 l.14 tok 1/2 «(860,8)» 2024 · sobre: exercices | clos | 2024 · Décaissements liés aux acquisitions d'immobilisations corporelles  (860,8)  (797,1)
+     DEU2024FR p.257 l.15 tok 1/2 «7,3» 2024 · sobre: exercices | clos | 2024 · Encaissements liés aux cessions d'immobilisations corporelles  7,3  2,8
+     DEU2024FR p.257 l.16 tok 1/2 «(183,3)» 2024 · sobre: exercices | clos | 2024 · Acquisition de filiales, sous déduction de la trésorerie acquise  (183,3)  (82,1)
+     DEU2024FR p.257 l.17 tok 1/2 «0,0» 2024 · sobre: exercices | clos | 2024 · Encaissements liés aux cessions de filiales, sous déduction de la trésorerie cédée  0,0  0
+     DEU2024FR p.257 l.18 tok 1/2 «(1,0)» 2024 · sobre: exercices | clos | 2024 · Variation des prêts et avances consentis  (1,0)  0,5
+     DEU2024FR p.257 l.19 tok 1/2 «0,0» 2024 · sobre: exercices | clos | 2024 · Dividendes reçus  0,0  (0,0)
+     DEU2024FR p.257 l.20 tok 1/2 «4,1» 2024 · sobre: exercices | clos | 2024 · Subventions d'investissement  4,1  0,3
+     DEU2024FR p.257 l.21 tok 1/2 «(1 060,3)» 2024 · sobre: exercices | clos | 2024 · FLUX NETS DE TRÉSORERIE LIÉS AUX OPÉRATIONS D'INVESTISSEMENT  (1 060,3)  (902,3)
+     DEU2024FR p.280 l.14 tok 1/3 «4 309,4» 2023 · sobre: 2023 | publié · PRODUITS DE L'ACTIVITÉ ORDINAIRE  4 309,4  0,0  4 309,4
+     DEU2024FR p.280 l.15 tok 1/3 «(629,4)» 2023 · sobre: 2023 | publié · Coût du linge, des appareils et des autres consommables  (629,4)  0,0  (629,4)
+     DEU2024FR p.280 l.16 tok 1/3 «(1 637,3)» 2023 · sobre: 2023 | publié · Coûts de traitement  (1 637,3)  0,0  (1 637,3)
+     DEU2024FR p.280 l.17 tok 1/3 «(626,6)» 2023 · sobre: 2023 | publié · Coûts de distribution  (626,6)  0,0  (626,6)
+     DEU2024FR p.280 l.18 tok 1/3 «(763,6)» 2023 · sobre: 2023 | publié · Frais de vente, généraux et administratifs  (763,6)  (0,0)  (763,6)
+     DEU2024FR p.280 l.19 tok 1/3 «(2,1)» 2023 · sobre: 2023 | publié · Pertes de valeur nettes sur créances clients et autres créances  (2,1)  0,0  (2,1)
+     DEU2024FR p.280 l.21 tok 1/3 «(85,1)» 2023 · sobre: 2023 | publié · d'entreprises  (85,1)  (0,6)  (85,7)
+     DEU2024FR p.280 l.22 tok 1/3 «(67,9)» 2023 · sobre: 2023 | publié · Autres produits et charges opérationnels  (67,9)  0,0  (67,9)
+     DEU2024FR p.280 l.23 tok 1/3 «497,5» 2023 · sobre: 2023 | publié · Résultat opérationnel  497,5  (0,7)  496,8
+     DEU2024FR p.280 l.24 tok 1/3 «(124,6)» 2023 · sobre: 2023 | publié · Résultat financier net  (124,6)  (0,0)  (124,6)
+     DEU2024FR p.280 l.25 tok 1/3 «372,9» 2023 · sobre: 2023 | publié · Résultat avant impôt  372,9  (0,7)  372,2
+     DEU2024FR p.280 l.26 tok 1/3 «(110,4)» 2023 · sobre: 2023 | publié · Charge d'impôt  (110,4)  0,2  (110,3)
+     DEU2024FR p.280 l.27 tok 1/3 «262,4» 2023 · sobre: 2023 | publié · Résultat des activités poursuivies  262,4  (0,5)  261,9
+     DEU2024FR p.280 l.28 tok 1/3 «0,0» 2023 · sobre: 2023 | publié · Résultat des activités abandonnées, net d'impôt  0,0  0,0  0,0
+     DEU2024FR p.280 l.29 tok 1/3 «262,4» 2023 · sobre: 2023 | publié · RÉSULTAT NET  262,4  (0,5)  261,9
+     DEU2024FR p.280 l.31 tok 1/3 «262,5» 2023 · sobre: 2023 | publié · › actionnaires de la société mère  262,5  (0,5)  262,0
+     DEU2024FR p.280 l.32 tok 1/3 «(0,0)» 2023 · sobre: 2023 | publié · › participations ne donnant pas le contrôle  (0,0)  0,0  (0,0)
+     DEU2024FR p.281 l.16 tok 1/3 «262,4» 2023 · sobre: 2023 | publié · RÉSULTAT NET  262,4  (0,5)  261,9
+     DEU2024FR p.281 l.17 tok 1/3 «1,3» 2023 · sobre: 2023 | publié · Profits/(pertes) sur couvertures de flux de trésorerie, avant impôt  1,3  0,0  1,3
+     DEU2024FR p.281 l.19 tok 1/3 «0,3» 2023 · sobre: 2023 | publié · résultat  0,3  0,0  0,3
+     DEU2024FR p.281 l.20 tok 1/3 «1,6» 2023 · sobre: 2023 | publié · Variation de la réserve de couverture de flux de trésorerie, avant impôt  1,6  0,0  1,6
+     DEU2024FR p.281 l.21 tok 1/3 «(0,4)» 2023 · sobre: 2023 | publié · Effets d'impôt  (0,4)  0,0  (0,4)
+     DEU2024FR p.281 l.22 tok 1/3 «(21,9)» 2023 · sobre: 2023 | publié · Variation nette du coût de la couverture, avant impôt  (21,9)  0,0  (21,9)
+     DEU2024FR p.281 l.23 tok 1/3 «5,7» 2023 · sobre: 2023 | publié · Effets d'impôt  5,7  0,0  5,7
+     DEU2024FR p.281 l.25 tok 1/3 «68,6» 2023 · sobre: 2023 | publié · nets  68,6  0,0  68,6
+     DEU2024FR p.281 l.27 tok 1/3 «53,6» 2023 · sobre: 2023 | publié · en résultat net  53,6  0,0  53,6
+     DEU2024FR p.281 l.28 tok 1/3 «(28,1)» 2023 · sobre: 2023 | publié · Gains/(pertes) actuariels sur plans à prestations définies, avant impôts  (28,1)  0,0  (28
+     DEU2024FR p.281 l.29 tok 1/3 «6,2» 2023 · sobre: 2023 | publié · Effets d'impôt  6,2  0,0  6,2
+     DEU2024FR p.281 l.31 tok 1/3 «(21,8)» 2023 · sobre: 2023 | publié · en résultat net  (21,8)  0,0  (21,8)
+     DEU2024FR p.281 l.32 tok 1/3 «31,7» 2023 · sobre: 2023 | publié · TOTAL DES AUTRES ÉLÉMENTS DU RÉSULTAT GLOBAL  31,7  0,0  31,7
+     … y 831 más (lista completa con --todas)
+
+-- (c) unidad OK, pero el paréntesis de unidades más próximo por encima no dice millones de euros: 20 en 3 páginas
+   páginas: DEU2024FR p.335 (8), URD2023 p.343 (6), URD2025 p.390 (6)
+     DEU2024FR p.335 l.50 tok 2/7 «4,7» 2024 · unidad leída: «» · de devises  97,7  4,7  0,0  4.8  7,5  (0,1)  0,2  (0,0)  pertes de change
+     DEU2024FR p.335 l.50 tok 3/7 «0,0» 2024 · unidad leída: «» · de devises  97,7  4,7  0,0  4.8  7,5  (0,1)  0,2  (0,0)  pertes de change
+     DEU2024FR p.335 l.53 tok 2/7 «7,1» 2024 · unidad leída: «» · swap - USPP  377,7  7,1  9,6  note 8.7  -  (11,2)  -  0,0  pertes de change
+     DEU2024FR p.335 l.53 tok 3/7 «9,6» 2024 · unidad leída: «» · swap - USPP  377,7  7,1  9,6  note 8.7  -  (11,2)  -  0,0  pertes de change
+     DEU2024FR p.335 l.70 tok 2/7 «0,2» 2023 · unidad leída: «» · de devises  105,7  0,2  3,1  4.8  1,3  (0,4)  0,3  (0,1)  pertes de change
+     DEU2024FR p.335 l.70 tok 3/7 «3,1» 2023 · unidad leída: «» · de devises  105,7  0,2  3,1  4.8  1,3  (0,4)  0,3  (0,1)  pertes de change
+     DEU2024FR p.335 l.73 tok 2/7 «1,9» 2023 · unidad leída: «» · swap - USPP  377,7  1,9  17,1  note 8.7  -  (21,5)  -  (9,2)  pertes de change
+     DEU2024FR p.335 l.73 tok 3/7 «17,1» 2023 · unidad leída: «» · swap - USPP  377,7  1,9  17,1  note 8.7  -  (21,5)  -  (9,2)  pertes de change
+     URD2023 p.343 l.21 tok 2/8 «0.2» 2023 · unidad leída: «» · purchases  105.8  0.2  3.1  see Note 4.8  1.3  (0.4)  0.3  (0.1)  (losses)
+     URD2023 p.343 l.21 tok 3/8 «3.1» 2023 · unidad leída: «» · purchases  105.8  0.2  3.1  see Note 4.8  1.3  (0.4)  0.3  (0.1)  (losses)
+     URD2023 p.343 l.26 tok 2/8 «1.9» 2023 · unidad leída: «» · swap – USPP  377.7  1.9  17.1  see Note 8.7  -  (21.5)  -  (9.2)  (losses)
+     URD2023 p.343 l.26 tok 3/8 «17.1» 2023 · unidad leída: «» · swap – USPP  377.7  1.9  17.1  see Note 8.7  -  (21.5)  -  (9.2)  (losses)
+     URD2023 p.343 l.44 tok 3/8 «5.1» 2022 · unidad leída: «» · purchases  119.2  1.0  5.1  see Note 4.8  (7.9)  0.7  0.0  0.0  (losses)
+     URD2023 p.343 l.49 tok 3/8 «0.0» 2022 · unidad leída: «» · swap – USPP  194.3  15.6  0.0  see Note 8.7  -  6.7  -  7.7  (losses)
+     URD2025 p.390 l.48 tok 2/8 «0.4» 2025 · unidad leída: «» · purchases  146.2  0.4  2.6  see Note 4.8  (7.7)  0.8  0.0  0.0  gains (losses)
+     URD2025 p.390 l.48 tok 3/8 «2.6» 2025 · unidad leída: «» · purchases  146.2  0.4  2.6  see Note 4.8  (7.7)  0.8  0.0  0.0  gains (losses)
+     URD2025 p.390 l.52 tok 2/8 «0.0» 2025 · unidad leída: «» · swap – USPP  377.7  0.0  32.3  see Note 8.7  -  16.5  -  0.0  gains (losses)
+     URD2025 p.390 l.52 tok 3/8 «32.3» 2025 · unidad leída: «» · swap – USPP  377.7  0.0  32.3  see Note 8.7  -  16.5  -  0.0  gains (losses)
+     URD2025 p.390 l.68 tok 3/8 «0.0» 2024 · unidad leída: «» · purchases  97.7  4.7  0.0  see Note 4.8  7.5  (0.1)  0.2  (0.0)  gains (losses)
+     URD2025 p.390 l.72 tok 3/8 «9.6» 2024 · unidad leída: «» · swap – USPP  377.7  7.1  9.6  see Note 8.7  -  (11.2)  -  0.0  gains (losses)
+
+-- (d) unidad OK con un literal entero, sin decimales: 98 en 69 páginas
+   páginas: DEU2024FR p.273 (1), DEU2024FR p.280 (1), DEU2024FR p.281 (5), DEU2024FR p.283 (2), DEU2024FR p.297 (1), DEU2024FR p.299 (1), DEU2024FR p.301 (1), DEU2024FR p.303 (1), DEU2024FR p.305 (1), DEU2024FR p.329 (1), DEU2024FR p.331 (1), DEU2024FR p.337 (1), URD2021 p.218 (2), URD2021 p.236 (2), URD2021 p.237 (6), URD2021 p.239 (3), URD2021 p.251 (1), URD2021 p.253 (1), URD2021 p.255 (2), URD2021 p.257 (1), URD2021 p.263 (1), URD2021 p.265 (1), URD2021 p.277 (1), URD2021 p.283 (1), URD2021 p.285 (1), URD2021 p.289 (1), URD2022 p.250 (1), URD2022 p.261 (1), URD2022 p.268 (1), URD2022 p.269 (4), URD2022 p.271 (2), URD2022 p.281 (1), URD2022 p.285 (1), URD2022 p.287 (2), URD2022 p.289 (1), URD2022 p.292 (1), URD2022 p.297 (1), URD2022 p.313 (1), URD2022 p.319 (1), URD2022 p.321 (1), URD2022 p.325 (1), URD2023 p.268 (1), URD2023 p.277 (1), URD2023 p.279 (1), URD2023 p.286 (1), URD2023 p.287 (5), URD2023 p.289 (2), URD2023 p.297 (1), URD2023 p.301 (1), URD2023 p.307 (1), URD2023 p.309 (1), URD2023 p.325 (1), URD2023 p.335 (1), URD2023 p.345 (1), URD2025 p.311 (1), URD2025 p.325 (1), URD2025 p.327 (1), URD2025 p.334 (1), URD2025 p.335 (4), URD2025 p.337 (2), URD2025 p.345 (1), URD2025 p.351 (1), URD2025 p.353 (1), URD2025 p.355 (1), URD2025 p.357 (1), URD2025 p.375 (1), URD2025 p.385 (1), URD2025 p.387 (1), URD2025 p.391 (1)
+     DEU2024FR p.273 l.58 tok 1/1 «271» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 271
+     DEU2024FR p.280 l.11 tok 1/1 «3» 2023 · rótulo: publié · publié  IFRS 3
+     DEU2024FR p.281 l.12 tok 1/1 «3» 2023 · rótulo: publié · publié  IFRS 3
+     DEU2024FR p.281 l.42 tok 1/1 «3» 2023 · rótulo: IFRS 3 · IFRS 3
+     DEU2024FR p.281 l.43 tok 1/1 «3» 2023 · rótulo: IFRS 3 · IFRS 3  variation
+     DEU2024FR p.281 l.44 tok 1/1 «3» 2023 · rótulo: affectation · affectation  entre la date  IFRS 3
+     DEU2024FR p.281 l.70 tok 1/1 «279» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 279
+     DEU2024FR p.283 l.12 tok 1/1 «3» 2023 · rótulo: publié · publié  IFRS 3
+     DEU2024FR p.283 l.63 tok 1/1 «281» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 281
+     DEU2024FR p.297 l.71 tok 1/1 «295» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 295
+     DEU2024FR p.299 l.57 tok 1/1 «297» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 297
+     DEU2024FR p.301 l.68 tok 1/1 «299» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 299
+     DEU2024FR p.303 l.53 tok 1/1 «301» 2024 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 301
+     DEU2024FR p.305 l.72 tok 1/1 «303» 2024 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 303
+     DEU2024FR p.329 l.55 tok 1/1 «327» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 327
+     DEU2024FR p.331 l.67 tok 1/1 «329» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 329
+     DEU2024FR p.337 l.76 tok 1/1 «335» 2023 · rótulo: Elis | Document d'enregistrement univers · Elis | Document d'enregistrement universel 2024 | 335
+     URD2021 p.218 l.28 tok 1/1 «12» 2020 · rótulo: Financial leverage corresponds to the fi · Financial leverage corresponds to the financial covenant as  by [Pro forma EBITDA of acqui
+     URD2021 p.218 l.56 tok 1/1 «1» 2020 · rótulo: As at January 1 · As at January 1
+     URD2021 p.236 l.11 tok 1/1 «3» 2020 · rótulo: published · published  IFRS 3
+     URD2021 p.236 l.12 tok 1/1 «19» 2020 · rótulo: IAS 19 · IAS 19
+     URD2021 p.237 l.12 tok 1/1 «3» 2020 · rótulo: published · published  IFRS 3
+     URD2021 p.237 l.13 tok 1/1 «19» 2020 · rótulo: IAS 19 · IAS 19
+     URD2021 p.237 l.44 tok 1/1 «3» 2020 · rótulo: IFRS 3 · IFRS 3  between the
+     URD2021 p.237 l.46 tok 1/1 «3» 2020 · rótulo: as at the date and the · as at the date and the  IFRS 3
+     URD2021 p.237 l.47 tok 1/1 «19» 2020 · rótulo: 12/31/2020 · 12/31/2020  acquisition balance sheet  translation  IAS 19  12/31/2020
+     URD2021 p.237 l.71 tok 1/1 «235» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 235
+     URD2021 p.239 l.12 tok 1/1 «3» 2020 · rótulo: published · published  IFRS 3
+     URD2021 p.239 l.13 tok 1/1 «19» 2020 · rótulo: IAS 19 · IAS 19
+     URD2021 p.239 l.68 tok 1/1 «237» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 237
+     URD2021 p.251 l.85 tok 1/1 «249» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 249
+     URD2021 p.253 l.75 tok 1/1 «251» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 251
+     URD2021 p.255 l.10 tok 4/4 «6» 2020 · rótulo: As at January 1 · As at January 1  410.5  430.5  6
+     URD2021 p.255 l.74 tok 1/1 «253» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 253
+     URD2021 p.257 l.70 tok 1/1 «255» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 255
+     URD2021 p.263 l.67 tok 1/1 «261» 2021 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 261
+     URD2021 p.265 l.10 tok 3/3 «6» 2020 · rótulo: CGU France · CGU France  1,415.1  1,410.5  6
+     URD2021 p.277 l.72 tok 1/1 «275» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 275
+     URD2021 p.283 l.73 tok 1/1 «281» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 281
+     URD2021 p.285 l.80 tok 1/1 «283» 2020 · rótulo: Elis | Universal Registration Document 2 · Elis | Universal Registration Document 2021 | 283
+     … y 58 más (lista completa con --todas)
+
+-- (e) perímetro OK, pero uno de los dos títulos más próximos por encima nombra un país, una región u otro perímetro: 146 en 22 páginas
+   páginas: DEU2024FR p.253 (6), DEU2024FR p.302 (2), DEU2024FR p.303 (6), DEU2024FR p.304 (10), DEU2024FR p.305 (4), DEU2024FR p.337 (29), URD2021 p.211 (6), URD2021 p.257 (3), URD2021 p.259 (4), URD2022 p.243 (6), URD2022 p.290 (4), URD2022 p.292 (4), URD2023 p.261 (4), URD2023 p.308 (6), URD2023 p.309 (6), URD2023 p.310 (10), URD2023 p.311 (4), URD2025 p.307 (4), URD2025 p.356 (8), URD2025 p.357 (6), URD2025 p.358 (10), URD2025 p.359 (4)
+     DEU2024FR p.253 l.39 tok 1/6 «619,6» 2024 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · de l'Est  619,6  599,2  + 3,8%  -  (0,4)%  + 3,4%
+     DEU2024FR p.253 l.39 tok 2/6 «599,2» 2023 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · de l'Est  619,6  599,2  + 3,8%  -  (0,4)%  + 3,4%
+     DEU2024FR p.253 l.40 tok 1/6 «570,1» 2024 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · Royaume-Uni et Irlande  570,1  534,9  + 4,3%  -  + 2,3%  + 6,6%
+     DEU2024FR p.253 l.40 tok 2/6 «534,9» 2023 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · Royaume-Uni et Irlande  570,1  534,9  + 4,3%  -  + 2,3%  + 6,6%
+     DEU2024FR p.253 l.44 tok 1/6 «4 573,7» 2024 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · TOTAL  4 573,7  4 309,4  + 5,2%  + 1,2%  (0,3)%  + 6,1%
+     DEU2024FR p.253 l.44 tok 2/6 «4 309,4» 2023 · títulos: Répartition du chiffre d'affaires par zone géographique ‖ opérationnel · TOTAL  4 573,7  4 309,4  + 5,2%  + 1,2%  (0,3)%  + 6,1%
+     DEU2024FR p.302 l.25 tok 1/2 «3,3%» 2024 · títulos: DÉTAIL POUR LA FRANCE · Taux d'actualisation  3,3%  3,1%
+     DEU2024FR p.302 l.25 tok 2/2 «3,1%» 2023 · títulos: DÉTAIL POUR LA FRANCE · Taux d'actualisation  3,3%  3,1%
+     DEU2024FR p.303 l.10 tok 1/2 «3,5%» 2024 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'actualisation  3,5%  3,3%
+     DEU2024FR p.303 l.10 tok 2/2 «3,3%» 2023 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'actualisation  3,5%  3,3%
+     DEU2024FR p.303 l.11 tok 1/2 «2,7%» 2024 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'augmentation attendue des salaires  2,7%  3,1%
+     DEU2024FR p.303 l.11 tok 2/2 «3,1%» 2023 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'augmentation attendue des salaires  2,7%  3,1%
+     DEU2024FR p.303 l.12 tok 1/2 «3,0%» 2024 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'augmentation attendue des retraites  3,0%  3,0%
+     DEU2024FR p.303 l.12 tok 2/2 «3,0%» 2023 · títulos: DÉTAIL POUR L'IRLANDE ‖ Comptes consolidés · Taux d'augmentation attendue des retraites  3,0%  3,0%
+     DEU2024FR p.304 l.10 tok 1/2 «5,5%» 2024 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'actualisation  5,5%  4,8%
+     DEU2024FR p.304 l.10 tok 2/2 «4,8%» 2023 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'actualisation  5,5%  4,8%
+     DEU2024FR p.304 l.11 tok 1/2 «2,8%» 2024 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'augmentation attendue des salaires  2,8%  2,7%
+     DEU2024FR p.304 l.11 tok 2/2 «2,7%» 2023 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'augmentation attendue des salaires  2,8%  2,7%
+     DEU2024FR p.304 l.12 tok 1/2 «2,9%» 2024 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'augmentation attendue des retraites  2,9%  2,8%
+     DEU2024FR p.304 l.12 tok 2/2 «2,8%» 2023 · títulos: DÉTAIL POUR LE ROYAUME-UNI ‖ Comptes consolidés · Taux d'augmentation attendue des retraites  2,9%  2,8%
+     DEU2024FR p.304 l.54 tok 1/2 «3,6%» 2024 · títulos: DÉTAIL POUR LA SUÈDE · Taux d'actualisation  3,6%  3,3%
+     DEU2024FR p.304 l.54 tok 2/2 «3,3%» 2023 · títulos: DÉTAIL POUR LA SUÈDE · Taux d'actualisation  3,6%  3,3%
+     DEU2024FR p.304 l.55 tok 1/2 «2,0%» 2024 · títulos: DÉTAIL POUR LA SUÈDE · Taux d'augmentation attendue des retraites  2,0%  2,0%
+     DEU2024FR p.304 l.55 tok 2/2 «2,0%» 2023 · títulos: DÉTAIL POUR LA SUÈDE · Taux d'augmentation attendue des retraites  2,0%  2,0%
+     DEU2024FR p.305 l.14 tok 1/2 «0,8%» 2024 · títulos: DÉTAIL POUR LA SUISSE ‖ 5 · Taux d'actualisation  0,8%  1,5%
+     DEU2024FR p.305 l.14 tok 2/2 «1,5%» 2023 · títulos: DÉTAIL POUR LA SUISSE ‖ 5 · Taux d'actualisation  0,8%  1,5%
+     DEU2024FR p.305 l.15 tok 1/2 «1,0%» 2024 · títulos: DÉTAIL POUR LA SUISSE ‖ 5 · Taux d'augmentation attendue des salaires  1,0%  1,3%
+     DEU2024FR p.305 l.15 tok 2/2 «1,3%» 2023 · títulos: DÉTAIL POUR LA SUISSE ‖ 5 · Taux d'augmentation attendue des salaires  1,0%  1,3%
+     DEU2024FR p.337 l.56 tok 1/2 «337,8» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Résultat net consolidé des activités poursuivies  337,8  261,9
+     DEU2024FR p.337 l.56 tok 2/2 «261,9» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Résultat net consolidé des activités poursuivies  337,8  261,9
+     DEU2024FR p.337 l.57 tok 1/2 «127,7» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Impôt courant des activités poursuivies  127,7  120,3
+     DEU2024FR p.337 l.57 tok 2/2 «120,3» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Impôt courant des activités poursuivies  127,7  120,3
+     DEU2024FR p.337 l.58 tok 1/2 «0,6» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Impôt différé des activités poursuivies  0,6  (10,1)
+     DEU2024FR p.337 l.58 tok 2/2 «(10,1)» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Impôt différé des activités poursuivies  0,6  (10,1)
+     DEU2024FR p.337 l.59 tok 1/2 «466,0» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · RÉSULTAT AVANT IMPÔT  466,0  372,2
+     DEU2024FR p.337 l.59 tok 2/2 «372,2» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · RÉSULTAT AVANT IMPÔT  466,0  372,2
+     DEU2024FR p.337 l.60 tok 1/2 «25,83%» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Taux théorique  25,83%  25,83%
+     DEU2024FR p.337 l.60 tok 2/2 «25,83%» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · Taux théorique  25,83%  25,83%
+     DEU2024FR p.337 l.61 tok 1/2 «120,4» 2024 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · IMPÔT THÉORIQUE  120,4  96,1
+     DEU2024FR p.337 l.61 tok 2/2 «96,1» 2023 · títulos: d'impôt théorique calculée sur la base du taux d'impôt applicable à la société mère : ‖ Le tableau ci-dessous présente une analyse de la charge d'impôt et détaille la réconciliat · IMPÔT THÉORIQUE  120,4  96,1
+     … y 106 más (lista completa con --todas)
+
+-- (f) perímetro OK, pero el rótulo de la fila nombra un país, una región u otro perímetro: 163 en 31 páginas
+   páginas: DEU2024FR p.253 (2), DEU2024FR p.255 (2), DEU2024FR p.259 (2), DEU2024FR p.260 (2), DEU2024FR p.270 (4), DEU2024FR p.271 (2), DEU2024FR p.280 (2), DEU2024FR p.281 (1), DEU2024FR p.292 (4), DEU2024FR p.309 (26), DEU2024FR p.340 (4), URD2021 p.211 (4), URD2021 p.265 (17), URD2022 p.243 (4), URD2022 p.258 (2), URD2022 p.298 (15), URD2023 p.261 (2), URD2023 p.276 (2), URD2023 p.286 (1), URD2023 p.301 (2), URD2023 p.316 (18), URD2023 p.345 (2), URD2023 p.346 (2), URD2023 p.348 (2), URD2025 p.309 (2), URD2025 p.324 (2), URD2025 p.334 (1), URD2025 p.363 (26), URD2025 p.392 (2), URD2025 p.393 (4), URD2025 p.395 (2)
+     DEU2024FR p.253 l.40 tok 1/6 «570,1» 2024 · rótulo: Royaume-Uni et Irlande · Royaume-Uni et Irlande  570,1  534,9  + 4,3%  -  + 2,3%  + 6,6%
+     DEU2024FR p.253 l.40 tok 2/6 «534,9» 2023 · rótulo: Royaume-Uni et Irlande · Royaume-Uni et Irlande  570,1  534,9  + 4,3%  -  + 2,3%  + 6,6%
+     DEU2024FR p.255 l.27 tok 1/2 «0,0» 2024 · rótulo: Résultat des activités abandonnées, net d'impôt · Résultat des activités abandonnées, net d'impôt  0,0  0,0
+     DEU2024FR p.255 l.27 tok 2/2 «0,0» 2023 · rótulo: Résultat des activités abandonnées, net d'impôt · Résultat des activités abandonnées, net d'impôt  0,0  0,0
+     DEU2024FR p.259 l.43 tok 1/2 «459,5» 2024 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  459,5  449,0
+     DEU2024FR p.259 l.43 tok 2/2 «449,0» 2023 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  459,5  449,0
+     DEU2024FR p.260 l.15 tok 1/2 «(22,4)» 2024 · rótulo: Dettes financières brutes provenant des sociétés a · Dettes financières brutes provenant des sociétés acquises  (22,4)  (4,4)
+     DEU2024FR p.260 l.15 tok 2/2 «(4,4)» 2023 · rótulo: Dettes financières brutes provenant des sociétés a · Dettes financières brutes provenant des sociétés acquises  (22,4)  (4,4)
+     DEU2024FR p.270 l.26 tok 1/2 «0,0» 2024 · rótulo: Résultat des activités abandonnées, net d'impôt · Résultat des activités abandonnées, net d'impôt  0,0  0,0
+     DEU2024FR p.270 l.26 tok 2/2 «0,0» 2023 · rótulo: Résultat des activités abandonnées, net d'impôt · Résultat des activités abandonnées, net d'impôt  0,0  0,0
+     DEU2024FR p.270 l.29 tok 1/2 «337,8» 2024 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  337,8  262,0
+     DEU2024FR p.270 l.29 tok 2/2 «262,0» 2023 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  337,8  262,0
+     DEU2024FR p.271 l.25 tok 1/2 «188,2» 2024 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  188,2  293,7
+     DEU2024FR p.271 l.25 tok 2/2 «293,7» 2023 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  188,2  293,7
+     DEU2024FR p.280 l.28 tok 1/3 «0,0» 2023 · rótulo: Résultat des activités abandonnées, net d'impôt · Résultat des activités abandonnées, net d'impôt  0,0  0,0  0,0
+     DEU2024FR p.280 l.31 tok 1/3 «262,5» 2023 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  262,5  (0,5)  262,0
+     DEU2024FR p.281 l.35 tok 1/3 «294,2» 2023 · rótulo: › actionnaires de la société mère · › actionnaires de la société mère  294,2  (0,5)  293,7
+     DEU2024FR p.292 l.20 tok 1/2 «109,3» 2024 · rótulo: République d'Irlande (Eire) · République d'Irlande (Eire)  109,3  106,5
+     DEU2024FR p.292 l.20 tok 2/2 «106,5» 2023 · rótulo: République d'Irlande (Eire) · République d'Irlande (Eire)  109,3  106,5
+     DEU2024FR p.292 l.38 tok 1/2 «150,8» 2024 · rótulo: République d'Irlande (Eire) · République d'Irlande (Eire)  150,8  150,2
+     DEU2024FR p.292 l.38 tok 2/2 «150,2» 2023 · rótulo: République d'Irlande (Eire) · République d'Irlande (Eire)  150,8  150,2
+     DEU2024FR p.309 l.38 tok 1/2 «1 424,4» 2024 · rótulo: UGT France · UGT France  1 424,4  1 423,8
+     DEU2024FR p.309 l.38 tok 2/2 «1 423,8» 2023 · rótulo: UGT France · UGT France  1 424,4  1 423,8
+     DEU2024FR p.309 l.39 tok 1/2 «508,6» 2024 · rótulo: UGT Suède & Finlande · UGT Suède & Finlande  508,6  525,2
+     DEU2024FR p.309 l.39 tok 2/2 «525,2» 2023 · rótulo: UGT Suède & Finlande · UGT Suède & Finlande  508,6  525,2
+     DEU2024FR p.309 l.40 tok 1/2 «412,8» 2024 · rótulo: UGT Danemark · UGT Danemark  412,8  413,1
+     DEU2024FR p.309 l.40 tok 2/2 «413,1» 2023 · rótulo: UGT Danemark · UGT Danemark  412,8  413,1
+     DEU2024FR p.309 l.41 tok 1/2 «383,7» 2024 · rótulo: UGT Pays-Bas · UGT Pays-Bas  383,7  365,4
+     DEU2024FR p.309 l.41 tok 2/2 «365,4» 2023 · rótulo: UGT Pays-Bas · UGT Pays-Bas  383,7  365,4
+     DEU2024FR p.309 l.42 tok 1/2 «223,3» 2024 · rótulo: UGT Brésil · UGT Brésil  223,3  267,1
+     DEU2024FR p.309 l.42 tok 2/2 «267,1» 2023 · rótulo: UGT Brésil · UGT Brésil  223,3  267,1
+     DEU2024FR p.309 l.43 tok 1/2 «189,7» 2024 · rótulo: UGT Allemagne · UGT Allemagne  189,7  178,3
+     DEU2024FR p.309 l.43 tok 2/2 «178,3» 2023 · rótulo: UGT Allemagne · UGT Allemagne  189,7  178,3
+     DEU2024FR p.309 l.44 tok 1/2 «143,0» 2024 · rótulo: UGT Mexique · UGT Mexique  143,0  161,1
+     DEU2024FR p.309 l.44 tok 2/2 «161,1» 2023 · rótulo: UGT Mexique · UGT Mexique  143,0  161,1
+     DEU2024FR p.309 l.45 tok 1/2 «120,9» 2024 · rótulo: UGT Espagne & Andorre · UGT Espagne & Andorre  120,9  114,7
+     DEU2024FR p.309 l.45 tok 2/2 «114,7» 2023 · rótulo: UGT Espagne & Andorre · UGT Espagne & Andorre  120,9  114,7
+     DEU2024FR p.309 l.46 tok 1/2 «102,9» 2024 · rótulo: UGT Grande-Bretagne · UGT Grande-Bretagne  102,9  98,2
+     DEU2024FR p.309 l.46 tok 2/2 «98,2» 2023 · rótulo: UGT Grande-Bretagne · UGT Grande-Bretagne  102,9  98,2
+     DEU2024FR p.309 l.47 tok 1/2 «94,4» 2024 · rótulo: UGT Pologne · UGT Pologne  94,4  93,0
+     … y 123 más (lista completa con --todas)

@@ -639,7 +639,7 @@ Estado y documentos en [revision/](revision/).
 - **Revisión n.º 2:** no existe. Se encargó sobre eb77dea y se interrumpió a los pocos minutos, sin resultado.
 - **Respuestas** a O1–O17, al contraste externo y a N1–N10, cada una con su commit y su prueba: [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
 - **Revisión de lo afectado por las correcciones de N1–N10** (pasada 4, sobre el congelado 9744177): **hecha** (a15f706, 22:04 UTC). Reproduce todas las cifras, da por corregidas N2–N10 y N1 en parte y plantea P1–P5. Copia y procedencia en `revision/`. Respuesta en C10 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), cuarta parte). Hasta que conste, esas correcciones no están revisadas de forma independiente.
-- **C9 y C10**, cambios del autor posteriores al congelado y respuesta a la revisión n.º 4: **no revisados**. Se someterán a una revisión independiente específica de lo que afectan (pasada 5).
+- **Revisión n.º 5** (lo afectado por C9 y C10, sobre el congelado 364129a): **hecha** por una sesión de revisión nueva (595d2f6, 23:19 UTC). Reproduce todas las cifras, confirma las siete filas de C9 y plantea Q1–Q7. Copia y procedencia en `revision/`. Respuesta en preparación (C12).
 
 ## 13. Reproducción
 

@@ -1,0 +1,208 @@
+A. Las siete filas nuevas de C9, leídas con pdfminer y PDFium
+
+A1 TAX_CORR_U22_2021 · impuesto corriente de 2021 (nota 9)
+   URD2022 p.326 · rótulo «Current taxes»
+   números (pdfminer): ['93.4', '81.4']
+   cabeceras:          ['12/31/2022', '12/31/2021']
+   unidad: «(In millions of euros) 12/31/2022 12/31/2021» · título: «temporary difference arises from the initial recognition of »
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «324 | Elis | Universal Registration Document 2022»
+   → literal OK («81.4») · columna OK («12/31/2021») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 2; 2021; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A2 TAX_DIF_U22_2021 · impuesto diferido de 2021 (nota 9)
+   URD2022 p.326 · rótulo «Deferred taxes»
+   números (pdfminer): ['(12.9)', '(24.8)']
+   cabeceras:          ['12/31/2022', '12/31/2021']
+   unidad: «(In millions of euros) 12/31/2022 12/31/2021» · título: «temporary difference arises from the initial recognition of »
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «324 | Elis | Universal Registration Document 2022»
+   → literal OK («(24.8)») · columna OK («12/31/2021») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 2; 2021; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A3 CF_ADQ_NOTA_U22_2021 · flujo neto de las adquisiciones de 2021 (nota 2.4, columna del total)
+   URD2022 p.277 · rótulo «Net cash flow»
+   números (pdfminer): ['(86.8)', '(19.0)', '(9.0)', '(3.2)', '(7.2)', '(10.4)', '(5.1)', '(7.7)', '(13.4)', '(2.6)', '(2.3)', '(5.3)', '(1.4)']
+   cabeceras:          ['12/31/2021', 'Belgium', 'Brazil', 'Colombia', 'Denmark', 'Spain', 'France', 'Great Britain', 'Ireland', 'Latvia', 'Nether- lands', 'Russia', 'Sweden']
+   unidad: «(In millions of euros) 12/31/2021 Belgium Brazil Colombia Denmark Spai» · título: «CASH FLOWS FROM ACQUISITIONS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 275»
+   → literal OK («(86.8)») · columna OK («12/31/2021») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos 0 de 13; 2021; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A4 TAX_CORR_U23_2022 · impuesto corriente de 2022 reexpresado (nota 9)
+   URD2023 p.345 · rótulo «Current taxes»
+   números (pdfminer): ['120.5', '92.6']
+   cabeceras:          ['2023', '2022 restated*']
+   unidad: «(In millions of euros) 2023 restated*» · título: «they will not be reversed in the foreseeable future.»
+   página: «Financial statements for the year ended December 31, 2023 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2023 | 343»
+   → literal OK («92.6») · columna OK («2022 restated*») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 2; 2022; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A5 TAX_DIF_U23_2022 · impuesto diferido de 2022 reexpresado (nota 9)
+   URD2023 p.345 · rótulo «Deferred taxes»
+   números (pdfminer): ['(10.1)', '(12.9)']
+   cabeceras:          ['2023', '2022 restated*']
+   unidad: «(In millions of euros) 2023 restated*» · título: «they will not be reversed in the foreseeable future.»
+   página: «Financial statements for the year ended December 31, 2023 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2023 | 343»
+   → literal OK («(12.9)») · columna OK («2022 restated*») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 2; 2022; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A6 CF_ADQ_NOTA_U23_2022 · flujo neto de las adquisiciones de 2022 (nota 2.4, columna del total)
+   URD2023 p.294 · rótulo «NET CASH FLOW»
+   números (pdfminer): ['(221.7)', '(25.7)', '(6.2)', '(4.6)', '(146.2)', '(39.1)']
+   cabeceras:          ['2022 restated*', 'Textilservice Jöckel', 'Golden Clean', 'Centralvaskeriet', 'Lavartex', 'Other acquisitions']
+   unidad: «(In millions of euros) restated* Jöckel Golden Clean Centralvaskeriet » · título: «CASH FLOWS FROM ACQUISITIONS»
+   página: «Financial statements for the year ended December 31, 2023 / Consolidated financial statements» · pie: «292 | Elis | Universal Registration Document 2023»
+   → literal OK («(221.7)») · columna OK («2022 restated*») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos 0 de 6; 2022; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+A7 IS_VENTAS_MR_U21_2020 · ventas de 2020 en el informe de gestión
+   URD2021 p.213 · rótulo «Revenue»
+   números (pdfminer): ['3,048.3', '2,806.3', '242.0', '8.6%']
+   cabeceras:          ['2021', '2020 restated', 'Change', 'Change (%)']
+   unidad: «(In millions of euros) 2021 2020 restated Change Change (%)» · título: «Group results»
+   página: «Comments on the financial year 2021 / Group results» · pie: «Elis | Universal Registration Document 2021 | 211»
+   → literal OK («2,806.3») · columna OK («2020 restated») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -3 de 4; 2020; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+
+B. Las entradas que esas filas contrastan
+
+B1 IS_IMP_U22_2021 · gasto por impuesto de 2021 (cuenta de resultados)
+   URD2022 p.258 · rótulo «Tax»
+   números (pdfminer): ['(80.5)', '(56.6)']
+   cabeceras:          ['12/31/2022', '12/31/2021 restated(a)']
+   unidad: «(in millions of euros) Notes 12/31/2022 restated(a)» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «256 | Elis | Universal Registration Document 2022»
+   → literal OK («(56.6)») · columna OK («12/31/2021 restated(a)») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 3; 2021; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+B2 IS_IMP_U23_2022 · gasto por impuesto de 2022 reexpresado (cuenta de resultados)
+   URD2023 p.276 · rótulo «Tax»
+   números (pdfminer): ['(110.4)', '(79.7)']
+   cabeceras:          ['2023', '2022 restated*']
+   unidad: «(In millions of euros) Notes 2023 restated*» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2023 / Consolidated financial statements» · pie: «274 | Elis | Universal Registration Document 2023»
+   → literal OK («(79.7)») · columna OK («2022 restated*») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 3; 2022; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+B3 CF_ADQ_U22_2021 · adquisiciones de 2021 (EFE)
+   URD2022 p.261 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(221.6)', '(86.8)']
+   cabeceras:          ['12/31/2022', '12/31/2021 restated(a)']
+   unidad: «(in million of euros) Notes 12/31/2022 restated(a)» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 259»
+   → literal OK («(86.8)») · columna OK («12/31/2021 restated(a)») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 3; 2021; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+B4 CF_ADQ_U23_2022 · adquisiciones de 2022 reexpresadas (EFE)
+   URD2023 p.279 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(82.2)', '(221.7)']
+   cabeceras:          ['2023', '2022 restated*']
+   unidad: «(In millions of euros) Notes 2023 restated*» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2023 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2023 | 277»
+   → literal OK («(221.7)») · columna OK («2022 restated*») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 3; 2022; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+B5 IS_VENTAS_U21_2020 · ventas de 2020 (cuenta de resultados)
+   URD2021 p.226 · rótulo «Revenue»
+   números (pdfminer): ['3,048.3', '2,806.3']
+   cabeceras:          ['12/31/2021', '12/31/2020 (a) restated']
+   unidad: «(in millions of euros) Notes 12/31/2021 restated» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2021 / Consolidated financial statements» · pie: «224 | Elis | Universal Registration Document 2021»
+   → literal OK («2,806.3») · columna OK («12/31/2020 (a) restated») · PDFium OK · unidad OK · página del grupo OK · CSV del autor OK (pos -1 de 2; 2020; mm EUR; consolidado IFRS, grupo Elis; vigente)
+
+
+C. La afirmación [P] sobre las adquisiciones de 2021 en el URD 2022
+
+C1 informe de gestión, p.247, flujos de inversión: columna «2021 restated»
+   URD2022 p.247 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(221.6)', '(86.9)']
+   cabeceras:          ['2022', '2021 restated']
+   unidad: «(In millions of euros) 2022 2021 restated» · título: «Cash flows from investing activities»
+   página: «Comments on the financial year 2022 / Group results» · pie: «Elis | Universal Registration Document 2022 | 245»
+   → literal OK («(86.9)») · columna OK («2021 restated») · PDFium OK · unidad OK · página del grupo OK
+
+C2 informe de gestión, p.247: total de los flujos de inversión, columna «2021 restated»
+   URD2022 p.247 · rótulo «NET CASH FROM INVESTING ACTIVITIES»
+   números (pdfminer): ['(912.5)', '(655.4)']
+   cabeceras:          ['2022', '2021 restated']
+   unidad: «(In millions of euros) 2022 2021 restated» · título: «Cash flows from investing activities»
+   página: «Comments on the financial year 2022 / Group results» · pie: «Elis | Universal Registration Document 2022 | 245»
+   → literal OK («(655.4)») · columna OK («2021 restated») · PDFium OK · unidad OK · página del grupo OK
+
+C3 tabla de reexpresión, p.271: columna «12/31/2021 published»
+   URD2022 p.271 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(86.9)', '0.1', '(86.8)']
+   cabeceras:          ['12/31/2021 published', 'IFRS 3', '12/31/2021 restated']
+   unidad: «(In millions of euros) published IFRS 3 restated» · título: «CONSOLIDATED STATEMENT OF CASH FLOWS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 269»
+   → literal OK («(86.9)») · columna OK («12/31/2021 published») · PDFium OK · unidad OK · página del grupo OK
+
+C4 tabla de reexpresión, p.271: columna «IFRS 3»
+   URD2022 p.271 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(86.9)', '0.1', '(86.8)']
+   cabeceras:          ['12/31/2021 published', 'IFRS 3', '12/31/2021 restated']
+   unidad: «(In millions of euros) published IFRS 3 restated» · título: «CONSOLIDATED STATEMENT OF CASH FLOWS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 269»
+   → literal OK («0.1») · columna OK («IFRS 3») · PDFium OK · unidad OK · página del grupo OK
+
+C5 tabla de reexpresión, p.271: columna «12/31/2021 restated»
+   URD2022 p.271 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(86.9)', '0.1', '(86.8)']
+   cabeceras:          ['12/31/2021 published', 'IFRS 3', '12/31/2021 restated']
+   unidad: «(In millions of euros) published IFRS 3 restated» · título: «CONSOLIDATED STATEMENT OF CASH FLOWS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 269»
+   → literal OK («(86.8)») · columna OK («12/31/2021 restated») · PDFium OK · unidad OK · página del grupo OK
+
+C6 tabla de reexpresión, p.271: total de inversión publicado
+   URD2022 p.271 · rótulo «NET CASH FLOWS FROM INVESTING ACTIVITIES»
+   números (pdfminer): ['(655.4)', '0.1', '(655.3)']
+   cabeceras:          ['12/31/2021 published', 'IFRS 3', '12/31/2021 restated']
+   unidad: «(In millions of euros) published IFRS 3 restated» · título: «CONSOLIDATED STATEMENT OF CASH FLOWS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 269»
+   → literal OK («(655.4)») · columna OK («12/31/2021 published») · PDFium OK · unidad OK · página del grupo OK
+
+C7 EFE, p.261: total de inversión reexpresado
+   URD2022 p.261 · rótulo «NET CASH FLOWS FROM INVESTING ACTIVITIES»
+   números (pdfminer): ['(912.5)', '(655.3)']
+   cabeceras:          ['12/31/2022', '12/31/2021 restated(a)']
+   unidad: «(in million of euros) Notes 12/31/2022 restated(a)» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 259»
+   → literal OK («(655.3)») · columna OK («12/31/2021 restated(a)») · PDFium OK · unidad OK · página del grupo OK
+
+C8 EFE del URD 2021, p.229: adquisiciones de 2021 tal como se publicaron
+   URD2021 p.229 · rótulo «Acquisition of subsidiaries, net of cash acquired»
+   números (pdfminer): ['(86.9)', '(87.6)']
+   cabeceras:          ['12/31/2021', '12/31/2020 (a) Restated']
+   unidad: «(in million of euros) Notes 12/31/2021 Restated» · título: «Consolidated financial statements»
+   página: «Financial statements for the year ended December 31, 2021 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2021 | 227»
+   → literal OK («(86.9)») · columna OK («12/31/2021») · PDFium OK · unidad OK · página del grupo OK
+
+C9 nota 2.4 del URD 2021, p.242: flujo neto de las adquisiciones de 2021 tal como se publicó
+   URD2021 p.242 · rótulo «NET CASH FLOW»
+   números (pdfminer): ['(86.9)', '(19.0)', '(9.0)', '(3.2)', '(7.2)', '(10.4)', '(5.1)', '(7.7)', '(13.5)', '(2.6)', '(2.3)', '(5.3)', '(1.4)']
+   cabeceras:          ['12/31/2021', 'Belgium', 'Brazil', 'Colombia', 'Denmark', 'Spain', 'France', 'United Kingdom', 'Ireland', 'Latvia', 'Netherlands', 'Russia', 'Sweden']
+   unidad: «(In millions of euros) 12/31/2021 Belgium Brazil Colombia Denmark Spai» · título: «Cash flows from acquisitions»
+   página: «Financial statements for the year ended December 31, 2021 / Consolidated financial statements» · pie: «240 | Elis | Universal Registration Document 2021»
+   → literal OK («(86.9)») · columna OK («12/31/2021») · PDFium OK · unidad OK · página del grupo OK
+
+C10 nota 2.4 del URD 2021, p.242: columna de Irlanda tal como se publicó
+   URD2021 p.242 · rótulo «NET CASH FLOW»
+   números (pdfminer): ['(86.9)', '(19.0)', '(9.0)', '(3.2)', '(7.2)', '(10.4)', '(5.1)', '(7.7)', '(13.5)', '(2.6)', '(2.3)', '(5.3)', '(1.4)']
+   cabeceras:          ['12/31/2021', 'Belgium', 'Brazil', 'Colombia', 'Denmark', 'Spain', 'France', 'United Kingdom', 'Ireland', 'Latvia', 'Netherlands', 'Russia', 'Sweden']
+   unidad: «(In millions of euros) 12/31/2021 Belgium Brazil Colombia Denmark Spai» · título: «Cash flows from acquisitions»
+   página: «Financial statements for the year ended December 31, 2021 / Consolidated financial statements» · pie: «240 | Elis | Universal Registration Document 2021»
+   → literal OK («(13.5)») · columna OK («Ireland») · PDFium OK · unidad OK · página del grupo OK
+
+C11 nota 2.4 del URD 2022, p.277: columna de Irlanda reexpresada
+   URD2022 p.277 · rótulo «Net cash flow»
+   números (pdfminer): ['(86.8)', '(19.0)', '(9.0)', '(3.2)', '(7.2)', '(10.4)', '(5.1)', '(7.7)', '(13.4)', '(2.6)', '(2.3)', '(5.3)', '(1.4)']
+   cabeceras:          ['12/31/2021', 'Belgium', 'Brazil', 'Colombia', 'Denmark', 'Spain', 'France', 'Great Britain', 'Ireland', 'Latvia', 'Nether- lands', 'Russia', 'Sweden']
+   unidad: «(In millions of euros) 12/31/2021 Belgium Brazil Colombia Denmark Spai» · título: «CASH FLOWS FROM ACQUISITIONS»
+   página: «Financial statements for the year ended December 31, 2022 / Consolidated financial statements» · pie: «Elis | Universal Registration Document 2022 | 275»
+   → literal OK («(13.4)») · columna OK («Ireland») · PDFium OK · unidad OK · página del grupo OK
+
+
+D. Identidades de C9, con fracciones exactas (cota = media unidad de la última cifra de cada cifra que interviene)
+   R17 2021  corriente + diferido − gasto            81,4 + (−24,8) − 56,6: residuo +0.0 · cota 0.15 · dentro
+   R17 2022  corriente + diferido − gasto            92,6 + (−12,9) − 79,7: residuo +0.0 · cota 0.15 · dentro
+   R39 2021  EFE − nota 2.4                          86,8 − 86,8: residuo +0.0 · cota 0.10 · dentro
+   R39 2022  EFE − nota 2.4                          221,7 − 221,7: residuo +0.0 · cota 0.10 · dentro
+   R40       ventas 2020: cuenta − informe de gestión 2.806,3 − 2.806,3: residuo +0.0 · cota 0.10 · dentro
+
+   Afirmación [P]: publicado + ajuste IFRS 3 = reexpresado
+      (86,9) + 0,1 − (86,8): residuo +0.0 · cota 0.15 · dentro
+   informe de gestión p.247, «2021 restated»: -86.9 = publicado -86.9 ≠ reexpresado -86.8
+
+   Límite de R39: con la cifra publicada (86,9) en lugar de la reexpresada (86,8) en el EFE de 2021
+   residuo +0.1 · cota 0,10 · dentro: R39 no lo distingue
+
+Casos con alguna diferencia: 0
