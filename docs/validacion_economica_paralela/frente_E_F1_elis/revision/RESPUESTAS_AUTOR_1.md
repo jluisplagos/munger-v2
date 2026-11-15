@@ -18,7 +18,7 @@
 | C1 | 96a69ca | Primera entrega; la que revisó el revisor |
 | C2 | 6fb9294 | Efecto volumen de 2024–25; registro de la sesión de revisión. Lo revisó el contraste externo |
 | C3 | eb77dea | Primera respuesta a O1–O17: control del ejercicio de la columna; residuos afirmados con ±0,15 y dos excepciones; citas nuevas; informe y especificación |
-| C4 | El de esta versión; su hash consta en [ESTADO.md](ESTADO.md) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
+| C4 | d2e585e91638c363682a000bdb416a4b865c6cce (también en [ESTADO.md](ESTADO.md)) | Verificador en cinco dimensiones; cotas de redondeo por identidad y una única excepción fijada; contraste entre páginas; mutantes conjuntos; exceso de caja no nulo; A3 sintético y control del terminal; respuesta individual con su prueba |
 
 ## Marcas y pruebas
 
