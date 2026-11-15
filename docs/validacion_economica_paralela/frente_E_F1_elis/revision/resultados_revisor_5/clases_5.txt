@@ -1,0 +1,70 @@
+Filas entregadas al verificador oficial de C8 y de C11: 3566
+
+R. Tablas de reexpresión: tokens declarados del ejercicio anterior al de la publicación, edición «vigente»
+   columna publicada                                            589   C8: OK 589                             C11: OK 589
+   columna ajuste u otra                                        762   C8: OK 75 · PENDIENTE 687              C11: PENDIENTE 762
+   columna reexpresada                                          589   C8: PENDIENTE 589                      C11: PENDIENTE 589
+
+   URD2021: columna publicada, 118 tokens, 118 OK en las seis dimensiones en C11
+   URD2022: columna publicada, 116 tokens, 116 OK en las seis dimensiones en C11
+   URD2023: columna publicada, 120 tokens, 120 OK en las seis dimensiones en C11
+   DEU2024FR: columna publicada, 117 tokens, 117 OK en las seis dimensiones en C11
+   URD2025: columna publicada, 118 tokens, 118 OK en las seis dimensiones en C11
+
+P. Bloques por país de la nota de pensiones: tokens de las tablas del bloque (mejor estado con el ejercicio E o E−1)
+   en millones de euros       376 tokens   C8: {'OK': 293, 'PENDIENTE': 74, 'FALLO': 9}   C11: {'PENDIENTE': 278, 'OK': 89, 'FALLO': 9}
+   en porcentaje              209 tokens   C8: {'OK': 202, 'PENDIENTE': 7}   C11: {'OK': 83, 'PENDIENTE': 126}
+   en millones de euros y OK en C11, por publicación: {'DEU2024FR': 21, 'URD2022': 14, 'URD2023': 32, 'URD2025': 22}
+   filas (token × ejercicio) OK en C8 y no en C11: perímetro en C11: {'PENDIENTE': 310, 'OK': 13}
+   tokens en millones de euros que quedan OK en C11, por página y bloque (líneas):
+      DEU2024FR p.303 · DÉTAIL POUR L'IRLANDE · 7 tokens · líneas 37–48
+      DEU2024FR p.304 · DÉTAIL POUR LE ROYAUME-UNI · 7 tokens · líneas 36–47
+      DEU2024FR p.305 · DÉTAIL POUR LA SUISSE · 7 tokens · líneas 38–49
+      URD2022 p.291 · IRELAND – DETAILS · 8 tokens · líneas 9–13
+      URD2022 p.292 · SWEDEN – DETAILS · 6 tokens · líneas 33–37
+      URD2023 p.308 · FRANCE – DETAILS · 10 tokens · líneas 41–45
+      URD2023 p.309 · IRELAND – DETAILS · 7 tokens · líneas 36–47
+      URD2023 p.310 · UNITED KINGDOM – DETAILS · 7 tokens · líneas 36–47
+      URD2023 p.311 · SWEDEN – DETAILS · 1 tokens · líneas 8–8
+      URD2023 p.311 · SWITZERLAND – DETAILS · 7 tokens · líneas 38–49
+      URD2025 p.357 · IRELAND – DETAILS · 7 tokens · líneas 37–48
+      URD2025 p.358 · UNITED KINGDOM – DETAILS · 7 tokens · líneas 36–47
+      URD2025 p.359 · SWEDEN – DETAILS · 1 tokens · líneas 8–8
+      URD2025 p.359 · SWITZERLAND – DETAILS · 7 tokens · líneas 38–49
+
+G. Tablas de crecimiento: filas entre la cabecera y TOTAL (segmentos), declaradas del grupo; estado en C11
+   URD2021 p.211 · ventas                7 filas · OK en las seis dimensiones: 2 ['Scandinavia and Eastern Europe', 'United Kingdom and Ireland']
+   URD2021 p.211 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 2 ['Scandinavia and Eastern Europe', 'United Kingdom and Ireland']
+   URD2022 p.243 · ventas                7 filas · OK en las seis dimensiones: 2 ['Eastern Europe', 'and Ireland']
+   URD2022 p.243 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 2 ['Eastern Europe', 'and Ireland']
+   URD2023 p.261 · ventas                6 filas · OK en las seis dimensiones: 1 ['Ireland']
+   URD2023 p.261 · crecimiento orgánico  6 filas · OK en las seis dimensiones: 1 ['Ireland']
+   DEU2024FR p.253 · ventas                7 filas · OK en las seis dimensiones: 2 ["de l'Est", 'Royaume-Uni et Irlande']
+   DEU2024FR p.253 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 2 ["de l'Est", 'Royaume-Uni et Irlande']
+   URD2025 p.307 · ventas                7 filas · OK en las seis dimensiones: 0 []
+   URD2025 p.307 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 0 []
+
+S. Estados principales del URD 2021 (p.226, 227 y 229), columna «12/31/2020 restated (a)»
+
+   token de 2020 declarado 2020 (legítimo)                       75   C8: OK 75                              C11: OK 50 · PENDIENTE 25
+   el mismo token declarado 2021 (ejercicio equivocado)          75   C8: FALLO 75                           C11: PENDIENTE 25 · FALLO 50
+
+   legítimos, por anchura del literal en caracteres → estado en C11: 3 car.: {'PENDIENTE': 14, 'OK': 5}, 4 car.: {'PENDIENTE': 2, 'OK': 4}, 5 car.: {'OK': 12, 'PENDIENTE': 9}, 6 car.: {'OK': 14}, 7 car.: {'OK': 13}, 9 car.: {'OK': 2}
+
+N. Enteros de seis cifras o más en las páginas del grupo, declarados en millones de euros: dimensión «unidad»
+   C8 FALLO → C11 FALLO: 72
+   C8 OK → C11 PENDIENTE: 23
+   C8 PENDIENTE → C11 PENDIENTE: 143
+   líneas que pasan de OK a PENDIENTE (12):
+      DEU2024FR p.340 · Impact potentiel de la conversion d'obligations convertibles
+      DEU2024FR p.340 · Impact potentiel des actions dont l'émission est conditionne
+      DEU2024FR p.340 · Nombre moyen pondéré d'actions
+      URD2021 p.291 · Treasury shares (a)
+      URD2021 p.292 · Effect of contingently issuable shares
+      URD2021 p.292 · Effect of conversion of convertible notes
+      URD2022 p.329 · Effect of contingently issuable shares
+      URD2022 p.329 · Effect of conversion of convertible notes
+      URD2023 p.348 · Effect of contingently issuable shares
+      URD2023 p.348 · Effect of conversion of convertible notes
+      URD2025 p.395 · Effect of contingently issuable shares
+      URD2025 p.395 · Effect of conversion of convertible bonds
