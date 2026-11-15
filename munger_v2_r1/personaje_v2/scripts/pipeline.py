@@ -122,7 +122,9 @@ def _alcance_modo(carpeta):
         raise ValueError(f"alcance_v2.json no se puede leer ({type(ex).__name__}): no se puede determinar el modo de la entrada efectiva") from None
     if not isinstance(a, dict):
         raise ValueError("alcance_v2.json no es un objeto: no se puede determinar el modo de la entrada efectiva")
-    parecidas = [k for k in a if k != "entrada_efectiva" and difflib.SequenceMatcher(None, re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva").ratio() >= 0.8]
+    # (hito 2, N9) una errata se parece mucho a «entrada_efectiva» (proporción ≥ 0,88: «entrada_efectiba», «Entrada-Efectiva», «entrda_efectiva»);
+    # otra clave que solo comparte una palabra («tasa_efectiva») no es una errata
+    parecidas = [k for k in a if k != "entrada_efectiva" and difflib.SequenceMatcher(None, re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva").ratio() >= 0.88]
     if parecidas:
         raise ValueError(f"alcance_v2.json tiene la clave {parecidas[0]!r}, que parece una errata de «entrada_efectiva»")
     if "entrada_efectiva" in a:
@@ -365,13 +367,15 @@ class Pipeline:
             actual["motivo_sustitucion"] = f"el material fijado es {mat}, no {actual.get('material')}"
         motivo = (f"corrección pedida por el pipeline: {str(st.get('motivo_correccion'))[:200]}" if st.get("esperando") == "13:auditoria.md" and st.get("motivo_correccion")
                   else "auditoría del material fijado en el paso 13")
-        rel = (st.get("relevos_caducados") or [None])[-1]
-        if isinstance(rel, dict) and not rel.get("solicitud"):
+        _rels = st.get("relevos_caducados")
+        rel = _rels[-1] if isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) else None
+        # (hito 2, N10) solo el relevo que llevó a fijar ESTE material, y una sola vez (no se arrastra a una solicitud posterior por otra causa)
+        if isinstance(rel, dict) and not rel.get("solicitud") and rel.get("material_refijado") == mat:
             # (4.15, hito 2, H9) el auditor ve que la solicitud sustituye a un relevo caducado y qué archivos cambiaron
             motivo = (f"relevo caducado: el material fijado {rel.get('material_fijado')} ya no era el vigente (cambian: "
                       f"{', '.join(rel.get('archivos_cambiados') or [])[:300]}); se repitió la verificación (paso 12). " + motivo)
         nueva = CIE.nueva_solicitud(mat, motivo, ahora)
-        if isinstance(rel, dict) and not rel.get("solicitud"):
+        if isinstance(rel, dict) and not rel.get("solicitud") and rel.get("material_refijado") == mat:
             rel["solicitud"] = nueva.get("id")
         # (auditoría interna de la 4.8.1, Y-b; control de vigencia, V-2) todas las auditorías que ya hay en el expediente (cualquier
         # archivo de texto con forma de auditoría, con cualquier nombre y en cualquier subcarpeta, y la que registra cierre_vigente.json)
@@ -1049,7 +1053,11 @@ class Pipeline:
                     if fijado != vigente:
                         antes = (CIE.material_fijado(self.c) or {}).get("archivos") or {}
                         cambiados = sorted(n_ for n_ in set(antes) | set(huellas_v) if antes.get(n_) != huellas_v.get(n_))
-                        st.setdefault("relevos_caducados", []).append({"material_fijado": fijado, "material_vigente": vigente, "archivos_cambiados": cambiados,
+                        if not isinstance(st.get("relevos_caducados"), list):  # (hito 2, N10) un registro mal formado se conserva aparte
+                            if st.get("relevos_caducados") is not None:
+                                st["relevos_caducados_mal_formado"] = st.get("relevos_caducados")
+                            st["relevos_caducados"] = []
+                        st["relevos_caducados"].append({"material_fijado": fijado, "material_vigente": vigente, "archivos_cambiados": cambiados,
                                                                        "detectado": dt.datetime.now().astimezone().isoformat(timespec="seconds")})
                         self.log(f"relevo caducado: el material fijado {fijado} ya no es el vigente {vigente} (cambian: {', '.join(cambiados)[:300]}); "
                                  "se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente")
@@ -1084,6 +1092,9 @@ class Pipeline:
                     self.run([PY, self.script("ficha.py"), self.c, "--estado", st.get("estado_pendiente") or "concluido", "--provisional"])
                     self.run([PY, self.script("informe.py"), self.c, "--provisional"])
                     st["material_auditoria"] = CIE.fijar_material(self.c, self.E)
+                    _rels = st.get("relevos_caducados")
+                    if isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) and not _rels[-1].get("material_refijado"):
+                        _rels[-1]["material_refijado"] = st["material_auditoria"]  # (N10) el material que se fijó después del relevo
                     self.guardar()
                 # (4.8.1, R-T1) la auditoría responde a una solicitud identificable y persistente, ligada al material fijado; ni la fecha
                 # ni el formato de un informe anterior lo convierten en la respuesta a una solicitud nueva

@@ -97,6 +97,12 @@ CALC_H1 = json.load(open(os.path.join(PV, "empresas_v2_correcciones", "2026-11_V
 e = error(lambda: FH.calcular_entrada("C48", {"calculo": CALC_H1}, H, anios, ELIS))
 paso("C", "(R415-SIGNO) el cálculo del hito 1 (magnitud positiva 130,8 frente a «(130,8)» sin declarar la conversión) se rechaza con diagnóstico, no se acredita",
      bool(e) and "signo_distinto" in e and "valor_fuente" in e, e)
+CALC_H1R = copy.deepcopy(CALC_H1)
+for _a, _cm in CALC_H1R["componentes"]["pagos_arrendamientos_con_intereses"].items():
+    _cm["cita"] = {"2023": "130,8", "2024": "150.8", "2025": "177.9"}[_a]  # la cita recortada a la cifra, sin los paréntesis de la página
+e = error(lambda: FH.calcular_entrada("C48", {"calculo": CALC_H1R}, H, anios, ELIS))
+paso("C", "(hito 2, H1) el cálculo del hito 1 con cada cita recortada a la cifra («130,8» frente a «(130,8)» en la página): se rechaza; la cifra y su signo se leen en la página",
+     bool(e) and "signo_distinto" in e, e)
 r_sg = FH.calcular_entrada("C48", {"calculo": CALC}, H, anios, ELIS)
 cmps = CALC["componentes"]["pagos_arrendamientos_con_intereses"]
 paso("C", "(R415-SIGNO) con la cifra publicada negativa, signo −1 y tratamiento declarados: 108,0, mismos términos y valores, transformación visible en la fuente",
@@ -345,6 +351,8 @@ os.remove(os.path.join(dU, "entrada_efectiva.json"))
 ok_u6_pos = PL.modo_entrada_efectiva(dU) == ("estricta", "alcance_v2.json")
 json.dump({"tipo": "x", "aviso": "y", "entrada": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
 ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)
+json.dump({"tipo": "x", "tasa_efectiva": 0.25, "entradas_otras": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)  # (hito 2, N9) «tasa_efectiva» no es una errata
 paso("P", "(hito 2, U6 b y c) erratas de la clave en alcance_v2.json, alcance ilegible o que no es un objeto y «registrada» frente a «estricta»: error (antes: «registrada» en silencio); sin declaración, «registrada»; «estricta» válida, aplicada",
      all(casos_u6.values()) and ok_u6_pos, {k_: (v_ or "")[:70] for k_, v_ in casos_u6.items()})
 paso("B", "(N7; T5) el expediente nuevo registra el modo también en fase1_metadatos.json", ok and meta.get("entrada_efectiva") == "estricta", meta.get("entrada_efectiva"))
@@ -400,6 +408,21 @@ fi, inf, rcs = ficha_inf(dI)
 ee = (fi.get("verificacion_entradas") or {}).get("entrada_efectiva") or {}
 paso("I20", "una declaración ilegible se muestra como error en la ficha y el informe (no se sustituye por «registrada»)",
      (ee.get("declarada") or {}).get("modo") is None and "no se puede leer" in str((ee.get("declarada") or {}).get("error")) and "declaración actual con error" in inf, ee)
+# (hito 2, N1) sin registro ni entrada_efectiva.json, pero con el modo aplicado y registrado por el paso 2 (expediente de la 4.15): la ficha lleva el bloque
+_vr = os.path.join(dI, "verificacion_entradas.json")
+_vr_bak = open(_vr, "rb").read()
+os.remove(_vr)
+_stp1 = os.path.join(dI, "estado_pipeline.json")
+_st1_original = open(_stp1, encoding="utf-8").read()
+_st1 = json.load(open(_stp1, encoding="utf-8"))
+_st1["entrada_efectiva"] = {"modo": "estricta", "declarado_en": "entrada_efectiva.json"}
+json.dump(_st1, open(_stp1, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+if os.path.exists(os.path.join(dI, "entrada_efectiva.json")):
+    os.remove(os.path.join(dI, "entrada_efectiva.json"))
+fi, inf, rcs = ficha_inf(dI)
+paso("I20", "(hito 2, N1) sin registro de entradas ni entrada_efectiva.json pero con el modo registrado por el paso 2: la ficha y el informe llevan el bloque (no apta)",
+     (fi.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and "**Entradas financieras:** apta por entradas: no" in inf, rcs)
+open(_vr, "wb").write(_vr_bak)
 # (hito 2, H9) un modo aplicado en el paso 2 distinto del declarado ahora impide «apto por entradas» y se dice por qué; (H8) el informe da
 # el resumen de lo que no se contrastó y el motivo completo
 json.dump({"modo": "estricta", "fecha": "2026-11-15"}, open(os.path.join(dI, "entrada_efectiva.json"), "w"))
@@ -417,6 +440,7 @@ paso("I20", "(hito 2, H8) la línea de las entradas da el resumen (derivados, no
      "derivados comprobados" in lin and "lecturas externas sin bytes" in lin and "no aplicables" in lin and "errores del contrato" in lin and "sin entrada" in lin, lin[-300:])
 os.remove(os.path.join(dI, "entrada_efectiva.json"))
 os.remove(os.path.join(dI, "verificacion_entradas.json"))
+open(_stp1, "w", encoding="utf-8").write(_st1_original)  # el estado del expediente de la 4.14, sin el modo registrado por un paso 2 de la 4.15
 fi, inf, rcs = ficha_inf(dI)
 paso("I20", "sin registro de entradas ni declaración del modo (salida histórica), la ficha y el informe no cambian: no llevan el bloque (su cierre está ligado a la huella de la ficha)",
      bool(fi) and "verificacion_entradas" not in fi and "**Entradas financieras:**" not in inf, rcs)

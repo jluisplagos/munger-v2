@@ -45,12 +45,17 @@ APTITUD_V64 = {
 }
 
 
-def aptitud_de_uso(c):
+def aptitud_de_uso(c, motivo_modo=None):
     """(4.14, requisito de verificación completa de las entradas) la aptitud de uso de la entrega más la verificación de las entradas del
     expediente: sin un registro vigente con cobertura completa y todas las entradas materiales comprobadas, ninguna salida presenta la
     conclusión como apta para dinero real. Es condición necesaria, no suficiente: la entrega sigue siendo experimental."""
     import verificacion_entradas as VE
     apto_e, resumen = VE.aptitud(c)
+    if motivo_modo:
+        # (4.15, hito 2, N2) el mismo criterio que el bloque de las entradas (I20): un modo de la entrada efectiva aplicado distinto del
+        # declarado, o una declaración con error, impide «apto por entradas» también en el párrafo de aptitud
+        apto_e = False
+        resumen = dict(resumen, apto_por_entradas=False, motivo=f"{resumen.get('motivo') or ''} {motivo_modo}".strip())
     a = dict(APTITUD_V64)
     a["version"] = "4.14"
     a["evaluacion"] = "informe integrado de la entrega 4.14 (apartado de aptitud de uso)"
@@ -88,6 +93,21 @@ def verificacion_y_entrada_efectiva(c, pipe):
             "entrada_efectiva": {"aplicada_en_paso_2": aplicada, "declarada": declarada, "coinciden": coinciden},
             "nota": ("condición necesaria, no suficiente: superar los controles de software no acredita la aptitud para dinero real "
                      "(motor A sin validar: F1; plantillas y criterios económicos no adoptados)")}
+
+
+def _declara_modo(c):
+    """(4.15, hito 2, N1) alcance_v2.json o fase1_metadatos.json declaran el modo de la entrada efectiva (o no se pueden leer: entonces
+    tampoco se sabe que no lo declaren, y el bloque se muestra)."""
+    for n in ("alcance_v2.json", "fase1_metadatos.json"):
+        p = os.path.join(c, n)
+        if os.path.isfile(p):
+            try:
+                d = json.load(open(p, encoding="utf-8"))
+            except (OSError, ValueError):
+                return True
+            if isinstance(d, dict) and "entrada_efectiva" in d:
+                return True
+    return False
 
 
 ILEGIBLES = []  # (4.13, revisión interna R1) archivos que existían y no se pudieron leer en esta llamada
@@ -362,7 +382,10 @@ def main():
     # procedencia, en los expedientes que tienen registro de entradas (desde la 4.14) o declaración del modo (desde la 4.15). Las salidas
     # históricas sin ninguno de los dos no cambian (como aptitud_de_uso en la 4.12): su ficha aprobada está ligada a su huella en
     # cierre_vigente.json, y añadirles el bloque archivaría un cierre sin que cambie nada del expediente
-    if any(os.path.isfile(os.path.join(c, n)) for n in ("verificacion_entradas.json", "entrada_efectiva.json")):
+    # (hito 2, N1) también si el expediente declara el modo en alcance_v2.json o en fase1_metadatos.json, o el paso 2 lo aplicó y registró
+    # (estado_pipeline.json, desde la 4.15): borrar el registro o la declaración no quita el bloque de un expediente de la 4.15
+    if (any(os.path.isfile(os.path.join(c, n)) for n in ("verificacion_entradas.json", "entrada_efectiva.json"))
+            or isinstance((pipe or {}).get("entrada_efectiva"), dict) or _declara_modo(c)):
         ficha["verificacion_entradas"] = verificacion_y_entrada_efectiva(c, pipe)
     pa = SEL.leer(c)
     if pa is not None:
@@ -429,7 +452,7 @@ def main():
                 print("ficha.py: CONTRADICCIÓN en la decisión: " + " | ".join(contra)[:600] + ". No se escribe la ficha"
                       + ("" if a.provisional else " (la salida oficial anterior, si había, ya pasó la comprobación de vigencia)"))
                 return 3
-            ficha["aptitud_de_uso"] = aptitud_de_uso(c)  # (4.12 §9) separada de la auditoría; (4.14) con la verificación de las entradas
+            ficha["aptitud_de_uso"] = aptitud_de_uso(c, (ficha.get("verificacion_entradas") or {}).get("motivo_modo"))  # (4.12 §9) separada de la auditoría; (4.14) con la verificación de las entradas; (4.15, N2) con el modo
     if a.provisional:
         ficha["provisional"] = {"estado_propuesto": estado, "confirmado": False,
                                 "nota": "material para la auditoría del paso 13; no es la salida oficial: el estado lo propone la fase C y solo se confirma tras una auditoría APROBADO del material vigente"}

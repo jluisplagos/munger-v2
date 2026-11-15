@@ -22,6 +22,8 @@ Grupos:
   RV · (4.15, hito 2) hallazgos de la revisión independiente: cita recortada o cortada dentro de un número (H1), «−» como cero y moneda,
        porcentaje, fechas (H4, H5), sensibilidad independiente de la escritura (H6), HTML (H7) y signo −1 sin tratamiento (H14); y, en N,
        los dos bloques de aptitud del informe por separado (H2).
+  RW · (4.15, hito 2) hallazgos de la segunda pasada: cifra dentro de la cita (N4), intervalos (N5), subcadenas y paréntesis en dos líneas
+       (N10), lectura en el documento PDF (N3), XHTML y códecs (N6), tratamiento y tipos de cambio (N9) y mutaciones no detectadas (H11).
   SG · (4.15, hito 2, R415-SIGNO) signo de la cifra publicada: contraejemplos completos en los dos sentidos, paréntesis contables, menos
        ASCII y Unicode, guiones de cero y signos indeterminados; positivos con la transformación justificada (signo −1).
 Uso: python3 -B test_verificacion_entradas_415.py [--json salida.json]
@@ -986,6 +988,75 @@ paso("RV", f"(H7) HTML: {', '.join(list(h7) + ['ISO-8859-1 con bytes de windows-
 r = con()
 paso("RV", "el control positivo sigue apto después de los casos RV", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
+# ------------------------------------------------------------------ RW · hallazgos de la segunda pasada de la revisión independiente (hito 2)
+mal_rw = {}
+for (c_, v_, pg_), esp in {("0", 849697, "Total 849697.000"): ("ausente",), ("849697.000", 849697, "Total 849697.0001"): ("ausente",),
+                           ("T4-15,2", 15.2, None): ("signo_indeterminado",), ("2023-849,7", 849.7, None): ("signo_indeterminado",),
+                           ("Total 849,697.000", 849697, "Total 849,697.000\nSubtotal 849,697.0001"): ("ok",),
+                           ("849,697.000)", -849697, "Pagos (\n849,697.000)"): ("signo_indeterminado",)}.items():
+    got = VE._cita_cifra(c_, v_, pg_)[0]
+    if got not in esp:
+        mal_rw[c_] = got
+paso("RW", "(N4, N5, N10) la cifra tiene que estar dentro de la cita; «T4-15,2» y «2023-849,7» no son intervalos; una cita que es subcadena de otra línea "
+           "no cuenta; «cifra)» sin «(» en la línea: indeterminado", not mal_rw, mal_rw)
+txt_n3 = "[PDF PAGE 1]\nPartida sintética de " + K + ": " + f"{VF_K:.3f}" + "\n"
+open(os.path.join(FS, "n3_conservado.txt"), "w", encoding="utf-8").write(txt_n3)
+open(os.path.join(FS, "n3_fuente.pdf"), "wb").write(pdf_minimo([f"Partida sintetica de {K}: -{VF_K:.3f}"]))
+txt_n3b = "[PDF PAGE 1]\nPartida sintetica de " + K + ": " + f"{VF_K:.3f}" + "\n"
+open(os.path.join(FS, "n3_conservado.txt"), "w", encoding="utf-8").write(txt_n3b)
+sha_n3t = hashlib.sha256(open(os.path.join(FS, "n3_conservado.txt"), "rb").read()).hexdigest()
+sha_n3p = hashlib.sha256(open(os.path.join(FS, "n3_fuente.pdf"), "rb").read()).hexdigest()
+r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/n3_fuente.pdf", sha256=sha_n3p, archivo_texto="fuentes_sinteticas/n3_conservado.txt",
+                                             sha256_texto=sha_n3t, pagina=1, cita=f"{VF_K:.3f}"), resellar=True)
+paso("RW", "(N3) fuente PDF cuyo texto conservado perdió el signo menos y cita recortada a la cifra: la lectura del PDF manda (discrepancia; antes: comprobada)",
+     not r["apto_por_entradas"] and K not in r["comprobadas"] and any("documento de la fuente" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+open(os.path.join(FS, "n3_bien.pdf"), "wb").write(pdf_minimo([f"Partida sintetica de {K}: {VF_K:.3f}"]))
+r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/n3_bien.pdf", sha256=hashlib.sha256(open(os.path.join(FS, "n3_bien.pdf"), "rb").read()).hexdigest(),
+                                             archivo_texto="fuentes_sinteticas/n3_conservado.txt", sha256_texto=sha_n3t, pagina=1, cita=f"{K}: {VF_K:.3f}"), resellar=True)
+paso("RW", "(N3, positivo) el mismo dato con un PDF que publica la cifra positiva: apta", r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+n6 = {}
+xh = f'<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml"><body><script src="x.js"/><div style="display:none"/><p>{CITA_K}</p></body></html>'
+open(os.path.join(FS, "n6_xhtml.xhtml"), "w", encoding="utf-8").write(xh)
+e6, t6 = VE._texto_html_visible(os.path.join(FS, "n6_xhtml.xhtml"))
+if not (e6 == "ok" and VE._cmp_txt_espacios(CITA_K) in VE._cmp_txt_espacios(t6)):
+    n6["XHTML con elementos autocerrados"] = (e6, t6[:60])
+open(os.path.join(FS, "n6_summary.html"), "w", encoding="utf-8").write(f"<html><body><details><summary hidden>{CITA_K}</summary></details><p>x</p></body></html>")
+e6, t6 = VE._texto_html_visible(os.path.join(FS, "n6_summary.html"))
+if VE._cmp_txt_espacios(CITA_K) in VE._cmp_txt_espacios(t6):
+    n6["summary hidden"] = "visible"
+for cod_ in ("ibm850", "euc-kr"):
+    open(os.path.join(FS, f"n6_{cod_}.html"), "wb").write(f'<html><head><meta charset="{cod_}"></head><body><p>{CITA_K}</p></body></html>'.encode(cod_, errors="xmlcharrefreplace"))
+    if VE._texto_html_visible(os.path.join(FS, f"n6_{cod_}.html"))[0] != "ok":
+        n6[cod_] = "no ok"
+paso("RW", "(N6) XHTML con <script/> y <div style=display:none/> autocerrados no oculta lo que sigue; <summary hidden> no se ve; ibm850 y euc-kr se leen", not n6, n6)
+r = con(lambda g: ent(g, K)["fuente"].update(signo=-1, valor_fuente=-ent(g, K)["fuente"]["valor_fuente"], tratamiento="Ninguno."), resellar=True)
+paso("RW", "(N9) signo −1 con el tratamiento «Ninguno.»: error, como «ninguno»", not r["apto_por_entradas"] and any("tratamiento" in x for x in con_k(r, K, ("errores",))), con_k(r, K))
+paso("RW", "(N9) un tipo de cambio («USD por EUR», «EUR/USD») no es una unidad monetaria sin reconocer", not VE._unidad_monetaria_no_reconocida("USD por EUR") and not VE._unidad_monetaria_no_reconocida("EUR/USD"))
+F2_ = VE.fractions.Fraction
+paso("RW", "(H11, m12) importe: 849,69751 no es 849,697 (la distancia admitida es exactamente media unidad del tercer decimal, ni un poco más)",
+     not VE._importe_libro_exacto(F2_("849.69751"), 849.697) and VE._importe_libro_exacto(F2_("849.6975"), 849.697))
+lim = {}
+for nombre_l, fml_l, palabra in (("más de 400 nodos con menos de 2000 caracteres", "+".join(['o["a"]'] * 160), "nodos"),
+                                 ("más de 2000 caracteres con pocos nodos", 'o["a"]' + " " * 2100 + '+ o["b"]', "caracteres")):
+    try:
+        VE._validar_formula(fml_l)
+        lim[nombre_l] = "admitida"
+    except ValueError as ex:
+        if palabra not in str(ex):
+            lim[nombre_l] = str(ex)
+paso("RW", "(H11, m16 y m17) los límites de nodos y de longitud de la fórmula actúan cada uno por separado", not lim and len("+".join(['o["a"]'] * 160)) < 2000, lim)
+paso("RW", "(H11, m22) el 0 solo es una constante admitida como argumento de min o max", VE._constantes_no_admitidas('o["a"] + 0') == [0] and VE._constantes_no_admitidas('max(o["a"], 0)') == []
+     and VE._constantes_no_admitidas('min(o["a"] * 0, 1)') == [0])
+r = con(lambda g: (montar_derivado(g), ent(g, k_der)["derivacion"].update(formula='min(o["aux:p1"] + o["aux:p2"], 1)')), resellar=True)
+paso("RW", "(H11, m20) una fórmula constante en el punto real (min(a + b, 1) con a + b > 1): error «constante en ese punto»",
+     not r["apto_por_entradas"] and any("constante en ese punto" in x for x in con_k(r, k_der, ("errores",))), con_k(r, k_der)[:1])
+ine_eq, loc_eq = VE._sensibilidad('min(o["a"], o["b"])', {"a": 5.0, "b": 5.0}, ["a", "b"])
+paso("RW", "(H6) min(a, b) con a = b: los dos influyen en el punto real hacia abajo (la perturbación va en los dos sentidos)", ine_eq == [] and loc_eq == {"a", "b"}, (ine_eq, loc_eq))
+open(os.path.join(FS, "pdf_con_basura"), "wb").write(b"basura previa\n" + pdf_minimo(["x"]))
+paso("RW", "(H11, m29) un PDF con bytes previos y sin extensión es un PDF (la cabecera puede no ir al principio)", VE._tipo_fuente(os.path.join(FS, "pdf_con_basura")) == "pdf")
+r = con()
+paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
+
 # ------------------------------------------------------------------ N · recuentos (I9) en la ficha y el informe
 env = dict(os.environ, MUNGER_CONFIG=CFG)
 con()
@@ -1012,6 +1083,29 @@ paso("N", "(hito 2, H2) con el registro apto: cada bloque de aptitud dice «apta
      aptitud_en_informe(inf, True) and bloques_aptitud(inf)[0] is not None and bloques_aptitud(inf)[1] is not None, bloques_aptitud(inf))
 paso("N", "(N1/N2; tercera revisión, T7) con el registro apto, el informe da igualmente los «no aplicables»", "apta por entradas: sí" in inf and re.search(r"\d+ no aplicables", inf) is not None,
      (re.findall(r"Verificación de las entradas financieras:.{0,400}", inf) or [""])[0][:300])
+
+# (hito 2, H9 y N2) con el registro APTO, un modo de la entrada efectiva aplicado en el paso 2 distinto del declarado impide «apto por entradas»
+# en los dos bloques del informe y en la ficha (aptitud_de_uso y verificacion_entradas)
+con()
+json.dump({"modo": "estricta", "fecha": "2026-11-15"}, open(os.path.join(c, "entrada_efectiva.json"), "w"))
+_stp = os.path.join(c, "estado_pipeline.json")
+_st0 = open(_stp, encoding="utf-8").read() if os.path.exists(_stp) else None
+_st = json.loads(_st0) if _st0 else {}
+_st["entrada_efectiva"] = {"modo": "registrada", "declarado_en": None}
+json.dump(_st, open(_stp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "ficha.py"), c, "--provisional"], capture_output=True, text=True, env=env)
+subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "informe.py"), c, "--provisional"], capture_output=True, text=True, env=env)
+inf = open(os.path.join(c, "informe_provisional.md"), encoding="utf-8").read()
+fp = json.load(open(os.path.join(c, "ficha_provisional.json"), encoding="utf-8"))
+paso("N", "(hito 2, H9 y N2) registro apto con el modo aplicado («registrada») distinto del declarado («estricta»): no apto por entradas en los dos bloques del informe y en la ficha",
+     VE.comprobar(c)["apto_por_entradas"] and aptitud_en_informe(inf, False) and None not in bloques_aptitud(inf)
+     and (fp.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and ((fp.get("aptitud_de_uso") or {}).get("verificacion_entradas") or {}).get("apto_por_entradas") is False,
+     bloques_aptitud(inf))
+os.remove(os.path.join(c, "entrada_efectiva.json"))
+if _st0 is None:
+    os.remove(_stp)
+else:
+    open(_stp, "w", encoding="utf-8").write(_st0)
 
 n_ok = sum(x["resultado"] == "PASA" for x in RES)
 print(f"{n_ok}/{len(RES)} pruebas de la corrección de la verificación de las entradas (4.15) PASAN")
