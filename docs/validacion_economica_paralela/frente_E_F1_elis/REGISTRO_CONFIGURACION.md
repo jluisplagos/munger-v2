@@ -1,0 +1,12 @@
+# Registro de modelos, esfuerzo y separación de contextos · frente E
+
+El encargo asigna Opus 5.5/Máx a la conciliación y especificación, Opus 5.5/Alto a las operaciones mecánicas y Fable 5.2/Máx a la revisión independiente en un contexto separado. Aquí se registra **lo que el entorno expone**. Lo que no se puede comprobar se marca «no verificable».
+
+| Fase | Control usado | Evidencia expuesta por el entorno | Estado |
+|---|---|---|---|
+| Conciliación, interpretación, hipótesis, materialidad, especificación y redacción (autor) | Sesión principal de Claude Code en la nube, «Conciliación económica Elis/F1» | `get_session` (15-nov-2026, 17:14 y 17:44 UTC): `configured_model` = `claude-opus-5-5`, `session_context.model` = `claude-opus-5-5`, `external_metadata.last_served_model` = `claude-opus-5-5`, `effort_level` = `max` | Verificado por los metadatos de la sesión |
+| Descarga, materialización, verificación de huellas, inventario de PDF y extracción de texto por página | Subagente en segundo plano con la herramienta Agent, parámetros `model = opus` y `effort = high`, contexto propio | El entorno confirma el lanzamiento y la finalización. **No expone el modelo servido ni el esfuerzo efectivo** del subagente. Sus resultados se comprobaron en la sesión principal (huellas del ZIP, del libro y de dos PDF; `sha256sum -c` del manifiesto 4.15; informe de verificación 4.14) | Parámetros solicitados registrados; modelo y esfuerzo servidos **no verificables** |
+| Revisión independiente | Ver [revision/](revision/) | Se registra allí cuando exista | **Pendiente** hasta que conste el informe del revisor |
+| Frente técnico (T) | No se ha tocado su sesión ni su árbol | — | Conserva su configuración (Opus 5.5/Alto según el encargo; no comprobado desde aquí) |
+
+**Separación.** El autor no revisa su propio trabajo. Cambiar de modelo dentro del mismo contexto no acredita una revisión independiente, y no se ha hecho.
