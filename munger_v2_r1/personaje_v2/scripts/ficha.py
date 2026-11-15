@@ -353,8 +353,12 @@ def main():
         "datos_etapa1_incompletos": CIE.marca_etapa1(entrada),
         "alcance": alc,
     }
-    # (4.15, hito 2, I20) en todas las plantillas: la verificación de las entradas y el modo de la entrada efectiva con su procedencia
-    ficha["verificacion_entradas"] = verificacion_y_entrada_efectiva(c, pipe)
+    # (4.15, hito 2, I20) en todas las plantillas (también V6.3): la verificación de las entradas y el modo de la entrada efectiva con su
+    # procedencia, en los expedientes que tienen registro de entradas (desde la 4.14) o declaración del modo (desde la 4.15). Las salidas
+    # históricas sin ninguno de los dos no cambian (como aptitud_de_uso en la 4.12): su ficha aprobada está ligada a su huella en
+    # cierre_vigente.json, y añadirles el bloque archivaría un cierre sin que cambie nada del expediente
+    if any(os.path.isfile(os.path.join(c, n)) for n in ("verificacion_entradas.json", "entrada_efectiva.json")):
+        ficha["verificacion_entradas"] = verificacion_y_entrada_efectiva(c, pipe)
     pa = SEL.leer(c)
     if pa is not None:
         # (4.11) solo en expedientes V6.4: base, versión, configuración efectiva y límites (los expedientes V6.3 no cambian de ficha)

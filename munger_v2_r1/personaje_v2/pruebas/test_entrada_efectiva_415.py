@@ -398,6 +398,11 @@ fi, inf, rcs = ficha_inf(dI)
 ee = (fi.get("verificacion_entradas") or {}).get("entrada_efectiva") or {}
 paso("I20", "una declaración ilegible se muestra como error en la ficha y el informe (no se sustituye por «registrada»)",
      (ee.get("declarada") or {}).get("modo") is None and "no se puede leer" in str((ee.get("declarada") or {}).get("error")) and "declaración actual con error" in inf, ee)
+os.remove(os.path.join(dI, "entrada_efectiva.json"))
+os.remove(os.path.join(dI, "verificacion_entradas.json"))
+fi, inf, rcs = ficha_inf(dI)
+paso("I20", "sin registro de entradas ni declaración del modo (salida histórica), la ficha y el informe no cambian: no llevan el bloque (su cierre está ligado a la huella de la ficha)",
+     bool(fi) and "verificacion_entradas" not in fi and "**Entradas financieras:**" not in inf, rcs)
 
 n_ok = sum(x["resultado"] == "PASA" for x in RES)
 print(f"{n_ok}/{len(RES)} pruebas de la entrada efectiva (4.15) PASAN")

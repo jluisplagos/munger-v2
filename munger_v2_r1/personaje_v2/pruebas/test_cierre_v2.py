@@ -178,8 +178,13 @@ def i1():
         fh.write("\nLínea añadida después de fijar el material.\n")
     rc7, out7 = corre(d)
     st7 = j(d, "estado_pipeline.json")
-    paso(G, "aprobación de una versión anterior (fase_c.md cambió después de fijar el material): ningún cierre", rc7 == 10 and st7["paso"] == 13 and not os.path.exists(os.path.join(d, "ficha.json"))
-         and "material cambió" in (st7.get("motivo_correccion") or ""), (st7.get("motivo_correccion") or "")[:120])
+    # (4.15, hito 2, I19) antes se pedía una corrección («material cambió») que volvía a pedir el material antiguo; ahora el paso 13 detecta el
+    # relevo caducado, repite la verificación y pide una auditoría nueva del material vigente: sigue sin haber ningún cierre
+    rel7 = (st7.get("relevos_caducados") or [{}])[-1]
+    pend7 = [x for x in st7.get("solicitudes_auditoria") or [] if x.get("estado") == "pendiente"]
+    paso(G, "aprobación de una versión anterior (fase_c.md cambió después de fijar el material): ningún cierre; relevo caducado registrado y auditoría nueva del material vigente",
+         rc7 == 10 and st7["paso"] == 13 and not os.path.exists(os.path.join(d, "ficha.json")) and "fase_c.md" in (rel7.get("archivos_cambiados") or [])
+         and len(pend7) == 1 and pend7[0].get("material") == st7.get("material_auditoria") != rel7.get("material_fijado"), (rel7, [(x.get("id"), x.get("estado")) for x in st7.get("solicitudes_auditoria") or []]))
 
     # APROBADO válido y correspondiente: cierre coherente
     AG.auditoria(c, "APROBADO")
