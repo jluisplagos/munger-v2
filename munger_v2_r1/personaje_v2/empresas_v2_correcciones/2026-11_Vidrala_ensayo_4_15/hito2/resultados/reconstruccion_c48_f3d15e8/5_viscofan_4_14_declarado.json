@@ -1,0 +1,180 @@
+{
+ "expediente": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/viscofan_decisiones/Viscofan",
+ "modo_fase1": "declarado",
+ "sin_migrados": false,
+ "config": "config_v2_v641_experimental.json",
+ "carpeta_limpia": "temporal (se elimina al terminar)",
+ "entradas_declaradas": [
+  "etapa1",
+  "fase1_metadatos.json",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "texto",
+  "configuracion_economica.json",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "alcance_v2.json",
+  "fase1_v63.json"
+ ],
+ "pasos": [
+  {
+   "paso": "migración de la etapa 1",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/Viscofan_v63_base.xlsx {'conservados': 517, 'excluidos': 895, 'transformados': 3, 'conflictos': 0, 'normalizados': 4}\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "rellenar_fase1_v63",
+   "rc": 0,
+   "salida": "OK: 524 celdas escritas en /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/Viscofan_v63_datos.xlsx · derivadas: 0 · convenciones: [] · avisos: 4\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "configuración económica V6.4",
+   "rc": 0,
+   "salida": "OK: 108 celdas de «Configuración V6.4» escritas en Viscofan_v63_datos.xlsx.cfg.xlsx · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase A",
+   "rc": 0,
+   "salida": "OK: 116 celdas escritas en /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/Viscofan_v63_evaluada.xlsx.A.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase B",
+   "rc": 0,
+   "salida": "OK: 92 celdas escritas en /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/Viscofan_v63_evaluada.xlsx.B.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase C",
+   "rc": 0,
+   "salida": "OK: 58 celdas escritas en /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/Viscofan_v63_evaluada.xlsx.C.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "recálculo (LibreOffice)",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/recalc/Viscofan_v63_evaluada.xlsx (recálculo forzado, perfil /tmp/reconstruccion_Viscofan_qi6bg1ev/.lo_perfil)\n"
+  },
+  {
+   "paso": "lectura de resultados",
+   "rc": 0,
+   "salida": "OK: resultados.json → /tmp/reconstruccion_Viscofan_qi6bg1ev/Viscofan/resultados.json · motor B · estado COMPLETO Y VÁLIDO · libro NO LISTO · evidencias incompletas (2 pendientes) · cálculo completo\n"
+  }
+ ],
+ "diferencias": {
+  "fase1_analisis": [],
+  "fase1_historia": [],
+  "libro_datos": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    }
+   ]
+  },
+  "libro_evaluado": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-15"
+     ]
+    }
+   ]
+  },
+  "valores_recalculados": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-15"
+    }
+   ]
+  }
+ },
+ "modo_entrada_efectiva": {
+  "modo": "registrada",
+  "declarado_en": null
+ },
+ "entradas_migradas_distintas": [],
+ "precio_si": {
+  "expediente": 39.79819353512519,
+  "reconstruido": 39.79819353512519,
+  "diferencia": 0.0
+ },
+ "entradas_fcf_base": {
+  "Análisis!C46": {
+   "expediente": [
+    "v",
+    192.3
+   ],
+   "reconstruido": [
+    "v",
+    192.3
+   ]
+  },
+  "Análisis!C47": {
+   "expediente": [
+    "v",
+    77.533
+   ],
+   "reconstruido": [
+    "v",
+    77.533
+   ]
+  },
+  "Análisis!C48": {
+   "expediente": [
+    "v",
+    8.294
+   ],
+   "reconstruido": [
+    "v",
+    8.294
+   ]
+  },
+  "Análisis!C49": {
+   "expediente": [
+    "v",
+    5.547
+   ],
+   "reconstruido": [
+    "v",
+    5.547
+   ]
+  },
+  "Análisis!C50": {
+   "expediente": [
+    "v",
+    3.707
+   ],
+   "reconstruido": [
+    "v",
+    3.707
+   ]
+  }
+ },
+ "reproduce": true,
+ "reproduce_por_via_generativa": true,
+ "codigo_de_salida": 0,
+ "clasificacion": {}
+}

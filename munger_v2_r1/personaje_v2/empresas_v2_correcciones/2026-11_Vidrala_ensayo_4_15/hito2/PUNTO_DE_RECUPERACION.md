@@ -1,13 +1,14 @@
 # Punto de recuperación · 4.15 hito 2
 
-Actualizado: 15-nov-2026, tras las correcciones de la segunda pasada de revisión (commit siguiente a `0858b31`), rama
+Actualizado: 15/16-nov-2026, tras la regresión completa de la candidata `f3d15e8` (PASA), rama
 `claude/hopeful-bardeen-qap6y0`. Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fuera de este frente.
 
 ## Estado de las pruebas (hechos)
 
 - Última regresión completa conforme: candidata estable `92b2362` → **RESULTADO GLOBAL: PASA** (`resultados/verificacion_completa_estable_92b2362.txt`).
-- **Después** de esa regresión se han corregido N1–N10 de la segunda pasada (código de `verificacion_entradas.py`, `ficha.py`, `pipeline.py`):
-  la regresión completa de esta nueva candidata **está pendiente** (no se da por superada).
+- Después se corrigieron N1–N10 de la segunda pasada. Regresión completa de esa candidata, `f3d15e8` (manifiesto 7207/7207, sin archivos de
+  más): **RESULTADO GLOBAL: PASA**, código 0 (`resultados/verificacion_completa_f3d15e8.txt`). Reconstrucción de C48 con ese código
+  (`resultados/reconstruccion_c48_f3d15e8/`): 8 casos iguales; C48 = 108 con y sin valores migrados.
 - Baterías dirigidas sobre el árbol actual (sin LibreOffice): entradas 4.15 **173/173**, entrada efectiva **60/60**, entradas 4.14 33/33.
   Mínimos de `verificar_paquete.sh`: 173, 60 y 5 (relevo).
 - Registros reales con el código actual: diagnóstico idéntico byte a byte al registrado; inventario de signo igual; las 469 entradas
@@ -27,7 +28,7 @@ Actualizado: 15-nov-2026, tras las correcciones de la segunda pasada de revisió
 
 ## Incidencias y requisitos pendientes (no cerrados)
 
-- **Comprobación independiente de las correcciones de la segunda pasada** y **regresión completa** de la nueva candidata: pendientes.
+- **Comprobación independiente de las correcciones de la segunda pasada** (tercera pasada acotada, Fable, en curso sobre `f3d15e8`): pendiente.
 - **H9 (parte abierta):** un relevo caducado vuelve siempre al paso 12; si cambian salidas de fases anteriores (fase_a/b/c, entrada
   efectiva) haría falta volver al paso que las consume. Propuesta sin aplicar (cambia el recorrido del pipeline).
 - **U1:** no hay regla automática que acredite el significado económico de un derivado; lo acredita la revisión independiente de cada
@@ -42,8 +43,8 @@ Actualizado: 15-nov-2026, tras las correcciones de la segunda pasada de revisió
 ## Siguiente paso exacto
 
 1. Regenerar manifiesto y `CAMBIOS_ARCHIVOS.txt` sobre el árbol limpio (sin `.lo_perfil` ni `__pycache__`) y congelar una copia.
-2. Lanzar en paralelo: la regresión completa (`bash verificar_paquete.sh completa`, LibreOffice en secuencia) y la comprobación independiente
-   (Fable, esfuerzo máximo, otro agente, sin LibreOffice) solo de lo cambiado desde `92b2362`.
+2. (Hecho: regresión completa de `f3d15e8`, PASA.) En curso: la comprobación independiente (Fable, esfuerzo máximo, otro agente, sin
+   LibreOffice) solo de lo cambiado desde `92b2362`; su informe irá a `revision_independiente/hito2/REVISION_FABLE_HITO2_TERCERA.md`.
 3. Si ambas pasan sin correcciones de código: documentación de cierre (`VERSION`, `CONTINUIDAD.md`, `PROMPT_NUEVA_VENTANA.md`,
    `HITO_2_4_15.md`), manifiesto final, paquete de cambios con `scripts/empaquetar_cambios_4_15.py` comprobado sobre la base 4.14, commit y
    push con el resumen para la revisión externa. Si piden cambios de código: corregir, revisar lo afectado y repetir la regresión.
