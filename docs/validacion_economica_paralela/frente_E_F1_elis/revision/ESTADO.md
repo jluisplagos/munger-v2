@@ -12,7 +12,7 @@
 | 4 | Lo afectado por C7, sobre el commit congelado 97441770 (C8). Encargada el 15-nov-2026 hacia las 21:49 UTC | **Hecha**, commit a15f706 (22:04 UTC). Reproduce todas las cifras; N2–N10 corregidas y N1 en parte. Objeciones nuevas: P1–P3 (menores) y P4–P5 (forma). Ninguna conclusión material cambia | [REVISION_INDEPENDIENTE_4.md](REVISION_INDEPENDIENTE_4.md), `scripts_revisor_4/` y `resultados_revisor_4/`: copia sin cambios de a15f706 ([PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md)) |
 | Cambios del autor tras el congelado | C9 | Segunda presentación de cinco entradas del ancla de S2C; hueco del verificador hallado por el autor (columna de un país con OK, también en C7 y C8) y corregido. **No revisados** | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), tercera parte |
 | Respuesta a la revisión n.º 4 | C10 | Las cinco objeciones se aceptan y se corrigen | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), cuarta parte |
-| 5 | Lo afectado por C9 y C10, sobre un commit congelado | **Pendiente** | — |
+| 5 | Lo afectado por C9 y C10, sobre el commit congelado 364129a (C11). Encargada el 15-nov-2026 a las 22:28:58 UTC a una sesión de revisión **nueva**, con contexto propio. La de las pasadas 1, 3 y 4 había declarado poco presupuesto de contexto | **En curso** | Se copiará sin cambios desde la rama del revisor |
 
 **C4 = d2e585e91638c363682a000bdb416a4b865c6cce.** El commit 1864c4e solo cambia, respecto a C4, este archivo, la línea de C4 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 3; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
 

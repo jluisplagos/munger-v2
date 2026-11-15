@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** C10, respuesta a la revisión n.º 4 (P1–P5). Antes, C9: segunda presentación de cinco entradas del ancla de S2C y corrección de las columnas por país.
-**Hora:** 15-nov-2026, hacia las 22:45 UTC.
+**Bloque cerrado:** C10, respuesta a la revisión n.º 4 (P1–P5), y encargo de la revisión n.º 5. Antes, C9: segunda presentación de cinco entradas del ancla de S2C y corrección de las columnas por país.
+**Hora:** 15-nov-2026, 22:30 UTC. Commits: C9 a las 22:14:15, C10 a las 22:27:44 y C11 a las 22:27:59 UTC. La versión de este archivo en C10 decía «hacia las 22:45 UTC» por error.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -15,7 +15,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C7 = `9869def325b8820e2ee25618107495a7a7b70229` | Respuesta a la revisión n.º 3 y a su adenda (N1–N10) |
 | C8 = `97441770f51761e28c089df7830d3de802bf87e9` | Registra el hash de C7. Congelado de la revisión n.º 4 |
 | C9 = `c8764494d9911c59a67a530f13b56616fe86707c` | Segunda presentación de cinco entradas; columnas por país. **No revisado** |
-| C10, el commit que contiene esta versión de este archivo | Respuesta a la revisión n.º 4. **No revisado** |
+| C10 = `95b37e6da22bd4d5adb55c3f09c729b8d4e409f1` | Respuesta a la revisión n.º 4. **No revisado** |
+| C11 = `364129afd45ba2e54a1df4141fd50e97fd55ef6d` | Registra el hash de C10. **Commit congelado de la revisión n.º 5** |
+| El commit que contiene esta versión de este archivo | Registra el encargo de la revisión n.º 5. No cambia código, datos ni resultados |
 
 La revisión n.º 4 (a15f706, 22:04 UTC) está copiada sin cambios en `revision/`, con su procedencia, y respondida en la cuarta parte de `revision/RESPUESTAS_AUTOR_1.md`.
 
@@ -37,7 +39,10 @@ La revisión n.º 4 (a15f706, 22:04 UTC) está copiada sin cambios en `revision/
 
 ## 3. Incidencias pendientes
 
-1. **C9 y C10 sin revisar.** Hay que congelar un commit y encargar la revisión independiente de lo que afectan (pasada 5).
+1. **C9 y C10 sin revisar.** La revisión n.º 5 está en curso:
+   - congelado: C11;
+   - sesión de revisión nueva, con contexto propio, creada a las 22:28:58 UTC;
+   - la sesión de las pasadas 1, 3 y 4 había declarado poco presupuesto de contexto.
 2. **Cobertura de la unidad y del perímetro.** Es cobertura pendiente, no acreditada:
    - 13 páginas (41 entradas) sin ninguna identidad entre páginas;
    - 151 entradas con solo identidad de su página;
@@ -53,9 +58,9 @@ La revisión n.º 4 (a15f706, 22:04 UTC) está copiada sin cambios en `revision/
 
 ## 4. Siguiente paso exacto
 
-1. Commit C11: solo registra el hash de C10 en `revision/ESTADO.md` y en la fila de C10 de `revision/RESPUESTAS_AUTOR_1.md`, más el manifiesto. Es el congelado de la pasada 5.
-2. Encargar la pasada 5 a la sesión de revisión, en un contexto separado del autor, sobre C11. Alcance: `git diff 97441770 C11`, es decir, C9 y C10.
-3. Programar una comprobación y, cuando el informe esté publicado:
+1. Hecho: C11 congelado y pasada 5 encargada sobre C11. Alcance: `git diff 97441770 364129a`, es decir, C9 y C10.
+2. Esperar el informe. La comprobación está programada en la sesión autora hacia las 23:29 UTC; si la revisión sigue, se vuelve a programar.
+3. Cuando el informe esté publicado en `auditoria/economica-f1-frente-e-revision`:
    1. copiarlo sin cambios, con su procedencia;
    2. registrar la configuración y las horas;
    3. responder a cada objeción con commit y prueba;
