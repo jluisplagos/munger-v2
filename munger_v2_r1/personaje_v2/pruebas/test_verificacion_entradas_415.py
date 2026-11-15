@@ -16,6 +16,8 @@ Grupos:
   J  · cobertura del juicio (I8): las cifras financieras que usan las fases de juicio entran en el universo con dependencias distintas.
   E  · entrada efectiva (C48 de Elis): una entrada del FCF base que fase1_v63.json no reproduce no se acredita.
   N  · recuentos (I9): el informe dice «N de M» con N ≤ M y separa cálculo y juicio.
+  SG · (4.15, hito 2, R415-SIGNO) signo de la cifra publicada: contraejemplos completos en los dos sentidos, paréntesis contables, menos
+       ASCII y Unicode, guiones de cero y signos indeterminados; positivos con la transformación justificada (signo −1).
 Uso: python3 -B test_verificacion_entradas_415.py [--json salida.json]
 """
 import argparse, copy, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile
@@ -286,8 +288,11 @@ paso("R3", "_cita_contiene: «150» no es 149,5; «0» no es 0,49; «45479» y �
 assert VE._cita_contiene("Amortización: 149,5", 149.5) and VE._cita_contiene("Amortización: 149.5", 149.5) and VE._cita_contiene("Acciones: 45.479,209", 45479.209)
 assert VE._cita_contiene("Shares 45,479.209", 45479.209) and VE._cita_contiene("Acciones 45479,2090", 45479.209) and VE._cita_contiene("Total 1.234,50", 1234.5)
 assert VE._cita_contiene("VISCOFAN 54,7000", 54.7) and VE._cita_contiene("Total 4 573,7", 4573.7) and VE._cita_contiene("Saldo 0", 0) and VE._cita_contiene("Saldo 0,0", 0)
-assert VE._cita_contiene("Revenue 912.160 849.697", 849697) and VE._cita_contiene("Acquisitions  -   (12.3)", 0) and VE._cita_contiene("(149,5)", 149.5)
-paso("R3", "formatos legítimos aceptados: separadores de miles y decimales, ceros finales, miles con espacio, paréntesis, cero impreso «-»", True)
+# (4.15, hito 2, R415-SIGNO) la versión del hito 1 daba por buena «(149,5)» para 149,5 (la revisión externa lo señala): un pago entre paréntesis
+# es la cifra publicada −149,5; su magnitud positiva se obtiene con la transformación declarada (signo −1), no se confunde con la cifra
+assert VE._cita_contiene("Revenue 912.160 849.697", 849697) and VE._cita_contiene("Acquisitions  -   (12.3)", 0) and VE._cita_contiene("(149,5)", -149.5)
+assert not VE._cita_contiene("(149,5)", 149.5)
+paso("R3", "formatos legítimos aceptados: separadores de miles y decimales, ceros finales, miles con espacio, paréntesis (con su signo: «(149,5)» es −149,5), cero impreso «-»", True)
 pr3 = nueva_pagina("Número de acciones (miles): 45479")
 AUX = {"celda": "aux:acciones_miles", "id": "aux:acciones_miles", "ambito": "auxiliar", "uso": "origen sintético", "material": True, "clase": "dato_publicado",
        "valor_modelo": 45.479209, "comprobacion": dict(COMPROBADA), "incidencia": None,
@@ -696,6 +701,81 @@ json.dump(f1y, open(os.path.join(cE2, "fase1_v63.json"), "w", encoding="utf-8"),
 r = con(carpeta=cE2)
 paso("E", "(h4) editar la declaración de fase1_v63.json después del sello (mismo número) deja la entrada desactualizada: el vínculo incluye la declaración",
      any(x.startswith("Análisis!C47:") for x in r["desactualizadas"]), con_k(r, "Análisis!C47"))
+
+# ------------------------------------------------------------------ SG · signo de la cifra publicada (4.15, hito 2, R415-SIGNO)
+# «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el modelo. Contraejemplos completos
+# (registro positivo, página conservada y cita cambiadas, huella y vínculos rehechos) en los dos sentidos y positivos con paréntesis.
+VF_K = ent(REG, K)["fuente"]["valor_fuente"]
+VM_K = ent(REG, K)["valor_modelo"]
+assert VF_K > 0 and ent(REG, K)["fuente"]["signo"] == 1
+
+
+def con_signo(texto_pagina, cita=None, vf=VF_K, signo=1, tratamiento=None, extra=None):
+    pg = nueva_pagina(texto_pagina)
+    def cambio(g):
+        f = ent(g, K)["fuente"]
+        f.update(pagina=pg, cita=cita if cita is not None else texto_pagina, valor_fuente=vf, signo=signo)
+        if tratamiento:
+            f["tratamiento"] = tratamiento
+        if extra:
+            extra(g)
+    return con(cambio, resellar=True)
+
+
+TRAT = "pago publicado en negativo; el modelo usa su magnitud positiva (signo −1)"
+r = con_signo(f"Partida sintética de {K}: -{VF_K:.3f}")
+paso("SG", "contraejemplo de la revisión externa: página y cita «-849697.000» con valor_fuente positivo, signo 1 y tratamiento «ninguno»: discrepancia, no apta (antes: apta y comprobada)",
+     not r["apto_por_entradas"] and K not in r["comprobadas"] and any("R415-SIGNO" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: {VF_K:.3f}", vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("SG", "sentido inverso: la página publica la cifra en positivo y valor_fuente es negativo (con signo −1, el modelo cuadra): discrepancia, no apta",
+     not r["apto_por_entradas"] and any("R415-SIGNO" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: ({VF_K:,.3f})")
+paso("SG", "cantidad positiva frente a un pago publicado entre paréntesis «(849,697.000)»: discrepancia", not r["apto_por_entradas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: ({VF_K:,.3f})", vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("SG", "positivo: pago publicado entre paréntesis, valor_fuente negativo y transformación justificada (signo −1) hacia la magnitud del modelo: apta",
+     r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: \u2212{VF_K:,.3f}".replace(",", " ").replace(".", ","), vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("SG", "positivo: signo menos Unicode «−849 697,000» con valor_fuente negativo: apta", r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: \u2013{VF_K:.3f}", vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("SG", "positivo: guion tipográfico pegado «–849697.000» (signo menos) con valor_fuente negativo: apta", r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: -{VF_K:.3f}", vf=-VF_K, signo=1)
+paso("SG", "la cifra y su signo coinciden, pero la transformación no lleva al modelo (valor_fuente negativo con signo +1): discrepancia de signo × escala",
+     not r["apto_por_entradas"] and any("signo × escala" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K} - {VF_K:.3f}")
+paso("SG", "guion a un espacio de la cifra («… - 849697.000»: cero de otra columna o signo menos): pendiente, no apta aunque el revisor la declare verificada",
+     not r["apto_por_entradas"] and any("no puede determinarse" in x for x in con_k(r, K, ("pendientes",))), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}        -          {VF_K:,.3f}", cita=f"Partida sintética de {K} - {VF_K:,.3f}")
+paso("SG", "positivo: el guion está en otra columna de la página conservada (dos o más espacios), aunque la cita normalice los espacios: apta",
+     r["apto_por_entradas"] and K in r["comprobadas"], con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: {VF_K:.3f} ({VF_K:.3f})")
+paso("SG", "la cita publica la misma cifra con los dos signos: pendiente (el signo no puede determinarse)", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: -({VF_K:.3f})", vf=-VF_K, signo=-1, tratamiento=TRAT)
+paso("SG", "dos marcas pegadas «-(849697.000)»: pendiente", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
+r = con_signo(f"Partida sintética de {K}: {VF_K:.3f}-", vf=VF_K)
+paso("SG", "menos detrás de la cifra «849697.000-»: pendiente", not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
+casos_ok = [("Importe: (149.5)", -149.5), ("Importe: \u2212149,5", -149.5), ("Importe: \u2212 149,5", -149.5), ("Importe: -149,5", -149.5),
+            ("Importe: \u2014149,5", -149.5), ("(\u20ac149,5)", -149.5), ("(149,5 \u20ac)", -149.5), ("-\u20ac149,5", -149.5), ("+149,5", 149.5),
+            ("Importe: 149,5", 149.5), ("Saldo 0", 0), ("Saldo (0)", 0), ("Saldo -0", 0), ("Acquisitions  -   (12.3)", 0), ("Acquisitions  -   (12.3)", -12.3),
+            ("Payments -55.320 -62.755", -62755), ("Interest paid (7,230) (9,776)", -9776), ("2019-2020", 2019)]
+casos_no = [("Importe: -149.5", 149.5, "signo_distinto"), ("Importe: 149.5", -149.5, "signo_distinto"), ("Importe: (149.5)", 149.5, "signo_distinto"),
+            ("Importe: \u2212149,5", 149.5, "signo_distinto"), ("Importe - 149,5", 149.5, "signo_indeterminado"), ("Importe - 149,5", -149.5, "signo_indeterminado"),
+            ("x 149,5 (149,5)", 149.5, "signo_indeterminado"), ("-(149,5)", -149.5, "signo_indeterminado"), ("(149,5", -149.5, "signo_indeterminado"),
+            ("149,5-", 149.5, "signo_indeterminado"), ("2019-2020", 2020, "signo_indeterminado"), ("EBITDA-149,5", -149.5, "signo_indeterminado"),
+            ("Importe: 150", 149.5, "ausente"), ("Importe: -150", -149.5, "ausente")]
+mal = [(c_, v_, VE._cita_cifra(c_, v_)) for c_, v_ in casos_ok if VE._cita_cifra(c_, v_)[0] != "ok"]
+mal += [(c_, v_, VE._cita_cifra(c_, v_)) for c_, v_, esp in casos_no if VE._cita_cifra(c_, v_)[0] != esp]
+paso("SG", f"_cita_cifra: {len(casos_ok)} formas con el signo publicado correcto aceptadas y {len(casos_no)} rechazadas con su categoría "
+           "(signo contrario, indeterminado o ausente; menos ASCII y Unicode, guiones, paréntesis, moneda, cero sin signo)", not mal, mal[:3])
+try:
+    mal_formadas = [VE._cita_cifra(None, 5), VE._cita_cifra("x 5", None), VE._cita_cifra("x 5", float("nan")), VE._cita_cifra("x 5", "5"), VE._cita_cifra(12345, 12345)]
+    ok_mf = [x[0] for x in mal_formadas] == ["ausente", "ausente", "ausente", "ausente", "ok"]
+except Exception as ex:  # noqa: BLE001
+    ok_mf, mal_formadas = False, repr(ex)
+paso("SG", "entradas mal formadas (cita None o no textual, valor None, NaN o texto): diagnóstico controlado, sin excepción", ok_mf, mal_formadas)
+r = con(lambda g: ent(g, K)["fuente"].update(valor_fuente=float("nan")), resellar=True)
+paso("SG", "valor_fuente NaN en el registro: error del contrato, sin excepción", not r["apto_por_entradas"] and con_k(r, K, ("errores",)), con_k(r, K))
+r = con()
+paso("SG", "el control positivo sigue apto después de los casos de signo", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
 # ------------------------------------------------------------------ N · recuentos (I9) en la ficha y el informe
 env = dict(os.environ, MUNGER_CONFIG=CFG)

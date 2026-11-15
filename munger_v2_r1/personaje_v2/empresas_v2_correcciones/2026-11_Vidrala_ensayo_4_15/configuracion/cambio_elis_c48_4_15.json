@@ -2,7 +2,7 @@
  "tipo": "cambio_de_base",
  "version_formato": 1,
  "empresa": "Elis",
- "_estado_del_archivo": "4.15 (encargo correctivo §3): el CAMBIO de la decisión E6 de la 4.14 (cambio_decisiones_elis_4_14.json, sin ninguna otra modificación) más la entrada efectiva de Análisis!C48 declarada con su CÁLCULO explícito y vaciada en la copia de ensayo de la etapa 1, para que fase1_historia.py la reconstruya desde las entradas declaradas (antes solo la sostenía el valor migrado de la etapa 1: I12). El valor no cambia (108,0); no se adopta ninguna hipótesis económica nueva.",
+ "_estado_del_archivo": "4.15 (encargo correctivo §3): el CAMBIO de la decisión E6 de la 4.14 (cambio_decisiones_elis_4_14.json, sin ninguna otra modificación) más la entrada efectiva de Análisis!C48 declarada con su CÁLCULO explícito y vaciada en la copia de ensayo de la etapa 1, para que fase1_historia.py la reconstruya desde las entradas declaradas (antes solo la sostenía el valor migrado de la etapa 1: I12). El valor no cambia (108,0); no se adopta ninguna hipótesis económica nueva. (4.15, hito 2, R415-SIGNO) Los componentes declaran la cifra publicada con su signo («valor_fuente» negativo: pagos entre paréntesis), el «signo» −1 y el «tratamiento» que la convierte en la magnitud positiva del cálculo; no cambia ningún valor, término ni el 108,0. La versión del hito 1 está en reproduccion/codigo_4_15_hito1/cambio_elis_c48_4_15.json.txt.",
  "origen": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_motor_A/Elis",
  "destino": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/elis_4_15",
  "base_economica": {
@@ -348,21 +348,30 @@
        "fuente": "texto/Elis_Document d'enregistrement universel_2024_FR.txt",
        "pagina": 273,
        "cita": "Paiements de passifs locatifs (y compris intérêts sur passifs locatifs) (150,8) (130,8)",
-       "documento": "Document d'enregistrement universel 2024 d'Elis (incluye los estados financieros consolidados 2024; en francés)"
+       "documento": "Document d'enregistrement universel 2024 d'Elis (incluye los estados financieros consolidados 2024; en francés)",
+       "valor_fuente": -130.8,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
       },
       "2024": {
        "valor": 150.8,
        "fuente": "texto/Elis - 2025 Universal Registration Document.txt",
        "pagina": 327,
        "cita": "Lease liability payments (including interest on lease liabilities) (177.9) (150.8)",
-       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)"
+       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)",
+       "valor_fuente": -150.8,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
       },
       "2025": {
        "valor": 177.9,
        "fuente": "texto/Elis - 2025 Universal Registration Document.txt",
        "pagina": 327,
        "cita": "Lease liability payments (including interest on lease liabilities) (177.9) (150.8)",
-       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)"
+       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)",
+       "valor_fuente": -177.9,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
       }
      }
     },

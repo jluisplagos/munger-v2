@@ -303,16 +303,41 @@ def preparar(carpeta, empresa):
 OPERACIONES_CALCULO = ("media", "suma")
 
 
+def _cifra_publicada_componente(nombre, anio, cmp, v):
+    """(4.15, hito 2, R415-SIGNO) (cifra publicada, transformación) de un componente de un cálculo declarado. Sin «valor_fuente», la cifra
+    publicada es «valor» y no hay transformación (None). Con «valor_fuente», exige «signo» ±1 y «tratamiento», y valor = signo ×
+    valor_fuente exactamente (en su representación decimal: ni redondeo ni escala; un cambio de escala no es una conversión de signo)."""
+    claves = ("valor_fuente", "signo", "tratamiento")
+    if not any(k in cmp for k in claves):
+        return v, None
+    vf, sg, tr = cmp.get("valor_fuente"), cmp.get("signo"), cmp.get("tratamiento")
+    if not isinstance(vf, (int, float)) or isinstance(vf, bool) or vf != vf or vf in (float("inf"), float("-inf")):
+        raise ValueError(f"el componente {nombre} de {anio}: «valor_fuente» {vf!r} no es la cifra publicada (un número)")
+    if sg not in (1, -1) or isinstance(sg, bool):
+        raise ValueError(f"el componente {nombre} de {anio}: «signo» {sg!r} no es ±1")
+    if not str(tr or "").strip():
+        raise ValueError(f"el componente {nombre} de {anio}: la transformación de la cifra publicada {vf!r} no declara «tratamiento»")
+    from fractions import Fraction
+    if Fraction(repr(float(v))) != sg * Fraction(repr(float(vf))):
+        raise ValueError(f"el componente {nombre} de {anio}: valor {v!r} ≠ signo × valor_fuente = {sg * vf!r} (la transformación declarada no lo reproduce)")
+    return vf, (sg, str(tr).strip())
+
+
 def calcular_entrada(celda, d, H, anios, carpeta=None):
     """(4.15) Valor de una entrada de Análisis desde su `calculo` declarado:
     {"operacion": "media"|"suma", "anios": [AAAA, …], "terminos": [{"partida": <fila de la Historia>, "signo": ±1} | {"componente": <nombre>, "signo": ±1}],
-     "componentes": {<nombre>: {"AAAA": {"valor": x, "fuente": "texto/…", "pagina": n, "cita": "…"}}}, "decision": "…", "redondeo": 3}
+     "componentes": {<nombre>: {"AAAA": {"valor": x, "fuente": "texto/…", "pagina": n, "cita": "…"
+                                          [, "valor_fuente": y, "signo": ±1, "tratamiento": "…"]}}}, "decision": "…", "redondeo": 3}
     Cada año suma sus términos; la operación agrega los años. Un año sin dato, un componente sin fuente o un «valor» declarado que no
     coincide con el calculado es un error (no se rellena ni se redondea en silencio).
     (Revisión independiente de la 4.15, hallazgos 7 y 13) Los años tienen que ser enteros distintos; el redondeo, un entero ≥ 3 (el del libro
     por defecto), y se dice en la fuente; con `carpeta`, cada componente se contrasta con su fuente: la cita tiene que estar en la página PDF
     citada del texto conservado y contener el valor (verificacion_entradas). La entrada hereda los ceros pendientes de verificación (H1) de
-    las partidas y años que usa (`pendiente_verificacion`). Cualquier defecto es un ValueError."""
+    las partidas y años que usa (`pendiente_verificacion`). Cualquier defecto es un ValueError.
+    (4.15, hito 2, R415-SIGNO) La cita se contrasta con la cifra PUBLICADA y su signo. Si el componente usa otra cifra que la publicada (p.
+    ej. la magnitud positiva de un pago publicado «(130,8)»), lo declara: «valor_fuente» (la cifra publicada, con su signo), «signo» (±1)
+    y «tratamiento» (por qué), con valor = signo × valor_fuente exactamente; la transformación declarada sigue siendo válida. Sin esa
+    declaración, «valor» es la cifra publicada: una magnitud positiva frente a un pago publicado entre paréntesis es un error."""
     cal = d["calculo"]
     if not isinstance(cal, dict):
         raise ValueError("el cálculo no es un objeto")
@@ -367,6 +392,7 @@ def calcular_entrada(celda, d, H, anios, carpeta=None):
                 v = cmp.get("valor")
                 if not isinstance(v, (int, float)) or isinstance(v, bool) or not str(cmp.get("fuente") or "").strip() or cmp.get("pagina") in (None, ""):
                     raise ValueError(f"el componente {t['componente']} de {a} no tiene valor, fuente y página")
+                publicado, transf = _cifra_publicada_componente(t["componente"], a, cmp, v)
                 if VE is not None:
                     ruta = VE._ruta_fuente(carpeta, cmp["fuente"])
                     if ruta is None or not ruta.lower().endswith(".txt"):
@@ -374,9 +400,16 @@ def calcular_entrada(celda, d, H, anios, carpeta=None):
                     estado, pag = VE._pagina_examinable(ruta, cmp["pagina"])
                     if estado != "ok":
                         raise ValueError(f"el componente {t['componente']} de {a}: {pag}")
-                    if not VE._norm_txt(cmp.get("cita")) or VE._norm_txt(cmp.get("cita")) not in VE._norm_txt(pag) or not VE._cita_contiene(cmp.get("cita"), v):
-                        raise ValueError(f"el componente {t['componente']} de {a}: la cita no está en la página {cmp['pagina']} o no contiene {v}")
-                fuentes.append(f"{a} {t['componente']} {v} ({cmp['fuente']} p.{cmp['pagina']})")
+                    if not VE._norm_txt(cmp.get("cita")) or VE._norm_txt(cmp.get("cita")) not in VE._norm_txt(pag):
+                        raise ValueError(f"el componente {t['componente']} de {a}: la cita no está en la página {cmp['pagina']}")
+                    est_c, det_c = VE._cita_cifra(cmp.get("cita"), publicado, pag)
+                    if est_c != "ok":
+                        pista = (" Si el cálculo usa otra cifra que la publicada (p. ej. la magnitud de un pago publicado entre paréntesis), declara "
+                                 "«valor_fuente» (la cifra publicada con su signo), «signo» y «tratamiento»." if est_c == "signo_distinto" and transf is None else "")
+                        raise ValueError(f"el componente {t['componente']} de {a}: la cita no contiene la cifra publicada {publicado!r} con su signo "
+                                         f"({est_c}: {det_c}).{pista}")
+                fuentes.append(f"{a} {t['componente']} {v}" + (f" (= {transf[0]:+d} × {publicado!r} publicado: {transf[1]})" if transf else "")
+                               + f" ({cmp['fuente']} p.{cmp['pagina']})")
             else:
                 raise ValueError(f"término sin partida ni componente: {t}")
             tot += sg * v

@@ -394,15 +394,99 @@ def _cifras(x):
     return [o for o in out if o]
 
 
+MENOS_UNICODE = "−"  # «−»: siempre un signo menos (no se usa para imprimir un cero)
+GUIONES = "-‐‑‒–—﹣－"  # guion ASCII y guiones tipográficos: signo menos si van pegados; aislados, un cero
+MONEDAS = "€$£¥"
+
+
+def _signo_en_cita(t, ini, fin):
+    """(4.15, R415-SIGNO) Signo con que la cita PUBLICA la cifra que ocupa t[ini:fin]: +1, −1 o None si no puede determinarse.
+      −1: «−149,5» o «− 149,5» (signo menos Unicode); «-149,5», «–149,5» o «—149,5» con el guion pegado a la cifra y precedido de un
+          espacio, el principio o un signo de puntuación; «(149,5)» (paréntesis contables, también «(149,5 €)» o «(€149,5)»).
+      +1: la cifra sin marca, o con «+».
+      None: un guion separado de la cifra por UN espacio (puede ser un cero de la columna anterior o un signo menos: «Interests - 13»),
+          un guion pegado a una palabra o a otra cifra («2019-2020»), un paréntesis que no se cierra, dos marcas pegadas («-(149,5)») o
+          un menos detrás de la cifra («149,5-»). Un símbolo de moneda entre la marca y la cifra no cambia el signo.
+    Un guion separado de la cifra por dos o más espacios es otra columna (el cero impreso como guion, la misma convención que el control
+    del cero): no es el signo de la cifra. Por eso se evalúa el pasaje de la página con sus espacios originales (_cita_cifra con
+    `pagina`), no la cita con los espacios normalizados."""
+    antes, despues = t[:ini], t[fin:]
+    antes = re.sub("[" + MONEDAS + r"]\s?$", "", antes)
+    despues = re.sub(r"^\s?[" + MONEDAS + "]", "", despues)
+    marcas = re.escape(GUIONES + MENOS_UNICODE)
+    m_par = re.search(r"\(\s*$", antes)
+    if m_par:
+        if re.search("[" + marcas + r"+]$", antes[:m_par.start()]):
+            return None  # «-(149,5)»: dos marcas pegadas («- (149,5)», con el guion separado, es un cero de otra columna y la cifra negativa)
+        return -1 if re.match(r"\s*\)", despues) else None
+    if re.match("[" + marcas + r"](?!\d)", despues):
+        return None  # «149,5-»: menos detrás de la cifra (un guion seguido de otra cifra es un intervalo y no la afecta)
+    if re.search(MENOS_UNICODE + r"\s?$", antes):
+        return -1
+    m = re.search("[" + re.escape(GUIONES) + r"](\s*)$", antes)
+    if m:
+        previo = antes[:m.start()]
+        if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|]$", previo)):
+            return -1
+        if len(m.group(1)) >= 2 and (previo == "" or re.search(r"\s$", previo)):
+            return 1  # guion aislado de otra columna (un cero), separado de la cifra por dos o más espacios
+        return None
+    return 1
+
+
+def _pasaje_en_pagina(cita, pagina):
+    """(4.15, R415-SIGNO) El pasaje de la página que corresponde a la cita, con sus espacios originales (la cita se compara con los
+    espacios normalizados y sin distinguir mayúsculas: _norm_txt). None si no se encuentra."""
+    palabras = str(cita or "").split()
+    if not palabras or pagina is None:
+        return None
+    t = re.sub(r"[   ]", " ", str(pagina))
+    m = re.search(r"\s+".join(re.escape(w) for w in palabras), t, re.I)
+    return m.group(0) if m else None
+
+
+def _cita_cifra(cita, vf, pagina=None):
+    """(4.15, R415-SIGNO) Contraste de una cifra de la fuente con la cita, CON SU SIGNO. «valor_fuente» es la cifra tal como se publica,
+    antes de aplicar el «signo» y la «escala» que la llevan al modelo (un pago publicado «(130,8)» es valor_fuente −130,8; con signo −1 se
+    transforma en la magnitud positiva del modelo, y esa transformación sigue siendo válida). Devuelve (estado, detalle):
+      «ok»: alguna aparición de la cifra (formato equivalente, R3) tiene el signo de vf y ninguna tiene el contrario;
+      «signo_distinto»: la cifra solo aparece con el signo contrario (discrepancia);
+      «signo_indeterminado»: aparece con signos contrarios a la vez, o solo con un signo que no puede determinarse (pendiente: no lo
+          resuelve una declaración del revisor, sino una cita en la que el signo publicado sea inequívoco);
+      «ausente»: la cifra no aparece como cifra completa (discrepancia).
+    Un cero no tiene signo: «0», «-0», «(0)» y el guion aislado que representa un cero valen para 0.
+    Con `pagina` (el texto de la página citada), el signo se lee en el pasaje de la página que corresponde a la cita, con sus espacios
+    originales: un guion de otra columna se distingue así de un signo menos. Si el pasaje no se encuentra, se lee en la cita."""
+    t = re.sub(r"[   ]", " ", str((_pasaje_en_pagina(cita, pagina) if pagina is not None else None) or cita or ""))
+    if not _num(vf):
+        return "ausente", "valor no numérico"
+    if vf == 0 and (re.search(r"(?<![\w.,])[-–—](?![\w.,]| ?[\d(])", t) or re.search(r"(?<=[\d)] )[-–—](?= [\d(])", t)):
+        return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
+    signos = []
+    for c in _cifras(vf):
+        for m in re.finditer(r"(?<![\d.,])" + re.escape(c) + r"(?!\d|[.,]\d)", t):
+            signos.append(_signo_en_cita(t, m.start(), m.end()))
+    if not signos:
+        return "ausente", "la cifra no aparece como cifra completa"
+    if vf == 0:
+        return "ok", "cero"
+    s = 1 if vf > 0 else -1
+    vistos = sorted({"positivo" if x == 1 else "negativo" if x == -1 else "indeterminado" for x in signos})
+    if s in signos and -s not in signos:
+        return "ok", "signo publicado igual al de valor_fuente"
+    if -s in signos and s not in signos and None not in signos:
+        return "signo_distinto", f"la cita la publica en {'negativo' if s == 1 else 'positivo'} y valor_fuente es {'positivo' if s == 1 else 'negativo'}"
+    return "signo_indeterminado", f"apariciones de la cifra en la cita: {', '.join(vistos)}"
+
+
 def _cita_contiene(cita, vf):
-    """El valor de la fuente aparece en la cita como cifra completa: no dentro de otra cifra (el «0» de «2019», el «12» de «2012»).
+    """El valor de la fuente aparece en la cita como cifra completa: no dentro de otra cifra (el «0» de «2019», el «12» de «2012»), y
+    (4.15, R415-SIGNO) con el signo con que se publica: «-149,5» y «(149,5)» no contienen 149,5, ni «149,5» contiene −149,5; un signo que
+    no puede determinarse tampoco vale (_cita_cifra da el motivo).
     Límite declarado: en el texto extraído las columnas van a veces separadas por un solo espacio, así que «4 573,7» no se distingue
     de dos cifras («4» y «573,7»); el control lo acepta y la pertinencia es del revisor independiente.
     Un cero puede estar impreso como «-», «–» o «—» aislado (pegado o a un solo espacio de una cifra es un signo menos; con dos o más, la columna siguiente)."""
-    t = re.sub(r"[\u00a0\u202f\u2009]", " ", str(cita or ""))
-    if _num(vf) and vf == 0 and (re.search(r"(?<![\w.,])[-–—](?![\w.,]| ?[\d(])", t) or re.search(r"(?<=[\d)] )[-–—](?= [\d(])", t)):
-        return True  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
-    return any(re.search(r"(?<![\d.,])" + re.escape(c) + r"(?!\d|[.,]\d)", t) for c in _cifras(vf))
+    return _cita_cifra(cita, vf)[0] == "ok"
 
 
 def _eval_formula(formula, o):
@@ -685,8 +769,17 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         if not any(_contiene_texto(f.get("cita"), x) for x in eq):
             return "discrepancia", f"la cita no contiene el valor de texto {vf!r} (ni una equivalencia declarada en «equivalencia»)"
         return None
-    if vf is not None and not _cita_contiene(f.get("cita"), vf):
-        return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa (formato equivalente, sin redondear)"
+    if vf is not None:
+        # (4.15, R415-SIGNO) la cifra publicada se contrasta CON SU SIGNO; «signo» y «escala» son la transformación hacia el modelo
+        est, det = _cita_cifra(f.get("cita"), vf, pag)
+        if est == "ausente":
+            return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa (formato equivalente, sin redondear)"
+        if est == "signo_distinto":
+            return "discrepancia", (f"la cita no publica el valor de la fuente {vf!r} con su signo ({det}): «valor_fuente» es la cifra publicada "
+                                    "con su signo; «signo» y «escala» la transforman después hacia el modelo (R415-SIGNO)")
+        if est == "signo_indeterminado":
+            return "pendiente", (f"el signo con que la cita publica {vf!r} no puede determinarse ({det}): hace falta una cita en la que el signo "
+                                 "publicado sea inequívoco; una declaración del revisor no lo sustituye (R415-SIGNO)")
     return None
 
 

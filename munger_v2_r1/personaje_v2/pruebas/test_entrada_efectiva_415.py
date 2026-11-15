@@ -5,6 +5,8 @@ del inversor) solo porque rellenar_fase1_v63.py no pisa un valor migrado de la e
 reconstruye 82,933. Regenerado sin ese valor migrado, el precio de Sí sube +1,678 € sin que nadie lo decida.
 Casos:
   C · fase1_historia.calcular_entrada: el cálculo declarado (Historia + componentes con fuente y página) da 108,0; errores explícitos.
+      (4.15, hito 2, R415-SIGNO) la cita de cada componente se contrasta con la cifra publicada y su signo; la conversión de un pago
+      publicado entre paréntesis a su magnitud se declara («valor_fuente», «signo», «tratamiento») y no cambia el 108.
   F · fase1_historia construir: una entrada de fase1_metadatos.json con `calculo` sale en fase1_v63.json con su valor y su fuente.
   R · rellenar_fase1_v63: la entrada migrada que contradice la declarada se conserva (regla v2.2) pero ya no en silencio: queda registrada
       y el comprobador de entradas la marca como no reproducible; --sobrescribir aplica la declarada; con la declarada correcta, nada
@@ -85,6 +87,44 @@ paso("C", "(h7) un cálculo sobre años con ceros pendientes de verificación (H
 c11 = copy.deepcopy(CALC); c11["componentes"]["pagos_arrendamientos_con_intereses"]["2025"]["pagina"] = 99999
 paso("C", "(h13) con la carpeta del expediente, un componente cuya página no existe en su texto: error", bool(error(lambda: FH.calcular_entrada("C48", {"calculo": c11}, H, anios, ELIS))))
 paso("C", "(h13) con la carpeta del expediente, los componentes reales de C48 se contrastan con su página y su cita: 108,0", FH.calcular_entrada("C48", {"calculo": CALC}, H, anios, ELIS)["valor"] == 108.0)
+# (4.15, hito 2, R415-SIGNO) los componentes de C48 son pagos publicados entre paréntesis: la cita se contrasta con la cifra PUBLICADA
+# (valor_fuente negativo) y la conversión a la magnitud positiva del cálculo se declara (signo −1, tratamiento); no cambia ni el 108
+# ni los términos
+CALC_H1 = json.load(open(os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_15", "reproduccion", "codigo_4_15_hito1",
+                                      "cambio_elis_c48_4_15.json.txt"), encoding="utf-8"))["analisis"]["C48"]["calculo"]
+e = error(lambda: FH.calcular_entrada("C48", {"calculo": CALC_H1}, H, anios, ELIS))
+paso("C", "(R415-SIGNO) el cálculo del hito 1 (magnitud positiva 130,8 frente a «(130,8)» sin declarar la conversión) se rechaza con diagnóstico, no se acredita",
+     bool(e) and "signo_distinto" in e and "valor_fuente" in e, e)
+r_sg = FH.calcular_entrada("C48", {"calculo": CALC}, H, anios, ELIS)
+cmps = CALC["componentes"]["pagos_arrendamientos_con_intereses"]
+paso("C", "(R415-SIGNO) con la cifra publicada negativa, signo −1 y tratamiento declarados: 108,0, mismos términos y valores, transformación visible en la fuente",
+     r_sg["valor"] == 108.0 and all(c_["valor"] > 0 and c_["valor_fuente"] == -c_["valor"] and c_["signo"] == -1 for c_ in cmps.values())
+     and [t["signo"] for t in CALC["terminos"]] == [1, 1, -1] and "publicado" in r_sg["fuente"], r_sg["fuente"][:200])
+paso("C", "(R415-SIGNO) los valores, la operación y los términos del cálculo no cambian respecto al hito 1 (solo se añade la declaración de la cifra publicada)",
+     {a_: c_["valor"] for a_, c_ in cmps.items()} == {a_: c_["valor"] for a_, c_ in CALC_H1["componentes"]["pagos_arrendamientos_con_intereses"].items()}
+     and CALC["terminos"] == CALC_H1["terminos"] and CALC["anios"] == CALC_H1["anios"] and CALC["operacion"] == CALC_H1["operacion"])
+
+
+def comp_mod(**cambios):
+    cc = copy.deepcopy(CALC)
+    for k_, v_ in cambios.items():
+        if v_ is None:
+            cc["componentes"]["pagos_arrendamientos_con_intereses"]["2024"].pop(k_, None)
+        else:
+            cc["componentes"]["pagos_arrendamientos_con_intereses"]["2024"][k_] = v_
+    return cc
+
+
+casos_sg = {"valor_fuente positivo 150,8 con signo −1 (frente a «(150.8)»)": comp_mod(valor_fuente=150.8),
+            "signo +1 con valor_fuente negativo (valor ≠ signo × valor_fuente)": comp_mod(signo=1),
+            "sin signo": comp_mod(signo=None), "sin tratamiento": comp_mod(tratamiento=None), "tratamiento vacío": comp_mod(tratamiento="  "),
+            "valor_fuente en otra escala (−150800: la conversión de signo no cambia de escala)": comp_mod(valor_fuente=-150800),
+            "valor_fuente no numérico": comp_mod(valor_fuente="(150.8)"), "signo booleano": comp_mod(signo=True)}
+fallan = {n_: error(lambda cc=cc: FH.calcular_entrada("C48", {"calculo": cc}, H, anios, ELIS)) for n_, cc in casos_sg.items()}
+paso("C", f"(R415-SIGNO) {len(casos_sg)} declaraciones de la cifra publicada mal formadas o incoherentes: error controlado (ValueError) en cada una",
+     all(fallan.values()), {k_: (v_ or "")[:90] for k_, v_ in fallan.items() if not v_ or True})
+e = error(lambda: FH.calcular_entrada("C48", {"calculo": comp_mod(signo=1)}, H, anios))
+paso("C", "(R415-SIGNO) sin la carpeta del expediente, la transformación declarada también se comprueba (valor = signo × valor_fuente)", bool(e) and "signo × valor_fuente" in e, e)
 
 # ------------------------------------------------------------------ F · construir
 dF = os.path.join(TMP, "construir", "Elis")
