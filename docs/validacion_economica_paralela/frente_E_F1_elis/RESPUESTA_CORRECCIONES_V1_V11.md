@@ -160,6 +160,7 @@ Coincide con las sondas S1 y S2 de la revisión, con otras cifras porque mi send
 - **Rige la del libro** (Convenciones V6.3 §3; `Diagnóstico V6`, bloque 10): la rentabilidad marginal S2C·m_obj·(1−τ) frente al ROIC, con aviso si el salto supera C179.
   - El libro de Elis da 7,4739 / 10,6770 / 14,4140 % frente a 7 / 10 / 12 %.
   - Saltos de −0,47 / −0,68 / −2,41 puntos; C179 = 0,05 (5 puntos, «ajustable»), leído del libro.
+  - **Corrección W2** (revisión F1 v3, f5775dc): el signo era el contrario. La fila 178 es rentabilidad marginal − ROIC: +0,47 / +0,68 / +2,41 puntos. Además, «no se crea una obligación nueva de justificar» no basta: G8 (`comprobar_gramatica.py`) ya exige justificación con |salto| > umbral, y se conserva. Detalle: [RESPUESTA_CORRECCIONES_W1_W3.md](RESPUESTA_CORRECCIONES_W1_W3.md).
 - **V-F1k** bloquea si falta el perímetro del ROIC. Avisa si el salto supera C179, como el libro, e informa si no.
   - No se añade otra comparación ni otro umbral, y no se cambia el vigente.
   - Se elimina «debe justificarse», que no tenía consecuencia: no se crea una obligación nueva de justificar.

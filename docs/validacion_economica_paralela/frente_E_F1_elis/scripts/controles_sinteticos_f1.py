@@ -192,6 +192,92 @@ def caso_fiscal():
                        "la convención del tipo de proyección (E8.1), no un defecto de N1"}
 
 
+def valor_presente(flujos, flujo_11, r, g):
+    """Como el libro: Σ flujo_t/(1+r)^t de los años 1–10 + [flujo_11/(r − g)]/(1+r)^10 (Motor!BG = BF/(J − H))."""
+    return sum(x / (1 + r) ** t for t, x in enumerate(flujos, start=1)) + flujo_11 / (r - g) / (1 + r) ** N
+
+
+def bloque_W1():
+    """W1 (revisión F1 v3, f5775dc): coste temporal de 7 hasta el año H inclusive, H = 5, 10, 11 y 12; caja sostenible 68;
+    r = 10 %; g = 0 y g = 2 %. Se compara el valor presente de la caja del escenario, calculado año a año hasta H y con
+    Gordon solo sobre la base sostenible, con dos reglas:
+      · anterior (E3 de fd474d3): el año 11 resta X₁₁ y entra en Gordon, así que un coste que sigue en el año 11 se
+        vuelve perpetuo;
+      · propuesta: Gordon sobre la base sostenible (sin X) y, aparte, el valor presente de la caja temporal pendiente,
+        Σ_{t=11..H} X_t/(1+r)^t."""
+    r, res, errores = Fr("0.10"), [], []
+    esc = Escenario(ebitda=100, d_propia=20, rou=10, pagos_arr=12, mant=20, trans_v=7)
+    for g in (Fr(0), Fr("0.02")):
+        roic = (1 + g) * Fr("0.7") if g else Fr(1)
+        for H in (5, 10, 11, 12):
+            X = lambda t, Vt, H=H: Fr(7) if t <= H else Fr(0)      # noqa: E731
+            f = esc.f(Fr(20))
+            fl, term, V = motor_sintetico(Fr("0.7"), f, g, Fr(1), roic, g, X)
+            vp_anterior = valor_presente(fl, term, r, g)
+            fl_b, term_b, _ = motor_sintetico(Fr("0.7"), f, g, Fr(1), roic, g, lambda t, Vt, H=H: X(t, Vt) if t <= N else Fr(0))
+            pend, Vt = Fr(0), V[-1]
+            for t in range(N + 1, H + 1):
+                Vt = Vt * (1 + g)
+                pend += X(t, Vt) / (1 + r) ** t
+            vp_propuesta = valor_presente(fl_b, term_b, r, g) - pend
+            # caja del escenario, año a año: 68·(1+g)^(t−1)·… menos la inversión de crecimiento ΔV (S2C real = 1)
+            # en los años 1–10 y, desde el año 11, la perpetuidad de esa misma caja sostenible
+            caja_t = lambda t: Fr(68) * (1 + g) ** t - Fr(100) * (1 + g) ** (t - 1) * g      # noqa: E731
+            base = sum(caja_t(t) / (1 + r) ** t for t in range(1, N + 1)) + caja_t(N + 1) / (r - g) / (1 + r) ** N
+            caja = base - sum(Fr(7) / (1 + r) ** t for t in range(1, H + 1))
+            fila = {"g": num(g), "H": H, "vp_regla_anterior": float(vp_anterior), "vp_regla_propuesta": float(vp_propuesta),
+                    "vp_caja_del_escenario": float(caja), "anterior_coincide": vp_anterior == caja, "propuesta_coincide": vp_propuesta == caja,
+                    "anterior_esperado": H <= N, "propuesta_esperada": True}
+            fila["ok"] = fila["anterior_coincide"] == fila["anterior_esperado"] and fila["propuesta_coincide"]
+            if not fila["ok"]:
+                errores.append(f"W1 g={g} H={H}")
+            res.append(fila)
+    return res, errores
+
+
+def aviso_terminal(salto, umbral):
+    """Regla vigente del libro y de G8: aviso y justificación obligatoria si |salto| > umbral; en la frontera, no.
+    (patch_v62_base.py, AVISO_TRANSICION: MAX(ABS(fila 178)) <= C179 → sin aviso; comprobar_gramatica.py, G8:
+    abs(sv) > umbral + 1e-9 → requiere_justificacion=True.)"""
+    return abs(salto) > umbral + Fr(1, 10 ** 9)
+
+
+def bloque_W2():
+    umbral = Fr("0.05")
+    casos = [("cae 6 puntos (marginal − ROIC = +0,06)", Fr("0.06"), True), ("sube 6 puntos (−0,06)", Fr("-0.06"), True),
+             ("frontera exacta (+0,05)", Fr("0.05"), False), ("frontera exacta (−0,05)", Fr("-0.05"), False),
+             ("justo encima (+0,0501)", Fr("0.0501"), True), ("justo encima (−0,0501)", Fr("-0.0501"), True),
+             ("Elis MALO (+0,004739)", Fr("0.004739"), False), ("Elis BUENO (+0,0241395)", Fr("0.0241395"), False)]
+    res = [{"caso": c, "salto": float(s), "aviso_y_justificacion": aviso_terminal(s, umbral), "esperado": e,
+            "ok": aviso_terminal(s, umbral) == e} for c, s, e in casos]
+    raiz = Path(__file__).resolve().parents[4]   # raíz del repositorio del producto
+    fuentes = {"munger_v2_r1/personaje_v2/scripts/comprobar_gramatica.py": ["abs(sv) > umbral + 1e-9", "requiere_justificacion=True"],
+               "munger_v2_r1/v6/scripts/patch_v62_base.py": ["<='Diagnóstico V6'!$C$179", "MAX(ABS('Diagnóstico V6'!$B$178)",
+                                                             '("B178", \'=IF(OR(NOT(ISNUMBER(B176)),NOT(ISNUMBER(B177))),"",B176-B177)\')']}
+    codigo = {f: all(x in (raiz / f).read_text(encoding="utf-8") for x in xs) if (raiz / f).exists() else None for f, xs in fuentes.items()}
+    res.append({"caso": "la regla replicada está en el código del producto (comprobación textual, no ejecución)", "codigo": codigo,
+                "ok": all(v is True for v in codigo.values())})
+    return res, [x["caso"] for x in res if not x["ok"]]
+
+
+def estado_A0(d_rou, c49):
+    """W3: los cuatro casos del perímetro A0_total (E2) frente a sus controles (E5)."""
+    if d_rou > 0 and c49 > 0:
+        return "V-F1a: BLOQUEA, coste de arrendamiento contado dos veces bajo las premisas de §5 del informe"
+    if d_rou == 0 and c49 == 0:
+        return "A0 admisible: sin arrendamientos"
+    return "V-F1m: BLOQUEA, fuera del dominio de A0; entradas incompletas o en conflicto, que hay que aclarar; no se afirma doble cómputo"
+
+
+def bloque_W3():
+    esperado = {(1, 1): "V-F1a", (0, 0): "A0 admisible", (1, 0): "V-F1m", (0, 1): "V-F1m"}
+    res = []
+    for (a, b), e in esperado.items():
+        s = estado_A0(Fr(a) * 10, Fr(b) * 12)
+        res.append({"D&A_ROU_positiva": bool(a), "C49_positivo": bool(b), "estado": s, "esperado": e, "ok": s.startswith(e)})
+    return res, [str((x["D&A_ROU_positiva"], x["C49_positivo"])) for x in res if not x["ok"]]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--salida", required=True, type=Path)
@@ -410,6 +496,10 @@ def main():
     if not guardas["no_salta_con_compras_de_cartera (R = 20 + 9)"][0]["guarda_anterior_R_total_mayor_que_capex_propio"]:
         errores.append("guarda anterior")
 
+    w1, e1 = bloque_W1()
+    w2, e2 = bloque_W2()
+    w3, e3 = bloque_W3()
+    errores += e1 + e2 + e3
     fiscal = caso_fiscal()
     if not fiscal["ok"]:
         errores.append("caso_fiscal_N1")
@@ -427,12 +517,15 @@ def main():
         "casos": casos,
         "guardas_V_F1c": {k: v[0] for k, v in guardas.items()},
         "caso_fiscal_N1": fiscal,
+        "W1_coste_temporal_despues_del_año_10": w1,
+        "W2_aviso_del_terminal": w2,
+        "W3_dominio_de_A0": w3,
         "resumen": {"casos": len(casos), "coherentes": sum(c["obtenido"] == "coherente" for c in casos),
                     "incoherencias_ilustradas": sum(c["obtenido"] != "coherente" for c in casos),
                     "con_crecimiento": sum(c["parametros"]["g_anios_1_5"] != 0 for c in casos),
                     "con_ancla_calculada_E4": sum(c["parametros"]["ancla_de_S2C"] != "dada" for c in casos),
                     "reproducidos_del_revisor": sum(r["ok"] for r in rep), "guardas": len(guardas),
-                    "caso_fiscal_ok": fiscal["ok"], "errores": errores},
+                    "caso_fiscal_ok": fiscal["ok"], "W1": len(w1), "W2": len(w2), "W3": len(w3), "errores": errores},
     }
     a.salida.write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(res["resumen"], ensure_ascii=False))

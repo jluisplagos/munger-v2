@@ -321,15 +321,33 @@
       "ok": true
     },
     {
+      "control": "Diagnóstico V6!B178 = rentabilidad marginal − ROIC (MALO), con su signo",
+      "calculado": 0.004739,
+      "referencia": 0.004739,
+      "ok": true
+    },
+    {
       "control": "Diagnóstico V6!C176 = m_obj·(1−τ)·S2C (NORMAL)",
       "calculado": 0.10677,
       "referencia": 0.10677,
       "ok": true
     },
     {
+      "control": "Diagnóstico V6!C178 = rentabilidad marginal − ROIC (NORMAL), con su signo",
+      "calculado": 0.00677,
+      "referencia": 0.00677,
+      "ok": true
+    },
+    {
       "control": "Diagnóstico V6!D176 = m_obj·(1−τ)·S2C (BUENO)",
       "calculado": 0.1441395,
       "referencia": 0.1441395,
+      "ok": true
+    },
+    {
+      "control": "Diagnóstico V6!D178 = rentabilidad marginal − ROIC (BUENO), con su signo",
+      "calculado": 0.0241395,
+      "referencia": 0.0241395,
       "ok": true
     }
   ],
@@ -898,8 +916,10 @@
       "la_misma_con_S2C (mm)": 56.772,
       "diferencia (mm)": 4.45,
       "rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)": 0.074739,
-      "salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos": -0.474,
-      "salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos": -0.549
+      "salto_del_libro (fila 178: rentabilidad marginal − ROIC), puntos": 0.474,
+      "salto_con_la_igualdad_exacta ((1+g∞)·m_obj·(1−τ)·S2C − ROIC), puntos": 0.549,
+      "supera_el_umbral_del_libro (|salto| > C179)": false,
+      "G8_requiere_justificacion": false
     },
     "NORMAL": {
       "g_inf": 0.02,
@@ -912,8 +932,10 @@
       "la_misma_con_S2C (mm)": 115.483,
       "diferencia (mm)": 10.284,
       "rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)": 0.10677,
-      "salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos": -0.677,
-      "salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos": -0.891
+      "salto_del_libro (fila 178: rentabilidad marginal − ROIC), puntos": 0.677,
+      "salto_con_la_igualdad_exacta ((1+g∞)·m_obj·(1−τ)·S2C − ROIC), puntos": 0.891,
+      "supera_el_umbral_del_libro (|salto| > C179)": false,
+      "G8_requiere_justificacion": false
     },
     "BUENO": {
       "g_inf": 0.025,
@@ -926,8 +948,10 @@
       "la_misma_con_S2C (mm)": 125.281,
       "diferencia (mm)": 28.964,
       "rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)": 0.14414,
-      "salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos": -2.414,
-      "salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos": -2.774
+      "salto_del_libro (fila 178: rentabilidad marginal − ROIC), puntos": 2.414,
+      "salto_con_la_igualdad_exacta ((1+g∞)·m_obj·(1−τ)·S2C − ROIC), puntos": 2.774,
+      "supera_el_umbral_del_libro (|salto| > C179)": false,
+      "G8_requiere_justificacion": false
     }
   },
   "V3_V4_de_que_depende_N1": {
@@ -1284,7 +1308,7 @@
     }
   },
   "resumen": {
-    "controles": 55,
+    "controles": 58,
     "fallidos": [],
     "errores": []
   }

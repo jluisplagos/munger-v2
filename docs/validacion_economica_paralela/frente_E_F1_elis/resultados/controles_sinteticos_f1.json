@@ -1514,6 +1514,200 @@
     "ok": true,
     "lectura": "Con tipos homogéneos, N1 sin efecto fiscal da la caja; con el tipo fijo solo la da si el tipo de proyección es la media de la ventana; deducir la partida entera no la da nunca. La tercera fila es la convención del tipo de proyección (E8.1), no un defecto de N1"
   },
+  "W1_coste_temporal_despues_del_año_10": [
+    {
+      "g": 0,
+      "H": 5,
+      "vp_regla_anterior": 653.4644926141409,
+      "vp_regla_propuesta": 653.4644926141409,
+      "vp_caja_del_escenario": 653.4644926141409,
+      "anterior_coincide": true,
+      "propuesta_coincide": true,
+      "anterior_esperado": true,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0,
+      "H": 10,
+      "vp_regla_anterior": 636.9880302600673,
+      "vp_regla_propuesta": 636.9880302600673,
+      "vp_caja_del_escenario": 636.9880302600673,
+      "anterior_coincide": true,
+      "propuesta_coincide": true,
+      "anterior_esperado": true,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0,
+      "H": 11,
+      "vp_regla_anterior": 610.0,
+      "vp_regla_propuesta": 634.5345729636974,
+      "vp_caja_del_escenario": 634.5345729636974,
+      "anterior_coincide": false,
+      "propuesta_coincide": true,
+      "anterior_esperado": false,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0,
+      "H": 12,
+      "vp_regla_anterior": 610.0,
+      "vp_regla_propuesta": 632.304157239725,
+      "vp_caja_del_escenario": 632.304157239725,
+      "anterior_coincide": false,
+      "propuesta_coincide": true,
+      "anterior_esperado": false,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0.02,
+      "H": 5,
+      "vp_regla_anterior": 815.4644926141409,
+      "vp_regla_propuesta": 815.4644926141409,
+      "vp_caja_del_escenario": 815.4644926141409,
+      "anterior_coincide": true,
+      "propuesta_coincide": true,
+      "anterior_esperado": true,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0.02,
+      "H": 10,
+      "vp_regla_anterior": 798.9880302600673,
+      "vp_regla_propuesta": 798.9880302600673,
+      "vp_caja_del_escenario": 798.9880302600673,
+      "anterior_coincide": true,
+      "propuesta_coincide": true,
+      "anterior_esperado": true,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0.02,
+      "H": 11,
+      "vp_regla_anterior": 765.2529924349832,
+      "vp_regla_propuesta": 796.5345729636974,
+      "vp_caja_del_escenario": 796.5345729636974,
+      "anterior_coincide": false,
+      "propuesta_coincide": true,
+      "anterior_esperado": false,
+      "propuesta_esperada": true,
+      "ok": true
+    },
+    {
+      "g": 0.02,
+      "H": 12,
+      "vp_regla_anterior": 765.2529924349832,
+      "vp_regla_propuesta": 794.304157239725,
+      "vp_caja_del_escenario": 794.304157239725,
+      "anterior_coincide": false,
+      "propuesta_coincide": true,
+      "anterior_esperado": false,
+      "propuesta_esperada": true,
+      "ok": true
+    }
+  ],
+  "W2_aviso_del_terminal": [
+    {
+      "caso": "cae 6 puntos (marginal − ROIC = +0,06)",
+      "salto": 0.06,
+      "aviso_y_justificacion": true,
+      "esperado": true,
+      "ok": true
+    },
+    {
+      "caso": "sube 6 puntos (−0,06)",
+      "salto": -0.06,
+      "aviso_y_justificacion": true,
+      "esperado": true,
+      "ok": true
+    },
+    {
+      "caso": "frontera exacta (+0,05)",
+      "salto": 0.05,
+      "aviso_y_justificacion": false,
+      "esperado": false,
+      "ok": true
+    },
+    {
+      "caso": "frontera exacta (−0,05)",
+      "salto": -0.05,
+      "aviso_y_justificacion": false,
+      "esperado": false,
+      "ok": true
+    },
+    {
+      "caso": "justo encima (+0,0501)",
+      "salto": 0.0501,
+      "aviso_y_justificacion": true,
+      "esperado": true,
+      "ok": true
+    },
+    {
+      "caso": "justo encima (−0,0501)",
+      "salto": -0.0501,
+      "aviso_y_justificacion": true,
+      "esperado": true,
+      "ok": true
+    },
+    {
+      "caso": "Elis MALO (+0,004739)",
+      "salto": 0.004739,
+      "aviso_y_justificacion": false,
+      "esperado": false,
+      "ok": true
+    },
+    {
+      "caso": "Elis BUENO (+0,0241395)",
+      "salto": 0.0241395,
+      "aviso_y_justificacion": false,
+      "esperado": false,
+      "ok": true
+    },
+    {
+      "caso": "la regla replicada está en el código del producto (comprobación textual, no ejecución)",
+      "codigo": {
+        "munger_v2_r1/personaje_v2/scripts/comprobar_gramatica.py": true,
+        "munger_v2_r1/v6/scripts/patch_v62_base.py": true
+      },
+      "ok": true
+    }
+  ],
+  "W3_dominio_de_A0": [
+    {
+      "D&A_ROU_positiva": true,
+      "C49_positivo": true,
+      "estado": "V-F1a: BLOQUEA, coste de arrendamiento contado dos veces bajo las premisas de §5 del informe",
+      "esperado": "V-F1a",
+      "ok": true
+    },
+    {
+      "D&A_ROU_positiva": false,
+      "C49_positivo": false,
+      "estado": "A0 admisible: sin arrendamientos",
+      "esperado": "A0 admisible",
+      "ok": true
+    },
+    {
+      "D&A_ROU_positiva": true,
+      "C49_positivo": false,
+      "estado": "V-F1m: BLOQUEA, fuera del dominio de A0; entradas incompletas o en conflicto, que hay que aclarar; no se afirma doble cómputo",
+      "esperado": "V-F1m",
+      "ok": true
+    },
+    {
+      "D&A_ROU_positiva": false,
+      "C49_positivo": true,
+      "estado": "V-F1m: BLOQUEA, fuera del dominio de A0; entradas incompletas o en conflicto, que hay que aclarar; no se afirma doble cómputo",
+      "esperado": "V-F1m",
+      "ok": true
+    }
+  ],
   "resumen": {
     "casos": 32,
     "coherentes": 14,
@@ -1523,6 +1717,9 @@
     "reproducidos_del_revisor": 9,
     "guardas": 3,
     "caso_fiscal_ok": true,
+    "W1": 8,
+    "W2": 9,
+    "W3": 4,
     "errores": []
   }
 }

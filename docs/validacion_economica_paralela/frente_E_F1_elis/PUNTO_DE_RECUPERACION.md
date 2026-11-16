@@ -2,6 +2,13 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
+**Bloque cerrado:** correcciones W1–W3 de la revisión F1 v3 (`f5775dc`, repositorio auxiliar), dentro del programa de cierre que coordina esta sesión. Control común: `jluisplagos/munger-v2-evidencias-mistral`, rama `coordinacion/cierre-v2`, `coordinacion/cierre_v2/CONTROL.json`.
+**Siguiente en esta rama:** el bloque C20 y luego las cifras [LECTURA] al CSV (`ENCARGO_C20_CSV.md` de `f5775dc`), en commits separados. Mientras tanto, el contraste de W1–W3 está pendiente.
+
+Lo que sigue es la versión anterior de este punto, con la tabla del plan a 716cbd6; las filas de W1–W3 están en [RESPUESTA_CORRECCIONES_W1_W3.md](RESPUESTA_CORRECCIONES_W1_W3.md).
+
+---
+
 **Bloque cerrado:** conciliación del plan visible con el trabajo realmente hecho. No se ha iniciado ninguna revisión ni se ha repetido ninguna prueba. El último encargo sustantivo, las correcciones V1–V11, terminó en `fd474d3`.
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`, en `jluisplagos/munger-v2`. No está fusionada a `main`. Antes de este commit, HEAD local = remoto = `fd474d325ef0983660c6a1851a4e50b3976ab64c`, sin cambios sin publicar.

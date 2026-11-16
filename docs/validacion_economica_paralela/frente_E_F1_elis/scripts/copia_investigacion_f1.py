@@ -356,8 +356,16 @@ def main():
     for i, (n, pp) in enumerate(pal.items()):
         control(f"Diagnóstico V6!{'BCD'[i]}176 = m_obj·(1−τ)·S2C ({n})", pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"],
                 Fr(str(bloque10["fila_176_rentabilidad_marginal_años_1_10"][i])), Fr(1, 10 ** 9))
-        roic[n]["salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos"] = f6(100 * (pp["roic"] - pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"]), 3)
-        roic[n]["salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos"] = f6(100 * (pp["roic"] - (1 + pp["g_inf"]) * pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"]), 3)
+        # (W2) signo del libro: fila 178 = rentabilidad marginal − ROIC (positivo = la rentabilidad cae en el año 11)
+        salto = pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"] - pp["roic"]
+        control(f"Diagnóstico V6!{'BCD'[i]}178 = rentabilidad marginal − ROIC ({n}), con su signo", salto,
+                Fr(str(bloque10["fila_178_salto_en_el_año_11"][i])), Fr(1, 10 ** 9))
+        umbral = Fr(str(bloque10["fila_179"]["valor_C179"]))
+        roic[n]["salto_del_libro (fila 178: rentabilidad marginal − ROIC), puntos"] = f6(100 * salto, 3)
+        roic[n]["salto_con_la_igualdad_exacta ((1+g∞)·m_obj·(1−τ)·S2C − ROIC), puntos"] = f6(100 * ((1 + pp["g_inf"]) * pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"] - pp["roic"]), 3)
+        # aviso del libro (MAX(ABS(fila 178)) > C179) y G8 (abs > umbral: requiere justificación), por escenario
+        roic[n]["supera_el_umbral_del_libro (|salto| > C179)"] = abs(salto) > umbral
+        roic[n]["G8_requiere_justificacion"] = abs(salto) > umbral
     wb.close()
     # comprobación de las [LECTURA] y de los pasajes en los PDF (si se da el árbol materializado)
     lecturas = comprobar_lecturas(a.raiz, a.fuentes) if a.raiz else None
@@ -414,11 +422,12 @@ def main():
     for n, v in roic.items():
         md.append(f"| {n} | " + " | ".join(str(x) for x in list(v.values())[:9]) + " |")
     md += ["", "## V6 · Bloque 10 del diagnóstico del libro (Convenciones V6.3 §3) frente a la igualdad exacta", "",
-           "| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro, puntos | Salto con la igualdad exacta, puntos |",
-           "|---|---|---|---|---|"]
+           "| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro (fila 178 = marginal − ROIC), puntos | Salto con la igualdad exacta, puntos | Supera C179 (aviso y justificación G8) |",
+           "|---|---|---|---|---|---|"]
     for n, v in roic.items():
         md.append(f"| {n} | {v['rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)']} | {v['ROIC']} | "
-                  f"{v['salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos']} | {v['salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos']} |")
+                  f"{v['salto_del_libro (fila 178: rentabilidad marginal − ROIC), puntos']} | {v['salto_con_la_igualdad_exacta ((1+g∞)·m_obj·(1−τ)·S2C − ROIC), puntos']} | "
+                  f"{'sí' if v['supera_el_umbral_del_libro (|salto| > C179)'] else 'no'} |")
     md += [f"", f"Umbral del aviso del libro: {bloque10['fila_179']['rótulo']} = {bloque10['fila_179']['valor_C179']}.", "",
            "## V3 y V4 · De qué depende la cifra de N1 (sensibilidades, no propuestas)", "",
            "| Escenario | τ 2023 / 2024 / 2025 | τ de proyección | Variación del flujo sin crecimiento | Variación del año 11 MALO / NORMAL / BUENO |",

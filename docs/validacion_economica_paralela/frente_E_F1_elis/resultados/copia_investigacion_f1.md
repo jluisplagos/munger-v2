@@ -2,7 +2,7 @@
 
 Generado por `scripts/copia_investigacion_f1.py`. **No es una entrada registrada, ni una política adoptada, ni una valoración.** Elis sigue en `pendiente_de_datos`. Mismas funciones que `contraste_f1.py`; solo cifras verificadas; libro en solo lectura.
 
-Controles: 55, fallidos: 0.
+Controles: 58, fallidos: 0.
 
 ## P3 · Ajustes y cálculo conjunto (perímetro A0; la variación es la misma en A1 y A2)
 
@@ -60,11 +60,11 @@ Diagnóstico conservado del contraste (no es un ajuste): earnout y otros no mone
 
 ## V6 · Bloque 10 del diagnóstico del libro (Convenciones V6.3 §3) frente a la igualdad exacta
 
-| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro, puntos | Salto con la igualdad exacta, puntos |
-|---|---|---|---|---|
-| MALO | 0.074739 | 0.07 | -0.474 | -0.549 |
-| NORMAL | 0.10677 | 0.1 | -0.677 | -0.891 |
-| BUENO | 0.14414 | 0.12 | -2.414 | -2.774 |
+| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro (fila 178 = marginal − ROIC), puntos | Salto con la igualdad exacta, puntos | Supera C179 (aviso y justificación G8) |
+|---|---|---|---|---|---|
+| MALO | 0.074739 | 0.07 | 0.474 | 0.549 | no |
+| NORMAL | 0.10677 | 0.1 | 0.677 | 0.891 | no |
+| BUENO | 0.14414 | 0.12 | 2.414 | 2.774 | no |
 
 Umbral del aviso del libro: Umbral del aviso (puntos; ajustable) = 0.05.
 
