@@ -1,0 +1,147 @@
+Barrido diferencial propio · versión anterior C16 · versión nueva C18
+
+Equivalencia comprobar_tabla (módulo) = ejecución oficial en C18: 713 filas de tabla del CSV real, 0 con algún estado o detalle distinto
+Equivalencia comprobar_tabla (módulo) = ejecución oficial en C16: 713 filas de tabla del CSV real, 0 con algún estado o detalle distinto
+
+Páginas recorridas (todas) y, de ellas, con cabecera aceptada como del grupo:
+  DEU2024FR: 412 páginas, 91 del grupo
+  URD2021: 350 páginas, 87 del grupo
+  URD2022: 388 páginas, 93 del grupo
+  URD2023: 408 páginas, 94 del grupo
+  URD2025: 468 páginas, 94 del grupo
+Candidatas evaluadas (token × ejercicio E, E−1, E−2): 124887; en páginas del grupo: 72036
+Tokens distintos: 41629; en páginas del grupo: 24012
+
+== Estado de la fila, todas las páginas: C16 → C18 ==
+  FALLO     → FALLO       73353
+  FALLO     → PENDIENTE      35   ← cambia
+  OK        → OK           5399
+  OK        → PENDIENTE     336   ← cambia
+  PENDIENTE → FALLO         101   ← cambia
+  PENDIENTE → PENDIENTE   45663
+
+== Transiciones por dimensión, todas las páginas: C16 → C18 ==
+  columna: NO_APLICA → PENDIENTE: 2310
+  ejercicio: FALLO → OK: 3
+  ejercicio: FALLO → PENDIENTE: 120
+  ejercicio: OK → FALLO: 42
+  ejercicio: OK → PENDIENTE: 68
+  ejercicio: PENDIENTE → FALLO: 138
+  ejercicio: PENDIENTE → OK: 69
+  perimetro: OK → PENDIENTE: 54
+
+== Estado de la fila, páginas del grupo: C16 → C18 ==
+  FALLO     → FALLO       43400
+  FALLO     → PENDIENTE      16   ← cambia
+  OK        → OK           5399
+  OK        → PENDIENTE     336   ← cambia
+  PENDIENTE → FALLO          86   ← cambia
+  PENDIENTE → PENDIENTE   22799
+
+== Transiciones por dimensión, páginas del grupo: C16 → C18 ==
+  columna: NO_APLICA → PENDIENTE: 1947
+  ejercicio: FALLO → OK: 2
+  ejercicio: FALLO → PENDIENTE: 70
+  ejercicio: OK → FALLO: 23
+  ejercicio: OK → PENDIENTE: 37
+  ejercicio: PENDIENTE → FALLO: 138
+  ejercicio: PENDIENTE → OK: 69
+  perimetro: OK → PENDIENTE: 54
+
+== Transiciones por dimensión y motivo de C18 (todas las páginas): recuento, páginas y un ejemplo ==
+
+  columna: NO_APLICA → PENDIENTE · 2310 candidatas · 770 tokens · 54 páginas · 
+     páginas: URD2021 p.231 (108), URD2025 p.360 (78), URD2025 p.417 (78), DEU2024FR p.274 (72), URD2021 p.230 (72), URD2022 p.262 (72), URD2022 p.263 (72), URD2023 p.280 (72), URD2023 p.281 (72), URD2025 p.328 (72), URD2025 p.329 (72), URD2023 p.312 (54) …
+     ejemplo: DEU2024FR p.274 l.17 token 1/12 «234,0» declarado 2024 · rótulo «2023, retraité*»
+
+  ejercicio: PENDIENTE → FALLO · 138 candidatas · 69 tokens · 7 páginas · la fila es el saldo de AAAA (fecha en su rótulo), no de AAAA
+     páginas: DEU2024FR p.274 (24), DEU2024FR p.275 (24), URD2021 p.231 (24), URD2022 p.263 (24), URD2025 p.329 (24), URD2023 p.319 (10), URD2023 p.317 (8)
+     ejemplo: DEU2024FR p.274 l.38 token 2/13 «236,7» declarado 2023 · rótulo «DÉCEMBRE 2024»
+
+  ejercicio: FALLO → PENDIENTE · 62 candidatas · 31 tokens · 12 páginas · columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+     páginas: URD2021 p.261 (14), DEU2024FR p.339 (6), URD2022 p.328 (6), URD2022 p.369 (6), URD2023 p.347 (6), URD2025 p.394 (6), URD2025 p.441 (6), URD2021 p.331 (4), DEU2024FR p.257 (2), DEU2024FR p.381 (2), URD2022 p.246 (2), URD2023 p.387 (2)
+     ejemplo: DEU2024FR p.257 l.26 token 1/1 «2023)» declarado 2024 · rótulo «d'euros (contre 902,3 millions d'euros au 31 décembre 2023)»
+
+  ejercicio: PENDIENTE → OK · 62 candidatas · 62 tokens · 7 páginas · (queda OK) antes: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+     páginas: DEU2024FR p.274 (11), DEU2024FR p.275 (11), URD2021 p.231 (11), URD2022 p.263 (10), URD2025 p.329 (10), URD2023 p.319 (5), URD2023 p.317 (4)
+     ejemplo: DEU2024FR p.274 l.38 token 3/13 «2 485,2» declarado 2024 · rótulo «DÉCEMBRE 2024»
+
+  ejercicio: OK → PENDIENTE · 31 candidatas · 31 tokens · 12 páginas · columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+     páginas: URD2021 p.261 (7), DEU2024FR p.339 (3), URD2022 p.328 (3), URD2022 p.369 (3), URD2023 p.347 (3), URD2025 p.394 (3), URD2025 p.441 (3), URD2021 p.331 (2), DEU2024FR p.257 (1), DEU2024FR p.381 (1), URD2022 p.246 (1), URD2023 p.387 (1)
+     ejemplo: DEU2024FR p.257 l.26 token 1/1 «2023)» declarado 2023 · rótulo «d'euros (contre 902,3 millions d'euros au 31 décembre 2023)»
+
+  ejercicio: FALLO → PENDIENTE · 24 candidatas · 12 tokens · 12 páginas · columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+     páginas: DEU2024FR p.68 (2), DEU2024FR p.70 (2), URD2021 p.53 (2), URD2021 p.216 (2), URD2021 p.264 (2), URD2021 p.315 (2), URD2022 p.63 (2), URD2022 p.248 (2), URD2023 p.62 (2), URD2025 p.69 (2), URD2025 p.312 (2), URD2025 p.390 (2)
+     ejemplo: DEU2024FR p.68 l.72 token 1/1 «2024)» declarado 2023 · rótulo «(Informations actualisées au 31 décembre 2024)»
+
+  ejercicio: FALLO → PENDIENTE · 20 candidatas · 10 tokens · 6 páginas · el token es el día de la fecha del rótulo de la fila, no una cifra
+     páginas: URD2025 p.360 (6), URD2025 p.417 (6), DEU2024FR p.306 (2), DEU2024FR p.361 (2), URD2021 p.230 (2), URD2022 p.262 (2)
+     ejemplo: DEU2024FR p.306 l.45 token 1/6 «0» declarado 2023 · rótulo «au 31/12/2024»
+
+  ejercicio: OK → FALLO · 20 candidatas · 20 tokens · 8 páginas · la columna es de AAAA, no de AAAA
+     páginas: URD2023 p.312 (4), URD2023 p.369 (4), URD2022 p.294 (3), URD2022 p.350 (3), URD2021 p.261 (2), URD2021 p.312 (2), URD2021 p.291 (1), URD2025 p.360 (1)
+     ejemplo: URD2021 p.261 l.47 token 5/7 «19,350» declarado 2021 · rótulo «Number of rights outstanding as at 12/31/2021»
+
+  ejercicio: OK → FALLO · 14 candidatas · 14 tokens · 5 páginas · la columna reconocida más próxima, alineada con el token (1.5 caracteres), es de AAAA, no de AAAA (el token está además 
+     páginas: URD2021 p.261 (6), URD2022 p.350 (3), URD2025 p.360 (3), URD2021 p.312 (1), URD2022 p.294 (1)
+     ejemplo: URD2021 p.261 l.44 token 1/6 «255,798» declarado 2021 · rótulo «Rights vested as at 12/31/2021»
+
+  ejercicio: OK → PENDIENTE · 13 candidatas · 13 tokens · 8 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: URD2022 p.350 (5), URD2023 p.387 (2), DEU2024FR p.381 (1), URD2021 p.261 (1), URD2021 p.291 (1), URD2021 p.312 (1), URD2021 p.331 (1), URD2022 p.294 (1)
+     ejemplo: DEU2024FR p.381 l.31 token 2/2 «0,08%» declarado 2024 · rótulo «Pourcentage de capital auto-détenu de manière directe ou ind»
+
+  ejercicio: OK → PENDIENTE · 12 candidatas · 12 tokens · 12 páginas · columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+     páginas: DEU2024FR p.68 (1), DEU2024FR p.70 (1), URD2021 p.53 (1), URD2021 p.216 (1), URD2021 p.264 (1), URD2021 p.315 (1), URD2022 p.63 (1), URD2022 p.248 (1), URD2023 p.62 (1), URD2025 p.69 (1), URD2025 p.312 (1), URD2025 p.390 (1)
+     ejemplo: DEU2024FR p.68 l.72 token 1/1 «2024)» declarado 2024 · rótulo «(Informations actualisées au 31 décembre 2024)»
+
+  ejercicio: OK → PENDIENTE · 10 candidatas · 10 tokens · 6 páginas · el token es el día de la fecha del rótulo de la fila, no una cifra
+     páginas: URD2025 p.360 (3), URD2025 p.417 (3), DEU2024FR p.306 (1), DEU2024FR p.361 (1), URD2021 p.230 (1), URD2022 p.262 (1)
+     ejemplo: DEU2024FR p.306 l.45 token 1/6 «0» declarado 2024 · rótulo «au 31/12/2024»
+
+  ejercicio: PENDIENTE → OK · 7 candidatas · 7 tokens · 5 páginas · (queda OK) antes: columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconoc
+     páginas: URD2022 p.263 (2), URD2025 p.329 (2), DEU2024FR p.274 (1), DEU2024FR p.275 (1), URD2021 p.231 (1)
+     ejemplo: DEU2024FR p.274 l.38 token 2/13 «236,7» declarado 2024 · rótulo «DÉCEMBRE 2024»
+
+  ejercicio: FALLO → PENDIENTE · 6 candidatas · 3 tokens · 2 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida; la columna re
+     páginas: URD2023 p.387 (4), URD2021 p.331 (2)
+     ejemplo: URD2021 p.331 l.33 token 1/1 «117,289» declarado 2020 · rótulo «Par value of the portfolio as at December 31, 2021(c) (in eu»
+
+  ejercicio: FALLO → PENDIENTE · 4 candidatas · 2 tokens · 2 páginas · columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles
+     páginas: URD2021 p.252 (2), URD2022 p.284 (2)
+     ejemplo: URD2021 p.252 l.10 token 1/3 «6» declarado 2021 · rótulo «As at December 31, 2020»
+
+  ejercicio: FALLO → PENDIENTE · 4 candidatas · 4 tokens · 3 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: URD2022 p.350 (2), URD2021 p.261 (1), URD2021 p.291 (1)
+     ejemplo: URD2021 p.261 l.44 token 1/6 «255,798» declarado 2020 · rótulo «Rights vested as at 12/31/2021»
+
+  ejercicio: FALLO → OK · 3 candidatas · 3 tokens · 3 páginas · (queda OK) antes: la fila es el saldo de AAAA (fecha en su rótulo), no de AAAA
+     páginas: URD2021 p.291 (1), URD2021 p.312 (1), URD2025 p.360 (1)
+     ejemplo: URD2021 p.291 l.52 token 2/2 «221,297,797» declarado 2021 · rótulo «Number of shares as at January 1, 2020»
+
+  ejercicio: OK → FALLO · 3 candidatas · 3 tokens · 2 páginas · la columna reconocida más próxima, alineada con el token (2.5 caracteres), es de AAAA, no de AAAA (el token está además 
+     páginas: URD2022 p.350 (2), URD2021 p.291 (1)
+     ejemplo: URD2021 p.291 l.53 token 2/2 «221,819,430» declarado 2020 · rótulo «Number of shares as at December 31, 2020»
+
+  ejercicio: OK → PENDIENTE · 2 candidatas · 2 tokens · 2 páginas · columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles
+     páginas: URD2021 p.252 (1), URD2022 p.284 (1)
+     ejemplo: URD2021 p.252 l.10 token 1/3 «6» declarado 2020 · rótulo «As at December 31, 2020»
+
+  ejercicio: OK → FALLO · 2 candidatas · 2 tokens · 2 páginas · la columna reconocida más próxima, alineada con el token (3.5 caracteres), es de AAAA, no de AAAA (el token está además 
+     páginas: URD2022 p.294 (1), URD2022 p.350 (1)
+     ejemplo: URD2022 p.294 l.51 token 7/8 «0» declarado 2022 · rótulo «or forfeited as at 12/31/2022»
+
+  ejercicio: OK → FALLO · 1 candidatas · 1 tokens · 1 páginas · la columna reconocida más próxima, alineada con el token (1 caracteres), es de AAAA, no de AAAA (el token está además ba
+     páginas: URD2021 p.312 (1)
+     ejemplo: URD2021 p.312 l.61 token 6/7 «35,002» declarado 2021 · rótulo «or forfeited as at 12/31/2021»
+
+  ejercicio: OK → FALLO · 1 candidatas · 1 tokens · 1 páginas · la columna reconocida más próxima, alineada con el token (4.5 caracteres), es de AAAA, no de AAAA (el token está además 
+     páginas: URD2022 p.350 (1)
+     ejemplo: URD2022 p.350 l.54 token 1/8 «9» declarado 2022 · rótulo «› of which members of the Executive»
+
+  ejercicio: OK → FALLO · 1 candidatas · 1 tokens · 1 páginas · la columna reconocida más próxima, alineada con el token (3 caracteres), es de AAAA, no de AAAA (el token está además ba
+     páginas: URD2022 p.350 (1)
+     ejemplo: URD2022 p.350 l.54 token 4/8 «10» declarado 2022 · rótulo «› of which members of the Executive»
+
+  perimetro: OK → PENDIENTE · 54 candidatas · 18 tokens · 1 páginas · la cabecera de la tabla línea N tiene una columna por país (Mexique, Pays-Bas, Suède): no se puede acreditar que la colu
+     páginas: DEU2024FR p.315 (54)
+     ejemplo: DEU2024FR p.315 l.27 token 1/9 «11,2%» declarado 2024 · rótulo «IMPÔT 2024 (APPROXIMATION)»

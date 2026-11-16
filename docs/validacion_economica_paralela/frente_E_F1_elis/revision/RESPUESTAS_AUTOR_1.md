@@ -30,6 +30,8 @@
 | C14 | cf55865a22035aa8376d8813cd58d0f2fcdd4846 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 6 (R1–R8): asignación por orden con alineación, cabecera de la propia tabla, grupos de columnas por entidad, filas de jurisdicción, encabezados numerados, título corto de tabla, prefijo de UGE, FALLO solo con la columna alineada, ventas de 2021–22 por segmentos (R23) y umbrales de detección (sexta parte) |
 | C15 | c96d544646b2fa5a66c233402a9f31332a643cec | Registra el hash de C14. Congelado de la revisión n.º 7 |
 | C16 | 66d01b8fc21b277efdae938170cc64815705962e, sobre 559828e (verificador y test) (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 7 (S1–S7): título numerado y fecha del saldo en el rótulo, líneas sin rótulo, pestaña del margen, cabecera por país sin unidades, encabezado en prosa, recuento de detección y frases (séptima parte) |
+| C17 | 863ddde9190044690bfe4ee7c2a0d6fddc4c811a | Registra el hash de C16. Congelado de la revisión n.º 8 |
+| C18 | el commit que contiene la octava parte, sobre d3c0f1b y 485de8d (verificador y test) | Respuesta a la revisión n.º 8 (T1–T8): columna PENDIENTE con la fecha del saldo en el rótulo, la regla solo en filas de saldo con el rótulo más corto, cierres partidos, cabecera por países, rótulos contiguos acotados, encabezado en prosa, el año del rótulo como no cifra, barrido del autor y frases (octava parte) |
 
 ## Marcas y pruebas
 
@@ -843,7 +845,7 @@ Tras C7, cinco entradas que cambian los valores de referencia de la especificaci
 
 - **Corrección:** una línea que empieza por una numeración de nota o de apartado («NOTE 13 …», «5.4 …») y no tiene más cifras es un título y corta la búsqueda, vaya o no en mayúsculas.
 - **Pruebas:** los honorarios (G1–G4) ya no ven «SWITZERLAND», «SWEDEN» ni «SUISSE». Bajo «5.4 Share-based payments», el plan de acciones G9 queda con el perímetro OK (la unidad falla: es un recuento). *(Precisión de C16, revisión n.º 7, S6 g:)* en C14 la búsqueda se detenía en una línea de prosa que empieza por una referencia («Note 5.2 “Expenses related…”»), no en el encabezado, que está más arriba; desde C16 la prosa no cuenta (S5). En el barrido, 387 tokens de los planes de acciones pasan de PENDIENTE a OK en perímetro, y la lectura propia del revisor no nombra ningún país en ninguno (clase C).
-- **Divergencia: G2 y G4 quedan PENDIENTE, no OK.** La cabecera de los honorarios repite 2022 y 2021 por firma y por medida, y la regla de grupos de R1 la trata como una tabla por entidad. El verificador no distingue la columna de una firma auditora, cuyos honorarios paga el grupo, de la de una marca, cuya cifra es de la marca. Además, la columna de una firma es un desglose por firma, no el total del grupo. Se prefiere PENDIENTE para las dos clases antes que OK. G2 y G4 están en el test con PENDIENTE esperado, el motivo de la regla de grupos y sin el título de país.
+- **Divergencia: G2 y G4 quedan PENDIENTE, no OK.** La cabecera de los honorarios repite 2022 y 2021 por firma y por medida, y la regla de grupos de R1 la trata como una tabla por entidad. El verificador no distingue la columna de una firma auditora, cuyos honorarios paga el grupo, de la de una marca, cuya cifra es de la marca. Además, la columna de una firma es un desglose por firma, no el total del grupo. *(Precisión de C18, revisión n.º 8, T8 a:)* este segundo argumento es de concepto, no de perímetro, y se retiró en C16 (séptima parte, «La decisión (b) de C14»); la divergencia se apoya solo en el primero. Se prefiere PENDIENTE para las dos clases antes que OK. G2 y G4 están en el test con PENDIENTE esperado, el motivo de la regla de grupos y sin el título de país.
 
 ## R3 · menor · «el FALLO manda» daba FALLO a cifras legítimas del cierre · **aceptada y corregida** (C14), con otro umbral
 
@@ -982,7 +984,7 @@ Tras C7, cinco entradas que cambian los valores de referencia de la especificaci
 
 El revisor la da por sostenida y conservadora, pero dice que uno de sus dos argumentos no es de perímetro. **Se acepta y se retira ese argumento:** que la columna de una firma sea un desglose por firma y no el total del grupo es una cuestión del concepto, no del perímetro. La decisión se apoya solo en el otro argumento: el verificador no distingue la columna de una firma auditora de la de una marca. Su coste, según el revisor: 176 cifras legítimas del grupo en cinco tablas, 16 de ellas OK en C13.
 
-Límite de la regla de grupos (§5 a de la revisión), que se declara: no ve la tabla de las marcas con un solo ejercicio (URD 2021, 2022 y 2023) ni la tabla de las marcas sin ejercicios (URD 2022 p.305).
+Límite de la regla de grupos (§5 a de la revisión), que se declara: no ve la tabla de las marcas con un solo ejercicio (URD 2021, 2022 y 2023) ni la tabla de las marcas sin ejercicios (URD 2022 p.305). *(Precisión de C18, revisión n.º 8, §5 a y T8 d:)* en los tres URD la tabla de las hipótesis por marca no queda en OK: la retiene, con un motivo inexacto, el título de país de la tabla anterior («Switzerland» en el URD 2021 p.272; «Sweden» en el URD 2022 p.305 y en el URD 2023 p.324).
 
 ## S6 · forma · frases más fuertes que su prueba y recuentos inexactos · **aceptada y corregida** (C16)
 
@@ -997,7 +999,7 @@ Límite de la regla de grupos (§5 a de la revisión), que se declara: no ve la 
 - **(a)** `barrido_tablas.py` y `barrido_7.py` llevan escritos los nombres de las versiones: sus salidas sobre C16 dicen «C11» y «C13»/«C14» por C8 → C16 y C14 → C16.
 - **(b)** El punto de recuperación de C15 daba como alcance de la pasada 7 `9711f04..C15`, un commit de la rama del revisor. El alcance era `c11a6de..cf55865`, como decía el encargo. El punto de 66d188c ya no lo decía.
 - **(c)** La cabecera de `verificar_cifras.py` dice ahora seis dimensiones y describe la de columna.
-- **(d) Se declara, no se corrige.** El título corto de la tabla de Suecia del URD 2022 p.305 retiene el perímetro de las dos tablas de marcas que la siguen sin cabecera propia. El resultado, PENDIENTE, es el prudente; el motivo no es exacto. Corregir el motivo dejaría el perímetro de esas tablas en OK: la regla de grupos no las ve (decisión b).
+- **(d) Se declara, no se corrige.** El título corto de la tabla de Suecia del URD 2022 p.305 retiene el perímetro de las dos tablas de marcas que la siguen sin cabecera propia. El resultado, PENDIENTE, es el prudente; el motivo no es exacto. Corregir el motivo dejaría el perímetro de esas tablas en OK: la regla de grupos no las ve (decisión b). *(Precisión de C18, revisión n.º 8, T8 d:)* no es solo el URD 2022: el título de la tabla anterior retiene igual la tabla por marca del URD 2021 p.272 («Switzerland») y del URD 2023 p.324 («Sweden»). En los tres URD esas filas siguen además PENDIENTE en ejercicio.
 - **(e)** El motivo de las columnas por país solo une palabras de las líneas de cabecera, de celdas cortas, no de la prosa a dos columnas que precede a la tabla.
 
 ## Aceptaciones nuevas de C16
@@ -1007,6 +1009,12 @@ Límite de la regla de grupos (§5 a de la revisión), que se declara: no ve la 
 - los saldos de las tablas de movimientos de intangibles, inmovilizado, arrendamientos, provisiones, pensiones, depreciación de clientes y reservas de coberturas.
 
 Su ejercicio es el de la fecha del rótulo [D]; antes quedaban PENDIENTE o FALLO por la columna. Es la regla que pedía S1. Otras 99 pasan de FALLO a OK en ejercicio sin quedar OK en la fila. 65 de ellas tienen alineada, según la lectura del revisor, la cabecera de otro ejercicio: son las tablas de planes de acciones, donde la fecha del saldo («as at 12/31/2023») da el ejercicio de la cifra y la columna es el año de concesión del plan. Las cuatro que pasan de OK a FALLO en ejercicio son saldos cuya fecha en el rótulo no es la del ejercicio declarado. Lo revisará la pasada 8.
+
+*(Precisión de C18, revisión n.º 8, T7 a y b:)*
+- de las 346, **341 son cifras de saldos y cinco no son cifras**: el año de una fecha en una línea de prosa (DEU 2024 p.257, el primero de la lista citada), dos veces el día de la fecha («31») y dos veces la pestaña del margen («6»). Con los años sueltos, que ese barrido excluye, son 411. No eran «todas filas de saldo»;
+- las 99 que pasan de FALLO a OK en ejercicio son todas las de las páginas del grupo: seis quedan OK en la fila y están entre las 346, así que las que no quedan OK son 93. No se contaban otras 208 que pasan de PENDIENTE a OK en ejercicio sin quedar OK (548 menos 340). De las 65 con la cabecera de otro ejercicio, 63 son de los planes de acciones y dos, de la tabla del número de acciones (URD 2021 p.291);
+- tampoco se contaban las 37 candidatas que pasan de OK a PENDIENTE: 35 movimientos de los estados de cambios en el patrimonio, en la columna que quedaba bajo el año del título, y dos saldos de cierre del DEU 2024 que la regla no reconocía (T3);
+- C18 cambia estas cifras: véase la octava parte, «Aceptaciones que retira y añade C18».
 
 ## Resultados sobre C16
 
@@ -1018,9 +1026,9 @@ Su ejercicio es el de la fecha del rótulo [D]; antes quedaban PENDIENTE o FALLO
 | `test_contraste_residuos.py` | 24/24 |
 | Mutación (530 filas) | Igual que en C14, sin incoherencias |
 | Sondas | 713/713 en unidad y en perímetro |
-| Scripts de los revisores n.º 1 a 5 | Mismas salidas que sobre C14, salvo `clases_5`: una cifra en millones y un porcentaje más en los bloques de pensiones, ninguno OK. Son líneas que ahora tienen rótulo (S3) |
+| Scripts de los revisores n.º 1 a 5 | Mismas salidas que sobre C14, salvo `clases_5`: una cifra en millones y un porcentaje más en los bloques de pensiones, ninguno OK. Son líneas que ahora tienen rótulo (S3). *(Precisión de C18, revisión n.º 8, T7 f:)* tampoco `barrido_tablas` da la misma salida: igualada la etiqueta de versión, difiere en 220 líneas, con 400 candidatas más y 310 más en OK, por la regla de S1 y la de la pestaña |
 | Scripts del revisor n.º 6 | `contraejemplos_6`: ningún caso cambia de estado de C14 a C16. Barrido y clases: las aceptaciones nuevas de arriba; clase E, de 13 a 11 («CGU France» del URD 2022 p.298, S3) |
-| Scripts del revisor n.º 7 | Contraejemplos A–E como se describe en S1–S4. `barrido_7.py`, que recorre también las líneas sin rótulo, no da ninguna aceptación nueva en ellas. `sondas_umbral_7.py`: 246 de 246 intervalos confirmados. `reproduccion_7.py`: todas las cifras y salidas, idénticas. `barrido_7.py` rotula «C13 → C14» la comparación C14 → C16 (S7 a) |
+| Scripts del revisor n.º 7 | Contraejemplos A–E como se describe en S1–S4. `barrido_7.py`, que recorre también las líneas sin rótulo, no da ninguna aceptación nueva en ellas. `sondas_umbral_7.py`: 246 de 246 intervalos confirmados. `reproduccion_7.py`: todas las cifras y salidas, idénticas. *(Precisión de C18, revisión n.º 8, T7 g y T8 e:)* la salida guardada de `reproduccion_7` decía «Manifiesto: 243 de 251» y terminaba con código 1: se generó sobre un árbol anterior al manifiesto final. Sobre el congelado da 274 de 274, con el resto idéntico. En C18 se regenera al final, después del manifiesto. `barrido_7.py` rotula «C13 → C14» la comparación C14 → C16 (S7 a) |
 
 ## Lo que queda abierto tras C16
 
@@ -1032,6 +1040,168 @@ Su ejercicio es el de la fecha del rótulo [D]; antes quedaban PENDIENTE o FALLO
   - un bloque de otro perímetro sin ninguna señal reconocida no se detecta.
 - **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 entradas con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
 - **14 filas PENDIENTE** de URD 2022 p.302.
+- **Límites de detección por debajo de la cota:** R13 de 2025, R39 de 2021 y R42 en el crecimiento publicado.
+- **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
+- **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.
+
+---
+
+# Respuesta a la revisión independiente n.º 8
+
+**Revisión:** [REVISION_INDEPENDIENTE_8.md](REVISION_INDEPENDIENTE_8.md). Commit 3138a6b de la rama `auditoria/economica-f1-frente-e-revision` (06:40 UTC), sobre el congelado 863ddde (C17). La hizo una sesión de revisión nueva, distinta de las de las pasadas anteriores. Copia sin cambios y procedencia: [PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md).
+
+**Resultado de la revisión:**
+- reproduce todas las cifras del autor, con salidas idénticas byte a byte. De las doce salidas de los scripts de las revisiones n.º 6 y 7 sobre C16, once son idénticas; `reproduccion_7` difiere en las líneas del manifiesto (T8 e);
+- de las 346 aceptaciones nuevas de C16, 341 son cifras legítimas de saldos y cinco no son cifras. En su barrido, que incluye los años sueltos, son 411;
+- en ninguna fila de tabla de las cinco publicaciones la fecha del rótulo da un ejercicio equivocado: las 76 filas con cifras aceptadas las lee además con PDFium;
+- la regla de S1 acepta lo que no debe y deja de aceptar lo que debe (T1–T3). La de S2 toma rótulos que no son de la fila (T5). S4 deja un resto en el DEU 2024 (T4) y S5, un resto de prosa y de títulos (T6);
+- las dos decisiones propias de C16 se sostienen (§5);
+- objeciones nuevas: T1–T4 (menores) y T5–T8 (forma). Ninguna afecta a las 752 filas reales y ninguna conclusión material cambia.
+
+**Esta respuesta** acepta las ocho y las corrige en **C18**, en dos commits: `d3c0f1b` (verificador y test, T1–T6) y el que contiene esta parte (el rótulo más corto de T2 y el año del rótulo, que no es una cifra, que corrigen dos efectos de `d3c0f1b`; el rótulo con viñeta de T5; la prueba de la excepción de S4; el barrido del autor; los documentos y las salidas). Quedan cuatro límites declarados (uno en T2, uno en T5 y dos en T6) y un coste, el de T2 en los recuentos con fecha, cada uno en su objeción.
+
+**Pruebas.** Los scripts de las ocho revisiones, sin cambios, sobre C18 (`resultados/*_sobre_C18.txt`). Versión anterior:
+- para los scripts de los revisores n.º 6 a 8, un worktree temporal de C17, que tiene el código de C16;
+- para los n.º 1 a 5, la misma que sobre C16 (C8).
+
+Los scripts llevan escritos los nombres de las versiones. En `revisor7_barrido_7_sobre_C18.txt`, «C13» y «C14» son C16 y C18; en las salidas del revisor n.º 8, «C14» y «C16» son C16 y C18.
+
+**Las 752 filas reales no cambian:** el mismo estado y el mismo detalle en las seis dimensiones que en C16. La salida del verificador, su registro y las páginas exportadas son idénticos byte a byte.
+
+## T1 · menor · un saldo de una tabla con columnas por concepto quedaba OK sin que nada comprobara la columna · **aceptada y corregida** (C18)
+
+- **Corrección:** cuando el ejercicio sale de la fecha del rótulo, «columna» ya no queda NO_APLICA:
+  - si la fila tiene más de una columna de datos a la derecha del rótulo (los marcadores «-» cuentan), queda PENDIENTE: la columna del token es un concepto;
+  - con una sola columna de datos, NO_APLICA, y el motivo lo dice.
+- **Por qué no se comprueba la columna esperada.** En el modo `dos_columnas` ningún concepto la tiene. La lista cerrada de modos (`modo_admitido`) lleva a otros modos todos los prefijos con columna declarada (`CREC_`, `TAXDIF_`, `LS_`, `INT_`, `PPE_`). Las dos opciones de la revisión dan, pues, el mismo resultado. Un identificador nuevo sin prefijo conocido ya no se salta la columna.
+- **Pruebas** (`revisor8_contraejemplos_8_sobre_C18.txt`):
+  - T1a, T1d y T1e pasan de OK a PENDIENTE de columna; T1b sigue en FALLO de columna y T1c, en OK;
+  - casos nuevos en el test: T1a, T1b y T1c; el saldo de apertura de la tabla de deterioro de clientes del URD 2022 p.284, con una sola columna de datos (OK); y su saldo de cierre declarado con el ejercicio anterior (FALLO de ejercicio);
+  - A1 y A10 (revisión n.º 7) pasan de OK a PENDIENTE de columna, con el ejercicio OK.
+- **Efecto** (`revisor6_barrido_6_sobre_C18.txt`): de las 346 aceptaciones de C16, 331 pasan a PENDIENTE por la columna: son las cifras de saldos en filas de dos a doce columnas de datos. Quedan OK diez: los saldos de apertura y de cierre de las tablas de deterioro de clientes de las cinco publicaciones, que tienen una sola columna de datos (por ejemplo, URD 2022 p.284, (57,9) y (54,3)). La columna pasa de NO_APLICA a PENDIENTE en 2.310 candidatas (770 tokens, 54 páginas). Con ello, la regla de S1 casi no acredita: lo que aporta en C18 es sobre todo que un saldo declarado con otro ejercicio falla (A2, A4, A8, A9, T3a declarado 2023).
+
+## T2 · menor · la regla se disparaba en líneas que no son filas de saldo y daba el ejercicio a tokens que no son cifras · **aceptada y corregida** (C18), con un límite declarado
+
+- **Corrección:** las tres condiciones que proponía la revisión.
+  - El rótulo es la primera celda de una línea con más celdas (tras la pestaña del margen, si la hay), y el token está a su derecha. El día, el año y la pestaña del rótulo no toman el ejercicio.
+  - El rótulo solo dice la fórmula del saldo y la fecha. Se admiten las palabras de la fórmula («balance», «solde», «as at», «au», «net carrying amount», «valeur nette comptable», «adjusted»…) y «restated», «retraité» o una llamada, también entre paréntesis o pegadas («(RESTATED)», «restated(a)», «RETRAITÉ*»). Cualquier otra palabra hace del rótulo una frase: prosa, título, sumario o recuento con fecha.
+  - No se une al rótulo una línea que empieza en minúscula y está justo debajo de una fila de datos: es la continuación del rótulo de esa fila («Number of rights lapsed or forfeited  -  186,469 …» / «as at 12/31/2022»).
+- **Un efecto de la primera versión, corregido en este commit.** En `d3c0f1b` el rótulo unido podía absorber la cabecera de columna o la línea de unidades de encima, y la condición de las palabras lo rechazaba. Así dejaban de reconocerse los saldos de apertura de las cinco tablas de la reserva de coberturas («Cash flow hedges» / «BALANCE AS AT JANUARY 1, 2021») y dos de las cuentas de la sociedad dominante en miles de euros («(In thousands of euros)» / «As at 12/31/2021»). Lo vi al comparar, línea a línea y en todas las páginas, dónde da ejercicio la regla en C16 y en C18. Ahora se toma el rótulo más corto, desde el de la propia fila hacia arriba, que ya lleva la fórmula del saldo y la fecha (`rotulo_de_saldo`). También se admite «published», «publié» o «reported», como «restated» («As at December 31, 2019, published»). Caso nuevo: el saldo de apertura de la reserva de coste de cobertura del URD 2022 p.324, con el ejercicio OK y la columna PENDIENTE; falla en la edición porque el URD 2022 es posterior a la publicación que la regla exige para 2020. Con el código de `d3c0f1b`, el caso falla.
+- **Otro efecto del mismo origen, corregido también en este commit.** Al sacar de la regla de S1 los tokens del propio rótulo, el año de la fecha de cuatro rótulos de saldo volvía a la regla de las columnas: «AU 31 DÉCEMBRE 2024» (DEU 2024 p.295), «As at December 31, 2021» (URD 2022 p.323) y «NET CARRYING AMOUNT AS AT DECEMBER 31, 2023» (URD 2023 p.317 y p.319). Alineado con la columna del ejercicio anterior, quedaba OK en las seis dimensiones como una cifra de ese ejercicio. Son cuatro aceptaciones falsas que ya tenía C14; me las hizo ver el barrido del revisor n.º 8 sobre una versión intermedia de C18. Ahora, un año suelto dentro del rótulo de texto de la fila, o el día de la fecha de ese rótulo, no es una cifra en ningún modo: el ejercicio queda PENDIENTE (`token_del_rotulo`). Caso nuevo: el «2024» del DEU 2024 p.295, declarado 2023.
+- **Pruebas:**
+  - T2a–T2e pasan de OK a PENDIENTE de ejercicio;
+  - en T4b, «Number of rights outstanding» ya no recibe la fecha de la línea de encima. Su ejercicio vuelve a la regla de las columnas, como en C14: FALLO, por el año de concesión del plan. La fila falla además por la unidad, porque es un recuento;
+  - casos nuevos: T2a, T2b, T2c, T2e, T4b, el de la reserva de coberturas y el del año del rótulo;
+  - comparación línea a línea en todas las páginas (`scripts/barrido_fecha_rotulo.py`, con la versión anterior; salida en `resultados/barrido_fecha_rotulo.txt`). La regla da el mismo ejercicio que en C16 en 200 líneas y lo da por primera vez en 7: los cinco cierres de T3 y dos valores netos contables del URD 2023 (p.317 y p.319). C16 lo daba en otras 500 que C18 deja fuera. De ellas, 302 son líneas de una sola celda (títulos y continuaciones) y 198 tienen dos celdas o más: 166 con un token o ninguno (prosa, títulos, epígrafes) y 32 recuentos o porcentajes con fecha. Ninguna es un saldo en millones de euros.
+- **El coste que se declara: los recuentos con fecha** (planes de acciones, número de acciones, autocartera). «Number of rights outstanding as at 12/31/2022» o «Number of shares as at January 1, 2020» no son la fórmula de un saldo, así que la regla ya no les da el ejercicio. Vuelven a la regla de las columnas, como en C14. En el barrido del revisor n.º 6, sin contar los cierres de T3, el ejercicio de 42 candidatas pasa de OK a FALLO y el de 68 de OK a PENDIENTE; 120 pasan de FALLO a PENDIENTE y 3 de FALLO a OK. Son estos recuentos y los tokens de prosa, de títulos, del rótulo y de la pestaña que T2 quería excluir. En la fila, 32 pasan de PENDIENTE a FALLO y 35 de FALLO a PENDIENTE. El motivo de esos FALLO es la columna, que en los planes de acciones es el año de concesión, no la fecha de la fila: el diagnóstico de la dimensión vuelve a ser el de C14. Ninguna fila pasa por ello a OK: son recuentos, y la unidad falla o queda pendiente. Ampliar la regla a los recuentos con fecha exigiría distinguir su rótulo de la prosa y de los epígrafes con fecha, que es justo lo que T2 pide no dejar al texto.
+- **Límite que se declara.** Una fila cuyo rótulo sea solo la fórmula del saldo, sin fecha propia, bajo una línea de fecha que continúa la fila anterior y no empieza en minúscula, tomaría esa fecha. No lo he encontrado en las cinco publicaciones. De las 207 líneas en que la regla da un ejercicio en C18, 16 toman la fecha de una línea unida de encima, y en las 16 el rótulo unido es el de su propio saldo. Ocho están justo debajo de una fila de datos, y en las ocho esa fila es el último movimiento del bloque, no un rótulo partido (`barrido_fecha_rotulo.txt`).
+
+## T3 · menor · la regla no reconocía la mitad de los saldos de cierre del estado de cambios en el patrimonio · **aceptada y corregida** (C18)
+
+- **Corrección:** el rótulo del saldo une también las líneas de encima cuyas únicas cifras son el día o el año, de una sola celda y con la misma sangría («SOLDE AU 31» / «DÉCEMBRE 2024»; «BALANCE AS AT» / «DECEMBER 31, 2021» / «(RESTATED)»). `rotulo_multilinea` lleva para ello el parámetro `fecha`; sin él, se comporta como antes.
+- **Pruebas:**
+  - T3a–T3e reciben el ejercicio de la fecha (en C16, PENDIENTE de ejercicio), como el control T3f;
+  - son filas de doce columnas, así que la fila queda PENDIENTE por la columna (T1);
+  - declarado con otro ejercicio, FALLO (T3a declarado 2023);
+  - casos nuevos: T3a, T3a declarado 2023 y T3c.
+- **En el barrido del revisor n.º 6**, las cifras de los cinco cierres y de los dos valores netos del URD 2023 que ahora se reconocen pasan de PENDIENTE a OK en el ejercicio declarado con su propio año (69 candidatas) y de PENDIENTE a FALLO con los otros dos (138). En la fila, 69 pasan de PENDIENTE a FALLO y ninguna a OK, por la columna. Los 20 saldos de apertura y de cierre de los diez estados de cambios en el patrimonio quedan reconocidos con su ejercicio (`revisor8_clases_8_sobre_C18.txt`, E).
+- **T14 se ajusta.** Ya no dice que el frente técnico «debe aceptar» los saldos del estado de cambios en el patrimonio: debe darles el ejercicio OK y dejar la columna PENDIENTE.
+- **Las 37 que pasaban de OK a PENDIENTE y no se contaban** (35 movimientos y dos saldos del DEU 2024): séptima parte, precisión de C18. Los dos saldos tienen ahora el ejercicio OK, y la fila sigue PENDIENTE por la columna. Los 35 movimientos siguen PENDIENTE: sin el año del título no tienen columna de ejercicio.
+
+## T4 · menor · en el DEU 2024 p.315 las dos últimas filas de la tabla del WACC por país conservaban el perímetro OK · **aceptada y corregida** (C18)
+
+- **Corrección:** la búsqueda de la cabecera por países no se corta en la primera línea del rótulo de una fila: una línea de una sola celda con la sangría de la fila de datos que tiene justo debajo. Las líneas de unidades siguen cortándola.
+- **Pruebas:** T5a y T5b pasan a PENDIENTE de perímetro; T5c y T5d, igual que antes. Casos nuevos: T5a y T5b. En el barrido del revisor n.º 6, 54 candidatas (18 tokens) pasan de OK a PENDIENTE en el perímetro, todas del DEU 2024 p.315; es el único cambio de perímetro en las líneas con rótulo.
+- **La excepción «Total» o «Group»** de esa regla no tiene caso real (revisión, §4.4 y §9). Se prueba en el test con dos líneas sintéticas: la columna bajo «Total» no deja el perímetro PENDIENTE y la de Francia, sí.
+
+## T5 · forma · el rótulo de las líneas contiguas tomaba líneas que no son el rótulo de la fila · **aceptada y corregida** (C18), con un límite declarado
+
+- **Corrección:**
+  - las líneas contiguas tienen como mucho 45 caracteres, como en `rotulo_multilinea`, y están en el margen izquierdo: 12 caracteres de sangría o menos;
+  - la regla no se aplica a una línea que empieza por la pestaña del capítulo;
+  - ni a un rótulo con viñeta («− Matthieu Lecharny»): el guion es una viñeta, no una celda vacía.
+- **Límite que se declara:** no se mide la sangría exacta de los rótulos de cada tabla, sino el margen izquierdo.
+- **Pruebas:**
+  - T6a deja de fallar en perímetro por la prosa contigua; T6b vuelve a FALLO de perímetro, porque la leyenda «France» no es su rótulo; el control T6c sigue OK;
+  - casos nuevos: T6a y T6b, y una comprobación directa con «− Matthieu Lecharny» del URD 2022 p.294.
+- **En los barridos:** en el del revisor n.º 8, la función devuelve algún rótulo en 266 líneas (16 en páginas del grupo), frente a 2.015 (327) en C16 (`revisor8_clases_8_sobre_C18.txt`, H). En el del revisor n.º 7, las líneas sin rótulo solo cambian en 9 candidatas, que dejan de fallar en perímetro (la pestaña junto a un párrafo), y ninguna fila pasa a OK.
+
+## T6 · forma · el criterio de la puntuación dejaba prosa dentro y títulos fuera · **aceptada y corregida** (C18), con dos límites declarados
+
+- **Corrección:**
+  - «Note N to the…» no es un encabezado, ni las referencias con «of the», «à l», «au» o «aux»;
+  - en un título en mayúsculas se admiten las comillas («NOTE 6 ENGAGEMENTS FINANCIERS ET « HORS-BILAN »»);
+  - y la coma final, si la línea de debajo continúa el título, también en mayúsculas («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS AN INDEPENDENT THIRD PARTY,»). La pestaña del capítulo de esa línea no cuenta.
+- **Límites que se declaran:**
+  - de los nueve títulos verdaderos que S5 dejaba fuera, vuelven los cinco que van en mayúsculas. Los cuatro en minúsculas partidos tras una coma («3.5.1 Providing products and services that contribute to hygiene,») siguen fuera. En la rejilla de texto no se distinguen de la prosa partida tras una coma, y la tipografía no es una entrada del verificador;
+  - las doce entradas de sumario que se toman por encabezado en las páginas del grupo siguen tomándose así.
+  - ninguno cambia un estado: todas las transiciones de los barridos entre C16 y C18 se explican por T1–T5 (sección «Aceptaciones que retira y añade C18»).
+- **Pruebas:** seis comprobaciones directas en el test, con las líneas reales que cita la revisión. En el barrido del revisor n.º 8 (`revisor8_clases_8_sobre_C18.txt`, K), los encabezados de las páginas del grupo pasan de 409 a 407 (salen las dos líneas de prosa que citaba la revisión) y los de las demás páginas, de 982 a 976; vuelve «NOTE 6 … « HORS-BILAN »». Ese script llama a la función sin la línea de debajo, así que no ve los títulos partidos tras una coma; el verificador se la pasa en los tres sitios donde la usa.
+
+## T7 · forma · frases más fuertes que su prueba o recuentos inexactos · **aceptada y corregida** (C18)
+
+- **(a) y (b):** séptima parte, «Aceptaciones nuevas de C16», e informe §1, precisados en su sitio. El punto de recuperación se ha reescrito.
+- **(c) E9:** la lista de identidades es ahora la de `sondas_8.py`, sección 3: R5, R8, R16, R17, R22, R34 y R39–R42 en 2021–22; R5, R8–R13, R16–R18, R20–R24, R31 y R37 en 2023–25. Ya no cita R36 de 2021–22, en la que no interviene ninguna de las 97, ni R42 de 2023–25. La conclusión no cambia: las 97 tienen identidad entre páginas.
+- **(d) y (e):** T14 e informe §1, corregidos según T1, T3 y T4.
+- **(f) y (g):** séptima parte, tabla de resultados, precisados en su sitio.
+
+## T8 · forma · varios · **aceptada y corregida** (C18)
+
+- **(a)** El argumento retirado sale de T14 y lleva nota de precisión en la sexta parte, R2.
+- **(b)** El paso 4 del punto de recuperación ya no manda leer «las partes quinta y sexta»: desde la incorporación de la revisión dice la séptima y, ahora, la octava.
+- **(c)** La cabecera de `verificar_cifras.py` describe la regla de la fila de saldo en `dos_columnas`, la columna PENDIENTE de T1 y, en «perimetro», la regla de S2, con sus límites, y la de S4.
+- **(d)** Informe §1 (límites), séptima parte (S7 d y la decisión b) y punto de recuperación: el título de la tabla anterior retiene la tabla por marca en los URD 2021, 2022 y 2023.
+- **(e)** `revisor7_reproduccion_7_sobre_C18.txt` se genera sobre el árbol final, después del manifiesto, y el manifiesto se comprueba otra vez después.
+- **(f)** Corregido al incorporar la revisión: «15/15 blobs iguales a los de d192cab». La fila de la copia de la revisión n.º 8 tenía el mismo defecto y ahora dice «18/18 blobs iguales a los de 3138a6b».
+
+## Aceptaciones que retira y añade C18
+
+**C18 no crea ninguna aceptación y retira casi todas las de C16.** Entre C16 y C18, en el barrido del revisor n.º 6 (`revisor6_barrido_6_sobre_C18.txt` y `revisor6_clases_6_sobre_C18.txt`, D; versión anterior, el worktree de C17):
+- ninguna candidata pasa a OK en las seis dimensiones;
+- 336 pasan de OK a PENDIENTE, todas en páginas del grupo, en 69 líneas de 38 páginas: 331 cifras de saldos en filas de varias columnas, por la columna (T1), y los cinco tokens que no eran cifras, por el ejercicio (T2);
+- de las 346 aceptaciones de C16 quedan diez: los saldos de apertura y de cierre de las tablas de deterioro de clientes de las cinco publicaciones, con una sola columna de datos;
+- 101 pasan de PENDIENTE a FALLO: 69 cifras de los cierres que ahora se reconocen, declaradas con un ejercicio que no es el de su fecha (T3), y 32 recuentos con fecha cuyo ejercicio vuelve a la regla de las columnas (T2);
+- 35 pasan de FALLO a PENDIENTE por el ejercicio: la regla de S1 los hacía fallar declarados con otro ejercicio, y en C18 no se les acredita ninguno (34) o se les da por la columna (1). Son recuentos con fecha y tokens de prosa o del rótulo (T2);
+- las demás no cambian de estado.
+
+En el barrido del revisor n.º 8, que recorre todas las líneas y también los años sueltos (`revisor8_barrido_8_sobre_C18.txt` y `revisor8_clases_8_sobre_C18.txt`, B; en sus salidas, «C14» y «C16» son C16 y C18):
+- ninguna candidata pasa a OK, ni en el modo de dos columnas (clase B: 0) ni en los demás modos de control;
+- 414 pasan de OK a PENDIENTE: las 331 cifras de saldos de T1 y 83 tokens que no son cifras. De estos, 78 son años dentro del rótulo de texto de su línea: los de la fecha de los rótulos de saldo y de la prosa, y once del pie de página («252 | Elis | Document d'enregistrement universel 2024»), que C16, y ya C14, daban por cifras del grupo. Los otros cinco son el año de una línea de prosa fuera del rótulo, el día de la fecha (dos) y la pestaña (dos);
+- de las 411 aceptaciones nuevas de C16 en este barrido quedan las diez de las tablas de deterioro de clientes;
+- en los demás modos de control, 18 candidatas dejan de ser OK, todas años de un rótulo (fechas, pies de página y una línea de prosa);
+- 101 pasan de PENDIENTE a FALLO, como en el barrido del revisor n.º 6, y 588 de FALLO a PENDIENTE, 541 de ellas años de rótulos declarados con otro ejercicio, que ya no se toman por cifras.
+
+## Resultados sobre C18
+
+| Prueba | Resultado |
+|---|---|
+| Verificador | 752 filas: 738 OK, 14 PENDIENTE, 0 FALLO. Salida, registro y páginas exportadas idénticos byte a byte a los de C16 |
+| `test_verificar_cifras.py` | 136/136: 23 positivos reales, 36 PENDIENTE esperados y 77 contraejemplos; y 9/9 comprobaciones directas de funciones. Con el verificador de C16, 119/136 y 4/9; con el de `d3c0f1b`, 134/136 y 8/9 (fallan el caso de la reserva de coberturas, el del año del rótulo y la comprobación de la viñeta) |
+| Contraste | 292 comprobaciones, 0 fallidas; 419 entradas; salidas idénticas byte a byte a las de C16; valores de referencia de E9 sin cambios |
+| `test_contraste_residuos.py` | 24/24 |
+| Mutación (530 filas) | Igual que en C16, sin incoherencias |
+| Sondas | 713/713 en unidad y en perímetro; JSON igual al de C16 salvo la etiqueta de versión |
+| `barrido_fecha_rotulo.py` (nuevo) | La regla da ejercicio en 207 líneas (191 con la fecha en la propia línea y 16 con la fecha unida de encima, las 16 rótulos de su propio saldo). Frente a C16: 200 iguales, 7 nuevas y 500 que deja fuera, ninguna un saldo en millones de euros (T2) |
+| Scripts de los revisores n.º 1 a 5 | Mismas salidas que sobre C16, salvo `barrido_tablas`: igualada la etiqueta, difiere en 141 líneas. Las candidatas OK en sus cinco dimensiones bajan de 6.395 a 6.059 (336 menos) y 1.298 pasan de NO_APLICA a PENDIENTE en columna (T1 y T2) |
+| Scripts del revisor n.º 6 | `contraejemplos_6`: los 48 casos, con el mismo estado y motivo que en C16. Barrido y clases: las transiciones de la sección anterior; ninguna candidata nueva en OK (clase D). `consultas_6`, que consulta el barrido, cambia con él. `cobertura_6` y `lectura_filas_c12`, idénticos |
+| Scripts del revisor n.º 7 | `contraejemplos_7`: de 40 casos, 7 cambian de estado (A1, A3, A5–A7, A10 y A12, de OK a PENDIENTE por la columna); los demás, igual. `barrido_7`: en las líneas con rótulo, las transiciones del revisor n.º 6; en las líneas sin rótulo, 9 candidatas pasan de FALLO a OK en perímetro (la pestaña junto a un párrafo, T5) y ninguna fila pasa a OK; `clases_7` cambia con el barrido. `sondas_umbral_7`: 246 de 246. `lectura_filas_c14`, idéntico. Los nombres «C13» y «C14» de su salida son C16 y C18 |
+| Scripts del revisor n.º 8 | `contraejemplos_8`: los 25 casos, como se describe en T1–T5. `barrido_8` y `clases_8`: las transiciones de la sección anterior; los 20 saldos del estado de cambios en el patrimonio, reconocidos (E); ninguna cifra de las seis tablas del WACC por país con el perímetro OK (J). `consultas_8` cambia con el barrido. `lectura_saldos_8` lee las líneas con aceptaciones nuevas: no hay ninguna. `sondas_8`, igual que sobre C16. En sus salidas, «C14» y «C16» son C16 y C18 |
+| `reproduccion_7` y `reproduccion_8` | Sobre el árbol final de C18, con el manifiesto ya regenerado: manifiesto completo, CSV regenerado idéntico y todas las salidas del §13 idénticas a las guardadas (`revisor7_reproduccion_7_sobre_C18.txt` y `revisor8_reproduccion_8_sobre_C18.txt`). Las dos salidas se añaden después al manifiesto (T8 e). Los dos scripts citan como resumen del test su última línea, que desde C18 es la de las comprobaciones directas; la composición de los casos (23, 36 y 77) y el registro, idénticos |
+
+## Lo que queda abierto tras C18
+
+- **Revisión de lo afectado por C18** (pasada 9): pendiente. Incluye las correcciones T1–T6, los límites que se declaran y el efecto de T1 sobre las cifras que C16 aceptaba.
+- **Límites declarados del verificador:**
+  - la regla de la fecha del rótulo: lo que se une depende de por dónde parta `pdftotext` el rótulo; los recuentos con fecha no toman el ejercicio de la fecha y vuelven a la regla de las columnas, como en C14; una fila cuyo rótulo sea solo la fórmula del saldo, sin fecha propia, bajo una línea de fecha de la fila anterior que no empieza en minúscula, tomaría esa fecha (T2);
+  - con varias columnas de datos, los saldos con la fecha en el rótulo quedan PENDIENTE de columna: en el modo `dos_columnas` ningún concepto declara su columna (T1);
+  - el rótulo de las líneas contiguas se acota por el margen izquierdo, no por la sangría exacta de los rótulos de la tabla (T5);
+  - los títulos en minúsculas partidos tras una coma no cuentan como encabezado, y las entradas de sumario sí (T6);
+  - la regla de grupos no distingue firma de marca, y no ve las tablas de marcas de un solo ejercicio ni sin ejercicios. En los URD 2021, 2022 y 2023 el perímetro de la tabla por marca lo retiene el título de la tabla anterior, con un motivo inexacto (S7 d, T8 d);
+  - los honorarios por firma auditora quedan PENDIENTE: 176 cifras legítimas del grupo;
+  - las reglas dependen de la rejilla de caracteres de pdftotext y de sus umbrales;
+  - un bloque de otro perímetro sin ninguna señal reconocida no se detecta.
+- **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 entradas con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
+- **14 filas PENDIENTE** del URD 2022 p.302.
 - **Límites de detección por debajo de la cota:** R13 de 2025, R39 de 2021 y R42 en el crecimiento publicado.
 - **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
 - **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.

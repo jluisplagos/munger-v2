@@ -23,7 +23,8 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
                saldo         la fecha está en la propia línea («12/31/Y» → Y; «JANUARY 1, Y» → Y−1);
                titulo        tabla de un solo ejercicio: el año aislado en una línea por encima de la tabla;
                manual        sin comprobación automática: PENDIENTE con la justificación de «nota» (sin ella, FALLO).
-             Prosa: el ejercicio declarado debe ser el de la edición (pie de página).
+             En todos los modos, un año suelto dentro del rótulo de texto de la fila, o el día de la fecha de ese rótulo,
+             no es una cifra: PENDIENTE. Prosa: el ejercicio declarado debe ser el de la edición (pie de página).
   columna    en las tablas de varias columnas que no son ejercicios (crecimiento, impuestos diferidos, movimientos de
              arrendamientos, intangibles e inmovilizado, matrices por segmentos), la cabecera de la columna del token debe
              ser la del concepto declarado. En «dos_columnas», si el ejercicio sale de la fecha del rótulo y la fila tiene
@@ -350,6 +351,26 @@ def rotulo_de_saldo(lineas, i, idioma):
     return None
 
 
+def token_del_rotulo(lineas, i, pos, idioma):
+    """(C18, a raíz del barrido del revisor n.º 8) Motivo si el token está dentro del rótulo de texto de la fila (su primera
+    celda, con letras) y no es una cifra: un año suelto («WACC 2024», «AU 31 DÉCEMBRE 2024») o el día de la fecha del
+    rótulo («DECEMBER, 31 2022»). None si no."""
+    sp = spans_numericos(lineas[i], idioma)
+    if not sp or not -len(sp) <= pos < len(sp):
+        return None
+    a, b = sp[pos % len(sp)]
+    r = rotulo(lineas[i])
+    ini = lineas[i].find(r) if r else -1
+    if ini < 0 or not re.search(r"[^\W\d_]", r) or not (ini <= a and b <= ini + len(r)):
+        return None
+    tok = lineas[i][a:b]
+    if re.fullmatch(r"20\d\d,?", tok):
+        return "el token es un año del rótulo de la fila, no una cifra"
+    if re.fullmatch(r"(?:[12]?\d|3[01]),?", tok) and FECHA_DE_SALDO.search(rotulo_multilinea(lineas, i, idioma, alto=3, fecha=True)):
+        return "el token es el día de la fecha del rótulo de la fila, no una cifra"
+    return None
+
+
 def anio_de_saldo_en_rotulo(lineas, i, idioma, pos=None):
     """(Revisión n.º 7, S1; revisión n.º 8, T2 y T3) Ejercicio del saldo cuya fecha lleva el rótulo de la fila, aunque esté
     partido en varias líneas. Solo si la línea es una fila: el rótulo es su primera celda y hay más celdas; si se da `pos`,
@@ -671,6 +692,11 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
     pos = int(fila["pos"])
     if modo == "crecimiento" and "%" not in fila["literal"]:
         return "FALLO", "una tabla de crecimiento solo admite porcentajes"
+    # (C18, a raíz del barrido del revisor n.º 8) un año suelto dentro del rótulo de texto de la fila, o el día de la fecha
+    # de ese rótulo, no es una cifra de la fila: no se le busca columna («AU 31 DÉCEMBRE 2024», «DECEMBER, 31 2022»)
+    motivo = token_del_rotulo(lineas, i, pos, idioma)
+    if motivo:
+        return "PENDIENTE", motivo
     if modo == "dos_columnas":
         # (revisión n.º 7, S1) una fila que lleva en su rótulo la fecha de un saldo («Balance as at December / 31, 2021
         # restated(a)», «Solde au 31 décembre / 2023, retraité*») es de ese ejercicio, sea cual sea su columna

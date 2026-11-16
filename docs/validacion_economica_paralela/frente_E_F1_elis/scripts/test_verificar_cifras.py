@@ -438,6 +438,11 @@ def main():
          "que exige la regla para 2020",
          [del_pdf("R8_COB_2020", "URD2022", 324, r"^\s*BALANCE AS AT JANUARY 1, 2021\s", "1.2", 2020)], "FALLO",
          {"R8_COB_2020": {"edicion"}}, coherente=True, dims={"R8_COB_2020": {"ejercicio": "OK", "columna": "PENDIENTE"}})
+    caso("T2 (año del rótulo): el año de la fecha del rótulo de un saldo («2024» de «AU 31 DÉCEMBRE 2024», tabla de deterioro de "
+         "clientes del DEU 2024 p.295), declarado 2023: no es una cifra; ejercicio PENDIENTE (con el código de d3c0f1b la regla de las "
+         "columnas lo daba por una cifra de 2023, OK en las seis dimensiones)",
+         [del_pdf("R8_ANIO_ROT", "DEU2024FR", 295, r"^\s*AU 31 DÉCEMBRE 2024\s", "2024", 2023)], "PENDIENTE",
+         dims={"R8_ANIO_ROT": {"ejercicio": "PENDIENTE"}}, motivo="es un año del rótulo de la fila")
     caso("T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, "
          "declarado 2024: ejercicio OK por la fecha del rótulo (en C16, PENDIENTE); columna PENDIENTE (T1)",
          [del_pdf("R8_T3A", "DEU2024FR", 274, r"^\s*DÉCEMBRE 2024\s+236,7", "236,7", 2024)], "PENDIENTE",

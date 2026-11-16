@@ -1,0 +1,195 @@
+Contraejemplos de la revisión n.º 8 · verificador oficial de cada versión, como proceso aparte
+Códigos de salida: C16: 1, C18: 1
+
+T1. Regla de S1 y dimensión «columna»: un saldo de una tabla con columnas por CONCEPTO queda OK en las seis dimensiones sin que nada compruebe la columna (NO_APLICA). Con el identificador de un concepto de saldo, la misma cifra falla en «columna»
+----------------------------------------------------------------------------------------------------
+
+T1a · derechos de uso a 31-12-2024: columna «Vehicles» (237,4) declarada con un identificador genérico (p. ej., como el total)
+    URD2025 p.366 l.19 · «AS AT 12/31/2024  324.0  237.4  11.5  572.8  606.2» · token 2/5 «237.4» · declarado 2024, mm EUR, grupo, edición vigente, identificador R8_T1A (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 5 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 5 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T1b · la misma cifra con el identificador de saldo de los derechos de uso (columna esperada: «Total»)
+    URD2025 p.366 l.19 · «AS AT 12/31/2024  324.0  237.4  11.5  572.8  606.2» · token 2/5 «237.4» · declarado 2024, mm EUR, grupo, edición vigente, identificador LS_SALDO_ROU_R8 (modo saldo)
+    C16: FALLO · columna FALLO: la columna es «Vehicles» (vehiculos), no la de total
+         ejercicio OK: saldo de 2024 · columna FALLO: la columna es «Vehicles» (vehiculos), no la de total
+    C18: FALLO · columna FALLO: la columna es «Vehicles» (vehiculos), no la de total
+         ejercicio OK: saldo de 2024 · columna FALLO: la columna es «Vehicles» (vehiculos), no la de total
+
+T1c · control: el total (572,8) con el identificador de saldo
+    URD2025 p.366 l.19 · «AS AT 12/31/2024  324.0  237.4  11.5  572.8  606.2» · token 4/5 «572.8» · declarado 2024, mm EUR, grupo, edición vigente, identificador LS_SALDO_ROU_R8B (modo saldo)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2024 · columna OK: columna «Total» (orden)
+    C18: OK en las seis dimensiones
+         ejercicio OK: saldo de 2024 · columna OK: columna «Total» (orden)
+
+T1d · patrimonio a 31-12-2021: columna «Non-controlling interests» (0,7) declarada con un identificador genérico
+    URD2022 p.262 l.16 · «31, 2021 restated(a)  224.1 2531.6  (1.6)  2.2  1.3  (380.1)  37.8  16.0  581.5 3,013.0  0.7 3,013.7» · token 11/12 «0.7» · declarado 2021, mm EUR, grupo, edición vigente, identificador R8_T1D (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2021 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2021 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T1e · inmovilizado material a 31-12-2024: columna «Vehicles» (13,0) declarada con un identificador genérico
+    URD2025 p.367 l.48 · «NET CARRYING AMOUNT AS AT DECEMBER 31, 2024  640.3  13.0  701.0  1,000.8  2,355.0» · token 3/6 «13.0» · declarado 2024, mm EUR, grupo, edición vigente, identificador R8_T1E (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 5 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 5 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T2. Regla de S1: tokens que no son cifras del saldo y quedan OK en las seis dimensiones como millones de euros del grupo
+----------------------------------------------------------------------------------------------------
+
+T2a · el día de la fecha («31» de «DECEMBER, 31 2022»), declarado 2022
+    URD2022 p.262 l.36 · «DECEMBER, 31 2022  230.1 2440.9  (1.7)  (3.6)  6.8  (404.6)  54.2  23.0  868.2  3,213.4  0.8  3,214.2» · token 1/14 «31» · declarado 2022, mm EUR, grupo, edición anterior, identificador R8_T2A (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2022 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: el token es el día de la fecha del rótulo de la fila, no una cifra
+         ejercicio PENDIENTE: el token es el día de la fecha del rótulo de la fila, no una cifra · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T2b · la pestaña del capítulo («6») en la línea «6 · As at December 31, 2021 · (57.9)», declarada 2021
+    URD2022 p.284 l.10 · «6  As at December 31, 2021  (57.9)» · token 1/3 «6» · declarado 2021, mm EUR, grupo, edición vigente, identificador R8_T2B (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2021 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T2c · el año de la fecha en una línea de PROSA («…au 31 décembre 2023)»), declarado 2023
+    DEU2024FR p.257 l.26 · «d'euros (contre 902,3 millions d'euros au 31 décembre 2023)  tout au long de l'exercice 2024 (voir note 2.4 des comptes» · token 1/1 «2023)» · declarado 2023, mm EUR, grupo, edición vigente, identificador R8_T2C (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2023 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T2d · el año de la fecha en la línea intermedia del rótulo («DECEMBER 31, 2021», sin cifras del saldo), declarado 2021
+    URD2022 p.263 l.35 · «DECEMBER 31, 2021» · token 1/1 «2021» · declarado 2021, mm EUR, grupo, edición vigente, identificador R8_T2D (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2021 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: el token es un año del rótulo de la fila, no una cifra
+         ejercicio PENDIENTE: el token es un año del rótulo de la fila, no una cifra · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T2e · el año de un título de apartado («…d'application obligatoire / au 1er janvier 2024»), declarado 2023
+    DEU2024FR p.277 l.40 · «au 1er janvier 2024» · token 1/1 «2024» · declarado 2023, mm EUR, grupo, edición vigente, identificador R8_T2E (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2023 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: el token es un año del rótulo de la fila, no una cifra
+         ejercicio PENDIENTE: el token es un año del rótulo de la fila, no una cifra · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T3. Regla de S1: saldos de CIERRE del estado de cambios en el patrimonio que la regla no reconoce (rótulo partido tras el día o en tres líneas). Son cifras legítimas declaradas con su ejercicio
+----------------------------------------------------------------------------------------------------
+
+T3a · DEU 2024 p.274 · «SOLDE AU 31 / DÉCEMBRE 2024» · capital a 31-12-2024 (236,7), declarado 2024
+    DEU2024FR p.274 l.38 · «DÉCEMBRE 2024  236,7 2 485,2  (2,7)  3,3  (17,9)  (468,9)  35,3  23,7  1 303,6 3 598,2  0,0 3 598,2» · token 2/13 «236,7» · declarado 2024, mm EUR, grupo, edición anterior, identificador R8_T3A (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Capital», que no es una columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Capital», que no es una columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T3b · DEU 2024 p.275 · «SOLDE AU 31 / DÉCEMBRE 2023 / RETRAITÉ*» · capital a 31-12-2023 (234,0), declarado 2023
+    DEU2024FR p.275 l.39 · «RETRAITÉ*  234,0 2 477,7  (0,7)  (2,4)  (9,5)  (335,8)  35,3  23,4  1 053,3 3 475,2  0,7 3 475,9» · token 1/12 «234,0» · declarado 2023, mm EUR, grupo, edición vigente, identificador R8_T3B (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Capital», que no es una columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Capital», que no es una columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2023 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T3c · URD 2022 p.263 · «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)» · capital a 31-12-2021 (224,1), declarado 2021
+    URD2022 p.263 l.36 · «(RESTATED)  224.1 2,531.6  (1.6)  2.2  1.3  (380.1)  37.8  16.0  581.5 3,013.0  0.7 3,013.7» · token 1/12 «224.1» · declarado 2021, mm EUR, grupo, edición vigente, identificador R8_T3C (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2021 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T3d · URD 2025 p.329 · «BALANCE AS AT / DECEMBER 31, 2024 / RESTATED*» · capital a 31-12-2024 (236,7), declarado 2024
+    URD2025 p.329 l.36 · «RESTATED*  236.7 2,485.2  (2.7)  3.3  (17.9)  (468.9)  35.3  23.7  1,303.5 3,598.1  0.0 3,598.1» · token 1/12 «236.7» · declarado 2024, mm EUR, grupo, edición vigente, identificador R8_T3D (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2024 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T3e · URD 2021 p.231 · «BALANCE AS AT / DECEMBER 31, 2020 / (RESTATED)» · capital a 31-12-2020 (221,8), declarado 2020
+    URD2021 p.231 l.38 · «(RESTATED)  221.8 2,575.6  (11.2)  (2.1)  1.2  (409.8)  37.8  6.8  387.6 2,807.7  0.6 2,808.3» · token 1/12 «221.8» · declarado 2020, mm EUR, grupo, edición vigente, identificador R8_T3E (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «Share», que no es una columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2020 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T3f · control: URD 2023 p.281 · «BALANCE AS AT DECEMBER / 31, 2022, RESTATED*» · capital a 31-12-2022 (230,1), declarado 2022
+    URD2023 p.281 l.34 · «31, 2022, RESTATED*  230.1  2,440.9  (1.7)  (3.6)  6.8  (404.5)  54.2  23.0  866.2 3,211.5  0.8 3,212.3» · token 1/12 «230.1» · declarado 2022, mm EUR, grupo, edición vigente, identificador R8_T3F (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: saldo de 2022 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+         ejercicio OK: saldo de 2022 (fecha en el rótulo de la fila) · columna PENDIENTE: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 12 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+
+T4. Regla de S1: la fecha de la línea de continuación del rótulo de la fila ANTERIOR se atribuye a la fila siguiente (URD 2022 p.350, cuentas de la sociedad dominante; aquí las dos filas son de la misma fecha)
+----------------------------------------------------------------------------------------------------
+
+T4a · fila «Number of rights lapsed or forfeited / as at 12/31/2022»: su fecha va en la línea de debajo
+    URD2022 p.350 l.42 · «Number of rights lapsed or forfeited  -  186,469  3,100  109,449  4,542  36,987  -  1,825» · token 2/8 «186,469» · declarado 2022, mm EUR, grupo, edición anterior, identificador R8_T4A (modo dos_columnas)
+    C16: FALLO · unidad FALLO: la línea «Number of rights lapsed or forfeited» es un recuento, un importe por acción o un margen, no millones de euros | perimetro PENDIENTE: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+         ejercicio OK: columna de 2022 (orden con la cabecera) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: FALLO · unidad FALLO: la línea «Number of rights lapsed or forfeited» es un recuento, un importe por acción o un margen, no millones de euros | perimetro PENDIENTE: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+         ejercicio OK: columna de 2022 (orden con la cabecera) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T4b · fila siguiente, «Number of rights outstanding»: recibe la fecha de la línea de encima, que es del rótulo anterior
+    URD2022 p.350 l.44 · «Number of rights outstanding  -  548,801  -  1,307,749  20,821  1,050,024  500,500  307,749» · token 4/8 «1,307,749» · declarado 2022, mm EUR, grupo, edición anterior, identificador R8_T4B (modo dos_columnas)
+    C16: FALLO · unidad FALLO: la línea «Number of rights outstanding» es un recuento, un importe por acción o un margen, no millones de euros | perimetro PENDIENTE: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+         ejercicio OK: saldo de 2022 (fecha en el rótulo de la fila) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: FALLO · ejercicio FALLO: la columna reconocida más próxima, alineada con el token (1.5 caracteres), es de 2023, no de 2022 (el token está además bajo «no.») | unidad FALLO: la línea «Number of rights outstanding» es un recuento, un importe por acción o un margen, no millones de euros | perimetro PENDIENTE: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+         ejercicio FALLO: la columna reconocida más próxima, alineada con el token (1.5 caracteres), es de 2023, no de 2022 (el token está además bajo «no.») · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T5. S4, resto: en la tabla del WACC por país del DEU 2024 p.315 las dos últimas filas conservan el perímetro OK (la primera línea del rótulo, en mayúsculas, se toma por título y corta la búsqueda de la cabecera)
+----------------------------------------------------------------------------------------------------
+
+T5a · «TAUX D'ACTUALISATION AVANT / IMPÔT 2024 (APPROXIMATION)», columna de Francia (11,2 %)
+    DEU2024FR p.315 l.27 · «IMPÔT 2024 (APPROXIMATION)  11,2%  10,6%  17,3%  9,8%  11,8%  12,4%  15,5%  10,4%  9,4%» · token 1/9 «11,2%» · declarado 2024, %, grupo, edición anterior, identificador R8_T5A (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: página de estados consolidados o de resultados del grupo
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida | perimetro PENDIENTE: la cabecera de la tabla (línea 13) tiene una columna por país (Mexique, Pays-Bas, Suède): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T5b · «Taux d'actualisation avant impôt / 2023 (approximation)», columna de Brasil (19,4 %)
+    DEU2024FR p.315 l.29 · «2023 (approximation)  10,7%  10,2%  19,4%  9,6%  11,4%  11,4%  16,3%  10,0%  9,5%» · token 3/9 «19,4%» · declarado 2023, %, grupo, edición vigente, identificador R8_T5B (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: página de estados consolidados o de resultados del grupo
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida | perimetro PENDIENTE: la cabecera de la tabla (línea 13) tiene una columna por país (Mexique, Pays-Bas, Suède): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T5c · control: «WACC 2024», columna de Francia (8,3 %)
+    DEU2024FR p.315 l.24 · «WACC 2024  8,3%  7,5%  11,4%  7,6%  8,9%  9,3%  10,9%  7,7%  7,5%» · token 2/10 «8,3%» · declarado 2024, %, grupo, edición anterior, identificador R8_T5C (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla | perimetro PENDIENTE: la cabecera de la tabla (línea 13) tiene una columna por país (Mexique, Pays-Bas, Suède): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla | perimetro PENDIENTE: la cabecera de la tabla (línea 13) tiene una columna por país (Mexique, Pays-Bas, Suède): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T5d · control: la misma fila en el URD 2025 p.369, «PRE-TAX DISCOUNT RATE 2025 / (APPROXIMATION)» (10,9 %)
+    URD2025 p.369 l.22 · «(APPROXIMATION)  10.9%  10.2%  17.4%  9.1%  11.1%  15.6%  9.9%  8.9%  6.2%» · token 1/9 «10.9%» · declarado 2025, %, grupo, edición vigente, identificador R8_T5D (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida | perimetro PENDIENTE: la cabecera de la tabla (línea 9) tiene una columna por país (Brazil, Denmark, France, Germany, Mexico, Netherlands, Spain, Sweden, Switzerland): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida | perimetro PENDIENTE: la cabecera de la tabla (línea 9) tiene una columna por país (Brazil, Denmark, France, Germany, Mexico, Netherlands, Spain, Sweden, Switzerland): no se puede acreditar que la columna sea la del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T6. S2: el «rótulo de las líneas contiguas» toma líneas que no son el rótulo de la fila
+----------------------------------------------------------------------------------------------------
+
+T6a · URD 2023 p.261 · línea con solo la pestaña del capítulo («5»): su «rótulo» es la prosa contigua, que nombra la Unión Europea
+    URD2023 p.261 l.9 · «5» · token 1/1 «5» · declarado 2023, mm EUR, grupo, edición anterior, identificador R8_T6A (modo dos_columnas)
+    C16: FALLO · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla | unidad PENDIENTE: la página no declara la unidad por encima de la línea | perimetro FALLO: la línea «adopted by the European Union. Audit procedures have been performed on the consolidated financial statements.» es de una jurisdicción, una región o el desglose de un país, no del grupo
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+    C18: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla | unidad PENDIENTE: la página no declara la unidad por encima de la línea
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: página de estados consolidados o de resultados del grupo
+
+T6b · URD 2022 p.376 (organigrama) · «100% ELIS COLOMBIA» declarado del segmento Francia: «France» es la leyenda contigua
+    URD2022 p.376 l.92 · «100%  ELIS COLOMBIA» · token 1/1 «100%» · declarado 2022, %, segmento Francia, edición anterior, identificador R8_T6B (modo dos_columnas)
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: línea del segmento Francia
+    C18: FALLO · ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla | perimetro FALLO: el segmento declarado (Francia) no figura en la línea ni en la cabecera
+         ejercicio PENDIENTE: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio»
+
+T6c · control (S2 del revisor n.º 7): ventas de 2023 de Escandinavia y Europa del Este (599,2) declaradas de su segmento
+    URD2023 p.261 l.41 · «599.2  580.7  8.5%  0.3%  -5.5%  3.2%» · token 1/6 «599.2» · declarado 2023, mm EUR, segmento Escandinavia y Europa del Este, edición anterior, identificador R8_T6C (modo dos_columnas)
+    C16: OK en las seis dimensiones
+         ejercicio OK: columna de 2023 (alineación con la cabecera) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: línea del segmento Escandinavia y Europa del Este
+    C18: OK en las seis dimensiones
+         ejercicio OK: columna de 2023 (alineación con la cabecera) · columna NO_APLICA: la columna es el ejercicio: se comprueba en «ejercicio» · perímetro OK: línea del segmento Escandinavia y Europa del Este
