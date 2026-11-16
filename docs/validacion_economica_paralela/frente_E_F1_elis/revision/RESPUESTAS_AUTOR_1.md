@@ -25,7 +25,7 @@
 | C9 | c8764494d9911c59a67a530f13b56616fe86707c | Segunda presentación de cinco entradas del ancla de S2C (R17, R39 y R40 de 2021–22); hueco del verificador hallado por el autor: columnas por país. Sin revisar (tercera parte) |
 | C10 | 95b37e6da22bd4d5adb55c3f09c729b8d4e409f1 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 4 (P1–P5): criterio de formato de recuento, título de país o de segmento sobre la tabla, páginas sin identidad entre páginas, precisiones de forma (cuarta parte) |
 | C11 | 364129afd45ba2e54a1df4141fd50e97fd55ef6d | Registra el hash de C10. Congelado de la revisión n.º 5 |
-| C12 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 5 (Q1–Q7): columnas del mismo año y de apertura, columna «published», celdas y llamadas de la cabecera, título del bloque hasta la página anterior, rótulos de segmento normalizados, R41, R8 de 2021–22, R24 de 2023 y R42 (quinta parte) |
+| C12 | 4f3f9ba9c8240143269368c41787736b3867e97b (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 5 (Q1–Q7): columnas del mismo año y de apertura, columna «published», celdas y llamadas de la cabecera, título del bloque hasta la página anterior, rótulos de segmento normalizados, R41, R8 de 2021–22, R24 de 2023 y R42 (quinta parte) |
 
 ## Marcas y pruebas
 
