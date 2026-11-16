@@ -14,13 +14,14 @@ Marcas usadas en todo el informe:
    - 752 cifras y citas de cinco informes anuales de Elis comprobadas contra los bytes de los PDF en seis dimensiones: literal (página, posición y signo), ejercicio, concepto de la columna, unidad, perímetro y edición.
    - Resultado: 738 filas sin incoherencia detectada en ninguna dimensión, 14 PENDIENTE y ninguna en FALLO. Las 14 son filas de arrendamientos de una página del URD 2022 (p.302) en la que el verificador no encuentra ni la unidad ni la cabecera de columnas: quedan PENDIENTE en esas dos dimensiones. Solo una se usa, como contraparte de una identidad.
    - **OK significa que las reglas automáticas no detectan ninguna incoherencia en esa dimensión, no que la cifra esté acreditada** (revisión n.º 3, N1). El concepto de la línea es una declaración: lo acreditan una identidad, el libro o una lectura independiente.
-   - Test del verificador: 108/108. Acepta 21 positivos reales y rechaza 66 contraejemplos, cada uno en la dimensión que debe detectarlo. Deja en PENDIENTE 21 casos:
+   - Test del verificador: 117/117. Acepta 23 positivos reales y rechaza 71 contraejemplos, cada uno en la dimensión que debe detectarlo. Deja en PENDIENTE 23 casos:
      - el control manual justificado;
      - la columna de una sociedad adquirida;
      - dos recuentos de acciones sin rótulo de recuento (revisión n.º 4, P1);
      - seis cifras de bloques de un país bajo su título (revisión n.º 4, P2, y n.º 5, Q4);
-     - once filas de la revisión n.º 6: columnas por marca y por firma auditora, una tabla de vencimientos con la cuenta de columnas desplazada, una línea de prosa, el valor en libros bajo «Valeur comptable», un título de tabla «Mexico», una cabecera con países y sin columna reconocida y la columna de ajuste de una tabla de reexpresión.
-     Incluye los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, los M1–M4 de la revisión n.º 1, los de N1, los contraejemplos de la adenda de la revisión n.º 3, la columna de un país en una tabla con columnas por país (C9) y los de las revisiones n.º 4, 5 y 6.
+     - once filas de la revisión n.º 6: columnas por marca y por firma auditora, una tabla de vencimientos con la cuenta de columnas desplazada, una línea de prosa, el valor en libros bajo «Valeur comptable», un título de tabla «Mexico», una cabecera con países y sin columna reconocida y la columna de ajuste de una tabla de reexpresión;
+     - dos de la revisión n.º 7: la tabla de hipótesis con una columna por país y sin declaración de unidades ni de ejercicios.
+     Incluye los mutantes conjuntos de posición y literal, año, unidad, perímetro y edición, los M1–M4 de la revisión n.º 1, los de N1, los contraejemplos de la adenda de la revisión n.º 3, la columna de un país en una tabla con columnas por país (C9) y los de las revisiones n.º 4 a 7.
    - Test de los residuos: 24/24. Con el verificador saltado a propósito, los residuos hacen fallar por sí solos el cálculo ante una cifra de otro año o de otra línea, y la excepción fijada no absorbe un error nuevo mayor que su cota. Los errores menores que la cota no los detecta ninguna identidad, y el test documenta ese límite. También falla si la verificación no es la del CSV usado.
 2. **Conciliación 2021–2025.** Las 126 identidades cierran dentro de su cota de redondeo [D] (71 de la ventana en la revisión n.º 3; ahora también 2021–2022, los totales de inversión y financiación y la coincidencia entre ediciones):
    - la cota es la suma de media unidad de la última cifra impresa de cada cifra que interviene (de 0,10 a 0,50 según la identidad);
@@ -33,8 +34,8 @@ Marcas usadas en todo el informe:
      - ninguna de las 140, 2 y 31 restantes mueve la referencia;
    - **qué acredita cada clase** (revisión n.º 4, P3):
      - una identidad entre páginas acredita el número y, de forma indirecta, su unidad y su perímetro, porque otra presentación de otro perímetro o de otra unidad la rompería. **La clase es por pertenencia**, no por sensibilidad (revisión n.º 6, R6): basta que la entrada intervenga en una identidad entre páginas. Lo que acredita es el número salvo un error dentro del intervalo que ninguna de esas identidades detecta, que `cobertura_entradas` da para cada entrada (`errores_sin_deteccion_entre_paginas`):
-       - 145 entradas lo detectan desde 2 unidades de su última cifra, 99 entre 2 y 5, y 2 entre 5 y 10: el FCF antes de impuestos y los impuestos pagados de 2024, por R11, que no detecta errores de −0,55 a +0,15;
-       - las ventas de 2021 a 2025 y las de 2020, desde ±0,1, por R23 y R40. Hasta C12 las de 2021 y 2022 solo tenían R42, que no detecta errores de −0,20 a +0,85 y de −2,30 a +0,26;
+       - el mayor error que no se detecta es de 2 unidades de la última cifra o menos en 145 entradas, de 2 a 5 en 99 y de 5 a 10 en 2: el FCF antes de impuestos y los impuestos pagados de 2024, por R11, que no detecta errores de −0,55 a +0,15. Contado de otro modo (revisión n.º 7, S6 d), un error en los dos sentidos se detecta desde 1 unidad en 5 entradas, desde 2 en 112, desde 3 en 69, desde 4 en 17, desde 5 en 33 y desde 6 en 10 (`detecta_desde_unidades`). Un error igual al umbral no se detecta;
+       - las ventas de 2021 a 2025 y las de 2020, por encima de ±0,1, por R23 y R40: un error de 0,1 exacto no se detecta y uno de 0,2, sí (revisión n.º 7, S6 c). Hasta C12 las de 2021 y 2022 solo tenían R42, que no detecta errores de −0,20 a +0,85 y de −2,30 a +0,26;
        - el crecimiento publicado de cada año solo tiene R42 entre páginas. No detecta errores de −0,030 a +0,077 puntos en 2021, de −0,008 a +0,099 en 2022, de −0,068 a +0,038 en 2023, de −0,019 a +0,085 en 2024 y de −0,074 a +0,030 en 2025 (`umbrales_entre_paginas`);
      - una identidad de la misma página solo acredita la coherencia interna de su tabla: una tabla entera de otro perímetro cuadra igual;
      - la Historia acredita el número, salvo un error común a las dos transcripciones;
@@ -64,7 +65,7 @@ Marcas usadas en todo el informe:
 11. **Revisiones independientes.**
     - La n.º 1 planteó 17 objeciones, 3 materiales, y ninguna invierte una conclusión material. La respuesta individual a cada una, con su commit y su prueba, está en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), junto con la respuesta al contraste externo sobre 6fb9294.
     - Las n.º 3 a 7 revisaron las correcciones sucesivas sobre commits congelados (§12).
-    - La n.º 7 revisó C14 y plantea S1–S7, sin efecto en las filas reales; su respuesta (C16) está en preparación ([revision/ESTADO.md](revision/ESTADO.md)).
+    - La n.º 7 revisó C14 y planteó S1–S7, sin efecto en las filas reales. Lo corregido en C16 está **pendiente** de la pasada 8 ([revision/ESTADO.md](revision/ESTADO.md)).
 
 ---
 
@@ -94,6 +95,11 @@ Marcas usadas en todo el informe:
       Desde C14 (revisión n.º 6, R1):
       - la asignación por orden exige además que cada número de la línea esté alineado con su columna, a 14 caracteres o menos. Una cuenta de columnas que coincide por accidente ya no desplaza las cifras (URD 2022 p.302). En las columnas de concepto (familias) no se exige: sus cabeceras van alineadas a la izquierda;
       - si entre la declaración de unidades y la fila empieza otra tabla, la cabecera es la de esa tabla y no la de la anterior;
+
+      Desde C16 (revisión n.º 7):
+      - el título numerado de la tabla y su continuación sangrada no son cabecera de columnas: su año no es una columna (S1);
+      - una fila cuyo rótulo, aunque esté partido, lleva la fecha de un saldo («Balance as at December / 31, 2021») es de ese ejercicio (S1). En el barrido del revisor n.º 6, 346 candidatas pasan así a OK, todas saldos con la fecha en el rótulo (séptima parte de las respuestas);
+      - la primera línea de un rótulo partido, justo encima de la fila, no es la cabecera de ejercicios (S4);
     - en las demás, tabla de crecimiento (solo porcentajes), bloque de movimientos, saldo con fecha, apertura y cierre en la cabecera o año aislado sobre la tabla;
     - el modo de cada concepto es una lista cerrada (`modo_admitido`): la fila no puede declarar otro;
     - en la prosa, el ejercicio de la publicación;
@@ -106,6 +112,7 @@ Marcas usadas en todo el informe:
     - vuelve el criterio de C10, acotado: el título corto de una sola celda que va encima de la cabecera de la tabla y nombra un país («Mexico», «Interest rate swap – Chile») deja el perímetro PENDIENTE; la prosa, las líneas con cifras y las de datos cortan la búsqueda (R4);
     - una cabecera que nombra tres países o más y no tiene ninguna columna reconocida deja el perímetro PENDIENTE (R4);
     - el prefijo «CGU»/«UGT» se quita también al comparar el rótulo con los países: la tabla del fondo de comercio por UGE es una tabla por países (R5);
+    - desde C16 (revisión n.º 7): una línea de cifras sin rótulo toma el de las líneas de rótulo contiguas de arriba y de abajo (S2); la pestaña del capítulo en el margen («6») no es el rótulo (S3); una tabla sin declaración de unidades ni línea de ejercicios con una cabecera de columnas por país deja el perímetro PENDIENTE (S4); un encabezado numerado en prosa, con comillas o puntuación final, no cuenta como título (S5);
   - **edición:** el pie de cada página («Elis | Universal Registration Document AAAA») debe coincidir con la fuente, y la fuente debe ser la que exige la regla de edición de la Historia o estar declarada «anterior». Desde C12, la columna «published», «reported» o «publié» de una tabla de reexpresión no puede declararse vigente: es la cifra de la edición anterior (revisión n.º 5, Q1). Desde C14, una cifra bajo una cabecera ajena, como la columna de ajuste «IFRS 3», ya no se marca como de la columna publicada (revisión n.º 6, R8 b).
 
   Límites que quedan:
@@ -116,17 +123,17 @@ Marcas usadas en todo el informe:
     - en las tablas con varias medidas bajo una misma fecha, la columna que queda bajo la fecha se acepta, como el valor en libros de la tabla de instrumentos financieros (URD 2023 p.338), y las demás quedan PENDIENTE;
     - en las de vencimientos, el valor en libros y el total sin descontar quedan PENDIENTE. En C12 el URD 2022 p.302 daba un OK y un FALLO (R1), y el DEU 2024 p.323, FALLO a los valores en libros (R3);
     - bajo una cabecera ajena, una cifra queda en FALLO si la columna de otro ejercicio está alineada con ella y en PENDIENTE si no;
-  - la regla de grupos de columnas no distingue una columna por firma auditora (los honorarios que el grupo paga a cada firma) de una por marca: las dos quedan PENDIENTE (revisión n.º 6, R1 y R2);
+  - la regla de grupos de columnas no distingue una columna por firma auditora (los honorarios que el grupo paga a cada firma) de una por marca: las dos quedan PENDIENTE (revisión n.º 6, R1 y R2). No ve la tabla de las marcas con un solo ejercicio (URD 2021–2023) ni la de las marcas sin ejercicios (URD 2022 p.305); en esta última, el perímetro lo retiene el título de la tabla anterior, «Sweden», con un motivo inexacto (revisión n.º 7, §5 a y S7 d);
   - por eso cuentan la segunda línea y la cobertura de `contraste_f1.py`, y por eso las 8 páginas sin identidad entre páginas quedan como cobertura pendiente.
 
   Resultado: 738 sin incoherencia detectada, 14 PENDIENTE (URD 2022 p.302, sin unidad ni cabecera de columnas localizables) y 0 FALLO. Código de salida 2: hay pendientes. La salida guarda las huellas del CSV y de `fuentes.json`.
 - `scripts/sondas_metadatos.py`: reproduce las sondas externas sobre eb77dea, que cambian un solo campo con el año correcto, y las extiende a todas las filas de tabla. Primero cambia solo la unidad de cada fila; después, solo el perímetro. Resultados en `resultados/sondas_metadatos_*.json`:
   - en eb77dea no detecta ninguna (0 de 671 en cada caso): la unidad y el perímetro no se comprobaban;
   - en el commit congelado 1864c4e detecta 677/677 en unidad y 673/677 en perímetro. Las 4 restantes son totales de una matriz por segmentos declarados «segmento Francia», que quedaban PENDIENTE en lugar de FALLO;
-  - en f30c66c, 677/677 en las dos; en C7, 697/697; en C9, 704/704; en C12, 711/711, y en C14, 713/713.
+  - en f30c66c, 677/677 en las dos; en C7, 697/697; en C9, 704/704; en C12, 711/711, y en C14 y C16, 713/713.
 
   **Qué miden** (revisión n.º 3, N10): que una etiqueta cambiada se detecta, no que se rechace una cifra de otra unidad o de otro perímetro con una etiqueta verosímil. Esos casos (P1, P2a, U1, U2, B1, B2 y C1 de la revisión n.º 3) son contraejemplos del test.
-- `scripts/test_verificar_cifras.py`: 108 casos: 21 positivos reales, 21 PENDIENTE esperados y 66 contraejemplos. Los de las revisiones n.º 5 y 6 se construyen desde la página del PDF, con la línea fijada entera, como en los scripts de los revisores. Algunos fijan además el estado de una dimensión concreta o exigen que un motivo no aparezca. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
+- `scripts/test_verificar_cifras.py`: 117 casos: 23 positivos reales, 23 PENDIENTE esperados y 71 contraejemplos. Los de las revisiones n.º 5 a 7 se construyen desde la página del PDF, con la línea fijada entera, como en los scripts de los revisores. Algunos fijan además el estado de una dimensión concreta o exigen que un motivo no aparezca. Cada contraejemplo debe detectarse en su dimensión. En los mutantes coherentes se cambian a la vez la posición, el literal, el valor, la página o la fuente, de modo que el literal sigue siendo el impreso: solo la dimensión señalada puede rechazarlos y las demás no deben fallar.
 - `scripts/contraste_f1.py`: 292 comprobaciones, todas OK, de tres clases:
   - 136 contra el libro. 18 de ellas son de una copia temporal del libro recalculada con LibreOffice con exceso de caja de 0, 250 y −80 (`scripts/prueba_caja_no_nula.py`);
   - 127 de fuente: las dos vías independientes del FCF base y 126 residuos de conciliación, cada uno afirmado con su cota de redondeo y una sola diferencia de concepto fijada;
@@ -216,12 +223,12 @@ Desde C12 (revisión n.º 5, Q5 y Q6):
 - R42, de 2021 a 2025: crecimiento publicado frente al crecimiento de las ventas de las cuentas de resultados.
   - Residuos de −0,045 a +0,022, con cotas de 0,052 a 0,054 [D]. No es lineal: la cota se calcula linealizando.
   - Ancla las tablas de crecimiento, porque una fila de segmento la rompe.
-  - Su sensibilidad a las ventas es pequeña (revisión n.º 6, R6). Ninguna R42 detecta en las ventas errores de −0,78 a +1,99 en 2020, de −0,20 a +0,85 en 2021, de −2,30 a +0,26 en 2022, de −0,78 a +2,59 en 2023, de −3,24 a +0,83 en 2024 y de −1,38 a +3,40 en 2025 [D]. Hasta C12 era lo único que contrastaba entre páginas las ventas de 2021 y 2022; desde C14 las ventas de todos los años tienen además R23 o R40, que las contrastan desde ±0,1.
+  - Su sensibilidad a las ventas es pequeña (revisión n.º 6, R6). Ninguna R42 detecta en las ventas errores de −0,78 a +1,99 en 2020, de −0,20 a +0,85 en 2021, de −2,30 a +0,26 en 2022, de −0,78 a +2,59 en 2023, de −3,24 a +0,83 en 2024 y de −1,38 a +3,40 en 2025 [D]. Hasta C12 era lo único que contrastaba entre páginas las ventas de 2021 y 2022; desde C14 las ventas de todos los años tienen además R23 o R40, que las contrastan por encima de ±0,1.
   - En el crecimiento publicado, R42 no detecta errores de −0,030 a +0,077 puntos en 2021, de −0,008 a +0,099 en 2022, de −0,068 a +0,038 en 2023, de −0,019 a +0,085 en 2024 y de −0,074 a +0,030 en 2025 [D] (`cobertura_entradas.umbrales_entre_paginas`).
   - Compara el crecimiento de la publicación de cada ejercicio con las ventas de la edición vigente, que es la siguiente. Cierra porque las ventas no se reexpresaron. Si se reexpresaran, fallaría sin error en los datos [I] (observación de la revisión n.º 6, §5.3).
 
 Desde C14 (revisión n.º 6, R6):
-- R23 de 2021–22: ventas de la cuenta de resultados frente a la información por segmentos de la publicación vigente (URD 2022 p.258 y p.279; URD 2023 p.276 y p.296), como en 2023–25. Residuo 0,0 los dos años, cota 0,10. Las ventas de 2021 y 2022 quedan contrastadas entre páginas desde ±0,1.
+- R23 de 2021–22: ventas de la cuenta de resultados frente a la información por segmentos de la publicación vigente (URD 2022 p.258 y p.279; URD 2023 p.276 y p.296), como en 2023–25. Residuo 0,0 los dos años, cota 0,10. Las ventas de 2021 y 2022 quedan contrastadas entre páginas por encima de ±0,1.
 
 El informe de gestión del URD 2022 (p.247) imprime las adquisiciones de 2021 como (86,9) bajo la cabecera «2021 restated». Es la cifra publicada antes del ajuste IFRS 3 de 0,1: la tabla de reexpresión (p.271) da (86,9) + 0,1 = (86,8), la del EFE [P]. Por eso R39 usa la nota 2.4 y no esa tabla. La diferencia, 0,1, queda dentro de la cota de R39: ninguna identidad distingue la cifra publicada de la reexpresada.
 
@@ -685,7 +692,7 @@ Estado y documentos en [revision/](revision/).
 - **Revisión de lo afectado por las correcciones de N1–N10** (pasada 4, sobre el congelado 9744177): **hecha** (a15f706, 22:04 UTC). Reproduce todas las cifras, da por corregidas N2–N10 y N1 en parte y plantea P1–P5. Copia y procedencia en `revision/`. Respuesta en C10 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), cuarta parte). Hasta que conste, esas correcciones no están revisadas de forma independiente.
 - **Revisión n.º 5** (lo afectado por C9 y C10, sobre el congelado 364129a): **hecha** por una sesión de revisión nueva (595d2f6, 23:19 UTC). Reproduce todas las cifras, confirma las siete filas de C9 y plantea Q1–Q7. Copia y procedencia en `revision/`. Respuesta en C12 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), quinta parte).
 - **Revisión n.º 6** (lo afectado por C12, sobre el congelado 1b80b5d): **hecha** por otra sesión de revisión nueva (9711f04, 01:24 UTC). Reproduce todas las cifras, confirma las filas nuevas de C12 y plantea R1–R8: efectos de las correcciones de C12 en el verificador, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C14 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), sexta parte).
-- **Revisión n.º 7** (lo afectado por C14, sobre el congelado c96d544): **hecha** por otra sesión de revisión nueva (d192cab, 04:18 UTC). Reproduce todas las cifras, confirma las dos filas nuevas y los intervalos de detección, da por sostenidas las tres decisiones de C14 que no seguían la propuesta de la revisión n.º 6 y plantea S1–S7: restos de las clases de R3, R4 y R5 y casos de líneas sin rótulo, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en preparación (C16).
+- **Revisión n.º 7** (lo afectado por C14, sobre el congelado c96d544): **hecha** por otra sesión de revisión nueva (d192cab, 04:18 UTC). Reproduce todas las cifras, confirma las dos filas nuevas y los intervalos de detección, da por sostenidas las tres decisiones de C14 que no seguían la propuesta de la revisión n.º 6 y plantea S1–S7: restos de las clases de R3, R4 y R5 y casos de líneas sin rótulo, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C16 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), séptima parte). **Lo corregido en C16 está pendiente de la pasada 8.**
 
 ## 13. Reproducción
 

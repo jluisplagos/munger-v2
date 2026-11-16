@@ -1,0 +1,256 @@
+
+
+F. Falsos negativos nuevos de C12: el mismo año repetido en la cabecera, una vez por medida o por entidad
+----------------------------------------------------------------------------------------------------
+
+F1 · impuesto reconocido en IRLANDA en 2025 (1,8); la fila es un desglose por jurisdicción fiscal, no el grupo
+    URD2025 p.393 l.67 · «› of which Ireland  13.4  1.8  13.4%  8.2  2.0  24.7%» · token «1.8» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea «› of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «› of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F2 · resultado antes de impuestos de IRLANDA en 2025 (13,4)
+    URD2025 p.393 l.67 · «› of which Ireland  13.4  1.8  13.4%  8.2  2.0  24.7%» · token «13.4» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea «› of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «› of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F3 · resultado antes de impuestos de IRLANDA en 2023 (10,1)
+    DEU2024FR p.338 l.64 · «dont Irlande  8,2  2,0  24,7%  10,1  1,3  13,0%» · token «10,1» · declarado 2023, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea «dont Irlande» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «dont Irlande» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F4 · resultado antes de impuestos de IRLANDA en 2024 (8,2)
+    DEU2024FR p.338 l.64 · «dont Irlande  8,2  2,0  24,7%  10,1  1,3  13,0%» · token «8,2» · declarado 2024, mm EUR, grupo, edición anterior
+    C14: FALLO · perimetro FALLO: la línea «dont Irlande» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «dont Irlande» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F5 · impuesto reconocido FUERA DE LA UNIÓN EUROPEA en 2023 (27,2)
+    DEU2024FR p.338 l.68 · «Hors Union européenne  92,0  29,7  32,3%  100,7  27,2  27,0%» · token «27,2» · declarado 2023, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea «Hors Union européenne» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «Hors Union européenne» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F6 · impuesto reconocido en IRLANDA en 2023 (1,3)
+    URD2023 p.346 l.74 · «of which Ireland  10.1  1.3  13.0%» · token «1.3» · declarado 2023, mm EUR, grupo, edición anterior
+    C14: FALLO · perimetro FALLO: la línea «of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+    C16: FALLO · perimetro FALLO: la línea «of which Ireland» es de una jurisdicción, una región o el desglose de un país, no del grupo
+
+F7 · control: total del grupo, impuesto reconocido en 2025 (126,2)
+    URD2025 p.393 l.74 · «TOTAL  492.9  126.2  25.6%  465.9  128.3  27.5%» · token «126.2» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: OK en las seis dimensiones
+    C16: OK en las seis dimensiones
+
+F8 · control: fila «France» de la misma tabla
+    URD2025 p.393 l.64 · «France  141.4  39.9  28.2%  163.7  46.4  28.3%» · token «39.9» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea es del segmento Francia, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es del segmento Francia, no del grupo
+
+F9 · tasa de descuento de la marca KENNEDY HYGIENE (10,3 %); columna de una sociedad
+    URD2025 p.371 l.60 · «Discount rate  9.1%  9.3%  9.1%  9.3%  10.3%  10.3%» · token «10.3%» · declarado 2025, %, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Kennedy Hygiene»: el perímetro del grupo no 
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Kennedy Hygiene»: el perímetro del grupo no 
+
+F10 · tasa de regalía de la marca LE JACQUARD FRANÇAIS (4,0 %)
+    URD2025 p.371 l.62 · «Royalty rate  1.0%  1.0%  4.0%  4.0%  2.0%  2.0%» · token «4.0%» · declarado 2025, %, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Le Jacquard Français»: el perímetro del grup
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Le Jacquard Français»: el perímetro del grup
+
+F11 · tasa de descuento de la marca KENNEDY HYGIENE (10,3 %)
+    DEU2024FR p.317 l.61 · «Taux d'actualisation  9,3%  9,0%  9,3%  9,0%  10,3%  9,6%» · token «10,3%» · declarado 2024, %, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Kennedy Hygiene»: el perímetro del grupo no 
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Kennedy Hygiene»: el perímetro del grupo no 
+
+F12 · misma línea, marca ELIS (9,3 %)
+    DEU2024FR p.317 l.61 · «Taux d'actualisation  9,3%  9,0%  9,3%  9,0%  10,3%  9,6%» · token «9,3%» · declarado 2024, %, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Elis»: el perímetro del grupo no se puede ac
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Elis»: el perímetro del grupo no se puede ac
+
+F13 · TOTAL DE FLUJOS FUTUROS SIN DESCONTAR a 31-12-2022 (612,1); no es el pasivo por arrendamientos
+    URD2022 p.302 l.39 · «Lease liabilities  485.5  114.3  99.3  222.6  176.0  612.1» · token «612.1» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «of», que no es una columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «of», que no es una columna reconocida
+
+F14 · valor en libros del pasivo por arrendamientos a 31-12-2022 (485,5): la cifra legítima
+    URD2022 p.302 l.39 · «Lease liabilities  485.5  114.3  99.3  222.6  176.0  612.1» · token «485.5» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+
+F15 · control en otra edición: total de flujos sin descontar a 31-12-2025 (856,9)
+    URD2025 p.366 l.41 · «Lease liabilities  703.2  169.1  151.1  309.7  227.0  856.9» · token «856.9» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «flows», que no es una columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «flows», que no es una columna reconocida
+
+F16 · control en otra edición: valor en libros a 31-12-2025 (703,2)
+    URD2025 p.366 l.41 · «Lease liabilities  703.2  169.1  151.1  309.7  227.0  856.9» · token «703.2» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+
+F17 · honorarios de 2025 de UNA de las dos firmas auditoras (0,6), no el total del grupo
+    URD2025 p.402 l.51 · «TOTAL  0.8  0.8  0.6  0.6» · token «0.6» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «PricewaterhouseCoopers Audit»: el perímetro 
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «PricewaterhouseCoopers Audit»: el perímetro 
+
+F18 · honorarios de 2025 de la otra firma (0,8)
+    URD2025 p.402 l.51 · «TOTAL  0.8  0.8  0.6  0.6» · token «0.8» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars»: el perímetro del grupo no se
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars»: el perímetro del grupo no se
+
+F19 · línea de prosa: variación de 2023 frente a 2022, declarada 2022
+    URD2023 p.261 l.22 · «Net income from ordinary operations at €433.4 million, up 23.4%  Net income at €262.4 million, up 29.5%» · token «23.4%» · declarado 2022, %, grupo, edición vigente
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+
+
+G. Falsos positivos nuevos de C12: cifras legítimas que pasan a PENDIENTE o a FALLO
+----------------------------------------------------------------------------------------------------
+
+G1 · total de honorarios de auditores de 2021 (nota 13): cifra del grupo. Encima, en la página, termina la lista de sociedades
+    URD2021 p.298 l.25 · «TOTAL  0.6  0.6  100%  100%  0.4  0.4  100%  100%» · token «0.6» · declarado 2021, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+
+G2 · total de honorarios de auditores de 2022 (nota 13)
+    URD2022 p.336 l.29 · «TOTAL  0.7  0.6  100%  100%  0.4  0.4  100%  100%» · token «0.7» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+
+G3 · total de honorarios de auditores de 2023 (nota 13)
+    URD2023 p.355 l.41 · «TOTAL  0.6  0.7  100%  100%  0.4  0.4  100%  100%» · token «0.6» · declarado 2023, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Mazars / Amount (excl tax)»: el perímetro de
+
+G4 · total de honorarios de auditores de 2024 (nota 13)
+    DEU2024FR p.347 l.43 · «TOTAL  0,8  0,6  100%  100%  0,6  0,4  100%  100%» · token «0,8» · declarado 2024, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars / Montant (HT)»: el perímetro 
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars / Montant (HT)»: el perímetro 
+
+G5 · control: en el URD 2025 el encabezado de la nota 13 ocupa dos líneas
+    URD2025 p.402 l.45 · «Fees relating to the independent audit*  0.6  0.6  0.3  0.3» · token «0.6» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars»: el perímetro del grupo no se
+    C16: PENDIENTE · perimetro PENDIENTE: la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «Forvis Mazars»: el perímetro del grupo no se
+
+G6 · valor en libros (coste amortizado) de las obligaciones convertibles a 31-12-2024 (354,6)
+    DEU2024FR p.323 l.15 · «convertibles  354,6  0,0  8,6  0,0  8,6  380,0  8,6  0,0  0,0  380,0  25,7» · token «354,6» · declarado 2024, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «de», que no es una columna reconocida; la columna reconocida más próxima (2025) e
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «de», que no es una columna reconocida; la columna reconocida más próxima (2025) e
+
+G7 · valor en libros del USPP a 31-12-2024 (705,8)
+    DEU2024FR p.323 l.16 · «USPP  705,8  0,0  23,3  0,0  23,3  338,5  65,5  361,0  69,1  699,5  181,2» · token «705,8» · declarado 2024, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «de», que no es una columna reconocida; la columna reconocida más próxima (2025) e
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token está bajo la cabecera «de», que no es una columna reconocida; la columna reconocida más próxima (2025) e
+
+G8 · control en otra edición: valor en libros de los convertibles a 31-12-2025 (364,4)
+    URD2025 p.377 l.14 · «Convertible bonds  364.4  0.0  8.6  0.0  8.6  380.0  8.6  0.0  0.0  380.0  25.7» · token «364.4» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+
+G9 · plan de acciones de rendimiento n.º 21 (nota 5.4, del grupo); encima termina el bloque «SWITZERLAND – DETAILS» de pensiones
+    URD2025 p.360 l.20 · «Number of rights originally granted  500,500  1,251,994  6,559  990,040  29,250  16,730  1,214,573  16,880» · token «990,040» · declarado 2024, mm EUR, grupo, edición vigente
+    C14: FALLO · unidad FALLO: la línea «Number of rights originally granted» es un recuento, un importe por acción o un margen, no millones de euros
+    C16: FALLO · unidad FALLO: la línea «Number of rights originally granted» es un recuento, un importe por acción o un margen, no millones de euros
+
+
+H. Perímetro: título de tabla en caja normal y columnas por país sin columna de fecha
+----------------------------------------------------------------------------------------------------
+
+H1 · tabla de sensibilidad del deterioro de la UGE MÉXICO (título de tabla «Mexico»)
+    URD2025 p.371 l.10 · «WACC  9.9%  226.2  245.8  268.2  294.0  324.2» · token «226.2» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «Mexico» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «Mexico» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+H2 · combinaciones de negocio de 2022: columna ALEMANIA (16,9)
+    URD2022 p.274 l.15 · «Intangible assets  23.8  16.9  -  1.9  -  0.2  1.6  -  1.1  0.2  0.1  0.6  0.9  -  0.3» · token «16.9» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: la cabecera nombra países (Brazil, Chile, Colombia, Denmark, France, Germany, Ireland, Mexico, Norway, Spain, Sweden) y no tiene ninguna columna recon
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: la cabecera nombra países (Brazil, Chile, Colombia, Denmark, France, Germany, Ireland, Mexico, Norway, Spain, Sweden) y no tiene ninguna columna recon
+
+H3 · control: primera columna, valor razonable total (23,8)
+    URD2022 p.274 l.15 · «Intangible assets  23.8  16.9  -  1.9  -  0.2  1.6  -  1.1  0.2  0.1  0.6  0.9  -  0.3» · token «23.8» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: la cabecera nombra países (Brazil, Chile, Colombia, Denmark, France, Germany, Ireland, Mexico, Norway, Spain, Sweden) y no tiene ninguna columna recon
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: la cabecera nombra países (Brazil, Chile, Colombia, Denmark, France, Germany, Ireland, Mexico, Norway, Spain, Sweden) y no tiene ninguna columna recon
+
+H4 · tabla «Interest rate swap – Chile»: tipo fijo del swap de la filial chilena
+    URD2021 p.288 l.25 · «Fixed rate  6.72%  -» · token «6.72%» · declarado 2021, %, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «Interest rate swap – Chile» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «Interest rate swap – Chile» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+H5 · tabla de sensibilidad del deterioro de la UGE FRANCIA (título de tabla «France»)
+    URD2023 p.323 l.21 · «WACC  7.0%  1,024.5  1,244.6  1,509.0  1,832.6  2,237.7» · token «1,024.5» · declarado 2023, mm EUR, grupo, edición anterior
+    C14: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «France» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: PENDIENTE · ejercicio PENDIENTE: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles · perimetro PENDIENTE: el título «France» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+
+I. Controles de las correcciones de Q1–Q5 con filas elegidas por el revisor
+----------------------------------------------------------------------------------------------------
+
+I1 · balance del URD 2021: total activo a 31-12-2021 (8.039,5)
+    URD2021 p.228 l.28 · «TOTAL ASSETS  8,039.5  7,862.4  8,198.0» · token «8,039.5» · declarado 2021, mm EUR, grupo, edición anterior
+    C14: OK en las seis dimensiones
+    C16: OK en las seis dimensiones
+
+I2 · ídem a 31-12-2020 reexpresado (7.862,4)
+    URD2021 p.228 l.28 · «TOTAL ASSETS  8,039.5  7,862.4  8,198.0» · token «7,862.4» · declarado 2020, mm EUR, grupo, edición vigente
+    C14: OK en las seis dimensiones
+    C16: OK en las seis dimensiones
+
+I3 · ídem, saldo de apertura 01-01-2020 (8.198,0) declarado 2020: debe fallar
+    URD2021 p.228 l.28 · «TOTAL ASSETS  8,039.5  7,862.4  8,198.0» · token «8,198.0» · declarado 2020, mm EUR, grupo, edición vigente
+    C14: FALLO · ejercicio FALLO: la columna es de 2019, no de 2020
+    C16: FALLO · ejercicio FALLO: la columna es de 2019, no de 2020
+
+I4 · ídem, columna de 2020 declarada 2021: debe fallar
+    URD2021 p.228 l.28 · «TOTAL ASSETS  8,039.5  7,862.4  8,198.0» · token «7,862.4» · declarado 2021, mm EUR, grupo, edición anterior
+    C14: FALLO · ejercicio FALLO: la columna es de 2020, no de 2021
+    C16: FALLO · ejercicio FALLO: la columna es de 2020, no de 2021
+
+I5 · tabla de reexpresión: adquisiciones de 2021, columna «published» (86,9): debe fallar en edición
+    URD2022 p.271 l.40 · «Acquisition of subsidiaries, net of cash acquired  (86.9)  0.1  (86.8)» · token «(86.9)» · declarado 2021, mm EUR, grupo, edición vigente
+    C14: FALLO · edicion FALLO: la columna es la publicada antes de la reexpresión («published», «reported» o «publié»): cifra de la edición anterior, no la vigente
+    C16: FALLO · edicion FALLO: la columna es la publicada antes de la reexpresión («published», «reported» o «publié»): cifra de la edición anterior, no la vigente
+
+I6 · ídem, columna «restated» (86,8): la vigente
+    URD2022 p.271 l.40 · «Acquisition of subsidiaries, net of cash acquired  (86.9)  0.1  (86.8)» · token «(86.8)» · declarado 2021, mm EUR, grupo, edición vigente
+    C14: OK en las seis dimensiones
+    C16: OK en las seis dimensiones
+
+I7 · sensibilidad de las pensiones de Irlanda a 31-12-2023 (+8,8 %); su cabecera propia es «12/31/2023»
+    URD2023 p.309 l.26 · «Discount rate: -0.5% impact  +8.8%» · token «+8.8%» · declarado 2023, %, grupo, edición anterior
+    C14: PENDIENTE · perimetro PENDIENTE: el título «IRELAND – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: PENDIENTE · perimetro PENDIENTE: el título «IRELAND – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+I8 · ídem, declarada 2022: debe fallar (C11 la aceptaba)
+    URD2023 p.309 l.26 · «Discount rate: -0.5% impact  +8.8%» · token «+8.8%» · declarado 2022, %, grupo, edición vigente
+    C14: FALLO · ejercicio FALLO: la columna es de 2023, no de 2022 · perimetro PENDIENTE: el título «IRELAND – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: FALLO · ejercicio FALLO: la columna es de 2023, no de 2022 · perimetro PENDIENTE: el título «IRELAND – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+I9 · obligaciones de FRANCIA de 2022 (40,1), bloque «FRANCE – DETAILS» (caso de Q4)
+    URD2023 p.308 l.43 · «Total value of defined benefit plan obligations (1)  44.1  40.1» · token «40.1» · declarado 2022, mm EUR, grupo, edición vigente
+    C14: PENDIENTE · perimetro PENDIENTE: el título «FRANCE – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+    C16: PENDIENTE · perimetro PENDIENTE: el título «FRANCE – DETAILS» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+
+I10 · tabla de crecimiento: rótulo partido «United Kingdom / and Ireland» (caso de Q5)
+    URD2022 p.243 l.38 · «and Ireland  476.5  364.2  28.8%  1.2%  0.9%  30.8%» · token «476.5» · declarado 2022, mm EUR, grupo, edición anterior
+    C14: FALLO · perimetro FALLO: la línea es del segmento Reino Unido e Irlanda, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es del segmento Reino Unido e Irlanda, no del grupo
+
+I11 · fondo de comercio de la UGE FRANCIA (caso E15 de Q5): debe fallar
+    URD2025 p.363 l.38 · «CGU France  1,442.9  1,424.3» · token «1,442.9» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea es del segmento Francia, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es del segmento Francia, no del grupo
+
+I12 · misma tabla: fondo de comercio de la UGE DINAMARCA (412,2), declarado del grupo
+    URD2025 p.363 l.40 · «CGU Denmark  412.2  412.8» · token «412.2» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea es de un país (Denmark) en una tabla por países, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es de un país (Denmark) en una tabla por países, no del grupo
+
+I13 · misma tabla: fondo de comercio de la UGE SUECIA Y FINLANDIA (538,5)
+    URD2025 p.363 l.39 · «CGU Sweden & Finland  538.5  508.6» · token «538.5» · declarado 2025, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea es de un país (Sweden) en una tabla por países, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es de un país (Sweden) en una tabla por países, no del grupo
+
+I14 · DEU 2024: fondo de comercio de la UGE IRLANDA de 2023 (76,1)
+    DEU2024FR p.309 l.49 · «UGT Irlande  76,1  76,1» · token «76,1» · declarado 2023, mm EUR, grupo, edición vigente
+    C14: FALLO · perimetro FALLO: la línea es de un país (Irlande) en una tabla por países, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es de un país (Irlande) en una tabla por países, no del grupo
+
+I15 · URD 2021: fondo de comercio de la UGE REINO UNIDO (101,4)
+    URD2021 p.265 l.17 · «CGU United Kingdom  101.4  86.9» · token «101.4» · declarado 2021, mm EUR, grupo, edición anterior
+    C14: FALLO · perimetro FALLO: la línea es de un país (United Kingdom) en una tabla por países, no del grupo
+    C16: FALLO · perimetro FALLO: la línea es de un país (United Kingdom) en una tabla por países, no del grupo

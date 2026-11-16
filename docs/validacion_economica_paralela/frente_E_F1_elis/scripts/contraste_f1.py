@@ -965,6 +965,9 @@ def main():
             lo, hi = sin_deteccion(i)
             cobertura[i]["errores_sin_deteccion_entre_paginas"] = [f6(lo, 3), f6(hi, 3)]
             cobertura[i]["umbral_en_unidades_de_la_ultima_cifra"] = f6(max(-lo, hi) / (2 * F.epsilon(i)), 2)
+            # (revisión n.º 7, S6 d) menor número entero de unidades de la última cifra con el que un error, en los dos
+            # sentidos, sí hace fallar alguna identidad entre páginas: un error igual al umbral no la hace fallar
+            cobertura[i]["detecta_desde_unidades"] = int(max(-lo, hi) / (2 * F.epsilon(i))) + 1
     # (Revisión n.º 4, P3) Una identidad de la misma página acredita la coherencia interna de su tabla, no su unidad ni su
     # perímetro: una tabla entera de otro perímetro o de otra unidad cuadra igual. La unidad y el perímetro solo los
     # acredita, de forma indirecta, una identidad entre páginas. Se marca, para cada entrada, si su página tiene alguna
@@ -990,6 +993,10 @@ def main():
             "contrastada con la Historia del libro": "el número, salvo un error común a las dos transcripciones de la misma publicación",
             "sin comprobación de segunda línea": "nada más que su literal y las reglas automáticas del verificador"},
         "umbrales_entre_paginas": {
+            "nota": ("los tramos son del mayor error que NO se detecta (umbral), en unidades de la última cifra; "
+                     "«detecta_desde_unidades» cuenta las entradas por el menor número entero de unidades que sí se detecta en los dos sentidos"),
+            "detecta_desde_unidades": {str(n): sum(1 for v in cobertura.values() if v.get("detecta_desde_unidades") == n)
+                                       for n in sorted({v["detecta_desde_unidades"] for v in cobertura.values() if "detecta_desde_unidades" in v})},
             "por_tramo_en_unidades_de_la_ultima_cifra": {t: sum(1 for v in cobertura.values() if "umbral_en_unidades_de_la_ultima_cifra" in v
                                                                and lo_ < float(v["umbral_en_unidades_de_la_ultima_cifra"]) <= hi_)
                                                        for t, lo_, hi_ in (("hasta 2", -1, 2), ("de 2 a 5", 2, 5), ("de 5 a 10", 5, 10),

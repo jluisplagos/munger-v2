@@ -20,6 +20,9 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
                titulo        tabla de un solo ejercicio: el año aislado en una línea por encima de la tabla;
                manual        sin comprobación automática: PENDIENTE con la justificación de «nota» (sin ella, FALLO).
              Prosa: el ejercicio declarado debe ser el de la edición (pie de página).
+  columna    en las tablas de varias columnas que no son ejercicios (crecimiento, impuestos diferidos, movimientos de
+             arrendamientos, intangibles e inmovilizado, matrices por segmentos), la cabecera de la columna del token debe
+             ser la del concepto declarado.
   unidad     «mm EUR»: el literal no es un porcentaje y la declaración de unidades más próxima por encima de la línea
              dice millones de euros (otra unidad: FALLO; ninguna: PENDIENTE). «%»: el literal lleva «%». Cualquier otra
              unidad declarada es FALLO. Prosa: no aplica.
