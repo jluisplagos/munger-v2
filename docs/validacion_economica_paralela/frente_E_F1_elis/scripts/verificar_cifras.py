@@ -1,6 +1,6 @@
 """Verificación de cada cifra citada contra los BYTES del PDF original (frente E · F1 · Elis).
 
-Cada fila de datos/cifras_fuente.csv se comprueba en cinco dimensiones. Cada una queda en OK, PENDIENTE (no se puede
+Cada fila de datos/cifras_fuente.csv se comprueba en seis dimensiones. Cada una queda en OK, PENDIENTE (no se puede
 acreditar automáticamente; el motivo queda escrito) o FALLO:
 
   literal    el PDF está en la ruta declarada y su SHA-256 es el de datos/fuentes.json (una fuente sin huella declarada
@@ -298,6 +298,20 @@ def anio_de_saldo(linea):
     return None
 
 
+SALDO_EN_ROTULO = re.compile(r"(?i)\b(?:balance|solde|as at|au)\b")
+
+
+def anio_de_saldo_en_rotulo(lineas, i, idioma):
+    """(Revisión n.º 7, S1) Ejercicio del saldo cuya fecha lleva el rótulo de la fila, aunque esté partido en varias líneas
+    («Balance as at December» / «31, 2021 restated(a)»; «DECEMBER, 31 2022»; «Solde au 31 décembre» / «2023, retraité*»).
+    None si el rótulo no es el de un saldo con fecha."""
+    r = rotulo_multilinea(lineas, i, idioma)
+    if not SALDO_EN_ROTULO.search(r):
+        return None
+    r = re.sub(r"(?i)\bdecember,\s*31\b,?", "December 31,", r)
+    return anio_de_saldo(r)
+
+
 def anio_de_bloque(lineas, i, limite=80):
     """Ejercicio del bloque de movimientos al que pertenece la línea i: el que sigue al saldo más próximo por encima."""
     for j in range(i - 1, max(-1, i - limite), -1):
@@ -376,6 +390,11 @@ def zona_de_cabecera(lineas, i, idioma):
     _, j = unidad_declarada(lineas, i)
     if j is None:
         j = linea_cabecera_anios(lineas, i)
+        # (revisión n.º 7, S4) la primera línea de un rótulo partido, de una sola celda, justo encima de la fila («Pre-tax
+        # discount rate 2021» / «(approximation)  9.1% …») no es la cabecera de ejercicios: se busca por encima
+        k0 = i
+        while j is not None and j == k0 - 1 and len(trozos(lineas[j])) == 1:
+            k0, j = j, linea_cabecera_anios(lineas, j)
         if j is None:
             return []
     h = cabecera_de_otra_tabla(lineas, j, i, idioma)
@@ -383,11 +402,29 @@ def zona_de_cabecera(lineas, i, idioma):
     zona, k = [base], base
     while k - 1 > (-1 if h is None else j) and lineas[k - 1].strip() and len(zona) < 9 and not es_linea_de_datos(lineas[k - 1], idioma):
         k -= 1
+        # (revisión n.º 7, S1) el título numerado de la tabla («6.1.5 Consolidated statement of changes in equity») y su
+        # continuación sangrada («as at December 31, 2022») no son cabecera de columnas: su año no es una columna
+        if es_encabezado_numerado(lineas[k].strip(), idioma):
+            zona = [z for z in zona if not es_continuacion_de_encabezado(lineas, k, z)]
+            break
         # solo fragmentos de cabecera en columnas (muy sangrados o con huecos de varias posiciones), no prosa
         if es_fragmento_de_cabecera(lineas[k]):
             zona.insert(0, k)
     zona += [m for m in range(base + 1, i) if lineas[m].strip() and not es_linea_de_datos(lineas[m], idioma)]
     return zona
+
+
+def es_continuacion_de_encabezado(lineas, k, z):
+    """(Revisión n.º 7, S1) ¿Es la línea z (una de las dos siguientes al encabezado numerado de la línea k) la continuación
+    de su título? Una sola celda que empieza en la columna en la que empieza el texto del encabezado."""
+    if not k < z <= k + 2 or not lineas[z].strip() or len(trozos(lineas[z])) != 1:
+        return False
+    if z == k + 2 and not es_continuacion_de_encabezado(lineas, k, k + 1):
+        return False
+    t = lineas[k].lstrip()
+    m = ENCABEZADO_NUMERADO.match(t)
+    col_texto = len(lineas[k]) - len(t) + (m.end() if m else 0)
+    return abs((len(lineas[z]) - len(lineas[z].lstrip())) - col_texto) <= 2
 
 
 def columnas_de_cabecera(lineas, zona, claves):
@@ -574,6 +611,12 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
     if modo == "crecimiento" and "%" not in fila["literal"]:
         return "FALLO", "una tabla de crecimiento solo admite porcentajes"
     if modo == "dos_columnas":
+        # (revisión n.º 7, S1) una fila que lleva en su rótulo la fecha de un saldo («Balance as at December / 31, 2021
+        # restated(a)», «Solde au 31 décembre / 2023, retraité*») es de ese ejercicio, sea cual sea su columna
+        a_rot = anio_de_saldo_en_rotulo(lineas, i, idioma)
+        if a_rot is not None:
+            return ("OK", f"saldo de {a_rot} (fecha en el rótulo de la fila)") if a_rot == anio else (
+                "FALLO", f"la fila es el saldo de {a_rot} (fecha en su rótulo), no de {anio}")
         col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"), cabeceras_ajenas=True,
                                             orden_alineado=True)
         if col is None:
@@ -648,6 +691,10 @@ def comprobar_columna(lineas, i, fila, pos, idioma):
 # ------------------------------------------------------------------ unidad, perímetro y edición
 def rotulo(linea):
     t = trozos(linea)
+    # (revisión n.º 7, S3) la pestaña del capítulo en el margen («6») no es el rótulo: si la línea empieza por un dígito
+    # suelto y le sigue una celda de texto, el rótulo es esa celda («6 · CGU France · 1,418.1» → «CGU France»)
+    if len(t) >= 2 and re.fullmatch(r"\d", t[0]) and re.search(r"[^\W\d_]", t[1]):
+        return t[1]
     return t[0] if t else ""
 
 
@@ -766,8 +813,11 @@ def tabla_por_paises(lineas, i, j, idioma):
     datos = [k for k in range(j + 1, min(len(lineas), i + 40)) if es_linea_de_datos(lineas[k], idioma)]
     if sum(1 for k in datos if PAISES.match(sin_prefijo_uge(rotulo(lineas[k])))) < 3:
         return None
-    m = PAISES.match(sin_prefijo_uge(rotulo(lineas[i])))
-    return m.group(0) if m else None
+    for r in [rotulo(lineas[i])] + rotulos_sin_rotulo(lineas, i, idioma):
+        m = PAISES.match(sin_prefijo_uge(r))
+        if m:
+            return m.group(0)
+    return None
 
 
 # (revisión n.º 6, R1) filas de jurisdicciones fiscales o de regiones, y desgloses de un país («of which Ireland»,
@@ -800,8 +850,10 @@ def rotulo_multilinea(lineas, i, idioma, alto=4):
 def jurisdiccion_de_fila(lineas, i, idioma):
     """(Revisión n.º 6, R1) El rótulo completo de la fila si es una jurisdicción, una región o el desglose de un país o de
     un segmento («› of which Ireland», «dont Irlande», «Excluding the European Union»); None si no."""
-    r = rotulo_multilinea(lineas, i, idioma)
-    return r if (JURISDICCION.search(r) or DESGLOSE_PAIS.search(r)) else None
+    for r in [rotulo_multilinea(lineas, i, idioma)] + rotulos_sin_rotulo(lineas, i, idioma):
+        if JURISDICCION.search(r) or DESGLOSE_PAIS.search(r):
+            return r
+    return None
 
 
 def es_titulo(t):
@@ -819,7 +871,13 @@ ENCABEZADO_NUMERADO = re.compile(r"^(?:(?:NOTE|Note|NOTA|Nota)\s+\d+(?:\.\d+)*|\
 
 def es_encabezado_numerado(t, idioma):
     m = ENCABEZADO_NUMERADO.match(t)
-    return bool(m) and len(t) <= 80 and not tokens_numericos(t[m.end():], idioma) and bool(re.search(r"[^\W\d_]{3}", t[m.end():]))
+    if not m:
+        return False
+    resto = t[m.end():].strip()
+    # (revisión n.º 7, S5) no es prosa: sin comillas tras la numeración («Note 5.2 “Expenses related…”») ni puntuación final
+    if re.search(r"[“”\"«»]", resto) or re.search(r"[.;:,]$", resto):
+        return False
+    return len(t) <= 80 and not tokens_numericos(resto, idioma) and bool(re.search(r"[^\W\d_]{3}", resto))
 
 
 def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None, idioma="en"):
@@ -899,9 +957,38 @@ def pais_de_columna(lineas, i, pos, idioma):
     # (revisión n.º 5, Q7 f; revisión n.º 6, R8 c) la cabecera completa de la columna: las palabras sin cifras apiladas en el
     # mismo sitio, en el orden de la página, línea a línea («Great» / «Britain», «Germany &» / «Luxembourg»). La prosa de la
     # tabla anterior ya no entra: la zona de cabecera es la de la propia tabla
-    pal = [(k, m.start(), m.group()) for k in zona for m in re.finditer(r"\S+", lineas[k])
+    # (revisión n.º 7, S7 e) solo las líneas de cabecera, de celdas cortas: no la prosa a dos columnas que precede a la tabla
+    cab = [k for k in zona if all(len(c.split()) <= 4 for c in trozos(lineas[k]))]
+    pal = [(k, m.start(), m.group()) for k in cab for m in re.finditer(r"\S+", lineas[k])
            if not re.search(r"\d", m.group()) and abs((m.start() + m.end()) / 2 - c_tok) <= ajena[0] + 5]
     return "columna", " ".join(w for _, _, w in sorted(pal)) or ajena[1]
+
+
+def cabecera_de_paises(lineas, i, pos, idioma, alto=30):
+    """(Revisión n.º 7, S4) Cabecera con una columna por país de una tabla sin declaración de unidades ni línea de
+    ejercicios (hipótesis del WACC por UGE: «Country · France · Germany · Brazil…»): la primera línea, hacia arriba desde la
+    fila, de tres celdas o más, cortas y sin cifras, que nombra tres países o más. Una declaración de unidades, un título o un
+    encabezado numerado cortan la búsqueda: la cabecera es la de otra tabla. Devuelve (línea, países), o None si no la hay o
+    si el token está bajo una celda «Total» o «Group» de esa línea."""
+    sp = spans_numericos(lineas[i], idioma)
+    if not sp or not -len(sp) <= pos < len(sp):
+        return None
+    a, b = sp[pos % len(sp)]
+    c_tok = (a + b) / 2
+    for k in range(i - 1, max(-1, i - alto), -1):
+        l, t = lineas[k], lineas[k].strip()
+        if not t:
+            continue
+        if any(rx.search(l) for rx, _ in UNIDAD_RX) or UNIDAD_OTRA_RX.search(l) or es_titulo(t) or es_encabezado_numerado(t, idioma):
+            return None
+        celdas = list(re.finditer(r"\S+(?: \S+)*", l))
+        if len(celdas) >= 3 and all(len(c.group().split()) <= 3 and not re.search(r"\d", c.group()) for c in celdas):
+            paises = sorted(set(PAIS_EN_CABECERA.findall(l)))
+            if len(paises) >= 3:
+                if any(re.search(r"(?i)\b(?:total|group|groupe)\b", c.group()) and c.start() - 3 <= c_tok <= c.end() + 3 for c in celdas):
+                    return None
+                return k, paises
+    return None
 
 
 def periodo_de_ejercicios(anios):
@@ -991,9 +1078,31 @@ def rotulo_completo(lineas, i, idioma):
     return r
 
 
+def rotulos_sin_rotulo(lineas, i, idioma, alto=3):
+    """(Revisión n.º 7, S2) Rótulos posibles de una línea de cifras que no tiene rótulo (su primera celda es un número): las
+    líneas de rótulo contiguas de arriba y de abajo, de una sola celda y sin cifras, en todas sus combinaciones
+    («Scandinavia and Eastern» / «599.2  580.7 …» / «Europe» → «Scandinavia and Eastern Europe»). Lista vacía si la línea
+    tiene rótulo."""
+    t = trozos(lineas[i])
+    if not t or not es_numero(t[0].split(" ")[0], idioma):
+        return []
+    def contiguas(paso):
+        out, k = [], i + paso
+        while 0 <= k < len(lineas) and len(out) < alto:
+            l = lineas[k]
+            if not l.strip() or tokens_numericos(l, idioma) or len(trozos(l)) != 1:
+                break
+            out.append(l.strip())
+            k += paso
+        return out
+    arriba, abajo = list(reversed(contiguas(-1))), contiguas(1)
+    return [" ".join(arriba[len(arriba) - a:] + abajo[:b]) for a in range(len(arriba) + 1) for b in range(len(abajo) + 1) if a or b]
+
+
 def segmento_de_rotulo(lineas, i, idioma):
-    """(Revisión n.º 5, Q5) Segmento de la fila por su rótulo normalizado y, si está partido, unido."""
-    for r in (rotulo_completo(lineas, i, idioma), rotulo(lineas[i])):
+    """(Revisión n.º 5, Q5) Segmento de la fila por su rótulo normalizado y, si está partido, unido. (Revisión n.º 7, S2) Si
+    la línea de la cifra no tiene rótulo, el de las líneas de rótulo contiguas."""
+    for r in (rotulo_completo(lineas, i, idioma), rotulo(lineas[i])) + tuple(rotulos_sin_rotulo(lineas, i, idioma)):
         es = ROTULOS_SEGMENTO_NORM.get(normalizar_rotulo(r))
         if es:
             return es
@@ -1055,6 +1164,10 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en", lineas_previas=None):
             return "FALLO", f"la columna es la de «{pc[1]}» en una tabla con columnas por país, no la del grupo"
         if pc:
             return "PENDIENTE", (f"la cabecera nombra países ({pc[1]}) y no tiene ninguna columna reconocida (ejercicio o total): "
+                                 "no se puede acreditar que la columna sea la del grupo")
+        cp = cabecera_de_paises(lineas, i, pos, idioma)
+        if cp:
+            return "PENDIENTE", (f"la cabecera de la tabla (línea {cp[0] + 1}) tiene una columna por país ({', '.join(cp[1])}): "
                                  "no se puede acreditar que la columna sea la del grupo")
         ent = grupo_de_columnas(lineas, i, pos, idioma)
         if ent:

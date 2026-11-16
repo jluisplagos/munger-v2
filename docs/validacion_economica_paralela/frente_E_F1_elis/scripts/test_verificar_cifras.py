@@ -363,6 +363,32 @@ def main():
          "(la edición no falla); el ejercicio queda PENDIENTE",
          [del_pdf("R6_AJUSTE", "URD2022", 271, ADQ, "0.1", 2021)], "PENDIENTE", dims={"R6_AJUSTE": {"edicion": "OK", "ejercicio": "PENDIENTE"}})
 
+    # ---- revisión n.º 7 (C16): filas reales de los contraejemplos del revisor (contraejemplos_7.py)
+    caso("S1 positivo (revisión n.º 7, A1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» del "
+         "estado de cambios en el patrimonio del URD 2022 p.262, declarado 2021: el año del título no es una columna",
+         [del_pdf("R7_A1", "URD2022", 262, r"^\s*31, 2021 restated\(a\)\s", "224.1", 2021)], "OK")
+    caso("S1 (A8): capital a 31-12-2023 (234,0), DEU 2024 p.274, declarado 2024, el año del título: FALLO",
+         [del_pdf("R7_A8", "DEU2024FR", 274, r"^\s*2023, retraité\*\s", "234,0", 2024)], "FALLO", {"R7_A8": {"ejercicio"}}, coherente=True)
+    caso("S1 (A9): capital a 31-12-2022 (230,1) del estado del ejercicio anterior, DEU 2024 p.275, declarado 2023: FALLO (en C14, OK)",
+         [del_pdf("R7_A9", "DEU2024FR", 275, r"^\s*2022\s+230,1", "230,1", 2023)], "FALLO", {"R7_A9": {"ejercicio"}}, coherente=True)
+    caso("S1 positivo (A10): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022",
+         [del_pdf("R7_A10", "URD2022", 262, r"^\s*DECEMBER, 31 2022\s", "230.1", 2022)], "OK")
+    LSIN = r"^\s*599\.2\s+580\.7"
+    caso("S2 (B1): ventas de 2022 del segmento Escandinavia y Europa del Este (580,7), cuya línea de cifras no tiene rótulo "
+         "(«Scandinavia and Eastern» / cifras / «Europe»), URD 2023 p.261, declaradas del grupo",
+         [del_pdf("R7_B1", "URD2023", 261, LSIN, "580.7", 2022)], "FALLO", {"R7_B1": {"perimetro"}}, coherente=True)
+    caso("S2 (B3): crecimiento publicado de 2023 de ese segmento (3,2 %), declarado como el del grupo (modo «crecimiento»)",
+         [del_pdf("CREC_PUB_R7_B3", "URD2023", 261, LSIN, "3.2%", 2023, control_anio="crecimiento")], "FALLO",
+         {"CREC_PUB_R7_B3": {"perimetro"}}, coherente=True)
+    caso("S3 (C1): fondo de comercio de la UGE Francia a 31-12-2021 (1.415,1), línea «6 · CGU France» (pestaña del margen), URD 2022 p.298",
+         [del_pdf("R7_C1", "URD2022", 298, r"^6\s+CGU France\s", "1,415.1", 2021)], "FALLO", {"R7_C1": {"perimetro"}}, coherente=True)
+    caso("S4 (D1): tipo sin riesgo de la UGE Francia (3,7 %), tabla de hipótesis con una columna por país y sin declaración de "
+         "unidades ni de ejercicios, URD 2025 p.369: perímetro PENDIENTE",
+         [del_pdf("R7_D1", "URD2025", 369, r"^\s*Risk-free rate\s+3\.7%", "3.7%", 2025)], "PENDIENTE", dims={"R7_D1": {"perimetro": "PENDIENTE"}})
+    caso("S4 (D5): la misma tabla tras un texto, fila «PRE-TAX DISCOUNT RATE 2021 / (APPROXIMATION)», columna de Francia (9,1 %), "
+         "URD 2021 p.270: perímetro PENDIENTE", [del_pdf("R7_D5", "URD2021", 270, r"^\s*\(APPROXIMATION\)\s", "9.1%", 2021)], "PENDIENTE",
+         dims={"R7_D5": {"perimetro": "PENDIENTE"}})
+
     malos = 0
     for k in casos:
         cod, res = ejecutar(a.raiz, k["filas"], k["fuentes"])

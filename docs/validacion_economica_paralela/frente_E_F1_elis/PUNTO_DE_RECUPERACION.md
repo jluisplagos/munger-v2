@@ -2,7 +2,7 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** incorporación de la revisión n.º 7 (copia sin cambios, procedencia y registro). Su respuesta, C16, está en preparación.
+**Bloque cerrado:** primera parte de la respuesta a la revisión n.º 7: correcciones del verificador para S1–S5 y S7 c y e, con nueve casos nuevos en el test (117/117). Las 752 filas reales no cambian y la verificación es idéntica byte a byte, así que el contraste no cambia. **Falta**, para cerrar C16: S6 d en el contraste, la decisión (b), los documentos (S6, S7), los scripts de los revisores sobre el código nuevo, la cobertura y las sondas. Plan detallado en §3.1.
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
@@ -15,7 +15,8 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C14 = `cf55865a22035aa8376d8813cd58d0f2fcdd4846` | Respuesta a la revisión n.º 6 (R1–R8). Revisado en la pasada 7 |
 | C15 = `c96d544646b2fa5a66c233402a9f31332a643cec` | Registra el hash de C14. Congelado de la revisión n.º 7 |
 | `66d188c` | Registra el encargo de la pasada 7 |
-| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 7 (d192cab), procedencia y registro. No cambia código, datos ni resultados |
+| `f1dd6c5` | Copia de la revisión n.º 7 (d192cab), procedencia y registro |
+| El commit que contiene esta versión de este archivo | Primera parte de C16: verificador (S1–S5, S7 c y e) y test. **No revisado** |
 
 ## 2. Estado de las pruebas sobre C14
 
