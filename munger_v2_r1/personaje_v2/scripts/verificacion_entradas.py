@@ -121,7 +121,6 @@ RESULTADOS = ("verificado", "discrepancia", "pendiente")
 # unidades → millones de la moneda (el modelo trabaja en «mm»: Control maestro!J4)
 UNIDADES = {"mm": 1.0, "millones": 1.0, "millones de euros": 1.0, "millones de eur": 1.0, "m€": 1.0, "meur": 1.0, "€m": 1.0,
             "miles": 1e-3, "miles de euros": 1e-3, "miles de eur": 1e-3, "k€": 1e-3, "keur": 1e-3, "€000": 1e-3, "euros": 1e-6, "eur": 1e-6}
-TOL_ABS, TOL_REL = 0.0011, 1e-6  # 3 decimales en mm (redondeo declarado del libro)
 COL_ANIO = {c: i for i, c in enumerate("CDEFGHIJKL")}  # Historia C5:L5
 
 
@@ -163,7 +162,11 @@ def _unidad_monetaria_no_reconocida(unidad):
     la del propio precio): su escala no puede contrastarse."""
     t = _norm_txt(unidad)
     # (hito 2, N9) un tipo de cambio («USD por EUR», «EUR/USD») es una razón entre monedas, no un importe: no se le aplica esta regla
-    tipo_cambio = re.search(r"(por|per|/)\s*" + MARCAS_MONEDA.pattern, t, re.I) is not None or "tipo de cambio" in t or "exchange rate" in t
+    # (hito 2, T1) solo un par de monedas («USD por EUR», «EUR/USD», «tipo de cambio EUR/GBP») y sin ninguna palabra de escala: «miles de
+    # euros a tipo de cambio constante» o «millones de euros/EUR million» son importes y siguen exigiendo una unidad reconocida
+    m_ = MARCAS_MONEDA.pattern
+    tipo_cambio = (re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*" + m_ + r"\s*(?:por|per|/)\s*" + m_ + r"[\s)]*", t, re.I) is not None
+                   and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
     return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None and not tipo_cambio
 
 
@@ -417,7 +420,7 @@ def _cifras(x):
     return [o for o in out if o]
 
 
-MENOS_UNICODE = "−"  # «−»: siempre un signo menos (no se usa para imprimir un cero)
+MENOS_UNICODE = "−"  # «−»: signo menos si va pegado a la cifra; aislado, como los guiones (una fuente real lo usa para imprimir un cero)
 GUIONES = "-‐‑‒–—﹣－"  # guion ASCII y guiones tipográficos: signo menos si van pegados; aislados, un cero
 MONEDAS = "€$£¥"
 
@@ -453,8 +456,10 @@ def _signo_en_cita(t, ini, fin):
     m = re.search("[" + marcas + r"](\s*)$", antes)
     if m:
         previo = antes[:m.start()]
-        if m.group(1) == "" and re.search(r"(?:^|[^\w.,])\d{1,4}$", previo) and re.fullmatch(r"\d{1,4}", t[ini:fin]):
-            return 1  # intervalo o fecha entre enteros: «2019-2020», «31-12-2024» ((hito 2, N5) no «T4-15,2» ni «2023-849,7»)
+        m_prev = re.search(r"(?:^|[^\w.,])(\d{1,4})$", previo) or re.search(r"(?:FY|AF|EJ)(\d{4})$", previo, re.I)
+        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", t[ini:fin]) is not None  # «31-12-2024»
+        if m.group(1) == "" and (fecha or (m_prev and re.fullmatch(r"\d{1,4}", t[ini:fin]) and len(m_prev.group(1)) == len(t[ini:fin]))):
+            return 1  # intervalo o fecha entre enteros de la misma longitud: «2019-2020», «31-12-2024», «FY2023-2024» ((N5, T8) no «2023-849»)
         if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|€$£¥]$", previo)):
             return -1
         if len(m.group(1)) >= 2 and (previo == "" or re.search(r"\s$", previo)):
@@ -474,7 +479,10 @@ def _apariciones_en_pagina(cita, pagina):
     patron = r"\s+".join(re.escape(w) for w in palabras)
     # (hito 2, N10) la cita como fragmento completo: no empieza ni acaba dentro de una palabra o de una cifra de la página («Total 5» no
     # es una aparición dentro de «Subtotal 5,01»)
-    patron = (r"(?<![\w.,])" if re.match(r"\w", palabras[0]) else "") + patron + (r"(?!\w|[.,]\d)" if re.search(r"\w$", palabras[-1]) else "")
+    # (hito 2, T2) el límite depende de con qué empieza y acaba la cita: si es una cifra, no va pegada a otra cifra ni a un separador con
+    # cifra; si es una letra, no va pegada a otra letra («849.7» cuenta en «849.7m» y en «CHF7.3»; «Total 5» no cuenta en «Subtotal 5,01»)
+    patron = ((r"(?<![\d.,])" if re.match(r"\d", palabras[0]) else r"(?<![^\W\d_])" if re.match(r"[^\W\d_]", palabras[0]) else "") + patron
+              + (r"(?!\d|[.,]\d)" if re.search(r"\d$", palabras[-1]) else r"(?![^\W\d_])" if re.search(r"[^\W\d_]$", palabras[-1]) else ""))
     out = []
     for m in re.finditer(patron, t, re.I):
         ini = t.rfind("\n", 0, m.start()) + 1
@@ -537,9 +545,16 @@ def _cita_cifra(cita, vf, pagina=None):
     if not apar:
         palabras = str(cita or "").split()
         t_ = re.sub("[" + chr(0xa0) + chr(0x202f) + chr(0x2009) + "]", " ", str(pagina))
-        if palabras and re.search(r"\s+".join(re.escape(w) for w in palabras), t_, re.I):
-            # (hito 2, N10 y R3) la cita solo está como fragmento de una palabra o de una cifra de la página: la cifra citada no es la publicada
-            return "ausente", "la cita empieza o acaba dentro de una palabra o de una cifra de la página: no es una cifra completa de la página"
+        sueltas = list(re.finditer(r"\s+".join(re.escape(w) for w in palabras), t_, re.I)) if palabras else []
+        if sueltas:
+            # (hito 2, N10, R3 y T2) la cita solo está como fragmento: si el corte cae dentro de un NÚMERO, la cifra citada no es la publicada
+            # (discrepancia); si cae dentro de una palabra, se pide la cita completa (pendiente)
+            def en_numero(m):
+                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"[\d.,]$", t_[:m.start()]) is not None)
+                        or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
+            if any(en_numero(m) for m in sueltas):
+                return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"
+            return "no_localizada", "la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo"
         return "no_localizada", "la cita no se encuentra en la página con sus palabras y sus espacios: la cifra no puede leerse en ella"
     lect = [_lectura_cifra(linea, vf, (a, b)) for linea, a, b in apar]
     estados = {e for e, _ in lect}
@@ -817,6 +832,10 @@ def _cmp_txt_espacios(s):
     return re.sub(r"\s+", " ", t).strip().lower()
 
 
+CODECS_TEXTO_HTML = ("shift_jis", "euc_jp", "euc_kr", "iso2022_jp", "gb2312", "gbk", "gb18030", "big5", "big5hkscs", "cp437", "cp850", "cp852",
+                     "cp858", "cp866", "cp874", "mac-roman", "mac-latin2", "mac-cyrillic")  # (hito 2, T3) sin EBCDIC (cp875…) ni iso-2022-kr
+
+
 def _decodificar_html(crudo):
     """(4.15, hito 2, U5) (codificación, texto) de un HTML: BOM (UTF-8, UTF-16, UTF-32), charset declarado (<meta charset>, http-equiv o
     declaración XML) o UTF-8 estricto. (None, motivo) si no puede determinarse o no decodifica: no se adivina."""
@@ -839,7 +858,7 @@ def _decodificar_html(crudo):
             return None, f"el HTML declara la codificación {cod!r}, que no se reconoce"
         if nombre in ("latin-1", "iso8859-1", "ascii"):
             cod = "cp1252"  # (hito 2, H7) como los navegadores (WHATWG): ISO-8859-1 y ASCII se leen como windows-1252
-        elif nombre == "utf-7" or not (nombre.startswith(("utf-", "cp125", "cp4", "cp8", "iso8859-", "mac-", "koi8", "euc_", "iso2022_")) or nombre in ("shift_jis", "gb2312", "gbk", "gb18030", "big5", "big5hkscs")):
+        elif nombre in ("utf-7",) or not (nombre.startswith(("utf-", "cp125", "iso8859-", "koi8")) or nombre in CODECS_TEXTO_HTML):  # (hito 2, T3) lista explícita
             return None, f"el HTML declara {cod!r}, que no es una codificación de texto admitida"
         try:
             return cod, crudo.decode(cod)
@@ -854,8 +873,10 @@ def _decodificar_html(crudo):
 def _texto_html_visible(ruta):
     """(4.15, hito 2, U5) («ok», texto visible) de una fuente HTML, o («pendiente», motivo). Con html.parser, no con expresiones regulares:
     se descartan los comentarios, los atributos, script, style, template, head (title, meta), noscript y los elementos ocultos (atributo
-    hidden, aria-hidden="true", style con display:none o visibility:hidden), también sin cerrar (lo que sigue a un <script> sin cierre no
-    es visible). Los elementos de bloque y las celdas se separan con un espacio; los elementos en línea no."""
+    hidden, style con display:none o visibility:hidden, <details> y <dialog> cerrados salvo el <summary> visible), también sin cerrar (lo
+    que sigue a un <script> sin cierre no es visible); aria-hidden no oculta a la vista. Los elementos de bloque y las celdas se separan con
+    un espacio; los elementos en línea y las etiquetas con espacio de nombres no. Límite declarado: lo que ocultan las clases CSS o los
+    scripts no se detecta (se acepta como visible)."""
     from html.parser import HTMLParser
     try:
         crudo = open(ruta, "rb").read()
@@ -869,8 +890,8 @@ def _texto_html_visible(ruta):
         def __init__(self):
             super().__init__(convert_charrefs=True)
             self.pila, self.oculto, self.trozos = [], 0, []
-            cab = texto[:4096].lower()
-            self.xhtml = cab.lstrip().startswith("<?xml") or 'xmlns="http://www.w3.org/1999/xhtml"' in cab
+            # (hito 2, T3) XHTML por la extensión, como abre el archivo un navegador (no por lo que diga el contenido)
+            self.xhtml = str(ruta).lower().endswith((".xhtml", ".xht"))
 
         def _es_oculto(self, tag, attrs):
             # (hito 2, H7) aria-hidden no oculta el texto a la vista (solo a los lectores de pantalla): no se excluye; un <dialog> sin
@@ -1040,7 +1061,7 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         # decodificado por su BOM o su charset declarado; las celdas y bloques se separan (una cifra no se forma con dos celdas contiguas)
         est_h, plano = _texto_html_visible(ruta)
         if est_h == "ok":
-            textos_fuente.append(plano)
+            textos_fuente.append(re.sub("[\u00ad\u200b\u200c\u200d\u2060\ufeff]", "", plano))  # (T4) sin caracteres invisibles
         if est_h != "ok":
             return est_h, f"{plano} ({f.get('archivo')})"
         if _cmp_txt_espacios(f.get("cita")) not in _cmp_txt_espacios(plano):
@@ -1076,10 +1097,14 @@ def contraste_pagina(carpeta, k, f, ruta, vf):
         if est == "ok" and _num(vf):
             # (hito 2, N3) en un PDF o un HTML, la cifra y su signo también se leen en el documento: si el texto conservado perdió el
             # paréntesis o el menos, la lectura del documento (donde la cita se localiza) manda
-            otras = [x for x in (_cita_cifra(f.get("cita"), vf, tf) for tf in textos_fuente) if x[0] != "no_localizada"]
+            lect = [_cita_cifra(f.get("cita"), vf, tf) for tf in textos_fuente]
+            otras = [x for x in lect if x[0] != "no_localizada"]
             peor = next((x for x in otras if x[0] in ("signo_distinto", "ausente")), None) or next((x for x in otras if x[0] != "ok"), None)
             if peor:
                 est, det = peor[0], peor[1] + " (en el documento de la fuente, no en el texto conservado)"
+            elif lect and not otras:
+                # (hito 2, T4) la cita está en el documento (contraste sin espacios) pero no con sus palabras: el signo no puede leerse en él
+                est, det = "no_localizada", "la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él"
         if est == "ausente":
             return "discrepancia", f"la cita no contiene el valor de la fuente {vf!r} como cifra completa de la página (formato equivalente, sin redondear)"
         if est == "signo_distinto":

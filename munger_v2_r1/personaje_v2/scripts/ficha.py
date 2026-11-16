@@ -88,6 +88,8 @@ def verificacion_y_entrada_efectiva(c, pipe):
     # efectivas del libro no corresponden a la declaración vigente (hay que repetir el expediente desde el paso 2)
     motivo_modo = (f"la declaración del modo de la entrada efectiva tiene un error: {declarada.get('error')}" if declarada.get("error")
                    else "el modo aplicado en el paso 2 no es el declarado ahora: hay que repetir el expediente desde el paso 2" if coinciden is False else None)
+    if motivo_modo and isinstance(resumen, dict):
+        resumen = dict(resumen, apto_por_entradas=False)  # (hito 2, T7) el resumen no contradice al bloque
     return {"apto_por_entradas": bool(apto_e) and motivo_modo is None, "resumen": resumen, "apto_para_dinero_real": False,
             "motivo_modo": motivo_modo,
             "entrada_efectiva": {"aplicada_en_paso_2": aplicada, "declarada": declarada, "coinciden": coinciden},

@@ -108,6 +108,17 @@ def modo_entrada_efectiva(carpeta):
     return "registrada", None
 
 
+def _ediciones(a, b):
+    """(4.15, hito 2, T6) Distancia de edición (Levenshtein) entre dos textos cortos."""
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
 def _alcance_modo(carpeta):
     """(4.15, hito 2, U6 b) «estricta» si alcance_v2.json la declara; None si no declara nada. Falla en cerrado (ValueError) si el alcance
     existe pero no se puede leer o no es un objeto, si la clave lleva otro valor o si una clave es una errata de «entrada_efectiva»
@@ -124,7 +135,9 @@ def _alcance_modo(carpeta):
         raise ValueError("alcance_v2.json no es un objeto: no se puede determinar el modo de la entrada efectiva")
     # (hito 2, N9) una errata se parece mucho a «entrada_efectiva» (proporción ≥ 0,88: «entrada_efectiba», «Entrada-Efectiva», «entrda_efectiva»);
     # otra clave que solo comparte una palabra («tasa_efectiva») no es una errata
-    parecidas = [k for k in a if k != "entrada_efectiva" and difflib.SequenceMatcher(None, re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva").ratio() >= 0.88]
+    # (T6) también a dos o tres ediciones de distancia (erratas dobles); «tasa_efectiva» queda a más de tres
+    parecidas = [k for k in a if k != "entrada_efectiva" and (difflib.SequenceMatcher(None, re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva").ratio() >= 0.88
+                                                              or _ediciones(re.sub(r"[^a-z]", "", str(k).lower()), "entradaefectiva") <= 3)]
     if parecidas:
         raise ValueError(f"alcance_v2.json tiene la clave {parecidas[0]!r}, que parece una errata de «entrada_efectiva»")
     if "entrada_efectiva" in a:
@@ -372,8 +385,10 @@ class Pipeline:
         # (hito 2, N10) solo el relevo que llevó a fijar ESTE material, y una sola vez (no se arrastra a una solicitud posterior por otra causa)
         if isinstance(rel, dict) and not rel.get("solicitud") and rel.get("material_refijado") == mat:
             # (4.15, hito 2, H9) el auditor ve que la solicitud sustituye a un relevo caducado y qué archivos cambiaron
+            _arch = rel.get("archivos_cambiados")
+            _arch = [str(x) for x in _arch] if isinstance(_arch, list) else [str(_arch)]  # (hito 2, T9) un registro mal formado no detiene nada
             motivo = (f"relevo caducado: el material fijado {rel.get('material_fijado')} ya no era el vigente (cambian: "
-                      f"{', '.join(rel.get('archivos_cambiados') or [])[:300]}); se repitió la verificación (paso 12). " + motivo)
+                      f"{', '.join(_arch)[:300]}); se repitió la verificación (paso 12). " + motivo)
         nueva = CIE.nueva_solicitud(mat, motivo, ahora)
         if isinstance(rel, dict) and not rel.get("solicitud") and rel.get("material_refijado") == mat:
             rel["solicitud"] = nueva.get("id")
@@ -1059,6 +1074,7 @@ class Pipeline:
                             st["relevos_caducados"] = []
                         st["relevos_caducados"].append({"material_fijado": fijado, "material_vigente": vigente, "archivos_cambiados": cambiados,
                                                                        "detectado": dt.datetime.now().astimezone().isoformat(timespec="seconds")})
+                        st["relevo_por_refijar"] = True  # (hito 2, T9) la próxima fijación del material es la de este relevo
                         self.log(f"relevo caducado: el material fijado {fijado} ya no es el vigente {vigente} (cambian: {', '.join(cambiados)[:300]}); "
                                  "se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente")
                         st["paso"] = 12
@@ -1093,8 +1109,9 @@ class Pipeline:
                     self.run([PY, self.script("informe.py"), self.c, "--provisional"])
                     st["material_auditoria"] = CIE.fijar_material(self.c, self.E)
                     _rels = st.get("relevos_caducados")
-                    if isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) and not _rels[-1].get("material_refijado"):
-                        _rels[-1]["material_refijado"] = st["material_auditoria"]  # (N10) el material que se fijó después del relevo
+                    if (isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) and not _rels[-1].get("material_refijado")
+                            and st.pop("relevo_por_refijar", False)):
+                        _rels[-1]["material_refijado"] = st["material_auditoria"]  # (N10, T9) el material que se fijó justo después de ESTE relevo
                     self.guardar()
                 # (4.8.1, R-T1) la auditoría responde a una solicitud identificable y persistente, ligada al material fijado; ni la fecha
                 # ni el formato de un informe anterior lo convierten en la respuesta a una solicitud nueva

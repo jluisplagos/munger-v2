@@ -422,6 +422,31 @@ if os.path.exists(os.path.join(dI, "entrada_efectiva.json")):
 fi, inf, rcs = ficha_inf(dI)
 paso("I20", "(hito 2, N1) sin registro de entradas ni entrada_efectiva.json pero con el modo registrado por el paso 2: la ficha y el informe llevan el bloque (no apta)",
      (fi.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and "**Entradas financieras:** apta por entradas: no" in inf, rcs)
+_st1_sin = json.loads(_st1_original)
+_st1_sin.pop("entrada_efectiva", None)
+json.dump(_st1_sin, open(_stp1, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+_m1 = os.path.join(dI, "fase1_metadatos.json")
+_m1_bak = open(_m1, "rb").read()
+_md = json.loads(_m1_bak)
+_md["entrada_efectiva"] = "estricta"
+json.dump(_md, open(_m1, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+fi, inf, rcs = ficha_inf(dI)
+ok_n1b = "verificacion_entradas" in fi
+open(_m1, "wb").write(_m1_bak)
+_al = os.path.join(dI, "alcance_v2.json")
+_al_bak = open(_al, "rb").read() if os.path.exists(_al) else None
+_ad = json.loads(_al_bak) if _al_bak else {}
+_ad["entrada_efectiva"] = "estricta"
+json.dump(_ad, open(_al, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+fi, inf, rcs = ficha_inf(dI)
+ok_n1c = "verificacion_entradas" in fi
+if _al_bak is None:
+    os.remove(_al)
+else:
+    open(_al, "wb").write(_al_bak)
+paso("I20", "(hito 2, N1) sin registro ni entrada_efectiva.json, con el modo declarado solo en fase1_metadatos.json o solo en alcance_v2.json: la ficha lleva el bloque",
+     ok_n1b and ok_n1c, (ok_n1b, ok_n1c))
+open(_stp1, "w", encoding="utf-8").write(_st1_original)
 open(_vr, "wb").write(_vr_bak)
 # (hito 2, H9) un modo aplicado en el paso 2 distinto del declarado ahora impide «apto por entradas» y se dice por qué; (H8) el informe da
 # el resumen de lo que no se contrastó y el motivo completo
@@ -433,7 +458,7 @@ json.dump(st_i, open(stp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 fi, inf, rcs = ficha_inf(dI)
 vef = fi.get("verificacion_entradas") or {}
 paso("I20", "(hito 2, H9) modo aplicado en el paso 2 («registrada») distinto del declarado («estricta»): no apta por entradas, con su motivo en la ficha y el informe",
-     vef.get("apto_por_entradas") is False and (vef.get("entrada_efectiva") or {}).get("coinciden") is False and "repetir el expediente desde el paso 2" in str(vef.get("motivo_modo"))
+     vef.get("apto_por_entradas") is False and (vef.get("resumen") or {}).get("apto_por_entradas") is False and (vef.get("entrada_efectiva") or {}).get("coinciden") is False and "repetir el expediente desde el paso 2" in str(vef.get("motivo_modo"))
      and "no coincide" in inf and "repetir el expediente desde el paso 2" in inf, (vef.get("motivo_modo"), rcs))
 lin = (re.findall(r"\*\*Entradas financieras:\*\*[^\n]*", inf) or [""])[0]
 paso("I20", "(hito 2, H8) la línea de las entradas da el resumen (derivados, no materiales, lecturas externas, no aplicables) y el motivo sin recortar",

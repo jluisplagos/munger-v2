@@ -612,6 +612,7 @@ import inspect  # noqa: E402
 paso("S", "(N3) sellar no admite otra fecha del día que la del sistema (sin parámetro «hoy»)", "hoy" not in inspect.signature(VE.sellar).parameters, str(inspect.signature(VE.sellar)))
 cs8 = os.path.join(TMP, "viscofan_sellar8", "Viscofan")
 shutil.copytree(c, cs8)
+HOY = datetime.datetime.now().astimezone().date().isoformat()  # (hito 2) se recalcula: la batería puede cruzar la medianoche (sellar usa la fecha del sistema)
 reg8 = copy.deepcopy(REG)
 reg8["entradas"].append(dict(copy.deepcopy(AUX), celda="aux:ext", id="aux:ext", fuente={k_: v_ for k_, v_ in AUX["fuente"].items() if k_ not in ("archivo", "sha256")}))
 ent(reg8, "aux:ext")["fuente"].update(conservacion="externa", lectura_externa=dict(LE))
@@ -1054,6 +1055,37 @@ ine_eq, loc_eq = VE._sensibilidad('min(o["a"], o["b"])', {"a": 5.0, "b": 5.0}, [
 paso("RW", "(H6) min(a, b) con a = b: los dos influyen en el punto real hacia abajo (la perturbación va en los dos sentidos)", ine_eq == [] and loc_eq == {"a", "b"}, (ine_eq, loc_eq))
 open(os.path.join(FS, "pdf_con_basura"), "wb").write(b"basura previa\n" + pdf_minimo(["x"]))
 paso("RW", "(H11, m29) un PDF con bytes previos y sin extensión es un PDF (la cabecera puede no ir al principio)", VE._tipo_fuente(os.path.join(FS, "pdf_con_basura")) == "pdf")
+# (hito 2, tercera comprobación, T1–T5)
+t2 = {("849.7", 849.7, "Ventas 849.7m"): "ok", ("7.3", 7.3, "Precio CHF7.3"): "ok", ("2,95", 2.95, "Múltiplo 2,95x"): "ok",
+      ("otal 5", 5, "Total 5"): "no_localizada", ("Total 5", 5, "Subtotal 5,01"): "ausente", ("849697", 849697, "Total 8496970"): "ausente",
+      ("2023-849", 849, None): "signo_indeterminado", ("FY2023-2024", 2024, None): "ok"}
+mal_t2 = {k_[0]: VE._cita_cifra(*k_)[0] for k_, e_ in t2.items() if VE._cita_cifra(*k_)[0] != e_}
+paso("RW", "(T2, T8) una cifra con unidad, moneda o múltiplo pegados («849.7m», «CHF7.3», «2,95x») cuenta; una cita cortada dentro de una palabra queda pendiente y "
+           "dentro de una cifra, discrepancia; «2023-849» no es un intervalo; «FY2023-2024» sí", not mal_t2, mal_t2)
+t1 = {"miles de euros a tipo de cambio constante": True, "millones de euros/EUR million": True, "USD por EUR": False, "EUR/USD": False, "tipo de cambio EUR/GBP": False}
+mal_t1 = {u_: VE._unidad_monetaria_no_reconocida(u_) for u_, e_ in t1.items() if VE._unidad_monetaria_no_reconocida(u_) != e_}
+paso("RW", "(T1) la exención del tipo de cambio solo vale para un par de monedas sin palabra de escala: «miles de euros a tipo de cambio constante» sigue pendiente", not mal_t1, mal_t1)
+t0 = _time.time()
+largo = " ".join([f"Partida {i}: {i}.5" for i in range(4000)] + [f"Total: {VF_K:.3f}"])
+r_l = VE._cita_cifra(f"Total: {VF_K:.3f}", VF_K, largo)
+paso("RW", "(N10) coste acotado: una página de una sola línea de más de 60 kB con miles de cifras se lee en menos de 10 s", r_l[0] == "ok" and _time.time() - t0 < 10,
+     (r_l[0], round(_time.time() - t0, 2), len(largo)))
+open(os.path.join(FS, "n3_html.html"), "w", encoding="utf-8").write(f"<html><body><p>Partida sintetica de {K}: ({VF_K:,.3f})</p></body></html>")
+txt_h = "[PDF PAGE 1]\nPartida sintetica de " + K + ": " + f"{VF_K:,.3f}" + "\n"
+open(os.path.join(FS, "n3_html.txt"), "w", encoding="utf-8").write(txt_h)
+r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/n3_html.html", sha256=hashlib.sha256(open(os.path.join(FS, "n3_html.html"), "rb").read()).hexdigest(),
+                                             archivo_texto="fuentes_sinteticas/n3_html.txt", sha256_texto=hashlib.sha256(txt_h.encode("utf-8")).hexdigest(), pagina=1,
+                                             cita=f"{VF_K:,.3f}"), resellar=True)
+paso("RW", "(N3) fuente HTML que publica la cifra entre paréntesis y texto conservado sin ellos, cita recortada: discrepancia (la lectura del HTML manda)",
+     not r["apto_por_entradas"] and any("documento de la fuente" in x for x in con_k(r, K, ("discrepancias",))), con_k(r, K))
+open(os.path.join(FS, "t4.pdf"), "wb").write(pdf_minimo([f"Partida sintetica de {K}:{VF_K:.3f}"]))
+txt_t4 = "[PDF PAGE 1]\nPartida sintetica de " + K + ": " + f"{VF_K:.3f}" + "\n"
+open(os.path.join(FS, "t4.txt"), "w", encoding="utf-8").write(txt_t4)
+r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/t4.pdf", sha256=hashlib.sha256(open(os.path.join(FS, "t4.pdf"), "rb").read()).hexdigest(),
+                                             archivo_texto="fuentes_sinteticas/t4.txt", sha256_texto=hashlib.sha256(txt_t4.encode("utf-8")).hexdigest(), pagina=1,
+                                             cita=f"{K}: {VF_K:.3f}"), resellar=True)
+paso("RW", "(T4) la cita está en el PDF sin sus espacios («…F6:849697.000») y no puede leerse con sus palabras: pendiente (antes se omitía la lectura en silencio)",
+     not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
 r = con()
 paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
