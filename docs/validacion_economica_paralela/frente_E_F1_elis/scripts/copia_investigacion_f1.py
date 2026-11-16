@@ -12,8 +12,9 @@ de la propuesta (rama auditoria/revision-propuesta-f1, commit 1a07188) pide calc
       del ROIC del terminal con S2C en las palancas del libro.
 Correcciones V1–V11 de la revisión dirigida (8fcc7fd): efecto de escala de la amortización ROU y sensibilidad conjunta
 del arrendamiento (V5); bloque 10 del diagnóstico del libro frente a la condición del terminal (V6); dependencia de N1
-de la convención del tipo de proyección y de los ejercicios 2021–22 (V4); actualización del earnout (V3). Las cifras
-que no están en el CSV verificado van rotuladas [LECTURA], con documento, página y literal; con --raiz, el script
+de la convención del tipo de proyección y de los ejercicios 2021–22 (V4); actualización del earnout (V3). Desde el bloque
+CSV (f5775dc), las cifras de earnout de V3–V4 se toman de filas verificadas del CSV, con un control de igualdad con la lectura
+anterior. Las que no están en el CSV verificado van rotuladas [LECTURA], con documento, página y literal; con --raiz, el script
 comprueba que el literal está en su página del PDF (pdftotext) y que el PDF tiene la huella de datos/fuentes.json.
 
 Los históricos, el CSV, la verificación y el libro no cambian. El libro se lee en solo lectura y con su huella; de él
@@ -63,6 +64,19 @@ LECTURAS = {
     "adq_otras_flujo_neto_2023": (Fr("35.3"), "DEU2024FR", 288, "(35,3)"),
     "adq_otras_flujo_neto_2024": (Fr("22.0"), "URD2025", 342, "(22.0)"),
     "adq_otras_flujo_neto_2025": (Fr("37.3"), "URD2025", 341, "(37.3)"),
+}
+# Bloque CSV (encargo C20/CSV, f5775dc): [LECTURA] que pasan a filas verificadas del CSV. Valor = signo × fila verificada,
+# con el signo de la lectura (los pagos de adquisiciones van impresos como salida de caja). Las seis restantes (columnas
+# Lavartex y «otras adquisiciones» de la nota 2.4) son de perímetro por sociedad, no del grupo: siguen [LECTURA].
+VERIFICADAS = {
+    "actualizacion_earnout_2023": ("FIN_ACTMEX_FR_2023", 1),
+    "actualizacion_earnout_2024": ("FIN_ACTMEX_2024", 1),
+    "actualizacion_earnout_2025": ("FIN_ACTMEX_2025", 1),
+    "ajuste_earnout_2021": ("OOIE_EARN_U22_2021", 1),
+    "ajuste_earnout_2022": ("OOIE_EARN_U23_2022", 1),
+    "adq_earnouts_y_diferidos_2023": ("ADQ_EARNDIF_FR_2023", -1),
+    "adq_earnouts_y_diferidos_2024": ("ADQ_EARNDIF_2024", -1),
+    "adq_earnouts_y_diferidos_2025": ("ADQ_EARNDIF_2025", -1),
 }
 # Pasajes que fundan las correcciones (V1 y V3); se buscan en la página del PDF con el texto normalizado.
 PASAJES = [
@@ -134,6 +148,16 @@ def main():
 
     def avg(fn):
         return sum(fn(A[y]) for y in VENT) / 3
+
+    # bloque CSV: las [LECTURA] con fila verificada se toman del CSV (Fuente: sin FALLO, vigente, grupo, mm EUR)
+    LVV = {}
+    for k, (i, sg) in VERIFICADAS.items():
+        LVV[k] = sg * F(i)
+        control(f"lectura anterior igual a la fila verificada: {k} = {'' if sg == 1 else '−'}{i}", LVV[k], LECTURAS[k][0])
+    # segundas presentaciones (edición anterior; solo identidad, no entran en el cálculo)
+    control("actualización del earnout de 2024: URD 2025 p.313 = DEU 2024 p.259 (edición anterior)", F.v["FIN_ACTMEX_2024"], F.v["FIN_ACTMEX_FR_2024"])
+    reexpresion_earn_2022 = {"URD2023_p302_vigente": f6(F.v["OOIE_EARN_U23_2022"], 1), "URD2022_p285_anterior": f6(F.v["OOIE_EARN_U22_2022"], 1),
+                             "nota": "reexpresión entre ediciones; el cálculo usa la vigente (regla de la publicación siguiente)"}
 
     S_avg, V0 = avg(lambda d: d["ventas"]), A[2025]["ventas"]
     r3 = lambda x: Fr(round(x, 3)).limit_denominator(1000)   # noqa: E731  convención «redondeo: 3» del registro
@@ -270,7 +294,7 @@ def main():
         tabla[nombre] = fila
 
     # ---------------------------------------------------------------- V3 y V4 · de qué depende la cifra de N1 (no son propuestas)
-    LV = {k: v[0] for k, v in LECTURAS.items()}
+    LV = {k: LVV.get(k, v[0]) for k, v in LECTURAS.items()}
     n1_nd = {y: [(quitar(earn[y]), "no_deducible")] for y in VENT}
 
     def delta(r, b):
@@ -283,9 +307,9 @@ def main():
     aj21[2022] = [(-LV["ajuste_earnout_2022"], "no_deducible")]
     base_v = calcular({}, tau_proy="ventana")
     dep = {
-        "N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA]": delta(calcular(
+        "N1 + actualización del earnout fuera del BAI que da el tipo [cifras verificadas]": delta(calcular(
             n1_nd, aj_bai={2023: LV["actualizacion_earnout_2023"], 2024: LV["actualizacion_earnout_2024"], 2025: LV["actualizacion_earnout_2025"]}), base),
-        "N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA]": delta(calcular(aj21), base),
+        "N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [cifras verificadas]": delta(calcular(aj21), base),
         "N1 no deducible con el τ de proyección de la ventana (E8.1; convención no adoptada)": delta(calcular(n1_nd, tau_proy="ventana"), base_v),
         "N1 con tipo fijo y el τ de proyección de la ventana (E8.1; convención no adoptada)": delta(calcular(
             {y: [(quitar(earn[y]), "tau_fijo")] for y in VENT}, tau_proy="ventana"), base_v),
@@ -388,11 +412,17 @@ def main():
                                              "tipo teórico de la matriz (regla «tipo_teorico»)": f6(100 * t_teor, 2)},
                                 "escenarios": tabla},
            "P2_PPA_constante": ppa, "P4_arrendamientos": arr, "P4_ROIC_terminal": roic,
-           "V3_V4_de_que_depende_N1": {"nota": "sensibilidades, no propuestas: las [LECTURA] no están en el CSV verificado y la "
-                                               "convención del τ de proyección es la registrada (cinco años) salvo que se diga",
+           "V3_V4_de_que_depende_N1": {"nota": "sensibilidades, no propuestas: las cifras de earnout salen ya del CSV verificado "
+                                               "(bloque CSV) y la convención del τ de proyección es la registrada (cinco años) salvo "
+                                               "que se diga; N1 no se aplica",
+                                       "reexpresion_ajuste_earnout_2022": reexpresion_earn_2022,
                                        "escenarios": dep},
            "V6_bloque_10_del_libro": bloque10,
-           "lecturas": {"valores": {k: {"valor": f6(v[0], 1), "doc": v[1], "pagina_pdf": v[2], "literal": v[3]} for k, v in LECTURAS.items()},
+           "lecturas": {"valores": {k: {"valor": f6(v[0], 1), "doc": v[1], "pagina_pdf": v[2], "literal": v[3],
+                                         "fila_verificada": VERIFICADAS[k][0] if k in VERIFICADAS else None,
+                                         "estado": "verificada en el CSV" if k in VERIFICADAS else
+                                                   "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"}
+                                     for k, v in LECTURAS.items()},
                         "comprobacion_en_pdf": lecturas},
            "resumen": {"controles": len(controles), "fallidos": [c["control"] for c in controles if not c["ok"]], "errores": errores}}
     a.salida.write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -435,7 +465,10 @@ def main():
     for n, v in dep.items():
         md.append(f"| {n} | {' / '.join(str(x) for x in v['tau_2023_25'])} | {v['tau_de_proyeccion']} | {v['variacion_flujo_sin_crecimiento']} | "
                   f"{' / '.join(str(x) for x in v['variacion_año_11_MALO_NORMAL_BUENO'])} |")
-    md += ["", "[LECTURA]: cifras que no están en el CSV verificado; documento, página y literal en el JSON."]
+    md += ["", f"Cifras de earnout: {len(VERIFICADAS)} de las {len(LECTURAS)} lecturas de V3–V4 salen ya del CSV verificado (filas en el JSON). "
+           f"Las {len(LECTURAS) - len(VERIFICADAS)} restantes (columnas Lavartex y «otras adquisiciones») siguen [LECTURA]: son columnas por "
+           "sociedad, no del grupo, y no intervienen en el cálculo. Reexpresión del ajuste de earnout de 2022: "
+           f"{reexpresion_earn_2022['URD2022_p285_anterior']} en el URD 2022 y {reexpresion_earn_2022['URD2023_p302_vigente']} en el URD 2023 (vigente)."]
     if lecturas:
         md += [f"Comprobación en el PDF (pdftotext, una página): {sum(v['en_la_pagina'] for v in lecturas['literales'].values())} de "
                f"{len(lecturas['literales'])} literales y {sum(x['encontrado'] for x in lecturas['pasajes'])} de {len(lecturas['pasajes'])} pasajes "

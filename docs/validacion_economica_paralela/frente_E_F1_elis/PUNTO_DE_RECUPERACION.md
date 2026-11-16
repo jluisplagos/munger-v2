@@ -2,6 +2,15 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
+**Bloque cerrado:** bloque CSV (`ENCARGO_C20_CSV.md` de `f5775dc`). Diez cifras [LECTURA] de earnout pasan al CSV verificado, que queda en 762 filas: 748 OK, 14 PENDIENTE y 0 FALLO. Seis columnas por sociedad siguen [LECTURA], con su motivo. N1 no se aplica. Detalle en [RESPUESTA_BLOQUE_CSV_LECTURAS.md](RESPUESTA_BLOQUE_CSV_LECTURAS.md).
+**Contrastes:**
+- W1–W3 (`d519eb0`): contrastado por Mistral C/F en `90329a1`, CUMPLE con límites.
+- C20 y bloque CSV: pendientes del revisor asignado en el control común.
+
+**Siguiente en esta rama:** ninguna tarea de autor abierta. Queda esperar esos contrastes, las decisiones (1a)–(5b) y los datos M1, M2, M6 y N2.
+
+---
+
 **Bloque cerrado:** correcciones W1–W3 de la revisión F1 v3 (`f5775dc`, repositorio auxiliar), dentro del programa de cierre que coordina esta sesión. Control común: `jluisplagos/munger-v2-evidencias-mistral`, rama `coordinacion/cierre-v2`, `coordinacion/cierre_v2/CONTROL.json`.
 **Siguiente en esta rama:** el bloque C20 y luego las cifras [LECTURA] al CSV (`ENCARGO_C20_CSV.md` de `f5775dc`), en commits separados. Mientras tanto, el contraste de W1–W3 está pendiente.
 

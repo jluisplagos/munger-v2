@@ -2,7 +2,7 @@
 
 Generado por `scripts/copia_investigacion_f1.py`. **No es una entrada registrada, ni una política adoptada, ni una valoración.** Elis sigue en `pendiente_de_datos`. Mismas funciones que `contraste_f1.py`; solo cifras verificadas; libro en solo lectura.
 
-Controles: 58, fallidos: 0.
+Controles: 67, fallidos: 0.
 
 ## P3 · Ajustes y cálculo conjunto (perímetro A0; la variación es la misma en A1 y A2)
 
@@ -72,10 +72,10 @@ Umbral del aviso del libro: Umbral del aviso (puntos; ajustable) = 0.05.
 
 | Escenario | τ 2023 / 2024 / 2025 | τ de proyección | Variación del flujo sin crecimiento | Variación del año 11 MALO / NORMAL / BUENO |
 |---|---|---|---|---|
-| N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA] | 0.2544 / 0.2772 / 0.2556 | 0.2801 | -12.396 | -16.91 / -20.27 / -21.668 |
-| N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA] | 0.2619 / 0.2806 / 0.2559 | 0.28168 | -11.19 | -15.093 / -18.142 / -19.433 |
+| N1 + actualización del earnout fuera del BAI que da el tipo [cifras verificadas] | 0.2544 / 0.2772 / 0.2556 | 0.2801 | -12.396 | -16.91 / -20.27 / -21.668 |
+| N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [cifras verificadas] | 0.2619 / 0.2806 / 0.2559 | 0.28168 | -11.19 | -15.093 / -18.142 / -19.433 |
 | N1 no deducible con el τ de proyección de la ventana (E8.1; convención no adoptada) | 0.2619 / 0.2806 / 0.2559 | 0.266133 | -9.141 | -13.417 / -15.848 / -16.759 |
 | N1 con tipo fijo y el τ de proyección de la ventana (E8.1; convención no adoptada) | 0.2963 / 0.2754 / 0.256 | 0.2759 | -9.763 | -11.843 / -14.598 / -15.914 |
 
-[LECTURA]: cifras que no están en el CSV verificado; documento, página y literal en el JSON.
+Cifras de earnout: 8 de las 14 lecturas de V3–V4 salen ya del CSV verificado (filas en el JSON). Las 6 restantes (columnas Lavartex y «otras adquisiciones») siguen [LECTURA]: son columnas por sociedad, no del grupo, y no intervienen en el cálculo. Reexpresión del ajuste de earnout de 2022: 2.1 en el URD 2022 y 2.4 en el URD 2023 (vigente).
 Comprobación en el PDF (pdftotext, una página): 14 de 14 literales y 12 de 12 pasajes encontrados; huellas de los PDF: todas iguales a datos/fuentes.json.

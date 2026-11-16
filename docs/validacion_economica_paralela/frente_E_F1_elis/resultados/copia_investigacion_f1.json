@@ -3,6 +3,60 @@
   "huella_libro": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
   "controles": [
     {
+      "control": "lectura anterior igual a la fila verificada: actualizacion_earnout_2023 = FIN_ACTMEX_FR_2023",
+      "calculado": 12.4,
+      "referencia": 12.4,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: actualizacion_earnout_2024 = FIN_ACTMEX_2024",
+      "calculado": 5.6,
+      "referencia": 5.6,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: actualizacion_earnout_2025 = FIN_ACTMEX_2025",
+      "calculado": 0.7,
+      "referencia": 0.7,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: ajuste_earnout_2021 = OOIE_EARN_U22_2021",
+      "calculado": -3.0,
+      "referencia": -3.0,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: ajuste_earnout_2022 = OOIE_EARN_U23_2022",
+      "calculado": 2.4,
+      "referencia": 2.4,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: adq_earnouts_y_diferidos_2023 = −ADQ_EARNDIF_FR_2023",
+      "calculado": 34.4,
+      "referencia": 34.4,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: adq_earnouts_y_diferidos_2024 = −ADQ_EARNDIF_2024",
+      "calculado": 93.9,
+      "referencia": 93.9,
+      "ok": true
+    },
+    {
+      "control": "lectura anterior igual a la fila verificada: adq_earnouts_y_diferidos_2025 = −ADQ_EARNDIF_2025",
+      "calculado": 23.3,
+      "referencia": 23.3,
+      "ok": true
+    },
+    {
+      "control": "actualización del earnout de 2024: URD 2025 p.313 = DEU 2024 p.259 (edición anterior)",
+      "calculado": 5.6,
+      "referencia": 5.6,
+      "ok": true
+    },
+    {
       "control": "FCF base registrado (Historia!C70) = cálculo con la convención de registro",
       "calculado": 307.933,
       "referencia": 307.933,
@@ -255,25 +309,25 @@
       "ok": true
     },
     {
-      "control": "revisión dirigida reproducida: N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA] · variacion_flujo_sin_crecimiento",
+      "control": "revisión dirigida reproducida: N1 + actualización del earnout fuera del BAI que da el tipo [cifras verificadas] · variacion_flujo_sin_crecimiento",
       "calculado": -12.396,
       "referencia": -12.396,
       "ok": true
     },
     {
-      "control": "revisión dirigida reproducida: N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA] · variacion_año_11_MALO_NORMAL_BUENO NORMAL",
+      "control": "revisión dirigida reproducida: N1 + actualización del earnout fuera del BAI que da el tipo [cifras verificadas] · variacion_año_11_MALO_NORMAL_BUENO NORMAL",
       "calculado": -20.27,
       "referencia": -20.27,
       "ok": true
     },
     {
-      "control": "revisión dirigida reproducida: N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA] · variacion_flujo_sin_crecimiento",
+      "control": "revisión dirigida reproducida: N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [cifras verificadas] · variacion_flujo_sin_crecimiento",
       "calculado": -11.19,
       "referencia": -11.19,
       "ok": true
     },
     {
-      "control": "revisión dirigida reproducida: N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA] · variacion_año_11_MALO_NORMAL_BUENO NORMAL",
+      "control": "revisión dirigida reproducida: N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [cifras verificadas] · variacion_año_11_MALO_NORMAL_BUENO NORMAL",
       "calculado": -18.142,
       "referencia": -18.142,
       "ok": true
@@ -955,9 +1009,14 @@
     }
   },
   "V3_V4_de_que_depende_N1": {
-    "nota": "sensibilidades, no propuestas: las [LECTURA] no están en el CSV verificado y la convención del τ de proyección es la registrada (cinco años) salvo que se diga",
+    "nota": "sensibilidades, no propuestas: las cifras de earnout salen ya del CSV verificado (bloque CSV) y la convención del τ de proyección es la registrada (cinco años) salvo que se diga; N1 no se aplica",
+    "reexpresion_ajuste_earnout_2022": {
+      "URD2023_p302_vigente": 2.4,
+      "URD2022_p285_anterior": 2.1,
+      "nota": "reexpresión entre ediciones; el cálculo usa la vigente (regla de la publicación siguiente)"
+    },
     "escenarios": {
-      "N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA]": {
+      "N1 + actualización del earnout fuera del BAI que da el tipo [cifras verificadas]": {
         "tau_2023_25": [
           0.2544,
           0.2772,
@@ -971,7 +1030,7 @@
           -21.668
         ]
       },
-      "N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA]": {
+      "N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [cifras verificadas]": {
         "tau_2023_25": [
           0.2619,
           0.2806,
@@ -1042,85 +1101,113 @@
         "valor": 12.4,
         "doc": "DEU2024FR",
         "pagina_pdf": 259,
-        "literal": "12,4"
+        "literal": "12,4",
+        "fila_verificada": "FIN_ACTMEX_FR_2023",
+        "estado": "verificada en el CSV"
       },
       "actualizacion_earnout_2024": {
         "valor": 5.6,
         "doc": "DEU2024FR",
         "pagina_pdf": 259,
-        "literal": "5,6"
+        "literal": "5,6",
+        "fila_verificada": "FIN_ACTMEX_2024",
+        "estado": "verificada en el CSV"
       },
       "actualizacion_earnout_2025": {
         "valor": 0.7,
         "doc": "URD2025",
         "pagina_pdf": 313,
-        "literal": "0.7"
+        "literal": "0.7",
+        "fila_verificada": "FIN_ACTMEX_2025",
+        "estado": "verificada en el CSV"
       },
       "ajuste_earnout_2021": {
         "valor": -3.0,
         "doc": "URD2022",
         "pagina_pdf": 285,
-        "literal": "(3.0)"
+        "literal": "(3.0)",
+        "fila_verificada": "OOIE_EARN_U22_2021",
+        "estado": "verificada en el CSV"
       },
       "ajuste_earnout_2022": {
         "valor": 2.4,
         "doc": "URD2023",
         "pagina_pdf": 302,
-        "literal": "2.4"
+        "literal": "2.4",
+        "fila_verificada": "OOIE_EARN_U23_2022",
+        "estado": "verificada en el CSV"
       },
       "adq_earnouts_y_diferidos_2023": {
         "valor": 34.4,
         "doc": "DEU2024FR",
         "pagina_pdf": 288,
-        "literal": "(34,4)"
+        "literal": "(34,4)",
+        "fila_verificada": "ADQ_EARNDIF_FR_2023",
+        "estado": "verificada en el CSV"
       },
       "adq_earnouts_y_diferidos_2024": {
         "valor": 93.9,
         "doc": "URD2025",
         "pagina_pdf": 342,
-        "literal": "(93.9)"
+        "literal": "(93.9)",
+        "fila_verificada": "ADQ_EARNDIF_2024",
+        "estado": "verificada en el CSV"
       },
       "adq_earnouts_y_diferidos_2025": {
         "valor": 23.3,
         "doc": "URD2025",
         "pagina_pdf": 341,
-        "literal": "(23.3)"
+        "literal": "(23.3)",
+        "fila_verificada": "ADQ_EARNDIF_2025",
+        "estado": "verificada en el CSV"
       },
       "adq_lavartex_2023": {
         "valor": 31.4,
         "doc": "DEU2024FR",
         "pagina_pdf": 288,
-        "literal": "(31,4)"
+        "literal": "(31,4)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       },
       "adq_lavartex_2024": {
         "valor": 83.2,
         "doc": "URD2025",
         "pagina_pdf": 342,
-        "literal": "(83.2)"
+        "literal": "(83.2)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       },
       "adq_lavartex_2025": {
         "valor": 19.7,
         "doc": "URD2025",
         "pagina_pdf": 341,
-        "literal": "(19.7)"
+        "literal": "(19.7)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       },
       "adq_otras_flujo_neto_2023": {
         "valor": 35.3,
         "doc": "DEU2024FR",
         "pagina_pdf": 288,
-        "literal": "(35,3)"
+        "literal": "(35,3)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       },
       "adq_otras_flujo_neto_2024": {
         "valor": 22.0,
         "doc": "URD2025",
         "pagina_pdf": 342,
-        "literal": "(22.0)"
+        "literal": "(22.0)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       },
       "adq_otras_flujo_neto_2025": {
         "valor": 37.3,
         "doc": "URD2025",
         "pagina_pdf": 341,
-        "literal": "(37.3)"
+        "literal": "(37.3)",
+        "fila_verificada": null,
+        "estado": "[LECTURA]: columna por sociedad (perímetro distinto del grupo), no se pasa al CSV del grupo"
       }
     },
     "comprobacion_en_pdf": {
@@ -1308,7 +1395,7 @@
     }
   },
   "resumen": {
-    "controles": 58,
+    "controles": 67,
     "fallidos": [],
     "errores": []
   }
