@@ -5,7 +5,7 @@ Fecha: 16-nov-2026. Autor: frente E (sesión «Conciliación económica Elis/F1�
 - **Revisión respondida:** `REVISION_PROPUESTA_F1.md`, rama `auditoria/revision-propuesta-f1`, commit `1a071881c65a191056ca3c6b41a20a965825cf12`, leída sin fusionarla ni cambiar de rama.
 - **Material que revisó:** la propuesta del commit `b83803cd1c42c52c6ced6a538f5ae03ef706a644` (SHA-256 `f2d8c815…f795`).
 - **Esta respuesta:** está en el commit congelado `13f864f910bf0bb3e27007b23c13a8e957f1bfb7`.
-- **Revisada** por la revisión dirigida a P1–P4 (commit `8fcc7fd`). Resultado y estado de sus objeciones: §7. Las correcciones no están aplicadas.
+- **Revisada** por la revisión dirigida a P1–P4 (commit `8fcc7fd`). Resultado: §7. **Sus correcciones V1–V11 se aplican después**, en la revisión 3 de la propuesta y en la especificación: [RESPUESTA_CORRECCIONES_V1_V11.md](RESPUESTA_CORRECCIONES_V1_V11.md). Este documento conserva el texto revisado, con notas de corrección en los puntos afectados.
 
 **Qué no hace.**
 - No adopta ninguna decisión económica.
@@ -48,7 +48,7 @@ python3 -I contraste_f1.py --cifras ../datos/cifras_fuente.csv --verificacion ..
 
 | Script | Resultado | Salida |
 |---|---|---|
-| `controles_sinteticos_f1.py` (nuevo) | Código 0. 22 casos: 8 coherentes y 14 incoherencias ilustradas, cada uno con el resultado esperado. Los 9 casos del revisor se reproducen exactamente. El motor sintético coincide con `motor_a` en tres casos de prueba | `resultados/controles_sinteticos_f1.{json,log}` |
+| `controles_sinteticos_f1.py` (nuevo) | Código 0. 22 casos: 8 coherentes y 14 incoherencias ilustradas, cada uno con el resultado esperado. Los 9 casos del revisor se reproducen exactamente. El motor sintético coincide con `motor_a` en tres casos de prueba. **Corrección V10:** esos tres casos tenían crecimiento y margen constantes y no recorrían la senda de `motor_a`. Desde las correcciones, el script tiene 32 casos y coincide con `motor_a` también con crecimiento y margen variables e impuestos | `resultados/controles_sinteticos_f1.{json,log}` |
 | `copia_investigacion_f1.py` (nuevo) | Código 0. 43 controles, ninguno fallido. Sin ajustes, reproduce f (Historia!C58), el τ de 5 años (C52), el flujo sin crecimiento 248,496395342656, los 33 flujos del libro, el FCF base registrado (Historia!C70), C48 = 108, el diagnóstico 13,675 / −4,032 / 18,293 / 27,936 y la sensibilidad de arrendamientos de la revisión. La variación de cada escenario es idéntica en A0, A1 y A2 | `resultados/copia_investigacion_f1.{json,md}` |
 | `contraste_f1.py` (sin cambios) | Se ha vuelto a ejecutar: 292 comprobaciones, 0 fallidas; salidas idénticas byte a byte | `resultados/contraste_f1.{json,md}` |
 
@@ -110,6 +110,7 @@ Detalle en la propuesta, §5, y en la especificación, E2 y E5.
 - [P] El crecimiento orgánico fue positivo todos los años de 2021–2025: 7,4 %, 21,0 %, 11,8 %, 5,2 % y 3,8 %.
 - [P] Tuvo efecto volumen publicado en 2024 y 2025, sin cifra. En 2023, unos 9 de los 11,8 puntos fueron de precio.
 - [I] El crecimiento orgánico se mide sobre la cartera existente, neta de los clientes perdidos, también los de sociedades compradas en años anteriores. Que fuera positivo en volumen indica que, en la ventana, las bajas se repusieron sin compras, y que las compras añadieron ventas (crecimiento externo del 1,2 % al 3,1 % al año en 2022–2025).
+  - **Corrección V1 (material):** la definición publicada solo excluye las adquisiciones «importantes», de más de 5,0 millones de ingresos en Francia y de 3,0 en los demás países (URD25 p.313; DEU24 p.259; URD23 p.267). Las compras pequeñas, con un flujo neto de 31,5 al año de media en 2023–25, están dentro del crecimiento orgánico. Lo publicado permite decir «sin compras importantes», no «las bajas se repusieron sin compras». La propuesta, revisión 3, (4b), ya no recomienda aprobar la hipótesis: la deja como opción B.
 - Es una evidencia parcial de la ventana. Para el futuro, es una hipótesis.
 
 **Consecuencia y sensibilidad de la hipótesis.**
@@ -163,7 +164,7 @@ Detalle en la propuesta, §5, y en la especificación, E2 y E5.
 
 | Ajuste | Fuente | Original → normalizado | Motivo | Fiscalidad | Caja y dependencias | Efecto conjunto en el flujo sin crecimiento y en el terminal NORMAL |
 |---|---|---|---|---|---|---|
-| **N1** · ajustes de earnout de 2023–25 | Nota 4.6: −48,9 / +8,7 / −0,2 (DEU24 p.296; URD25 p.350). En 2023, revaluación del complemento de precio de México (DEU24 p.296) | EBIT y BAI del año → sin el ajuste | Revaluación del precio de una adquisición, no coste de explotación. No monetaria al reconocerse: el estado de flujos la añade de vuelta. Se trata simétricamente en los tres años | No deducible [P]: la línea fiscal de 2023, 15,8, es 25,83 % × (48,9 + 12,4 de actualización) [D]; en 2024, 0,8, y en 2025, 0,2 (URD25 p.392). Regla: gasto por impuesto sin cambios y tipo del año recalculado | El pago está fuera del FCF base [I]: la línea del pago no se ha identificado en las páginas examinadas. Coherente con (4b), porque el coste de las compras se cobra como compras. m_obj debe declararse sin estos ajustes | **−11,605** y −18,609, con la regla publicada. Con el tipo fijo: −9,765 y −14,598 |
+| **N1** · ajustes de earnout de 2023–25 | Nota 4.6: −48,9 / +8,7 / −0,2 (DEU24 p.296; URD25 p.350). En 2023, revaluación del complemento de precio de México (DEU24 p.296) | EBIT y BAI del año → sin el ajuste | Revaluación del precio de una adquisición, no coste de explotación. No monetaria al reconocerse: el estado de flujos la añade de vuelta. Se trata simétricamente en los tres años | No deducible [P]: la línea fiscal de 2023, 15,8, es 25,83 % × (48,9 + 12,4 de actualización) [D]; en 2024, 0,8, y en 2025, 0,2 (URD25 p.392). **Corrección V10:** con su signo, (15,8) en 2023, 0,8 en 2024 y (0,2) en 2025; 2024 es de sentido contrario. Regla: gasto por impuesto sin cambios y tipo del año recalculado | El pago está fuera del FCF base [I]: la línea del pago no se ha identificado en las páginas examinadas. **Corrección V3:** está publicado [P]. La nota 2.4 separa «Earnouts and deferred consideration» dentro de «Acquisition of subsidiaries, net of cash acquired»: 34,4 / 93,9 / 23,3 (DEU24 p.288; URD25 p.342 y p.341). El de México se liquidó en 2024 y 2025 (URD25 p.352). Coherente con (4b), porque el coste de las compras se cobra como compras. m_obj debe declararse sin estos ajustes | **−11,605** y −18,609, con la regla publicada. Con el tipo fijo: −9,765 y −14,598 |
 | **N2** · resultado por bajas de 2025, con indemnizaciones de seguros | Nota 4.6: +25,7 (URD25 p.350); «a high level of insurance benefits in 2025» (URD25 p.309). Que las dos cosas sean la misma partida es una inferencia [I] | EBIT 2025 y m0 → sin la plusvalía | Suceso extraordinario [I] | No publicada. Tres hipótesis: tipo fijo, tipo teórico del 25,83 % y no gravada | La caja cobrada no está identificada: los cobros por bajas de 2025 son 15,3, menos que la plusvalía de 23,1 del estado de flujos. Tampoco lo está la reposición de los activos dados de baja. Una normalización simétrica tendría que ajustar también el FCF base registrado (E6), y eso no se puede calcular | Parcial, sin la simetría de caja: −10,305 a −11,598 y +9,9 a +12,3. El terminal **sube**, porque solo baja f. **Pendiente** |
 | No se proponen | El resto de la nota 4.6 y las pérdidas ordinarias por bajas | — | Recurrentes; su caja está en el FCF base | — | Normalizarlas las trasladaría a f (contraejemplo) | — |
 
@@ -180,6 +181,7 @@ La alternativa es no normalizar y declarar el diagnóstico. Los históricos y la
 **Límite declarado de N1.**
 - La actualización del complemento de precio de México está en el resultado financiero: 12,4 en 2023 y 5,6 en 2024 [P: DEU24 p.259]. No es deducible y también eleva el tipo de esos años.
 - No se calcula, porque esas cifras no están en el CSV verificado y la de 2025 no se publica por separado (URD25 p.379 solo dice que bajó).
+  - **Corrección V3:** la de 2025 sí se publica: 0,7 (URD25 p.313). Con 12,4 / 5,6 / 0,7, la línea fiscal cuadra los tres años al 25,83 %. Su efecto, si la regla fiscal la alcanzara, es −0,790 en el flujo sin crecimiento. Está calculado como [LECTURA] en `copia_investigacion_f1.md`.
 
 ## 5. F1-P4 · Coherencia completa
 
@@ -277,7 +279,9 @@ Las demás:
 - V9: casos sintéticos con el ancla a mano;
 - V11: textos de aprobación.
 
-**Estado: no aplicadas.**
+**Estado: aplicadas después de esta respuesta**, por encargo de la persona responsable: [RESPUESTA_CORRECCIONES_V1_V11.md](RESPUESTA_CORRECCIONES_V1_V11.md). Lo que sigue describe la situación al incorporar la revisión.
+
+**Situación al incorporarla: no aplicadas.**
 - Este encargo preveía una sola pasada: si la revisión encuentra una carencia de datos o de política, se documenta y se termina.
 - Aplicar V1–V11 cambiaría la propuesta revisada y exigiría revisar lo afectado; decide la persona responsable.
 - Comparto las once objeciones. No veo motivo para discrepar de ninguna.
