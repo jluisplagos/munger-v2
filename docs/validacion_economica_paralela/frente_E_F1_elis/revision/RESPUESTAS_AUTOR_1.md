@@ -31,7 +31,7 @@
 | C15 | c96d544646b2fa5a66c233402a9f31332a643cec | Registra el hash de C14. Congelado de la revisión n.º 7 |
 | C16 | 66d01b8fc21b277efdae938170cc64815705962e, sobre 559828e (verificador y test) (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 7 (S1–S7): título numerado y fecha del saldo en el rótulo, líneas sin rótulo, pestaña del margen, cabecera por país sin unidades, encabezado en prosa, recuento de detección y frases (séptima parte) |
 | C17 | 863ddde9190044690bfe4ee7c2a0d6fddc4c811a | Registra el hash de C16. Congelado de la revisión n.º 8 |
-| C18 | el commit que contiene la octava parte, sobre d3c0f1b y 485de8d (verificador y test) | Respuesta a la revisión n.º 8 (T1–T8): columna PENDIENTE con la fecha del saldo en el rótulo, la regla solo en filas de saldo con el rótulo más corto, cierres partidos, cabecera por países, rótulos contiguos acotados, encabezado en prosa, el año del rótulo como no cifra, barrido del autor y frases (octava parte) |
+| C18 | f12f8ea79ed5c1b444d85163c5ed08d8d07a6243, sobre d3c0f1b y 485de8d (verificador y test) (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 8 (T1–T8): columna PENDIENTE con la fecha del saldo en el rótulo, la regla solo en filas de saldo con el rótulo más corto, cierres partidos, cabecera por países, rótulos contiguos acotados, encabezado en prosa, el año del rótulo como no cifra, barrido del autor y frases (octava parte) |
 
 ## Marcas y pruebas
 
