@@ -1,7 +1,7 @@
 # Especificación económica propuesta · F1 · motor A con NIIF 16 e intangibles adquiridos
 
-Fecha: 15-nov-2026. Autor: frente E. Estado: **propuesta, no adoptada ni implementada**.
-Fundamento: [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md) y `resultados/contraste_f1.json`.
+Fecha: 15-nov-2026; revisada el 16-nov-2026 para que coincida con la revisión 2 de [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md) (respuesta a la revisión de la propuesta, F1-P1 a P4: E2–E6, E8 y E9). Autor: frente E. Estado: **propuesta, no adoptada ni implementada**.
+Fundamento: [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md), `resultados/contraste_f1.json`, `resultados/copia_investigacion_f1.json` (copia de investigación, no entradas registradas) y `resultados/controles_sinteticos_f1.json` (ejemplos de política con importes ficticios).
 
 ## E0. Condiciones previas
 
@@ -16,7 +16,9 @@ Fundamento: [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md) y `resultad
 |---|---|---|---|
 | D&A de derechos de uso (NIIF 16) | Amortización ROU del año (magnitud) | Nota 4.5 («Right-of-use assets») | Cifra publicada entre paréntesis: declarar `valor_fuente` negativo, `signo` −1 y `tratamiento` (R415-SIGNO). Vacío = desconocido; 0 solo si se verifica |
 | Amortización de intangibles de combinaciones (PPA) | Amortización de lo adquirido (magnitud) | Nota 4.5 / cuenta de resultados | Ídem |
-| Reinversión necesaria estimada (solo perímetro A3) | Estimación documentada por año, con rango | No publicada (M1) | Exige fuente, método, rango y responsable; nunca se presenta como dato publicado |
+| Reinversión necesaria estimada (solo perímetro A3) | Estimación documentada por año, con rango, separada en R_propia (capex propio necesario, incluida la dotación a los clientes que sustituyen a los perdidos), R_compras (compras de cartera necesarias para mantener las ventas) y la inversión de transición de sostenimiento | No publicada (M1, M2, M6) | Exige fuente, método, rango y responsable; nunca se presenta como dato publicado |
+| Inversión de transición (si se clasifica aparte; propuesta, 5b) | Importe por año, finalidad (sostenimiento permanente, sostenimiento u obligación temporal, crecimiento) y horizonte | No publicada (M1) | Sin importe u horizonte: vacío, que es desconocido, no cero |
+| Ajustes de normalización (solo si se aprueba la regla N1; propuesta, 5a) | Por año: partida, importe original, fuente, regla fiscal y ubicación de su caja | Nota 4.6 (ajustes de earnout) | La fila del EBIT publicado no cambia; el ajuste va en una fila propia |
 
 Opcional, para el diagnóstico: compras de lino y amortización de lino, y pagos totales de arrendamientos.
 
@@ -39,7 +41,7 @@ El parámetro es una decisión: se registra con fecha, persona y motivo, como E1
 
 | Valor | Significado |
 |---|---|
-| `EBIT_NIIF16_PPA_constante` | El margen objetivo incluye una PPA de orden constante |
+| `EBIT_NIIF16_PPA_constante` | El margen objetivo incluye la PPA como **proporción constante de las ventas**, la misma que devuelve f (en `A2_propio`, PPA media ÷ ventas medias de la ventana). No significa una PPA constante en euros. m0 es el margen real del año base: en Elis lleva el 1,7866 % de las ventas, frente al 1,8743 % que devuelve f (4,206 en la base 2025, que se declara; `copia_investigacion_f1.json`). Los casos sintéticos P2g–P2i muestran que solo la proporción constante se anula en el flujo |
 | `EBIT_NIIF16_PPA_decreciente` | El margen objetivo incluye una PPA que se agota según el valor neto publicado |
 | `EBIT_NIIF16_sin_PPA` | El margen objetivo excluye la PPA |
 | `margen_despues_de_arrendamientos` | El margen objetivo es posterior a los pagos de arrendamiento (EBITDAaL o similar) |
@@ -61,7 +63,25 @@ Combinaciones coherentes con `perimetro_reinversion`:
 | `A3_estimado` | El que declare la estimación para la PPA; si no lo declara, el de `A2_propio` | Reinversión con la D_X estimada (E1) | C53 con la misma D_X | V-F1d (estimación incompleta), V-F1h o V-F1g |
 | Cualquiera con `margen_despues_de_arrendamientos` | No admisible por ahora: A1′ deja el interés de arrendamiento en f (N4) | — | — | V-F1h |
 
-En este expediente las palancas S2C (1 / 1,2 / 1,5) no se anclan en C53 sino en un perímetro propio (informe §3). Con cualquier perímetro de reinversión, la regla V-F1g avisaría.
+En este expediente las palancas S2C (1 / 1,2 / 1,5) no se anclan en C53 sino en un perímetro propio (informe §3). Con cualquier perímetro de reinversión, la regla V-F1g bloquearía (E5).
+
+**El terminal entra en la misma matriz** (revisión de la propuesta, P4). El terminal no usa S2C: reinvierte g∞/ROIC del NOPAT (E4). El ROIC de las palancas (Palancas fila 18) declara su perímetro (`perimetro_roic`), que debe ser el del ancla de S2C:
+- NOPAT del perímetro del margen;
+- capital de crecimiento con adquisiciones si el ancla las lleva;
+- sin la ROU, porque el arrendamiento se paga en f;
+- sin R, porque la reposición está en f.
+
+Sin declaración, o con otro perímetro, salta V-F1k.
+
+**Otras declaraciones** (propuesta, decisiones 2, 4b y 5b). Cada una se registra con fecha, persona y motivo, como E1–E6, y no la rellena el agente:
+
+| Parámetro | Valores admisibles | Si falta |
+|---|---|---|
+| `clasificacion_compras` | `crecimiento_por_hipotesis` (hipótesis registrada, con su fundamento); `reposicion_con_importe` (R_compras o término explícito, por año); `pendiente` | V-F1j |
+| `tratamiento_transicion` | `en_R` (sostenimiento permanente); `termino_explicito` (importe y horizonte); `crecimiento` (amplía capacidad); `pendiente` | V-F1i |
+| `perimetro_roic` | El mismo valor que el perímetro de las palancas S2C | V-F1k |
+
+**Correspondencia de costes.** La tabla de la propuesta, §2, es parte de esta especificación: cada coste tiene un solo sitio en la ventana, en los años 1–10 y en el terminal. Los casos de `controles_sinteticos_f1.py` (T15) la comprueban, también a crecimiento cero.
 
 ## E3. Calibración de f
 
@@ -71,6 +91,13 @@ f = { Σ_w EBIT_t·(1 − τ_t) ⁄ n − Σ_w (capex_t − D_X,t + ΔWC_t) ⁄ 
 
 - La conciliación de las filas 73–81 debe mostrar D_X media y sus componentes. Recomendado: también la composición económica de f del informe, §4.2 (arrendamientos, intereses, impuesto, capex neto/bruto, partidas no monetarias), con su suma igual a C79.
 - **Tratamiento fiscal.** El cambio de perímetro es antes de impuestos. Los efectos fiscales reales ya están en los impuestos pagados que calibran f; en Elis, el diferido de intangibles aporta 15,5/20,3/17,5 y el de NIIF 16 es casi neutro. No se añade ningún escudo fiscal adicional. Hay que declarar la limitación: el efecto fiscal se escala con las ventas aunque la PPA se agote.
+- **Normalización: solo si se aprueba la regla N1** (propuesta, 5a). El 27,936 de `partidas_puntuales_en_flujo_sin_crecimiento` es un diagnóstico y no se deduce.
+  - N1 saca los ajustes de earnout de la nota 4.6 del EBIT y del resultado antes de impuestos de su año, con el gasto por impuesto sin cambios, porque no son deducibles.
+  - Se recalcula el tipo de ese año con la convención de la fila 10 (gasto ÷ BAI, 4 decimales) y, con él, el NOPAT de la ventana, f, el τ de 5 años y m0.
+  - Los históricos no cambian: el ajuste va en su fila (E1).
+  - N2 (bajas de 2025 con seguros) no se aplica mientras su fiscalidad y su caja no estén identificadas.
+  - Ninguna partida se normaliza por su etiqueta.
+  - Valores de referencia condicionales: T16.
 - Sin cambios en la estructura del flujo ni del terminal (Convenciones §1–§3).
 
 ## E4. Ancla de S2C con el mismo perímetro
@@ -80,25 +107,44 @@ C53 = (V_L − V_G) ÷ Σ_{H..L} (capex − D_X + ΔWC + adquisiciones)
 - Variante orgánica opcional, si se dispone del crecimiento orgánico publicado. **El crecimiento orgánico publicado es nominal e incluye precio** (informe §3, §6.2). La variante debe declararse como nominal o deflactarse con un efecto precio documentado; nunca se presenta como productividad en volumen.
 - Las palancas S2C (Palancas B16:D16) deben declarar el perímetro con que se anclan. Si no coincide con `perimetro_reinversion`, se emite el aviso V-F1g.
 - Con la palanca anclada en C53 y el perímetro `A0_total`, el exceso de arrendamientos de los años 1–10 disminuye con el crecimiento y se anula cerca del crecimiento histórico. A crecimiento cero y en el terminal persiste (informe §5.3). Por eso V-F1a no depende del ancla.
+- Si se documentan compras de reposición (R_compras), el denominador del ancla no las incluye: ya están en R. Contarlas en los dos sitios las cobra dos veces con crecimiento, aunque a crecimiento cero el caso parezca coherente (caso sintético P2c).
+
+**Terminal.** Terminal = V₁₀·(1+g∞)·[m_obj(1−τ)(1 − g∞/ROIC) − f]. No usa S2C.
+- La inversión de crecimiento del terminal es g∞/ROIC del NOPAT, antes de f. f persiste a perpetuidad, con todos los costes que contiene.
+- El terminal cobra la misma inversión de crecimiento que ΔV/S2C si ROIC = (1+g∞)·m_obj·(1−τ)·S2C. Esta igualdad se calcula y se muestra (V-F1k, INFORMA). Si difieren, la palanca lo justifica; puede suponer otra intensidad de capital a perpetuidad.
+- Con g∞ = 0, el terminal es V₁₀·[m_obj(1−τ) − f]: un coste recurrente que solo se cobre como crecimiento desaparece también aquí (casos P2a y P4c).
+- En Elis, con las palancas actuales, el ROIC que reproduce S2C es 7,55 % / 10,89 % / 14,77 %, frente a 7 % / 10 % / 12 % (`copia_investigacion_f1.json`). La compatibilidad queda pendiente de R y del perímetro de las palancas.
 
 ## E5. Reglas de control
 
-| Id | Condición | Efecto |
-|---|---|---|
-| V-F1a | Motor A, Σ D&A ROU > 0 en la ventana, C49 > 0, perímetro `A0_total`, y D&A ROU media ÷ ventas medias ≥ umbral de materialidad. Umbral propuesto: 0,5 % de las ventas; es un parámetro de configuración, que no se adopta aquí | **MODELO NO APLICABLE** («coste de arrendamiento contado dos veces en la proyección»), no «datos inválidos»: los datos son correctos y la incoherencia es de definición (revisión, O12). Por debajo del umbral, AVISO |
-| V-F1b | Motor A, C49 > 0 y fila de D&A ROU vacía en algún año de la ventana | **INCOMPLETO** (vacío ≠ 0) |
-| V-F1c | Media de D_X > media de capex propio en la ventana | **AVISO** con justificación obligatoria (hipótesis de infrainversión documentada); sin ella, la entrada pasa a «hipótesis pendiente» |
-| V-F1d | `A3_estimado` sin fuente, método, rango o responsable | **INCOMPLETO** |
-| V-F1e | Invariantes de E1 incumplidos o signos sin declarar | **DATOS INVÁLIDOS** |
-| V-F1f | `A2_propio` con PPA > 0 | Informativo: mostrar valor neto de intangibles adquiridos ÷ PPA (años de agotamiento al ritmo actual) y si las altas del último ejercicio son provisionales |
-| V-F1g | Perímetro declarado de las palancas S2C ≠ `perimetro_reinversion` | **AVISO**, con la diferencia de anclas S2C entre perímetros |
-| V-F1h | `perimetro_margen` incompatible con `perimetro_reinversion` (E2) | **MODELO NO APLICABLE** hasta que se declare una combinación coherente |
+**Severidad** (la misma que en el texto de aprobación de la propuesta; revisión de la propuesta, P4):
+- **BLOQUEA:** el resultado del motor A no se usa para una conclusión. Puede calcularse y mostrarse como diagnóstico, rotulado con el control que salta.
+- **AVISO:** se muestra, no bloquea y no acredita coherencia.
+- **INFORMA:** información para quien decide.
+
+| Id | Condición | Severidad | Efecto |
+|---|---|---|---|
+| V-F1a | Motor A, Σ D&A ROU > 0 en la ventana, C49 > 0 y perímetro `A0_total` | **BLOQUEA**, con cualquier importe. **No se adopta umbral de materialidad**: el 0,5 % de la versión anterior no se adopta. Un umbral, si se quiere, es una decisión aparte, y esta especificación no propone ninguna cifra | **MODELO NO APLICABLE** («coste de arrendamiento contado dos veces en la proyección»), no «datos inválidos»: los datos son correctos y la incoherencia es de definición (revisión, O12) |
+| V-F1b | Motor A, C49 > 0 y fila de D&A ROU vacía en algún año de la ventana | **BLOQUEA** | **INCOMPLETO** (vacío ≠ 0) |
+| V-F1c | R_propia media > capex propio medio, o R_compras media > compras medias, en la ventana. **No se compara R total con el capex propio**: R puede superar el capex propio sin infrainversión si incluye compras de cartera (caso sintético `guarda_R_frente_a_capex`) | **AVISO** con justificación obligatoria (hipótesis de infrainversión documentada); sin ella, **BLOQUEA** | Sin justificación, la entrada pasa a «hipótesis pendiente» |
+| V-F1d | `A3_estimado` sin fuente, método, rango o responsable, o sin declarar cómo trata la reposición de clientes (R_propia, R_compras) y la inversión de transición | **BLOQUEA** | **INCOMPLETO** |
+| V-F1e | Invariantes de E1 incumplidos o signos sin declarar | **BLOQUEA** | **DATOS INVÁLIDOS** |
+| V-F1f | `A2_propio` con PPA > 0 | **INFORMA** | Valor neto de los intangibles adquiridos ÷ PPA (años de agotamiento al ritmo actual); si las altas del último ejercicio son provisionales; proporción de la PPA en m0 frente a la que devuelve f |
+| V-F1g | Perímetro declarado de las palancas S2C ≠ `perimetro_reinversion`, o sin declarar | **BLOQUEA** (antes AVISO) | **MODELO NO APLICABLE** para una conclusión; se muestra la diferencia de anclas S2C entre perímetros |
+| V-F1h | `perimetro_margen` incompatible con `perimetro_reinversion` (E2) | **BLOQUEA** | **MODELO NO APLICABLE** hasta que se declare una combinación coherente |
+| V-F1i | `tratamiento_transicion` sin declarar o `pendiente` con transición material conocida; `termino_explicito` sin importe u horizonte; transición cobrada dos veces (en R y como término) o ninguna | **BLOQUEA** | **INCOMPLETO** o **MODELO NO APLICABLE**. Nunca cero por defecto |
+| V-F1j | `clasificacion_compras` sin declarar o `pendiente`; `reposicion_con_importe` sin importe por año; compras de reposición cobradas en R y también en el ancla de S2C | **BLOQUEA** | **INCOMPLETO** o **MODELO NO APLICABLE** |
+| V-F1k | `perimetro_roic` sin declarar o distinto del de las palancas S2C | **BLOQUEA**; la comparación del ROIC con (1+g∞)·m_obj·(1−τ)·S2C, **INFORMA** | **MODELO NO APLICABLE** para una conclusión; se muestran los dos ROIC y la diferencia de inversión del terminal |
+| V-F1l | Un ajuste de normalización sin fuente, regla fiscal o ubicación de su caja; o la deducción del diagnóstico de partidas puntuales como si fuera un ajuste | **BLOQUEA** | **INCOMPLETO**. Sin regla aprobada, el diagnóstico se muestra como tal |
 
 ## E6. Presentación en el diagnóstico
 
 - Puente FCF base → flujo sin crecimiento, en cinco líneas (informe §4.3): nivel del EBIT, cambio de tipo, escala de f, reinversión histórica y resultado.
 - Tabla «Dónde queda el coste de arrendamiento» (informe §5.2).
 - La salida debe decir que el perímetro es una **decisión** y que el reparto entre reposición y crecimiento **no está publicado** cuando así sea. La conclusión de nivel se mantiene como `pendiente_de_datos` mientras M1 esté abierto, salvo que la persona responsable registre otra política.
+- Tabla de correspondencia de costes (propuesta, §2), con el sitio de cada coste en la ventana, los años 1–10 y el terminal, y los controles que saltan con su severidad.
+- Estado de la normalización: el diagnóstico de partidas puntuales, rotulado como diagnóstico, y los ajustes aprobados, cada uno con su fuente, su regla fiscal y su efecto en f, en el τ de 5 años, en m0 y en el terminal.
+- Los avisos nunca se presentan como prueba de coherencia.
 
 ## E7. Redondeo de las entradas registradas
 
@@ -115,9 +161,9 @@ Ambas son admisibles. Lo que no se admite es presentar un redondeo como exacto.
 1. Ventana del tipo: f se calibra con τ por año y la proyección usa τ de 5 años. Efecto en Elis: −8,0 en el flujo de partida.
 2. Intereses proporcionales a las ventas sin endeudamiento nuevo. Efecto en Elis en el año 1: endeudamiento omitido de 60,4 a 166,1 si la deuda neta se mantuviera en el 63 % de las ventas.
 3. Motor B, C63: intereses sin arrendamientos ÷ deuda con arrendamientos.
-4. Partidas puntuales dentro de la ventana de f: earnout de 2023 y plusvalía de 2025, con +27,9 en el flujo sin crecimiento de Elis, común a todos los perímetros (informe §4.2). Requieren una regla de normalización, si se decide. **Los valores de referencia de E9 las incluyen**: no están normalizados.
-5. Tendencia de los arrendamientos: pagos y amortización ROU crecieron más deprisa que las ventas (informe §5.5). Una razón constante no lo proyecta.
-6. Inversión del plan climático: ni reposición ni crecimiento (informe §6.2). Definición pendiente.
+4. Partidas puntuales dentro de la ventana de f: earnout de 2023 y plusvalía de 2025, con +27,9 en el flujo sin crecimiento de Elis, común a todos los perímetros (informe §4.2). Ese +27,9 es un diagnóstico, no el efecto de una regla. La propuesta, decisión 5a, trae ajustes concretos con regla fiscal: N1, con −11,605 en el flujo sin crecimiento, y N2, pendiente. Si se aprueba N1, se aplica con F1 (E3, T16). **Los valores de referencia de T1–T3b no están normalizados.**
+5. Tendencia de los arrendamientos: pagos y amortización ROU crecieron más deprisa que las ventas (informe §5.5). Una razón constante no lo proyecta. Propuesta, decisión 1b: la media es una referencia de ensayo, con una sensibilidad de 16,778.
+6. Inversión del plan climático (propuesta, 5b; E2, `tratamiento_transicion`; V-F1i): se clasifica por su finalidad documentada y su caja se cobra una sola vez. Importe, horizonte y finalidad: pendientes (M1).
 
 ## E9. Criterios de prueba
 
@@ -141,17 +187,20 @@ Tolerancia 10⁻⁹ salvo indicación. Los valores de referencia están en `resu
 | T5 | Caso sintético solo con arrendamientos (τ = 0, sin crecimiento: EBITDA 100; capex propio = D&A propia = 20; ROU 10; pagos 12 = 10 + 2) | FCF verdadero 68; A1 y A2 dan 68; A0 da 58 (prueba negativa que documenta el defecto) |
 | T6 | Caso sintético con PPA 5 sin reposición | A2 = 68; A1 = 63; A0 = 53 |
 | T7 | Sin NIIF 16 ni PPA (ROU = PPA = 0, C49 = 0) | Los cuatro perímetros dan el mismo resultado que la V6.3. Los casos de referencia del motor A de `v6/pruebas/resultados_v63.json` no cambian |
-| T8 | Reglas V-F1a…V-F1h | Cada una dispara su efecto con un caso positivo y no se dispara con su caso negativo. V-F1a, además, con un caso por debajo del umbral de materialidad (solo AVISO) |
+| T8 | Reglas V-F1a…V-F1l, con su severidad (E5) | Cada una dispara su efecto con un caso positivo y no se dispara con su caso negativo. Una regla BLOQUEA impide que el resultado se use para una conclusión, y uno de AVISO o INFORMA no lo impide. V-F1a bloquea con cualquier importe mientras no haya un umbral decidido. V-F1c no se dispara con R = 29 (20 propia + 9 de compras de cartera) y capex propio 20 (`guarda_R_frente_a_capex`) |
 | T9 | Signos | D&A ROU y PPA publicados «(149.5)»/«(85.7)» se aceptan con `valor_fuente` negativo, `signo` −1 y `tratamiento`. La magnitud positiva sin esa declaración se rechaza (coherente con R415-SIGNO) |
 | T10 | Invariantes de Elis | C46–C52, C48 = 108, C70 = 307,933, acciones, OCEANE y decisiones E1/D3/E2/E6 sin cambios. Solo cambian f (C58), C53, los flujos del motor y lo que dependa de ellos |
 | T11 | Motor B (Viscofan, Vidrala) | Sin cambios en resultados de valoración (f = 0). Si cambia C53, solo cambian semáforos de diagnóstico, y se documenta |
 | T12 | Reproducción independiente (revisión, O3; contraste externo; revisión n.º 3, N1–N3 y N10) | Sobre el material regenerado y por separado:<br>(a) `verificar_cifras.py`: 0 FALLO en las 752 filas y en cada una de las seis dimensiones (literal, ejercicio, columna, unidad, perímetro, edición). Las PENDIENTE deben ser solo las listadas en su salida, con su motivo: hoy 14, de URD 2022 p.302, sin unidad ni cabecera de columnas localizables, y una sola se usa, como contraparte. OK significa «sin incoherencia detectada por las reglas», no «acreditada». `test_verificar_cifras.py` 136/136: 23 positivos reales, 36 PENDIENTE esperados y 77 contraejemplos detectados en su dimensión, incluidos los de las revisiones n.º 1, n.º 3 y su adenda, n.º 4 a 8 y la columna de un país (C9); y 9/9 comprobaciones directas de funciones del verificador (revisión n.º 8). `sondas_metadatos.py`: 0 etiquetas cambiadas sin detectar. Mide la detección de etiquetas cambiadas, no la de cifras de otra unidad o de otro perímetro con una etiqueta verosímil;<br>(b) `contraste_f1.py`: se niega a calcular con una verificación de otro CSV. 0 fallos en cada clase y ninguna entrada usada con dimensión PENDIENTE. Los 126 residuos, dentro de su cota de redondeo calculada por cifra; la única excepción es la diferencia de concepto fijada de 2025 (+0,4 ± 0,15), con su límite de detección declarado. Las entradas usadas sin segunda línea deben estar listadas (`cobertura_entradas.sin_comprobacion`): hoy 31, ninguna con efecto en estos valores de referencia. Deben listarse también las páginas sin ninguna identidad entre páginas (`cobertura_entradas.paginas_sin_identidad_entre_paginas`, hoy 8 con 24 entradas): en ellas la unidad y el perímetro no están acreditados por una segunda línea. Ninguna entrada que mueva estos valores de referencia puede quedar sin identidad entre páginas (`cobertura_por_mutacion.py`). `test_contraste_residuos.py` 24/24. `cobertura_por_mutacion.py`: ninguna entrada declarada con una comprobación que la mutación no haga fallar, ni ninguna usada sin declarar. Las identidades algebraicas documentan, no prueban;<br>(c) la réplica del motor coincide con los flujos del libro regenerado.<br>Ni el código de salida 0 ni el número de comprobaciones bastan por sí solos |
 | T13 | Exceso de caja distinto de cero (revisión, O15) | En una copia del libro recalculada con Análisis!C76 = 250 y = −80 (`prueba_caja_no_nula.py`): Motor!M6:M8 = C76 y (Motor!BL − Motor!M)·r = 248,496395342656 en los tres escenarios. Control negativo: la identidad anterior, BL·r − C76, se desvía en C76·(r − 1), que es −227,5 con 250 y +72,8 con −80 |
 | T14 | Verificación de entradas del frente técnico | Debe rechazar los mismos contraejemplos que `test_verificar_cifras.py`, en la dimensión correspondiente:<br>· página inexistente o equivocada; fuente ausente, sin huella o con otra huella; redondeo; signo; posición distinta con el mismo literal;<br>· columna, bloque o saldo de otro ejercicio, también en una tabla con una tercera columna (F1);<br>· modo de control no admitido para el concepto (A1, A2, A4, H1);<br>· columna de otro concepto (D1, D2, activo frente a pasivo);<br>· recuentos e importes por acción como millones de euros (B1, B2, U1, U2);<br>· segmento, sublínea de un segmento, país o fila «Other» como grupo (C1, P1, P2a);<br>· edición no vigente;<br>· columna de una matriz con una celda vacía (N9);<br>· columna de un país en una tabla con columnas por país, y columna de una sociedad que no se asigna al ejercicio (C9);<br>· **criterio de formato**: un entero de seis cifras o más declarado en millones de euros queda PENDIENTE aunque su rótulo no sea de la lista (revisión n.º 4, P1: efectos de dilución en acciones);<br>· **criterio de título**: una fila bajo un título de bloque que nombra un país o un segmento queda PENDIENTE como del grupo. El título se busca hasta el principio de la página y al final de la anterior (revisiones n.º 4, P2, y n.º 5, Q4: bloques de pensiones de Francia, Irlanda y Reino Unido, en inglés y en francés);<br>· columna «published», «reported» o «publié» de una tabla de reexpresión declarada vigente: FALLO en edición; la «restated», OK (revisión n.º 5, Q1);<br>· columna de apertura («01/01/AAAA») y dos fechas del mismo año (revisión n.º 5, Q2). **Límite** (revisión n.º 6, R1): con columnas distintas para cada aparición del año, la cuenta de columnas puede igualar a la de números por accidente. Por eso la asignación por orden exige que cada número esté alineado con su columna (URD 2022 p.302: F13 y F14, PENDIENTE);<br>· **grupos de columnas**: si la cabecera repite los mismos ejercicios en cada grupo (una marca, una firma auditora), perímetro PENDIENTE: el verificador no distingue la columna de una firma auditora, cuyos honorarios paga el grupo, de la de una marca (revisión n.º 6, R1: F9; también los honorarios por firma, G2 y G4. Precisión de C18, revisión n.º 8, T8 a: esta línea decía que «la columna del grupo no es la del grupo consolidado», un argumento de concepto que se retiró en C16);<br>· **filas de una jurisdicción, una región o el desglose de un país** («› of which Ireland», «European Union (excluding France)», «Hors Union européenne»), con el rótulo unido aunque ocupe varias líneas: FALLO como del grupo; el TOTAL de esa tabla, OK (revisión n.º 6, R1: F1, F4 y F7);<br>· **encabezado numerado** de nota o de apartado («NOTE 13 …», «5.4 …»): cuenta como título y corta la búsqueda (revisión n.º 6, R2: G9);<br>· **cifra bajo una cabecera ajena**: FALLO solo si la columna de otro ejercicio está alineada con ella (5,5 caracteres o menos); si no, PENDIENTE (revisión n.º 6, R3: G6, el valor en libros bajo «Valeur comptable»);<br>· **título corto de la tabla** (de una sola celda, encima de su cabecera) que nombra un país, y cabecera con tres países o más sin ninguna columna reconocida: perímetro PENDIENTE (revisión n.º 6, R4: H1 y H2);<br>· filas de UGE con el prefijo «CGU» o «UGT» en la tabla del fondo de comercio (revisión n.º 6, R5: I12 e I14);<br>· **título numerado de la tabla y su continuación** («6.1.5 Consolidated statement of changes in equity / as at December 31, 2022»): no son cabecera de columnas (revisión n.º 7, S1);<br>· **fila de saldo con la fecha en el rótulo** (revisiones n.º 7, S1, y n.º 8, T1–T3): el rótulo es la primera celda de una línea con más celdas y solo dice la fórmula del saldo y la fecha, con «restated», «retraité», «published» o una llamada; puede estar partido en las líneas de encima, también tras el día o en tres líneas («SOLDE AU 31 / DÉCEMBRE 2024»; «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)»), y se unen las justas para que lleve la fórmula y la fecha, sin absorber la cabecera de columna ni la línea de unidades de encima («Cash flow hedges» / «BALANCE AS AT JANUARY 1, 2021»). Los recuentos con fecha («Number of shares as at…», «Rights vested as at…») no son saldos y no toman el ejercicio de la fecha. Para los tokens a la derecha del rótulo, el ejercicio es el de esa fecha: OK si coincide con el declarado y FALLO si no (A8, A9, T3a declarado 2023). Si la fila tiene varias columnas de datos, la columna es un concepto que el modo «dos_columnas» no declara: «columna» PENDIENTE (A1, A10, T1a, T3a, T3c: ejercicio OK y fila PENDIENTE; con el identificador de saldo de los derechos de uso, la columna «Vehicles» es FALLO y la «Total», OK: T1b, T1c). Con una sola columna de datos, OK (deterioro de clientes, URD 2022 p.284). No toman el ejercicio de la fecha los tokens del propio rótulo (el día, el año, la pestaña), las líneas de prosa ni los títulos con fecha (T2a, T2b, T2c, T2e), ni una fila bajo la línea que continúa el rótulo de la fila anterior (T4b). Un año suelto dentro del rótulo de texto de la fila, o el día de la fecha de ese rótulo, no es una cifra en ningún modo: ejercicio PENDIENTE, aunque quede alineado con la columna de un ejercicio (el «2024» de «AU 31 DÉCEMBRE 2024», DEU 2024 p.295, declarado 2023). **Límites:** la unión depende de por dónde parta `pdftotext` el rótulo; una fila cuyo rótulo sea solo «Balance» o «Solde», sin fecha propia, bajo una línea de fecha que continúa la fila anterior y no empieza en minúscula, tomaría esa fecha;<br>· **línea de cifras sin rótulo**: toma el de las líneas de rótulo contiguas, de una sola celda, sin cifras, de 45 caracteres o menos y en el margen izquierdo; un segmento así no pasa como grupo (revisión n.º 7, S2: B1 y B3). No toma una línea de prosa ni la leyenda de un organigrama, y no se aplica a una línea que empieza por la pestaña del capítulo ni a un rótulo con viñeta («− Matthieu Lecharny») (revisión n.º 8, T5: T6a y T6b);<br>· **pestaña del capítulo en el margen** al principio de la línea: no es el rótulo (revisión n.º 7, S3: C1);<br>· **tabla con una columna por país sin declaración de unidades ni de ejercicios**: perímetro PENDIENTE, también en las filas cuyo rótulo empieza por una línea en mayúsculas; la primera línea de un rótulo partido no es la cabecera de ejercicios ni corta la búsqueda de la cabecera por países (revisión n.º 7, S4: D1 y D5; revisión n.º 8, T4: T5a y T5b). La excepción de la columna bajo una celda «Total» o «Group» no tiene caso real en las cinco publicaciones: se prueba con dos líneas sintéticas;<br>· **encabezado numerado en prosa** (con comillas, con puntuación final o con «Note N to the…»): no es título; en mayúsculas sí lo es, con comillas o con una coma final si la línea de debajo continúa el título (revisiones n.º 7, S5, y n.º 8, T6). **Límites:** un título en minúsculas partido tras una coma no cuenta como título, y una entrada de sumario sí;<br>· llamada con letra («(a)») en la cabecera: no deja PENDIENTE la cifra legítima ni rebaja a PENDIENTE la de otro ejercicio (revisión n.º 5, Q3);<br>· rótulos de segmento con «and», «et» o «CGU», o partidos en dos líneas (revisión n.º 5, Q5).<br>Estos criterios y las listas de rótulos detectan señales conocidas; no acreditan la unidad ni el perímetro (E9, T12).<br>Debe aceptar sus veintitrés positivos reales, entre ellos F2, F3, P2b, X2, el total de la nota de combinaciones de negocio, el total por países de la nota de pensiones, la columna «restated», el total del grupo bajo prosa que nombra un país, el impuesto total del grupo de la tabla por jurisdicción, el total de los derechos de uso con el identificador de saldo y el saldo de apertura de una tabla de una sola columna con la fecha en el rótulo. Los saldos del estado de cambios en el patrimonio declarados con su ejercicio y un identificador genérico deben quedar con el ejercicio OK y la columna PENDIENTE (precisión de C18, revisión n.º 8, T1 y T7 d: hasta C16 esta frase los contaba entre los positivos, y el verificador no reconocía la mitad de los cierres). Responde a los huecos de la revisión externa del hito 4.15 y de la revisión n.º 3 |
+| T15 | Correspondencia de caja (revisión de la propuesta, P1–P4) | `controles_sinteticos_f1.py`: 22 casos con importes ficticios, cada uno con su resultado esperado en los años 1–10 y en el terminal, también a crecimiento cero. Son 8 coherentes y 14 incoherencias ilustradas: transición (P1a–e), compras de reposición y gasto comercial (P2a–f), «PPA constante» (P2g–i) y terminal con g/ROIC (P4a–d). Reproduce los 9 casos de la revisión y coincide con `motor_a`. Una implementación debe dar, con las mismas entradas, el mismo resultado que el motor sintético en los casos coherentes y detectar con sus controles cada incoherencia ilustrada |
+| T16 | Normalización N1, **solo si se aprueba** (propuesta, 5a) | Elis, perímetro A0, ajustes de earnout de la nota 4.6 (−48,9 / +8,7 / −0,2) sin efecto fiscal: τ 2023/2024/2025 = 0,2619 / 0,2806 / 0,2559; τ de 5 años = 0,28234; m0 = 0,131379; f = 0,044900433; flujo sin crecimiento = 236,891 (−11,605 frente a T1); terminal NORMAL −18,609. La variación es la misma en A1 y A2 (`copia_investigacion_f1.json`; tolerancia 10⁻⁹ en f y 10⁻³ en los flujos). Control negativo: deducir el diagnóstico 27,936 no reproduce estos valores y dispara V-F1l |
 
 ## E10. Lo que esta especificación no decide
 
 - El perímetro ni la política de la PPA.
+- La clasificación de las compras de sociedades, el tratamiento de la inversión de transición, la normalización ni un umbral de materialidad.
 - El valor de la reinversión necesaria.
 - La validez del motor A para Elis.
 - Ningún precio ni recomendación.

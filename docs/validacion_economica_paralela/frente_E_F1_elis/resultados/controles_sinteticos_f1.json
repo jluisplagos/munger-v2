@@ -1,0 +1,1032 @@
+{
+  "naturaleza": "ilustraciones sintéticas de definiciones de política; importes ficticios; no son datos de Elis ni una ejecución del producto; no adoptan ninguna política",
+  "procedencia": "amplía sondas_economicas.py de la revisión de la propuesta (auditoria/revision-propuesta-f1, 1a071881c65a)",
+  "motor_sintetico_coincide_con_motor_a": true,
+  "reproduccion_casos_del_revisor": [
+    {
+      "caso": "arrendamiento_una_vez",
+      "flujo_modelizado": 68,
+      "caja_del_escenario": 68,
+      "revisor": {
+        "flujo_modelizado": 68,
+        "caja_del_escenario": 68
+      },
+      "ok": true
+    },
+    {
+      "caso": "A0_doble_arrendamiento",
+      "flujo_modelizado": 58,
+      "caja_del_escenario": 68,
+      "revisor": {
+        "flujo_modelizado": 58,
+        "caja_del_escenario": 68
+      },
+      "ok": true
+    },
+    {
+      "caso": "transicion_excluida_de_R_y_sin_linea_de_caja",
+      "flujo_modelizado": 68,
+      "caja_del_escenario": 61,
+      "revisor": {
+        "flujo_modelizado": 68,
+        "caja_del_escenario": 61
+      },
+      "ok": true
+    },
+    {
+      "caso": "transicion_incluida_en_R",
+      "flujo_modelizado": 61,
+      "caja_del_escenario": 61,
+      "revisor": {
+        "flujo_modelizado": 61,
+        "caja_del_escenario": 61
+      },
+      "ok": true
+    },
+    {
+      "caso": "transicion_separada_con_cargo_explicito",
+      "flujo_modelizado": 61,
+      "caja_del_escenario": 61,
+      "revisor": {
+        "flujo_modelizado": 61,
+        "caja_del_escenario": 61
+      },
+      "ok": true
+    },
+    {
+      "caso": "adquisicion_de_reposicion_tratada_solo_como_crecimiento",
+      "flujo_modelizado": 68,
+      "caja_del_escenario": 59,
+      "revisor": {
+        "flujo_modelizado": 68,
+        "caja_del_escenario": 59
+      },
+      "ok": true
+    },
+    {
+      "caso": "adquisicion_de_reposicion_incluida_en_R",
+      "flujo_modelizado": 59,
+      "caja_del_escenario": 59,
+      "revisor": {
+        "flujo_modelizado": 59,
+        "caja_del_escenario": 59
+      },
+      "ok": true
+    },
+    {
+      "caso": "gasto_comercial_ya_en_EBIT_y_cargado_otro_vez_en_R",
+      "flujo_modelizado": 63,
+      "caja_del_escenario": 68,
+      "revisor": {
+        "flujo_modelizado": 63,
+        "caja_del_escenario": 68
+      },
+      "ok": true
+    },
+    {
+      "caso": "PPA_no_monetaria_con_costes_de_reposicion_ya_cubiertos",
+      "flujo_modelizado": 68,
+      "caja_del_escenario": 68,
+      "revisor": {
+        "flujo_modelizado": 68,
+        "caja_del_escenario": 68
+      },
+      "ok": true
+    }
+  ],
+  "casos": [
+    {
+      "caso": "P1a_transicion_temporal_cargada_en_R",
+      "cuestion": "P1",
+      "descripcion": "Plan de transición de 7 al año durante 5 años, dentro del capex de la ventana, cargado en R (perpetuo en f). Cobra bien los años 1–5, pero sigue cobrando los 7 en los años 6–10 y en el terminal: el nombre «inversión» no la hace perpetua.",
+      "parametros": {
+        "R_que_calibra_f": 27,
+        "f": 0.09,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 61
+      },
+      "motor": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 61,
+        "año_10": 61,
+        "terminal": 61
+      },
+      "caja_del_escenario": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "diferencia_maxima": -7,
+      "años_con_diferencia": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P1b_transicion_temporal_con_termino_explicito",
+      "cuestion": "P1",
+      "descripcion": "El mismo plan, con R = 20 (solo mantenimiento) y un término explícito de 7 en los años 1–5: exige importe y horizonte documentados.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 61
+      },
+      "motor": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "caja_del_escenario": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P1c_transicion_permanente_con_termino_temporal",
+      "cuestion": "P1",
+      "descripcion": "Si la inversión es en realidad permanente y el término explícito se limita a cinco años, los años 6–10 y el terminal la omiten.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 61
+      },
+      "motor": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "caja_del_escenario": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 61,
+        "año_10": 61,
+        "terminal": 61
+      },
+      "diferencia_maxima": 7,
+      "años_con_diferencia": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P1d_transicion_en_R_y_en_termino_explicito",
+      "cuestion": "P1",
+      "descripcion": "Cargarla en R y además como término explícito la cobra dos veces (54 frente a 61).",
+      "parametros": {
+        "R_que_calibra_f": 27,
+        "f": 0.09,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 61
+      },
+      "motor": {
+        "año_1": 54,
+        "año_5": 54,
+        "año_6": 54,
+        "año_10": 54,
+        "terminal": 54
+      },
+      "caja_del_escenario": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 61,
+        "año_10": 61,
+        "terminal": 61
+      },
+      "diferencia_maxima": -7,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P1e_transicion_clasificada_como_crecimiento",
+      "cuestion": "P1",
+      "descripcion": "Clasificarla como crecimiento (solo por ΔV/S2C) la elimina a crecimiento cero: 68 frente a 61, como si se excluyera de todo.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 61
+      },
+      "motor": {
+        "año_1": 68,
+        "año_5": 68,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "caja_del_escenario": {
+        "año_1": 61,
+        "año_5": 61,
+        "año_6": 61,
+        "año_10": 61,
+        "terminal": 61
+      },
+      "diferencia_maxima": 7,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2a_compras_de_reposicion_solo_como_crecimiento_crecimiento_0",
+      "cuestion": "P2",
+      "descripcion": "Compras de cartera de 9 % de las ventas necesarias para mantenerlas, tratadas solo como crecimiento, con el ancla de S2C calculada con todas las compras (5 ÷ 14). A crecimiento cero faltan 9; a la tasa histórica casi se compensan por coincidencia; por encima, se cobran de más. Compensación no es correspondencia.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 0.35714285714285715,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 68,
+        "año_5": 68,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "caja_del_escenario": {
+        "año_1": 59,
+        "año_5": 59,
+        "año_6": 59,
+        "año_10": 59,
+        "terminal": 59
+      },
+      "diferencia_maxima": 9,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_0",
+      "cuestion": "P2",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "parametros": {
+        "R_que_calibra_f": 29,
+        "f": 0.11,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 59,
+        "año_5": 59,
+        "año_6": 59,
+        "año_10": 59,
+        "terminal": 59
+      },
+      "caja_del_escenario": {
+        "año_1": 59,
+        "año_5": 59,
+        "año_6": 59,
+        "año_10": 59,
+        "terminal": 59
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2a_compras_de_reposicion_solo_como_crecimiento_crecimiento_5_historico",
+      "cuestion": "P2",
+      "descripcion": "Compras de cartera de 9 % de las ventas necesarias para mantenerlas, tratadas solo como crecimiento, con el ancla de S2C calculada con todas las compras (5 ÷ 14). A crecimiento cero faltan 9; a la tasa histórica casi se compensan por coincidencia; por encima, se cobran de más. Compensación no es correspondencia.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 0.35714285714285715,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.2625,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 57.4,
+        "año_5": 69.77005875,
+        "año_6": 73.2585616875,
+        "año_10": 89.0462395971668,
+        "terminal": 93.49855157702514
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "diferencia_maxima": 0.7330025820498486,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_5_historico",
+      "cuestion": "P2",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "parametros": {
+        "R_que_calibra_f": 29,
+        "f": 0.11,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.735,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2a_compras_de_reposicion_solo_como_crecimiento_crecimiento_10",
+      "cuestion": "P2",
+      "descripcion": "Compras de cartera de 9 % de las ventas necesarias para mantenerlas, tratadas solo como crecimiento, con el ancla de S2C calculada con todas las compras (5 ÷ 14). A crecimiento cero faltan 9; a la tasa histórica casi se compensan por coincidencia; por encima, se cobran de más. Compensación no es correspondencia.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.1,
+        "g_terminal": 0.1,
+        "S2C_del_motor": 0.35714285714285715,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.275,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 46.8,
+        "año_5": 68.51988,
+        "año_6": 75.371868,
+        "año_10": 110.3519519388,
+        "terminal": 121.38714713268
+      },
+      "caja_del_escenario": {
+        "año_1": 54.9,
+        "año_5": 80.37909,
+        "año_6": 88.416999,
+        "año_10": 129.4513282359,
+        "terminal": 142.39646105949
+      },
+      "diferencia_maxima": -21.00931392681,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_10",
+      "cuestion": "P2",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "parametros": {
+        "R_que_calibra_f": 29,
+        "f": 0.11,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.1,
+        "g_terminal": 0.1,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.77,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 54.9,
+        "año_5": 80.37909,
+        "año_6": 88.416999,
+        "año_10": 129.4513282359,
+        "terminal": 142.39646105949
+      },
+      "caja_del_escenario": {
+        "año_1": 54.9,
+        "año_5": 80.37909,
+        "año_6": 88.416999,
+        "año_10": 129.4513282359,
+        "terminal": 142.39646105949
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2c_compras_de_reposicion_en_R_y_tambien_en_el_ancla",
+      "cuestion": "P2",
+      "descripcion": "R = 29 y además el ancla de S2C con las compras de reposición en el denominador: a crecimiento cero es coherente (59), pero con crecimiento las cobra dos veces. La prueba a crecimiento cero no basta.",
+      "parametros": {
+        "R_que_calibra_f": 29,
+        "f": 0.11,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 0.35714285714285715,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.2625,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 47.95,
+        "año_5": 58.2835246875,
+        "año_6": 61.197700921875,
+        "año_10": 74.38618795616982,
+        "terminal": 78.10549735397832
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "diferencia_maxima": -14.660051640996972,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2d_compras_de_reposicion_como_termino_explicito",
+      "cuestion": "P2",
+      "descripcion": "R = 20 y las compras de reposición como término explícito proporcional a las ventas (9 % de V_t), con el ancla sin ellas: coherente, alternativa a meterlas en R.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.735,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.684234984375,
+        "año_10": 88.34814189997647,
+        "terminal": 92.76554899497529
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2e_compras_solo_de_crecimiento",
+      "cuestion": "P2",
+      "descripcion": "Si las compras solo amplían ventas (no hay compras de reposición), tratarlas como crecimiento es coherente, también a crecimiento cero (68). Es la hipótesis que exige la decisión (4b).",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.735,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 108.15860321802211
+      },
+      "caja_del_escenario": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 108.15860321802211
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2f_gasto_comercial_en_EBIT_y_en_R_con_crecimiento",
+      "cuestion": "P2",
+      "descripcion": "El gasto comercial de 5 ya está en el EBITDA; añadirlo a R lo cobra dos veces en todos los años.",
+      "parametros": {
+        "R_que_calibra_f": 25,
+        "f": 0.07,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.735,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 61.15,
+        "año_5": 74.3282071875,
+        "año_6": 78.044617546875,
+        "año_10": 94.86372040708623,
+        "terminal": 99.60690642744053
+      },
+      "caja_del_escenario": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 108.15860321802211
+      },
+      "diferencia_maxima": -8.551696790581568,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2g_PPA_constante_como_proporcion_de_las_ventas",
+      "cuestion": "P2",
+      "descripcion": "PPA del 5 % de las ventas en el margen y la misma proporción devuelta por f (perímetro A2): se anula cada año, con cualquier crecimiento. Es lo que significa «PPA constante».",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": -0.03,
+        "margen_inicial": 0.65,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0.05,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.6825,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 108.15860321802211
+      },
+      "caja_del_escenario": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 108.15860321802211
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P2h_PPA_constante_en_euros_frente_a_f_proporcional",
+      "cuestion": "P2",
+      "descripcion": "Si el margen lleva la PPA constante en euros (5) y f devuelve el 5 % de las ventas, con crecimiento el flujo se sobrestima en 0,05·V_t − 5, cada vez más (terminal con g∞ = 0 para aislar el efecto).",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": -0.03,
+        "margen_inicial": 0.6523809523809524,
+        "g_anios_1_10": 0.05,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 66.65,
+        "año_5": 82.0910228125,
+        "año_6": 86.445573953125,
+        "año_10": 106.15266667486064,
+        "terminal": 113.90930775475323
+      },
+      "caja_del_escenario": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.74509575,
+        "año_10": 103.00819354097344,
+        "terminal": 110.76483462086601
+      },
+      "diferencia_maxima": 3.144473133887207,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P2i_PPA_que_se_agota_frente_a_f_proporcional",
+      "cuestion": "P2",
+      "descripcion": "Si la PPA del margen se agota (cartera adquirida sin compras nuevas) y f sigue devolviendo el 5 %, el flujo se sobrestima hasta en 5 a crecimiento cero: por eso `EBIT_NIIF16_PPA_decreciente` con A2 no es admisible.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": -0.03,
+        "margen_inicial": 0.6625,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 69.25,
+        "año_5": 73,
+        "año_6": 73,
+        "año_10": 73,
+        "terminal": 73
+      },
+      "caja_del_escenario": {
+        "año_1": 68,
+        "año_5": 68,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "diferencia_maxima": 5,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P4a_terminal_con_ROIC_coherente_con_S2C",
+      "cuestion": "P4",
+      "descripcion": "Todos los costes recurrentes en el margen o en f; ROIC = (1+g∞)·m(1−τ)·S2C: el terminal cobra la misma inversión de crecimiento que ΔV/S2C.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.02,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "terminal": 82.11146413084684
+      },
+      "caja_del_escenario": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "terminal": 82.11146413084684
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "P4b_terminal_con_ROIC_de_otro_perimetro",
+      "cuestion": "P4",
+      "descripcion": "La inversión de crecimiento real es mitad capex propio y mitad compras (S2C real 1, ancla con compras = 1), pero el ROIC se mide solo sobre el capital propio (S2C propio 2): el terminal cobra la mitad de la inversión de crecimiento.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.02,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1.428,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "terminal": 83.3304585508416
+      },
+      "caja_del_escenario": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "terminal": 82.11146413084684
+      },
+      "diferencia_maxima": 1.218994419994757,
+      "años_con_diferencia": [
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P4c_terminal_a_crecimiento_cero_con_reposicion_solo_como_crecimiento",
+      "cuestion": "P4",
+      "descripcion": "Con g∞ = 0 el terminal es V·[m(1−τ) − f]: un coste recurrente cobrado solo como crecimiento desaparece también del terminal (68 frente a 59).",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0,
+        "g_terminal": 0,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 1,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 68,
+        "año_5": 68,
+        "año_6": 68,
+        "año_10": 68,
+        "terminal": 68
+      },
+      "caja_del_escenario": {
+        "año_1": 59,
+        "año_5": 59,
+        "año_6": 59,
+        "año_10": 59,
+        "terminal": 59
+      },
+      "diferencia_maxima": 9,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P4d_arrendamiento_A0_en_el_terminal",
+      "cuestion": "P4",
+      "descripcion": "A0 (R = D&A total) cobra el arrendamiento dos veces en todos los años y en el terminal.",
+      "parametros": {
+        "R_que_calibra_f": 30,
+        "f": 0.12,
+        "margen_inicial": 0.7,
+        "g_anios_1_10": 0.02,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 57.16,
+        "año_5": 61.8718222656,
+        "año_6": 63.109258710912,
+        "año_10": 68.3114912224513,
+        "terminal": 69.67772104690032
+      },
+      "caja_del_escenario": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "terminal": 82.11146413084684
+      },
+      "diferencia_maxima": -12.433743083946522,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "terminal"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    }
+  ],
+  "guarda_R_frente_a_capex": {
+    "R_total": 29,
+    "capex_propio": 20,
+    "compras_de_sociedades": 14,
+    "guarda_anterior_R_total_mayor_que_capex_propio": true,
+    "guarda_propuesta_R_propio_mayor_que_capex_propio": false,
+    "guarda_propuesta_R_compras_mayor_que_compras": false
+  },
+  "resumen": {
+    "casos": 22,
+    "coherentes": 8,
+    "incoherencias_ilustradas": 14,
+    "reproducidos_del_revisor": 9,
+    "errores": []
+  }
+}

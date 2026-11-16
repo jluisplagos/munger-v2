@@ -330,11 +330,11 @@ Consecuencias [D]:
   Además, la plusvalía de 2025 (+25,7 en OOIE, con «a high level of insurance benefits in 2025», URD25 p.309 [P]) eleva m0 (13,13 %) unos 0,54 puntos.
 
   En el flujo sin crecimiento de la base 2025 estas partidas suman **+27,9**, común a todos los perímetros [D] (revisión, O9):
-  - +13,7 del earnout dentro de f; si se cuenta también su efecto en el tipo de 2023, por no ser deducible, el efecto sube a ≈ 18,6;
+  - +13,7 del earnout dentro de f; si se cuenta también su efecto en el tipo de 2023, por no ser deducible, el efecto sube a ≈ 18,6. **Precisión** (respuesta a la revisión de la propuesta, P3): ese ≈ 18,6 es solo la parte de f (18,648) y no puede sumarse a los demás. El mismo ajuste baja el τ de 5 años, y su efecto conjunto en el flujo sin crecimiento es −14,314. El de los ajustes de earnout de 2023–25, simétricos y sin efecto fiscal, es −11,605 (`resultados/copia_investigacion_f1.md`);
   - −4,0 de las plusvalías dentro de f;
   - +18,3 de la plusvalía dentro de m0.
 
-  No alteran las diferencias entre alternativas, pero equivalen al 20 % de la anchura del intervalo de §6.4. Son efectos de calibración documentados, no decisiones. Normalizarlos requeriría una regla decidida (especificación, E8).
+  No alteran las diferencias entre alternativas, pero equivalen al 20 % de la anchura del intervalo de §6.4. Son efectos de calibración documentados, no decisiones. Normalizarlos requeriría una regla decidida (especificación, E8). El +27,9 es un diagnóstico del cálculo conservado, no el efecto de una regla. Los ajustes concretos, con su regla fiscal y su cálculo conjunto, están en la propuesta de decisiones, §5.1.
 
 ### 4.3 Motor A: réplica y flujo de partida
 
@@ -562,6 +562,7 @@ Fuentes que podrían contenerlo y **no están en la base**: presentaciones de me
 | M3 | Política de proyección: crecimiento orgánico frente a crecimiento con adquisiciones | Cambia el ancla de S2C: en A2, 1,61 con adquisiciones frente a 2,07–3,13 orgánico; en A1, 2,45 frente a 5,52–13,85 | Coherencia entre crecimiento proyectado, inversión y PPA |
 | M4 | Puente caja/devengo del interés de arrendamientos de 2025 | 0,4 (0,04 % del FCF base) | Ninguna |
 | M5 | **Cuantificación** del efecto precio y del efecto volumen del crecimiento orgánico de 2024–25. Su existencia está publicada (§6.2) | Anclas S2C orgánicas | Calibración de las palancas S2C, no de f |
+| M6 | Finalidad de las compras de sociedades: qué parte repone cartera perdida y qué parte amplía ventas. Añadido en la respuesta a la revisión de la propuesta (P2) | Cada millón anual de compras que fuera de reposición bajaría el flujo sostenible en un millón, también en el terminal | Sustituir por un dato la hipótesis de que las compras son crecimiento (propuesta, 4b) |
 
 M1 y M2 son materiales y no se pueden resolver con la base. **Se conserva `pendiente_de_datos` para la conclusión de nivel**, como ya hace el expediente.
 
@@ -630,6 +631,11 @@ Fuentes [P]: DEU24 p.259, 273 y 329; URD25 p.314, 327 y 384. El puente publicado
 - **Perímetro de la reinversión:** el conjunto de D&A que se supone repuesto con capex propio. Debe ser el mismo en la calibración de f, en el ancla de S2C y en la proyección.
 - **Perímetro del margen:** qué costes no monetarios incluye el margen proyectado: EBIT NIIF 16 con PPA constante, con PPA decreciente o sin PPA. Debe casar con el perímetro de la reinversión (revisión, O12).
 - **Inversión del plan climático:** ni reposición ni crecimiento de ventas. Queda **pendiente de definición**; no se asigna a ninguno de los dos (revisión, O6).
+- **Precisión de la respuesta a la revisión de la propuesta (P1, P2).** La propuesta de decisiones (revisión 2) concreta estas definiciones sin adoptarlas:
+  - R = R_propia + R_compras + la transición de sostenimiento. R_propia incluye la dotación a los clientes que sustituyen a los perdidos; R_compras son las compras de cartera necesarias para mantener las ventas;
+  - el gasto comercial queda en el margen y no en R;
+  - la inversión climática se clasifica por su finalidad documentada, con su caja cobrada una sola vez;
+  - tabla de correspondencia de costes en la propuesta, §2.
 
 | | A0 · V6.3 actual | A1 · sin ROU | A1′ · arrendamientos como deuda renovada | A2 · perímetro propio | B · cota |
 |---|---|---|---|---|---|

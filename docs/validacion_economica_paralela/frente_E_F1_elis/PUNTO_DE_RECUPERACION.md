@@ -2,77 +2,67 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** propuesta conjunta de las decisiones F1 para la persona responsable ([PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md)), **sin implementar**; antes, la incorporación de la revisión n.º 9. La respuesta C20 a esa revisión queda en espera.
+**Bloque cerrado:** reconciliación de la propuesta de decisiones F1 con la especificación, en respuesta a la revisión externa de la propuesta (rama `auditoria/revision-propuesta-f1`, commit `1a07188`, F1-P1 a P4). **Sin implementar nada.**
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
-**F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
+**F1 sigue abierto.** Elis sigue en `pendiente_de_datos`. Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
 
 ## 1. Dónde está el trabajo
 
 | Commit | Contenido |
 |---|---|
-| C16 = `66d01b8fc21b277efdae938170cc64815705962e` | Respuesta a la revisión n.º 7 (S1–S7). Revisado en la pasada 8 |
-| C17 = `863ddde9190044690bfe4ee7c2a0d6fddc4c811a` | Congelado de la revisión n.º 8 |
-| `7e59a8c` · `63e6090` | Encargo de la pasada 8 · copia de la revisión n.º 8 (3138a6b), procedencia y registro |
-| `d3c0f1b` · `485de8d` | C18, primera y segunda parte del código |
-| C18 = `f12f8ea79ed5c1b444d85163c5ed08d8d07a6243` | Respuesta a la revisión n.º 8: el año del rótulo como no cifra (`token_del_rotulo`), la octava parte de las respuestas, los documentos y las salidas |
-| C19 = `06ad1003aa5320445d0c42498c3d0efaec971f06` | Congelado de la revisión n.º 9: solo registra el hash de C18 |
-| `105b57b` | Registra el encargo de la pasada 9 |
-| `6d799c6` | Copia de la revisión n.º 9 (a3a1a2b, 24/24 blobs), procedencia y registro |
-| El commit que contiene esta versión de este archivo | Propuesta de decisiones F1 para aprobación. No cambia código, datos ni resultados |
+| C16 = `66d01b8` · C17 = `863ddde` | Respuesta a la revisión n.º 7 · congelado de la revisión n.º 8 |
+| C18 = `f12f8ea79ed5c1b444d85163c5ed08d8d07a6243` | Respuesta a la revisión n.º 8 (verificador) |
+| C19 = `06ad100` · `105b57b` · `6d799c6` | Congelado de la revisión n.º 9 · encargo · copia de la revisión n.º 9 (a3a1a2b) |
+| `b83803c` | Propuesta de decisiones F1, revisión 1. La revisó la revisión externa `1a07188` |
+| **El commit que contiene esta versión de este archivo** | **Congelado de la respuesta a la revisión de la propuesta:** [RESPUESTA_REVISION_PROPUESTA_F1.md](RESPUESTA_REVISION_PROPUESTA_F1.md); [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md), revisión 2, con la tabla única (1a)–(5b); especificación E2–E6, E8 y E9; precisiones del informe (§4.2, §6.4 y §9); `scripts/controles_sinteticos_f1.py` y `scripts/copia_investigacion_f1.py`, con sus salidas. No cambia código existente, datos, libros, fórmulas ni cifras de valoración. Sobre este commit se encarga la revisión dirigida a P1–P4 |
 
-Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AUTOR_1.md`):
-- **T1:** con la fecha del saldo en el rótulo y varias columnas de datos, «columna» queda PENDIENTE. De las 346 aceptaciones de C16 quedan diez (las tablas de deterioro de clientes, de una sola columna).
-- **T2:** la regla solo vale en filas de saldo, con el rótulo más corto que lleva la fórmula y la fecha; los tokens del rótulo, la prosa, los títulos y los recuentos con fecha no la toman. Un año suelto dentro del rótulo de texto, o el día de su fecha, no es una cifra.
-- **T3:** se reconocen los 20 saldos de apertura y cierre de los diez estados de cambios en el patrimonio.
-- **T4:** las seis tablas del WACC por país quedan sin ningún perímetro OK.
-- **T5:** líneas contiguas de 45 caracteres o menos y en el margen; sin pestaña ni viñeta.
-- **T6:** «Note N to the…» no es encabezado; los títulos en mayúsculas sí, con comillas o con coma final continuada.
-- **T7 y T8:** frases y recuentos corregidos en su sitio; argumento retirado fuera de T14; cabecera del verificador; `reproduccion_7` regenerado al final.
-
-## 2. Estado de las pruebas en C18
+## 2. Estado de las pruebas
 
 | Prueba | Resultado | Salida |
 |---|---|---|
-| `verificar_cifras.py` | 752 filas: 738 OK, 14 PENDIENTE, 0 FALLO; salida, registro y páginas exportadas idénticos byte a byte a los de C16 | `resultados/verificacion_cifras.json`, `resultados/verificar_cifras.log` |
-| `test_verificar_cifras.py` | 136/136 casos (23 positivos reales, 36 PENDIENTE y 77 contraejemplos) y 9/9 comprobaciones directas. Con el verificador de C16, 119/136 y 4/9; con el de `d3c0f1b`, 134/136 y 8/9 | `resultados/test_verificar_cifras.log` |
-| `contraste_f1.py` | 292 comprobaciones, 0 fallidas; 419 entradas; salidas idénticas byte a byte a las de C16; referencia de E9 sin cambios | `resultados/contraste_f1.{json,md,log}` |
-| `test_contraste_residuos.py` | 24/24; registro idéntico | `resultados/test_contraste_residuos.log` |
-| `cobertura_por_mutacion.py` | 530 filas, sin incoherencias; salida idéntica | `resultados/cobertura_por_mutacion.txt` |
-| `tabla_conciliacion.py` | Salida idéntica | `resultados/tabla_conciliacion.md` |
-| `sondas_metadatos.py` | 713/713 en unidad y en perímetro; igual que en C16 salvo la etiqueta | `resultados/sondas_metadatos_C18.json` |
-| `barrido_fecha_rotulo.py` | 207 líneas con ejercicio por la fecha del rótulo; frente a C16, 200 iguales, 7 nuevas y 500 fuera, ninguna un saldo en millones de euros | `resultados/barrido_fecha_rotulo.txt` |
+| `controles_sinteticos_f1.py` (nuevo) | Código 0. 22 casos con importes ficticios: 8 coherentes y 14 incoherencias ilustradas, todos con el resultado esperado. 9/9 casos de la revisión reproducidos. El motor sintético coincide con `motor_a` | `resultados/controles_sinteticos_f1.{json,log}` |
+| `copia_investigacion_f1.py` (nuevo) | Código 0. 43 controles, 0 fallidos: reproduce f, el τ de 5 años, el flujo sin crecimiento 248,496395342656, los 33 flujos del libro, el FCF base registrado, C48 = 108, el diagnóstico 27,936 y la sensibilidad 16,778237 de la revisión. Variación idéntica en A0, A1 y A2 | `resultados/copia_investigacion_f1.{json,md}` |
+| `contraste_f1.py` | Ejecutado de nuevo en este bloque: 292 comprobaciones, 0 fallidas; salidas idénticas byte a byte | `resultados/contraste_f1.{json,md}` |
+| `verificar_cifras.py`, `test_verificar_cifras.py`, `test_contraste_residuos.py`, `cobertura_por_mutacion.py`, `tabla_conciliacion.py`, `sondas_metadatos.py`, `barrido_fecha_rotulo.py` y scripts de los revisores n.º 1 a 9 | Sin cambios desde C18; no se han vuelto a ejecutar porque no cambia su código ni sus entradas. Último estado: 752 filas (738 OK, 14 PENDIENTE, 0 FALLO); 136/136 casos y 9/9 comprobaciones directas; 24/24; 530 filas sin incoherencias | Las de C18, en `resultados/` |
 | `prueba_caja_no_nula.py` (LibreOffice) | No se ha vuelto a ejecutar desde C4: depende solo del libro, que no cambia | `resultados/caja_no_nula.json` |
-| Scripts de los revisores n.º 1 a 8 | Los 28 pasos, con código 0. Resultados en la octava parte de las respuestas («Resultados sobre C18»). En el barrido del revisor n.º 6, ninguna candidata pasa a OK y 336 pasan de OK a PENDIENTE; en el del n.º 8, ninguna pasa a OK y 414 pasan de OK a PENDIENTE (331 cifras de saldos, por T1, y 83 tokens que no son cifras) | `resultados/*_sobre_C18.txt` |
-| `reproduccion_7.py` y `reproduccion_8.py` | Sobre el árbol final, con el manifiesto ya regenerado: idénticos | `resultados/revisor7_reproduccion_7_sobre_C18.txt`, `resultados/revisor8_reproduccion_8_sobre_C18.txt` |
 | Manifiesto | `sha256sum -c MANIFIESTO_SHA256.txt`: OK | — |
 
 ## 3. Incidencias pendientes
 
-0. **Decisiones F1, de la persona responsable:** la propuesta pide las decisiones (1a), (1b), (2), (3a), (3b), (4a), (4b), (5a) y (5b). No se implementa nada hasta su aprobación. Elis sigue en `pendiente_de_datos`.
-1. **Responder a la revisión n.º 9** (C20, en espera). Plan, según sus correcciones propuestas (`revision/REVISION_INDEPENDIENTE_9.md`, §7):
-   - **U1:** que la tokenización devuelva la posición de cada token, sin buscar su texto en la línea (el «0» de una fila se localizaba en el «0» de la fecha del rótulo y `token_del_rotulo` retiraba ocho ceros reales); casos U1a y U2a de `contraejemplos_9`;
-   - **U2:** decidir y declarar si los recuentos con fecha toman el ejercicio de su fecha. Si no lo toman, la primera línea del rótulo de la fila cuenta para la condición de las palabras, y la regla no se aplica bajo un encabezado numerado (sumario). Ajustar las frases; casos U3a y U3b;
-   - **U3:** contar las columnas en la tabla (el máximo de las filas del bloque o las celdas de la cabecera), o declarar el límite;
-   - **U4:** el criterio de la pestaña en `rotulos_sin_rotulo`, el mismo que en `rotulo`;
-   - **U5:** (a) con «published», «publié» o «reported» en el rótulo, la edición no puede ser la vigente; (c) el pie de página no es una fila, y un token de una celda con letras no se evalúa como cifra; (b) y (d), declararlos;
-   - **U6 (a)–(g):** frases de E9 (R42 de 2023–25 sí interviene: 18 identidades), de la octava parte, del informe §1 (límites), de T14 y de este punto («cinco tablas del WACC», no seis).
-   - Pruebas: regresión de las 752 filas, test, scripts de los revisores n.º 1 a 9 sobre C20 y reproducción; congelado C21 y pasada 10.
-2. **C18, revisado en la pasada 9.** C20, sin revisar hasta la pasada 10.
-3. **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
-4. **Límites del verificador:** regla de grupos (S7 d en los URD 2021, 2022 y 2023), honorarios por firma en PENDIENTE (176 cifras), rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42; los que declara C18 (T1, T2, T5 y T6).
-5. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
+0. **Decisiones F1, de la persona responsable:** (1a), (1b), (2), (3a), (3b), (4a), (4b), (5a) y (5b), con el texto exacto que se pide aprobar en la tabla única de la propuesta. No se implementa nada hasta su aprobación.
+1. **Revisión económica independiente dirigida a P1–P4**, sobre este commit congelado, en una sesión nueva con contexto propio. Se avisa antes de lanzarla. Una sola pasada: si encuentra una carencia de datos o de política, se documenta el bloqueo y se termina.
+2. **Carencias que bloquean Elis:**
+   - M1 (reparto de la inversión propia, con el plan climático: importe, horizonte y finalidad);
+   - M2 (bajas de clientes y desembolso por cliente nuevo);
+   - M6 (finalidad de las compras, si no se aprueba (4b));
+   - N2 (fiscalidad, caja y reposición de las bajas de 2025 con seguros);
+   - actualización del earnout mexicano en el tipo;
+   - perímetro de las palancas S2C y ROIC.
+
+   Preguntas preparadas, no enviadas: respuesta, §6.
+3. **Respuesta a la revisión n.º 9 del verificador (C20), en espera.** Es trabajo independiente ya abierto. Plan en la versión anterior de este archivo (commit `b83803c`, §3, punto 1): U1–U6 de `revision/REVISION_INDEPENDIENTE_9.md`, §7.
+4. **Cobertura de la unidad y del perímetro**, y **límites del verificador:** los de C18 (versión anterior de este archivo, §3, puntos 3 y 4).
+5. **Decisiones económicas [DH]** y **sin aptitud para dinero real.** Se conservan C48 = 108, C49, el FCF base 307,933 y E1/D3/E2/E6.
 
 ## 4. Siguiente paso exacto
 
-1. Esperar la decisión sobre la propuesta F1. Lo aprobado se registrará con fecha, persona y motivo y se aplicará en la especificación y el motor, con pruebas y una revisión independiente.
-2. Mientras tanto, y salvo indicación en contra, responder a la revisión n.º 9 (C20) según el plan de §3.1: leer la revisión entera (§2 a §9) y sus contraejemplos, implementar, comprobar las 752 filas, repetir los barridos de los revisores n.º 6 a 9, escribir la novena parte, commit, push, congelado C21 y pasada 10.
+1. Avisar a la persona responsable y encargar la revisión dirigida a P1–P4:
+   - sesión nueva, con el modelo y el esfuerzo que el encargo asigna a la revisión económica;
+   - sobre este commit congelado, en una rama propia del revisor;
+   - con el material de la revisión externa en `1a07188`.
+2. Al terminar:
+   - copiar su informe con procedencia y huellas;
+   - registrar la configuración en `REGISTRO_CONFIGURACION.md` y el resultado en `revision/ESTADO.md`;
+   - si señala una carencia de datos o de política, documentar el bloqueo y terminar, sin encadenar otra pasada;
+   - commit y push.
+3. Esperar las decisiones F1. Lo aprobado se registrará con fecha, persona y motivo, y se aplicará en la especificación y el motor, con las pruebas T15 y T16 y una revisión independiente.
 
 ## 5. Cómo reanudar en una sesión nueva
 
 1. `git fetch origin auditoria/economica-f1-frente-e` y `git checkout auditoria/economica-f1-frente-e`.
 2. Materializar un árbol `munger_v2_r1`, según la sección de archivos pesados del README del repositorio (`tools/base_414.py`, con el ZIP original de la Release `base-4.14`).
-3. Ejecutar los comandos del informe, §13, en ese orden. LibreOffice solo en secuencia.
-4. Leer este archivo, `revision/ESTADO.md` y las partes séptima y octava de `revision/RESPUESTAS_AUTOR_1.md`.
-5. Configuración acordada: la del encargo («MODELOS Y ESFUERZO»), registrada en `REGISTRO_CONFIGURACION.md`. La revisión la hace una sesión distinta de la autora, en la rama `auditoria/economica-f1-frente-e-revision`.
+3. Ejecutar los comandos del informe, §13, y los de la respuesta, §1, en ese orden. LibreOffice solo en secuencia.
+4. Leer este archivo, `revision/ESTADO.md`, la respuesta y la propuesta revisada.
+5. Configuración acordada: la de cada encargo, registrada en `REGISTRO_CONFIGURACION.md`. La revisión la hace una sesión distinta de la autora.
