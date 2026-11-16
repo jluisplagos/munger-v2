@@ -1,0 +1,147 @@
+Posición de los tokens numéricos: `spans_numericos` del verificador frente a la posición verdadera
+
+== 1. Tokens mal localizados ==
+  líneas con cifras: 22594; tokens: 54248; líneas en que mi tokenizador no da los mismos tokens que el verificador: 0
+  tokens cuya posición no es la verdadera: 385 en 299 líneas (129 tokens en páginas del grupo)
+      176  cae dentro de otra celda de texto
+      143  cae dentro del rótulo; el token está a su derecha
+       66  cae dentro de un token anterior
+  por publicación: {'DEU2024FR': 59, 'URD2021': 105, 'URD2022': 73, 'URD2023': 67, 'URD2025': 81}
+  por texto del token (los 15 más frecuentes): [('-', 117), ('2', 60), ('1', 31), ('0', 21), ('3', 15), ('2025', 12), ('2023', 10), ('2021', 10), ('2022', 9), ('5', 7), ('4', 6), ('20', 5), ('223', 4), ('8.4', 4), ('2.1', 4)]
+  marcadores «-»: 117; con decimales o separador de miles: 38; porcentajes: 8; enteros sin separador: 223
+  en páginas del grupo, sin los marcadores «-» (todas):
+    DEU2024FR p.277 l.41 · token 0 «7» · dado (97, 98) «s à IAS 7 « État» · verdadero (139, 140) · cae dentro de otra celda de texto · «− amendements à IFRS 16 « Contrats de locations » : « Passif  − amendements à IAS 7 « État des »
+    DEU2024FR p.306 l.45 · token 0 «0» · dado (14, 15) «31/12/2024» · verdadero (58, 59) · cae dentro del rótulo; el token está a su derecha · «au 31/12/2024  0  26 718  0  5 308  0  0»
+    DEU2024FR p.326 l.25 · token 0 «2029» · dado (32, 36) «OCÉANEs 2029 émises» · verdadero (135, 139) · cae dentro del rótulo; el token está a su derecha · «du nombre total d'OCÉANEs 2029 émises initialement.  2023. Ainsi, le nouveau « cours de convers»
+    DEU2024FR p.341 l.8 · token 0 «5» · dado (90, 91) «la note 5.5 « Rém» · verdadero (148, 149) · cae dentro del rótulo; el token está a su derecha · «À l'exception de la rémunération des dirigeants et du plan de retraite figurant à la note 5.5 «»
+    DEU2024FR p.347 l.11 · token 0 «5» · dado (94, 95) «nviron 150 millio» · verdadero (148, 149) · cae dentro del rótulo; el token está a su derecha · «total d'environ 150 millions d'euros, avec pour objectifs de  5»
+    URD2021 p.263 l.59 · token 0 «0.5» · dado (12, 15) «ct of a 0.5 point d» · verdadero (138, 141) · cae dentro del rótulo; el token está a su derecha · «Impact of a 0.5 point decrease in the employee financing rate  0.5»
+    URD2021 p.292 l.8 · token 0 «2018» · dado (110, 114) «ion No. 2018-01 of J» · verdadero (129, 133) · cae dentro de otra celda de texto · «Liquidity agreement  accordance with AMF Decision No. 2018-01 of July 2, 2018»
+    URD2022 p.273 l.64 · token 0 «100%» · dado (33, 37) «cquired 100% of Cent» · verdadero (119, 123) · cae dentro del rótulo; el token está a su derecha · «On April 29, 2022, Elis acquired 100% of Centralvaskeriet AS, which  the  Netherlands  by  acqu»
+    URD2022 p.296 l.64 · token 0 «0.5» · dado (16, 19) «ct of a 0.5 point d» · verdadero (126, 129) · cae dentro del rótulo; el token está a su derecha · «Impact of a 0.5 point decrease in the employee financing rate  0.5  0.5»
+    URD2022 p.296 l.64 · token 1 «0.5» · dado (126, 129) «0.5» · verdadero (146, 149) · cae dentro de un token anterior · «Impact of a 0.5 point decrease in the employee financing rate  0.5  0.5»
+    URD2022 p.313 l.12 · token 0 «6» · dado (131, 132) «for 38.6% of the» · verdadero (151, 152) · cae dentro del rótulo; el token está a su derecha · «2022, countries outside the euro area accounted for 38.6% of the  6»
+    URD2023 p.283 l.65 · token 0 «7» · dado (97, 98) «to IAS 7 “Statem» · verdadero (134, 135) · cae dentro de otra celda de texto · «− Amendments to IAS 7 “Statement of Cash Flows” and IFRS 7»
+    URD2023 p.285 l.13 · token 0 «6» · dado (81, 82) «(Note 6.2 “Prop» · verdadero (145, 146) · cae dentro del rótulo; el token está a su derecha · «(Note 6.2 “Property, plant and equipment”) used to calculate  6»
+    URD2023 p.312 l.12 · token 5 «20» · dado (161, 163) «. 19    2023 – Pla» · verdadero (177, 179) · cae dentro de otra celda de texto · «share grants  2021 – Plan no. 14  2022 – Plan no. 16  2022 – Plan no. 17  2022 – Plan no. 18  2»
+    URD2023 p.315 l.23 · token 0 «2023» · dado (22, 26) «October 2023.» · verdadero (124, 128) · cae dentro del rótulo; el token está a su derecha · «of Elis until October 2023.  one non-voting member (censor) as at December 31, 2023»
+    URD2023 p.332 l.82 · token 0 «2023» · dado (7, 11) «In 2023, total» · verdadero (129, 133) · cae dentro del rótulo; el token está a su derecha · «In 2023, total net interest expense rose by €20.0 million compared  securitization program and »
+    URD2023 p.355 l.28 · token 0 «2021» · dado (33, 37) «ion No. 2021-01 of J» · verdadero (53, 57) · cae dentro de otra celda de texto · «accordance with AMF Decision No. 2021-01 of June 22, 2021»
+    URD2023 p.357 l.13 · token 0 «6» · dado (125, 126) «4 to 2026;» · verdadero (146, 147) · cae dentro del rótulo; el token está a su derecha · «December 14, 2023 regarding the years 2024 to 2026;  6»
+    URD2025 p.307 l.48 · token 0 «3.3%» · dado (45, 49) «rose by 3.3% (includ» · verdadero (61, 65) · cae dentro de otra celda de texto · «In France, reported revenue for 2025 rose by 3.3% (including 3.3%»
+    URD2025 p.339 l.35 · token 0 «2025» · dado (83, 87) «May 13, 2025: 100% o» · verdadero (133, 137) · cae dentro de otra celda de texto · «In Germany  › May 13, 2025: 100% of Eradiq SAS in France (pest control; 2025»
+    URD2025 p.339 l.38 · token 0 «2025» · dado (83, 87) «May 29, 2025: 100% o» · verdadero (131, 135) · cae dentro de otra celda de texto · «› May 29, 2025: 100% of Arumia SL in Spain (pest control; 2025»
+    URD2025 p.339 l.45 · token 0 «2025» · dado (13, 17) «ber 22, 2025: acquis» · verdadero (136, 140) · cae dentro del rótulo; el token está a su derecha · «December 22, 2025: acquisition of 100% of Adrett Textilservice  › July 31, 2025: 100% of Ecoser»
+    URD2025 p.339 l.66 · token 0 «2025» · dado (88, 92) «ber 10, 2025: 100% o» · verdadero (131, 135) · cae dentro de otra celda de texto · «› December 10, 2025: 100% of Dodo in Italy (pest control; 2025»
+    URD2025 p.357 l.9 · token 0 «5» · dado (105, 106) «2/31/2025» · verdadero (132, 133) · cae dentro del rótulo; el token está a su derecha · «12/31/2025  12/31/2024  5»
+    URD2025 p.360 l.50 · token 0 «0» · dado (20, 21) «12/31/2025» · verdadero (122, 123) · cae dentro del rótulo; el token está a su derecha · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+    URD2025 p.360 l.50 · token 1 «0» · dado (56, 57) «100,100(e)» · verdadero (141, 142) · cae dentro de otra celda de texto · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+    URD2025 p.360 l.50 · token 2 «0» · dado (57, 58) «100,100(e)» · verdadero (160, 161) · cae dentro de otra celda de texto · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+    URD2025 p.360 l.50 · token 3 «0» · dado (60, 61) «100,100(e)» · verdadero (177, 178) · cae dentro de otra celda de texto · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+    URD2025 p.360 l.50 · token 4 «0» · dado (61, 62) «100,100(e)» · verdadero (191, 192) · cae dentro de otra celda de texto · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+    URD2025 p.360 l.52 · token 0 «0» · dado (17, 18) «12/31/2025» · verdadero (66, 67) · cae dentro del rótulo; el token está a su derecha · «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0»
+    URD2025 p.360 l.54 · token 0 «0» · dado (17, 18) «12/31/2025» · verdadero (66, 67) · cae dentro del rótulo; el token está a su derecha · «as at 12/31/2025  0  388,960  0  954,339  29,250  16,730  1,207,746  16,880»
+    URD2025 p.365 l.10 · token 0 «5» · dado (100, 101) «2/31/2025» · verdadero (146, 147) · cae dentro de otra celda de texto · «(In millions of euros)  12/31/2025  12/31/2024  Amortization  5»
+    URD2025 p.381 l.12 · token 0 «5» · dado (96, 97) «31, 2025, outsta» · verdadero (174, 175) · cae dentro del rótulo; el token está a su derecha · «31, 2025, outstandings under this program totaled €80.0 million  5»
+
+== 2. Filas reales del CSV ==
+  filas de tabla reales: 713; con su token mal localizado: 0; en una línea con algún otro token mal localizado: 0
+
+== 3. Efecto: `comprobar_tabla` tal como es y con la posición verdadera, en las líneas afectadas ==
+  -- C16 --
+  modo «dos_columnas» (estado tal como es → estado con la posición verdadera): {('FALLO', 'FALLO'): 696, ('FALLO', 'PENDIENTE'): 20, ('OK', 'OK'): 4, ('PENDIENTE', 'FALLO'): 17, ('PENDIENTE', 'OK'): 1, ('PENDIENTE', 'PENDIENTE'): 945}
+  demás modos (15 identificadores de sondeo): {('FALLO', 'FALLO'): 18515, ('FALLO', 'PENDIENTE'): 4, ('PENDIENTE', 'PENDIENTE'): 210}
+  dimensiones que cambian («dos_columnas»): {('ejercicio', 'F', 'O'): 5, ('ejercicio', 'F', 'P'): 54, ('ejercicio', 'O', 'F'): 4, ('ejercicio', 'O', 'P'): 7, ('ejercicio', 'P', 'F'): 32, ('ejercicio', 'P', 'O'): 8, ('perimetro', 'F', 'O'): 6}
+  dimensiones que cambian (demás modos): {('columna', 'F', 'P'): 18, ('columna', 'P', 'F'): 63, ('perimetro', 'F', 'O'): 66}
+    otros modos · FALLO → PENDIENTE:
+      URD2025 p.172 l.91 «70%» CREC_ORG_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_EXT_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_FX_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_PUB_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+    dos_columnas · FALLO → PENDIENTE:
+      DEU2024FR p.277 l.41 «7» R9_GEN 2024: OFNOOO → OPNOOO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      DEU2024FR p.326 l.25 «2029» R9_GEN 2024: OFNPOO → OPNPOO · ejercicio: columna del ejercicio no acreditada: el token está bajo la cabecera «à
+      DEU2024FR p.355 l.59 «2007» R9_GEN 2024: OFNOPO → OPNOPO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      URD2023 p.66 l.110 «7» R9_GEN 2022: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token está bajo la cabecera «t
+      URD2023 p.172 l.12 «2» R9_GEN 2023: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      URD2023 p.172 l.12 «2» R9_GEN 2022: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+    dos_columnas · PENDIENTE → FALLO:
+      DEU2024FR p.100 l.62 «2014» R9_GEN 2024: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (5 caracteres
+      DEU2024FR p.100 l.62 «2014» R9_GEN 2023: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (5 caracteres
+      DEU2024FR p.237 l.49 «31» R9_GEN 2023: OPNPPO → OFNPPO · ejercicio: la columna es de 2024, no de 2023
+      DEU2024FR p.378 l.42 «15 903 264» R9_GEN 2024: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (2 caracteres
+      DEU2024FR p.378 l.44 «13 347 238» R9_GEN 2024: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (2 caracteres
+      URD2022 p.216 l.29 «2» R9_GEN 2022: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (4.5 caracter
+    dos_columnas · PENDIENTE → OK:
+      URD2023 p.332 l.82 «2023» R9_GEN 2023: OPNOOO → OONOOO · ejercicio: columna de 2023 (alineación con la cabecera)
+  «dos_columnas»: candidatas con el ejercicio OK tal como es y no OK con la posición verdadera: 11
+      URD2021 p.176 l.20 token 0 «0» declarado 2021: OONFPO → OFNFPO · tal como es: «columna de 2021 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2020, no de 2021»
+      URD2021 p.176 l.20 token 1 «0» declarado 2020: OONFPO → OFNFPO · tal como es: «columna de 2020 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2019, no de 2020»
+      URD2022 p.108 l.24 token 0 «2021» declarado 2022: OONFPO → OPNFPO · tal como es: «columna de 2022 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+      URD2022 p.207 l.23 token 1 «0» declarado 2021: OONFPO → OFNFPO · tal como es: «columna de 2021 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2020, no de 2021»
+      URD2023 p.111 l.24 token 0 «2022» declarado 2023: OONFPO → OPNFPO · tal como es: «columna de 2023 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+      URD2023 p.172 l.58 token 0 «2019» declarado 2022: OONPPO → OPNPPO · tal como es: «columna de 2022 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token está bajo la cabecera «market-base»
+      URD2023 p.224 l.21 token 0 «0» declarado 2023: OONFPO → OFNFPO · tal como es: «columna de 2023 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2022, no de 2023»
+      URD2025 p.103 l.82 token 0 «2024» declarado 2023: OONPPF → OPNPPF · tal como es: «columna de 2023 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+      URD2025 p.103 l.85 token 0 «2025» declarado 2023: OONPPF → OPNPPF · tal como es: «columna de 2023 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+      URD2025 p.119 l.24 token 0 «2024» declarado 2025: OONFPO → OPNFPO · tal como es: «columna de 2025 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+      URD2025 p.339 l.66 token 0 «2025» declarado 2025: OONPOO → OPNPOO · tal como es: «columna de 2025 (alineación con la cabecera)» · con la posición verdadera: «columna del ejercicio no acreditada: el token no está bajo ninguna columna recon»
+  tokens que `token_del_rotulo` da por «año o día del rótulo» y que con la posición verdadera no lo son: 0
+  -- C18 --
+  modo «dos_columnas» (estado tal como es → estado con la posición verdadera): {('FALLO', 'FALLO'): 685, ('FALLO', 'PENDIENTE'): 11, ('OK', 'OK'): 4, ('PENDIENTE', 'FALLO'): 22, ('PENDIENTE', 'OK'): 1, ('PENDIENTE', 'PENDIENTE'): 960}
+  demás modos (15 identificadores de sondeo): {('FALLO', 'FALLO'): 17771, ('FALLO', 'PENDIENTE'): 5, ('PENDIENTE', 'FALLO'): 372, ('PENDIENTE', 'PENDIENTE'): 581}
+  dimensiones que cambian («dos_columnas»): {('columna', 'N', 'P'): 24, ('ejercicio', 'F', 'O'): 4, ('ejercicio', 'F', 'P'): 15, ('ejercicio', 'O', 'F'): 4, ('ejercicio', 'P', 'F'): 41, ('ejercicio', 'P', 'O'): 15, ('perimetro', 'F', 'O'): 6}
+  dimensiones que cambian (demás modos): {('columna', 'F', 'P'): 18, ('columna', 'P', 'F'): 63, ('ejercicio', 'P', 'F'): 564, ('ejercicio', 'P', 'O'): 30, ('perimetro', 'F', 'O'): 66}
+    otros modos · FALLO → PENDIENTE:
+      URD2025 p.172 l.91 «70%» CREC_ORG_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_EXT_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_FX_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.172 l.91 «70%» CREC_PUB_R9 2025: OOFOPO → OOPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+      URD2025 p.410 l.73 «2014» TAXDIF_R9 2025: OPFOPO → OPPOPO · columna: columna no acreditada: el token no está bajo ninguna columna reconocid
+    otros modos · PENDIENTE → FALLO:
+      DEU2024FR p.127 l.9 «2» TAXDIF_R9 2024: OPPPPO → OFPPPO · ejercicio: no se localiza la cabecera de apertura y cierre
+      DEU2024FR p.127 l.9 «2» LS_R9_ROU_X 2024: OPPPPO → OFPPPO · ejercicio: la línea está en el bloque de None, no de 2024
+      DEU2024FR p.127 l.9 «2» LS_R9_ROU_X 2023: OPPPPO → OFPPPO · ejercicio: la línea está en el bloque de None, no de 2023
+      DEU2024FR p.127 l.9 «2» LS_R9_PAS_X 2024: OPPPPO → OFPPPO · ejercicio: la línea está en el bloque de None, no de 2024
+      DEU2024FR p.127 l.9 «2» LS_R9_PAS_X 2023: OPPPPO → OFPPPO · ejercicio: la línea está en el bloque de None, no de 2023
+      DEU2024FR p.127 l.9 «2» INT_RC_R9 2024: OPPPPO → OFPPPO · ejercicio: la línea está en el bloque de None, no de 2024
+    dos_columnas · FALLO → PENDIENTE:
+      DEU2024FR p.277 l.41 «7» R9_GEN 2024: OFNOOO → OPNOOO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      URD2023 p.66 l.110 «7» R9_GEN 2022: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token está bajo la cabecera «t
+      URD2023 p.172 l.12 «2» R9_GEN 2023: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      URD2023 p.172 l.12 «2» R9_GEN 2022: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna col
+      URD2023 p.260 l.52 «2023» R9_GEN 2023: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token está bajo la cabecera «o
+      URD2023 p.260 l.52 «2023» R9_GEN 2022: OFNPPO → OPNPPO · ejercicio: columna del ejercicio no acreditada: el token está bajo la cabecera «o
+    dos_columnas · PENDIENTE → FALLO:
+      DEU2024FR p.237 l.49 «31» R9_GEN 2023: OPNPPO → OFNPPO · ejercicio: la columna es de 2024, no de 2023
+      DEU2024FR p.306 l.45 «0» R9_GEN 2023: OPNPOO → OFPPOO · ejercicio: la fila es el saldo de 2024 (fecha en su rótulo), no de 2023; columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 6 
+      DEU2024FR p.326 l.25 «2029» R9_GEN 2023: OPNPOO → OFNPOO · ejercicio: la columna reconocida más próxima, alineada con el token (5 caracteres
+      DEU2024FR p.361 l.56 «0» R9_GEN 2023: OPNPPO → OFPPPO · ejercicio: la fila es el saldo de 2024 (fecha en su rótulo), no de 2023; columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 6 
+      DEU2024FR p.378 l.42 «15 903 264» R9_GEN 2024: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (2 caracteres
+      DEU2024FR p.378 l.44 «13 347 238» R9_GEN 2024: OPNPPO → OFNPPO · ejercicio: la columna reconocida más próxima, alineada con el token (2 caracteres
+    dos_columnas · PENDIENTE → OK:
+      URD2023 p.332 l.82 «2023» R9_GEN 2023: OPNOOO → OONOOO · ejercicio: columna de 2023 (alineación con la cabecera)
+  «dos_columnas»: candidatas con el ejercicio OK tal como es y no OK con la posición verdadera: 4
+      URD2021 p.176 l.20 token 0 «0» declarado 2021: OONFPO → OFNFPO · tal como es: «columna de 2021 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2020, no de 2021»
+      URD2021 p.176 l.20 token 1 «0» declarado 2020: OONFPO → OFNFPO · tal como es: «columna de 2020 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2019, no de 2020»
+      URD2022 p.207 l.23 token 1 «0» declarado 2021: OONFPO → OFNFPO · tal como es: «columna de 2021 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2020, no de 2021»
+      URD2023 p.224 l.21 token 0 «0» declarado 2023: OONFPO → OFNFPO · tal como es: «columna de 2023 (alineación con la cabecera)» · con la posición verdadera: «la columna es de 2022, no de 2023»
+  tokens que `token_del_rotulo` da por «año o día del rótulo» y que con la posición verdadera no lo son: 18
+      DEU2024FR p.127 l.9 token 0 «2» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 1, ('P', 'F'): 4, ('P', 'P'): 1} · «Exercice clos le 31/12/2024  Exercice clos le 31/12/2023  2»
+      DEU2024FR p.306 l.45 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «au 31/12/2024  0  26 718  0  5 308  0  0»
+      DEU2024FR p.326 l.25 token 0 «2029» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 5, ('P', 'P'): 1} · «du nombre total d'OCÉANEs 2029 émises initialement.  2023. Ainsi, le nouveau « cours de conversion » des OCÉAN»
+      DEU2024FR p.361 l.56 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «au 31/12/2024  0  26 718  0  5 308  0  0»
+      URD2021 p.326 l.69 token 0 «2021» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 4, ('P', 'P'): 1} · «In 2021, the share capital increased by 2,256,577 new shares  this universal registration document – Note 5.4 »
+      URD2022 p.121 l.45 token 0 «2022» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 4, ('P', 'P'): 1} · «governance” of the Company's 2022 Universal Registration  during the 2022 financial year or awarded for the 20»
+      URD2022 p.364 l.69 token 0 «2022» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 4, ('P', 'P'): 1} · «issued, first, as part of the “Elis for All 2022” employee share  this Universal Registration Document – Note »
+      URD2023 p.315 l.23 token 0 «2023» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 1, ('P', 'F'): 4, ('P', 'P'): 1} · «of Elis until October 2023.  one non-voting member (censor) as at December 31, 2023»
+      URD2023 p.332 l.82 token 0 «2023» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 1, ('P', 'F'): 5} · «In 2023, total net interest expense rose by €20.0 million compared  securitization program and USPP in June an»
+      URD2025 p.103 l.82 token 0 «2024» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 4, ('P', 'P'): 1} · «Elis 2024 target  Management Board, 2024  900  900  1,800  2,025  3,825»
+      URD2025 p.103 l.85 token 0 «2025» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'F'): 4, ('P', 'P'): 1} · «Elis 2025 target  Management Board, 2025  1,050  1,050  2,100  2,363  4,463»
+      URD2025 p.339 l.45 token 0 «2025» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 1, ('P', 'F'): 5} · «December 22, 2025: acquisition of 100% of Adrett Textilservice  › July 31, 2025: 100% of Ecoserv SRL in Belgiu»
+      URD2025 p.360 l.50 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+      URD2025 p.360 l.52 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0»
+      URD2025 p.360 l.54 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  0  388,960  0  954,339  29,250  16,730  1,207,746  16,880»
+      URD2025 p.417 l.50 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  100,100(e)  154,120(e)  1,310(e)  0  0  0  0  0»
+      URD2025 p.417 l.52 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0»
+      URD2025 p.417 l.54 token 0 «0» · ejercicio tal como es → con la posición verdadera, por declaración: {('P', 'O'): 2, ('P', 'F'): 5} · «as at 12/31/2025  0  388,960  0  954,339  29,250  16,730  1,207,746  16,880»

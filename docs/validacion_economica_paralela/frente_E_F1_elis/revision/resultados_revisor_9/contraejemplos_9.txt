@@ -1,0 +1,192 @@
+Contraejemplos de la revisión n.º 9 · verificador oficial de cada versión, como proceso aparte
+
+U1. El primer «0» de una fila de un plan de acciones con la fecha en el rótulo («as at 12/31/2025 · 0 · 92,485 …»). El verificador localiza el token buscando su texto y lo encuentra dentro de la fecha del rótulo: lo da por «el día de la fecha»
+----------------------------------------------------------------------------------------------------
+U1a · URD 2025 p.360, «Number of rights lapsed or forfeited / as at 12/31/2025», primera cifra (0), declarada 2025
+     URD2025 p.360 l.52: «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0» · token «0» · ejercicio 2025 · dos_columnas · edición vigente
+     C16: PENDIENTE lit OK · eje OK · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2025 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+     C18: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: el token es el día de la fecha del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+U1b · la misma cifra declarada 2024: la fila es de 2025
+     URD2025 p.360 l.52: «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0» · token «0» · ejercicio 2024 · dos_columnas · edición vigente
+     C16: FALLO     lit OK · eje FALLO · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: la fila es el saldo de 2025 (fecha en su rótulo), no de 2024
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+     C18: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: el token es el día de la fecha del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+U1c · control: la segunda cifra de esa fila (92,485), declarada 2024
+     URD2025 p.360 l.52: «as at 12/31/2025  0  92,485  0  35,701  0  0  6,827  0» · token «92,485» · ejercicio 2024 · dos_columnas · edición vigente
+     C16: FALLO     lit OK · eje FALLO · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: la fila es el saldo de 2025 (fecha en su rótulo), no de 2024
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+     C18: FALLO     lit OK · eje FALLO · col PENDIENTE · uni PENDIENTE · per OK · edi OK
+          ejercicio: la fila es el saldo de 2025 (fecha en su rótulo), no de 2024
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 7 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+          unidad: la página no declara la unidad por encima de la línea
+U1d · DEU 2024 p.306, «Nombre de droits devenus caducs / au 31/12/2024», primera cifra (0), declarada 2023
+     DEU2024FR p.306 l.45: «au 31/12/2024  0  26 718  0  5 308  0  0» · token «0» · ejercicio 2023 · dos_columnas · edición vigente
+     C16: FALLO     lit OK · eje FALLO · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: la fila es el saldo de 2024 (fecha en su rótulo), no de 2023
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+     C18: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: el token es el día de la fecha del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+U1e · la misma cifra con un identificador de saldo y su ejercicio (2024): en el modo «saldo» la fecha de la línea da el ejercicio
+     DEU2024FR p.306 l.45: «au 31/12/2024  0  26 718  0  5 308  0  0» · token «0» · ejercicio 2024 · saldo · edición anterior
+     C16: PENDIENTE lit OK · eje OK · col PENDIENTE · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2024
+          columna: columna no acreditada: la cabecera no tiene columnas reconocibles
+          unidad: la página no declara la unidad por encima de la línea
+     C18: PENDIENTE lit OK · eje PENDIENTE · col PENDIENTE · uni PENDIENTE · per OK · edi OK
+          ejercicio: el token es el día de la fecha del rótulo de la fila, no una cifra
+          columna: columna no acreditada: la cabecera no tiene columnas reconocibles
+          unidad: la página no declara la unidad por encima de la línea
+
+U2. La misma causa en la asignación de columnas, anterior a C18: «Number of fatal accidents · 0(a) · 0 · 0» bajo «Group 2021 · Group 2020 · Group 2019». La celda «0(a)» no es un token; el «0» de 2020 se localiza dentro de ella, bajo 2021, y el de 2019, bajo 2020
+----------------------------------------------------------------------------------------------------
+U2a · URD 2021 p.176, el «0» de la columna de 2020 declarado 2021
+     URD2021 p.176 l.20: «Number of fatal accidents  0(a)  0  0» · token «0» · ejercicio 2021 · dos_columnas · edición anterior
+     C16: FALLO     lit OK · eje OK · col NO_APLICA · uni FALLO · per PENDIENTE · edi OK
+          ejercicio: columna de 2021 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of fatal accidents» es un recuento, un importe por acción o un margen, no millones de euros
+          perimetro: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+     C18: FALLO     lit OK · eje OK · col NO_APLICA · uni FALLO · per PENDIENTE · edi OK
+          ejercicio: columna de 2021 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of fatal accidents» es un recuento, un importe por acción o un margen, no millones de euros
+          perimetro: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+U2b · el mismo «0» declarado 2020, que es su columna
+     URD2021 p.176 l.20: «Number of fatal accidents  0(a)  0  0» · token «0» · ejercicio 2020 · dos_columnas · edición vigente
+     C16: FALLO     lit OK · eje FALLO · col NO_APLICA · uni FALLO · per PENDIENTE · edi OK
+          ejercicio: la columna es de 2021, no de 2020
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of fatal accidents» es un recuento, un importe por acción o un margen, no millones de euros
+          perimetro: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+     C18: FALLO     lit OK · eje FALLO · col NO_APLICA · uni FALLO · per PENDIENTE · edi OK
+          ejercicio: la columna es de 2021, no de 2020
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of fatal accidents» es un recuento, un importe por acción o un margen, no millones de euros
+          perimetro: la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo
+
+U3. La regla de la fecha del rótulo en líneas que no son saldos en millones de euros (resto de T2)
+----------------------------------------------------------------------------------------------------
+U3a · URD 2021 p.225, sumario: «6.1.5 Consolidated statement of changes in equity / as at December 31, 2021 · 228». El número de página, declarado 2021
+     URD2021 p.225 l.11: «as at December 31, 2021  228» · token «228» · ejercicio 2021 · dos_columnas · edición anterior
+     C16: PENDIENTE lit OK · eje OK · col NO_APLICA · uni PENDIENTE · per OK · edi PENDIENTE
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+          edicion: la página no lleva pie con el nombre y el ejercicio de la publicación
+     C18: PENDIENTE lit OK · eje OK · col NO_APLICA · uni PENDIENTE · per OK · edi PENDIENTE
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+          unidad: la página no declara la unidad por encima de la línea
+          edicion: la página no lleva pie con el nombre y el ejercicio de la publicación
+U3b · URD 2022 p.294, «Number of rights outstanding / as at 12/31/2022»: rótulo partido antes de «as at». 548,801 declarado 2022
+     URD2022 p.294 l.53: «as at 12/31/2022  -  548,801  -  1,307,749  20,821  1,050,024  500,500  307,749» · token «548,801» · ejercicio 2022 · dos_columnas · edición anterior
+     C16: PENDIENTE lit OK · eje OK · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: el literal «548,801» es un entero de seis cifras o más: formato de recuento, no de millones de euros
+     C18: PENDIENTE lit OK · eje OK · col PENDIENTE · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 8 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+          unidad: el literal «548,801» es un entero de seis cifras o más: formato de recuento, no de millones de euros
+U3c · URD 2021 p.261, la misma fila en una sola línea, «Number of rights outstanding as at 12/31/2021». 391,839 declarado 2021
+     URD2021 p.261 l.47: «Number of rights outstanding as at 12/31/2021  -  391,839  -  1,983,433  19,350  1,382,196  21,794» · token «391,839» · ejercicio 2021 · dos_columnas · edición anterior
+     C16: FALLO     lit OK · eje OK · col NO_APLICA · uni FALLO · per OK · edi OK
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of rights outstanding as at 12/31/2021» es un recuento, un importe por acción o un margen, no millones de euros
+     C18: FALLO     lit OK · eje OK · col NO_APLICA · uni FALLO · per OK · edi OK
+          ejercicio: columna de 2021 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la línea «Number of rights outstanding as at 12/31/2021» es un recuento, un importe por acción o un margen, no millones de euros
+U3d · URD 2022 p.294, «Number of working beneficiaries / as at 12/31/2022», primera cifra (402), declarada 2022: la línea no dice «Number of»
+     URD2022 p.294 l.61: «as at 12/31/2022  402  457  20  470  14  500  11  221» · token «402» · ejercicio 2022 · dos_columnas · edición anterior
+     C16: PENDIENTE lit OK · eje OK · col NO_APLICA · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+     C18: PENDIENTE lit OK · eje OK · col PENDIENTE · uni PENDIENTE · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 8 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+          unidad: la página no declara la unidad por encima de la línea
+U3e · URD 2021 p.257, saldo publicado antes de la reexpresión: «As at December 31, 2019, published · 609.3 …», declarado 2019
+     URD2021 p.257 l.12: «As at December 31, 2019, published  609.3  522.2  87.1» · token «609.3» · ejercicio 2019 · dos_columnas · edición vigente
+     C16: FALLO     lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi FALLO
+          ejercicio: saldo de 2019 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          edicion: declarada vigente, pero la regla exige la publicación 2019 para 2019 y esta es la 2021
+     C18: FALLO     lit OK · eje OK · col PENDIENTE · uni OK · per OK · edi FALLO
+          ejercicio: saldo de 2019 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 3 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+          edicion: declarada vigente, pero la regla exige la publicación 2019 para 2019 y esta es la 2021
+
+U4. Tokens del rótulo que no son cifras y que la regla nueva no alcanza (ya eran OK en C16)
+----------------------------------------------------------------------------------------------------
+U4a · URD 2022 p.261, pie de página impar «Elis | Universal Registration Document 2022 | 259»: el folio, declarado 2021
+     URD2022 p.261 l.63: «Elis | Universal Registration Document 2022 | 259» · token «259» · ejercicio 2021 · dos_columnas · edición vigente
+     C16: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna de 2021 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+     C18: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna de 2021 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+U4b · control: URD 2022 p.262, pie de página par «260 | Elis | Universal Registration Document 2022»: el año, declarado 2021
+     URD2022 p.262 l.43: «260 | Elis | Universal Registration Document 2022» · token «2022» · ejercicio 2021 · dos_columnas · edición vigente
+     C16: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+     C18: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: el token es un año del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+U4c · URD 2021 p.218, cabecera «As at January 1» sobre las columnas de 2021 y 2020: el día, declarado 2020
+     URD2021 p.218 l.56: «As at January 1» · token «1» · ejercicio 2020 · dos_columnas · edición vigente
+     C16: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna de 2020 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+     C18: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna de 2020 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+
+U5. Controles de C18 sobre filas reales
+----------------------------------------------------------------------------------------------------
+U5a · URD 2022 p.284, deterioro de clientes, saldo de cierre (54,3), una sola columna, declarado 2022
+     URD2022 p.284 l.15: «AS AT DECEMBER 31, 2022  (54.3)» · token «(54.3)» · ejercicio 2022 · dos_columnas · edición anterior
+     C16: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+     C18: OK        lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+U5b · URD 2023 p.319, valor neto contable a 31-12-2022 reexpresado («NET CARRYING AMOUNT AS AT DECEMBER 31, 2022 / RESTATED*»), primera columna (580,7), declarado 2022: lo reconoce C18 por primera vez
+     URD2023 p.319 l.34: «RESTATED*  580.7  16.2  599.8  843.2  2,039.8» · token «580.7» · ejercicio 2022 · dos_columnas · edición vigente
+     C16: PENDIENTE lit OK · eje PENDIENTE · col NO_APLICA · uni OK · per OK · edi OK
+          ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+     C18: PENDIENTE lit OK · eje OK · col PENDIENTE · uni OK · per OK · edi OK
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 5 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+U5c · DEU 2024 p.336, reserva de coberturas, saldo de apertura «SOLDE AU 1er JANVIER 2023» (6,8), declarado 2022
+     DEU2024FR p.336 l.12: «SOLDE AU 1er JANVIER 2023  6,8  (3,6)» · token «6,8» · ejercicio 2022 · dos_columnas · edición anterior
+     C16: FALLO     lit OK · eje OK · col NO_APLICA · uni OK · per OK · edi FALLO
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          edicion: publicación 2024 posterior a la que exige la regla (2023) para 2022
+     C18: FALLO     lit OK · eje OK · col PENDIENTE · uni OK · per OK · edi FALLO
+          ejercicio: saldo de 2022 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita
+          edicion: publicación 2024 posterior a la que exige la regla (2023) para 2022

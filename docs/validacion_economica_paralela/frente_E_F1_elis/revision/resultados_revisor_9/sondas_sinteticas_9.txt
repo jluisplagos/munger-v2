@@ -1,0 +1,200 @@
+Sondas sintéticas de la revisión n.º 9 · C16 y C18 · cuatro dimensiones (ejercicio, columna, unidad, perímetro); literal y edición no se evalúan
+
+H1 · T1 · «una sola columna de datos» se mide en los tokens de la fila, no en las columnas de la tabla: celdas con llamada
+       3|     (In millions of euros)                          Land      Vehicles         Total
+       4|     As at December 31, 2021                      12.0(a)       33.6(a)          45.6
+       5|     Increases                                        1.0           2.0           3.0
+    C16 · «45.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «45.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro · las celdas «12.0(a)» y «33.6(a)» no son tokens: la fila cuenta una columna
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+
+H2 · T1 · lo mismo con celdas vacías: una sola cifra bajo «Vehicles» en una tabla de tres columnas
+       3|     (In millions of euros)                          Land      Vehicles         Total
+       4|     As at December 31, 2021                                       33.6
+       5|     Increases                                        1.0           2.0           3.0
+    C16 · «33.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «33.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+
+H3 · posición de los tokens · la primera cifra es un entero que está en la fecha del rótulo: la fila de dos columnas cuenta una
+       3|     (In millions of euros)                      Vehicles         Total
+       4|     As at 12/31/2021                                  12          45.6
+       5|     Increases                                        1.0           3.0
+    C16 · «12» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «12» declarado 2021 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro · «12» se localiza en «12/31/2021»
+          ejercicio: el token es el día de la fecha del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «45.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «45.6» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+
+H4 · posición de los tokens · desplazamiento de una columna con cifras distintas (tabla de dos ejercicios)
+       3|     (In millions of euros)                              2022          2021
+       4|     Impact of a 0.5 point decrease                       0.5             5
+       5|     Other                                                1.0           2.0
+    C16 · «5» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «5» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro · «5» es la cifra de 2021: se localiza dentro de «0.5», bajo 2022
+          ejercicio: columna de 2022 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «5» declarado 2021 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+    C18 · «5» declarado 2021 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro · su ejercicio verdadero
+          ejercicio: la columna es de 2022, no de 2021
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «0.5» declarado 2022 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+    C18 · «0.5» declarado 2022 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro · «0.5» es la cifra de 2022: se localiza en el rótulo
+          ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+
+H5 · T2 · límite declarado: fila «Balance» bajo una línea de fecha, en mayúscula inicial, que continúa la fila anterior
+       3|     (In millions of euros)                              2022          2021
+       4|     Provisions for litigation                           10.0          20.0
+       5|     As at 12/31/2021
+       6|     Balance                                             30.0          40.0
+    C16 · «30.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «30.0» declarado 2021 · ejercicio OK · columna PENDIENTE · unidad OK · perímetro OK → PENDIENTE en las cuatro · toma la fecha de la línea de encima, que es de la fila anterior
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no 
+    C16 · «30.0» declarado 2022 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+    C18 · «30.0» declarado 2022 · ejercicio FALLO · columna PENDIENTE · unidad OK · perímetro OK → FALLO en las cuatro
+          ejercicio: la fila es el saldo de 2021 (fecha en su rótulo), no de 2022
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no 
+
+H6 · T2 · el mismo límite con otros rótulos que la regla admite: «Restated», «Net», «Published»
+       3|     (In millions of euros)                              2022          2021
+       4|     Provisions for litigation                           10.0          20.0
+       5|     As at 12/31/2021
+       6|     Restated                                            30.0          40.0
+       7|     Other                                                1.0           2.0
+       8|     As at 12/31/2021
+       9|     Net                                                 31.0          42.0
+      10|     Other                                                1.0           2.0
+      11|     As at 12/31/2021
+      12|     Published                                           29.0          39.0
+    C16 · «30.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «30.0» declarado 2021 · ejercicio OK · columna PENDIENTE · unidad OK · perímetro OK → PENDIENTE en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no 
+    C16 · «31.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «31.0» declarado 2021 · ejercicio OK · columna PENDIENTE · unidad OK · perímetro OK → PENDIENTE en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no 
+    C16 · «29.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «29.0» declarado 2021 · ejercicio OK · columna PENDIENTE · unidad OK · perímetro OK → PENDIENTE en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: el ejercicio sale de la fecha del rótulo de la fila y la fila tiene 2 columnas de datos: la del token es un concepto sin columna esperada en el modo «dos_columnas», y no 
+
+H7 · T2 · control: la misma forma con la línea de fecha en minúscula no se une
+       3|     (In millions of euros)                              2022          2021
+       4|     Provisions for litigation                           10.0          20.0
+       5|     as at 12/31/2021
+       6|     Balance                                             30.0          40.0
+    C16 · «30.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «30.0» declarado 2021 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+          ejercicio: la columna es de 2022, no de 2021
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «30.0» declarado 2022 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+    C18 · «30.0» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+          ejercicio: columna de 2022 (alineación con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+
+H8 · T2 · «published» en el rótulo de un saldo de una sola columna: toma el ejercicio; nada mira que sea la cifra anterior a la reexpresión
+       3|     (In millions of euros)                                   Impairment loss
+       4|     As at December 31, 2021, published                               (57.9)
+       5|     As at December 31, 2021, restated                                (58.4)
+    C16 · «(57.9)» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «(57.9)» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro · edicion_de_columna: None
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+    C16 · «(58.4)» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «(58.4)» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+
+H9 · T5 · una fila de cifras sin rótulo que empieza por un dígito suelto se toma por la pestaña del capítulo
+       3|     (In number of sites)                                2022          2021
+       4|     France                                                12            11
+       5|     Scandinavia and Eastern
+       6|                                                            5             3
+       7|     Europe
+       8|     Central Europe                                         9             8
+       9|     Latin America                                          7             6
+    C16 · «5» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad FALLO · perímetro FALLO → FALLO en las cuatro
+    C18 · «5» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad FALLO · perímetro OK → FALLO en las cuatro · primera celda «5»: `rotulos_sin_rotulo` devuelve la lista vacía
+          ejercicio: columna de 2022 (orden con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la tabla declara otra unidad ((In number…) (línea 4), no mm EUR
+
+H10 · T5 · control: la misma fila con «15» y «13»
+       3|     (In number of sites)                                2022          2021
+       4|     France                                                12            11
+       5|     Scandinavia and Eastern
+       6|                                                           15            13
+       7|     Europe
+       8|     Central Europe                                         9             8
+       9|     Latin America                                          7             6
+    C16 · «15» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad FALLO · perímetro FALLO → FALLO en las cuatro
+    C18 · «15» declarado 2022 · ejercicio OK · columna NO_APLICA · unidad FALLO · perímetro FALLO → FALLO en las cuatro
+          ejercicio: columna de 2022 (orden con la cabecera)
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la tabla declara otra unidad ((In number…) (línea 4), no mm EUR
+          perímetro: la línea es del segmento Escandinavia y Europa del Este, no del grupo
+
+H11 · T4 · un título en mayúsculas justo encima de la primera fila de una tabla del grupo, tras una tabla con una columna por país
+       3|     Country                      France       Germany        Brazil
+       4|     WACC                           8.3%          7.5%         11.4%
+       5|     GROUP MARGINS
+       6|     EBITDA margin                 35.1%         34.2%
+    C16 · «35.1%» declarado 2022 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+    C18 · «35.1%» declarado 2022 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro PENDIENTE → PENDIENTE en las cuatro · el título no corta la búsqueda: lo toma por la primera línea del rótulo de la fila
+          ejercicio: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          perímetro: la cabecera de la tabla (línea 4) tiene una columna por país (Brazil, France, Germany): no se puede acreditar que la columna sea la del grupo
+
+H12 · S4 · la excepción «Total» con `comprobar_perimetro` (las dos líneas del test del autor, en una página del grupo)
+       3|     Country             France      Germany      Brazil       Total
+       4|     WACC 2024             8.3%         7.5%       11.4%        9.0%
+    C16 · «9.0%» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+    C18 · «9.0%» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro · columna bajo «Total»
+          ejercicio: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «8.3%» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro PENDIENTE → PENDIENTE en las cuatro
+    C18 · «8.3%» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro PENDIENTE → PENDIENTE en las cuatro · columna de Francia
+          ejercicio: columna del ejercicio no acreditada: no se localiza la cabecera de la tabla
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          perímetro: la cabecera de la tabla (línea 4) tiene una columna por país (Brazil, France, Germany): no se puede acreditar que la columna sea la del grupo
+    C16 · «2024» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad PENDIENTE · perímetro PENDIENTE → PENDIENTE en las cuatro
+    C18 · «2024» declarado 2024 · ejercicio PENDIENTE · columna NO_APLICA · unidad PENDIENTE · perímetro PENDIENTE → PENDIENTE en las cuatro · el año del rótulo
+          ejercicio: el token es un año del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+          unidad: la página no declara la unidad por encima de la línea
+          perímetro: la cabecera de la tabla (línea 4) tiene una columna por país (Brazil, France, Germany): no se puede acreditar que la columna sea la del grupo
+
+H13 · regla de f12f8ea · un año entre paréntesis dentro del rótulo no casa con la expresión del año
+       3|     (In millions of euros)                              2022          2021
+       4|     Provision used (2021)                               10.0          20.0
+       5|     Provision used 2021                                 10.0          20.0
+    C16 · «(2021)» declarado 2021 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+    C18 · «(2021)» declarado 2021 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+          ejercicio: columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+    C16 · «2021» declarado 2021 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro
+    C18 · «2021» declarado 2021 · ejercicio PENDIENTE · columna NO_APLICA · unidad OK · perímetro OK → PENDIENTE en las cuatro · control: el año suelto sí se retira
+          ejercicio: el token es un año del rótulo de la fila, no una cifra
+          columna: la columna es el ejercicio: se comprueba en «ejercicio»
+
+H14 · T2 · el límite declarado de H5 en una tabla de una sola columna: no hay columna de ejercicio que lo contradiga
+       3|     (In millions of euros)                                   Impairment loss
+       4|     Provisions for litigation                                        10.0
+       5|     As at 12/31/2021
+       6|     Balance                                                          30.0
+    C16 · «30.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro
+    C18 · «30.0» declarado 2021 · ejercicio OK · columna NO_APLICA · unidad OK · perímetro OK → OK en las cuatro · toma la fecha de la línea de encima, que es de la fila anterior
+          ejercicio: saldo de 2021 (fecha en el rótulo de la fila)
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
+    C16 · «30.0» declarado 2022 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+    C18 · «30.0» declarado 2022 · ejercicio FALLO · columna NO_APLICA · unidad OK · perímetro OK → FALLO en las cuatro
+          ejercicio: la fila es el saldo de 2021 (fecha en su rótulo), no de 2022
+          columna: una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila
