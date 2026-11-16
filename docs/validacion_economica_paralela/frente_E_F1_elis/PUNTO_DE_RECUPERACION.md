@@ -2,7 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** respuesta a la revisión n.º 7 (C16). Falta congelarla (C17) y encargar su revisión (pasada 8).
+**Bloque cerrado:** respuesta a la revisión n.º 7 (C16), su congelado (C17) y el encargo de la pasada 8.
+**Commits:** C16 es de las 05:01:42 UTC y C17, de las 05:01:57.
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
@@ -16,7 +17,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C15 = `c96d544646b2fa5a66c233402a9f31332a643cec` | Congelado de la revisión n.º 7 |
 | `f1dd6c5` | Copia de la revisión n.º 7 (d192cab), procedencia y registro |
 | `559828e` | Primera parte de C16: verificador (S1–S5, S7 c y e) y test |
-| C16 = el commit que contiene esta versión de este archivo | Respuesta completa a la revisión n.º 7 (S1–S7). **No revisado** |
+| C16 = `66d01b8fc21b277efdae938170cc64815705962e` | Respuesta completa a la revisión n.º 7 (S1–S7). **No revisado** |
+| C17 = `863ddde9190044690bfe4ee7c2a0d6fddc4c811a` | Registra el hash de C16. **Commit congelado de la revisión n.º 8** |
+| El commit que contiene esta versión de este archivo | Registra el encargo de la pasada 8. No cambia código, datos ni resultados |
 
 ## 2. Estado de las pruebas sobre C16
 
@@ -44,9 +47,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 4. Siguiente paso exacto
 
-1. Congelar C16: commit C17, que solo registra el hash de C16 en `revision/ESTADO.md`, en la tabla de commits de las respuestas y en el manifiesto. Push.
-2. Encargar la pasada 8 sobre C17 a una sesión de revisión nueva, con el modelo y el esfuerzo que el encargo asigna a la revisión independiente, en la rama `auditoria/economica-f1-frente-e-revision` sobre d192cab. Alcance: `git diff f1dd6c5 C16`. Programar una comprobación y registrar la configuración.
-3. Al terminar: copiar sus archivos sin cambios, con procedencia, y responder.
+1. Esperar a la pasada 8: sesión de revisión nueva creada a las 05:02:19 UTC sobre C17, con publicación en `auditoria/economica-f1-frente-e-revision` sobre d192cab. Hay una comprobación programada para las 06:18 UTC.
+2. Cuando termine: copiar sin cambios su informe, sus scripts y sus salidas, con procedencia (blob y SHA-256); registrar su configuración con `get_session`; actualizar ESTADO, REGISTRO, el informe §12 y este punto. Commit y push.
+3. Responder a sus objeciones (C18), con pruebas sobre las filas reales y los barridos, y encargar la revisión de lo que afecten.
 
 ## 5. Cómo reanudar en una sesión nueva
 
