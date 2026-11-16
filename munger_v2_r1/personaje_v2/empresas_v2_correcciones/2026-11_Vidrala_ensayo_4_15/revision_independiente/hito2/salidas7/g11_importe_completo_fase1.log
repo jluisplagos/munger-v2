@@ -1,0 +1,12 @@
+fase1_historia.py: b74494db… · línea 93: return re.search(r"(?<![\d.,])" + re.escape(imp) + r"(?![\d.,]*\d)", texto) is not None
+   importe_completo('849,7' , 'Total 1.849,7'   ) = False
+   importe_completo('849,7' , 'Total 1,849,7'   ) = False
+   importe_completo('7'     , 'Total 7,608'     ) = False
+   importe_completo('849,7' , 'Total 849,7'     ) = True 
+   importe_completo('849,7' , "Total 1'849,7"   ) = True    <<< el revisor esperaba False
+   importe_completo('849,7' , 'Total 1’849,7'   ) = True    <<< el revisor esperaba False
+   importe_completo('849'   , "Total 849'697"   ) = True    <<< el revisor esperaba False
+   importe_completo('849'   , 'Total 849’697'   ) = True    <<< el revisor esperaba False
+   importe_completo('849,7' , 'Total 1 849,7'   ) = True    (miles con espacio: límite conocido)
+   usos: [':202', ':206']
+   commits que tocan esas líneas (git log -L, solo lectura): ['88b2a27 Prepare verified partial 4.14 migration, preserve current Clau']

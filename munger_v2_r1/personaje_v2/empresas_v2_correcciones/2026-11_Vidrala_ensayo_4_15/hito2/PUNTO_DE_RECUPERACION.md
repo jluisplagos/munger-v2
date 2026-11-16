@@ -1,46 +1,44 @@
 # Punto de recuperación · 4.15 hito 2
 
-Actualizado: 16-nov-2026, tras las correcciones de la sexta comprobación (W1, W3–W5), rama `claude/hopeful-bardeen-qap6y0`.
+Actualizado: 16-nov-2026, tras la séptima comprobación dirigida (X1, X2, X3 y X5 corregidos), rama `claude/hopeful-bardeen-qap6y0`.
 Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fuera de este frente.
 
 ## Estado de las pruebas (hechos)
 
-- Última regresión completa conforme: candidata `8196522` → **RESULTADO GLOBAL: PASA** (`resultados/verificacion_completa_8196522.txt`);
-  reconstrucción de C48 con ese código: 8 casos iguales (`resultados/reconstruccion_c48_8196522/`).
-- **Después** se corrigieron W3 (apóstrofo tipográfico, en el sentido de aceptar), W4 (apóstrofo en los límites de la cita), W5 (mensaje
-  del máximo) y las pruebas de W1; se actualizaron `HITO_2_4_15.md` (pruebas, revisiones y límites declarados), `CONTINUIDAD.md` y
-  `PROMPT_NUEVA_VENTANA.md`: **regresión completa de esta candidata pendiente** (no se da por superada).
-- Baterías dirigidas sobre el árbol actual: entradas 4.15 **190/190**, entrada efectiva **61/61**, entradas 4.14 33/33. Mínimos: 190, 61 y 5.
-- Registros reales: diagnóstico idéntico byte a byte; inventario de signo igual; PDF reales: 0 rechazos falsos.
+- Regresión completa de la candidata `45ff57c` → **RESULTADO GLOBAL: PASA** (`resultados/verificacion_completa_45ff57c.txt`) y
+  reconstrucción de C48 con su código: 8 casos iguales (`resultados/reconstruccion_c48_45ff57c/`). **Pero** `45ff57c` llevaba la regresión
+  X1 (ver abajo), que la batería no veía: ese PASA no vale para la candidata final.
+- **Después** se corrigieron:
+  - **X1** (`verificacion_entradas.py:542`): al aplicar W3 se sustituyó el apóstrofo ASCII por el tipográfico en el límite inicial de la
+    cifra de `_lectura_cifra`, en vez de añadirlo: «Total 1'849,7» volvía a contener 849,7 (en el sentido de aceptar). Repuesto
+    `(?<!\d['’])`. `verificacion_entradas.py` queda con SHA-256 `4b00aa2a42ae45743ef4f31669faad36a7effb81affe828fd4975a2ca98c86cd`, el
+    archivo exacto que la séptima comprobación ejecutó con las tres baterías, los registros reales y sus sondas (árbol `fix7`).
+  - **X2** (`test_verificacion_entradas_415.py`, prueba «(V3, V7)» y «(V5)»): los casos de la cita completa con el valor cortado, dos
+    controles, los de W4 y el mensaje de W5, tal como los propuso el revisor (el número de pruebas no cambia: 190).
+  - **X5** (`fase1_historia.importe_completo`, ya en la 4.14, en el sentido de aceptar): el apóstrofo de miles, ASCII o tipográfico, es
+    parte del número. Prueba nueva en `test_entrada_efectiva_415.py` (62 pruebas; mínimo de `verificar_paquete.sh`: 62). Las mutaciones
+    (sin el cambio, solo delante, solo detrás, solo ASCII) la hacen fallar. **No revisado todavía por otro agente.**
+  - **X3** (registro): `HITO_2_4_15.md` §1, §4, §5 (tabla, criterio y límites) y §8, `CONTINUIDAD.md`, `VERSION` y `PROMPT_NUEVA_VENTANA.md`.
+- Baterías sobre el árbol corregido: entradas 4.15 **190/190**, entrada efectiva **62/62**, entradas 4.14 **33/33**, comprobadores
+  **114/114**. Registros reales con el código corregido: diagnóstico idéntico byte a byte, inventario de signo igual, PDF reales (q12 B):
+  244/244 y 225/225, 0 rechazos falsos.
+- **Regresión completa y reconstrucción de C48 de la candidata final: pendientes** (no se dan por superadas).
 - Control de la entrega 4.14: 29/35 (3 esperadas desde el hito 1; 3 por fechas que Git no conserva). No se da por superado.
 
 ## Revisiones independientes (Fable, esfuerzo máximo, agente distinto del autor, con aviso)
 
-- Primera pasada sobre `c2d2b96`: ACEPTABLE CON CORRECCIONES (H1 y H2 importantes; H3–H14 menores u observaciones),
-  `revision_independiente/hito2/REVISION_FABLE_HITO2.md`. Corregidos en `d54ee13`: H1, H2, H4, H5, H6, H7 (salvo clases CSS), H8, H9 (en
-  parte), H10, H14. Declarados como límites: H3, H7 (clases CSS y otros rechazos conservadores), H11 (en parte), H12.
-- Segunda pasada (solo lo cambiado tras la primera) sobre `92b2362`: ACEPTABLE CON CORRECCIONES (H1 y H2 corregidos; N1–N11 menores u
-  observaciones), `revision_independiente/hito2/REVISION_FABLE_HITO2_SEGUNDA.md`. Corregidos ahora: N1, N2, N3, N4, N5, N6, N9, N10, N11
-  (auxiliares sin uso) y N7 en parte (pruebas de H1 en calcular_entrada, H9 con registro apto y mutaciones m12, m16, m17, m20, m22, m29 y
-  H6 ±). Declarados: N8 (orden de orígenes en fórmulas anidadas; min(o, 0) dentro del límite U1), H3, H7 (clases CSS), H12 y m47.
-- Tercera comprobación (solo lo cambiado, `f3d15e8`): ACEPTABLE CON CORRECCIONES; pidió otra pasada corta por T1 (U7) y T3 (XHTML y
-  códecs), que abrían huecos hacia lo permisivo, T2 (discrepancias falsas) y T4 (`REVISION_FABLE_HITO2_TERCERA.md`). Corregidos: T1, T2,
-  T3, T4, T6, T7, T8, T9, T10 y T5 en parte (pruebas de N1, N3, N10, T1, T2, T4).
-- Cuarta comprobación corta (`7a6583b`): ACEPTABLE CON CORRECCIONES (menores; T1–T4 corregidos; Q1 a corregir; Q2 pruebas; Q3–Q6
-  observaciones), `REVISION_FABLE_HITO2_CUARTA.md`. Corregidos: Q1, Q3, Q4 y las pruebas de Q2 (T7 con registro apto, T3 en negativo,
-  erratas dobles, coste, N3 con la cifra ausente en el documento). Declarados en el docstring y en el registro: los pendientes prudentes de
-  T4, T8 y Q3, Q5 (erratas que fallan en cerrado) y los restos de Q6. Comprobación dirigida
-  (`876bfc2`): ACEPTABLE CON CORRECCIONES, sin cambios de código exigidos; V1, V2 (en el sentido de aceptar), V3, V5–V7 y pruebas (V4)
-  (`REVISION_FABLE_HITO2_QUINTA.md`). No se dejan como límites los que aceptan: corregidos V1, V2, V3, V5, V7 y las pruebas de V4; V6
-  (pendientes prudentes) declarado en el docstring. Comprobación dirigida de V1–V7
-  (`8196522`, 6.ª pasada): ACEPTABLE CON CORRECCIONES, sin cambios de código exigidos ni otra pasada (`REVISION_FABLE_HITO2_SEXTA.md`):
-  W1 (pruebas que no fijaban V2 y V5) y W2–W6 a declarar; solo W3 iba en el sentido de aceptar. Corregidos W1, W3, W4 y W5; W2 y W6
-  declarados en `HITO_2_4_15.md`. **Pendiente: comprobación dirigida de minutos de W1 y W3–W5 por otro agente** (e3, e7, e9, d7, las tres
-  baterías y el diagnóstico).
+- Pasadas 1.ª a 6.ª: tabla de `HITO_2_4_15.md` §5 e informes en `revision_independiente/hito2/`.
+- **Séptima comprobación dirigida** (`45ff57c`): `REVISION_FABLE_HITO2_SEPTIMA.md` (con `sondas7/` y `salidas7/`). **Es un borrador:** el
+  agente terminó con un error 529 (API sobrecargada) antes de rellenar §9 (integridad del árbol congelado). El dictamen, X1–X5, las
+  baterías sobre `fix7` (190/190, 61/61, 33/33) y las diez mutaciones de W1 con la batería entera (nueve detectadas; `v7c`, no, por X2)
+  sí estaban terminados y constan en `salidas7/`. Dictamen: ACEPTABLE CON CORRECCIONES; pide corregir X1 y X2 antes de cerrar, corregir el
+  registro (X3), declarar X4 y declarar o corregir X5. No pide otra revisión completa: basta una verificación mecánica por otro agente.
 
 ## Incidencias y requisitos pendientes (no cerrados)
 
-- **Comprobación dirigida de W1 y W3–W5** (otro agente) y **regresión completa** de la nueva candidata: pendientes.
+- **Verificación mecánica de X1/X2** (`sondas7/verificar_correccion_x1.py`, tiene que decir «CONFORME») y **comprobación dirigida de X5**
+  y de la corrección del registro (lista de X3), por un agente distinto del autor: pendientes.
+- **Regresión completa** y **reconstrucción de C48** de la candidata final: pendientes.
 - **H9 (parte abierta):** un relevo caducado vuelve siempre al paso 12; si cambian salidas de fases anteriores (fase_a/b/c, entrada
   efectiva) haría falta volver al paso que las consume. Propuesta sin aplicar (cambia el recorrido del pipeline).
 - **U1:** no hay regla automática que acredite el significado económico de un derivado; lo acredita la revisión independiente de cada
@@ -49,22 +47,23 @@ Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fu
   material auditado).
 - **Regeneración y auditoría de los expedientes** Viscofan, Vidrala y Elis con extractor y revisor reales (sin firmas simuladas).
 - **F1** (fuera de este frente, decisión y conciliación económica en otra tarea): el motor A no está validado.
-- **Documentación de cierre del hito:** `VERSION`, `CONTINUIDAD.md`, `PROMPT_NUEVA_VENTANA.md` (sigue siendo el de la 4.14) y
-  `HITO_2_4_15.md` (borrador) por actualizar con los resultados finales; después, manifiesto y paquete de cambios.
+- Límites declarados de `HITO_2_4_15.md` §5.
+- Tras la verificación: manifiesto final y paquete de cambios comprobado sobre la base 4.14.
 
 ## Incidencia de ejecución
 
 - 16-nov-2026: un reinicio del contenedor cortó la regresión completa y la cuarta comprobación de la candidata `7a6583b` antes de que
-  terminaran; sus resultados se perdieron y no se dan por obtenidos. Tras el reinicio, el árbol de trabajo seguía conforme (7321/7321) y la
-  rama en `7a6583b`; se rehicieron las copias congeladas y se relanzaron los dos trabajos desde cero.
+  terminaran; sus resultados se perdieron y no se dan por obtenidos. Se rehicieron las copias congeladas y se relanzaron desde cero.
+- 16-nov-2026: la séptima comprobación terminó con «API Error: 529 Overloaded»; se conserva el borrador tal como quedó.
 
 ## Siguiente paso exacto
 
-1. Regenerar manifiesto y congelar una copia limpia.
-2. En paralelo: regresión completa y comprobación dirigida de W1 y W3–W5 por un agente distinto del autor (Fable, esfuerzo máximo, sin
-   LibreOffice).
-3. Si ambas pasan sin correcciones de código: reconstrucción de C48 con el código final, nota final en `HITO_2_4_15.md`, manifiesto
-   final, paquete de cambios comprobado sobre la base 4.14, commit y push con el resumen para la revisión externa.
+1. Regenerar el manifiesto y congelar una copia limpia de la candidata con X1, X2, X3 y X5.
+2. En paralelo: (a) regresión completa (`bash verificar_paquete.sh completa`) y, al terminar, reconstrucción de C48 (LibreOffice, en
+   secuencia); (b) verificación mecánica de X1/X2 y comprobación dirigida de X5 y del registro por un agente distinto del autor (Fable,
+   esfuerzo máximo, sin LibreOffice).
+3. Si todo pasa sin correcciones de código: nota final en `HITO_2_4_15.md`, manifiesto final, paquete de cambios comprobado sobre la base
+   4.14, commit y push con el resumen para la revisión externa.
 
 Reproducción del entorno: `gh release download` no funciona aquí (GraphQL bloqueado); el ZIP se descarga con
 `gh api -H "Accept: application/octet-stream" repos/jluisplagos/munger-v2/releases/assets/750814858`, y se materializa con

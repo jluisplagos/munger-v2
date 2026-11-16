@@ -1,0 +1,39 @@
+diff -ru -x __pycache__ -x 'empresas_v2*' -x corpus -x prompts copia/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py fix7/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py
+--- copia/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py	2026-11-16 06:19:36.496461372 +0000
++++ fix7/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py	2026-11-16 06:56:39.402908609 +0000
+@@ -1136,13 +1136,20 @@
+ v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "ausente", ("849,7", 849.7, "Total 1'849,7"): "ausente",
+       # (hito 2, W1, W3 y W4) decimal sin cero citado desde la cifra, apóstrofo por detrás y tipográfico, doble corte y «\Z» en en_numero
+       ("5 veces", 5, "Ratio .5 veces"): "ausente", ("Total 849", 849, "Total 849'697"): "ausente", ("849,7 mill", 849.7, "Total 1'849,7 millones"): "ausente",
+-      ("849,7", 849.7, "Total 1\u2019849,7"): "ausente", ("849,7 mill", 849.7, "Ventas 2023\n849,7 millones"): "no_localizada"}
+-mal_v3 = {k_[2]: VE._cita_cifra(*k_)[0] for k_, e_ in v3.items() if VE._cita_cifra(*k_)[0] != e_}
++      ("849,7", 849.7, "Total 1\u2019849,7"): "ausente", ("849,7 mill", 849.7, "Ventas 2023\n849,7 millones"): "no_localizada",
++      # (séptima, propuesta del revisor, X1) la cita COMPLETA con el valor cortado: desde W4 es lo único que llega a los límites de la cifra de _lectura_cifra
++      ("Total 1'849,7", 849.7, "Total 1'849,7"): "ausente", ("Total 1\u2019849,7", 849.7, "Total 1\u2019849,7"): "ausente",
++      ("Total 849'697", 849, "Total 849'697"): "ausente", ("Total 849\u2019697", 849, "Total 849\u2019697"): "ausente",
++      ("Total 1'849.7", 1849.7, "Total 1'849.7"): "ok", ("Total 849'697", 849697, "Total 849'697"): "ok",  # controles: la cifra entera con apóstrofo se lee
++      # (séptima, propuesta del revisor, W4) la cifra citada sola que además está dentro de un número con apóstrofo se lee en su aparición suelta
++      ("849,7", 849.7, "Total 1'849,7\nOtros 849,7"): "ok", ("849,7", 849.7, "Total 1\u2019849,7\nOtros 849,7"): "ok",
++      ("Total 849", 849, "Total 849'697\nTotal 849"): "ok", ("Total 849", 849, "Total 849\u2019697\nTotal 849"): "ok"}
++mal_v3 = {k_: VE._cita_cifra(*k_)[0] for k_, e_ in v3.items() if VE._cita_cifra(*k_)[0] != e_}  # (séptima, propuesta) la clave entera: ya hay casos con la misma página
+ paso("RW", "(V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia", not mal_v3, mal_v3)
+ t0 = _time.time()
+ r_v5 = VE._cita_cifra("Total: 5.5", 5.5, " ".join(["Total: 5.5"] * 100000))
+ n_v5 = len(VE._apariciones_en_pagina("Total: 5.5", " ".join(["Total: 5.5"] * 1000)))  # (hito 2, W1) estructura, no solo reloj
+-paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and n_v5 == VE.MAX_APARICIONES_CITA + 1 and _time.time() - t0 < 5,
++paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and "más de" in r_v5[1] and n_v5 == VE.MAX_APARICIONES_CITA + 1 and _time.time() - t0 < 5,  # (séptima, propuesta) W5: el mensaje
+      (r_v5[0], round(_time.time() - t0, 2)))
+ r = con()
+ paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
+diff -ru -x __pycache__ -x 'empresas_v2*' -x corpus -x prompts copia/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py fix7/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py
+--- copia/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 06:19:36.495028952 +0000
++++ fix7/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 06:56:39.403603965 +0000
+@@ -539,7 +539,7 @@
+                 return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
+     signos = []
+     for c in _cifras(vf):
+-        for m in re.finditer(r"(?<![\d.,])(?<!\d[’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7
++        for m in re.finditer(r"(?<![\d.,])(?<!\d['’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7
+             if dentro(m.start(), m.end()):
+                 signos.append(_signo_en_cita(t, m.start(), m.end()))
+     if not signos:

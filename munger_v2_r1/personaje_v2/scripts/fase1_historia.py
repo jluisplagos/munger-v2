@@ -89,8 +89,9 @@ def componentes(x):
 
 def importe_completo(imp, texto):
     """Reparación H1 (R-b): el importe aparece como número completo, no como trozo de otro («6.0» no vale dentro de «196.0»,
-    ni «7» dentro de «7,608»). imp y texto ya normalizados con norm()."""
-    return re.search(r"(?<![\d.,])" + re.escape(imp) + r"(?![\d.,]*\d)", texto) is not None
+    ni «7» dentro de «7,608»). imp y texto ya normalizados con norm(). (4.15 hito 2, séptima comprobación, X5) el apóstrofo de miles,
+    ASCII o tipográfico, también es parte del número: «849,7» no vale dentro de «1'849,7» ni «849» dentro de «849’697»."""
+    return re.search(r"(?<![\d.,])(?<!\d['’])" + re.escape(imp) + r"(?![\d.,'’]*\d)", texto) is not None
 
 
 # Confirmación de un cero pendiente: solo por decisión humana registrada en fase1_decisiones.json (reparación H1, P2).

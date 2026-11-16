@@ -1,0 +1,147 @@
+VE = séptima (45ff57c) · VP = anterior (8196522) · VQ = 8196522 con las propuestas de la 6.ª
+
+== A · apóstrofo
+   A1 miles con apóstrofo ASCII, cita cortada por delante: «1'849,7» citada «849,7»
+      página="Total 1'849,7\n" cita='849,7' vf=849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A2 lo mismo con la cita completa y el valor cortado
+      página="Total 1'849,7\n" cita="Total 1'849,7" vf=849.7 · 8196522: ausente        45ff57c: ok             propuesta 6.ª: ausente   <<< el revisor esperaba «ausente»
+   A3 corte por detrás: «849'697» citada «Total 849» con valor 849
+      página="Total 849'697\n" cita='Total 849' vf=849 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A4 lo mismo con la cita completa y el valor cortado
+      página="Total 849'697\n" cita="Total 849'697" vf=849 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A5 control: la cifra entera con apóstrofo y punto decimal «1'849.7» = 1849,7
+      página="Total 1'849.7\n" cita="Total 1'849.7" vf=1849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A6 control: «849'697» = 849697
+      página="Total 849'697\n" cita="Total 849'697" vf=849697 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A7 la cifra entera con apóstrofo y COMA decimal «1'849,7» = 1849,7 (forma que _cifras no genera; ya era así)
+      página="Total 1'849,7\n" cita="Total 1'849,7" vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A8 dos apóstrofos «1'234'567» citada «234'567» con valor 234567
+      página="Total 1'234'567\n" cita="234'567" vf=234567 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A9 «1'234'567» citada entera con valor 1234567
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=1234567 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A10 «1'234'567» con valor 567 (cita completa)
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=567 · 8196522: ausente        45ff57c: ok             propuesta 6.ª: ausente   <<< el revisor esperaba «ausente»
+   A11 «1'234'567» con valor 234 (cifra entre dos apóstrofos)
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=234 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A12 doble corte: «1'849,7 millones» citada «849,7 mill» (la única vía que llega al apóstrofo de en_numero)
+      página="Total 1'849,7 millones\n" cita='849,7 mill' vf=849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   -- apóstrofo TIPOGRÁFICO y otros signos parecidos (lo que suelen dar los PDF de informes suizos)
+   A13 U+2019 ’: «1’849,7» citada «849,7» con valor 849,7
+      página='Total 1’849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ausente        propuesta 6.ª: ausente
+   A14 U+2019 ’: «849’697» citada «Total 849» con valor 849
+      página='Total 849’697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ausente        propuesta 6.ª: ausente
+   A15 U+2019 ’: la cifra entera «1’849.7» = 1849,7
+      página='Total 1’849.7\n' cita='Total 1’849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A13 U+02BC ʼ: «1ʼ849,7» citada «849,7» con valor 849,7
+      página='Total 1ʼ849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A14 U+02BC ʼ: «849ʼ697» citada «Total 849» con valor 849
+      página='Total 849ʼ697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A15 U+02BC ʼ: la cifra entera «1ʼ849.7» = 1849,7
+      página='Total 1ʼ849.7\n' cita='Total 1ʼ849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A13 U+2032 ′: «1′849,7» citada «849,7» con valor 849,7
+      página='Total 1′849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A14 U+2032 ′: «849′697» citada «Total 849» con valor 849
+      página='Total 849′697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A15 U+2032 ′: la cifra entera «1′849.7» = 1849,7
+      página='Total 1′849.7\n' cita='Total 1′849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A13 U+00B4 ´: «1´849,7» citada «849,7» con valor 849,7
+      página='Total 1´849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A14 U+00B4 ´: «849´697» citada «Total 849» con valor 849
+      página='Total 849´697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A15 U+00B4 ´: la cifra entera «1´849.7» = 1849,7
+      página='Total 1´849.7\n' cita='Total 1´849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A13 U+0060 `: «1`849,7» citada «849,7» con valor 849,7
+      página='Total 1`849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A14 U+0060 `: «849`697» citada «Total 849» con valor 849
+      página='Total 849`697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A15 U+0060 `: la cifra entera «1`849.7» = 1849,7
+      página='Total 1`849.7\n' cita='Total 1`849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A13 U+2018 ‘: «1‘849,7» citada «849,7» con valor 849,7
+      página='Total 1‘849,7\n' cita='849,7' vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A14 U+2018 ‘: «849‘697» citada «Total 849» con valor 849
+      página='Total 849‘697\n' cita='Total 849' vf=849 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok   <<< el revisor esperaba «no ok»
+   A15 U+2018 ‘: la cifra entera «1‘849.7» = 1849,7
+      página='Total 1‘849.7\n' cita='Total 1‘849.7' vf=1849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   -- «cifra + apóstrofo + cifra» que NO es un separador de miles
+   A16 periodo abreviado «Q1'24»: el 24 tras el apóstrofo, valor 24
+      página="Ventas Q1'24 crecen\n" cita="Ventas Q1'24 crecen" vf=24 · 8196522: ausente        45ff57c: ok             propuesta 6.ª: ausente
+   A17 «9M'24 849,7»: la cifra de después no se ve afectada
+      página="Ventas 9M'24 849,7\n" cita="Ventas 9M'24 849,7" vf=849.7 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A18 «H1'24: 24 tiendas» (el 24 aparece además suelto)
+      página="H1'24: 24 tiendas\n" cita="H1'24: 24 tiendas" vf=24 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A19 año abreviado tras letra «FY'24» con valor 24 (no hay cifra delante del apóstrofo)
+      página="Ventas FY'24\n" cita="Ventas FY'24" vf=24 · 8196522: ok             45ff57c: ok             propuesta 6.ª: ok
+   A20 cita que empieza tras «cifra + apóstrofo»: «24 crecen» en «Q1'24 crecen»
+      página="Ventas Q1'24 crecen\n" cita='24 crecen' vf=24 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   A21 minutos y segundos «5'30» con valor 30
+      página="Tiempo 5'30\n" cita="Tiempo 5'30" vf=30 · 8196522: ausente        45ff57c: ok             propuesta 6.ª: ausente
+   A22 comilla de cierre tras una cifra y otra cifra pegada «'2023'849»
+      página="Plan '2023'849\n" cita="Plan '2023'849" vf=849 · 8196522: ausente        45ff57c: ok             propuesta 6.ª: ausente
+
+== B · en_numero según los dos caracteres anteriores (cita «5 vec» en «…XY5 veces»: cortada dentro de una palabra por el final)
+   324 pares de caracteres anteriores
+   no_localizada → ausente: 1 pares: 7’
+   principio de la página + ''   : 8196522 no_localizada  45ff57c no_localizada  propuesta no_localizada
+   principio de la página + '.'  : 8196522 ausente        45ff57c ausente        propuesta ausente
+   principio de la página + ','  : 8196522 ausente        45ff57c ausente        propuesta ausente
+   principio de la página + "'"  : 8196522 no_localizada  45ff57c no_localizada  propuesta no_localizada
+   principio de la página + '7'  : 8196522 ausente        45ff57c ausente        propuesta ausente
+   principio de la página + "7'" : 8196522 ausente        45ff57c ausente        propuesta ausente
+   principio de la página + '7.' : 8196522 ausente        45ff57c ausente        propuesta ausente
+   principio de la página + ' .' : 8196522 ausente        45ff57c ausente        propuesta ausente
+   -- lo mismo con la cita NO cortada por el final («5 veces»): la vía de en_numero solo se alcanza si el principio va pegado a cifra, punto o coma
+   ok → ausente: 1 pares: 7’
+
+== C · decimal sin cero delante y puntos conductores
+   C1 «.5» citada «5 veces» (valor 5)
+      página='Ratio .5 veces\n' cita='5 veces' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C2 «-.5»
+      página='Variación -.5 puntos\n' cita='5 puntos' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C3 «(.5)»
+      página='Resultado (.5)\n' cita='5)' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C4 «$.85»
+      página='Earnings per share $.85 $1.02\n' cita='85 $1.02' vf=85 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C5 «,5»
+      página='Ratio ,5 veces\n' cita='5 veces' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C6 al principio de la página «.5»
+      página='.5 veces\n' cita='5 veces' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C7 al principio de una línea «⏎.5»
+      página='Ratio\n.5 veces\n' cita='5 veces' vf=5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C8 fin de frase pegado «ejercicio.849,7» (sigue pendiente)
+      página='al cierre del ejercicio.849,7 millones\n' cita='849,7 millones' vf=849.7 · 8196522: no_localizada  45ff57c: no_localizada  propuesta 6.ª: no_localizada
+   C9 puntos conductores seguidos «....130,8» (sigue pendiente)
+      página='Total ............130,8\n' cita='130,8' vf=130.8 · 8196522: no_localizada  45ff57c: no_localizada  propuesta 6.ª: no_localizada
+   C10 COSTE: puntos conductores con espacios «. . . .130,8» (vuelve a discrepancia)
+      página='Total . . . .130,8\n' cita='130,8' vf=130.8 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C11 COSTE: punto tras un espacio «ejercicio .849,7» (vuelve a discrepancia)
+      página='al cierre del ejercicio .849,7 millones\n' cita='849,7 millones' vf=849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C12 COSTE: punto tras paréntesis de nota «(1).849,7» (vuelve a discrepancia)
+      página='Ventas (1).849,7\n' cita='849,7' vf=849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C13 COSTE: coma tras comillas o paréntesis «),849,7»
+      página='Ventas (netas),849,7\n' cita='849,7' vf=849.7 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C14 COSTE: puntos suspensivos tras espacio « ...849,7»: el último punto sigue a otro punto (pendiente)
+      página='Ventas ...849,7\n' cita='849,7' vf=849.7 · 8196522: no_localizada  45ff57c: no_localizada  propuesta 6.ª: no_localizada
+   C15 control: la cita completa con su punto «.5 veces» y valor 0,5 (la forma «.5» no es de _cifras; ya era así)
+      página='Ratio .5 veces\n' cita='.5 veces' vf=0.5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+   C16 el caso «Ajuste .5» de la prueba nueva, cita «.5» y valor 0,5
+      página='Ajuste .5' cita='.5' vf=0.5 · 8196522: ausente        45ff57c: ausente        propuesta 6.ª: ausente
+
+== D · textos reales
+   73 textos conservados citados; 1645 citas numéricas con fuente de texto
+   cifra + apóstrofo ASCII + cifra: 0
+   cifra + apóstrofo tipográfico (’ ʼ ′ ´ ` ‘) + cifra: 0
+   decimal sin cero delante (tras principio, espacio, signo, paréntesis o moneda): 8
+         ('Elis - 2017 Registration Doc', ' e w a s d o w n b y 2 .9 % o r g a n i')
+         ('Elis - 2018 Registration doc', 'x i m a te l y € 4 0 0 ,0 0 0) a n d a ')
+         ("Elis_Document d'enregistreme", '  34,9%             33 ,9%⏎Part des hom')
+         ('Elis - 2017 Registration Doc', ' e w a s d o w n b y 2 .9 % o r g a n i')
+         ('Elis - 2018 Registration doc', 'x i m a te l y € 4 0 0 ,0 0 0) a n d a ')
+         ("Elis_Document d'enregistreme", '  34,9%             33 ,9%⏎Part des hom')
+   apóstrofo (cualquiera) pegado a una cifra por algún lado: 40
+         ('Elis - 2022 Universal Regist', 'analysis of the SBF 120’s circular eco')
+         ('Elis - 2025 Universal Regist', 'analysis of the SBF 120’s circular eco')
+         ('Elis_Universal Registration ', 'analysis of the SBF 120’s circular eco')
+         ('Elis - 2022 Universal Regist', 'analysis of the SBF 120’s circular eco')
+         ('Elis - 2025 Universal Regist', 'analysis of the SBF 120’s circular eco')
+         ('Elis_Universal Registration ', 'analysis of the SBF 120’s circular eco')
+   citas reales: {'8196522 ok → 45ff57c ok': 1645}

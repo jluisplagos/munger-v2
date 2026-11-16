@@ -1,0 +1,17 @@
+{
+ "mutacion": "v3b_en_numero_con_dolar",
+ "grupo": "w1",
+ "hallazgo": "V7",
+ "descripcion": "en_numero vuelve a anclarse con «$» (una palabra cortada al principio de una línea, tras una línea que acaba en cifra, vuelve a discrepancia)",
+ "baterias": {
+  "test_verificacion_entradas_415.py": {
+   "codigo": 1,
+   "pasan": "189/190 pruebas",
+   "fallan": [
+    "[RW] FALLA (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia · {'Ventas 2023\\n849,7 millones': 'ausente'}"
+   ],
+   "traza": [],
+   "segundos": 693
+  }
+ }
+}

@@ -1,0 +1,17 @@
+árbol: /tmp/claude-0/-home-user-munger-v2/ace24ef4-365c-50f9-bb78-93416041e669/scratchpad/rev7/fable/fix7/munger_v2_r1
+
+1 · código
+   CONFORME     verificacion_entradas.py es el mismo programa (árbol sintáctico) que 45ff57c con el carácter repuesto en :542
+   (informativo) SHA-256 del archivo: 4b00aa2a42ae45743ef4f31669faad36a7effb81affe828fd4975a2ca98c86cd · ES la huella esperada: ni un comentario de más
+
+2 · X1: la cifra de detrás de un apóstrofo ASCII, con la cita localizada
+   CONFORME     los 17 casos del trozo de un número con apóstrofo dan «ausente»
+   (informativo) con el código de 45ff57c dan «ok» 11 de esos 17
+   CONFORME     los 5 controles de la cifra entera dan «ok»
+
+3 · pruebas (X2): el bloque de test_verificacion_entradas_415.py del árbol
+   CONFORME     (a) con el código del árbol pasan 5 de 5 pruebas del bloque
+   CONFORME     (b) con el código de 45ff57c (X1 sin corregir) el bloque FALLA: (V3, V7)  · {("Total 1'849,7", 849.7, "Total 1'849,7"): 'ok'}
+   CONFORME     (c) las seis variantes de la línea :542 se detectan
+
+RESULTADO: CONFORME (código y pruebas de X1/X2; faltan las tres baterías y la regresión completa)

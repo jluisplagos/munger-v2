@@ -1,0 +1,17 @@
+árbol: /tmp/claude-0/-home-user-munger-v2/ace24ef4-365c-50f9-bb78-93416041e669/scratchpad/rev7/fable/prop6/munger_v2_r1
+
+1 · código
+   CONFORME     verificacion_entradas.py es el mismo programa (árbol sintáctico) que 45ff57c con el carácter repuesto en :542
+   (informativo) SHA-256 del archivo: 832ac4f77b380f4c14e77b1e281ece705f01de94f0c54a8ed72630122ce5b396 · no es 4b00aa2a…a98c86cd: cambia algún comentario o algo más (véase la línea anterior)
+
+2 · X1: la cifra de detrás de un apóstrofo ASCII, con la cita localizada
+   CONFORME     los 17 casos del trozo de un número con apóstrofo dan «ausente»
+   (informativo) con el código de 45ff57c dan «ok» 11 de esos 17
+   CONFORME     los 5 controles de la cifra entera dan «ok»
+
+3 · pruebas (X2): el bloque de test_verificacion_entradas_415.py del árbol
+   CONFORME     (a) con el código del árbol pasan 5 de 5 pruebas del bloque
+   NO CONFORME  (b) con el código de 45ff57c (X1 sin corregir) el bloque FALLA — NO: las pruebas del árbol no ven X1
+   NO CONFORME  (c) las seis variantes de la línea :542 se detectan — NO se detectan: ['sin apóstrofo por delante', 'solo ASCII por delante', 'solo «’» por delante (= 45ff57c)', 'sin apóstrofo por detrás', 'solo ASCII por detrás', 'solo «’» por detrás']
+
+RESULTADO: NO CONFORME

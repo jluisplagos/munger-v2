@@ -1,0 +1,17 @@
+{
+ "mutacion": "v7a_en_numero_sin_apostrofo",
+ "grupo": "w1",
+ "hallazgo": "V7",
+ "descripcion": "en_numero deja de contar «cifra + apóstrofo» (ASCII y tipográfico) delante de la cita",
+ "baterias": {
+  "test_verificacion_entradas_415.py": {
+   "codigo": 1,
+   "pasan": "189/190 pruebas",
+   "fallan": [
+    "[RW] FALLA (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia · {\"Total 1'849,7\": 'no_localizada', \"Total 1'849,7 millones\": 'no_localizada', 'Total 1’849,7': 'no_localizada'}"
+   ],
+   "traza": [],
+   "segundos": 748
+  }
+ }
+}

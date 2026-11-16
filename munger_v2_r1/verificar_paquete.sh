@@ -21,7 +21,7 @@
 #                                        (4.14; al menos 33 pruebas), igual de obligatorias (≈ 30–45 min en total); (4.15) después, la de la
 #                                        corrección de la verificación de las entradas test_verificacion_entradas_415.py (al menos 190 pruebas;
 #                                        105 en el hito 1 de la 4.15) y la de la entrada efectiva del FCF base test_entrada_efectiva_415.py
-#                                        (al menos 61; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
+#                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
 #                                        menos 5; LibreOffice), igual de obligatorias
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
@@ -168,10 +168,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la entrada efectiva \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 61 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 62 ]; then
     echo "$linea"; echo "RESULTADO entrada efectiva: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO entrada efectiva: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 61 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO entrada efectiva: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 62 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

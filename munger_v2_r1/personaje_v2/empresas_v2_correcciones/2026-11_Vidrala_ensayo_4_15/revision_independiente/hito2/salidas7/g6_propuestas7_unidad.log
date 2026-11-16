@@ -1,0 +1,41 @@
+bloque de pruebas propuesto (fix7t): 31 líneas, 5 pruebas
+
+== (a) candidata séptima (45ff57c): 4 de 5 pasan (debe FALLAR en «(V3, V7)»)
+   FALLA (V3, V7) un decimal sin cero delante citado desde la cifra y los miles · {("Total 1'849,7", 849.7, "Total 1'849,7"): 'ok'}
+
+== (b) anterior (8196522): 3 de 5 pasan (debe fallar (no tiene W3))
+   FALLA (V3, V7) un decimal sin cero delante citado desde la cifra y los miles · {('849,7', 849.7, 'Total 1’849,7'): 'ok', ('Total 1’849,7', 849.7, 'Total 1’849,7'): 'ok', ('Total 849’697', 849, 'Total 849’697'): 'ok', ('849,7', 849.7, "Total 1'849,7\nOtros 849,7"): 'signo_indeterminado', ('Total 849', 849, "Total 849'697\nTotal 849"): 'signo_indeterminado'}
+   FALLA (V5) 100.000 apariciones de una cita en una línea: se deja de contar a · ('signo_indeterminado', 0.01)
+
+== (b) propuesta de la 6.ª (prop6): 5 de 5 pasan (debe pasar)
+
+== (c) candidata con la corrección de :542 (fix7): 5 de 5 pasan (debe pasar)
+
+== (d) mutaciones sobre el código corregido (fix7)
+   L1_inicio_sin_apostrofos (= x1a)                     DETECTADA · {("Total 1'849,7", 849.7, "Total 1'849,7"): 'ok', ('Total 1’849,7', 849.7, 'Total 1’849,7'): 'ok'}
+   L2_inicio_solo_ascii (= 8196522, x1b)                DETECTADA · {('Total 1’849,7', 849.7, 'Total 1’849,7'): 'ok'}
+   L3_inicio_solo_tipografico (= la candidata 45ff57c)  DETECTADA · {("Total 1'849,7", 849.7, "Total 1'849,7"): 'ok'}
+   L4_final_sin_apostrofos (= v7c)                      DETECTADA · {("Total 849'697", 849, "Total 849'697"): 'ok', ('Total 849’697', 849, 'Total 849’697'): 'ok'}
+   L5_final_solo_ascii (= w3b)                          DETECTADA · {('Total 849’697', 849, 'Total 849’697'): 'ok'}
+   L6_final_solo_tipografico (= w3c)                    DETECTADA · {("Total 849'697", 849, "Total 849'697"): 'ok'}
+   v2a_anio_anterior_con_dolar                          DETECTADA · {'Ejercicio 2023\n-2024': 'ok'}
+   v2b_fecha_con_dolar                                  DETECTADA · {'Cierre 31-12\n-2024': 'ok'}
+   v2c_los_dos_con_dolar                                DETECTADA · {'Ejercicio 2023\n-2024': 'ok', 'Cierre 31-12\n-2024': 'ok'}
+   v5a_sin_corte                                        DETECTADA · ('signo_indeterminado', 1.54)
+   v7a_en_numero_sin_apostrofo                          DETECTADA · {('849,7', 849.7, "Total 1'849,7"): 'no_localizada', ('849,7 mill', 849.7, "Total 1'849,7 millones"): 'no_localizada', ('849,7', 849.7, 'Total 1’849,7
+   v7d_real_solo_plural                                 DETECTADA · {'miles de real': False}
+   v3b_en_numero_con_dolar                              DETECTADA · {('849,7 mill', 849.7, 'Ventas 2023\n849,7 millones'): 'ausente'}
+   t8d_fecha_cualquier_cifra                            DETECTADA · {'Notas 5-6-849,7': 'ok'}
+   w4a_cita_sin_apostrofo_delante                       DETECTADA · {('849,7', 849.7, "Total 1'849,7\nOtros 849,7"): 'signo_indeterminado', ('849,7', 849.7, 'Total 1’849,7\nOtros 849,7'): 'signo_indeterminado'}
+   w4b_cita_sin_apostrofo_detras                        DETECTADA · {('Total 849', 849, "Total 849'697\nTotal 849"): 'signo_indeterminado', ('Total 849', 849, 'Total 849’697\nTotal 849'): 'signo_indeterminado'}
+   w4c_en_numero_final_sin_apostrofo                    DETECTADA · {('Total 849', 849, "Total 849'697"): 'no_localizada'}
+   w4d_en_numero_inicio_sin_tipografico                 DETECTADA · {('849,7', 849.7, 'Total 1’849,7'): 'no_localizada'}
+   w4e_cita_delante_solo_ascii                          DETECTADA · {('849,7', 849.7, 'Total 1’849,7\nOtros 849,7'): 'signo_indeterminado'}
+   w4f_cita_delante_solo_tipografico                    DETECTADA · {('849,7', 849.7, "Total 1'849,7\nOtros 849,7"): 'signo_indeterminado'}
+   w4g_cita_detras_solo_ascii                           DETECTADA · {('Total 849', 849, 'Total 849’697\nTotal 849'): 'signo_indeterminado'}
+   w4h_cita_detras_solo_tipografico                     DETECTADA · {('Total 849', 849, "Total 849'697\nTotal 849"): 'signo_indeterminado'}
+   w5a_mensaje_antiguo                                  DETECTADA · ('signo_indeterminado', 0.01)
+   v3a_sin_decimal_sin_cero                             DETECTADA · {('5', 5, 'Ajuste (.5)'): 'no_localizada', ('5 veces', 5, 'Ratio .5 veces'): 'no_localizada'}
+   v5b_corte_en_el_maximo                               DETECTADA · ('ok', 0.1)
+
+   sin detectar con las pruebas propuestas y el código corregido: []

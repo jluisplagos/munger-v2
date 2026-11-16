@@ -1,0 +1,73 @@
+archivo de pruebas: copia/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py
+bloque de pruebas: 24 líneas, 5 pruebas
+
+== (a) candidata séptima (45ff57c)
+   PASA  (V1, V4) un par de nombre y código de la misma moneda (corona, franco, real, libra, yen) no es un tipo de cambio; «DKK/SEK» y «CHF/EUR» sí
+   PASA  (V2) el año o la fecha anterior en otra línea no hace de «-2024» un intervalo: el guion pegado al principio de la línea es un signo menos
+   PASA  (Q3, V4) cada condición del intervalo de años por separado: prefijo como palabra, años entre 1900 y 2100, orden creciente
+   PASA  (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia
+   PASA  (V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente
+
+== (b) anterior (8196522): sin W3, W4 ni W5: 4 de 5 pasan
+   FALLA (detecta) (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no c · {'Total 1’849,7': 'ok'}
+
+== (c) 876bfc2: sin V1–V7: 1 de 5 pasan
+   FALLA (detecta) (V1, V4) un par de nombre y código de la misma moneda (corona, franco, real, libra, yen) no es un ti · {'coronas/DKK': False, 'francos/CHF': False, 'reales/BRL': False, 'corona/coronas': False, 'miles de real': False}
+   FALLA (detecta) (V2) el año o la fecha anterior en otra línea no hace de «-2024» un intervalo: el guion pegado al pr · {'Ejercicio 2023\n-2024': 'ok', 'Cierre 31-12\n-2024': 'ok'}
+   FALLA (detecta) (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no c · {'Ajuste (.5)': 'no_localizada', "Total 1'849,7": 'ok', 'Ratio .5 veces': 'no_localizada', "Total 849'697": 'ok', "Total 1'849,7 millones": 'no_localizada', 'Total 1’849,7': 'ok', 'Ventas 2023\n849,7 millones': 'ausente'}
+   FALLA (detecta) (V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo aco · ('signo_indeterminado', 1.31)
+
+== (d) propuesta de la 6.ª (prop6): 5 de 5 pasan
+
+== (e) definiciones de mutantes7.py sobre verificacion_entradas.py, una cada vez
+   v2a_anio_anterior_con_dolar              w1  V2     DETECTADA por 1 prueba(s)
+        FALLA: (V2) el año o la fecha anterior en otra línea no hace de «-2 · {'Ejercicio 2023\n-2024': 'ok'}
+   v2b_fecha_con_dolar                      w1  V2     DETECTADA por 1 prueba(s)
+        FALLA: (V2) el año o la fecha anterior en otra línea no hace de «-2 · {'Cierre 31-12\n-2024': 'ok'}
+   v2c_los_dos_con_dolar                    w1  V2     DETECTADA por 1 prueba(s)
+        FALLA: (V2) el año o la fecha anterior en otra línea no hace de «-2 · {'Ejercicio 2023\n-2024': 'ok', 'Cierre 31-12\n-2024': 'ok'}
+   v5a_sin_corte                            w1  V5     DETECTADA por 1 prueba(s)
+        FALLA: (V5) 100.000 apariciones de una cita en una línea: se deja d · ('signo_indeterminado', 1.41)
+   v7a_en_numero_sin_apostrofo              w1  V7     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {"Total 1'849,7": 'no_localizada', "Total 1'849,7 millones": 'no_localizada', 'Total 1’849,7': 'no_localizada'}
+   v7c_lectura_sin_apostrofo_detras         w1  V7     <<< NO detectada
+   v7d_real_solo_plural                     w1  V7     DETECTADA por 1 prueba(s)
+        FALLA: (V1, V4) un par de nombre y código de la misma moneda (coron · {'miles de real': False}
+   v3b_en_numero_con_dolar                  w1  V7     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {'Ventas 2023\n849,7 millones': 'ausente'}
+   t8d_fecha_cualquier_cifra                w1  T8     DETECTADA por 1 prueba(s)
+        FALLA: (Q3, V4) cada condición del intervalo de años por separado:  · {'Notas 5-6-849,7': 'ok'}
+   x1_correccion_propuesta                  x1  X1     PASA entero (compatible)
+   x1a_lectura_sin_limite_apostrofo_delante x1  X1/W3  <<< NO detectada
+   x1b_lectura_solo_ascii_delante           x1  W3     <<< NO detectada
+   w3b_lectura_sin_tipografico_detras       w   W3     <<< NO detectada
+   w3c_lectura_sin_ascii_detras             w   V7     <<< NO detectada
+   w4a_cita_sin_apostrofo_delante           w   W4     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {"Total 1'849,7": 'ok'}
+   w4b_cita_sin_apostrofo_detras            w   W4     <<< NO detectada
+   w4c_en_numero_final_sin_apostrofo        w   W4     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {"Total 849'697": 'no_localizada'}
+   w4d_en_numero_inicio_sin_tipografico     w   W4     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {'Total 1’849,7': 'no_localizada'}
+   w4e_cita_delante_solo_ascii              w   W4     <<< NO detectada
+   w4f_cita_delante_solo_tipografico        w   W4     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {"Total 1'849,7": 'ok'}
+   w4g_cita_detras_solo_ascii               w   W4     <<< NO detectada
+   w4h_cita_detras_solo_tipografico         w   W4     <<< NO detectada
+   w5a_mensaje_antiguo                      w   W5     <<< NO detectada
+   v3a_sin_decimal_sin_cero                 v   V3     DETECTADA por 1 prueba(s)
+        FALLA: (V3, V7) un decimal sin cero delante citado desde la cifra y · {'Ajuste (.5)': 'no_localizada', 'Ratio .5 veces': 'no_localizada'}
+   v5b_corte_en_el_maximo                   v   V5     DETECTADA por 1 prueba(s)
+        FALLA: (V5) 100.000 apariciones de una cita en una línea: se deja d · ('ok', 0.1)
+
+   resumen: {"w1": {"detectadas": ["t8d_fecha_cualquier_cifra", "v2a_anio_anterior_con_dolar", "v2b_fecha_con_dolar", "v2c_los_dos_con_dolar", "v3b_en_numero_con_dolar", "v5a_sin_corte", "v7a_en_numero_sin_apostrofo", "v7d_real_solo_plural"], "NO detectadas": ["v7c_lectura_sin_apostrofo_detras"]}, "x1": {"detectadas": [], "NO detectadas": ["x1_correccion_propuesta", "x1a_lectura_sin_limite_apostrofo_delante", "x1b_lectura_solo_ascii_delante"]}, "w": {"detectadas": ["w4a_cita_sin_apostrofo_delante", "w4c_en_numero_final_sin_apostrofo", "w4d_en_numero_inicio_sin_tipografico", "w4f_cita_delante_solo_tipografico"], "NO detectadas": ["w3b_lectura_sin_tipografico_detras", "w3c_lectura_sin_ascii_detras", "w4b_cita_sin_apostrofo_detras", "w4e_cita_delante_solo_ascii", "w4g_cita_detras_solo_ascii", "w4h_cita_detras_solo_tipografico", "w5a_mensaje_antiguo"]}, "v": {"detectadas": ["v3a_sin_decimal_sin_cero", "v5b_corte_en_el_maximo"], "NO detectadas": []}}
+
+== (f) T6 (pipeline.py): el bucle de las «erratas dobles» de test_entrada_efectiva_415.py de la candidata, con el código y con t6c
+   «entrdaefectivaa»: proporción de parecido 0.933 · distancia de edición 2
+   «Entrada_Efectiv»: proporción de parecido 0.966 · distancia de edición 1
+   «entrada_efectvia»: proporción de parecido 0.933 · distancia de edición 2
+   «emtrada_efectiba»: proporción de parecido 0.867 · distancia de edición 2
+   «ehtrada_efectiwa»: proporción de parecido 0.867 · distancia de edición 2
+   «emtrada_efextiba»: proporción de parecido 0.800 · distancia de edición 3
+   (candidata)          todas dan error (la prueba PASA)
+   t6c_distancia_2      SIN error: ['emtrada_efextiba'] → la prueba FALLA (DETECTADA)

@@ -1,0 +1,18 @@
+árbol: /tmp/claude-0/-home-user-munger-v2/ace24ef4-365c-50f9-bb78-93416041e669/scratchpad/rev7/fable/copia/munger_v2_r1
+
+1 · código
+   NO CONFORME  verificacion_entradas.py es el mismo programa (árbol sintáctico) que 45ff57c con el carácter repuesto en :542
+   (informativo) SHA-256 del archivo: 7abbb081364294d3f0b3b8e0fc757e5a9608403cc9ba646ec2ccc5ce9227c41b · no es 4b00aa2a…a98c86cd: cambia algún comentario o algo más (véase la línea anterior)
+   constantes distintas en las líneas [542] del archivo del árbol · ¿es 45ff57c sin corregir?: True
+
+2 · X1: la cifra de detrás de un apóstrofo ASCII, con la cita localizada
+   NO CONFORME  los 17 casos del trozo de un número con apóstrofo dan «ausente» · NO: {("Total 1'849,7", "Total 1'849,7", 849.7): 'ok', ("Total 1'849,7", "1'849,7", 849.7): 'ok', ("Total 1'234'567", "Total 1'234'567", 567): 'ok', ("Total 1'234'567", "Total 1'234'567", 234567): 'ok', ("Total 1'849.7", "Total 1'849.7", 849.7): 'ok', ("Empleados 12'345", "Empleados 12'345", 345): 'ok', ("Resultado -1'849,7", "Resultado -1'849,7", 849.7): 'ok', ("Resultado -1'849,7", "Resultado -1'849,7", -849.7): 'signo_distinto', ("Resultado (1'849,7)", "Resultado (1'849,7)", 849.7): 'ok', ("Resultado (1'849,7)", "Resultado (1'849,7)", -849.7): 'signo_distinto', ("Ventas CHF 1'849,7 millones", "Ventas CHF 1'849,7 millones", 849.7): 'ok', ("Ventas 1'849,7 1'702,3", "Ventas 1'849,7 1'702,3", 702.3): 'ok', ("Total de 1'849,7 millones", "de 1'849,7", 849.7): 'ok'}
+   (informativo) con el código de 45ff57c dan «ok» 11 de esos 17
+   CONFORME     los 5 controles de la cifra entera dan «ok»
+
+3 · pruebas (X2): el bloque de test_verificacion_entradas_415.py del árbol
+   CONFORME     (a) con el código del árbol pasan 5 de 5 pruebas del bloque
+   NO CONFORME  (b) con el código de 45ff57c (X1 sin corregir) el bloque FALLA — NO: las pruebas del árbol no ven X1
+   NO CONFORME  (c) la línea :542 del árbol no tiene la forma corregida: no se pueden aplicar las variantes
+
+RESULTADO: NO CONFORME

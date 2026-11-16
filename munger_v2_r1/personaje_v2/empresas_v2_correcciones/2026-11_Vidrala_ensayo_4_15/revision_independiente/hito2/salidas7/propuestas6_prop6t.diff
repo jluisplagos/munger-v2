@@ -1,0 +1,49 @@
+diff -ru -x __pycache__ -x 'empresas_v2*' -x corpus -x prompts prev/munger_v2_r1/personaje_v2/pruebas/test_entrada_efectiva_415.py prop6t/munger_v2_r1/personaje_v2/pruebas/test_entrada_efectiva_415.py
+--- prev/munger_v2_r1/personaje_v2/pruebas/test_entrada_efectiva_415.py	2026-11-16 06:35:50.636057617 +0000
++++ prop6t/munger_v2_r1/personaje_v2/pruebas/test_entrada_efectiva_415.py	2026-11-16 06:36:19.427310934 +0000
+@@ -351,7 +351,7 @@
+ ok_u6_pos = PL.modo_entrada_efectiva(dU) == ("estricta", "alcance_v2.json")
+ json.dump({"tipo": "x", "aviso": "y", "entrada": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+ ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)
+-for errata_doble in ("entrdaefectivaa", "Entrada_Efectiv", "entrada_efectvia", "emtrada_efectiba", "ehtrada_efectiwa"):  # (hito 2, V4) las dos últimas solo las detecta la distancia de edición (T6)
++for errata_doble in ("entrdaefectivaa", "Entrada_Efectiv", "entrada_efectvia", "emtrada_efectiba", "ehtrada_efectiwa", "emtrada_efextiba"):  # (propuesta del revisor, W1) la última, a tres ediciones  # (hito 2, V4) las dos últimas solo las detecta la distancia de edición (T6)
+     json.dump({"tipo": "x", errata_doble: "estricta"}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+     casos_u6[f"errata doble «{errata_doble}» (hito 2, T6)"] = error(lambda: PL.modo_entrada_efectiva(dU))
+ json.dump({"tipo": "x", "tasa_efectiva": 0.25, "entradas_otras": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+diff -ru -x __pycache__ -x 'empresas_v2*' -x corpus -x prompts prev/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py prop6t/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py
+--- prev/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py	2026-11-16 06:35:50.636839326 +0000
++++ prop6t/munger_v2_r1/personaje_v2/pruebas/test_verificacion_entradas_415.py	2026-11-16 06:36:19.426958877 +0000
+@@ -1121,22 +1121,28 @@
+ paso("RW", "(N3, Q2) el PDF publica una cifra con un dígito más (1849697.000) que el texto conservado (849697.000), cita recortada: discrepancia (la cifra del documento manda)",
+      not r["apto_por_entradas"] and K not in r["comprobadas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
+ # (hito 2, quinta comprobación, V1–V7 y pruebas de V4)
+-v1 = {"coronas/DKK": True, "francos/CHF": True, "reales/BRL": True, "corona/coronas": True, "libras/GBP": True, "JPY/¥": True, "DKK/SEK": False, "CHF/EUR": False}
++v1 = {"coronas/DKK": True, "francos/CHF": True, "reales/BRL": True, "corona/coronas": True, "libras/GBP": True, "JPY/¥": True, "DKK/SEK": False, "CHF/EUR": False,
++      "miles de real": True}  # (propuesta del revisor, W1) «real» en singular
+ mal_v1 = {u_: VE._unidad_monetaria_no_reconocida(u_) for u_, e_ in v1.items() if VE._unidad_monetaria_no_reconocida(u_) != e_}
+ paso("RW", "(V1, V4) un par de nombre y código de la misma moneda (corona, franco, real, libra, yen) no es un tipo de cambio; «DKK/SEK» y «CHF/EUR» sí", not mal_v1, mal_v1)
+-v2 = {("2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto", ("2024", 2024, "Cierre 31-12\n-2024"): "signo_distinto"}
++v2 = {("Ejercicio 2023 -2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto", ("Cierre 31-12 -2024", 2024, "Cierre 31-12\n-2024"): "signo_distinto",
++      ("2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto"}  # (propuesta del revisor, W1) la cita abarca las dos líneas: es lo que distingue «\Z» de «$»
+ mal_v2 = {k_[2]: VE._cita_cifra(*k_)[0] for k_, e_ in v2.items() if VE._cita_cifra(*k_)[0] != e_}
+ paso("RW", "(V2) el año o la fecha anterior en otra línea no hace de «-2024» un intervalo: el guion pegado al principio de la línea es un signo menos", not mal_v2, mal_v2)
+ q3b = {("Graf2023-2024", 2024): "signo_indeterminado", ("1850-1860", 1860): "signo_indeterminado", ("2024-2023", 2023): "signo_indeterminado",
+-       ("2099-2100", 2100): "ok", ("AF2023-2024", 2024): "ok"}
++       ("2099-2100", 2100): "ok", ("AF2023-2024", 2024): "ok", ("Notas 5-6-849,7", 849.7): "signo_indeterminado"}  # (propuesta del revisor, W1) la fecha exige un año
+ mal_q3b = {k_[0]: VE._cita_cifra(*k_)[0] for k_, e_ in q3b.items() if VE._cita_cifra(*k_)[0] != e_}
+ paso("RW", "(Q3, V4) cada condición del intervalo de años por separado: prefijo como palabra, años entre 1900 y 2100, orden creciente", not mal_q3b, mal_q3b)
+-v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "ausente", ("849,7", 849.7, "Total 1'849,7"): "ausente"}
++v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "ausente", ("849,7", 849.7, "Total 1'849,7"): "ausente",
++      # (propuesta del revisor, W1) el decimal sin cero citado desde la cifra, el apóstrofo por detrás, el doble corte y «\Z» en en_numero
++      ("5 veces", 5, "Ratio .5 veces"): "ausente", ("Total 849", 849, "Total 849'697"): "ausente", ("849,7 mill", 849.7, "Total 1'849,7 millones"): "ausente",
++      ("849,7 mill", 849.7, "Ventas 2023\n849,7 millones"): "no_localizada"}
+ mal_v3 = {k_[2]: VE._cita_cifra(*k_)[0] for k_, e_ in v3.items() if VE._cita_cifra(*k_)[0] != e_}
+ paso("RW", "(V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia", not mal_v3, mal_v3)
+ t0 = _time.time()
+ r_v5 = VE._cita_cifra("Total: 5.5", 5.5, " ".join(["Total: 5.5"] * 100000))
+-paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and _time.time() - t0 < 5,
++n_v5 = len(VE._apariciones_en_pagina("Total: 5.5", " ".join(["Total: 5.5"] * 1000)))  # (propuesta del revisor, W1) estructura, no reloj
++paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and n_v5 == VE.MAX_APARICIONES_CITA + 1 and _time.time() - t0 < 5,
+      (r_v5[0], round(_time.time() - t0, 2)))
+ r = con()
+ paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])

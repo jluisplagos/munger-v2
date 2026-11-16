@@ -368,6 +368,11 @@ paso("P", "(N7) cableado en el código del pipeline (comprobación del texto, no
 e = error(lambda: FH.calcular_entrada("C48", {"calculo": dict(copy.deepcopy(CALC), componentes={"pagos_arrendamientos_con_intereses": "no es un objeto"})}, H, anios))
 e2 = error(lambda: FH.calcular_entrada("C48", {"calculo": dict(copy.deepcopy(CALC), componentes={"pagos_arrendamientos_con_intereses": {"2023": 5}})}, H, anios))
 paso("C", "(segunda revisión, residuo del h13) un componente que no es un objeto: error explícito (no AttributeError)", bool(e) and bool(e2) and "no es un objeto" in e2, (e, e2))
+x5 = {("849,7", "Total 1'849,7"): False, ("849,7", "Total 1\u2019849,7"): False, ("849", "Total 849'697"): False, ("849", "Total 849\u2019697"): False,
+      ("849,7", "Total 1.849,7"): False, ("7", "Total 7,608"): False, ("849,7", "Total 849,7"): True, ("1'849,7", "Total 1'849,7"): True,
+      ("849'697", "Total 849'697"): True, ("849,7", "Ventas SBF 120\u2019s 849,7"): True}
+mal_x5 = {k_: FH.importe_completo(*k_) for k_, e_ in x5.items() if FH.importe_completo(*k_) != e_}
+paso("C", "(séptima comprobación, X5) importe_completo: el apóstrofo de miles (ASCII o tipográfico) es parte del número; «849,7» no está completo en «1'849,7»", not mal_x5, mal_x5)
 
 # ------------------------------------------------------------------ I20 · la ficha y el informe V6.3 muestran la aptitud por entradas y el modo
 # (4.15, hito 2, I20) en una copia de elis_decisiones (motor A, plantilla V6.3): antes, la ficha V6.3 no decía si las entradas estaban verificadas

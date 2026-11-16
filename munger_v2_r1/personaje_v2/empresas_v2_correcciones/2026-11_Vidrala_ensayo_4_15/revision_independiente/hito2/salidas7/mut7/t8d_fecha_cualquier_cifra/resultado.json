@@ -1,0 +1,17 @@
+{
+ "mutacion": "t8d_fecha_cualquier_cifra",
+ "grupo": "w1",
+ "hallazgo": "T8",
+ "descripcion": "la regla de la fecha vale para cualquier cifra que siga a «d-m-» (no solo un año de cuatro cifras): «5-6-849,7» se lee en positivo",
+ "baterias": {
+  "test_verificacion_entradas_415.py": {
+   "codigo": 1,
+   "pasan": "189/190 pruebas",
+   "fallan": [
+    "[RW] FALLA (Q3, V4) cada condición del intervalo de años por separado: prefijo como palabra, años entre 1900 y 2100, orden creciente · {'Notas 5-6-849,7': 'ok'}"
+   ],
+   "traza": [],
+   "segundos": 561
+  }
+ }
+}

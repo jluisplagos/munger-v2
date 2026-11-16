@@ -1,0 +1,100 @@
+VE = séptima (45ff57c) · VP = anterior (8196522) · VQ = propuesta de la 6.ª (prop6) · V876 = 876bfc2
+
+== A · la línea del límite de la cifra en _lectura_cifra, en cada código
+   876bfc2        :531  for m in re.finditer(r"(?<![\d.,])" + re.escape(c) + r"(?!\d|[.,]\d)", t):
+                  caracteres del límite «cifra + X» por delante: NINGUNO (no hay ese límite)
+   8196522        :542  for m in re.finditer(r"(?<![\d.,])(?<!\d')" + re.escape(c) + r"(?!\d|[.,']\d)", t):
+                  caracteres del límite «cifra + X» por delante: ['U+0027']
+   45ff57c        :542  for m in re.finditer(r"(?<![\d.,])(?<!\d[’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):
+                  caracteres del límite «cifra + X» por delante: ['U+2019']
+   propuesta 6.ª  :542  for m in re.finditer(r"(?<![\d.,])(?<!\d['’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):
+                  caracteres del límite «cifra + X» por delante: ['U+0027', 'U+2019']
+
+== B · casos
+   B1 (= e3 A2) la cita completa con el valor cortado: «Total 1'849,7» con valor 849,7
+      página="Total 1'849,7\n" cita="Total 1'849,7" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B2 la cita es solo el número: «1'849,7» con valor 849,7
+      página="Total 1'849,7\n" cita="1'849,7" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B3 (= e3 A10) «Total 1'234'567» con valor 567
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=567
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B4 «Total 1'234'567» con valor 234567
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=234567
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B5 (= e3 A11) «Total 1'234'567» con valor 234 (entre dos apóstrofos: lo para el límite final)
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=234
+      876bfc2: ok                   8196522: ausente              45ff57c: ausente              propuesta: ausente
+   B6 miles con apóstrofo y punto decimal «1'849.7» con valor 849,7
+      página="Total 1'849.7\n" cita="Total 1'849.7" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B7 entero «12'345» con valor 345
+      página="Empleados 12'345\n" cita="Empleados 12'345" vf=345
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B8 con signo delante del número: «Resultado -1'849,7» con valor +849,7
+      página="Resultado -1'849,7\n" cita="Resultado -1'849,7" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B9 lo mismo con valor −849,7
+      página="Resultado -1'849,7\n" cita="Resultado -1'849,7" vf=-849.7
+      876bfc2: signo_distinto       8196522: ausente              45ff57c: signo_distinto       propuesta: ausente   <<< el revisor esperaba «ausente»
+   B10 entre paréntesis: «Resultado (1'849,7)» con valor +849,7
+      página="Resultado (1'849,7)\n" cita="Resultado (1'849,7)" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B11 lo mismo con valor −849,7
+      página="Resultado (1'849,7)\n" cita="Resultado (1'849,7)" vf=-849.7
+      876bfc2: signo_distinto       8196522: ausente              45ff57c: signo_distinto       propuesta: ausente   <<< el revisor esperaba «ausente»
+   B12 con moneda: «CHF 1'849,7 millones» con valor 849,7
+      página="Ventas CHF 1'849,7 millones\n" cita="Ventas CHF 1'849,7 millones" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B13 tabla con dos columnas: «Ventas 1'849,7 1'702,3» con valor 702,3
+      página="Ventas 1'849,7 1'702,3\n" cita="Ventas 1'849,7 1'702,3" vf=702.3
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   B14 la cita empieza antes y acaba en la cifra: «de 1'849,7» en «Total de 1'849,7 millones», valor 849,7
+      página="Total de 1'849,7 millones\n" cita="de 1'849,7" vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ok                   propuesta: ausente   <<< el revisor esperaba «ausente» · REABIERTO (8196522 no lo aceptaba)
+   -- lo que SÍ sigue cerrado (lo fija la batería o lo para otro límite)
+   B15 (= e3 A1) cita cortada por delante: «849,7» en «1'849,7»
+      página="Total 1'849,7\n" cita='849,7' vf=849.7
+      876bfc2: ok                   8196522: ausente              45ff57c: ausente              propuesta: ausente
+   B16 (= e3 A3) corte por detrás: «Total 849» en «849'697»
+      página="Total 849'697\n" cita='Total 849' vf=849
+      876bfc2: ok                   8196522: ausente              45ff57c: ausente              propuesta: ausente
+   B17 (= e3 A4) «Total 849'697» con valor 849
+      página="Total 849'697\n" cita="Total 849'697" vf=849
+      876bfc2: ok                   8196522: ausente              45ff57c: ausente              propuesta: ausente
+   B18 (= e3 A12) doble corte «849,7 mill» en «1'849,7 millones»
+      página="Total 1'849,7 millones\n" cita='849,7 mill' vf=849.7
+      876bfc2: no_localizada        8196522: ausente              45ff57c: ausente              propuesta: ausente
+   -- el apóstrofo TIPOGRÁFICO (W3): lo mismo con «’»
+   B19 «Total 1’849,7» (cita completa) con valor 849,7
+      página='Total 1’849,7\n' cita='Total 1’849,7' vf=849.7
+      876bfc2: ok                   8196522: ok                   45ff57c: ausente              propuesta: ausente
+   B20 «849,7» en «1’849,7»
+      página='Total 1’849,7\n' cita='849,7' vf=849.7
+      876bfc2: ok                   8196522: ok                   45ff57c: ausente              propuesta: ausente
+   B21 «Total 849» en «849’697»
+      página='Total 849’697\n' cita='Total 849' vf=849
+      876bfc2: ok                   8196522: ok                   45ff57c: ausente              propuesta: ausente
+   B22 «Total 849’697» con valor 849
+      página='Total 849’697\n' cita='Total 849’697' vf=849
+      876bfc2: ok                   8196522: ok                   45ff57c: ausente              propuesta: ausente
+   -- controles: la cifra entera
+   B23 «1'849.7» = 1849,7
+      página="Total 1'849.7\n" cita="Total 1'849.7" vf=1849.7
+      876bfc2: ok                   8196522: ok                   45ff57c: ok                   propuesta: ok
+   B24 «849'697» = 849697
+      página="Total 849'697\n" cita="Total 849'697" vf=849697
+      876bfc2: ok                   8196522: ok                   45ff57c: ok                   propuesta: ok
+   B25 «1'234'567» = 1234567
+      página="Total 1'234'567\n" cita="Total 1'234'567" vf=1234567
+      876bfc2: ok                   8196522: ok                   45ff57c: ok                   propuesta: ok
+
+   casos REABIERTOS (45ff57c da «ok» donde 8196522 no): 11
+
+== C · ¿por qué vía se resuelven los casos de la batería? (apariciones de la cita según _apariciones_en_pagina; si son 0, _lectura_cifra no se ejecuta)
+   cita='849,7'            página="Total 1'849,7"            apariciones: 8196522 1 · 45ff57c 0 · estado 45ff57c: ('ausente', 'la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página')
+   cita='849,7'            página='Total 1’849,7'            apariciones: 8196522 1 · 45ff57c 0 · estado 45ff57c: ('ausente', 'la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página')
+   cita='Total 849'        página="Total 849'697"            apariciones: 8196522 1 · 45ff57c 0 · estado 45ff57c: ('ausente', 'la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página')
+   cita='849,7 mill'       página="Total 1'849,7 millones"   apariciones: 8196522 0 · 45ff57c 0 · estado 45ff57c: ('ausente', 'la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página')
+   cita="Total 1'849,7"    página="Total 1'849,7"            apariciones: 8196522 1 · 45ff57c 1 · estado 45ff57c: ('ok', 'signo publicado igual al de valor_fuente')

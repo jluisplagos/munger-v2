@@ -1,0 +1,51 @@
+código: anterior (8196522)
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_r
+Historia!F6: valor del modelo 849.697; valor_fuente 849697.0 (miles de euros, escala 0.001)
+
+== la fuente publica un número MAYOR con miles separados por apóstrofo ASCII; el registro declara el trozo de detrás
+   G1 «1'849'697,000» (1 millón más) citando la línea entera
+      página: "Partida sintética de Historia!F6: 1'849'697,000" · cita: "Partida sintética de Historia!F6: 1'849'697,000"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+   G2 lo mismo sin decimales «1'849'697»
+      página: "Partida sintética de Historia!F6: 1'849'697" · cita: "Partida sintética de Historia!F6: 1'849'697"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+   G3 «23'849'697» (23 millones más)
+      página: "Partida sintética de Historia!F6: 23'849'697" · cita: "Partida sintética de Historia!F6: 23'849'697"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+   G4 la cita es solo el número «1'849'697»
+      página: "Partida sintética de Historia!F6: 1'849'697" · cita: "1'849'697"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+   G5 con punto decimal «1'849'697.000»
+      página: "Partida sintética de Historia!F6: 1'849'697.000" · cita: "Partida sintética de Historia!F6: 1'849'697.000"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+
+== lo mismo con el apóstrofo tipográfico (W3: corregido)
+   G6 «1’849’697»
+      página: 'Partida sintética de Historia!F6: 1’849’697' · cita: 'Partida sintética de Historia!F6: 1’849’697'
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+
+== la cita cortada (lo que fija la batería)
+   G7 cita «849'697» en «1'849'697»
+      página: "Partida sintética de Historia!F6: 1'849'697" · cita: "849'697"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+
+== controles positivos: la cifra del registro, entera, con apóstrofo
+   G8 «849'697» (la cifra entera con apóstrofo de miles)
+      página: "Partida sintética de Historia!F6: 849'697" · cita: "Partida sintética de Historia!F6: 849'697"
+      → COMPROBADA · apto_por_entradas=True
+   G9 «849'697.000»
+      página: "Partida sintética de Historia!F6: 849'697.000" · cita: "Partida sintética de Historia!F6: 849'697.000"
+      → COMPROBADA · apto_por_entradas=True
+
+== valor con decimales y unidad no monetaria (escala 1): la fuente publica «1<apóstrofo>849.697» y el registro declara 849.697
+   G10 apóstrofo ASCII «1'849.697» (X1)
+      página y cita: "Partida sintética de Historia!F6: 1'849.697"
+      → no comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849.697 como cifra completa de la página (formato equivalente, sin redondear) · apto_por_entradas=False
+   G11 apóstrofo tipográfico «1’849.697» (W3)
+      página y cita: 'Partida sintética de Historia!F6: 1’849.697'
+      → COMPROBADA · apto_por_entradas=True   <<< el revisor esperaba apto=False
+   G12 control: la cifra del registro «849.697»
+      página y cita: 'Partida sintética de Historia!F6: 849.697'
+      → COMPROBADA · apto_por_entradas=True
+
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_r

@@ -1,0 +1,61 @@
+VE = séptima (45ff57c) · VP = anterior (8196522) · VQ = propuesta de la 6.ª (prop6) · VF7 = 45ff57c con la corrección de :542 que propone el revisor
+
+== A · casos de e9 B
+   W3 «1’849,7» citada «849,7»                                                              8196522: ok                   45ff57c: ausente              propuesta: ausente             
+   W3 «849’697» citada «Total 849»                                                          8196522: ok                   45ff57c: ausente              propuesta: ausente             
+   W3 la cifra entera «1’849.7» = 1849,7 (sigue sin reconocerse: _cifras no genera «’»)     8196522: ausente              45ff57c: ausente              propuesta: ausente             
+   V7 «1'849,7» citada «849,7»                                                              8196522: ausente              45ff57c: ausente              propuesta: ausente             
+   V7 «849'697» citada «Total 849»                                                          8196522: ausente              45ff57c: ausente              propuesta: ausente             
+   control «1'849.7» = 1849,7                                                               8196522: ok                   45ff57c: ok                   propuesta: ok                  
+   control «849'697» = 849697                                                               8196522: ok                   45ff57c: ok                   propuesta: ok                  
+   W4 la cifra sola, que está además dentro de «1'849,7»                                    8196522: signo_indeterminado  45ff57c: ok                   propuesta: ok                  
+   W4 «Total 849», que está además en «Total 849'697»                                       8196522: signo_indeterminado  45ff57c: ok                   propuesta: ok                  
+   W4 la cifra sola en positivo dos veces y dentro de «9'774» (valor −9)                    8196522: signo_indeterminado  45ff57c: signo_distinto       propuesta: signo_distinto      
+   W4 negativa de verdad y dentro de «1'849,7» (valor +849,7)                               8196522: signo_indeterminado  45ff57c: signo_distinto       propuesta: signo_distinto      
+   doble corte «1'849,7 millones» citada «849,7 mill»                                       8196522: ausente              45ff57c: ausente              propuesta: ausente             
+   «Q1'24» con valor 24                                                                     8196522: ausente              45ff57c: ok                   propuesta: ausente               <<< 45ff57c ≠ propuesta
+   posesivo «SBF 120’s» con valor 120 (forma real de los textos de Elis)                    8196522: ok                   45ff57c: ok                   propuesta: ok                  
+   «l’exercice 2023» con valor 2023                                                         8196522: ok                   45ff57c: ok                   propuesta: ok                  
+   W5 mensaje con 400 apariciones                                                           8196522: signo_indeterminado  45ff57c: signo_indeterminado  propuesta: signo_indeterminado  «la cita aparece más de 200 veces en la página: no identifica»
+
+== B · diferencial aleatorio
+   113243 citas aleatorias
+   -- B1 · 45ff57c frente a la propuesta de la 6.ª: iguales 110878, distintas 2365
+      propuesta ausente              → 45ff57c ok                     1123  [apóstrofo ASCII entre cifras] (ACEPTA lo que el otro no)   ej.: ("  776.4'€9'642'(’l’", "776.4'€9'642'(’l’", 642)
+      propuesta ausente              → 45ff57c signo_distinto          561  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("\n(5'606,9%..l’(1'319,4", "\n(5'606,9%..l’(1'319,4", -319.4)
+      propuesta ausente              → 45ff57c ok                      253  [apóstrofo ASCII y tipográfico entre cifras] (ACEPTA lo que el otro no)   ej.: ("120’s 5004’5829'247.6429,32236'467l’", "120’s 5004’5829'247.6429,32236'467l’", 467)
+      propuesta ausente              → 45ff57c signo_indeterminado     230  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("()120’s Q1'150,4-", "Q1'150,4-", -150.4)
+      propuesta ausente              → 45ff57c signo_distinto          142  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("4’377'434.4", "4’377'434.4", -434.4)
+      propuesta ausente              → 45ff57c signo_indeterminado      56  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("5’100,13089'187-%630.2.2,612.2\n", "5’100,13089'187-%630.2.2,612.2", 187)
+      → 45ff57c da «ok» donde propuesta no: 1376 · diferencias en páginas SIN apóstrofo entre cifras: 0
+   -- B2 · 45ff57c frente a 8196522: iguales 107296, distintas 5947
+      8196522 ok                   → 45ff57c ausente                1492  [apóstrofo tipográfico entre cifras] (deja de aceptar)   ej.: ('-8’734-%.', '-8', -8)
+      8196522 ausente              → 45ff57c ok                     1123  [apóstrofo ASCII entre cifras] (ACEPTA lo que el otro no)   ej.: ("  776.4'€9'642'(’l’", "776.4'€9'642'(’l’", 642)
+      8196522 signo_distinto       → 45ff57c ausente                 730  [apóstrofo tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("22.4Q1'\nQ1'Total 4’117.4  €", '4’117.4', -4)
+      8196522 ausente              → 45ff57c signo_distinto          561  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("\n(5'606,9%..l’(1'319,4", "\n(5'606,9%..l’(1'319,4", -319.4)
+      8196522 ok                   → 45ff57c ausente                 553  [apóstrofo ASCII y tipográfico entre cifras] (deja de aceptar)   ej.: ("Total 3’4693.632,7%Q1'427.0l’13.06'783", "3’4693.632,7%Q1'427.0l’13.06'783", 3)
+      8196522 signo_indeterminado  → 45ff57c ausente                 304  [apóstrofo tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: (")8’812€–'", ")8’812€–'", 812)
+      8196522 signo_distinto       → 45ff57c ausente                 277  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("%5’205,8'1568)Q1'", "%5’205,8'1568)Q1'", -5)
+      8196522 ausente              → 45ff57c ok                      253  [apóstrofo ASCII y tipográfico entre cifras] (ACEPTA lo que el otro no)   ej.: ("120’s 5004’5829'247.6429,32236'467l’", "120’s 5004’5829'247.6429,32236'467l’", 467)
+      8196522 ausente              → 45ff57c signo_indeterminado     230  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("()120’s Q1'150,4-", "Q1'150,4-", -150.4)
+      8196522 ausente              → 45ff57c signo_distinto          142  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("4’377'434.4", "4’377'434.4", -434.4)
+      8196522 signo_indeterminado  → 45ff57c ausente                  98  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("Q1'6’704,7€–  ", "Q1'6’704,7€–", 704.7)
+      8196522 ausente              → 45ff57c signo_indeterminado      56  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("5’100,13089'187-%630.2.2,612.2\n", "5’100,13089'187-%630.2.2,612.2", 187)
+      8196522 no_localizada        → 45ff57c ausente                  40  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("Total 4’9097'8921383 75.764,3.%", 'tal 4', 892)
+      8196522 no_localizada        → 45ff57c ausente                  36  [apóstrofo tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ('((14035’916,0’Saldo2098', '916,0’Sa', -916)
+      8196522 no_localizada        → 45ff57c ausente                  32  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("Saldo€Q1'Q1'€974,0\n 9'498'", "ldo€Q1'Q1'€974,0\n 9", 9498)
+      8196522 ok                   → 45ff57c ausente                   9  [apóstrofo ASCII entre cifras] (deja de aceptar)   ej.: ("9'311.0€3,430\nTotal €-18461283120’s ", '311.0€3,430\nTotal €-18461283120’s ', 3430)
+      8196522 signo_indeterminado  → 45ff57c ok                        2  [apóstrofo tipográfico entre cifras] (ACEPTA lo que el otro no)   ej.: ("-1’661Q1'’.13592’577-120’s ", "-1’661Q1'’.13592’577-120’s", 1)
+      8196522 signo_distinto       → 45ff57c ausente                   2  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("€’Q1'Q1'806.9'Saldo%2060", "806.9'Saldo%2060", -2060)
+      8196522 signo_indeterminado  → 45ff57c ok                        2  [apóstrofo ASCII y tipográfico entre cifras] (ACEPTA lo que el otro no)   ej.: ("’1773120’s 5 189’5'8305627.302)", '5', 5)
+      8196522 ok                   → 45ff57c signo_indeterminado       1  [apóstrofo ASCII y tipográfico entre cifras] (deja de aceptar)   ej.: ("’–\n7 103,26'739.4\n7’440,28'805,6%", "’–\n7 103,26'739.4\n7’440,28'805,6", 7)
+      8196522 signo_indeterminado  → 45ff57c signo_distinto            1  [apóstrofo ASCII y tipográfico entre cifras] (entre discrepancia y pendiente)   ej.: ("€\n1'986,8Q1'–466Saldo1’446,6", '1', -1)
+      8196522 signo_indeterminado  → 45ff57c ok                        1  [apóstrofo ASCII entre cifras] (ACEPTA lo que el otro no)   ej.: ("Q1'l’1'269,1", '1', 1)
+      8196522 signo_indeterminado  → 45ff57c ausente                   1  [apóstrofo ASCII entre cifras] (entre discrepancia y pendiente)   ej.: ("€Q1'1213(1685", '1213(1685', -1685)
+      8196522 ok                   → 45ff57c signo_indeterminado       1  [apóstrofo tipográfico entre cifras] (deja de aceptar)   ej.: (' 120’s  2’159,8\n2)  .', '120’s  2’159,8\n2)  .', 2)
+      → 45ff57c da «ok» donde 8196522 no: 1381 · diferencias en páginas SIN apóstrofo entre cifras: 0
+   -- B3 · la corrección propuesta (fix7) frente a la propuesta de la 6.ª: iguales 113243, distintas 0
+      → fix7 da «ok» donde propuesta no: 0 · diferencias en páginas SIN apóstrofo entre cifras: 0
+
+== C · citas reales con fuente de texto
+   {'45ff57c: ok': 1645, '8196522: igual (estado y detalle)': 1645, 'propuesta 6.ª: igual (estado y detalle)': 1645, 'fix7: igual (estado y detalle)': 1645}

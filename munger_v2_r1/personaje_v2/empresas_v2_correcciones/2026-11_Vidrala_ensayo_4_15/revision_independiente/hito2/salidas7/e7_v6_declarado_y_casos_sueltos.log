@@ -1,0 +1,59 @@
+VE = séptima (45ff57c) · VP = anterior (8196522)
+
+== A · la línea «+1» del docstring (V6): «un guion pegado al año anterior de un intervalo de años crecientes y plausibles o a una fecha no es un signo;
+       cualquier otro guion pegado entre cifras deja el signo indeterminado («2023-849», «2024-2023», «2-3 %», «100-150», el día de una fecha ISO, «31-12-24»)»
+   el docstring menciona V6: True · menciona «2024-2023»: True · «31-12-24»: True · la frase antigua «un guion pegado a otra cifra es un intervalo o una fecha»: False
+   «2019-2020», el 2020                   declarado: ok         hace: ok                   conforme
+   «FY2023-2024», el 2024                 declarado: ok         hace: ok                   conforme
+   «31-12-2024», el 2024                  declarado: ok         hace: ok                   conforme
+   «2023-849», el 849                     declarado: pendiente  hace: signo_indeterminado  conforme
+   «2024-2023», el 2023                   declarado: pendiente  hace: signo_indeterminado  conforme
+   «2-3 %», el 3                          declarado: pendiente  hace: signo_indeterminado  conforme
+   «100-150», el 150                      declarado: pendiente  hace: signo_indeterminado  conforme
+   fecha ISO «2024-12-31», el día 31      declarado: pendiente  hace: signo_indeterminado  conforme
+   fecha ISO «2024-12-31», el mes 12      declarado: pendiente  hace: signo_indeterminado  conforme
+   «31-12-24», el 24                      declarado: pendiente  hace: signo_indeterminado  conforme
+   -- no declarados en el docstring (los anotó la quinta comprobación; sin cambio): 
+   «Notas 5-6-1849» con +1849 (la regla de la fecha solo mira la forma)     8196522: ok                   45ff57c: ok
+   «Saldo 2023-2049» con +2049 (importe que parece un año)                  8196522: ok                   45ff57c: ok
+   «Notas 5-6-849,7» con +849,7 (mutación t8d)                              8196522: signo_indeterminado  45ff57c: signo_indeterminado
+
+== B · límites de la cita (sin apóstrofo) frente a límites de la cifra (con apóstrofo)
+   la cifra sola, que está además dentro de «1'849,7»
+      página="Total 1'849,7\nOtros 849,7\n" cita='849,7' vf=849.7 · 8196522: signo_indeterminado  45ff57c: ok                   (signo publicado igual al de valor_fuente)
+   lo mismo con la cita distintiva
+      página="Total 1'849,7\nOtros 849,7\n" cita='Otros 849,7' vf=849.7 · 8196522: ok                   45ff57c: ok                   (signo publicado igual al de valor_fuente)
+   «Total 849» que está además en «Total 849'697»
+      página="Total 849'697\nTotal 849\n" cita='Total 849' vf=849 · 8196522: signo_indeterminado  45ff57c: ok                   (signo publicado igual al de valor_fuente)
+   la cifra sola en negativo de verdad y dentro de «1'849,7» (valor +849,7)
+      página="Total 1'849,7\nOtros -849,7\n" cita='849,7' vf=849.7 · 8196522: signo_indeterminado  45ff57c: signo_distinto       (la página la publica en negativo y valor_fuente es positivo)
+   la cifra sola en positivo dos veces y dentro de «9'774» (valor −9): antes discrepancia
+      página="9'774\n 9 320\n" cita='9' vf=-9 · 8196522: signo_indeterminado  45ff57c: signo_distinto       (la página la publica en positivo y valor_fuente es negativo)
+   cita cortada por delante dentro de una palabra y por detrás ante «'697»
+      página="Total 849'697\n" cita='otal 849' vf=849 · 8196522: no_localizada        45ff57c: ausente              (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   apariciones de la cita «849,7» en «Total 1'849,7» según _apariciones_en_pagina: 0 · y «Total 849» en «Total 849'697»: 0
+
+== C · mensaje del máximo de apariciones
+   la cita aparece 201 veces: 8196522 dice «la cita aparece 201 veces en la …» · 45ff57c dice «la cita aparece más de 200 veces…»
+   la cita aparece 202 veces: 8196522 dice «la cita aparece 201 veces en la …» · 45ff57c dice «la cita aparece más de 200 veces…»
+   la cita aparece 400 veces: 8196522 dice «la cita aparece 201 veces en la …» · 45ff57c dice «la cita aparece más de 200 veces…»
+   la cita aparece 100000 veces: 8196522 dice «la cita aparece 201 veces en la …» · 45ff57c dice «la cita aparece más de 200 veces…»
+
+== D · «real» en el registro completo (fixture de la batería)
+   código: séptima (45ff57c)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   Historia!F6: valor del modelo 849.697; la página nueva dice «Partida sintética de Historia!F6: 849.697»; escala 1 con cada unidad (ninguna es un importe en reales):
+      unidad '%'                      → COMPROBADA · apto=True
+      unidad '% real'                 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «% real»: la escala 1.0 no se puede contrastar con ella (se escr · apto=False
+      unidad 'tipo real'              → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «tipo real»: la escala 1.0 no se puede contrastar con ella (se e · apto=False
+      unidad 'crecimiento real (%)'   → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «crecimiento real (%)»: la escala 1.0 no se puede contrastar con · apto=False
+      unidad 'valor real'             → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «valor real»: la escala 1.0 no se puede contrastar con ella (se  · apto=False
+      unidad 'real estate'            → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «real estate»: la escala 1.0 no se puede contrastar con ella (se · apto=False
+      unidad 'tipo de cambio real'    → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «tipo de cambio real»: la escala 1.0 no se puede contrastar con  · apto=False
+      unidad '% en términos reales'   → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «% en términos reales»: la escala 1.0 no se puede contrastar con · apto=False
+      unidad 'veces'                  → COMPROBADA · apto=True
+      unidad 'real por euro'          → COMPROBADA · apto=True
+      unidad 'EUR/real'               → COMPROBADA · apto=True
+      unidad 'miles de reales'        → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de reales»: la escala 1.0 no se puede contrastar con ella · apto=False
+      unidad 'reales/BRL'             → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «reales/BRL»: la escala 1.0 no se puede contrastar con ella (se  · apto=False
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

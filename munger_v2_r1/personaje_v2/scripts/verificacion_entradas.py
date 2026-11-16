@@ -539,7 +539,7 @@ def _lectura_cifra(t, vf, ventana=None):
                 return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
     signos = []
     for c in _cifras(vf):
-        for m in re.finditer(r"(?<![\d.,])(?<!\d[’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7
+        for m in re.finditer(r"(?<![\d.,])(?<!\d['’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7
             if dentro(m.start(), m.end()):
                 signos.append(_signo_en_cita(t, m.start(), m.end()))
     if not signos:
