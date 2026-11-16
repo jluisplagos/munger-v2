@@ -1,8 +1,8 @@
-# Copia de investigación F1 · Elis (P2–P4)
+# Copia de investigación F1 · Elis (P2–P4 y correcciones V1–V11)
 
 Generado por `scripts/copia_investigacion_f1.py`. **No es una entrada registrada, ni una política adoptada, ni una valoración.** Elis sigue en `pendiente_de_datos`. Mismas funciones que `contraste_f1.py`; solo cifras verificadas; libro en solo lectura.
 
-Controles: 43, fallidos: 0.
+Controles: 55, fallidos: 0.
 
 ## P3 · Ajustes y cálculo conjunto (perímetro A0; la variación es la misma en A1 y A2)
 
@@ -31,6 +31,13 @@ Diagnóstico conservado del contraste (no es un ajuste): earnout y otros no mone
 - diferencia aplicada a las ventas 2025 (mm): 4.206
 - PPA 2025 (mm): 85.7
 - PPA que f devuelve sobre las ventas 2025 (mm): 89.906
+- sentido de la diferencia de la PPA: sube el flujo sin crecimiento de A2
+- ROU media 2023–25 ÷ ventas medias (lo que devuelve f en A1 y A2): 2.9057
+- ROU 2025 ÷ ventas 2025 (lo que lleva m0): 3.1167
+- ROU que f devuelve sobre las ventas 2025 (mm): 139.382
+- ROU 2025 (mm): 149.5
+- diferencia de la ROU aplicada a las ventas 2025 (mm; baja el flujo sin crecimiento de A1 y A2): -10.118
+- los dos efectos de escala juntos en A2 (mm): -5.913
 
 ## P4 · Arrendamientos
 
@@ -39,6 +46,9 @@ Diagnóstico conservado del contraste (no es un ajuste): earnout y otros no mone
 - media escalada a las ventas 2025 (mm): 161.121763
 - pagos 2025 (mm): 177.9
 - sensibilidad del flujo sin crecimiento con el peso de 2025 (mm): -16.778237
+- parte de los pagos (A0, A1 y A2; mm): -16.778237
+- parte de la amortización ROU que devuelve f, con el peso de 2025 (solo A1 y A2; mm): 10.118279
+- sensibilidad con el peso de 2025 en las dos cosas (A1 y A2; mm): -6.659958
 
 ## P4 · ROIC del terminal frente a S2C (palancas del libro)
 
@@ -47,3 +57,25 @@ Diagnóstico conservado del contraste (no es un ajuste): earnout y otros no mone
 | MALO | 0.01 | 0.105 | 1.0 | 0.07 | 0.075486 | 0.927319 | 61.222 | 56.772 | 4.45 |
 | NORMAL | 0.02 | 0.125 | 1.2 | 0.1 | 0.108905 | 1.101874 | 125.767 | 115.483 | 10.284 |
 | BUENO | 0.025 | 0.135 | 1.5 | 0.12 | 0.147743 | 1.218332 | 154.244 | 125.281 | 28.964 |
+
+## V6 · Bloque 10 del diagnóstico del libro (Convenciones V6.3 §3) frente a la igualdad exacta
+
+| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro, puntos | Salto con la igualdad exacta, puntos |
+|---|---|---|---|---|
+| MALO | 0.074739 | 0.07 | -0.474 | -0.549 |
+| NORMAL | 0.10677 | 0.1 | -0.677 | -0.891 |
+| BUENO | 0.14414 | 0.12 | -2.414 | -2.774 |
+
+Umbral del aviso del libro: Umbral del aviso (puntos; ajustable) = 0.05.
+
+## V3 y V4 · De qué depende la cifra de N1 (sensibilidades, no propuestas)
+
+| Escenario | τ 2023 / 2024 / 2025 | τ de proyección | Variación del flujo sin crecimiento | Variación del año 11 MALO / NORMAL / BUENO |
+|---|---|---|---|---|
+| N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA] | 0.2544 / 0.2772 / 0.2556 | 0.2801 | -12.396 | -16.91 / -20.27 / -21.668 |
+| N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA] | 0.2619 / 0.2806 / 0.2559 | 0.28168 | -11.19 | -15.093 / -18.142 / -19.433 |
+| N1 no deducible con el τ de proyección de la ventana (E8.1; convención no adoptada) | 0.2619 / 0.2806 / 0.2559 | 0.266133 | -9.141 | -13.417 / -15.848 / -16.759 |
+| N1 con tipo fijo y el τ de proyección de la ventana (E8.1; convención no adoptada) | 0.2963 / 0.2754 / 0.256 | 0.2759 | -9.763 | -11.843 / -14.598 / -15.914 |
+
+[LECTURA]: cifras que no están en el CSV verificado; documento, página y literal en el JSON.
+Comprobación en el PDF (pdftotext, una página): 14 de 14 literales y 12 de 12 pasajes encontrados; huellas de los PDF: todas iguales a datos/fuentes.json.

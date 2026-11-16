@@ -1,7 +1,11 @@
 {
   "naturaleza": "ilustraciones sintéticas de definiciones de política; importes ficticios; no son datos de Elis ni una ejecución del producto; no adoptan ninguna política",
-  "procedencia": "amplía sondas_economicas.py de la revisión de la propuesta (auditoria/revision-propuesta-f1, 1a071881c65a)",
-  "motor_sintetico_coincide_con_motor_a": true,
+  "procedencia": "amplía sondas_economicas.py de la revisión de la propuesta (1a071881c65a) y las sondas S1–S5 de la revisión dirigida a P1–P4 (8fcc7fd792f0), con código propio",
+  "motor_sintetico_coincide_con_motor_a": {
+    "ok": true,
+    "juegos": 4,
+    "alcance": "sin términos explícitos; con g15 ≠ g∞, m0 ≠ m_obj e impuestos"
+  },
   "reproduccion_casos_del_revisor": [
     {
       "caso": "arrendamiento_una_vez",
@@ -98,14 +102,15 @@
     {
       "caso": "P1a_transicion_temporal_cargada_en_R",
       "cuestion": "P1",
-      "descripcion": "Plan de transición de 7 al año durante 5 años, dentro del capex de la ventana, cargado en R (perpetuo en f). Cobra bien los años 1–5, pero sigue cobrando los 7 en los años 6–10 y en el terminal: el nombre «inversión» no la hace perpetua.",
+      "descripcion": "Plan de transición de 7 al año durante 5 años, dentro del capex de la ventana, cargado en R (perpetuo en f). Cobra bien los años 1–5, pero sigue cobrando los 7 en los años 6–10 y en el año 11: el nombre «inversión» no la hace perpetua.",
       "parametros": {
         "R_que_calibra_f": 27,
         "f": 0.09,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 61
@@ -115,14 +120,14 @@
         "año_5": 61,
         "año_6": 61,
         "año_10": 61,
-        "terminal": 61
+        "año_11_terminal": 61
       },
       "caja_del_escenario": {
         "año_1": 61,
         "año_5": 61,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "diferencia_maxima": -7,
       "años_con_diferencia": [
@@ -131,7 +136,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -140,14 +145,15 @@
     {
       "caso": "P1b_transicion_temporal_con_termino_explicito",
       "cuestion": "P1",
-      "descripcion": "El mismo plan, con R = 20 (solo mantenimiento) y un término explícito de 7 en los años 1–5: exige importe y horizonte documentados.",
+      "descripcion": "El mismo plan, con R = 20 (solo mantenimiento) y un término explícito de 7 en los años 1–5, a crecimiento cero: exige importe y horizonte documentados.",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 61
@@ -157,14 +163,14 @@
         "año_5": 61,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "caja_del_escenario": {
         "año_1": 61,
         "año_5": 61,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -175,14 +181,15 @@
     {
       "caso": "P1c_transicion_permanente_con_termino_temporal",
       "cuestion": "P1",
-      "descripcion": "Si la inversión es en realidad permanente y el término explícito se limita a cinco años, los años 6–10 y el terminal la omiten.",
+      "descripcion": "Si la inversión es en realidad permanente y el término explícito se limita a cinco años, los años 6–10 y el año 11 la omiten.",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 61
@@ -192,14 +199,14 @@
         "año_5": 61,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "caja_del_escenario": {
         "año_1": 61,
         "año_5": 61,
         "año_6": 61,
         "año_10": 61,
-        "terminal": 61
+        "año_11_terminal": 61
       },
       "diferencia_maxima": 7,
       "años_con_diferencia": [
@@ -208,7 +215,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -222,9 +229,10 @@
         "R_que_calibra_f": 27,
         "f": 0.09,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 61
@@ -234,14 +242,14 @@
         "año_5": 54,
         "año_6": 54,
         "año_10": 54,
-        "terminal": 54
+        "año_11_terminal": 54
       },
       "caja_del_escenario": {
         "año_1": 61,
         "año_5": 61,
         "año_6": 61,
         "año_10": 61,
-        "terminal": 61
+        "año_11_terminal": 61
       },
       "diferencia_maxima": -7,
       "años_con_diferencia": [
@@ -255,7 +263,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -269,9 +277,10 @@
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 61
@@ -281,14 +290,14 @@
         "año_5": 68,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "caja_del_escenario": {
         "año_1": 61,
         "año_5": 61,
         "año_6": 61,
         "año_10": 61,
-        "terminal": 61
+        "año_11_terminal": 61
       },
       "diferencia_maxima": 7,
       "años_con_diferencia": [
@@ -302,10 +311,333 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "V2a_transicion_temporal_termino_explicito_ancla_E4_anterior",
+      "cuestion": "P1/V2",
+      "descripcion": "Ventana con crecimiento; transición temporal de 7 como término explícito en los años 1–5, y ancla de S2C con la fórmula de E4 anterior, sin sacar la transición del denominador: 5 ÷ (32 − 20) = 5/12. Con crecimiento la cobra dos veces, y por el ancla se vuelve perpetua. Es el caso P1b del autor con el ancla calculada.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 0.4166666666666667,
+        "ancla_de_S2C": "E4 anterior: 5/12",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 56
+      },
+      "motor": {
+        "año_1": 52.4,
+        "año_5": 65.20107125,
+        "año_6": 77.128247385,
+        "año_10": 94.54420782851578,
+        "año_11_terminal": 100.61753091876393
+      },
+      "caja_del_escenario": {
+        "año_1": 59.4,
+        "año_5": 73.709615,
+        "año_6": 84.99014181,
+        "año_10": 98.64463815565091,
+        "año_11_terminal": 100.61753091876393
+      },
+      "diferencia_maxima": -8.50854375,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "V2b_transicion_temporal_termino_explicito_ancla_E4_corregida",
+      "cuestion": "P1/V2",
+      "descripcion": "Lo mismo con la regla corregida de E4: lo que se cobra como término explícito sale del denominador del ancla: 5 ÷ (32 − 20 − 7) = 1. Coherente en los años 1–10 y en el año 11.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "E4 corregida: 1",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 56
+      },
+      "motor": {
+        "año_1": 59.4,
+        "año_5": 73.709615,
+        "año_6": 84.99014181,
+        "año_10": 98.64463815565091,
+        "año_11_terminal": 100.61753091876393
+      },
+      "caja_del_escenario": {
+        "año_1": 59.4,
+        "año_5": 73.709615,
+        "año_6": 84.99014181,
+        "año_10": 98.64463815565091,
+        "año_11_terminal": 100.61753091876393
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "V2c_transicion_permanente_proporcional_en_R_ancla_E4",
+      "cuestion": "P1/V2",
+      "descripcion": "Transición permanente y proporcional a las ventas, dentro de R (R = 27): el ancla de E4 la excluye sola, porque está en D_X (5 ÷ (32 − 27) = 1). Coherente con crecimiento.",
+      "parametros": {
+        "R_que_calibra_f": 27,
+        "f": 0.09,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "E4: 1",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 56
+      },
+      "motor": {
+        "año_1": 59.05,
+        "año_5": 71.7756440625,
+        "año_6": 75.66307615125,
+        "año_10": 88.18854082145631,
+        "año_11_terminal": 89.95231163788544
+      },
+      "caja_del_escenario": {
+        "año_1": 59.05,
+        "año_5": 71.7756440625,
+        "año_6": 75.66307615125,
+        "año_10": 88.18854082145631,
+        "año_11_terminal": 89.95231163788544
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "V2d_transicion_fija_en_euros_en_R_ancla_E4",
+      "cuestion": "P1/V10",
+      "descripcion": "Si la transición es fija en euros (7 al año) y se carga en R, f la hace crecer con las ventas: con crecimiento la cobra de más (revisión dirigida, S1d). «En R» supone proporcionalidad a las ventas.",
+      "parametros": {
+        "R_que_calibra_f": 27,
+        "f": 0.09,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "E4: 1",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 56
+      },
+      "motor": {
+        "año_1": 59.05,
+        "año_5": 71.7756440625,
+        "año_6": 75.66307615125,
+        "año_10": 88.18854082145631,
+        "año_11_terminal": 89.95231163788544
+      },
+      "caja_del_escenario": {
+        "año_1": 59.4,
+        "año_5": 73.709615,
+        "año_6": 77.99014181,
+        "año_10": 91.64463815565091,
+        "año_11_terminal": 93.61753091876393
+      },
+      "diferencia_maxima": -3.6652192808784805,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "año_11"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "V2e_transicion_de_crecimiento_ancla_E4",
+      "cuestion": "P1/V2",
+      "descripcion": "Transición que amplía capacidad: en la ventana, 7 de los 12 de inversión de crecimiento para ΔV 5. El ancla de E4 la lleva en el denominador y es lo correcto: 5 ÷ (32 − 20) = 5/12 = S2C real. Coherente, también en el año 11 con el ROIC coherente.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 0.4166666666666667,
+        "ancla_de_S2C": "E4: 5/12",
+        "S2C_real": 0.4166666666666667,
+        "ROIC_del_terminal": 0.2975,
+        "fcf_base_ventana": 56
+      },
+      "motor": {
+        "año_1": 59.4,
+        "año_5": 72.20107125,
+        "año_6": 77.128247385,
+        "año_10": 94.54420782851578,
+        "año_11_terminal": 96.43509198508609
+      },
+      "caja_del_escenario": {
+        "año_1": 59.4,
+        "año_5": 72.20107125,
+        "año_6": 77.128247385,
+        "año_10": 94.54420782851578,
+        "año_11_terminal": 96.43509198508609
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "V2f_compras_de_reposicion_termino_explicito_ancla_E4_anterior",
+      "cuestion": "P2/V2",
+      "descripcion": "Compras de reposición del 9 % de las ventas como término explícito (R = 20) y ancla con todas las compras en el denominador: 5 ÷ (25 − 20 + 9) = 5/14. Con crecimiento se cobran dos veces (revisión dirigida, S2a).",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 0.35714285714285715,
+        "ancla_de_S2C": "E4 anterior: 5/14",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.255,
+        "fcf_base_ventana": 63
+      },
+      "motor": {
+        "año_1": 47.95,
+        "año_5": 58.2835246875,
+        "año_6": 62.89005027375,
+        "año_10": 79.92910259108413,
+        "año_11_terminal": 81.52768464290581
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.99820024875,
+        "año_10": 85.20108444025787,
+        "año_11_terminal": 86.90510612906303
+      },
+      "diferencia_maxima": -10.93955625,
+      "años_con_diferencia": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        "año_11"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "V2g_compras_de_reposicion_termino_explicito_ancla_E4_corregida",
+      "cuestion": "P2/V2",
+      "descripcion": "Lo mismo con la regla corregida de E4: 5 ÷ (25 − 20 + 9 − 9) = 1. Coherente.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "E4 corregida: 1",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 63
+      },
+      "motor": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.99820024875,
+        "año_10": 85.20108444025787,
+        "año_11_terminal": 86.90510612906303
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.99820024875,
+        "año_10": 85.20108444025787,
+        "año_11_terminal": 86.90510612906303
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
+    },
+    {
+      "caso": "V2h_compras_de_reposicion_en_R_ancla_E4",
+      "cuestion": "P2/V2",
+      "descripcion": "Las compras de reposición dentro de R (R = 29, perímetro A3_estimado): el ancla de E4 las excluye sola, 5 ÷ (25 − 29 + 9) = 1. Coherente (revisión dirigida, S2c).",
+      "parametros": {
+        "R_que_calibra_f": 29,
+        "f": 0.11,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "E4: 1",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 63
+      },
+      "motor": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.99820024875,
+        "año_10": 85.20108444025787,
+        "año_11_terminal": 86.90510612906303
+      },
+      "caja_del_escenario": {
+        "año_1": 56.95,
+        "año_5": 69.2230809375,
+        "año_6": 72.99820024875,
+        "año_10": 85.20108444025787,
+        "año_11_terminal": 86.90510612906303
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
       "ok": true
     },
     {
@@ -316,9 +648,10 @@
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 0.35714285714285715,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 68
@@ -328,14 +661,14 @@
         "año_5": 68,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "caja_del_escenario": {
         "año_1": 59,
         "año_5": 59,
         "año_6": 59,
         "año_10": 59,
-        "terminal": 59
+        "año_11_terminal": 59
       },
       "diferencia_maxima": 9,
       "años_con_diferencia": [
@@ -349,7 +682,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -358,14 +691,15 @@
     {
       "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_0",
       "cuestion": "P2",
-      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el año 11 (ROIC = (1+g)·m·S2C).",
       "parametros": {
         "R_que_calibra_f": 29,
         "f": 0.11,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 68
@@ -375,14 +709,14 @@
         "año_5": 59,
         "año_6": 59,
         "año_10": 59,
-        "terminal": 59
+        "año_11_terminal": 59
       },
       "caja_del_escenario": {
         "año_1": 59,
         "año_5": 59,
         "año_6": 59,
         "año_10": 59,
-        "terminal": 59
+        "año_11_terminal": 59
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -398,9 +732,10 @@
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 0.35714285714285715,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.2625,
         "fcf_base_ventana": 68
@@ -410,14 +745,14 @@
         "año_5": 69.77005875,
         "año_6": 73.2585616875,
         "año_10": 89.0462395971668,
-        "terminal": 93.49855157702514
+        "año_11_terminal": 93.49855157702514
       },
       "caja_del_escenario": {
         "año_1": 56.95,
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "diferencia_maxima": 0.7330025820498486,
       "años_con_diferencia": [
@@ -431,7 +766,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -440,14 +775,15 @@
     {
       "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_5_historico",
       "cuestion": "P2",
-      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el año 11 (ROIC = (1+g)·m·S2C).",
       "parametros": {
         "R_que_calibra_f": 29,
         "f": 0.11,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.735,
         "fcf_base_ventana": 68
@@ -457,14 +793,14 @@
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "caja_del_escenario": {
         "año_1": 56.95,
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -480,9 +816,10 @@
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.1,
+        "g_anios_1_5": 0.1,
         "g_terminal": 0.1,
         "S2C_del_motor": 0.35714285714285715,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.275,
         "fcf_base_ventana": 68
@@ -492,14 +829,14 @@
         "año_5": 68.51988,
         "año_6": 75.371868,
         "año_10": 110.3519519388,
-        "terminal": 121.38714713268
+        "año_11_terminal": 121.38714713268
       },
       "caja_del_escenario": {
         "año_1": 54.9,
         "año_5": 80.37909,
         "año_6": 88.416999,
         "año_10": 129.4513282359,
-        "terminal": 142.39646105949
+        "año_11_terminal": 142.39646105949
       },
       "diferencia_maxima": -21.00931392681,
       "años_con_diferencia": [
@@ -513,7 +850,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -522,14 +859,15 @@
     {
       "caso": "P2b_compras_de_reposicion_en_R_y_ancla_sin_ellas_crecimiento_10",
       "cuestion": "P2",
-      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el terminal (ROIC = (1+g)·m·S2C).",
+      "descripcion": "Las mismas compras dentro de R (R = 29 = 20 propio + 9 de cartera) y el ancla de S2C sin ellas (S2C real 1): coherente con cualquier crecimiento y en el año 11 (ROIC = (1+g)·m·S2C).",
       "parametros": {
         "R_que_calibra_f": 29,
         "f": 0.11,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.1,
+        "g_anios_1_5": 0.1,
         "g_terminal": 0.1,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.77,
         "fcf_base_ventana": 68
@@ -539,14 +877,14 @@
         "año_5": 80.37909,
         "año_6": 88.416999,
         "año_10": 129.4513282359,
-        "terminal": 142.39646105949
+        "año_11_terminal": 142.39646105949
       },
       "caja_del_escenario": {
         "año_1": 54.9,
         "año_5": 80.37909,
         "año_6": 88.416999,
         "año_10": 129.4513282359,
-        "terminal": 142.39646105949
+        "año_11_terminal": 142.39646105949
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -562,9 +900,10 @@
         "R_que_calibra_f": 29,
         "f": 0.11,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 0.35714285714285715,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.2625,
         "fcf_base_ventana": 68
@@ -574,14 +913,14 @@
         "año_5": 58.2835246875,
         "año_6": 61.197700921875,
         "año_10": 74.38618795616982,
-        "terminal": 78.10549735397832
+        "año_11_terminal": 78.10549735397832
       },
       "caja_del_escenario": {
         "año_1": 56.95,
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "diferencia_maxima": -14.660051640996972,
       "años_con_diferencia": [
@@ -595,7 +934,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -604,14 +943,15 @@
     {
       "caso": "P2d_compras_de_reposicion_como_termino_explicito",
       "cuestion": "P2",
-      "descripcion": "R = 20 y las compras de reposición como término explícito proporcional a las ventas (9 % de V_t), con el ancla sin ellas: coherente, alternativa a meterlas en R.",
+      "descripcion": "R = 20 y las compras de reposición como término explícito proporcional a las ventas (9 % de V_t), con el ancla dada sin ellas: coherente. Con el ancla calculada, véanse V2f y V2g.",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.735,
         "fcf_base_ventana": 68
@@ -621,14 +961,14 @@
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "caja_del_escenario": {
         "año_1": 56.95,
         "año_5": 69.2230809375,
         "año_6": 72.684234984375,
         "año_10": 88.34814189997647,
-        "terminal": 92.76554899497529
+        "año_11_terminal": 92.76554899497529
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -644,9 +984,10 @@
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.735,
         "fcf_base_ventana": 68
@@ -656,14 +997,14 @@
         "año_5": 80.709615,
         "año_6": 84.74509575,
         "año_10": 103.00819354097344,
-        "terminal": 108.15860321802211
+        "año_11_terminal": 108.15860321802211
       },
       "caja_del_escenario": {
         "año_1": 66.4,
         "año_5": 80.709615,
         "año_6": 84.74509575,
         "año_10": 103.00819354097344,
-        "terminal": 108.15860321802211
+        "año_11_terminal": 108.15860321802211
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -679,9 +1020,10 @@
         "R_que_calibra_f": 25,
         "f": 0.07,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.735,
         "fcf_base_ventana": 68
@@ -691,14 +1033,14 @@
         "año_5": 74.3282071875,
         "año_6": 78.044617546875,
         "año_10": 94.86372040708623,
-        "terminal": 99.60690642744053
+        "año_11_terminal": 99.60690642744053
       },
       "caja_del_escenario": {
         "año_1": 66.4,
         "año_5": 80.709615,
         "año_6": 84.74509575,
         "año_10": 103.00819354097344,
-        "terminal": 108.15860321802211
+        "año_11_terminal": 108.15860321802211
       },
       "diferencia_maxima": -8.551696790581568,
       "años_con_diferencia": [
@@ -712,7 +1054,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -726,9 +1068,10 @@
         "R_que_calibra_f": 20,
         "f": -0.03,
         "margen_inicial": 0.65,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0.05,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.6825,
         "fcf_base_ventana": 68
@@ -738,14 +1081,14 @@
         "año_5": 80.709615,
         "año_6": 84.74509575,
         "año_10": 103.00819354097344,
-        "terminal": 108.15860321802211
+        "año_11_terminal": 108.15860321802211
       },
       "caja_del_escenario": {
         "año_1": 66.4,
         "año_5": 80.709615,
         "año_6": 84.74509575,
         "año_10": 103.00819354097344,
-        "terminal": 108.15860321802211
+        "año_11_terminal": 108.15860321802211
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -756,14 +1099,15 @@
     {
       "caso": "P2h_PPA_constante_en_euros_frente_a_f_proporcional",
       "cuestion": "P2",
-      "descripcion": "Si el margen lleva la PPA constante en euros (5) y f devuelve el 5 % de las ventas, con crecimiento el flujo se sobrestima en 0,05·V_t − 5, cada vez más (terminal con g∞ = 0 para aislar el efecto).",
+      "descripcion": "Si el margen lleva la PPA constante en euros (5) y f devuelve el 5 % de las ventas, con crecimiento el flujo se sobrestima en 0,05·V_t − 5, cada vez más (año 11 con g∞ = 0 para aislar el efecto).",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": -0.03,
         "margen_inicial": 0.6523809523809524,
-        "g_anios_1_10": 0.05,
+        "g_anios_1_5": 0.05,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 68
@@ -771,18 +1115,18 @@
       "motor": {
         "año_1": 66.65,
         "año_5": 82.0910228125,
-        "año_6": 86.445573953125,
-        "año_10": 106.15266667486064,
-        "terminal": 113.90930775475323
+        "año_6": 86.790169975,
+        "año_10": 97.81618019612485,
+        "año_11_terminal": 97.81618019612485
       },
       "caja_del_escenario": {
         "año_1": 66.4,
         "año_5": 80.709615,
-        "año_6": 84.74509575,
-        "año_10": 103.00819354097344,
-        "terminal": 110.76483462086601
+        "año_6": 85.15350585,
+        "año_10": 95.7739760731026,
+        "año_11_terminal": 95.7739760731026
       },
-      "diferencia_maxima": 3.144473133887207,
+      "diferencia_maxima": 2.04220412302225,
       "años_con_diferencia": [
         1,
         2,
@@ -794,7 +1138,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -808,9 +1152,10 @@
         "R_que_calibra_f": 20,
         "f": -0.03,
         "margen_inicial": 0.6625,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 68
@@ -820,14 +1165,14 @@
         "año_5": 73,
         "año_6": 73,
         "año_10": 73,
-        "terminal": 73
+        "año_11_terminal": 73
       },
       "caja_del_escenario": {
         "año_1": 68,
         "año_5": 68,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "diferencia_maxima": 5,
       "años_con_diferencia": [
@@ -841,7 +1186,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -850,14 +1195,15 @@
     {
       "caso": "P4a_terminal_con_ROIC_coherente_con_S2C",
       "cuestion": "P4",
-      "descripcion": "Todos los costes recurrentes en el margen o en f; ROIC = (1+g∞)·m(1−τ)·S2C: el terminal cobra la misma inversión de crecimiento que ΔV/S2C.",
+      "descripcion": "Todos los costes recurrentes en el margen o en f; ROIC = (1+g∞)·m(1−τ)·S2C: el año 11 cobra la misma inversión de crecimiento que ΔV/S2C.",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.02,
+        "g_anios_1_5": 0.02,
         "g_terminal": 0.02,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.714,
         "fcf_base_ventana": 68
@@ -867,14 +1213,14 @@
         "año_5": 72.9126302976,
         "año_6": 74.370882903552,
         "año_10": 80.50143542239886,
-        "terminal": 82.11146413084684
+        "año_11_terminal": 82.11146413084684
       },
       "caja_del_escenario": {
         "año_1": 67.36,
         "año_5": 72.9126302976,
         "año_6": 74.370882903552,
         "año_10": 80.50143542239886,
-        "terminal": 82.11146413084684
+        "año_11_terminal": 82.11146413084684
       },
       "diferencia_maxima": 0,
       "años_con_diferencia": [],
@@ -885,14 +1231,15 @@
     {
       "caso": "P4b_terminal_con_ROIC_de_otro_perimetro",
       "cuestion": "P4",
-      "descripcion": "La inversión de crecimiento real es mitad capex propio y mitad compras (S2C real 1, ancla con compras = 1), pero el ROIC se mide solo sobre el capital propio (S2C propio 2): el terminal cobra la mitad de la inversión de crecimiento.",
+      "descripcion": "La inversión de crecimiento real es mitad capex propio y mitad compras (S2C real 1, ancla con compras = 1), pero el ROIC se mide solo sobre el capital propio (S2C propio 2): el año 11 cobra la mitad de la inversión de crecimiento.",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.02,
+        "g_anios_1_5": 0.02,
         "g_terminal": 0.02,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1.428,
         "fcf_base_ventana": 68
@@ -902,18 +1249,18 @@
         "año_5": 72.9126302976,
         "año_6": 74.370882903552,
         "año_10": 80.50143542239886,
-        "terminal": 83.3304585508416
+        "año_11_terminal": 83.3304585508416
       },
       "caja_del_escenario": {
         "año_1": 67.36,
         "año_5": 72.9126302976,
         "año_6": 74.370882903552,
         "año_10": 80.50143542239886,
-        "terminal": 82.11146413084684
+        "año_11_terminal": 82.11146413084684
       },
       "diferencia_maxima": 1.218994419994757,
       "años_con_diferencia": [
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -922,14 +1269,15 @@
     {
       "caso": "P4c_terminal_a_crecimiento_cero_con_reposicion_solo_como_crecimiento",
       "cuestion": "P4",
-      "descripcion": "Con g∞ = 0 el terminal es V·[m(1−τ) − f]: un coste recurrente cobrado solo como crecimiento desaparece también del terminal (68 frente a 59).",
+      "descripcion": "Con g∞ = 0 el año 11 es V·[m(1−τ) − f]: un coste recurrente cobrado solo como crecimiento desaparece también del terminal (68 frente a 59).",
       "parametros": {
         "R_que_calibra_f": 20,
         "f": 0.02,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0,
+        "g_anios_1_5": 0,
         "g_terminal": 0,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 1,
         "fcf_base_ventana": 68
@@ -939,14 +1287,14 @@
         "año_5": 68,
         "año_6": 68,
         "año_10": 68,
-        "terminal": 68
+        "año_11_terminal": 68
       },
       "caja_del_escenario": {
         "año_1": 59,
         "año_5": 59,
         "año_6": 59,
         "año_10": 59,
-        "terminal": 59
+        "año_11_terminal": 59
       },
       "diferencia_maxima": 9,
       "años_con_diferencia": [
@@ -960,7 +1308,7 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
@@ -969,14 +1317,15 @@
     {
       "caso": "P4d_arrendamiento_A0_en_el_terminal",
       "cuestion": "P4",
-      "descripcion": "A0 (R = D&A total) cobra el arrendamiento dos veces en todos los años y en el terminal.",
+      "descripcion": "A0 (R = D&A total) cobra el arrendamiento dos veces en todos los años y en el año 11.",
       "parametros": {
         "R_que_calibra_f": 30,
         "f": 0.12,
         "margen_inicial": 0.7,
-        "g_anios_1_10": 0.02,
+        "g_anios_1_5": 0.02,
         "g_terminal": 0.02,
         "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
         "S2C_real": 1,
         "ROIC_del_terminal": 0.714,
         "fcf_base_ventana": 68
@@ -986,14 +1335,14 @@
         "año_5": 61.8718222656,
         "año_6": 63.109258710912,
         "año_10": 68.3114912224513,
-        "terminal": 69.67772104690032
+        "año_11_terminal": 69.67772104690032
       },
       "caja_del_escenario": {
         "año_1": 67.36,
         "año_5": 72.9126302976,
         "año_6": 74.370882903552,
         "año_10": 80.50143542239886,
-        "terminal": 82.11146413084684
+        "año_11_terminal": 82.11146413084684
       },
       "diferencia_maxima": -12.433743083946522,
       "años_con_diferencia": [
@@ -1007,26 +1356,173 @@
         8,
         9,
         10,
-        "terminal"
+        "año_11"
       ],
       "esperado": "incoherencia_ilustrada",
       "obtenido": "incoherencia_ilustrada",
       "ok": true
+    },
+    {
+      "caso": "P4e_terminal_con_ROIC_igual_a_la_rentabilidad_marginal_del_libro",
+      "cuestion": "P4/V6",
+      "descripcion": "Si el ROIC es igual a la rentabilidad marginal de los años 1–10 del libro, S2C·m_obj·(1−τ) (Convenciones V6.3 §3: «salto» nulo), el año 11 cobra (1+g∞) veces ΔV/S2C: una diferencia de g∞·ΔV/S2C. Las dos fórmulas difieren solo en ese factor.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.02,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.7,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "año_11_terminal": 82.06270435404706
+      },
+      "caja_del_escenario": {
+        "año_1": 67.36,
+        "año_5": 72.9126302976,
+        "año_6": 74.370882903552,
+        "año_10": 80.50143542239886,
+        "año_11_terminal": 82.11146413084684
+      },
+      "diferencia_maxima": -0.04875977679979029,
+      "años_con_diferencia": [
+        "año_11"
+      ],
+      "esperado": "incoherencia_ilustrada",
+      "obtenido": "incoherencia_ilustrada",
+      "ok": true
+    },
+    {
+      "caso": "P4f_senda_de_motor_a_con_ancla_y_ROIC_coherentes",
+      "cuestion": "P4/V9",
+      "descripcion": "Senda de motor_a (g = 5 % en los años 1–5, lineal hasta g∞ = 2 %) con margen constante, ancla y ROIC coherentes: coherente en todos los años.",
+      "parametros": {
+        "R_que_calibra_f": 20,
+        "f": 0.02,
+        "margen_inicial": 0.7,
+        "g_anios_1_5": 0.05,
+        "g_terminal": 0.02,
+        "S2C_del_motor": 1,
+        "ancla_de_S2C": "dada",
+        "S2C_real": 1,
+        "ROIC_del_terminal": 0.714,
+        "fcf_base_ventana": 68
+      },
+      "motor": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.99014181,
+        "año_10": 98.64463815565091,
+        "año_11_terminal": 100.61753091876393
+      },
+      "caja_del_escenario": {
+        "año_1": 66.4,
+        "año_5": 80.709615,
+        "año_6": 84.99014181,
+        "año_10": 98.64463815565091,
+        "año_11_terminal": 100.61753091876393
+      },
+      "diferencia_maxima": 0,
+      "años_con_diferencia": [],
+      "esperado": "coherente",
+      "obtenido": "coherente",
+      "ok": true
     }
   ],
-  "guarda_R_frente_a_capex": {
-    "R_total": 29,
-    "capex_propio": 20,
-    "compras_de_sociedades": 14,
-    "guarda_anterior_R_total_mayor_que_capex_propio": true,
-    "guarda_propuesta_R_propio_mayor_que_capex_propio": false,
-    "guarda_propuesta_R_compras_mayor_que_compras": false
+  "guardas_V_F1c": {
+    "no_salta_con_compras_de_cartera (R = 20 + 9)": {
+      "R_propia": 20,
+      "R_compras": 9,
+      "capex_propio": 20,
+      "compras": 14,
+      "guarda_anterior_R_total_mayor_que_capex_propio": true,
+      "guarda_propuesta_salta": false,
+      "esperado_que_salte": false,
+      "ok": true
+    },
+    "salta_si_R_propia_supera_el_capex_propio (25 frente a 20)": {
+      "R_propia": 25,
+      "R_compras": 0,
+      "capex_propio": 20,
+      "compras": 14,
+      "guarda_anterior_R_total_mayor_que_capex_propio": true,
+      "guarda_propuesta_salta": true,
+      "esperado_que_salte": true,
+      "ok": true
+    },
+    "salta_si_R_compras_supera_las_compras (9 frente a 5)": {
+      "R_propia": 20,
+      "R_compras": 9,
+      "capex_propio": 20,
+      "compras": 5,
+      "guarda_anterior_R_total_mayor_que_capex_propio": true,
+      "guarda_propuesta_salta": true,
+      "esperado_que_salte": true,
+      "ok": true
+    }
+  },
+  "caso_fiscal_N1": {
+    "caja_sostenible": 52.5,
+    "flujo_sin_crecimiento": {
+      "media_de_la_ventana": {
+        "sin_normalizar": 54.63934426229508,
+        "N1_no_deducible": 52.5,
+        "N1_tipo_fijo": 52.5,
+        "deducir_la_partida_entera": 51.63934426229508
+      },
+      "cinco_años_con_los_dos_anteriores_al_tipo_legal": {
+        "sin_normalizar": 54.98360655737705,
+        "N1_no_deducible": 52.5,
+        "N1_tipo_fijo": 52.84426229508197,
+        "deducir_la_partida_entera": 51.98360655737705
+      },
+      "cinco_años_con_los_dos_anteriores_al_31": {
+        "sin_normalizar": 53.30360655737705,
+        "N1_no_deducible": 50.82,
+        "N1_tipo_fijo": 51.16426229508197,
+        "deducir_la_partida_entera": 50.30360655737705
+      }
+    },
+    "coincide_con_la_caja_esperado": {
+      "media_de_la_ventana": {
+        "N1_no_deducible": true,
+        "N1_tipo_fijo": true,
+        "sin_normalizar": false,
+        "deducir_la_partida_entera": false
+      },
+      "cinco_años_con_los_dos_anteriores_al_tipo_legal": {
+        "N1_no_deducible": true,
+        "N1_tipo_fijo": false,
+        "sin_normalizar": false,
+        "deducir_la_partida_entera": false
+      },
+      "cinco_años_con_los_dos_anteriores_al_31": {
+        "N1_no_deducible": false,
+        "N1_tipo_fijo": false,
+        "sin_normalizar": false,
+        "deducir_la_partida_entera": false
+      }
+    },
+    "ok": true,
+    "lectura": "Con tipos homogéneos, N1 sin efecto fiscal da la caja; con el tipo fijo solo la da si el tipo de proyección es la media de la ventana; deducir la partida entera no la da nunca. La tercera fila es la convención del tipo de proyección (E8.1), no un defecto de N1"
   },
   "resumen": {
-    "casos": 22,
-    "coherentes": 8,
-    "incoherencias_ilustradas": 14,
+    "casos": 32,
+    "coherentes": 14,
+    "incoherencias_ilustradas": 18,
+    "con_crecimiento": 23,
+    "con_ancla_calculada_E4": 8,
     "reproducidos_del_revisor": 9,
+    "guardas": 3,
+    "caso_fiscal_ok": true,
     "errores": []
   }
 }

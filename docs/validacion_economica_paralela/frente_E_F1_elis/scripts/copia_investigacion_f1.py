@@ -10,6 +10,11 @@ de la propuesta (rama auditoria/revision-propuesta-f1, commit 1a07188) pide calc
   P2. «PPA constante»: la proporción de las ventas que devuelve f (perímetro A2) frente a la que lleva m0.
   P4. Peso del arrendamiento (media de la ventana como referencia de ensayo y sensibilidad 16,8) y compatibilidad
       del ROIC del terminal con S2C en las palancas del libro.
+Correcciones V1–V11 de la revisión dirigida (8fcc7fd): efecto de escala de la amortización ROU y sensibilidad conjunta
+del arrendamiento (V5); bloque 10 del diagnóstico del libro frente a la condición del terminal (V6); dependencia de N1
+de la convención del tipo de proyección y de los ejercicios 2021–22 (V4); actualización del earnout (V3). Las cifras
+que no están en el CSV verificado van rotuladas [LECTURA], con documento, página y literal; con --raiz, el script
+comprueba que el literal está en su página del PDF (pdftotext) y que el PDF tiene la huella de datos/fuentes.json.
 
 Los históricos, el CSV, la verificación y el libro no cambian. El libro se lee en solo lectura y con su huella; de él
 se toman las palancas y el FCF base registrado (Historia!C70 = 307,933), que se contrasta con el cálculo.
@@ -21,9 +26,13 @@ Uso:
 Termina con 1 si un control falla (reproducción de f, F0, flujos del libro o diagnóstico del contraste).
 """
 import argparse
+import hashlib
 import importlib.util
 import json
+import re
+import subprocess
 import sys
+import unicodedata
 from fractions import Fraction as Fr
 from pathlib import Path
 
@@ -37,6 +46,69 @@ def f6(x, n=6):
     return C.f6(x, n)
 
 
+# [LECTURA] cifras que no están en el CSV verificado (revisión dirigida, 8fcc7fd, LECTURA de recalculo_independiente.py).
+# Signo: ajustes de earnout como en la nota 4.6 (cargo negativo); actualización como gasto (positivo).
+LECTURAS = {
+    "actualizacion_earnout_2023": (Fr("12.4"), "DEU2024FR", 259, "12,4"),
+    "actualizacion_earnout_2024": (Fr("5.6"), "DEU2024FR", 259, "5,6"),
+    "actualizacion_earnout_2025": (Fr("0.7"), "URD2025", 313, "0.7"),
+    "ajuste_earnout_2021": (Fr("-3.0"), "URD2022", 285, "(3.0)"),
+    "ajuste_earnout_2022": (Fr("2.4"), "URD2023", 302, "2.4"),
+    "adq_earnouts_y_diferidos_2023": (Fr("34.4"), "DEU2024FR", 288, "(34,4)"),
+    "adq_earnouts_y_diferidos_2024": (Fr("93.9"), "URD2025", 342, "(93.9)"),
+    "adq_earnouts_y_diferidos_2025": (Fr("23.3"), "URD2025", 341, "(23.3)"),
+    "adq_lavartex_2023": (Fr("31.4"), "DEU2024FR", 288, "(31,4)"),
+    "adq_lavartex_2024": (Fr("83.2"), "URD2025", 342, "(83.2)"),
+    "adq_lavartex_2025": (Fr("19.7"), "URD2025", 341, "(19.7)"),
+    "adq_otras_flujo_neto_2023": (Fr("35.3"), "DEU2024FR", 288, "(35,3)"),
+    "adq_otras_flujo_neto_2024": (Fr("22.0"), "URD2025", 342, "(22.0)"),
+    "adq_otras_flujo_neto_2025": (Fr("37.3"), "URD2025", 341, "(37.3)"),
+}
+# Pasajes que fundan las correcciones (V1 y V3); se buscan en la página del PDF con el texto normalizado.
+PASAJES = [
+    ("definición del crecimiento orgánico (V1)", "URD2025", 313, ["changes in the scope of consolidation of “major acquisitions” and",
+                                                                  "revenue of more than €5.0 million in France and €3.0 million in"]),
+    ("definición del crecimiento orgánico, 2024 (V1)", "DEU2024FR", 259, ["consolidation des « acquisitions importantes » et des « cessions"]),
+    ("definición del crecimiento orgánico, 2023 (V1)", "URD2023", 267, ["the impacts of changes in the scope of consolidation of “major"]),
+    ("compras pequeñas que consolidan la posición (V1)", "URD2025", 339, ["These bolt-on acquisitions help to consolidate the Group"]),
+    ("actualización del earnout de México, 2025 y 2024 (V3)", "URD2025", 313, ["Accretion expense for the earnout pertaining to the acquisition in Mexico"]),
+    ("actualización del earnout de México, 2024 y 2023 (V3)", "DEU2024FR", 259, ["Charge de désactualisation du complément de prix de l'acquisition réalisée au Mexique"]),
+    ("pagos de earnouts dentro de las adquisiciones, 2025 (V3)", "URD2025", 341, ["CASH FLOWS FROM ACQUISITIONS", "Earnouts and deferred"]),
+    ("pagos de earnouts dentro de las adquisiciones, 2024 (V3)", "URD2025", 342, ["CASH FLOWS FROM ACQUISITIONS", "Earnouts and deferred consideration"]),
+    ("pagos de earnouts dentro de las adquisiciones, 2023 (V3)", "DEU2024FR", 288, ["FLUX DE TRÉSORERIE LIÉS AUX ACQUISITIONS", "Compléments de prix et paiements différés"]),
+    ("liquidación del earnout de México (V3)", "URD2025", 352, ["settlement of the second installment and the balance of the Mexican earnout in 2024 and"]),
+    ("ajustes de earnout de 2022 (V4)", "URD2023", 302, ["Earnout adjustments"]),
+    ("ajustes de earnout de 2021 (V4)", "URD2022", 285, ["Earnout adjustments"]),
+]
+
+
+def _norm(s):
+    s = unicodedata.normalize("NFKC", s).replace("’", "'")
+    return re.sub(r"\s+", " ", s)
+
+
+def comprobar_lecturas(raiz, fuentes):
+    """Comprueba en el PDF (pdftotext -layout, una página) cada literal [LECTURA] y cada pasaje. Un solo extractor."""
+    fu = json.loads(Path(fuentes).read_text(encoding="utf-8"))["fuentes"]
+    paginas, huellas, res = {}, {}, {"literales": {}, "pasajes": [], "huellas_pdf": {}}
+
+    def texto(doc, pag):
+        if (doc, pag) not in paginas:
+            ruta = Path(raiz) / fu[doc]["archivo"]
+            if doc not in huellas:
+                huellas[doc] = hashlib.sha256(ruta.read_bytes()).hexdigest() == fu[doc]["sha256"]
+            out = subprocess.run(["pdftotext", "-layout", "-f", str(pag), "-l", str(pag), str(ruta), "-"],
+                                 capture_output=True, text=True, check=True).stdout
+            paginas[(doc, pag)] = _norm(out)
+        return paginas[(doc, pag)]
+    for k, (v, doc, pag, lit) in LECTURAS.items():
+        res["literales"][k] = {"valor": f6(v, 1), "doc": doc, "pagina_pdf": pag, "literal": lit, "en_la_pagina": _norm(lit) in texto(doc, pag)}
+    for nombre, doc, pag, frs in PASAJES:
+        res["pasajes"].append({"pasaje": nombre, "doc": doc, "pagina_pdf": pag, "encontrado": all(_norm(x) in texto(doc, pag) for x in frs)})
+    res["huellas_pdf"] = huellas
+    return res
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--cifras", required=True, type=Path)
@@ -45,6 +117,8 @@ def main():
     ap.add_argument("--contraste", required=True, type=Path, help="resultados/contraste_f1.json (diagnóstico conservado)")
     ap.add_argument("--salida", required=True, type=Path)
     ap.add_argument("--informe", required=True, type=Path)
+    ap.add_argument("--raiz", type=Path, help="árbol munger_v2_r1 materializado: comprueba las [LECTURA] en los PDF")
+    ap.add_argument("--fuentes", type=Path, default=Path(__file__).resolve().parent.parent / "datos" / "fuentes.json")
     a = ap.parse_args()
     F = C.Fuente(a.cifras, a.verificacion)
     A = {y: C.datos_anio(F, y) for y in HOR}
@@ -77,19 +151,25 @@ def main():
     PER = {"A0": lambda d: d["da_total"], "A1": lambda d: d["da_total"] - d["da_rou"], "A2": lambda d: d["d_own"]}
     t_teor = F.pct("TAX_TEOR_2025") / 100       # 25,83 %: tipo teórico de la matriz (URD 2025 p.392)
 
-    def calcular(aj):
-        """aj: {año: [(ΔEBIT, regla)]}, regla ∈ {«tau_fijo», «no_deducible», «tipo_teorico»}. Devuelve el cálculo
-        conjunto con las mismas ecuaciones que el contraste (f de la plantilla, τ de 5 años, m0 y motor A)."""
+    def calcular(aj, aj_bai=None, tau_proy="cinco_años"):
+        """aj: {año: [(ΔEBIT, regla)]}, regla ∈ {«tau_fijo», «no_deducible», «tipo_teorico»}. aj_bai: {año: ΔBAI} sin
+        cambio del EBIT ni del gasto (partidas financieras no deducibles, como la actualización del earnout).
+        tau_proy: «cinco_años» (convención registrada, C52) o «ventana» (sensibilidad de E8.1, no adoptada).
+        Devuelve el cálculo conjunto con las mismas ecuaciones que el contraste (f, τ de proyección, m0 y motor A)."""
+        aj_bai = aj_bai or {}
         tau, ebit = {}, {}
         for y in HOR:
             d = A[y]
             dE = sum((x for x, _ in aj.get(y, [])), Fr(0))
             reglas = {r for _, r in aj.get(y, [])}
             ebit[y] = d["ebit_h"] + dE
-            if not aj.get(y) or reglas == {"tau_fijo"}:
+            dB = aj_bai.get(y, Fr(0))
+            if (not aj.get(y) or reglas == {"tau_fijo"}) and not dB:
                 tau[y] = d["tau"]                       # fila 10 registrada, sin cambios
             else:
-                bai, imp = d["bai"] + dE, d["imp"]
+                if "tau_fijo" in reglas:
+                    raise ValueError("no se mezclan reglas en el mismo año")
+                bai, imp = d["bai"] + dE + dB, d["imp"]
                 for x, r in aj[y]:
                     if r == "tipo_teorico":
                         imp += t_teor * x               # el ajuste lleva su impuesto al tipo teórico
@@ -97,7 +177,7 @@ def main():
                         raise ValueError("no se mezclan reglas en el mismo año")
                 tau[y] = Fr(round(imp / bai, 4)).limit_denominator(10 ** 4)   # fila 10: 4 decimales
         nopat = sum(ebit[y] * (1 - tau[y]) for y in VENT) / 3
-        tau5 = sum(tau[y] for y in HOR) / 5
+        tau5 = sum(tau[y] for y in HOR) / 5 if tau_proy == "cinco_años" else sum(tau[y] for y in VENT) / 3
         m0 = ebit[2025] / V0
         out = {"tau": {y: tau[y] for y in VENT}, "tau5": tau5, "m0": m0, "nopat_medio": nopat, "por_perimetro": {}}
         for k, DX in PER.items():
@@ -189,6 +269,36 @@ def main():
             errores.append(f"variación distinta entre perímetros: {nombre}")
         tabla[nombre] = fila
 
+    # ---------------------------------------------------------------- V3 y V4 · de qué depende la cifra de N1 (no son propuestas)
+    LV = {k: v[0] for k, v in LECTURAS.items()}
+    n1_nd = {y: [(quitar(earn[y]), "no_deducible")] for y in VENT}
+
+    def delta(r, b):
+        r0, s0 = r["por_perimetro"]["A0"], b["por_perimetro"]["A0"]
+        return {"tau_2023_25": [f6(r["tau"][y], 4) for y in VENT], "tau_de_proyeccion": f6(r["tau5"], 6),
+                "variacion_flujo_sin_crecimiento": f6(r0["F0"] - s0["F0"], 3),
+                "variacion_año_11_MALO_NORMAL_BUENO": [f6(r0["escenarios"][n]["flujo_11"] - s0["escenarios"][n]["flujo_11"], 3) for n in pal]}
+    aj21 = dict(n1_nd)
+    aj21[2021] = [(-LV["ajuste_earnout_2021"], "no_deducible")]
+    aj21[2022] = [(-LV["ajuste_earnout_2022"], "no_deducible")]
+    base_v = calcular({}, tau_proy="ventana")
+    dep = {
+        "N1 + actualización del earnout fuera del BAI que da el tipo [LECTURA]": delta(calcular(
+            n1_nd, aj_bai={2023: LV["actualizacion_earnout_2023"], 2024: LV["actualizacion_earnout_2024"], 2025: LV["actualizacion_earnout_2025"]}), base),
+        "N1 + ajustes de earnout de 2021–22 fuera del BAI de su año, en el τ de cinco años [LECTURA]": delta(calcular(aj21), base),
+        "N1 no deducible con el τ de proyección de la ventana (E8.1; convención no adoptada)": delta(calcular(n1_nd, tau_proy="ventana"), base_v),
+        "N1 con tipo fijo y el τ de proyección de la ventana (E8.1; convención no adoptada)": delta(calcular(
+            {y: [(quitar(earn[y]), "tau_fijo")] for y in VENT}, tau_proy="ventana"), base_v),
+    }
+    # reproducción de las cifras de la revisión dirigida (recalculo_independiente.txt, secciones C y D; 3 decimales)
+    for (k, campo, i), ref in [((0, "variacion_flujo_sin_crecimiento", None), "-12.396"), ((0, "variacion_año_11_MALO_NORMAL_BUENO", 1), "-20.270"),
+                               ((1, "variacion_flujo_sin_crecimiento", None), "-11.190"), ((1, "variacion_año_11_MALO_NORMAL_BUENO", 1), "-18.142"),
+                               ((2, "variacion_flujo_sin_crecimiento", None), "-9.141"), ((2, "variacion_año_11_MALO_NORMAL_BUENO", 1), "-15.848"),
+                               ((3, "variacion_flujo_sin_crecimiento", None), "-9.763")]:
+        nombre_d = list(dep)[k]
+        v = dep[nombre_d][campo] if i is None else dep[nombre_d][campo][i]
+        control(f"revisión dirigida reproducida: {nombre_d} · {campo}{'' if i is None else ' NORMAL'}", Fr(str(v)), Fr(ref), Fr(6, 10 ** 4))
+
     # ---------------------------------------------------------------- P2 · «PPA constante»
     p_f = avg(lambda d: d["da_ppa"]) / S_avg
     p_m0 = A[2025]["da_ppa"] / V0
@@ -196,14 +306,29 @@ def main():
            "PPA 2025 ÷ ventas 2025 (lo que lleva m0)": f6(100 * p_m0, 4),
            "diferencia aplicada a las ventas 2025 (mm)": f6((p_f - p_m0) * V0, 3),
            "PPA 2025 (mm)": f6(A[2025]["da_ppa"], 1),
-           "PPA que f devuelve sobre las ventas 2025 (mm)": f6(p_f * V0, 3)}
+           "PPA que f devuelve sobre las ventas 2025 (mm)": f6(p_f * V0, 3),
+           "sentido de la diferencia de la PPA": "sube el flujo sin crecimiento de A2" if p_f > p_m0 else "baja el flujo sin crecimiento de A2"}
+    # (V5) la misma condición vale para la amortización ROU, que f devuelve en A1 y A2
+    r_f = avg(lambda d: d["da_rou"]) / S_avg
+    r_m0 = A[2025]["da_rou"] / V0
+    ppa |= {"ROU media 2023–25 ÷ ventas medias (lo que devuelve f en A1 y A2)": f6(100 * r_f, 4),
+            "ROU 2025 ÷ ventas 2025 (lo que lleva m0)": f6(100 * r_m0, 4),
+            "ROU que f devuelve sobre las ventas 2025 (mm)": f6(r_f * V0, 3), "ROU 2025 (mm)": f6(A[2025]["da_rou"], 1),
+            "diferencia de la ROU aplicada a las ventas 2025 (mm; baja el flujo sin crecimiento de A1 y A2)": f6((r_f - r_m0) * V0, 3),
+            "los dos efectos de escala juntos en A2 (mm)": f6((p_f - p_m0 + r_f - r_m0) * V0, 3)}
+    control("efecto de escala de la ROU = el de la revisión dirigida (−10,118279)", (r_f - r_m0) * V0, Fr("-10.118279"), Fr(1, 10 ** 6))
 
     # ---------------------------------------------------------------- P4 · arrendamientos y terminal
     w_avg = avg(lambda d: d["leasepay"]) / S_avg
     w_25 = A[2025]["leasepay"] / V0
     arr = {"pagos ÷ ventas, media de la ventana (%)": f6(100 * w_avg, 4), "pagos ÷ ventas 2025 (%)": f6(100 * w_25, 4),
            "media escalada a las ventas 2025 (mm)": f6(w_avg * V0, 6), "pagos 2025 (mm)": f6(A[2025]["leasepay"], 1),
-           "sensibilidad del flujo sin crecimiento con el peso de 2025 (mm)": f6(-(w_25 - w_avg) * V0, 6)}
+           "sensibilidad del flujo sin crecimiento con el peso de 2025 (mm)": f6(-(w_25 - w_avg) * V0, 6),
+           "parte de los pagos (A0, A1 y A2; mm)": f6(-(w_25 - w_avg) * V0, 6),
+           "parte de la amortización ROU que devuelve f, con el peso de 2025 (solo A1 y A2; mm)": f6((r_m0 - r_f) * V0, 6),
+           "sensibilidad con el peso de 2025 en las dos cosas (A1 y A2; mm)": f6(-(w_25 - w_avg) * V0 + (r_m0 - r_f) * V0, 6)}
+    control("sensibilidad conjunta de arrendamientos en A1 y A2 = la de la revisión dirigida (−6,659958)",
+            -(w_25 - w_avg) * V0 + (r_m0 - r_f) * V0, Fr("-6.659958"), Fr(1, 10 ** 6))
     control("sensibilidad de arrendamientos = la de la revisión (16,778237414)", (w_25 - w_avg) * V0,
             Fr("16.778237414016186"), Fr(1, 10 ** 9))
     roic = {}
@@ -217,7 +342,31 @@ def main():
                    "ROIC_que_reproduce_S2C ((1+g∞)·m_obj·(1−τ)·S2C)": f6((1 + p["g_inf"]) * p["m_obj"] * (1 - base["tau5"]) * p["s2c"], 6),
                    "S2C_implícita_en_el_ROIC": f6(p["roic"] / ((1 + p["g_inf"]) * p["m_obj"] * (1 - base["tau5"])), 6),
                    "inversión_de_crecimiento_del_terminal_con_ROIC (mm)": f6(inv_roic, 3),
-                   "la_misma_con_S2C (mm)": f6(inv_s2c, 3), "diferencia (mm)": f6(inv_roic - inv_s2c, 3)}
+                   "la_misma_con_S2C (mm)": f6(inv_s2c, 3), "diferencia (mm)": f6(inv_roic - inv_s2c, 3),
+                   "rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)": f6(p["m_obj"] * (1 - base["tau5"]) * p["s2c"], 6)}
+    # (V6) bloque 10 del diagnóstico del libro: la comprobación que ya existe, con su umbral
+    import openpyxl
+    wb = openpyxl.load_workbook(a.libro, data_only=True, read_only=True)
+    DG = wb["Diagnóstico V6"]
+    celda = lambda c, f: DG.cell(row=f, column=" ABCD".index(c)).value   # noqa: E731
+    bloque10 = {"fila_176_rentabilidad_marginal_años_1_10": [celda(c, 176) for c in "BCD"],
+                "fila_177_ROIC_del_terminal": [celda(c, 177) for c in "BCD"],
+                "fila_178_salto_en_el_año_11": [celda(c, 178) for c in "BCD"],
+                "fila_179": {"rótulo": celda("A", 179), "valor_C179": celda("C", 179)}}
+    for i, (n, pp) in enumerate(pal.items()):
+        control(f"Diagnóstico V6!{'BCD'[i]}176 = m_obj·(1−τ)·S2C ({n})", pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"],
+                Fr(str(bloque10["fila_176_rentabilidad_marginal_años_1_10"][i])), Fr(1, 10 ** 9))
+        roic[n]["salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos"] = f6(100 * (pp["roic"] - pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"]), 3)
+        roic[n]["salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos"] = f6(100 * (pp["roic"] - (1 + pp["g_inf"]) * pp["m_obj"] * (1 - base["tau5"]) * pp["s2c"]), 3)
+    wb.close()
+    # comprobación de las [LECTURA] y de los pasajes en los PDF (si se da el árbol materializado)
+    lecturas = comprobar_lecturas(a.raiz, a.fuentes) if a.raiz else None
+    if lecturas:
+        fallan = [k for k, v in lecturas["literales"].items() if not v["en_la_pagina"]] + \
+                 [x["pasaje"] for x in lecturas["pasajes"] if not x["encontrado"]] + [d for d, ok in lecturas["huellas_pdf"].items() if not ok]
+        lecturas["fallan"] = fallan
+        if fallan:
+            errores.append(f"lecturas no encontradas en el PDF: {fallan}")
 
     res = {"naturaleza": "copia de investigación; no es una entrada registrada, una política adoptada ni una valoración; "
                          "Elis sigue en pendiente_de_datos",
@@ -231,10 +380,16 @@ def main():
                                              "tipo teórico de la matriz (regla «tipo_teorico»)": f6(100 * t_teor, 2)},
                                 "escenarios": tabla},
            "P2_PPA_constante": ppa, "P4_arrendamientos": arr, "P4_ROIC_terminal": roic,
+           "V3_V4_de_que_depende_N1": {"nota": "sensibilidades, no propuestas: las [LECTURA] no están en el CSV verificado y la "
+                                               "convención del τ de proyección es la registrada (cinco años) salvo que se diga",
+                                       "escenarios": dep},
+           "V6_bloque_10_del_libro": bloque10,
+           "lecturas": {"valores": {k: {"valor": f6(v[0], 1), "doc": v[1], "pagina_pdf": v[2], "literal": v[3]} for k, v in LECTURAS.items()},
+                        "comprobacion_en_pdf": lecturas},
            "resumen": {"controles": len(controles), "fallidos": [c["control"] for c in controles if not c["ok"]], "errores": errores}}
     a.salida.write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    md = ["# Copia de investigación F1 · Elis (P2–P4)", "",
+    md = ["# Copia de investigación F1 · Elis (P2–P4 y correcciones V1–V11)", "",
           "Generado por `scripts/copia_investigacion_f1.py`. **No es una entrada registrada, ni una política adoptada, ni una valoración.** "
           "Elis sigue en `pendiente_de_datos`. Mismas funciones que `contraste_f1.py`; solo cifras verificadas; libro en solo lectura.", "",
           f"Controles: {len(controles)}, fallidos: {len(res['resumen']['fallidos'])}.", "",
@@ -257,7 +412,25 @@ def main():
            "| Escenario | g∞ | m_obj | S2C | ROIC | ROIC que reproduce S2C | S2C implícita | Inversión del terminal con ROIC | con S2C | Diferencia |",
            "|---|---|---|---|---|---|---|---|---|---|"]
     for n, v in roic.items():
-        md.append(f"| {n} | " + " | ".join(str(x) for x in v.values()) + " |")
+        md.append(f"| {n} | " + " | ".join(str(x) for x in list(v.values())[:9]) + " |")
+    md += ["", "## V6 · Bloque 10 del diagnóstico del libro (Convenciones V6.3 §3) frente a la igualdad exacta", "",
+           "| Escenario | Rentabilidad marginal del libro (fila 176) | ROIC (fila 177) | Salto del libro, puntos | Salto con la igualdad exacta, puntos |",
+           "|---|---|---|---|---|"]
+    for n, v in roic.items():
+        md.append(f"| {n} | {v['rentabilidad_marginal_del_libro (m_obj·(1−τ)·S2C; Convenciones V6.3 §3)']} | {v['ROIC']} | "
+                  f"{v['salto_del_libro (fila 178: ROIC − rentabilidad marginal), puntos']} | {v['salto_con_la_igualdad_exacta (ROIC − (1+g∞)·m_obj·(1−τ)·S2C), puntos']} |")
+    md += [f"", f"Umbral del aviso del libro: {bloque10['fila_179']['rótulo']} = {bloque10['fila_179']['valor_C179']}.", "",
+           "## V3 y V4 · De qué depende la cifra de N1 (sensibilidades, no propuestas)", "",
+           "| Escenario | τ 2023 / 2024 / 2025 | τ de proyección | Variación del flujo sin crecimiento | Variación del año 11 MALO / NORMAL / BUENO |",
+           "|---|---|---|---|---|"]
+    for n, v in dep.items():
+        md.append(f"| {n} | {' / '.join(str(x) for x in v['tau_2023_25'])} | {v['tau_de_proyeccion']} | {v['variacion_flujo_sin_crecimiento']} | "
+                  f"{' / '.join(str(x) for x in v['variacion_año_11_MALO_NORMAL_BUENO'])} |")
+    md += ["", "[LECTURA]: cifras que no están en el CSV verificado; documento, página y literal en el JSON."]
+    if lecturas:
+        md += [f"Comprobación en el PDF (pdftotext, una página): {sum(v['en_la_pagina'] for v in lecturas['literales'].values())} de "
+               f"{len(lecturas['literales'])} literales y {sum(x['encontrado'] for x in lecturas['pasajes'])} de {len(lecturas['pasajes'])} pasajes "
+               f"encontrados; huellas de los PDF: {'todas iguales a datos/fuentes.json' if all(lecturas['huellas_pdf'].values()) else 'alguna distinta'}."]
     a.informe.write_text("\n".join(md) + "\n", encoding="utf-8")
     print(json.dumps(res["resumen"], ensure_ascii=False))
     return 1 if errores else 0
