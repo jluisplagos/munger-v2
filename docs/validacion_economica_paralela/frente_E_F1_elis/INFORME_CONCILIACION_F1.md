@@ -547,6 +547,7 @@ Fuentes que podrían contenerlo y **no están en la base**: presentaciones de me
   Inferido [I]: la amortización de lo adquirido es **mayoritariamente no deducible** en caja. Ese ingreso equivale al 18,3 %, 24,2 % y 21,0 % de la amortización de relaciones con clientes (84,6 / 83,9 / 83,5) [D], cerca de los tipos nominales. Hay dos límites: la fila incluye también marcas y otros intangibles, y el fondo de comercio con amortización fiscal tiene una fila aparte (revisión, O7).
 - **Interpretación [I].** Las relaciones adquiridas se consumen a medida que se van clientes. Elis las repone (a) orgánicamente, con coste comercial ya incluido en el EBIT y lino para clientes nuevos ya incluido en el capex propio, o (b) con nuevas adquisiciones, que son caja fuera del FCF base e incluidas en C53 a través de la fila 13. La amortización contable de lo adquirido no mide ninguna de las dos. Que no sea salida de caja **no demuestra** que la cartera se mantenga gratis. Lo que indica es que su coste de reposición está en el EBIT y en el capex, o en las compras, y no en la PPA.
 - **Evidencia parcial de la ventana (revisión, O8)** [P][I].
+  - **Salvedad** (revisión dirigida a P1–P4, V1; corrección pendiente): la definición publicada de crecimiento orgánico solo excluye las adquisiciones «importantes», de más de 5,0 millones de ingresos en Francia y de 3,0 en los demás países (URD 2025 p. 313; DEU 2024 p. 259; URD 2023 p. 267). El efecto de las compras pequeñas está dentro. La frase siguiente debe leerse con esa salvedad.
   - El crecimiento orgánico se mide sobre las ventas totales, netas de clientes perdidos, adquiridos o no. Fue positivo todos los años y con efecto volumen positivo publicado en 2024 y 2025. Eso indica que, en la ventana, la cartera se repuso orgánicamente, con un coste que ya está en el EBIT y en el capex propio.
   - Es evidencia parcial contra la hipótesis de reposición monetaria igual a la PPA. No la refuta para el futuro, que es una hipótesis de proyección.
   - Otros hechos publicados: «contracts are usually valid for an initial four-year term», con renovación automática y penalización por rescisión de casi todo el valor residual (URD25 p.141). En 2024, la calidad del servicio «a permis de baisser le taux de pertes» (DEU24 p.121). La tasa sigue sin publicarse.
@@ -693,6 +694,8 @@ Ver [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md). Es una pro
 ## 12. Revisión independiente
 
 Estado y documentos en [revision/](revision/).
+
+- **Revisión económica dirigida a P1–P4** de la propuesta de decisiones, sobre el commit congelado 13f864f: **hecha** (8fcc7fd). P3 resuelto; P1, P2 y P4, en parte. V1 es material: afecta al fundamento de (4b) y a §6.3 de este informe. Correcciones no aplicadas. Ver [revision/ESTADO.md](revision/ESTADO.md).
 
 - **Revisión n.º 1**, sobre 96a69ca: 17 objeciones, 3 materiales; ninguna invierte una conclusión material.
 - **Contraste externo** sobre 6fb9294 (`revision_chatgpt_1/`) y sus sondas de un solo campo sobre eb77dea (`revision_chatgpt_1/seguimiento_eb77dea/`).

@@ -189,3 +189,28 @@ Los 24 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente
 | `scripts_revisor_9/spans_9.py` | `a3a1a2b` | `2496e9b3ae8923d66c6fbbb4eb0bdddc1a652d40` | `c6ffe90407aa752d1079479bfaaca2a081ed910afd99b1ea3e924ac993366e8b` | 12879 |
 
 Comprobación (desde la raíz del repositorio): `git diff --name-only 3138a6b65aae12d94c9aa82b314e785322dec793 a3a1a2b76c5be46188b2aba93d73cef88a985f5d | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree a3a1a2b76c5be46188b2aba93d73cef88a985f5d "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
+
+## Revisión económica dirigida a P1–P4 de la propuesta de decisiones F1
+
+Los 16 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-e-revision`, commit `8fcc7fd792f065cf29e2dc915bda92faeff1d45a` (padre `a3a1a2b76c5be46188b2aba93d73cef88a985f5d`), publicado el 16 de noviembre de 2026 a las 14:53:48 UTC por una sesión de revisión nueva, distinta de la del autor y de las de las revisiones anteriores. Se copiaron sin cambios, en las mismas rutas, con `git show`, desde la sesión del autor y sin subagente. El material revisado es el commit congelado `13f864f910bf0bb3e27007b23c13a8e957f1bfb7` de la rama `auditoria/economica-f1-frente-e`. `scripts_revisor_p1_p4/reproducir.sh` conserva el modo ejecutable (100755) que tiene en el commit de origen.
+
+| Ruta (relativa a revision/) | Commit del último cambio | Id de blob de git | SHA-256 | Bytes |
+|---|---|---|---|---|
+| `REVISION_PROPUESTA_P1_P4.md` | `8fcc7fd` | `8ff1930fd227a51e45d490c8a36203f8a05244ba` | `ab0020edf24381beea7cd3e400cca8e50569e75852876e66b0020b0c54dcee2c` | 53559 |
+| `resultados_revisor_p1_p4/contraprueba_con_funciones_del_autor.json` | `8fcc7fd` | `c50d7db64bab6ce0dd2d7b25d3c562c5bf51bc3f` | `ac7e6aec64fbb5706b6bc95d5072700ba77727158eda1191c626bfc61c599c8c` | 2478 |
+| `resultados_revisor_p1_p4/contraprueba_con_funciones_del_autor.txt` | `8fcc7fd` | `1d357fb4077621ac523b27ab9af26b940015cb1c` | `5ac0d8d7d1723df5a80ed6935421f84d1540ee2c37abed6227ae77c7ffb0f5a9` | 1495 |
+| `resultados_revisor_p1_p4/evidencia_pdf.json` | `8fcc7fd` | `011979cb2f4487d5e24c5cf93332d2793035a3b4` | `a323555550d041d669c8f998b7f16afd2b1d16eda081402cd5c0d3da7bef6983` | 23958 |
+| `resultados_revisor_p1_p4/evidencia_pdf.txt` | `8fcc7fd` | `c49705257cffe861406123f9d504094b3196e71a` | `3c91732d34a5956ab0f80ac555cff8195f9e2320964b1809483596f2a2ca584d` | 10080 |
+| `resultados_revisor_p1_p4/materializacion_base_414.txt` | `8fcc7fd` | `72080e550f7dba997f087844afb0c5ef10e402db` | `4ac9ddc0273168138363440b5d019391d48c0ddc03ae09e37b43c40068869b09` | 1060 |
+| `resultados_revisor_p1_p4/recalculo_independiente.json` | `8fcc7fd` | `89df8a3cd17dd026901a519f7ce37a425780cdf2` | `429649e3197f160b9f73960e8d86e4370fc16bce715fddd8f3c5b51d5237152a` | 19813 |
+| `resultados_revisor_p1_p4/recalculo_independiente.txt` | `8fcc7fd` | `dd2b7dba13192b52435cf8f5971bc74211e7bae3` | `c0b7ff6cfaf81ece4329d4f762d195468765a46930fbfe73d22f3d0a97137ccb` | 11414 |
+| `resultados_revisor_p1_p4/reproduccion.txt` | `8fcc7fd` | `c293ce41da6b907cefbfba4b918db1b40f230747` | `5b43a443a50a5f049515cdb68b88b96ba41b3e4ce19469ec70d99b995d4f4c2f` | 1824 |
+| `resultados_revisor_p1_p4/sondas_caja.json` | `8fcc7fd` | `fbcd2159647c92d2abab24b8700ff8189688f791` | `729619bb12ad6b60f578ff9a03263b5c39c4dc17c3dd96e779ff2c62cb61f451` | 11999 |
+| `resultados_revisor_p1_p4/sondas_caja.txt` | `8fcc7fd` | `a6a3dff004a706ffe482628eda57f78c8e109829` | `71b89dd871448a50b08f5727b9da67a460baf3d753617f7c1b785659cf0bd9f2` | 4315 |
+| `scripts_revisor_p1_p4/contraprueba_con_funciones_del_autor.py` | `8fcc7fd` | `9c49145682b7aa3cb0c35aaf1c29ed0175bc1990` | `92086035c8f93527c4e5da763aa79cb26612dd2eb74ed8f941bcbabe4b6b8e36` | 7067 |
+| `scripts_revisor_p1_p4/evidencia_pdf.py` | `8fcc7fd` | `e11eafb777aaa6de89ef8d6e2dc75c664f3de9e5` | `6935e6c6243cc1c9e9c54fe62e1e7b7e82f10f52cdddc769dfbd88c8abcc0706` | 11998 |
+| `scripts_revisor_p1_p4/recalculo_independiente.py` | `8fcc7fd` | `a750b7562ed4f531f9386f2af54a2a16efdbd8b5` | `876eee8740a2e2ab64fb92d555786a751b990ebc4d9c7726e198f5df324f20a2` | 35490 |
+| `scripts_revisor_p1_p4/reproducir.sh` | `8fcc7fd` | `8cc398c47d974c53c6b54e77c55665a701dac83d` | `05763eb601b2123d56c7582017767b186541f0d1f980258946d3ad166ccb4070` | 4384 |
+| `scripts_revisor_p1_p4/sondas_caja.py` | `8fcc7fd` | `d99f736291940716607111045271339d99c535b6` | `f668ca4bce1a95f42856e3ee2c54f28ba242bea66a4e55a4dc8a6eddfb61ec3d` | 17657 |
+
+Comprobación (desde la raíz del repositorio): `git show --name-only --format= 8fcc7fd792f065cf29e2dc915bda92faeff1d45a | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree 8fcc7fd792f065cf29e2dc915bda92faeff1d45a "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`

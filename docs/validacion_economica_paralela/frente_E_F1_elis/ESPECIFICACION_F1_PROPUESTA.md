@@ -1,6 +1,15 @@
 # Especificación económica propuesta · F1 · motor A con NIIF 16 e intangibles adquiridos
 
 Fecha: 15-nov-2026; revisada el 16-nov-2026 para que coincida con la revisión 2 de [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md) (respuesta a la revisión de la propuesta, F1-P1 a P4: E2–E6, E8 y E9). Autor: frente E. Estado: **propuesta, no adoptada ni implementada**.
+
+**Revisada** por la revisión dirigida a P1–P4 (commit `8fcc7fd`; [revision/REVISION_PROPUESTA_P1_P4.md](revision/REVISION_PROPUESTA_P1_P4.md)). Señala y deja sin corregir, porque el encargo no encadena otra pasada:
+- V2: E4, V-F1i, V-F1j y T15: un término explícito sigue en el denominador del ancla;
+- V5: E2: falta la amortización ROU en el efecto de escala;
+- V6: E4 y V-F1k frente a Convenciones V6.3 §3;
+- V7: E3 frente a los términos explícitos;
+- V10: E2 y E4 contra E5;
+- V4: T16 depende de la convención del τ de cinco años.
+
 Fundamento: [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md), `resultados/contraste_f1.json`, `resultados/copia_investigacion_f1.json` (copia de investigación, no entradas registradas) y `resultados/controles_sinteticos_f1.json` (ejemplos de política con importes ficticios).
 
 ## E0. Condiciones previas

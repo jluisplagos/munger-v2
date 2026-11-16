@@ -4,7 +4,8 @@ Fecha: 16-nov-2026. Autor: frente E (sesión «Conciliación económica Elis/F1�
 
 - **Revisión respondida:** `REVISION_PROPUESTA_F1.md`, rama `auditoria/revision-propuesta-f1`, commit `1a071881c65a191056ca3c6b41a20a965825cf12`, leída sin fusionarla ni cambiar de rama.
 - **Material que revisó:** la propuesta del commit `b83803cd1c42c52c6ced6a538f5ae03ef706a644` (SHA-256 `f2d8c815…f795`).
-- **Esta respuesta:** está en el commit que la contiene; su hash queda en `PUNTO_DE_RECUPERACION.md` y en `revision/ESTADO.md`.
+- **Esta respuesta:** está en el commit congelado `13f864f910bf0bb3e27007b23c13a8e957f1bfb7`.
+- **Revisada** por la revisión dirigida a P1–P4 (commit `8fcc7fd`). Resultado y estado de sus objeciones: §7. Las correcciones no están aplicadas.
 
 **Qué no hace.**
 - No adopta ninguna decisión económica.
@@ -253,3 +254,41 @@ La alternativa es no normalizar y declarar el diagnóstico. Los históricos y la
 Fuentes públicas que podrían contenerlas y no están en la base: presentaciones de mercado de capitales, transcripciones de las presentaciones de resultados y respuestas publicadas de Relación con Inversores. La pregunta de M1 ya está redactada en `Diagnóstico V6!B223`.
 
 **Revisión.** Las justificaciones materiales cambian en P1–P4. Por eso el encargo prevé una revisión económica independiente, dirigida a P1–P4, sobre el commit congelado y en un contexto separado. Su resultado se registra en `revision/ESTADO.md`. Si encuentra una carencia de datos o de política, se documenta el bloqueo y se termina, sin más pasadas.
+
+## 7. Resultado de la revisión dirigida a P1–P4
+
+Revisión independiente, en una sesión nueva con contexto propio, sobre el commit congelado `13f864f`. Commit `8fcc7fd` de la rama `auditoria/economica-f1-frente-e-revision`; copia sin cambios en [revision/REVISION_PROPUESTA_P1_P4.md](revision/REVISION_PROPUESTA_P1_P4.md).
+
+**Reproducción:**
+- materializó la base 4.14 (6.798 de 6.798) y el manifiesto (356 de 356);
+- los tres scripts dan salidas idénticas byte a byte;
+- recalculó N1 sin importar código del autor: −11,605 y −18,609, y coinciden 108 valores y 89 celdas del libro.
+
+| | Veredicto | Objeción principal |
+|---|---|---|
+| P1 | Resuelto en parte | V2: lo que se cobra como término explícito sigue en el denominador del ancla de S2C; con crecimiento se cobra dos veces. Los casos P1 son todos a crecimiento cero |
+| P2 | Resuelto en parte | V1 (material): el crecimiento orgánico publicado solo excluye las adquisiciones «importantes»; las pequeñas (31,5 al año, el 10,2 % del FCF base) están dentro. El §3 de esta respuesta describe mal ese fundamento |
+| P3 | Resuelto | V3: la caja del earnout (nota 2.4) y la actualización de 2025 (0,7) están publicadas. V4: el −11,6 depende de la convención del τ de cinco años (−9,1 con el de la ventana) y de qué se hace con 2021–22 |
+| P4 | Resuelto en parte | V10: E2 y E4 aún dicen «aviso» y «materiales» contra E5. V6: el terminal duplica, con otra fórmula, la comparación que el libro ya tiene (Convenciones V6.3 §3; `Diagnóstico V6`, filas 176–179). V5: el 16,8 es solo la parte de los pagos |
+
+Las demás:
+- V7: E3 dice «sin cambios en la estructura del flujo» frente a los términos explícitos;
+- V8: la cota de R;
+- V9: casos sintéticos con el ancla a mano;
+- V11: textos de aprobación.
+
+**Estado: no aplicadas.**
+- Este encargo preveía una sola pasada: si la revisión encuentra una carencia de datos o de política, se documenta y se termina.
+- Aplicar V1–V11 cambiaría la propuesta revisada y exigiría revisar lo afectado; decide la persona responsable.
+- Comparto las once objeciones. No veo motivo para discrepar de ninguna.
+
+**Carencias que bloquean y no son defectos** (su §10):
+- M1;
+- M2;
+- M6, ahora concretado en la finalidad de las compras pequeñas y en el crecimiento orgánico sin ellas;
+- N2;
+- el perímetro de las palancas S2C y ROIC de Elis;
+- la convención del tipo de proyección;
+- qué hacer con el umbral de V-F1a y con el del aviso del terminal que ya tiene el libro.
+
+Elis sigue en `pendiente_de_datos`.

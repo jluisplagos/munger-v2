@@ -2,6 +2,19 @@
 
 Fecha: 16-nov-2026, revisión 2. **Estado: propuesta. No adoptada ni implementada.**
 
+> **Estado tras la revisión dirigida a P1–P4** (rama `auditoria/economica-f1-frente-e-revision`, commit `8fcc7fd`; copia en [revision/REVISION_PROPUESTA_P1_P4.md](revision/REVISION_PROPUESTA_P1_P4.md)).
+> - Veredictos: P1 resuelto en parte; P2 resuelto en parte; P3 resuelto; P4 resuelto en parte. Una objeción material (V1), ocho menores (V2–V9) y dos de forma (V10–V11). Ninguna cambia una cifra de esta propuesta.
+> - **Las correcciones no están aplicadas.** Este encargo preveía una sola pasada. Aplicarlas cambiaría el material revisado y exigiría revisar lo afectado; decide la persona responsable.
+> - **Antes de decidir (4b), leer V1.** El crecimiento orgánico publicado solo excluye las adquisiciones «importantes», de más de 5,0 millones de ingresos en Francia y de 3,0 en los demás países (URD 2025 p. 313; DEU 2024 p. 259; URD 2023 p. 267). Las compras pequeñas cuentan dentro: 31,5 al año de media en 2023–25, el 10,2 % del FCF base. Lo publicado permite decir «sin compras importantes», no «las bajas se repusieron sin compras». El fundamento de (4b) y de la fila 2, tal como está escrito abajo, no se sostiene. La hipótesis puede seguir declarándose como tal, con un apoyo menor, o quedar bloqueada hasta M6.
+> - Otras que afectan al texto que se pide aprobar:
+>   - V2, a (5b) y a las compras con término explícito: con crecimiento, el ancla de S2C los cobra otra vez;
+>   - V3, a (5a): la caja del earnout está publicada (nota 2.4) y la actualización de 2025 también (0,7);
+>   - V4, a (5a): el −11,6 depende de la convención del τ de cinco años; con el de la ventana sería −9,1;
+>   - V5, a (1b) y (2)(v): el 16,8 es solo la parte de los pagos; con la amortización ROU que devuelve f, −6,7 en A1 y A2;
+>   - V6, a (4a): el libro ya compara el ROIC del terminal, con otra fórmula y un umbral de 5 puntos;
+>   - V8, a (3a): 867,2 acota R_propia más la transición, no R total;
+>   - V11: el texto de (1a) arrastra (4a) y la severidad de otros controles, y (3b) no es un texto aprobable tal cual.
+
 - Elis sigue bloqueada para valoración (`pendiente_de_datos`) mientras falten datos o fundamento.
 - No se adopta A1, A2 ni A1′, ni ningún valor de reinversión.
 - Se conservan C48 = 108, C49 = 128,1, el FCF base 307,933 y las decisiones E1, D3, E2 y E6.

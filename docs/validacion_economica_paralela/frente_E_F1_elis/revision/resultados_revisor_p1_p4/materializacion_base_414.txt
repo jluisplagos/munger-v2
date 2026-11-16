@@ -1,0 +1,34 @@
+Materialización de la base 4.14 para esta revisión (árbol de solo lectura, fuera del repositorio de trabajo)
+
+ZIP original de la Release base-4.14, descargado del adjunto publicado:
+  tamaño: 1130912246 bytes
+  sha256: bb51942cefb848e409a4828e3faeb70f94aa4d29af39cda6d90cd0a97cb7b93e
+  esperado (README): 1130912246 bytes, bb51942cefb848e409a4828e3faeb70f94aa4d29af39cda6d90cd0a97cb7b93e
+
+Worktree separado de main: d69d4837f0e99ce30f38d3461f15cceee9a58730
+
+python3 -I tools/base_414.py materialize --source <ZIP>
+  Archivos recuperados: 1008
+  {
+    "scope": "full_baseline",
+    "verified": 6798,
+    "expected": 6798,
+    "missing": 0,
+    "changed": 0,
+    "complete": true
+  }
+  materialize exit=0
+
+python3 -I tools/base_414.py verify --report <fuera del árbol>
+  {
+    "scope": "full_baseline",
+    "verified": 6798,
+    "expected": 6798,
+    "missing": 0,
+    "changed": 0,
+    "complete": true
+  }
+  verify exit=0
+
+Archivos versionados modificados en ese worktree: 0
+Libro de Elis: d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385
