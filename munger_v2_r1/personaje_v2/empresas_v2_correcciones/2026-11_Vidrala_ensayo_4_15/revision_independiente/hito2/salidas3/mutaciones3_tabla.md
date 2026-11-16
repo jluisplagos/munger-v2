@@ -1,0 +1,59 @@
+| `c00_control` | — | control: sin cambio de regla (solo un comentario); las baterías tienen que pasar enteras en el árbol ligero | pasa entera | entrada efectiva: 60/60; entradas 4.14: 33/33; entradas 4.15: 173/173 |
+| `n4_solapa` | N4 | la cifra vuelve a valer con que la cita la TOQUE (solapamiento), sin tener que estar dentro | **NO detectada** | entradas 4.15: 173/173; entrada efectiva: 60/60 |
+| `n5a_intervalo_cualquiera` | N5 | cualquier guion pegado entre dos cifras vuelve a leerse como intervalo (+1), como antes de la corrección | detectada | entradas 4.15: 172/173, fallan 1 («(N4, N5, N10) la cifra tiene que estar dentro de la cita; «T4-15,2» y «2023-849,…») |
+| `n5b_sin_entero_despues` | N5 | el intervalo ya no exige que la cifra que sigue al guion sea un entero de 1 a 4 dígitos («2023-849,7» vuelve a ser positivo) | detectada | entradas 4.15: 172/173, fallan 1 («(N4, N5, N10) la cifra tiene que estar dentro de la cita; «T4-15,2» y «2023-849,…») |
+| `n5c_sin_limite_antes` | N5 | el intervalo ya no exige que el entero anterior al guion sea un número completo («T4-15» o «1.234-567» se leen como intervalo) | **NO detectada** | entradas 4.15: 173/173 |
+| `n10a_sin_limites` | N10 | la cita vuelve a buscarse como subcadena (sin límites de fragmento completo ni al principio ni al final) | detectada | entradas 4.15: 172/173, fallan 1 («(N4, N5, N10) la cifra tiene que estar dentro de la cita; «T4-15,2» y «2023-849,…»); entrada efectiva: 60/60 |
+| `n10a1_sin_limite_inicial` | N10 | la cita puede empezar dentro de una palabra o de una cifra de la página (sin el límite inicial) | **NO detectada** | entradas 4.15: 173/173; entrada efectiva: 60/60 |
+| `n10a2_sin_limite_final` | N10 | la cita puede acabar dentro de una palabra o de una cifra de la página (sin el límite final) | **NO detectada** | entradas 4.15: 173/173; entrada efectiva: 60/60 |
+| `n10b_cierre_sin_apertura` | N10 | «cifra)» sin «(» en la línea vuelve a leerse como positivo | detectada | entradas 4.15: 172/173, fallan 1 («(N4, N5, N10) la cifra tiene que estar dentro de la cita; «T4-15,2» y «2023-849,…») |
+| `n10c_sin_recorte_400` | N10 | se quita el recorte del contexto a 400 caracteres (coste con una línea muy larga) | **NO detectada** | entradas 4.15: 173/173 |
+| `n10d_cortada_no_localizada` | N10/R3 | una cita que solo está como fragmento de una palabra o de una cifra vuelve a ser «no_localizada» (pendiente), no «ausente» (discrepancia) | detectada | entradas 4.15: 169/173, fallan 4 («(H1/R3) cita cortada dentro de un número (la página publica 8496970 y la cita «……»); entrada efectiva: 60/60 |
+| `n3a_sin_lectura_documento` | N3 | la cifra y su signo dejan de leerse en el PDF o el HTML (solo en el texto conservado, como antes) | detectada | entradas 4.15: 172/173, fallan 1 («(N3) fuente PDF cuyo texto conservado perdió el signo menos y cita recortada a l…») |
+| `n3b_html_no_se_lee` | N3 | la lectura adicional se hace en el PDF pero no en el HTML | **NO detectada** | entradas 4.15: 173/173 |
+| `n3c_solo_signo_distinto` | N3 | del documento solo cuenta un signo distinto (una cifra ausente o un signo indeterminado en el documento se ignoran) | **NO detectada** | entradas 4.15: 173/173 |
+| `n3d_solo_layout` | N3 | del PDF solo se lee el texto con «-layout» (no el del orden de lectura) | **NO detectada** | entradas 4.15: 173/173 |
+| `n3e_solo_sin_layout` | N3 | del PDF solo se lee el texto sin «-layout» | **NO detectada** | entradas 4.15: 173/173 |
+| `n6a_sin_xhtml` | N6 | se quita el modo XHTML (un elemento autocerrado no vacío vuelve a ocultar lo que sigue) | detectada | entradas 4.15: 172/173, fallan 1 («(N6) XHTML con <script/> y <div style=display:none/> autocerrados no oculta lo q…») |
+| `n6b_summary_hidden_visible` | N6 | un <summary hidden> de un <details> cerrado vuelve a darse por visible | detectada | entradas 4.15: 172/173, fallan 1 («(N6) XHTML con <script/> y <div style=display:none/> autocerrados no oculta lo q…») |
+| `n6c_sin_codecs_nuevos` | N6 | ibm850, cp866, cp874, euc-kr e iso-2022 vuelven a quedar pendientes | detectada | entradas 4.15: 172/173, fallan 1 («(N6) XHTML con <script/> y <div style=display:none/> autocerrados no oculta lo q…») |
+| `n6d_xhtml_siempre` | N6 | todo documento se trata como XHTML (en HTML, «<div hidden/>» deja de ocultar lo que sigue) | detectada | entradas 4.15: 172/173, fallan 1 («(H7) HTML: details cerrado, summary de un details cerrado, dialog sin open, <div…») |
+| `n9a_sin_tipo_cambio` | N9 | un tipo de cambio («USD por EUR») vuelve a ser una unidad monetaria no reconocida | detectada | entradas 4.15: 172/173, fallan 1 («(N9) un tipo de cambio («USD por EUR», «EUR/USD») no es una unidad monetaria sin…») |
+| `n9b_tratamiento_literal` | N9 | el tratamiento vuelve a compararse literalmente («Ninguno.» pasa) | detectada | entradas 4.15: 172/173, fallan 1 («(N9) signo −1 con el tratamiento «Ninguno.»: error, como «ninguno» · ['discrepan…») |
+| `n9c_cualquier_mencion_tipo_cambio` | N9 | control inverso: la exención del tipo de cambio se amplía a cualquier unidad con una barra o «por» («€/MWh», «EUR por tonelada» dejan de quedar pendientes) | **NO detectada** | entradas 4.15: 173/173 |
+| `n1a_sin_senal_estado` | N1 | el bloque de I20 deja de depender del modo registrado por el paso 2 en estado_pipeline.json | detectada | entrada efectiva: 59/60, fallan 1 («(hito 2, N1) sin registro de entradas ni entrada_efectiva.json pero con el modo…») |
+| `n1b_sin_declara_modo` | N1 | el bloque de I20 deja de depender del modo declarado en alcance_v2.json o fase1_metadatos.json | **NO detectada** | entrada efectiva: 60/60 |
+| `n1c_ilegible_no_declara` | N1 | un alcance_v2.json o fase1_metadatos.json ilegible deja de hacer que se muestre el bloque | **NO detectada** | entrada efectiva: 60/60 |
+| `n2a_aptitud_sin_modo` | N2 | aptitud_de_uso vuelve a ignorar el motivo del modo (el párrafo de la V6.4 dice «sí» con el modo distinto) | detectada | entradas 4.15: 172/173, fallan 1 («(hito 2, H9 y N2) registro apto con el modo aplicado («registrada») distinto del…»); entrada efectiva: 60/60 |
+| `n2b_resumen_sin_actualizar` | N2 | con el modo distinto, el resumen de aptitud_de_uso sigue diciendo apto_por_entradas = true (solo cambia el motivo) | detectada | entradas 4.15: 172/173, fallan 1 («(hito 2, H9 y N2) registro apto con el modo aplicado («registrada») distinto del…») |
+| `n2c_motivos_sin_modo` | N2 | con el modo distinto, motivos_no_apto no da el motivo (apto_e no se pone a False; el resumen sí) | **NO detectada** | entradas 4.15: 173/173 |
+| `u6e_umbral_080` | N9/U6 | el umbral de erratas de la clave vuelve a 0,8 («tasa_efectiva» vuelve a ser un error) | detectada | entrada efectiva: abortada (ValueError: alcance_v2.json tiene la clave 'tasa_efectiva', que parece) |
+| `u6f_umbral_097` | N9/U6 | el umbral de erratas sube a 0,97 (una errata de una letra, «entrada_efectiba», deja de detectarse) | detectada | entrada efectiva: 59/60, fallan 1 («(hito 2, U6 b y c) erratas de la clave en alcance_v2.json, alcance ilegible o qu…») |
+| `u6g_umbral_092` | N9/U6 | el umbral de erratas sube a 0,92 (dos erratas o una clave con sufijo dejan de detectarse; una letra, todavía) | **NO detectada** | entrada efectiva: 60/60 |
+| `h1g_calc_sin_pagina` | H1/N7 | calcular_entrada lee la cifra y el signo del componente en la cita, no en la página | detectada | entrada efectiva: 59/60, fallan 1 («(hito 2, H1) el cálculo del hito 1 con cada cita recortada a la cifra («130,8» f…») |
+| `h9a_modo_distinto_no_impide` | H9/N7 | un modo aplicado distinto del declarado (o una declaración con error) deja de impedir «apto por entradas» en el bloque de I20 | detectada | entrada efectiva: 60/60; entradas 4.15: 172/173, fallan 1 («(hito 2, H9 y N2) registro apto con el modo aplicado («registrada») distinto del…») |
+| `h9d_error_declaracion_no_impide` | H9/N7 | una declaración del modo con error deja de impedir «apto por entradas» | **NO detectada** | entrada efectiva: 60/60; entradas 4.15: 173/173 |
+| `m12_tolerancia_0_00055` | H11 | (m12) tolerancia de importes ampliada a 0,00055 | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m12) importe: 849,69751 no es 849,697 (la distancia admitida es exactament…») |
+| `m16_sin_limite_nodos` | H11 | (m16) sin límite de nodos de la fórmula | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m16 y m17) los límites de nodos y de longitud de la fórmula actúan cada un…») |
+| `m17_sin_limite_longitud` | H11 | (m17) sin límite de longitud de la fórmula | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m16 y m17) los límites de nodos y de longitud de la fórmula actúan cada un…») |
+| `m20_sin_constante_local` | H6/H11 | (m20) se quita el error «constante en el punto real» | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m20) una fórmula constante en el punto real (min(a + b, 1) con a + b > 1):…») |
+| `m22_cero_exento_en_todo` | H11 | (m22) el 0 queda exento en cualquier posición de la fórmula, no solo en min/max | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m22) el 0 solo es una constante admitida como argumento de min o max…») |
+| `h7k_pdf_cabecera_al_principio` | H7/H11 | (m29) el tipo PDF exige la cabecera al principio (un PDF con bytes previos y sin extensión deja de reconocerse) | detectada | entradas 4.15: 172/173, fallan 1 («(H11, m29) un PDF con bytes previos y sin extensión es un PDF (la cabecera puede…») |
+| `h6f_local_solo_arriba` | H6 | la perturbación local vuelve a ser solo hacia arriba | detectada | entradas 4.15: 172/173, fallan 1 («(H6) min(a, b) con a = b: los dos influyen en el punto real hacia abajo (la pert…») |
+| `h1e_no_localizada_vale` | H1 | contraste_pagina da por buena una cita «no_localizada» (ni pendiente ni discrepancia) | **NO detectada** | entradas 4.15: 173/173 |
+| `h1f_sin_ventana` | H1 | se leen todas las cifras de la línea, no solo las de la cita (sin ventana) | **NO detectada** | entradas 4.15: 173/173; entrada efectiva: 60/60 |
+| `h6a_semilla_por_formula` | H6 | la semilla vuelve a depender del texto de la fórmula | **NO detectada** | entradas 4.15: 173/173 |
+| `h6b_sin_puntos_extremos` | H6 | se quitan los puntos extremos (±10⁹) de cada origen | **NO detectada** | entradas 4.15: 173/173 |
+| `h6c_sin_suelo_cero` | H6 | se quita la excepción del suelo cero (max(a − b, 0) cuando actúa vuelve a ser error) | **NO detectada** | entradas 4.15: 173/173 |
+| `h6d_suelo_sin_exigir_cero` | H6 | la excepción del suelo vale aunque el resultado no sea 0 | **NO detectada** | entradas 4.15: 173/173 |
+| `h6e_cero_sin_suelo` | H6 | una fórmula constante en el punto real vale siempre que el resultado sea 0, tenga o no un suelo en cero | **NO detectada** | entradas 4.15: 173/173 |
+| `h7g_ix_no_en_linea` | H7 | las etiquetas con espacio de nombres (ix:nonFraction) dejan de tratarse como en línea | **NO detectada** | entradas 4.15: 173/173 |
+| `h7m_sin_quitar_guion_blando` | H7 | el guion blando y el espacio de ancho cero dejan de quitarse al comparar | **NO detectada** | entradas 4.15: 173/173 |
+| `h7n_sin_etiquetas_en_linea_nuevas` | H7 | <ins>, <del>, <label>, <big> y <tt> dejan de ser en línea | **NO detectada** | entradas 4.15: 173/173 |
+| `h14b_esquema_dinero_real` | H14 | el esquema deja de fijar aptitud_de_uso.apto_para_dinero_real en false | **NO detectada** | entrada efectiva: 60/60; entradas 4.15: 173/173; entradas 4.14: 33/33 |
+| `i20b_bloque_sin_declaracion` | I20 | la ficha no lleva el bloque con solo entrada_efectiva.json (sin registro ni señales del estado o del alcance) | **NO detectada** | entrada efectiva: 60/60 |
+| `m47_u1_informe_sin_derivados` | H11 | (m47) el informe V6.4 no dice cuántos derivados comprobados hay | **NO detectada** | entradas 4.15: 173/173 |
+
+nuevas: 17 detectadas · 14 no detectadas · 0 sin ejecutar
+cubiertas: 9 detectadas · 1 no detectadas · 0 sin ejecutar
+resto: 0 detectadas · 13 no detectadas · 0 sin ejecutar

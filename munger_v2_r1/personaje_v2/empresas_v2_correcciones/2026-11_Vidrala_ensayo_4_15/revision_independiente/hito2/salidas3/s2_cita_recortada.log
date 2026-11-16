@@ -1,0 +1,60 @@
+== A · unidad: _cita_cifra(cita, vf, pagina)
+   cita='150,8'                                       vf=150.8      cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='150,8)'                                      vf=150.8      cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='130,8'                                       vf=130.8      cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='849697.000'                                  vf=849697     cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='12,5'                                        vf=12.5       cita en la página: True -> ('signo_indeterminado', 'apariciones de la cifra: indeterminado')
+   cita='Pagos por arrendamientos (150,8)'            vf=150.8      cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='Pagos por arrendamientos (150,8)'            vf=-150.8     cita en la página: True -> ('ok', 'signo publicado igual al de valor_fuente')
+   cita='Resultado del ejercicio -849697.000'         vf=849697     cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='ejercicio -849697.000'                       vf=849697     cita en la página: True -> ('signo_distinto', 'la página la publica en negativo y valor_fuente es positivo')
+   cita='697.000'                                     vf=697        cita en la página: True -> ('ausente', 'la cita empieza o acaba dentro de una palabra o de una cifra de la página: no es una cifra completa de la página')
+   cita='9697.000'                                    vf=9697       cita en la página: True -> ('ausente', 'la cita empieza o acaba dentro de una palabra o de una cifra de la página: no es una cifra completa de la página')
+
+== B · registro sintético completo: Historia!F6 (valor_fuente positivo, signo 1, tratamiento «ninguno»)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 |  | comprobada
+   B0 contraejemplo literal de la revisión externa (cita completa)
+      página='Partida sintética de Historia!F6: -849697.000'
+      cita='Partida sintética de Historia!F6: -849697.000' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el mo
+   B1 la misma página; la cita empieza en la cifra
+      página='Partida sintética de Historia!F6: -849697.000'
+      cita='849697.000' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el mo
+   B2 página con paréntesis contables; la cita es solo la cifra
+      página='Partida sintética de Historia!F6: (849,697.000)'
+      cita='849,697.000' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el mo
+   B3 página con paréntesis; la cita acaba en la cifra y empieza tras el paréntesis
+      página='Partida sintética de Historia!F6: (849,697.000) (1.000)'
+      cita='849,697.000) (1.000)' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el mo
+   B4 menos Unicode; la cita empieza en la cifra
+      página='Partida sintética de Historia!F6: −849697.000'
+      cita='849697.000' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman después hacia el mo
+   B5 sentido inverso: la página publica en positivo «x-y: 849697.000»; cita recortada «-849697.000» no existe (control)
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='849697.000' valor_fuente=-849697.0 signo=-1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=0 err=1 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | errores: Historia!F6: signo −1 con el tratamiento «ninguno»: el cambio de signo de la cifra publicada se declara en «tratamiento»
+   B6 cifra a mitad de otra: la página publica 1849697.000 y la cita es «849697.000»
+      página='Partida sintética de Historia!F6: 1849697.000'
+      cita='849697.000' valor_fuente=849697.0 signo=1
+      -> apto=False comprobadas=320/321 pend=0 desact=0 discr=1 err=0 mat_no=1 ext=0 no_mat=0 (sin_rev=0, rev=0) dato_hip=0 no_aplic=3 no_repr=0 | discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+
+== C · calcular_entrada, C48 de Elis: cálculo del HITO 1 (magnitudes positivas, sin declarar la conversión)
+   citas del hito 1: {'2023': (130.8, 'Paiements de passifs locatifs (y compris intérêts sur passifs locatifs) (150,8) (130,8)'), '2024': (150.8, 'Lease liability payments (including interest on lease liabilities) (177.9) (150.8)'), '2025': (177.9, 'Lease liability payments (including interest on lease liabilities) (177.9) (150.8)')}
+   C1 cálculo del hito 1 tal cual (130,8 frente a «(130,8)», sin declarar la conversión)
+      -> ERROR ValueError: el componente pagos_arrendamientos_con_intereses de 2023: la cita no contiene la cifra publicada 130.8 con su signo (signo_distinto: la página la publica en negativo y valor_fuente es positivo). Si el cálculo usa otra cifra que la publicada (p. ej. la magnitud de un pago publicado entre paréntesis),
+   citas recortadas: {'2023': (130.8, '130,8'), '2024': (150.8, '150.8'), '2025': (177.9, '177.9')}
+   C2 el MISMO cálculo del hito 1 con cada cita recortada a la cifra (sin los paréntesis), sin valor_fuente/signo/tratamiento
+      -> ERROR ValueError: el componente pagos_arrendamientos_con_intereses de 2023: la cita no contiene la cifra publicada 130.8 con su signo (signo_distinto: la página la publica en negativo y valor_fuente es positivo). Si el cálculo usa otra cifra que la publicada (p. ej. la magnitud de un pago publicado entre paréntesis),
+   citas recortadas tras el paréntesis de apertura: {'2023': (130.8, '130,8)'), '2024': (150.8, '177.9) (150.8)'), '2025': (177.9, '177.9) (150.8)')}
+   C3 lo mismo con la cita empezando justo después de «(»
+      -> ERROR ValueError: el componente pagos_arrendamientos_con_intereses de 2023: la cita no contiene la cifra publicada 130.8 con su signo (signo_distinto: la página la publica en negativo y valor_fuente es positivo). Si el cálculo usa otra cifra que la publicada (p. ej. la magnitud de un pago publicado entre paréntesis),
+   C4 control: el cálculo del hito 2 (valor_fuente negativo, signo −1, tratamiento)
+      -> ACEPTADO valor=108.0
+      fuente: Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (= -1 × -130.8 publicado: pago publicado entre paréntesis (salida 
+   C5 sin carpeta: el cálculo del hito 1 (no hay contraste con la fuente)
+      -> ACEPTADO valor=108.0
+      fuente: Cálculo declarado (media 2023–2025 de: intereses_financiacion + pagos_arrendamientos_con_intereses − arrendamientos_principal; redondeo a 3 decimales; sin redondear 108.0): 2023 intereses_financiacion (Historia) 70.5; 2023 pagos_arrendamientos_con_intereses 130.8 (texto/Elis_Document d'enregistrement universel_2024_FR.txt p.273)

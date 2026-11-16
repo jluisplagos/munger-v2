@@ -1,0 +1,66 @@
+NOTA (tercera pasada): «anterior», «candidata» o PV=prev = candidata estable de la segunda pasada (92b2362); «tercera», «estable» o PV=copia = candidata f3d15e8.
+python 3.13.18
+== A · XHTML / iXBRL (sintaxis XML: «<x/>» cierra el elemento)
+   A1 XHTML: <script src=…/> autocerrado en el cuerpo                                           navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): presente
+   A2 XHTML: <div style="display:none"/> vacío y autocerrado antes del contenido                navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): presente
+   A3 XHTML: <title/> vacío en la cabecera y contenido en el cuerpo                             navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   A4 XHTML: <span hidden="hidden"/> autocerrado dentro de un párrafo                           navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): presente
+   A5 XHTML: <style/> vacío en el cuerpo                                                        navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): presente
+   A6 XHTML: <textarea/> autocerrado                                                            navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): presente
+   A7 iXBRL habitual: cabecera ix:header dentro de <div style="display:none"> cerrado y hecho en línea navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   A8 iXBRL: el hecho citado está SOLO en ix:hidden (dentro del div oculto)                     navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   A9 iXBRL: ix:header SIN el div oculto que lo envuelve (el texto de ix:hidden se vería)       navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   A10 etiqueta con espacio de nombres y style=display:none: <ix:nonNumeric style="display:none"> navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A11 etiqueta con espacio de nombres y atributo hidden: <x:div hidden>                        navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): presente   <<< SE ACEPTA un texto que el navegador no muestra
+   A12 <svg:svg><svg:text> (SVG con prefijo en XHTML: el texto se ve)                           navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+== B · details / summary / dialog
+   B1 <details> cerrado con el texto en un <p>                                                  navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   B2 <summary> de un <details> cerrado                                                         navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   B3 <details open>                                                                            navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   B4 <summary hidden> de un <details> cerrado                                                  navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): ausente
+   B5 <summary style=display:none> de un <details> cerrado                                      navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): ausente
+   B6 <summary> que no es hijo directo del <details> cerrado (<details><div><summary>…)         navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): presente   <<< SE ACEPTA un texto que el navegador no muestra
+   B7 segundo <summary> de un <details> cerrado (solo el primero hace de resumen)               navegador: oculta   anterior (92b2362): presente  tercera (f3d15e8): presente   <<< SE ACEPTA un texto que el navegador no muestra
+   B8 <details> cerrado dentro de un <div hidden>, texto en el summary                          navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   B9 <details open> dentro de un <details> cerrado, texto en el summary interior               navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   B10 <details> sin cerrar seguido de contenido normal fuera (</details> omitido por error)    navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   B11 <dialog open>                                                                            navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   B12 <dialog> sin open                                                                        navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   B13 <summary> fuera de un details (sin efecto)                                               navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+== C · cabecera implícita y elementos de cabecera
+   C1 sin </head>: <head><title>t</title><body>…                                                navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   C2 sin </head> ni <body>: <head><title>t</title><p>…                                         navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   C3 texto suelto tras <head> sin ningún elemento del cuerpo                                   navegador: visible  anterior (92b2362): ausente   tercera (f3d15e8): ausente   <<< se rechaza un texto que el navegador muestra
+   C4 <head> con <noscript><img/></noscript> y luego </head><body>                              navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   C5 la cita en el <title> (no se muestra en la página)                                        navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   C6 la cita en <title> tras un <div> dentro de <head> sin cerrar                              navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   C7 la cita en un <style> que sigue a un elemento del cuerpo dentro de <head>                 navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   C8 <header> (no es <head>)                                                                   navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   C9 dos documentos concatenados (segundo <head> a mitad)                                      navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   C10 <head> dentro del cuerpo con un <p> detrás sin cerrar el head                            navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+== D · startendtag en HTML (la barra se ignora) y aria-hidden
+   D1 <div hidden/> seguido del texto                                                           navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+   D2 <p/> y <span/> sin atributos (inocuos)                                                    navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   D3 <br/> y <img/> (vacíos)                                                                   navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   D4 aria-hidden="true" (se ve en pantalla)                                                    navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   D5 <a/> autocerrado antes del texto (ancla XHTML servida como HTML: el resto queda dentro del enlace, visible) navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   D6 <iframe/> autocerrado (en HTML abre un iframe: lo que sigue no se muestra)                navegador: oculta   anterior (92b2362): ausente   tercera (f3d15e8): ausente
+== E · codificación y tipo
+   E1 ISO-8859-1 declarado con «–» de windows-1252                                              navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   E2 us-ascii declarado con bytes altos de windows-1252                                        navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   E3 ISO-8859-15 declarado (el € es 0xA4)                                                      navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   E4 windows-1250 declarado                                                                    navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   E5 x-mac-roman declarado                                                                     navegador: visible  anterior (92b2362): pendiente tercera (f3d15e8): pendiente   <<< se rechaza un texto que el navegador muestra
+   E6 macintosh declarado                                                                       navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   E7 IBM850 declarado (página de códigos DOS)                                                  navegador: visible  anterior (92b2362): pendiente tercera (f3d15e8): presente
+   E8 Shift_JIS / EUC-KR declarados                                                             navegador: visible  anterior (92b2362): pendiente tercera (f3d15e8): presente
+   E9 utf-16 declarado en meta con el archivo en UTF-8 (los navegadores lo leen como UTF-8)     navegador: visible  anterior (92b2362): pendiente tercera (f3d15e8): pendiente   <<< se rechaza un texto que el navegador muestra
+   E10 latin1 declarado como «l1» / «cp819»                                                     navegador: visible  anterior (92b2362): presente  tercera (f3d15e8): presente
+   tipo de e_menciona.html        anterior (92b2362): html   tercera (f3d15e8): html
+   tipo de e_menciona.txt         anterior (92b2362): texto  tercera (f3d15e8): texto
+   tipo de e_sin_ext              anterior (92b2362): pdf    tercera (f3d15e8): pdf
+   tipo de e_xml.xml              anterior (92b2362): otro   tercera (f3d15e8): otro
+   tipo de e_json.json            anterior (92b2362): pdf    tercera (f3d15e8): pdf
+   tipo de e_md.md                anterior (92b2362): pdf    tercera (f3d15e8): pdf
+   tipo de e_pdf_tras_blanco.dat  anterior (92b2362): pdf    tercera (f3d15e8): pdf
+   tipo de e_lt.dat               anterior (92b2362): otro   tercera (f3d15e8): otro

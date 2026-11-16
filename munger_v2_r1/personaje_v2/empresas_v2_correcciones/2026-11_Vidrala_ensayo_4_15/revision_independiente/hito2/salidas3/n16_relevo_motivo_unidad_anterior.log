@@ -1,0 +1,33 @@
+NOTA (tercera pasada): «anterior» o PV=prev = candidata estable de la segunda pasada (92b2362); «tercera» o PV=copia = candidata f3d15e8.
+código: anterior (92b2362, 2.ª pasada)
+
+== 1 · relevo caducado normal (material nuevo, solicitud antigua pendiente)
+[paso 13] solicitud de auditoría SA-aa741c9434218757 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   error: None
+   solicitud nueva: True · material bbbbbbbbbbbbbbbb 
+   motivo: relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13
+   solicitudes: [('0001', 'sustituida'), ('8757', 'pendiente')] · relevo.solicitud == nueva: True
+   solicitud_auditoria.json: relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (cambian: verificacion_entradas.json); se repi
+
+== 2 · el material vuelve a ser el de la solicitud antigua (el archivo cambiado se restauró antes de volver a fijar el material)
+   error: None
+   se conserva la solicitud antigua: True · relevo con solicitud asociada: None
+[paso 13] solicitud de auditoría SA-bfe14273ebcbf274 registrada para el material cccccccccccccccc (sustituye a SA-0000000000000001)
+   después, material nuevo por OTRO motivo → error: None
+   motivo de la solicitud nueva: relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13
+   -> LA SOLICITUD NUEVA ARRASTRA EL TEXTO DE UN RELEVO ANTERIOR QUE NO ES SU CAUSA
+
+== 3 · 60 archivos cambiados y nombres con caracteres raros
+[paso 13] solicitud de auditoría SA-ad8e56bd30600017 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   error: None
+   longitud del motivo: 468 · empieza: 'relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (cambian: archivo_00_«raro»\n{x}.json, archivo_01_«raro»\n{x}.json, archivo_02'
+
+== 4 · estado con relevos_caducados mal formado
+[paso 13] solicitud de auditoría SA-ea9e4e794c895628 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista de textos                  → solicitud nueva con motivo «auditoría del material fijado en el paso 13…»
+   relevos_caducados = objeto en vez de lista           → EXCEPCIÓN KeyError: -1
+[paso 13] solicitud de auditoría SA-f7fed3e2b84f9df0 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = texto                            → solicitud nueva con motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-d98403a06e8f1542 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista con un objeto sin claves   → solicitud nueva con motivo «relevo caducado: el material fijado None ya no era el vigente (cambian…»
+   relevos_caducados = número                           → EXCEPCIÓN TypeError: 'int' object is not subscriptable

@@ -1,0 +1,49 @@
+NOTA (tercera pasada): «anterior» o PV=prev = candidata estable de la segunda pasada (92b2362); «tercera» o PV=copia = candidata f3d15e8.
+caso                                                                                   publica anterior (92b2362)       tercera (f3d15e8)
+   intervalo de años                                                                   +       bien                     bien
+   fecha dd-mm-aaaa                                                                    +       bien                     bien
+   fecha aaaa-mm-dd                                                                    +       bien                     bien
+   intervalo con raya                                                                  +       bien                     bien
+   intervalo de importes                                                               +       bien                     bien
+   rótulo que acaba en cifra, pegado a un negativo: «T4-15,2» (trimestre 4: −15,2)     −       ACEPTA EL CONTRARIO      rechazo falso
+   nota al pie pegada a un negativo: «Resultado financiero1-149,5»                     −       ACEPTA EL CONTRARIO      rechazo falso
+   columnas pegadas: «2023-849,7» (año de la columna y −849,7)                         −       ACEPTA EL CONTRARIO      rechazo falso
+   dos importes pegados: «1.234,5-567,8» (segunda columna negativa)                    −       ACEPTA EL CONTRARIO      rechazo falso
+   resta escrita: «1.234,5-567,8» (la segunda cifra se resta)                          ?       ACEPTA (era ambiguo)     bien (pendiente)
+   código de norma: «NIIF-16»                                                          +       rechazo falso            rechazo falso
+   «COVID-19»                                                                          +       rechazo falso            rechazo falso
+   teléfono o referencia «75-49-98-30»                                                 +       bien                     bien
+   porcentaje negativo entre paréntesis                                                −       bien                     bien
+   porcentaje negativo con signo                                                       −       bien                     bien
+   inciso positivo con porcentaje                                                      +       rechazo falso            rechazo falso
+   inciso positivo con porcentaje y cierre inmediato: «(12,5 %)» en una frase          ?       ACEPTA (era ambiguo)     ACEPTA (era ambiguo)   <<<
+   código de moneda dentro del paréntesis                                              −       bien                     bien
+   código de moneda detrás, dentro del paréntesis                                      −       bien                     bien
+   código de moneda en minúsculas                                                      −       bien                     bien
+   moneda entre guion y cifra con un espacio: «- EUR 149,5»                            ?       bien (pendiente)         bien (pendiente)
+   moneda pegada al guion: «-EUR 149,5»                                                −       bien                     bien
+   «$-149.5»                                                                           −       bien                     bien
+   «€-149,5»                                                                           −       bien                     bien
+   «USD-149.5» (código pegado y menos)                                                 −       rechazo falso            rechazo falso
+   «EUR/USD-1.08» (par de divisas, positivo)                                           ?       bien (pendiente)         bien (pendiente)
+   palabra que acaba en código de moneda en minúsculas: «…sek 149,5» (sueco)           +       bien                     bien
+   palabra «nok» (noruego: bastante) antes de la cifra entre paréntesis                ?       ACEPTA (era ambiguo)     ACEPTA (era ambiguo)   <<<
+   «−» Unicode pegado                                                                  −       bien                     bien
+   «−» Unicode a un espacio (menos tipográfico habitual en informes: «− 149,5»)        −       rechazo falso            rechazo falso
+   «−» Unicode a un espacio en una tabla estrecha (cero de la columna anterior)        +       rechazo falso            rechazo falso
+   «−» a dos espacios (otra columna)                                                   +       bien                     bien
+   menos Unicode dentro de paréntesis «(−149,5)»                                       −       rechazo falso            rechazo falso
+   guion ASCII dentro de paréntesis «(-149,5)»                                         −       rechazo falso            rechazo falso
+   cierre de paréntesis sin apertura en la línea: «149,5)»                             ?       ACEPTA (era ambiguo)     bien (pendiente)
+   apertura sin cierre: «(149,5»                                                       ?       bien (pendiente)         bien (pendiente)
+   corchetes contables «[149,5]»                                                       ?       ACEPTA (era ambiguo)     ACEPTA (era ambiguo)   <<<
+   «149,5 CR» / «149,5 DR»                                                             ?       ACEPTA (era ambiguo)     ACEPTA (era ambiguo)   <<<
+   «149,5-» (menos detrás)                                                             −       rechazo falso            rechazo falso
+   «(149,5)%»                                                                          −       bien                     bien
+   «-149,5%»                                                                           −       bien                     bien
+   «+149,5»                                                                            +       bien                     bien
+   «±149,5»                                                                            ?       ACEPTA (era ambiguo)     ACEPTA (era ambiguo)   <<<
+   cifra tras dos puntos y guion: «: -149,5»                                           −       bien                     bien
+   cifra tras barra: «/-149,5»                                                         −       bien                     bien
+total anterior (92b2362): {'bien': 25, 'ACEPTA EL CONTRARIO': 4, 'ACEPTA': 7, 'rechazo falso': 9}
+total tercera (f3d15e8):  {'bien': 27, 'rechazo falso': 13, 'ACEPTA': 5}

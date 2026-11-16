@@ -1,0 +1,22 @@
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 e
+   1 · max(a − b, 0) con el suelo ACTIVO
+      Historia!C23 (libro 0) = max(o["aux:a"] - o["aux:b"], 0)  con {'aux:a': 2.0, 'aux:b': 5.0}
+      -> apto=True · comprobada · derivados_comprobados=['Historia!C23'] 
+   1b · control: max(a − b, 0) con el suelo inactivo
+      Historia!C6 (libro 730.833) = max(o["aux:a"] - o["aux:b"], 0)  con {'aux:a': 732.833, 'aux:b': 2.0}
+      -> apto=True · comprobada · derivados_comprobados=['Historia!C6'] 
+   2 · origen decorativo: b + a × z con z = 0 comprobado
+      Historia!C6 (libro 730.833) = o["aux:b"] + o["aux:a"] * o["aux:z"]  con {'aux:b': 730.833, 'aux:a': 2019.0, 'aux:z': 0.0}
+      -> apto=True · comprobada · derivados_comprobados=['Historia!C6'] 
+   3 · U1: dato de cálculo sin fuente = año − cifra compuesta
+      Historia!C6 (libro 730.833) = o["Historia!F5"] - (1*1000 + 2*100 + 8*10 + 8 + 1/10 + 6/100 + 7/1000)  con {'Historia!F5': 2019}
+      -> apto=True · comprobada · derivados_comprobados=['Historia!C6'] 
+      resumen: omo hipótesis o convención; 3 no aplicables; 0 lecturas externas sin bytes; 1 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)
+   4 · U1 con el origen anulado por round (sin decimales negativos)
+      Historia!C6 (libro 730.833) = (7*100 + 3*10 + 8/10 + 3/100 + 3/1000) + round(o["Historia!F5"] / 1000000000000)  con {'Historia!F5': 2019}
+      -> apto=True · comprobada · derivados_comprobados=['Historia!C6'] 
+
+   5 · U1 en bloque: todos los datos numéricos de cálculo publicados (dato_publicado), sin fuente, como «año − cifra compuesta»
+      146 datos de cálculo convertidos en derivados sin fuente -> apto=True · comprobadas 321/321 · errores 0 · discrepancias 0 · derivados_comprobados 146 · datos_como_hipotesis 0
+      errores (primeros): [] discrepancias (primeras): []
+      resumen: 321 de 321 celdas del universo comprobadas (232 de 232 de cálculo y 89 de 89 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 0 datos tratados como hipótesis o convención; 3 no aplicables; 0 lecturas externas sin bytes; 146 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)

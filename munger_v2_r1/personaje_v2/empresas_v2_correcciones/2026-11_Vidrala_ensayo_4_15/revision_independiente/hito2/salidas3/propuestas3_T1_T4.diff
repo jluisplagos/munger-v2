@@ -1,0 +1,47 @@
+166c166,168
+<     tipo_cambio = re.search(r"(por|per|/)\s*" + MARCAS_MONEDA.pattern, t, re.I) is not None or "tipo de cambio" in t or "exchange rate" in t
+---
+>     _m = MARCAS_MONEDA.pattern  # (PROPUESTA T1) solo un par de monedas, con «tipo de cambio» delante o sin él, y sin palabra de escala
+>     tipo_cambio = (re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*" + _m + r"\s*(?:por|per|/)\s*" + _m + r"[\s)]*", t, re.I) is not None
+>                    and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
+477c479,482
+<     patron = (r"(?<![\w.,])" if re.match(r"\w", palabras[0]) else "") + patron + (r"(?!\w|[.,]\d)" if re.search(r"\w$", palabras[-1]) else "")
+---
+>     # (PROPUESTA T2) si la cita empieza o acaba en una cifra, no va pegada a otra cifra ni a un separador con cifra; si empieza o acaba en
+>     # una letra, no va pegada a otra letra («849.7» cuenta en «849.7m»; «Total 5» no cuenta en «Subtotal 5,01»)
+>     patron = ((r"(?<![\d.,])" if re.match(r"\d", palabras[0]) else r"(?<![^\W\d_])" if re.match(r"[^\W\d_]", palabras[0]) else "") + patron
+>               + (r"(?!\d|[.,]\d)" if re.search(r"\d$", palabras[-1]) else r"(?![^\W\d_])" if re.search(r"[^\W\d_]$", palabras[-1]) else ""))
+540,542c545,553
+<         if palabras and re.search(r"\s+".join(re.escape(w) for w in palabras), t_, re.I):
+<             # (hito 2, N10 y R3) la cita solo está como fragmento de una palabra o de una cifra de la página: la cifra citada no es la publicada
+<             return "ausente", "la cita empieza o acaba dentro de una palabra o de una cifra de la página: no es una cifra completa de la página"
+---
+>         sucias = list(re.finditer(r"\s+".join(re.escape(w) for w in palabras), t_, re.I)) if palabras else []
+>         if sucias:
+>             # (PROPUESTA T2) «ausente» (discrepancia) solo si el corte cae dentro de un NÚMERO; dentro de una palabra, pendiente
+>             def _en_numero(m):
+>                 return ((re.match(r"\d", palabras[0]) is not None and re.search(r"[\d.,]$", t_[:m.start()]) is not None)
+>                         or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
+>             if any(_en_numero(m) for m in sucias):
+>                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"
+>             return "no_localizada", "la cita empieza o acaba dentro de una palabra de la página: se cita el fragmento completo"
+842c853
+<         elif nombre == "utf-7" or not (nombre.startswith(("utf-", "cp125", "cp4", "cp8", "iso8859-", "mac-", "koi8", "euc_", "iso2022_")) or nombre in ("shift_jis", "gb2312", "gbk", "gb18030", "big5", "big5hkscs")):
+---
+>         elif nombre == "utf-7" or not (nombre.startswith(("utf-", "cp125", "iso8859-", "mac-", "koi8")) or nombre in ("shift_jis", "euc_jp", "euc_kr", "iso2022_jp", "gb2312", "gbk", "gb18030", "big5", "big5hkscs", "cp866", "cp874", "cp437", "cp850", "cp852", "cp858")):
+873c884
+<             self.xhtml = cab.lstrip().startswith("<?xml") or 'xmlns="http://www.w3.org/1999/xhtml"' in cab
+---
+>             self.xhtml = str(ruta).lower().endswith((".xhtml", ".xht"))  # (PROPUESTA T3) como abre el archivo un navegador
+1043c1054
+<             textos_fuente.append(plano)
+---
+>             textos_fuente.append(re.sub("[\u00ad\u200b\u200c\u200d\u2060\ufeff]", "", plano))  # (PROPUESTA T4) como _cmp_txt_espacios
+1079c1090,1091
+<             otras = [x for x in (_cita_cifra(f.get("cita"), vf, tf) for tf in textos_fuente) if x[0] != "no_localizada"]
+---
+>             lect = [_cita_cifra(f.get("cita"), vf, tf) for tf in textos_fuente]
+>             otras = [x for x in lect if x[0] != "no_localizada"]
+1082a1095,1096
+>             elif lect and not otras:  # (PROPUESTA T4) la cita está en el documento, pero no con sus palabras: no se puede leer el signo en él
+>                 est, det = "no_localizada", "la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él"

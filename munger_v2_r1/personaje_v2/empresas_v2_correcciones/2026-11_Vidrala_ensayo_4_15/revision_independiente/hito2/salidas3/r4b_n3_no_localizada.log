@@ -1,0 +1,33 @@
+código: tercera (f3d15e8)
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   1 control: PDF «-c total»; texto conservado sin el menos; cita «c total» (se localiza: lo detecta N3)
+      documento (pdf): 'Partida sintetica de Historia!F6: -849697.000 total'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: -849697.000 total', 'Partida sintetica de Historia!F6: -849697.000 total'] · lectura de la cita en él: ['signo_distinto', 'signo_distinto']
+      -> NO comprobada discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» es la cifra publicada con su si
+   2 PDF con una palabra de la cita PARTIDA en el texto del PDF («to tal»); texto conservado «total» sin el menos
+      documento (pdf): 'Partida sintetica de Historia!F6: -849697.000 to tal'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: -849697.000 to tal', 'Partida sintetica de Historia!F6: -849697.000 to tal'] · lectura de la cita en él: ['no_localizada', 'no_localizada']
+      -> comprobada    <<< COMPROBADA: el documento publica la cifra en negativo
+   3 PDF con dos palabras de la cita JUNTAS en el texto del PDF («totaldel ejercicio»)
+      documento (pdf): 'Partida sintetica de Historia!F6: -849697.000 totaldel ejercicio'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total del ejercicio' · cita: '849697.000 total del' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: -849697.000 totaldel ejercicio', 'Partida sintetica de Historia!F6: -849697.000 totaldel ejercicio'] · lectura de la cita en él: ['no_localizada', 'no_localizada']
+      -> comprobada    <<< COMPROBADA: el documento publica la cifra en negativo
+   4 HTML con un guion blando en una palabra de la cita («to&shy;tal»); texto conservado sin el menos
+      documento (html): 'Partida sintetica de Historia!F6: -849697.000 to&shy;tal'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: -849697.000 to\xadtal'] · lectura de la cita en él: ['no_localizada']
+      -> comprobada    <<< COMPROBADA: el documento publica la cifra en negativo
+   5 HTML con un espacio de ancho cero en una palabra de la cita
+      documento (html): 'Partida sintetica de Historia!F6: -849697.000 to&#8203;tal'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: -849697.000 to\u200btal'] · lectura de la cita en él: ['no_localizada']
+      -> comprobada    <<< COMPROBADA: el documento publica la cifra en negativo
+   6 control: lo mismo que 2 con el PDF en positivo (legítimo: la palabra partida no debería impedir la comprobación)
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.000 to tal'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      texto del documento: ['Partida sintetica de Historia!F6: 849697.000 to tal', 'Partida sintetica de Historia!F6: 849697.000 to tal'] · lectura de la cita en él: ['no_localizada', 'no_localizada']
+      -> comprobada 
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

@@ -1,0 +1,21 @@
+== A · modo XHTML decidido por el contenido
+   A1 .html con xmlns (XHTML 1.0 servido como HTML): <div hidden/> seguido del texto                                archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A2 .html con xmlns: <div style="display:none"/> seguido del texto                                                archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A3 .html con xmlns: <script src=x.js/> seguido del texto (en HTML el resto es contenido del script)              archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A4 .html que empieza por <?xml …?> (un navegador lo trata como comentario): <div hidden/>                        archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A5 .html con xmlns: <textarea/> seguido del texto                                                                archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A6 control: .html SIN xmlns: <div hidden/> (lo corrigió H7)                                                      archivo .html  navegador: oculta   anterior: ausente   tercera: ausente
+   A7 control: .xhtml con declaración XML y xmlns: <div hidden="hidden"/> vacío (en XML se cierra)                  archivo .xhtml navegador: visible  anterior: ausente   tercera: presente
+   A8 .xhtml SIN declaración XML y con el xmlns entre comillas simples: <script src=x.js/>                          archivo .xhtml navegador: visible  anterior: ausente   tercera: ausente   <<< se rechaza un texto que el navegador muestra
+   A9 .xhtml sin declaración y con el xmlns tras 5000 caracteres de DOCTYPE/comentario: <script src=x.js/>          archivo .xhtml navegador: visible  anterior: ausente   tercera: ausente   <<< se rechaza un texto que el navegador muestra
+   A10 .html que menciona el xmlns en un comentario (no es XHTML): <div hidden/>                                    archivo .html  navegador: oculta   anterior: ausente   tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   A11 XHTML verdadero (.xhtml): elemento NO vacío oculto y bien cerrado (control: sigue oculto)                    archivo .xhtml navegador: oculta   anterior: ausente   tercera: ausente
+
+== B · codificaciones declaradas
+   códecs de Python que la tercera admite y la anterior no: 26
+      en la lista WHATWG (los navegadores los leen): ['cp866', 'euc_kr', 'iso2022_jp']
+      fuera de la lista WHATWG: ['big5hkscs', 'cp424', 'cp437', 'cp850', 'cp852', 'cp855', 'cp857', 'cp858', 'cp860', 'cp861', 'cp862', 'cp863', 'cp864', 'cp865', 'cp869', 'euc_jis_2004', 'euc_jisx0213', 'iso2022_jp_1', 'iso2022_jp_2', 'iso2022_jp_2004', 'iso2022_jp_3', 'iso2022_jp_ext', 'iso2022_kr']
+      de ellos, no compatibles con ASCII (EBCDIC: los bytes ASCII del documento no son su texto): ['cp424']
+   B1 declara charset=cp875 (EBCDIC; no existe para un navegador) y la cita va codificada en EBCDIC                 archivo .html  navegador: oculta   anterior: pendiente tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
+   B2 declara charset=ibm850 (no está en la lista WHATWG; ASCII compatible: el texto se ve igual)                   archivo .html  navegador: visible  anterior: pendiente tercera: presente
+   B3 declara charset=iso-2022-kr (WHATWG: codificación de sustitución: el navegador no muestra el contenido)       archivo .html  navegador: oculta   anterior: pendiente tercera: presente   <<< SE ACEPTA un texto que el navegador no muestra (REGRESIÓN: la anterior lo rechazaba)
