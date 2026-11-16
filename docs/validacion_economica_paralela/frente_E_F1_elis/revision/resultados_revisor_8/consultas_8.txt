@@ -1,0 +1,341 @@
+Consultas de la revisión n.º 8 al barrido propio · C14 → C16
+
+== Q1. Aceptaciones nuevas (no OK en C14, OK en las seis dimensiones en C16): líneas y páginas ==
+  todas: 411 candidatas en 88 líneas de 49 páginas
+   341 · cifra de una fila de saldo: 76 líneas de 40 páginas
+    62 · año de la fecha del propio rótulo, en una fila de saldo: 62 líneas de 35 páginas
+     4 · año de la fecha en una línea que no es una fila de saldo: 4 líneas de 4 páginas
+     2 · día de la fecha del propio rótulo («31»), en una fila de saldo: 2 líneas de 2 páginas
+     2 · pestaña del capítulo («6») en una fila de saldo: 2 líneas de 2 páginas
+  cifras de filas de saldo, por publicación (candidatas · líneas · páginas): DEU2024FR: 60 · 15 · 8; URD2021: 72 · 16 · 8; URD2022: 62 · 14 · 7; URD2023: 75 · 15 · 9; URD2025: 72 · 16 · 8
+  cifras de filas de saldo: una candidata por token (cada cifra se acepta con un solo ejercicio): True
+  ejercicio aceptado frente al de la publicación (E): {'E': 163, 'E-1': 178}
+  años de la fecha en una fila de saldo: en líneas que además llevan cifras del saldo aceptadas: 54; en líneas sin ninguna cifra aceptada: 8
+    DEU2024FR p.334 l.32 · «2023» declarado 2023 · «Au 31 décembre 2023 · 1-6 mois · 6-12 mois · Plus d'un an · Total»
+    URD2021 p.231 l.37 · «2020» declarado 2020 · «DECEMBER 31, 2020»
+    URD2022 p.263 l.35 · «2021» declarado 2021 · «DECEMBER 31, 2021»
+    URD2022 p.323 l.32 · «2022» declarado 2022 · «As at December 31, 2022 · portion of the hedge · reserve before tax · no longer applied)»
+    URD2022 p.323 l.43 · «2021» declarado 2021 · «As at December 31, 2021 · portion of the hedge · reserve before tax · no longer applied)»
+    URD2023 p.317 l.46 · «2022» declarado 2022 · «NET CARRYING AMOUNT AS AT DECEMBER 31, 2022»
+    URD2023 p.319 l.33 · «2022» declarado 2022 · «NET CARRYING AMOUNT AS AT DECEMBER 31, 2022»
+    URD2025 p.329 l.35 · «2024» declarado 2024 · «DECEMBER 31, 2024»
+
+== Q2. Transiciones del estado de la fila (candidatas G, todas las páginas), por la dimensión que las causa ==
+  FALLO → OK: 10 (en páginas del grupo: 10)
+       10 · ejercicio F→O · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 6 · URD2021 p.230 (2), DEU2024FR p.274 (1), DEU2024FR p.295 (1), URD2022 p.262 (1), URD2022 p.323 (1), URD2023 p.280 (1) …
+  FALLO → PENDIENTE: 271 (en páginas del grupo: 181)
+      172 · ejercicio F→O · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2025 p.360 (22), URD2023 p.312 (19), URD2023 p.369 (19), URD2025 p.417 (18), DEU2024FR p.306 (17), DEU2024FR p.361 (17) …
+       99 · ejercicio F→P · sin la regla de la fila · en las diez páginas del estado de cambios en el patrimonio: 96 · DEU2024FR p.274 (12), DEU2024FR p.275 (12), URD2022 p.263 (12), URD2025 p.329 (12), URD2022 p.262 (11), URD2023 p.280 (11) …
+  OK → FALLO: 10 (en páginas del grupo: 10)
+        6 · ejercicio O→F · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 2 · DEU2024FR p.274 (1), DEU2024FR p.275 (1), DEU2024FR p.295 (1), URD2022 p.323 (1), URD2023 p.317 (1), URD2023 p.319 (1)
+        4 · perimetro O→F · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2022 p.298 (2), URD2023 p.261 (2)
+  OK → PENDIENTE: 37 (en páginas del grupo: 37)
+       37 · ejercicio O→P · sin la regla de la fila · en las diez páginas del estado de cambios en el patrimonio: 37 · URD2022 p.262 (11), URD2025 p.328 (11), URD2025 p.329 (11), URD2021 p.230 (2), DEU2024FR p.274 (1), DEU2024FR p.275 (1)
+  PENDIENTE → FALLO: 1072 (en páginas del grupo: 880)
+     1012 · ejercicio P→F · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 281 · URD2021 p.231 (52), URD2023 p.281 (37), URD2022 p.263 (27), URD2025 p.329 (27), URD2022 p.262 (26), DEU2024FR p.275 (25) …
+       26 · unidad P→F · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2023 p.184 (4), URD2021 p.100 (2), URD2021 p.144 (2), URD2022 p.96 (2), URD2022 p.180 (2), URD2023 p.120 (2) …
+       16 · perimetro O→F · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2023 p.261 (10), DEU2024FR p.253 (2), URD2022 p.243 (2), URD2022 p.298 (2)
+       12 · ejercicio P→F · sin la regla de la fila · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2025 p.283 (6), URD2021 p.139 (4), URD2023 p.385 (1), URD2025 p.439 (1)
+        6 · ejercicio O→F · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 0 · URD2025 p.417 (3), URD2021 p.288 (1), URD2021 p.312 (1), URD2023 p.312 (1)
+  PENDIENTE → OK: 401 (en páginas del grupo: 401)
+      401 · ejercicio P→O · regla de la fila con fecha · en las diez páginas del estado de cambios en el patrimonio: 123 · URD2022 p.262 (25), URD2021 p.230 (24), URD2023 p.280 (24), URD2025 p.328 (24), DEU2024FR p.312 (12), DEU2024FR p.313 (12) …
+
+== Q3. Cambios de «ejercicio» que no vienen de la regla de la fila con fecha ==
+  cambios de «ejercicio»: 3035; por la regla de la fila con fecha: 2772; los demás: 263
+  de los demás, en las diez páginas del estado de cambios en el patrimonio: 229; transiciones: {'F→P': 192, 'O→P': 37}; fila OK en C16: 0
+  en otras páginas: 34 (en páginas del grupo: 5); fila OK en C16: 0; fila OK en C14: 0
+    URD2021 p.139 l.37 g=0 · {'P→F': 6, 'P→O': 2} · «CO2 emissions per ton of linen delivered · 310 · 319 · 294»
+    URD2021 p.245 l.17 g=1 · {'P→O': 1} · «2.7 · Impact of the Covid-19 pandemic»
+    URD2022 p.3 l.72 g=1 · {'F→P': 3} · «8.2 · Statutory Auditors · 378»
+    URD2022 p.278 l.23 g=1 · {'P→O': 1} · «2.7 · Military conflict between Ukraine and Russia»
+    URD2023 p.385 l.66 g=0 · {'P→O': 1, 'P→F': 2} · «this Universal Registration Document, Note 5.4 to the 2023»
+    URD2025 p.260 l.42 g=0 · {'O→P': 1, 'F→P': 2} · «102–51 · Date of most recent report published, where applicable · 2024»
+    URD2025 p.283 l.17 g=0 · {'P→F': 6, 'P→O': 3} · «and 2025 (European laundries)(b) · -46% · -48% · -49%»
+    URD2025 p.283 l.19 g=0 · {'P→F': 3} · «% reduction in water consumption per kg of linen delivered between 2018»
+    URD2025 p.439 l.66 g=0 · {'P→O': 1, 'P→F': 2} · «this Universal Registration Document, Note 5.4 to the 2025»
+
+== Q4. La regla de la fila con fecha frente a una cabecera con columnas de ejercicio que C14 reconocía ==
+  (líneas en las que la regla da el ejercicio y C14 decidía el «ejercicio» por una columna reconocida: OK o FALLO en C14)
+  líneas: 103 (en páginas del grupo: 53); por clase: {'otra (prosa, título, sumario o cabecera)': 22, 'fila de saldo': 21, 'recuento o dato con fecha (planes de acciones, capital, autocartera)': 60}
+  candidatas: {'F→O': 216, 'F→F': 512, 'O→F': 25, 'O→O': 37}
+    DEU2024FR p.66 l.33 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Principaux mandats et fonctions au 31 décembre 2024»
+    DEU2024FR p.67 l.34 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Principaux mandats et fonctions au 31 décembre 2024»
+    DEU2024FR p.84 l.38 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Principaux mandats et fonctions au 31 décembre 2024»
+    DEU2024FR p.86 l.39 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Principaux mandats et fonctions au 31 décembre 2024»
+    DEU2024FR p.88 l.39 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Principaux mandats et fonctions au 31 décembre 2024»
+    DEU2024FR p.274 l.17 g=1 · fila de saldo · {'O→F': 1, 'F→O': 1, 'F→F': 1} · «2023, retraité* · 234,0 2 477,7 · (0,7) · (2,4) · (9,5) · (335,8) · 35,3 · 23,4 · 1 053,3 3 475,2 · 0,7 3»
+    DEU2024FR p.275 l.17 g=1 · fila de saldo · {'F→F': 1, 'O→F': 1, 'F→O': 1} · «2022 · 230,1 2 440,9 · (1,7) · (3,6) · 6,8 · (404,5) · 54,2 · 23,0 · 866,2 3 211,5 · 0,8 3 212,3»
+    DEU2024FR p.295 l.56 g=1 · fila de saldo · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «AU 31 DÉCEMBRE 2024 · (53,4)»
+    DEU2024FR p.306 l.45 g=1 · recuento o dato con fecha · {'F→O': 5, 'F→F': 10} · «au 31/12/2024 · 0 · 26 718 · 0 · 5 308 · 0 · 0»
+    DEU2024FR p.306 l.47 g=1 · recuento o dato con fecha · {'F→O': 6, 'F→F': 12} · «au 31/12/2024 · 500 500 · 1 225 276 · 6 559 · 984 732 · 29 250 · 16 730»
+    DEU2024FR p.306 l.55 g=1 · recuento o dato con fecha · {'F→O': 6, 'F→F': 12} · «au 31/12/2024 · 10 · 487 · 4 · 468 · 18 · 1»
+    DEU2024FR p.339 l.32 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1} · «Nombre d'actions au 1er janvier 2023 · 230 147 257»
+    DEU2024FR p.339 l.33 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1, 'O→F': 1} · «NOMBRE D'ACTIONS AU 31 DÉCEMBRE 2023 · 234 000 047»
+    DEU2024FR p.339 l.34 g=1 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NOMBRE D'ACTIONS AU 31 DÉCEMBRE 2024 · 236 664 445»
+    DEU2024FR p.361 l.56 g=0 · recuento o dato con fecha · {'F→O': 5, 'F→F': 10} · «au 31/12/2024 · 0 · 26 718 · 0 · 5 308 · 0 · 0»
+    DEU2024FR p.361 l.58 g=0 · recuento o dato con fecha · {'F→O': 6, 'F→F': 12} · «au 31/12/2024 · 500 500 · 1 225 276 · 6 559 · 984 732 · 29 250 · 16 730»
+    DEU2024FR p.361 l.66 g=0 · recuento o dato con fecha · {'F→O': 6, 'F→F': 12} · «au 31/12/2024 · 10 · 487 · 4 · 468 · 18 · 1»
+    DEU2024FR p.381 l.30 g=0 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «Capital auto-détenu de manière directe ou indirecte au 31 décembre 2024 · 184 855(b)»
+    DEU2024FR p.381 l.31 g=0 · recuento o dato con fecha · {'F→F': 2} · «Pourcentage de capital auto-détenu de manière directe ou indirecte au 31 décembre 2024 · 0,08%»
+    DEU2024FR p.381 l.32 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 2} · «Valeur nominale du portefeuille au 31 décembre 2024(c) (en euros) · 184 855»
+    URD2021 p.60 l.32 g=0 · otra · {'F→O': 1, 'F→F': 1} · «Main offices and positions held as at December 31, 2021»
+    URD2021 p.64 l.35 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2021»
+    URD2021 p.64 l.70 g=0 · otra · {'O→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2021»
+    URD2021 p.65 l.68 g=0 · otra · {'O→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2021»
+    URD2021 p.66 l.32 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2021»
+    URD2021 p.230 l.16 g=1 · fila de saldo · {'F→O': 2, 'F→F': 2} · «31, 2020 restated (a) · 221.8 2,575.6 · (11.2) · (2.1) · 1.2 · (409.8) · 37.8 · 6.8 · 387.6 2,807.7 · 0.6»
+    URD2021 p.230 l.35 g=1 · fila de saldo · {'F→F': 4} · «DECEMBER, 31 2021 · 224.1 2,531.6 · (1.6) · 2.2 · 1.3 · (380.0) · 37.8 · 16.0 · 581.5 3,013.1 · 0.7 3,013»
+    URD2021 p.231 l.16 g=1 · fila de saldo · {'F→F': 1, 'F→O': 1} · «December 31, 2019 · 221.3 2,646.4 · (10.1) · (1.6) · 0.6 · (235.8) · 37.8 · 6.8 · 290.3 2,955.7 · 0.8 2,9»
+    URD2021 p.231 l.19 g=1 · fila de saldo · {'F→F': 1, 'F→O': 1} · «January 1, 2020 · 221.3 2,646.4 · (10.1) · (1.6) · 0.6 · (235.8) · 37.8 · 6.8 · 291.8 2,957.2 · 0.8 2,958»
+    URD2021 p.261 l.44 g=1 · recuento o dato con fecha · {'F→O': 4, 'F→F': 11, 'O→O': 1} · «Rights vested as at 12/31/2021 · 255,798 · 932,838 · 7,286 · 0 · 0 · 0 · 0(g)»
+    URD2021 p.261 l.46 g=1 · recuento o dato con fecha · {'F→O': 4, 'F→F': 11, 'O→O': 1} · «as at 12/31/2021 · 569,799 · 152,529 · 2,732 · 118,329 · 35,002 · 3,569»
+    URD2021 p.261 l.47 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 10, 'F→O': 4} · «Number of rights outstanding as at 12/31/2021 · - · 391,839 · - · 1,983,433 · 19,350 · 1,382,196 · 21,794»
+    URD2021 p.288 l.46 g=1 · fila de saldo · {'O→F': 1, 'F→O': 1, 'F→F': 1} · «As at December 31, 2020 · portion of the hedge · before tax · accounting no longer applied)»
+    URD2021 p.291 l.52 g=1 · recuento o dato con fecha · {'O→F': 1, 'F→F': 1, 'F→O': 1} · «Number of shares as at January 1, 2020 · 221,297,797»
+    URD2021 p.291 l.53 g=1 · recuento o dato con fecha · {'F→F': 2, 'F→O': 2} · «Number of shares as at December 31, 2020 · 221,819,430»
+    URD2021 p.291 l.54 g=1 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 3} · «NUMBER OF SHARES AS AT DECEMBER 31, 2021 · 224,076,007»
+    URD2021 p.312 l.61 g=0 · recuento o dato con fecha · {'F→O': 4, 'O→F': 1, 'F→F': 11, 'O→O': 1} · «or forfeited as at 12/31/2021 · 569,799 · 152,529 · 2,732 · 118,329 · - · 35,002 · 3,569»
+    URD2021 p.312 l.63 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 10, 'F→O': 4} · «as at 12/31/2021 · - · 391,839 · - · 1,983,433 · 19,350 · 1,382,196 · 21,794»
+    URD2021 p.331 l.31 g=0 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «Treasury shares held directly or indirectly as at December 31, 2021 · 117,289(b)»
+    URD2021 p.331 l.32 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 2} · «Percentage of treasury shares held directly or indirectly as at December 31, 2021 · 0.05»
+    URD2022 p.73 l.35 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2022»
+    URD2022 p.77 l.34 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2022»
+    URD2022 p.262 l.16 g=1 · fila de saldo · {'F→O': 1, 'F→F': 1} · «31, 2021 restated(a) · 224.1 2531.6 · (1.6) · 2.2 · 1.3 · (380.1) · 37.8 · 16.0 · 581.5 3,013.0 · 0.7 3,0»
+    URD2022 p.262 l.36 g=1 · fila de saldo · {'F→F': 2} · «DECEMBER, 31 2022 · 230.1 2440.9 · (1.7) · (3.6) · 6.8 · (404.6) · 54.2 · 23.0 · 868.2 · 3,213.4 · 0.8 · »
+    URD2022 p.263 l.16 g=1 · fila de saldo · {'F→F': 1, 'F→O': 1} · «31, 2020 · 221.8 2,575.6 · (11.2) · (2.1) · 1.2 · (409.8) · 37.8 · 6.8 · 387.6 2,807.7 · 0.6 2,808.3»
+    URD2022 p.294 l.51 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 14, 'F→O': 5} · «or forfeited as at 12/31/2022 · - · 186,469 · 3,100 · 109,449 · 4,542 · 36,987 · 0 · 1,825»
+    URD2022 p.294 l.53 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 12, 'F→O': 5} · «as at 12/31/2022 · - · 548,801 · - · 1,307,749 · 20,821 · 1,050,024 · 500,500 · 307,749»
+    URD2022 p.294 l.61 g=1 · recuento o dato con fecha · {'F→O': 6, 'F→F': 15} · «as at 12/31/2022 · 402 · 457 · 20 · 470 · 14 · 500 · 11 · 221»
+    URD2022 p.323 l.43 g=1 · fila de saldo · {'O→F': 1, 'F→O': 1, 'F→F': 1} · «As at December 31, 2021 · portion of the hedge · reserve before tax · no longer applied)»
+    URD2022 p.328 l.31 g=1 · recuento o dato con fecha · {'F→F': 2, 'F→O': 1} · «Number of shares as at January 1, 2021 · 221,819,430»
+    URD2022 p.328 l.32 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1} · «Number of shares as at December 31, 2021 · 224,076,007»
+    URD2022 p.328 l.33 g=1 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NUMBER OF SHARES AS AT DECEMBER 31, 2022 · 230,147,257»
+    URD2022 p.350 l.41 g=0 · recuento o dato con fecha · {'F→O': 4, 'F→F': 13} · «Rights vested as at 12/31/2022 · 1,193,750 · 1,366,492 · 16,250 · 0 · 0 · 0 · 0 · 0(g)»
+    URD2022 p.350 l.44 g=0 · recuento o dato con fecha · {'O→O': 2, 'F→F': 12, 'F→O': 4} · «Number of rights outstanding · - · 548,801 · - · 1,307,749 · 20,821 · 1,050,024 · 500,500 · 307,749»
+    URD2022 p.350 l.46 g=0 · recuento o dato con fecha · {'O→O': 2, 'F→F': 6, 'F→O': 1} · «› of which members of the Executive · - · 548,801 · - · 423,596 · - · - · 500,500 · -»
+    URD2022 p.350 l.54 g=0 · recuento o dato con fecha · {'F→O': 2, 'F→F': 7} · «› of which members of the Executive · 9 · 10 · - · 10 · - · - · 11 · -»
+    URD2022 p.369 l.31 g=0 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «Treasury shares held directly or indirectly as at December 31, 2022 · 133,775(b)»
+    URD2022 p.369 l.32 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 2} · «Percentage of treasury shares held directly or indirectly as at December 31, 2022 · 0.058»
+    URD2023 p.60 l.33 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2023»
+    URD2023 p.70 l.36 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2023»
+    URD2023 p.77 l.37 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2023»
+    URD2023 p.82 l.34 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2023»
+    URD2023 p.280 l.15 g=1 · fila de saldo · {'F→O': 1, 'F→F': 1} · «31, 2022, restated* · 230.1 · 2,440.9 · (1.7) · (3.6) · 6.8 · (404.5) · 54.2 · 23.0 · 866.2 3,211.5 · 0.8»
+    URD2023 p.280 l.33 g=1 · fila de saldo · {'F→F': 2} · «DECEMBER 31, 2023 · 234.0 · 2,477.7 · (0.7) · (2.4) · (9.5) · (335.8) · 35.3 · 23.4 · 1,053.8 3,475.7 · 0»
+    URD2023 p.281 l.15 g=1 · fila de saldo · {'F→F': 1, 'F→O': 1} · «December 31, 2021 · 224.1 · 2,531.6 · (1.6) · 2.2 · 1.3 · (380.1) · 37.8 · 16.0 · 581.5 3,013.0 · 0.7 3,0»
+    URD2023 p.281 l.34 g=1 · fila de saldo · {'F→F': 2} · «31, 2022, RESTATED* · 230.1 · 2,440.9 · (1.7) · (3.6) · 6.8 · (404.5) · 54.2 · 23.0 · 866.2 3,211.5 · 0.8»
+    URD2023 p.312 l.48 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 10, 'F→O': 4} · «Rights vested as at 12/31/2023 · 576,867 · 1,517 · 0 · 0 · 0 · 0(f)»
+    URD2023 p.312 l.50 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 11, 'F→O': 5, 'O→F': 1} · «as at 12/31/2023 · 416,735 · 100,716 · 0 · 13,643 · 10,129 · 0»
+    URD2023 p.312 l.52 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 12, 'F→O': 5} · «as at 12/31/2023 · 423,596 · 983,640 · 500,500 · 295,931 · 1,241,865 · 6,559»
+    URD2023 p.312 l.61 g=1 · recuento o dato con fecha · {'F→F': 12, 'F→O': 5} · «as at 12/31/2023 · 434 · 462 · 11 · 210 · 504 · 4»
+    URD2023 p.317 l.57 g=1 · fila de saldo · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NET CARRYING AMOUNT AS AT DECEMBER 31, 2023 · 212.1 · 402.3 · 80.7 · 695.1»
+    URD2023 p.319 l.44 g=1 · fila de saldo · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NET CARRYING AMOUNT AS AT DECEMBER 31, 2023 · 612.1 · 14.4 · 628.8 · 955.5 · 2,210.8»
+    URD2023 p.347 l.32 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1} · «Number of shares as at January 1, 2022 · 224,076,007»
+    URD2023 p.347 l.33 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1} · «Number of shares as at December 31, 2022 · 230,147,257»
+    URD2023 p.347 l.34 g=1 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NUMBER OF SHARES AS AT DECEMBER 31, 2023 · 234,000,047»
+    URD2023 p.369 l.50 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 10, 'F→O': 4} · «Rights vested as at 12/31/2023 · 576,867 · 1,517 · 0 · 0 · 0 · 0(f)»
+    URD2023 p.369 l.52 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 12, 'F→O': 5} · «as at 12/31/2023 · 416,735 · 100,716 · 0 · 13,643 · 10,129 · 0»
+    URD2023 p.369 l.54 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 12, 'F→O': 5} · «as at 12/31/2023 · 423,596 · 983,640 · 500,500 · 295,931 · 1,241,865 · 6,559»
+    URD2023 p.369 l.63 g=0 · recuento o dato con fecha · {'F→F': 12, 'F→O': 5} · «as at 12/31/2023 · 434 · 462 · 11 · 210 · 504 · 4»
+    URD2023 p.387 l.46 g=0 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «Treasury shares held directly or indirectly as at December 31, 2023 · 63,755(b)»
+    URD2023 p.387 l.47 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 2} · «Percentage of treasury shares held directly or indirectly as at December 31, 2023 · 0.00027»
+    URD2025 p.67 l.33 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.68 l.36 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.76 l.37 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.78 l.35 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.84 l.38 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.87 l.35 g=0 · otra · {'F→O': 1, 'F→F': 2} · «Main offices and positions held as at December 31, 2025»
+    URD2025 p.328 l.15 g=1 · fila de saldo · {'F→O': 1, 'F→F': 1} · «31, 2024, restated* · 236.7 2,485.2 · (2.7) · 3.3 · (17.9) · (468.9) · 35.3 · 23.7 1,303.5 3,598.1 · 0.0 »
+    URD2025 p.328 l.35 g=1 · fila de saldo · {'F→F': 2} · «DECEMBER 31, 2025 · 232.8 2,395.1 · (12.7) · (2.3) · (5.1) · (441.4) · 35.3 · 23.3 1,587.4 3,812.5 · 0.0 »
+    URD2025 p.329 l.15 g=1 · fila de saldo · {'F→F': 1, 'F→O': 1} · «31, 2023 · 234.0 2,477.7 · (0.7) · (2.4) · (9.5) · (335.8) · 35.3 · 23.4 · 1,053.3 3,475.2 · 0.7 3,475.9»
+    URD2025 p.360 l.48 g=1 · recuento o dato con fecha · {'O→O': 2, 'F→F': 11, 'F→O': 4, 'O→F': 1} · «Rights vested as at 12/31/2025 · 600,600 · 924,669 · 7,869 · 0 · 0 · 0 · 0(d) · 0(d)»
+    URD2025 p.360 l.50 g=1 · recuento o dato con fecha · {'O→O': 3, 'F→F': 8} · «as at 12/31/2025 · 100,100(e) · 154,120(e) · 1,310(e) · 0 · 0 · 0 · 0 · 0»
+    URD2025 p.360 l.52 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 14, 'F→O': 6} · «as at 12/31/2025 · 0 · 92,485 · 0 · 35,701 · 0 · 0 · 6,827 · 0»
+    URD2025 p.360 l.54 g=1 · recuento o dato con fecha · {'O→O': 1, 'F→F': 14, 'F→O': 6} · «as at 12/31/2025 · 0 · 388,960 · 0 · 954,339 · 29,250 · 16,730 · 1,207,746 · 16,880»
+    URD2025 p.360 l.61 g=1 · recuento o dato con fecha · {'F→F': 16, 'F→O': 6} · «as at 12/31/2025 · 10 · 10 · 4 · 453 · 18 · 1 · 582 · 25»
+    URD2025 p.394 l.56 g=1 · recuento o dato con fecha · {'F→F': 1, 'F→O': 1} · «NUMBER OF SHARES AS AT DECEMBER 31, 2024 · 236,664,445»
+    URD2025 p.394 l.57 g=1 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «NUMBER OF SHARES AS AT DECEMBER 31, 2025 · 232,848,588»
+    URD2025 p.417 l.50 g=0 · recuento o dato con fecha · {'O→O': 3, 'F→F': 10} · «as at 12/31/2025 · 100,100(e) · 154,120(e) · 1,310(e) · 0 · 0 · 0 · 0 · 0»
+    URD2025 p.417 l.52 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 13, 'F→O': 6, 'O→F': 1} · «as at 12/31/2025 · 0 · 92,485 · 0 · 35,701 · 0 · 0 · 6,827 · 0»
+    URD2025 p.417 l.54 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 13, 'F→O': 6, 'O→F': 1} · «as at 12/31/2025 · 0 · 388,960 · 0 · 954,339 · 29,250 · 16,730 · 1,207,746 · 16,880»
+    URD2025 p.417 l.61 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 15, 'F→O': 6, 'O→F': 1} · «as at 12/31/2025 · 10 · 10 · 4 · 453 · 18 · 1 · 582 · 25»
+    URD2025 p.441 l.30 g=0 · recuento o dato con fecha · {'F→O': 1, 'O→F': 1, 'F→F': 1} · «Treasury shares held directly or indirectly as at December 31, 2025 · 371,778(b)»
+    URD2025 p.441 l.31 g=0 · recuento o dato con fecha · {'O→O': 1, 'F→F': 2} · «Percentage of treasury shares held directly or indirectly as at December 31, 2025 · 0.001%»
+
+== Q5. Líneas en que la regla se dispara y que no son filas de saldo ni recuentos con fecha, por tipo ==
+  líneas: 127 (en páginas del grupo: 28)
+    10 · continuación del título del estado de cambios en el patrimonio · grupo
+     6 · entrada de sumario («as at December 31, AAAA · página») · grupo
+    81 · epígrafe «Main offices and positions held as at…» / «Principaux mandats et fonctions au…» · no grupo
+    12 · otra línea de prosa, de título o de cabecera · grupo
+    13 · otra línea de prosa, de título o de cabecera · no grupo
+     5 · título «Status as at…» / «Situation au…» · no grupo
+
+== Q6. S2: líneas de las páginas del grupo en las que `rotulos_sin_rotulo` devuelve algún rótulo y hay dos tokens o más ==
+  líneas con rótulos contiguos en páginas del grupo: 327; con un solo token: 294; con dos o más: 33
+  de las de dos o más, con algún estado distinto entre C14 y C16 (candidatas G): 3: DEU2024FR p.275 l.17 «2022 · 230,1 2 440,9 · (1,7) · (3,6) · 6,8 · (404,»; URD2022 p.3 l.72 «8.2 · Statutory Auditors · 378»; URD2023 p.261 l.41 «599.2 · 580.7 · 8.5% · 0.3% · -5.5% · 3.2%»
+    DEU2024FR p.275 l.17 · «2022 · 230,1 2 440,9 · (1,7) · (3,6) · 6,8 · (404,5) · 54,2 · 23,0 · 8» · rótulos contiguos: ['Augmentations de capital', 'Solde au 31 décembre', 'Solde au 31 décembre Augmentations de ca']
+    DEU2024FR p.282 l.9 · «5 · IFRS 3» · rótulos contiguos: ['IFRS 3 variation entre la']
+    DEU2024FR p.306 l.53 · «− Matthieu Lecharny · 39 914 · 32 883 · 0 · 27 014 · 0 · 0» · rótulos contiguos: ['Nombre de bénéficiaires en activité']
+    DEU2024FR p.315 l.29 · «2023 (approximation) · 10,7% · 10,2% · 19,4% · 9,6% · 11,4% · 11,4% · » · rótulos contiguos: ["Taux d'actualisation avant impôt"]
+    DEU2024FR p.323 l.11 · «2025 · 2026 · 2027-2029 · 2030 et au-delà · 31/12/2024» · rótulos contiguos: ['Coût', 'comptable Coût']
+    URD2021 p.3 l.38 · «7.1 · Information about the Company · 324 · des marchés financiers – A» · rótulos contiguos: ['2022 with the French Financial Markets A']
+    URD2021 p.3 l.39 · «7.2 · Share capital and share ownership AFR · 324 · authority under Re» · rótulos contiguos: ['approval, in accordance with Article 9 o']
+    URD2021 p.3 l.41 · «7.3 · Trading of shares · 334» · rótulos contiguos: ['approval, in accordance with Article 9 o']
+    URD2021 p.3 l.43 · «7.5 · Provisional financial communications calendar · 335 · purpose of» · rótulos contiguos: ['of securities to trading on a regulated ']
+    URD2021 p.3 l.45 · «7.6 · Material agreements · 335» · rótulos contiguos: ['supplemented by a transaction note and, ', 'of securities to trading on a regulated ', 'of securities to trading on a regulated ']
+    URD2021 p.3 l.61 · «8.1 · Persons responsible AFR · 340 · relating to the 2020 financial y» · rótulos contiguos: ['• the consolidated financial statements ']
+    URD2021 p.3 l.63 · «8.3 · Cross-reference tables · 341 · the 2020 Universal Registration D» · rótulos contiguos: ["the Company's website: https://fr.elis.c", "the Company's website: https://fr.elis.c", "the Company's website: https://fr.elis.c"]
+    URD2021 p.238 l.9 · «6 · IFRS 3» · rótulos contiguos: ['IFRS 3 change', 'IFRS 3 change between the']
+    URD2021 p.260 l.9 · «6 · Discount rate: -0.5% impact · 8.0%» · rótulos contiguos: ['Switzerland', 'Sensitivity Switzerland']
+    URD2021 p.289 l.25 · «– USPP · 35.7 · - · 1.5 · see Note 8.7 · - · 1.2 · - · (3.0) · (losses» · rótulos contiguos: ['Interest rate risk', 'Interest rate risk “Other non-current', 'Interest rate risk “Other non-current as']
+    URD2022 p.3 l.7 · «5.2 Group results AFR · 241 · Registration Document · 379» · rótulos contiguos: ['for the Universal']
+    URD2022 p.3 l.47 · «7.1 · Information about the Company · 362 · without prior approval, in» · rótulos contiguos: ['Regulation.']
+    URD2022 p.3 l.49 · «7.2 · Share capital and share ownership AFR · 362» · rótulos contiguos: ['The Universal Registration Document may ', 'Regulation.', 'Regulation. The Universal Registration D']
+    URD2022 p.3 l.51 · «7.3 · Trading of shares · 372 · purpose of a public offering of securi» · rótulos contiguos: ['The Universal Registration Document may ']
+    URD2022 p.3 l.70 · «8.1 · Persons responsible AFR · 378 · Company's website: https://fr.el» · rótulos contiguos: ['2023/02/15/Elis_URD_2021_EN.pdf', '2021 Universal Registration Document, av', '2021 Universal Registration Document, av', "Auditors' report appearing in sections 6", "Auditors' report appearing in sections 6", 'relating to the 2021 financial year and ', 'relating to the 2021 financial year and ']
+    URD2022 p.3 l.72 · «8.2 · Statutory Auditors · 378» · rótulos contiguos: ['2023/02/15/Elis_URD_2021_EN.pdf']
+    URD2022 p.3 l.73 · «8.3 · Cross-reference tables · 379 · • the consolidated financial stat» · rótulos contiguos: ['relating to the 2020 financial year and ', 'relating to the 2020 financial year and ', 'relating to the 2020 financial year and ']
+    URD2022 p.270 l.9 · «6 · IFRS 3» · rótulos contiguos: ['appropriation as']
+    URD2022 p.294 l.59 · «− Matthieu Lecharny · - · 46,041 · 35,537 · 39,914» · rótulos contiguos: ['Number of working beneficiaries']
+    URD2022 p.310 l.8 · «6 · 8.1 · Financial risk management» · rótulos contiguos: ['the Key Accounts Department, which handl']
+    URD2023 p.261 l.41 · «599.2 · 580.7 · 8.5% · 0.3% · -5.5% · 3.2%» · rótulos contiguos: ['Europe', 'Europe United Kingdom and', 'Scandinavia and Eastern', 'Scandinavia and Eastern Europe', 'Scandinavia and Eastern Europe United Ki']
+    URD2023 p.290 l.8 · «6 · 2.1 · Basis of consolidation» · rótulos contiguos: ['Net income or loss and each component of']
+    URD2023 p.312 l.59 · «− Matthieu Lecharny · 35,537 · 39,914 · 32,883» · rótulos contiguos: ['Number of working beneficiaries']
+    URD2025 p.305 l.3 · «4.1 · HIGHLIGHTS OF THE 2025 FINANCIAL YEAR AFR · 304» · rótulos contiguos: ['2025 financial year', 'Comments on the 2025 financial year']
+    URD2025 p.336 l.9 · «5 · IFRS 3» · rótulos contiguos: ['appropriation']
+    URD2025 p.338 l.8 · «5 · 2.1 · Basis of consolidation» · rótulos contiguos: ['Net income or loss and each component of']
+    URD2025 p.360 l.31 · «0 · 3 · (a)» · rótulos contiguos: ['3 (a)']
+    URD2025 p.360 l.59 · «− Matthieu Lecharny · 0 · 32,883 · 0 · 27,014 · 0 · 0 · 33,488 · 0» · rótulos contiguos: ['Number of working beneficiaries']
+
+== Q7. S3: cambios de «unidad» entre C14 y C16 ==
+  candidatas: 39 en 12 líneas (en páginas del grupo: 0); transición de la fila: {'PENDIENTE → FALLO': 26, 'FALLO → FALLO': 13}
+    URD2021 p.100 l.9 · token «2» · «2 · Number of» · la línea «Number of» es un recuento, un importe por acción o un margen, no millones de euros
+    URD2021 p.144 l.10 · token «3» · «3 · Engaging our employees» · la línea «Engaging our employees» es un recuento, un importe por acción o un margen, no millones de euros
+    URD2022 p.96 l.10 · token «2» · «2 · involving employees in the Company's performance by awarding» · la línea «involving employees in the Company's performance by awarding» es un recuento, un importe por acción 
+    URD2022 p.180 l.11 · token «3» · «3 · Group enables it to ensure that its employees are informed of the» · la línea «Group enables it to ensure that its employees are informed of the» es un recuento, un importe por ac
+    URD2023 p.120 l.9 · token «2» · «2 · Number of» · la línea «Number of» es un recuento, un importe por acción o un margen, no millones de euros
+    URD2023 p.140 l.10 · token «3» · «3 · and educate employees about sustainability topics or» · la línea «and educate employees about sustainability topics or» es un recuento, un importe por acción o un mar
+    URD2023 p.184 l.9 · token «3» · «3 · Reducing the frequency of Group employees' accidents by 50% between 2019 and» · la línea «Reducing the frequency of Group employees' accidents by 50% between 2019 and 2025» es un recuento, u
+    URD2023 p.184 l.9 · token «2025» · «3 · Reducing the frequency of Group employees' accidents by 50% between 2019 and» · la línea «Reducing the frequency of Group employees' accidents by 50% between 2019 and 2025» es un recuento, u
+    URD2023 p.194 l.11 · token «3» · «3 · Group enables it to ensure that its employees are informed of the» · la línea «Group enables it to ensure that its employees are informed of the» es un recuento, un importe por ac
+    URD2023 p.198 l.10 · token «3» · «3 · In order to adapt the results for local use, all Group employees» · la línea «In order to adapt the results for local use, all Group employees» es un recuento, un importe por acc
+    URD2025 p.108 l.10 · token «2» · «2 · The number of shares that have vested permanently at the end of» · la línea «The number of shares that have vested permanently at the end of» es un recuento, un importe por acci
+    URD2025 p.226 l.10 · token «3» · «3 · the “Elis for All” plan, which allows employees to subscribe to Elis» · la línea «the “Elis for All” plan, which allows employees to subscribe to Elis» es un recuento, un importe por
+    URD2025 p.228 l.12 · token «3» · «3 · interviews allow the Group to demonstrate to employees not only · developed » · la línea «interviews allow the Group to demonstrate to employees not only» es un recuento, un importe por acci
+
+== Q8. S7 d: el epígrafe de las marcas en las cinco publicaciones (perímetro en C16 de cada línea con cifras, declarada del grupo) ==
+  DEU2024FR p.317, desde la línea 56 «Sensibilité des tests pour les marques non amorties»
+      l.56 · (sin cifras) · «Sensibilité des tests pour les marques non amorties»
+      l.57 · (sin cifras) · «Les hypothèses retenues dans le cadre des tests de perte de valeur réalisés selon la méthode des flu»
+      l.59 · (sin cifras) · «Elis · Le Jacquard Français · Kennedy Hygiene»
+      l.60 · (sin cifras) · «31/12/2024 · 31/12/2023 · 31/12/2024 · 31/12/2023 · 31/12/2024 · 31/12/2023»
+      l.61 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Taux d'actualisation · 9,3% · 9,0% · 9,3% · 9,0% · 10,3% · 9,6%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.62 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Taux de croissance à l'infini · 2,0% · 2,0% · 2,0% · 2,0% · 2,0% · 2,0» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.63 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Taux de redevance · 1,0% · 1,0% · 4,0% · 4,0% · 2,0% · 2,0%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.65 · (sin cifras) · «La sensibilité de l'excédent de la valeur recouvrable par rapport à la valeur comptable de la marque»
+      l.67 · (sin cifras) · «Taux de croissance à l'infini»
+      l.68 · (sin cifras) · «Marque Elis»
+      l.69 · 5 tokens · perímetro {'P': 15} · fila {'FALLO': 10, 'PENDIENTE': 5} · «(en millions d'euros) · 1,0% · 1,5% · 2,0% · 2,5% · 3,0%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.70 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «Taux d'actualisation · 8,3% · 342,3 · 379,7 · 423,2 · 474,8 · 536,7»
+      l.71 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «8,8% · 306,6 · 338,7 · 375,8 · 419,0 · 470,3»
+      l.72 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9,3% · 275,3 · 303,2 · 335,1 · 371,9 · 414,9»
+      l.73 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9,8% · 247,7 · 272,2 · 299,9 · 331,5 · 368,1»
+      l.74 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «10,3% · 223,2 · 244,8 · 269,1 · 296,6 · 328,0»
+      l.79 · (sin cifras) · «Elis | Document d'enregistrement universel 2024 | 315»
+  URD2021 p.272, desde la línea 19 «Sensitivity of tests for unamortized brands»
+      l.19 · (sin cifras) · «Sensitivity of tests for unamortized brands»
+      l.20 · (sin cifras) · «The assumptions used in impairment tests performed using the relief from royalty method are as follo»
+      l.22 · (sin cifras) · «Le Jacquard»
+      l.23 · (sin cifras) · «Elis · Français · Kennedy»
+      l.24 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Discount rate · 7.7% · 7.7% · 8.1%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Switzerland»
+      l.25 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Perpetual growth rate · 2.0% · 2.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Switzerland»
+      l.26 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Royalty rate · 1.0% · 4.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Switzerland»
+      l.28 · (sin cifras) · «The sensitivity of the excess of the recoverable amount of the Elis brand over its carrying amount i»
+      l.30 · (sin cifras) · «(In millions of euros) · Perpetual growth rate»
+      l.31 · 3 tokens · perímetro {'O': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Discount rate · 1.5% · 2.0% · 2.5%»
+      l.32 · 4 tokens · perímetro {'O': 12} · fila {'PENDIENTE': 8, 'FALLO': 4} · «7.2% · 272 · 314 · 366»
+      l.33 · 4 tokens · perímetro {'O': 12} · fila {'PENDIENTE': 8, 'FALLO': 4} · «7.7% · 234 · 269 · 311»
+      l.34 · 4 tokens · perímetro {'O': 12} · fila {'PENDIENTE': 8, 'FALLO': 4} · «8.2% · 202 · 231 · 266»
+  URD2022 p.305, desde la línea 52 «Sensitivity of tests for unamortized brands»
+      l.52 · (sin cifras) · «Sensitivity of tests for unamortized brands»
+      l.53 · (sin cifras) · «The assumptions used in impairment tests performed using the relief from royalty method are as follo»
+      l.55 · (sin cifras) · «Le Jacquard»
+      l.56 · (sin cifras) · «Elis · Français · Kennedy»
+      l.57 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Discount rate · 8.4% · 8.4% · 8.8%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.58 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Perpetual growth rate · 2.0% · 2.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.59 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Royalty rate · 1.0% · 4.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.61 · (sin cifras) · «The sensitivity of the excess of the recoverable amount of the Elis brand over its carrying amount i»
+      l.63 · 5 tokens · perímetro {'P': 15} · fila {'PENDIENTE': 10, 'FALLO': 5} · «Discount rate · 1.0% · 1.5% · 2.0% · 2.5% · 3.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.64 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «7.4% · 326 · 366 · 413 · 470 · 540» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.65 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «7.9% · 288 · 322 · 362 · 409 · 466» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.66 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «8.4% · 255 · 285 · 318 · 358 · 405» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.67 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «8.9% · 227 · 252 · 281 · 315 · 354» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.68 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9.4% · 202 · 224 · 249 · 278 · 312» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.73 · (sin cifras) · «Elis | Universal Registration Document 2022 | 303»
+  URD2023 p.324, desde la línea 41 «Sensitivity of tests for unamortized brands»
+      l.41 · (sin cifras) · «Sensitivity of tests for unamortized brands»
+      l.42 · (sin cifras) · «The assumptions used in impairment tests performed using the relief from royalty method are as follo»
+      l.44 · (sin cifras) · «Le Jacquard»
+      l.45 · (sin cifras) · «Elis · Français · Kennedy»
+      l.46 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Discount rate · 9.0% · 9.0% · 9.6%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.47 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Perpetual growth rate · 2.0% · 2.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.48 · 3 tokens · perímetro {'P': 9} · fila {'PENDIENTE': 6, 'FALLO': 3} · «Royalty rate · 1.0% · 4.0% · 2.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.50 · (sin cifras) · «The sensitivity of the excess of the recoverable amount of the Elis brand over its carrying amount i»
+      l.52 · (sin cifras) · «Perpetual growth rate»
+      l.53 · (sin cifras) · «Elis brand»
+      l.54 · 5 tokens · perímetro {'P': 15} · fila {'PENDIENTE': 10, 'FALLO': 5} · «(in millions of euros) · 1.0% · 1.5% · 2.0% · 2.5% · 3.0%» · el título «…» encima de la tabla nombra un país o un segmento: el perí «Sweden»
+      l.55 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «Discount rate · 8.0% · 314.9 · 350.3 · 391.7 · 440.7 · 499.5»
+      l.56 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «8.5% · 280.9 · 311.4 · 346.6 · 387.7 · 436.3»
+      l.57 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9.0% · 251.2 · 277.7 · 308.0 · 343.0 · 383.8»
+      l.58 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9.5% · 225.1 · 248.3 · 274.6 · 304.6 · 339.3»
+      l.59 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «10.0% · 201.8 · 222.3 · 245.3 · 271.4 · 301.3»
+      l.64 · (sin cifras) · «322 | Elis | Universal Registration Document 2023»
+  URD2025 p.371, desde la línea 55 «Sensitivity of tests for unamortized brands»
+      l.55 · (sin cifras) · «Sensitivity of tests for unamortized brands»
+      l.56 · (sin cifras) · «The assumptions used in impairment tests performed using the relief from royalty method are as follo»
+      l.58 · (sin cifras) · «Elis · Le Jacquard Français · Kennedy Hygiene»
+      l.59 · (sin cifras) · «12/31/2025 · 12/31/2024 · 12/31/2025 · 12/31/2024 · 12/31/2025 · 12/31/2024»
+      l.60 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Discount rate · 9.1% · 9.3% · 9.1% · 9.3% · 10.3% · 10.3%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.61 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Perpetual growth rate · 2.0% · 2.0% · 2.0% · 2.0% · 2.0% · 2.0%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.62 · 6 tokens · perímetro {'P': 18} · fila {'PENDIENTE': 6, 'FALLO': 12} · «Royalty rate · 1.0% · 1.0% · 4.0% · 4.0% · 2.0% · 2.0%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.64 · (sin cifras) · «The sensitivity of the excess of the recoverable amount of the Elis brand over its carrying amount i»
+      l.66 · (sin cifras) · «Perpetual growth rate»
+      l.67 · (sin cifras) · «Elis brand»
+      l.68 · 5 tokens · perímetro {'P': 15} · fila {'FALLO': 10, 'PENDIENTE': 5} · «(in millions of euros) · 1.0% · 1.5% · 2.0% · 2.5% · 3.0%» · la cabecera repite los ejercicios una vez por grupo de columnas (entid «Elis»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Kennedy Hygiene»; la cabecera repite los ejercicios una vez por grupo de columnas (entid «Le Jacquard Français»
+      l.69 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «Discount rate · 8.1% · 354.5 · 391.8 · 435.2 · 486.3 · 547.5»
+      l.70 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «8.6% · 318.6 · 350.7 · 387.8 · 430.9 · 481.7»
+      l.71 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9.1% · 287.1 · 315.1 · 347.1 · 383.9 · 426.7»
+      l.72 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «9.6% · 259.3 · 283.9 · 311.7 · 343.5 · 380.0»
+      l.73 · 6 tokens · perímetro {'O': 18} · fila {'PENDIENTE': 12, 'FALLO': 6} · «10.1% · 234.6 · 256.3 · 280.7 · 308.4 · 339.9»
+      l.78 · (sin cifras) · «Elis | Universal Registration Document 2025 | 369»
+
+== Q9. Decisión (b): candidatas en las que solo el perímetro impide el OK por la regla de grupos de columnas (C16) ==
+  candidatas: 218; estado de la fila en C14: {'PENDIENTE': 218}; perímetro en C14: {'P': 218}
+    DEU2024FR p.298: 1 candidatas en 1 líneas · primera: «296 | Elis | Document d'enregistrement universel 2024» · token «2024» declarado 2023
+    DEU2024FR p.317: 20 candidatas en 4 líneas · primera: «Taux d'actualisation · 9,3% · 9,0% · 9,3% · 9,0% · 10,3% · 9,6%»
+    DEU2024FR p.347: 48 candidatas en 6 líneas · primera: «Certification des comptes · 0,6 · 0,6 · 70% · 93% · 0,3 · 0,3 · 56% · »
+    URD2021 p.298: 32 candidatas en 4 líneas · primera: «Independent audit · 0.5 · 0.5 · 90% · 92% · 0.3 · 0.3 · 70% · 81%»
+    URD2022 p.336: 40 candidatas en 5 líneas · primera: «Independent audit · 0.6 · 0.5 · 84% · 90% · 0.3 · 0.3 · 75% · 70%»
+    URD2023 p.305: 1 candidatas en 1 líneas · primera: «Elis | Universal Registration Document 2023 | 303» · token «303» declarado 2022
+    URD2023 p.355: 40 candidatas en 5 líneas · primera: «Independent audit · 0.6 · 0.6 · 93% · 84% · 0.3 · 0.3 · 75% · 75%»
+    URD2025 p.371: 20 candidatas en 4 líneas · primera: «Discount rate · 9.1% · 9.3% · 9.1% · 9.3% · 10.3% · 10.3%»
+    URD2025 p.402: 16 candidatas en 4 líneas · primera: «Fees relating to the independent audit* · 0.6 · 0.6 · 0.3 · 0.3»
+
+== Q10. «Ejercicio» en el universo de la revisión n.º 6 (líneas con rótulo, sin años sueltos ni pies) ==
+      6 · ejercicio F→O · fila OK en C16 · regla de la fila
+    166 · ejercicio F→O · fila no OK en C16 · regla de la fila
+    192 · ejercicio F→P · fila no OK en C16 · sin la regla
+      8 · ejercicio O→F · fila no OK en C16 · regla de la fila
+     37 · ejercicio O→P · fila no OK en C16 · sin la regla
+   1270 · ejercicio P→F · fila no OK en C16 · regla de la fila
+     12 · ejercicio P→F · fila no OK en C16 · sin la regla
+    340 · ejercicio P→O · fila OK en C16 · regla de la fila
+    293 · ejercicio P→O · fila no OK en C16 · regla de la fila
+      5 · ejercicio P→O · fila no OK en C16 · sin la regla
+  ejercicio F→O: 172; por motivo de C14 y clase de línea:
+      93 · la columna es de AAAA, no de AAAA · recuento o dato con fecha
+      68 · la columna reconocida más próxima, alineada con el token ( · recuento o dato con fecha
+      10 · la columna reconocida más próxima, alineada con el token ( · fila de saldo
+       1 · la columna es de AAAA, no de AAAA · fila de saldo
+  ejercicio F→O, por página: URD2025 p.360 (22), URD2023 p.312 (19), URD2023 p.369 (19), URD2025 p.417 (18), DEU2024FR p.306 (17), DEU2024FR p.361 (17), URD2022 p.294 (16), URD2021 p.261 (12), URD2022 p.350 (11), URD2021 p.312 (8), URD2021 p.230 (2), URD2021 p.231 (2), URD2021 p.291 (2), DEU2024FR p.274 (1), URD2022 p.262 (1), URD2022 p.263 (1), URD2023 p.280 (1), URD2023 p.281 (1), URD2025 p.328 (1), URD2025 p.329 (1)

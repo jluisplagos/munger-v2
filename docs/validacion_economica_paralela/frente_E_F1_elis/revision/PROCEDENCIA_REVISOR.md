@@ -129,3 +129,30 @@ Los 15 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente
 | `scripts_revisor_7/sondas_umbral_7.py` | `d192cab` | `baddcbd76c3199781a144eb5a25a09e190158fa5` | `e00d72ff68d894e3f9322c258830864c8a9c7cac037a736b856a49410e8038d5` | 12363 |
 
 Comprobación (desde la raíz del repositorio): `git diff --name-only 9711f04eba236c31100d0e3bd631b276c804e8c4 d192cab1153197df7d27dacb3f5d63c5fa030f8e | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree d192cab1153197df7d27dacb3f5d63c5fa030f8e "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
+
+## Revisión independiente n.º 8
+
+Los 18 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-e-revision`, commit `3138a6b65aae12d94c9aa82b314e785322dec793` (padre `d192cab1153197df7d27dacb3f5d63c5fa030f8e`), publicado el 16 de noviembre de 2026 a las 06:40:38 UTC por una sesión de revisión nueva, distinta de las de las revisiones n.º 1, 3, 4, 5, 6 y 7, y se copiaron sin cambios en las mismas rutas con `git show`. El material revisado es el commit congelado `863ddde9190044690bfe4ee7c2a0d6fddc4c811a` (C17) de la rama `auditoria/economica-f1-frente-e`. `scripts_revisor_8/relanzar_revisores_6_7.sh` conserva el modo ejecutable (100755) que tiene en el commit de origen.
+
+| Ruta (relativa a revision/) | Commit del último cambio | Id de blob de git | SHA-256 | Bytes |
+|---|---|---|---|---|
+| `REVISION_INDEPENDIENTE_8.md` | `3138a6b` | `897f01cf27f55f6c728f98d0d230f8de84d2751e` | `839487b6a4ec394379e5e484513de6b94fb9715bdca80969557199df00c4f72f` | 55167 |
+| `resultados_revisor_8/barrido_8.txt` | `3138a6b` | `a6dc9cafca8fd5b2f877b17a15ff27d6bd5b882b` | `5014f914fcf4303207abe8a4e0313c205e98311594ffc83371b457be3774ba41` | 6736 |
+| `resultados_revisor_8/clases_8.txt` | `3138a6b` | `35741c77e3b26d8c4cb0f62ad8c4d6394b747f41` | `0681118e8b64aa7ed4bc4dc3f4e9901d04767936a9920a94ceb161231ccc2117` | 69427 |
+| `resultados_revisor_8/comparacion_6_7.txt` | `3138a6b` | `26c0334c924992a3a7b043b130c98d74a9433701` | `38366dd538eeaabe17360f5c224072aaa061716a1b257bc1d621f038ea0fdec6` | 2217 |
+| `resultados_revisor_8/consultas_8.txt` | `3138a6b` | `7884e7303c9cf15b363a152b015c706ae39000bc` | `7259b5f7f132eeaeb6a70334774d1a67f39b2e4d804c8d3ac06ff7dd73553763` | 50518 |
+| `resultados_revisor_8/contraejemplos_8.txt` | `3138a6b` | `ef7ddf65c3a8ef352ad2b6e3be4bcc48ac4282f9` | `3e63ad45785af66c6fc58882ce59f1e05f3f85d5d0362e20f6896413750fd508` | 26667 |
+| `resultados_revisor_8/lectura_saldos_8.txt` | `3138a6b` | `330f24bbc470bce5fa8e11c0bc5c04a4556586fb` | `85f5460ac8a1fdc5ebf56b1c19835df0aa4e17e7dfb1461f87b9aee8d7ffb6e1` | 11208 |
+| `resultados_revisor_8/reproduccion_8.txt` | `3138a6b` | `3486cd0b9a0caabb957bc5b93ac836b52ecef0b4` | `cf90cd5867daff9d69b12f0e713c832df17813a7668e2e1f2d2e849bc1c6f4ca` | 4286 |
+| `resultados_revisor_8/sondas_8.txt` | `3138a6b` | `1027878d93e4b893fd78f916729fe38f3df21514` | `161750538734aa18549bebd56d948e632929fbc9274df79e79caf2fc8938fd7f` | 4389 |
+| `scripts_revisor_8/arnes8.py` | `3138a6b` | `616c2696f0348ae7e096ec2de365a789fc117215` | `989032715e64cf913f7980c74476805bc177dac79cbe336731ac1f1715f673a8` | 5037 |
+| `scripts_revisor_8/barrido_8.py` | `3138a6b` | `8f5561e5d7d112006f02927b99128b119ec5f122` | `d1609601ee824b5860e07353f61be0f0d6bfe27924ab43b0376dc36ff02128b4` | 15423 |
+| `scripts_revisor_8/clases_8.py` | `3138a6b` | `7449204cca1210b8712961b4b02db3cb4eaed9df` | `35cde1339f77b3de6a7bcbe4fd9374598fa24c3f0650cf411448da234d7509f7` | 29795 |
+| `scripts_revisor_8/consultas_8.py` | `3138a6b` | `f61cdefe3606358e816d8c6a27818552fadeaa21` | `f14f76167ee862b1fc58ff1e586ce5eb493446cc8e475c4c8893111e1190fb3c` | 18205 |
+| `scripts_revisor_8/contraejemplos_8.py` | `3138a6b` | `053e4542215eda9a5fcd31743b7f29865fdc30fa` | `cfdbd7cdde875447792d69973194868931ee234243e398a41e71a8d8ebf8cf13` | 11897 |
+| `scripts_revisor_8/lectura_saldos_8.py` | `3138a6b` | `d103445db399fffde61813f0551cb996b3763708` | `6df3e020164270b3e6b0af528e37aa4af0f0ad9e01655262237d52792e321966` | 5314 |
+| `scripts_revisor_8/relanzar_revisores_6_7.sh` | `3138a6b` | `bcaafe461962ed46973c14d8e848a2e77dc64bb3` | `c4397f62918ffd5d0f4b1f64ae6030bf395bdd922b4666ccae1182fe43a9887b` | 4935 |
+| `scripts_revisor_8/reproduccion_8.py` | `3138a6b` | `d12cac02c6e373097f844469dda444561284b565` | `55dd368f762482299e0e90fdafd60e8011fea0afec935dedc13f9a5fa055d469` | 11942 |
+| `scripts_revisor_8/sondas_8.py` | `3138a6b` | `740049a4a1202a73d50d1278b5c191a4ed5d9c6e` | `51ec34e3e872b6c1fc505b93a52e13b805f4b70e56ad7266952e216040842ef8` | 9435 |
+
+Comprobación (desde la raíz del repositorio): `git diff --name-only d192cab1153197df7d27dacb3f5d63c5fa030f8e 3138a6b65aae12d94c9aa82b314e785322dec793 | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree 3138a6b65aae12d94c9aa82b314e785322dec793 "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
