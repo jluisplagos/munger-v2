@@ -1,0 +1,177 @@
+VE = quinta (876bfc2) · VP = anterior (7a6583b)
+
+== A · límites de la cita: lo que la regla nueva acepta de más
+   A1 la cita empieza en la cifra y la página lleva una letra pegada delante (identificador): «T5»
+      página='Nota T5 del anexo\n' cita='5 del anexo' vf=5
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+      nota: la cifra se publica entera; qué es «T5» lo decide el revisor (igual que en 92b2362)
+   A2 negativo con letra pegada delante del guion: «T4-15,2», la cita empieza en la cifra
+      página='Variación T4-15,2\n' cita='15,2' vf=15.2
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+   A3 lo mismo con el valor negativo
+      página='Variación T4-15,2\n' cita='15,2' vf=-15.2
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+   A4 la cita acaba en la cifra y sigue una letra de unidad que cambia la magnitud: «849.7bn» (la escala es otro control)
+      página='Revenue 849.7bn\n' cita='Revenue 849.7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   A5 la cita acaba en la cifra y sigue un superíndice numérico Unicode «²» (llamada de nota)
+      página='Ventas 849,7²\n' cita='Ventas 849,7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   A6 la cita acaba en la cifra y sigue un exponente «e3» (notación científica: 849,7e3 es otro número)
+      página='Importe 849,7e3\n' cita='Importe 849,7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)   <<< el revisor esperaba «no ok» (ACEPTA)
+      nota: un número en notación científica no es la cifra citada
+   A7 cifra hexadecimal o código: «0x1F849» y la cita «849»
+      página='Código 0x1F849\n' cita='849' vf=849
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)   <<< el revisor esperaba «no ok» (ACEPTA)
+      nota: «849» va pegado a letras y cifras de un código
+   A8 la cita empieza en una letra pegada a una cifra: «2024Total 849,7»
+      página='2024Total 849,7\n' cita='Total 849,7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   A9 la cita acaba en una letra pegada a una cifra: «EBITDA2024 849,7» citada «849,7» (control) y «EBITDA» + cifra
+      página='EBITDA2024 849,7\n' cita='EBITDA2024 849,7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   A10 subrayado pegado: «total_849,7» citada «849,7»
+      página='total_849,7\n' cita='849,7' vf=849.7
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   A11 la cita empieza por una letra con tilde dentro de una palabra: «Año» de «Baño 849,7»
+      página='Baño 849,7\n' cita='año 849,7' vf=849.7
+      anterior: no_localizada        quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+   A12 control (N10): «Total 5» dentro de «Subtotal 5,01»
+      página='Subtotal 5,01\n' cita='Total 5' vf=5
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   A13 control: «Total 5» dentro de «Subtotal 5» (corte solo en la palabra)
+      página='Subtotal 5\n' cita='Total 5' vf=5
+      anterior: no_localizada        quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+   A14 la cita «5» aparece limpia y además dentro de un código «A5» en otra línea, con signo distinto: «A-5»
+      página='Resultado 5\nReferencia A-5\n' cita='5' vf=5
+      anterior: signo_indeterminado  quinta: signo_indeterminado (la cita aparece 2 veces en la página con lecturas distintas (ok, signo_indeterminado))
+      nota: dos apariciones con lecturas distintas: pendiente
+   A15 miles con espacio: la cita «697» de «849 697» (límite declarado: no se distingue de dos cifras)
+      página='Total 849 697\n' cita='697' vf=697
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+      nota: límite declarado en _cita_contiene
+
+== B · «ausente» frente a «no_localizada» de una cita cortada
+   B1 corte al principio dentro de un número
+      página='Total 849,697.000\n' cita='697.000' vf=697
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   B2 corte al final dentro de un número
+      página='Total 8496970\n' cita='Total 849697' vf=849697
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   B3 corte al final ante separador decimal
+      página='Ratio 0,49\n' cita='Ratio 0' vf=0
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   B4 corte al principio dentro de una palabra
+      página='Subtotal 849,7\n' cita='total 849,7' vf=849.7
+      anterior: no_localizada        quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+   B5 corte al final dentro de una palabra
+      página='Ventas 849,7 millones\n' cita='Ventas 849,7 mill' vf=849.7
+      anterior: no_localizada        quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+   B6 punto final de frase pegado delante de la cifra (no es de un número): «ejercicio.849,7»
+      página='al cierre del ejercicio.849,7 millones\n' cita='849,7 millones' vf=849.7
+      anterior: ausente              quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+      nota: el punto pegado se toma por separador de un número: sale «ausente» (discrepancia) con el mensaje de la cifra
+   B7 abreviatura pegada: «p.12» para 12
+      página='véase p.12 del informe\n' cita='12 del informe' vf=12
+      anterior: ausente              quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+      nota: ídem
+   B8 fecha con puntos y la cita empieza en el año: «31.12.2024 849,7»
+      página='Cierre 31.12.2024 849,7\n' cita='2024 849,7' vf=849.7
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)   <<< el revisor esperaba «no_localizada»
+      nota: ídem: el corte cae dentro de una FECHA, no de la cifra citada
+   B9 puntos conductores pegados: «.......130,8» (r2 C25)
+      página='Total ............130,8\n' cita='130,8' vf=130.8
+      anterior: ausente              quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+      nota: ídem
+   B10 corte dentro de una palabra en una aparición y dentro de un número en otra
+      página='Subtotal 5\nTotal 51\n' cita='Total 5' vf=5
+      anterior: ausente              quinta: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   B11 la cita limpia existe: los fragmentos de otras líneas no cuentan
+      página='Total 5\nSubtotal 51\n' cita='Total 5' vf=5
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   B12 cita cortada dentro de una palabra con el signo CONTRARIO al publicado
+      página='Subtotal (849,7)\n' cita='total (849,7)' vf=849.7
+      anterior: no_localizada        quinta: no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+
+== C · intervalos y fechas
+   C1 año pegado a un negativo de CUATRO cifras: «Saldo 2023-1849» (publica −1849), contrastado con +1849
+      página='Saldo 2023-1849\n' cita='Saldo 2023-1849' vf=1849
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: dos enteros de la misma longitud se leen como intervalo: +1849 vale
+   C2 lo mismo con el valor publicado −1849
+      página='Saldo 2023-1849\n' cita='Saldo 2023-1849' vf=-1849
+      anterior: signo_distinto       quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: no puede darse por bueno ni por malo: debería ser pendiente; sale «signo_distinto»
+   C3 nota de una cifra pegada a un negativo de una cifra: «Resultado financiero 1-5» con +5
+      página='Resultado financiero 1-5\n' cita='Resultado financiero 1-5' vf=5
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: ídem
+   C4 nota de dos cifras y negativo de dos: «Dotaciones 12-45» con +45
+      página='Dotaciones 12-45\n' cita='Dotaciones 12-45' vf=45
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: ídem
+   C5 (corregido) «Saldo 2023-849» con +849
+      página='Saldo 2023-849\n' cita='Saldo 2023-849' vf=849
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+   C6 (corregido) «Resultado financiero 1-149» con +149
+      página='Resultado financiero 1-149\n' cita='Resultado financiero 1-149' vf=149
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+   C7 intervalo de años
+      página='Periodo 2019-2020\n' cita='Periodo 2019-2020' vf=2020
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   C8 «FY2023-2024»
+      página='FY2023-2024 results\n' cita='FY2023-2024' vf=2024
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   C9 «AF2023-2024» / «EJ2023–2024»
+      página='EJ2023–2024\n' cita='EJ2023–2024' vf=2024
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   C10 prefijo que no es FY/AF/EJ: «H2023-2024»
+      página='H2023-2024\n' cita='H2023-2024' vf=2024
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+   C11 palabra que acaba en «af» pegada a un año y un negativo de cuatro cifras: «Graf2023-1849» con +1849
+      página='Graf2023-1849\n' cita='Graf2023-1849' vf=1849
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: el prefijo no se ancla: cualquier palabra que acabe en fy, af o ej
+   C12 ejercicio partido «2024-25» para 25 (antes «ok»)
+      página='Ejercicio 2024-25\n' cita='Ejercicio 2024-25' vf=25
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+      nota: ahora pendiente: los dos enteros no tienen la misma longitud
+   C13 páginas «9-10» para 10 (antes «ok»)
+      página='Páginas 9-10\n' cita='Páginas 9-10' vf=10
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+      nota: ídem
+   C14 vida útil «5-10 años» para 10 (antes «ok»)
+      página='Vida útil 5-10 años\n' cita='Vida útil 5-10 años' vf=10
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+      nota: ídem
+   C15 mes y año «12-2024» para 2024 (antes «ok»)
+      página='Cierre 12-2024\n' cita='Cierre 12-2024' vf=2024
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+      nota: ídem
+   C16 fecha ISO «2024-12-31», el mes 12 (antes «ok»)
+      página='Cierre 2024-12-31\n' cita='Cierre 2024-12-31' vf=12
+      anterior: signo_indeterminado  quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+      nota: ídem
+   C17 fecha ISO, el día 31
+      página='Cierre 2024-12-31\n' cita='Cierre 2024-12-31' vf=31
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   C18 fecha «31-12-2024», el año
+      página='Cierre 31-12-2024\n' cita='Cierre 31-12-2024' vf=2024
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   C19 fecha «1-1-2024», el año
+      página='Cierre 1-1-2024\n' cita='Cierre 1-1-2024' vf=2024
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)
+   C20 fecha «31-12-24», el año con dos cifras
+      página='Cierre 31-12-24\n' cita='Cierre 31-12-24' vf=24
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   C21 «d-m-» seguido de un importe de cuatro cifras: «Notas 5-6-1849» (publica −1849) con +1849
+      página='Notas 5-6-1849\n' cita='Notas 5-6-1849' vf=1849
+      anterior: ok                   quinta: ok (signo publicado igual al de valor_fuente)   <<< el revisor esperaba «no ok» (ACEPTA)
+      nota: la regla de la fecha solo mira la forma «d-m-aaaa»
+   C22 año de la columna y negativo entero de cuatro cifras con raya: «2023–1849»
+      página='Saldo 2023–1849\n' cita='Saldo 2023–1849' vf=1849
+      anterior: ok                   quinta: signo_indeterminado (apariciones de la cifra: indeterminado)
+      nota: como C1, con raya
+
+11 casos distintos de lo esperado por el revisor · 0 pasan de rechazo a «ok» con la quinta

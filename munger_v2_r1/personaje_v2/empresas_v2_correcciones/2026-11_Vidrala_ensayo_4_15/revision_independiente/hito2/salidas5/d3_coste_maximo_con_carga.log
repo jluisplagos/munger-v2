@@ -1,0 +1,27 @@
+VE = quinta (876bfc2) · VP = anterior (7a6583b) · carga de la máquina (1, 5, 15 min): (5.19580078125, 5.04296875, 4.05224609375)
+== A · la cita repetida N veces
+   una línea  N=    200 (     3 kB) · 7a6583b: ok                      0.24 s · 876bfc2: ok                      0.25 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   una línea  N=    201 (     3 kB) · 7a6583b: ok                      0.25 s · 876bfc2: signo_indeterminado     0.00 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   una línea  N=   3000 (    53 kB) · 7a6583b: ok                      3.70 s · 876bfc2: signo_indeterminado     0.01 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   una línea  N=  20000 (   359 kB) · 7a6583b: ok                     22.69 s · 876bfc2: signo_indeterminado     0.10 s (de ellos, _apariciones_en_pagina:   0.09 s)
+   una línea  N= 100000 (  1799 kB) · 7a6583b: (no se mide)              · 876bfc2: signo_indeterminado     3.49 s (de ellos, _apariciones_en_pagina:   3.38 s)
+   N líneas   N=    200 (     3 kB) · 7a6583b: ok                      0.03 s · 876bfc2: ok                      0.03 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   N líneas   N=    201 (     3 kB) · 7a6583b: ok                      0.03 s · 876bfc2: signo_indeterminado     0.00 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   N líneas   N=   3000 (    53 kB) · 7a6583b: ok                      0.43 s · 876bfc2: signo_indeterminado     0.00 s (de ellos, _apariciones_en_pagina:   0.00 s)
+   N líneas   N=  20000 (   359 kB) · 7a6583b: ok                      2.99 s · 876bfc2: signo_indeterminado     0.01 s (de ellos, _apariciones_en_pagina:   0.01 s)
+   N líneas   N= 100000 (  1799 kB) · 7a6583b: (no se mide)              · 876bfc2: signo_indeterminado     0.06 s (de ellos, _apariciones_en_pagina:   0.05 s)
+   N líneas   N= 400000 (  7199 kB) · 7a6583b: (no se mide)              · 876bfc2: signo_indeterminado     0.27 s (de ellos, _apariciones_en_pagina:   0.29 s)
+
+== B · una sola línea muy larga con pocas apariciones al final (coste de buscar el principio de la línea)
+   línea de   1002 kB con   150 apariciones al final · 876bfc2: ok                      0.21 s
+   línea de   5002 kB con   150 apariciones al final · 876bfc2: ok                      0.32 s
+   línea de   5003 kB con   201 apariciones al final · 876bfc2: signo_indeterminado     0.19 s
+   línea de   5089 kB con  5000 apariciones al final · 876bfc2: signo_indeterminado     1.25 s
+
+== C · la segunda prueba nueva (150 apariciones en una línea de más de 100 kB), con el recorte a 400 caracteres y sin él
+   876bfc2 tal cual: ok en 0.18 s (línea de 168479 caracteres)
+   sin el recorte (mutación n10c): ok en 33.89 s → la prueba (menos de 10 s) la DETECTA en esta máquina, con un margen de 3.4 veces el límite
+
+real	1m14.762s
+user	1m11.755s
+sys	0m0.196s

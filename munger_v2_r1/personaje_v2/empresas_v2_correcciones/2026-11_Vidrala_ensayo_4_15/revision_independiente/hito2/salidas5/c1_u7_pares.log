@@ -1,0 +1,76 @@
+VE = quinta (876bfc2) · VP = anterior (7a6583b)
+== A · ¿unidad monetaria no reconocida (pendiente por U7)?   anterior (7a6583b) → quinta (876bfc2)
+   -- pares de monedas DISTINTAS (tipos de cambio: no deben quedar pendientes)
+      'USD por EUR'                                  no monetaria → no monetaria
+      'EUR/USD'                                      no monetaria → no monetaria
+      'eur / usd'                                    no monetaria → no monetaria
+      'tipo de cambio EUR/GBP'                       no monetaria → no monetaria
+      'tipo de cambio: EUR/USD'                      no monetaria → no monetaria
+      'exchange rate USD per EUR'                    no monetaria → no monetaria
+      '(EUR/USD)'                                    no monetaria → no monetaria
+      '$/€'                                          no monetaria → no monetaria
+      '€/$'                                          no monetaria → no monetaria
+      'dólar por euro'                               no monetaria → no monetaria
+      'euros por dólar'                              no monetaria → no monetaria
+      'GBP per EUR'                                  no monetaria → no monetaria
+      'coronas/euros'                                no monetaria → no monetaria
+      'libras por euro'                              no monetaria → no monetaria
+   -- pares de la MISMA moneda (cabecera bilingüe de un importe en unidades: es un importe, se espera PENDIENTE o reconocida)
+      'euros/EUR'                                    no monetaria → PENDIENTE   
+      'EUR/€'                                        no monetaria → PENDIENTE   
+      '€/EUR'                                        no monetaria → PENDIENTE   
+      'Euros / Euro'                                 no monetaria → PENDIENTE   
+      'euro/euros'                                   no monetaria → PENDIENTE   
+      'EUR/EUR'                                      no monetaria → PENDIENTE   
+      'USD/$'                                        no monetaria → PENDIENTE   
+      '$/USD'                                        no monetaria → PENDIENTE   
+      'libras/GBP'                                   no monetaria → PENDIENTE   
+      'GBP/£'                                        no monetaria → PENDIENTE   
+      'eur por eur'                                  no monetaria → PENDIENTE   
+      '(€/EUR)'                                      no monetaria → PENDIENTE   
+      'tipo de cambio EUR/EUR'                       no monetaria → PENDIENTE   
+   -- tipos de cambio con calificativo (quedan pendientes: conservador)
+      'tipo de cambio medio USD por EUR'             PENDIENTE    → PENDIENTE   
+      'USD por EUR (cierre)'                         PENDIENTE    → PENDIENTE   
+      'EUR/USD medio'                                PENDIENTE    → PENDIENTE   
+      'dólares por euro'                             PENDIENTE    → PENDIENTE   
+      'USD por 1 EUR'                                PENDIENTE    → PENDIENTE   
+      'tipo de cambio EUR/USD a 31-12'               PENDIENTE    → PENDIENTE   
+   -- importes (deben quedar pendientes)
+      'miles de euros a tipo de cambio constante'    PENDIENTE    → PENDIENTE   
+      'millones de euros/EUR million'                PENDIENTE    → PENDIENTE   
+      'Miles de € / € thousand'                      PENDIENTE    → PENDIENTE   
+      'k€/usd'                                       PENDIENTE    → PENDIENTE   
+      'meur/keur'                                    PENDIENTE    → PENDIENTE   
+      'mm€/usd'                                      PENDIENTE    → PENDIENTE   
+      'EUR m / USD m'                                PENDIENTE    → PENDIENTE   
+      "milliers d'euros / EUR"                       PENDIENTE    → PENDIENTE   
+      'Tsd. EUR/USD'                                 PENDIENTE    → PENDIENTE   
+      "EUR'000/USD'000"                              PENDIENTE    → PENDIENTE   
+      'saldo en USD por EUR'                         PENDIENTE    → PENDIENTE   
+      'importe en euros/dólares'                     PENDIENTE    → PENDIENTE   
+      'euros/usd miles'                              PENDIENTE    → PENDIENTE   
+   -- controles: unidades reconocidas o por acción (no pendientes)
+      'euros'                                        reconocida   → reconocida  
+      'eur'                                          reconocida   → reconocida  
+      'miles de euros'                               reconocida   → reconocida  
+      'millones de euros'                            reconocida   → reconocida  
+      'EUR por acción'                               no monetaria → no monetaria
+      'euros/acción'                                 no monetaria → no monetaria
+      '€ per share'                                  no monetaria → no monetaria
+   señalados: 0 · []
+
+== B · registro completo (fixture de la batería); código: quinta (876bfc2)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   Historia!F6: valor del modelo 849.697 (millones). La página nueva dice «Partida sintética de Historia!F6: 849.697» y se declara escala 1 con cada unidad:
+      unidad 'euros'                                      escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «euros» → modelo «mm» = 1e-06)
+      unidad 'eur'                                        escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «eur» → modelo «mm» = 1e-06)
+      unidad 'euros/EUR'                                  escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «euros/EUR»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una convers
+      unidad 'EUR/€'                                      escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «EUR/€»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conversión 
+      unidad '€/EUR'                                      escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «€/EUR»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conversión 
+      unidad 'Euros / Euro'                               escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «Euros / Euro»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conv
+      unidad 'USD/$'                                      escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «USD/$»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conversión 
+      unidad 'USD por EUR'                                escala 1 → COMPROBADA
+      unidad 'miles de euros'                             escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «miles de euros» → modelo «mm» = 0.001)
+      unidad 'miles de euros a tipo de cambio constante'  escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de euros a tipo de cambio constante»: la escala 1.0 no se puede contrastar con ella (se escribe con el voca
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

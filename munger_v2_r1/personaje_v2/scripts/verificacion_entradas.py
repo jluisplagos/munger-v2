@@ -153,15 +153,18 @@ def _importe_libro_exacto(exacto, vm):
 
 
 MARCAS_MONEDA = re.compile(r"(€|\$|£|¥|\beur\b|\beuros?\b|\busd\b|\bgbp\b|\bchf\b|\bdkk\b|\bsek\b|\bnok\b|\bbrl\b|\bjpy\b|\bd[oó]lar|\blibras?\b|"
-                           r"\bcoronas?\b|\breales?\b|\bfrancos?\b|\bmm€|\bmeur|\bkeur|\bk€)", re.I)
+                           r"\bcoronas?\b|\breal(?:es)?\b|\bfrancos?\b|\bmm€|\bmeur|\bkeur|\bk€)", re.I)  # (hito 2, V7) también «real»
 POR_UNIDAD = re.compile(r"(por|per|/)\s*(acci[oó]n|share|t[ií]tulo|unidad|unit)", re.I)
 
 
 def _moneda_de(marca):
     """(4.15, hito 2, Q1) La moneda de una marca de MARCAS_MONEDA, normalizada («€», «eur», «euros» → «eur»)."""
     m = _norm_txt(marca)
+    # (hito 2, V1) también el franco, el real y las coronas: «corona» puede ser la danesa, la sueca o la noruega, así que con un código de
+    # corona es la misma moneda («coronas/DKK» no es un tipo de cambio)
     for cod, formas in (("eur", ("€", "eur", "euro", "euros")), ("usd", ("$", "usd", "dólar", "dolar", "dólares", "dolares")),
-                        ("gbp", ("£", "gbp", "libra", "libras")), ("jpy", ("¥", "jpy"))):
+                        ("gbp", ("£", "gbp", "libra", "libras")), ("jpy", ("¥", "jpy")), ("chf", ("chf", "franco", "francos")),
+                        ("brl", ("brl", "real", "reales")), ("corona", ("corona", "coronas", "dkk", "sek", "nok"))):
         if m in formas or any(m.startswith(f) for f in formas if len(f) > 2):
             return cod
     return m
@@ -176,7 +179,10 @@ def _unidad_monetaria_no_reconocida(unidad):
     # euros a tipo de cambio constante» o «millones de euros/EUR million» son importes y siguen exigiendo una unidad reconocida
     m_ = MARCAS_MONEDA.pattern
     par = re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*(?P<a>" + m_ + r")\s*(?:por|per|/)\s*(?P<b>" + m_ + r")[\s)]*", t, re.I)
-    tipo_cambio = (par is not None and _moneda_de(par.group("a")) != _moneda_de(par.group("b"))  # (hito 2, Q1) dos monedas DISTINTAS: «euros/EUR» no es un tipo de cambio
+    _a, _b = (_moneda_de(par.group("a")), _moneda_de(par.group("b"))) if par is not None else (None, None)
+    if {_a, _b} <= {"corona"} and par is not None and _norm_txt(par.group("a")) in ("dkk", "sek", "nok") and _norm_txt(par.group("b")) in ("dkk", "sek", "nok"):
+        _a, _b = _norm_txt(par.group("a")), _norm_txt(par.group("b"))  # «DKK/SEK»: dos coronas distintas, un tipo de cambio
+    tipo_cambio = (par is not None and _a != _b  # (hito 2, Q1) dos monedas DISTINTAS: «euros/EUR» no es un tipo de cambio
                    and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
     return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None and not tipo_cambio
 
@@ -443,7 +449,9 @@ def _signo_en_cita(t, ini, fin):
       −1: un guion o un menos («-», «−», «–», «—») PEGADO a la cifra y precedido de un espacio, el principio, un signo de puntuación o una
           moneda («$-149,5»); paréntesis contables «(149,5)», también con moneda («(€149,5)», «(EUR 149,5)», «(149,5 €)») o porcentaje
           («(3,2 %)»).
-      +1: la cifra sin marca o con «+»; un guion pegado a otra cifra es un intervalo o una fecha («2019-2020», «31-12-2024»), no un signo.
+      +1: la cifra sin marca o con «+»; un guion pegado al año anterior de un intervalo de años crecientes y plausibles («2019-2020»,
+          «FY2023-2024») o a una fecha («31-12-2024») no es un signo. Cualquier otro guion pegado entre cifras deja el signo indeterminado
+          («2023-849», «2024-2023», «2-3 %», «100-150», el día de una fecha ISO, «31-12-24»): pendiente prudente, declarado (V6).
       None: un guion o un menos separado de la cifra por UN espacio (puede ser un cero de la columna anterior o un signo: «Interests - 13»;
           (hito 2, H4) también «−», que una fuente real usa para imprimir un cero), un guion pegado a una palabra, un paréntesis que no se
           cierra, dos marcas pegadas («-(149,5)») o un menos detrás de la cifra («149,5-»).
@@ -472,10 +480,11 @@ def _signo_en_cita(t, ini, fin):
         previo = antes[:m.start()]
         # (hito 2, N5, T8 y Q3) solo un intervalo de años crecientes y plausibles («2019-2020», «FY2023-2024», con el prefijo como palabra) o
         # una fecha («31-12-2024»); cualquier otro guion pegado entre cifras («2023-849», «Saldo 2023-1849», «9-10») deja el signo indeterminado
-        m_prev = re.search(r"(?:^|[^\w.,])(\d{4})$", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})$", previo, re.I)
+        # (hito 2, V2) «\Z»: el año anterior está en la misma línea, pegado al guion (no antes de un salto de línea)
+        m_prev = re.search(r"(?:^|[^\w.,])(\d{4})\Z", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})\Z", previo, re.I)
         tok = t[ini:fin]
         anios = (m_prev is not None and re.fullmatch(r"\d{4}", tok) is not None and 1900 <= int(m_prev.group(1)) <= int(tok) <= 2100)
-        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", tok) is not None  # «31-12-2024»
+        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}\Z", previo) is not None and re.fullmatch(r"\d{4}", tok) is not None  # «31-12-2024»
         if m.group(1) == "" and (fecha or anios):
             return 1
         if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|€$£¥]$", previo)):
@@ -506,6 +515,8 @@ def _apariciones_en_pagina(cita, pagina):
               + (r"(?!\d|[.,]\d)" if re.search(r"\d$", palabras[-1]) else r"(?![^\W\d_])" if re.search(r"[^\W\d_]$", palabras[-1]) else ""))
     out = []
     for m in re.finditer(patron, t, re.I):
+        if len(out) > MAX_APARICIONES_CITA:  # (hito 2, V5) basta saber que pasa del máximo: el coste queda acotado
+            break
         ini = t.rfind("\n", 0, m.start()) + 1
         fin = t.find("\n", m.end())
         fin = len(t) if fin < 0 else fin
@@ -528,7 +539,7 @@ def _lectura_cifra(t, vf, ventana=None):
                 return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
     signos = []
     for c in _cifras(vf):
-        for m in re.finditer(r"(?<![\d.,])" + re.escape(c) + r"(?!\d|[.,]\d)", t):
+        for m in re.finditer(r"(?<![\d.,])(?<!\d')" + re.escape(c) + r"(?!\d|[.,']\d)", t):  # (hito 2, V7) «1'849,7» no contiene 849,7
             if dentro(m.start(), m.end()):
                 signos.append(_signo_en_cita(t, m.start(), m.end()))
     if not signos:
@@ -576,7 +587,8 @@ def _cita_cifra(cita, vf, pagina=None):
             def en_numero(m):
                 # (hito 2, Q4) coste constante (solo los caracteres vecinos) y un punto o una coma solo cuentan si forman parte de un número
                 antes2 = t_[max(0, m.start() - 2):m.start()]
-                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,])$", antes2) is not None)
+                # (hito 2, V3 y V7) también un decimal sin cero delante («.5», «-.5», «(.5)») y los miles con apóstrofo («1'849,7»)
+                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,']|(?:^|[^\w.,])[.,])\Z", antes2) is not None)
                         or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
             if any(en_numero(m) for m in sueltas):
                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"

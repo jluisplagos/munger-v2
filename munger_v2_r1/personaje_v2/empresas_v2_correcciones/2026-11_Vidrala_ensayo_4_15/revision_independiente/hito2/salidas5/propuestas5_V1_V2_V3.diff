@@ -1,0 +1,46 @@
+--- copia/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 03:22:21.245166992 +0000
++++ prop5/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 03:58:31.997731508 +0000
+@@ -161,7 +161,8 @@
+     """(4.15, hito 2, Q1) La moneda de una marca de MARCAS_MONEDA, normalizada («€», «eur», «euros» → «eur»)."""
+     m = _norm_txt(marca)
+     for cod, formas in (("eur", ("€", "eur", "euro", "euros")), ("usd", ("$", "usd", "dólar", "dolar", "dólares", "dolares")),
+-                        ("gbp", ("£", "gbp", "libra", "libras")), ("jpy", ("¥", "jpy"))):
++                        ("gbp", ("£", "gbp", "libra", "libras")), ("jpy", ("¥", "jpy")), ("chf", ("chf", "franco", "francos")), ("brl", ("brl", "reales")),
++                        ("corona", ("corona", "coronas"))):  # (propuesta del revisor, V1)
+         if m in formas or any(m.startswith(f) for f in formas if len(f) > 2):
+             return cod
+     return m
+@@ -176,7 +177,9 @@
+     # euros a tipo de cambio constante» o «millones de euros/EUR million» son importes y siguen exigiendo una unidad reconocida
+     m_ = MARCAS_MONEDA.pattern
+     par = re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*(?P<a>" + m_ + r")\s*(?:por|per|/)\s*(?P<b>" + m_ + r")[\s)]*", t, re.I)
+-    tipo_cambio = (par is not None and _moneda_de(par.group("a")) != _moneda_de(par.group("b"))  # (hito 2, Q1) dos monedas DISTINTAS: «euros/EUR» no es un tipo de cambio
++    _ab = {_moneda_de(par.group("a")), _moneda_de(par.group("b"))} if par is not None else set()
++    # (propuesta del revisor, V1) «coronas/DKK»: el nombre y un código de corona pueden ser la misma moneda
++    tipo_cambio = (par is not None and len(_ab) == 2 and not ("corona" in _ab and _ab <= {"corona", "dkk", "sek", "nok"})  # (hito 2, Q1) dos monedas DISTINTAS: «euros/EUR» no es un tipo de cambio
+                    and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
+     return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None and not tipo_cambio
+ 
+@@ -472,10 +475,10 @@
+         previo = antes[:m.start()]
+         # (hito 2, N5, T8 y Q3) solo un intervalo de años crecientes y plausibles («2019-2020», «FY2023-2024», con el prefijo como palabra) o
+         # una fecha («31-12-2024»); cualquier otro guion pegado entre cifras («2023-849», «Saldo 2023-1849», «9-10») deja el signo indeterminado
+-        m_prev = re.search(r"(?:^|[^\w.,])(\d{4})$", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})$", previo, re.I)
++        m_prev = re.search(r"(?:^|[^\w.,])(\d{4})\Z", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})\Z", previo, re.I)  # (propuesta del revisor, V2) \Z: no antes de un salto de línea
+         tok = t[ini:fin]
+         anios = (m_prev is not None and re.fullmatch(r"\d{4}", tok) is not None and 1900 <= int(m_prev.group(1)) <= int(tok) <= 2100)
+-        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", tok) is not None  # «31-12-2024»
++        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}\Z", previo) is not None and re.fullmatch(r"\d{4}", tok) is not None  # «31-12-2024»
+         if m.group(1) == "" and (fecha or anios):
+             return 1
+         if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|€$£¥]$", previo)):
+@@ -576,7 +579,8 @@
+             def en_numero(m):
+                 # (hito 2, Q4) coste constante (solo los caracteres vecinos) y un punto o una coma solo cuentan si forman parte de un número
+                 antes2 = t_[max(0, m.start() - 2):m.start()]
+-                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,])$", antes2) is not None)
++                # (propuesta del revisor, V3) también un punto o una coma al principio de una «palabra»: decimal sin cero delante («.5», «-.5», «(.5)»)
++                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,]|(?:^|[^\w.,])[.,])\Z", antes2) is not None)
+                         or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
+             if any(en_numero(m) for m in sueltas):
+                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"

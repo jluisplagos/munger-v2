@@ -1,0 +1,50 @@
+VE = quinta (876bfc2) · VP = anterior (7a6583b) · semilla 20261116
+== A · _signo_en_cita sobre 300000 líneas aleatorias
+   476996 cifras evaluadas
+   7a6583b +              → 876bfc2 +                248874   ej.: (' 2022968,6260', '2022968,6260')
+   7a6583b +              → 876bfc2 indeterminado      3913   ej.: ('-2030−2007', '2007')
+   7a6583b indeterminado  → 876bfc2 indeterminado    178238   ej.: ('=H–‑2024', '2024')
+   7a6583b −              → 876bfc2 −                 45971   ej.: (' –19422.410,6 1990 4051', '19422.410,6')
+   tras «cifra-» · no la cumple     · 876bfc2 indeterminado     55883
+   tras «cifra-» · regla declarada  · 876bfc2 +                  1573
+   tras «cifra-» · regla declarada  · 876bfc2 indeterminado       381
+   «regla declarada» e indeterminado con 876bfc2, por la regla que lo decide (signo con 7a6583b, motivo): {('indeterminado', 'guion detrás no seguido de cifra'): 364, ('indeterminado', '«)» detrás sin «(»'): 11, ('indeterminado', 'moneda o % entre medias'): 6} · ej.: [('1892,6   1991-2044‐', '2044'), ('1995‑2024−', '2024'), ('Graf/-2020‐2022—', '2022'), ('1.718  EJ2023–2077 )59', '2077'), ('－2007–2011−', '2011')]
+   violaciones de las propiedades: ninguna 
+
+== B · _cita_cifra con la página sobre 150000 casos aleatorios
+   7a6583b ausente              → 876bfc2 ausente                 77990
+   7a6583b ausente              → 876bfc2 no_localizada             467   (admitida)   ej.: ('p.2097 Law 9   2.942992024 millones\n', '2097 Law 9', -9.0)
+   7a6583b no_localizada        → 876bfc2 no_localizada           27131
+   7a6583b ok                   → 876bfc2 ok                       9310
+   7a6583b ok                   → 876bfc2 signo_indeterminado        93   (admitida)   ej.: ('p.2004—:  2006 millones\np.2040EUR 4797 millones\nNota –80‑52  xp. m\n', 'Nota –80‑52', 52.0)
+   7a6583b signo_distinto       → 876bfc2 signo_distinto           7118
+   7a6583b signo_distinto       → 876bfc2 signo_indeterminado        75   (admitida)   ej.: ('Nota   ‑–5946−1991 FY\n', '‑–5946−1991', -1991.0)
+   7a6583b signo_indeterminado  → 876bfc2 signo_indeterminado     12682
+   transiciones no admitidas: 0 []
+   «ausente → no_localizada» que no responden a un punto o una coma que no es de un número: 0
+   pasan de un estado distinto de «ok» a «ok»: 0
+
+== C · el máximo de apariciones (N alrededor de 200)
+   N=  200 sep=líneas     todas iguales, positivas                   7a6583b ok                   → 876bfc2 ok                  
+   N=  200 sep=una línea  todas iguales, positivas                   7a6583b ok                   → 876bfc2 ok                  
+   N=  200 sep=líneas     todas iguales, negativas y valor positivo  7a6583b signo_distinto       → 876bfc2 signo_distinto      
+   N=  200 sep=una línea  todas iguales, negativas y valor positivo  7a6583b signo_distinto       → 876bfc2 signo_distinto      
+   N=  200 sep=líneas     todas iguales, cero                        7a6583b ok                   → 876bfc2 ok                  
+   N=  200 sep=una línea  todas iguales, cero                        7a6583b ok                   → 876bfc2 ok                  
+   N=  200 sep=líneas     la cita es solo la cifra                   7a6583b ok                   → 876bfc2 ok                  
+   N=  200 sep=una línea  la cita es solo la cifra                   7a6583b ok                   → 876bfc2 ok                  
+   N=  201 sep=líneas     todas iguales, positivas                   7a6583b ok                   → 876bfc2 signo_indeterminado 
+   N=  201 sep=una línea  todas iguales, positivas                   7a6583b ok                   → 876bfc2 signo_indeterminado 
+   N=  201 sep=líneas     todas iguales, negativas y valor positivo  7a6583b signo_distinto       → 876bfc2 signo_indeterminado 
+   N=  201 sep=una línea  todas iguales, negativas y valor positivo  7a6583b signo_distinto       → 876bfc2 signo_indeterminado 
+   N=  201 sep=líneas     todas iguales, cero                        7a6583b ok                   → 876bfc2 signo_indeterminado 
+   N=  201 sep=una línea  todas iguales, cero                        7a6583b ok                   → 876bfc2 signo_indeterminado 
+   N=  201 sep=líneas     la cita es solo la cifra                   7a6583b ok                   → 876bfc2 signo_indeterminado 
+   N=  201 sep=una línea  la cita es solo la cifra                   7a6583b ok                   → 876bfc2 signo_indeterminado 
+   150 positivas + 51 negativas (201), cita «Total:» + cifra recortada «849,7»: ('signo_indeterminado', 'la cita aparece 201 veces en la página con lecturas distintas (ok, signo_distinto)') → ('signo_indeterminado', 'la cita aparece 201 veces en la página: no identifica un pasaje; hay que citar un fragmento distintivo')
+   201 apariciones todas NEGATIVAS con valor_fuente positivo (antes discrepancia «signo_distinto»): signo_distinto → signo_indeterminado
+   201 fragmentos dentro de un número (no son apariciones: el máximo no interviene): ausente → ausente
+
+real	2m28.153s
+user	2m25.511s
+sys	0m0.052s

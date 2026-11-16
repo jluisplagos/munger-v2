@@ -1,0 +1,111 @@
+VE = quinta (876bfc2) · VP = anterior (7a6583b)
+
+== A · N4: la cita toca la cifra sin contenerla y NO empieza ni acaba dentro de una palabra o cifra según la regla del fragmento
+   A1 la cita acaba en el punto de los miles: «Total 849.» (página «Total 849.697», valor 849697)
+      página='Total 849.697\n' cita='Total 849.' vf=849697
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A2 la cita acaba en la coma decimal: «Total 849,» (página «Total 849,697», valor 849,697)
+      página='Total 849,697\n' cita='Total 849,' vf=849.697
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A3 la cita empieza por el punto: «.000» (página «849697.000»)
+      página='Total 849697.000\n' cita='.000' vf=849697
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A4 miles con espacio: la cita «697.000» (página «849 697.000», valor 849697)
+      página='Total 849 697.000\n' cita='697.000' vf=849697
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A5 miles con espacio: la cita «Total 849» (página «Total 849 697,5», valor 849697,5)
+      página='Total 849 697,5\n' cita='Total 849' vf=849697.5
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A6 la cita «(» + parte: «Pagos (130.» (página «Pagos (130.8)», valor −130,8)
+      página='Pagos (130.8)\n' cita='Pagos (130.' vf=-130.8
+      anterior: ausente              quinta:  ausente (la cifra no aparece como cifra completa)
+   A7 control: la cita contiene la cifra y acaba en el punto final de la frase
+      página='Total 849.697.\n' cita='Total 849.697.' vf=849697
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+
+== B · N5: guion pegado entre cifras
+   B1 año de la columna pegado a un negativo ENTERO: «Saldo 2023-849» (publica −849), contrastado con +849
+      página='Saldo 2023-849\n' cita='Saldo 2023-849' vf=849
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B2 lo mismo contrastado con el valor publicado −849
+      página='Saldo 2023-849\n' cita='Saldo 2023-849' vf=-849
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B3 llamada de nota separada del rótulo y pegada a un negativo entero: «Resultado financiero 1-149», con +149
+      página='Resultado financiero 1-149\n' cita='Resultado financiero 1-149' vf=149
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B4 trimestre pegado a un negativo entero: «T4-15» con +15
+      página='Variación T4-15\n' cita='Variación T4-15' vf=15
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B5 miles con punto y negativo entero pegado: «1.234-567» con +567
+      página='Flujo 1.234-567\n' cita='Flujo 1.234-567' vf=567
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B6 intervalo de años
+      página='Periodo 2019-2020\n' cita='Periodo 2019-2020' vf=2020
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   B7 intervalo de años con raya
+      página='Periodo 2019–2020\n' cita='Periodo 2019–2020' vf=2020
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   B8 fecha dd-mm-aaaa
+      página='Cierre 31-12-2024\n' cita='Cierre 31-12-2024' vf=2024
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   B9 fecha aaaa-mm-dd, el día
+      página='Cierre 2024-12-31\n' cita='Cierre 2024-12-31' vf=31
+      anterior: ok                   quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok» (la anterior daba «ok»)
+   B10 ejercicio partido «2024-25»
+      página='Ejercicio 2024-25\n' cita='Ejercicio 2024-25' vf=25
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B11 intervalo de años con prefijo pegado: «FY2023-2024»
+      página='FY2023-2024 results\n' cita='FY2023-2024' vf=2024
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   B12 rango de enteros de más de cuatro cifras: «10000-20000 empleados»
+      página='Entre 10000-20000 empleados\n' cita='10000-20000 empleados' vf=20000
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B13 rango con miles: «10.000-20.000»
+      página='Entre 10.000-20.000 empleados\n' cita='10.000-20.000 empleados' vf=20000
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B14 rango de porcentajes con decimales: «7-7,5 %»
+      página='Margen del 7-7,5 %\n' cita='7-7,5 %' vf=7.5
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B15 rango de importes con decimales: «1,5-2,5 millones»
+      página='Entre 1,5-2,5 millones\n' cita='1,5-2,5 millones' vf=2.5
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B16 artículo de ley «L. 225-129-5» (el 5)
+      página='art. L. 225-129-5\n' cita='L. 225-129-5' vf=5
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   B17 negativo con decimales pegado a un año (lo que corrige N5): «2023-849,7» con +849,7
+      página='Saldo 2023-849,7\n' cita='Saldo 2023-849,7' vf=849.7
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   B18 lo mismo con el valor publicado −849,7 (pendiente: no puede determinarse)
+      página='Saldo 2023-849,7\n' cita='Saldo 2023-849,7' vf=-849.7
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+
+== C · N10: «cifra)» sin «(» en la línea
+   C1 «(» en la línea anterior, la cita es la segunda línea: positivo → pendiente
+      página='Pagos (\n849,7)\n' cita='849,7' vf=849.7
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)
+   C2 lo mismo con el valor negativo y la cita de las dos líneas
+      página='Pagos (\n849,7)\n' cita='Pagos ( 849,7)' vf=-849.7
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   C3 hay OTRO paréntesis, ya cerrado, antes en la línea: «(nota 5) 849,7)» y el «(» del negativo está en la línea anterior
+      página='Arrendamientos (\n(nota 5) 849,7)\n' cita='(nota 5) 849,7' vf=849.7
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)   <<< ACEPTA lo que no debería
+   C4 positivo al final de un inciso de dos líneas: «(incluye amortización de⏎849,7)», la cita es la segunda línea
+      página='Gastos (incluye amortización de\n849,7) y otros\n' cita='849,7' vf=849.7
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   C5 lo mismo con la cita de las dos líneas
+      página='Gastos (incluye amortización de\n849,7) y otros\n' cita='(incluye amortización de 849,7)' vf=849.7
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   C6 positivo dentro de un inciso en la misma línea: «(2024: 849,7)»
+      página='EBITDA (2024: 849,7)\n' cita='2024: 849,7' vf=849.7
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   C7 remisión: «(véase la nota 12)» para 12
+      página='Deuda (véase la nota 12)\n' cita='nota 12' vf=12
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+   C8 enumeración: «1) Ventas» para 1
+      página='1) Ventas 849,7\n' cita='1) Ventas' vf=1
+      anterior: signo_indeterminado  quinta:  signo_indeterminado (apariciones de la cifra: indeterminado)   <<< el revisor esperaba «ok»
+   C9 cifra seguida de «)» de una llamada de nota: «849,7 1)»
+      página='Ventas 849,7 1)\n' cita='Ventas 849,7' vf=849.7
+      anterior: ok                   quinta:  ok (signo publicado igual al de valor_fuente)
+
+10 casos distintos de lo esperado por el revisor

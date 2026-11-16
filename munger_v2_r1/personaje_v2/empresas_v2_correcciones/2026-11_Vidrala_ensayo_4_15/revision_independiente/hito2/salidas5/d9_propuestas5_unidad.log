@@ -1,0 +1,48 @@
+VE = quinta (876bfc2) · VQ = 876bfc2 con las propuestas V1, V2 y V3 del revisor
+== A · V1: pares de marcas de moneda
+   monedas distintas · 876bfc2 exenta    → propuesta exenta   : 7872
+   monedas misma     · 876bfc2 PENDIENTE → propuesta PENDIENTE: 992
+   monedas misma     · 876bfc2 exenta    → propuesta PENDIENTE: 352
+   unidades en las que la propuesta no coincide con la tabla del revisor o deja de dar pendiente: 0 []
+      'coronas/DKK'            876bfc2 no pendiente  propuesta PENDIENTE
+      'francos/CHF'            876bfc2 no pendiente  propuesta PENDIENTE
+      'reales/BRL'             876bfc2 no pendiente  propuesta PENDIENTE
+      'corona/coronas'         876bfc2 no pendiente  propuesta PENDIENTE
+      'DKK/SEK'                876bfc2 no pendiente  propuesta no pendiente
+      'coronas/euros'          876bfc2 no pendiente  propuesta no pendiente
+      'USD por EUR'            876bfc2 no pendiente  propuesta no pendiente
+      'euros/EUR'              876bfc2 PENDIENTE     propuesta PENDIENTE
+      'miles de euros'         876bfc2 no pendiente  propuesta no pendiente
+      'EUR por acción'         876bfc2 no pendiente  propuesta no pendiente
+      'millones de coronas'    876bfc2 PENDIENTE     propuesta PENDIENTE
+
+== B · V2: el salto de línea
+   página='Gastos financieros\n-1980\n-2050\n' vf=2050 (publicada en −) · 876bfc2: ok                   propuesta: signo_distinto
+   página='Gastos financieros\n-1980\n-2050\n' vf=-2050 (publicada en −) · 876bfc2: signo_distinto       propuesta: ok
+   página='Ejercicio 2023\n-2024\n' vf=2024 (publicada en −) · 876bfc2: ok                   propuesta: signo_distinto
+   página='Notas 5-6\n-2024\n' vf=2024 (publicada en −) · 876bfc2: ok                   propuesta: signo_distinto
+   página='Ejercicio 2023-2024\n' vf=2024 (publicada en +) · 876bfc2: ok                   propuesta: ok
+   página='Cierre 31-12-2024\n' vf=2024 (publicada en +) · 876bfc2: ok                   propuesta: ok
+   página='FY2023-2024\n' vf=2024 (publicada en +) · 876bfc2: ok                   propuesta: ok
+   página='Periodo 2019-\n2020\n' vf=2020 (publicada en +) · 876bfc2: signo_indeterminado  propuesta: signo_indeterminado
+   _signo_en_cita 876bfc2 1 → propuesta -1 (con salto de línea justo antes del guion): 344   ej.: ('‒5-6\n-2074', '2074')
+   _signo_en_cita 876bfc2 1 → propuesta -1 (sin él): 3   ej.: ('€2039\n−€2075', '2075')
+   _signo_en_cita: 291314 cifras; distintas entre 876bfc2 y la propuesta: 347; de ellas, sin salto de línea antes del guion: 3
+
+== C · V3: punto o coma delante de la cifra citada
+   fin de frase «ejercicio.849,7»                                 7a6583b: ausente        876bfc2: no_localizada  propuesta: no_localizada
+   abreviatura «p.12»                                             7a6583b: ausente        876bfc2: no_localizada  propuesta: no_localizada
+   puntos conductores                                             7a6583b: ausente        876bfc2: no_localizada  propuesta: no_localizada
+   dentro de un número «1.849,7»                                  7a6583b: ausente        876bfc2: ausente        propuesta: ausente
+   decimal sin cero « .5»                                         7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   «-.5»                                                          7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   «(.5)»                                                         7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   «$.85»                                                         7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   «,5»                                                           7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   al principio de la página «.5»                                 7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+   palabra cortada tras una línea que acaba en cifra (D1 de d7)   7a6583b: ausente        876bfc2: ausente        propuesta: no_localizada
+   «(1).849,7»                                                    7a6583b: ausente        876bfc2: no_localizada  propuesta: ausente
+
+real	0m4.842s
+user	0m4.511s
+sys	0m0.012s
