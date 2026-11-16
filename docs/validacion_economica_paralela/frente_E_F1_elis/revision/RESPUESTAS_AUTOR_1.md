@@ -29,7 +29,7 @@
 | C13 | 1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a | Registra el hash de C12. Congelado de la revisión n.º 6 |
 | C14 | cf55865a22035aa8376d8813cd58d0f2fcdd4846 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 6 (R1–R8): asignación por orden con alineación, cabecera de la propia tabla, grupos de columnas por entidad, filas de jurisdicción, encabezados numerados, título corto de tabla, prefijo de UGE, FALLO solo con la columna alineada, ventas de 2021–22 por segmentos (R23) y umbrales de detección (sexta parte) |
 | C15 | c96d544646b2fa5a66c233402a9f31332a643cec | Registra el hash de C14. Congelado de la revisión n.º 7 |
-| C16 | 559828e (verificador y test) y el commit siguiente; el hash final consta en el congelado siguiente (C17) y en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 7 (S1–S7): título numerado y fecha del saldo en el rótulo, líneas sin rótulo, pestaña del margen, cabecera por país sin unidades, encabezado en prosa, recuento de detección y frases (séptima parte) |
+| C16 | 66d01b8fc21b277efdae938170cc64815705962e, sobre 559828e (verificador y test) (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 7 (S1–S7): título numerado y fecha del saldo en el rótulo, líneas sin rótulo, pestaña del margen, cabecera por país sin unidades, encabezado en prosa, recuento de detección y frases (séptima parte) |
 
 ## Marcas y pruebas
 
