@@ -351,6 +351,9 @@ os.remove(os.path.join(dU, "entrada_efectiva.json"))
 ok_u6_pos = PL.modo_entrada_efectiva(dU) == ("estricta", "alcance_v2.json")
 json.dump({"tipo": "x", "aviso": "y", "entrada": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
 ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)
+for errata_doble in ("entrdaefectivaa", "Entrada_Efectiv", "entrada_efectvia"):
+    json.dump({"tipo": "x", errata_doble: "estricta"}, open(os.path.join(dU, "alcance_v2.json"), "w"))
+    casos_u6[f"errata doble «{errata_doble}» (hito 2, T6)"] = error(lambda: PL.modo_entrada_efectiva(dU))
 json.dump({"tipo": "x", "tasa_efectiva": 0.25, "entradas_otras": 1}, open(os.path.join(dU, "alcance_v2.json"), "w"))
 ok_u6_pos = ok_u6_pos and PL.modo_entrada_efectiva(dU) == ("registrada", None)  # (hito 2, N9) «tasa_efectiva» no es una errata
 paso("P", "(hito 2, U6 b y c) erratas de la clave en alcance_v2.json, alcance ilegible o que no es un objeto y «registrada» frente a «estricta»: error (antes: «registrada» en silencio); sin declaración, «registrada»; «estricta» válida, aplicada",

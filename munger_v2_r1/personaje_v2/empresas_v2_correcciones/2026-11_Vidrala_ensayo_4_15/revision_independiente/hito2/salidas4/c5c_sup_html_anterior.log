@@ -1,0 +1,18 @@
+código: anterior (f3d15e8, 3.ª comprobación)
+== C · fuente HTML con una llamada de nota en <sup> pegada a la cifra
+   C1 control: sin llamada de nota
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000'
+      -> comprobada
+   C2 llamada <sup>1</sup> pegada a la cifra
+      texto visible: 'Partida sintetica de Historia!F6: 849697.0001'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   C3 llamada <sup>(1)</sup>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000(1)'
+      -> comprobada
+   C4 llamada <sup>a</sup>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000a'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   C5 llamada con <a>: <a href='#n1'><sup>1</sup></a>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.0001'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

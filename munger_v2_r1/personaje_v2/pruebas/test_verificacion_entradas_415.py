@@ -1086,6 +1086,40 @@ r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/t4.pdf"
                                              cita=f"{K}: {VF_K:.3f}"), resellar=True)
 paso("RW", "(T4) la cita está en el PDF sin sus espacios («…F6:849697.000») y no puede leerse con sus palabras: pendiente (antes se omitía la lectura en silencio)",
      not r["apto_por_entradas"] and con_k(r, K, ("pendientes",)), con_k(r, K))
+# (hito 2, cuarta comprobación, Q1–Q4 y pruebas de Q2)
+q1 = {"euros/EUR": True, "EUR/€": True, "Euros / Euro": True, "USD/$": True, "USD por EUR": False, "EUR/USD": False}
+mal_q1 = {u_: VE._unidad_monetaria_no_reconocida(u_) for u_, e_ in q1.items() if VE._unidad_monetaria_no_reconocida(u_) != e_}
+paso("RW", "(Q1) un «par» de la misma moneda («euros/EUR», «EUR/€», «USD/$») no es un tipo de cambio: la unidad sigue sin reconocer (pendiente)", not mal_q1, mal_q1)
+q3 = {("Saldo 2023-1849", 1849): "signo_indeterminado", ("Graf2023-1849", 1849): "signo_indeterminado", ("9-10", 10): "signo_indeterminado",
+      ("2019-2020", 2020): "ok", ("FY2023-2024", 2024): "ok", ("31-12-2024", 2024): "ok"}
+mal_q3 = {k_[0]: VE._cita_cifra(*k_)[0] for k_, e_ in q3.items() if VE._cita_cifra(*k_)[0] != e_}
+paso("RW", "(Q3) intervalo solo entre años crecientes y plausibles, con el prefijo FY/AF/EJ como palabra, o en una fecha", not mal_q3, mal_q3)
+paso("RW", "(Q4) un punto pegado delante de la cifra que no forma parte de un número («ejercicio.849,7»): pendiente, no discrepancia; con un número delante («1.849,7»): discrepancia",
+     VE._cita_cifra("849,7", 849.7, "ejercicio.849,7")[0] == "no_localizada" and VE._cita_cifra("849,7", 849.7, "total 1.849,7")[0] == "ausente")
+t0 = _time.time()
+muchas = " ".join([f"Total: {VF_K:.3f}"] * 3000)
+r_m = VE._cita_cifra(f"Total: {VF_K:.3f}", VF_K, muchas)
+paso("RW", "(N10, Q4) una cita que aparece miles de veces en una línea: no identifica un pasaje (pendiente) y se resuelve en un tiempo acotado",
+     r_m[0] == "signo_indeterminado" and _time.time() - t0 < 10, (r_m[0], round(_time.time() - t0, 2)))
+t0 = _time.time()
+pocas = " ".join([f"Partida {i}: {i}.5" for i in range(8000)] + [f"Total: {VF_K:.3f}"] * 150)
+r_p = VE._cita_cifra(f"Total: {VF_K:.3f}", VF_K, pocas)
+paso("RW", "(N10) 150 apariciones en una línea de más de 100 kB: se leen con el contexto recortado, en menos de 10 s", r_p[0] == "ok" and _time.time() - t0 < 10,
+     (r_p[0], round(_time.time() - t0, 2), len(pocas)))
+xh_b = f'<html xmlns="http://www.w3.org/1999/xhtml"><body><div hidden/><p>{CITA_K}</p></body></html>'
+open(os.path.join(FS, "t3_xmlns.html"), "w", encoding="utf-8").write(xh_b)
+e_t3, x_t3 = VE._texto_html_visible(os.path.join(FS, "t3_xmlns.html"))
+open(os.path.join(FS, "t3_cp875.html"), "wb").write(b'<html><head><meta charset="cp875"></head><body><p>x</p></body></html>')
+paso("RW", "(T3) un .html con xmlns es HTML («<div hidden/>» oculta lo que sigue); cp875 (EBCDIC) no es una codificación admitida",
+     e_t3 == "ok" and VE._cmp_txt_espacios(CITA_K) not in VE._cmp_txt_espacios(x_t3) and VE._texto_html_visible(os.path.join(FS, "t3_cp875.html"))[0] == "pendiente")
+open(os.path.join(FS, "n3c.pdf"), "wb").write(pdf_minimo([f"Partida sintetica de {K}: 1{VF_K:.3f}"]))
+txt_n3c = "[PDF PAGE 1]\nPartida sintetica de " + K + ": " + f"{VF_K:.3f}" + "\n"
+open(os.path.join(FS, "n3c.txt"), "w", encoding="utf-8").write(txt_n3c)
+r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/n3c.pdf", sha256=hashlib.sha256(open(os.path.join(FS, "n3c.pdf"), "rb").read()).hexdigest(),
+                                             archivo_texto="fuentes_sinteticas/n3c.txt", sha256_texto=hashlib.sha256(txt_n3c.encode("utf-8")).hexdigest(), pagina=1,
+                                             cita=f"{VF_K:.3f}"), resellar=True)
+paso("RW", "(N3, Q2) el PDF publica una cifra con un dígito más (1849697.000) que el texto conservado (849697.000), cita recortada: discrepancia (la cifra del documento manda)",
+     not r["apto_por_entradas"] and K not in r["comprobadas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
 r = con()
 paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])
 
@@ -1131,7 +1165,8 @@ inf = open(os.path.join(c, "informe_provisional.md"), encoding="utf-8").read()
 fp = json.load(open(os.path.join(c, "ficha_provisional.json"), encoding="utf-8"))
 paso("N", "(hito 2, H9 y N2) registro apto con el modo aplicado («registrada») distinto del declarado («estricta»): no apto por entradas en los dos bloques del informe y en la ficha",
      VE.comprobar(c)["apto_por_entradas"] and aptitud_en_informe(inf, False) and None not in bloques_aptitud(inf)
-     and (fp.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and ((fp.get("aptitud_de_uso") or {}).get("verificacion_entradas") or {}).get("apto_por_entradas") is False,
+     and (fp.get("verificacion_entradas") or {}).get("apto_por_entradas") is False and ((fp.get("aptitud_de_uso") or {}).get("verificacion_entradas") or {}).get("apto_por_entradas") is False
+     and ((fp.get("verificacion_entradas") or {}).get("resumen") or {}).get("apto_por_entradas") is False,  # (hito 2, T7) el resumen del bloque tampoco dice «apto»
      bloques_aptitud(inf))
 os.remove(os.path.join(c, "entrada_efectiva.json"))
 if _st0 is None:

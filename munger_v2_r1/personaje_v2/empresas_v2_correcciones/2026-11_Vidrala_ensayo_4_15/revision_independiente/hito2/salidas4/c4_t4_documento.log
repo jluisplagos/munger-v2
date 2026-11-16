@@ -1,0 +1,106 @@
+código: cuarta (7a6583b)
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+== A · el documento publica la cifra EN POSITIVO, como la cita (se espera «comprobada»)
+   A1 control: HTML idéntico al texto conservado
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000 total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A2 HTML con espacio de no separación entre las palabras de la cita
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000&nbsp;total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A3 HTML con un espacio largo (&emsp;)
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000&emsp;total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A4 HTML con una etiqueta en línea dentro de una palabra de la cita (<b>to</b>tal)
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000 <b>to</b>tal</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A5 HTML con <br> entre las palabras de la cita
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000<br>total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A6 HTML con la cifra y el rótulo en celdas contiguas
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6:</td><td>849697.000</td><td>total</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok']
+      -> comprobada 
+   A7 HTML con una ligadura tipográfica en una palabra de la cita («beneﬁcio»); el texto conservado dice «beneficio»
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000 beneﬁcio</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 beneficio' · cita: '849697.000 beneficio' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> NO comprobada (pendientes) pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él): hace fal   <<< no se comprueba una entrada cuyo documento publica la cifra como se cita
+   A8 HTML con un guion blando en una palabra de la cita (to&shy;tal), cifra positiva
+      documento (html): '<p>Partida sintetica de Historia!F6: 849697.000 to&shy;tal</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> comprobada 
+   A9 HTML con un guion blando DENTRO de la cifra
+      documento (html): '<p>Partida sintetica de Historia!F6: 849&shy;697.000 total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> comprobada 
+   A10 PDF con las palabras de la cita en dos líneas
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.000\ntotal del ejercicio'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total del ejercicio' · cita: '849697.000 total del' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok', 'ok']
+      -> comprobada 
+   A11 PDF con una palabra de la cita partida («to tal»): r4b 6
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.000 to tal'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada', 'no_localizada']
+      -> NO comprobada (pendientes) pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él): hace fal   <<< no se comprueba una entrada cuyo documento publica la cifra como se cita
+   A12 PDF con los miles de la cifra separados por un espacio y el texto conservado sin él
+      documento (pdf): 'Partida sintetica de Historia!F6: 849 697.000 total'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada', 'no_localizada']
+      -> NO comprobada (pendientes) pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él): hace fal   <<< no se comprueba una entrada cuyo documento publica la cifra como se cita
+   A13 la cita es solo la cifra y el PDF la lleva pegada al rótulo («…F6:849697.000»)
+      documento (pdf): 'Partida sintetica de Historia!F6:849697.000 total'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['ok', 'ok']
+      -> comprobada 
+== B · el documento publica la cifra EN NEGATIVO y el texto conservado perdió el signo (se espera «NO comprobada»)
+   B1 HTML con ligadura en una palabra de la cita y la cifra con menos
+      documento (html): '<p>Partida sintetica de Historia!F6: -849697.000 beneﬁcio</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 beneficio' · cita: '849697.000 beneficio' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> NO comprobada (pendientes) pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él): hace fal
+   B2 HTML con &minus; y espacio de no separación
+      documento (html): '<p>Partida sintetica de Historia!F6: &minus;849697.000&nbsp;total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['signo_distinto']
+      -> NO comprobada (discrepancias) discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» e
+   B3 HTML con el paréntesis en celdas aparte
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6:</td><td>(</td><td>849697.000</td><td>)</td><td>total</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> NO comprobada (discrepancias) discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en el texto visible de la fuente HTML 'fuentes_sinteticas/c4_16.html'
+   B4 HTML con un guion blando dentro de la cifra y menos delante
+      documento (html): '<p>Partida sintetica de Historia!F6: -849&shy;697.000 total</p>'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> NO comprobada (discrepancias) discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» e
+   B5 PDF con los miles separados por un espacio y menos delante
+      documento (pdf): 'Partida sintetica de Historia!F6: -849 697.000 total'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000 total' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada', 'no_localizada']
+      -> NO comprobada (pendientes) pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita está en el documento de la fuente, pero no con sus palabras separadas igual: la cifra y su signo no pueden leerse en él): hace fal
+   B6 la cita es solo la cifra; el PDF la lleva pegada al rótulo con menos («…F6:-849697.000»)
+      documento (pdf): 'Partida sintetica de Historia!F6:-849697.000 total'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total' · cita: '849697.000' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['signo_distinto', 'signo_distinto']
+      -> NO comprobada (discrepancias) discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» e
+   B7 HTML con la cifra negativa en una palabra de la cita cortada («Subtotal» citado «total»)
+      documento (html): '<p>Subtotal -849697.000</p>'
+      texto conservado: 'total 849697.000' · cita: 'total 849697.000' · valor_fuente 849697.0
+      lectura de la cita en el texto del documento: ['no_localizada']
+      -> NO comprobada (discrepancias) discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en el texto visible de la fuente HTML 'fuentes_sinteticas/c4_20.html'
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+RESUMEN: A1: comprobada · A2: comprobada · A3: comprobada · A4: comprobada · A5: comprobada · A6: comprobada · A7: NO comprobada (pendientes) · A8: comprobada · A9: comprobada · A10: comprobada · A11: NO comprobada (pendientes) · A12: NO comprobada (pendientes) · A13: comprobada · B1: NO comprobada (pendientes) · B2: NO comprobada (discrepancias) · B3: NO comprobada (discrepancias) · B4: NO comprobada (discrepancias) · B5: NO comprobada (pendientes) · B6: NO comprobada (discrepancias) · B7: NO comprobada (discrepancias)

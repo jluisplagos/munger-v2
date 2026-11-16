@@ -157,6 +157,16 @@ MARCAS_MONEDA = re.compile(r"(€|\$|£|¥|\beur\b|\beuros?\b|\busd\b|\bgbp\b|\b
 POR_UNIDAD = re.compile(r"(por|per|/)\s*(acci[oó]n|share|t[ií]tulo|unidad|unit)", re.I)
 
 
+def _moneda_de(marca):
+    """(4.15, hito 2, Q1) La moneda de una marca de MARCAS_MONEDA, normalizada («€», «eur», «euros» → «eur»)."""
+    m = _norm_txt(marca)
+    for cod, formas in (("eur", ("€", "eur", "euro", "euros")), ("usd", ("$", "usd", "dólar", "dolar", "dólares", "dolares")),
+                        ("gbp", ("£", "gbp", "libra", "libras")), ("jpy", ("¥", "jpy"))):
+        if m in formas or any(m.startswith(f) for f in formas if len(f) > 2):
+            return cod
+    return m
+
+
 def _unidad_monetaria_no_reconocida(unidad):
     """(4.15, hito 2, U7) La unidad nombra una moneda pero no está en UNIDADES (y no es un importe por acción o por unidad, cuya escala es
     la del propio precio): su escala no puede contrastarse."""
@@ -165,7 +175,8 @@ def _unidad_monetaria_no_reconocida(unidad):
     # (hito 2, T1) solo un par de monedas («USD por EUR», «EUR/USD», «tipo de cambio EUR/GBP») y sin ninguna palabra de escala: «miles de
     # euros a tipo de cambio constante» o «millones de euros/EUR million» son importes y siguen exigiendo una unidad reconocida
     m_ = MARCAS_MONEDA.pattern
-    tipo_cambio = (re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*" + m_ + r"\s*(?:por|per|/)\s*" + m_ + r"[\s)]*", t, re.I) is not None
+    par = re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*(?P<a>" + m_ + r")\s*(?:por|per|/)\s*(?P<b>" + m_ + r")[\s)]*", t, re.I)
+    tipo_cambio = (par is not None and _moneda_de(par.group("a")) != _moneda_de(par.group("b"))  # (hito 2, Q1) dos monedas DISTINTAS: «euros/EUR» no es un tipo de cambio
                    and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
     return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None and not tipo_cambio
 
@@ -422,7 +433,6 @@ def _cifras(x):
 
 MENOS_UNICODE = "−"  # «−»: signo menos si va pegado a la cifra; aislado, como los guiones (una fuente real lo usa para imprimir un cero)
 GUIONES = "-‐‑‒–—﹣－"  # guion ASCII y guiones tipográficos: signo menos si van pegados; aislados, un cero
-MONEDAS = "€$£¥"
 
 
 MONEDA_RE = r"(?:[€$£¥]|\b(?:EUR|USD|GBP|CHF|JPY|DKK|SEK|NOK|BRL)\b)"
@@ -439,7 +449,11 @@ def _signo_en_cita(t, ini, fin):
           cierra, dos marcas pegadas («-(149,5)») o un menos detrás de la cifra («149,5-»).
     Un guion separado por dos o más espacios es otra columna (el cero impreso como guion, la misma convención que el control del cero).
     Límite declarado (hito 2, H3): esa convención lee como positiva una cifra con un signo menos separado por varios espacios; en las
-    fuentes reales la regla acierta. El texto tiene que ser el de la página (con sus espacios), no la cita: lo hace _cita_cifra."""
+    fuentes reales la regla acierta. El texto tiene que ser el de la página (con sus espacios), no la cita: lo hace _cita_cifra.
+    Otros límites declarados (revisiones del hito 2; ninguno afecta a un registro real): quedan pendientes, por prudencia, formas
+    legítimas como «(149.5m)», «(-x)», «31-dic-2024», «2024-25», «12-2024» o «7-7,5 %» (T8, Q3) y diferencias tipográficas entre el texto
+    conservado y el del documento (T4); un carácter invisible entre el signo y la cifra la hace leer en positivo; ISO-8859-9 y -11 se
+    leen con su tabla ISO, no con la de windows; el signo escrito con palabras («menos 149,5») no se reconoce (Q6)."""
     antes, despues = t[:ini], t[fin:]
     antes = re.sub(MONEDA_RE + r"\s?$", "", antes, flags=re.I)
     despues = re.sub(r"^\s?(?:" + MONEDA_RE + r"|%)", "", despues, flags=re.I)
@@ -456,16 +470,23 @@ def _signo_en_cita(t, ini, fin):
     m = re.search("[" + marcas + r"](\s*)$", antes)
     if m:
         previo = antes[:m.start()]
-        m_prev = re.search(r"(?:^|[^\w.,])(\d{1,4})$", previo) or re.search(r"(?:FY|AF|EJ)(\d{4})$", previo, re.I)
-        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", t[ini:fin]) is not None  # «31-12-2024»
-        if m.group(1) == "" and (fecha or (m_prev and re.fullmatch(r"\d{1,4}", t[ini:fin]) and len(m_prev.group(1)) == len(t[ini:fin]))):
-            return 1  # intervalo o fecha entre enteros de la misma longitud: «2019-2020», «31-12-2024», «FY2023-2024» ((N5, T8) no «2023-849»)
+        # (hito 2, N5, T8 y Q3) solo un intervalo de años crecientes y plausibles («2019-2020», «FY2023-2024», con el prefijo como palabra) o
+        # una fecha («31-12-2024»); cualquier otro guion pegado entre cifras («2023-849», «Saldo 2023-1849», «9-10») deja el signo indeterminado
+        m_prev = re.search(r"(?:^|[^\w.,])(\d{4})$", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})$", previo, re.I)
+        tok = t[ini:fin]
+        anios = (m_prev is not None and re.fullmatch(r"\d{4}", tok) is not None and 1900 <= int(m_prev.group(1)) <= int(tok) <= 2100)
+        fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", tok) is not None  # «31-12-2024»
+        if m.group(1) == "" and (fecha or anios):
+            return 1
         if m.group(1) == "" and (previo == "" or re.search(r"[\s:;=/\[|€$£¥]$", previo)):
             return -1
         if len(m.group(1)) >= 2 and (previo == "" or re.search(r"\s$", previo)):
             return 1  # guion aislado de otra columna (un cero), separado de la cifra por dos o más espacios
         return None
     return 1
+
+
+MAX_APARICIONES_CITA = 200  # (hito 2, Q4)
 
 
 def _apariciones_en_pagina(cita, pagina):
@@ -542,6 +563,9 @@ def _cita_cifra(cita, vf, pagina=None):
     if pagina is None:
         return _lectura_cifra(cita, vf)
     apar = _apariciones_en_pagina(cita, pagina)
+    if len(apar) > MAX_APARICIONES_CITA:
+        # (hito 2, Q4 y N10) una cita que aparece cientos de veces no identifica un pasaje (y leerla en todas tiene un coste no acotado)
+        return "signo_indeterminado", f"la cita aparece {len(apar)} veces en la página: no identifica un pasaje; hay que citar un fragmento distintivo"
     if not apar:
         palabras = str(cita or "").split()
         t_ = re.sub("[" + chr(0xa0) + chr(0x202f) + chr(0x2009) + "]", " ", str(pagina))
@@ -550,7 +574,9 @@ def _cita_cifra(cita, vf, pagina=None):
             # (hito 2, N10, R3 y T2) la cita solo está como fragmento: si el corte cae dentro de un NÚMERO, la cifra citada no es la publicada
             # (discrepancia); si cae dentro de una palabra, se pide la cita completa (pendiente)
             def en_numero(m):
-                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"[\d.,]$", t_[:m.start()]) is not None)
+                # (hito 2, Q4) coste constante (solo los caracteres vecinos) y un punto o una coma solo cuentan si forman parte de un número
+                antes2 = t_[max(0, m.start() - 2):m.start()]
+                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,])$", antes2) is not None)
                         or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
             if any(en_numero(m) for m in sueltas):
                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"

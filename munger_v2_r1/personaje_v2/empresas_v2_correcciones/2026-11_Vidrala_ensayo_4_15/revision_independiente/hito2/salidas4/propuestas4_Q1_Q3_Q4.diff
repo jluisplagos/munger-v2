@@ -1,0 +1,35 @@
+--- copia/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 01:28:56.433594472 +0000
++++ prop/munger_v2_r1/personaje_v2/scripts/verificacion_entradas.py	2026-11-16 02:10:25.696679481 +0000
+@@ -165,7 +165,13 @@
+     # (hito 2, T1) solo un par de monedas («USD por EUR», «EUR/USD», «tipo de cambio EUR/GBP») y sin ninguna palabra de escala: «miles de
+     # euros a tipo de cambio constante» o «millones de euros/EUR million» son importes y siguen exigiendo una unidad reconocida
+     m_ = MARCAS_MONEDA.pattern
+-    tipo_cambio = (re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*" + m_ + r"\s*(?:por|per|/)\s*" + m_ + r"[\s)]*", t, re.I) is not None
++    m_tc = re.fullmatch(r"(?:(?:tipo de cambio|exchange rate)\b)?[\s:(]*" + m_ + r"\s*(?:por|per|/)\s*" + m_ + r"[\s)]*", t, re.I)
++    # (propuesta del revisor, Q1) dos nombres de la MISMA moneda («euros/EUR», «EUR/€») no son un tipo de cambio: son un importe
++    _c = {"€": "eur", "euro": "eur", "euros": "eur", "$": "usd", "dólar": "usd", "dolar": "usd", "£": "gbp", "libra": "gbp", "libras": "gbp", "¥": "jpy",
++          "franco": "chf", "francos": "chf", "real": "brl", "reales": "brl"}
++    _a, _b = (_c.get(m_tc.group(1), m_tc.group(1)), _c.get(m_tc.group(2), m_tc.group(2))) if m_tc else (None, None)
++    _misma = _a == _b or (bool({_a, _b} & {"corona", "coronas"}) and {_a, _b} <= {"corona", "coronas", "dkk", "sek", "nok"})
++    tipo_cambio = (m_tc is not None and not _misma
+                    and re.search(r"miles|millones|millares|thousand|million|billion|\bmm\b|\bbn\b|mm€|meur|keur|k€|m€|€m|€000", t, re.I) is None)
+     return bool(t) and t not in UNIDADES and MARCAS_MONEDA.search(t) is not None and POR_UNIDAD.search(t) is None and not tipo_cambio
+ 
+@@ -456,7 +462,7 @@
+     m = re.search("[" + marcas + r"](\s*)$", antes)
+     if m:
+         previo = antes[:m.start()]
+-        m_prev = re.search(r"(?:^|[^\w.,])(\d{1,4})$", previo) or re.search(r"(?:FY|AF|EJ)(\d{4})$", previo, re.I)
++        m_prev = re.search(r"(?:^|[^\w.,])(\d{1,4})$", previo) or re.search(r"(?:^|[^\w.,])(?:FY|AF|EJ)(\d{4})$", previo, re.I)
+         fecha = re.search(r"(?:^|[^\w.,])\d{1,2}-\d{1,2}$", previo) is not None and re.fullmatch(r"\d{4}", t[ini:fin]) is not None  # «31-12-2024»
+         if m.group(1) == "" and (fecha or (m_prev and re.fullmatch(r"\d{1,4}", t[ini:fin]) and len(m_prev.group(1)) == len(t[ini:fin]))):
+             return 1  # intervalo o fecha entre enteros de la misma longitud: «2019-2020», «31-12-2024», «FY2023-2024» ((N5, T8) no «2023-849»)
+@@ -550,7 +556,7 @@
+             # (hito 2, N10, R3 y T2) la cita solo está como fragmento: si el corte cae dentro de un NÚMERO, la cifra citada no es la publicada
+             # (discrepancia); si cae dentro de una palabra, se pide la cita completa (pendiente)
+             def en_numero(m):
+-                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"[\d.,]$", t_[:m.start()]) is not None)
++                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"\d[.,]?$", t_[max(0, m.start() - 2):m.start()]) is not None)
+                         or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
+             if any(en_numero(m) for m in sueltas):
+                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"

@@ -1,0 +1,56 @@
+código: estable
+
+== A · V6.4.1 con el registro sintético APTO
+   comprobar: True 321 / 321
+   A0 control (sin declaración del modo) · códigos (0, 0, 0) · plantilla V6.4.1 experimental
+      ficha: {'verificacion_entradas.apto_por_entradas': True, 'verificacion_entradas.resumen.apto_por_entradas': True, 'verificacion_entradas.motivo_modo': None, 'aptitud_de_uso.verificacion_entradas.apto_por_entradas': True, 'aptitud_de_uso.motivos_no_apto': ['la entrega es experimental: plantillas, configuración económ']}
+      informe: {'párrafo de aptitud V6.4': (['sí'], ['no']), 'línea de las entradas (I20)': (['sí'], ['no'])}
+   A1 modo aplicado en el paso 2 «registrada» ≠ declarado ahora «estricta» · códigos (0, 0, 0)
+      ficha · verificacion_entradas.apto_por_entradas: False
+      ficha · verificacion_entradas.resumen.apto_por_entradas: True
+      ficha · verificacion_entradas.motivo_modo: el modo aplicado en el paso 2 no es el declarado ahora: hay que repetir el expediente desde el paso 2
+      ficha · aptitud_de_uso.verificacion_entradas.apto_por_entradas: False
+      ficha · aptitud_de_uso.motivos_no_apto: ['verificación de las entradas financieras incompleta: el modo', 'la entrega es experimental: plantillas, configuración económ']
+      informe: {'párrafo de aptitud V6.4': (['no'], ['no']), 'línea de las entradas (I20)': (['no'], ['no'])}
+      -> los dos bloques dicen lo mismo
+   A2 declaración del modo ilegible · códigos (0, 0, 0)
+      ficha · verificacion_entradas.apto_por_entradas: False
+      ficha · verificacion_entradas.resumen.apto_por_entradas: True
+      ficha · verificacion_entradas.motivo_modo: la declaración del modo de la entrada efectiva tiene un error: no se puede leer (JSONDecodeError)
+      ficha · aptitud_de_uso.verificacion_entradas.apto_por_entradas: False
+      ficha · aptitud_de_uso.motivos_no_apto: ['verificación de las entradas financieras incompleta: la decl', 'la entrega es experimental: plantillas, configuración económ']
+      informe: {'párrafo de aptitud V6.4': (['no'], ['no']), 'línea de las entradas (I20)': (['no'], ['no'])}
+      -> los dos bloques dicen lo mismo
+
+== B · V6.3 (copia de elis_decisiones/Elis, registro real)
+   estado_pipeline.json: claves de la 4.14/4.15 presentes: {'verificacion_entradas': True, 'entrada_efectiva': False} | verificacion_entradas.apto en el estado: True
+   B0 tal cual (con su registro, sin declaración del modo)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material e8b34ff9c453c4e7 · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: None
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · « 99 sin entrada. Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: registrada (sin declaración). Apta para dinero real: no.»
+   B1 se borra verificacion_entradas.json (no hay entrada_efectiva.json)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material 1928ec1dcde636b6 · bloque en la ficha: False · apto_por_entradas: None · motivo_modo: None
+      informe: «apta por entradas» [] · «Apta para dinero real» [] · línea I20: NO HAY
+   B2 sin registro, con entrada_efectiva.json «estricta» (como un expediente que prepara cambiar_base.py)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material 274ff64bb36b9f0e · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: None
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «edita nada). Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: estricta (entrada_efectiva.json). Apta para dinero real: no.»
+   B3 con registro, modo aplicado «registrada» ≠ declarado «estricta»
+      códigos (ficha, informe, esquema) (0, 0, 0) · material 0512a70c9e6c6b35 · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: el modo aplicado en el paso 2 no es el declarado ahora: hay que repetir el expediente desde el paso 2
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «eclaración del modo); declarado ahora: estricta (entrada_efectiva.json); **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.»
+   B4 lo mismo, borrando los dos archivos (el estado sigue diciendo que el paso 2 aplicó «registrada»)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material 4228ea8a968a5910 · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: None
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «efectiva: modo aplicado en el paso 2: registrada (sin declaración del modo); declarado ahora: registrada (sin declaración). Apta para dinero real: no.»
+      modo declarado según pipeline.modo_entrada_efectiva: ('estricta', 'alcance_v2.json')
+   B5 sin registro ni entrada_efectiva.json, con el modo «estricta» declarado en alcance_v2.json (forma del hito 1 de la 4.15)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material 4a2ce7d6390eead6 · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: el modo aplicado en el paso 2 no es el declarado ahora: hay que repetir el expediente desde el paso 2
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «(sin declaración del modo); declarado ahora: estricta (alcance_v2.json); **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.»
+      pipeline.modo_entrada_efectiva: ERROR · fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+   B6 fase1_metadatos.json registra «estricta», entrada_efectiva.json borrado y sin registro (declaración con error, T5)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material a8a764869f2485ca · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: la declaración del modo de la entrada efectiva tiene un error: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «etadatos.json registra el modo 'estricta' y falta entrada_efectiva.json; **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.»
+   B7 lo mismo con el registro presente (control: el error de la declaración sí se ve)
+      códigos (ficha, informe, esquema) (0, 0, 0) · material e642c93a54e23a3c · bloque en la ficha: True · apto_por_entradas: False · motivo_modo: la declaración del modo de la entrada efectiva tiene un error: fase1_metadatos.json registra el modo 'estricta' y falta entrada_efectiva.json
+      informe: «apta por entradas» ['no'] · «Apta para dinero real» ['no'] · línea I20: sí · «etadatos.json registra el modo 'estricta' y falta entrada_efectiva.json; **el modo aplicado no coincide con el declarado**. Apta para dinero real: no.»
+
+real	0m24.259s
+user	0m20.700s
+sys	0m2.890s

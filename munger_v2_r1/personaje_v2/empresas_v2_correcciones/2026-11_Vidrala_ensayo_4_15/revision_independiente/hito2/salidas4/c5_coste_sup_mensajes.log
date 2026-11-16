@@ -1,0 +1,52 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8)
+== A · coste de _cita_cifra con una cita que solo aparece como fragmento, N veces en una página de una sola línea
+   N=  1000 (   8 kB) empieza por cifra, acaba dentro de una palabra   · anterior: ausente          0.00 s · cuarta: no_localizada    0.04 s
+   N=  1000 (   8 kB) empieza dentro de una palabra, acaba en cifra    · anterior: ausente          0.00 s · cuarta: no_localizada    0.00 s
+   N=  1000 (   9 kB) cortada dentro de un número (corta al primero)   · anterior: ausente          0.00 s · cuarta: ausente          0.00 s
+   N=  5000 (  40 kB) empieza por cifra, acaba dentro de una palabra   · anterior: ausente          0.00 s · cuarta: no_localizada    0.70 s
+   N=  5000 (  40 kB) empieza dentro de una palabra, acaba en cifra    · anterior: ausente          0.00 s · cuarta: no_localizada    0.01 s
+   N=  5000 (  45 kB) cortada dentro de un número (corta al primero)   · anterior: ausente          0.00 s · cuarta: ausente          0.00 s
+   N= 20000 ( 160 kB) empieza por cifra, acaba dentro de una palabra   · anterior: ausente          0.00 s · cuarta: no_localizada   13.62 s
+   N= 20000 ( 160 kB) empieza dentro de una palabra, acaba en cifra    · anterior: ausente          0.00 s · cuarta: no_localizada    0.04 s
+   N= 20000 ( 180 kB) cortada dentro de un número (corta al primero)   · anterior: ausente          0.00 s · cuarta: ausente          0.01 s
+
+== B · registro completo: categoría y mensaje · código: cuarta (7a6583b)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   B1 cita cortada dentro de una PALABRA («Subpartida…» citada «partida…»)
+      página='Subpartida sintética de Historia!F6: 849697.000'
+      cita='partida sintética de Historia!F6: 849697.000'
+      -> NO comprobada · pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo): hace falta una cita en la que la cifra publicada y su signo sean inequívocos; una declaración del revisor no lo sustituye (R415-SIGNO)
+   B2 cita cortada dentro de un NÚMERO
+      página='Partida sintética de Historia!F6: 849697.0000'
+      cita='Partida sintética de Historia!F6: 849697.000'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   B3 cita que acaba dentro de una palabra
+      página='Partida sintética de Historia!F6: 849697.000 millones'
+      cita='Partida sintética de Historia!F6: 849697.000 mill'
+      -> NO comprobada · pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo): hace falta una cita en la que la cifra publicada y su signo sean inequívocos; una declaración del revisor no lo sustituye (R415-SIGNO)
+   B4 punto pegado delante de la cifra («{K}.{c}»): no es de un número
+      página='Partida sintética de Historia!F6.849697.000'
+      cita='849697.000'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   B5 control: unidad pegada detrás
+      página='Partida sintética de Historia!F6: 849697.000m'
+      cita='Partida sintética de Historia!F6: 849697.000'
+      -> comprobada
+
+== C · fuente HTML con una llamada de nota en <sup> pegada a la cifra
+   C1 control: sin llamada de nota
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000'
+      -> comprobada
+   C2 llamada <sup>1</sup> pegada a la cifra
+      texto visible: 'Partida sintetica de Historia!F6: 849697.0001'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   C3 llamada <sup>(1)</sup>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000(1)'
+      -> comprobada
+   C4 llamada <sup>a</sup>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.000a'
+      -> comprobada
+   C5 llamada con <a>: <a href='#n1'><sup>1</sup></a>
+      texto visible: 'Partida sintetica de Historia!F6: 849697.0001'
+      -> NO comprobada · discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

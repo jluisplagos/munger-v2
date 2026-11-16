@@ -1,0 +1,150 @@
+código: anterior (f3d15e8, 3.ª comprobación)
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+
+== A · PDF: columnas
+   A1 control: PDF y texto conservado iguales, sin guion
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000'
+      cita: 'Partida sintetica de Historia!F6: 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: 849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: 849697.000'
+      -> comprobada 
+   A2 guion de cero en la columna anterior (2+ espacios en el PDF y en el texto conservado); cita con los espacios normalizados
+      documento (pdf): 'Partida sintetica de Historia!F6        -        849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6        -        849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   -   849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n-\n\n849697.000'
+      -> comprobada 
+   A3 lo mismo, la cita es solo la cifra
+      documento (pdf): 'Partida sintetica de Historia!F6        -        849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6        -        849697.000'
+      cita: '849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   -   849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n-\n\n849697.000'
+      -> comprobada 
+   A4 dos columnas de cifras: la segunda tras un negativo entre paréntesis
+      documento (pdf): 'Partida sintetica de Historia!F6     (12.5)     849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6     (12.5)     849697.000'
+      cita: 'Partida sintetica de Historia!F6 (12.5) 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   (12.5)   849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n(12.5)\n\n849697.000'
+      -> comprobada 
+   A5 negativo publicado entre paréntesis en una tabla con guion delante
+      documento (pdf): 'Partida sintetica de Historia!F6        -        (849697.000)'
+      texto conservado: 'Partida sintetica de Historia!F6        -        (849697.000)'
+      cita: 'Partida sintetica de Historia!F6 - (849697.000)' · valor_fuente -849697.0 signo -1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   -   (849697.000)'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n-\n\n(849697.000)'
+      -> comprobada 
+   A6.2 guion de cero separado por 2 espacios en el PDF (el texto conservado es el de «pdftotext -layout»: columnas estrechas)
+      documento (pdf): 'Partida sintetica de Historia!F6  -  849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6  -  849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6 - 849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6 - 849697.000'
+      -> NO comprobada pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (apariciones de la cifra: indeterminado (en el documento de la fuente, no en el texto conservado)): hace falta una cita en la que la cifra publicada y su signo sean inequívocos; una declaración del revisor no    <<< rechazo de una entrada legítima
+   A6.3 guion de cero separado por 3 espacios en el PDF (el texto conservado es el de «pdftotext -layout»: columnas estrechas)
+      documento (pdf): 'Partida sintetica de Historia!F6   -   849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6   -   849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6 - 849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6 - 849697.000'
+      -> NO comprobada pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (apariciones de la cifra: indeterminado (en el documento de la fuente, no en el texto conservado)): hace falta una cita en la que la cifra publicada y su signo sean inequívocos; una declaración del revisor no    <<< rechazo de una entrada legítima
+   A6.4 guion de cero separado por 4 espacios en el PDF (el texto conservado es el de «pdftotext -layout»: columnas estrechas)
+      documento (pdf): 'Partida sintetica de Historia!F6    -    849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6    -    849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   -   849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n-\n\n849697.000'
+      -> comprobada 
+   A6.5 guion de cero separado por 5 espacios en el PDF (el texto conservado es el de «pdftotext -layout»: columnas estrechas)
+      documento (pdf): 'Partida sintetica de Historia!F6     -     849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6     -     849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6   -   849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6\n\n-\n\n849697.000'
+      -> comprobada 
+
+== B · HTML: celdas contiguas (el texto visible separa las celdas con un solo espacio)
+   B1 control: HTML con la cifra en una celda, sin guion
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>849697.000</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6        849697.000'
+      cita: 'Partida sintetica de Historia!F6 849697.000' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  849697.000'
+      -> comprobada 
+   B2 celda con el guion del cero antes de la celda de la cifra
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>-</td><td>849697.000</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6        -        849697.000'
+      cita: 'Partida sintetica de Historia!F6 - 849697.000' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  -  849697.000'
+      -> comprobada 
+   B3 lo mismo, la cita es solo la cifra
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>-</td><td>849697.000</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6        -        849697.000'
+      cita: '849697.000' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  -  849697.000'
+      -> comprobada 
+   B4 negativo con los paréntesis en celdas aparte (frecuente en HTML de informes): «(», cifra, «)»
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>(</td><td>849697.000</td><td>)</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6        (849697.000)'
+      cita: '(849697.000)' · valor_fuente -849697.0 signo -1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  (  849697.000  )'
+      -> NO comprobada discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en el texto visible de la fuente HTML 'fuentes_sinteticas/r4_13.html'   <<< rechazo de una entrada legítima
+   B5 celda con «—» (raya) antes de la cifra
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>—</td><td>849697.000</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6        —        849697.000'
+      cita: 'Partida sintetica de Historia!F6 — 849697.000' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  —  849697.000'
+      -> comprobada 
+   B6 símbolo de moneda en su celda y guion antes
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>-</td><td>€</td><td>849697.000</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6     -     € 849697.000'
+      cita: 'Partida sintetica de Historia!F6 - € 849697.000' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  -  €  849697.000'
+      -> comprobada 
+
+== C · residuo de N3: el documento publica el negativo, el texto conservado no, y la cita no es solo la cifra
+   C1 PDF «(c) 100.0»; texto conservado sin paréntesis; cita «cifra 100.0» (la cifra y la columna siguiente)
+      documento (pdf): 'Partida sintetica de Historia!F6: (849697.000) 100.0'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 100.0'
+      cita: '849697.000 100.0' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: (849697.000) 100.0'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: (849697.000) 100.0'
+      -> NO comprobada discrepancias: Historia!F6: la cita está en el texto conservado 'fuentes_sinteticas/fuente.txt', pero no en la página 275 del PDF 'fuentes_sinteticas/r4_16.pdf' (pdftotext): el texto conservado no es el de ese documento
+   C2 PDF «-c»; texto conservado sin el menos; cita de varias palabras que empieza en la cifra
+      documento (pdf): 'Partida sintetica de Historia!F6: -849697.000 total del ejercicio'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000 total del ejercicio'
+      cita: '849697.000 total del ejercicio' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: -849697.000 total del ejercicio'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: -849697.000 total del ejercicio'
+      -> NO comprobada discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman d
+   C3 HTML «-c» en una celda; texto conservado sin el menos; cita = la cifra y la celda siguiente
+      documento (html): '<table><tr><td>Partida sintetica de Historia!F6</td><td>-849697.000</td><td>100.0</td></tr></table>'
+      texto conservado: 'Partida sintetica de Historia!F6 849697.000 100.0'
+      cita: '849697.000 100.0' · valor_fuente 849697.0 signo 1
+      texto visible del HTML: 'Partida sintetica de Historia!F6  -849697.000  100.0'
+      -> NO comprobada discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman d
+   C4 PDF con una raya corta como signo menos («–c», U+2013); texto conservado sin ella; cita = la cifra
+      documento (pdf): 'Partida sintetica de Historia!F6: –849697.000'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000'
+      cita: '849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: –849697.000'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: –849697.000'
+      -> NO comprobada discrepancias: Historia!F6: la página no publica el valor de la fuente 849697.0 con su signo (la página la publica en negativo y valor_fuente es positivo (en el documento de la fuente, no en el texto conservado)): «valor_fuente» es la cifra publicada con su signo; «signo» y «escala» la transforman d
+   C5 PDF «c-» (menos detrás, estilo SAP); texto conservado sin él; cita = la cifra
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.000-'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000'
+      cita: '849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: 849697.000-'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: 849697.000-'
+      -> NO comprobada pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (apariciones de la cifra: indeterminado (en el documento de la fuente, no en el texto conservado)): hace falta una cita en la que la cifra publicada y su signo sean inequívocos; una declaración del revisor no 
+   C6 PDF en el que la cifra es otra (un dígito más: «…0001»); texto conservado y cita con la cifra corta
+      documento (pdf): 'Partida sintetica de Historia!F6: 849697.0001'
+      texto conservado: 'Partida sintetica de Historia!F6: 849697.000'
+      cita: 'Partida sintetica de Historia!F6: 849697.000' · valor_fuente 849697.0 signo 1
+      pdftotext -layout: 'Partida sintetica de Historia!F6: 849697.0001'
+      pdftotext sin layout: 'Partida sintetica de Historia!F6: 849697.0001'
+      -> NO comprobada discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

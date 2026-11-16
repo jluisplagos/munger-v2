@@ -1,0 +1,44 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8)
+== A · ¿unidad monetaria no reconocida (pendiente por U7)?   anterior → cuarta
+   -- tipos de cambio (lo que N9 quería eximir)
+      'USD por EUR'                                            no monetaria → no monetaria
+      'EUR/USD'                                                no monetaria → no monetaria
+      'tipo de cambio EUR/USD'                                 no monetaria → no monetaria
+      'tipo de cambio medio USD por EUR'                       no monetaria → PENDIENTE
+      'exchange rate EUR/USD'                                  no monetaria → no monetaria
+      'GBP per EUR'                                            no monetaria → no monetaria
+   -- IMPORTES con una mención del tipo de cambio
+      'millones de euros a tipo de cambio constante'           no monetaria → PENDIENTE
+      'miles de euros (a tipo de cambio constante)'            no monetaria → PENDIENTE
+      'millones de euros al tipo de cambio de cierre'          no monetaria → PENDIENTE
+      'EUR million at constant exchange rates'                 no monetaria → PENDIENTE
+      'miles de USD convertidos al tipo de cambio medio'       no monetaria → PENDIENTE
+      'M€ a tipos de cambio constantes'                        PENDIENTE → PENDIENTE
+      'millones de dólares (tipo de cambio de cierre)'         no monetaria → PENDIENTE
+   -- IMPORTES con barra o «por» seguidos de moneda
+      'miles de euros / thousand euros'                        PENDIENTE → PENDIENTE
+      'millones de euros/EUR million'                          no monetaria → PENDIENTE
+      'Miles de € / € thousand'                                no monetaria → PENDIENTE
+      'MM€/M€'                                                 PENDIENTE → PENDIENTE
+      'millones de pesos por euros'                            no monetaria → PENDIENTE
+      'USD (millones) / EUR (millones)'                        no monetaria → PENDIENTE
+      'importe en USD por contravalor en euros'                PENDIENTE → PENDIENTE
+      'miles de coronas/euros'                                 no monetaria → PENDIENTE
+   -- otros importes no reconocidos (siguen pendientes)
+      'miles de €'                                             PENDIENTE → PENDIENTE
+      'MM€'                                                    PENDIENTE → PENDIENTE
+      'EUR millones'                                           PENDIENTE → PENDIENTE
+      'millones de DKK'                                        PENDIENTE → PENDIENTE
+      'millones de euros (reexpresado)'                        PENDIENTE → PENDIENTE
+
+== B · registro completo (fixture de la batería); código: cuarta (7a6583b)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 e
+   la entrada Historia!F6: valor_fuente 849697.0 en «miles de euros», escala 0.001, valor del modelo 849.697 (millones)
+   En cada caso se declara escala 1 con el valor_fuente igual al del modelo en miles… es decir, una fuente que publica MILES leída como si fueran millones:
+      unidad 'miles de euros'                                 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «miles de euros» → modelo «mm» = 0.001)
+      unidad 'miles de €'                                     → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de €»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de UNIDADES; una conver
+      unidad 'miles de euros a tipo de cambio constante'      → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de euros a tipo de cambio constante»: la escala 1.0 no se puede contrastar con ella (se escribe con el voca
+      unidad 'EUR thousand at constant exchange rates'        → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «EUR thousand at constant exchange rates»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabu
+      unidad 'miles de euros / thousand euros'                → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de euros / thousand euros»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de
+      unidad 'millones de euros/EUR million'                  → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «millones de euros/EUR million»: la escala 1.0 no se puede contrastar con ella (se escribe con el vocabulario de U
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 e

@@ -1,0 +1,41 @@
+== anterior (f3d15e8): líneas del paso 13 tras fijar el material
+      | _rels = st.get("relevos_caducados")
+      | if isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) and not _rels[-1].get("material_refijado"):
+      |     _rels[-1]["material_refijado"] = st["material_auditoria"]  # (N10) el material que se fijó después del relevo
+   la detección del relevo pone la bandera: False
+   1 relevo recién detectado (sin material_refijado; la detección puso la bandera) y el paso 13 fija B
+      → material_refijado de cada relevo: ['bbbbbbbbbbbbbbbb'] · bandera después: True
+   2 relevo ANTERIOR a esta candidata (ya con «solicitud», sin material_refijado, sin bandera) y el paso 13 fija C por otra causa (T9)
+      → material_refijado de cada relevo: ['cccccccccccccccc'] · bandera después: (sin bandera)
+   3 relevo ya anotado (B) y el paso 13 fija C por otra causa, sin bandera
+      → material_refijado de cada relevo: ['bbbbbbbbbbbbbbbb'] · bandera después: (sin bandera)
+   4 dos relevos seguidos antes de fijar (bandera puesta): se anota solo el último
+      → material_refijado de cada relevo: [None, 'cccccccccccccccc'] · bandera después: True
+   5 bandera puesta y relevos_caducados vacío o mal formado
+      → material_refijado de cada relevo: [] · bandera después: True
+   6 bandera puesta y el último relevo no es un objeto
+      → material_refijado de cada relevo: ['—'] · bandera después: True
+   7 sin relevos
+      → material_refijado de cada relevo: None · bandera después: (sin bandera)
+
+== cuarta (7a6583b): líneas del paso 13 tras fijar el material
+      | _rels = st.get("relevos_caducados")
+      | if (isinstance(_rels, list) and _rels and isinstance(_rels[-1], dict) and not _rels[-1].get("material_refijado")
+      |         and st.pop("relevo_por_refijar", False)):
+      |     _rels[-1]["material_refijado"] = st["material_auditoria"]  # (N10, T9) el material que se fijó justo después de ESTE relevo
+   la detección del relevo pone la bandera: True
+   1 relevo recién detectado (sin material_refijado; la detección puso la bandera) y el paso 13 fija B
+      → material_refijado de cada relevo: ['bbbbbbbbbbbbbbbb'] · bandera después: (sin bandera)
+   2 relevo ANTERIOR a esta candidata (ya con «solicitud», sin material_refijado, sin bandera) y el paso 13 fija C por otra causa (T9)
+      → material_refijado de cada relevo: [None] · bandera después: (sin bandera)
+   3 relevo ya anotado (B) y el paso 13 fija C por otra causa, sin bandera
+      → material_refijado de cada relevo: ['bbbbbbbbbbbbbbbb'] · bandera después: (sin bandera)
+   4 dos relevos seguidos antes de fijar (bandera puesta): se anota solo el último
+      → material_refijado de cada relevo: [None, 'cccccccccccccccc'] · bandera después: (sin bandera)
+   5 bandera puesta y relevos_caducados vacío o mal formado
+      → material_refijado de cada relevo: [] · bandera después: True
+   6 bandera puesta y el último relevo no es un objeto
+      → material_refijado de cada relevo: ['—'] · bandera después: True
+   7 sin relevos
+      → material_refijado de cada relevo: None · bandera después: (sin bandera)
+

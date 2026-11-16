@@ -1,0 +1,133 @@
+== A · citas legítimas (se espera «ok»)
+   A1 cita de dos líneas (rótulo partido) y la cifra de la primera columna
+      cita='Lease liability payments (including interest on lease liabilities) 6.4 (177.9)' vf=-177.9
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A2 la misma, la cifra de la segunda columna
+      cita='lease liabilities) 6.4 (177.9) (150.8)' vf=-150.8
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A3 cita que solo es la cifra con sus paréntesis
+      cita='(150.8)' vf=-150.8
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A4 cita recortada a la cifra, valor_fuente NEGATIVO (lo que publica la página)
+      cita='150.8' vf=-150.8
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A5 positivo junto a un negativo de la misma línea
+      cita='Net increase (decrease) in cash 12.3' vf=12.3
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A6 cero impreso como guion al final de la línea
+      cita='Dividends paid (95.1) -' vf=0
+      candidata: ok                   estable: ok (cero impreso como guion)
+   A7 cifra tras un guion de otra columna (2+ espacios): positiva
+      cita='Acquisition of intangible assets - 13' vf=13
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A8 cifra tras un intervalo de años en la misma línea
+      cita='Free cash flow FY 2023-2024 849,697.000' vf=849697
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A9 año final de un intervalo
+      cita='FY 2023-2024' vf=2024
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A10 cita de tres líneas que empieza a mitad de una y acaba a mitad de otra
+      cita='interest on lease liabilities) 6.4 (177.9) (150.8) Dividends paid (95.1)' vf=-95.1
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A11 la cifra con miles separados por espacio, la cita la contiene entera
+      cita="Chiffre d'affaires 4 573,7" vf=4573.7
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A12 página con retorno de carro (CRLF)
+      cita='Total assets (849,697.000)' vf=-849697
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A13 página con espacio de no separación entre signo de moneda y cifra
+      cita='Importe : (€ 149,5)' vf=-149.5
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A14 cita con mayúsculas distintas de las de la página
+      cita='Total revenue 1,234.5' vf=1234.5
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A15 la cifra pegada a una llamada de nota: «1,234.5(1)»
+      cita='Revenue 1,234.5(1)' vf=1234.5
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A16 la misma cita dos veces en la página, las dos con la misma lectura
+      cita='Total (130.8)' vf=-130.8
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A17 cita al final de la página, sin salto de línea final
+      cita='Resultado -849697.000' vf=-849697
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A18 porcentaje negativo entre paréntesis
+      cita='Variación (3,2 %)' vf=-3.2
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A19 negativo con el código de moneda dentro del paréntesis
+      cita='Pago (EUR 149,5)' vf=-149.5
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A20 «$-149.5»
+      cita='Amount $-149.5' vf=-149.5
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A21 fecha con guiones
+      cita='a 31-12-2024' vf=2024
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+   A22 cero «−» (U+2212) aislado en su columna
+      cita='Net gains on site disposals − 42.2' vf=0
+      candidata: ok                   estable: ok (cero impreso como guion)
+   A23 la cifra de esa línea (42,2) tras el «−» de otra columna
+      cita='Net gains on site disposals − 42.2' vf=42.2
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+
+== B · citas recortadas o cortadas, o con otro signo en la página (se espera rechazo)
+   B1 recortada a la cifra; la página la publica entre paréntesis
+      cita='150.8' vf=150.8
+      candidata: signo_distinto       estable: signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+   B2 recortada tras «(»
+      cita='177.9) (150.8)' vf=177.9
+      candidata: signo_distinto       estable: signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+   B3 cita cortada dentro de la cifra (la página publica 849,697.000)
+      cita='FY 2023-2024 849,697' vf=849697
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   B4 cita que empieza dentro de la cifra
+      cita='9,697.000' vf=9697
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   B5 cero «acreditado» con el 0 de 2024
+      cita='2024' vf=0
+      candidata: ausente              estable: ausente (la cifra no aparece como cifra completa)
+   B6 cero con el 0 de «2.245» cortado
+      cita='13 2' vf=2
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   B7 la cita es un guion que en la página es el menos de la cifra siguiente (cero)
+      cita='Dividendos -' vf=0
+      candidata: ausente              estable: ausente (la cifra no aparece como cifra completa)
+   B8 cita en dos líneas: la segunda línea de la página empieza por «(» fuera de la cita… imposible; control: paréntesis en la línea anterior
+      cita='130,8' vf=130.8
+      candidata: signo_indeterminado  estable: signo_indeterminado (apariciones de la cifra: indeterminado)
+   B9 dos apariciones con lecturas distintas
+      cita='849697.000' vf=849697
+      candidata: signo_indeterminado  estable: signo_indeterminado (la cita aparece 2 veces en la página con lecturas distintas (ok, signo_distinto))
+   B10 dos apariciones solapadas de la cita: «5 -5» en «5 -5 -5»
+      cita='5 -5' vf=5
+      candidata: signo_indeterminado  estable: signo_indeterminado (apariciones de la cifra: negativo, positivo)
+   B11 menos al final de la línea anterior y cifra al principio de la siguiente, cita de dos líneas
+      cita='Resultado - 849697.000' vf=849697
+      candidata: signo_indeterminado  estable: signo_indeterminado (apariciones de la cifra: indeterminado)
+   B12 negativo publicado como «849697.000-» (menos detrás), cita recortada
+      cita='849697.000' vf=849697
+      candidata: signo_indeterminado  estable: signo_indeterminado (apariciones de la cifra: indeterminado)
+   B13 negativo «(849697.000)» con la cita «849697.000)» y valor_fuente positivo
+      cita='849697.000)' vf=849697
+      candidata: signo_distinto       estable: signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+   B14 «CR»/«DR» contable no se interpreta; control de que el signo «-» pegado manda
+      cita='849697.000 CR' vf=849697
+      candidata: signo_distinto       estable: signo_distinto (la página la publica en negativo y valor_fuente es positivo)
+
+== C · la cita solo TOCA la cifra de la página (no la contiene): ¿qué se acredita?
+   C1 la cita es «697.000» y el valor 849697 (página «849 697.000»)
+      cita='697.000' vf=849697
+      candidata: ausente              estable: ausente (la cifra no aparece como cifra completa)
+   C2 la cita es «0» y el valor 849697.000 (la página solo tiene esa cifra)
+      cita='0' vf=849697
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   C3 la cita es «Total 8» y el valor 849697
+      cita='Total 8' vf=849697
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   C4 la cita es «(» + nada: «Total (» y el valor −130,8
+      cita='Total (1' vf=-130.8
+      candidata: ausente              estable: ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la p)
+   C5 control: la cita contiene la cifra entera
+      cita='Total 849697.000' vf=849697
+      candidata: ok                   estable: ok (signo publicado igual al de valor_fuente)
+
+0 casos distintos de lo esperado por el revisor

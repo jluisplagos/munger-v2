@@ -1,0 +1,63 @@
+pipeline: cuarta (7a6583b) frente a anterior (f3d15e8)
+== A · erratas de «entradaefectiva» (clave ya normalizada) que NO dan error (el modo queda en «registrada» en silencio)
+   una edición                                   805 claves · anterior:     0 sin detectar (0.0 %) · cuarta:     0 (0.0 %)
+   dos ediciones (muestra, semilla de r6)      23462 claves · anterior:  5163 sin detectar (22.0 %) · cuarta:     3 (0.0 %) · p. ej. ['entradeafectvia', 'etnraadefectiva', 'netradeafectiva']
+   tres operaciones de edición (muestra)        6000 claves · anterior:  4892 sin detectar (81.5 %) · cuarta:   126 (2.1 %) · p. ej. ['centwadaeefctiva', 'dctradaefectiav', 'eftradaefectiajv', 'ehnradaefcetiva', 'ehntiradaefcetiva']
+
+== B · claves concretas: anterior → cuarta
+   -- erratas
+      'entrada_efectiba'             distancia 1 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'Entrada-Efectiva'             distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada efectiva'             distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'emtrada_efectiba'             distancia 2 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrada_efectibo'             distancia 2 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrara_efectiba'             distancia 2 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrda_efectva'               distancia 2 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'emtrda_efctiva'               distancia 3 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrada_efec'                 distancia 4 · anterior: silencio (None)              cuarta: silencio (None)
+      'ent_efectiva'                 distancia 4 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_efect'                distancia 3 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_ef'                   distancia 6 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_efectiva_'            distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_efectiva2'            distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      '3ntrada_3f3ctiva'             distancia 3 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada.efectiva'             distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entradaEfectiva'              distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'ENTRADA_EFECTIVA'             distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      ' entrada_efectiva'            distancia 0 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+   -- variantes de quien quiere declarar el modo (ni error ni «estricta»: silencio)
+      'modo_entrada_efectiva'        distancia 4 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_efectiva_modo'        distancia 4 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_estricta'             distancia 6 · anterior: silencio (None)              cuarta: silencio (None)
+      'modo'                         distancia 14 · anterior: silencio (None)              cuarta: silencio (None)
+      'efectiva'                     distancia 7 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_efectiva_estricta'    distancia 8 · anterior: silencio (None)              cuarta: silencio (None)
+      'effective_input'              distancia 13 · anterior: silencio (None)              cuarta: silencio (None)
+   -- claves legítimas que se parecen (un error aquí es un rechazo en falso)
+      'tasa_efectiva'                distancia 4 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrega_efectiva'             distancia 2 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrada_de_efectivo'          distancia 3 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entradas_efectivo'            distancia 2 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'fecha_efectiva'               distancia 6 · anterior: silencio (None)              cuarta: silencio (None)
+      'salida_efectiva'              distancia 5 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_en_vigor'             distancia 7 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_efectiva_motivo'      distancia 6 · anterior: silencio (None)              cuarta: silencio (None)
+      'nota_entrada_efectiva'        distancia 4 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'fecha_entrada_efectiva'       distancia 5 · anterior: silencio (None)              cuarta: silencio (None)
+      'entrada_efectiva_nota'        distancia 4 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_selectiva'            distancia 2 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_afectada'             distancia 3 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entidad_efectiva'             distancia 3 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'estrada_efectiva'             distancia 1 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_colectiva'            distancia 3 · anterior: silencio (None)              cuarta: ERROR (errata)   <<< cambia
+      'entrada_defectiva'            distancia 1 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'entrada_electiva'             distancia 1 · anterior: ERROR (errata)               cuarta: ERROR (errata)
+      'gerencia_efectiva'            distancia 6 · anterior: silencio (None)              cuarta: silencio (None)
+
+== C · alcance_v2.json reales del árbol: claves y su distancia a «entradaefectiva»
+   27 alcances · 4 claves distintas · las más cercanas: [('fecha', 11), ('tipo', 13), ('aviso', 13), ('fuente', 13)]
+   alcances en los que _alcance_modo cambia o da error: 0 []
+
+real	1m31.326s
+user	0m9.901s
+sys	0m3.326s

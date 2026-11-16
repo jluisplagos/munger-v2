@@ -1,0 +1,197 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8)
+
+== A · la cifra se publica ENTERA; la cita acaba o empieza justo en la cifra y la página lleva algo pegado (se espera «ok»)
+   A1 unidad pegada detrás: «849.7m»
+      página='Revenue 849.7m\n' cita='Revenue 849.7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A2 lo mismo, la cita es solo la cifra
+      página='Revenue €849.7m\n' cita='849.7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A3 «1.2bn»
+      página='Net debt £1.2bn at year end\n' cita='Net debt £1.2' vf=1.2
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A4 múltiplo «12,5x»
+      página='Deuda neta / EBITDA 12,5x\n' cita='Deuda neta / EBITDA 12,5' vf=12.5
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A5 puntos porcentuales «3,5pp»
+      página='Margen +3,5pp\n' cita='Margen +3,5' vf=3.5
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A6 «M€» pegado
+      página='EBITDA 849,7M€\n' cita='EBITDA 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A7 «150MW»
+      página='Potencia instalada 150MW\n' cita='Potencia instalada 150' vf=150
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A8 código de moneda pegado delante: «EUR849,7»
+      página='Importe EUR849,7 millones\n' cita='849,7 millones' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A9 «CHF849.7» y la cita es la cifra
+      página='Total CHF849.7\n' cita='849.7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A10 llamada de nota en superíndice Unicode: «849,7¹»
+      página='Ventas 849,7¹\n' cita='Ventas 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A11 llamada de nota con letra: «849,7a»
+      página='Ventas 849,7a\n' cita='Ventas 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A12 negativo con unidad pegada: «(130.8)m»
+      página='Lease payments (130.8)m\n' cita='(130.8)' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A13 negativo con unidad pegada, cita recortada a la cifra
+      página='Lease payments -130.8m\n' cita='130.8' vf=-130.8
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   A14 control: unidad separada por un espacio
+      página='Revenue 849.7 m\n' cita='Revenue 849.7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A15 control: «849,7%»
+      página='Margen 849,7%\n' cita='Margen 849,7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A16 control: «849,7€»
+      página='Importe 849,7€\n' cita='Importe 849,7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A17 control: llamada de nota entre paréntesis «849,7(1)»
+      página='Ventas 849,7(1)\n' cita='Ventas 849,7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A18 control: «849,7*»
+      página='Ventas 849,7*\n' cita='Ventas 849,7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   A19 control: la cita incluye la unidad pegada
+      página='Revenue 849.7m\n' cita='Revenue 849.7m' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+
+== B · la cita empieza o acaba dentro de una PALABRA o tras un punto pegado; la cifra se publica entera
+   B1 numeración del epígrafe pegada: «2.3.Deuda financiera neta 849,7»
+      página='2.3.Deuda financiera neta 849,7\n' cita='Deuda financiera neta 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   B2 frase anterior pegada: «…ejercicio.Total 849,7»
+      página='al cierre del ejercicio.Total 849,7\n' cita='Total 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   B3 letra de apartado pegada: «a)Ventas 849,7» (control: «)» no es letra)
+      página='a)Ventas 849,7\n' cita='Ventas 849,7' vf=849.7
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   B4 «FY2024 849,7» y la cita empieza en el año
+      página='FY2024 849,7\n' cita='2024 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   B5 coma pegada: «neto,consolidado 849,7»
+      página='Resultado neto,consolidado 849,7\n' cita='consolidado 849,7' vf=849.7
+      anterior: ausente              cuarta:  ok (signo publicado igual al de valor_fuente)
+   B6 la cita recorta el rótulo: «Subtotal 849,7» citado como «total 849,7» (otro concepto: pendiente o rechazo, pero la cifra SÍ está)
+      página='Subtotal 849,7\n' cita='total 849,7' vf=849.7
+      anterior: ausente              cuarta:  no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+   B7 la cita acaba dentro de una palabra posterior: «849,7 millones» citado «849,7 mill»
+      página='Ventas 849,7 millones\n' cita='Ventas 849,7 mill' vf=849.7
+      anterior: ausente              cuarta:  no_localizada (la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo)
+
+== C · citas que empiezan o acaban en puntuación, paréntesis, símbolos o cifras con signo (se espera «ok»)
+   C1 «(130,8)»
+      página='Pagos (130,8)\n' cita='(130,8)' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C2 «130,8)»
+      página='Pagos (130,8)\n' cita='130,8)' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C3 «(130,8»
+      página='Pagos (130,8)\n' cita='(130,8' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C4 «-130,8» con el menos dentro de la cita
+      página='Resultado -130,8\n' cita='-130,8' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C5 «−130,8» (menos Unicode)
+      página='Resultado −130,8\n' cita='−130,8' vf=-130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C6 «+130,8»
+      página='Variación +130,8\n' cita='+130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C7 «€130,8»
+      página='Importe €130,8\n' cita='€130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C8 «130,8 €.» con punto final
+      página='Importe: 130,8 €.\n' cita='130,8 €.' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C9 «130,8;» seguido de más texto
+      página='Ventas 130,8; costes 90,2\n' cita='Ventas 130,8;' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C10 cita que acaba en la cifra y la página sigue con punto final de frase
+      página='El importe fue de 130,8. El resto\n' cita='fue de 130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C11 cita que acaba en la cifra y la página sigue con coma de enumeración
+      página='Ventas 130,8, costes 90,2\n' cita='Ventas 130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C12 cita que acaba en un entero y la página sigue con punto final
+      página='Plantilla: 1234. Otros\n' cita='Plantilla: 1234' vf=1234
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C13 «(3,2 %)»
+      página='Variación (3,2 %)\n' cita='(3,2 %)' vf=-3.2
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C14 «:130,8» dos puntos pegados
+      página='Total:130,8\n' cita='130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C15 «=130,8»
+      página='Total=130,8\n' cita='130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C16 cifra entre comillas «130,8»
+      página='el importe «130,8» citado\n' cita='«130,8»' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C17 cifra tras barra «2024/130,8»
+      página='2024/130,8\n' cita='130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C18 cero como guion, la cita es el guion
+      página='Dividendos        -        12,5\n' cita='Dividendos -' vf=0
+      anterior: ok                   cuarta:  ok (cero impreso como guion)
+   C19 cero como guion entre paréntesis de nota: «- (1)»
+      página='Dividendos        - (1)\n' cita='Dividendos -' vf=0
+      anterior: ausente              cuarta:  ausente (la cifra no aparece como cifra completa)   <<< rechazo falso
+   C20 año con apóstrofo: «'24» no; control «2024:»
+      página='Ejercicio 2024: 130,8\n' cita='Ejercicio 2024' vf=2024
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C21 cita que empieza por «%»: «% 3,2»
+      página='Variación en % 3,2\n' cita='% 3,2' vf=3.2
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C22 cifra seguida de «.» y salto de línea
+      página='Total 130,8.\nOtros\n' cita='Total 130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C23 cifra seguida de «…»
+      página='Total 130,8…\n' cita='Total 130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C24 cifra precedida de puntos conductores con espacio: «....... 130,8»
+      página='Total ............ 130,8\n' cita='130,8' vf=130.8
+      anterior: ok                   cuarta:  ok (signo publicado igual al de valor_fuente)
+   C25 cifra tras puntos conductores PEGADOS: «.......130,8» (ya se rechazaba: el punto pegado se toma por separador)
+      página='Total ............130,8\n' cita='130,8' vf=130.8
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   C26 fecha con puntos «31.12.2024» para 2024 (ya se rechazaba)
+      página='Cierre a 31.12.2024\n' cita='31.12.2024' vf=2024
+      anterior: ausente              cuarta:  ausente (la cifra no aparece como cifra completa)
+
+== D · controles: cita cortada dentro de un NÚMERO (se espera «ausente»: discrepancia)
+   D1 «849,697» de «849,697.000»
+      página='Total 849,697.000\n' cita='Total 849,697' vf=849697
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   D2 «697.000» de «849,697.000»
+      página='Total 849,697.000\n' cita='697.000' vf=697
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   D3 «849697» de «8496970»
+      página='Total 8496970\n' cita='Total 849697' vf=849697
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   D4 «0» de «0,49»
+      página='Ratio 0,49\n' cita='Ratio 0' vf=0
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+   D5 «5» de «15»
+      página='Nota 15\n' cita='5' vf=5
+      anterior: ausente              cuarta:  ausente (la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página)
+
+1 casos distintos de lo esperado por el revisor · 0 rechazos falsos NUEVOS (la candidata anterior daba «ok»)
+
+== E · en el registro completo (fixture de la batería): categoría y mensaje
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 e
+   E1 unidad pegada «849697.000m», cita hasta la cifra
+      página='Partida sintética de Historia!F6: 849697.000m'
+      cita='Partida sintética de Historia!F6: 849697.000'
+      -> comprobada
+   E2 numeración pegada «2.3.Partida…», cita desde el rótulo
+      página='2.3.Partida sintética de Historia!F6: 849697.000'
+      cita='Partida sintética de Historia!F6: 849697.000'
+      -> comprobada
+   E3 control: la misma línea con un espacio tras la numeración
+      página='2.3. Partida sintética de Historia!F6: 849697.000'
+      cita='Partida sintética de Historia!F6: 849697.000'
+      -> comprobada

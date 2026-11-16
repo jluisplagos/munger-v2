@@ -1,0 +1,23 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8)
+== la página publica la cifra en NEGATIVO con un carácter invisible entre el signo y la cifra; se contrasta con valor_fuente POSITIVO (se espera «signo_distinto» o pendiente)
+   guion blando U+00AD                    menos       página='Resultado -\xad849,7\n'         anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   guion blando U+00AD                    paréntesis  página='Resultado (\xad849,7)\n'        anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   espacio de ancho cero U+200B           menos       página='Resultado -\u200b849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   espacio de ancho cero U+200B           paréntesis  página='Resultado (\u200b849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+200C                                 menos       página='Resultado -\u200c849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+200C                                 paréntesis  página='Resultado (\u200c849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+200D                                 menos       página='Resultado -\u200d849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+200D                                 paréntesis  página='Resultado (\u200d849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+2060                                 menos       página='Resultado -\u2060849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+2060                                 paréntesis  página='Resultado (\u2060849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+FEFF                                 menos       página='Resultado -\ufeff849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   U+FEFF                                 paréntesis  página='Resultado (\ufeff849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   marca de izquierda a derecha U+200E    menos       página='Resultado -\u200e849,7\n'       anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   marca de izquierda a derecha U+200E    paréntesis  página='Resultado (\u200e849,7)\n'      anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   carácter de control U+0096             menos       página='Resultado -\x96849,7\n'         anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+   carácter de control U+0096             paréntesis  página='Resultado (\x96849,7)\n'        anterior: ok                 cuarta: ok   <<< se lee en POSITIVO
+16 lecturas en positivo de una cifra publicada en negativo
+
+== B · textos conservados reales: 90 archivos distintos, 100597902 caracteres
+   caracteres de formato (Cf) o de control (Cc, salvo saltos, tabuladores y salto de página): {'U+200C (Cf)': 3, 'U+0003 (Cc)': 11, 'U+0008 (Cc)': 1890, 'U+0007 (Cc)': 1236, 'U+0002 (Cc)': 194, 'U+00AD (Cf)': 29, 'U+200B (Cf)': 12, 'U+FEFF (Cf)': 15, 'U+0001 (Cc)': 56, 'U+0014 (Cc)': 6, 'U+000E (Cc)': 2, 'U+000F (Cc)': 2, 'U+001A (Cc)': 4, 'U+0018 (Cc)': 2, 'U+0005 (Cc)': 6, 'U+0012 (Cc)': 2, 'U+0015 (Cc)': 6, 'U+0017 (Cc)': 6, 'U+0013 (Cc)': 2, 'U+001B (Cc)': 2, 'U+0019 (Cc)': 2, 'U+0004 (Cc)': 2, 'U+0016 (Cc)': 4, 'U+0010 (Cc)': 2, 'U+0011 (Cc)': 2}
+   apariciones de signo o paréntesis + carácter invisible + cifra: 0 []

@@ -1,0 +1,54 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8) · Python 3.12.3
+== A · modo XHTML por la extensión (si _tipo_fuente no da «html», contraste_pagina deja la entrada pendiente)
+   A1 .xhtml con <div hidden="hidden"/> vacío (en XML se cierra): lo que sigue se ve                            .xhtml     navegador: visible  anterior: presente  cuarta: presente
+   A2 .XHTML (mayúsculas), lo mismo                                                                             .XHTML     navegador: visible  anterior: presente  cuarta: presente
+   A3 .xht que empieza por <?xml …?> (lo habitual): ¿es una fuente HTML?                                        .xht       navegador: visible  anterior: pendiente (tipo «otro»; visible: presente) cuarta: pendiente (tipo «otro»; visible: presente)   <<< no se acepta un texto que el navegador muestra (igual que la anterior)
+   A4 .xht que empieza por <html …>                                                                             .xht       navegador: visible  anterior: presente  cuarta: presente
+   A5 .htm con el xmlns y <div hidden/>: es HTML, oculta lo que sigue                                           .htm       navegador: oculta   anterior: presente  cuarta: ausente
+   A6 sin extensión, empieza por <html y lleva el xmlns: <div hidden/>                                          (sin ext.) navegador: oculta   anterior: presente  cuarta: ausente
+   A7 .xhtml: elemento NO vacío oculto y bien cerrado (sigue oculto)                                            .xhtml     navegador: oculta   anterior: ausente   cuarta: ausente
+   A8 .xhtml: <script>…</script> con el texto dentro (sigue oculto)                                             .xhtml     navegador: oculta   anterior: ausente   cuarta: ausente
+   A9 .xhtml: <head/> y <title/> autocerrados y el texto en el cuerpo                                           .xhtml     navegador: visible  anterior: presente  cuarta: presente
+   A10 .xhtml con una etiqueta con prefijo del espacio de nombres XHTML y hidden: <h:div hidden="hidden">texto</h:div> .xhtml     navegador: oculta   anterior: presente  cuarta: presente   <<< SE ACEPTA un texto que el navegador no muestra (igual que la anterior)
+   A11 .xhtml MAL FORMADO (un <br> sin cerrar antes del texto): un navegador da error de XML y no muestra lo que sigue .xhtml     navegador: oculta   anterior: presente  cuarta: presente   <<< SE ACEPTA un texto que el navegador no muestra (igual que la anterior)
+   A12 .xhtml con el texto en una sección CDATA (en XML es texto visible)                                       .xhtml     navegador: visible  anterior: ausente   cuarta: ausente   <<< no se acepta un texto que el navegador muestra (igual que la anterior)
+   A13 .html con una sección CDATA (en HTML es un comentario: no se ve)                                         .html      navegador: oculta   anterior: ausente   cuarta: ausente
+
+== B · codificaciones declaradas (<meta charset=…> y contenido ASCII): admitidas por _decodificar_html
+   códecs de Python (nombres canónicos): 117 · admitidos por la anterior: 76 · por la cuarta: 50
+   dejan de admitirse con la cuarta: ['cp855', 'cp856', 'cp857', 'cp860', 'cp861', 'cp862', 'cp863', 'cp864', 'cp865', 'cp869', 'cp875', 'euc_jis_2004', 'euc_jisx0213', 'iso2022_jp_1', 'iso2022_jp_2', 'iso2022_jp_2004', 'iso2022_jp_3', 'iso2022_jp_ext', 'iso2022_kr', 'mac-arabic', 'mac-croatian', 'mac-farsi', 'mac-greek', 'mac-iceland', 'mac-romanian', 'mac-turkish']
+   se admiten con la cuarta y no con la anterior: []
+   admitidos por la cuarta: ['ascii', 'big5', 'big5hkscs', 'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255', 'cp1256', 'cp1257', 'cp1258', 'cp437', 'cp850', 'cp852', 'cp858', 'cp866', 'cp874', 'euc_jp', 'euc_kr', 'gb18030', 'gb2312', 'gbk', 'iso2022_jp', 'iso8859-1', 'iso8859-10', 'iso8859-11', 'iso8859-13', 'iso8859-14', 'iso8859-15', 'iso8859-16', 'iso8859-2', 'iso8859-3', 'iso8859-4', 'iso8859-5', 'iso8859-6', 'iso8859-7', 'iso8859-8', 'iso8859-9', 'koi8-r', 'koi8-t', 'koi8-u', 'mac-cyrillic', 'mac-latin2', 'mac-roman', 'shift_jis', 'utf-16', 'utf-16-le', 'utf-8', 'utf-8-sig']
+   de ellos, fuera de la lista WHATWG (un navegador no conoce la etiqueta y usa su codificación por defecto): ['cp437', 'cp850', 'cp852', 'cp858', 'koi8-t', 'mac-latin2', 'utf-8-sig']
+   de ellos, que WHATWG lee como OTRA codificación: {'ascii': 'windows-1252', 'big5hkscs': 'Big5', 'gb2312': 'GBK', 'iso8859-1': 'windows-1252', 'iso8859-11': 'windows-874', 'iso8859-9': 'windows-1254'} (latin-1 y ascii ya se leen como cp1252: H7)
+   admitidos por la cuarta que NO son compatibles con ASCII (los bytes ASCII del documento no son su texto): ['utf-16', 'utf-16-le']
+   WHATWG que la cuarta NO admite (quedan pendientes: conservador): ['utf-16-be'] · no existen en Python: []
+      charset=cp875            anterior: admitida  cuarta: pendiente · el HTML declara 'cp875', que no es una codificación de texto admitida
+      charset=iso-2022-kr      anterior: admitida  cuarta: pendiente · el HTML declara 'iso-2022-kr', que no es una codificación de texto admitida
+      charset=hz               anterior: pendiente  cuarta: pendiente · el HTML declara 'hz', que no es una codificación de texto admitida
+      charset=utf-7            anterior: pendiente  cuarta: pendiente · el HTML declara 'utf-7', que no es una codificación de texto admitida
+      charset=cp037            anterior: pendiente  cuarta: pendiente · el HTML declara 'cp037', que no es una codificación de texto admitida
+      charset=ibm850           anterior: admitida  cuarta: admitida · ibm850
+      charset=euc-kr           anterior: admitida  cuarta: admitida · euc-kr
+      charset=windows-874      anterior: pendiente  cuarta: pendiente · el HTML declara la codificación 'windows-874', que no se reconoce
+      charset=x-mac-cyrillic   anterior: pendiente  cuarta: pendiente · el HTML declara la codificación 'x-mac-cyrillic', que no se reconoce
+      charset=macintosh        anterior: admitida  cuarta: admitida · macintosh
+      charset=ibm866           anterior: admitida  cuarta: admitida · ibm866
+      charset=koi8-t           anterior: admitida  cuarta: admitida · koi8-t
+      charset=utf-32           anterior: pendiente  cuarta: pendiente · el HTML declara la codificación 'utf-32' pero no se puede decodificar con ella
+      charset=shift_jis_2004   anterior: pendiente  cuarta: pendiente · el HTML declara 'shift_jis_2004', que no es una codificación de texto admitida
+      charset=iso-2022-jp-2    anterior: admitida  cuarta: pendiente · el HTML declara 'iso-2022-jp-2', que no es una codificación de texto admitida
+      charset=cp1125           anterior: pendiente  cuarta: pendiente · el HTML declara 'cp1125', que no es una codificación de texto admitida
+      charset=mac-greek        anterior: admitida  cuarta: pendiente · el HTML declara 'mac-greek', que no es una codificación de texto admitida
+
+== C · ISO-8859-9 / ISO-8859-11: el byte 0x96 es «–» en windows-1254 y windows-874 (lo que muestra un navegador) y un carácter de control en la tabla ISO
+      charset=iso-8859-9    anterior: ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=iso-8859-9    cuarta  : ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=iso-8859-11   anterior: ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=iso-8859-11   cuarta  : ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=iso-8859-1    anterior: ok        texto 'Resultado –849697.000'                      lectura de «849697.000» con valor_fuente +849697: signo_distinto
+      charset=iso-8859-1    cuarta  : ok        texto 'Resultado –849697.000'                      lectura de «849697.000» con valor_fuente +849697: signo_distinto
+      charset=iso-8859-15   anterior: ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=iso-8859-15   cuarta  : ok        texto 'Resultado \x96849697.000'                   lectura de «849697.000» con valor_fuente +849697: ok
+      charset=windows-1254  anterior: ok        texto 'Resultado –849697.000'                      lectura de «849697.000» con valor_fuente +849697: signo_distinto
+      charset=windows-1254  cuarta  : ok        texto 'Resultado –849697.000'                      lectura de «849697.000» con valor_fuente +849697: signo_distinto

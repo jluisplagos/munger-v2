@@ -1,0 +1,76 @@
+VE = cuarta (7a6583b) · VP = anterior (f3d15e8)
+== A · ¿unidad monetaria no reconocida (pendiente por U7)?   anterior → cuarta
+   -- pares de monedas DISTINTAS (tipos de cambio: no deben quedar pendientes)
+      'USD por EUR'                                  no monetaria → no monetaria
+      'EUR/USD'                                      no monetaria → no monetaria
+      'eur / usd'                                    no monetaria → no monetaria
+      'tipo de cambio EUR/GBP'                       no monetaria → no monetaria
+      'tipo de cambio: EUR/USD'                      no monetaria → no monetaria
+      'exchange rate USD per EUR'                    no monetaria → no monetaria
+      '(EUR/USD)'                                    no monetaria → no monetaria
+      '$/€'                                          no monetaria → no monetaria
+      '€/$'                                          no monetaria → no monetaria
+      'dólar por euro'                               no monetaria → no monetaria
+      'euros por dólar'                              no monetaria → no monetaria
+      'GBP per EUR'                                  no monetaria → no monetaria
+      'coronas/euros'                                no monetaria → no monetaria
+      'libras por euro'                              no monetaria → no monetaria
+   -- pares de la MISMA moneda (cabecera bilingüe de un importe en unidades: es un importe, se espera PENDIENTE o reconocida)
+      'euros/EUR'                                    no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'EUR/€'                                        no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      '€/EUR'                                        no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'Euros / Euro'                                 no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'euro/euros'                                   no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'EUR/EUR'                                      no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'USD/$'                                        no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      '$/USD'                                        no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'libras/GBP'                                   no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'GBP/£'                                        no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'eur por eur'                                  no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      '(€/EUR)'                                      no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+      'tipo de cambio EUR/EUR'                       no monetaria → no monetaria   <<< un importe en unidades de la moneda queda como «no monetaria» (cualquier potencia de diez vale como escala)
+   -- tipos de cambio con calificativo (quedan pendientes: conservador)
+      'tipo de cambio medio USD por EUR'             no monetaria → PENDIENTE   
+      'USD por EUR (cierre)'                         no monetaria → PENDIENTE   
+      'EUR/USD medio'                                no monetaria → PENDIENTE   
+      'dólares por euro'                             no monetaria → PENDIENTE   
+      'USD por 1 EUR'                                PENDIENTE    → PENDIENTE   
+      'tipo de cambio EUR/USD a 31-12'               no monetaria → PENDIENTE   
+   -- importes (deben quedar pendientes)
+      'miles de euros a tipo de cambio constante'    no monetaria → PENDIENTE   
+      'millones de euros/EUR million'                no monetaria → PENDIENTE   
+      'Miles de € / € thousand'                      no monetaria → PENDIENTE   
+      'k€/usd'                                       no monetaria → PENDIENTE   
+      'meur/keur'                                    no monetaria → PENDIENTE   
+      'mm€/usd'                                      no monetaria → PENDIENTE   
+      'EUR m / USD m'                                no monetaria → PENDIENTE   
+      "milliers d'euros / EUR"                       no monetaria → PENDIENTE   
+      'Tsd. EUR/USD'                                 no monetaria → PENDIENTE   
+      "EUR'000/USD'000"                              no monetaria → PENDIENTE   
+      'saldo en USD por EUR'                         no monetaria → PENDIENTE   
+      'importe en euros/dólares'                     no monetaria → PENDIENTE   
+      'euros/usd miles'                              no monetaria → PENDIENTE   
+   -- controles: unidades reconocidas o por acción (no pendientes)
+      'euros'                                        reconocida   → reconocida  
+      'eur'                                          reconocida   → reconocida  
+      'miles de euros'                               reconocida   → reconocida  
+      'millones de euros'                            reconocida   → reconocida  
+      'EUR por acción'                               no monetaria → no monetaria
+      'euros/acción'                                 no monetaria → no monetaria
+      '€ per share'                                  no monetaria → no monetaria
+   señalados: 13 · ['euros/EUR', 'EUR/€', '€/EUR', 'Euros / Euro', 'euro/euros', 'EUR/EUR', 'USD/$', '$/USD', 'libras/GBP', 'GBP/£', 'eur por eur', '(€/EUR)', 'tipo de cambio EUR/EUR']
+
+== B · registro completo (fixture de la batería); código: cuarta (7a6583b)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   Historia!F6: valor del modelo 849.697 (millones). La página nueva dice «Partida sintética de Historia!F6: 849.697» y se declara escala 1 con cada unidad:
+      unidad 'euros'                                      escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «euros» → modelo «mm» = 1e-06)
+      unidad 'eur'                                        escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «eur» → modelo «mm» = 1e-06)
+      unidad 'euros/EUR'                                  escala 1 → COMPROBADA
+      unidad 'EUR/€'                                      escala 1 → COMPROBADA
+      unidad '€/EUR'                                      escala 1 → COMPROBADA
+      unidad 'Euros / Euro'                               escala 1 → COMPROBADA
+      unidad 'USD/$'                                      escala 1 → COMPROBADA
+      unidad 'USD por EUR'                                escala 1 → COMPROBADA
+      unidad 'miles de euros'                             escala 1 → no comprobada · errores: Historia!F6: escala 1.0 incoherente con las unidades (fuente «miles de euros» → modelo «mm» = 0.001)
+      unidad 'miles de euros a tipo de cambio constante'  escala 1 → no comprobada · pendientes: Historia!F6: unidad monetaria no reconocida «miles de euros a tipo de cambio constante»: la escala 1.0 no se puede contrastar con ella (se escribe con el voca
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma

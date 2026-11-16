@@ -1,0 +1,46 @@
+código: estable
+control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 
+== (a) la cita toca la cifra, no la contiene
+   a1 la cita es «0»
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='0' valor_fuente=849697.0
+      -> NO comprobada discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   a2 la cita es el rótulo y el primer dígito
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='Partida sintética de Historia!F6: 8' valor_fuente=849697.0
+      -> NO comprobada discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   a3 la cita es el final de la cifra «7.000»
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='7.000' valor_fuente=849697.0
+      -> NO comprobada discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   a4 la cita lee otro número: «849» (la página publica 849697.000)
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='Partida sintética de Historia!F6: 849' valor_fuente=849697.0
+      -> NO comprobada discrepancias: Historia!F6: la cita no contiene el valor de la fuente 849697.0 como cifra completa de la página (formato equivalente, sin redondear)
+   a5 control: la cita contiene la cifra entera
+      página='Partida sintética de Historia!F6: 849697.000'
+      cita='Partida sintética de Historia!F6: 849697.000' valor_fuente=849697.0
+      -> comprobada 
+== (b) la cita legítima aparece además como subcadena de otra línea
+   b1 «Total 849,697.000» y, en otra línea, «Subtotal 849,697.0001» (otra cifra)
+      página='Total 849,697.000\nSubtotal 849,697.0001'
+      cita='Total 849,697.000' valor_fuente=849697.0
+      -> comprobada 
+   b2 «Total 849,697.000» y, en otra línea, «Subtotal 849,697.000» (la misma cifra)
+      página='Total 849,697.000\nSubtotal 849,697.000'
+      cita='Total 849,697.000' valor_fuente=849697.0
+      -> comprobada 
+   b3 «Total 849,697.000» y, en otra línea, «Subtotal (849,697.000)»: la cita con su rótulo solo casa con la línea positiva
+      página='Total 849,697.000\nSubtotal (849,697.000)'
+      cita='Total 849,697.000' valor_fuente=849697.0
+      -> comprobada 
+== (c) negativo partido en dos líneas
+   c1 «(» al final de una línea y «849,697.000)» en la siguiente; la cita es la segunda línea sin el paréntesis final
+      página='Partida sintética de Historia!F6: (\n849,697.000)'
+      cita='849,697.000' valor_fuente=849697.0
+      -> NO comprobada pendientes: Historia!F6: el signo con que la página publica 849697.0 no puede determinarse (apariciones de la cifra: indeterminado): hace falta una cita en la que la cifra publicada y su signo sean inequívocos;
+   c2 lo mismo con la cita de las dos líneas y valor_fuente negativo declarado
+      página='Partida sintética de Historia!F6: (\n849,697.000)'
+      cita='Partida sintética de Historia!F6: ( 849,697.000)' valor_fuente=-849697.0
+      -> comprobada 
+control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 

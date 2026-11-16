@@ -1,0 +1,43 @@
+código: cuarta (7a6583b) · copia/munger_v2_r1/personaje_v2/scripts/pipeline.py
+
+== 1 · flujo normal: relevo → paso 12 → el paso 13 fija el material B y lo anota en el relevo → solicitud nueva
+[paso 13] solicitud de auditoría SA-b0f0a7469af55aa2 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   error: None
+   motivo: relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13
+   solicitudes: [('0001', 'sustituida'), ('5aa2', 'pendiente')] · relevo.solicitud == nueva: True
+   segunda llamada con el mismo material → misma solicitud: True · solicitudes: 2 · error: None
+[paso 13] solicitud de auditoría SA-a83c98215805a163 registrada para el material cccccccccccccccc (sustituye a SA-b0f0a7469af55aa2)
+   después, material C por otra causa → motivo: auditoría del material fijado en el paso 13 · error: None
+
+== 2 · el material refijado es el de la solicitud antigua (el archivo se restauró); después cambia por otra causa
+   error: None · se conserva la solicitud antigua: True · relevo.solicitud: None
+[paso 13] solicitud de auditoría SA-197c22f63127aca7 registrada para el material cccccccccccccccc (sustituye a SA-0000000000000001)
+   material C por otra causa → motivo: auditoría del material fijado en el paso 13 → sin arrastre · error: None
+
+== 3 · relevo SIN «material_refijado» (estado escrito por la candidata anterior, o si el paso 13 no llegó a fijar el material)
+[paso 13] solicitud de auditoría SA-d6e5d131dec56ad1 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   error: None · motivo: auditoría del material fijado en el paso 13 · relevo.solicitud: None
+
+== 4 · estado con relevos_caducados mal formado
+[paso 13] solicitud de auditoría SA-ac182f102c24de11 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista de textos                                          → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-e430c37736fec882 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = objeto en vez de lista                                   → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-a49da9ae8ded0a5f registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = texto                                                    → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-eb1178e9c4a6271a registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista con un objeto sin claves                           → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-2100fed0a9899ec7 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = número                                                   → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-13c3c91ec675f608 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = nulo                                                     → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-e04e1a2eda854ff7 registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista con un relevo cuyo material_refijado no es texto   → solicitud nueva · motivo «auditoría del material fijado en el paso 13…»
+[paso 13] solicitud de auditoría SA-947a1b4c6408725b registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista con archivos_cambiados que no es lista             → solicitud nueva · motivo «relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (…»
+[paso 13] solicitud de auditoría SA-17bfa68597a9e92c registrada para el material bbbbbbbbbbbbbbbb (sustituye a SA-0000000000000001)
+   relevos_caducados = lista con archivos_cambiados de números                  → solicitud nueva · motivo «relevo caducado: el material fijado aaaaaaaaaaaaaaaa ya no era el vigente (…»
+
+== 5 · relevo de un estado anterior a esta candidata: ya tiene «solicitud» y no tiene «material_refijado»
+   el paso 13 fija el material C por otra causa (no hay relevo nuevo) → el relevo antiguo queda: {'material_fijado': 'aaaaaaaaaaaaaaaa', 'material_vigente': 'bbbbbbbbbbbbbbbb', 'solicitud': 'SA-000000000000000f', 'material_refijado': 'cccccccccccccccc'}
+   (ese relevo llevó en su día a fijar B y a la solicitud …000f; ahora dice que el material refijado fue C)
