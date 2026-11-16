@@ -1185,14 +1185,14 @@ En el barrido del revisor n.º 8, que recorre todas las líneas y también los a
 | Scripts de los revisores n.º 1 a 5 | Mismas salidas que sobre C16, salvo `barrido_tablas`: igualada la etiqueta, difiere en 141 líneas. Las candidatas OK en sus cinco dimensiones bajan de 6.395 a 6.059 (336 menos) y 1.298 pasan de NO_APLICA a PENDIENTE en columna (T1 y T2) |
 | Scripts del revisor n.º 6 | `contraejemplos_6`: los 48 casos, con el mismo estado y motivo que en C16. Barrido y clases: las transiciones de la sección anterior; ninguna candidata nueva en OK (clase D). `consultas_6`, que consulta el barrido, cambia con él. `cobertura_6` y `lectura_filas_c12`, idénticos |
 | Scripts del revisor n.º 7 | `contraejemplos_7`: de 40 casos, 7 cambian de estado (A1, A3, A5–A7, A10 y A12, de OK a PENDIENTE por la columna); los demás, igual. `barrido_7`: en las líneas con rótulo, las transiciones del revisor n.º 6; en las líneas sin rótulo, 9 candidatas pasan de FALLO a OK en perímetro (la pestaña junto a un párrafo, T5) y ninguna fila pasa a OK; `clases_7` cambia con el barrido. `sondas_umbral_7`: 246 de 246. `lectura_filas_c14`, idéntico. Los nombres «C13» y «C14» de su salida son C16 y C18 |
-| Scripts del revisor n.º 8 | `contraejemplos_8`: los 25 casos, como se describe en T1–T5. `barrido_8` y `clases_8`: las transiciones de la sección anterior; los 20 saldos del estado de cambios en el patrimonio, reconocidos (E); ninguna cifra de las seis tablas del WACC por país con el perímetro OK (J). `consultas_8` cambia con el barrido. `lectura_saldos_8` lee las líneas con aceptaciones nuevas: no hay ninguna. `sondas_8`, igual que sobre C16. En sus salidas, «C14» y «C16» son C16 y C18 |
+| Scripts del revisor n.º 8 | `contraejemplos_8`: los 25 casos, como se describe en T1–T5. `barrido_8` y `clases_8`: las transiciones de la sección anterior; los 20 saldos del estado de cambios en el patrimonio, reconocidos (E); ninguna cifra de las seis tablas del WACC por país (precisión de C20, U6 g: son cinco tablas, una por publicación, con seis líneas de cabecera) con el perímetro OK (J). `consultas_8` cambia con el barrido. `lectura_saldos_8` lee las líneas con aceptaciones nuevas: no hay ninguna. `sondas_8`, igual que sobre C16. En sus salidas, «C14» y «C16» son C16 y C18 |
 | `reproduccion_7` y `reproduccion_8` | Sobre el árbol final de C18, con el manifiesto ya regenerado: manifiesto completo, CSV regenerado idéntico y todas las salidas del §13 idénticas a las guardadas (`revisor7_reproduccion_7_sobre_C18.txt` y `revisor8_reproduccion_8_sobre_C18.txt`). Las dos salidas se añaden después al manifiesto (T8 e). Los dos scripts citan como resumen del test su última línea, que desde C18 es la de las comprobaciones directas; la composición de los casos (23, 36 y 77) y el registro, idénticos |
 
 ## Lo que queda abierto tras C18
 
 - **Revisión de lo afectado por C18** (pasada 9): pendiente. Incluye las correcciones T1–T6, los límites que se declaran y el efecto de T1 sobre las cifras que C16 aceptaba.
 - **Límites declarados del verificador:**
-  - la regla de la fecha del rótulo: lo que se une depende de por dónde parta `pdftotext` el rótulo; los recuentos con fecha no toman el ejercicio de la fecha y vuelven a la regla de las columnas, como en C14; una fila cuyo rótulo sea solo la fórmula del saldo, sin fecha propia, bajo una línea de fecha de la fila anterior que no empieza en minúscula, tomaría esa fecha (T2);
+  - la regla de la fecha del rótulo: lo que se une depende de por dónde parta `pdftotext` el rótulo; los recuentos con fecha no toman el ejercicio de la fecha y vuelven a la regla de las columnas (precisión de C20, U2 y U6 b: es cierto para 31 líneas y no para 44; desde C20 se declara que los recuentos cuyo rótulo es la fecha sí toman el ejercicio de su fecha; novena parte), como en C14; una fila cuyo rótulo sea solo la fórmula del saldo, sin fecha propia, bajo una línea de fecha de la fila anterior que no empieza en minúscula, tomaría esa fecha (T2);
   - con varias columnas de datos, los saldos con la fecha en el rótulo quedan PENDIENTE de columna: en el modo `dos_columnas` ningún concepto declara su columna (T1);
   - el rótulo de las líneas contiguas se acota por el margen izquierdo, no por la sangría exacta de los rótulos de la tabla (T5);
   - los títulos en minúsculas partidos tras una coma no cuentan como encabezado, y las entradas de sumario sí (T6);
@@ -1205,3 +1205,8 @@ En el barrido del revisor n.º 8, que recorre todas las líneas y también los a
 - **Límites de detección por debajo de la cota:** R13 de 2025, R39 de 2021 y R42 en el crecimiento publicado.
 - **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
 - **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.
+
+
+# Novena parte · respuesta a la revisión n.º 9 (C20)
+
+En [RESPUESTA_REVISION_9_C20.md](RESPUESTA_REVISION_9_C20.md): U1, U4 y U5 a/c corregidos en el verificador; U2 decidido y declarado (los recuentos cuyo rótulo es la fecha toman el ejercicio de su fecha); U3 y U5 b/d, declarados como límites; U6, frases ajustadas.

@@ -127,6 +127,13 @@ OK  T2 (T2e): el año de un título de apartado («… d'application obligatoire
 OK  T2 (T4b): fila «Number of rights outstanding», URD 2022 p.350: la línea de encima («as at 12/31/2022») continúa el rótulo de la fila anterior y su fecha no se le atribuye; FALLO de unidad (es un recuento) → FALLO
 OK  T2 (reserva de coberturas): saldo de apertura de la reserva de coste de cobertura (1,2), fila «BALANCE AS AT JANUARY 1, 2021» bajo la cabecera «Cash flow hedges», URD 2022 p.324, declarado 2020: el rótulo del saldo es el de la propia fila, sin la cabecera de encima; ejercicio OK y columna PENDIENTE (dos columnas de datos). La edición falla: el URD 2022 es posterior a la publicación que exige la regla para 2020 → FALLO
 OK  T2 (año del rótulo): el año de la fecha del rótulo de un saldo («2024» de «AU 31 DÉCEMBRE 2024», tabla de deterioro de clientes del DEU 2024 p.295), declarado 2023: no es una cifra; ejercicio PENDIENTE (con el código de d3c0f1b la regla de las columnas lo daba por una cifra de 2023, OK en las seis dimensiones) → PENDIENTE
+OK  U1 (U1a): primer «0» de «as at 12/31/2025 · 0 · 92,485» (URD 2025 p.360), declarado 2025: ejercicio OK por la fecha del rótulo y sin el motivo falso «el día de la fecha» (C18 localizaba el token dentro de la fecha); recuento: no OK → PENDIENTE
+OK  U1 (U1d): primer «0» de «au 31/12/2024 · 0 · 26 718» (DEU 2024 p.306), declarado 2023: FALLO de ejercicio (en C18, PENDIENTE) → FALLO
+OK  U1 (U2a): «Number of fatal accidents · 0(a) · 0 · 0» (URD 2021 p.176), el «0» de 2020 declarado 2021: FALLO de ejercicio (antes se localizaba dentro de «0(a)», bajo 2021, y pasaba) → FALLO
+OK  U1 (U2b): el mismo «0» declarado 2020, su columna: ejercicio OK → FALLO
+OK  U2 (U3b, decisión declarada): «Number of rights outstanding / as at 12/31/2022» (URD 2022 p.294), 548,801 declarado 2022: los recuentos con fecha toman el ejercicio de su fecha (ejercicio OK); no son OK por unidad y columna → PENDIENTE
+OK  U5 c (U4a): folio del pie de página impar «Elis | Universal Registration Document 2022 | 259» (URD 2022 p.261), declarado 2021: no es una fila; ejercicio PENDIENTE (en C18, OK en las seis dimensiones) → PENDIENTE
+OK  U5 c (U4c): el «1» de «As at January 1» (URD 2021 p.218), declarado 2020: el día de la fecha del rótulo, no una cifra → PENDIENTE
 OK  T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, declarado 2024: ejercicio OK por la fecha del rótulo (en C16, PENDIENTE); columna PENDIENTE (T1) → PENDIENTE
 OK  T3 (T3a declarado 2023): la misma cifra declarada 2023: FALLO en ejercicio (la fila es el saldo de 2024) → FALLO
 OK  T3 (T3c): capital a 31-12-2021 (224,1), fila «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)» (rótulo en tres líneas), URD 2022 p.263, declarado 2021: ejercicio OK (en C16, PENDIENTE); columna PENDIENTE (T1) → PENDIENTE
@@ -134,7 +141,7 @@ OK  T4 (T5a): DEU 2024 p.315, fila «TAUX D'ACTUALISATION AVANT / IMPÔT 2024 (A
 OK  T4 (T5b): la fila siguiente, «Taux d'actualisation avant impôt / 2023 (approximation)», columna de Brasil (19,4 %): perímetro PENDIENTE (en C16, OK) → PENDIENTE
 OK  T5 (T6a): línea con solo la pestaña del capítulo («5») junto a un párrafo, URD 2023 p.261: el párrafo no es su rótulo (en C16, FALLO de perímetro por «European Union») → PENDIENTE
 OK  T5 (T6b): «100% · ELIS COLOMBIA» del organigrama del URD 2022 p.376, declarado del segmento Francia: la leyenda contigua («France») no es su rótulo; FALLO de perímetro (en C16, OK) → FALLO
-136/136 casos con el resultado esperado
+143/143 casos con el resultado esperado
 OK  T6: prosa «Note 7.2 to the consolidated financial statements summarizes the»: no es encabezado, URD2021 p.300
 OK  T6: prosa «Note 4.6 to the Group's consolidated financial statements for the»: no es encabezado, URD2023 p.264
 OK  T6: título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»): es encabezado, URD2021 p.183
@@ -144,4 +151,8 @@ OK  T6: prosa con comillas («Note 5.2 “Expenses related to employee benefits.
 OK  T5: rótulo con viñeta («− Matthieu Lecharny», bajo «Number of working beneficiaries»): no es una línea sin rótulo, URD2022 p.294
 OK  S4: columna bajo la celda «Total» de una cabecera por países (líneas sintéticas): sin cabecera de países
 OK  S4: columna de Francia de esa cabecera (líneas sintéticas): cabecera de países, perímetro PENDIENTE
-9/9 comprobaciones directas de funciones del verificador (T5, T6 y S4)
+OK  U1: en «as at 12/31/2025   0   92,485» la posición del «0» es la suya, no la del «0» de «2025» (líneas sintéticas)
+OK  U4: «Scandinavia and Eastern» / «5   3» / «Europe»: la línea de cifras de un dígito tiene rótulo contiguo (líneas sintéticas)
+OK  U4: «3   Report on corporate governance» (pestaña seguida de texto): no es una fila sin rótulo (líneas sintéticas)
+OK  U5 c: «Elis | Universal Registration Document 2022 | 259» es pie de página; «Revenue 2022 | 259» no (líneas sintéticas)
+13/13 comprobaciones directas de funciones del verificador (T5, T6 y S4)
