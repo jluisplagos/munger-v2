@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** respuesta a la revisión n.º 6 (C14). Falta congelarla (C15) y encargar su revisión (pasada 7).
-**Hora:** la del commit que contiene esta versión (C14), en `git log`. *(Revisión n.º 6, R8 a: el punto anterior, de c11a6de, decía «hacia las 01:50 UTC» y su commit es de las 01:38:27; desde ahora la hora es la de un commit, no una estimación.)*
+**Bloque cerrado:** respuesta a la revisión n.º 6 (C14), su congelado (C15) y el encargo de la pasada 7.
+**Hora:** la del commit que contiene esta versión, en `git log` (C14 es de las 02:44:21 UTC y C15, de las 02:44:38). *(Revisión n.º 6, R8 a: el punto anterior, de c11a6de, decía «hacia las 01:50 UTC» y su commit es de las 01:38:27; desde ahora la hora es la de un commit, no una estimación.)*
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -15,7 +15,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. Revisado en la pasada 6 |
 | C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Congelado de la revisión n.º 6 |
 | `c11a6de` | Copia de la revisión n.º 6 (9711f04), procedencia y registro |
-| C14 = el commit que contiene esta versión de este archivo | Respuesta a la revisión n.º 6 (R1–R8). **No revisado** |
+| C14 = `cf55865a22035aa8376d8813cd58d0f2fcdd4846` | Respuesta a la revisión n.º 6 (R1–R8). **No revisado** |
+| C15 = `c96d544646b2fa5a66c233402a9f31332a643cec` | Registra el hash de C14. **Commit congelado de la revisión n.º 7** |
+| El commit que contiene esta versión de este archivo | Registra el encargo de la pasada 7. No cambia código, datos ni resultados |
 
 ## 2. Estado de las pruebas sobre C14
 
@@ -45,9 +47,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 4. Siguiente paso exacto
 
-1. Congelar C14: commit C15, que solo registra el hash de C14 en `revision/ESTADO.md`, en la tabla de commits de las respuestas y en el manifiesto. Push.
-2. Encargar la pasada 7 sobre C15 a una sesión de revisión nueva, con el modelo y el esfuerzo que el encargo asigna a la revisión independiente, en la rama `auditoria/economica-f1-frente-e-revision`. Alcance: `git diff 9711f04..C15` en lo del autor (C14), con atención a las tres decisiones propias y al barrido completo. Programar una comprobación y registrar la configuración con `get_session`.
-3. Al terminar la pasada 7: copiar sus archivos sin cambios, con procedencia, y responder.
+1. Esperar a la pasada 7: sesión de revisión nueva creada a las 02:45:09 UTC sobre C15, con publicación en `auditoria/economica-f1-frente-e-revision` sobre 9711f04. Hay una comprobación programada para las 03:46 UTC.
+2. Cuando termine: copiar sin cambios su informe, sus scripts y sus salidas, con procedencia (blob y SHA-256); registrar su configuración con `get_session`; actualizar ESTADO, REGISTRO, el informe §12 y este punto. Commit y push.
+3. Responder a sus objeciones (C16), con pruebas sobre las filas reales y el barrido, y encargar la revisión de lo que afecten.
 
 ## 5. Cómo reanudar en una sesión nueva
 
