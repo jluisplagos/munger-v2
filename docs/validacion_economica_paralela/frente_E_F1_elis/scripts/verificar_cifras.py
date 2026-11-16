@@ -12,7 +12,10 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
                dos_columnas  la columna de ejercicio de la cabecera de la tabla bajo la que está el token: por orden si hay tantas
                              columnas reconocidas como números y cada número está alineado con la suya; si no, la más
                              próxima. Bajo una palabra de cabecera ajena, PENDIENTE, salvo que la columna de otro ejercicio
-                             esté alineada con el token (FALLO);
+                             esté alineada con el token (FALLO). Excepción: en una fila de saldo cuyo rótulo lleva la fecha
+                             (la primera celda de una línea con más celdas, aunque esté partida en las líneas de encima, y
+                             que solo dice la fórmula del saldo y la fecha, con «restated», «retraité» o una llamada), el
+                             ejercicio es el de esa fecha para los tokens a la derecha del rótulo, sea cual sea su columna;
                crecimiento   tabla de variación: el ejercicio es el más reciente de la cabecera;
                max_cabecera  tabla de movimiento con apertura y cierre en la cabecera: el ejercicio es el de cierre;
                movimientos   el bloque empieza en el saldo anterior más próximo («AS AT JANUARY 1, Y» → Y; «AS AT 12/31/Y» → Y+1);
@@ -22,7 +25,8 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
              Prosa: el ejercicio declarado debe ser el de la edición (pie de página).
   columna    en las tablas de varias columnas que no son ejercicios (crecimiento, impuestos diferidos, movimientos de
              arrendamientos, intangibles e inmovilizado, matrices por segmentos), la cabecera de la columna del token debe
-             ser la del concepto declarado.
+             ser la del concepto declarado. En «dos_columnas», si el ejercicio sale de la fecha del rótulo y la fila tiene
+             varias columnas de datos, la del token es un concepto que ese modo no declara: PENDIENTE.
   unidad     «mm EUR»: el literal no es un porcentaje y la declaración de unidades más próxima por encima de la línea
              dice millones de euros (otra unidad: FALLO; ninguna: PENDIENTE). «%»: el literal lleva «%». Cualquier otra
              unidad declarada es FALLO. Prosa: no aplica.
@@ -30,10 +34,14 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
              grupo (si no, PENDIENTE); en una matriz por segmentos solo vale la columna «Total»; una línea cuyo rótulo
              es un segmento, un país de una tabla por países (también con el prefijo «CGU»/«UGT»), una jurisdicción o el
              desglose de un país («of which Ireland», «Hors Union européenne») es FALLO; un título de bloque o de tabla
-             que nombra un país o un segmento, una cabecera con países sin columna reconocida o una columna de un grupo
-             de columnas por entidad (la cabecera repite los ejercicios por marca o por firma) dejan PENDIENTE. «segmento X»: X debe ser el rótulo de la línea o, en una matriz por segmentos, la
-             columna del token, identificada por el orden horizontal de las ocho cabeceras (la columna «Total» es FALLO;
-             si el orden no se puede acreditar, PENDIENTE). Otro perímetro: FALLO. Prosa: no aplica.
+             que nombra un país o un segmento, una cabecera con países sin columna reconocida, una cabecera con una
+             columna por país (aunque no declare unidades ni ejercicios) o una columna de un grupo de columnas por
+             entidad (la cabecera repite los ejercicios por marca o por firma) dejan PENDIENTE. Una línea de cifras sin
+             rótulo toma el de las líneas de rótulo contiguas: de una sola celda, sin cifras, cortas y en el margen de los
+             rótulos (no para una línea que solo lleva la pestaña del capítulo). «segmento X»: X debe ser el rótulo de la
+             línea o, en una matriz por segmentos, la columna del token, identificada por el orden horizontal de las ocho
+             cabeceras (la columna «Total» es FALLO; si el orden no se puede acreditar, PENDIENTE). Otro perímetro: FALLO.
+             Prosa: no aplica.
   edicion    el pie de página («Elis | Universal Registration Document AAAA» o «Elis | Document d'enregistrement
              universel AAAA») da el ejercicio de la publicación, que debe ser el declarado en datos/fuentes.json
              (sin pie: PENDIENTE). En tablas, «edicion» es «vigente» si la fuente es la que exige la regla de la Historia
@@ -302,16 +310,54 @@ def anio_de_saldo(linea):
 
 
 SALDO_EN_ROTULO = re.compile(r"(?i)\b(?:balance|solde|as at|au)\b")
+# (revisión n.º 8, T2) palabras que admite el rótulo de una fila de saldo además de la fecha: la fórmula del saldo y las
+# marcas de reexpresión o de llamada; cualquier otra palabra hace del rótulo una frase (prosa, título, recuento con fecha)
+PALABRAS_DE_SALDO = re.compile(r"(?i)^(?:balance|balances|solde|soldes|as|at|au|le|net|carrying|amount|valeur|nette|comptable|"
+                               r"ajusted|adjusted|ajusté|ajustée|restated|retraité|retraitée|retraite|de|du|the|of)?$")
 
 
-def anio_de_saldo_en_rotulo(lineas, i, idioma):
-    """(Revisión n.º 7, S1) Ejercicio del saldo cuya fecha lleva el rótulo de la fila, aunque esté partido en varias líneas
-    («Balance as at December» / «31, 2021 restated(a)»; «DECEMBER, 31 2022»; «Solde au 31 décembre» / «2023, retraité*»).
-    None si el rótulo no es el de un saldo con fecha."""
-    r = rotulo_multilinea(lineas, i, idioma)
+def palabra_de_saldo(w):
+    """Una palabra del rótulo de un saldo, sin paréntesis alrededor ni llamada pegada («(RESTATED)», «restated(a)»,
+    «RETRAITÉ*», «(a)», «*»)."""
+    w = re.sub(r"(?:\(\w\)|\*+)$", "", w.strip()).strip("()")
+    return bool(PALABRAS_DE_SALDO.match(w))
+FECHA_DE_SALDO = re.compile(r"(?i)\b(?:0?1/0?1/|12/31/|31/12/)20\d\d\b|\b(?:january|janvier)\s+1,?\s*20\d\d|\b1er\s+janvier\s+20\d\d|"
+                            r"\bdecember,?\s*31,?\s*20\d\d|\b31\s+d[ée]cembre\s+20\d\d")
+
+
+def fin_del_rotulo(linea):
+    """Posición en la línea del final de su rótulo (la primera celda, o la segunda tras la pestaña del margen)."""
+    r = rotulo(linea)
+    return linea.find(r) + len(r) if r else 0
+
+
+def columnas_de_datos(linea, idioma):
+    """Número de tokens numéricos (marcadores «-» incluidos) a la derecha del rótulo: las columnas de datos de la fila."""
+    return len([a for a, _ in (spans_numericos(linea, idioma) or []) if a >= fin_del_rotulo(linea)])
+
+
+def anio_de_saldo_en_rotulo(lineas, i, idioma, pos=None):
+    """(Revisión n.º 7, S1; revisión n.º 8, T2 y T3) Ejercicio del saldo cuya fecha lleva el rótulo de la fila, aunque esté
+    partido en varias líneas. Solo si la línea es una fila: el rótulo es su primera celda y hay más celdas; si se da `pos`,
+    el token está a la derecha del rótulo (no el día ni el año de la propia fecha); y el rótulo es la fórmula del saldo y la
+    fecha, con «restated», «retraité» o una llamada, no una frase. None si no es una fila de saldo con fecha."""
+    if len(trozos(lineas[i])) < 2:
+        return None
+    if pos is not None:
+        sp = spans_numericos(lineas[i], idioma)
+        if not sp or not -len(sp) <= pos < len(sp) or sp[pos % len(sp)][0] < fin_del_rotulo(lineas[i]):
+            return None
+    r = rotulo_multilinea(lineas, i, idioma, alto=3, fecha=True)
     if not SALDO_EN_ROTULO.search(r):
         return None
-    r = re.sub(r"(?i)\bdecember,\s*31\b,?", "December 31,", r)
+    m = FECHA_DE_SALDO.search(r)
+    if not m:
+        return None
+    resto = (r[:m.start()] + " " + r[m.end():]).replace(",", " ")
+    if any(not palabra_de_saldo(w) for w in resto.split()):
+        return None
+    r = re.sub(r"(?i)\bdecember,\s*31\b,?", "December 31,", m.group(0))
+    r = re.sub(r"(?i)^(0?1/0?1/)(20\d\d)$", r"January 1, \2", r)
     return anio_de_saldo(r)
 
 
@@ -407,7 +453,7 @@ def zona_de_cabecera(lineas, i, idioma):
         k -= 1
         # (revisión n.º 7, S1) el título numerado de la tabla («6.1.5 Consolidated statement of changes in equity») y su
         # continuación sangrada («as at December 31, 2022») no son cabecera de columnas: su año no es una columna
-        if es_encabezado_numerado(lineas[k].strip(), idioma):
+        if es_encabezado_numerado(lineas[k].strip(), idioma, lineas[k + 1]):
             zona = [z for z in zona if not es_continuacion_de_encabezado(lineas, k, z)]
             break
         # solo fragmentos de cabecera en columnas (muy sangrados o con huecos de varias posiciones), no prosa
@@ -616,7 +662,7 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
     if modo == "dos_columnas":
         # (revisión n.º 7, S1) una fila que lleva en su rótulo la fecha de un saldo («Balance as at December / 31, 2021
         # restated(a)», «Solde au 31 décembre / 2023, retraité*») es de ese ejercicio, sea cual sea su columna
-        a_rot = anio_de_saldo_en_rotulo(lineas, i, idioma)
+        a_rot = anio_de_saldo_en_rotulo(lineas, i, idioma, pos)
         if a_rot is not None:
             return ("OK", f"saldo de {a_rot} (fecha en el rótulo de la fila)") if a_rot == anio else (
                 "FALLO", f"la fila es el saldo de {a_rot} (fecha en su rótulo), no de {anio}")
@@ -670,6 +716,15 @@ def comprobar_columna(lineas, i, fila, pos, idioma):
     movimientos de arrendamientos, intangibles e inmovilizado, matrices por segmentos)."""
     modo = (fila.get("control_anio") or "").strip()
     if modo == "dos_columnas":
+        # (revisión n.º 8, T1) si el ejercicio sale de la fecha del rótulo de la fila (un saldo), la columna no es un ejercicio
+        # sino un concepto (clase de activo, componente del patrimonio). En este modo ningún concepto tiene columna esperada
+        # (la lista cerrada de modos lleva a los que la tienen a otros modos): con varias columnas de datos, no se acredita
+        if anio_de_saldo_en_rotulo(lineas, i, idioma, pos) is not None:
+            n = columnas_de_datos(lineas[i], idioma)
+            if n > 1:
+                return "PENDIENTE", (f"el ejercicio sale de la fecha del rótulo de la fila y la fila tiene {n} columnas de datos: la del "
+                                     "token es un concepto sin columna esperada en el modo «dos_columnas», y no se acredita")
+            return "NO_APLICA", "una sola columna de datos: el ejercicio sale de la fecha del rótulo de la fila"
         return "NO_APLICA", "la columna es el ejercicio: se comprueba en «ejercicio»"
     if modo == "titulo":
         if (fila.get("perimetro") or "").startswith("segmento "):
@@ -831,9 +886,13 @@ DESGLOSE_PAIS = re.compile(r"(?i)(?:^|[›(\s])(?:of which|o/w|dont|including|ex
                            + PAIS_O_SEGMENTO_TITULO.pattern)
 
 
-def rotulo_multilinea(lineas, i, idioma, alto=4):
+def rotulo_multilinea(lineas, i, idioma, alto=4, fecha=False):
     """Rótulo de la fila i con las líneas de rótulo que tiene encima: sin cifras, de una sola celda, con la misma sangría
-    y sin línea en blanco por medio («Non-cooperative» / «jurisdictions for tax» / «purposes (European Union» / «list)»)."""
+    y sin línea en blanco por medio («Non-cooperative» / «jurisdictions for tax» / «purposes (European Union» / «list)»).
+    Con `fecha` (revisión n.º 8, T2 y T3), para el rótulo de un saldo: admite las líneas cuyas únicas cifras son el día o el
+    año de la fecha («SOLDE AU 31» / «DÉCEMBRE 2024»; «BALANCE AS AT» / «DECEMBER 31, 2021» / «(RESTATED)»), y no une una
+    línea que empieza en minúscula justo debajo de una fila de datos: es la continuación del rótulo de esa fila («Number of
+    rights lapsed or forfeited  -  186,469 …» / «as at 12/31/2022»)."""
     r = rotulo(lineas[i])
     if not r:
         return r
@@ -841,9 +900,15 @@ def rotulo_multilinea(lineas, i, idioma, alto=4):
     partes, k = [r], i - 1
     while k >= 0 and len(partes) <= alto:
         l = lineas[k]
-        if not l.strip() or tokens_numericos(l, idioma) or len(trozos(l)) != 1 or len(l.strip()) > 45:
+        cifras = tokens_numericos(l, idioma)
+        if fecha:
+            cifras = [t for t in cifras if not re.fullmatch(r"(?:[12]?\d|3[01]|20\d\d),?", t)]
+        if not l.strip() or cifras or len(trozos(l)) != 1 or len(l.strip()) > 45:
             break
         if abs((len(l) - len(l.lstrip())) - sangria) > 3:
+            break
+        if fecha and re.match(r"[^\W\d_]", l.strip()) and l.strip()[0].islower() and k > 0 \
+                and len(trozos(lineas[k - 1])) >= 2 and tokens_numericos(lineas[k - 1], idioma):
             break
         partes.insert(0, l.strip())
         k -= 1
@@ -859,12 +924,16 @@ def jurisdiccion_de_fila(lineas, i, idioma):
     return None
 
 
+def en_mayusculas(t):
+    """Casi todas las letras en mayúsculas (el 80 % o más), con tres letras o más."""
+    letras = [c for c in t if c.isalpha()]
+    return len(letras) >= 3 and sum(c.isupper() for c in letras) >= 0.8 * len(letras)
+
+
 def es_titulo(t):
     """Línea propia de título: corta, sin cifras, con tres letras o más y casi toda en mayúsculas («FRANCE – DETAILS»,
     «DÉTAIL POUR LE ROYAUME-UNI»). La prosa y las cabeceras de columna en minúsculas no lo son."""
-    letras = [c for c in t if c.isalpha()]
-    return (bool(t) and not re.search(r"\d", t) and len(t) <= 60 and len(letras) >= 3
-            and sum(c.isupper() for c in letras) >= 0.8 * len(letras))
+    return bool(t) and not re.search(r"\d", t) and len(t) <= 60 and en_mayusculas(t)
 
 
 # (revisión n.º 6, R2) encabezado numerado de nota o de apartado: «NOTE 13 STATUTORY AUDITORS' FEES», «5.4 Share-based
@@ -872,13 +941,27 @@ def es_titulo(t):
 ENCABEZADO_NUMERADO = re.compile(r"^(?:(?:NOTE|Note|NOTA|Nota)\s+\d+(?:\.\d+)*|\d+(?:\.\d+)+\.?)\s+(?=\S)")
 
 
-def es_encabezado_numerado(t, idioma):
+def es_encabezado_numerado(t, idioma, siguiente=None):
+    """Encabezado numerado de nota o de apartado en la línea t; `siguiente` es la línea de debajo, si se conoce."""
     m = ENCABEZADO_NUMERADO.match(t)
     if not m:
         return False
     resto = t[m.end():].strip()
-    # (revisión n.º 7, S5) no es prosa: sin comillas tras la numeración («Note 5.2 “Expenses related…”») ni puntuación final
-    if re.search(r"[“”\"«»]", resto) or re.search(r"[.;:,]$", resto):
+    mayus = en_mayusculas(resto)
+    # (revisión n.º 7, S5) no es prosa: sin comillas tras la numeración («Note 5.2 “Expenses related…”») ni puntuación final.
+    # (Revisión n.º 8, T6) Salvo en un título en mayúsculas: las comillas («NOTE 6 ENGAGEMENTS FINANCIERS ET « HORS-BILAN »»)
+    # y la coma final si la línea de debajo continúa el título, también en mayúsculas («3.7 REPORT BY ONE OF THE STATUTORY
+    # AUDITORS,» / «APPOINTED AS AN INDEPENDENT THIRD PARTY,», con la pestaña del capítulo aparte)
+    if re.search(r"[“”\"«»]", resto) and not mayus:
+        return False
+    if re.search(r"[.;:]$", resto):
+        return False
+    if resto.endswith(","):
+        sig = [c for c in trozos(siguiente or "") if not re.fullmatch(r"\d", c)]
+        if not (mayus and len(sig) == 1 and en_mayusculas(sig[0]) and not tokens_numericos(sig[0], idioma)):
+            return False
+    # (revisión n.º 8, T6) ni una referencia en prosa a una nota («Note 7.2 to the consolidated financial statements…»)
+    if re.match(r"(?i)to\s+the\b|of\s+the\b|à\s+l|aux?\s", resto):
         return False
     return len(t) <= 80 and not tokens_numericos(resto, idioma) and bool(re.search(r"[^\W\d_]{3}", resto))
 
@@ -898,8 +981,11 @@ def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None, idioma="en"):
         resto = re.sub(r"[()]", "", resto).strip()
         if resto and not re.search(r"\d", resto) and PAIS_O_SEGMENTO_TITULO.fullmatch(resto):
             return resto
-    for t in [lineas[k].strip() for k in range(i - 1, -1, -1)] + list(reversed([x.strip() for x in (lineas_previas or [])])):
-        if es_titulo(t) or es_encabezado_numerado(t, idioma):
+    previas = list(lineas_previas or [])
+    candidatas = [(lineas[k].strip(), lineas[k + 1]) for k in range(i - 1, -1, -1)]
+    candidatas += [(previas[k].strip(), previas[k + 1] if k + 1 < len(previas) else None) for k in range(len(previas) - 1, -1, -1)]
+    for t, siguiente in candidatas:
+        if es_titulo(t) or es_encabezado_numerado(t, idioma, siguiente):
             return t if PAIS_O_SEGMENTO_TITULO.search(t) else None
     return None
 
@@ -982,7 +1068,16 @@ def cabecera_de_paises(lineas, i, pos, idioma, alto=30):
         l, t = lineas[k], lineas[k].strip()
         if not t:
             continue
-        if any(rx.search(l) for rx, _ in UNIDAD_RX) or UNIDAD_OTRA_RX.search(l) or es_titulo(t) or es_encabezado_numerado(t, idioma):
+        if any(rx.search(l) for rx, _ in UNIDAD_RX) or UNIDAD_OTRA_RX.search(l):
+            return None
+        # (revisión n.º 8, T4) la primera línea del rótulo de una fila (una sola celda, con la sangría de la fila de datos que
+        # tiene justo debajo) no es un título que corte la búsqueda («TAUX D'ACTUALISATION AVANT» / «IMPÔT 2024
+        # (APPROXIMATION)  11,2% …»)
+        abajo = lineas[k + 1] if k + 1 < len(lineas) else ""
+        if (len(trozos(l)) == 1 and len(trozos(abajo)) >= 2 and tokens_numericos(abajo, idioma)
+                and abs((len(l) - len(l.lstrip())) - (len(abajo) - len(abajo.lstrip()))) <= 3):
+            continue
+        if es_titulo(t) or es_encabezado_numerado(t, idioma, abajo):
             return None
         celdas = list(re.finditer(r"\S+(?: \S+)*", l))
         if len(celdas) >= 3 and all(len(c.group().split()) <= 3 and not re.search(r"\d", c.group()) for c in celdas):
@@ -1089,11 +1184,16 @@ def rotulos_sin_rotulo(lineas, i, idioma, alto=3):
     t = trozos(lineas[i])
     if not t or not es_numero(t[0].split(" ")[0], idioma):
         return []
+    # (revisión n.º 8, T5) una línea que empieza por la pestaña del capítulo no es una fila sin rótulo
+    if re.fullmatch(r"\d", t[0]):
+        return []
     def contiguas(paso):
         out, k = [], i + paso
         while 0 <= k < len(lineas) and len(out) < alto:
             l = lineas[k]
-            if not l.strip() or tokens_numericos(l, idioma) or len(trozos(l)) != 1:
+            # (revisión n.º 8, T5) solo líneas cortas, de rótulo, en el margen izquierdo de la tabla: no prosa ni leyendas
+            if (not l.strip() or tokens_numericos(l, idioma) or len(trozos(l)) != 1 or len(l.strip()) > 45
+                    or len(l) - len(l.lstrip()) > 12):
                 break
             out.append(l.strip())
             k += paso

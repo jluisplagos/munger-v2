@@ -11,8 +11,11 @@ Cubre:
 - los de la revisión independiente n.º 1 del frente E (O3, mutantes M1–M4): columna de otro ejercicio con su propio
   literal, bloque de movimientos o saldo de otro año, fuente sin huella declarada, y año, unidad y perímetro falsos;
 - el contraste externo sobre 6fb9294: mutantes conjuntos de posición y literal, año, unidad, perímetro y edición;
-- las revisiones n.º 3 a 6 del frente E: filas reales de las páginas que cita cada revisor. Algunos casos fijan además el
-  estado de una dimensión concreta («dims») o exigen que un motivo NO aparezca («sin_motivo»).
+- las revisiones n.º 3 a 8 del frente E: filas reales de las páginas que cita cada revisor. Algunos casos fijan además el
+  estado de una dimensión concreta («dims») o exigen que un motivo NO aparezca, en la fila («sin_motivo») o en el detalle
+  de una dimensión («sin_detalle»).
+- (revisión n.º 8, T6) comprobaciones directas del criterio de encabezado numerado sobre líneas reales del PDF; se cuentan
+  aparte de los casos.
 
 Uso:  python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
 """
@@ -55,9 +58,10 @@ def main():
     lease, rou = fila("CF_LEASE_2025"), fila("DA_ROU_2025")
     casos = []
 
-    def caso(nombre, filas, estado, fallan=None, fu=None, coherente=False, motivo=None, dims=None, sin_motivo=None):
+    def caso(nombre, filas, estado, fallan=None, fu=None, coherente=False, motivo=None, dims=None, sin_motivo=None, sin_detalle=None):
         casos.append({"nombre": nombre, "filas": filas, "fuentes": fu or fuentes, "estado": estado,
-                      "fallan": fallan or {}, "coherente": coherente, "motivo": motivo, "dims": dims or {}, "sin_motivo": sin_motivo})
+                      "fallan": fallan or {}, "coherente": coherente, "motivo": motivo, "dims": dims or {}, "sin_motivo": sin_motivo,
+                      "sin_detalle": sin_detalle or {}})
 
     # ---- positivos reales
     caso("positivo: pagos de arrendamiento y amortización ROU de 2025", [lease, rou], "OK")
@@ -364,15 +368,19 @@ def main():
          [del_pdf("R6_AJUSTE", "URD2022", 271, ADQ, "0.1", 2021)], "PENDIENTE", dims={"R6_AJUSTE": {"edicion": "OK", "ejercicio": "PENDIENTE"}})
 
     # ---- revisión n.º 7 (C16): filas reales de los contraejemplos del revisor (contraejemplos_7.py)
-    caso("S1 positivo (revisión n.º 7, A1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» del "
-         "estado de cambios en el patrimonio del URD 2022 p.262, declarado 2021: el año del título no es una columna",
-         [del_pdf("R7_A1", "URD2022", 262, r"^\s*31, 2021 restated\(a\)\s", "224.1", 2021)], "OK")
+    caso("S1 (revisión n.º 7, A1; revisión n.º 8, T1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» "
+         "del estado de cambios en el patrimonio del URD 2022 p.262, declarado 2021: ejercicio OK por la fecha del rótulo (el año del título "
+         "no es una columna); columna PENDIENTE: es un componente del patrimonio que el modo «dos_columnas» no declara (en C16, OK)",
+         [del_pdf("R7_A1", "URD2022", 262, r"^\s*31, 2021 restated\(a\)\s", "224.1", 2021)], "PENDIENTE",
+         dims={"R7_A1": {"ejercicio": "OK", "columna": "PENDIENTE"}})
     caso("S1 (A8): capital a 31-12-2023 (234,0), DEU 2024 p.274, declarado 2024, el año del título: FALLO",
          [del_pdf("R7_A8", "DEU2024FR", 274, r"^\s*2023, retraité\*\s", "234,0", 2024)], "FALLO", {"R7_A8": {"ejercicio"}}, coherente=True)
     caso("S1 (A9): capital a 31-12-2022 (230,1) del estado del ejercicio anterior, DEU 2024 p.275, declarado 2023: FALLO (en C14, OK)",
          [del_pdf("R7_A9", "DEU2024FR", 275, r"^\s*2022\s+230,1", "230,1", 2023)], "FALLO", {"R7_A9": {"ejercicio"}}, coherente=True)
-    caso("S1 positivo (A10): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022",
-         [del_pdf("R7_A10", "URD2022", 262, r"^\s*DECEMBER, 31 2022\s", "230.1", 2022)], "OK")
+    caso("S1 (A10; revisión n.º 8, T1): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022: "
+         "ejercicio OK; columna PENDIENTE (en C16, OK)",
+         [del_pdf("R7_A10", "URD2022", 262, r"^\s*DECEMBER, 31 2022\s", "230.1", 2022)], "PENDIENTE",
+         dims={"R7_A10": {"ejercicio": "OK", "columna": "PENDIENTE"}})
     LSIN = r"^\s*599\.2\s+580\.7"
     caso("S2 (B1): ventas de 2022 del segmento Escandinavia y Europa del Este (580,7), cuya línea de cifras no tiene rótulo "
          "(«Scandinavia and Eastern» / cifras / «Europe»), URD 2023 p.261, declaradas del grupo",
@@ -389,6 +397,79 @@ def main():
          "URD 2021 p.270: perímetro PENDIENTE", [del_pdf("R7_D5", "URD2021", 270, r"^\s*\(APPROXIMATION\)\s", "9.1%", 2021)], "PENDIENTE",
          dims={"R7_D5": {"perimetro": "PENDIENTE"}})
 
+    # ---- revisión n.º 8 (C18): filas reales de los contraejemplos del revisor (contraejemplos_8.py) y controles
+    ROU = r"^\s*AS AT 12/31/2024\s"
+    caso("T1 (T1a): derechos de uso a 31-12-2024, columna «Vehicles» (237,4), URD 2025 p.366, identificador genérico: ejercicio OK por la "
+         "fecha del rótulo; columna PENDIENTE: la fila tiene cinco columnas de concepto (en C16, OK en las seis dimensiones)",
+         [del_pdf("R8_T1A", "URD2025", 366, ROU, "237.4", 2024)], "PENDIENTE", dims={"R8_T1A": {"ejercicio": "OK", "columna": "PENDIENTE"}})
+    caso("T1 (T1b): la misma cifra con el identificador de saldo de los derechos de uso (columna esperada «Total»): FALLO de columna",
+         [del_pdf("LS_SALDO_ROU_R8", "URD2025", 366, ROU, "237.4", 2024, control_anio="saldo")], "FALLO",
+         {"LS_SALDO_ROU_R8": {"columna"}}, coherente=True)
+    caso("T1 positivo (T1c): el total de esa fila (572,8) con el identificador de saldo",
+         [del_pdf("LS_SALDO_ROU_R8B", "URD2025", 366, ROU, "572.8", 2024, control_anio="saldo")], "OK")
+    DET = r"^6\s+As at December 31, 2021\s"
+    caso("T1 positivo, una sola columna de datos: deterioro de clientes a 31-12-2021 ((57,9)), fila «6 · As at December 31, 2021» "
+         "(pestaña del margen), URD 2022 p.284, declarado 2021: OK; la columna no aplica",
+         [del_pdf("R8_DET_2021", "URD2022", 284, DET, "(57.9)", 2021)], "OK", dims={"R8_DET_2021": {"columna": "NO_APLICA"}})
+    caso("T1, una sola columna de datos: el saldo de cierre de esa tabla («AS AT DECEMBER 31, 2022», (54,3)) declarado 2021: FALLO en ejercicio",
+         [del_pdf("R8_DET_2022", "URD2022", 284, r"^\s*AS AT DECEMBER 31, 2022\s", "(54.3)", 2021)], "FALLO", {"R8_DET_2022": {"ejercicio"}},
+         coherente=True)
+    caso("T2 (T2a): el día de la fecha («31» de «DECEMBER, 31 2022»), URD 2022 p.262, declarado 2022: es un token del rótulo, no una cifra "
+         "de la fila; ejercicio PENDIENTE (en C16, OK en las seis dimensiones)",
+         [del_pdf("R8_T2A", "URD2022", 262, r"^\s*DECEMBER, 31 2022\s", "31", 2022)], "PENDIENTE", dims={"R8_T2A": {"ejercicio": "PENDIENTE"}})
+    caso("T2 (T2b): la pestaña del margen («6») de la línea «6 · As at December 31, 2021 · (57.9)», URD 2022 p.284, declarada 2021: "
+         "ejercicio PENDIENTE (en C16, OK en las seis dimensiones)",
+         [del_pdf("R8_T2B", "URD2022", 284, DET, "6", 2021)], "PENDIENTE", dims={"R8_T2B": {"ejercicio": "PENDIENTE"}})
+    caso("T2 (T2c): el año de una línea de prosa («…902,3 millions d'euros au 31 décembre 2023)»), DEU 2024 p.257, declarado 2023: "
+         "ejercicio PENDIENTE (en C16, OK en las seis dimensiones)",
+         [del_pdf("R8_T2C", "DEU2024FR", 257, r"^d'euros \(contre 902,3 millions", "2023)", 2023)], "PENDIENTE",
+         dims={"R8_T2C": {"ejercicio": "PENDIENTE"}})
+    caso("T2 (T2e): el año de un título de apartado («… d'application obligatoire / au 1er janvier 2024»), DEU 2024 p.277, declarado 2023: "
+         "ejercicio PENDIENTE (en C16, OK en las seis dimensiones)",
+         [del_pdf("R8_T2E", "DEU2024FR", 277, r"^au 1er janvier 2024\s*$", "2024", 2023)], "PENDIENTE", dims={"R8_T2E": {"ejercicio": "PENDIENTE"}})
+    caso("T2 (T4b): fila «Number of rights outstanding», URD 2022 p.350: la línea de encima («as at 12/31/2022») continúa el rótulo de la "
+         "fila anterior y su fecha no se le atribuye; FALLO de unidad (es un recuento)",
+         [del_pdf("R8_T4B", "URD2022", 350, r"^\s*Number of rights outstanding\s", "1,307,749", 2022)], "FALLO", {"R8_T4B": {"unidad"}},
+         sin_detalle={"R8_T4B": {"ejercicio": "rótulo"}})
+    caso("T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, "
+         "declarado 2024: ejercicio OK por la fecha del rótulo (en C16, PENDIENTE); columna PENDIENTE (T1)",
+         [del_pdf("R8_T3A", "DEU2024FR", 274, r"^\s*DÉCEMBRE 2024\s+236,7", "236,7", 2024)], "PENDIENTE",
+         dims={"R8_T3A": {"ejercicio": "OK", "columna": "PENDIENTE"}})
+    caso("T3 (T3a declarado 2023): la misma cifra declarada 2023: FALLO en ejercicio (la fila es el saldo de 2024)",
+         [del_pdf("R8_T3A_2023", "DEU2024FR", 274, r"^\s*DÉCEMBRE 2024\s+236,7", "236,7", 2023)], "FALLO", {"R8_T3A_2023": {"ejercicio"}},
+         coherente=True)
+    caso("T3 (T3c): capital a 31-12-2021 (224,1), fila «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)» (rótulo en tres líneas), "
+         "URD 2022 p.263, declarado 2021: ejercicio OK (en C16, PENDIENTE); columna PENDIENTE (T1)",
+         [del_pdf("R8_T3C", "URD2022", 263, r"^\s*\(RESTATED\)\s+224\.1", "224.1", 2021)], "PENDIENTE",
+         dims={"R8_T3C": {"ejercicio": "OK", "columna": "PENDIENTE"}})
+    caso("T4 (T5a): DEU 2024 p.315, fila «TAUX D'ACTUALISATION AVANT / IMPÔT 2024 (APPROXIMATION)», columna de Francia (11,2 %): la "
+         "primera línea del rótulo no corta la búsqueda de la cabecera por países; perímetro PENDIENTE (en C16, OK)",
+         [del_pdf("R8_T5A", "DEU2024FR", 315, r"^\s*IMPÔT 2024 \(APPROXIMATION\)\s", "11,2%", 2024)], "PENDIENTE",
+         dims={"R8_T5A": {"perimetro": "PENDIENTE"}})
+    caso("T4 (T5b): la fila siguiente, «Taux d'actualisation avant impôt / 2023 (approximation)», columna de Brasil (19,4 %): perímetro "
+         "PENDIENTE (en C16, OK)",
+         [del_pdf("R8_T5B", "DEU2024FR", 315, r"^\s*2023 \(approximation\)\s", "19,4%", 2023)], "PENDIENTE",
+         dims={"R8_T5B": {"perimetro": "PENDIENTE"}})
+    caso("T5 (T6a): línea con solo la pestaña del capítulo («5») junto a un párrafo, URD 2023 p.261: el párrafo no es su rótulo "
+         "(en C16, FALLO de perímetro por «European Union»)",
+         [del_pdf("R8_T6A", "URD2023", 261, r"^\s*5\s*$", "5", 2023)], "PENDIENTE", dims={"R8_T6A": {"perimetro": "OK"}},
+         sin_motivo="European Union")
+    caso("T5 (T6b): «100% · ELIS COLOMBIA» del organigrama del URD 2022 p.376, declarado del segmento Francia: la leyenda contigua "
+         "(«France») no es su rótulo; FALLO de perímetro (en C16, OK)",
+         [del_pdf("R8_T6B", "URD2022", 376, r"^\s*100%\s+ELIS COLOMBIA\s*$", "100%", 2022, perimetro="segmento Francia")], "FALLO",
+         {"R8_T6B": {"perimetro"}}, coherente=True)
+
+    # ---- (revisión n.º 8, T6) criterio de encabezado numerado sobre líneas reales: (documento, página, regex, ¿es encabezado?)
+    comprobaciones = [
+        ("URD2021", 300, r"^\s*Note 7\.2 to the consolidated", False, "prosa «Note 7.2 to the consolidated financial statements summarizes the»"),
+        ("URD2023", 264, r"^\s*Note 4\.6 to the Group", False, "prosa «Note 4.6 to the Group's consolidated financial statements for the»"),
+        ("URD2021", 183, r"^\s*3\.7\s+REPORT BY ONE OF THE STATUTORY AUDITORS,", True,
+         "título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»)"),
+        ("DEU2024FR", 369, r"^\s*NOTE 6\s+ENGAGEMENTS FINANCIERS", True, "título en mayúsculas con comillas («NOTE 6 … « HORS-BILAN »»)"),
+        ("URD2022", 181, r"^\s*3\.5\.1\s+Providing products", False,
+         "límite declarado: título en minúsculas partido tras una coma («3.5.1 Providing products … hygiene,»)"),
+        ("URD2023", 311, r"^\s*Note 5\.2 “Expenses related", False, "prosa con comillas («Note 5.2 “Expenses related to employee benefits.”»)"),
+    ]
     malos = 0
     for k in casos:
         cod, res = ejecutar(a.raiz, k["filas"], k["fuentes"])
@@ -420,10 +501,31 @@ def main():
                 for dim, e in esperado.items():
                     if por_id[i]["dimensiones"][dim]["estado"] != e:
                         problemas.append(f"{i}: {dim} {por_id[i]['dimensiones'][dim]['estado']}, se esperaba {e}")
+            for i, prohibidos in k["sin_detalle"].items():
+                for dim, txt in prohibidos.items():
+                    if txt in (por_id[i]["dimensiones"][dim].get("detalle") or ""):
+                        problemas.append(f"{i}: el detalle de {dim} contiene «{txt}», que no debe aparecer")
         malos += bool(problemas)
         print("OK " if not problemas else "MAL", k["nombre"], "→", k["estado"] if not problemas else "; ".join(problemas))
     print(f"{len(casos) - malos}/{len(casos)} casos con el resultado esperado")
-    return 1 if malos else 0
+    malas = 0
+    for doc, pagina, rx, esperado, nombre in comprobaciones:
+        f = fuentes["fuentes"][doc]
+        lineas = V.texto_pagina(a.raiz / f["archivo"], pagina).splitlines()
+        cand = [k for k, l in enumerate(lineas) if re.search(rx, l)]
+        if len(cand) != 1:
+            malas += 1
+            print("MAL", f"T6: {nombre}: la expresión casa con {len(cand)} líneas de {doc} p.{pagina}")
+            continue
+        k = cand[0]
+        try:
+            r = V.es_encabezado_numerado(lineas[k].strip(), f["idioma"], lineas[k + 1] if k + 1 < len(lineas) else None)
+        except TypeError:  # verificador anterior a C18, sin la línea de debajo (para comparar versiones)
+            r = V.es_encabezado_numerado(lineas[k].strip(), f["idioma"])
+        malas += r != esperado
+        print("OK " if r == esperado else "MAL", f"T6: {nombre}, {doc} p.{pagina}: encabezado {r}" + ("" if r == esperado else f", se esperaba {esperado}"))
+    print(f"{len(comprobaciones) - malas}/{len(comprobaciones)} comprobaciones directas del criterio de encabezado (T6)")
+    return 1 if malos or malas else 0
 
 
 if __name__ == "__main__":

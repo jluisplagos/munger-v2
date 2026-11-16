@@ -106,13 +106,37 @@ OK  R4 (H2): combinaciones de negocio de 2022, columna de Alemania (16,9), cabec
 OK  R5 (I12): fondo de comercio de la UGE «CGU Denmark» (412,2) declarado del grupo → FALLO
 OK  R5 (I14): fondo de comercio de la UGE «UGT Irlande» de 2023 (76,1), DEU 2024 → FALLO
 OK  R8 b: columna de ajuste «IFRS 3» de la tabla de reexpresión (0,1) declarada 2021 vigente: no es la columna publicada (la edición no falla); el ejercicio queda PENDIENTE → PENDIENTE
-OK  S1 positivo (revisión n.º 7, A1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» del estado de cambios en el patrimonio del URD 2022 p.262, declarado 2021: el año del título no es una columna → OK
+OK  S1 (revisión n.º 7, A1; revisión n.º 8, T1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» del estado de cambios en el patrimonio del URD 2022 p.262, declarado 2021: ejercicio OK por la fecha del rótulo (el año del título no es una columna); columna PENDIENTE: es un componente del patrimonio que el modo «dos_columnas» no declara (en C16, OK) → PENDIENTE
 OK  S1 (A8): capital a 31-12-2023 (234,0), DEU 2024 p.274, declarado 2024, el año del título: FALLO → FALLO
 OK  S1 (A9): capital a 31-12-2022 (230,1) del estado del ejercicio anterior, DEU 2024 p.275, declarado 2023: FALLO (en C14, OK) → FALLO
-OK  S1 positivo (A10): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022 → OK
+OK  S1 (A10; revisión n.º 8, T1): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022: ejercicio OK; columna PENDIENTE (en C16, OK) → PENDIENTE
 OK  S2 (B1): ventas de 2022 del segmento Escandinavia y Europa del Este (580,7), cuya línea de cifras no tiene rótulo («Scandinavia and Eastern» / cifras / «Europe»), URD 2023 p.261, declaradas del grupo → FALLO
 OK  S2 (B3): crecimiento publicado de 2023 de ese segmento (3,2 %), declarado como el del grupo (modo «crecimiento») → FALLO
 OK  S3 (C1): fondo de comercio de la UGE Francia a 31-12-2021 (1.415,1), línea «6 · CGU France» (pestaña del margen), URD 2022 p.298 → FALLO
 OK  S4 (D1): tipo sin riesgo de la UGE Francia (3,7 %), tabla de hipótesis con una columna por país y sin declaración de unidades ni de ejercicios, URD 2025 p.369: perímetro PENDIENTE → PENDIENTE
 OK  S4 (D5): la misma tabla tras un texto, fila «PRE-TAX DISCOUNT RATE 2021 / (APPROXIMATION)», columna de Francia (9,1 %), URD 2021 p.270: perímetro PENDIENTE → PENDIENTE
-117/117 casos con el resultado esperado
+OK  T1 (T1a): derechos de uso a 31-12-2024, columna «Vehicles» (237,4), URD 2025 p.366, identificador genérico: ejercicio OK por la fecha del rótulo; columna PENDIENTE: la fila tiene cinco columnas de concepto (en C16, OK en las seis dimensiones) → PENDIENTE
+OK  T1 (T1b): la misma cifra con el identificador de saldo de los derechos de uso (columna esperada «Total»): FALLO de columna → FALLO
+OK  T1 positivo (T1c): el total de esa fila (572,8) con el identificador de saldo → OK
+OK  T1 positivo, una sola columna de datos: deterioro de clientes a 31-12-2021 ((57,9)), fila «6 · As at December 31, 2021» (pestaña del margen), URD 2022 p.284, declarado 2021: OK; la columna no aplica → OK
+OK  T1, una sola columna de datos: el saldo de cierre de esa tabla («AS AT DECEMBER 31, 2022», (54,3)) declarado 2021: FALLO en ejercicio → FALLO
+OK  T2 (T2a): el día de la fecha («31» de «DECEMBER, 31 2022»), URD 2022 p.262, declarado 2022: es un token del rótulo, no una cifra de la fila; ejercicio PENDIENTE (en C16, OK en las seis dimensiones) → PENDIENTE
+OK  T2 (T2b): la pestaña del margen («6») de la línea «6 · As at December 31, 2021 · (57.9)», URD 2022 p.284, declarada 2021: ejercicio PENDIENTE (en C16, OK en las seis dimensiones) → PENDIENTE
+OK  T2 (T2c): el año de una línea de prosa («…902,3 millions d'euros au 31 décembre 2023)»), DEU 2024 p.257, declarado 2023: ejercicio PENDIENTE (en C16, OK en las seis dimensiones) → PENDIENTE
+OK  T2 (T2e): el año de un título de apartado («… d'application obligatoire / au 1er janvier 2024»), DEU 2024 p.277, declarado 2023: ejercicio PENDIENTE (en C16, OK en las seis dimensiones) → PENDIENTE
+OK  T2 (T4b): fila «Number of rights outstanding», URD 2022 p.350: la línea de encima («as at 12/31/2022») continúa el rótulo de la fila anterior y su fecha no se le atribuye; FALLO de unidad (es un recuento) → FALLO
+OK  T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, declarado 2024: ejercicio OK por la fecha del rótulo (en C16, PENDIENTE); columna PENDIENTE (T1) → PENDIENTE
+OK  T3 (T3a declarado 2023): la misma cifra declarada 2023: FALLO en ejercicio (la fila es el saldo de 2024) → FALLO
+OK  T3 (T3c): capital a 31-12-2021 (224,1), fila «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)» (rótulo en tres líneas), URD 2022 p.263, declarado 2021: ejercicio OK (en C16, PENDIENTE); columna PENDIENTE (T1) → PENDIENTE
+OK  T4 (T5a): DEU 2024 p.315, fila «TAUX D'ACTUALISATION AVANT / IMPÔT 2024 (APPROXIMATION)», columna de Francia (11,2 %): la primera línea del rótulo no corta la búsqueda de la cabecera por países; perímetro PENDIENTE (en C16, OK) → PENDIENTE
+OK  T4 (T5b): la fila siguiente, «Taux d'actualisation avant impôt / 2023 (approximation)», columna de Brasil (19,4 %): perímetro PENDIENTE (en C16, OK) → PENDIENTE
+OK  T5 (T6a): línea con solo la pestaña del capítulo («5») junto a un párrafo, URD 2023 p.261: el párrafo no es su rótulo (en C16, FALLO de perímetro por «European Union») → PENDIENTE
+OK  T5 (T6b): «100% · ELIS COLOMBIA» del organigrama del URD 2022 p.376, declarado del segmento Francia: la leyenda contigua («France») no es su rótulo; FALLO de perímetro (en C16, OK) → FALLO
+134/134 casos con el resultado esperado
+OK  T6: prosa «Note 7.2 to the consolidated financial statements summarizes the», URD2021 p.300: encabezado False
+OK  T6: prosa «Note 4.6 to the Group's consolidated financial statements for the», URD2023 p.264: encabezado False
+OK  T6: título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»), URD2021 p.183: encabezado True
+OK  T6: título en mayúsculas con comillas («NOTE 6 … « HORS-BILAN »»), DEU2024FR p.369: encabezado True
+OK  T6: límite declarado: título en minúsculas partido tras una coma («3.5.1 Providing products … hygiene,»), URD2022 p.181: encabezado False
+OK  T6: prosa con comillas («Note 5.2 “Expenses related to employee benefits.”»), URD2023 p.311: encabezado False
+6/6 comprobaciones directas del criterio de encabezado (T6)
