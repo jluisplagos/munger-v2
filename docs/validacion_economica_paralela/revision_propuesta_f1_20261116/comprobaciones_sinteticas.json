@@ -1,0 +1,84 @@
+{
+  "naturaleza": "ilustraciones sintéticas de definiciones; no ejecución de Munger",
+  "casos": [
+    {
+      "caso": "arrendamiento_una_vez",
+      "flujo_modelizado_sintetico": 68.0,
+      "flujo_caja_del_escenario": 68.0,
+      "diferencia": 0.0,
+      "situacion": "coherente",
+      "comentario": "Con R propio 20, caja económica = 100 - 20 - 12 = 68."
+    },
+    {
+      "caso": "A0_doble_arrendamiento",
+      "flujo_modelizado_sintetico": 58.0,
+      "flujo_caja_del_escenario": 68.0,
+      "diferencia": -10.0,
+      "situacion": "incoherencia_ilustrada",
+      "comentario": "Usar D&A total como R vuelve a cobrar el ROU: resultado 58."
+    },
+    {
+      "caso": "transicion_excluida_de_R_y_sin_linea_de_caja",
+      "flujo_modelizado_sintetico": 68.0,
+      "flujo_caja_del_escenario": 61.0,
+      "diferencia": 7.0,
+      "situacion": "incoherencia_ilustrada",
+      "comentario": "Si capex 27 incluye 7 necesarios, caja = 61, no 68."
+    },
+    {
+      "caso": "transicion_incluida_en_R",
+      "flujo_modelizado_sintetico": 61.0,
+      "flujo_caja_del_escenario": 61.0,
+      "diferencia": 0.0,
+      "situacion": "coherente",
+      "comentario": "La misma salida no se añade también como término separado."
+    },
+    {
+      "caso": "transicion_separada_con_cargo_explicito",
+      "flujo_modelizado_sintetico": 61.0,
+      "flujo_caja_del_escenario": 61.0,
+      "diferencia": 0.0,
+      "situacion": "coherente",
+      "comentario": "La clasificación separada es posible si la caja sigue cobrándose una vez."
+    },
+    {
+      "caso": "adquisicion_de_reposicion_tratada_solo_como_crecimiento",
+      "flujo_modelizado_sintetico": 68.0,
+      "flujo_caja_del_escenario": 59.0,
+      "diferencia": 9.0,
+      "situacion": "incoherencia_ilustrada",
+      "comentario": "Con ventas constantes, ΔV/S2C = 0; falta cobrar 9."
+    },
+    {
+      "caso": "adquisicion_de_reposicion_incluida_en_R",
+      "flujo_modelizado_sintetico": 59.0,
+      "flujo_caja_del_escenario": 59.0,
+      "diferencia": 0.0,
+      "situacion": "coherente",
+      "comentario": "Aquí R=29 supera capex propio=20 sin infrainversión: incluye una compra de cartera de 9."
+    },
+    {
+      "caso": "gasto_comercial_ya_en_EBIT_y_cargado_otro_vez_en_R",
+      "flujo_modelizado_sintetico": 63.0,
+      "flujo_caja_del_escenario": 68.0,
+      "diferencia": -5.0,
+      "situacion": "incoherencia_ilustrada",
+      "comentario": "Añadir otra vez el gasto comercial ficticio de 5 da 63, no 68."
+    },
+    {
+      "caso": "PPA_no_monetaria_con_costes_de_reposicion_ya_cubiertos",
+      "flujo_modelizado_sintetico": 68.0,
+      "flujo_caja_del_escenario": 68.0,
+      "diferencia": 0.0,
+      "situacion": "coherente",
+      "comentario": "Devolver PPA no implica que reponer clientes sea gratis; depende de dónde se pagó el coste."
+    }
+  ],
+  "sensibilidad_arrendamientos_historica": {
+    "pagos_2025": 177.9,
+    "media_pagos_escalada_a_ventas_2025": 161.12176258598382,
+    "diferencia": 16.778237414016186,
+    "politica_adoptada": false
+  },
+  "ningun_coste_sintetico_es_dato_de_Elis": true
+}
