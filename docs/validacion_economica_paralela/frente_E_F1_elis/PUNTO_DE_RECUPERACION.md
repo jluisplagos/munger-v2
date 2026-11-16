@@ -2,7 +2,7 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** reconciliación de la propuesta de decisiones F1 con la especificación, en respuesta a la revisión externa de la propuesta (rama `auditoria/revision-propuesta-f1`, commit `1a07188`, F1-P1 a P4). **Sin implementar nada.**
+**Bloque cerrado:** encargo de la revisión dirigida a P1–P4 (este commit solo lo registra); antes, en el commit congelado `13f864f910bf0bb3e27007b23c13a8e957f1bfb7`, la reconciliación de la propuesta de decisiones F1 con la especificación, en respuesta a la revisión externa de la propuesta (rama `auditoria/revision-propuesta-f1`, commit `1a07188`, F1-P1 a P4). **Sin implementar nada.**
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
@@ -16,7 +16,8 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C18 = `f12f8ea79ed5c1b444d85163c5ed08d8d07a6243` | Respuesta a la revisión n.º 8 (verificador) |
 | C19 = `06ad100` · `105b57b` · `6d799c6` | Congelado de la revisión n.º 9 · encargo · copia de la revisión n.º 9 (a3a1a2b) |
 | `b83803c` | Propuesta de decisiones F1, revisión 1. La revisó la revisión externa `1a07188` |
-| **El commit que contiene esta versión de este archivo** | **Congelado de la respuesta a la revisión de la propuesta:** [RESPUESTA_REVISION_PROPUESTA_F1.md](RESPUESTA_REVISION_PROPUESTA_F1.md); [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md), revisión 2, con la tabla única (1a)–(5b); especificación E2–E6, E8 y E9; precisiones del informe (§4.2, §6.4 y §9); `scripts/controles_sinteticos_f1.py` y `scripts/copia_investigacion_f1.py`, con sus salidas. No cambia código existente, datos, libros, fórmulas ni cifras de valoración. Sobre este commit se encarga la revisión dirigida a P1–P4 |
+| **`13f864f910bf0bb3e27007b23c13a8e957f1bfb7`** | **Congelado de la respuesta a la revisión de la propuesta:** [RESPUESTA_REVISION_PROPUESTA_F1.md](RESPUESTA_REVISION_PROPUESTA_F1.md); [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md), revisión 2, con la tabla única (1a)–(5b); especificación E2–E6, E8 y E9; precisiones del informe (§4.2, §6.4 y §9); `scripts/controles_sinteticos_f1.py` y `scripts/copia_investigacion_f1.py`, con sus salidas. No cambia código existente, datos, libros, fórmulas ni cifras de valoración. Sobre este commit se encarga la revisión dirigida a P1–P4 |
+| El commit que contiene esta versión de este archivo | Registra el encargo de la revisión dirigida a P1–P4. No cambia el material revisado |
 
 ## 2. Estado de las pruebas
 
@@ -32,7 +33,7 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 ## 3. Incidencias pendientes
 
 0. **Decisiones F1, de la persona responsable:** (1a), (1b), (2), (3a), (3b), (4a), (4b), (5a) y (5b), con el texto exacto que se pide aprobar en la tabla única de la propuesta. No se implementa nada hasta su aprobación.
-1. **Revisión económica independiente dirigida a P1–P4**, sobre este commit congelado, en una sesión nueva con contexto propio. Se avisa antes de lanzarla. Una sola pasada: si encuentra una carencia de datos o de política, se documenta el bloqueo y se termina.
+1. **Revisión económica independiente dirigida a P1–P4**, sobre el commit congelado `13f864f`: **encargada** el 16-nov-2026 a las 14:11:39 UTC, con aviso previo, a la sesión de revisión `session_01W2RVAq9YS8QckcRk1RaGzm`, que escribe en `auditoria/economica-f1-frente-e-revision`. Una sola pasada: si encuentra una carencia de datos o de política, se documenta el bloqueo y se termina.
 2. **Carencias que bloquean Elis:**
    - M1 (reparto de la inversión propia, con el plan climático: importe, horizonte y finalidad);
    - M2 (bajas de clientes y desembolso por cliente nuevo);
@@ -48,7 +49,7 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 4. Siguiente paso exacto
 
-1. Avisar a la persona responsable y encargar la revisión dirigida a P1–P4:
+1. Hecho a las 14:11 UTC: aviso a la persona responsable y encargo de la revisión dirigida a P1–P4:
    - sesión nueva, con el modelo y el esfuerzo que el encargo asigna a la revisión económica;
    - sobre este commit congelado, en una rama propia del revisor;
    - con el material de la revisión externa en `1a07188`.
