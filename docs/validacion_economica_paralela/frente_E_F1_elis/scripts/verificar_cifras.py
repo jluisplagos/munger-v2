@@ -13,9 +13,10 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
                              columnas reconocidas como números y cada número está alineado con la suya; si no, la más
                              próxima. Bajo una palabra de cabecera ajena, PENDIENTE, salvo que la columna de otro ejercicio
                              esté alineada con el token (FALLO). Excepción: en una fila de saldo cuyo rótulo lleva la fecha
-                             (la primera celda de una línea con más celdas, aunque esté partida en las líneas de encima, y
-                             que solo dice la fórmula del saldo y la fecha, con «restated», «retraité» o una llamada), el
-                             ejercicio es el de esa fecha para los tokens a la derecha del rótulo, sea cual sea su columna;
+                             (la primera celda de una línea con más celdas; si hace falta, unida a las líneas de rótulo de
+                             encima, las justas para que lleve la fórmula del saldo y la fecha; y que solo diga eso, con
+                             «restated», «retraité», «published» o una llamada), el ejercicio es el de esa fecha para los
+                             tokens a la derecha del rótulo, sea cual sea su columna;
                crecimiento   tabla de variación: el ejercicio es el más reciente de la cabecera;
                max_cabecera  tabla de movimiento con apertura y cierre en la cabecera: el ejercicio es el de cierre;
                movimientos   el bloque empieza en el saldo anterior más próximo («AS AT JANUARY 1, Y» → Y; «AS AT 12/31/Y» → Y+1);
@@ -313,7 +314,7 @@ SALDO_EN_ROTULO = re.compile(r"(?i)\b(?:balance|solde|as at|au)\b")
 # (revisión n.º 8, T2) palabras que admite el rótulo de una fila de saldo además de la fecha: la fórmula del saldo y las
 # marcas de reexpresión o de llamada; cualquier otra palabra hace del rótulo una frase (prosa, título, recuento con fecha)
 PALABRAS_DE_SALDO = re.compile(r"(?i)^(?:balance|balances|solde|soldes|as|at|au|le|net|carrying|amount|valeur|nette|comptable|"
-                               r"ajusted|adjusted|ajusté|ajustée|restated|retraité|retraitée|retraite|de|du|the|of)?$")
+                               r"ajusted|adjusted|ajusté|ajustée|restated|retraité|retraitée|retraite|published|publié|publiée|reported|de|du|the|of)?$")
 
 
 def palabra_de_saldo(w):
@@ -336,6 +337,19 @@ def columnas_de_datos(linea, idioma):
     return len([a for a, _ in (spans_numericos(linea, idioma) or []) if a >= fin_del_rotulo(linea)])
 
 
+def rotulo_de_saldo(lineas, i, idioma):
+    """(Revisión n.º 8, T2 y T3) El rótulo más corto, desde el de la propia fila hacia arriba (partes_de_rotulo con
+    `fecha`), que lleva la fórmula del saldo y la fecha completa. Así no absorbe la cabecera de columna ni la línea de
+    unidades que tenga encima («Cash flow hedges» / «BALANCE AS AT JANUARY 1, 2021»; «(In thousands of euros)» / «As at
+    12/31/2021»). None si no lo hay."""
+    partes = partes_de_rotulo(lineas, i, idioma, alto=3, fecha=True)
+    for n in range(1, len(partes) + 1):
+        r = " ".join(partes[-n:])
+        if FECHA_DE_SALDO.search(r) and SALDO_EN_ROTULO.search(r):
+            return r
+    return None
+
+
 def anio_de_saldo_en_rotulo(lineas, i, idioma, pos=None):
     """(Revisión n.º 7, S1; revisión n.º 8, T2 y T3) Ejercicio del saldo cuya fecha lleva el rótulo de la fila, aunque esté
     partido en varias líneas. Solo si la línea es una fila: el rótulo es su primera celda y hay más celdas; si se da `pos`,
@@ -347,12 +361,10 @@ def anio_de_saldo_en_rotulo(lineas, i, idioma, pos=None):
         sp = spans_numericos(lineas[i], idioma)
         if not sp or not -len(sp) <= pos < len(sp) or sp[pos % len(sp)][0] < fin_del_rotulo(lineas[i]):
             return None
-    r = rotulo_multilinea(lineas, i, idioma, alto=3, fecha=True)
-    if not SALDO_EN_ROTULO.search(r):
+    r = rotulo_de_saldo(lineas, i, idioma)
+    if r is None:
         return None
     m = FECHA_DE_SALDO.search(r)
-    if not m:
-        return None
     resto = (r[:m.start()] + " " + r[m.end():]).replace(",", " ")
     if any(not palabra_de_saldo(w) for w in resto.split()):
         return None
@@ -886,16 +898,16 @@ DESGLOSE_PAIS = re.compile(r"(?i)(?:^|[›(\s])(?:of which|o/w|dont|including|ex
                            + PAIS_O_SEGMENTO_TITULO.pattern)
 
 
-def rotulo_multilinea(lineas, i, idioma, alto=4, fecha=False):
-    """Rótulo de la fila i con las líneas de rótulo que tiene encima: sin cifras, de una sola celda, con la misma sangría
-    y sin línea en blanco por medio («Non-cooperative» / «jurisdictions for tax» / «purposes (European Union» / «list)»).
+def partes_de_rotulo(lineas, i, idioma, alto=4, fecha=False):
+    """Partes del rótulo de la fila i, de arriba abajo: las líneas de rótulo que tiene encima (sin cifras, de una sola
+    celda, con la misma sangría y sin línea en blanco por medio) y, la última, su propio rótulo.
     Con `fecha` (revisión n.º 8, T2 y T3), para el rótulo de un saldo: admite las líneas cuyas únicas cifras son el día o el
     año de la fecha («SOLDE AU 31» / «DÉCEMBRE 2024»; «BALANCE AS AT» / «DECEMBER 31, 2021» / «(RESTATED)»), y no une una
     línea que empieza en minúscula justo debajo de una fila de datos: es la continuación del rótulo de esa fila («Number of
     rights lapsed or forfeited  -  186,469 …» / «as at 12/31/2022»)."""
     r = rotulo(lineas[i])
     if not r:
-        return r
+        return [r]
     sangria = len(lineas[i]) - len(lineas[i].lstrip())
     partes, k = [r], i - 1
     while k >= 0 and len(partes) <= alto:
@@ -912,7 +924,13 @@ def rotulo_multilinea(lineas, i, idioma, alto=4, fecha=False):
             break
         partes.insert(0, l.strip())
         k -= 1
-    return " ".join(partes)
+    return partes
+
+
+def rotulo_multilinea(lineas, i, idioma, alto=4, fecha=False):
+    """Rótulo de la fila i unido con las líneas de rótulo que tiene encima (partes_de_rotulo): «Non-cooperative» /
+    «jurisdictions for tax» / «purposes (European Union» / «list)»."""
+    return " ".join(partes_de_rotulo(lineas, i, idioma, alto, fecha))
 
 
 def jurisdiccion_de_fila(lineas, i, idioma):
@@ -1057,8 +1075,9 @@ def cabecera_de_paises(lineas, i, pos, idioma, alto=30):
     """(Revisión n.º 7, S4) Cabecera con una columna por país de una tabla sin declaración de unidades ni línea de
     ejercicios (hipótesis del WACC por UGE: «Country · France · Germany · Brazil…»): la primera línea, hacia arriba desde la
     fila, de tres celdas o más, cortas y sin cifras, que nombra tres países o más. Una declaración de unidades, un título o un
-    encabezado numerado cortan la búsqueda: la cabecera es la de otra tabla. Devuelve (línea, países), o None si no la hay o
-    si el token está bajo una celda «Total» o «Group» de esa línea."""
+    encabezado numerado cortan la búsqueda: la cabecera es la de otra tabla; la primera línea del rótulo de una fila no la
+    corta (revisión n.º 8, T4). Devuelve (línea, países), o None si no la hay o si el token está bajo una celda «Total» o
+    «Group» de esa línea."""
     sp = spans_numericos(lineas[i], idioma)
     if not sp or not -len(sp) <= pos < len(sp):
         return None
@@ -1184,8 +1203,12 @@ def rotulos_sin_rotulo(lineas, i, idioma, alto=3):
     t = trozos(lineas[i])
     if not t or not es_numero(t[0].split(" ")[0], idioma):
         return []
-    # (revisión n.º 8, T5) una línea que empieza por la pestaña del capítulo no es una fila sin rótulo
+    # (revisión n.º 8, T5) una línea que empieza por la pestaña del capítulo no es una fila sin rótulo, ni la que empieza por
+    # un guion seguido de texto en la misma celda: es un rótulo con viñeta («− Matthieu Lecharny»)
     if re.fullmatch(r"\d", t[0]):
+        return []
+    primera = t[0].split(" ")
+    if primera[0] in PLACEHOLDER and len(primera) > 1 and re.search(r"[^\W\d_]", t[0]):
         return []
     def contiguas(paso):
         out, k = [], i + paso

@@ -14,8 +14,9 @@ Cubre:
 - las revisiones n.º 3 a 8 del frente E: filas reales de las páginas que cita cada revisor. Algunos casos fijan además el
   estado de una dimensión concreta («dims») o exigen que un motivo NO aparezca, en la fila («sin_motivo») o en el detalle
   de una dimensión («sin_detalle»).
-- (revisión n.º 8, T6) comprobaciones directas del criterio de encabezado numerado sobre líneas reales del PDF; se cuentan
-  aparte de los casos.
+- (revisión n.º 8) comprobaciones directas de funciones del verificador: el criterio de encabezado numerado (T6) y el rótulo
+  con viñeta (T5) sobre líneas reales del PDF, y la excepción «Total» de la cabecera por países (S4), que no tiene caso real,
+  sobre dos líneas sintéticas; se cuentan aparte de los casos.
 
 Uso:  python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
 """
@@ -431,6 +432,12 @@ def main():
          "fila anterior y su fecha no se le atribuye; FALLO de unidad (es un recuento)",
          [del_pdf("R8_T4B", "URD2022", 350, r"^\s*Number of rights outstanding\s", "1,307,749", 2022)], "FALLO", {"R8_T4B": {"unidad"}},
          sin_detalle={"R8_T4B": {"ejercicio": "rótulo"}})
+    caso("T2 (reserva de coberturas): saldo de apertura de la reserva de coste de cobertura (1,2), fila «BALANCE AS AT JANUARY 1, 2021» "
+         "bajo la cabecera «Cash flow hedges», URD 2022 p.324, declarado 2020: el rótulo del saldo es el de la propia fila, sin la cabecera "
+         "de encima; ejercicio OK y columna PENDIENTE (dos columnas de datos). La edición falla: el URD 2022 es posterior a la publicación "
+         "que exige la regla para 2020",
+         [del_pdf("R8_COB_2020", "URD2022", 324, r"^\s*BALANCE AS AT JANUARY 1, 2021\s", "1.2", 2020)], "FALLO",
+         {"R8_COB_2020": {"edicion"}}, coherente=True, dims={"R8_COB_2020": {"ejercicio": "OK", "columna": "PENDIENTE"}})
     caso("T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, "
          "declarado 2024: ejercicio OK por la fecha del rótulo (en C16, PENDIENTE); columna PENDIENTE (T1)",
          [del_pdf("R8_T3A", "DEU2024FR", 274, r"^\s*DÉCEMBRE 2024\s+236,7", "236,7", 2024)], "PENDIENTE",
@@ -459,17 +466,36 @@ def main():
          [del_pdf("R8_T6B", "URD2022", 376, r"^\s*100%\s+ELIS COLOMBIA\s*$", "100%", 2022, perimetro="segmento Francia")], "FALLO",
          {"R8_T6B": {"perimetro"}}, coherente=True)
 
-    # ---- (revisión n.º 8, T6) criterio de encabezado numerado sobre líneas reales: (documento, página, regex, ¿es encabezado?)
-    comprobaciones = [
-        ("URD2021", 300, r"^\s*Note 7\.2 to the consolidated", False, "prosa «Note 7.2 to the consolidated financial statements summarizes the»"),
-        ("URD2023", 264, r"^\s*Note 4\.6 to the Group", False, "prosa «Note 4.6 to the Group's consolidated financial statements for the»"),
-        ("URD2021", 183, r"^\s*3\.7\s+REPORT BY ONE OF THE STATUTORY AUDITORS,", True,
-         "título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»)"),
-        ("DEU2024FR", 369, r"^\s*NOTE 6\s+ENGAGEMENTS FINANCIERS", True, "título en mayúsculas con comillas («NOTE 6 … « HORS-BILAN »»)"),
-        ("URD2022", 181, r"^\s*3\.5\.1\s+Providing products", False,
-         "límite declarado: título en minúsculas partido tras una coma («3.5.1 Providing products … hygiene,»)"),
-        ("URD2023", 311, r"^\s*Note 5\.2 “Expenses related", False, "prosa con comillas («Note 5.2 “Expenses related to employee benefits.”»)"),
+    # ---- (revisión n.º 8) comprobaciones directas de funciones del verificador: sobre líneas reales del PDF (encabezado
+    # numerado, T6; rótulo con viñeta, T5) y, para la excepción «Total» de S4, que no tiene caso real, sobre líneas sintéticas
+    def encabezado(lineas, k, idioma):
+        try:
+            return V.es_encabezado_numerado(lineas[k].strip(), idioma, lineas[k + 1] if k + 1 < len(lineas) else None)
+        except TypeError:  # verificador anterior a C18, sin la línea de debajo (para comparar versiones)
+            return V.es_encabezado_numerado(lineas[k].strip(), idioma)
+    PAISES_SINT = ["    Country             France      Germany      Brazil       Total",
+                   "    WACC 2024             8.3%         7.5%       11.4%        9.0%"]
+    comprobaciones = [  # (nombre, documento, página, regex de la línea o líneas sintéticas, función, resultado esperado)
+        ("T6: prosa «Note 7.2 to the consolidated financial statements summarizes the»: no es encabezado", "URD2021", 300,
+         r"^\s*Note 7\.2 to the consolidated", encabezado, False),
+        ("T6: prosa «Note 4.6 to the Group's consolidated financial statements for the»: no es encabezado", "URD2023", 264,
+         r"^\s*Note 4\.6 to the Group", encabezado, False),
+        ("T6: título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»): "
+         "es encabezado", "URD2021", 183, r"^\s*3\.7\s+REPORT BY ONE OF THE STATUTORY AUDITORS,", encabezado, True),
+        ("T6: título en mayúsculas con comillas («NOTE 6 … « HORS-BILAN »»): es encabezado", "DEU2024FR", 369,
+         r"^\s*NOTE 6\s+ENGAGEMENTS FINANCIERS", encabezado, True),
+        ("T6, límite declarado: título en minúsculas partido tras una coma («3.5.1 Providing products … hygiene,»): no cuenta",
+         "URD2022", 181, r"^\s*3\.5\.1\s+Providing products", encabezado, False),
+        ("T6: prosa con comillas («Note 5.2 “Expenses related to employee benefits.”»): no es encabezado", "URD2023", 311,
+         r"^\s*Note 5\.2 “Expenses related", encabezado, False),
+        ("T5: rótulo con viñeta («− Matthieu Lecharny», bajo «Number of working beneficiaries»): no es una línea sin rótulo",
+         "URD2022", 294, r"^\s*− Matthieu Lecharny\s+-\s", lambda L, k, i: V.rotulos_sin_rotulo(L, k, i) == [], True),
+        ("S4: columna bajo la celda «Total» de una cabecera por países (líneas sintéticas): sin cabecera de países", None, None,
+         PAISES_SINT, lambda L, k, i: V.cabecera_de_paises(L, 1, -1, i) is None, True),
+        ("S4: columna de Francia de esa cabecera (líneas sintéticas): cabecera de países, perímetro PENDIENTE", None, None,
+         PAISES_SINT, lambda L, k, i: V.cabecera_de_paises(L, 1, -4, i) is not None, True),
     ]
+
     malos = 0
     for k in casos:
         cod, res = ejecutar(a.raiz, k["filas"], k["fuentes"])
@@ -509,22 +535,23 @@ def main():
         print("OK " if not problemas else "MAL", k["nombre"], "→", k["estado"] if not problemas else "; ".join(problemas))
     print(f"{len(casos) - malos}/{len(casos)} casos con el resultado esperado")
     malas = 0
-    for doc, pagina, rx, esperado, nombre in comprobaciones:
-        f = fuentes["fuentes"][doc]
-        lineas = V.texto_pagina(a.raiz / f["archivo"], pagina).splitlines()
-        cand = [k for k, l in enumerate(lineas) if re.search(rx, l)]
-        if len(cand) != 1:
-            malas += 1
-            print("MAL", f"T6: {nombre}: la expresión casa con {len(cand)} líneas de {doc} p.{pagina}")
-            continue
-        k = cand[0]
-        try:
-            r = V.es_encabezado_numerado(lineas[k].strip(), f["idioma"], lineas[k + 1] if k + 1 < len(lineas) else None)
-        except TypeError:  # verificador anterior a C18, sin la línea de debajo (para comparar versiones)
-            r = V.es_encabezado_numerado(lineas[k].strip(), f["idioma"])
+    for nombre, doc, pagina, rx, funcion, esperado in comprobaciones:
+        if doc is None:
+            lineas, k, idioma = rx, None, "en"
+        else:
+            f = fuentes["fuentes"][doc]
+            lineas, idioma = V.texto_pagina(a.raiz / f["archivo"], pagina).splitlines(), f["idioma"]
+            cand = [j for j, l in enumerate(lineas) if re.search(rx, l)]
+            if len(cand) != 1:
+                malas += 1
+                print("MAL", f"{nombre}: la expresión casa con {len(cand)} líneas de {doc} p.{pagina}")
+                continue
+            k = cand[0]
+        r = bool(funcion(lineas, k, idioma))
         malas += r != esperado
-        print("OK " if r == esperado else "MAL", f"T6: {nombre}, {doc} p.{pagina}: encabezado {r}" + ("" if r == esperado else f", se esperaba {esperado}"))
-    print(f"{len(comprobaciones) - malas}/{len(comprobaciones)} comprobaciones directas del criterio de encabezado (T6)")
+        donde = f", {doc} p.{pagina}" if doc else ""
+        print("OK " if r == esperado else "MAL", f"{nombre}{donde}" + ("" if r == esperado else f": da {r}, se esperaba {esperado}"))
+    print(f"{len(comprobaciones) - malas}/{len(comprobaciones)} comprobaciones directas de funciones del verificador (T5, T6 y S4)")
     return 1 if malos or malas else 0
 
 
