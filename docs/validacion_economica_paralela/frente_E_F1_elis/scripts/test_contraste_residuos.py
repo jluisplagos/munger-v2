@@ -111,6 +111,12 @@ def main():
          1, {"residuo R24 2023"}),
         ("crecimiento publicado de 2021 de la fila de un segmento (19,4 %)", mut({"CREC_PUB_2021": {"literal": "19.4%", "valor_publicado": "19.4"}}),
          1, {"residuo R42 2021"}),
+        # revisión n.º 6 (C14, R6): errores en las ventas de 2021 y 2022 dentro del intervalo que R42 no detecta
+        # (de −0,20 a +0,85 y de −2,30 a +0,26, según el revisor); R23, con la información por segmentos, sí los detecta
+        ("ventas de 2021 0,5 por encima (3.048,8), que R42 no detecta", mut({"IS_VENTAS_U22_2021": {"valor_publicado": "3048.8"}}),
+         1, {"residuo R23 2021"}),
+        ("ventas de 2022 1,0 por debajo (3.819,9), que R42 no detecta", mut({"IS_VENTAS_U23_2022": {"valor_publicado": "3819.9"}}),
+         1, {"residuo R23 2022"}),
     ]
     malos = 0
     # H2 (revisión n.º 3, N3): CSV cambiado después de verificar y verificación original → el contraste no calcula

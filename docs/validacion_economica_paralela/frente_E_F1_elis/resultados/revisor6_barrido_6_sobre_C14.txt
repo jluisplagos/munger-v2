@@ -1,0 +1,250 @@
+Barrido diferencial propio · versión anterior C13 · versión nueva C14
+
+Equivalencia comprobar_tabla (módulo) = ejecución oficial en C14: 713 filas de tabla del CSV real, 0 con algún estado o detalle distinto
+Equivalencia comprobar_tabla (módulo) = ejecución oficial en C13: 711 filas de tabla del CSV real, 0 con algún estado o detalle distinto
+
+Páginas recorridas (todas) y, de ellas, con cabecera aceptada como del grupo:
+  DEU2024FR: 412 páginas, 91 del grupo
+  URD2021: 350 páginas, 87 del grupo
+  URD2022: 388 páginas, 93 del grupo
+  URD2023: 408 páginas, 94 del grupo
+  URD2025: 468 páginas, 94 del grupo
+Candidatas evaluadas (token × ejercicio E, E−1, E−2): 122604; en páginas del grupo: 71436
+Tokens distintos: 40868; en páginas del grupo: 23812
+
+== Estado de la fila, todas las páginas: C13 → C14 ==
+  FALLO     → FALLO       71878
+  FALLO     → PENDIENTE    1969   ← cambia
+  OK        → FALLO         152   ← cambia
+  OK        → OK           5425
+  OK        → PENDIENTE      72   ← cambia
+  PENDIENTE → FALLO          13   ← cambia
+  PENDIENTE → PENDIENTE   43095
+
+== Transiciones por dimensión, todas las páginas: C13 → C14 ==
+  edicion: FALLO → OK: 102
+  edicion: OK → FALLO: 3
+  ejercicio: FALLO → OK: 6
+  ejercicio: FALLO → PENDIENTE: 3813
+  ejercicio: OK → FALLO: 6
+  ejercicio: OK → PENDIENTE: 218
+  ejercicio: PENDIENTE → OK: 4
+  perimetro: FALLO → PENDIENTE: 45
+  perimetro: OK → FALLO: 462
+  perimetro: OK → PENDIENTE: 3897
+  perimetro: PENDIENTE → OK: 1161
+
+== Estado de la fila, páginas del grupo: C13 → C14 ==
+  FALLO     → FALLO       42535
+  FALLO     → PENDIENTE    1072   ← cambia
+  OK        → FALLO         152   ← cambia
+  OK        → OK           5425
+  OK        → PENDIENTE      72   ← cambia
+  PENDIENTE → FALLO           9   ← cambia
+  PENDIENTE → PENDIENTE   22171
+
+== Transiciones por dimensión, páginas del grupo: C13 → C14 ==
+  edicion: FALLO → OK: 102
+  edicion: OK → FALLO: 3
+  ejercicio: FALLO → PENDIENTE: 1829
+  ejercicio: OK → FALLO: 1
+  ejercicio: OK → PENDIENTE: 75
+  ejercicio: PENDIENTE → OK: 2
+  perimetro: FALLO → PENDIENTE: 45
+  perimetro: OK → FALLO: 462
+  perimetro: OK → PENDIENTE: 3897
+  perimetro: PENDIENTE → OK: 1161
+
+== Transiciones por dimensión y motivo de C14 (todas las páginas): recuento, páginas y un ejemplo ==
+
+  edicion: FALLO → OK · 102 candidatas · 83 tokens · 11 páginas · (queda OK) antes: la columna es la publicada antes de la reexpresión («…», «…» o «…»): cifra de la edición anterior, no 
+     páginas: URD2025 p.334 (36), URD2023 p.286 (19), DEU2024FR p.280 (17), URD2021 p.236 (15), URD2022 p.268 (7), URD2021 p.237 (2), URD2025 p.335 (2), URD2021 p.239 (1), URD2022 p.269 (1), URD2023 p.261 (1), URD2023 p.283 (1)
+     ejemplo: DEU2024FR p.280 l.14 token 2/3 «0,0» declarado 2023 · rótulo «PRODUITS DE L'ACTIVITÉ ORDINAIRE»
+
+  edicion: OK → FALLO · 3 candidatas · 2 tokens · 2 páginas · la columna es la publicada antes de la reexpresión («…», «…» o «…»): cifra de la edición anterior, no la vigente
+     páginas: URD2025 p.335 (2), URD2022 p.269 (1)
+     ejemplo: URD2022 p.269 l.40 token 2/2 «3» declarado 2021 · rótulo «IFRS 3»
+
+  ejercicio: FALLO → PENDIENTE · 3147 candidatas · 1464 tokens · 199 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida; la columna re
+     páginas: DEU2024FR p.323 (161), URD2025 p.377 (132), DEU2024FR p.131 (108), URD2023 p.123 (100), URD2021 p.279 (90), URD2022 p.120 (90), URD2025 p.406 (86), URD2021 p.104 (76), URD2023 p.331 (72), URD2022 p.312 (71), URD2022 p.342 (70), URD2021 p.304 (66) …
+     ejemplo: DEU2024FR p.74 l.65 token 1/1 «10%» declarado 2024 · rótulo «médias de l'université Paris Dauphine. Elle est certifiée du»
+
+  ejercicio: FALLO → PENDIENTE · 657 candidatas · 286 tokens · 95 páginas · columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+     páginas: URD2021 p.175 (44), DEU2024FR p.291 (30), URD2021 p.139 (24), URD2023 p.153 (24), URD2025 p.283 (23), URD2022 p.5 (22), DEU2024FR p.124 (18), URD2021 p.134 (18), URD2022 p.146 (18), URD2023 p.5 (18), DEU2024FR p.360 (16), URD2021 p.3 (14) …
+     ejemplo: DEU2024FR p.111 l.21 token 1/1 «0» declarado 2024 · rótulo «Président du conseil»
+
+  ejercicio: OK → PENDIENTE · 201 candidatas · 201 tokens · 70 páginas · columna del ejercicio no acreditada: el token no está bajo ninguna columna reconocida
+     páginas: URD2021 p.175 (13), URD2022 p.5 (11), DEU2024FR p.124 (9), URD2023 p.5 (9), DEU2024FR p.360 (8), URD2021 p.3 (7), URD2025 p.123 (6), DEU2024FR p.251 (5), URD2022 p.349 (5), URD2023 p.259 (5), URD2023 p.301 (5), URD2023 p.368 (5) …
+     ejemplo: DEU2024FR p.123 l.34 token 2/3 «5%» declarado 2024 · rótulo «en œuvre du plan d'actions»
+
+  ejercicio: OK → PENDIENTE · 14 candidatas · 14 tokens · 11 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: DEU2024FR p.116 (2), DEU2024FR p.119 (2), URD2025 p.199 (2), DEU2024FR p.120 (1), DEU2024FR p.204 (1), URD2022 p.302 (1), URD2023 p.110 (1), URD2023 p.113 (1), URD2025 p.172 (1), URD2025 p.307 (1), URD2025 p.323 (1)
+     ejemplo: DEU2024FR p.116 l.59 token 1/3 «0» declarado 2024 · rótulo «Indemnité de prise de»
+
+  ejercicio: FALLO → PENDIENTE · 9 candidatas · 7 tokens · 4 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida
+     páginas: URD2025 p.199 (4), URD2022 p.116 (3), URD2022 p.290 (1), URD2023 p.174 (1)
+     ejemplo: URD2022 p.116 l.18 token 2/2 «1,316,036» declarado 2022 · rótulo «Annual variable compensation»
+
+  ejercicio: OK → FALLO · 5 candidatas · 5 tokens · 4 páginas · la columna es de AAAA, no de AAAA
+     páginas: DEU2024FR p.206 (2), DEU2024FR p.204 (1), URD2021 p.302 (1), URD2023 p.174 (1)
+     ejemplo: DEU2024FR p.204 l.63 token 2/2 «74,1%» declarado 2023 · rótulo «résultats»
+
+  ejercicio: FALLO → OK · 4 candidatas · 4 tokens · 3 páginas · (queda OK) antes: la columna es de AAAA, no de AAAA
+     páginas: DEU2024FR p.206 (2), DEU2024FR p.204 (1), URD2021 p.302 (1)
+     ejemplo: DEU2024FR p.204 l.63 token 2/2 «74,1%» declarado 2024 · rótulo «résultats»
+
+  ejercicio: PENDIENTE → OK · 4 candidatas · 4 tokens · 3 páginas · (queda OK) antes: columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconoc
+     páginas: URD2023 p.374 (2), URD2023 p.308 (1), URD2025 p.371 (1)
+     ejemplo: URD2023 p.308 l.35 token 1/2 «3.1%» declarado 2023 · rótulo «Discount rate»
+
+  ejercicio: OK → PENDIENTE · 3 candidatas · 3 tokens · 1 páginas · columna del ejercicio no acreditada: el token está bajo la cabecera «…», que no es una columna reconocida; la columna re
+     páginas: URD2022 p.116 (3)
+     ejemplo: URD2022 p.116 l.18 token 2/2 «1,316,036» declarado 2021 · rótulo «Annual variable compensation»
+
+  ejercicio: FALLO → OK · 2 candidatas · 2 tokens · 1 páginas · (queda OK) antes: la columna es «…», no un ejercicio
+     páginas: DEU2024FR p.366 (2)
+     ejemplo: DEU2024FR p.366 l.32 token 2/2 «2» declarado 2023 · rótulo «Cadres»
+
+  ejercicio: OK → FALLO · 1 candidatas · 1 tokens · 1 páginas · la columna reconocida más próxima, alineada con el token (3.5 caracteres), es de AAAA, no de AAAA (el token está además 
+     páginas: URD2022 p.290 (1)
+     ejemplo: URD2022 p.290 l.33 token 2/2 «1.8» declarado 2021 · rótulo «Fair value of plan assets (2)»
+
+  perimetro: OK → PENDIENTE · 1374 candidatas · 458 tokens · 11 páginas · el título «…» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar
+     páginas: DEU2024FR p.316 (183), URD2023 p.323 (183), URD2021 p.271 (159), URD2022 p.305 (159), URD2022 p.304 (150), URD2025 p.370 (150), DEU2024FR p.317 (117), URD2025 p.371 (117), URD2023 p.324 (108), URD2021 p.272 (27), URD2021 p.288 (21)
+     ejemplo: DEU2024FR p.316 l.20 token 1/6 «7,3%» declarado 2024 · rótulo «WACC»
+
+  perimetro: PENDIENTE → OK · 1161 candidatas · 387 tokens · 4 páginas · (queda OK) antes: el título «…» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acre
+     páginas: URD2025 p.360 (501), DEU2024FR p.306 (342), URD2023 p.312 (312), DEU2024FR p.347 (6)
+     ejemplo: DEU2024FR p.306 l.19 token 1/6 «500 500» declarado 2024 · rótulo «à l'origine»
+
+  perimetro: OK → PENDIENTE · 672 candidatas · 224 tokens · 1 páginas · la cabecera nombra países (Brazil, Chile, Colombia, Denmark, France, Germany, Ireland, Mexico, Norway, Spain, Sweden) y 
+     páginas: URD2022 p.274 (672)
+     ejemplo: URD2022 p.274 l.15 token 1/15 «23.8» declarado 2022 · rótulo «Intangible assets»
+
+  perimetro: OK → PENDIENTE · 612 candidatas · 204 tokens · 1 páginas · la cabecera nombra países (Belgium, Brazil, Colombia, Denmark, France, Ireland, Latvia, Russia, Spain, Sweden) y no tien
+     páginas: URD2022 p.277 (612)
+     ejemplo: URD2022 p.277 l.15 token 1/13 «21.8» declarado 2022 · rótulo «Intangible assets»
+
+  perimetro: OK → PENDIENTE · 597 candidatas · 199 tokens · 1 páginas · la cabecera nombra países (Belgium, Brazil, Colombia, Denmark, France, Ireland, Latvia, Netherlands, Russia, Spain, Swed
+     páginas: URD2021 p.242 (597)
+     ejemplo: URD2021 p.242 l.15 token 1/13 «19.1» declarado 2021 · rótulo «Intangible assets»
+
+  perimetro: OK → PENDIENTE · 498 candidatas · 166 tokens · 1 páginas · la cabecera nombra países (Brazil, Colombia, Czech, Denmark, France, Germany, Ireland, Luxembourg, Norway, Spain, Sweden
+     páginas: URD2021 p.244 (498)
+     ejemplo: URD2021 p.244 l.15 token 1/12 «44.3» declarado 2021 · rótulo «Intangible assets»
+
+  perimetro: OK → FALLO · 180 candidatas · 60 tokens · 3 páginas · la línea «…» es de una jurisdicción, una región o el desglose de un país, no del grupo
+     páginas: DEU2024FR p.338 (72), URD2025 p.393 (72), URD2023 p.346 (36)
+     ejemplo: DEU2024FR p.338 l.63 token 1/6 «210,9» declarado 2024 · rótulo «France)»
+
+  perimetro: OK → PENDIENTE · 144 candidatas · 48 tokens · 4 páginas · la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «…»: el perímet
+     páginas: URD2025 p.371 (69), URD2025 p.402 (48), DEU2024FR p.317 (24), URD2021 p.291 (3)
+     ejemplo: DEU2024FR p.317 l.61 token 5/6 «10,3%» declarado 2024 · rótulo «Taux d'actualisation»
+
+  perimetro: FALLO → PENDIENTE · 45 candidatas · 15 tokens · 1 páginas · la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de «…»: el perímet
+     páginas: DEU2024FR p.317 (45)
+     ejemplo: DEU2024FR p.317 l.61 token 1/6 «9,3%» declarado 2024 · rótulo «Taux d'actualisation»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Sweden) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.11 token 1/2 «568.5» declarado 2021 · rótulo «CGU Sweden & Finland»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Denmark) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.12 token 1/2 «406.1» declarado 2021 · rótulo «CGU Denmark»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Netherlands) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.13 token 1/2 «365.2» declarado 2021 · rótulo «CGU Netherlands»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Brazil) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.14 token 1/2 «224.5» declarado 2021 · rótulo «CGU Brazil»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Germany) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.15 token 1/2 «173.8» declarado 2021 · rótulo «CGU Germany»
+
+  perimetro: OK → FALLO · 24 candidatas · 8 tokens · 4 páginas · la línea es de un país (Spain) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6), URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2021 p.265 l.16 token 1/2 «106.9» declarado 2021 · rótulo «CGU Spain & Andorra»
+
+  perimetro: OK → FALLO · 18 candidatas · 6 tokens · 3 páginas · la línea es de un país (Great Britain) en una tabla por países, no del grupo
+     páginas: URD2022 p.298 (6), URD2023 p.316 (6), URD2025 p.363 (6)
+     ejemplo: URD2022 p.298 l.18 token 1/2 «96.8» declarado 2022 · rótulo «CGU Great Britain»
+
+  perimetro: OK → FALLO · 15 candidatas · 5 tokens · 3 páginas · la línea es de un país (Mexico) en una tabla por países, no del grupo
+     páginas: URD2023 p.316 (6), URD2025 p.363 (6), URD2022 p.298 (3)
+     ejemplo: URD2022 p.298 l.15 token 1/2 «189.4» declarado 2022 · rótulo «CGU Mexico»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Suède) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.39 token 1/2 «508,6» declarado 2024 · rótulo «UGT Suède & Finlande»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Danemark) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.40 token 1/2 «412,8» declarado 2024 · rótulo «UGT Danemark»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Pays-Bas) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.41 token 1/2 «383,7» declarado 2024 · rótulo «UGT Pays-Bas»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Brésil) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.42 token 1/2 «223,3» declarado 2024 · rótulo «UGT Brésil»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Allemagne) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.43 token 1/2 «189,7» declarado 2024 · rótulo «UGT Allemagne»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Mexique) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.44 token 1/2 «143,0» declarado 2024 · rótulo «UGT Mexique»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Espagne) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.45 token 1/2 «120,9» declarado 2024 · rótulo «UGT Espagne & Andorre»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Grande-Bretagne) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.46 token 1/2 «102,9» declarado 2024 · rótulo «UGT Grande-Bretagne»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Pologne) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.47 token 1/2 «94,4» declarado 2024 · rótulo «UGT Pologne»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Norvège) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.48 token 1/2 «90,2» declarado 2024 · rótulo «UGT Norvège»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Irlande) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.49 token 1/2 «76,1» declarado 2024 · rótulo «UGT Irlande»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Suisse) en una tabla por países, no del grupo
+     páginas: DEU2024FR p.309 (6)
+     ejemplo: DEU2024FR p.309 l.50 token 1/2 «68,0» declarado 2024 · rótulo «UGT Suisse»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (United Kingdom) en una tabla por países, no del grupo
+     páginas: URD2021 p.265 (6)
+     ejemplo: URD2021 p.265 l.17 token 1/2 «101.4» declarado 2021 · rótulo «CGU United Kingdom»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Poland) en una tabla por países, no del grupo
+     páginas: URD2025 p.363 (6)
+     ejemplo: URD2025 p.363 l.47 token 1/2 «95.6» declarado 2025 · rótulo «CGU Poland»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Norway) en una tabla por países, no del grupo
+     páginas: URD2025 p.363 (6)
+     ejemplo: URD2025 p.363 l.48 token 1/2 «89.9» declarado 2025 · rótulo «CGU Norway»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Switzerland) en una tabla por países, no del grupo
+     páginas: URD2025 p.363 (6)
+     ejemplo: URD2025 p.363 l.49 token 1/2 «77.7» declarado 2025 · rótulo «CGU Switzerland»
+
+  perimetro: OK → FALLO · 6 candidatas · 2 tokens · 1 páginas · la línea es de un país (Ireland) en una tabla por países, no del grupo
+     páginas: URD2025 p.363 (6)
+     ejemplo: URD2025 p.363 l.50 token 1/2 «76.1» declarado 2025 · rótulo «CGU Ireland»
+
+  perimetro: OK → FALLO · 3 candidatas · 1 tokens · 1 páginas · la línea es de un país (Russia) en una tabla por países, no del grupo
+     páginas: URD2023 p.316 (3)
+     ejemplo: URD2023 p.316 l.66 token 2/2 «11.4%» declarado 2023 · rótulo «Russia, where it generated revenue of €20.0 million in 2023»

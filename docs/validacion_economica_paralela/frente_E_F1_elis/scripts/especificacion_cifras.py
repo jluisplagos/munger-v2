@@ -560,6 +560,12 @@ t(U, 347, "re:^\\s*REVENUE\\s{2,}", 0, [(-1, 2025, "VENTAS_SEG_2025", "4796.8")]
 t(U, 345, "SEGMENT REVENUE", 0, [(-1, 2024, "VENTAS_SEG_2024", "4573.7")], "Ventas 2024 en la información por segmentos (total)")
 t("DEU2024FR", 290, "Clients externes", 2, [(-1, 2023, "VENTAS_SEG_FR_2023", "4309.4")],
   "Ventas 2023 en la información por segmentos del DEU 2024 (clientes externos, total)")
+# (revisión n.º 6, R6) las ventas de 2021 y 2022 solo tenían R42 como identidad entre páginas: su segunda presentación en la
+# información por segmentos de la publicación vigente (bloque del ejercicio anterior, columna «Total»)
+t("URD2022", 279, "SEGMENT REVENUE", 2, [(-1, 2021, "VENTAS_SEG_U22_2021", "3048.3")],
+  "Ventas 2021 en la información por segmentos del URD 2022 (bloque 2021, total)")
+t("URD2023", 296, "SEGMENT REVENUE", 2, [(-1, 2022, "VENTAS_SEG_U23_2022", "3820.9")],
+  "Ventas 2022 en la información por segmentos del URD 2023 (bloque 2022, total)")
 
 # ---------------- Literales de texto (prosa) ----------------
 TXT = [

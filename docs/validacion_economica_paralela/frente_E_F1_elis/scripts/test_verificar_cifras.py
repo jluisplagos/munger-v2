@@ -10,7 +10,9 @@ Cubre:
   como cifra exacta, signo publicado invertido (R415-SIGNO);
 - los de la revisión independiente n.º 1 del frente E (O3, mutantes M1–M4): columna de otro ejercicio con su propio
   literal, bloque de movimientos o saldo de otro año, fuente sin huella declarada, y año, unidad y perímetro falsos;
-- el contraste externo sobre 6fb9294: mutantes conjuntos de posición y literal, año, unidad, perímetro y edición.
+- el contraste externo sobre 6fb9294: mutantes conjuntos de posición y literal, año, unidad, perímetro y edición;
+- las revisiones n.º 3 a 6 del frente E: filas reales de las páginas que cita cada revisor. Algunos casos fijan además el
+  estado de una dimensión concreta («dims») o exigen que un motivo NO aparezca («sin_motivo»).
 
 Uso:  python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
 """
@@ -53,9 +55,9 @@ def main():
     lease, rou = fila("CF_LEASE_2025"), fila("DA_ROU_2025")
     casos = []
 
-    def caso(nombre, filas, estado, fallan=None, fu=None, coherente=False, motivo=None):
+    def caso(nombre, filas, estado, fallan=None, fu=None, coherente=False, motivo=None, dims=None, sin_motivo=None):
         casos.append({"nombre": nombre, "filas": filas, "fuentes": fu or fuentes, "estado": estado,
-                      "fallan": fallan or {}, "coherente": coherente, "motivo": motivo})
+                      "fallan": fallan or {}, "coherente": coherente, "motivo": motivo, "dims": dims or {}, "sin_motivo": sin_motivo})
 
     # ---- positivos reales
     caso("positivo: pagos de arrendamiento y amortización ROU de 2025", [lease, rou], "OK")
@@ -306,6 +308,60 @@ def main():
          [del_pdf("R5_E15", "URD2025", 363, r"^\s*CGU France\s", "1,442.9", 2025)], "FALLO", {"R5_E15": {"perimetro"}}, coherente=True)
     caso("Q5 (E16): «République d'Irlande (Eire)» (109,3) de la tabla por países del DEU 2024 declarada del grupo",
          [del_pdf("R5_E16", "DEU2024FR", 292, r"^\s*République d'Irlande \(Eire\)\s", "109,3", 2024)], "FALLO", {"R5_E16": {"perimetro"}}, coherente=True)
+    # ---- revisión n.º 6 (C14): filas reales de los contraejemplos del revisor (contraejemplos_6.py)
+    IRL25 = r"^\s*› of which Ireland\s"
+    caso("R1 (revisión n.º 6, F1): impuesto de Irlanda de 2025 (1,8), fila «› of which Ireland» de la tabla por jurisdicción fiscal, declarado del grupo",
+         [del_pdf("R6_F1", "URD2025", 393, IRL25, "1.8", 2025)], "FALLO", {"R6_F1": {"perimetro"}}, coherente=True)
+    caso("R1 (F4): resultado antes de impuestos de Irlanda de 2024 (8,2), «dont Irlande», DEU 2024",
+         [del_pdf("R6_F4", "DEU2024FR", 338, r"^\s*dont Irlande\s", "8,2", 2024)], "FALLO", {"R6_F4": {"perimetro"}}, coherente=True)
+    caso("R1: «European Union (excluding / France)», rótulo partido en dos líneas (242,4), declarado del grupo",
+         [del_pdf("R6_UE", "URD2025", 393, r"^\s*France\)\s", "242.4", 2025)], "FALLO", {"R6_UE": {"perimetro"}}, coherente=True)
+    caso("R1 positivo (F7): impuesto reconocido del grupo de 2025 (126,2), fila TOTAL de la misma tabla",
+         [del_pdf("R6_F7", "URD2025", 393, r"^\s*TOTAL\s+492\.9", "126.2", 2025)], "OK")
+    caso("R1 (F9): tasa de descuento de la marca Kennedy Hygiene (10,3 %), columna de una entidad: PENDIENTE, nunca OK",
+         [del_pdf("R6_F9", "URD2025", 371, r"^\s*Discount rate\s+9\.1%\s+9\.3%\s+9\.1%", "10.3%", 2025, ocurr=1)], "PENDIENTE",
+         dims={"R6_F9": {"ejercicio": "OK", "perimetro": "PENDIENTE"}}, motivo="«Kennedy Hygiene»")
+    c = del_pdf("R6_F12", "DEU2024FR", 317, r"^\s*Taux d'actualisation\s+9,3%", "9,3%", 2024)   # la primera: la marca Elis
+    caso("R1 y R8 c (F12): la misma línea, marca Elis (9,3 %), DEU 2024: PENDIENTE y el motivo nombra solo la marca",
+         [c], "PENDIENTE", dims={"R6_F12": {"perimetro": "PENDIENTE"}}, motivo="«Elis»", sin_motivo="scénario")
+    LS22 = r"^\s*Lease liabilities\s+485\.5"
+    caso("R1 (F14): valor en libros del pasivo por arrendamientos de 2022 (485,5), URD 2022 p.302: la cuenta de columnas coincide por "
+         "accidente; PENDIENTE, no FALLO", [del_pdf("R6_F14", "URD2022", 302, LS22, "485.5", 2022)], "PENDIENTE",
+         dims={"R6_F14": {"ejercicio": "PENDIENTE"}})
+    caso("R1 (F13): total de flujos sin descontar a 31-12-2022 (612,1) de la misma línea: PENDIENTE, no OK",
+         [del_pdf("R6_F13", "URD2022", 302, LS22, "612.1", 2022)], "PENDIENTE", dims={"R6_F13": {"ejercicio": "PENDIENTE"}})
+    caso("R3 control: esa misma cifra (612,1, columna «12/31/2022» alineada) declarada 2021: FALLO",
+         [del_pdf("R6_F13B", "URD2022", 302, LS22, "612.1", 2021)], "FALLO", {"R6_F13B": {"ejercicio"}}, coherente=True)
+    caso("R1 (F19): línea de prosa con dos variaciones (23,4 %) declarada 2022: PENDIENTE, no OK",
+         [del_pdf("R6_F19", "URD2023", 261, r"Net income from ordinary operations at €433\.4 million, up 23\.4%", "23.4%", 2022)], "PENDIENTE",
+         dims={"R6_F19": {"ejercicio": "PENDIENTE"}})
+    caso("R2 y R1 (G2): total de honorarios de Mazars de 2022 (0,7), URD 2022 p.336: el encabezado «NOTE 13 …» corta la búsqueda del "
+         "título, que ya no es «SWITZERLAND»; la columna es la de una firma auditora: PENDIENTE (grupo de columnas)",
+         [del_pdf("R6_G2", "URD2022", 336, r"^\s*TOTAL\s+\d", "0.7", 2022)], "PENDIENTE", motivo="grupo de columnas", sin_motivo="SWITZERLAND")
+    caso("R2 y R1 (G4): total de honorarios de Forvis Mazars de 2024 (0,8), DEU 2024 p.347: sin el título «SUISSE»; PENDIENTE (grupo de columnas)",
+         [del_pdf("R6_G4", "DEU2024FR", 347, r"^\s*TOTAL\s+\d", "0,8", 2024)], "PENDIENTE", motivo="grupo de columnas", sin_motivo="SUISSE")
+    caso("R2 (G9): plan de acciones n.º 21 bajo «5.4 Share-based payments» (URD 2025 p.360), tras el bloque «SWITZERLAND – DETAILS»: "
+         "el perímetro queda OK y la unidad falla (recuento)",
+         [del_pdf("R6_G9", "URD2025", 360, r"^\s*Number of rights originally granted", "990,040", 2024)], "FALLO", {"R6_G9": {"unidad"}},
+         dims={"R6_G9": {"perimetro": "OK"}})
+    caso("R3 (G6): valor en libros de las obligaciones convertibles a 31-12-2024 (354,6), DEU 2024 p.323, bajo «Valeur comptable»: "
+         "PENDIENTE, no FALLO", [del_pdf("R6_G6", "DEU2024FR", 323, r"^\s*convertibles\s+354,6", "354,6", 2024)], "PENDIENTE",
+         dims={"R6_G6": {"ejercicio": "PENDIENTE"}})
+    caso("R4 (H1): sensibilidad del deterioro de la UGE México (226,2) bajo el título de tabla «Mexico»: perímetro PENDIENTE",
+         [del_pdf("R6_H1", "URD2025", 371, r"^\s*WACC\s+9\.9%\s+226\.2", "226.2", 2025)], "PENDIENTE",
+         dims={"R6_H1": {"perimetro": "PENDIENTE"}}, motivo="«Mexico»")
+    caso("R4 (H2): combinaciones de negocio de 2022, columna de Alemania (16,9), cabecera con catorce países y sin columna reconocida: "
+         "perímetro PENDIENTE", [del_pdf("R6_H2", "URD2022", 274, r"^\s*Intangible assets\s+23\.8\s+16\.9", "16.9", 2022)], "PENDIENTE",
+         dims={"R6_H2": {"perimetro": "PENDIENTE"}})
+    caso("R5 (I12): fondo de comercio de la UGE «CGU Denmark» (412,2) declarado del grupo",
+         [del_pdf("R6_I12", "URD2025", 363, r"^\s*CGU Denmark\s", "412.2", 2025)], "FALLO", {"R6_I12": {"perimetro"}}, coherente=True)
+    c = del_pdf("R6_I14", "DEU2024FR", 309, r"^\s*UGT Irlande\s", "76,1", 2023)
+    c["pos"] = "-1"   # las dos columnas imprimen 76,1: la de 2023 es la segunda
+    caso("R5 (I14): fondo de comercio de la UGE «UGT Irlande» de 2023 (76,1), DEU 2024", [c], "FALLO", {"R6_I14": {"perimetro"}}, coherente=True)
+    ADQ = r"^\s*Acquisition of subsidiaries, net of cash acquired\s{2,}"
+    caso("R8 b: columna de ajuste «IFRS 3» de la tabla de reexpresión (0,1) declarada 2021 vigente: no es la columna publicada "
+         "(la edición no falla); el ejercicio queda PENDIENTE",
+         [del_pdf("R6_AJUSTE", "URD2022", 271, ADQ, "0.1", 2021)], "PENDIENTE", dims={"R6_AJUSTE": {"edicion": "OK", "ejercicio": "PENDIENTE"}})
 
     malos = 0
     for k in casos:
@@ -332,6 +388,12 @@ def main():
                         problemas.append(f"{i}: mutante no aislado; fallan también {otras}")
             if k["motivo"] and not any(k["motivo"] in (r.get("motivo") or "") for r in res["cifras"]):
                 problemas.append(f"sin el motivo esperado «{k['motivo']}»")
+            if k["sin_motivo"] and any(k["sin_motivo"] in (r.get("motivo") or "") for r in res["cifras"]):
+                problemas.append(f"el motivo contiene «{k['sin_motivo']}», que no debe aparecer")
+            for i, esperado in k["dims"].items():
+                for dim, e in esperado.items():
+                    if por_id[i]["dimensiones"][dim]["estado"] != e:
+                        problemas.append(f"{i}: {dim} {por_id[i]['dimensiones'][dim]['estado']}, se esperaba {e}")
         malos += bool(problemas)
         print("OK " if not problemas else "MAL", k["nombre"], "→", k["estado"] if not problemas else "; ".join(problemas))
     print(f"{len(casos) - malos}/{len(casos)} casos con el resultado esperado")

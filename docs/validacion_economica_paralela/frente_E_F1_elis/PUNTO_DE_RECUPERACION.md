@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** incorporación de la revisión n.º 6 (copia sin cambios, procedencia y registro). Su respuesta, C14, está en preparación.
-**Hora:** 16-nov-2026, hacia las 01:50 UTC.
+**Bloque cerrado:** respuesta a la revisión n.º 6 (C14). Falta congelarla (C15) y encargar su revisión (pasada 7).
+**Hora:** la del commit que contiene esta versión (C14), en `git log`. *(Revisión n.º 6, R8 a: el punto anterior, de c11a6de, decía «hacia las 01:50 UTC» y su commit es de las 01:38:27; desde ahora la hora es la de un commit, no una estimación.)*
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -12,57 +12,47 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 | Commit | Contenido |
 |---|---|
-| C9 = `c8764494d9911c59a67a530f13b56616fe86707c` | Segunda presentación de cinco entradas; columnas por país. Revisado en la pasada 5 |
-| C10 = `95b37e6da22bd4d5adb55c3f09c729b8d4e409f1` | Respuesta a la revisión n.º 4. Revisado en la pasada 5 |
-| C11 = `364129afd45ba2e54a1df4141fd50e97fd55ef6d` | Congelado de la revisión n.º 5 |
-| `202f566` | Copia de la revisión n.º 5 (595d2f6), procedencia y registro |
-| C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. **No revisado** |
-| C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Registra el hash de C12. **Commit congelado de la revisión n.º 6** |
-| `e88699a` | Registra el encargo de la revisión n.º 6 |
-| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 6 (9711f04), procedencia y registro. No cambia código, datos ni resultados |
+| C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. Revisado en la pasada 6 |
+| C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Congelado de la revisión n.º 6 |
+| `c11a6de` | Copia de la revisión n.º 6 (9711f04), procedencia y registro |
+| C14 = el commit que contiene esta versión de este archivo | Respuesta a la revisión n.º 6 (R1–R8). **No revisado** |
 
-## 2. Estado de las pruebas sobre C12
+## 2. Estado de las pruebas sobre C14
 
 | Prueba | Resultado | Salida |
 |---|---|---|
-| `especificacion_cifras.py` (regenera el CSV desde los PDF) | CSV idéntico byte a byte (SHA-256 `576b423c…`) | Comparación con `cmp` |
-| `verificar_cifras.py` | 750 filas: 736 OK, 14 PENDIENTE, 0 FALLO; las 743 anteriores no cambian de estado | `resultados/verificacion_cifras.json`, `verificar_cifras.log` |
-| `test_verificar_cifras.py` | 89/89: 20 positivos reales, 10 PENDIENTE esperados y 59 contraejemplos | `resultados/test_verificar_cifras.log` |
-| `contraste_f1.py` | 290 comprobaciones, 0 fallidas (136 libro, 125 fuente con 124 residuos, 29 algebraicas); 417 entradas. Código 0 | `resultados/contraste_f1.{json,md,log}` |
-| `test_contraste_residuos.py` | 22/22 | `resultados/test_contraste_residuos.log` |
-| `cobertura_por_mutacion.py` | 528 filas, sin incoherencias. Ninguna entrada que mueva la referencia queda sin identidad entre páginas | `resultados/cobertura_por_mutacion.txt` |
-| `sondas_metadatos.py` | 711/711 en unidad y en perímetro | `resultados/sondas_metadatos_C12.json` |
+| `especificacion_cifras.py` (regenera el CSV desde los PDF) | 752 filas: las 750 anteriores sin cambios y 2 nuevas (ventas por segmentos de 2021 y 2022, R6) | `datos/cifras_fuente.csv` |
+| `verificar_cifras.py` | 752 filas: 738 OK, 14 PENDIENTE, 0 FALLO. Las 750 anteriores, con el mismo estado y el mismo detalle que en C12 | `resultados/verificacion_cifras.json`, `verificar_cifras.log` |
+| `test_verificar_cifras.py` | 108/108: 21 positivos reales, 21 PENDIENTE esperados y 66 contraejemplos | `resultados/test_verificar_cifras.log` |
+| `contraste_f1.py` | 292 comprobaciones, 0 fallidas (136 libro, 127 fuente con 126 residuos, 29 algebraicas); 419 entradas. Código 0 | `resultados/contraste_f1.{json,md,log}` |
+| `test_contraste_residuos.py` | 24/24 | `resultados/test_contraste_residuos.log` |
+| `cobertura_por_mutacion.py` | 530 filas, sin incoherencias. Ninguna entrada que mueva la referencia queda sin identidad entre páginas | `resultados/cobertura_por_mutacion.txt` |
+| `sondas_metadatos.py` | 713/713 en unidad y en perímetro | `resultados/sondas_metadatos_C14.json` |
 | `prueba_caja_no_nula.py` (LibreOffice) | No se ha vuelto a ejecutar desde C4: depende solo del libro, cuya huella no ha cambiado | `resultados/caja_no_nula.json` |
-| Scripts de los revisores n.º 1, 3 y 4 | Igual que sobre C10, salvo recuentos | `resultados/*_sobre_C12.txt` |
-| Scripts del revisor n.º 5 (`contraejemplos_5`, `clases_5`, `barrido_tablas`, `cobertura_propia`) | Q1–Q6 corregidas en sus casos; cobertura propia idéntica a la declarada | `resultados/revisor5_*_sobre_C12.txt` |
-| Valores de referencia de E9 | Sin cambios (C53 de A1 2,445331695332; de A2 1,612524303305) | `resultados/contraste_f1.json` |
+| Scripts de los revisores n.º 1, 3, 4 y 5 | Mismos resultados que sobre C12, salvo recuentos y motivos explicados en la sexta parte de las respuestas | `resultados/*_sobre_C14.txt` |
+| Scripts del revisor n.º 6 | Sus 48 contraejemplos, con el resultado que se describe en la sexta parte. Barrido completo C13 → C14 (122.604 candidatas) cruzado con su lectura geométrica: ninguna candidata pasa a OK; clase F, 0 | `resultados/revisor6_*_sobre_C14.txt` |
+| Valores de referencia de E9 | Sin cambios | `resultados/contraste_f1.json` |
 | Manifiesto | `sha256sum -c MANIFIESTO_SHA256.txt`: OK | — |
+
+**Qué cubren estas pruebas** (revisión n.º 6, R7 e): los casos de los revisores, las filas reales y el barrido del revisor n.º 6 sobre todas las líneas con rótulo de los cinco PDF, declaradas como cifras del grupo de dos columnas. No cubren otras declaraciones ni clases de error que esos filtros no señalan.
 
 ## 3. Incidencias pendientes
 
-1. **Responder a la revisión n.º 6** (C14). Plan:
-   - **R1:** en la asignación por orden, comprobar la alineación de cada número con su cabecera y aplicar la regla de cabecera ajena; las filas «of which», «dont», «excluding», «hors» con un país o una jurisdicción no son del grupo;
-   - **R2:** las líneas con numeración de nota o apartado («NOTE 13 …», «5.4 …») son títulos y cortan la búsqueda;
-   - **R3:** el FALLO por otra columna de ejercicio solo si está alineada con la cifra (a 3 caracteres o menos);
-   - **R4:** conservar el criterio de C10, un título de tabla corto que nombra un país; tres países o más en la cabecera sin columna reconocida, PENDIENTE;
-   - **R5:** normalizar «CGU»/«UGT» también al comparar con los países;
-   - **R6:** la clase entre páginas es por pertenencia; umbrales de R42 por año; identidad lineal de las ventas de 2021–22 con la información por segmentos (URD 2022 p.279, URD 2023 p.296);
-   - **R7 y R8:** frases y motivos.
-2. **C12 y C14 sin revisar** hasta la pasada 7.
-3. **Cobertura de la unidad y del perímetro**, heurísticas del verificador, 14 filas PENDIENTE y límites de detección: como en el punto anterior.
+1. **C14 sin revisar** hasta la pasada 7. Incluye las tres decisiones que no siguen la propuesta del revisor: R1 (grupos de columnas en el perímetro), R2 (G2 y G4 en PENDIENTE) y R3 (umbral de 5,5 caracteres).
+2. **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 entradas con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
+3. **Verificador:** reglas heurísticas sobre la rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42.
 4. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
 
 ## 4. Siguiente paso exacto
 
-1. Implementar el plan de §3.1 con un caso de test por clase de la revisión n.º 6. Comprobar que ninguna de las 750 filas reales cambia de estado sin causa explicada.
-2. Regenerar la cadena y pasar sin cambios los scripts de los revisores.
-3. Respuesta (sexta parte), informe, especificación y registro.
-4. Commit C14, push y punto de recuperación; congelar (C15) y encargar la revisión de lo afectado por C14 (pasada 7).
+1. Congelar C14: commit C15, que solo registra el hash de C14 en `revision/ESTADO.md`, en la tabla de commits de las respuestas y en el manifiesto. Push.
+2. Encargar la pasada 7 sobre C15 a una sesión de revisión nueva, con el modelo y el esfuerzo que el encargo asigna a la revisión independiente, en la rama `auditoria/economica-f1-frente-e-revision`. Alcance: `git diff 9711f04..C15` en lo del autor (C14), con atención a las tres decisiones propias y al barrido completo. Programar una comprobación y registrar la configuración con `get_session`.
+3. Al terminar la pasada 7: copiar sus archivos sin cambios, con procedencia, y responder.
 
 ## 5. Cómo reanudar en una sesión nueva
 
 1. `git fetch origin auditoria/economica-f1-frente-e` y `git checkout auditoria/economica-f1-frente-e`.
 2. Materializar un árbol `munger_v2_r1`, según la sección de archivos pesados del README del repositorio (`tools/base_414.py`, con el ZIP original de la Release `base-4.14`).
 3. Ejecutar los comandos del informe, §13, en ese orden. LibreOffice solo en secuencia.
-4. Leer este archivo, `revision/ESTADO.md` y las partes segunda, tercera y cuarta de `revision/RESPUESTAS_AUTOR_1.md`.
+4. Leer este archivo, `revision/ESTADO.md` y las partes quinta y sexta de `revision/RESPUESTAS_AUTOR_1.md`.
 5. Configuración acordada: la del encargo («MODELOS Y ESFUERZO»), registrada en `REGISTRO_CONFIGURACION.md`. La revisión la hace una sesión distinta de la autora, en la rama `auditoria/economica-f1-frente-e-revision`.

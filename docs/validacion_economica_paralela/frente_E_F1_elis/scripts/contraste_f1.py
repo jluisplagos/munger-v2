@@ -246,6 +246,8 @@ def datos_anio(F, y):
         d["bai_nota9"] = F("BAI_NOTA9" + u, contraparte=True)
         d["dap"], d["prov_cargo"] = F("CF_DAP" + u, contraparte=True), -F("PROV_TOT" + u, contraparte=True)
         d["crec_ext"], d["crec_fx"], d["crec_pub"] = F.pct("CREC_EXT_2022"), F.pct("CREC_FX_2022"), F.pct("CREC_PUB_2022")
+        # (revisión n.º 6, R6) ventas en la información por segmentos del URD 2023 (p.296): identidad lineal entre páginas
+        d["ventas_seg"] = F("VENTAS_SEG_U23_2022", contraparte=True)
     elif y == 2021:
         u = "_U22_2021"
         d["ventas"] = F("IS_VENTAS" + u)
@@ -275,6 +277,8 @@ def datos_anio(F, y):
         d["bai_nota9"] = F("BAI_NOTA9" + u, contraparte=True)
         d["dap"], d["prov_cargo"] = F("CF_DAP" + u, contraparte=True), -F("PROV_TOT" + u, contraparte=True)
         d["ventas_2020"], d["ventas_2020_mr"] = F("IS_VENTAS_U21_2020"), F("IS_VENTAS_MR_U21_2020", contraparte=True)
+        # (revisión n.º 6, R6) ventas en la información por segmentos del URD 2022 (p.279): identidad lineal entre páginas
+        d["ventas_seg"] = F("VENTAS_SEG_U22_2021", contraparte=True)
     # derivadas comunes
     d["ebit_h"] = d["bai"] + d["fin"]                        # definición de la Historia (v2.2)
     if not isinstance(d["bai"], Q):                          # τ no es lineal: solo con valores exactos
@@ -411,6 +415,8 @@ def main():
             # (revisión n.º 5, Q6) entradas que mueven la referencia y solo tenían identidad de su página
             "R41 resultado antes de impuestos: cuenta de resultados − nota 9": d["bai"] - d["bai_nota9"],
             "R8 línea EFE amortizaciones y provisiones − (D&A total + subvención + provisiones)": d["dap"] - (d["da_total"] + d["da_subv"] + d["prov_cargo"]),
+            # (revisión n.º 6, R6) la misma identidad que en 2023–25
+            "R23 ventas: cuenta de resultados − información por segmentos (total)": d["ventas"] - d["ventas_seg"],
         } | ({"R32 crecimiento publicado − (orgánico + externo + divisa)": d["crec_pub"] - (d["crec_org"] + d["crec_ext"] + d["crec_fx"])}
              if "crec_pub" in d else {}) \
           | ({"R40 ventas 2020 (base de S2C): cuenta de resultados − informe de gestión": d["ventas_2020"] - d["ventas_2020_mr"]}
@@ -446,7 +452,7 @@ def main():
                                    "− principal 148,3 de la nota 6.3 p.366) frente al gasto devengado 29,2 (nota 9 p.379); "
                                    "la fuente no publica el puente; en 2023 y 2024 la diferencia es 0,0"),
     }
-    res_det, codigo_q = {}, {}
+    res_det, codigo_q, cota_q = {}, {}, {}
     for y in HORIZONTE:
         res_det[str(y)] = {}
         for k, q in concQ[y].items():
@@ -457,6 +463,7 @@ def main():
             paginas = sorted({(F.meta[i]["doc"], F.meta[i]["pagina"]) for i in q.t})
             excep = (y, cod) in EXCEPCIONES
             esperado, nota = EXCEPCIONES.get((y, cod), (Fr(0), f"redondeo de {len(q.t)} cifras impresas"))
+            cota_q[(y, cod)] = (cota, esperado)
             ok = check(f"residuo {cod} {y} dentro de su cota de redondeo" + (" (diferencia de concepto fijada)" if excep else ""),
                        q.v, esperado, cota, nota, clase="fuente")
             res_det[str(y)][cod] = {"identidad": k, "residuo": f6(q.v, 3), "cota_de_redondeo": f6(cota, 3), "cifras": len(q.t),
@@ -933,6 +940,19 @@ def main():
     directos = {"IS_VENTAS_U21_2020": "ventas 2020, base del S2C (E9)",
                 "INT_RC_VNC_2025": "años de agotamiento de las relaciones con clientes (impuestos, O7)"}
     directos.update({f"INT_RC_AM_{y}": f"amortización de relaciones con clientes {y} (impuestos, O7)" for y in VENTANA})
+    def sin_deteccion(i):
+        """(Revisión n.º 6, R6) Intervalo de errores en la entrada i, sola, que ninguna identidad entre páginas detecta: la
+        intersección, para cada identidad entre páginas en que interviene con coeficiente k, de los errores e con
+        |residuo − valor fijado + k·e| ≤ cota. R42 no es lineal: se usa su coeficiente linealizado."""
+        lo = hi = None
+        for (yy, c), q in codigo_q.items():
+            if i in q.t and res_det[str(yy)][c]["contraste"] == "entre páginas":
+                b, esp = cota_q[(yy, c)]
+                k, r0 = q.t[i], q.v - esp
+                a1, a2 = sorted([(-b - r0) / k, (b - r0) / k])
+                lo, hi = (a1, a2) if lo is None else (max(lo, a1), min(hi, a2))
+        return lo, hi
+
     cobertura = {}
     for i in sorted(F.usadas):
         entre = sorted(f"{c} {yy}" for (yy, c), q in codigo_q.items() if i in q.t and res_det[str(yy)][c]["contraste"] == "entre páginas")
@@ -941,6 +961,10 @@ def main():
                   else "contrastada con la Historia del libro" if i in por_libro else "sin comprobación de segunda línea")
         cobertura[i] = {"fuente": F.ref[i], "usos": sorted(usos.get(i, [])) or [directos.get(i, "uso directo fuera de las tablas anuales")], "identidades_entre_paginas": entre,
                         "identidades_misma_pagina": misma, "historia_del_libro": i in por_libro, "estado": estado}
+        if entre:
+            lo, hi = sin_deteccion(i)
+            cobertura[i]["errores_sin_deteccion_entre_paginas"] = [f6(lo, 3), f6(hi, 3)]
+            cobertura[i]["umbral_en_unidades_de_la_ultima_cifra"] = f6(max(-lo, hi) / (2 * F.epsilon(i)), 2)
     # (Revisión n.º 4, P3) Una identidad de la misma página acredita la coherencia interna de su tabla, no su unidad ni su
     # perímetro: una tabla entera de otro perímetro o de otra unidad cuadra igual. La unidad y el perímetro solo los
     # acredita, de forma indirecta, una identidad entre páginas. Se marca, para cada entrada, si su página tiene alguna
@@ -958,10 +982,22 @@ def main():
                     ("contrastada entre páginas", "solo identidad de la misma página", "contrastada con la Historia del libro",
                      "sin comprobación de segunda línea")},
         "que_acredita_cada_clase": {
-            "contrastada entre páginas": "el número y, de forma indirecta, su unidad y su perímetro: otra presentación de otro perímetro o de otra unidad rompería la identidad",
+            "contrastada entre páginas": ("la clase es por pertenencia: la entrada interviene, con coeficiente no nulo, en alguna identidad entre páginas. "
+                                          "Acredita el número salvo un error dentro de «errores_sin_deteccion_entre_paginas» (el intervalo que ninguna de "
+                                          "esas identidades detecta) y, de forma indirecta, su unidad y su perímetro: otra presentación de otro perímetro "
+                                          "o de otra unidad rompería la identidad, salvo que su diferencia quede dentro de ese intervalo"),
             "solo identidad de la misma página": "la coherencia interna de su tabla; no la unidad ni el perímetro de la tabla entera",
             "contrastada con la Historia del libro": "el número, salvo un error común a las dos transcripciones de la misma publicación",
             "sin comprobación de segunda línea": "nada más que su literal y las reglas automáticas del verificador"},
+        "umbrales_entre_paginas": {
+            "por_tramo_en_unidades_de_la_ultima_cifra": {t: sum(1 for v in cobertura.values() if "umbral_en_unidades_de_la_ultima_cifra" in v
+                                                               and lo_ < float(v["umbral_en_unidades_de_la_ultima_cifra"]) <= hi_)
+                                                       for t, lo_, hi_ in (("hasta 2", -1, 2), ("de 2 a 5", 2, 5), ("de 5 a 10", 5, 10),
+                                                                           ("más de 10", 10, float("inf")))},
+            "mas_de_5": {i: v["errores_sin_deteccion_entre_paginas"] for i, v in cobertura.items()
+                         if float(v.get("umbral_en_unidades_de_la_ultima_cifra", 0)) > 5},
+            "solo_R42_entre_paginas": {i: v["errores_sin_deteccion_entre_paginas"] for i, v in cobertura.items()
+                                       if v["identidades_entre_paginas"] and all(x.startswith("R42 ") for x in v["identidades_entre_paginas"])}},
         "paginas_sin_identidad_entre_paginas": sin_ancla,
         "resumen_paginas": {"paginas_con_entradas": len(set(pagina_de.values())), "sin_identidad_entre_paginas": len(sin_ancla),
                             "entradas_en_ellas": sum(len(v) for v in sin_ancla.values()),

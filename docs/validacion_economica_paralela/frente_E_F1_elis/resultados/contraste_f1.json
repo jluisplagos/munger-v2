@@ -111,6 +111,16 @@
    "nota": "redondeo de 4 cifras impresas"
   },
   {
+   "nombre": "residuo R23 2021 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.1,
+   "ok": true,
+   "nota": "redondeo de 2 cifras impresas"
+  },
+  {
    "nombre": "residuo R40 2021 dentro de su cota de redondeo",
    "clase": "fuente",
    "calculado": 0.0,
@@ -239,6 +249,16 @@
    "tolerancia": 0.2,
    "ok": true,
    "nota": "redondeo de 4 cifras impresas"
+  },
+  {
+   "nombre": "residuo R23 2022 dentro de su cota de redondeo",
+   "clase": "fuente",
+   "calculado": 0.0,
+   "referencia": 0.0,
+   "diferencia": 0.0,
+   "tolerancia": 0.1,
+   "ok": true,
+   "nota": "redondeo de 2 cifras impresas"
   },
   {
    "nombre": "residuo R32 2022 dentro de su cota de redondeo",
@@ -3152,6 +3172,19 @@
      "valor_fijado": null,
      "ok": true
     },
+    "R23": {
+     "identidad": "R23 ventas: cuenta de resultados − información por segmentos (total)",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.1,
+     "cifras": 2,
+     "paginas": [
+      "URD2022 p.258",
+      "URD2022 p.279"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
     "R40": {
      "identidad": "R40 ventas 2020 (base de S2C): cuenta de resultados − informe de gestión",
      "residuo": 0.0,
@@ -3318,6 +3351,19 @@
      "paginas": [
       "URD2023 p.279",
       "URD2023 p.301"
+     ],
+     "contraste": "entre páginas",
+     "valor_fijado": null,
+     "ok": true
+    },
+    "R23": {
+     "identidad": "R23 ventas: cuenta de resultados − información por segmentos (total)",
+     "residuo": 0.0,
+     "cota_de_redondeo": 0.1,
+     "cifras": 2,
+     "paginas": [
+      "URD2023 p.276",
+      "URD2023 p.296"
      ],
      "contraste": "entre páginas",
      "valor_fijado": null,
@@ -5245,16 +5291,56 @@
   },
   "cobertura_entradas": {
    "resumen": {
-    "contrastada entre páginas": 244,
+    "contrastada entre páginas": 246,
     "solo identidad de la misma página": 140,
     "contrastada con la Historia del libro": 2,
     "sin comprobación de segunda línea": 31
    },
    "que_acredita_cada_clase": {
-    "contrastada entre páginas": "el número y, de forma indirecta, su unidad y su perímetro: otra presentación de otro perímetro o de otra unidad rompería la identidad",
+    "contrastada entre páginas": "la clase es por pertenencia: la entrada interviene, con coeficiente no nulo, en alguna identidad entre páginas. Acredita el número salvo un error dentro de «errores_sin_deteccion_entre_paginas» (el intervalo que ninguna de esas identidades detecta) y, de forma indirecta, su unidad y su perímetro: otra presentación de otro perímetro o de otra unidad rompería la identidad, salvo que su diferencia quede dentro de ese intervalo",
     "solo identidad de la misma página": "la coherencia interna de su tabla; no la unidad ni el perímetro de la tabla entera",
     "contrastada con la Historia del libro": "el número, salvo un error común a las dos transcripciones de la misma publicación",
     "sin comprobación de segunda línea": "nada más que su literal y las reglas automáticas del verificador"
+   },
+   "umbrales_entre_paginas": {
+    "por_tramo_en_unidades_de_la_ultima_cifra": {
+     "hasta 2": 145,
+     "de 2 a 5": 99,
+     "de 5 a 10": 2,
+     "más de 10": 0
+    },
+    "mas_de_5": {
+     "CF_IMPPAG_2024": [
+      -0.55,
+      0.15
+     ],
+     "FCF_ANTES_2024": [
+      -0.55,
+      0.15
+     ]
+    },
+    "solo_R42_entre_paginas": {
+     "CREC_PUB_2021": [
+      -0.03,
+      0.077
+     ],
+     "CREC_PUB_2022": [
+      -0.008,
+      0.099
+     ],
+     "CREC_PUB_2023": [
+      -0.068,
+      0.038
+     ],
+     "CREC_PUB_2024": [
+      -0.019,
+      0.085
+     ],
+     "CREC_PUB_2025": [
+      -0.074,
+      0.03
+     ]
+    }
    },
    "paginas_sin_identidad_entre_paginas": {
     "URD2025 p.384": [
@@ -5299,7 +5385,7 @@
     ]
    },
    "resumen_paginas": {
-    "paginas_con_entradas": 53,
+    "paginas_con_entradas": 55,
     "sin_identidad_entre_paginas": 8,
     "entradas_en_ellas": 24,
     "misma_pagina_en_paginas_sin_ancla": 9
@@ -5411,6 +5497,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "BAI_NOTA9_U23_2022": {
@@ -5424,6 +5515,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_CES_2024": {
@@ -5437,6 +5533,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_CES_2025": {
@@ -5450,6 +5551,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_CES_FR_2023": {
@@ -5463,6 +5569,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_CES_U22_2021": {
@@ -5498,6 +5609,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_LINO_2025": {
@@ -5511,6 +5627,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_LINO_FR_2023": {
@@ -5524,6 +5645,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_LINO_U22_2021": {
@@ -5537,6 +5663,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_LINO_U23_2022": {
@@ -5550,6 +5681,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_NETO_2024": {
@@ -5563,6 +5699,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_NETO_2025": {
@@ -5576,6 +5717,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_NETO_FR_2023": {
@@ -5589,6 +5735,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_NETO_U22_2021": {
@@ -5602,6 +5753,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_NETO_U23_2022": {
@@ -5615,6 +5771,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OART_2024": {
@@ -5628,6 +5789,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OART_2025": {
@@ -5641,6 +5807,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OART_FR_2023": {
@@ -5654,6 +5825,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OART_U22_2021": {
@@ -5667,6 +5843,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OART_U23_2022": {
@@ -5680,6 +5861,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OTRO_2024": {
@@ -5693,6 +5879,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OTRO_2025": {
@@ -5706,6 +5897,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OTRO_FR_2023": {
@@ -5719,6 +5915,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OTRO_U22_2021": {
@@ -5732,6 +5933,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_OTRO_U23_2022": {
@@ -5745,6 +5951,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_SUBV_2024": {
@@ -5758,6 +5969,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_SUBV_2025": {
@@ -5771,6 +5987,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CAPX_SUBV_FR_2023": {
@@ -5784,6 +6005,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_2024": {
@@ -5799,6 +6025,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_2025": {
@@ -5814,6 +6045,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_FR_2023": {
@@ -5829,6 +6065,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_NOTA_U22_2021": {
@@ -5842,6 +6083,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_NOTA_U23_2022": {
@@ -5855,6 +6101,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_U22_2021": {
@@ -5868,6 +6119,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_ADQ_U23_2022": {
@@ -5881,6 +6137,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_AMPL_2024": {
@@ -6017,6 +6278,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_BN_2025": {
@@ -6033,6 +6299,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_BN_FR_2023": {
@@ -6049,6 +6320,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPINT_2024": {
@@ -6066,6 +6342,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPINT_2025": {
@@ -6083,6 +6364,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPINT_FR_2023": {
@@ -6100,6 +6386,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPINT_U22_2021": {
@@ -6114,6 +6405,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPINT_U23_2022": {
@@ -6128,6 +6424,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPMAT_2024": {
@@ -6145,6 +6446,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPMAT_2025": {
@@ -6162,6 +6468,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPMAT_FR_2023": {
@@ -6179,6 +6490,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPMAT_U22_2021": {
@@ -6193,6 +6509,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CAPMAT_U23_2022": {
@@ -6207,6 +6528,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CESFIL_2024": {
@@ -6261,6 +6587,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CFO_2025": {
@@ -6276,6 +6607,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CFO_FR_2023": {
@@ -6291,6 +6627,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CFO_U22_2021": {
@@ -6304,6 +6645,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CFO_U23_2022": {
@@ -6317,6 +6663,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CLI_2024": {
@@ -6333,6 +6684,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CLI_2025": {
@@ -6349,6 +6705,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CLI_FR_2023": {
@@ -6365,6 +6726,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CLI_U22_2021": {
@@ -6379,6 +6745,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_CLI_U23_2022": {
@@ -6393,6 +6764,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DAP_2024": {
@@ -6408,6 +6784,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DAP_2025": {
@@ -6423,6 +6804,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DAP_FR_2023": {
@@ -6438,6 +6824,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DAP_U22_2021": {
@@ -6451,6 +6842,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DAP_U23_2022": {
@@ -6464,6 +6860,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_DESINT_2024": {
@@ -6675,6 +7076,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EMPL_2025": {
@@ -6691,6 +7097,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EMPL_FR_2023": {
@@ -6707,6 +7118,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EMPL_U22_2021": {
@@ -6721,6 +7137,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EMPL_U23_2022": {
@@ -6735,6 +7156,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EMPR_2024": {
@@ -6790,6 +7216,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EXIS_2025": {
@@ -6806,6 +7237,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EXIS_FR_2023": {
@@ -6822,6 +7258,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EXIS_U22_2021": {
@@ -6836,6 +7277,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_EXIS_U23_2022": {
@@ -6850,6 +7296,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_FINTOT_2024": {
@@ -6904,6 +7355,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.3,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_FIN_2025": {
@@ -6919,6 +7375,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_FIN_FR_2023": {
@@ -6934,6 +7395,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMPPAG_2024": {
@@ -6949,6 +7415,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.55,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMPPAG_2025": {
@@ -6964,6 +7435,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMPPAG_FR_2023": {
@@ -6979,6 +7455,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.45
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMP_2024": {
@@ -6994,6 +7475,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.3,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMP_2025": {
@@ -7009,6 +7495,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_IMP_FR_2023": {
@@ -7024,6 +7515,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INTCONLS_U22_2021": {
@@ -7037,6 +7533,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INTCONLS_U23_2022": {
@@ -7050,6 +7551,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INT_2024": {
@@ -7066,6 +7572,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INT_2025": {
@@ -7082,6 +7593,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INT_FR_2023": {
@@ -7098,6 +7614,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_INVTOT_2024": {
@@ -7154,6 +7675,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_LEASE_2025": {
@@ -7171,6 +7697,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_LEASE_FR_2023": {
@@ -7188,6 +7719,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_LSPRINC_U22_2021": {
@@ -7201,6 +7737,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_LSPRINC_U23_2022": {
@@ -7214,6 +7755,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OAC_2024": {
@@ -7230,6 +7776,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OAC_2025": {
@@ -7246,6 +7797,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OAC_FR_2023": {
@@ -7262,6 +7818,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OAC_U22_2021": {
@@ -7276,6 +7837,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OAC_U23_2022": {
@@ -7290,6 +7856,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OFIN_2024": {
@@ -7345,6 +7916,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OTRV_2025": {
@@ -7361,6 +7937,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OTRV_FR_2023": {
@@ -7377,6 +7958,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OTRV_U22_2021": {
@@ -7391,6 +7977,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_OTRV_U23_2022": {
@@ -7405,6 +7996,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PCON_2024": {
@@ -7421,6 +8017,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PCON_2025": {
@@ -7437,6 +8038,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PCON_FR_2023": {
@@ -7453,6 +8059,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PCON_U22_2021": {
@@ -7467,6 +8078,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PCON_U23_2022": {
@@ -7481,6 +8097,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PLUSV_2024": {
@@ -7575,6 +8196,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PROV_2025": {
@@ -7591,6 +8217,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PROV_FR_2023": {
@@ -7607,6 +8238,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PROV_U22_2021": {
@@ -7621,6 +8257,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.5,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_PROV_U23_2022": {
@@ -7635,6 +8276,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_REEMB_2024": {
@@ -7689,6 +8335,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_SBC_2025": {
@@ -7704,6 +8355,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_SBC_FR_2023": {
@@ -7719,6 +8375,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "CF_SBC_U22_2021": {
@@ -7999,6 +8660,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.03,
+      0.077
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 0.77,
      "pagina_con_identidad_entre_paginas": true
     },
     "CREC_PUB_2022": {
@@ -8014,6 +8680,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.008,
+      0.099
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 0.99,
      "pagina_con_identidad_entre_paginas": true
     },
     "CREC_PUB_2023": {
@@ -8029,6 +8700,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.068,
+      0.038
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 0.68,
      "pagina_con_identidad_entre_paginas": true
     },
     "CREC_PUB_2024": {
@@ -8044,6 +8720,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.019,
+      0.085
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 0.85,
      "pagina_con_identidad_entre_paginas": true
     },
     "CREC_PUB_2025": {
@@ -8059,6 +8740,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.074,
+      0.03
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 0.74,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_DETER_2024": {
@@ -8312,6 +8998,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_PPA_2025": {
@@ -8328,6 +9019,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_PPA_FR_2023": {
@@ -8344,6 +9040,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_PPA_U22_2021": {
@@ -8360,6 +9061,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_PPA_U23_2022": {
@@ -8376,6 +9082,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_ROU_2024": {
@@ -8392,6 +9103,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_ROU_2025": {
@@ -8408,6 +9124,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_ROU_FR_2023": {
@@ -8424,6 +9145,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.0
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_ROU_U22_2021": {
@@ -8440,6 +9166,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_ROU_U23_2022": {
@@ -8456,6 +9187,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_SUBV_2024": {
@@ -8471,6 +9207,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_SUBV_2025": {
@@ -8486,6 +9227,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_SUBV_FR_2023": {
@@ -8501,6 +9247,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_SUBV_U22_2021": {
@@ -8516,6 +9267,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_SUBV_U23_2022": {
@@ -8531,6 +9287,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_TEXT_2024": {
@@ -8612,6 +9373,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_TOTAL_2025": {
@@ -8628,6 +9394,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_TOTAL_FR_2023": {
@@ -8644,6 +9415,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_TOTAL_U22_2021": {
@@ -8660,6 +9436,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DA_TOTAL_U23_2022": {
@@ -8676,6 +9457,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DEU_BRUTA_2024": {
@@ -8839,6 +9625,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DN_ADQ_2025": {
@@ -8852,6 +9643,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "DN_ADQ_FR_2023": {
@@ -8865,6 +9661,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "EBITA_SBC_2024": {
@@ -8878,6 +9679,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "EBITA_SBC_2025": {
@@ -8891,6 +9697,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "EBITA_SBC_FR_2023": {
@@ -8904,6 +9715,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_ANTES_2024": {
@@ -8917,6 +9733,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.55,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_ANTES_2025": {
@@ -8930,6 +9751,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_ANTES_FR_2023": {
@@ -8943,6 +9769,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.45
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_BFR_2024": {
@@ -8957,6 +9788,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_BFR_2025": {
@@ -8971,6 +9807,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_BFR_FR_2023": {
@@ -8985,6 +9826,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_BFR_U22_2021": {
@@ -8998,6 +9844,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.3,
+      0.5
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 5.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_BFR_U23_2022": {
@@ -9011,6 +9862,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.4,
+      0.4
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 4.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_CAPNET_2024": {
@@ -9027,6 +9883,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_CAPNET_2025": {
@@ -9043,6 +9904,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_CAPNET_FR_2023": {
@@ -9059,6 +9925,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_FCF_2024": {
@@ -9073,6 +9944,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.35
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_FCF_2025": {
@@ -9087,6 +9963,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_FCF_FR_2023": {
@@ -9101,6 +9982,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.35,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_FCF_U22_2021": {
@@ -9114,6 +10000,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_FCF_U23_2022": {
@@ -9127,6 +10018,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.25,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_SBCSOC_2024": {
@@ -9140,6 +10036,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_SBCSOC_2025": {
@@ -9153,6 +10054,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FCF_SBCSOC_FR_2023": {
@@ -9166,6 +10072,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_INTLS_2024": {
@@ -9179,6 +10090,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_INTLS_2025": {
@@ -9192,6 +10108,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_INTLS_FR_2023": {
@@ -9205,6 +10126,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_INTLS_U22_2021": {
@@ -9240,6 +10166,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_TOT_2025": {
@@ -9253,6 +10184,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "FIN_TOT_FR_2023": {
@@ -9266,6 +10202,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "INT_RC_AM_2023": {
@@ -9312,6 +10253,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "INT_RC_VNC_2023_FR": {
@@ -9325,6 +10271,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "INT_RC_VNC_2025": {
@@ -9352,6 +10303,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BAI_2025": {
@@ -9368,6 +10324,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BAI_FR_2023": {
@@ -9384,6 +10345,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BAI_U22_2021": {
@@ -9400,6 +10366,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BAI_U23_2022": {
@@ -9416,6 +10387,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BN_2024": {
@@ -9429,6 +10405,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BN_2025": {
@@ -9442,6 +10423,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_BN_FR_2023": {
@@ -9455,6 +10441,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_EBIT_2024": {
@@ -9470,6 +10461,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.3
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 3.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_EBIT_2025": {
@@ -9485,6 +10481,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_EBIT_FR_2023": {
@@ -9500,6 +10501,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_EBIT_U22_2021": {
@@ -9542,6 +10548,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_FIN_2025": {
@@ -9558,6 +10569,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_FIN_FR_2023": {
@@ -9574,6 +10590,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_FIN_U22_2021": {
@@ -9616,6 +10637,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_IMP_2025": {
@@ -9630,6 +10656,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_IMP_FR_2023": {
@@ -9644,6 +10675,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.05,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_IMP_U22_2021": {
@@ -9657,6 +10693,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_IMP_U23_2022": {
@@ -9670,6 +10711,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_OOIE_2024": {
@@ -9683,6 +10729,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_OOIE_2025": {
@@ -9696,6 +10747,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_PPA_2024": {
@@ -9709,6 +10765,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_PPA_2025": {
@@ -9722,6 +10783,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_PPA_FR_2023": {
@@ -9735,6 +10801,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_PPA_U22_2021": {
@@ -9748,6 +10819,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_PPA_U23_2022": {
@@ -9761,6 +10837,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_2024": {
@@ -9776,6 +10857,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_2025": {
@@ -9790,6 +10876,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_FR_2023": {
@@ -9805,6 +10896,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_MR_U21_2020": {
@@ -9818,6 +10914,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_U21_2020": {
@@ -9832,6 +10933,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_U22_2021": {
@@ -9840,12 +10946,18 @@
       "ventas 2021"
      ],
      "identidades_entre_paginas": [
+      "R23 2021",
       "R42 2021",
       "R42 2022"
      ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "IS_VENTAS_U23_2022": {
@@ -9854,12 +10966,18 @@
       "ventas 2022"
      ],
      "identidades_entre_paginas": [
+      "R23 2022",
       "R42 2022",
       "R42 2023"
      ],
      "identidades_misma_pagina": [],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_AMORT_ROU_2021": {
@@ -9873,6 +10991,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_AMORT_ROU_2022": {
@@ -9886,6 +11009,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_AMORT_ROU_2023": {
@@ -9901,6 +11029,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      0.0,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_AMORT_ROU_2024": {
@@ -9916,6 +11049,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_AMORT_ROU_2025": {
@@ -9931,6 +11069,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_COMB_PAS_2023": {
@@ -10284,6 +11427,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_PRINC_PAS_2024": {
@@ -10299,6 +11447,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_PRINC_PAS_2025": {
@@ -10314,6 +11467,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_REEST_PAS_2023": {
@@ -10420,6 +11578,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_SALDO_PAS_2023_FR": {
@@ -10436,6 +11599,11 @@
      ],
      "historia_del_libro": true,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_SALDO_PAS_2024": {
@@ -10492,6 +11660,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_SALDO_ROU_2023_FR": {
@@ -10508,6 +11681,11 @@
      ],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "LS_SALDO_ROU_2024": {
@@ -10615,6 +11793,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "OOIE_TOT_2025": {
@@ -10628,6 +11811,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "PROV_TOT_2024": {
@@ -10641,6 +11829,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "PROV_TOT_2025": {
@@ -10654,6 +11847,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "PROV_TOT_FR_2023": {
@@ -10667,6 +11865,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "PROV_TOT_U22_2021": {
@@ -10680,6 +11883,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "PROV_TOT_U23_2022": {
@@ -10693,6 +11901,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.2,
+      0.2
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "SBC_N52_U22_2021": {
@@ -10816,6 +12029,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_BAI_2025": {
@@ -10829,6 +12047,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_BAI_FR_2023": {
@@ -10842,6 +12065,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CORR_2024": {
@@ -10855,6 +12083,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CORR_2025": {
@@ -10868,6 +12101,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CORR_FR_2023": {
@@ -10881,6 +12119,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.05,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CORR_U22_2021": {
@@ -10894,6 +12137,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CORR_U23_2022": {
@@ -10907,6 +12155,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_CVAE_2024": {
@@ -10953,6 +12206,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_DIF_2025": {
@@ -10966,6 +12224,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_DIF_FR_2023": {
@@ -10979,6 +12242,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.05,
+      0.25
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 2.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_DIF_U22_2021": {
@@ -10992,6 +12260,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_DIF_U23_2022": {
@@ -11005,6 +12278,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.15,
+      0.15
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.5,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_REAL_2024": {
@@ -11018,6 +12296,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_REAL_2025": {
@@ -11031,6 +12314,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "TAX_REAL_FR_2023": {
@@ -11044,6 +12332,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "VENTAS_SEG_2024": {
@@ -11057,6 +12350,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "VENTAS_SEG_2025": {
@@ -11070,6 +12368,11 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     },
     "VENTAS_SEG_FR_2023": {
@@ -11083,6 +12386,47 @@
      "identidades_misma_pagina": [],
      "historia_del_libro": false,
      "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
+     "pagina_con_identidad_entre_paginas": true
+    },
+    "VENTAS_SEG_U22_2021": {
+     "fuente": "URD2022 p.279 «3,048.3»",
+     "usos": [
+      "ventas_seg 2021"
+     ],
+     "identidades_entre_paginas": [
+      "R23 2021"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
+     "pagina_con_identidad_entre_paginas": true
+    },
+    "VENTAS_SEG_U23_2022": {
+     "fuente": "URD2023 p.296 «3,820.9»",
+     "usos": [
+      "ventas_seg 2022"
+     ],
+     "identidades_entre_paginas": [
+      "R23 2022"
+     ],
+     "identidades_misma_pagina": [],
+     "historia_del_libro": false,
+     "estado": "contrastada entre páginas",
+     "errores_sin_deteccion_entre_paginas": [
+      -0.1,
+      0.1
+     ],
+     "umbral_en_unidades_de_la_ultima_cifra": 1.0,
      "pagina_con_identidad_entre_paginas": true
     }
    }
@@ -11520,16 +12864,16 @@
   }
  },
  "resumen": {
-  "comprobaciones": 290,
+  "comprobaciones": 292,
   "fallidas": 0,
   "por_clase": {
-   "fuente": 125,
+   "fuente": 127,
    "libro": 136,
    "algebraica": 29
   },
   "libro_contrastado": true,
   "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
-  "entradas_usadas": 417,
+  "entradas_usadas": 419,
   "entradas_usadas_pendientes": [],
   "contrapartes_de_identidad_pendientes": [
    "LS_AMORT_ROU_2021"

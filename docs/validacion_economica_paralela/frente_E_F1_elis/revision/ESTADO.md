@@ -15,7 +15,8 @@
 | 5 | Lo afectado por C9 y C10, sobre el commit congelado 364129a (C11). Encargada el 15-nov-2026 a las 22:28:58 UTC a una sesión de revisión **nueva**, con contexto propio. La de las pasadas 1, 3 y 4 había declarado poco presupuesto de contexto | **Hecha**, commit 595d2f6 (23:19 UTC). Reproduce todas las cifras; las siete filas de C9, correctas; P1, P3 y P4 corregidas, P5 con un resto y P2 en parte. Objeciones nuevas: Q1–Q6 (menores) y Q7 (forma). Ninguna conclusión material cambia | [REVISION_INDEPENDIENTE_5.md](REVISION_INDEPENDIENTE_5.md), `scripts_revisor_5/` y `resultados_revisor_5/`: copia sin cambios de 595d2f6 ([PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md)) |
 | Respuesta a la revisión n.º 5 | C12 | Las siete objeciones se aceptan y se corrigen | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), quinta parte |
 | 6 | Lo afectado por C12 (correcciones de Q1–Q7), sobre el commit congelado 1b80b5d (C13). Encargada el 16-nov-2026 a las 00:12:04 UTC a una sesión de revisión nueva, con contexto propio | **Hecha**, commit 9711f04 (01:24 UTC). Reproduce todas las cifras; las siete filas de C12, correctas; Q1, Q3 y Q6 corregidas; Q4 con dos efectos nuevos; Q2 y Q5 en parte; Q7 con un resto. Objeciones nuevas: R1–R5 (menores) y R6–R8 (forma). Ninguna conclusión material cambia | [REVISION_INDEPENDIENTE_6.md](REVISION_INDEPENDIENTE_6.md), `scripts_revisor_6/` y `resultados_revisor_6/`: copia sin cambios de 9711f04 ([PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md)) |
-| Respuesta a la revisión n.º 6 | C14 | **En preparación** | — |
+| Respuesta a la revisión n.º 6 | C14 | Las ocho objeciones se aceptan y se corrigen; en R1, R2 y R3 la corrección no es la que propone el revisor, con el motivo escrito | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), sexta parte |
+| 7 | Lo afectado por C14 (correcciones de R1–R8), sobre el commit congelado que registre el hash de C14 (C15) | **Pendiente**: se encargará a una sesión de revisión nueva | — |
 
 **C4 = d2e585e91638c363682a000bdb416a4b865c6cce.** El commit 1864c4e solo cambia, respecto a C4, este archivo, la línea de C4 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 3; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
 
@@ -25,4 +26,4 @@
 
 Las correcciones de C7 las revisó la pasada 4 (N1, solo en parte; P1–P5). **C12 = 4f3f9ba9c8240143269368c41787736b3867e97b.** El commit siguiente solo cambia, respecto a C12, este archivo, la línea de C12 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 6.
 
-La pasada 5 revisó C9 y C10 (Q1–Q7). Los cambios de C12 **no están revisados** de forma independiente: entran en la pasada 6. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.
+La pasada 5 revisó C9 y C10 (Q1–Q7); la pasada 6, C12 (R1–R8). Los cambios de C14 **no están revisados** de forma independiente: entran en la pasada 7. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.

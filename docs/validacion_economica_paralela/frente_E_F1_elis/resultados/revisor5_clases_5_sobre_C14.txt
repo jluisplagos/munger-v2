@@ -1,0 +1,56 @@
+Filas entregadas al verificador oficial de C8 y de C14: 3566
+
+R. Tablas de reexpresión: tokens declarados del ejercicio anterior al de la publicación, edición «vigente»
+   columna publicada                                            589   C8: OK 589                             C14: FALLO 589
+   columna ajuste u otra                                        762   C8: OK 75 · PENDIENTE 687              C14: PENDIENTE 762
+   columna reexpresada                                          589   C8: PENDIENTE 589                      C14: OK 589
+
+   URD2021: columna publicada, 118 tokens, 0 OK en las seis dimensiones en C14
+   URD2022: columna publicada, 116 tokens, 0 OK en las seis dimensiones en C14
+   URD2023: columna publicada, 120 tokens, 0 OK en las seis dimensiones en C14
+   DEU2024FR: columna publicada, 117 tokens, 0 OK en las seis dimensiones en C14
+   URD2025: columna publicada, 118 tokens, 0 OK en las seis dimensiones en C14
+
+P. Bloques por país de la nota de pensiones: tokens de las tablas del bloque (mejor estado con el ejercicio E o E−1)
+   en millones de euros       376 tokens   C8: {'OK': 293, 'PENDIENTE': 74, 'FALLO': 9}   C14: {'PENDIENTE': 367, 'FALLO': 9}
+   en porcentaje              209 tokens   C8: {'OK': 202, 'PENDIENTE': 7}   C14: {'PENDIENTE': 209}
+   en millones de euros y OK en C14, por publicación: {}
+   filas (token × ejercicio) OK en C8 y no en C14: perímetro en C14: {'PENDIENTE': 495}
+   tokens en millones de euros que quedan OK en C14, por página y bloque (líneas):
+
+G. Tablas de crecimiento: filas entre la cabecera y TOTAL (segmentos), declaradas del grupo; estado en C14
+   URD2021 p.211 · ventas                7 filas · OK en las seis dimensiones: 0 []
+   URD2021 p.211 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 0 []
+   URD2022 p.243 · ventas                7 filas · OK en las seis dimensiones: 0 []
+   URD2022 p.243 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 0 []
+   URD2023 p.261 · ventas                6 filas · OK en las seis dimensiones: 0 []
+   URD2023 p.261 · crecimiento orgánico  6 filas · OK en las seis dimensiones: 0 []
+   DEU2024FR p.253 · ventas                7 filas · OK en las seis dimensiones: 0 []
+   DEU2024FR p.253 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 0 []
+   URD2025 p.307 · ventas                7 filas · OK en las seis dimensiones: 0 []
+   URD2025 p.307 · crecimiento orgánico  7 filas · OK en las seis dimensiones: 0 []
+
+S. Estados principales del URD 2021 (p.226, 227 y 229), columna «12/31/2020 restated (a)»
+
+   token de 2020 declarado 2020 (legítimo)                       75   C8: OK 75                              C14: OK 75
+   el mismo token declarado 2021 (ejercicio equivocado)          75   C8: FALLO 75                           C14: FALLO 75
+
+   legítimos, por anchura del literal en caracteres → estado en C14: 3 car.: {'OK': 19}, 4 car.: {'OK': 6}, 5 car.: {'OK': 21}, 6 car.: {'OK': 14}, 7 car.: {'OK': 13}, 9 car.: {'OK': 2}
+
+N. Enteros de seis cifras o más en las páginas del grupo, declarados en millones de euros: dimensión «unidad»
+   C8 FALLO → C14 FALLO: 72
+   C8 OK → C14 PENDIENTE: 23
+   C8 PENDIENTE → C14 PENDIENTE: 143
+   líneas que pasan de OK a PENDIENTE (12):
+      DEU2024FR p.340 · Impact potentiel de la conversion d'obligations convertibles
+      DEU2024FR p.340 · Impact potentiel des actions dont l'émission est conditionne
+      DEU2024FR p.340 · Nombre moyen pondéré d'actions
+      URD2021 p.291 · Treasury shares (a)
+      URD2021 p.292 · Effect of contingently issuable shares
+      URD2021 p.292 · Effect of conversion of convertible notes
+      URD2022 p.329 · Effect of contingently issuable shares
+      URD2022 p.329 · Effect of conversion of convertible notes
+      URD2023 p.348 · Effect of contingently issuable shares
+      URD2023 p.348 · Effect of conversion of convertible notes
+      URD2025 p.395 · Effect of contingently issuable shares
+      URD2025 p.395 · Effect of conversion of convertible bonds

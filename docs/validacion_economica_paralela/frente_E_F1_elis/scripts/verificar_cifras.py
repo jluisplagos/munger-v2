@@ -9,7 +9,10 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
              con signo coincide con «valor_publicado». Si la etiqueta aparece en varias líneas y no se fija
              «ocurrencia», todas deben dar el mismo literal. Prosa («texto»): el literal está en la página.
   ejercicio  la columna, el bloque o el saldo corresponden al ejercicio declarado («anio»), según «control_anio»:
-               dos_columnas  cabecera más próxima con dos ejercicios, en orden descendente: pos −2 = el más reciente, pos −1 = el anterior;
+               dos_columnas  la columna de ejercicio de la cabecera de la tabla bajo la que está el token: por orden si hay tantas
+                             columnas reconocidas como números y cada número está alineado con la suya; si no, la más
+                             próxima. Bajo una palabra de cabecera ajena, PENDIENTE, salvo que la columna de otro ejercicio
+                             esté alineada con el token (FALLO);
                crecimiento   tabla de variación: el ejercicio es el más reciente de la cabecera;
                max_cabecera  tabla de movimiento con apertura y cierre en la cabecera: el ejercicio es el de cierre;
                movimientos   el bloque empieza en el saldo anterior más próximo («AS AT JANUARY 1, Y» → Y; «AS AT 12/31/Y» → Y+1);
@@ -22,7 +25,10 @@ acreditar automáticamente; el motivo queda escrito) o FALLO:
              unidad declarada es FALLO. Prosa: no aplica.
   perimetro  «consolidado IFRS, grupo Elis»: la cabecera de la página es de estados consolidados o de resultados del
              grupo (si no, PENDIENTE); en una matriz por segmentos solo vale la columna «Total»; una línea cuyo rótulo
-             es un segmento es FALLO. «segmento X»: X debe ser el rótulo de la línea o, en una matriz por segmentos, la
+             es un segmento, un país de una tabla por países (también con el prefijo «CGU»/«UGT»), una jurisdicción o el
+             desglose de un país («of which Ireland», «Hors Union européenne») es FALLO; un título de bloque o de tabla
+             que nombra un país o un segmento, una cabecera con países sin columna reconocida o una columna de un grupo
+             de columnas por entidad (la cabecera repite los ejercicios por marca o por firma) dejan PENDIENTE. «segmento X»: X debe ser el rótulo de la línea o, en una matriz por segmentos, la
              columna del token, identificada por el orden horizontal de las ocho cabeceras (la columna «Total» es FALLO;
              si el orden no se puede acreditar, PENDIENTE). Otro perímetro: FALLO. Prosa: no aplica.
   edicion    el pie de página («Elis | Universal Registration Document AAAA» o «Elis | Document d'enregistrement
@@ -136,7 +142,7 @@ UNIDAD_OTRA_RX = re.compile(r"(?i)\((?:in|en)\s+(?:euros|number|nombre|%|thousan
 PAISES = re.compile(r"^(?:France|Germany|Allemagne|United Kingdom|Royaume-Uni|Spain|Espagne|Brazil|Brésil|Netherlands|Pays-Bas|"
                     r"Denmark|Danemark|Sweden|Suède|Switzerland|Suisse|Mexico|Mexique|Republic of Ireland|Irlande|Ireland|Russia|Russie|"
                     r"Norway|Norvège|Italy|Italie|Portugal|Belgium|Belgique|Poland|Pologne|Chile|Chili|Colombia|Colombie|Finland|Finlande|"
-                    r"République d'Irlande|Eire|Great Britain|Latvia|Lettonie|"
+                    r"République d'Irlande|Eire|Great Britain|Grande-Bretagne|Latvia|Lettonie|"
                     r"Austria|Autriche|Luxembourg|Czech|Tchèque|Other countries|Autres pays)\b")
 # rótulos de sublíneas que dependen de la línea anterior (márgenes, desgloses)
 SUBLINEA = re.compile(r"^(?:As a % of|En % d|of which|dont|›|o/w)", re.I)
@@ -342,22 +348,45 @@ def linea_cabecera_anios(lineas, i, limite=80):
     return None
 
 
+def es_fragmento_de_cabecera(linea):
+    """Fragmento de cabecera en columnas: muy sangrado o con huecos de varias posiciones; la prosa no lo es."""
+    return bool(re.match(r"^\s{10,}\S", linea) or re.search(r"\S {3,}\S", linea))
+
+
+def cabecera_de_otra_tabla(lineas, j, i, idioma):
+    """Línea de la cabecera de ejercicios de la tabla de la fila i si esa tabla empieza después de la declaración de
+    unidades de la línea j, sin declaración propia: la última línea con dos ejercicios o más (y ninguna otra cifra) que
+    aparece tras filas de datos entre j e i. None si la tabla de la fila es la de la declaración."""
+    vistos_datos, h = False, None
+    for k in range(j + 1, i):
+        l = lineas[k]
+        if es_linea_de_datos(l, idioma):
+            vistos_datos = True
+        elif vistos_datos and len(anios_linea(l)) >= 2 and not tokens_numericos(re.sub(r"20\d\d", "", l), idioma):
+            h = k
+    return h
+
+
 def zona_de_cabecera(lineas, i, idioma):
     """Líneas de la cabecera de la tabla de la línea i: el bloque contiguo, sin líneas de datos, que termina en la
     declaración de unidades más próxima por encima (o, si no la hay, en la cabecera de ejercicios), y las líneas sin
-    datos entre esa declaración y la fila."""
+    datos entre esa declaración y la fila. (Revisión n.º 6, R1) Si entre la declaración y la fila empieza otra tabla
+    (cabecera_de_otra_tabla), la cabecera es la de esa tabla: su línea de ejercicios, los fragmentos de cabecera que tiene
+    encima y las líneas sin datos que hay entre ella y la fila. Antes se tomaba la de la tabla anterior, con su prosa."""
     _, j = unidad_declarada(lineas, i)
     if j is None:
         j = linea_cabecera_anios(lineas, i)
         if j is None:
             return []
-    zona, k = [j], j
-    while k - 1 >= 0 and lineas[k - 1].strip() and len(zona) < 9 and not es_linea_de_datos(lineas[k - 1], idioma):
+    h = cabecera_de_otra_tabla(lineas, j, i, idioma)
+    base = j if h is None else h
+    zona, k = [base], base
+    while k - 1 > (-1 if h is None else j) and lineas[k - 1].strip() and len(zona) < 9 and not es_linea_de_datos(lineas[k - 1], idioma):
         k -= 1
         # solo fragmentos de cabecera en columnas (muy sangrados o con huecos de varias posiciones), no prosa
-        if re.match(r"^\s{10,}\S", lineas[k]) or re.search(r"\S {3,}\S", lineas[k]):
+        if es_fragmento_de_cabecera(lineas[k]):
             zona.insert(0, k)
-    zona += [m for m in range(j + 1, i) if lineas[m].strip() and not es_linea_de_datos(lineas[m], idioma)]
+    zona += [m for m in range(base + 1, i) if lineas[m].strip() and not es_linea_de_datos(lineas[m], idioma)]
     return zona
 
 
@@ -387,10 +416,29 @@ def columnas_de_cabecera(lineas, zona, claves):
     return sorted(fechas + list(vistas.values()))
 
 
-def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajenas=False):
-    """Columna del token de la posición pos en la línea i. Si la cabecera tiene tantas columnas reconocidas como números
-    la línea, se asignan por orden («orden»); si no, la columna cuyo centro está más cerca del centro del token
-    («alineación», dentro de maxdist caracteres). Devuelve (clave, texto, método) o (None, None, motivo)."""
+def asignar_columna(sp, cols, idx, maxdist=14, orden_alineado=False):
+    """Columna del token idx de la línea (sp: posiciones de sus números) entre las columnas reconocidas de la cabecera.
+    Por orden («orden») si la cabecera tiene tantas columnas reconocidas como números la línea; con orden_alineado
+    (columnas de ejercicio; revisión n.º 6, R1), además, si cada número está alineado con la columna que le toca, a maxdist
+    caracteres o menos: una cuenta que coincide por accidente desplazaría todas las cifras. En las columnas de concepto
+    (familias) no se exige: sus cabeceras son frases alineadas a la izquierda («Reported growth») y las cifras, a la
+    derecha. Si no, la columna cuyo centro está más cerca del centro del token («alineación», dentro de maxdist).
+    Devuelve (clave, texto, método, centro de la columna, distancia), o (None, None, motivo, None, distancia) si el token
+    no está bajo ninguna columna reconocida."""
+    centros = [(a + b) / 2 for a, b in sp]
+    if len(cols) == len(sp) and (not orden_alineado or all(abs(c - k[0]) <= maxdist for c, k in zip(centros, cols))):
+        c, clave, txt = cols[idx]
+        return clave, txt, "orden", c, abs(centros[idx] - c)
+    d, clave, txt, c = min((abs(c - centros[idx]), clave, txt, c) for c, clave, txt in cols)
+    if d > maxdist:
+        return None, None, "el token no está bajo ninguna columna reconocida", None, d
+    return clave, txt, "alineación", c, d
+
+
+def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajenas=False, orden_alineado=False):
+    """Columna del token de la posición pos en la línea i (asignar_columna). Devuelve (clave, texto, método) o
+    (None, None, motivo). Con cabeceras_ajenas, el método «ajena:D:palabra» dice que el token está más cerca de una palabra
+    de la cabecera que no es de ninguna columna reconocida que de la columna asignada, que está a D caracteres."""
     sp = spans_numericos(lineas[i], idioma)
     if not sp or not -len(sp) <= pos < len(sp):
         return None, None, "sin token en la posición"
@@ -401,13 +449,13 @@ def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajena
     if not cols:
         return None, None, "la cabecera no tiene columnas reconocibles"
     idx = pos % len(sp)
-    if len(cols) == len(sp):
-        return cols[idx][1], cols[idx][2], "orden"
+    clave, txt, metodo, _, d = asignar_columna(sp, cols, idx, maxdist, orden_alineado)
+    # Por orden, cada número de la línea tiene su propia columna reconocida y está alineado con ella: una palabra ajena
+    # más próxima es parte de la misma celda apilada («Income (loss) / before tax 2025», «Montant (HT)»), no otra columna.
+    if clave is None or metodo == "orden":
+        return clave, txt, metodo
     a, b = sp[idx]
     c_tok = (a + b) / 2
-    d, clave, txt = min((abs(c - c_tok), clave, txt) for c, clave, txt in cols)
-    if d > maxdist:
-        return None, None, "el token no está bajo ninguna columna reconocida"
     # La columna reconocida más cercana no basta si el token está aún más cerca de otra palabra de la cabecera que no es
     # de ninguna columna reconocida (un país, una sociedad, un ajuste). Caso: tabla de flujos de adquisiciones con la
     # columna «12/31/2021» (total) seguida de «Belgium», «Brazil»…: la cifra de Bélgica quedaba asignada a 2021.
@@ -415,13 +463,20 @@ def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajena
     # solo una casa con la clave, así que las demás no son columnas ajenas.
     ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok) if cabeceras_ajenas else None
     if ajena is not None and ajena[0] < d:
-        # (revisión n.º 5, Q3) no se devuelve None: quien llama decide. Si la columna reconocida más próxima es de otro
-        # ejercicio, el FALLO se mantiene; si es la del ejercicio declarado, queda PENDIENTE.
-        return clave, txt, "ajena:" + ajena[1]
+        # (revisión n.º 5, Q3) no se devuelve None: quien llama decide, con la distancia a la columna reconocida
+        # (revisión n.º 6, R3)
+        return clave, txt, f"ajena:{d:g}:{ajena[1]}"
     return clave, txt, "alineación"
 
 
 APERTURA_RX = re.compile(r"(?i)(?:\b0?1/0?1/|January 1,\s*|1er janvier\s*)$")
+# (revisión n.º 6, R3) distancia máxima, en caracteres, entre el centro de un token y el de una columna de ejercicio para
+# tenerlos por alineados cuando el token está además bajo una cabecera ajena: la mitad de una fecha «12/31/2025» sobre una
+# cifra de un carácter alineada a la derecha (4,5) más un carácter de holgura de la maquetación de pdftotext. Con el valor
+# de 3 que proponía el revisor, 131 cifras de una columna de otro ejercicio alineada (según su propia lectura por la
+# posición de las palabras) quedaban PENDIENTE a 3,5 caracteres; las cifras del cierre bajo «Valeur comptable» del DEU
+# 2024 p.323 están a 13,5
+ALINEADA = 5.5
 # palabras de cabecera que califican una columna reconocida (no son columnas propias)
 CALIFICADOR = re.compile(r"(?i)^(?:\(?\*+\)?|\(\d+\)|\([a-z]\)|restated\*?|published|reported|retrait[ée]e?s?\*?|publi[ée]e?s?|réel|actual|"
                          r"pro|forma|\(unaudited\)|\(non|audité\)|adjusted\*?|ajust[ée]e?s?\*?)$")
@@ -464,28 +519,20 @@ def palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok):
 def edicion_de_columna(lineas, i, pos, idioma, maxdist=14):
     """(Revisión n.º 5, Q1) «publicada» o «reexpresada» si la columna de ejercicio del token lleva en su cabecera, a menos
     de 10 caracteres de su centro, «published», «reported», «publié(e)» o «restated», «retraité(e)»; None si no lleva
-    ninguna de esas marcas. La columna se asigna como en columna_de_token."""
+    ninguna de esas marcas. La columna se asigna como en columna_de_token, con la misma regla de cabecera ajena: si el
+    token está bajo una palabra de la cabecera que no es de ninguna columna reconocida (la columna de ajuste «IFRS 3» de una
+    tabla de reexpresión), no está bajo la columna publicada ni bajo la reexpresada, y no se marca (revisión n.º 6, R8 b)."""
+    claves = ("ejercicio", "variacion", "notas")
+    clave, _, metodo = columna_de_token(lineas, i, pos, idioma, claves, maxdist, cabeceras_ajenas=True, orden_alineado=True)
+    if clave != "ejercicio" or metodo.startswith("ajena:"):
+        return None
     sp = spans_numericos(lineas[i], idioma)
-    if not sp or not -len(sp) <= pos < len(sp):
-        return None
     zona = zona_de_cabecera(lineas, i, idioma)
-    cols = [c for c in columnas_de_cabecera(lineas, zona, ("ejercicio", "variacion", "notas"))] if zona else []
-    if not cols:
-        return None
-    idx = pos % len(sp)
-    if len(cols) == len(sp):
-        col = cols[idx]
-    else:
-        a_, b_ = sp[idx]
-        col = min(cols, key=lambda c: abs(c[0] - (a_ + b_) / 2))
-        if abs(col[0] - (a_ + b_) / 2) > maxdist:
-            return None
-    if col[1] != "ejercicio":
-        return None
+    _, _, _, centro, _ = asignar_columna(sp, columnas_de_cabecera(lineas, zona, claves), pos % len(sp), maxdist, orden_alineado=True)
     mejor = None
     for k in zona:
         for m in EDICION_COLUMNA.finditer(lineas[k]):
-            d = abs((m.start() + m.end()) / 2 - col[0])
+            d = abs((m.start() + m.end()) / 2 - centro)
             if d <= 10 and (mejor is None or d < mejor[0]):
                 mejor = (d, m.group(1).lower())
     if mejor is None:
@@ -527,13 +574,21 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
     if modo == "crecimiento" and "%" not in fila["literal"]:
         return "FALLO", "una tabla de crecimiento solo admite porcentajes"
     if modo == "dos_columnas":
-        col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"), cabeceras_ajenas=True)
+        col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"), cabeceras_ajenas=True,
+                                            orden_alineado=True)
         if col is None:
             return "PENDIENTE", f"columna del ejercicio no acreditada: {metodo}"
         if metodo.startswith("ajena:"):
+            _, dist, palabra = metodo.split(":", 2)
+            # (revisión n.º 6, R3) el FALLO solo si la columna de otro ejercicio está alineada con el token (ALINEADA): si está
+            # más lejos, el token está bajo su propia cabecera ajena («Valeur comptable» junto a columnas de vencimientos
+            # futuros) y la columna reconocida más próxima es la vecina, no la suya
+            if col == "ejercicio" and int(txt) != anio and float(dist) <= ALINEADA:
+                return "FALLO", f"la columna reconocida más próxima, alineada con el token ({dist} caracteres), es de {txt}, no de {anio} (el token está además bajo «{palabra}»)"
             if col == "ejercicio" and int(txt) != anio:
-                return "FALLO", f"la columna reconocida más próxima es de {txt}, no de {anio} (el token está además bajo «{metodo[6:]}»)"
-            return "PENDIENTE", f"columna del ejercicio no acreditada: el token está bajo la cabecera «{metodo[6:]}», que no es una columna reconocida"
+                return "PENDIENTE", (f"columna del ejercicio no acreditada: el token está bajo la cabecera «{palabra}», que no es una columna "
+                                     f"reconocida; la columna reconocida más próxima ({txt}) está a {dist} caracteres, no alineada con él")
+            return "PENDIENTE", f"columna del ejercicio no acreditada: el token está bajo la cabecera «{palabra}», que no es una columna reconocida"
         if col != "ejercicio":
             return "FALLO", f"la columna es «{txt}», no un ejercicio"
         a = int(txt)
@@ -615,15 +670,8 @@ def unidad_declarada(lineas, i, limite=70):
 
 def otra_tabla_entre(lineas, j, i, idioma):
     """¿Empieza otra tabla entre la declaración de unidades (j) y la línea (i)? Una cabecera de ejercicios que aparece
-    después de filas de datos, sin declaración propia, es de otra tabla."""
-    vistos_datos = False
-    for k in range(j + 1, i):
-        l = lineas[k]
-        if es_linea_de_datos(l, idioma):
-            vistos_datos = True
-        elif vistos_datos and len(anios_linea(l)) >= 2 and not tokens_numericos(re.sub(r"20\d\d", "", l), idioma):
-            return True
-    return False
+    después de filas de datos, sin declaración propia, es de otra tabla (cabecera_de_otra_tabla)."""
+    return cabecera_de_otra_tabla(lineas, j, i, idioma) is not None
 
 
 def entero_de_recuento(lit, idioma):
@@ -704,15 +752,56 @@ def columna_de_matriz(lineas, j_unidad, linea, pos, idioma, alto=6):
     return col
 
 
+def sin_prefijo_uge(r):
+    """Rótulo sin el prefijo de unidad generadora de efectivo («CGU Denmark» → «Denmark», «UGT Irlande» → «Irlande»)."""
+    return re.sub(r"^(?:CGU|UGT)\s+", "", r.strip(), flags=re.I)
+
+
 def tabla_por_paises(lineas, i, j, idioma):
-    """País de la fila i si está en una tabla por países (tres o más filas de datos con rótulo de país); None si no."""
+    """País de la fila i si está en una tabla por países (tres o más filas de datos con rótulo de país); None si no.
+    (Revisión n.º 6, R5) El rótulo se compara sin el prefijo «CGU»/«UGT»: la tabla del fondo de comercio por UGE es una
+    tabla por países, y antes solo fallaba la fila «CGU France» (por ser Francia un segmento)."""
     if j is None:
         return None
     datos = [k for k in range(j + 1, min(len(lineas), i + 40)) if es_linea_de_datos(lineas[k], idioma)]
-    if sum(1 for k in datos if PAISES.match(rotulo(lineas[k]))) < 3:
+    if sum(1 for k in datos if PAISES.match(sin_prefijo_uge(rotulo(lineas[k])))) < 3:
         return None
-    m = PAISES.match(rotulo(lineas[i]))
+    m = PAISES.match(sin_prefijo_uge(rotulo(lineas[i])))
     return m.group(0) if m else None
+
+
+# (revisión n.º 6, R1) filas de jurisdicciones fiscales o de regiones, y desgloses de un país («of which Ireland»,
+# «dont Irlande», «European Union (excluding France)», «Hors Union européenne»): no son el grupo
+JURISDICCION = re.compile(r"(?i)\b(?:European Union|Union européenne|Non-cooperative jurisdictions?|(?:Pays|juridictions?) non[- ]coopérati\w*|"
+                          r"Rest of the world|Reste du monde)\b")
+DESGLOSE_PAIS = re.compile(r"(?i)(?:^|[›(\s])(?:of which|o/w|dont|including|excluding|excl\.?|hors)\s+(?:the\s+|l'|la\s+|le\s+|les\s+)?"
+                           + PAIS_O_SEGMENTO_TITULO.pattern)
+
+
+def rotulo_multilinea(lineas, i, idioma, alto=4):
+    """Rótulo de la fila i con las líneas de rótulo que tiene encima: sin cifras, de una sola celda, con la misma sangría
+    y sin línea en blanco por medio («Non-cooperative» / «jurisdictions for tax» / «purposes (European Union» / «list)»)."""
+    r = rotulo(lineas[i])
+    if not r:
+        return r
+    sangria = len(lineas[i]) - len(lineas[i].lstrip())
+    partes, k = [r], i - 1
+    while k >= 0 and len(partes) <= alto:
+        l = lineas[k]
+        if not l.strip() or tokens_numericos(l, idioma) or len(trozos(l)) != 1 or len(l.strip()) > 45:
+            break
+        if abs((len(l) - len(l.lstrip())) - sangria) > 3:
+            break
+        partes.insert(0, l.strip())
+        k -= 1
+    return " ".join(partes)
+
+
+def jurisdiccion_de_fila(lineas, i, idioma):
+    """(Revisión n.º 6, R1) El rótulo completo de la fila si es una jurisdicción, una región o el desglose de un país o de
+    un segmento («› of which Ireland», «dont Irlande», «Excluding the European Union»); None si no."""
+    r = rotulo_multilinea(lineas, i, idioma)
+    return r if (JURISDICCION.search(r) or DESGLOSE_PAIS.search(r)) else None
 
 
 def es_titulo(t):
@@ -723,11 +812,22 @@ def es_titulo(t):
             and sum(c.isupper() for c in letras) >= 0.8 * len(letras))
 
 
-def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None):
+# (revisión n.º 6, R2) encabezado numerado de nota o de apartado: «NOTE 13 STATUTORY AUDITORS' FEES», «5.4 Share-based
+# payments», «NOTE 2.4 …»; no las filas con cifras ni el número de capítulo del margen («6   On January 9…»)
+ENCABEZADO_NUMERADO = re.compile(r"^(?:(?:NOTE|Note|NOTA|Nota)\s+\d+(?:\.\d+)*|\d+(?:\.\d+)+\.?)\s+(?=\S)")
+
+
+def es_encabezado_numerado(t, idioma):
+    m = ENCABEZADO_NUMERADO.match(t)
+    return bool(m) and len(t) <= 80 and not tokens_numericos(t[m.end():], idioma) and bool(re.search(r"[^\W\d_]{3}", t[m.end():]))
+
+
+def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None, idioma="en"):
     """(Revisión n.º 5, Q4) Título del bloque de la fila, si nombra un país o un segmento. Primero, lo que queda en la línea
     de unidades de su tabla después de la declaración, si es una cabecera de columna («(In millions of euros) France»).
-    Después, hacia arriba desde la fila hasta el principio de la página, la primera línea de título (es_titulo); si la
-    página no tiene ninguna por encima de la fila, la última de la página anterior. None si ese título no nombra ninguno."""
+    Después, hacia arriba desde la fila hasta el principio de la página, la primera línea de título (es_titulo) o
+    (revisión n.º 6, R2) el primer encabezado numerado de nota o de apartado; si la página no tiene ninguno por encima de la
+    fila, el último de la página anterior. None si ese título no nombra ninguno."""
     if j is not None and j < i:
         resto = lineas[j]
         for rx, _ in UNIDAD_RX:
@@ -737,57 +837,134 @@ def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None):
         resto = re.sub(r"[()]", "", resto).strip()
         if resto and not re.search(r"\d", resto) and PAIS_O_SEGMENTO_TITULO.fullmatch(resto):
             return resto
-    for k in range(i - 1, -1, -1):
-        t = lineas[k].strip()
-        if es_titulo(t):
-            return t if PAIS_O_SEGMENTO_TITULO.search(t) else None
-    for t in reversed([x.strip() for x in (lineas_previas or [])]):
-        if es_titulo(t):
+    for t in [lineas[k].strip() for k in range(i - 1, -1, -1)] + list(reversed([x.strip() for x in (lineas_previas or [])])):
+        if es_titulo(t) or es_encabezado_numerado(t, idioma):
             return t if PAIS_O_SEGMENTO_TITULO.search(t) else None
     return None
 
 
-def titulo_de_pais_encima(lineas, j, alto=15):
-    """(Revisión n.º 4, P2) Título más próximo por encima de la tabla, si nombra un país o un segmento («FRANCE – DETAILS»
-    sobre el bloque de pensiones de Francia). Se mira primero lo que queda en la línea de unidades después de la declaración
-    («(In millions of euros) France») y después, hacia arriba, la primera línea corta sin cifras; las líneas con cifras
-    (datos, cabeceras de fechas) y la prosa larga se saltan. None si el título más próximo no nombra ninguno."""
+def titulo_corto_de_tabla(lineas, i, j, idioma, alto=8):
+    """(Revisión n.º 6, R4: criterio de C10, acotado) Título corto de la tabla de la fila i si nombra un país o un segmento
+    («Mexico», «France», «Interest rate swap – Chile»). Desde la cabecera de la tabla (la línea de unidades j o, si la
+    tabla empieza después, su línea de ejercicios) hacia arriba, hasta `alto` líneas no vacías: las líneas de cabecera en
+    columnas (dos celdas o más) se saltan; una línea de datos, con cifras, de más de 40 caracteres o con puntuación de
+    frase corta la búsqueda; la primera línea de una sola celda decide: es el título si nombra un país o un segmento con
+    cuatro palabras más como mucho. Así no cuenta la prosa que menciona un país por encima de una tabla del grupo."""
     if j is None:
         return None
-    resto = lineas[j]
-    for rx, _ in UNIDAD_RX:
-        resto = rx.sub("", resto)
-    candidatos = [resto] + [lineas[k] for k in range(j - 1, max(-1, j - alto), -1)]
-    for c in candidatos:
-        t = c.strip()
-        if not t or re.search(r"\d", t) or len(t) > 60:
+    h = cabecera_de_otra_tabla(lineas, j, i, idioma)
+    vistas = 0
+    for k in range((j if h is None else h) - 1, -1, -1):
+        l = lineas[k]
+        t = l.strip()
+        if not t:
             continue
+        vistas += 1
+        if vistas > alto or es_linea_de_datos(l, idioma) or re.search(r"\d", t):
+            return None
+        if len(trozos(l)) >= 2:
+            continue
+        if len(t) > 40 or re.search(r"[,;.:!?]", t):
+            return None
         m = PAIS_O_SEGMENTO_TITULO.search(t)
-        return t if m else None
+        if not m:
+            return None
+        otras = re.findall(r"[^\W\d_][\w'-]*", (t[:m.start()] + " " + t[m.end():]))
+        return t if len(otras) <= 4 else None
     return None
 
 
 def pais_de_columna(lineas, i, pos, idioma):
     """En una tabla con columnas por país (tres países o más en la cabecera), palabra de cabecera bajo la que está el token
-    si no es la columna del ejercicio o del total: la columna de un país o de una sociedad, no del grupo. None si no."""
+    si no es la columna del ejercicio o del total: la columna de un país o de una sociedad, no del grupo. Devuelve
+    («columna», cabecera) o, si la cabecera nombra tres países o más y no tiene ninguna columna reconocida (ni ejercicio
+    ni total), («sin_columnas», países) (revisión n.º 6, R4); None si no."""
     sp = spans_numericos(lineas[i], idioma)
     if not sp or not -len(sp) <= pos < len(sp):
         return None
     zona = zona_de_cabecera(lineas, i, idioma)
-    if not zona or len(set(PAIS_EN_CABECERA.findall(" ".join(lineas[k] for k in zona)))) < 3:
+    paises = sorted(set(PAIS_EN_CABECERA.findall(" ".join(lineas[k] for k in zona)))) if zona else []
+    if len(paises) < 3:
         return None
     a, b = sp[pos % len(sp)]
     c_tok = (a + b) / 2
     claves = ("ejercicio", "variacion", "notas", "total")
     cols = columnas_de_cabecera(lineas, zona, claves)
-    d_rec = min((abs(c - c_tok) for c, _, _ in cols), default=float("inf"))
+    if not cols:
+        return "sin_columnas", ", ".join(paises)
+    d_rec = min(abs(c - c_tok) for c, _, _ in cols)
     ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok)
     if ajena is None or ajena[0] >= d_rec:
         return None
-    # (revisión n.º 5, Q7 f) la cabecera completa de la columna: las palabras apiladas en el mismo sitio («Great» /
-    # «Britain», «Germany &» / «Luxembourg»)
-    pal = [(k, m.group()) for k in zona for m in re.finditer(r"\S+", lineas[k]) if abs((m.start() + m.end()) / 2 - c_tok) <= ajena[0] + 5]
-    return " ".join(w for _, w in sorted(pal)) or ajena[1]
+    # (revisión n.º 5, Q7 f; revisión n.º 6, R8 c) la cabecera completa de la columna: las palabras sin cifras apiladas en el
+    # mismo sitio, en el orden de la página, línea a línea («Great» / «Britain», «Germany &» / «Luxembourg»). La prosa de la
+    # tabla anterior ya no entra: la zona de cabecera es la de la propia tabla
+    pal = [(k, m.start(), m.group()) for k in zona for m in re.finditer(r"\S+", lineas[k])
+           if not re.search(r"\d", m.group()) and abs((m.start() + m.end()) / 2 - c_tok) <= ajena[0] + 5]
+    return "columna", " ".join(w for _, _, w in sorted(pal)) or ajena[1]
+
+
+def periodo_de_ejercicios(anios):
+    """(Revisión n.º 6, R1) Menor periodo p ≥ 2 con el que los ejercicios de las columnas, de izquierda a derecha, repiten
+    dos veces o más un mismo bloque de ejercicios distintos («2025 2024 2025 2024 2025 2024» → 2: un grupo de columnas por
+    entidad o por medida, con una columna por ejercicio). None si no («2025 2025 2025 2024 2024 2024»: una columna por
+    medida dentro de cada ejercicio; o ejercicios sin repetir)."""
+    n = len(anios)
+    for p in range(2, n // 2 + 1):
+        if n % p == 0 and len(set(anios[:p])) == p and all(anios[k] == anios[k % p] for k in range(n)):
+            return p
+    return None
+
+
+def grupo_de_columnas(lineas, i, pos, idioma, alto=4):
+    """(Revisión n.º 6, R1) En una tabla cuya cabecera repite los mismos ejercicios una vez por grupo de columnas
+    (periodo_de_ejercicios: «Elis · Le Jacquard Français · Kennedy Hygiene», cada una con «12/31/2025 · 12/31/2024»; las
+    firmas auditoras con sus importes y porcentajes), el rótulo del grupo de la columna del token: en cada línea de la
+    cabecera por encima de la línea de fechas (y en las `alto` líneas de cabecera en columnas que tiene encima), la celda
+    más próxima al centro del grupo. None si la tabla no es de esa forma, si no se sabe la columna del token o si el grupo
+    es el total o el grupo consolidado."""
+    sp = spans_numericos(lineas[i], idioma)
+    if not sp or not -len(sp) <= pos < len(sp):
+        return None
+    zona = zona_de_cabecera(lineas, i, idioma)
+    cols = columnas_de_cabecera(lineas, zona, ("ejercicio",)) if zona else []
+    p = periodo_de_ejercicios([txt for _, _, txt in cols])
+    if p is None:
+        return None
+    clave, _, _, centro, _ = asignar_columna(sp, cols, pos % len(sp), orden_alineado=True)
+    if clave is None:
+        return None
+    g = [c for c, _, _ in cols].index(centro) // p
+    grupo = cols[g * p:(g + 1) * p]
+    c_g = sum(c for c, _, _ in grupo) / p
+    ini, fin = cols[0][0] - 6, cols[-1][0] + 6
+    fechas = [k for k in zona if len(re.findall(FRASES_COLUMNA["ejercicio"], lineas[k])) >= 2]
+    k_fechas = max(fechas) if fechas else min(zona)
+    # la línea de fechas debe ser una cabecera, no prosa: además de las fechas, una declaración de unidades o pocas palabras
+    resto = re.sub(r"\d{1,2}/\d{1,2}/20\d\d|20\d\d", " ", lineas[k_fechas])
+    for rx, _ in UNIDAD_RX:
+        resto = rx.sub(" ", resto)
+    if len(re.findall(r"[^\W\d_]{2,}", resto)) > 4:
+        return None
+    encima = [k for k in zona if k < k_fechas]
+    k, extra = min(zona) - 1, 0
+    while k >= 0 and extra < alto:
+        if lineas[k].strip():
+            if es_linea_de_datos(lineas[k], idioma) or not es_fragmento_de_cabecera(lineas[k]):
+                break
+            encima.insert(0, k)
+            extra += 1
+        k -= 1
+    rotulos = []
+    for k in sorted(set(encima)):
+        celdas = [(abs((m.start() + m.end()) / 2 - c_g), m.group()) for m in re.finditer(r"\S+(?: \S+)*", lineas[k])
+                  if ini <= (m.start() + m.end()) / 2 <= fin and not re.search(r"\d", m.group())]
+        if celdas:
+            rotulos.append(min(celdas)[1])
+    nombre = " / ".join(rotulos) or f"grupo {g + 1} de {len(cols) // p}"
+    if re.search(r"(?i)\b(?:total|group|groupe|consolid)", nombre):
+        return None
+    return nombre
 
 
 def normalizar_rotulo(r):
@@ -840,7 +1017,9 @@ def segmento_de_sublinea(lineas, i, j, idioma):
         rk = rotulo(lineas[k])
         if SUBLINEA.match(rk):
             continue
-        return ROTULOS_SEGMENTO.get(rk)
+        # (revisión n.º 6, R8 d) la fila de la que depende se atribuye con el mismo criterio con el que se cuentan las
+        # filas de segmento: rótulo normalizado y, si está partido, unido
+        return segmento_de_rotulo(lineas, k, idioma)
     return None
 
 
@@ -854,6 +1033,9 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en", lineas_previas=None):
             return "PENDIENTE", "la cabecera de la página no la identifica como estados consolidados ni como resultados del grupo"
         if seg_linea:
             return "FALLO", f"la línea es del segmento {seg_linea}, no del grupo"
+        jur = jurisdiccion_de_fila(lineas, i, idioma)
+        if jur:
+            return "FALLO", f"la línea «{jur}» es de una jurisdicción, una región o el desglose de un país, no del grupo"
         seg_padre = segmento_de_sublinea(lineas, i, j, idioma)
         if seg_padre:
             return "FALLO", f"la línea depende del rótulo del segmento {seg_padre}, no del grupo"
@@ -865,12 +1047,19 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en", lineas_previas=None):
             if col == "Total" or (col is None and pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total"):
                 return "OK", "columna «Total» de una matriz por segmentos"
             return "FALLO", f"columna {'del segmento ' + col if col else 'de un segmento'} en una matriz por segmentos, no el total del grupo"
-        tit = titulo_de_pais_encima_v2(lineas, i, j, lineas_previas)
+        tit = titulo_de_pais_encima_v2(lineas, i, j, lineas_previas, idioma) or titulo_corto_de_tabla(lineas, i, j, idioma)
         if tit:
             return "PENDIENTE", f"el título «{tit}» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar"
         pc = pais_de_columna(lineas, i, pos, idioma)
+        if pc and pc[0] == "columna":
+            return "FALLO", f"la columna es la de «{pc[1]}» en una tabla con columnas por país, no la del grupo"
         if pc:
-            return "FALLO", f"la columna es la de «{pc}» en una tabla con columnas por país, no la del grupo"
+            return "PENDIENTE", (f"la cabecera nombra países ({pc[1]}) y no tiene ninguna columna reconocida (ejercicio o total): "
+                                 "no se puede acreditar que la columna sea la del grupo")
+        ent = grupo_de_columnas(lineas, i, pos, idioma)
+        if ent:
+            return "PENDIENTE", (f"la cabecera repite los ejercicios una vez por grupo de columnas (entidad o medida) y la columna es la de "
+                                 f"«{ent}»: el perímetro del grupo no se puede acreditar")
         return "OK", "página de estados consolidados o de resultados del grupo"
     if p.startswith("segmento "):
         es = ROTULOS_SEGMENTO.get(p[len("segmento "):].strip())
