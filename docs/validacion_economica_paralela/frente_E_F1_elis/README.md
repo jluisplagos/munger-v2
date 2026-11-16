@@ -6,6 +6,7 @@ Carpeta propia del frente económico. Solo contiene documentos y cálculos de co
 |---|---|
 | [INFORME_CONCILIACION_F1.md](INFORME_CONCILIACION_F1.md) | Conciliación 2023–2025 y horizonte 2021–2025; puente del FCF base 307,933 a f y al motor A; arrendamientos; intangibles adquiridos y reinversión necesaria; impuestos; financiación; alternativas; decisiones pendientes |
 | [ESPECIFICACION_F1_PROPUESTA.md](ESPECIFICACION_F1_PROPUESTA.md) | Especificación propuesta para el frente técnico, con reglas de control y criterios de prueba. No adoptada |
+| [PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md) | Propuesta conjunta de las decisiones F1 (alternativa y arrendamientos, intangibles adquiridos, reinversión necesaria, perímetros), con su evidencia, alternativas y la decisión que se pide. **Para aprobación; no adoptada ni implementada** |
 | [REGISTRO_CONFIGURACION.md](REGISTRO_CONFIGURACION.md) | Modelos, esfuerzo y separación de contextos según lo que expone el entorno |
 | [PUNTO_DE_RECUPERACION.md](PUNTO_DE_RECUPERACION.md) | Estado de las pruebas, incidencias pendientes y siguiente paso exacto. Se reescribe al terminar cada bloque importante |
 | [revision/](revision/) | Estado de la revisión independiente; informe, scripts y salidas del revisor (copia sin cambios de su rama, con procedencia y huellas); respuesta del autor a cada objeción |

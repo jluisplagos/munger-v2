@@ -2,7 +2,7 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** incorporación de la revisión n.º 9 (copia sin cambios de a3a1a2b, procedencia y registro). Su respuesta, C20, está en preparación.
+**Bloque cerrado:** propuesta conjunta de las decisiones F1 para la persona responsable ([PROPUESTA_DECISIONES_F1.md](PROPUESTA_DECISIONES_F1.md)), **sin implementar**; antes, la incorporación de la revisión n.º 9. La respuesta C20 a esa revisión queda en espera.
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
@@ -19,7 +19,8 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C18 = `f12f8ea79ed5c1b444d85163c5ed08d8d07a6243` | Respuesta a la revisión n.º 8: el año del rótulo como no cifra (`token_del_rotulo`), la octava parte de las respuestas, los documentos y las salidas |
 | C19 = `06ad1003aa5320445d0c42498c3d0efaec971f06` | Congelado de la revisión n.º 9: solo registra el hash de C18 |
 | `105b57b` | Registra el encargo de la pasada 9 |
-| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 9 (a3a1a2b, 24/24 blobs), procedencia y registro. No cambia código, datos ni resultados |
+| `6d799c6` | Copia de la revisión n.º 9 (a3a1a2b, 24/24 blobs), procedencia y registro |
+| El commit que contiene esta versión de este archivo | Propuesta de decisiones F1 para aprobación. No cambia código, datos ni resultados |
 
 Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AUTOR_1.md`):
 - **T1:** con la fecha del saldo en el rótulo y varias columnas de datos, «columna» queda PENDIENTE. De las 346 aceptaciones de C16 quedan diez (las tablas de deterioro de clientes, de una sola columna).
@@ -49,7 +50,8 @@ Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AU
 
 ## 3. Incidencias pendientes
 
-1. **Responder a la revisión n.º 9** (C20). Plan, según sus correcciones propuestas (`revision/REVISION_INDEPENDIENTE_9.md`, §7):
+0. **Decisiones F1, de la persona responsable:** la propuesta pide las decisiones (1a), (1b), (2), (3a), (3b), (4a), (4b), (5a) y (5b). No se implementa nada hasta su aprobación. Elis sigue en `pendiente_de_datos`.
+1. **Responder a la revisión n.º 9** (C20, en espera). Plan, según sus correcciones propuestas (`revision/REVISION_INDEPENDIENTE_9.md`, §7):
    - **U1:** que la tokenización devuelva la posición de cada token, sin buscar su texto en la línea (el «0» de una fila se localizaba en el «0» de la fecha del rótulo y `token_del_rotulo` retiraba ocho ceros reales); casos U1a y U2a de `contraejemplos_9`;
    - **U2:** decidir y declarar si los recuentos con fecha toman el ejercicio de su fecha. Si no lo toman, la primera línea del rótulo de la fila cuenta para la condición de las palabras, y la regla no se aplica bajo un encabezado numerado (sumario). Ajustar las frases; casos U3a y U3b;
    - **U3:** contar las columnas en la tabla (el máximo de las filas del bloque o las celdas de la cabecera), o declarar el límite;
@@ -64,9 +66,8 @@ Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AU
 
 ## 4. Siguiente paso exacto
 
-1. Leer entera la revisión n.º 9 (§2 a §9) y sus contraejemplos (`revision/resultados_revisor_9/contraejemplos_9.txt` y `sondas_sinteticas_9.txt`).
-2. Implementar el plan de §3.1 con un caso de test por clase. Comprobar que ninguna de las 752 filas reales cambia de estado sin causa explicada, y pasar los barridos de los revisores n.º 6 a 9 entre C18 y C20.
-3. Novena parte de las respuestas, informe, especificación, estado y registro. Commit C20, push y punto de recuperación; congelar (C21) y encargar la pasada 10.
+1. Esperar la decisión sobre la propuesta F1. Lo aprobado se registrará con fecha, persona y motivo y se aplicará en la especificación y el motor, con pruebas y una revisión independiente.
+2. Mientras tanto, y salvo indicación en contra, responder a la revisión n.º 9 (C20) según el plan de §3.1: leer la revisión entera (§2 a §9) y sus contraejemplos, implementar, comprobar las 752 filas, repetir los barridos de los revisores n.º 6 a 9, escribir la novena parte, commit, push, congelado C21 y pasada 10.
 
 ## 5. Cómo reanudar en una sesión nueva
 
