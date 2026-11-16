@@ -1,15 +1,15 @@
 # Punto de recuperación · 4.15 hito 2
 
-Actualizado: 16-nov-2026, tras las correcciones de la quinta comprobación (V1–V7), rama `claude/hopeful-bardeen-qap6y0`.
+Actualizado: 16-nov-2026, tras las correcciones de la sexta comprobación (W1, W3–W5), rama `claude/hopeful-bardeen-qap6y0`.
 Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fuera de este frente.
 
 ## Estado de las pruebas (hechos)
 
-- Última regresión completa conforme: candidata `876bfc2` → **RESULTADO GLOBAL: PASA** (`resultados/verificacion_completa_876bfc2.txt`);
-  reconstrucción de C48 con ese código: 8 casos iguales (`resultados/reconstruccion_c48_876bfc2/`).
-- **Después** se corrigieron V1 (franco, real y coronas en el par de monedas), V2 (intervalo a través de un salto de línea), V3 (decimal sin
-  cero delante), V5 (recuento cortado al pasar del máximo) y V7 (miles con apóstrofo; «real»), con sus pruebas y las de V4: **regresión
-  completa de esta candidata pendiente** (no se da por superada).
+- Última regresión completa conforme: candidata `8196522` → **RESULTADO GLOBAL: PASA** (`resultados/verificacion_completa_8196522.txt`);
+  reconstrucción de C48 con ese código: 8 casos iguales (`resultados/reconstruccion_c48_8196522/`).
+- **Después** se corrigieron W3 (apóstrofo tipográfico, en el sentido de aceptar), W4 (apóstrofo en los límites de la cita), W5 (mensaje
+  del máximo) y las pruebas de W1; se actualizaron `HITO_2_4_15.md` (pruebas, revisiones y límites declarados), `CONTINUIDAD.md` y
+  `PROMPT_NUEVA_VENTANA.md`: **regresión completa de esta candidata pendiente** (no se da por superada).
 - Baterías dirigidas sobre el árbol actual: entradas 4.15 **190/190**, entrada efectiva **61/61**, entradas 4.14 33/33. Mínimos: 190, 61 y 5.
 - Registros reales: diagnóstico idéntico byte a byte; inventario de signo igual; PDF reales: 0 rechazos falsos.
 - Control de la entrega 4.14: 29/35 (3 esperadas desde el hito 1; 3 por fechas que Git no conserva). No se da por superado.
@@ -32,12 +32,15 @@ Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fu
   T4, T8 y Q3, Q5 (erratas que fallan en cerrado) y los restos de Q6. Comprobación dirigida
   (`876bfc2`): ACEPTABLE CON CORRECCIONES, sin cambios de código exigidos; V1, V2 (en el sentido de aceptar), V3, V5–V7 y pruebas (V4)
   (`REVISION_FABLE_HITO2_QUINTA.md`). No se dejan como límites los que aceptan: corregidos V1, V2, V3, V5, V7 y las pruebas de V4; V6
-  (pendientes prudentes) declarado en el docstring. **Pendiente: comprobación dirigida de V1–V7 por otro agente** (d1, d1b, d7, d8, d9, d12,
-  las tres baterías y el diagnóstico).
+  (pendientes prudentes) declarado en el docstring. Comprobación dirigida de V1–V7
+  (`8196522`, 6.ª pasada): ACEPTABLE CON CORRECCIONES, sin cambios de código exigidos ni otra pasada (`REVISION_FABLE_HITO2_SEXTA.md`):
+  W1 (pruebas que no fijaban V2 y V5) y W2–W6 a declarar; solo W3 iba en el sentido de aceptar. Corregidos W1, W3, W4 y W5; W2 y W6
+  declarados en `HITO_2_4_15.md`. **Pendiente: comprobación dirigida de minutos de W1 y W3–W5 por otro agente** (e3, e7, e9, d7, las tres
+  baterías y el diagnóstico).
 
 ## Incidencias y requisitos pendientes (no cerrados)
 
-- **Comprobación dirigida de V1–V7** (otro agente) y **regresión completa** de la nueva candidata: pendientes.
+- **Comprobación dirigida de W1 y W3–W5** (otro agente) y **regresión completa** de la nueva candidata: pendientes.
 - **H9 (parte abierta):** un relevo caducado vuelve siempre al paso 12; si cambian salidas de fases anteriores (fase_a/b/c, entrada
   efectiva) haría falta volver al paso que las consume. Propuesta sin aplicar (cambia el recorrido del pipeline).
 - **U1:** no hay regla automática que acredite el significado económico de un derivado; lo acredita la revisión independiente de cada
@@ -58,10 +61,10 @@ Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fu
 ## Siguiente paso exacto
 
 1. Regenerar manifiesto y congelar una copia limpia.
-2. En paralelo: regresión completa y comprobación dirigida de V1–V7 por un agente distinto del autor (Fable, esfuerzo máximo, sin
+2. En paralelo: regresión completa y comprobación dirigida de W1 y W3–W5 por un agente distinto del autor (Fable, esfuerzo máximo, sin
    LibreOffice).
-3. Si ambas pasan sin correcciones de código: reconstrucción de C48 con el código final, `HITO_2_4_15.md` (§4–§5 y todos los límites
-   declarados), manifiesto final, paquete de cambios comprobado sobre la base 4.14, commit y push con el resumen para la revisión externa.
+3. Si ambas pasan sin correcciones de código: reconstrucción de C48 con el código final, nota final en `HITO_2_4_15.md`, manifiesto
+   final, paquete de cambios comprobado sobre la base 4.14, commit y push con el resumen para la revisión externa.
 
 Reproducción del entorno: `gh release download` no funciona aquí (GraphQL bloqueado); el ZIP se descarga con
 `gh api -H "Accept: application/octet-stream" repos/jluisplagos/munger-v2/releases/assets/750814858`, y se materializa con

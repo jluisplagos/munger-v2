@@ -511,8 +511,8 @@ def _apariciones_en_pagina(cita, pagina):
     # es una aparición dentro de «Subtotal 5,01»)
     # (hito 2, T2) el límite depende de con qué empieza y acaba la cita: si es una cifra, no va pegada a otra cifra ni a un separador con
     # cifra; si es una letra, no va pegada a otra letra («849.7» cuenta en «849.7m» y en «CHF7.3»; «Total 5» no cuenta en «Subtotal 5,01»)
-    patron = ((r"(?<![\d.,])" if re.match(r"\d", palabras[0]) else r"(?<![^\W\d_])" if re.match(r"[^\W\d_]", palabras[0]) else "") + patron
-              + (r"(?!\d|[.,]\d)" if re.search(r"\d$", palabras[-1]) else r"(?![^\W\d_])" if re.search(r"[^\W\d_]$", palabras[-1]) else ""))
+    patron = ((r"(?<![\d.,])(?<!\d['’])" if re.match(r"\d", palabras[0]) else r"(?<![^\W\d_])" if re.match(r"[^\W\d_]", palabras[0]) else "") + patron  # (W4) apóstrofo
+              + (r"(?!\d|[.,'’]\d)" if re.search(r"\d$", palabras[-1]) else r"(?![^\W\d_])" if re.search(r"[^\W\d_]$", palabras[-1]) else ""))
     out = []
     for m in re.finditer(patron, t, re.I):
         if len(out) > MAX_APARICIONES_CITA:  # (hito 2, V5) basta saber que pasa del máximo: el coste queda acotado
@@ -539,7 +539,7 @@ def _lectura_cifra(t, vf, ventana=None):
                 return "ok", "cero impreso como guion"  # aislado, o entre dos cifras de columnas contiguas («784.366 - 784.366»)
     signos = []
     for c in _cifras(vf):
-        for m in re.finditer(r"(?<![\d.,])(?<!\d')" + re.escape(c) + r"(?!\d|[.,']\d)", t):  # (hito 2, V7) «1'849,7» no contiene 849,7
+        for m in re.finditer(r"(?<![\d.,])(?<!\d[’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7
             if dentro(m.start(), m.end()):
                 signos.append(_signo_en_cita(t, m.start(), m.end()))
     if not signos:
@@ -576,7 +576,7 @@ def _cita_cifra(cita, vf, pagina=None):
     apar = _apariciones_en_pagina(cita, pagina)
     if len(apar) > MAX_APARICIONES_CITA:
         # (hito 2, Q4 y N10) una cita que aparece cientos de veces no identifica un pasaje (y leerla en todas tiene un coste no acotado)
-        return "signo_indeterminado", f"la cita aparece {len(apar)} veces en la página: no identifica un pasaje; hay que citar un fragmento distintivo"
+        return "signo_indeterminado", f"la cita aparece más de {MAX_APARICIONES_CITA} veces en la página: no identifica un pasaje; hay que citar un fragmento distintivo"  # (hito 2, W5)
     if not apar:
         palabras = str(cita or "").split()
         t_ = re.sub("[" + chr(0xa0) + chr(0x202f) + chr(0x2009) + "]", " ", str(pagina))
@@ -588,8 +588,8 @@ def _cita_cifra(cita, vf, pagina=None):
                 # (hito 2, Q4) coste constante (solo los caracteres vecinos) y un punto o una coma solo cuentan si forman parte de un número
                 antes2 = t_[max(0, m.start() - 2):m.start()]
                 # (hito 2, V3 y V7) también un decimal sin cero delante («.5», «-.5», «(.5)») y los miles con apóstrofo («1'849,7»)
-                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,']|(?:^|[^\w.,])[.,])\Z", antes2) is not None)
-                        or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,]\d", t_[m.end():m.end() + 2]) is not None))
+                return ((re.match(r"\d", palabras[0]) is not None and re.search(r"(?:\d|\d[.,'’]|(?:^|[^\w.,])[.,])\Z", antes2) is not None)
+                        or (re.search(r"\d$", palabras[-1]) is not None and re.match(r"\d|[.,'’]\d", t_[m.end():m.end() + 2]) is not None))  # (W4)
             if any(en_numero(m) for m in sueltas):
                 return "ausente", "la cita empieza o acaba dentro de una cifra de la página: no es una cifra completa de la página"
             return "no_localizada", "la cita empieza o acaba dentro de una palabra de la página: hay que citar el fragmento completo"

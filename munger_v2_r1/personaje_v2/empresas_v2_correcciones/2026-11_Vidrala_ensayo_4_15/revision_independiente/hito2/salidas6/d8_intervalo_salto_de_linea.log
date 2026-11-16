@@ -1,0 +1,59 @@
+VE = sexta (8196522) · VP = anterior (876bfc2)
+comprobación del ancla: re.search(r'(\d{4})$', '1980\n') → True · con \Z → False
+
+== A · unidad: la cita abarca las dos líneas
+   A1 dos negativos de cuatro cifras en líneas seguidas (texto sin columnas): «-1980⏎-2050», valor +2050
+      página='Gastos financieros\n-1980\n-2050\n' cita='Gastos financieros -1980 -2050' vf=2050 (la página publica la cifra en −)
+      876bfc2: ok                   8196522: signo_distinto      
+   A2 lo mismo con el valor publicado −2050
+      página='Gastos financieros\n-1980\n-2050\n' cita='Gastos financieros -1980 -2050' vf=-2050 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: ok                  
+   A3 año al final de una línea y negativo al principio de la siguiente: «Ejercicio 2023⏎-2024», valor +2024
+      página='Ejercicio 2023\n-2024\n' cita='Ejercicio 2023 -2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: ok                   8196522: signo_distinto      
+   A4 lo mismo con raya y con menos Unicode: «2023⏎−2024»
+      página='Ejercicio 2023\n−2024\n' cita='Ejercicio 2023 −2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: ok                   8196522: signo_distinto      
+   A5 orden decreciente: «-2050⏎-1980», valor +1980 (no es un intervalo creciente)
+      página='Gastos financieros\n-2050\n-1980\n' cita='Gastos financieros -2050 -1980' vf=1980 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: signo_distinto      
+   A6 enteros de dos cifras: «Nota 12⏎-45», valor +45 (con 7a6583b, intervalo)
+      página='Nota 12\n-45\n' cita='Nota 12 -45' vf=45 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: signo_distinto      
+   A7 la línea anterior acaba en espacios: «2023   ⏎-2024» (el ancla ya no casa)
+      página='Ejercicio 2023   \n-2024\n' cita='Ejercicio 2023 -2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: signo_distinto      
+   A8 la línea siguiente empieza con espacios: «2023⏎   -2024»
+      página='Ejercicio 2023\n   -2024\n' cita='Ejercicio 2023 -2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: signo_distinto      
+   A9 fecha partida: «Notas 5-6⏎-2024», valor +2024
+      página='Notas 5-6\n-2024\n' cita='Notas 5-6 -2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: ok                   8196522: signo_distinto      
+   A10 control: en la misma línea con un espacio «2023 -2024»
+      página='Ejercicio 2023 -2024\n' cita='Ejercicio 2023 -2024' vf=2024 (la página publica la cifra en −)
+      876bfc2: signo_distinto       8196522: signo_distinto      
+   A11 control: intervalo de verdad en una línea «2023-2024»
+      página='Ejercicio 2023-2024\n' cita='Ejercicio 2023-2024' vf=2024 (la página publica la cifra en +)
+      876bfc2: ok                   8196522: ok                  
+
+== B · registro completo (fixture de la batería)
+   control positivo: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+   la página publica «Ejercicio 2018⏎-2019» (−2019 al principio de la línea) y la entrada dice +2019
+      → no comprobada · discrepancias: Historia!F5: la página no publica el valor de la fuente 2019 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es  · apto=False
+   control: en la misma línea «Ejercicio 2018 -2019»
+      → no comprobada · discrepancias: Historia!F5: la página no publica el valor de la fuente 2019 con su signo (la página la publica en negativo y valor_fuente es positivo): «valor_fuente» es  · apto=False
+   control positivo al final: apto=True comprobadas=321/321 pend=0 desact=0 discr=0 err=0 mat_no=0 ext=0 no_ma
+
+== C · textos reales: la forma de riesgo «aaaa⏎-bbbb» (1900 ≤ a ≤ b ≤ 2100; la línea acaba en a y la siguiente empieza por el guion)
+   73 textos conservados citados (con «-layout»): {'forma de riesgo de V2 (años crecientes; la que 876bfc2 leía en positivo)': 0, 'forma amplia (enteros de la misma longitud; regla de 7a6583b)': 0, 'fecha partida «d-m⏎-aaaa»': 0}
+   Elis: texto SIN «-layout» de las páginas de PDF citadas: {'páginas': 65, 'forma de riesgo de V2 (años crecientes)': 0, 'forma amplia (regla de 7a6583b)': 0, 'fecha partida': 0, 'líneas que empiezan por un guion pegado a una cifra': 2}
+   Viscofan: texto SIN «-layout» de las páginas de PDF citadas: {'páginas': 60, 'forma de riesgo de V2 (años crecientes)': 0, 'forma amplia (regla de 7a6583b)': 7, 'fecha partida': 0, 'líneas que empiezan por un guion pegado a una cifra': 515}
+       ('CF_2021.pdf', 4, 'tax\n\n20.5\n20.5\n20.5\n20.5\n\n628\n−781\n2\n2,182')
+       ('CF_2022_compilacion.pdf', 21, '1.370\n−17\n−5.044\n183,789\n\n628\n−781\n2\n2,182')
+       ('CF_2022_compilacion.pdf', 61, '\nEmission rights\n\n1,033\n2\n155\n−354\n836\n1\n−')
+       ('CF_2022_compilacion.pdf', 61, '836\n1\n−200\n637\n\nTotal\n156\n106\n−156\n106\n195')
+   Vidrala: texto SIN «-layout» de las páginas de PDF citadas: {'páginas': 36, 'forma de riesgo de V2 (años crecientes)': 0, 'forma amplia (regla de 7a6583b)': 0, 'fecha partida': 0, 'líneas que empiezan por un guion pegado a una cifra': 0}
+
+real	0m25.166s
+user	0m22.530s
+sys	0m2.455s

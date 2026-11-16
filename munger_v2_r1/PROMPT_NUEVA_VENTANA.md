@@ -22,7 +22,7 @@ La fuente de verdad es el repositorio y sus pruebas, no la memoria de conversaci
 4. Sobre una copia limpia de `munger_v2_r1/` (sin `personaje_v2/.lo_perfil/` ni `__pycache__`), ejecutar `bash verificar_paquete.sh completa`.
    LibreOffice y las pruebas que lo usan van en secuencia, nunca dos a la vez. Esperado (hito 2): manifiesto, entorno y piloto (35 CUMPLEN);
    comprobadores 114/114; sintética 30/30 con los nombres de la línea de base; H5 59/59; juicio 27/27; entradas 4.14 33/33; entradas 4.15
-   173/173; entrada efectiva 60/60; relevo caducado 5/5; integración V6.4 199/199; trazabilidad 78/78; integridad 103/103; auditorías 55/55;
+   190/190; entrada efectiva 61/61; relevo caducado 5/5; integración V6.4 199/199; trazabilidad 78/78; integridad 103/103; auditorías 55/55;
    estados 28/28; resumen 45/45; cierre 55/55; RESULTADO GLOBAL: PASA.
 5. Informar de forma breve del resultado de cada bloque y de cualquier discrepancia entre la documentación y lo que dicen los archivos o las
    pruebas. Si algo falla, se informa con precisión y no se corrige sin indicación.

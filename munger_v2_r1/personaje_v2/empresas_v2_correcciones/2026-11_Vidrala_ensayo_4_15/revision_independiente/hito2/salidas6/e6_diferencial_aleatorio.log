@@ -1,0 +1,36 @@
+VE = sexta (8196522) · VP = anterior (876bfc2) · VQ = 876bfc2 con las propuestas de la 5.ª · 200000 casos
+== transiciones 876bfc2 → 8196522
+   ok                   → ausente             :   7079   ej.: ("723.6—7'151'974.50", "723.6—7'151'974.50", 151)
+   signo_distinto       → ausente             :   3626   ej.: ("968.89'337-1971 ‐-8'888'663—.15", "‐-8'888'663—.15", -888)
+   signo_indeterminado  → ausente             :   1320   ej.: ("4'815.5).85p. 249", "4'815.5).85p. 249", 815.5)
+   no_localizada        → ausente             :    711   ej.: (',43-Saldo\n1’1329’773,1', '43-S', -773.1)
+   signo_indeterminado  → signo_distinto      :     22   ej.: ("4'786,31938=-4ʼ410.29-Saldo", "4'786,31938=-4ʼ410.29-Saldo", 4)
+   ok                   → signo_indeterminado :     12   ej.: ("\n 6'631'711-6ʼ513.6 ", "6'631'711-6ʼ513.6", 6)
+   ausente              → no_localizada       :     11   ej.: ("   2107\n6'947.72023‒millones680,6Ejercicio \n", "6'947.72023‒millones680,6Ejer", 680)
+   signo_indeterminado  → ok                  :      6   ej.: ("  +787 \n9 212.28,262Total ‑9'112,4  ", "+787 \n9 212.28,262Total ‑9'112,4", 9)
+   signo_distinto       → signo_indeterminado :      2   ej.: ("9'774\n 9 320\n", '9', -9)
+   igual (ausente): 148294
+   igual (ok): 9167
+   igual (no_localizada): 7193
+   igual (signo_distinto): 5218
+   igual (signo_indeterminado): 4860
+== (1) diferencias de estado en páginas SIN ninguno de los rasgos cambiados: 0
+== (2) transiciones HACIA «ok» (aceptaciones nuevas), por estado anterior y rasgos de la página
+   signo_indeterminado  → ok · rasgos: apóstrofo ASCII pegado a cifras: 6
+         ("  +787 \n9 212.28,262Total ‑9'112,4  ", "+787 \n9 212.28,262Total ‑9'112,4", 9)
+         ("ejercicio1'381.482.0%(1) ", "ejercicio1'381.482.0%(1)", -1)
+         ("8ʼ390,7 \n-CHF8'392--3’334‒64.0", "8ʼ390,7 \n-CHF8'392--3’334‒64.0", 8)
+== (3) 8196522 frente a la propuesta de la 5.ª
+   propuesta ok                   · 8196522 ausente              (con apóstrofo ASCII pegado a cifras): 7079   ej.: [("723.6—7'151'974.50", "723.6—7'151'974.50", 151)]
+   propuesta signo_distinto       · 8196522 ausente              (con apóstrofo ASCII pegado a cifras): 3626   ej.: [("968.89'337-1971 ‐-8'888'663—.15", "‐-8'888'663—.15", -888)]
+   propuesta signo_indeterminado  · 8196522 ausente              (con apóstrofo ASCII pegado a cifras): 1320   ej.: [("4'815.5).85p. 249", "4'815.5).85p. 249", 815.5)]
+   propuesta no_localizada        · 8196522 ausente              (con apóstrofo ASCII pegado a cifras): 109   ej.: [(".897'728.3-411.19,676.9 \n–8'172'395Ratio ", '395Rat', 411.1)]
+   propuesta signo_indeterminado  · 8196522 signo_distinto       (con apóstrofo ASCII pegado a cifras): 22   ej.: [("4'786,31938=-4ʼ410.29-Saldo", "4'786,31938=-4ʼ410.29-Saldo", 4)]
+   propuesta ok                   · 8196522 signo_indeterminado  (con apóstrofo ASCII pegado a cifras): 12   ej.: [("\n 6'631'711-6ʼ513.6 ", "6'631'711-6ʼ513.6", 6)]
+   propuesta signo_indeterminado  · 8196522 ok                   (con apóstrofo ASCII pegado a cifras): 6   ej.: [("  +787 \n9 212.28,262Total ‑9'112,4  ", "+787 \n9 212.28,262Total ‑9'112,4", 9)]
+   propuesta signo_distinto       · 8196522 signo_indeterminado  (con apóstrofo ASCII pegado a cifras): 2   ej.: [("9'774\n 9 320\n", '9', -9)]
+   diferencias SIN apóstrofo ASCII pegado a cifras: 0
+
+real	9m0.733s
+user	8m55.141s
+sys	0m0.096s

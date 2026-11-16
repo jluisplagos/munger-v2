@@ -1,0 +1,39 @@
+VE = sexta (8196522) · VP = anterior (876bfc2) · MAX_APARICIONES_CITA = 200 (876bfc2: 200)
+
+== A · estados con N apariciones (876bfc2 → 8196522)
+   1092 casos · con ESTADO distinto: 0 []
+   con el mismo estado y MENSAJE distinto: 302; N de esos casos: [202, 203, 204, 205, 400, 401, 1000, 5000]
+      N=202 (todas iguales (+); cita 'Total: 5.5'): 876bfc2 «la cita aparece 202 veces en la página: no identifica un pas…» · 8196522 «la cita aparece 201 veces en la página: no identifica un pas…»
+      N=202 (todas iguales (+); cita '5.5'): 876bfc2 «la cita aparece 202 veces en la página: no identifica un pas…» · 8196522 «la cita aparece 201 veces en la página: no identifica un pas…»
+      N=202 (todas iguales (+); cita 'Total:'): 876bfc2 «la cita aparece 202 veces en la página: no identifica un pas…» · 8196522 «la cita aparece 201 veces en la página: no identifica un pas…»
+
+== B · apariciones devueltas y mensaje
+   N=   199: _apariciones_en_pagina devuelve    199 (876bfc2) y  199 (8196522) · estado ok                   · mensaje: signo publicado igual al de valor_fuente
+   N=   200: _apariciones_en_pagina devuelve    200 (876bfc2) y  200 (8196522) · estado ok                   · mensaje: signo publicado igual al de valor_fuente
+   N=   201: _apariciones_en_pagina devuelve    201 (876bfc2) y  201 (8196522) · estado signo_indeterminado  · mensaje: la cita aparece 201 veces en la página: no identifica un pasaje; hay q
+   N=   202: _apariciones_en_pagina devuelve    202 (876bfc2) y  201 (8196522) · estado signo_indeterminado  · mensaje: la cita aparece 201 veces en la página: no identifica un pasaje; hay q
+   N=  1000: _apariciones_en_pagina devuelve   1000 (876bfc2) y  201 (8196522) · estado signo_indeterminado  · mensaje: la cita aparece 201 veces en la página: no identifica un pasaje; hay q
+   N=100000: _apariciones_en_pagina devuelve 100000 (876bfc2) y  201 (8196522) · estado signo_indeterminado  · mensaje: la cita aparece 201 veces en la página: no identifica un pasaje; hay q
+
+== C · fragmentos sueltos por encima del máximo (la cita no es un fragmento completo)
+   300 cortes dentro de un número («15.5» citada «5.5»)                   876bfc2 ausente              8196522 ausente             
+   300 cortes dentro de una palabra («Subtotal» citada «total: 5.5»)      876bfc2 no_localizada        8196522 no_localizada       
+   250 completas y 100 cortes dentro de un número                         876bfc2 signo_indeterminado  8196522 signo_indeterminado 
+   150 completas y 100 cortes dentro de un número                         876bfc2 ok                   8196522 ok                  
+
+== D · coste con y sin el corte (segundos; la máquina tiene otra carga: orientativo)
+   la entrada de la prueba «(V5)» (100.000 apariciones, 1.1 MB), vez 1: sin el corte (876bfc2)   1.57 s → signo_indeterminado · con el corte (8196522)  0.007 s → signo_indeterminado   ← la prueba exige < 5 s: pasaría también SIN el corte
+   la entrada de la prueba «(V5)» (100.000 apariciones, 1.1 MB), vez 2: sin el corte (876bfc2)   1.35 s → signo_indeterminado · con el corte (8196522)  0.005 s → signo_indeterminado   ← la prueba exige < 5 s: pasaría también SIN el corte
+   la entrada de la prueba «(V5)» (100.000 apariciones, 1.1 MB), vez 3: sin el corte (876bfc2)   1.03 s → signo_indeterminado · con el corte (8196522)  0.006 s → signo_indeterminado   ← la prueba exige < 5 s: pasaría también SIN el corte
+   200000 apariciones en una línea (2.2 MB): sin el corte  12.14 s · con el corte  0.023 s
+   400000 apariciones en una línea (4.4 MB): sin el corte  71.99 s · con el corte  0.061 s
+
+== E · otras vías que el corte no toca
+   200.000 cortes dentro de una palabra en una línea                                          876bfc2 no_localizada    0.38 s · 8196522 no_localizada    0.39 s
+   200.000 cortes dentro de un número en una línea                                            876bfc2 ausente          0.08 s · 8196522 ausente          0.09 s
+   200 apariciones completas en una línea de 4 MB (el contexto se recorta a 400 caracteres)   876bfc2 ok               0.21 s · 8196522 ok               0.22 s
+   una aparición al final de una línea de 20 MB                                               876bfc2 ok               0.51 s · 8196522 ok               0.47 s
+
+real	1m45.531s
+user	1m43.378s
+sys	0m1.079s

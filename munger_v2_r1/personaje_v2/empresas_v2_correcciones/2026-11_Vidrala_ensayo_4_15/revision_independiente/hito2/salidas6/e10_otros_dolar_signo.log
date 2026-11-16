@@ -1,0 +1,28 @@
+VE = sexta (8196522) · VP = anterior (876bfc2)
+== A · unidad
+   A1 la moneda al final de la línea anterior, sin guion: «Total €⏎849,7»
+      876bfc2: ok                   8196522: ok
+   A2 guion y moneda al final de la línea anterior: «Total -€⏎849,7» (valor +)
+      876bfc2: signo_distinto       8196522: signo_distinto
+   A3 lo mismo con el valor en negativo
+      876bfc2: ok                   8196522: ok
+   A4 guion, moneda y espacio al final de la línea: «Total -€ ⏎849,7» (valor +)
+      876bfc2: signo_indeterminado  8196522: signo_indeterminado
+   A5 guion solo al final de la línea anterior: «Total -⏎849,7» (valor +)
+      876bfc2: signo_indeterminado  8196522: signo_indeterminado
+   A6 año, guion y moneda al final de la línea y un año al principio de la siguiente: «Saldo 2023-€⏎2024» (valor +)
+      876bfc2: ok                   8196522: ok
+   A7 lo mismo en una línea: «Saldo 2023-€2024» (valor +)
+      876bfc2: ok                   8196522: ok
+   A8 intervalo partido tras el guion: «Periodo 2023-⏎2024» (valor +)
+      876bfc2: signo_indeterminado  8196522: signo_indeterminado
+   A9 paréntesis abierto al final de la línea anterior: «Resultado (⏎849,7)» (valor −)
+      876bfc2: ok                   8196522: ok
+   A10 guion al final de la línea y paréntesis en la siguiente: «Total -⏎(849,7)» (valor −)
+      876bfc2: signo_indeterminado  8196522: signo_indeterminado
+   A11 guion pegado a la moneda tras un salto: «31-12⏎-€1900» (valor +)
+      876bfc2: ok                   8196522: signo_distinto
+   A12 guion pegado a la moneda tras un salto: «2023⏎-EUR 2024» (valor +)
+      876bfc2: ok                   8196522: signo_distinto
+== B · textos reales (los 73 textos conservados citados)
+   73 textos: {'línea que acaba en «guion + moneda» y la siguiente empieza por una cifra': 0, 'línea que acaba en «año + guion + moneda» y la siguiente empieza por un año': 0, 'línea que acaba en una moneda (sin guion) y la siguiente empieza por una cifra': 75}

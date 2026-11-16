@@ -1,0 +1,64 @@
+VE = sexta (8196522) · VP = anterior (876bfc2) · VQ = 876bfc2 con las propuestas de la 5.ª
+
+== A · los dos casos de la prueba nueva «(V2)» de la batería, tal cual
+   _cita_cifra('2024', 2024, 'Ejercicio 2023\n-2024'): 876bfc2 → signo_distinto · 8196522 → signo_distinto (la prueba espera «signo_distinto»)
+      contexto que se lee (línea o líneas de la página que contienen la cita): ['-2024']  ← no incluye la línea anterior
+   _cita_cifra('2024', 2024, 'Cierre 31-12\n-2024'): 876bfc2 → signo_distinto · 8196522 → signo_distinto (la prueba espera «signo_distinto»)
+      contexto que se lee (línea o líneas de la página que contienen la cita): ['-2024']  ← no incluye la línea anterior
+   → la prueba pasa igual sin la corrección: con la cita «2024» solo se lee la línea «-2024», donde el guion ya era un signo menos
+
+== B · casos que distinguen la corrección (la cita abarca las dos líneas)
+   _cita_cifra('Ejercicio 2023 -2024', 2024, 'Ejercicio 2023\n-2024'): 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('Cierre 31-12 -2024', 2024, 'Cierre 31-12\n-2024'): 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('Ejercicio 2023 -2024', -2024, 'Ejercicio 2023\n-2024'): 876bfc2 → signo_distinto   8196522 → ok
+   _cita_cifra('FY2023 -2024', 2024, 'FY2023\n-2024'): 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('Notas 5-6 -2024', 2024, 'Notas 5-6\n-2024'): 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('2023 -2024', 2024, '2023\n-2024'): 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('Ejercicio 2023-2024', 2024, 'Ejercicio 2023-2024'): 876bfc2 → ok               8196522 → ok
+   _cita_cifra('Cierre 31-12-2024', 2024, 'Cierre 31-12-2024'): 876bfc2 → ok               8196522 → ok
+
+== C · formas del salto entre «…2023» y «-2024» (cita «Ejercicio 2023 G2024»; valor +2024; la página publica −2024 salvo donde se dice)
+   \n                             «-» ok → signo_distinto | «–» ok → signo_distinto | «−» ok → signo_distinto
+   \r\n                           «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \r                             «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \f (salto de página)           «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \n\n                           «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   espacio + \n                   «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \n + espacio                   «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   tab + \n                       «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \n + tab                       «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \v                             «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   U+2028                         «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   U+2029                         «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   U+0085                         «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   U+00A0 + \n                    «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   \n + U+00A0                    «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   U+200B (invisible) + \n        «-» no_localizada → no_localizada | «–» no_localizada → no_localizada | «−» no_localizada → no_localizada
+   \n + U+200B                    «-» no_localizada → no_localizada | «–» no_localizada → no_localizada | «−» no_localizada → no_localizada
+   un espacio (misma línea)       «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   dos espacios (misma línea)     «-» signo_distinto → signo_distinto | «–» signo_distinto → signo_distinto | «−» signo_distinto → signo_distinto
+   nada (intervalo de verdad: +)  «-» ok → ok | «–» ok → ok | «−» ok → ok
+   formas con salto o separador en las que 8196522 lee +2024 como «ok»: []
+
+== D · sin página (solo la cita) y cita de una línea que empieza por el guion
+   _cita_cifra('Ejercicio 2023\n-2024', 2024) sin página: 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('-2024', 2024) sin página: 876bfc2 → signo_distinto   8196522 → signo_distinto
+   _cita_cifra('-2024', -2024) sin página: 876bfc2 → ok               8196522 → ok
+   _cita_cifra('Ejercicio 2023 -2024', 2024) sin página: 876bfc2 → signo_distinto   8196522 → signo_distinto
+   _cita_cifra('2023\n-2024', 2024) sin página: 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('31-12\n-2024', 2024) sin página: 876bfc2 → ok               8196522 → signo_distinto
+   _cita_cifra('-2024', 2024, 'Ejercicio 2023\n-2024'): 876bfc2 → signo_distinto   8196522 → signo_distinto
+   _cita_cifra('-2024', -2024, 'Ejercicio 2023\n-2024'): 876bfc2 → ok               8196522 → ok
+   _cita_cifra('2023', 2023, 'Ejercicio 2023\n-2024'): 876bfc2 → ok               8196522 → ok
+   _cita_cifra('Ejercicio 2023', 2023, 'Ejercicio 2023\n-2024'): 876bfc2 → ok               8196522 → ok
+
+== E · diferencial aleatorio con saltos de línea
+   _signo_en_cita: 363376 cifras en 250.000 textos
+      876bfc2 1 → 8196522 -1 (SIN él): 4   ej.: ('\x0c\n31-12\n-€1900', '1900')
+      876bfc2 1 → 8196522 -1 (con «\n» justo antes del guion pegado): 165   ej.: ('−\n 31-12\n-2109FY', '2109')
+      diferencias 876bfc2/8196522 SIN el salto justo antes del guion: 4
+      diferencias entre 8196522 y la propuesta de la 5.ª: 0 {}
+
+real	0m7.268s
+user	0m7.124s
+sys	0m0.023s

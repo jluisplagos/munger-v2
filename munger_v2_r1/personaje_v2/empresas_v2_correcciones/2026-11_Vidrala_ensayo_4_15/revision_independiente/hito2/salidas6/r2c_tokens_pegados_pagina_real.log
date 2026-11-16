@@ -1,0 +1,32 @@
+(forma, cita, anterior → tercera): nº de apariciones en páginas reales
+   código de moneda pegado delante          cita con el trozo pegado   ok                   → ok                   3
+         ('Elis - 2017 Registration Document.txt', 219, 'CHF2.3 million', 2.3, '    generated revenue of CHF2.3 million in 2016 and')
+         ('Elis - 2017 Registration Document.txt', 219, 'CHF7.3 million', 7.3, '    generated revenue of CHF7.3 million in 2016. Th')
+         ('AR_2025.txt', 369, 'USD18,000 million', 18.0, '               region of USD18,000 million in income.⏎')
+   código de moneda pegado delante          cita cortada en la cifra   ok                   → ok                   3
+         ('Elis - 2017 Registration Document.txt', 219, '2.3 million', 2.3, '    generated revenue of CHF2.3 million in 2016 and')
+         ('Elis - 2017 Registration Document.txt', 219, '7.3 million', 7.3, '    generated revenue of CHF7.3 million in 2016. Th')
+         ('AR_2025.txt', 369, '18,000 million', 18.0, '               region of USD18,000 million in income.⏎')
+   letra pegada detrás (x, m, bn, pp, k)    cita con el trozo pegado   ok                   → ok                   186
+         ('CF_2016.txt', 70, '1,9x', 1.9, 'to / EBITDA Consolidado: 1,9x⏎⏎EBITDA Con')
+         ('CF_2016.txt', 70, '17,8x', 17.8, 'nciero Neto Consolidado: 17,8x⏎⏎vi. Riesgo')
+         ('CF_2016.txt', 85, 'EBITDA     2,95x', 2.95, '16         2016⏎⏎⏎⏎DEUDA/EBITDA     2,95x       2,87x')
+   letra pegada detrás (x, m, bn, pp, k)    cita con el trozo pegado   signo_distinto       → signo_distinto       3
+         ('ES_2024_informacion_financiera_consolida', 95, '0,5x', 0.5, ',1x                     -0,5x⏎⏎⏎Nota: A e')
+         ('ES_2025_informacion_financiera_consolida', 88, '0,4x', 0.4, ',6x                     -0,4x⏎(múltiplo)⏎')
+         ('Elis - 2025 Universal Registration Docum', 307, '0.1x', 0.1, 'ial leverage down about -0.1x to 1.75x at')
+   letra pegada detrás (x, m, bn, pp, k)    cita con el trozo pegado   signo_indeterminado  → signo_indeterminado  17
+         ('Elis - 2017 Registration Document.txt', 292, '34,992k', 34.992, '        0         0    (£34,992k)           ')
+         ('Elis - 2020 Universal Registration Docum', 139, '3.5x', 3.5, '       on June 30, 2020 (3.5x) and on Dec')
+         ('Elis - 2020 Universal Registration Docum', 139, '3,7x', 3.7, 'nd on December 31, 2020 (3,7x)⏎          ')
+   letra pegada detrás (x, m, bn, pp, k)    cita cortada en la cifra   ok                   → ok                   186
+         ('CF_2016.txt', 70, '1,9', 1.9, 'to / EBITDA Consolidado: 1,9x⏎⏎EBITDA Con')
+         ('CF_2016.txt', 70, '17,8', 17.8, 'nciero Neto Consolidado: 17,8x⏎⏎vi. Riesgo')
+         ('CF_2016.txt', 85, 'EBITDA     2,95', 2.95, '16         2016⏎⏎⏎⏎DEUDA/EBITDA     2,95x       2,87x')
+   letra pegada detrás (x, m, bn, pp, k)    cita cortada en la cifra   signo_distinto       → signo_distinto       2
+         ('ES_2024_informacion_financiera_consolida', 95, '0,5', 0.5, ',1x                     -0,5x⏎⏎⏎Nota: A e')
+         ('ES_2025_informacion_financiera_consolida', 88, '0,4', 0.4, ',6x                     -0,4x⏎(múltiplo)⏎')
+   letra pegada detrás (x, m, bn, pp, k)    cita cortada en la cifra   signo_indeterminado  → signo_indeterminado  18
+         ('Elis - 2017 Registration Document.txt', 292, '34,992', 34.992, '        0         0    (£34,992k)           ')
+         ('Elis - 2020 Universal Registration Docum', 139, '3.5', 3.5, '       on June 30, 2020 (3.5x) and on Dec')
+         ('Elis - 2020 Universal Registration Docum', 139, '3,7', 3.7, 'nd on December 31, 2020 (3,7x)⏎          ')

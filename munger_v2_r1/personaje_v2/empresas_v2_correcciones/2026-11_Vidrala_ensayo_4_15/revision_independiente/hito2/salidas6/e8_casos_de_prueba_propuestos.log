@@ -1,0 +1,28 @@
+candidata: sexta (8196522)
+   v2a_anio_anterior_con_dolar        V2 · _cita_cifra('Ejercicio 2023 -2024', 2024, 'Ejercicio 2023\n-2024') == 'signo_distinto' (la cita abarca las dos líneas)
+      candidata: 'signo_distinto' (lo esperado) · mutación: 'ok' → la DETECTARÍA
+   v2b_fecha_con_dolar                V2 · _cita_cifra('Cierre 31-12 -2024', 2024, 'Cierre 31-12\n-2024') == 'signo_distinto'
+      candidata: 'signo_distinto' (lo esperado) · mutación: 'ok' → la DETECTARÍA
+   v2c_los_dos_con_dolar              V2 · los dos casos anteriores
+      candidata: ('signo_distinto', 'signo_distinto') (lo esperado) · mutación: ('ok', 'ok') → la DETECTARÍA
+   v5a_sin_corte                      V5 · len(_apariciones_en_pagina('Total: 5.5', 1000 apariciones en una línea)) == MAX_APARICIONES_CITA + 1 (estructura, no reloj)
+      candidata: 201 (lo esperado) · mutación: 1000 → la DETECTARÍA
+   v7c_lectura_sin_apostrofo_detras   V7 · _cita_cifra('Total 849', 849, "Total 849'697") == 'ausente'
+      candidata: 'ausente' (lo esperado) · mutación: 'ok' → la DETECTARÍA
+   v7d_real_solo_plural               V7 · _unidad_monetaria_no_reconocida('miles de real') is True
+      candidata: True (lo esperado) · mutación: False → la DETECTARÍA
+   v7a_en_numero_sin_apostrofo        V7 · _cita_cifra('849,7 mill', 849.7, "Total 1'849,7 millones") == 'ausente' (doble corte)
+      candidata: 'ausente' (lo esperado) · mutación: 'no_localizada' → la DETECTARÍA
+   v3b_en_numero_con_dolar            V7 · _cita_cifra('849,7 mill', 849.7, 'Ventas 2023\n849,7 millones') == 'no_localizada'
+      candidata: 'no_localizada' (lo esperado) · mutación: 'ausente' → la DETECTARÍA
+   t8d_fecha_cualquier_cifra          T8 · _cita_cifra('Notas 5-6-849,7', 849.7) == 'signo_indeterminado'
+      candidata: 'signo_indeterminado' (lo esperado) · mutación: 'ok' → la DETECTARÍA
+
+   caso de la prueba nueva «(V3, V7)» que no distingue nada: _cita_cifra('.5', 0.5, 'Ajuste .5') → candidata ausente · sin el decimal sin cero (v3a): ausente · (la cita «.5» se localiza entera y la forma «.5» no es una de las de _cifras: límite que ya existía)
+
+   T6 · una clave a TRES ediciones con proporción < 0,88 (fijaría el umbral ≤ 3 de la distancia de edición; hoy t6c, distancia 2, sobrevive)
+      «emtrada_efextiba»: proporción 0.800, ediciones 3 · candidata: ERROR (ValueError) · con distancia ≤ 2: sin error: ('registrada', None)
+      «emtrada_efectiba»: proporción 0.867, ediciones 2 · candidata: ERROR (ValueError) · con distancia ≤ 2: ERROR (ValueError)
+      «tasa_efectiva»: proporción 0.815, ediciones 4 · candidata: sin error: ('registrada', None) · con distancia ≤ 2: sin error: ('registrada', None)
+      «entradas_otras»: proporción 0.643, ediciones 7 · candidata: sin error: ('registrada', None) · con distancia ≤ 2: sin error: ('registrada', None)
+      «emtrada_efextibas»: proporción 0.774, ediciones 4 · candidata: sin error: ('registrada', None) · con distancia ≤ 2: sin error: ('registrada', None)

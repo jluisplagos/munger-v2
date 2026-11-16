@@ -1121,22 +1121,28 @@ r = con(lambda g: ent(g, K)["fuente"].update(archivo="fuentes_sinteticas/n3c.pdf
 paso("RW", "(N3, Q2) el PDF publica una cifra con un dígito más (1849697.000) que el texto conservado (849697.000), cita recortada: discrepancia (la cifra del documento manda)",
      not r["apto_por_entradas"] and K not in r["comprobadas"] and con_k(r, K, ("discrepancias",)), con_k(r, K))
 # (hito 2, quinta comprobación, V1–V7 y pruebas de V4)
-v1 = {"coronas/DKK": True, "francos/CHF": True, "reales/BRL": True, "corona/coronas": True, "libras/GBP": True, "JPY/¥": True, "DKK/SEK": False, "CHF/EUR": False}
+v1 = {"coronas/DKK": True, "francos/CHF": True, "reales/BRL": True, "corona/coronas": True, "libras/GBP": True, "JPY/¥": True, "DKK/SEK": False, "CHF/EUR": False,
+      "miles de real": True}  # (hito 2, W1) «real» en singular
 mal_v1 = {u_: VE._unidad_monetaria_no_reconocida(u_) for u_, e_ in v1.items() if VE._unidad_monetaria_no_reconocida(u_) != e_}
 paso("RW", "(V1, V4) un par de nombre y código de la misma moneda (corona, franco, real, libra, yen) no es un tipo de cambio; «DKK/SEK» y «CHF/EUR» sí", not mal_v1, mal_v1)
-v2 = {("2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto", ("2024", 2024, "Cierre 31-12\n-2024"): "signo_distinto"}
+v2 = {("Ejercicio 2023 -2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto", ("Cierre 31-12 -2024", 2024, "Cierre 31-12\n-2024"): "signo_distinto",
+      ("2024", 2024, "Ejercicio 2023\n-2024"): "signo_distinto"}  # (hito 2, W1) la cita abarca las dos líneas: es lo que distingue «\Z» de «$»
 mal_v2 = {k_[2]: VE._cita_cifra(*k_)[0] for k_, e_ in v2.items() if VE._cita_cifra(*k_)[0] != e_}
 paso("RW", "(V2) el año o la fecha anterior en otra línea no hace de «-2024» un intervalo: el guion pegado al principio de la línea es un signo menos", not mal_v2, mal_v2)
 q3b = {("Graf2023-2024", 2024): "signo_indeterminado", ("1850-1860", 1860): "signo_indeterminado", ("2024-2023", 2023): "signo_indeterminado",
-       ("2099-2100", 2100): "ok", ("AF2023-2024", 2024): "ok"}
+       ("2099-2100", 2100): "ok", ("AF2023-2024", 2024): "ok", ("Notas 5-6-849,7", 849.7): "signo_indeterminado"}  # (W1) la fecha exige un año
 mal_q3b = {k_[0]: VE._cita_cifra(*k_)[0] for k_, e_ in q3b.items() if VE._cita_cifra(*k_)[0] != e_}
 paso("RW", "(Q3, V4) cada condición del intervalo de años por separado: prefijo como palabra, años entre 1900 y 2100, orden creciente", not mal_q3b, mal_q3b)
-v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "ausente", ("849,7", 849.7, "Total 1'849,7"): "ausente"}
+v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "ausente", ("849,7", 849.7, "Total 1'849,7"): "ausente",
+      # (hito 2, W1, W3 y W4) decimal sin cero citado desde la cifra, apóstrofo por detrás y tipográfico, doble corte y «\Z» en en_numero
+      ("5 veces", 5, "Ratio .5 veces"): "ausente", ("Total 849", 849, "Total 849'697"): "ausente", ("849,7 mill", 849.7, "Total 1'849,7 millones"): "ausente",
+      ("849,7", 849.7, "Total 1\u2019849,7"): "ausente", ("849,7 mill", 849.7, "Ventas 2023\n849,7 millones"): "no_localizada"}
 mal_v3 = {k_[2]: VE._cita_cifra(*k_)[0] for k_, e_ in v3.items() if VE._cita_cifra(*k_)[0] != e_}
 paso("RW", "(V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia", not mal_v3, mal_v3)
 t0 = _time.time()
 r_v5 = VE._cita_cifra("Total: 5.5", 5.5, " ".join(["Total: 5.5"] * 100000))
-paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and _time.time() - t0 < 5,
+n_v5 = len(VE._apariciones_en_pagina("Total: 5.5", " ".join(["Total: 5.5"] * 1000)))  # (hito 2, W1) estructura, no solo reloj
+paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja de contar al pasar del máximo (tiempo acotado) y queda pendiente", r_v5[0] == "signo_indeterminado" and n_v5 == VE.MAX_APARICIONES_CITA + 1 and _time.time() - t0 < 5,
      (r_v5[0], round(_time.time() - t0, 2)))
 r = con()
 paso("RW", "el control positivo sigue apto después de los casos RW", r["apto_por_entradas"], (r["errores"] + r["discrepancias"] + r["pendientes"])[:2])

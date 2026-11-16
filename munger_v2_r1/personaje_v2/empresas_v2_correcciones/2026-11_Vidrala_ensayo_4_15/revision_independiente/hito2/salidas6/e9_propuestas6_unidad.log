@@ -1,0 +1,63 @@
+VE = sexta (8196522) · VP = anterior (876bfc2) · V6 = 8196522 con las propuestas W3, W4 y W5 del revisor
+
+== A · el bloque de pruebas nuevas con los casos propuestos (prop6t)
+   candidata: 5 de 5 pruebas del bloque PASAN
+   876bfc2 (sin ninguna corrección): fallan ['(V1, V4)', '(V2) el ', '(V3, V7)', '(V5) 100']
+   propuesta de código (prop6): 5 de 5 PASAN
+   v1a_sin_franco                     DETECTADA por ['(V1, V4)'] · {'francos/CHF': False}
+   v1b_sin_real                       DETECTADA por ['(V1, V4)'] · {'reales/BRL': False}
+   v1c_sin_corona                     DETECTADA por ['(V1, V4)'] · {'coronas/DKK': False, 'corona/coronas': False}
+   v1d_corona_sin_codigos             DETECTADA por ['(V1, V4)'] · {'coronas/DKK': False}
+   v1e_sin_excepcion_dos_codigos      DETECTADA por ['(V1, V4)'] · {'DKK/SEK': True}
+   v1f_excepcion_un_solo_codigo       DETECTADA por ['(V1, V4)'] · {'coronas/DKK': False}
+   v2a_anio_anterior_con_dolar        DETECTADA por ['(V2) el '] · {'Ejercicio 2023\n-2024': 'ok'}
+   v2b_fecha_con_dolar                DETECTADA por ['(V2) el '] · {'Cierre 31-12\n-2024': 'ok'}
+   v2c_los_dos_con_dolar              DETECTADA por ['(V2) el '] · {'Ejercicio 2023\n-2024': 'ok', 'Cierre 31-12\n-2024': 'ok'}
+   v3a_sin_decimal_sin_cero           DETECTADA por ['(V3, V7)'] · {'Ajuste (.5)': 'no_localizada', 'Ratio .5 veces': 'no_localizada'}
+   v3b_en_numero_con_dolar            DETECTADA por ['(V3, V7)'] · {'Ventas 2023\n849,7 millones': 'ausente'}
+   v7a_en_numero_sin_apostrofo        DETECTADA por ['(V3, V7)'] · {"Total 1'849,7 millones": 'no_localizada'}
+   v7b_lectura_sin_apostrofo_delante  DETECTADA por ['(V3, V7)'] · {"Total 1'849,7": 'ok'}
+   v7c_lectura_sin_apostrofo_detras   DETECTADA por ['(V3, V7)'] · {"Total 849'697": 'ok'}
+   v7d_real_solo_plural               DETECTADA por ['(V1, V4)'] · {'miles de real': False}
+   v5a_sin_corte                      DETECTADA por ['(V5) 100'] · ('signo_indeterminado', 1.35)
+   v5b_corte_en_el_maximo             DETECTADA por ['(V5) 100'] · ('ok', 0.1)
+   q1c_moneda_sin_gbp_jpy             DETECTADA por ['(V1, V4)'] · {'libras/GBP': False, 'JPY/¥': False}
+   q3b_prefijo_sin_anclar             DETECTADA por ['(Q3, V4)'] · {'Graf2023-2024': 'ok'}
+   q3c_sin_rango_1900_2100            DETECTADA por ['(Q3, V4)'] · {'1850-1860': 'ok'}
+   q3d_sin_creciente                  DETECTADA por ['(Q3, V4)'] · {'2024-2023': 'ok'}
+   q3e_rango_hasta_2099               DETECTADA por ['(Q3, V4)'] · {'2099-2100': 'signo_indeterminado'}
+   t8d_fecha_cualquier_cifra          DETECTADA por ['(Q3, V4)'] · {'Notas 5-6-849,7': 'ok'}
+
+== B · propuesta de código (W3, W4, W5): candidata → propuesta
+   W3 «1’849,7» citada «849,7»                                                              candidata: ok                   propuesta: ausente             
+   W3 «849’697» citada «Total 849»                                                          candidata: ok                   propuesta: ausente             
+   W3 la cifra entera «1’849.7» = 1849,7 (sigue sin reconocerse: _cifras no genera «’»)     candidata: ausente              propuesta: ausente             
+   V7 «1'849,7» citada «849,7»                                                              candidata: ausente              propuesta: ausente             
+   V7 «849'697» citada «Total 849»                                                          candidata: ausente              propuesta: ausente             
+   control «1'849.7» = 1849,7                                                               candidata: ok                   propuesta: ok                  
+   control «849'697» = 849697                                                               candidata: ok                   propuesta: ok                  
+   W4 la cifra sola, que está además dentro de «1'849,7»                                    candidata: signo_indeterminado  propuesta: ok                  
+   W4 «Total 849», que está además en «Total 849'697»                                       candidata: signo_indeterminado  propuesta: ok                  
+   W4 la cifra sola en positivo dos veces y dentro de «9'774» (valor −9)                    candidata: signo_indeterminado  propuesta: signo_distinto      
+   W4 negativa de verdad y dentro de «1'849,7» (valor +849,7)                               candidata: signo_indeterminado  propuesta: signo_distinto      
+   doble corte «1'849,7 millones» citada «849,7 mill»                                       candidata: ausente              propuesta: ausente             
+   «Q1'24» con valor 24                                                                     candidata: ausente              propuesta: ausente             
+   posesivo «SBF 120’s» con valor 120 (forma real de los textos de Elis)                    candidata: ok                   propuesta: ok                  
+   «l’exercice 2023» con valor 2023                                                         candidata: ok                   propuesta: ok                  
+   W5 mensaje con 400 apariciones                                                           candidata: signo_indeterminado  propuesta: signo_indeterminado  «la cita aparece más de 200 veces en la página: no identifica»
+
+== C · propuesta de código frente a la candidata
+   ok → ausente                                   2054   ej.: ('-8’734-%.', '-8', -8)
+   signo_distinto → ausente                       1009   ej.: ("22.4Q1'\nQ1'Total 4’117.4  €", '4’117.4', -4)
+   signo_indeterminado → ausente                   403   ej.: (")8’812€–'", ")8’812€–'", 812)
+   no_localizada → ausente                         108   ej.: ("Saldo€Q1'Q1'€974,0\n 9'498'", "ldo€Q1'Q1'€974,0\n 9", 9498)
+   signo_indeterminado → ok                          5   ej.: ("-1’661Q1'’.13592’577-120’s ", "-1’661Q1'’.13592’577-120’s", 1)
+   ok → signo_indeterminado                          2   ej.: ("’–\n7 103,26'739.4\n7’440,28'805,6%", "’–\n7 103,26'739.4\n7’440,28'805,6", 7)
+   signo_indeterminado → signo_distinto              1   ej.: ("€\n1'986,8Q1'–466Saldo1’446,6", '1', -1)
+   igual                                        109661
+   diferencias en páginas SIN un apóstrofo (ASCII o «’») entre cifras: 0
+   citas reales (estado y detalle) candidata → propuesta: {'igual': 1645}
+
+real	8m47.496s
+user	8m41.417s
+sys	0m0.760s
