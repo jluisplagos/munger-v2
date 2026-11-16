@@ -24,6 +24,8 @@
 | C8 | 97441770f51761e28c089df7830d3de802bf87e9 | Registra el hash de C7. Congelado de la revisión n.º 4 |
 | C9 | c8764494d9911c59a67a530f13b56616fe86707c | Segunda presentación de cinco entradas del ancla de S2C (R17, R39 y R40 de 2021–22); hueco del verificador hallado por el autor: columnas por país. Sin revisar (tercera parte) |
 | C10 | 95b37e6da22bd4d5adb55c3f09c729b8d4e409f1 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 4 (P1–P5): criterio de formato de recuento, título de país o de segmento sobre la tabla, páginas sin identidad entre páginas, precisiones de forma (cuarta parte) |
+| C11 | 364129afd45ba2e54a1df4141fd50e97fd55ef6d | Registra el hash de C10. Congelado de la revisión n.º 5 |
+| C12 | El commit que añade esta fila; su hash consta en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 5 (Q1–Q7): columnas del mismo año y de apertura, columna «published», celdas y llamadas de la cabecera, título del bloque hasta la página anterior, rótulos de segmento normalizados, R41, R8 de 2021–22, R24 de 2023 y R42 (quinta parte) |
 
 ## Marcas y pruebas
 
@@ -340,7 +342,7 @@ Cada caso del revisor y lo que hace ahora `verificar_cifras.py`:
 | F1–F3: tabla con una tercera columna «Change» | En el modo por defecto, la columna del token ya no se supone por su posición. Se identifica con su cabecera: por orden, si la cabecera tiene tantas columnas reconocidas (años, «Change», «Notes») como números la línea; si no, por alineación horizontal. Si el token no queda bajo un ejercicio, la fila queda PENDIENTE o FALLO, nunca OK | F1, FALLO en ejercicio; F2 y F3, los valores correctos, OK |
 | A1, A2, A4, H1: modo declarado | El modo es una lista cerrada por concepto (`modo_admitido`), la misma para el constructor del CSV y para el verificador. Otro modo es FALLO. «crecimiento» solo admite porcentajes y «max_cabecera» exige fechas de apertura y cierre en la cabecera | FALLO en ejercicio |
 | D1, D2: concepto de la columna | Nueva dimensión `columna`. En las tablas de varias columnas que no son ejercicios, la cabecera de la columna del token debe ser la del concepto. Abarca crecimiento, impuestos diferidos, arrendamientos, intangibles, inmovilizado y matrices | FALLO en columna. También el activo ROU declarado como pasivo |
-| B1, B2: acciones y beneficio por acción | Las líneas de recuentos, importes por acción, márgenes, años o euros no pueden ser «mm EUR». Además, una declaración de otra unidad corta la búsqueda, y una declaración de otra tabla deja la fila PENDIENTE | FALLO en unidad |
+| B1, B2: acciones y beneficio por acción | Las líneas cuyo rótulo está en la lista de recuentos, importes por acción, márgenes, años o euros no pueden ser «mm EUR». *(Precisión de C12, revisión n.º 5, Q7 c: la lista no cubre la clase entera; desde C10 la completa el criterio de formato de recuento.)* Además, una declaración de otra unidad corta la búsqueda, y una declaración de otra tabla deja la fila PENDIENTE | FALLO en unidad |
 | C1: margen de Francia | Una sublínea («As a % of revenue», «of which») bajo el rótulo de un segmento, en una tabla por segmentos, no es del grupo | FALLO en perímetro. El margen del grupo, bajo el TOTAL, queda OK |
 | H5: otra línea de la misma tabla | El concepto de la línea no lo acredita el verificador: la etiqueta es una declaración. Lo acredita una identidad (N2): R25 y R16 de 2022 hacen fallar el cálculo | Lo detecta el contraste (`test_contraste_residuos.py`) |
 
@@ -547,7 +549,7 @@ Tras C7, cinco entradas que cambian los valores de referencia de la especificaci
   - 4 casos nuevos en `test_verificar_cifras.py` (67/67): el total, OK; Bélgica y Suecia, FALLO en perímetro; una sociedad adquirida (URD 2023 p.294), PENDIENTE;
   - las 736 filas anteriores no cambian de estado en ninguna dimensión;
   - los scripts del revisor, sin cambios, dan sobre C9 los mismos resultados que sobre C7, salvo los recuentos de filas (`resultados/*_sobre_C9.txt`).
-- **Límite que queda:** las columnas por sociedad no se reconocen como tales. Quedan PENDIENTE en ejercicio, no FALLO en perímetro.
+- **Límite que queda:** las columnas por sociedad no se reconocen como tales. Quedan PENDIENTE en ejercicio, no FALLO en perímetro. *(Precisión de C12, revisión n.º 5, Q7 d:)* quedaban además dos clases, corregidas en C12: la columna «published» de las tablas de reexpresión (Q1) y la asignación por orden con dos fechas del mismo año (Q2).
 
 ## Resultados sobre C9
 
@@ -668,9 +670,137 @@ Tras C7, cinco entradas que cambian los valores de referencia de la especificaci
   - 151 entradas con solo identidad de su página;
   - 31 sin segunda línea y 4 solo con la Historia.
 
-  Ninguna de esas entradas cambia la referencia de la especificación.
+  Ninguna de esas entradas cambia la referencia de la especificación. *(Precisión de C12, revisión n.º 5, Q6:)* no era cierto para cinco de las 151 con solo identidad de su página: D&A total y resultado antes de impuestos de 2021 y 2022 y adquisiciones de 2023. Desde C12 tienen identidad entre páginas.
 - **Reglas de unidad y perímetro:** listas y criterios que detectan señales conocidas, no acreditación.
 - **14 filas PENDIENTE** de URD 2022 p.302, y columnas por sociedad PENDIENTE.
 - **Límites de detección por debajo de la cota:** R13 de 2025 y R39 de 2021.
+- **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
+- **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.
+
+# Respuesta a la revisión independiente n.º 5
+
+**Revisión:** [REVISION_INDEPENDIENTE_5.md](REVISION_INDEPENDIENTE_5.md). Commit 595d2f6 de la rama `auditoria/economica-f1-frente-e-revision` (23:19 UTC), sobre el congelado 364129a (C11). La hizo una sesión de revisión nueva, distinta de la de las pasadas 1, 3 y 4. Copia sin cambios y procedencia: [PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md).
+
+**Resultado de la revisión:**
+- reproduce todas las cifras del autor, con salidas idénticas;
+- las siete filas de C9 son correctas: las leyó con otras dos herramientas de lectura de PDF y en la página renderizada;
+- la corrección de las columnas por país de C9 es correcta para esa clase;
+- P1, P3 y P4, corregidas; P5, con un resto; P2, en parte;
+- objeciones nuevas: Q1–Q6 (menores) y Q7 (forma);
+- no encuentra errores en los datos reales y ninguna conclusión material cambia.
+
+**Esta respuesta** acepta las siete objeciones y las corrige en **C12**. Las pruebas se ejecutan con los scripts del revisor, sin cambios, sobre C12 (`resultados/revisor5_*_sobre_C12.txt`). Para `clases_5.py` y `barrido_tablas.py` se usa como base un worktree temporal de C8. El barrido rotula «C11» la versión nueva porque lo tiene escrito así; aquí es C12.
+
+## Q1 · menor · la columna «published» pasaba como edición vigente · **aceptada y corregida** (C12)
+
+- **Corrección:**
+  - dos apariciones del mismo año en posiciones distintas son ahora columnas distintas, así que la reexpresada se reconoce;
+  - una columna de ejercicio cuya cabecera dice «published», «reported» o «publié» no puede declararse vigente: FALLO en edición.
+- **Pruebas:**
+  - en las tablas de reexpresión de las cinco publicaciones (`revisor5_clases_5_sobre_C12.txt`, R), la columna publicada queda en FALLO en 589 de 589 (antes, OK) y la reexpresada en OK en 589 de 589 (antes, PENDIENTE);
+  - casos B1 y B2 en el test.
+- **Límite:** la tabla del informe de gestión que imprime la cifra publicada bajo «2021 restated» (B4, el 86,9) sigue en OK. La cabecera dice «restated» y el verificador no puede saberlo; la diferencia, 0,1, queda dentro de la cota de R39 (declarado en C9).
+
+## Q2 · menor · la asignación por orden aceptaba la columna equivocada · **aceptada y corregida** (C12)
+
+- **Corrección:**
+  - con columnas distintas para fechas distintas del mismo año, el balance del URD 2021 tiene cuatro columnas reconocidas, no tres;
+  - una columna de apertura («01/01/2020») se asigna al ejercicio anterior;
+  - si dos cabeceras ocupan el mismo sitio, manda la línea más cercana a la fila. La zona de cabecera puede incluir la línea de unidades de la tabla anterior, con su propia fecha (DEU 2024 p.304).
+- **Pruebas:**
+  - B13 y B14 en FALLO; B15 y B16, las correctas, en OK; B19 (saldo de apertura con nota), en FALLO;
+  - en las tablas de vencimientos (B17 y B18) las dos quedan PENDIENTE: la cabecera tiene varias medidas.
+- **Límite:** la asignación por orden sigue sin comprobar la alineación de cada número. Se corrige la causa encontrada, la cuenta de columnas, no el método.
+
+## Q3 · menor · la marca «(a)» dejaba PENDIENTE cifras legítimas y rebajaba FALLO a PENDIENTE · **aceptada y corregida** (C12)
+
+- **Corrección:**
+  - las palabras de la misma celda que una columna reconocida («restated (a)», «Adjusted») y las llamadas con letra no son cabeceras ajenas;
+  - si la columna reconocida más próxima es de otro ejercicio, la fila queda en FALLO aunque haya una cabecera ajena más cerca.
+- **Pruebas:**
+  - en los estados del URD 2021 (`clases_5`, S), los 75 tokens legítimos quedan en OK y los 75 de otro ejercicio, en FALLO, como en C8;
+  - casos C1, C2, C5 y C6 del revisor; C1 y C2, en el test.
+
+## Q4 · menor · el criterio de título dejaba pasar la mayor parte de los bloques por país · **aceptada y corregida** (C12)
+
+- **Corrección.** Se busca el título del bloque, no el de la tabla:
+  - el primer título, en mayúsculas y en línea propia, desde la fila hasta el principio de la página;
+  - si no lo hay, el último de la página anterior;
+  - para todas las filas, estén por encima o por debajo de la línea de unidades.
+
+  La prosa y las cabeceras de columna en minúsculas no cuentan como título. Lo que queda en la línea de unidades solo cuenta si es un único país o segmento («(In millions of euros) France»).
+- **Pruebas:**
+  - bloques de la nota de pensiones de las cinco publicaciones (`clases_5`, P): ninguna cifra en millones queda OK (367 PENDIENTE y 9 FALLO de 376) y ninguno de los 209 porcentajes;
+  - casos E2–E7 en PENDIENTE; E18, el total del grupo bajo prosa que nombra el Reino Unido, en OK; E19, el positivo de C10, en OK;
+  - seis casos nuevos en el test.
+- **Un falso positivo propio, corregido antes del commit.** En un primer intento, la línea de unidades de las tablas de combinaciones de negocio («(In millions of euros) Acquisition date Belgium Brazil…») se tomaba como título y dejaba PENDIENTE también la columna del total. Ahora decide la regla de las columnas por país.
+- **Frases alineadas:** informe §1 y T14. El límite de P2 en estas respuestas se mantiene: no se detecta un bloque de otro perímetro sin título que lo nombre.
+
+## Q5 · menor · filas de segmento con rótulos fuera de las listas · **aceptada y corregida** (C12)
+
+- **Corrección:**
+  - los rótulos de segmento se comparan normalizados: «and», «et» y «&» valen lo mismo, y se quita el prefijo «CGU»;
+  - un rótulo partido en dos líneas se une con el de la línea anterior;
+  - se añaden «République d'Irlande», «Eire», «Great Britain» y «Latvia» a los países;
+  - **identidad nueva R42:** crecimiento publicado frente al crecimiento de las ventas de las cuentas de resultados, de 2021 a 2025. Es la que propone el revisor y sus residuos coinciden con los suyos. Ancla las cinco tablas de crecimiento.
+- **No se implementa el criterio de estructura** (las filas que preceden a TOTAL no son del grupo). En las tablas por naturaleza, las filas anteriores al total son componentes del grupo; el criterio exigiría distinguir las tablas por segmento de las tablas por naturaleza.
+- **Pruebas:**
+  - en las tablas de crecimiento (`clases_5`, G), ninguna fila de segmento queda OK en ventas ni en crecimiento orgánico;
+  - E8–E16 en FALLO;
+  - cuatro casos nuevos en el test y uno en el de residuos: R42 falla con el crecimiento de un segmento.
+- **Sensibilidad de R42:** un +3 en las ventas del año anterior mueve el crecimiento unos 0,07 puntos; en 2024 eso no supera la cota. La cobertura propia del revisor lo refleja: deriva para R42 de 2024 dos páginas y no tres.
+
+## Q6 · menor · tres frases sobre la referencia más fuertes que su prueba · **aceptada y corregida** (C12)
+
+- **Identidades nuevas** para las cinco entradas de solo misma página que mueven la referencia, con siete filas nuevas de páginas publicadas:
+  - R41: resultado antes de impuestos frente a la nota 9 (URD 2022 p.326 y URD 2023 p.345), para 2021 y 2022;
+  - R8 de 2021–22: línea del EFE (p.261 y p.279) y dotaciones netas a provisiones (p.284 y p.301);
+  - R24 de 2023: puente de la deuda neta del DEU 2024 (p.260).
+
+  Todas con residuo 0,0. Las 97 entradas que mueven la referencia tienen ya identidad entre páginas.
+- **Frases corregidas:** E9 de la especificación y «Lo que queda abierto tras C10». El punto de recuperación de C10 ya no las repite.
+- `cobertura_por_mutacion.py` informa ahora también de la clase «solo identidad de la misma página»: 0 entradas con efecto en la referencia.
+- **Pruebas:**
+  - `cobertura_propia.py` del revisor, sin cambios, sobre C12: 244, 140, 2 y 31, con 0 discrepancias, y 97 de 97 entradas que mueven la referencia con identidad entre páginas;
+  - tres casos nuevos en el test de residuos.
+
+## Q7 · forma · varios · **aceptada y corregida** (C12)
+
+- **(a)** Informe §0.11, alineado con §12.
+- **(b)** Ya corregida en 0caa7ee.
+- **(c)** Fila «B1, B2» de la tabla de N1, con su precisión.
+- **(d)** «Límite que queda» de C9, con Q1 y Q2.
+- **(e)** Coma del README.
+- **(f)** El FALLO de perímetro de una columna por país nombra la cabecera completa, uniendo las palabras apiladas en el mismo sitio.
+
+## Resultados sobre C12
+
+| Prueba | Resultado |
+|---|---|
+| Verificador | 750 filas: 736 OK, 14 PENDIENTE, 0 FALLO. Las 743 anteriores no cambian de estado en ninguna dimensión |
+| `test_verificar_cifras.py` | 89/89: 20 positivos reales, 10 PENDIENTE esperados y 59 contraejemplos |
+| Contraste | 290 comprobaciones (136 libro, 125 fuente con 124 residuos, 29 algebraicas), 0 fallidas; 417 entradas |
+| Cobertura | 244 entre páginas, 140 solo misma página, 2 solo Historia y 31 sin segunda línea. 8 de 53 páginas sin identidad entre páginas (24 entradas) |
+| `test_contraste_residuos.py` | 22/22 |
+| Mutación (528 filas) | Sin incoherencias. Ninguna entrada que mueva la referencia queda sin identidad entre páginas |
+| Sondas | 711/711 en unidad y en perímetro |
+| Valores de referencia de E9 | Sin cambios |
+| Scripts de los revisores n.º 1, 3 y 4 | Mismos resultados que sobre C10, salvo los recuentos |
+
+## Lo que queda abierto tras C12
+
+- **Revisión independiente de lo afectado por C12** (pasada 6): pendiente.
+- **Cobertura de la unidad y del perímetro:**
+  - 8 páginas (24 entradas) sin identidad entre páginas;
+  - 140 entradas con solo identidad de su página;
+  - 31 sin segunda línea y 2 solo con la Historia.
+
+  Ninguna de ellas mueve la referencia; las 97 que la mueven tienen identidad entre páginas.
+- **Las reglas del verificador detectan señales conocidas; no acreditan:**
+  - la asignación de columnas sigue siendo heurística;
+  - la tabla de gestión con la cifra publicada bajo «restated» no se detecta;
+  - un bloque de otro perímetro sin título ni rótulo que lo nombre, tampoco.
+- **14 filas PENDIENTE** de URD 2022 p.302, y columnas por sociedad PENDIENTE.
+- **Límites de detección por debajo de la cota:** R13 de 2025, R39 de 2021 y R42 frente a las ventas.
 - **Decisiones económicas [DH]:** F1, política de la PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
 - **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.

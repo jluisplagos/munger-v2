@@ -1,25 +1,26 @@
-Filas de tabla de la edición vigente mutadas (+3): 521
-  identidad de fuente: 374
-  solo libro: 4
+Filas de tabla de la edición vigente mutadas (+3): 528
+  identidad de fuente: 384
+  solo libro: 2
   solo algebraica: 0
   aborta: 0
   SIN DETECTAR: 23
-  no usada: 120
-  usadas (alguna salida cambia o alguna comprobación falla): 401; el contraste declara 409 en todas las ediciones
+  no usada: 119
+  usadas (alguna salida cambia o alguna comprobación falla): 409; el contraste declara 417 en todas las ediciones
 
 == comparación con cobertura_entradas del contraste (solo filas de la edición vigente, las mutadas) ==
-  declarada «contrastada con la Historia del libro» · mutación «solo libro»: 4
-  declarada «contrastada entre páginas» · mutación «identidad de fuente»: 223
-  declarada «no declarada» · mutación «no usada»: 112
+  declarada «contrastada con la Historia del libro» · mutación «solo libro»: 2
+  declarada «contrastada entre páginas» · mutación «identidad de fuente»: 244
+  declarada «no declarada» · mutación «no usada»: 111
   declarada «sin comprobación de segunda línea» · mutación «SIN DETECTAR»: 23
   declarada «sin comprobación de segunda línea» · mutación «no usada»: 8
-  declarada «solo identidad de la misma página» · mutación «identidad de fuente»: 151
+  declarada «solo identidad de la misma página» · mutación «identidad de fuente»: 140
   declaradas con una comprobación que la mutación no hace fallar: 0 []
   usadas según la mutación y no declaradas por el contraste: 0 []
   declaradas por el contraste en las que la mutación no cambia nada (se leen sin efecto en ninguna salida): 8 ['CAPX_CES_U22_2021', 'CAPX_CES_U23_2022', 'CF_SBC_U22_2021', 'OOIE_EARN_2024', 'OOIE_EARN_2025', 'OOIE_EARN_FR_2023', 'OOIE_PLUSV_2024', 'OOIE_PLUSV_FR_2023']
   sin detectar y con efecto en la referencia de la especificación: 0 []
   solo contrastadas con el libro y con efecto en la referencia de la especificación: 0 []
-  entradas de páginas sin identidad entre páginas: 41; con efecto en la referencia de la especificación: 0 []
+  entradas de páginas sin identidad entre páginas: 24; con efecto en la referencia de la especificación: 0 []
+  solo identidad de la misma página y con efecto en la referencia de la especificación: 0 []
 
 == SIN DETECTAR ==
 OOIE_PLUSV_2025 · URD2025 p.350 «25.7» · declarada: sin comprobación de segunda línea ·  · tablas que cambian: partidas_puntuales_en_flujo_sin_crecimiento
@@ -47,9 +48,7 @@ TAXDIF_LS_2023 · URD2023 p.346 «17.0» · declarada: sin comprobación de segu
 CREC_ORG_2021 · URD2021 p.211 «7.4%» · declarada: sin comprobación de segunda línea ·  · tablas que cambian: alternativas, horizonte_2021_2025
 
 == solo libro ==
-IS_VENTAS_U23_2022 · URD2023 p.276 «3,820.9» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!I6 (2022) libro = fuente · tablas que cambian: alternativas, horizonte_2021_2025
 CF_SBC_U23_2022 · URD2023 p.279 «20.3» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!I18 (2022) libro = fuente · tablas que cambian: 
-IS_VENTAS_U22_2021 · URD2022 p.258 «3,048.3» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!H6 (2021) libro = fuente · tablas que cambian: alternativas, horizonte_2021_2025
 SBC_N52_U22_2021 · URD2022 p.287 «(28.0)» · declarada: contrastada con la Historia del libro · 1 comprobaciones del libro; p. ej. Historia!H18 (2021) libro = fuente · tablas que cambian: 
 
 == solo algebraica ==
@@ -58,7 +57,7 @@ SBC_N52_U22_2021 · URD2022 p.287 «(28.0)» · declarada: contrastada con la Hi
 
 == identidad de fuente (resumen por entrada) ==
 IS_VENTAS_2025 · R23 2025 (+49 del libro)
-IS_VENTAS_2024 · R23 2024 (+48 del libro)
+IS_VENTAS_2024 · R23 2024, R42 2024, R42 2025 (+48 del libro)
 IS_PPA_2025 · R22 2025
 IS_PPA_2024 · R22 2024
 IS_OOIE_2025 · R38 2025
@@ -174,7 +173,7 @@ CAPX_NETO_2024 · R31 2024
 CREC_ORG_2025 · R32 2025
 CREC_EXT_2025 · R32 2025
 CREC_FX_2025 · R32 2025
-CREC_PUB_2025 · R32 2025
+CREC_PUB_2025 · R32 2025, R42 2025
 EBITA_SBC_2025 · R18 2025
 EBITA_SBC_2024 · R18 2024
 DA_EBIT_2025 · R6 2025, R7 2025
@@ -250,7 +249,7 @@ TAX_BAI_2024 · R21 2024
 TAX_REAL_2025 · R37 2025
 TAX_REAL_2024 · R37 2024
 INT_RC_VNC_2023 · R28 2024
-IS_VENTAS_FR_2023 · R23 2023 (+48 del libro)
+IS_VENTAS_FR_2023 · R23 2023, R42 2023 (+48 del libro)
 IS_EBIT_FR_2023 · R1 2023, R2 2023
 IS_FIN_FR_2023 · R1 2023, R20 2023 (+49 del libro)
 IS_BAI_FR_2023 · R1 2023, R21 2023 (+51 del libro)
@@ -279,7 +278,7 @@ CF_CAPINT_FR_2023 · R10 2023, R29 2023, R9 2023 (+50 del libro)
 CF_DESINT_FR_2023 · R29 2023
 CF_CAPMAT_FR_2023 · R10 2023, R29 2023, R9 2023 (+50 del libro)
 CF_DESMAT_FR_2023 · R29 2023
-CF_ADQ_FR_2023 · R29 2023 (+2 del libro)
+CF_ADQ_FR_2023 · R24 2023, R29 2023 (+2 del libro)
 CF_SUBVINV_FR_2023 · R29 2023
 CF_AMPL_FR_2023 · R30 2023
 CF_AUTOC_FR_2023 · R30 2023
@@ -309,7 +308,7 @@ CAPX_NETO_FR_2023 · R31 2023
 CREC_ORG_2024 · R32 2024
 CREC_EXT_2024 · R32 2024
 CREC_FX_2024 · R32 2024
-CREC_PUB_2024 · R32 2024
+CREC_PUB_2024 · R32 2024, R42 2024
 DA_EBIT_FR_2023 · R6 2023, R7 2023
 DA_TEXT_FR_2023 · R6 2023
 DA_OART_FR_2023 · R6 2023
@@ -342,10 +341,11 @@ TAX_DIF_FR_2023 · R17 2023
 TAX_BAI_FR_2023 · R21 2023
 TAX_REAL_FR_2023 · R37 2023
 INT_RC_VNC_2023_FR · R28 2024
+IS_VENTAS_U23_2022 · R42 2022, R42 2023 (+1 del libro)
 IS_PPA_U23_2022 · R22 2022
 IS_EBIT_U23_2022 · R35 2022
 IS_FIN_U23_2022 · R35 2022 (+1 del libro)
-IS_BAI_U23_2022 · R35 2022 (+48 del libro)
+IS_BAI_U23_2022 · R35 2022, R41 2022 (+48 del libro)
 IS_IMP_U23_2022 · R17 2022 (+47 del libro)
 CF_CFO_U23_2022 · R36 2022 (+1 del libro)
 CF_CAPINT_U23_2022 · R34 2022 (+2 del libro)
@@ -362,20 +362,21 @@ FCF_FCF_U23_2022 · R36 2022
 CREC_ORG_2023 · R32 2023
 CREC_EXT_2023 · R32 2023
 CREC_FX_2023 · R32 2023
-CREC_PUB_2023 · R32 2023
+CREC_PUB_2023 · R32 2023, R42 2023
 DA_TEXT_U23_2022 · R25 2022
 DA_OART_U23_2022 · R25 2022
 DA_OTRO_U23_2022 · R25 2022
 DA_ROU_U23_2022 · R16 2022, R25 2022
-DA_SUBV_U23_2022 · R25 2022
+DA_SUBV_U23_2022 · R25 2022, R8 2022
 DA_DETER_U23_2022 · R25 2022
 DA_PPA_U23_2022 · R22 2022, R25 2022
-DA_TOTAL_U23_2022 · R25 2022 (+2 del libro)
+DA_TOTAL_U23_2022 · R25 2022, R8 2022 (+2 del libro)
 LS_AMORT_ROU_2022 · R16 2022
+IS_VENTAS_U22_2021 · R42 2021, R42 2022 (+1 del libro)
 IS_PPA_U22_2021 · R22 2021
 IS_EBIT_U22_2021 · R35 2021
 IS_FIN_U22_2021 · R35 2021 (+1 del libro)
-IS_BAI_U22_2021 · R35 2021 (+48 del libro)
+IS_BAI_U22_2021 · R35 2021, R41 2021 (+48 del libro)
 IS_IMP_U22_2021 · R17 2021 (+47 del libro)
 CF_CFO_U22_2021 · R36 2021 (+1 del libro)
 CF_CAPINT_U22_2021 · R34 2021 (+2 del libro)
@@ -392,15 +393,15 @@ FCF_FCF_U22_2021 · R36 2021
 CREC_ORG_2022 · R32 2022
 CREC_EXT_2022 · R32 2022
 CREC_FX_2022 · R32 2022
-CREC_PUB_2022 · R32 2022
+CREC_PUB_2022 · R32 2022, R42 2022
 DA_TEXT_U22_2021 · R25 2021
 DA_OART_U22_2021 · R25 2021
 DA_OTRO_U22_2021 · R25 2021
 DA_ROU_U22_2021 · R16 2021, R25 2021
-DA_SUBV_U22_2021 · R25 2021
+DA_SUBV_U22_2021 · R25 2021, R8 2021
 DA_DETER_U22_2021 · R25 2021
 DA_PPA_U22_2021 · R22 2021, R25 2021
-DA_TOTAL_U22_2021 · R25 2021 (+2 del libro)
+DA_TOTAL_U22_2021 · R25 2021, R8 2021 (+2 del libro)
 LS_AMORT_ROU_2021 · R16 2021
 CF_EXIS_U22_2021 · R5 2021 (+2 del libro)
 CF_CLI_U22_2021 · R5 2021 (+2 del libro)
@@ -422,11 +423,19 @@ CF_ADQ_NOTA_U22_2021 · R39 2021
 TAX_CORR_U23_2022 · R17 2022
 TAX_DIF_U23_2022 · R17 2022
 CF_ADQ_NOTA_U23_2022 · R39 2022
+BAI_NOTA9_U22_2021 · R41 2021
+BAI_NOTA9_U23_2022 · R41 2022
+CF_DAP_U22_2021 · R8 2021
+PROV_TOT_U22_2021 · R8 2021
+CF_DAP_U23_2022 · R8 2022
+PROV_TOT_U23_2022 · R8 2022
+DN_ADQ_FR_2023 · R24 2023
 LS_FX_ROU_2023 · R15 2023
 LS_FX_PAS_2023 · R14 2023
 LS_OTROS_ROU_2023 · R15 2023
 LS_OTROS_PAS_2023 · R14 2023
-IS_VENTAS_U21_2020 · R40 2021 (+2 del libro)
+IS_VENTAS_U21_2020 · R40 2021, R42 2021 (+2 del libro)
+CREC_PUB_2021 · R42 2021
 IS_VENTAS_MR_U21_2020 · R40 2021
 VENTAS_SEG_2025 · R23 2025
 VENTAS_SEG_2024 · R23 2024

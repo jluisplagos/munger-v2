@@ -13,7 +13,8 @@
 | Cambios del autor tras el congelado | C9 | Segunda presentación de cinco entradas del ancla de S2C; hueco del verificador hallado por el autor (columna de un país con OK, también en C7 y C8) y corregido. **No revisados** | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), tercera parte |
 | Respuesta a la revisión n.º 4 | C10 | Las cinco objeciones se aceptan y se corrigen | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), cuarta parte |
 | 5 | Lo afectado por C9 y C10, sobre el commit congelado 364129a (C11). Encargada el 15-nov-2026 a las 22:28:58 UTC a una sesión de revisión **nueva**, con contexto propio. La de las pasadas 1, 3 y 4 había declarado poco presupuesto de contexto | **Hecha**, commit 595d2f6 (23:19 UTC). Reproduce todas las cifras; las siete filas de C9, correctas; P1, P3 y P4 corregidas, P5 con un resto y P2 en parte. Objeciones nuevas: Q1–Q6 (menores) y Q7 (forma). Ninguna conclusión material cambia | [REVISION_INDEPENDIENTE_5.md](REVISION_INDEPENDIENTE_5.md), `scripts_revisor_5/` y `resultados_revisor_5/`: copia sin cambios de 595d2f6 ([PROCEDENCIA_REVISOR.md](PROCEDENCIA_REVISOR.md)) |
-| Respuesta a la revisión n.º 5 | C12 | **En preparación** | — |
+| Respuesta a la revisión n.º 5 | C12 | Las siete objeciones se aceptan y se corrigen | [RESPUESTAS_AUTOR_1.md](RESPUESTAS_AUTOR_1.md), quinta parte |
+| 6 | Lo afectado por C12 (correcciones de Q1–Q7), sobre un commit congelado | **Pendiente** | — |
 
 **C4 = d2e585e91638c363682a000bdb416a4b865c6cce.** El commit 1864c4e solo cambia, respecto a C4, este archivo, la línea de C4 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 3; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
 
@@ -21,4 +22,4 @@
 
 **C9 = c8764494d9911c59a67a530f13b56616fe86707c.** **C10 = 95b37e6da22bd4d5adb55c3f09c729b8d4e409f1.** El commit siguiente solo cambia, respecto a C10, este archivo, la línea de C10 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 5; su hash se da en el encargo y constará en el registro al incorporar el informe del revisor.
 
-Las correcciones de C7 las revisó la pasada 4 (N1, solo en parte; P1–P5). Los cambios de C9 y C10 **no están revisados** de forma independiente: entran en la pasada 5. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.
+Las correcciones de C7 las revisó la pasada 4 (N1, solo en parte; P1–P5). La pasada 5 revisó C9 y C10 (Q1–Q7). Los cambios de C12 **no están revisados** de forma independiente: entran en la pasada 6. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.

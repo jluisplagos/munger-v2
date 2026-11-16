@@ -102,6 +102,15 @@ def main():
          1, {"residuo R39 2022"}),
         ("límite: adquisiciones de 2021 con la cifra publicada antes de la reexpresión (86,9) en lugar de la reexpresada (86,8)",
          mut({"CF_ADQ_U22_2021": {"valor_publicado": "-86.9"}}), None, set()),
+        # revisión n.º 5 (C12): segundas presentaciones de Q6 y crecimiento publicado (Q5)
+        ("resultado antes de impuestos de 2021 con un dígito cambiado (177,0)", mut({"IS_BAI_U22_2021": {"valor_publicado": "177.0"}}),
+         1, {"residuo R41 2021", "residuo R35 2021"}),
+        ("D&A total de 2022 con la cifra del URD 2022 sin reexpresar (796,2)", mut({"DA_TOTAL_U23_2022": {"valor_publicado": "-796.2"}}),
+         1, {"residuo R8 2022", "residuo R25 2022"}),
+        ("adquisiciones de 2023 de la columna de 2024 (183,3)", mut({"CF_ADQ_FR_2023": {"valor_publicado": "-183.3"}}),
+         1, {"residuo R24 2023"}),
+        ("crecimiento publicado de 2021 de la fila de un segmento (19,4 %)", mut({"CREC_PUB_2021": {"literal": "19.4%", "valor_publicado": "19.4"}}),
+         1, {"residuo R42 2021"}),
     ]
     malos = 0
     # H2 (revisión n.º 3, N3): CSV cambiado después de verificar y verificación original → el contraste no calcula

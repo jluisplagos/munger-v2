@@ -193,8 +193,8 @@ def datos_anio(F, y):
         # segundas presentaciones en otras páginas (contraste entre páginas de las entradas clave)
         d["fin_nota"], d["tax_bai"], d["is_ppa"] = -F(g("FIN_TOT")), F(g("TAX_BAI")), -F(g("IS_PPA"))
         d["ventas_seg"] = F({2025: "VENTAS_SEG_2025", 2024: "VENTAS_SEG_2024", 2023: "VENTAS_SEG_FR_2023"}[y])
-        if y != 2023:                                   # el DEU 2024 no se usa para el puente de la deuda neta de 2023
-            d["dn_adq"] = -F(f"DN_ADQ_{y}")
+        # puente de la deuda neta: URD 2025 p.314 para 2024–25; para 2023, el del DEU 2024 p.260 (revisión n.º 5, Q6)
+        d["dn_adq"] = -F(f"DN_ADQ_{y}") if y != 2023 else -F("DN_ADQ_FR_2023", contraparte=True)
         d["sbc_ifrs2"] = -F(g("EBITA_SBC")) if y != 2023 else F("EBITA_SBC_FR_2023")
         d["crec_org"] = F.pct(f"CREC_ORG_{y}")
         d["taxdif_int"], d["taxdif_rou"], d["taxdif_ls"] = F(f"TAXDIF_INT_{y}"), F(f"TAXDIF_ROU_{y}"), F(f"TAXDIF_LS_{y}")
@@ -242,6 +242,9 @@ def datos_anio(F, y):
         # (C9) impuesto de la nota 9 (p.345) y flujo neto total de la nota 2.4 (p.294): segundas presentaciones
         d["tax_corr"], d["tax_dif"] = F("TAX_CORR" + u, contraparte=True), F("TAX_DIF" + u, contraparte=True)
         d["adq_nota"] = -F("CF_ADQ_NOTA" + u, contraparte=True)
+        # (revisión n.º 5, Q6) resultado antes de impuestos de la nota 9 (p.345); línea del EFE (p.279) y provisiones (p.301)
+        d["bai_nota9"] = F("BAI_NOTA9" + u, contraparte=True)
+        d["dap"], d["prov_cargo"] = F("CF_DAP" + u, contraparte=True), -F("PROV_TOT" + u, contraparte=True)
         d["crec_ext"], d["crec_fx"], d["crec_pub"] = F.pct("CREC_EXT_2022"), F.pct("CREC_FX_2022"), F.pct("CREC_PUB_2022")
     elif y == 2021:
         u = "_U22_2021"
@@ -268,6 +271,9 @@ def datos_anio(F, y):
         # de gestión del URD 2021 (p.213) frente a las de su cuenta de resultados (p.226), que son S2020
         d["tax_corr"], d["tax_dif"] = F("TAX_CORR" + u, contraparte=True), F("TAX_DIF" + u, contraparte=True)
         d["adq_nota"] = -F("CF_ADQ_NOTA" + u, contraparte=True)
+        # (revisión n.º 5, Q6) resultado antes de impuestos de la nota 9 (p.326); línea del EFE (p.261) y provisiones (p.284)
+        d["bai_nota9"] = F("BAI_NOTA9" + u, contraparte=True)
+        d["dap"], d["prov_cargo"] = F("CF_DAP" + u, contraparte=True), -F("PROV_TOT" + u, contraparte=True)
         d["ventas_2020"], d["ventas_2020_mr"] = F("IS_VENTAS_U21_2020"), F("IS_VENTAS_MR_U21_2020", contraparte=True)
     # derivadas comunes
     d["ebit_h"] = d["bai"] + d["fin"]                        # definición de la Historia (v2.2)
@@ -402,12 +408,21 @@ def main():
             # (C9) entradas del ancla de S2C que solo se cotejaban con la Historia del libro
             "R17 impuesto corriente + diferido − gasto por impuesto": d["tax_corr"] + d["tax_dif"] - d["imp"],
             "R39 adquisiciones: EFE − flujo neto total de la nota de combinaciones de negocio": d["adq"] - d["adq_nota"],
+            # (revisión n.º 5, Q6) entradas que mueven la referencia y solo tenían identidad de su página
+            "R41 resultado antes de impuestos: cuenta de resultados − nota 9": d["bai"] - d["bai_nota9"],
+            "R8 línea EFE amortizaciones y provisiones − (D&A total + subvención + provisiones)": d["dap"] - (d["da_total"] + d["da_subv"] + d["prov_cargo"]),
         } | ({"R32 crecimiento publicado − (orgánico + externo + divisa)": d["crec_pub"] - (d["crec_org"] + d["crec_ext"] + d["crec_fx"])}
              if "crec_pub" in d else {}) \
           | ({"R40 ventas 2020 (base de S2C): cuenta de resultados − informe de gestión": d["ventas_2020"] - d["ventas_2020_mr"]}
              if "ventas_2020" in d else {})
 
     conc = {y: residuos(A[y]) for y in VENTANA}
+    # (Revisión n.º 5, Q5) R42: crecimiento publicado frente al crecimiento de las ventas de las cuentas de resultados.
+    # Identidad entre páginas que ancla las tablas de crecimiento: una fila de segmento la rompería. No es lineal; para la
+    # cota se linealiza (∂r/∂crec = 1, ∂r/∂V = −100/V₋₁, ∂r/∂V₋₁ = 100·V/V₋₁²), con error de segundo orden menor que 10⁻⁶.
+    R42 = "R42 crecimiento publicado − crecimiento de las ventas de las cuentas de resultados"
+    for y in VENTANA:
+        conc[y][R42] = F.pct(f"CREC_PUB_{y}") - 100 * (A[y]["ventas"] / A[y - 1]["ventas"] - 1)
     R["tablas"]["conciliaciones_residuos"] = {str(y): {k: f6(v, 3) for k, v in conc[y].items()} for y in VENTANA}
     # (O3; contraste externo sobre 6fb9294) Cada identidad se AFIRMA con su propia cota de redondeo: la suma, para cada
     # cifra impresa que interviene, de |coeficiente| × media unidad de su última cifra (0,05 en millones con un decimal).
@@ -417,6 +432,15 @@ def main():
     FQ = FuenteQ(F)
     AQ = {y: datos_anio(FQ, y) for y in HORIZONTE}
     concQ = {y: (residuos(AQ[y]) if y in VENTANA else residuos_horizonte(AQ[y])) for y in HORIZONTE}
+    for y in HORIZONTE:
+        crec, V = FQ.pct(f"CREC_PUB_{y}"), AQ[y]["ventas"]
+        Vp = AQ[y - 1]["ventas"] if (y - 1) in AQ else FQ("IS_VENTAS_U21_2020")
+        t = dict(crec.t)
+        for i_, c_ in V.t.items():
+            t[i_] = t.get(i_, 0) - 100 * c_ / Vp.v
+        for i_, c_ in Vp.t.items():
+            t[i_] = t.get(i_, 0) + 100 * V.v * c_ / Vp.v ** 2
+        concQ[y][R42] = Q(crec.v - 100 * (V.v / Vp.v - 1), t)
     EXCEPCIONES = {
         (2025, "R13"): (Fr("0.4"), "diferencia de concepto 2025: interés implícito de caja 29,6 (pagos 177,9 del EFE p.327 "
                                    "− principal 148,3 de la nota 6.3 p.366) frente al gasto devengado 29,2 (nota 9 p.379); "

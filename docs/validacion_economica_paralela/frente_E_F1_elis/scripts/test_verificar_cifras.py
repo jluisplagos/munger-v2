@@ -17,6 +17,7 @@ Uso:  python3 -I test_verificar_cifras.py --raiz <ruta>/munger_v2_r1
 import argparse
 import csv
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -244,6 +245,67 @@ def main():
     caso("positivo C10: pasivo neto por planes de prestación definida del grupo, 67,1, total de la tabla por países de esa página",
          [nueva("POS4_PENSIONES_GRUPO", anio="2025", pagina="356", etiqueta="LIABILITIES (ASSETS) RELATED TO DEFINED BENEFIT PLANS", pos="-2",
                 literal="67.1", valor_publicado="67.1")], "OK")
+    # ---- revisión n.º 5 (C12): filas reales de las páginas que cita el revisor, construidas desde el PDF como en su
+    # contraejemplos_5.py (la línea se fija entera y la posición del token se calcula)
+    sys.path.insert(0, str(AQUI))
+    import verificar_cifras as V  # noqa: E402
+    ejercicios = {f["ejercicio"] for f in fuentes["fuentes"].values()}
+
+    def del_pdf(rid, doc, pagina, rx_linea, literal, anio, ocurr=1, **campos):
+        f = fuentes["fuentes"][doc]
+        lineas = V.texto_pagina(a.raiz / f["archivo"], pagina).splitlines()
+        cand = [i for i, l in enumerate(lineas) if re.search(rx_linea, l)]
+        i = cand[ocurr - 1]
+        toks = V.tokens_numericos(lineas[i], f["idioma"])
+        pos = toks.index(literal) - len(toks)
+        e = f["ejercicio"]
+        c = dict(anio=str(anio), doc=doc, pagina=str(pagina), etiqueta="re:^" + re.escape(lineas[i]) + "$",
+                 ocurrencia=str([k for k, l in enumerate(lineas) if l == lineas[i]].index(i) + 1), pos=str(pos), literal=literal,
+                 valor_publicado=str(V.valor(literal, f["idioma"])), unidad="%" if "%" in literal else "mm EUR",
+                 edicion="vigente" if (anio == e - 1 or (anio == e and (e + 1) not in ejercicios)) else "anterior")
+        c.update(campos)
+        if c.get("control_anio") == "crecimiento":
+            c["edicion"] = "vigente" if anio == e else "anterior"
+        return nueva(rid, **c)
+
+    ADQ = r"^\s*Acquisition of subsidiaries, net of cash acquired\s{2,}"
+    caso("Q1 (revisión n.º 5, B1): columna «12/31/2021 published» de la tabla de reexpresión (86,9) declarada vigente",
+         [del_pdf("R5_B1", "URD2022", 271, ADQ, "(86.9)", 2021)], "FALLO", {"R5_B1": {"edicion"}}, coherente=True)
+    caso("Q1 positivo (B2): la columna «12/31/2021 restated» (86,8), la vigente",
+         [del_pdf("R5_B2", "URD2022", 271, ADQ, "(86.8)", 2021)], "OK")
+    TNCA = r"^\s*TOTAL NON-CURRENT ASSETS\s"
+    caso("Q2 (B13): balance del URD 2021, activos no corrientes de 2020 (7.010,1) declarados 2021",
+         [del_pdf("R5_B13", "URD2021", 228, TNCA, "7,010.1", 2021)], "FALLO", {"R5_B13": {"ejercicio"}}, coherente=True)
+    caso("Q2 (B14): saldo de apertura «01/01/2020 Adjusted» (7.198,9), cierre de 2019, declarado 2020",
+         [del_pdf("R5_B14", "URD2021", 228, TNCA, "7,198.9", 2020)], "FALLO", {"R5_B14": {"ejercicio"}}, coherente=True)
+    caso("Q2 positivo (B15): la cifra de 2021 (7.065,5) declarada 2021", [del_pdf("R5_B15", "URD2021", 228, TNCA, "7,065.5", 2021)], "OK")
+    caso("Q2 positivo (B16): la cifra de 2020 (7.010,1) declarada 2020", [del_pdf("R5_B16", "URD2021", 228, TNCA, "7,010.1", 2020)], "OK")
+    BAI = r"^\s*Income \(loss\) before tax\s"
+    caso("Q3 positivo (C1): resultado antes de impuestos de 2020 (29,7) bajo «12/31/2020 restated (a)»",
+         [del_pdf("R5_C1", "URD2021", 226, BAI, "29.7", 2020)], "OK")
+    caso("Q3 (C2): el mismo token declarado 2021: FALLO, no PENDIENTE",
+         [del_pdf("R5_C2", "URD2021", 226, BAI, "29.7", 2021)], "FALLO", {"R5_C2": {"ejercicio"}}, coherente=True)
+    caso("Q4 (E2): tasa de descuento de Francia (3,7 %) en el bloque «FRANCE – DETAILS», por encima de la línea de unidades: PENDIENTE",
+         [del_pdf("R5_E2", "URD2025", 356, r"^\s*Discount rate\s", "3.7%", 2025)], "PENDIENTE")
+    caso("Q4 (E3): activos del plan de Irlanda (24,2), bloque «IRELAND – DETAILS» con varias tablas: PENDIENTE",
+         [del_pdf("R5_E3", "URD2025", 357, r"^\s*FAIR VALUE OF PLAN ASSETS\s", "24.2", 2025)], "PENDIENTE")
+    caso("Q4 (E5): obligaciones de Francia de 2022 (40,1), URD 2023 p.308, con prosa entre el título y la tabla: PENDIENTE",
+         [del_pdf("R5_E5", "URD2023", 308, r"^\s*Total value of defined benefit plan obligations \(1\)\s", "40.1", 2022)], "PENDIENTE")
+    caso("Q4 (E6): obligaciones de Irlanda (29,6), URD 2022 p.291, con el título en la página anterior: PENDIENTE",
+         [del_pdf("R5_E6", "URD2022", 291, r"^\s*TOTAL VALUE OF DEFINED BENEFIT PLAN OBLIGATIONS \(1\)\s", "29.6", 2021)], "PENDIENTE")
+    caso("Q4 (E7): activos del plan del Reino Unido (257,3), «DÉTAIL POUR LE ROYAUME-UNI», DEU 2024 p.304: PENDIENTE",
+         [del_pdf("R5_E7", "DEU2024FR", 304, r"^\s*JUSTE VALEUR DES ACTIFS DES RÉGIMES\s", "257,3", 2024)], "PENDIENTE")
+    caso("Q4 positivo (E18): total del grupo de clientes y activos por contratos (824,1) bajo prosa que nombra el Reino Unido",
+         [del_pdf("R5_E18", "DEU2024FR", 321, r"^\s*CLIENTS ET ACTIFS SUR CONTRATS\s", "824,1", 2024)], "OK")
+    caso("Q5 (E8): ventas del segmento «United Kingdom and Ireland» (364,2), URD 2021 p.211, declaradas del grupo",
+         [del_pdf("R5_E8", "URD2021", 211, r"^\s*United Kingdom and Ireland\s", "364.2", 2021)], "FALLO", {"R5_E8": {"perimetro"}}, coherente=True)
+    caso("Q5 (E12): crecimiento orgánico del segmento con el rótulo partido «and Ireland» (28,8 %), URD 2022 p.243",
+         [del_pdf("CREC_ORG_R5_IRL", "URD2022", 243, r"^\s*and Ireland\s", "28.8%", 2022, control_anio="crecimiento")],
+         "FALLO", {"CREC_ORG_R5_IRL": {"perimetro"}}, coherente=True)
+    caso("Q5 (E15): fondo de comercio de la UGE «CGU France» (1.442,9) declarado del grupo",
+         [del_pdf("R5_E15", "URD2025", 363, r"^\s*CGU France\s", "1,442.9", 2025)], "FALLO", {"R5_E15": {"perimetro"}}, coherente=True)
+    caso("Q5 (E16): «République d'Irlande (Eire)» (109,3) de la tabla por países del DEU 2024 declarada del grupo",
+         [del_pdf("R5_E16", "DEU2024FR", 292, r"^\s*République d'Irlande \(Eire\)\s", "109,3", 2024)], "FALLO", {"R5_E16": {"perimetro"}}, coherente=True)
 
     malos = 0
     for k in casos:

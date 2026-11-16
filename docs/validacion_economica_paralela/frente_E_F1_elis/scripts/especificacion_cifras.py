@@ -520,6 +520,18 @@ t(X, 277, "Net cash flow", 0, [(0, 2021, "CF_ADQ_NOTA_U22_2021", "-86.8")], "Flu
 t(W, 345, "Current taxes", 0, [(-1, 2022, "TAX_CORR_U23_2022", "92.6")], "Impuesto corriente 2022 reexpresado (nota 9)")
 t(W, 345, "re:^\\s*Deferred taxes\\s{2,}", 0, [(-1, 2022, "TAX_DIF_U23_2022", "-12.9")], "Impuesto diferido 2022 reexpresado (nota 9)")
 t(W, 294, "NET CASH FLOW", 0, [(0, 2022, "CF_ADQ_NOTA_U23_2022", "-221.7")], "Flujo neto de las adquisiciones de 2022 (nota 2.4, columna del total reexpresado)")
+# (revisión n.º 5, Q6) segunda presentación entre páginas de cinco entradas que mueven la referencia y solo tenían una
+# identidad de su página: resultado antes de impuestos (nota 9, frente a la cuenta de resultados), D&A total de 2021–22
+# (línea del EFE y dotaciones netas a provisiones, R8 como en 2023–25) y adquisiciones de 2023 (puente de la deuda neta
+# del DEU 2024, R24 como en 2024–25)
+t(X, 326, "re:^\\s*Income \\(loss\\) before tax\\s{2,}", 0, [(-1, 2021, "BAI_NOTA9_U22_2021", "171.0")], "Resultado antes de impuestos 2021 (nota 9)")
+t(W, 345, "re:^\\s*INCOME \\(LOSS\\) BEFORE TAX\\s{2,}", 0, [(-1, 2022, "BAI_NOTA9_U23_2022", "282.3")], "Resultado antes de impuestos 2022 reexpresado (nota 9)")
+t(X, 261, "Depreciation, amortization and provisions", 0, [(-1, 2021, "CF_DAP_U22_2021", "745.7")], "EFE: amortizaciones y provisiones 2021")
+t(X, 284, "TOTAL ADDITIONS TO OR REVERSALS OF PROVISIONS", 0, [(-1, 2021, "PROV_TOT_U22_2021", "-0.3")], "Provisiones: total dotaciones netas 2021")
+t(W, 279, "Depreciation, amortization and provisions", 0, [(-1, 2022, "CF_DAP_U23_2022", "793.6")], "EFE: amortizaciones y provisiones 2022 reexpresado")
+t(W, 301, "TOTAL ADDITIONS TO OR REVERSALS OF PROVISIONS", 0, [(-1, 2022, "PROV_TOT_U23_2022", "6.1")], "Provisiones: total dotaciones netas 2022 reexpresado")
+t(D, 260, "Acquisitions de filiales, sous déduction de la trésorerie acquise", 0, [(-1, 2023, "DN_ADQ_FR_2023", "-82.1")],
+  "Deuda neta: adquisiciones 2023 reexpresado (DEU 2024, puente de la deuda neta)")
 for etq, idb, (vr, vp) in [("Écarts de conversion", "LS_FX", ("5.6", "5.9")), ("Autres mouvements", "LS_OTROS", ("-1.9", "-1.0"))]:
     t(D, 312, etq, 1, [(-2, 2023, f"{idb}_ROU_2023", vr), (-1, 2023, f"{idb}_PAS_2023", vp)], f"Arrendamientos 2023 (DEU 2024): {etq}")
 

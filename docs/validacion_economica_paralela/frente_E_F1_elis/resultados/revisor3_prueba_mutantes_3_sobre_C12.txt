@@ -1,0 +1,62 @@
+
+K0 control: M1 de la revisión n.º 1 (DA_ROU_2025 toma «(132.2)» de 2024, modo por defecto)
+  verificar_cifras.py: código 1 · fila DA_ROU_2025: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: la columna es de 2024, no de 2025
+
+A1 M1 con el modo declarado «crecimiento»
+  verificar_cifras.py: código 1 · fila DA_ROU_2025: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'PENDIENTE', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: el modo «crecimiento» no es el que admite este concepto («dos_columnas»)
+    columna: concepto sin columna esperada declarada en el verificador
+
+A2 M1 con el modo declarado «max_cabecera»
+  verificar_cifras.py: código 1 · fila DA_ROU_2025: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'PENDIENTE', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: el modo «max_cabecera» no es el que admite este concepto («dos_columnas»)
+    columna: concepto sin columna esperada declarada en el verificador
+
+A5 control: edición anterior declarada vigente (IS_EBIT_FR_2024, DEU 2024, 596,4)
+  verificar_cifras.py: código 1 · fila IS_EBIT_FR_2024: FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'FALLO'}
+    edicion: declarada vigente, pero la regla exige la publicación 2025 para 2024 y esta es la 2024
+
+A4 edición anterior declarada vigente con el modo declarado «crecimiento»
+  verificar_cifras.py: código 1 · fila IS_EBIT_FR_2024: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'PENDIENTE', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: el modo «crecimiento» no es el que admite este concepto («dos_columnas»)
+    columna: concepto sin columna esperada declarada en el verificador
+
+B1 unidad: número de acciones (millones de acciones) bajo cabecera «In millions of euros» (URD 2025 p.313)
+  verificar_cifras.py: código 1 · fila MUT_ACCIONES: FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'FALLO', 'perimetro': 'OK', 'edicion': 'OK'}
+    unidad: la línea «Number of shares, basic (C)» es un recuento, un importe por acción o un margen, no millones de euros
+
+B2 unidad: euros por acción bajo la misma cabecera (URD 2025 p.313)
+  verificar_cifras.py: código 1 · fila MUT_BPA: FALLO · {'literal': 'OK', 'ejercicio': 'PENDIENTE', 'columna': 'NO_APLICA', 'unidad': 'FALLO', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: columna del ejercicio no acreditada: la cabecera no tiene columnas reconocibles
+    unidad: la línea «› basic, attributable to owners of the parent = A/C» es un recuento, un importe por acción o un margen, no millones de euros
+
+C1 perímetro: margen de EBITDA de Francia («As a % of revenue», URD 2025 p.308) declarado del grupo
+  verificar_cifras.py: código 1 · fila MUT_MARGEN_FR: FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'FALLO', 'edicion': 'OK'}
+    perimetro: la línea depende del rótulo del segmento Francia, no del grupo
+
+D1 concepto de columna: TAXDIF_INT_2025 toma «(0.9)» (combinaciones) en vez de «17.5» (resultado)
+  verificar_cifras.py: código 1 · fila TAXDIF_INT_2025: FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'FALLO', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    columna: la columna es «combinations» (combinaciones), no la de resultado
+
+D2 concepto de columna: CREC_ORG_2025 toma «+1.8%» (crecimiento externo) en vez de «+3.8%» (orgánico)
+  verificar_cifras.py: código 1 · fila CREC_ORG_2025: FALLO · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'FALLO', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    columna: la columna es «External» (externo), no la de organico
+
+E1 control: tabla de 2024 de la p.348 declarada 2025 (modo titulo)
+  verificar_cifras.py: código 1 · fila VENTAS_LINO_PLANO_2025: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'OK', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: la tabla es de 2024, no de 2025
+
+F1 modo por defecto: el total de 2024 «1,609.8» (pos −2 por la columna «Change») declarado 2025
+  verificar_cifras.py: código 1 · fila MUT_EBITDA_2025: FALLO · {'literal': 'OK', 'ejercicio': 'FALLO', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+    ejercicio: la columna es de 2024, no de 2025
+
+F2 falso positivo: el total correcto de 2025 «1,700.1» (pos −3) declarado 2025 en el modo por defecto
+  verificar_cifras.py: código 2 · fila MUT_EBITDA_2025_OK: OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+  contraste_f1.py: código 0 · {"comprobaciones": 290, "fallidas": 0, "por_clase": {"fuente": 125, "libro": 136, "algebraica": 29}, "libro_contrastado": true, "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385", "entradas_usadas":
+    comprobaciones fallidas: 0 []
+
+F3 falso positivo: el total correcto de 2024 «1,609.8» (pos −2) declarado 2024 en el modo por defecto
+  verificar_cifras.py: código 2 · fila MUT_EBITDA_2024_OK: OK · {'literal': 'OK', 'ejercicio': 'OK', 'columna': 'NO_APLICA', 'unidad': 'OK', 'perimetro': 'OK', 'edicion': 'OK'}
+  contraste_f1.py: código 0 · {"comprobaciones": 290, "fallidas": 0, "por_clase": {"fuente": 125, "libro": 136, "algebraica": 29}, "libro_contrastado": true, "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385", "entradas_usadas":
+    comprobaciones fallidas: 0 []

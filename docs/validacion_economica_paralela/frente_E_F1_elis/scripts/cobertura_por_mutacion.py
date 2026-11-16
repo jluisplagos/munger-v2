@@ -146,6 +146,10 @@ def main():
     sin_ancla_ref = sorted(rid for rid, _, _, cambian in res if rid in sin_ancla and "referencia_especificacion" in cambian)
     print(f"  entradas de páginas sin identidad entre páginas: {len(sin_ancla)}; con efecto en la referencia de la especificación: "
           f"{len(sin_ancla_ref)} {sin_ancla_ref}")
+    # (revisión n.º 5, Q6) también la clase «solo identidad de la misma página»
+    misma_ref = sorted(rid for rid, _, _, cambian in res if estado_decl.get(rid) == "solo identidad de la misma página"
+                       and "referencia_especificacion" in cambian)
+    print(f"  solo identidad de la misma página y con efecto en la referencia de la especificación: {len(misma_ref)} {misma_ref}")
 
     for c in ("SIN DETECTAR", "solo libro", "solo algebraica", "aborta"):
         print(f"\n== {c} ==")

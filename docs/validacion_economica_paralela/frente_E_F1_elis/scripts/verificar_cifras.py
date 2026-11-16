@@ -74,7 +74,7 @@ SEGMENTOS = {
     "Francia": ["France"],
     "Europa central": ["Central Europe", "Europe centrale"],
     "Escandinavia y Europa del Este": ["Scandinavia & Eastern Europe", "Scandinavie & Europe de l'Est"],
-    "Reino Unido e Irlanda": ["UK & Ireland", "Royaume-Uni & Irlande"],
+    "Reino Unido e Irlanda": ["UK & Ireland", "Royaume-Uni & Irlande", "United Kingdom & Ireland"],
     "Latinoamérica": ["Latin America", "Amérique latine"],
     "Europa del Sur": ["Southern Europe", "Europe du Sud"],
     "Otros segmentos": ["Other segments", "Autres segments"],
@@ -136,6 +136,7 @@ UNIDAD_OTRA_RX = re.compile(r"(?i)\((?:in|en)\s+(?:euros|number|nombre|%|thousan
 PAISES = re.compile(r"^(?:France|Germany|Allemagne|United Kingdom|Royaume-Uni|Spain|Espagne|Brazil|Brésil|Netherlands|Pays-Bas|"
                     r"Denmark|Danemark|Sweden|Suède|Switzerland|Suisse|Mexico|Mexique|Republic of Ireland|Irlande|Ireland|Russia|Russie|"
                     r"Norway|Norvège|Italy|Italie|Portugal|Belgium|Belgique|Poland|Pologne|Chile|Chili|Colombia|Colombie|Finland|Finlande|"
+                    r"République d'Irlande|Eire|Great Britain|Latvia|Lettonie|"
                     r"Austria|Autriche|Luxembourg|Czech|Tchèque|Other countries|Autres pays)\b")
 # rótulos de sublíneas que dependen de la línea anterior (márgenes, desgloses)
 SUBLINEA = re.compile(r"^(?:As a % of|En % d|of which|dont|›|o/w)", re.I)
@@ -363,15 +364,27 @@ def zona_de_cabecera(lineas, i, idioma):
 def columnas_de_cabecera(lineas, zona, claves):
     """Columnas reconocidas en la cabecera, ordenadas de izquierda a derecha: (centro, clave, texto). Cada año o fecha
     distinto es una columna; cada otra clave cuenta una vez, en su aparición más a la izquierda."""
-    vistas = {}
+    vistas, fechas = {}, []
     for clave in claves:
-        for k in zona:
+        # de la línea más cercana a la fila hacia arriba: si dos cabeceras de ejercicio ocupan el mismo sitio, manda la más
+        # próxima (la zona puede incluir la línea de unidades de una tabla anterior con su propia fecha)
+        for k in sorted(zona, reverse=True):
             for m in re.finditer(FRASES_COLUMNA[clave], lineas[k]):
-                ident = m.group() if clave in ("ejercicio", "fecha") else clave
                 c = (m.start() + m.end()) / 2
-                if ident not in vistas or c < vistas[ident][0]:
-                    vistas[ident] = (c, clave, m.group())
-    return sorted(vistas.values())
+                if clave in ("ejercicio", "fecha"):
+                    txt = m.group()
+                    # (revisión n.º 5, Q2) una columna de apertura («01/01/2020», «January 1, 2020», «1er janvier 2020») es
+                    # el cierre del ejercicio anterior: su ejercicio es 2019, no 2020
+                    if clave == "ejercicio" and APERTURA_RX.search(lineas[k][max(0, m.start() - 14):m.start()]):
+                        txt = str(int(txt) - 1)
+                    # (revisión n.º 5, Q1 y Q2) dos apariciones del mismo año en posiciones distintas son columnas
+                    # distintas: «12/31/2021 published» y «12/31/2021 restated», o «12/31/2020» y «01/01/2020». Solo se
+                    # funden las que están una encima de otra, en el mismo sitio (a menos de 6 caracteres).
+                    if not any(abs(c - c2) <= 6 for c2, _, _ in fechas):
+                        fechas.append((c, clave, txt))
+                elif clave not in vistas or c < vistas[clave][0]:
+                    vistas[clave] = (c, clave, m.group())
+    return sorted(fechas + list(vistas.values()))
 
 
 def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajenas=False):
@@ -402,13 +415,18 @@ def columna_de_token(lineas, i, pos, idioma, claves, maxdist=14, cabeceras_ajena
     # solo una casa con la clave, así que las demás no son columnas ajenas.
     ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok) if cabeceras_ajenas else None
     if ajena is not None and ajena[0] < d:
-        return None, None, f"el token está bajo la cabecera «{ajena[1]}», que no es una columna reconocida"
+        # (revisión n.º 5, Q3) no se devuelve None: quien llama decide. Si la columna reconocida más próxima es de otro
+        # ejercicio, el FALLO se mantiene; si es la del ejercicio declarado, queda PENDIENTE.
+        return clave, txt, "ajena:" + ajena[1]
     return clave, txt, "alineación"
 
 
+APERTURA_RX = re.compile(r"(?i)(?:\b0?1/0?1/|January 1,\s*|1er janvier\s*)$")
 # palabras de cabecera que califican una columna reconocida (no son columnas propias)
-CALIFICADOR = re.compile(r"(?i)^(?:\(?\*+\)?|\(\d+\)|restated\*?|published|reported|retrait[ée]e?s?\*?|publi[ée]e?s?|réel|actual|"
-                         r"pro|forma|\(unaudited\)|\(non|audité\))$")
+CALIFICADOR = re.compile(r"(?i)^(?:\(?\*+\)?|\(\d+\)|\([a-z]\)|restated\*?|published|reported|retrait[ée]e?s?\*?|publi[ée]e?s?|réel|actual|"
+                         r"pro|forma|\(unaudited\)|\(non|audité\)|adjusted\*?|ajust[ée]e?s?\*?)$")
+# (revisión n.º 5, Q1) palabras de la cabecera que dicen si la columna es la publicada antes de la reexpresión o la reexpresada
+EDICION_COLUMNA = re.compile(r"(?i)\b(published|reported|publi[ée]e?s?|restated|retrait[ée]e?s?)\b")
 
 
 def palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok):
@@ -423,17 +441,56 @@ def palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok):
                 inicio = m.start() if inicio is None else min(inicio, m.start())
     if inicio is None:
         return None
+    # (revisión n.º 5, Q3) celdas: en su línea, el trozo de texto (separado por dos espacios o más) que contiene una columna
+    # reconocida es la celda de esa columna; sus otras palabras («restated (a)», «Adjusted») la califican, no son ajenas
+    celdas = []
+    for kk, s0, e0 in reconocidos:
+        for t in re.finditer(r"\S+(?: \S+)*", lineas[kk]):
+            if t.start() <= s0 and e0 <= t.end():
+                celdas.append((kk, t.start(), t.end()))
     mejor = None
     for k in zona:
         for m in re.finditer(r"\S+", lineas[k]):
             if m.start() < inicio - 2 or CALIFICADOR.match(m.group()):
                 continue
-            if any(k == kk and m.start() < e and s < m.end() for kk, s, e in reconocidos):
+            if any(k == kk and m.start() < e and s < m.end() for kk, s, e in reconocidos + celdas):
                 continue
             dist = abs((m.start() + m.end()) / 2 - c_tok)
             if mejor is None or dist < mejor[0]:
                 mejor = (dist, m.group())
     return mejor
+
+
+def edicion_de_columna(lineas, i, pos, idioma, maxdist=14):
+    """(Revisión n.º 5, Q1) «publicada» o «reexpresada» si la columna de ejercicio del token lleva en su cabecera, a menos
+    de 10 caracteres de su centro, «published», «reported», «publié(e)» o «restated», «retraité(e)»; None si no lleva
+    ninguna de esas marcas. La columna se asigna como en columna_de_token."""
+    sp = spans_numericos(lineas[i], idioma)
+    if not sp or not -len(sp) <= pos < len(sp):
+        return None
+    zona = zona_de_cabecera(lineas, i, idioma)
+    cols = [c for c in columnas_de_cabecera(lineas, zona, ("ejercicio", "variacion", "notas"))] if zona else []
+    if not cols:
+        return None
+    idx = pos % len(sp)
+    if len(cols) == len(sp):
+        col = cols[idx]
+    else:
+        a_, b_ = sp[idx]
+        col = min(cols, key=lambda c: abs(c[0] - (a_ + b_) / 2))
+        if abs(col[0] - (a_ + b_) / 2) > maxdist:
+            return None
+    if col[1] != "ejercicio":
+        return None
+    mejor = None
+    for k in zona:
+        for m in EDICION_COLUMNA.finditer(lineas[k]):
+            d = abs((m.start() + m.end()) / 2 - col[0])
+            if d <= 10 and (mejor is None or d < mejor[0]):
+                mejor = (d, m.group(1).lower())
+    if mejor is None:
+        return None
+    return "reexpresada" if mejor[1].startswith(("restated", "retrait")) else "publicada"
 
 
 def token_y_zona(lineas, i, pos, idioma):
@@ -473,6 +530,10 @@ def comprobar_anio(lineas, i, fila, idioma="en"):
         col, txt, metodo = columna_de_token(lineas, i, pos, idioma, ("ejercicio", "variacion", "notas"), cabeceras_ajenas=True)
         if col is None:
             return "PENDIENTE", f"columna del ejercicio no acreditada: {metodo}"
+        if metodo.startswith("ajena:"):
+            if col == "ejercicio" and int(txt) != anio:
+                return "FALLO", f"la columna reconocida más próxima es de {txt}, no de {anio} (el token está además bajo «{metodo[6:]}»)"
+            return "PENDIENTE", f"columna del ejercicio no acreditada: el token está bajo la cabecera «{metodo[6:]}», que no es una columna reconocida"
         if col != "ejercicio":
             return "FALLO", f"la columna es «{txt}», no un ejercicio"
         a = int(txt)
@@ -654,6 +715,38 @@ def tabla_por_paises(lineas, i, j, idioma):
     return m.group(0) if m else None
 
 
+def es_titulo(t):
+    """Línea propia de título: corta, sin cifras, con tres letras o más y casi toda en mayúsculas («FRANCE – DETAILS»,
+    «DÉTAIL POUR LE ROYAUME-UNI»). La prosa y las cabeceras de columna en minúsculas no lo son."""
+    letras = [c for c in t if c.isalpha()]
+    return (bool(t) and not re.search(r"\d", t) and len(t) <= 60 and len(letras) >= 3
+            and sum(c.isupper() for c in letras) >= 0.8 * len(letras))
+
+
+def titulo_de_pais_encima_v2(lineas, i, j, lineas_previas=None):
+    """(Revisión n.º 5, Q4) Título del bloque de la fila, si nombra un país o un segmento. Primero, lo que queda en la línea
+    de unidades de su tabla después de la declaración, si es una cabecera de columna («(In millions of euros) France»).
+    Después, hacia arriba desde la fila hasta el principio de la página, la primera línea de título (es_titulo); si la
+    página no tiene ninguna por encima de la fila, la última de la página anterior. None si ese título no nombra ninguno."""
+    if j is not None and j < i:
+        resto = lineas[j]
+        for rx, _ in UNIDAD_RX:
+            resto = rx.sub("", resto)
+        # solo si lo que queda es un único país o segmento: la tabla tiene una sola columna, la de ese país. Si quedan
+        # varias cabeceras («Acquisition date Belgium Brazil…»), decide la regla de las columnas por país (pais_de_columna)
+        resto = re.sub(r"[()]", "", resto).strip()
+        if resto and not re.search(r"\d", resto) and PAIS_O_SEGMENTO_TITULO.fullmatch(resto):
+            return resto
+    for k in range(i - 1, -1, -1):
+        t = lineas[k].strip()
+        if es_titulo(t):
+            return t if PAIS_O_SEGMENTO_TITULO.search(t) else None
+    for t in reversed([x.strip() for x in (lineas_previas or [])]):
+        if es_titulo(t):
+            return t if PAIS_O_SEGMENTO_TITULO.search(t) else None
+    return None
+
+
 def titulo_de_pais_encima(lineas, j, alto=15):
     """(Revisión n.º 4, P2) Título más próximo por encima de la tabla, si nombra un país o un segmento («FRANCE – DETAILS»
     sobre el bloque de pensiones de Francia). Se mira primero lo que queda en la línea de unidades después de la declaración
@@ -689,7 +782,45 @@ def pais_de_columna(lineas, i, pos, idioma):
     cols = columnas_de_cabecera(lineas, zona, claves)
     d_rec = min((abs(c - c_tok) for c, _, _ in cols), default=float("inf"))
     ajena = palabra_de_cabecera_mas_cercana(lineas, zona, claves, c_tok)
-    return ajena[1] if ajena is not None and ajena[0] < d_rec else None
+    if ajena is None or ajena[0] >= d_rec:
+        return None
+    # (revisión n.º 5, Q7 f) la cabecera completa de la columna: las palabras apiladas en el mismo sitio («Great» /
+    # «Britain», «Germany &» / «Luxembourg»)
+    pal = [(k, m.group()) for k in zona for m in re.finditer(r"\S+", lineas[k]) if abs((m.start() + m.end()) / 2 - c_tok) <= ajena[0] + 5]
+    return " ".join(w for _, w in sorted(pal)) or ajena[1]
+
+
+def normalizar_rotulo(r):
+    """«United Kingdom and Ireland» → «united kingdom & ireland»; quita «CGU», «UGT» y espacios repetidos."""
+    r = re.sub(r"^(?:CGU|UGT)\s+", "", r.strip(), flags=re.I)
+    r = re.sub(r"\s+(?:and|et)\s+", " & ", r, flags=re.I)
+    return re.sub(r"\s+", " ", r).strip().lower()
+
+
+ROTULOS_SEGMENTO_NORM = {normalizar_rotulo(r): es for r, es in ROTULOS_SEGMENTO.items()}
+
+
+def rotulo_completo(lineas, i, idioma):
+    """Rótulo de la línea i, unido al de la línea anterior si el rótulo está partido en dos líneas: la anterior no tiene
+    cifras y es corta, y la segunda parte empieza en minúscula («and Ireland») o la primera termina en «and», «et» o «&»."""
+    r = rotulo(lineas[i])
+    k = i - 1
+    while k >= 0 and not lineas[k].strip():
+        k -= 1
+    if k >= 0 and not tokens_numericos(lineas[k], idioma):
+        prev = lineas[k].strip()
+        if len(prev) <= 40 and (r[:1].islower() or re.search(r"(?:\band|\bet|&)$", prev)):
+            return prev + " " + r
+    return r
+
+
+def segmento_de_rotulo(lineas, i, idioma):
+    """(Revisión n.º 5, Q5) Segmento de la fila por su rótulo normalizado y, si está partido, unido."""
+    for r in (rotulo_completo(lineas, i, idioma), rotulo(lineas[i])):
+        es = ROTULOS_SEGMENTO_NORM.get(normalizar_rotulo(r))
+        if es:
+            return es
+    return None
 
 
 def segmento_de_sublinea(lineas, i, j, idioma):
@@ -698,7 +829,7 @@ def segmento_de_sublinea(lineas, i, j, idioma):
     if j is None:
         return None
     datos = [k for k in range(j + 1, min(len(lineas), i + 40)) if es_linea_de_datos(lineas[k], idioma)]
-    if sum(1 for k in datos if ROTULOS_SEGMENTO.get(rotulo(lineas[k]))) < 3:
+    if sum(1 for k in datos if segmento_de_rotulo(lineas, k, idioma)) < 3:
         return None
     r = rotulo(lineas[i])
     if r in ("Other", "Autres"):
@@ -713,9 +844,9 @@ def segmento_de_sublinea(lineas, i, j, idioma):
     return None
 
 
-def comprobar_perimetro(lineas, i, fila, pos, idioma="en"):
+def comprobar_perimetro(lineas, i, fila, pos, idioma="en", lineas_previas=None):
     p = (fila.get("perimetro") or "").strip()
-    seg_linea = ROTULOS_SEGMENTO.get(rotulo(lineas[i]))
+    seg_linea = segmento_de_rotulo(lineas, i, idioma)
     _, j = unidad_declarada(lineas, i)
     es_matriz, zona = matriz_segmentos(lineas, j)
     if p == PERIMETRO_GRUPO:
@@ -734,7 +865,7 @@ def comprobar_perimetro(lineas, i, fila, pos, idioma="en"):
             if col == "Total" or (col is None and pos == -1 and lineas[j].split() and lineas[j].split()[-1] == "Total"):
                 return "OK", "columna «Total» de una matriz por segmentos"
             return "FALLO", f"columna {'del segmento ' + col if col else 'de un segmento'} en una matriz por segmentos, no el total del grupo"
-        tit = titulo_de_pais_encima(lineas, j)
+        tit = titulo_de_pais_encima_v2(lineas, i, j, lineas_previas)
         if tit:
             return "PENDIENTE", f"el título «{tit}» encima de la tabla nombra un país o un segmento: el perímetro del grupo no se puede acreditar"
         pc = pais_de_columna(lineas, i, pos, idioma)
@@ -876,8 +1007,14 @@ def comprobar_tabla(pdf, fila, idioma, fuente, ejercicios):
     dims["ejercicio"] = combinar([comprobar_anio(lineas, x["i"], fila, idioma) for x in vistos])
     dims["columna"] = combinar([comprobar_columna(lineas, x["i"], fila, pos, idioma) for x in vistos])
     dims["unidad"] = combinar([comprobar_unidad(lineas, x["i"], fila, idioma) for x in vistos])
-    dims["perimetro"] = combinar([comprobar_perimetro(lineas, x["i"], fila, pos, idioma) for x in vistos])
+    previas = texto_pagina(pdf, pag - 1).splitlines() if pag > 1 else []
+    dims["perimetro"] = combinar([comprobar_perimetro(lineas, x["i"], fila, pos, idioma, previas) for x in vistos])
     e, d, info = comprobar_edicion(texto, fila, fuente, ejercicios)
+    # (revisión n.º 5, Q1) en una tabla de reexpresión, la columna «published» es la cifra de la edición anterior aunque
+    # esté impresa en la publicación vigente: no puede declararse vigente
+    if e == "OK" and (fila.get("control_anio") or "").strip() == "dos_columnas" and (fila.get("edicion") or "").strip() == "vigente":
+        if any(edicion_de_columna(lineas, x["i"], pos, idioma) == "publicada" for x in vistos):
+            e, d = "FALLO", "la columna es la publicada antes de la reexpresión («published», «reported» o «publié»): cifra de la edición anterior, no la vigente"
     dims["edicion"] = {"estado": e, "detalle": d}
     if info:
         dims["edicion"]["regla"] = info
