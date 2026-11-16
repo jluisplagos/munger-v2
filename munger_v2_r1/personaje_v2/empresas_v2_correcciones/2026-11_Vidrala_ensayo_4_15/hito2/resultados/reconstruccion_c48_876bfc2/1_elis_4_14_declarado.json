@@ -1,0 +1,182 @@
+{
+ "expediente": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_decisiones/Elis",
+ "modo_fase1": "declarado",
+ "sin_migrados": false,
+ "config": "config_v2.json",
+ "carpeta_limpia": "temporal (se elimina al terminar)",
+ "entradas_declaradas": [
+  "etapa1",
+  "fase1_metadatos.json",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "texto",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "alcance_v2.json",
+  "fase1_v63.json"
+ ],
+ "pasos": [
+  {
+   "paso": "migración de la etapa 1",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_4eza9er8/Elis/Elis_v63_base.xlsx {'conservados': 519, 'excluidos': 895, 'transformados': 3, 'conflictos': 0, 'normalizados': 4}\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "rellenar_fase1_v63",
+   "rc": 0,
+   "salida": "OK: 568 celdas escritas en /tmp/reconstruccion_Elis_4eza9er8/Elis/Elis_v63_datos.xlsx · derivadas: 0 · convenciones: [] · avisos: 3\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase A",
+   "rc": 0,
+   "salida": "OK: 116 celdas escritas en /tmp/reconstruccion_Elis_4eza9er8/Elis/Elis_v63_evaluada.xlsx.A.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase B",
+   "rc": 0,
+   "salida": "OK: 92 celdas escritas en /tmp/reconstruccion_Elis_4eza9er8/Elis/Elis_v63_evaluada.xlsx.B.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase C",
+   "rc": 0,
+   "salida": "OK: 58 celdas escritas en /tmp/reconstruccion_Elis_4eza9er8/Elis/Elis_v63_evaluada.xlsx.C.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "recálculo (LibreOffice)",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_4eza9er8/Elis/recalc/Elis_v63_evaluada.xlsx (recálculo forzado, perfil /tmp/reconstruccion_Elis_4eza9er8/.lo_perfil)\n"
+  },
+  {
+   "paso": "lectura de resultados",
+   "rc": 0,
+   "salida": "OK: resultados.json → /tmp/reconstruccion_Elis_4eza9er8/Elis/resultados.json · motor A · estado COMPLETO Y VÁLIDO · libro LISTO · PROVISIONAL (26 estimaciones justificadas)\n"
+  }
+ ],
+ "diferencias": {
+  "fase1_analisis": [],
+  "fase1_historia": [],
+  "libro_datos": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-16"
+     ]
+    }
+   ]
+  },
+  "libro_evaluado": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-16"
+     ]
+    }
+   ]
+  },
+  "valores_recalculados": {
+   "n": 0,
+   "ejemplos": [],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-16"
+    }
+   ]
+  }
+ },
+ "modo_entrada_efectiva": {
+  "modo": "registrada",
+  "declarado_en": null
+ },
+ "entradas_migradas_distintas": [
+  {
+   "celda": "Análisis!C48",
+   "libro": 108,
+   "fase1_v63": 82.933,
+   "evidencia_libro": "URD2025 p.327, 379; DEU2024 p.273",
+   "motivo": "valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa"
+  }
+ ],
+ "precio_si": {
+  "expediente": 7.30205532309094,
+  "reconstruido": 7.30205532309094,
+  "diferencia": 0.0
+ },
+ "entradas_fcf_base": {
+  "Análisis!C46": {
+   "expediente": [
+    "v",
+    1429.433
+   ],
+   "reconstruido": [
+    "v",
+    1429.433
+   ]
+  },
+  "Análisis!C47": {
+   "expediente": [
+    "v",
+    857.167
+   ],
+   "reconstruido": [
+    "v",
+    857.167
+   ]
+  },
+  "Análisis!C48": {
+   "expediente": [
+    "v",
+    108
+   ],
+   "reconstruido": [
+    "v",
+    108
+   ]
+  },
+  "Análisis!C49": {
+   "expediente": [
+    "v",
+    128.1
+   ],
+   "reconstruido": [
+    "v",
+    128.1
+   ]
+  },
+  "Análisis!C50": {
+   "expediente": [
+    "v",
+    28.233
+   ],
+   "reconstruido": [
+    "v",
+    28.233
+   ]
+  }
+ },
+ "reproduce": true,
+ "reproduce_por_via_generativa": false,
+ "codigo_de_salida": 1,
+ "clasificacion": {}
+}
