@@ -283,7 +283,8 @@ def main():
     caso("V2a_transicion_temporal_termino_explicito_ancla_E4_anterior", "P1/V2",
          "Ventana con crecimiento; transición temporal de 7 como término explícito en los años 1–5, y ancla de S2C con la "
          "fórmula de E4 anterior, sin sacar la transición del denominador: 5 ÷ (32 − 20) = 5/12. Con crecimiento la cobra "
-         "dos veces, y por el ancla se vuelve perpetua. Es el caso P1b del autor con el ancla calculada.",
+         "dos veces y, por el ancla, también después del plan (años 6–10); en el año 11, solo si el ROIC se deriva de la "
+         "misma ancla (aquí no). Es el caso P1b del autor con el ancla calculada.",
          esc, 20, "incoherencia_ilustrada", g=g5, g_inf=g2, s2c=esc.ancla_E4(Fr(20)), roic=roic_c,
          extra=lambda t, Vt: Fr(7) if t <= 5 else Fr(0), ancla="E4 anterior: 5/12")
     caso("V2b_transicion_temporal_termino_explicito_ancla_E4_corregida", "P1/V2",
