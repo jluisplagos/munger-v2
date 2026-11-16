@@ -42,6 +42,12 @@ Aptitud: uso supervisado experimental; **no apto para dinero real**. F1 queda fu
 - **Documentación de cierre del hito:** `VERSION`, `CONTINUIDAD.md`, `PROMPT_NUEVA_VENTANA.md` (sigue siendo el de la 4.14) y
   `HITO_2_4_15.md` (borrador) por actualizar con los resultados finales; después, manifiesto y paquete de cambios.
 
+## Incidencia de ejecución
+
+- 16-nov-2026: un reinicio del contenedor cortó la regresión completa y la cuarta comprobación de la candidata `7a6583b` antes de que
+  terminaran; sus resultados se perdieron y no se dan por obtenidos. Tras el reinicio, el árbol de trabajo seguía conforme (7321/7321) y la
+  rama en `7a6583b`; se rehicieron las copias congeladas y se relanzaron los dos trabajos desde cero.
+
 ## Siguiente paso exacto
 
 1. Regenerar manifiesto y `CAMBIOS_ARCHIVOS.txt` sobre el árbol limpio y congelar una copia.
