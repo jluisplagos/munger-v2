@@ -1,0 +1,11 @@
+{
+ "mutacion": "v7c_lectura_sin_apostrofo_detras",
+ "linea": "for m in re.finditer(r\"(?<![\\d.,])(?<!\\d['’])\" + re.escape(c) + r\"(?!\\d|[.,]\\d)\", t):  # (hito 2, V7 y W3) «1'849,7» ni «1’849,7» contienen 849,7",
+ "rc": 1,
+ "recuento": "189/190 pruebas de la corrección de la verificación de las entradas (4.15) PASAN",
+ "detectada": true,
+ "fallan": [
+  "[RW] FALLA (V3, V7) un decimal sin cero delante citado desde la cifra y los miles con apóstrofo («1'849,7» no contiene 849,7): discrepancia · {(\"Total 849'697\", 849, \"Total 849'697\"): 'ok', ('Total 849’697', 849, 'Total 849’697'): 'ok'}"
+ ],
+ "segundos": 332
+}

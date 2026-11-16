@@ -1,0 +1,13 @@
+{
+ "mutacion": "m1_solo_delante",
+ "sentido": "acepta",
+ "que": "el apóstrofo solo cuenta por delante: «849» vuelve a valer dentro de «849'697»",
+ "linea": "return re.search(r\"(?<![\\d.,])(?<!\\d['’])\" + re.escape(imp) + r\"(?![\\d.,]*\\d)\", texto) is not None",
+ "rc": 1,
+ "recuento": "61/62 pruebas de la entrada efectiva (4.15) PASAN",
+ "detectada": true,
+ "fallan": [
+  "[C] FALLA (séptima comprobación, X5) importe_completo: el apóstrofo de miles (ASCII o tipográfico) es parte del número; «849,7» no está completo en «1'849,7» · {('849', \"Total 849'697\"): True, ('849', 'Total 849’697'): True}"
+ ],
+ "segundos": 48
+}

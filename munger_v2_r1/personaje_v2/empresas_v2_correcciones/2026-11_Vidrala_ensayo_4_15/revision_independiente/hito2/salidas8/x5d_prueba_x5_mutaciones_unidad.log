@@ -1,0 +1,42 @@
+bloque de la prueba (del árbol):
+   | x5 = {("849,7", "Total 1'849,7"): False, ("849,7", "Total 1\u2019849,7"): False, ("849", "Total 849'697"): False, ("849", "Total 849\u2019697"): False,
+   |       ("849,7", "Total 1.849,7"): False, ("7", "Total 7,608"): False, ("849,7", "Total 849,7"): True, ("1'849,7", "Total 1'849,7"): True,
+   |       ("849'697", "Total 849'697"): True, ("849,7", "Ventas SBF 120\u2019s 849,7"): True}
+   | mal_x5 = {k_: FH.importe_completo(*k_) for k_, e_ in x5.items() if FH.importe_completo(*k_) != e_}
+   | paso("C", "(séptima comprobación, X5) importe_completo: el apóstrofo de miles (ASCII o tipográfico) es parte del número; «849,7» no está completo en «1'849,7»", not mal_x5, mal_x5)
+
+código del árbol (0a0020b): PASA 
+código de 45ff57c:          FALLA {('849,7', "Total 1'849,7"): True, ('849,7', 'Total 1’849,7'): True, ('849', "Total 849'697"): True, ('849', 'Total 849’697'): True}
+
+mutaciones sobre el código del árbol:
+   m0_sin_el_cambio                   [acepta  ] detectada    · se quita el cambio entero (la línea de 45ff57c)
+                                                    → {('849,7', "Total 1'849,7"): True, ('849,7', 'Total 1’849,7'): True, ('849', "Total 849'697"): True, ('849', 'Total 849’697'): True}
+   m1_solo_delante                    [acepta  ] detectada    · el apóstrofo solo cuenta por delante: «849» vuelve a valer dentro de «849'697»
+                                                    → {('849', "Total 849'697"): True, ('849', 'Total 849’697'): True}
+   m2_solo_detras                     [acepta  ] detectada    · el apóstrofo solo cuenta por detrás: «849,7» vuelve a valer dentro de «1'849,7»
+                                                    → {('849,7', "Total 1'849,7"): True, ('849,7', 'Total 1’849,7'): True}
+   m3_solo_ascii                      [acepta  ] detectada    · solo el apóstrofo ASCII, en los dos lados (se pierde «’»)
+                                                    → {('849,7', 'Total 1’849,7'): True, ('849', 'Total 849’697'): True}
+   m4_solo_tipografico                [acepta  ] detectada    · solo «’», en los dos lados (se pierde el ASCII)
+                                                    → {('849,7', "Total 1'849,7"): True, ('849', "Total 849'697"): True}
+   m5_delante_solo_ascii              [acepta  ] detectada    · por delante solo ASCII; por detrás, los dos
+                                                    → {('849,7', 'Total 1’849,7'): True}
+   m6_delante_solo_tipografico        [acepta  ] detectada    · por delante solo «’»; por detrás, los dos (el descuido de X1, aquí)
+                                                    → {('849,7', "Total 1'849,7"): True}
+   m7_detras_solo_ascii               [acepta  ] detectada    · por detrás solo ASCII; por delante, los dos
+                                                    → {('849', 'Total 849’697'): True}
+   m8_detras_solo_tipografico         [acepta  ] detectada    · por detrás solo «’»; por delante, los dos
+                                                    → {('849', "Total 849'697"): True}
+   m9_detras_un_solo_separador        [acepta  ] NO detectada · por detrás, la forma de verificacion_entradas (un solo separador y una cifra): «7» valdría en «7,,6» o «7.'6»
+   s1_delante_apostrofo_sin_cifra     [prudente] NO detectada · cualquier apóstrofo delante bloquea, aunque no haya cifra antes («d’1,5»)
+   s2_detras_apostrofo_sin_cifra      [prudente] NO detectada · cualquier apóstrofo detrás bloquea, aunque no siga cifra («120’s»)
+   s3_apostrofo_en_cualquier_sitio    [prudente] NO detectada · un apóstrofo en cualquier punto posterior de la línea bloquea
+
+no detectadas en el sentido de aceptar: ['m9_detras_un_solo_separador']
+   m9_detras_un_solo_separador: '7' en 'Total 7,,6': árbol=False, mutación=True · '7' en "Total 7.'6": árbol=False, mutación=True · '849' en "Total 849''697": árbol=False, mutación=True
+   s1_delante_apostrofo_sin_cifra: '1,5' en 'taux d’1,5 %': árbol=True, mutación=False · '849' en "'849": árbol=True, mutación=False
+   s2_detras_apostrofo_sin_cifra: '120' en 'SBF 120’s': árbol=True, mutación=False · '849' en "849' 697": árbol=True, mutación=False
+   s3_apostrofo_en_cualquier_sitio: '849,7' en '849,7 l’exercice': árbol=True, mutación=False
+
+RESULTADO: CONFORME
+rc=0

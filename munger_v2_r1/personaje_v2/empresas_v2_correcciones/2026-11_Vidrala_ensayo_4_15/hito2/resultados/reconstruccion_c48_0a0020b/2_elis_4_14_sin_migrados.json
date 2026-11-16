@@ -1,0 +1,713 @@
+{
+ "expediente": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_decisiones/Elis",
+ "modo_fase1": "declarado",
+ "sin_migrados": true,
+ "config": "config_v2.json",
+ "carpeta_limpia": "temporal (se elimina al terminar)",
+ "entradas_declaradas": [
+  "etapa1",
+  "fase1_metadatos.json",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "texto",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "alcance_v2.json",
+  "fase1_v63.json"
+ ],
+ "pasos": [
+  {
+   "paso": "migración de la etapa 1",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_o2b4hoja/Elis/Elis_v63_base.xlsx {'conservados': 519, 'excluidos': 895, 'transformados': 3, 'conflictos': 0, 'normalizados': 4}\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "entradas del FCF base migradas vaciadas en el libro base",
+   "valores_migrados": {
+    "Análisis!C46": null,
+    "Análisis!C47": null,
+    "Análisis!C48": 108,
+    "Análisis!C49": 128.1,
+    "Análisis!C50": null
+   }
+  },
+  {
+   "paso": "rellenar_fase1_v63",
+   "rc": 0,
+   "salida": "OK: 580 celdas escritas en /tmp/reconstruccion_Elis_o2b4hoja/Elis/Elis_v63_datos.xlsx · derivadas: 0 · convenciones: [] · avisos: 2\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase A",
+   "rc": 0,
+   "salida": "OK: 116 celdas escritas en /tmp/reconstruccion_Elis_o2b4hoja/Elis/Elis_v63_evaluada.xlsx.A.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase B",
+   "rc": 0,
+   "salida": "OK: 92 celdas escritas en /tmp/reconstruccion_Elis_o2b4hoja/Elis/Elis_v63_evaluada.xlsx.B.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "escritura de la fase C",
+   "rc": 0,
+   "salida": "OK: 58 celdas escritas en /tmp/reconstruccion_Elis_o2b4hoja/Elis/Elis_v63_evaluada.xlsx.C.xlsx (0 cachés de fórmula borradas)\nVEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos\n"
+  },
+  {
+   "paso": "recálculo (LibreOffice)",
+   "rc": 0,
+   "salida": "OK: /tmp/reconstruccion_Elis_o2b4hoja/Elis/recalc/Elis_v63_evaluada.xlsx (recálculo forzado, perfil /tmp/reconstruccion_Elis_o2b4hoja/.lo_perfil)\n"
+  },
+  {
+   "paso": "lectura de resultados",
+   "rc": 0,
+   "salida": "OK: resultados.json → /tmp/reconstruccion_Elis_o2b4hoja/Elis/resultados.json · motor A · estado COMPLETO Y VÁLIDO · libro LISTO · PROVISIONAL (26 estimaciones justificadas)\n"
+  }
+ ],
+ "diferencias": {
+  "fase1_analisis": [],
+  "fase1_historia": [],
+  "libro_datos": {
+   "n": 7,
+   "ejemplos": [
+    {
+     "celda": "Análisis!C48",
+     "expediente": [
+      "v",
+      108
+     ],
+     "reconstruido": [
+      "v",
+      82.933
+     ]
+    },
+    {
+     "celda": "Control maestro!G45",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!G46",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!H45",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!H46",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!J45",
+     "expediente": [
+      "v",
+      "URD2025 p.327, 379; DEU2024 p.273"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de intereses_financiacion: Elis_Document d'enregistrement universel_2024_FR.txt p.273 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.327 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.327"
+     ]
+    },
+    {
+     "celda": "Control maestro!J46",
+     "expediente": [
+      "v",
+      "URD2025 nota 6.3 p.366; DEU2024"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+     ]
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-16"
+     ]
+    }
+   ]
+  },
+  "libro_evaluado": {
+   "n": 7,
+   "ejemplos": [
+    {
+     "celda": "Análisis!C48",
+     "expediente": [
+      "v",
+      108
+     ],
+     "reconstruido": [
+      "v",
+      82.933
+     ]
+    },
+    {
+     "celda": "Control maestro!G45",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!G46",
+     "expediente": [
+      "v",
+      "FY2023–FY2025 (media 3 años)"
+     ],
+     "reconstruido": [
+      "v",
+      "2023–2025"
+     ]
+    },
+    {
+     "celda": "Control maestro!H45",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!H46",
+     "expediente": [
+      "v",
+      "mm EUR (positivo)"
+     ],
+     "reconstruido": [
+      "v",
+      "mm"
+     ]
+    },
+    {
+     "celda": "Control maestro!J45",
+     "expediente": [
+      "v",
+      "URD2025 p.327, 379; DEU2024 p.273"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de intereses_financiacion: Elis_Document d'enregistrement universel_2024_FR.txt p.273 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.327 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.327"
+     ]
+    },
+    {
+     "celda": "Control maestro!J46",
+     "expediente": [
+      "v",
+      "URD2025 nota 6.3 p.366; DEU2024"
+     ],
+     "reconstruido": [
+      "v",
+      "Historia de fase1_v63.json, media 2023–2025 de arrendamientos_principal: Elis_Document d'enregistrement universel_2024_FR.txt p.312 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366 (comparativo del informe siguiente); Elis - 2025 Universal Registration Document.txt p.366"
+     ]
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": [
+      "v",
+      "2026-11-14"
+     ],
+     "reconstruido": [
+      "v",
+      "2026-11-16"
+     ]
+    }
+   ]
+  },
+  "valores_recalculados": {
+   "n": 2942,
+   "ejemplos": [
+    {
+     "celda": "Análisis!B108",
+     "expediente": 11.9112624667007,
+     "reconstruido": 12.7053779436278
+    },
+    {
+     "celda": "Análisis!B109",
+     "expediente": 11.8191702472772,
+     "reconstruido": 12.636242152979
+    },
+    {
+     "celda": "Análisis!B110",
+     "expediente": 11.7243541960747,
+     "reconstruido": 12.5650506219711
+    },
+    {
+     "celda": "Análisis!B111",
+     "expediente": 11.6267412829616,
+     "reconstruido": 12.4917481251842
+    },
+    {
+     "celda": "Análisis!B112",
+     "expediente": 11.5262568105306,
+     "reconstruido": 12.4162781751725
+    },
+    {
+     "celda": "Análisis!B113",
+     "expediente": 11.4228243831298,
+     "reconstruido": 12.3385829990087
+    },
+    {
+     "celda": "Análisis!B114",
+     "expediente": 11.3163658754509,
+     "reconstruido": 12.2586035144906
+    },
+    {
+     "celda": "Análisis!B115",
+     "expediente": 11.2068014006668,
+     "reconstruido": 12.176279306009
+    },
+    {
+     "celda": "Análisis!B116",
+     "expediente": 11.0940492781177,
+     "reconstruido": 12.091548600071
+    },
+    {
+     "celda": "Análisis!B117",
+     "expediente": 10.9780260005384,
+     "reconstruido": 12.0043482404771
+    },
+    {
+     "celda": "Análisis!B118",
+     "expediente": 10.8586462008228,
+     "reconstruido": 11.9146136631468
+    },
+    {
+     "celda": "Análisis!B119",
+     "expediente": 10.7358226183224,
+     "reconstruido": 11.8222788705916
+    },
+    {
+     "celda": "Análisis!B120",
+     "expediente": 10.6094660646715,
+     "reconstruido": 11.7272764060288
+    },
+    {
+     "celda": "Análisis!B121",
+     "expediente": 10.4794853891362,
+     "reconstruido": 11.6295373271354
+    },
+    {
+     "celda": "Análisis!B122",
+     "expediente": 10.3457874434828,
+     "reconstruido": 11.5289911794361
+    },
+    {
+     "celda": "Análisis!B123",
+     "expediente": 10.2082770463586,
+     "reconstruido": 11.4255659693234
+    },
+    {
+     "celda": "Análisis!B124",
+     "expediente": 10.0668569471826,
+     "reconstruido": 11.3191881367056
+    },
+    {
+     "celda": "Análisis!B125",
+     "expediente": 9.92142778954019,
+     "reconstruido": 11.2097825272788
+    },
+    {
+     "celda": "Análisis!B126",
+     "expediente": 9.77188807407646,
+     "reconstruido": 11.0972723644193
+    },
+    {
+     "celda": "Análisis!B127",
+     "expediente": 9.61813412088458,
+     "reconstruido": 10.981579220693
+    },
+    {
+     "celda": "Análisis!B128",
+     "expediente": 9.46006003138299,
+     "reconstruido": 10.8626229889774
+    },
+    {
+     "celda": "Análisis!B129",
+     "expediente": 9.2975576496772,
+     "reconstruido": 10.7403218531936
+    },
+    {
+     "celda": "Análisis!B130",
+     "expediente": 9.13051652340086,
+     "reconstruido": 10.6145922586428
+    },
+    {
+     "celda": "Análisis!B131",
+     "expediente": 8.95882386403117,
+     "reconstruido": 10.4853488819449
+    },
+    {
+     "celda": "Análisis!B132",
+     "expediente": 8.78236450667352,
+     "reconstruido": 10.3525046005751
+    },
+    {
+     "celda": "Análisis!B133",
+     "expediente": 8.60102086931032,
+     "reconstruido": 10.2159704619936
+    },
+    {
+     "celda": "Análisis!B134",
+     "expediente": 8.41467291150883,
+     "reconstruido": 10.0756556523662
+    },
+    {
+     "celda": "Análisis!B135",
+     "expediente": 8.22319809258282,
+     "reconstruido": 9.93146746487054
+    },
+    {
+     "celda": "Análisis!B136",
+     "expediente": 8.0264713292029,
+     "reconstruido": 9.78331126758451
+    },
+    {
+     "celda": "Análisis!B137",
+     "expediente": 7.82436495245035,
+     "reconstruido": 9.63109047095286
+    },
+    {
+     "celda": "Análisis!B138",
+     "expediente": 7.61674866430903,
+     "reconstruido": 9.47470649482812
+    },
+    {
+     "celda": "Análisis!B139",
+     "expediente": 7.40348949359023,
+     "reconstruido": 9.31405873508167
+    },
+    {
+     "celda": "Análisis!B140",
+     "expediente": 7.18445175128514,
+     "reconstruido": 9.14904452978095
+    },
+    {
+     "celda": "Análisis!B141",
+     "expediente": 6.95949698533946,
+     "reconstruido": 8.97955912492886
+    },
+    {
+     "celda": "Análisis!B142",
+     "expediente": 6.7284839348449,
+     "reconstruido": 8.80549563976106
+    },
+    {
+     "celda": "Análisis!B143",
+     "expediente": 6.49126848364213,
+     "reconstruido": 8.62674503159736
+    },
+    {
+     "celda": "Análisis!B144",
+     "expediente": 6.24770361332964,
+     "reconstruido": 8.44319606024275
+    },
+    {
+     "celda": "Análisis!B145",
+     "expediente": 5.99763935567318,
+     "reconstruido": 8.25473525193422
+    },
+    {
+     "celda": "Análisis!B146",
+     "expediente": 5.74092274441014,
+     "reconstruido": 8.06124686282892
+    },
+    {
+     "celda": "Análisis!B147",
+     "expediente": 5.47739776644348,
+     "reconstruido": 7.86261284202967
+    },
+    {
+     "celda": "Análisis!B148",
+     "expediente": 5.20690531241936,
+     "reconstruido": 7.65871279414348
+    },
+    {
+     "celda": "Análisis!B149",
+     "expediente": 4.92928312668328,
+     "reconstruido": 7.4494239413689
+    },
+    {
+     "celda": "Análisis!B150",
+     "expediente": 4.6443657566086,
+     "reconstruido": 7.23462108510777
+    },
+    {
+     "celda": "Análisis!B151",
+     "expediente": 4.35198450129232,
+     "reconstruido": 7.01417656709738
+    },
+    {
+     "celda": "Análisis!B152",
+     "expediente": 4.05196735961183,
+     "reconstruido": 6.78796023005829
+    },
+    {
+     "celda": "Análisis!B153",
+     "expediente": 3.74413897763742,
+     "reconstruido": 6.55583937785394
+    },
+    {
+     "celda": "Análisis!B154",
+     "expediente": 3.42832059539439,
+     "reconstruido": 6.31767873515718
+    },
+    {
+     "celda": "Análisis!B155",
+     "expediente": 3.10432999296922,
+     "reconstruido": 6.07334040661978
+    },
+    {
+     "celda": "Análisis!B156",
+     "expediente": 2.77198143595383,
+     "reconstruido": 5.82268383554018
+    },
+    {
+     "celda": "Análisis!B157",
+     "expediente": 2.4310856202221,
+     "reconstruido": 5.56556576202516
+    },
+    {
+     "celda": "Análisis!B158",
+     "expediente": 2.08144961603274,
+     "reconstruido": 5.30184018064095
+    },
+    {
+     "celda": "Análisis!B159",
+     "expediente": 1.72287681145259,
+     "reconstruido": 5.03135829754923
+    },
+    {
+     "celda": "Análisis!B160",
+     "expediente": 1.35516685509441,
+     "reconstruido": 4.75396848712362
+    },
+    {
+     "celda": "Análisis!B161",
+     "expediente": 0.978115598163058,
+     "reconstruido": 4.46951624804193
+    },
+    {
+     "celda": "Análisis!B162",
+     "expediente": 0.591515035804234,
+     "reconstruido": 4.17784415884971
+    },
+    {
+     "celda": "Análisis!B163",
+     "expediente": 0.195153247749382,
+     "reconstruido": 3.87879183299059
+    },
+    {
+     "celda": "Análisis!B164",
+     "expediente": -0.211185661748932,
+     "reconstruido": 3.57219587329849
+    },
+    {
+     "celda": "Análisis!B165",
+     "expediente": -0.627721624697685,
+     "reconstruido": 3.2578898259474
+    },
+    {
+     "celda": "Análisis!B166",
+     "expediente": -1.05467867086596,
+     "reconstruido": 2.93570413385384
+    },
+    {
+     "celda": "Análisis!B167",
+     "expediente": -1.49228499001589,
+     "reconstruido": 2.60546608952729
+    }
+   ],
+   "sellos_de_ejecucion": [
+    {
+     "celda": "Control maestro!L5",
+     "motivo": "fecha de revisión que rellenar_fase1_v63.py escribe con la fecha del día",
+     "expediente": "2026-11-14",
+     "reconstruido": "2026-11-16"
+    }
+   ]
+  }
+ },
+ "modo_entrada_efectiva": {
+  "modo": "registrada",
+  "declarado_en": null
+ },
+ "entradas_migradas_distintas": [],
+ "precio_si": {
+  "expediente": 7.30205532309094,
+  "reconstruido": 8.980182450690796,
+  "diferencia": 1.678127127599856
+ },
+ "entradas_fcf_base": {
+  "Análisis!C46": {
+   "expediente": [
+    "v",
+    1429.433
+   ],
+   "reconstruido": [
+    "v",
+    1429.433
+   ]
+  },
+  "Análisis!C47": {
+   "expediente": [
+    "v",
+    857.167
+   ],
+   "reconstruido": [
+    "v",
+    857.167
+   ]
+  },
+  "Análisis!C48": {
+   "expediente": [
+    "v",
+    108
+   ],
+   "reconstruido": [
+    "v",
+    82.933
+   ]
+  },
+  "Análisis!C49": {
+   "expediente": [
+    "v",
+    128.1
+   ],
+   "reconstruido": [
+    "v",
+    128.1
+   ]
+  },
+  "Análisis!C50": {
+   "expediente": [
+    "v",
+    28.233
+   ],
+   "reconstruido": [
+    "v",
+    28.233
+   ]
+  }
+ },
+ "reproduce": false,
+ "reproduce_por_via_generativa": false,
+ "codigo_de_salida": 1,
+ "clasificacion": {
+  "datos, fórmulas o resultados": [
+   "Análisis!B108",
+   "Análisis!B109",
+   "Análisis!B110",
+   "Análisis!B111",
+   "Análisis!B112",
+   "Análisis!B113",
+   "Análisis!B114",
+   "Análisis!B115",
+   "Análisis!B116",
+   "Análisis!B117",
+   "Análisis!B118",
+   "Análisis!B119",
+   "Análisis!B120",
+   "Análisis!B121",
+   "Análisis!B122",
+   "Análisis!B123",
+   "Análisis!B124",
+   "Análisis!B125",
+   "Análisis!B126",
+   "Análisis!B127",
+   "Análisis!B128",
+   "Análisis!B129",
+   "Análisis!B130",
+   "Análisis!B131",
+   "Análisis!B132",
+   "Análisis!B133",
+   "Análisis!B134",
+   "Análisis!B135",
+   "Análisis!B136",
+   "Análisis!B137",
+   "Análisis!B138",
+   "Análisis!B139",
+   "Análisis!B140",
+   "Análisis!B141",
+   "Análisis!B142",
+   "Análisis!B143",
+   "Análisis!B144",
+   "Análisis!B145",
+   "Análisis!B146",
+   "Análisis!B147",
+   "Análisis!B148",
+   "Análisis!B149",
+   "Análisis!B150",
+   "Análisis!B151",
+   "Análisis!B152",
+   "Análisis!B153",
+   "Análisis!B154",
+   "Análisis!B155",
+   "Análisis!B156",
+   "Análisis!B157",
+   "Análisis!B158",
+   "Análisis!B159",
+   "Análisis!B160",
+   "Análisis!B161",
+   "Análisis!B162",
+   "Análisis!B163",
+   "Análisis!B164",
+   "Análisis!B165",
+   "Análisis!B166",
+   "Análisis!B167",
+   "Análisis!C48"
+  ],
+  "evidencia documental": [
+   "Control maestro!G45",
+   "Control maestro!G46",
+   "Control maestro!H45",
+   "Control maestro!H46",
+   "Control maestro!J45",
+   "Control maestro!J46"
+  ]
+ }
+}

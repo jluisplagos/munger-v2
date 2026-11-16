@@ -1,0 +1,67 @@
+   caso 1 trozo detrás de apóstrofo ASCII
+      página «Capital expenditure 1'849,7» · impreso «849,7» · línea «Capital expenditure 1'849,7»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · X5
+      motivo (nuevo): capex actual: «849,7» no está en su línea como importe completo
+   caso 2 trozo detrás de «’»
+      página «Capital expenditure 1’849,7» · impreso «849,7» · línea «Capital expenditure 1’849,7»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · X5
+      motivo (nuevo): capex actual: «849,7» no está en su línea como importe completo
+   caso 3 trozo delante de apóstrofo ASCII
+      página «Capital expenditure 849'697» · impreso «849» · línea «Capital expenditure 849'697»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · X5
+      motivo (nuevo): capex actual: «849» no está en su línea como importe completo
+   caso 4 trozo delante de «’»
+      página «Capital expenditure 849’697» · impreso «849» · línea «Capital expenditure 849’697»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · X5
+      motivo (nuevo): capex actual: «849» no está en su línea como importe completo
+   caso 5 control: el importe entero
+      página «Capital expenditure 849,7» · impreso «849,7» · línea «Capital expenditure 849,7»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · control
+   caso 6 control: trozo con punto
+      página «Capital expenditure 1.849,7» · impreso «849,7» · línea «Capital expenditure 1.849,7»
+      anterior: RECHAZADO · nuevo: RECHAZADO · ya rechazado
+      motivo (nuevo): capex actual: «849,7» no está en su línea como importe completo
+   caso 7 el número entero con apóstrofo como impreso
+      página «Capital expenditure 1'849,7» · impreso «1'849,7» · línea «Capital expenditure 1'849,7»
+      anterior: RECHAZADO · nuevo: RECHAZADO · numero() no admite el apóstrofo: «no numérico» (prudente, ya existía)
+      motivo (nuevo): capex actual: no numérico: "1'849,7"
+   caso 8 el número entero con «’» como impreso
+      página «Capital expenditure 1’849,7» · impreso «1’849,7» · línea «Capital expenditure 1’849,7»
+      anterior: RECHAZADO · nuevo: RECHAZADO · lo mismo
+      motivo (nuevo): capex actual: no numérico: '1’849,7'
+   caso 9 trozo y además suelto en la línea (dos columnas)
+      página «Capital expenditure 1'849,7 849,7» · impreso «849,7» · línea «Capital expenditure 1'849,7 849,7»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · legítimo: está como importe completo
+   caso 10 posesivo en la línea (forma real de Elis)
+      página «Ventas SBF 120’s 849,7» · impreso «849,7» · línea «Ventas SBF 120’s 849,7»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · control
+   caso 11 francés: letra + ’ + cifra
+      página «Charges de l’exercice 849,7» · impreso «849,7» · línea «Charges de l’exercice 849,7»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · control
+   caso 12 coste: «Q1'24» y el impreso es 24
+      página «Capital expenditure Q1'24» · impreso «24» · línea «Capital expenditure Q1'24»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · coste prudente nuevo
+      motivo (nuevo): capex actual: «24» no está en su línea como importe completo
+   caso 13 coste: llamada de nota tras comilla de cierre
+      página «Plan ‘Vision 2030’1» · impreso «2030» · línea «Plan ‘Vision 2030’1»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · coste prudente nuevo
+      motivo (nuevo): capex actual: «2030» no está en su línea como importe completo
+   caso 14 línea cortada tras el apóstrofo; el trozo no está suelto en la página
+      página «Capital expenditure 1'849,7 millones» · impreso «849,7» · línea «849,7 millones»
+      anterior: ACEPTADO  · nuevo: RECHAZADO · CAMBIA · X5, por la comprobación en la página
+      motivo (nuevo): capex actual: «849,7» no está en la página 1 como importe completo
+   caso 15 línea cortada tras el punto; el trozo no está suelto en la página
+      página «Capital expenditure 1.849,7 millones» · impreso «849,7» · línea «849,7 millones»
+      anterior: RECHAZADO · nuevo: RECHAZADO · ya rechazado
+      motivo (nuevo): capex actual: «849,7» no está en la página 1 como importe completo
+   caso 16 línea cortada tras el apóstrofo; el trozo SÍ está suelto en otra línea de la página
+      página «Capital expenditure 1'849,7 millones
+Other items 849,7» · impreso «849,7» · línea «849,7 millones»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · residuo de R-a (no de X5): ¿se acepta?
+   caso 17 lo mismo con punto de miles
+      página «Capital expenditure 1.849,7 millones
+Other items 849,7» · impreso «849,7» · línea «849,7 millones»
+      anterior: ACEPTADO  · nuevo: ACEPTADO  · residuo de R-a, igual con los dos códigos: ¿se acepta?
+
+RESULTADO: CONFORME (los casos con resultado esperado)
+rc=0

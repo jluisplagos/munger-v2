@@ -1,0 +1,8 @@
+bash -n verificar_paquete.sh: sintaxis correcta (solo se analiza; no se ejecuta)
+24:#                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
+171:  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 62 ]; then
+174:    tail -5 "$SALIDA_X"; echo "RESULTADO entrada efectiva: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 62 pruebas; ver $SALIDA_X
+condición con la salida de la candidata (62/62, rc 0): PASA (62/62 pruebas de la entrada efectiva (4.15) PASAN)
+condición con la salida de la mutación m0 (61/62, rc 1): FALLA (rc=1; «61/62 pruebas de la entrada efectiva (4.15) PASAN»)
+condición con una salida de 61/61 y rc 0 (la batería de 45ff57c, ejecutada por la séptima: sin la prueba de X5): FALLA (rc=0; «61/61 pruebas de la entrada efectiva (4.15) PASAN»)
+rc=0

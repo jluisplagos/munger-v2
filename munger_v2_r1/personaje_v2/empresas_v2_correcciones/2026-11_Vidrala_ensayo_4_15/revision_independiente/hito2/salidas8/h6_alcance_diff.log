@@ -1,0 +1,36 @@
+1 · archivos que cambian entre 45ff57c y 0a0020b
+   código esperado: 5 · M test_entrada_efectiva_415.py, M test_verificacion_entradas_415.py, M fase1_historia.py, M verificacion_entradas.py, M verificar_paquete.sh
+   informe, sondas y salidas de la séptima comprobación: 113
+   registro y empaquetado: 7 · M CAMBIOS_ARCHIVOS.txt, M CONTINUIDAD.md, M MANIFIESTO_SHA256.txt, M PROMPT_NUEVA_VENTANA.md, M VERSION, M HITO_2_4_15.md, M PUNTO_DE_RECUPERACION.md
+   resultados (regresión de 45ff57c y reconstrucción de C48): 11 · A 1_elis_4_14_declarado.json, A 2_elis_4_14_sin_migrados.json, A 3_elis_4_15_construir.json, A 4_elis_4_15_construir_sin_migrados.json, A 5_viscofan_4_14_declarado.json, A 6_vidrala_4_14_declarado.json, A 7_viscofan_4_14_sin_migrados.json, A 8_vidrala_4_14_sin_migrados.json, A RECONSTRUCCION_C48_4_15.md, A ejecucion.log, A verificacion_completa_45ff57c.txt
+   CONFORME     archivos de código, esquema, configuración o datos que cambian fuera de revisión/resultados: 5 (los cinco esperados: True)
+   CONFORME     ningún archivo borrado; los cinco de código, modificados (no añadidos)
+   (sin cambios en esquema/, v6/, kit_pipeline_munger/, contrastes/, empresas_v2/, prompts/, corpus/, tools/ ni docs/)
+
+2 · por archivo
+   personaje_v2/pruebas/test_entrada_efectiva_415.py: −0 +5 líneas en 1 tramos (líneas nuevas ['371-375']) · árbol congelado == 0a0020b: True · sha256 9aa861c6922f4793…
+      sentencias de primer nivel distintas (árbol sintáctico): 3
+         + línea 371: x5 = {("849,7", "Total 1'849,7"): False, ("849,7", "Total 1\
+         + línea 374: mal_x5 = {k_: FH.importe_completo(*k_) for k_, e_ in x5.item
+         + línea 375: paso("C", "(séptima comprobación, X5) importe_completo: el a
+   personaje_v2/pruebas/test_verificacion_entradas_415.py: −3 +10 líneas en 2 tramos (líneas nuevas ['1139-1147', '1152-1152']) · árbol congelado == 0a0020b: True · sha256 88c62dfcd9a127b7…
+      sentencias de primer nivel distintas (árbol sintáctico): 3
+         línea 1136: v3 = {(".5", 0.5, "Ajuste .5"): "ausente", ("5", 5, "Ajuste (.5)"): "a
+         línea 1147: mal_v3 = {k_: VE._cita_cifra(*k_)[0] for k_, e_ in v3.items() if VE._c
+         línea 1152: paso("RW", "(V5) 100.000 apariciones de una cita en una línea: se deja
+   personaje_v2/scripts/fase1_historia.py: −2 +3 líneas en 1 tramos (líneas nuevas ['92-94']) · árbol congelado == 0a0020b: True · sha256 6f6f0b1709b99d99…
+      sentencias de primer nivel distintas (árbol sintáctico): 1
+         línea 90: importe_completo
+   personaje_v2/scripts/verificacion_entradas.py: −1 +1 líneas en 1 tramos (líneas nuevas ['542-542']) · árbol congelado == 0a0020b: True · sha256 4b00aa2a42ae4574…
+      sentencias de primer nivel distintas (árbol sintáctico): 1
+         línea 529: _lectura_cifra
+   verificar_paquete.sh: −3 +3 líneas en 3 tramos (líneas nuevas ['24-24', '171-171', '174-174']) · árbol congelado == 0a0020b: True · sha256 f304ededb0950be1…
+
+3 · verificar_paquete.sh
+   CONFORME     cambian 3 líneas ([24, 171, 174]), y en cada una solo «61» → «62»
+      24: …#                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
+      171: …if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 62 ]; then
+      174: …tail -5 "$SALIDA_X"; echo "RESULTADO entrada efectiva: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 62 pruebas; ver $
+
+RESULTADO: CONFORME
+rc=0

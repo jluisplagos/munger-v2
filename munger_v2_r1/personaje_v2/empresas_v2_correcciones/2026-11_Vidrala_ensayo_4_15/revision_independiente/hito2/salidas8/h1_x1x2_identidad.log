@@ -1,0 +1,18 @@
+1 · huella
+   CONFORME     verificacion_entradas.py del árbol: 4b00aa2a42ae45743ef4f31669faad36a7effb81affe828fd4975a2ca98c86cd
+   (informativo) test_verificacion_entradas_415.py del árbol: 88c62dfcd9a127b7e2662cfcb8a42acbc384519dff370a7ea4fa8508292acf9f
+2 · frente al árbol de la corrección propuesta por la séptima (rev7/fable/fix7, solo lectura)
+   CONFORME     scripts/verificacion_entradas.py: idéntico byte a byte (fix7 4b00aa2a42ae4574…)
+   CONFORME     pruebas/test_verificacion_entradas_415.py: idéntico byte a byte (fix7 88c62dfcd9a127b7…)
+3 · las sustituciones de sondas7/propuestas7.py aplicadas a 45ff57c (git show) dan el archivo del árbol
+   propuestas7.py: 3 sustituciones de pruebas y 1 de código
+   CONFORME     scripts/verificacion_entradas.py: 45ff57c + propuestas7 = árbol congelado
+   CONFORME     pruebas/test_verificacion_entradas_415.py: 45ff57c + propuestas7 = árbol congelado
+4 · qué cambia en verificacion_entradas.py entre 45ff57c y el árbol
+   CONFORME     líneas distintas: [542] (mismo número de líneas: True)
+   CONFORME     línea 542: operaciones [('insert', '', "'")] (se espera una sola inserción del apóstrofo ASCII)
+     antes:   for m in re.finditer(r"(?<![\d.,])(?<!\d[’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «1
+     después: for m in re.finditer(r"(?<![\d.,])(?<!\d['’])" + re.escape(c) + r"(?!\d|[.,'’]\d)", t):  # (hito 2, V7 y W3) «
+
+RESULTADO: CONFORME
+rc=0

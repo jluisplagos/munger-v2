@@ -1,0 +1,81 @@
+A · las expresiones
+   anterior (45ff57c)   return re.search(r"(?<![\d.,])" + re.escape(imp) + r"(?![\d.,]*\d)", texto) is not None
+   octava (0a0020b)     return re.search(r"(?<![\d.,])(?<!\d['’])" + re.escape(imp) + r"(?![\d.,'’]*\d)", texto) is not None
+   usos (0a0020b): [':203', ':207']
+
+B · casos (importe, texto) → anterior / nuevo; «esperado» = lo que debe dar un control de importe completo
+   '849,7'      en 'Total 1.849,7'                anterior=False nuevo=False        · trozo con punto (ya rechazado)
+   '849,7'      en 'Total 1,849,7'                anterior=False nuevo=False        · trozo con coma (ya rechazado)
+   '7'          en 'Total 7,608'                  anterior=False nuevo=False        · trozo por delante (ya rechazado)
+   '849,7'      en 'Total 849,7'                  anterior=True  nuevo=True         · control
+   '849,7'      en "Total 1'849,7"                anterior=True  nuevo=False CAMBIA · X5: detrás de apóstrofo ASCII
+   '849,7'      en 'Total 1’849,7'                anterior=True  nuevo=False CAMBIA · X5: detrás de «’»
+   '849'        en "Total 849'697"                anterior=True  nuevo=False CAMBIA · X5: delante de apóstrofo ASCII
+   '849'        en 'Total 849’697'                anterior=True  nuevo=False CAMBIA · X5: delante de «’»
+   '234'        en "Total 1'234'567"              anterior=True  nuevo=False CAMBIA · X5: entre dos apóstrofos
+   '567'        en "Total 1'234'567"              anterior=True  nuevo=False CAMBIA · X5: último grupo
+   '1'          en "Total 1'234'567"              anterior=True  nuevo=False CAMBIA · X5: primer grupo
+   "234'567"    en "Total 1'234'567"              anterior=True  nuevo=False CAMBIA · X5: cola con apóstrofo
+   "1'234"      en "Total 1'234'567"              anterior=True  nuevo=False CAMBIA · X5: cabeza con apóstrofo
+   '849,7'      en "Total 1'849,7 1'702,3"        anterior=True  nuevo=False CAMBIA · X5: dos columnas
+   '702,3'      en "Total 1'849,7 1'702,3"        anterior=True  nuevo=False CAMBIA · X5: segunda columna
+   '849,7'      en "Total (1'849,7)"              anterior=True  nuevo=False CAMBIA · X5: entre paréntesis
+   '849,7'      en "Total -1'849,7"               anterior=True  nuevo=False CAMBIA · X5: negativo
+   '849'        en "Total 849'697.50"             anterior=True  nuevo=False CAMBIA · X5: con decimales detrás
+   '697'        en 'Total 849’697'                anterior=True  nuevo=False CAMBIA · X5: cola con «’»
+   '849,7'      en 'Total 12’849,7 y 849,7'       anterior=True  nuevo=True         · el trozo y además suelto: vale el suelto
+   "1'849,7"    en "Total 1'849,7"                anterior=True  nuevo=True         · control: el número entero con apóstrofo
+   "849'697"    en "Total 849'697"                anterior=True  nuevo=True         · control: entero
+   '1’849,7'    en 'Total 1’849,7'                anterior=True  nuevo=True         · control: entero con «’»
+   "1'234'567"  en "Total 1'234'567"              anterior=True  nuevo=True         · control: entero, dos apóstrofos
+   '849,7'      en 'Ventas SBF 120’s 849,7'       anterior=True  nuevo=True         · control: posesivo en la línea
+   '120'        en 'Ventas SBF 120’s 849,7'       anterior=True  nuevo=True         · control: cifra + ’ + letra
+   '1,5'        en 'taux d’1,5 %'                 anterior=True  nuevo=True         · control: letra + ’ + cifra
+   '2023'       en 'l’exercice 2023'              anterior=True  nuevo=True         · control: francés
+   '849,7'      en 'Total 1 849,7'                anterior=True  nuevo=True         · miles con espacio: límite conocido, sin cambio (acepta)
+   '849,7'      en 'Total 1\xa0849,7'             anterior=True  nuevo=True         · miles con espacio duro: lo mismo tras norm() (acepta)
+   '849,7'      en 'Total 1ʼ849,7'                anterior=True  nuevo=True         · «ʼ» U+02BC: no cuenta (acepta; resto de W3)
+   '849,7'      en 'Total 1′849,7'                anterior=True  nuevo=True         · «′» U+2032: no cuenta (acepta)
+   '849,7'      en 'Total 1´849,7'                anterior=True  nuevo=True         · «´» U+00B4: no cuenta (acepta)
+   '849,7'      en 'Total 1`849,7'                anterior=True  nuevo=True         · «`»: no cuenta (acepta)
+   '849,7'      en 'Total 1‘849,7'                anterior=True  nuevo=True         · «‘» U+2018: no cuenta (acepta)
+   CONFORME     ningún caso pasa de False a True · pasan de True a False (lo que cierra): 15
+
+C · monotonía, exhaustiva
+   pares (importe presente en el texto) examinados: 751,144 · difieren: 46,264
+   CONFORME     el código nuevo NUNCA acepta lo que el anterior rechazaba: 0 casos de False→True
+   CONFORME     sin apóstrofo en el texto los dos códigos coinciden siempre: 0 diferencias
+   CONFORME     toda diferencia tiene un apóstrofo pegado a una cifra («cifra+apóstrofo» o «apóstrofo+…cifra»): 0 sin explicar
+   ejemplos de True→False: [('1', "111'1"), ('8', "111'8"), ('1', '111’1'), ('8', '111’8'), ('1', "118'1"), ('8', "118'8")]
+
+D · cierre en números bien formados con miles con apóstrofo
+   números generados: 4,000 · trozos propios (empiezan y acaban en cifra, no sueltos en la línea): 200,865
+   trozos que el código ANTERIOR aceptaba como importe completo: 21,384
+   CONFORME     trozos que el código NUEVO acepta: 0
+   CONFORME     el número entero se reconoce siempre como importe completo (fallos: 0)
+
+E · costes prudentes: «cifra + apóstrofo + cifra» que NO es un separador de miles (anterior → nuevo)
+   '24'     en "Ventas Q1'24 crecen"          anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '24'     en 'Ventas Q1’24 crecen'          anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '30'     en "Tiempo 5'30"                  anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '5'      en "sube 2'5 puntos"              anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '2'      en "sube 2'5 puntos"              anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '2030'   en 'the ‘Vision 2030’1 plan'      anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '849'    en "Nota '2023'849"               anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '24'     en '9M’24 849,7'                  anterior=True  nuevo=True  
+   '849,7'  en '9M’24 849,7'                  anterior=True  nuevo=True  
+   '24'     en 'H1’24: 24 tiendas'            anterior=True  nuevo=True  
+   '24'     en 'FY’24'                        anterior=True  nuevo=True  
+   '120'    en 'SBF 120’s'                    anterior=True  nuevo=True  
+   '1,5'    en 'd’1,5 %'                      anterior=True  nuevo=True  
+   '2023'   en 'l’exercice 2023'              anterior=True  nuevo=True  
+   '849'    en "849' 697"                     anterior=True  nuevo=True  
+   '849'    en "849'a"                        anterior=True  nuevo=True  
+   '849'    en "'849"                         anterior=True  nuevo=True  
+   '849'    en '’849’'                        anterior=True  nuevo=True  
+   '849'    en "1' 849"                       anterior=True  nuevo=True  
+   '849'    en "849,'5"                       anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+   '849'    en "849'.5"                       anterior=True  nuevo=False RECHAZO NUEVO (prudente)
+
+RESULTADO: CONFORME
+rc=0
