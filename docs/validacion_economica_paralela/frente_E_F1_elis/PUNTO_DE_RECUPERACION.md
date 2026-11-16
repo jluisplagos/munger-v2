@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** C12, respuesta a la revisión n.º 5 (Q1–Q7), y encargo de la revisión n.º 6.
-**Hora:** 16-nov-2026, 00:13 UTC. Commits: C12 a las 00:11:29 y C13 a las 00:11:31 UTC. La versión de este archivo en C12 decía «hacia las 00:15».
+**Bloque cerrado:** incorporación de la revisión n.º 6 (copia sin cambios, procedencia y registro). Su respuesta, C14, está en preparación.
+**Hora:** 16-nov-2026, hacia las 01:50 UTC.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -18,7 +18,8 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | `202f566` | Copia de la revisión n.º 5 (595d2f6), procedencia y registro |
 | C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. **No revisado** |
 | C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Registra el hash de C12. **Commit congelado de la revisión n.º 6** |
-| El commit que contiene esta versión de este archivo | Registra el encargo de la revisión n.º 6. No cambia código, datos ni resultados |
+| `e88699a` | Registra el encargo de la revisión n.º 6 |
+| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 6 (9711f04), procedencia y registro. No cambia código, datos ni resultados |
 
 ## 2. Estado de las pruebas sobre C12
 
@@ -39,32 +40,24 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 3. Incidencias pendientes
 
-1. **C12 sin revisar.** La revisión n.º 6 está en curso:
-   - congelado: C13;
-   - sesión de revisión nueva, con contexto propio, creada a las 00:12:04 UTC;
-   - alcance: `git diff 364129a 1b80b5d`.
-2. **Cobertura de la unidad y del perímetro:**
-   - 8 páginas (24 entradas) sin identidad entre páginas;
-   - 140 entradas con solo identidad de su página;
-   - 31 sin segunda línea y 2 solo con la Historia.
-
-   Ninguna mueve la referencia.
-3. **Reglas heurísticas.** La asignación de columnas y las señales de unidad y perímetro detectan casos conocidos; no acreditan.
-4. **14 filas PENDIENTE** de URD 2022 p.302; columnas por sociedad PENDIENTE.
-5. **Límites de detección por debajo de la cota:** R13 de 2025, R39 de 2021 y R42 frente a las ventas.
-6. **Decisiones económicas [DH]:** F1, PPA, reinversión necesaria (M1 a–d, M2), perímetros de S2C y del margen.
-7. **Sin aptitud para dinero real.** Se conservan C48 = 108 y E1/D3/E2/E6.
+1. **Responder a la revisión n.º 6** (C14). Plan:
+   - **R1:** en la asignación por orden, comprobar la alineación de cada número con su cabecera y aplicar la regla de cabecera ajena; las filas «of which», «dont», «excluding», «hors» con un país o una jurisdicción no son del grupo;
+   - **R2:** las líneas con numeración de nota o apartado («NOTE 13 …», «5.4 …») son títulos y cortan la búsqueda;
+   - **R3:** el FALLO por otra columna de ejercicio solo si está alineada con la cifra (a 3 caracteres o menos);
+   - **R4:** conservar el criterio de C10, un título de tabla corto que nombra un país; tres países o más en la cabecera sin columna reconocida, PENDIENTE;
+   - **R5:** normalizar «CGU»/«UGT» también al comparar con los países;
+   - **R6:** la clase entre páginas es por pertenencia; umbrales de R42 por año; identidad lineal de las ventas de 2021–22 con la información por segmentos (URD 2022 p.279, URD 2023 p.296);
+   - **R7 y R8:** frases y motivos.
+2. **C12 y C14 sin revisar** hasta la pasada 7.
+3. **Cobertura de la unidad y del perímetro**, heurísticas del verificador, 14 filas PENDIENTE y límites de detección: como en el punto anterior.
+4. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
 
 ## 4. Siguiente paso exacto
 
-1. Hecho: C13 congelado y pasada 6 encargada.
-2. Esperar el informe. La comprobación está programada en la sesión autora hacia las 01:13 UTC; si la revisión sigue, se vuelve a programar.
-3. Cuando el informe esté publicado:
-   1. copiarlo sin cambios, con su procedencia (operación mecánica, con comprobación de los blobs);
-   2. registrar la configuración y las horas;
-   3. responder a cada objeción con commit y prueba;
-   4. guardar un punto de recuperación.
-4. Si la sesión de revisión no responde o llega a un límite de uso: no sustituirla por una revisión del autor; registrarlo y avisar.
+1. Implementar el plan de §3.1 con un caso de test por clase de la revisión n.º 6. Comprobar que ninguna de las 750 filas reales cambia de estado sin causa explicada.
+2. Regenerar la cadena y pasar sin cambios los scripts de los revisores.
+3. Respuesta (sexta parte), informe, especificación y registro.
+4. Commit C14, push y punto de recuperación; congelar (C15) y encargar la revisión de lo afectado por C14 (pasada 7).
 
 ## 5. Cómo reanudar en una sesión nueva
 
