@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** C12, respuesta a la revisión n.º 5 (Q1–Q7).
-**Hora:** 16-nov-2026, hacia las 00:15 UTC.
+**Bloque cerrado:** C12, respuesta a la revisión n.º 5 (Q1–Q7), y encargo de la revisión n.º 6.
+**Hora:** 16-nov-2026, 00:13 UTC. Commits: C12 a las 00:11:29 y C13 a las 00:11:31 UTC. La versión de este archivo en C12 decía «hacia las 00:15».
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -16,7 +16,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | C10 = `95b37e6da22bd4d5adb55c3f09c729b8d4e409f1` | Respuesta a la revisión n.º 4. Revisado en la pasada 5 |
 | C11 = `364129afd45ba2e54a1df4141fd50e97fd55ef6d` | Congelado de la revisión n.º 5 |
 | `202f566` | Copia de la revisión n.º 5 (595d2f6), procedencia y registro |
-| C12, el commit que contiene esta versión de este archivo | Respuesta a la revisión n.º 5. **No revisado** |
+| C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. **No revisado** |
+| C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Registra el hash de C12. **Commit congelado de la revisión n.º 6** |
+| El commit que contiene esta versión de este archivo | Registra el encargo de la revisión n.º 6. No cambia código, datos ni resultados |
 
 ## 2. Estado de las pruebas sobre C12
 
@@ -37,7 +39,10 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 3. Incidencias pendientes
 
-1. **C12 sin revisar.** Hay que congelar un commit (C13) y encargar la revisión de lo que afecta (pasada 6).
+1. **C12 sin revisar.** La revisión n.º 6 está en curso:
+   - congelado: C13;
+   - sesión de revisión nueva, con contexto propio, creada a las 00:12:04 UTC;
+   - alcance: `git diff 364129a 1b80b5d`.
 2. **Cobertura de la unidad y del perímetro:**
    - 8 páginas (24 entradas) sin identidad entre páginas;
    - 140 entradas con solo identidad de su página;
@@ -52,9 +57,9 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 4. Siguiente paso exacto
 
-1. C13: solo registra el hash de C12 en `revision/ESTADO.md` y en la fila de C12 de las respuestas, más el manifiesto. Es el congelado de la pasada 6.
-2. Encargar la pasada 6 a una sesión de revisión nueva, con contexto propio. Alcance: `git diff 364129a C13`, es decir, las correcciones de Q1–Q7 y lo que afectan.
-3. Programar una comprobación. Cuando el informe esté publicado:
+1. Hecho: C13 congelado y pasada 6 encargada.
+2. Esperar el informe. La comprobación está programada en la sesión autora hacia las 01:13 UTC; si la revisión sigue, se vuelve a programar.
+3. Cuando el informe esté publicado:
    1. copiarlo sin cambios, con su procedencia (operación mecánica, con comprobación de los blobs);
    2. registrar la configuración y las horas;
    3. responder a cada objeción con commit y prueba;
