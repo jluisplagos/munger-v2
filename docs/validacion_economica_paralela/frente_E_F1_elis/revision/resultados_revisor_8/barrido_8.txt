@@ -1,0 +1,83 @@
+Barrido propio de la revisión n.º 8 · C14 → C16 · todas las líneas de todas las páginas
+
+Equivalencia en C16: `comprobar_tabla` del módulo = ejecución oficial guardada en 713 filas de tabla reales, 0 con alguna dimensión distinta; declaración con la línea fijada entera = declaración del autor en 707 filas de una sola línea, 0 distintas
+Equivalencia en C14: `comprobar_tabla` del módulo = ejecución oficial guardada en 713 filas de tabla reales, 0 con alguna dimensión distinta; declaración con la línea fijada entera = declaración del autor en 707 filas de una sola línea, 0 distintas
+
+Páginas recorridas y, de ellas, con alguna línea con cifras en una página aceptada como del grupo:
+  DEU2024FR: 412 páginas, 91 del grupo
+  URD2021: 350 páginas, 87 del grupo
+  URD2022: 388 páginas, 93 del grupo
+  URD2023: 408 páginas, 94 del grupo
+  URD2025: 468 páginas, 94 del grupo
+Tokens: 51492 (27198 en páginas del grupo); en líneas sin rótulo (primera celda numérica): 8135 (2375 en páginas del grupo)
+Candidatas G (token × ejercicio E, E−1, E−2): 154476; en páginas del grupo: 81594
+
+== G · estado de la fila, todas las páginas: C14 → C16 ==
+  FALLO     → FALLO       84354
+  FALLO     → OK             10   ← cambia
+  FALLO     → PENDIENTE     271   ← cambia
+  OK        → FALLO          10   ← cambia
+  OK        → OK           5529
+  OK        → PENDIENTE      37   ← cambia
+  PENDIENTE → FALLO        1072   ← cambia
+  PENDIENTE → OK            401   ← cambia
+  PENDIENTE → PENDIENTE   62792
+== G · transiciones por dimensión, todas las páginas ==
+  ejercicio: F → O: 216
+  ejercicio: F → P: 197
+  ejercicio: O → F: 25
+  ejercicio: O → P: 38
+  ejercicio: P → F: 1711
+  ejercicio: P → O: 848
+  perimetro: O → F: 36
+  perimetro: O → P: 849
+  unidad: P → F: 39
+
+== G · estado de la fila, páginas del grupo: C14 → C16 ==
+  FALLO     → FALLO       46397
+  FALLO     → OK             10   ← cambia
+  FALLO     → PENDIENTE     181   ← cambia
+  OK        → FALLO          10   ← cambia
+  OK        → OK           5529
+  OK        → PENDIENTE      37   ← cambia
+  PENDIENTE → FALLO         880   ← cambia
+  PENDIENTE → OK            401   ← cambia
+  PENDIENTE → PENDIENTE   28149
+== G · transiciones por dimensión, páginas del grupo ==
+  ejercicio: F → O: 118
+  ejercicio: F → P: 195
+  ejercicio: O → F: 16
+  ejercicio: O → P: 37
+  ejercicio: P → F: 1348
+  ejercicio: P → O: 682
+  perimetro: O → F: 36
+  perimetro: O → P: 849
+
+== M · los demás modos de control del ejercicio (todas las páginas): candidatas y diferencias entre C14 y C16 ==
+  composición por dimensiones = `comprobar_tabla` entera: 175194 evaluaciones de muestra, 0 distintas; tokens cuya unidad o perímetro cambian con el ejercicio declarado en G: 0
+  TAXDIF_B8 (max_cabecera): candidatas: 154476; columna: F → P: 3; columna: O → P: 12; columna: P → F: 9; columna: P → O: 3; con algún estado distinto: 951; fila OK en C14: 75; fila OK en C16: 75; fila: PENDIENTE → FALLO: 1; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  LS_B8_ROU_X (movimientos): candidatas: 154476; columna: F → P: 24; columna: P → F: 3; con algún estado distinto: 951; fila OK en C14: 337; fila OK en C16: 337; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  LS_B8_PAS_X (movimientos): candidatas: 154476; columna: O → P: 24; columna: P → F: 3; con algún estado distinto: 951; fila OK en C14: 82; fila OK en C16: 82; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  INT_RC_B8 (movimientos): candidatas: 154476; columna: F → P: 6; columna: P → F: 6; con algún estado distinto: 936; fila OK en C14: 88; fila OK en C16: 88; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  INT_MARCA_B8 (movimientos): candidatas: 154476; columna: F → P: 6; columna: P → F: 6; con algún estado distinto: 936; fila OK en C14: 83; fila OK en C16: 83; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  PPE_B8_RM_X (movimientos): candidatas: 154476; con algún estado distinto: 924; fila OK en C14: 76; fila OK en C16: 76; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  PPE_B8_TOT_X (movimientos): candidatas: 154476; con algún estado distinto: 924; fila OK en C14: 324; fila OK en C16: 324; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  LS_SALDO_ROU_B8 (saldo): candidatas: 154476; columna: F → P: 24; columna: P → F: 3; con algún estado distinto: 951; fila OK en C14: 74; fila OK en C16: 74; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  LS_SALDO_PAS_B8 (saldo): candidatas: 154476; columna: O → P: 24; columna: P → F: 3; con algún estado distinto: 951; fila OK en C14: 17; fila OK en C16: 17; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  INT_RC_VNC_B8 (saldo): candidatas: 154476; columna: F → P: 6; columna: P → F: 6; con algún estado distinto: 936; fila OK en C14: 14; fila OK en C16: 14; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  VENTAS_SEG_B8 (titulo): candidatas: 154476; con algún estado distinto: 924; fila OK en C14: 185; fila OK en C16: 185; perimetro: O → F: 36; perimetro: O → P: 849; unidad: P → F: 39
+  CREC_ORG_B8 (crecimiento): candidatas: 16125; columna: P → F: 9; con algún estado distinto: 774; fila OK en C14: 6; fila OK en C16: 5; fila: OK → FALLO: 1; fila: PENDIENTE → FALLO: 3; perimetro: O → F: 12; perimetro: O → P: 753
+  CREC_EXT_B8 (crecimiento): candidatas: 16125; columna: P → F: 9; con algún estado distinto: 774; fila OK en C14: 5; fila OK en C16: 4; fila: OK → FALLO: 1; fila: PENDIENTE → FALLO: 3; perimetro: O → F: 12; perimetro: O → P: 753
+  CREC_FX_B8 (crecimiento): candidatas: 16125; columna: P → F: 9; con algún estado distinto: 774; fila OK en C14: 6; fila OK en C16: 5; fila: OK → FALLO: 1; fila: PENDIENTE → FALLO: 3; perimetro: O → F: 12; perimetro: O → P: 753
+  CREC_PUB_B8 (crecimiento): candidatas: 16125; columna: P → F: 9; con algún estado distinto: 774; fila OK en C14: 12; fila OK en C16: 11; fila: OK → FALLO: 1; fila: PENDIENTE → FALLO: 3; perimetro: O → F: 12; perimetro: O → P: 753
+
+== S · perímetro declarado de cada segmento (todas las páginas): tokens con estado distinto o con OK en C16 ==
+  Francia: F → O: 4; O → O: 309
+  Europa central: O → O: 235
+  Escandinavia y Europa del Este: F → O: 6; O → O: 208
+  Reino Unido e Irlanda: O → O: 222
+  Latinoamérica: F → O: 2; O → O: 249
+  Europa del Sur: O → O: 224
+  Otros segmentos: O → O: 192
+
+Tiempo: 888 s
