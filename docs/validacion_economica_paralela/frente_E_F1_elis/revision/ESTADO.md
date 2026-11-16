@@ -26,4 +26,6 @@
 
 Las correcciones de C7 las revisó la pasada 4 (N1, solo en parte; P1–P5). **C12 = 4f3f9ba9c8240143269368c41787736b3867e97b.** El commit siguiente solo cambia, respecto a C12, este archivo, la línea de C12 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 6.
 
+**C14 = cf55865a22035aa8376d8813cd58d0f2fcdd4846.** El commit siguiente solo cambia, respecto a C14, este archivo, la línea de C14 en RESPUESTAS_AUTOR_1.md y el manifiesto. Es el commit congelado sobre el que se encarga la pasada 7.
+
 La pasada 5 revisó C9 y C10 (Q1–Q7); la pasada 6, C12 (R1–R8). Los cambios de C14 **no están revisados** de forma independiente: entran en la pasada 7. La configuración de cada pasada se registra en ../REGISTRO_CONFIGURACION.md.

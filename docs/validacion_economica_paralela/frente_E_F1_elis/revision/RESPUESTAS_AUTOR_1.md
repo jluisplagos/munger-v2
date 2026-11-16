@@ -27,7 +27,7 @@
 | C11 | 364129afd45ba2e54a1df4141fd50e97fd55ef6d | Registra el hash de C10. Congelado de la revisión n.º 5 |
 | C12 | 4f3f9ba9c8240143269368c41787736b3867e97b (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 5 (Q1–Q7): columnas del mismo año y de apertura, columna «published», celdas y llamadas de la cabecera, título del bloque hasta la página anterior, rótulos de segmento normalizados, R41, R8 de 2021–22, R24 de 2023 y R42 (quinta parte) |
 | C13 | 1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a | Registra el hash de C12. Congelado de la revisión n.º 6 |
-| C14 | El hash consta en el congelado siguiente (C15) y en [ESTADO.md](ESTADO.md) | Respuesta a la revisión n.º 6 (R1–R8): asignación por orden con alineación, cabecera de la propia tabla, grupos de columnas por entidad, filas de jurisdicción, encabezados numerados, título corto de tabla, prefijo de UGE, FALLO solo con la columna alineada, ventas de 2021–22 por segmentos (R23) y umbrales de detección (sexta parte) |
+| C14 | cf55865a22035aa8376d8813cd58d0f2fcdd4846 (también en [ESTADO.md](ESTADO.md)) | Respuesta a la revisión n.º 6 (R1–R8): asignación por orden con alineación, cabecera de la propia tabla, grupos de columnas por entidad, filas de jurisdicción, encabezados numerados, título corto de tabla, prefijo de UGE, FALLO solo con la columna alineada, ventas de 2021–22 por segmentos (R23) y umbrales de detección (sexta parte) |
 
 ## Marcas y pruebas
 
