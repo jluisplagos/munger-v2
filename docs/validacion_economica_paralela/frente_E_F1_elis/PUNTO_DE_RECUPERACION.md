@@ -2,8 +2,8 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** respuesta a la revisión n.º 6 (C14), su congelado (C15) y el encargo de la pasada 7.
-**Hora:** la del commit que contiene esta versión, en `git log` (C14 es de las 02:44:21 UTC y C15, de las 02:44:38). *(Revisión n.º 6, R8 a: el punto anterior, de c11a6de, decía «hacia las 01:50 UTC» y su commit es de las 01:38:27; desde ahora la hora es la de un commit, no una estimación.)*
+**Bloque cerrado:** incorporación de la revisión n.º 7 (copia sin cambios, procedencia y registro). Su respuesta, C16, está en preparación.
+**Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
 **F1 sigue abierto.** Este punto no cierra ningún requisito: solo dice dónde está el trabajo y cómo seguir.
@@ -12,12 +12,10 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 | Commit | Contenido |
 |---|---|
-| C12 = `4f3f9ba9c8240143269368c41787736b3867e97b` | Respuesta a la revisión n.º 5. Revisado en la pasada 6 |
-| C13 = `1b80b5d5348e6e39dd1d632cafbbbf4e5dd3685a` | Congelado de la revisión n.º 6 |
-| `c11a6de` | Copia de la revisión n.º 6 (9711f04), procedencia y registro |
-| C14 = `cf55865a22035aa8376d8813cd58d0f2fcdd4846` | Respuesta a la revisión n.º 6 (R1–R8). **No revisado** |
-| C15 = `c96d544646b2fa5a66c233402a9f31332a643cec` | Registra el hash de C14. **Commit congelado de la revisión n.º 7** |
-| El commit que contiene esta versión de este archivo | Registra el encargo de la pasada 7. No cambia código, datos ni resultados |
+| C14 = `cf55865a22035aa8376d8813cd58d0f2fcdd4846` | Respuesta a la revisión n.º 6 (R1–R8). Revisado en la pasada 7 |
+| C15 = `c96d544646b2fa5a66c233402a9f31332a643cec` | Registra el hash de C14. Congelado de la revisión n.º 7 |
+| `66d188c` | Registra el encargo de la pasada 7 |
+| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 7 (d192cab), procedencia y registro. No cambia código, datos ni resultados |
 
 ## 2. Estado de las pruebas sobre C14
 
@@ -40,16 +38,24 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 
 ## 3. Incidencias pendientes
 
-1. **C14 sin revisar** hasta la pasada 7. Incluye las tres decisiones que no siguen la propuesta del revisor: R1 (grupos de columnas en el perímetro), R2 (G2 y G4 en PENDIENTE) y R3 (umbral de 5,5 caracteres).
-2. **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 entradas con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
-3. **Verificador:** reglas heurísticas sobre la rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42.
-4. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
+1. **Responder a la revisión n.º 7** (C16). Plan, según sus correcciones propuestas:
+   - **S1:** no tomar por cabecera de columnas la línea de un encabezado numerado ni su continuación (el año del título del estado de cambios en el patrimonio no es una columna); en las filas con la fecha del saldo en el rótulo, aunque esté partido en dos líneas, tomar el ejercicio de la fila. Casos A1, A8 y A9;
+   - **S2:** si la línea de la cifra no tiene rótulo, tomarlo de las líneas contiguas de arriba y de abajo (URD 2023 p.261, Escandinavia y Europa del Este). Casos B1 y B3; barrer también las líneas sin rótulo;
+   - **S3:** descartar como rótulo un dígito suelto al principio de la línea seguido de una celda de texto (número de capítulo del margen; «CGU France» del URD 2022 p.298). Caso C1;
+   - **S4:** sin declaración de unidades ni línea de ejercicios, buscar la cabecera en la línea de celdas que precede al bloque de filas (hipótesis del WACC por UGE); no tomar por cabecera de ejercicios la primera línea de un rótulo partido. Casos D1 y D5;
+   - **S5:** que el encabezado numerado no sea prosa;
+   - decisión (b) de C14: revisar el argumento que, según el revisor, no es de perímetro, y declarar el límite de la regla de grupos (tabla de marcas con un solo ejercicio, URD 2021–2023);
+   - **S6 y S7:** frases y recuentos.
+2. **C16 sin revisar** hasta la pasada 8.
+3. **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
+4. **Verificador:** reglas heurísticas sobre la rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42.
+5. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
 
 ## 4. Siguiente paso exacto
 
-1. Esperar a la pasada 7: sesión de revisión nueva creada a las 02:45:09 UTC sobre C15, con publicación en `auditoria/economica-f1-frente-e-revision` sobre 9711f04. Hay una comprobación programada para las 03:46 UTC.
-2. Cuando termine: copiar sin cambios su informe, sus scripts y sus salidas, con procedencia (blob y SHA-256); registrar su configuración con `get_session`; actualizar ESTADO, REGISTRO, el informe §12 y este punto. Commit y push.
-3. Responder a sus objeciones (C16), con pruebas sobre las filas reales y el barrido, y encargar la revisión de lo que afecten.
+1. Leer entera la revisión n.º 7 (§3 a §9) y sus contraejemplos (`revision/resultados_revisor_7/contraejemplos_7.txt`).
+2. Implementar el plan de §3.1 con un caso de test por clase. Comprobar que ninguna de las 752 filas reales cambia de estado sin causa explicada, y pasar los barridos de los revisores n.º 6 y 7 entre C14 y C16.
+3. Respuesta (séptima parte), informe, especificación, estado y registro. Commit C16, push y punto de recuperación; congelar (C17) y encargar la pasada 8.
 
 ## 5. Cómo reanudar en una sesión nueva
 

@@ -105,3 +105,27 @@ Los 16 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente
 | `scripts_revisor_6/lectura_geometrica.py` | `9711f04` | `635639d37682644a83b8bf3481278d489297e49c` | `abf869c17f4fde55d5214c07dc1bb31007d4f301e38c7a0be2f71cb51c4c700d` | 9297 |
 
 Comprobación (desde la raíz del repositorio): `git diff --name-only 595d2f678178e41dac15e8d24b0523efe327b5b8 9711f04eba236c31100d0e3bd631b276c804e8c4 | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree 9711f04eba236c31100d0e3bd631b276c804e8c4 "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
+
+## Revisión independiente n.º 7
+
+Los 15 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-e-revision`, commit `d192cab1153197df7d27dacb3f5d63c5fa030f8e` (padre `9711f04eba236c31100d0e3bd631b276c804e8c4`), publicado el 16 de noviembre de 2026 a las 04:18:26 UTC por una sesión de revisión nueva, distinta de las de las revisiones n.º 1, 3, 4, 5 y 6, y se copiaron sin cambios en las mismas rutas con `git show`. El material revisado es el commit congelado `c96d544646b2fa5a66c233402a9f31332a643cec` (C15) de la rama `auditoria/economica-f1-frente-e`.
+
+| Ruta (relativa a revision/) | Commit del último cambio | Id de blob de git | SHA-256 | Bytes |
+|---|---|---|---|---|
+| `REVISION_INDEPENDIENTE_7.md` | `d192cab` | `14a9d776fa4927e91ff0dd115e048124c0d96437` | `bb1204d040fc4b522ea17fb5fa903a295778b41de20f73f5bb677b4c295d636f` | 56211 |
+| `resultados_revisor_7/barrido_7.txt` | `d192cab` | `d82c0e4e95a706b0c332cfcf50303d190179939d` | `84e4e8d365fba410add891e80480a4464c16c77e82c45082b2ce460d559405af` | 2415 |
+| `resultados_revisor_7/clases_7.txt` | `d192cab` | `7be552448e02c783abea177689ee04241921f5a8` | `1c9b34230d6ac7509648810369679ff9fb0b7e0741b4f2e713357075ced050e2` | 40550 |
+| `resultados_revisor_7/contraejemplos_7.txt` | `d192cab` | `5bb52cd987c5e33a7d09520ea6d64d2aaae1ffdf` | `6fa7a6bb5404bb5a1da95943325e6915555c0ebd7b3531de07e836a6842e0c79` | 31745 |
+| `resultados_revisor_7/lectura_filas_c14.txt` | `d192cab` | `c5b8a0c2a0d7e6898c95faffbedc9857cf891ce4` | `543bac584ee292912c8d0a09a2a5c56074b1934b2ff48c760d3178dbddc660b8` | 7681 |
+| `resultados_revisor_7/reproduccion_7.txt` | `d192cab` | `0695845184ca95af1db8a83031a5e05f20565269` | `6feae5aaa942c8c9400d210c23eb9883de4592b35d55a25ce4d759429a68ec9c` | 5123 |
+| `resultados_revisor_7/sondas_umbral_7.txt` | `d192cab` | `f284140217c8ab2f6192f67cffe533208da75c82` | `cf3e36e3d34112c714b555de4265cfa08db8287fab950aff5a8dcb9b8875144c` | 12459 |
+| `scripts_revisor_7/arnes7.py` | `d192cab` | `c6fbab80f97a35f85c0a7494e65a2c2647480367` | `1a1d05442d109f7b16232f9c9961e178f92a9fbc5a13b54fe7b849b8a649aec6` | 7535 |
+| `scripts_revisor_7/barrido_7.py` | `d192cab` | `f12c97fb27d4569386d40714cedf95142e606aae` | `b9d387e60a6cd011b75cf1c2bd12844f0706dc68601ec0a85211f2bbd43f65ff` | 14822 |
+| `scripts_revisor_7/clases_7.py` | `d192cab` | `23590bf1edb01ce43fb6b0c7017d894e494118e9` | `2dac2950113e7e2950323da2073b4489b89218d8d137e7ca16cb4470a50ff70d` | 26730 |
+| `scripts_revisor_7/contraejemplos_7.py` | `d192cab` | `95f625c63bff06257ea76bafa776d94b0807af7b` | `0ba40589a871c2c05b4b5d7e6df2bfc0729c2f00a55a51277f2e58ba96a40bd2` | 11458 |
+| `scripts_revisor_7/geo7.py` | `d192cab` | `453f4a14ce65ef9178ab72dbbba682be85110598` | `968841e86df5a651dd9b1f944c9b212e7b2f8edfdf37c770862f6d751e5b154a` | 10530 |
+| `scripts_revisor_7/lectura_filas_c14.py` | `d192cab` | `c7ce1981a4eeb77ba572ccc7f3a36b438b279b78` | `07d02dd31e8757c2ef988c54ae9ff8fa6778a85e022cad8881bde76ae9396f88` | 7757 |
+| `scripts_revisor_7/reproduccion_7.py` | `d192cab` | `b1548b3e863ffa6407f8a6327f11c5c52f7406c0` | `ee3f864c64e056fe476d30f5c6fa78846d6ca04fd30bc10e2798aabdc26f4834` | 15038 |
+| `scripts_revisor_7/sondas_umbral_7.py` | `d192cab` | `baddcbd76c3199781a144eb5a25a09e190158fa5` | `e00d72ff68d894e3f9322c258830864c8a9c7cac037a736b856a49410e8038d5` | 12363 |
+
+Comprobación (desde la raíz del repositorio): `git diff --name-only 9711f04eba236c31100d0e3bd631b276c804e8c4 d192cab1153197df7d27dacb3f5d63c5fa030f8e | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree d192cab1153197df7d27dacb3f5d63c5fa030f8e "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`

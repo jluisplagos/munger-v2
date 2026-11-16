@@ -63,8 +63,8 @@ Marcas usadas en todo el informe:
 10. **Pendiente:** decisión F1 (a/b/c con política completa), política de intangibles adquiridos, dato o estimación documentada de la reinversión necesaria, perímetro de S2C y del margen. Dos observaciones de la plantilla quedan fuera de F1: la ventana del tipo impositivo y la escala de intereses sin endeudamiento nuevo. La conclusión de nivel de Elis sigue **pendiente_de_datos**.
 11. **Revisiones independientes.**
     - La n.º 1 planteó 17 objeciones, 3 materiales, y ninguna invierte una conclusión material. La respuesta individual a cada una, con su commit y su prueba, está en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), junto con la respuesta al contraste externo sobre 6fb9294.
-    - Las n.º 3, 4, 5 y 6 revisaron las correcciones sucesivas sobre commits congelados (§12).
-    - Lo corregido después de la n.º 6 (C14) está **pendiente** de la pasada 7 ([revision/ESTADO.md](revision/ESTADO.md)).
+    - Las n.º 3 a 7 revisaron las correcciones sucesivas sobre commits congelados (§12).
+    - La n.º 7 revisó C14 y plantea S1–S7, sin efecto en las filas reales; su respuesta (C16) está en preparación ([revision/ESTADO.md](revision/ESTADO.md)).
 
 ---
 
@@ -684,7 +684,8 @@ Estado y documentos en [revision/](revision/).
 - **Respuestas** a O1–O17, al contraste externo y a N1–N10, cada una con su commit y su prueba: [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md).
 - **Revisión de lo afectado por las correcciones de N1–N10** (pasada 4, sobre el congelado 9744177): **hecha** (a15f706, 22:04 UTC). Reproduce todas las cifras, da por corregidas N2–N10 y N1 en parte y plantea P1–P5. Copia y procedencia en `revision/`. Respuesta en C10 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), cuarta parte). Hasta que conste, esas correcciones no están revisadas de forma independiente.
 - **Revisión n.º 5** (lo afectado por C9 y C10, sobre el congelado 364129a): **hecha** por una sesión de revisión nueva (595d2f6, 23:19 UTC). Reproduce todas las cifras, confirma las siete filas de C9 y plantea Q1–Q7. Copia y procedencia en `revision/`. Respuesta en C12 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), quinta parte).
-- **Revisión n.º 6** (lo afectado por C12, sobre el congelado 1b80b5d): **hecha** por otra sesión de revisión nueva (9711f04, 01:24 UTC). Reproduce todas las cifras, confirma las filas nuevas de C12 y plantea R1–R8: efectos de las correcciones de C12 en el verificador, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C14 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), sexta parte). **Lo corregido en C14 está pendiente de la pasada 7.**
+- **Revisión n.º 6** (lo afectado por C12, sobre el congelado 1b80b5d): **hecha** por otra sesión de revisión nueva (9711f04, 01:24 UTC). Reproduce todas las cifras, confirma las filas nuevas de C12 y plantea R1–R8: efectos de las correcciones de C12 en el verificador, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C14 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), sexta parte).
+- **Revisión n.º 7** (lo afectado por C14, sobre el congelado c96d544): **hecha** por otra sesión de revisión nueva (d192cab, 04:18 UTC). Reproduce todas las cifras, confirma las dos filas nuevas y los intervalos de detección, da por sostenidas las tres decisiones de C14 que no seguían la propuesta de la revisión n.º 6 y plantea S1–S7: restos de las clases de R3, R4 y R5 y casos de líneas sin rótulo, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en preparación (C16).
 
 ## 13. Reproducción
 
