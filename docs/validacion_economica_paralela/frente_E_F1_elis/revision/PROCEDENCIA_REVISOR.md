@@ -156,3 +156,36 @@ Los 18 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente
 | `scripts_revisor_8/sondas_8.py` | `3138a6b` | `740049a4a1202a73d50d1278b5c191a4ed5d9c6e` | `51ec34e3e872b6c1fc505b93a52e13b805f4b70e56ad7266952e216040842ef8` | 9435 |
 
 Comprobación (desde la raíz del repositorio): `git diff --name-only d192cab1153197df7d27dacb3f5d63c5fa030f8e 3138a6b65aae12d94c9aa82b314e785322dec793 | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree 3138a6b65aae12d94c9aa82b314e785322dec793 "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`
+
+## Revisión independiente n.º 9
+
+Los 24 archivos de esta tabla proceden de la rama `auditoria/economica-f1-frente-e-revision`, commit `a3a1a2b76c5be46188b2aba93d73cef88a985f5d` (padre `3138a6b65aae12d94c9aa82b314e785322dec793`), publicado el 16 de noviembre de 2026 a las 10:36:14 UTC por una sesión de revisión nueva, distinta de las de las revisiones n.º 1, 3, 4, 5, 6, 7 y 8, y se copiaron sin cambios en las mismas rutas con `git show`. El material revisado es el commit congelado `06ad1003aa5320445d0c42498c3d0efaec971f06` (C19) de la rama `auditoria/economica-f1-frente-e`. `scripts_revisor_9/relanzar_revisores_6_8.sh` conserva el modo ejecutable (100755) que tiene en el commit de origen.
+
+| Ruta (relativa a revision/) | Commit del último cambio | Id de blob de git | SHA-256 | Bytes |
+|---|---|---|---|---|
+| `REVISION_INDEPENDIENTE_9.md` | `a3a1a2b` | `c03e8fe1bde9b82a65d1621cba8da24e40ccd505` | `4db0592da8e4ef0ea6778b39040848800fce1f4d254dcf91d760624e3fbb2a48` | 62228 |
+| `resultados_revisor_9/barrido_9.txt` | `a3a1a2b` | `029c2476764e2c3e39f5e275c8c4bd36ea0a850b` | `2eb04e1651954a5f557df41fa7600549e92a9f33efc817fc153448c5a5ee54e3` | 1587 |
+| `resultados_revisor_9/clases_9.txt` | `a3a1a2b` | `c39090e89a96098fdeb467a33cf5979603765278` | `c60061269d687b4ee803ef6412a88e2bd046e3ef73144aa47cd3e83c6a2222ee` | 93575 |
+| `resultados_revisor_9/comparacion_6_8.txt` | `a3a1a2b` | `bc510cedd63a8d2a04d7c786c9407668bc603854` | `3bdfc9db6f8c41f79526e18d8d43b97e4562c4bb88a5e373bf80fdd06b18dabb` | 7182 |
+| `resultados_revisor_9/consultas_9.txt` | `a3a1a2b` | `2cb4432d3766e3e345085bb958a47d7ac8e048be` | `718bad902b978c4aa959376410eef01f0d5d3d415b8b3e6425909ff55aebbbab` | 13766 |
+| `resultados_revisor_9/contraejemplos_9.txt` | `a3a1a2b` | `3c74a580780ba9db5dbe8537ad55f55938f868c6` | `ac0feb85c723370a887e5d42d77f3427a45616b5382486a203cae916912a0a59` | 18811 |
+| `resultados_revisor_9/intermedias_9.txt` | `a3a1a2b` | `5711838dd74f41687a0bd1cce072f3ce24e87c9c` | `185d4722866f0307c639605bd4a8e14eadd8db17bc882a9dc2a1531b720f05ec` | 7590 |
+| `resultados_revisor_9/lectura_posiciones_9.txt` | `a3a1a2b` | `a4ac9ba5e3d84018f416ba61a8b714e2105352df` | `990402391fe99cd128b38b6cfb313b498df2e8f682299f6defa2e254a471fcb5` | 2262 |
+| `resultados_revisor_9/modos_9.txt` | `a3a1a2b` | `06120225c4e28df8ff26bed6c96f9c90cd7b5045` | `02b02b5be8facd4e21e09878a223de46778d0c27ebcbee1f5967c6302d25cd95` | 4302 |
+| `resultados_revisor_9/reproduccion_9.txt` | `a3a1a2b` | `1234624df7b83e6b8b71a30daf75433300e4570f` | `cfc9637a7340fd828fe8d4d2121e9b7970296862b9956aff1cd9c61f532d5adb` | 9385 |
+| `resultados_revisor_9/sondas_sinteticas_9.txt` | `a3a1a2b` | `675f5e84518974bf7cb3bd40fa75c984e1e44e3f` | `542f99849cb52b974fa50f031fab2a7eee307469d7009b07827b02b408fccab3` | 19249 |
+| `resultados_revisor_9/spans_9.txt` | `a3a1a2b` | `8cf7ff16be93bcb6504af5d61aae41484d7e45b1` | `a036543d8527c99fdadd7ed05cd4311aeb36a3556d2e9f572707d04c70d94516` | 25051 |
+| `scripts_revisor_9/arnes9.py` | `a3a1a2b` | `e3cbd06aaee316822da981e012021280c39976e7` | `948ec182ffcb91ffc9a54200004008dfbe16f2ad381bc3b4a2e59ed1dffb45d0` | 4748 |
+| `scripts_revisor_9/barrido_9.py` | `a3a1a2b` | `cc241276267106544330487177814cd97aa39090` | `f01f350a745902d9100a26bee7ec69291a1327c1cda246812e1adc04d0598f05` | 12949 |
+| `scripts_revisor_9/clases_9.py` | `a3a1a2b` | `7129d06f4632d9530ec4254482e57fd9b620bee6` | `1b4d6dd3023242b57bdd1cdbe6f7ac8f7bfab23b1ff3c008ff489ee185a9f3f1` | 31504 |
+| `scripts_revisor_9/consultas_9.py` | `a3a1a2b` | `d4ab951e2ba13903adb102c74b5d0dd06c19b884` | `c8b11f7b9446ceb5a6d354d89715c60dd3bfd259edb06335c010482a90b15283` | 8854 |
+| `scripts_revisor_9/contraejemplos_9.py` | `a3a1a2b` | `1f0d0fa6c97d3192176fad1e8203b069e1ee8e85` | `c86e0cec12e8ab67f33c0648abba7102bbe933df475099c19b68c7d4ab9b69a2` | 10881 |
+| `scripts_revisor_9/intermedias_9.py` | `a3a1a2b` | `4a3e7df1358ed46e00e72c81763a68bb36f83d49` | `38531b50bee9665f4e79e4719377a728281d0f7417819052b9ca0e9e3994d618` | 5041 |
+| `scripts_revisor_9/lectura_posiciones_9.py` | `a3a1a2b` | `c1d470a6a0c818f14ea9b56506272d2ce5271c82` | `1d4c0edf241408c91e3649b6ac5fe6d4c30b04d299cb7fd13eccc90640a18d2e` | 2438 |
+| `scripts_revisor_9/modos_9.py` | `a3a1a2b` | `b4f825bf151ec1b681a4b4b95e513c060509ce2d` | `11f8d5e9262f3ef6944338337b39eaad489006f832419220d8a023843a1184e4` | 3941 |
+| `scripts_revisor_9/relanzar_revisores_6_8.sh` | `a3a1a2b` | `508367b2764ece4e693bbcec0ac4e6fc3ba5bda8` | `31087d136796bffd83d67b54014c00c497e20a71ab33c10999b43a8b01d3159c` | 6487 |
+| `scripts_revisor_9/reproduccion_9.py` | `a3a1a2b` | `728482652d7dfd268b4540765fdd3540aa1c853a` | `b3026c955e13d5adf0dfb4d62014601ec198d6c463543af443fa32c208cee1c5` | 15624 |
+| `scripts_revisor_9/sondas_sinteticas_9.py` | `a3a1a2b` | `ea5d95d1086f4789a7b9f911d6608788ef1c7cc6` | `9cb99281899a2c5f3451b1aaf7da15d1971618574056f13233e2c52321d0c1f7` | 11958 |
+| `scripts_revisor_9/spans_9.py` | `a3a1a2b` | `2496e9b3ae8923d66c6fbbb4eb0bdddc1a652d40` | `c6ffe90407aa752d1079479bfaaca2a081ed910afd99b1ea3e924ac993366e8b` | 12879 |
+
+Comprobación (desde la raíz del repositorio): `git diff --name-only 3138a6b65aae12d94c9aa82b314e785322dec793 a3a1a2b76c5be46188b2aba93d73cef88a985f5d | while read p; do [ "$(git hash-object "$p")" = "$(git ls-tree a3a1a2b76c5be46188b2aba93d73cef88a985f5d "$p" | awk '{print $3}')" ] && echo "OK $p" || echo "DISTINTO $p"; done`

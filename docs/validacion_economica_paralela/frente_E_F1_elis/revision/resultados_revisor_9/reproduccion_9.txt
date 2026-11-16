@@ -1,0 +1,90 @@
+# Reproducción n.º 9 · carpeta del autor: frente_E_F1_elis · pdftotext version 24.02.0 · Python 3.13.18
+1. Manifiesto: 324 de 324 OK (código 0); archivos de la carpeta sin contar el manifiesto: 324
+   libro d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385
+   fuente DEU2024FR: huella coincide
+   fuente URD2021: huella coincide
+   fuente URD2022: huella coincide
+   fuente URD2023: huella coincide
+   fuente URD2025: huella coincide
+   libro: huella coincide con fuentes.json
+2. CSV regenerado desde los PDF: código 0; 752 filas {'tabla': 713, 'texto': 39}; SHA-256 3f9ae6e6dae3fc013a8ab595bc165168c0d300b5d08ac416a99ebc07b73f1331
+   IDÉNTICO a datos/cifras_fuente.csv del congelado; IDÉNTICO al CSV de C17 (7 s)
+3. Cadena del informe §13 (sobre la copia; sin LibreOffice)
+   verificar_cifras.py: código 2; filas 752, OK 738, PENDIENTE 14, FALLO 0 (7 s)
+     JSON IDÉNTICO al guardado; registro IDÉNTICO a verificar_cifras.log
+     páginas exportadas: 73 guardadas, 0 distintas, 0 de más
+     PENDIENTE por página: [('URD2022', 302)]
+     por dimensión: {"literal": {"OK": 752}, "ejercicio": {"OK": 752}, "columna": {"NO_APLICA": 619, "OK": 119, "PENDIENTE": 14}, "unidad": {"OK": 699, "PENDIENTE": 14, "NO_APLICA": 39}, "perimetro": {"OK": 713, "NO_APLICA": 39}, "edicion": {"OK": 752}}
+   test_verificar_cifras.py: código 0; casos (136, 136); comprobaciones directas (9, 9); composición por estado esperado [('FALLO', 77), ('OK', 23), ('PENDIENTE', 36)]; registro IDÉNTICO al guardado (47 s)
+   contraste_f1.py: código 0; comprobaciones 292, fallidas 0, por clase {'fuente': 127, 'libro': 136, 'algebraica': 29}, entradas 419 (1 s)
+     JSON IDÉNTICO; tabla IDÉNTICA; registro IDÉNTICO
+   test_contraste_residuos.py: código 0; «24/24 casos con el resultado esperado»; registro IDÉNTICO (10 s)
+   cobertura_por_mutacion.py: código 0; salida IDÉNTICA a la guardada; IDÉNTICA a la de C17 (80 s)
+     Filas de tabla de la edición vigente mutadas (+3): 530
+     identidad de fuente: 386
+     solo libro: 2
+     solo algebraica: 0
+     aborta: 0
+     SIN DETECTAR: 23
+     no usada: 119
+     usadas (alguna salida cambia o alguna comprobación falla): 411; el contraste declara 419 en todas las ediciones
+   tabla_conciliacion.py: código 0; tabla IDÉNTICA
+4. Verificador de C16 (worktree de C17) sobre el mismo CSV
+   código 2; JSON de C16 IDÉNTICO al de C18 recién generado y IDÉNTICO al que guarda C17
+   filas con algún campo distinto entre C16 y C18 (estado, detalle de las seis dimensiones, línea, token): 0 de 752; registro IDÉNTICO
+   páginas exportadas por C16: 73; distintas de las de C18: 0
+5. El test de C18 (el mismo archivo) con otros verificadores
+   con el verificador de C16 (worktree de C17): código 1; casos (119, 136); comprobaciones directas (4, 9) (44 s)
+     MAL · caso: S1 (revisión n.º 7, A1; revisión n.º 8, T1): capital a 31-12-2021 (224,1), fila «Balance as at December / 31, 2021 restated(a)» del estado de cambios 
+     MAL · caso: S1 (A10; revisión n.º 8, T1): saldo de cierre a 31-12-2022 (230,1), fila «DECEMBER, 31 2022» del URD 2022 p.262, declarado 2022: ejercicio OK; columna
+     MAL · caso: T1 (T1a): derechos de uso a 31-12-2024, columna «Vehicles» (237,4), URD 2025 p.366, identificador genérico: ejercicio OK por la fecha del rótulo; colu
+     MAL · caso: T2 (T2a): el día de la fecha («31» de «DECEMBER, 31 2022»), URD 2022 p.262, declarado 2022: es un token del rótulo, no una cifra de la fila; ejercicio
+     MAL · caso: T2 (T2b): la pestaña del margen («6») de la línea «6 · As at December 31, 2021 · (57.9)», URD 2022 p.284, declarada 2021: ejercicio PENDIENTE (en C16,
+     MAL · caso: T2 (T2c): el año de una línea de prosa («…902,3 millions d'euros au 31 décembre 2023)»), DEU 2024 p.257, declarado 2023: ejercicio PENDIENTE (en C16, 
+     MAL · caso: T2 (T2e): el año de un título de apartado («… d'application obligatoire / au 1er janvier 2024»), DEU 2024 p.277, declarado 2023: ejercicio PENDIENTE (
+     MAL · caso: T2 (T4b): fila «Number of rights outstanding», URD 2022 p.350: la línea de encima («as at 12/31/2022») continúa el rótulo de la fila anterior y su fec
+     MAL · caso: T2 (reserva de coberturas): saldo de apertura de la reserva de coste de cobertura (1,2), fila «BALANCE AS AT JANUARY 1, 2021» bajo la cabecera «Cash f
+     MAL · caso: T2 (año del rótulo): el año de la fecha del rótulo de un saldo («2024» de «AU 31 DÉCEMBRE 2024», tabla de deterioro de clientes del DEU 2024 p.295), d
+     MAL · caso: T3 (T3a): capital a 31-12-2024 (236,7), fila «SOLDE AU 31 / DÉCEMBRE 2024» (rótulo partido tras el día), DEU 2024 p.274, declarado 2024: ejercicio OK 
+     MAL · caso: T3 (T3a declarado 2023): la misma cifra declarada 2023: FALLO en ejercicio (la fila es el saldo de 2024) → estado PENDIENTE, se esperaba FALLO; código
+     MAL · caso: T3 (T3c): capital a 31-12-2021 (224,1), fila «BALANCE AS AT / DECEMBER 31, 2021 / (RESTATED)» (rótulo en tres líneas), URD 2022 p.263, declarado 2021:
+     MAL · caso: T4 (T5a): DEU 2024 p.315, fila «TAUX D'ACTUALISATION AVANT / IMPÔT 2024 (APPROXIMATION)», columna de Francia (11,2 %): la primera línea del rótulo no 
+     MAL · caso: T4 (T5b): la fila siguiente, «Taux d'actualisation avant impôt / 2023 (approximation)», columna de Brasil (19,4 %): perímetro PENDIENTE (en C16, OK) →
+     MAL · caso: T5 (T6a): línea con solo la pestaña del capítulo («5») junto a un párrafo, URD 2023 p.261: el párrafo no es su rótulo (en C16, FALLO de perímetro por 
+     MAL · caso: T5 (T6b): «100% · ELIS COLOMBIA» del organigrama del URD 2022 p.376, declarado del segmento Francia: la leyenda contigua («France») no es su rótulo; F
+     MAL · directa: T6: prosa «Note 7.2 to the consolidated financial statements summarizes the»: no es encabezado, URD2021 p.300: da True, se esperaba False
+     MAL · directa: T6: prosa «Note 4.6 to the Group's consolidated financial statements for the»: no es encabezado, URD2023 p.264: da True, se esperaba False
+     MAL · directa: T6: título en mayúsculas partido tras una coma («3.7 REPORT BY ONE OF THE STATUTORY AUDITORS,» / «APPOINTED AS…»): es encabezado, URD2021 p.183: da Fa
+     MAL · directa: T6: título en mayúsculas con comillas («NOTE 6 … « HORS-BILAN »»): es encabezado, DEU2024FR p.369: da False, se esperaba True
+     MAL · directa: T5: rótulo con viñeta («− Matthieu Lecharny», bajo «Number of working beneficiaries»): no es una línea sin rótulo, URD2022 p.294: da False, se esperab
+   con el verificador de d3c0f1b: código 1; casos (134, 136); comprobaciones directas (8, 9) (45 s)
+     MAL · caso: T2 (reserva de coberturas): saldo de apertura de la reserva de coste de cobertura (1,2), fila «BALANCE AS AT JANUARY 1, 2021» bajo la cabecera «Cash f
+     MAL · caso: T2 (año del rótulo): el año de la fecha del rótulo de un saldo («2024» de «AU 31 DÉCEMBRE 2024», tabla de deterioro de clientes del DEU 2024 p.295), d
+     MAL · directa: T5: rótulo con viñeta («− Matthieu Lecharny», bajo «Number of working beneficiaries»): no es una línea sin rótulo, URD2022 p.294: da False, se esperab
+6. Sondas de metadatos
+   base sin cambios: código 2
+   sonda externa: unidad de CREC_ORG_2025 «%» → «mm EUR»: código 1 · detectadas 1/1 (en su dimensión: 1)
+   sonda externa: perímetro de IS_VENTAS_2025 → «segmento Francia»: código 1 · detectadas 1/1 (en su dimensión: 1)
+   unidad cambiada en cada fila de tabla («%» ↔ «mm EUR»): código 1 · detectadas 713/713 (en su dimensión: 713)
+   perímetro cambiado en cada fila de tabla (→ «segmento Francia»): código 1 · detectadas 713/713 (en su dimensión: 713)
+   JSON IDÉNTICO al guardado; igual al de C16 salvo «version»: True (31 s)
+7. Contraste de C19 frente al de C17
+   resultados/contraste_f1.json: IDÉNTICO en C17 y en C19
+   resultados/contraste_f1.md: IDÉNTICO en C17 y en C19
+   resultados/contraste_f1.log: IDÉNTICO en C17 y en C19
+   resultados/test_contraste_residuos.log: IDÉNTICO en C17 y en C19
+   resultados/tabla_conciliacion.md: IDÉNTICO en C17 y en C19
+   resultados/caja_no_nula.json: IDÉNTICO en C17 y en C19
+   resultados/verificacion_cifras.json: IDÉNTICO en C17 y en C19
+   resultados/verificar_cifras.log: IDÉNTICO en C17 y en C19
+   referencia_especificacion: IGUAL en C17 y en la ejecución de hoy (7038 caracteres)
+     /perimetros/A1/S2C_C53 = 2.445331695332
+     /perimetros/A2/S2C_C53 = 1.612524303305
+     /A3_estimado_sintetico/D_X = D&A propia (reproduce A2)/S2C_C53 = 1.612524303305
+8. Barrido del autor (barrido_fecha_rotulo.py, con --anterior C16)
+   código 0; salida IDÉNTICA a resultados/barrido_fecha_rotulo.txt (etiqueta «C16 (66d01b8)») (53 s)
+     Líneas en que da un ejercicio: 207 · {'fecha en la propia línea': 191, 'fecha en una línea unida de encima': 16}
+     Líneas con la fecha en una línea unida de encima: 16; justo debajo de una fila de datos: 8
+     Comparación con C16 (66d01b8): {'solo la anterior, línea de una celda': 302, 'solo la anterior, dos celdas o más': 198, 'las dos, mismo ejercicio': 200, 'solo la nueva': 7}
+     Solo la versión nueva: 7
+     Solo la versión anterior, líneas de dos celdas o más: 198 (166 con un token o ninguno)

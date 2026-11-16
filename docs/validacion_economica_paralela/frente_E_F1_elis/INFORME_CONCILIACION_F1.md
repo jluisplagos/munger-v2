@@ -66,7 +66,7 @@ Marcas usadas en todo el informe:
 11. **Revisiones independientes.**
     - La n.º 1 planteó 17 objeciones, 3 materiales, y ninguna invierte una conclusión material. La respuesta individual a cada una, con su commit y su prueba, está en [revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), junto con la respuesta al contraste externo sobre 6fb9294.
     - Las n.º 3 a 8 revisaron las correcciones sucesivas sobre commits congelados (§12).
-    - La n.º 7 revisó C14 y planteó S1–S7; la n.º 8 revisó C16 y planteó T1–T8. Ninguna con efecto en las filas reales. La respuesta a la n.º 8 está en C18 (octava parte de las respuestas); lo afectado por C18 está pendiente de revisión independiente ([revision/ESTADO.md](revision/ESTADO.md)).
+    - La n.º 7 revisó C14 y planteó S1–S7; la n.º 8 revisó C16 y planteó T1–T8. Ninguna con efecto en las filas reales. La respuesta a la n.º 8 está en C18 (octava parte de las respuestas). La n.º 9 revisó C18 y planteó U1–U6, también sin efecto en las filas reales; su respuesta (C20) está en preparación ([revision/ESTADO.md](revision/ESTADO.md)).
 
 ---
 
@@ -701,7 +701,7 @@ Estado y documentos en [revision/](revision/).
 - **Revisión n.º 6** (lo afectado por C12, sobre el congelado 1b80b5d): **hecha** por otra sesión de revisión nueva (9711f04, 01:24 UTC). Reproduce todas las cifras, confirma las filas nuevas de C12 y plantea R1–R8: efectos de las correcciones de C12 en el verificador, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C14 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), sexta parte).
 - **Revisión n.º 7** (lo afectado por C14, sobre el congelado c96d544): **hecha** por otra sesión de revisión nueva (d192cab, 04:18 UTC). Reproduce todas las cifras, confirma las dos filas nuevas y los intervalos de detección, da por sostenidas las tres decisiones de C14 que no seguían la propuesta de la revisión n.º 6 y plantea S1–S7: restos de las clases de R3, R4 y R5 y casos de líneas sin rótulo, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C16 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), séptima parte).
 - **Revisión n.º 8** (lo afectado por C16, sobre el congelado 863ddde): **hecha** por otra sesión de revisión nueva (3138a6b, 06:40 UTC). Reproduce todas las cifras; de las 346 aceptaciones nuevas, 341 son saldos legítimos y 5 no son cifras; plantea T1–T8 sobre la regla de S1 y otros restos, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en C18 ([revision/RESPUESTAS_AUTOR_1.md](revision/RESPUESTAS_AUTOR_1.md), octava parte). Hasta que la revise la pasada 9, lo afectado por C18 no está revisado de forma independiente.
-- **Revisión n.º 9** (lo afectado por C18, sobre el congelado 06ad100): **encargada** a otra sesión de revisión nueva (16-nov-2026, 09:12 UTC). En curso.
+- **Revisión n.º 9** (lo afectado por C18, sobre el congelado 06ad100): **hecha** por otra sesión de revisión nueva (a3a1a2b, 10:36 UTC). Reproduce todas las cifras; en su barrido ninguna candidata pasa a OK; da T1–T6 por corregidas y plantea U1–U2 (menores) y U3–U6 (forma): la posición de los tokens, los recuentos con fecha, la cuenta de columnas y restos de forma, sin efecto en las filas reales. Copia y procedencia en `revision/`. Respuesta en preparación (C20).
 
 ## 13. Reproducción
 

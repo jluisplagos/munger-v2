@@ -1,0 +1,29 @@
+# Barrido n.º 9 · C16 (worktree de C17) → C18 (worktree de C19) · todas las líneas de todas las páginas
+Equivalencia del arnés con la ejecución oficial:
+  C16: 713 de 713 filas de tabla reales con los mismos estados y detalles que la salida oficial guardada; 707 de 707 con los mismos estados al declararlas con la línea fijada entera
+  C18: 713 de 713 filas de tabla reales con los mismos estados y detalles que la salida oficial guardada; 707 de 707 con los mismos estados al declararlas con la línea fijada entera
+Páginas: 2026; líneas con algún token numérico: 22324; tokens: 51492; candidatas (token × 3 ejercicios): 154476
+Controles (funciones que C18 reescribe y no deberían cambiar; 1 = igual en las dos versiones):
+  es_titulo: igual en 25351 líneas
+  rotulo: igual en 25351 líneas
+  rotulo_multilinea sin fecha: igual en 25351 líneas
+  tokens_numericos: igual en 25351 líneas
+Transiciones del estado de la fila (C16 → C18), candidatas del grupo en «dos_columnas»:
+  FALLO     → FALLO       84848
+  FALLO     → PENDIENTE     588
+  OK        → OK           5526
+  OK        → PENDIENTE     414
+  PENDIENTE → FALLO         101
+  PENDIENTE → PENDIENTE   62999
+  OK en C16: 5940; OK en C18: 5526
+Cambios por dimensión (O = OK, N = NO_APLICA, P = PENDIENTE, F = FALLO):
+  columna    N → P    2346
+  ejercicio  F → O       3
+  ejercicio  F → P    1298
+  ejercicio  O → F      42
+  ejercicio  O → P     401
+  ejercicio  P → F     138
+  ejercicio  P → O      69
+  perimetro  F → O       9
+  perimetro  O → P      54
+Tiempo: 371 s

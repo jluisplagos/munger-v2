@@ -2,7 +2,7 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
-**Bloque cerrado:** respuesta a la revisión n.º 8 (C18), completa, congelado C19 = `06ad1003aa5320445d0c42498c3d0efaec971f06` y encargo de la pasada 9. Lo afectado por C18 está **sin revisar** hasta que esa pasada termine.
+**Bloque cerrado:** incorporación de la revisión n.º 9 (copia sin cambios de a3a1a2b, procedencia y registro). Su respuesta, C20, está en preparación.
 **Hora:** la del commit que contiene esta versión, en `git log`.
 **Rama:** `auditoria/economica-f1-frente-e`.
 
@@ -18,7 +18,8 @@ Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan
 | `d3c0f1b` · `485de8d` | C18, primera y segunda parte del código |
 | C18 = `f12f8ea79ed5c1b444d85163c5ed08d8d07a6243` | Respuesta a la revisión n.º 8: el año del rótulo como no cifra (`token_del_rotulo`), la octava parte de las respuestas, los documentos y las salidas |
 | C19 = `06ad1003aa5320445d0c42498c3d0efaec971f06` | Congelado de la revisión n.º 9: solo registra el hash de C18 |
-| El commit que contiene esta versión de este archivo | Registra el encargo de la pasada 9 |
+| `105b57b` | Registra el encargo de la pasada 9 |
+| El commit que contiene esta versión de este archivo | Copia de la revisión n.º 9 (a3a1a2b, 24/24 blobs), procedencia y registro. No cambia código, datos ni resultados |
 
 Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AUTOR_1.md`):
 - **T1:** con la fecha del saldo en el rótulo y varias columnas de datos, «columna» queda PENDIENTE. De las 346 aceptaciones de C16 quedan diez (las tablas de deterioro de clientes, de una sola columna).
@@ -48,21 +49,24 @@ Qué cambia C18, en breve (detalle en la octava parte de `revision/RESPUESTAS_AU
 
 ## 3. Incidencias pendientes
 
-1. **Revisión independiente de lo afectado por C18** (pasada 9): encargada el 16-nov-2026 a las 09:12:09 UTC a una sesión nueva (`session_01W2RVArCYnBTdy8sbUnHwJ1`), sobre C19, con el alcance `git diff 63e6090 f12f8ea`. En curso; comprobación programada a las 10:43 UTC.
-2. **Límites que C18 declara:**
-   - T2: los recuentos con fecha vuelven a la regla de las columnas, como en C14 (coste); una fila cuyo rótulo sea solo la fórmula del saldo, sin fecha propia, bajo una línea de fecha de la fila anterior que no empieza en minúscula, tomaría esa fecha (no encontrado);
-   - T1: con varias columnas de datos, los saldos con la fecha en el rótulo quedan PENDIENTE de columna;
-   - T5: el margen izquierdo, no la sangría exacta de los rótulos;
-   - T6: los títulos en minúsculas partidos tras una coma no cuentan como encabezado, y las entradas de sumario sí.
+1. **Responder a la revisión n.º 9** (C20). Plan, según sus correcciones propuestas (`revision/REVISION_INDEPENDIENTE_9.md`, §7):
+   - **U1:** que la tokenización devuelva la posición de cada token, sin buscar su texto en la línea (el «0» de una fila se localizaba en el «0» de la fecha del rótulo y `token_del_rotulo` retiraba ocho ceros reales); casos U1a y U2a de `contraejemplos_9`;
+   - **U2:** decidir y declarar si los recuentos con fecha toman el ejercicio de su fecha. Si no lo toman, la primera línea del rótulo de la fila cuenta para la condición de las palabras, y la regla no se aplica bajo un encabezado numerado (sumario). Ajustar las frases; casos U3a y U3b;
+   - **U3:** contar las columnas en la tabla (el máximo de las filas del bloque o las celdas de la cabecera), o declarar el límite;
+   - **U4:** el criterio de la pestaña en `rotulos_sin_rotulo`, el mismo que en `rotulo`;
+   - **U5:** (a) con «published», «publié» o «reported» en el rótulo, la edición no puede ser la vigente; (c) el pie de página no es una fila, y un token de una celda con letras no se evalúa como cifra; (b) y (d), declararlos;
+   - **U6 (a)–(g):** frases de E9 (R42 de 2023–25 sí interviene: 18 identidades), de la octava parte, del informe §1 (límites), de T14 y de este punto («cinco tablas del WACC», no seis).
+   - Pruebas: regresión de las 752 filas, test, scripts de los revisores n.º 1 a 9 sobre C20 y reproducción; congelado C21 y pasada 10.
+2. **C18, revisado en la pasada 9.** C20, sin revisar hasta la pasada 10.
 3. **Cobertura de la unidad y del perímetro:** 8 páginas (24 entradas) sin identidad entre páginas, 140 con solo identidad de su página, 31 sin segunda línea y 2 solo con la Historia. Ninguna mueve la referencia.
-4. **Límites del verificador:** regla de grupos (S7 d en los URD 2021, 2022 y 2023), honorarios por firma en PENDIENTE (176 cifras), rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42.
+4. **Límites del verificador:** regla de grupos (S7 d en los URD 2021, 2022 y 2023), honorarios por firma en PENDIENTE (176 cifras), rejilla de pdftotext; 14 filas PENDIENTE (URD 2022 p.302); límites de detección de R13, R39 y R42; los que declara C18 (T1, T2, T5 y T6).
 5. **Decisiones económicas [DH]** y **sin aptitud para dinero real**; se conservan C48 = 108 y E1/D3/E2/E6.
 
 ## 4. Siguiente paso exacto
 
-1. Esperar a que la sesión de la pasada 9 publique su informe en `auditoria/economica-f1-frente-e-revision` (sobre 3138a6b). No interrumpirla.
-2. Incorporarlo como en las pasadas anteriores: copia sin cambios por un subagente, con su procedencia (blob y SHA-256); comprobación blob a blob; metadatos de la sesión en `REGISTRO_CONFIGURACION.md`; `revision/ESTADO.md`, informe §12 y este archivo. Commit y push.
-3. Responder a sus objeciones en C20, con las mismas pruebas (test, barridos de los revisores, reproducción) y otra revisión independiente de lo afectado.
+1. Leer entera la revisión n.º 9 (§2 a §9) y sus contraejemplos (`revision/resultados_revisor_9/contraejemplos_9.txt` y `sondas_sinteticas_9.txt`).
+2. Implementar el plan de §3.1 con un caso de test por clase. Comprobar que ninguna de las 752 filas reales cambia de estado sin causa explicada, y pasar los barridos de los revisores n.º 6 a 9 entre C18 y C20.
+3. Novena parte de las respuestas, informe, especificación, estado y registro. Commit C20, push y punto de recuperación; congelar (C21) y encargar la pasada 10.
 
 ## 5. Cómo reanudar en una sesión nueva
 
