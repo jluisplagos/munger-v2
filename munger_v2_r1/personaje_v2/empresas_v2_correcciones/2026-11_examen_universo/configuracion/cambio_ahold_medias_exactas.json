@@ -1,0 +1,54 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Ahold",
+ "_estado_del_archivo": "Examen del personaje (17-nov-2026). Misma base económica que la etapa 1 (ejercicio 2025, cerrado el 28-dic-2025). Único cambio: las medias del FCF base C46 (flujo de explotación) y C47 (inversión) se declaran con su CÁLCULO explícito sobre la Historia de fase1_v63.json (media 2023–2025) y se vacían en la copia de ensayo de la etapa 1, para que la entrada efectiva en modo «estricta» sea reproducible. La etapa 1 traía 6559.7 y 2432.3, redondeos de las medias exactas 6559.667 y 2432.333 (el redondeo no vale como cifra exacta: revisión externa, punto 3; HITO_1_4_15 R3). SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala (valores exactos en lugar de redondeos), aplicado igual en Elis 4.15; NO es una decisión de la persona responsable para Ahold. No se adopta ninguna hipótesis económica. El original de la etapa 1 se conserva intacto (Ahold_evaluada.xlsx, sha256 c4e5c82e…a293).",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold/Ahold",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_4_15",
+ "base_economica": {
+  "fecha": "2025-12-28",
+  "descripcion": "Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma base que la etapa 1 de la persona responsable. Medias C46 y C47 exactas: supuesto de la orquestación (precedente E1), no decisión de la persona responsable para Ahold."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-13",
+  "acciones": "2025 (media ponderada diluida del ejercicio, nota 29 del informe anual 2025)",
+  "publicacion_fuentes": "Informes anuales 2016–2025 de Ahold Delhaize (páginas oficiales del emisor; huellas en INDICE_FUENTES.csv del repositorio auxiliar). Precio y tasa sin riesgo del agente de metadatos, pendientes de fuente oficial."
+ },
+ "conservar": ["etapa1", "texto", "fase1_partes", "fase1_fuentes.json", "pdf"],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "analisis": {
+  "C46": {
+   "valor": 6559.667,
+   "calculo": {"operacion": "media", "anios": [2023, 2024, 2025], "terminos": [{"partida": "cfo", "signo": 1}],
+               "decision": "Media 2023–2025 del flujo de efectivo de las actividades de explotación de la Historia (6.466, 6.224 y 6.989: informes anuales 2024 y 2025), valor exacto. Supuesto de la orquestación por el precedente E1; la etapa 1 traía el redondeo 6559.7.", "redondeo": 3},
+   "fuente": "Media 2023–2025 de «Net cash from operating activities» (Historia de fase1_v63.json: AD_annual-report-2024.txt p.263 y AD_annual-report-2025.txt p.216) = 6.559,6667 (valor exacto); SUPUESTO DE LA ORQUESTACIÓN (17-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala; NO es una decisión de la persona responsable para Ahold: sustituye el redondeo de la etapa 1 (6559.7).",
+   "pagina": "AR 2024 PDF 263; AR 2025 PDF 216",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true
+  },
+  "C47": {
+   "valor": 2432.333,
+   "calculo": {"operacion": "media", "anios": [2023, 2024, 2025], "terminos": [{"partida": "capex", "signo": 1}],
+               "decision": "Media 2023–2025 de la inversión en inmovilizado material e intangible de la Historia (2.434, 2.299 y 2.564: informes anuales 2024 y 2025), valor exacto. Supuesto de la orquestación por el precedente E1; la etapa 1 traía el redondeo 2432.3.", "redondeo": 3},
+   "fuente": "Media 2023–2025 del capex de la Historia de fase1_v63.json (AD_annual-report-2024.txt p.263 y AD_annual-report-2025.txt p.216) = 2.432,3333 (valor exacto); SUPUESTO DE LA ORQUESTACIÓN (17-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala; NO es una decisión de la persona responsable para Ahold: sustituye el redondeo de la etapa 1 (2432.3).",
+   "pagina": "AR 2024 PDF 263; AR 2025 PDF 216",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true
+  }
+ },
+ "analisis_que_se_descartan": {},
+ "evidencia": {},
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · AHOLD DELHAIZE (caso F1, arrendamientos) · candidata 4.15 · hito 2 con la corrección de la unidad de las acciones (examen/ahold). Etapa 1 de la persona responsable con C46 y C47 exactas (supuesto de la orquestación, precedente E1). Ejercicio 2025 cerrado el 28-dic-2025. La fase A elige el motor; con el motor A, las decisiones F1 se aplican cuando F1-IMPL esté integrada. Tasa 9 % provisional, sin decidir. Precio y tasa sin riesgo pendientes de fuente oficial. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "REORIENTACION_UNIVERSO.md §5 y PROMPT_CONTINUIDAD_20261117.md (coordinacion/cierre-v2); configuracion/cambio_ahold_medias_exactas.json. Metadato de la orquestación.",
+  "fecha": "2026-11-17"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {"modo": "estricta", "motivo": "expediente nuevo de la 4.15 (modo por defecto)"}
+}

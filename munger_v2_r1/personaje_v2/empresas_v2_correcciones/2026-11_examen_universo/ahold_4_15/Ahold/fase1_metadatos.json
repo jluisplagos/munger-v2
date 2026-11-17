@@ -1,0 +1,117 @@
+{
+ "empresa": "Koninklijke Ahold Delhaize N.V.",
+ "ticker": "AD",
+ "fecha_analisis": "2026-11-17",
+ "sector_texto": "Supermercados y comercio minorista de alimentación y omnicanal en EE. UU., Países Bajos, Bélgica, Europa central y oriental e Indonesia",
+ "moneda_modelo": "EUR",
+ "norma_contable": "IFRS",
+ "cierre_fiscal": "diciembre (ejercicio 2025 cerrado el 28 de diciembre de 2025)",
+ "mercado": "Euronext Amsterdam (cotiza también en Euronext Bruselas; ADR nivel I patrocinado ADRNY en OTC)",
+ "ratio_adr": null,
+ "sector_damodaran": "Retail (Grocery and Food)",
+ "precio": {
+  "valor": 36.05,
+  "moneda_cotizacion": "EUR",
+  "fecha": "2026-11-13",
+  "fx": null,
+  "fx_fecha": null,
+  "fuente": "Trivano (trivano.com, ficha Ahold Delhaize AD, Euronext Amsterdam), 36,05 EUR, +2,12 % el 2026-11-13, hora no indicada; es el dato más reciente hallado (no se obtuvo cotización del 2026-11-16/17). Rango visto: 31,60 (cierre 2026-09-24, Financer), 33,14 (cierre 2026-10-23, DeBelegger), 32,75 (cierre 2026-10-30 17:36, Investing.com) y 36,05 (2026-11-13)."
+ },
+ "acciones_diluidas": {
+  "valor": 905,
+  "fecha": "2025-12-28",
+  "fuente": "Ahold Delhaize Annual Report 2025, nota 29 Earnings per share: media ponderada de acciones ordinarias diluidas 2025 = 905 millones (básicas 901 + 4 acciones condicionales)",
+  "pagina": 260
+ },
+ "capitalizacion": {
+  "valor": 32625.25,
+  "fecha": "2026-11-13",
+  "fuente": "Cálculo: precio 36,05 EUR x 905 millones de acciones diluidas"
+ },
+ "tasa_sin_riesgo": {
+  "valor": 0.0334,
+  "fuente": "Bund alemán a 10 años, 3,34 % a cierre de octubre de 2026 (Trading Economics, 'Bund yields' noticias, resumen de octubre 2026); otra lectura de Trading Economics del 2026-10-12: aprox. 3,48 %. No se halló dato de noviembre de 2026. Bund = bono sin riesgo de impago en EUR (Alemania, rating AAA no verificado en la búsqueda)."
+ },
+ "geografia": [
+  {
+   "pais": "United States",
+   "pct": 0.5746,
+   "nota": "Ventas netas 2025 de EE. UU.: 53.063 millones EUR de 92.352 (por país de destino)."
+  },
+  {
+   "pais": "Netherlands",
+   "pct": 0.2157,
+   "nota": "Ventas netas 2025 de Países Bajos (país de domicilio): 19.918 millones EUR de 92.352."
+  },
+  {
+   "pais": "Región · Western Europe",
+   "pct": 0.2097,
+   "nota": "Resto del mundo: 19.371 millones EUR (Bélgica, Luxemburgo, Chequia, Rumanía, Grecia, Serbia, Indonesia, etc.; el informe no lo desglosa). Se asigna a Europa Occidental por ser Bélgica la mayor parte con diferencia en Europa; incluye Europa central/oriental e Indonesia (convención del ejercicio)."
+  }
+ ],
+ "geografia_fuente": {
+  "fuente": "Ahold Delhaize Annual Report 2025, nota 6 Segment reporting, 'Information about geographical areas' (ventas netas por país de destino)",
+  "pagina": 224
+ },
+ "convenciones": {
+  "caja_incluye_otros_activos_financieros": false,
+  "motivo_caja": "Los depósitos a corto plazo y similares son inmateriales: 14 millones EUR a 2025-12-28 (16 en 2024) frente a 3.605 millones de efectivo y equivalentes (informe 2025, p. 55). Las inversiones en instrumentos de deuda corrientes (86 millones) tampoco son materiales."
+ },
+ "anios_fcf_base": 3,
+ "_notas": [
+  "Precio: no se obtuvo cotización del 2026-11-16 o 2026-11-17; se usa el último dato hallado (2026-11-13, Trivano, sin hora). Investing.com y Trading Economics no eran accesibles con WebFetch (dominio no permitido), solo resúmenes de búsqueda.",
+  "Tasa sin riesgo: último dato verificable del Bund a 10 años es de finales de octubre de 2026 (3,34 %); no hay cifra de noviembre. Rating de Alemania no comprobado en esta búsqueda.",
+  "Geografía: el informe solo separa EE. UU., Países Bajos y Resto del mundo; el resto se asigna a 'Región · Western Europe' como aproximación (incluye Indonesia y Europa central/oriental). Los pct se redondean a 4 decimales y suman 1,0000.",
+  "Acciones diluidas: es la media ponderada del ejercicio 2025 (905 m), no el recuento a fecha de cierre; no se buscó un dato posterior de la empresa (recompras en curso podrían reducirlo).",
+  "Capitalización calculada con la media ponderada diluida, probablemente algo superior a la real por las recompras."
+ ],
+ "analisis": {
+  "C46": {
+   "valor": 6559.667,
+   "fuente": "Media 2023–2025 de «Net cash from operating activities» (Historia de fase1_v63.json: AD_annual-report-2024.txt p.263 y AD_annual-report-2025.txt p.216) = 6.559,6667 (valor exacto); SUPUESTO DE LA ORQUESTACIÓN (17-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala; NO es una decisión de la persona responsable para Ahold: sustituye el redondeo de la etapa 1 (6559.7).",
+   "pagina": "AR 2024 PDF 263; AR 2025 PDF 216",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "cfo",
+      "signo": 1
+     }
+    ],
+    "decision": "Media 2023–2025 del flujo de efectivo de las actividades de explotación de la Historia (6.466, 6.224 y 6.989: informes anuales 2024 y 2025), valor exacto. Supuesto de la orquestación por el precedente E1; la etapa 1 traía el redondeo 6559.7.",
+    "redondeo": 3
+   }
+  },
+  "C47": {
+   "valor": 2432.333,
+   "fuente": "Media 2023–2025 del capex de la Historia de fase1_v63.json (AD_annual-report-2024.txt p.263 y AD_annual-report-2025.txt p.216) = 2.432,3333 (valor exacto); SUPUESTO DE LA ORQUESTACIÓN (17-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala; NO es una decisión de la persona responsable para Ahold: sustituye el redondeo de la etapa 1 (2432.3).",
+   "pagina": "AR 2024 PDF 263; AR 2025 PDF 216",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "capex",
+      "signo": 1
+     }
+    ],
+    "decision": "Media 2023–2025 de la inversión en inmovilizado material e intangible de la Historia (2.434, 2.299 y 2.564: informes anuales 2024 y 2025), valor exacto. Supuesto de la orquestación por el precedente E1; la etapa 1 traía el redondeo 2432.3.",
+    "redondeo": 3
+   }
+  }
+ },
+ "entrada_efectiva": "estricta"
+}
