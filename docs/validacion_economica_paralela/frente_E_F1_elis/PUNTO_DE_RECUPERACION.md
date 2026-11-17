@@ -2,6 +2,27 @@
 
 Se reescribe al terminar cada bloque importante. Las versiones anteriores quedan en el historial de git.
 
+**Bloque cerrado:** tres propuestas para decisión, pedidas por la persona responsable el 17-nov-2026. **No adoptan nada.**
+- [N1_ALCANCE_EJERCICIOS_TAU.md](N1_ALCANCE_EJERCICIOS_TAU.md): alcance de N1 en los ejercicios de τ (2021–2025). Propone 2022–2025: el ajuste de 2022 tiene línea fiscal publicada; el de 2021 no la tiene, y la única indicación publicada le atribuye efecto fiscal. El +0,416 de la propuesta de decisiones se reproduce, pero supone que el ajuste de 2021 no fue deducible.
+- [N1_ACTUALIZACION_EARNOUT_MEXICO.md](N1_ACTUALIZACION_EARNOUT_MEXICO.md): naturaleza, fiscalidad y correspondencia de la actualización del earnout de México. Es descuento financiero del pasivo, está en el resultado financiero, no es deducible y su caja está en las adquisiciones; no está en C48, C49, el FCF base ni el coste de la deuda. Termina con las dos opciones, sin recomendar por el efecto.
+- [PROPUESTA_UMBRAL_V-F1a.md](PROPUESTA_UMBRAL_V-F1a.md): umbral de materialidad de V-F1a. Propone medir la D&A ROU media de la ventana sobre el FCF base registrado, con uno por mil; «sin umbral», que es lo vigente, queda como alternativa igual de fundada.
+
+**Decisiones registradas el 17-nov-2026** en el control común (repositorio auxiliar, `coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md`): (1a) b; (1b); (2) (i)–(v); (3a), R pendiente con su perímetro; (3b) (iv); (4a); (4b) A; (5a), N1 con N2 pendiente y sin deducir el 27,936; (5b); E8.1, τ de cinco años. Ninguna fija R: Elis sigue en `pendiente_de_datos`. Su registro en la especificación y en el motor no se ha hecho en esta rama.
+**Probado por el autor:**
+- `n1_alcance_y_actualizacion.py`: 107 controles, 0 fallidos; 103 de 103 [LECTURA] y 19 de 19 pasajes en su página del PDF; huellas de los PDF iguales a las declaradas.
+- `umbral_v_f1a_frontera.py`: 30 de 30 casos, 14 de 14 comprobaciones directas y 6 de 6 reglas erróneas detectadas.
+- `copia_investigacion_f1.py`, vuelta a ejecutar: salidas idénticas byte a byte (67 controles, 0 fallidos).
+- El CSV, su verificación, las fuentes y las demás salidas no cambian.
+
+**Pendiente:**
+- revisión de las tres propuestas por un contexto distinto del autor;
+- decisión de la persona responsable sobre cada una;
+- si se aprueban: pasar al CSV las [LECTURA] que cada documento señala, con su verificación, y aplicar el texto aprobado en la especificación.
+
+**Siguiente en esta rama:** ninguna tarea de autor abierta.
+
+---
+
 **Bloque cerrado:** bloque CSV (`ENCARGO_C20_CSV.md` de `f5775dc`). Diez cifras [LECTURA] de earnout pasan al CSV verificado, que queda en 762 filas: 748 OK, 14 PENDIENTE y 0 FALLO. Seis columnas por sociedad siguen [LECTURA], con su motivo. N1 no se aplica. Detalle en [RESPUESTA_BLOQUE_CSV_LECTURAS.md](RESPUESTA_BLOQUE_CSV_LECTURAS.md).
 **Contrastes:**
 - W1–W3 (`d519eb0`): contrastado por Mistral C/F en `90329a1`, CUMPLE con límites.

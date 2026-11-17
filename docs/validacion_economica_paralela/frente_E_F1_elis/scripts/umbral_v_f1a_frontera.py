@@ -24,8 +24,9 @@ Los demás controles no cambian con ninguna opción: V-F1b (fila vacía), V-F1e 
 Uso:
   python3 -I umbral_v_f1a_frontera.py --salida ../resultados/umbral_v_f1a_frontera.json \
      --informe ../resultados/umbral_v_f1a_frontera.md [--cifras ../datos/cifras_fuente.csv \
-     --verificacion ../resultados/verificacion_cifras.json]
-Con --cifras y --verificacion añade, solo como información, las medidas de Elis con cifras verificadas.
+     --verificacion ../resultados/verificacion_cifras.json --n1 ../resultados/n1_alcance_y_actualizacion.json]
+Con --cifras y --verificacion añade, solo como información, las medidas de Elis con cifras verificadas; con --n1
+(resultados/n1_alcance_y_actualizacion.json), el tamaño de lo que este expediente decide partida a partida.
 Termina con 1 si algún caso no da su estado esperado.
 """
 import argparse
@@ -47,11 +48,14 @@ def fr(x):
     return None if x is None else Fr(str(x))
 
 
-def cota_de_redondeo(componentes):
+def cota_de_redondeo(componentes, variante=None):
     """componentes: por año, lista de (identificador, coeficiente, decimales impresos). Los decimales pueden ser negativos
     (una cifra en miles impresa a centenas de millar: −2). Devuelve la media de la ventana de Σ |coef. neto| × media unidad."""
     total = Fr(0)
     for año in componentes:
+        if variante == "coeficientes sin compensar":            # variante errónea: cuenta dos veces una cifra que entra y sale
+            total += sum(abs(coef) * Fr(5) / Fr(10) ** (dec + 1) for _, coef, dec in año)
+            continue
         neto = {}
         for ident, coef, dec in año:
             c, d = neto.get(ident, (Fr(0), dec))
@@ -60,8 +64,13 @@ def cota_de_redondeo(componentes):
     return total / len(componentes)
 
 
-def evaluar(caso, opcion):
-    """Estado de un caso con una opción de umbral. Orden de E5: dominio del control, invariantes, fila vacía, dominio de A0, umbral."""
+VARIANTES = ("frontera estricta en el umbral sobre el FCF base", "frontera estricta en la resolución", "frontera de la versión 1 al revés",
+             "sin la guarda del FCF base no positivo", "coeficientes sin compensar", "dominio de A0 con «y» en lugar de «o»")
+
+
+def evaluar(caso, opcion, variante=None):
+    """Estado de un caso con una opción de umbral. Orden de E5: dominio del control, invariantes, fila vacía, dominio de A0, umbral.
+    `variante` aplica una de las reglas erróneas de VARIANTES: solo sirve para comprobar que los casos de frontera la detectan."""
     if caso.get("motor", "A") != "A" or caso.get("perimetro", "A0_total") != "A0_total":
         return NAP, "V-F1a solo se evalúa en el motor A con el perímetro A0_total"
     rou, c49 = [fr(x) for x in caso["rou"]], fr(caso["c49"])
@@ -73,21 +82,24 @@ def evaluar(caso, opcion):
     X = sum(rou) / len(rou)
     if X == 0 and c49 == 0:
         return ADM, "sin arrendamientos"
-    if X == 0 or c49 == 0:
+    if (X == 0 or c49 == 0) and variante != "dominio de A0 con «y» en lugar de «o»":
         return VM, "solo uno de D&A ROU y C49 es positivo: fuera del dominio de A0; no se afirma doble cómputo"
     fcf, S = fr(caso["fcf"]), sum(fr(v) for v in caso["ventas"]) / len(caso["ventas"])
     if opcion == "U0":
         return BLQ, "sin umbral: bloquea con cualquier importe"
     if opcion == "UR":
-        B = cota_de_redondeo(caso["componentes"])
-        return (AVI, "X ≤ B: el exceso no supera la cota de redondeo del FCF base") if X <= B else (BLQ, "X > B")
+        B = cota_de_redondeo(caso["componentes"], variante)
+        dentro = X < B if variante == "frontera estricta en la resolución" else X <= B
+        return (AVI, "X ≤ B: el exceso no supera la cota de redondeo del FCF base") if dentro else (BLQ, "X > B")
     if opcion in ("UP01", "UP1", "UP5"):
         u = OPCIONES[opcion][1]
-        if fcf <= 0:
+        if fcf <= 0 and variante != "sin la guarda del FCF base no positivo":
             return BLQ, "FCF base no positivo: la medida no está definida y no hay exención"
-        return (AVI, "e ≤ u") if X <= u * fcf else (BLQ, "e > u")       # sin dividir: comparación exacta
+        dentro = X < u * fcf if variante == "frontera estricta en el umbral sobre el FCF base" else X <= u * fcf   # sin dividir: exacto
+        return (AVI, "e ≤ u") if dentro else (BLQ, "e > u")
     if opcion == "UV1":
-        return (BLQ, "ρ ≥ 0,5 % de las ventas") if X >= OPCIONES[opcion][1] * S else (AVI, "ρ < 0,5 % de las ventas")
+        fuera = X > OPCIONES[opcion][1] * S if variante == "frontera de la versión 1 al revés" else X >= OPCIONES[opcion][1] * S
+        return (BLQ, "ρ ≥ 0,5 % de las ventas") if fuera else (AVI, "ρ < 0,5 % de las ventas")
     raise ValueError(opcion)
 
 
@@ -152,6 +164,7 @@ def main():
     ap.add_argument("--informe", required=True, type=Path)
     ap.add_argument("--cifras", type=Path)
     ap.add_argument("--verificacion", type=Path)
+    ap.add_argument("--n1", type=Path, help="resultados/n1_alcance_y_actualizacion.json: tamaño de lo que se decide partida a partida")
     a = ap.parse_args()
     f6 = lambda x, n=6: None if x is None else round(float(x), n)   # noqa: E731
     errores, filas = [], []
@@ -167,36 +180,47 @@ def main():
         filas.append({"caso": ident, "descripcion": desc, "X_exceso_medio": f6(X), "B_cota_de_redondeo_del_FCF_base": f6(cota_de_redondeo(caso["componentes"])),
                       "e_sobre_el_FCF_base_pct": f6(100 * X / fcf, 4) if medible and fcf > 0 else None, "rho_sobre_las_ventas_pct": f6(100 * X / S, 4) if medible else None,
                       "estado": {o: est[o][0] for o in OPCIONES}, "motivo": {o: est[o][1] for o in OPCIONES}, "esperado": dict(zip(OPCIONES, esperado)), "ok": ok})
-    # comprobaciones directas
-    directas = []
 
-    def directa(nombre, cond):
-        directas.append({"comprobacion": nombre, "ok": bool(cond)})
-        if not cond:
-            errores.append(nombre)
-    directa("cota con cinco cifras de un decimal = 0,25", cota_de_redondeo(comp(1, 3)) == Fr(1, 4))
-    directa("cota con una cifra que entra y sale (coeficiente neto cero) = 0,25", cota_de_redondeo(comp(1, 3, extra=(("princ", Fr(1), 1), ("princ", Fr(-1), 1)))) == Fr(1, 4))
-    directa("cota en miles con precisión de centenas de millar = 250", cota_de_redondeo(comp(-2, 3)) == Fr(250))
-    directa("coma flotante: (0.1 + 0.2 + 0.3) / 3 / 200 > 0.001 (por eso la comparación es exacta)", (0.1 + 0.2 + 0.3) / 3 / 200 > 0.001)
-    directa("exacto: (0,1 + 0,2 + 0,3) / 3 / 200 = 0,1 %", (Fr("0.1") + Fr("0.2") + Fr("0.3")) / 3 / 200 == Fr(1, 1000))
-    a_mat, a_min, a_inf = t5(10, 12), t5("0.2", "0.24"), t5("0.05", "0.06")
-    directa("T5: FCF verdadero 68, A1 = 68, A0 = 58; el exceso es la D&A ROU", (a_mat["FCF_verdadero"], a_mat["flujo_A1"], a_mat["flujo_A0"]) == (68, 68, 58))
-    directa("T5: f_A0 − f_A1 = ρ = D&A ROU ÷ ventas", a_mat["f_A0_menos_f_A1"] == a_mat["rho"] and a_min["f_A0_menos_f_A1"] == a_min["rho"])
-    directa("T5 con arrendamiento mínimo: FCF verdadero 79,76; A0 da 79,56 (0,2 de menos)", (a_min["FCF_verdadero"], a_min["flujo_A1"], a_min["flujo_A0"]) == (Fr("79.76"), Fr("79.76"), Fr("79.56")))
-    directa("T5 con arrendamiento ínfimo: FCF verdadero 79,94; A0 da 79,89 (0,05 de menos, lo que el AVISO de la propuesta toleraría)",
-            (a_inf["FCF_verdadero"], a_inf["flujo_A1"], a_inf["flujo_A0"]) == (Fr("79.94"), Fr("79.94"), Fr("79.89")))
-    # con el FCF base nulo o negativo, la comparación sin dividir ya bloquea; la guarda da además el motivo correcto
-    sin_fcf = dict(rou=["0.2"] * 3, c49="0.2", ventas=V3, componentes=comp(1, 3))
-    directa("FCF base cero o negativo: el motivo mostrado es que la medida no está definida",
-            all(evaluar(dict(sin_fcf, fcf=x), "UP01") == (BLQ, "FCF base no positivo: la medida no está definida y no hay exención") for x in (0, -50)))
-    # sin umbral, los cuatro casos de A0 (W3) dan el estado vigente
-    w3 = {(1, 1): BLQ, (0, 0): ADM, (1, 0): VM, (0, 1): VM}
-    for (r, c), esp in w3.items():
-        directa(f"vigente (sin umbral), D&A ROU {'positiva' if r else 'cero'} y C49 {'positivo' if c else 'cero'}: {esp}",
-                evaluar(dict(rou=[r * Fr(1, 10)] * 3, c49=c * Fr(1, 10), fcf=100, ventas=V3, componentes=comp(1, 3)), "U0")[0] == esp)
+    def comprobaciones_directas(variante=None):
+        """Lista de (nombre, cumple) con las reglas dadas; con una variante errónea alguna debe dejar de cumplirse."""
+        out = []
+        ev = lambda c, o: evaluar(c, o, variante)   # noqa: E731
+        cota = lambda c: cota_de_redondeo(c, variante)   # noqa: E731
+        out.append(("cota con cinco cifras de un decimal = 0,25", cota(comp(1, 3)) == Fr(1, 4)))
+        out.append(("cota con una cifra que entra y sale (coeficiente neto cero) = 0,25", cota(comp(1, 3, extra=PR)) == Fr(1, 4)))
+        out.append(("cota en miles con precisión de centenas de millar = 250", cota(comp(-2, 3)) == Fr(250)))
+        out.append(("coma flotante: (0.1 + 0.2 + 0.3) / 3 / 200 > 0.001 (por eso la comparación es exacta)", (0.1 + 0.2 + 0.3) / 3 / 200 > 0.001))
+        out.append(("exacto: (0,1 + 0,2 + 0,3) / 3 / 200 = 0,1 %", (Fr("0.1") + Fr("0.2") + Fr("0.3")) / 3 / 200 == Fr(1, 1000)))
+        a_mat, a_min, a_inf = t5(10, 12), t5("0.2", "0.24"), t5("0.05", "0.06")
+        out.append(("T5: FCF verdadero 68, A1 = 68, A0 = 58; el exceso es la D&A ROU", (a_mat["FCF_verdadero"], a_mat["flujo_A1"], a_mat["flujo_A0"]) == (68, 68, 58)))
+        out.append(("T5: f_A0 − f_A1 = ρ = D&A ROU ÷ ventas", a_mat["f_A0_menos_f_A1"] == a_mat["rho"] and a_min["f_A0_menos_f_A1"] == a_min["rho"]))
+        out.append(("T5 con arrendamiento mínimo: FCF verdadero 79,76; A0 da 79,56 (0,2 de menos)",
+                    (a_min["FCF_verdadero"], a_min["flujo_A1"], a_min["flujo_A0"]) == (Fr("79.76"), Fr("79.76"), Fr("79.56"))))
+        out.append(("T5 con arrendamiento ínfimo: FCF verdadero 79,94; A0 da 79,89 (0,05 de menos, lo que el AVISO de la propuesta toleraría)",
+                    (a_inf["FCF_verdadero"], a_inf["flujo_A1"], a_inf["flujo_A0"]) == (Fr("79.94"), Fr("79.94"), Fr("79.89"))))
+        # con el FCF base nulo o negativo, la comparación sin dividir ya bloquea; la guarda da además el motivo correcto
+        sin_fcf = dict(rou=["0.2"] * 3, c49="0.2", ventas=V3, componentes=comp(1, 3))
+        out.append(("FCF base cero o negativo: el motivo mostrado es que la medida no está definida",
+                    all(ev(dict(sin_fcf, fcf=x), "UP01") == (BLQ, "FCF base no positivo: la medida no está definida y no hay exención") for x in (0, -50))))
+        # sin umbral, los cuatro casos de A0 (W3) dan el estado vigente
+        for (r, c), esp in {(1, 1): BLQ, (0, 0): ADM, (1, 0): VM, (0, 1): VM}.items():
+            out.append((f"vigente (sin umbral), D&A ROU {'positiva' if r else 'cero'} y C49 {'positivo' if c else 'cero'}: {esp}",
+                        ev(dict(rou=[r * Fr(1, 10)] * 3, c49=c * Fr(1, 10), fcf=100, ventas=V3, componentes=comp(1, 3)), "U0")[0] == esp))
+        return out
+
+    directas = [{"comprobacion": n, "ok": bool(c)} for n, c in comprobaciones_directas()]
+    errores += [x["comprobacion"] for x in directas if not x["ok"]]
+    # cada regla errónea debe hacer fallar algún caso o alguna comprobación directa
+    variantes = {}
+    for v in VARIANTES:
+        casos_v = [ident for ident, _, caso, esperado in CASOS if [evaluar(caso, o, v)[0] for o in OPCIONES] != esperado]
+        dir_v = [n for n, c in comprobaciones_directas(v) if not c]
+        variantes[v] = {"casos_que_fallan": casos_v, "comprobaciones_directas_que_fallan": dir_v, "detectada": bool(casos_v or dir_v)}
+        if not (casos_v or dir_v):
+            errores.append(f"variante errónea no detectada: {v}")
     # el 0,5 % de las ventas expresado sobre el flujo, según el margen de FCF base sobre ventas
     equivalencia = [{"FCF_base_sobre_ventas_pct": m, "medio_punto_de_ventas_sobre_el_FCF_base_pct": f6(Fr(50) / m, 2),
-                     "uno_por_mil_del_FCF_base_sobre_las_ventas_pct": f6(Fr(m) / 10, 3)} for m in (2, 5, 10, 20, 30)]
+                     "uno_por_mil_del_FCF_base_sobre_las_ventas_pct": f6(Fr(m) / 1000, 3)} for m in (2, 5, 10, 20, 30)]
 
     elis = None
     if a.cifras and a.verificacion:
@@ -220,12 +244,27 @@ def main():
                 "estado_con_el_perimetro_de_(1a)": evaluar(dict(caso, perimetro="A1_sin_ROU"), "U0")[0]}
         if C52 != Fr("307.933") or any(v != BLQ for v in elis["estado_con_A0_total"].values()):
             errores.append("Elis: FCF base distinto de 307,933 o algún umbral cambia su estado")
+        # referencias de tamaño del §3.4 de la propuesta, como proporción del FCF base (no son criterio de elección)
+        d25 = A[2025]
+        residuo_c48 = (d25["leasepay"] - d25["ls_princ"] - d25["int_ls_dev"]) / 3      # interés de arrendamiento, caja − devengo (informe §5.4)
+        ref = {"cota_de_redondeo_del_FCF_base_pct": f6(100 * B / C52, 3),
+               "residuo_del_interes_de_arrendamiento_en_C48 (informe §5.4)": {"importe": f6(residuo_c48, 3), "pct_del_FCF_base": f6(100 * residuo_c48 / C52, 3)}}
+        if a.n1:
+            N1 = json.loads(a.n1.read_text(encoding="utf-8"))
+            esc = lambda parte, prefijo: next(x for x in N1[parte]["escenarios"]   # noqa: E731
+                                              if x["escenario"].startswith(prefijo))["variacion_frente_a_N1_2023_25"]["flujo_sin_crecimiento"]
+            tam = lambda x: {"importe": x, "pct_del_FCF_base": f6(100 * abs(Fr(str(x))) / C52, 3)}   # noqa: E731
+            ref |= {"alcance_de_N1_en_2022_25 (opción B del alcance)": tam(esc("A_alcance_de_N1", "B · ")),
+                    "alcance_de_N1_en_2021_25_sin_efecto_fiscal (opción A del alcance)": tam(esc("A_alcance_de_N1", "A · ")),
+                    "actualizacion_del_earnout": tam(esc("B_actualizacion_del_earnout", "N1 en 2023–25, con la actualización"))}
+        elis["referencias_de_tamaño"] = ref
 
     res = {"naturaleza": "casos de frontera con importes ficticios; no adopta ningún umbral ni cambia la especificación",
-           "opciones": {k: v[0] for k, v in OPCIONES.items()}, "casos": filas, "comprobaciones_directas": directas,
+           "opciones": {k: v[0] for k, v in OPCIONES.items()}, "casos": filas, "comprobaciones_directas": directas, "variantes_erroneas": variantes,
            "medio_punto_de_ventas_sobre_el_flujo": equivalencia, "elis_informativo": elis,
            "resumen": {"casos": len(filas), "casos_con_su_estado_esperado": sum(1 for x in filas if x["ok"]), "comprobaciones_directas": len(directas),
-                       "directas_ok": sum(1 for x in directas if x["ok"]), "errores": errores}}
+                       "directas_ok": sum(1 for x in directas if x["ok"]), "variantes_erroneas": len(variantes),
+                       "variantes_detectadas": sum(1 for x in variantes.values() if x["detectada"]), "errores": errores}}
     a.salida.write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     md = ["# Umbral de V-F1a · casos de frontera (importes ficticios)", "",
           "Generado por `scripts/umbral_v_f1a_frontera.py`. **No adopta ningún umbral.** X = D&A ROU media de la ventana; B = cota de redondeo "
@@ -242,9 +281,20 @@ def main():
            "| FCF base ÷ ventas | 0,5 % de las ventas = … del FCF base | 0,1 % del FCF base = … de las ventas |", "|---|---|---|"] + \
           [f"| {x['FCF_base_sobre_ventas_pct']} % | {x['medio_punto_de_ventas_sobre_el_FCF_base_pct']} % | {x['uno_por_mil_del_FCF_base_sobre_las_ventas_pct']} % |"
            for x in equivalencia] + \
-          ["", "## Comprobaciones directas", ""] + [f"- {'OK' if x['ok'] else 'FALLA'} · {x['comprobacion']}" for x in directas]
+          ["", "## Comprobaciones directas", ""] + [f"- {'OK' if x['ok'] else 'FALLA'} · {x['comprobacion']}" for x in directas] + \
+          ["", "## Reglas erróneas que los casos detectan", ""] + \
+          [f"- {k}: {'detectada' if v['detectada'] else 'NO detectada'} ({', '.join(v['casos_que_fallan']) or 'ningún caso'}; "
+           f"{len(v['comprobaciones_directas_que_fallan'])} comprobaciones directas)" for k, v in variantes.items()]
     if elis:
-        md += ["", "## Elis (solo información; no es criterio)", ""] + [f"- {k}: {v}" for k, v in elis.items()]
+        def lista(d):
+            out = []
+            for k, v in d.items():
+                if isinstance(v, dict) and any(isinstance(x, dict) for x in v.values()):
+                    out += [f"- {k}:"] + [f"  - {a}: " + ("; ".join(f"{c}: {e}" for c, e in b.items()) if isinstance(b, dict) else str(b)) for a, b in v.items()]
+                else:
+                    out.append(f"- {k}: " + ("; ".join(f"{a}: {b}" for a, b in v.items()) if isinstance(v, dict) else str(v)))
+            return out
+        md += ["", "## Elis (solo información; no es criterio)", ""] + lista(elis)
     a.informe.write_text("\n".join(md) + "\n", encoding="utf-8")
     print(json.dumps(res["resumen"], ensure_ascii=False))
     return 1 if errores else 0

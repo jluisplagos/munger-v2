@@ -66,9 +66,18 @@ LECTURAS = {
     "tipo_teorico_2024": ("25.83", "URD2025", 392, "Theoretical tax rate", 0, 0, -1, "25.83%", G),
     "ooie_costes_y_earnout_2021_URD21": ("-5.1", "URD2021", 253, "Costs related to acquisitions and earnout adjustments", 0, 0, -2, "(5.1)", G),
     "apm_costes_y_earnout_2021_neto_de_impuesto": ("3.7", "URD2021", 217, "Costs related to acquisitions and earnout adjustments(a)", 0, 0, -2, "3.7", G),
+    "ooie_costes_y_earnout_2020_URD21": ("-5.7", "URD2021", 253, "Costs related to acquisitions and earnout adjustments", 0, 0, -1, "(5.7)", G),
+    "apm_costes_y_earnout_2020_neto_de_impuesto": ("4.6", "URD2021", 217, "Costs related to acquisitions and earnout adjustments(a)", 0, 0, -1, "4.6", G),
+    "ooie_reestructuracion_2021_URD21": ("-6.4", "URD2021", 253, "Restructuring costs", 0, 0, -2, "(6.4)", G),
+    "apm_reestructuracion_2021_neto_de_impuesto": ("4.8", "URD2021", 217, "Restructuring costs(a)", 0, 0, -2, "4.8", G),
+    "tipo_teorico_2020": ("32.02", "URD2021", 290, "Theoretical tax rate", 0, 0, -1, "32.02%", G),
+    "tipo_teorico_2021_URD21": ("28.41", "URD2021", 290, "Theoretical tax rate", 0, 0, -2, "28.41%", G),
     "ooie_costes_de_transaccion_2021": ("-2.1", "URD2022", 285, "Acquisition-related transaction costs", 0, 0, -1, "(2.1)", G),
     "ooie_total_2021": ("-16.1", "URD2022", 285, "OTHER OPERATING INCOME AND EXPENSES", 0, 0, -1, "(16.1)", G),
     "ooie_total_2022": ("-9.0", "URD2023", 302, "OTHER OPERATING INCOME AND EXPENSES", 0, 0, -1, "(9.0)", G),
+    "ooie_total_2022_ed_anterior": ("-9.0", "URD2022", 285, "OTHER OPERATING INCOME AND EXPENSES", 0, 0, -2, "(9.0)", G),
+    "diferencias_permanentes_2021": ("-12.2", "URD2022", 326, "Permanent differences", 0, 0, -1, "(12.2)", G),
+    "diferencias_permanentes_2021_URD21": ("-12.2", "URD2021", 290, "Permanent differences", 0, 0, -2, "(12.2)", G),
     "apm_ooie_2021_neto_de_impuesto": ("11.5", "URD2022", 249, "Other operating income and expenses(a)", 0, 0, -1, "11.5", G),
     "apm_ooie_2022_neto_de_impuesto": ("7.0", "URD2023", 267, "Other operating income and expenses(a)", 0, 0, -1, "7.0", G),
     "apm_ooie_2023_neto_de_impuesto": ("64.6", "URD2023", 267, "Other operating income and expenses(a)", 0, 0, -2, "64.6", G),
@@ -127,6 +136,7 @@ LECTURAS = {
     "otras_pago_aplazado_2023": ("-3.0", "DEU2024FR", 288, "Compléments de prix et paiements différés", 0, 0, -1, "(3,0)", S),
     "otras_pago_aplazado_2024": ("-10.7", "URD2025", 342, "Earnouts and deferred consideration", 0, 0, -1, "(10.7)", S),
     "otras_pago_aplazado_2025": ("-3.6", "URD2025", 341, r"re:^consideration\s{2,}", 0, 0, -1, "(3.6)", S),
+    "tipo_efectivo_de_francia_2023": ("50.0", "URD2023", 346, r"re:^\s*France\s{2,}", 0, 0, -1, "50.0%", S),
     # --- Release: conciliación publicada del resultado financiero con los intereses pagados, y semestre
     "rel_2024_intereses_deuda_caja": ("-101.5", "REL_FY2024_PRES", 52, "Financial debt interests (cash)", 0, 0, 0, "(101.5)", G),
     "rel_2024_intereses_cobrados_caja": ("25.4", "REL_FY2024_PRES", 52, "Investment interests received (cash)", 0, 0, 0, "25.4", G),
@@ -209,6 +219,11 @@ def _norm(s):
 
 def _plano(s):
     return re.sub(r"\s+", " ", _norm(s)).strip()
+
+
+def _lista(d):
+    """Líneas de un informe para un diccionario; los valores que son diccionarios se escriben como «clave: valor; …»."""
+    return [f"- {k}: " + ("; ".join(f"{a}: {b}" for a, b in v.items()) if isinstance(v, dict) else str(v)) for k, v in d.items()]
 
 
 class Paginas:
@@ -436,14 +451,15 @@ def main():
     # 2022: tipo efectivo del ajuste si la línea fiscal publicada (0,5) mide todo lo que no tributa: (t·ajuste − línea) ÷ ajuste
     t22 = (LV["tipo_teorico_2022"] / 100 * earn[2022] - LV["fiscal_earnout_2022"]) / earn[2022]
     R = {"C · N1 en 2023–25 (solo la ventana)": calcular(n1(VENT)),
-         "A · N1 en 2021–25 (todos los ejercicios de τ), sin efecto fiscal": calcular(n1(HOR)),
-         "B · N1 en 2022–25 (los ejercicios con línea fiscal publicada; sin 2021)": calcular(n1((2022,) + VENT)),
-         "descomposición · N1 en 2023–25 y 2021 (sin 2022)": calcular(n1((2021,) + VENT)),
-         "sensibilidad de A · el ajuste de 2021 gravado al tipo teórico de 2021 [LECTURA: 28,41 %]": calcular(n1(HOR, {2021: t21})),
-         "sensibilidad de A · en 2022 tributa la parte que la línea fiscal no cubre [LECTURA: 0,5]": calcular(n1(HOR, {2022: t22}))}
+         "B · N1 en 2022–25 (los ejercicios de τ con ajuste no deducible según lo publicado)": calcular(n1((2022,) + VENT)),
+         "A′ · N1 en 2021–25, con el ajuste de 2021 gravado al tipo teórico de 2021 [LECTURA: 28,41 %]": calcular(n1(HOR, {2021: t21})),
+         "A · N1 en 2021–25, todos sin efecto fiscal (2021 por hipótesis)": calcular(n1(HOR)),
+         "descomposición · N1 en 2023–25 y 2021 sin efecto fiscal (sin 2022)": calcular(n1((2021,) + VENT)),
+         "sensibilidad de B · en 2022 tributa la parte que la línea fiscal no cubre [LECTURA: 0,5]": calcular(n1((2022,) + VENT, {2022: t22}))}
     b_n1 = R["C · N1 en 2023–25 (solo la ventana)"]
     tabla_A = [fila("Sin ajustes (libro)", base, base, b_n1)] + [fila(k, v, base, b_n1) for k, v in R.items()]
-    ext = R["A · N1 en 2021–25 (todos los ejercicios de τ), sin efecto fiscal"]
+    ext = R["A · N1 en 2021–25, todos sin efecto fiscal (2021 por hipótesis)"]
+    opb = R["B · N1 en 2022–25 (los ejercicios de τ con ajuste no deducible según lo publicado)"]
     # los ajustes de 2021–22 no tocan el EBIT de la ventana, m0 ni f: solo el τ de proyección
     for k, v in R.items():
         control(f"f (A0) igual que con N1 en 2023–25: {k}", v["per"]["A0"]["f"], b_n1["per"]["A0"]["f"])
@@ -461,6 +477,8 @@ def main():
     tipo = {2021: LV["tipo_teorico_2021"] / 100, 2022: LV["tipo_teorico_2022"] / 100, 2023: LV["tipo_teorico_2023"] / 100,
             2024: LV["tipo_teorico_2024"] / 100, 2025: t_teor}
     linea = {2022: LV["fiscal_earnout_2022"], 2023: F("TAX_EARN_FR_2023"), 2024: LV["fiscal_earnout_2024"], 2025: LV["fiscal_earnout_2025"]}
+    control("total de la nota 4.6 de 2022: igual en el URD 2022 y en el URD 2023 (la reexpresión solo mueve sus líneas)", LV["ooie_total_2022_ed_anterior"], LV["ooie_total_2022"])
+    control("ajuste de earnout de 2022: 2,1 en el URD 2022 y 2,4 en el URD 2023 (filas verificadas)", F.v["OOIE_EARN_U23_2022"] - F.v["OOIE_EARN_U22_2022"], Fr("0.3"))
     control("línea fiscal de 2023: URD 2023 p.345 (edición anterior) = DEU 2024 p.337 (fila verificada)", LV["fiscal_earnout_2023_ed_anterior"], linea[2023])
     control("línea fiscal de 2024: URD 2025 p.392 = DEU 2024 p.337 (fila verificada, edición anterior)", linea[2024], F.v["TAX_EARN_FR_2024"])
     control("tipo teórico de 2024 [LECTURA] = el de 2025 (fila verificada)", tipo[2024], t_teor)
@@ -517,20 +535,52 @@ def main():
     bruto21, neto21 = -LV["ooie_costes_y_earnout_2021_URD21"], LV["apm_costes_y_earnout_2021_neto_de_impuesto"]
     control("2021: costes de transacción (2,1) + ajustes de earnout (3,0) = línea conjunta del URD 2021 (5,1)",
             -LV["ooie_costes_de_transaccion_2021"] - earn[2021], bruto21)
+    ct21 = -LV["ooie_costes_de_transaccion_2021"]                                    # costes de transacción de 2021 (2,1)
+    ef21 = bruto21 - neto21                                                          # efecto fiscal implícito de la línea (1,4)
+    # parte del ajuste de earnout (3,0) que lleva efecto fiscal si los costes de transacción llevan el tipo teórico entero
+    parte = (ef21 - tipo[2021] * ct21) / tipo[2021]
+    parte_min = ((ef21 - 2 * eps) - tipo[2021] * (ct21 + eps)) / tipo[2021]          # con el redondeo de las tres cifras impresas
+    # tipo que tendrían que llevar los costes de transacción para que el ajuste de earnout no llevara ningún efecto fiscal
+    tipo_ct, tipo_ct_min = ef21 / ct21, (ef21 - 2 * eps) / (ct21 + eps)
+    bruto20, neto20 = -LV["ooie_costes_y_earnout_2020_URD21"], LV["apm_costes_y_earnout_2020_neto_de_impuesto"]
+    rees21, rees21n = -LV["ooie_reestructuracion_2021_URD21"], LV["apm_reestructuracion_2021_neto_de_impuesto"]
+    # intervalo del tipo implícito de la reestructuración de 2021 con el redondeo de sus dos cifras impresas
+    rees_lo, rees_hi = 1 - (rees21n + eps) / (rees21 - eps), 1 - (rees21n - eps) / (rees21 + eps)
     apm = {"2021 · costes de adquisición y ajustes de earnout": {
-               "bruto": f6(bruto21, 1), "neto_de_impuesto_publicado": f6(neto21, 1), "efecto_fiscal_implicito": f6(bruto21 - neto21, 1),
+               "bruto": f6(bruto21, 1), "neto_de_impuesto_publicado": f6(neto21, 1), "efecto_fiscal_implicito": f6(ef21, 1),
+               "efecto_fiscal_implicito_pct": f6(100 * ef21 / bruto21, 1), "tipo_teorico_pct": f6(100 * tipo[2021], 2),
                "neto_si_todo_lleva_el_tipo_teorico": f6(bruto21 * (1 - tipo[2021]), 3),
-               "neto_si_el_ajuste_de_earnout_no_lleva_efecto_fiscal": f6(bruto21 + tipo[2021] * LV["ooie_costes_de_transaccion_2021"], 3)},
+               "neto_si_el_ajuste_de_earnout_no_lleva_efecto_fiscal": f6(bruto21 - tipo[2021] * ct21, 3),
+               "parte_del_ajuste_de_earnout_con_efecto_fiscal": f6(parte, 2), "parte_minima_con_el_redondeo": f6(parte_min, 2),
+               "ajuste_de_earnout": f6(-earn[2021], 1),
+               "tipo_que_necesitarian_los_costes_de_transaccion_si_el_earnout_no_llevara_efecto_fiscal_pct": f6(100 * tipo_ct, 1),
+               "ese_tipo_minimo_con_el_redondeo_pct": f6(100 * tipo_ct_min, 1)},
+           "2021 · reestructuración": {"bruto": f6(rees21, 1), "neto_de_impuesto_publicado": f6(rees21n, 1),
+                                       "efecto_fiscal_implicito_pct": f6(100 * (1 - rees21n / rees21), 1),
+                                       "intervalo_con_el_redondeo_pct": [f6(100 * rees_lo, 1), f6(100 * rees_hi, 1)],
+                                       "tipo_teorico_pct": f6(100 * tipo[2021], 2)},
+           "2020 · costes de adquisición y ajustes de earnout": {"bruto": f6(bruto20, 1), "neto_de_impuesto_publicado": f6(neto20, 1),
+                                                                 "efecto_fiscal_implicito_pct": f6(100 * (1 - neto20 / bruto20), 1),
+                                                                 "tipo_teorico_pct": f6(LV["tipo_teorico_2020"], 2)},
            "2021 · nota 4.6 entera": {"bruto": f6(-LV["ooie_total_2021"], 1), "neto_de_impuesto_publicado": f6(LV["apm_ooie_2021_neto_de_impuesto"], 1),
                                        "efecto_fiscal_implicito_pct": f6(100 * (1 - LV["apm_ooie_2021_neto_de_impuesto"] / -LV["ooie_total_2021"]), 1)},
            "2022 · nota 4.6 entera": {"bruto": f6(-LV["ooie_total_2022"], 1), "neto_de_impuesto_publicado": f6(LV["apm_ooie_2022_neto_de_impuesto"], 1),
                                        "efecto_fiscal_implicito_pct": f6(100 * (1 - LV["apm_ooie_2022_neto_de_impuesto"] / -LV["ooie_total_2022"]), 1)},
            "2023 · nota 4.6 entera": {"bruto": f6(-LV["ooie_total_2023_URD23"], 1), "neto_de_impuesto_publicado": f6(LV["apm_ooie_2023_neto_de_impuesto"], 1),
                                        "efecto_fiscal_implicito_pct": f6(100 * (1 - LV["apm_ooie_2023_neto_de_impuesto"] / -LV["ooie_total_2023_URD23"]), 1)}}
+    control("tipo teórico de 2021: el mismo en el URD 2021 y en el URD 2022", LV["tipo_teorico_2021_URD21"], LV["tipo_teorico_2021"])
+    control("2021: con el redondeo de las cifras impresas, al menos 2,4 de los 3,0 del ajuste de earnout llevan efecto fiscal en la medida neta de impuesto",
+            int(parte_min >= Fr("2.4")), 1)
+    control("2021: para que el ajuste de earnout no llevara efecto fiscal, los costes de transacción tendrían que llevar más del 60 %",
+            int(tipo_ct_min > Fr(6, 10)), 1)
+    control("reestructuración de 2021: el intervalo de redondeo de su tipo implícito queda por debajo del tipo teórico (no es un tipo único)",
+            int(rees_hi < tipo[2021]), 1)
+    control("la medida neta de impuesto no aplica un tipo único: 25,0 % a la reestructuración de 2021 y 19,3 % a la misma línea en 2020",
+            int(abs(1 - rees21n / rees21 - Fr(1, 4)) < Fr(1, 1000) and abs(100 * (1 - neto20 / bruto20) - Fr("19.3")) < Fr(1, 10)), 1)
     control("2021: el neto publicado (3,7) es el de aplicar el tipo teórico a toda la línea (5,1), con redondeo",
             int(abs(bruto21 * (1 - tipo[2021]) - neto21) <= eps + eps), 1)
     control("2021: el neto publicado (3,7) NO es el de un ajuste de earnout sin efecto fiscal (4,5)",
-            int(abs(bruto21 + tipo[2021] * LV["ooie_costes_de_transaccion_2021"] - neto21) <= eps + eps), 0)
+            int(abs(bruto21 - tipo[2021] * ct21 - neto21) <= eps + eps), 0)
 
     # límite declarado (no es una propuesta): otra partida no deducible de un año de τ, mucho mayor que el alcance de N1
     det22 = -F("IS_DETFC_U23_2022")
@@ -541,19 +591,25 @@ def main():
               "tau_2022_registrado": f6(A[2022]["tau"], 4), "tau_2022_sin_la_partida_en_el_BAI": f6(tau22_sin_det, 4),
               "efecto_en_el_tau_de_cinco_años": f6((tau22_sin_det - A[2022]["tau"]) / 5, 6),
               "equivalente_en_el_flujo_sin_crecimiento": f6(-V0 * b_n1["m0"] * (tau22_sin_det - A[2022]["tau"]) / 5, 3),
-              "efecto_del_alcance_de_N1_en_el_tau_de_cinco_años": f6(ext["taup"] - b_n1["taup"], 6),
+              "efecto_del_alcance_de_N1_en_el_tau_de_cinco_años (opción B: 2022–25)": f6(opb["taup"] - b_n1["taup"], 6),
+              "efecto_del_alcance_de_N1_en_el_tau_de_cinco_años (opción A: 2021–25 sin efecto fiscal)": f6(ext["taup"] - b_n1["taup"], 6),
               "nota": "N1 no la alcanza; (5a) aprobó que ninguna otra partida se normaliza. Solo mide que el τ de cinco años no queda "
                       "«normalizado» por extender N1"}
 
     # ------------------------------------------------------------------ parte B · actualización del earnout de México
     con_act = calcular(n1(VENT), aj_bai={y: act[y] for y in VENT})
     con_act_ext = calcular(n1(HOR), aj_bai={y: act[y] for y in VENT})
+    con_act_b = calcular(n1((2022,) + VENT), aj_bai={y: act[y] for y in VENT})
     n1_v, act_v = calcular(n1(VENT), tau_proy="ventana"), calcular(n1(VENT), aj_bai={y: act[y] for y in VENT}, tau_proy="ventana")
     tabla_B = [fila("N1 en 2023–25, sin la actualización", b_n1, base, b_n1),
                fila("N1 en 2023–25, con la actualización fuera del BAI que da el tipo", con_act, base, b_n1),
-               fila("N1 en 2021–25, sin la actualización", ext, base, b_n1),
-               fila("N1 en 2021–25, con la actualización fuera del BAI que da el tipo", con_act_ext, base, b_n1)]
+               fila("N1 en 2022–25 (opción B del alcance), sin la actualización", opb, base, b_n1),
+               fila("N1 en 2022–25 (opción B del alcance), con la actualización fuera del BAI que da el tipo", con_act_b, base, b_n1),
+               fila("N1 en 2021–25 sin efecto fiscal (opción A del alcance), sin la actualización", ext, base, b_n1),
+               fila("N1 en 2021–25 sin efecto fiscal (opción A del alcance), con la actualización fuera del BAI que da el tipo", con_act_ext, base, b_n1)]
     dB0, dB11 = variacion(con_act, b_n1)
+    control("el efecto de la actualización es el mismo con el alcance de la opción B (no hay actualización en 2021–22)", variacion(con_act_b, opb)[0], dB0)
+    control("el efecto de la actualización es el mismo con el alcance de la opción A", variacion(con_act_ext, ext)[0], dB0)
     control("propuesta §5.1: con la actualización, flujo sin crecimiento −12,396", variacion(con_act, base)[0], Fr("-12.396"), Fr(6, 10 ** 4))
     control("propuesta §5.1: con la actualización, año 11 NORMAL −20,270", variacion(con_act, base)[1][1], Fr("-20.270"), Fr(6, 10 ** 4))
     control("propuesta §5.1: efecto de la actualización −0,790 en el flujo sin crecimiento", dB0, Fr("-0.790"), Fr(6, 10 ** 4))
@@ -756,22 +812,22 @@ def main():
           [f"| {y} | {v['linea_del_estado_de_flujos']} | {v['ajuste_de_earnout_con_signo_contrario']} | {v['diferencia (otros elementos sin efecto en caja)']} |"
            for y, v in no_monetario.items()] + \
           ["", "### Pasivo y pagos de 2021–22 (la nota 2.4 de esos años no tiene fila propia de earnouts)", ""] + \
-          [f"- {k}: {v}" for k, v in caja_21_22.items()] + \
+          _lista(caja_21_22) + \
           ["", "### Presentación neta de impuesto de 2021–2023 (medida alternativa de rendimiento)", ""] + \
-          [f"- {k}: " + "; ".join(f"{kk}: {vv}" for kk, vv in v.items()) for k, v in apm.items()] + \
-          ["", "### Límite declarado (no es una propuesta)", ""] + [f"- {k}: {v}" for k, v in limite.items()] + \
+          _lista(apm) + \
+          ["", "### Límite declarado (no es una propuesta)", ""] + _lista(limite) + \
           ["", "## B · Actualización del earnout de México", ""] + t(tabla_B) + ["", "### Mecanismo del efecto", ""] + \
-          [f"- {k}: {v}" for k, v in mecanismo.items()] + ["", "### Conciliación del pasivo ligado a adquisiciones (valor razonable, nivel 3)", "",
+          _lista(mecanismo) + ["", "### Conciliación del pasivo ligado a adquisiciones (valor razonable, nivel 3)", "",
            "| Año y edición | Inicial | Altas | Revaluación | Actualización | Pagos | Calculado | Publicado | Residuo | Cota | Residuo sin la actualización |",
            "|---|---|---|---|---|---|---|---|---|---|---|"]
     for k, v in pasivo.items():
         w = list(v.values())
         md.append(f"| {k} | {w[0]} | {'n. d.' if w[1] is None else w[1]} | {w[2]} | {w[3]} | {w[4]} | {w[5]} | {w[6]} | {w[7]} | {w[8]} | {w[10]} |")
-    md += ["", "### Lavartex: del pendiente en la compra a los pagos (columnas por sociedad, [LECTURA])", ""] + [f"- {k}: {v}" for k, v in lavartex.items()] + \
+    md += ["", "### Lavartex: del pendiente en la compra a los pagos (columnas por sociedad, [LECTURA])", ""] + _lista(lavartex) + \
           ["", "### Conciliación publicada entre el resultado financiero y los intereses pagados (Release)", ""] + \
-          [f"- {y}: " + "; ".join(f"{k}: {v}" for k, v in c.items()) for y, c in concil.items()] + \
-          ["", "### Semestres", ""] + [f"- {k}: {v}" for k, v in semestre.items()] + \
-          ["", "### Dónde está la actualización", ""] + [f"- {y}: " + "; ".join(f"{k}: {v}" for k, v in c.items()) for y, c in donde.items()]
+          _lista(concil) + \
+          ["", "### Semestres", ""] + _lista(semestre) + \
+          ["", "### Dónde está la actualización", ""] + _lista(donde)
     a.informe.write_text("\n".join(md) + "\n", encoding="utf-8")
     print(json.dumps(res["resumen"], ensure_ascii=False))
     return 1 if errores else 0
