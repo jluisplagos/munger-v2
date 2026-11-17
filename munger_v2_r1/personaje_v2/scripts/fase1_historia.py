@@ -158,6 +158,28 @@ def defecto_independiente(ind):
 
 
 # ---------------------------------------------------------------- comprobar
+def incoherencias_acciones(anios, valores, acciones_meta=None, factor=10.0):
+    """(examen, Ahold; revisión independiente del parche de la unidad, hallazgo 1) La serie de acciones diluidas (millones) no puede
+    saltar más de `factor` veces entre dos años con dato, ni el último año alejarse más de `factor` veces de las acciones de los
+    metadatos (Análisis!C55): es la huella de una unidad mal inferida (miles por millones o al revés), que antes pasaba en silencio.
+    Devuelve la lista de incoherencias (vacía si la serie es coherente). No juzga recompras ni ampliaciones reales: un salto real de
+    más de diez veces en un año también se detiene y hay que explicarlo declarando la unidad y revisando la serie."""
+    out = []
+    pares = [(a, v) for a, v in zip(anios, valores) if isinstance(v, (int, float)) and not isinstance(v, bool) and v > 0]
+    for (a0, v0), (a1, v1) in zip(pares, pares[1:]):
+        if max(v0, v1) / min(v0, v1) > factor:
+            out.append(f"acciones_diluidas: salto de {v0:g} ({a0}) a {v1:g} ({a1}) millones, más de {factor:g} veces (¿unidad mal inferida? declare «unidad» en la partida de cada año)")
+    try:
+        m = float((acciones_meta or {}).get("valor")) if isinstance(acciones_meta, dict) else None
+    except (TypeError, ValueError):
+        m = None
+    if m and m > 0 and pares:
+        a1, v1 = pares[-1]
+        if max(m, v1) / min(m, v1) > factor:
+            out.append(f"acciones_diluidas: {v1:g} millones en {a1} frente a {m:g} millones en los metadatos (Análisis!C55): más de {factor:g} veces (¿unidad mal inferida?)")
+    return out
+
+
 def comprobar_anio(carpeta, anio, pendientes=None):
     """Errores de AR_<año>.json (lista vacía = sin errores). Reparación H1 (8-nov-2026):
       R-a  la `linea` normalizada tiene que estar en su página (sin vía alternativa);
@@ -206,7 +228,7 @@ def comprobar_anio(carpeta, anio, pendientes=None):
                     err.append(f"{k} {cual}: la línea «{norm(lin)[:80]}» no está en la página {pg}")
                 elif not importe_completo(norm(imp), P[pg]):
                     err.append(f"{k} {cual}: «{imp}» no está en la página {pg} como importe completo")
-        if k == "acciones_diluidas" and p.get("unidad") is not None and p.get("unidad") not in ESCALA:
+        if k == "acciones_diluidas" and p.get("unidad") is not None and not (isinstance(p.get("unidad"), str) and p["unidad"] in ESCALA):
             err.append(f"acciones_diluidas: unidad {p.get('unidad')!r} no es una de {list(ESCALA)} (unidades, miles o millones de acciones)")
         cz = p.get("cero")
         if cz is not None:
@@ -467,7 +489,7 @@ def construir(carpeta):
             if k == "acciones_diluidas":
                 # (examen, Ahold) la unidad declarada por el extractor manda: con más de 1.000 millones de acciones («1,031» en
                 # millones) la regla por tamaño las tomaba como miles y las dividía por mil. Sin declaración, la regla de siempre.
-                if p.get("unidad") in ESCALA:
+                if isinstance(p.get("unidad"), str) and p["unidad"] in ESCALA:
                     v = v * ESCALA[p["unidad"]]
                 else:
                     v = v / 1e6 if abs(v) > 1e5 else (v / 1e3 if abs(v) > 1e3 else v)
@@ -642,6 +664,7 @@ def construir(carpeta):
     if f1["pendientes_verificacion"]:
         f1["_notas"].append(f"{len(f1['pendientes_verificacion'])} ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md.")
     faltan_meta = [k for k in ("empresa", "ticker", "moneda_modelo", "precio", "acciones_diluidas", "sector_damodaran") if not f1.get(k)]
+    inc_acc = incoherencias_acciones(anios, serie["acciones_diluidas"], meta.get("acciones_diluidas"))
     # revisión
     with open(os.path.join(carpeta, "historia_revision.md"), "w", encoding="utf-8") as f:
         f.write(f"# Revisión de la Historia · {f1.get('empresa')}\n\nInformes usados: " + ", ".join(f"{a} {fuentes[a]}" for a in anios) + "\n\n")
@@ -662,13 +685,16 @@ def construir(carpeta):
         if dec_invalidas:
             f.write("\n## DECISIONES INVÁLIDAS (bloquea)\n\n" + "\n".join(f"- {x}" for x in dec_invalidas) + "\n")
         f.write("\n## Convenciones\n\n" + json.dumps(conv, ensure_ascii=False) + "\n")
-        if falt or faltan_meta:
-            f.write("\n## BLOQUEA\n\n" + "\n".join(f"- falta {x}" for x in falt + faltan_meta) + "\n")
+        if falt or faltan_meta or inc_acc:
+            f.write("\n## BLOQUEA\n\n" + "\n".join([f"- falta {x}" for x in falt + faltan_meta] + [f"- {x}" for x in inc_acc]) + "\n")
     if dec_invalidas:
         print("decisiones inválidas en fase1_decisiones.json: " + "; ".join(dec_invalidas))
         return 1
     if falt or faltan_meta:
         print("faltan datos esenciales: " + ", ".join(falt + faltan_meta))
+        return 1
+    if inc_acc:
+        print("acciones diluidas incoherentes: " + "; ".join(inc_acc))
         return 1
     json.dump(f1, open(os.path.join(carpeta, "fase1_v63.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"fase1_v63.json escrito ({len(anios)} años, {len(rev)} diferencias con el comparativo, {len(f1['pendientes_verificacion'])} ceros pendientes de verificación, {len(confirmados)} confirmados por decisión humana; ver historia_revision.md)")
