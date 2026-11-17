@@ -1,6 +1,6 @@
 {
  "paso": 2,
- "estado_analisis": null,
+ "estado_analisis": "pendiente_de_datos",
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -11,11 +11,26 @@
  "historial": [
   "  $ bash comprobar_entorno.sh → 0 · autotest precio_de_si: PASA (5 casos + propiedades)",
   "  $ python3 migrar_v53_a_v63.py Ahold_evaluada.xlsx Plantilla_V6.3.xlsx Ahold_v63_base.xlsx → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
-  "  $ python3 fase1_historia.py preparar Ahold Ahold → 10 · ESPERANDO fase 1: 11 agentes (historia 2016, historia 2017, historia 2018, historia 2019, historia 2020, historia 2021, historia 2022, historia 2023, historia 2024, historia 2025, metadatos)"
+  "  $ python3 fase1_historia.py preparar Ahold Ahold → 10 · ESPERANDO fase 1: 11 agentes (historia 2016, historia 2017, historia 2018, historia 2019, historia 2020, historia 2021, historia 2022, historia 2023, historia 2024, historia 2025, metadatos)",
+  "  $ python3 fase1_historia.py preparar Ahold Ahold → 0 · ",
+  "  $ python3 fase1_historia.py construir Ahold → 0 · fase1_v63.json escrito (10 años, 22 diferencias con el comparativo, 13 ceros pendientes de verificación, 0 confirmados por decisión humana; ver historia_revision.md)",
+  "  $ python3 rellenar_fase1_v63.py Ahold_v63_base.xlsx fase1_v63.json Ahold_v63_datos.xlsx --estricta → 7 · - Análisis!C47: libro 2432.3 · fase1_v63.json 2432.333 · valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa",
+  "  $ python3 diagnostico.py Ahold --estado pendiente_de_datos --tipo falta_de_datos --detalle rellenar_fase1: etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa\n- Análisis!C47: libro 2432.3 · fase1_v63.json 2432.333 · valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa --paso 2 --que-hace-falta rellenar_fase1: etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa\n- Análisis!C47: libro 2432.3 · fase1_v63.json 2432.333 · valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa --desde-paso 2 → 0 · diagnóstico escrito: pendiente_de_datos · falta_de_datos · paso 2",
+  "  $ python3 ficha.py Ahold --estado pendiente_de_datos → 0 · OK: ficha.json · estado pendiente_de_datos · cubo None · acción None",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Ahold → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Ahold resumen_v2.csv → 0 · OK: fila de Koninklijke Ahold Delhaize N.V. en /home/user/e_work/wt_candidata/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold/resumen_v2.csv",
+  "2026-11-17T20:31:00 · paso 2 · FIN · estado pendiente_de_datos · falta_de_datos: rellenar_fase1: etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa\n- Análisis!C47: libro 2432.3 · f"
  ],
  "motor": null,
  "fase_b_escrita": false,
  "fase_c_escrita": false,
- "esperando": "2:fase1",
- "inicio": "2026-11-17T20:27:21"
+ "esperando": null,
+ "inicio": "2026-11-17T20:27:21",
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "declarado_en": "entrada_efectiva.json"
+ },
+ "ficha_valida": true,
+ "resumen_pendiente": false
 }
