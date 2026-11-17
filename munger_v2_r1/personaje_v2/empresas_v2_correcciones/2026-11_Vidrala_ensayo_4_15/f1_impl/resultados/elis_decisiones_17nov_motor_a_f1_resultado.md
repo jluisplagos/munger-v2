@@ -1,6 +1,6 @@
 # Motor A · perímetro F1 · F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)
 
-Libro `d2593777650f1d9d…` · declaración `491acbbd5c507f10…` · 2026-11-17
+Libro `d2593777650f1d9d…` · declaración `2f8e7dd5023c9ac6…` · 2026-11-17
 
 **DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-LIBRO, F1-PARAM, F1-PERIMETRO, F1-REGISTRO, V-F1d, V-F1g, V-F1i, V-F1j, V-F1k, V-F1l**
 
@@ -17,9 +17,11 @@ Estado propuesto: pendiente_de_datos · apto para dinero real: no.
 | V-F1b | no | — | — | (1a) | D&A ROU declarada en la ventana o C49 = 0 |
 | V-F1a | no | — | — | (1a) | no aplica: el perímetro no es A0 |
 | V-F1m | no | — | — | (1a) | no aplica: el perímetro no es A0 |
+| F1-M-SIM | no | — | — | (1a) · simétrica de V-F1m | no salta |
+| F1-ROU-HISTORIA | no | — | — | (1a) | sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia |
 | F1-2i | no | — | — | (2)(i) | el perímetro no trata la PPA como reposición |
 | V-F1l | sí | BLOQUEA | INCOMPLETO | (5a) | N1 exige el margen objetivo declarado sin esos ajustes (condición de 5a): sin declarar |
-| F1-PARAM | sí | BLOQUEA | INCOMPLETO | (5a) opciones sin decidir | alcance de N1 a los ejercicios del τ fuera de la ventana ([2021, 2022]): sin decisión adoptada; se calculan las dos variantes · actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false) |
+| F1-PARAM | sí | BLOQUEA | INCOMPLETO | (5a) opciones sin decidir | alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: [2021, 2022]); no se elige por omisión; se calculan las variantes · actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false) |
 | V-F1j | sí | BLOQUEA | INCOMPLETO | (4b) | clasificación de las compras de sociedades pendiente (opción A de 4b, hasta M6) |
 | V-F1i | sí | BLOQUEA | INCOMPLETO | (5b) | transición conocida con su tratamiento pendiente (sin importe ni horizonte la conclusión queda pendiente; nunca cero por defecto) |
 | V-F1d | sí | BLOQUEA | INCOMPLETO | (3a) | A3_estimado sin estimación de la reinversión necesaria (R sigue en pendiente_de_datos: 3a, 3b (iv)) |
@@ -29,7 +31,9 @@ Estado propuesto: pendiente_de_datos · apto para dinero real: no.
 | V-F1k | sí | BLOQUEA | MODELO NO APLICABLE | (4a) | perímetro del ROIC del terminal sin declarar |
 | F1-REPLICA | no | — | — | T1/T7 | la réplica A0 reproduce el libro (f, τ, m0, ancla y flujos): la capa F1 y el libro son el mismo motor |
 | F1-PERIMETRO | sí | BLOQUEA | INCOMPLETO | (1a) | el perímetro A3_estimado no es calculable: faltan series (D&A ROU, PPA o R) en la ventana |
-| F1-LIBRO | sí | BLOQUEA | MODELO NO APLICABLE | (1a) · implantación | LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar; con A3_estimado y N1 su valor no corresponde a la declaración: la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico |
+| F1-K3a | no | — | — | K3 | caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada |
+| F1-K3b | no | — | — | K3 | alquiler contado una vez |
+| F1-LIBRO | sí | BLOQUEA | MODELO NO APLICABLE | (1a) · implantación | LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con A3_estimado y N1: su valor no corresponde a la declaración; la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico |
 | V-F1k (salto del terminal) | no | — | — | (4a) | /salto/ ≤ C179 en los tres escenarios: informa (no acredita coherencia) |
 | V-F1f | no | — | — | (2) | {"PPA: media ÷ ventas medias (lo que devuelve f en A2)": 0.018743, "PPA: año base ÷ ventas del año base (lo que lleva m0)": 0.017866, "efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)": 4.206, "ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)": 0.029057, "ROU: año base ÷ ventas del año base (lo que lleva m0)": 0.031167, "efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)": -10.118, "años de agotamiento de la PPA al ritmo del año base (valor neto ÷ PPA)": 3.21} |
 

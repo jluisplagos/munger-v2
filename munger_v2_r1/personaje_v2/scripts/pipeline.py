@@ -614,9 +614,11 @@ class Pipeline:
         para una conclusión: termina en pendiente_de_datos (falta de datos o de decisión) o en no_entregable (límite del modelo o fallo
         de implementación), con el diagnóstico F1 rotulado. Devuelve True si terminó."""
         import motor_a_f1 as F1
-        if self.st.get("motor") != "A" or not F1.exigido(self.c):
+        if self.st.get("motor") != "A" or not F1.exigido(self.c, libro=libro_recalculado):
             return False
-        rc, out = self.run([PY, self.script("motor_a_f1.py"), "evaluar", self.c, "--libro", libro_recalculado], ok=(0, 3, 4, 5))
+        libro_ev = self.p(f"{self.E}_v63_evaluada.xlsx")
+        rc, out = self.run([PY, self.script("motor_a_f1.py"), "evaluar", self.c, "--libro", libro_recalculado, "--motor", "A"]
+                           + (["--libro-origen", libro_ev] if os.path.isfile(libro_ev) else []), ok=(0, 3, 4, 5))
         r = None
         try:
             r = json.load(open(self.p(F1.RESULTADO), encoding="utf-8"))
@@ -1063,8 +1065,6 @@ class Pipeline:
                 ok, rec = self.recalc_leer_precio(libro_ev)
                 if not ok:
                     return self.terminar("no_entregable", "fallo_de_implementacion", rec, 12)
-                if self.motor_a_f1(rec, 12):  # (4.15, F1-IMPL) de nuevo con las palancas finales (V-F1k numérico, flujos y K3)
-                    return
                 if self.v64 and SEL.experimental(self.c):
                     # (4.11, revisión interna H10) las variantes que evaluó la fase C tienen que corresponder a la valoración final: la
                     # variante «activa» es el libro evaluado con la configuración del expediente, así que da el precio.json de este recálculo
@@ -1082,6 +1082,8 @@ class Pipeline:
                 if rc != 0:
                     fallos = [l.strip() for l in out.splitlines() if l.strip().startswith("FAIL")]
                     return self.terminar("no_entregable", "fallo_de_implementacion", "verificar_todo.sh con FAIL: " + ("; ".join(fallos) or out[-400:])[:500], 12, que_hace_falta="ver verificacion_*.txt en la carpeta")
+                if self.motor_a_f1(rec, 12):  # (4.15, F1-IMPL) de nuevo con las palancas finales (V-F1k numérico, flujos y K3), sobre el libro ya verificado
+                    return
                 # (4.14, requisito de verificación completa de las entradas) el pipeline registra la verificación de las entradas financieras del
                 # libro final antes de pedir la auditoría: sin el registro vigente y con cobertura completa, ninguna salida presenta la conclusión
                 # como apta para dinero real (ficha.aptitud_de_uso; la ficha, el informe y el resumen lo calculan igual en una llamada a mano)
@@ -1096,6 +1098,28 @@ class Pipeline:
                 self.guardar()
             elif paso == 13:
                 n = st["intentos"]["auditoria"]
+                import motor_a_f1 as _F1
+                _v1 = _F1.vigencia(self.c, motor=st.get("motor"))
+                if _v1.get("exigido") and not _v1.get("vigente"):
+                    # (4.15, F1-IMPL; revisión H1) la declaración o el libro cambiaron después de la evaluación F1 (p. ej. con «--desde 13»):
+                    # no se fija material ni se pide auditoría; se repite la verificación (paso 12), que vuelve a evaluar F1 (una sola vez)
+                    if st.get("f1_repite_12"):
+                        st["f1_repite_12"] = False
+                        return self.terminar("no_entregable", "fallo_de_implementacion", f"motor A · F1 sigue sin evaluación vigente tras repetir el paso 12: {_v1.get('motivo')}", 13, desde=12)
+                    st["f1_repite_12"] = True
+                    self.log(f"motor A · F1 no vigente antes de fijar el material ({_v1.get('motivo')}): se repite el paso 12")
+                    st.update({"paso": 12, "esperando": None})
+                    self.guardar()
+                    continue
+                st["f1_repite_12"] = False
+                if _v1.get("exigido") and not _v1.get("utilizable"):
+                    _r1 = json.load(open(self.p(_F1.RESULTADO), encoding="utf-8"))
+                    _ep = str(_r1.get("estado_propuesto") or "")
+                    _det = f"motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · {str(_r1.get('rotulo'))[:600]}"
+                    if _ep == "pendiente_de_datos":
+                        return self.terminar("pendiente_de_datos", "falta_de_datos", _det, 13, comprobacion="F1", categoria="F1", desde=2)
+                    return self.terminar("no_entregable", "fallo_de_implementacion" if "implementacion" in _ep else "limite_del_modelo", _det, 13,
+                                         comprobacion="F1", desde=2)
                 if st.get("esperando") == "13:auditoria.md" and CIE.material_fijado(self.c):
                     # (4.15, hito 2, I19) relevo caducado: mientras se espera la auditoría, el material vigente tiene que seguir siendo el
                     # fijado. Si cambió (p. ej. verificacion_entradas.json escrito después de fijarlo), ninguna respuesta a la solicitud

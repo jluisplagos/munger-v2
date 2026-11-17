@@ -2,7 +2,7 @@
  "version": "F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)",
  "fecha": "2026-11-17",
  "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
- "declaracion_sha256": "8b774220f9228155ae9dc838e6c269e6837d803688f5c2d7db4d6a57077a8d2c",
+ "declaracion_sha256": "cae47f82a0a9aa6b265a3194bc2a532b50e5b031c51774b9da816ce22866a55f",
  "apto_para_dinero_real": false,
  "parametros_sin_valor_adoptado": {
   "alcance_n1_ejercicios_tau": {
@@ -87,6 +87,31 @@
   "C53": 9.039509536785,
   "flujos_contrastados": 33,
   "conforme": true
+ },
+ "K3a_caja_base": {
+  "C70": 307.933,
+  "media_fila_35": 323.0,
+  "diferencia": -15.067,
+  "componentes": {
+   "C46": -0.000333,
+   "C47": 9.999667,
+   "C48": -25.066667,
+   "C49": 0.0,
+   "C50": 0.000333,
+   "C70": 0.0
+  },
+  "explicado": {
+   "C48": -25.067,
+   "C47": 10.0
+  },
+  "residuo": 0.0
+ },
+ "K3": {
+  "identidad": true,
+  "K3a_caja_base_dos_vias": true,
+  "K3b_alquiler_contado": "dos veces",
+  "K3c_reposicion_frente_a_su_caja": false,
+  "conforme": false
  },
  "bloque_10_del_libro": {
   "MALO": {
@@ -235,7 +260,7 @@
    ],
    "flujo_sin_crecimiento": 248.496395343,
    "suma_de_partidas": 248.496395343,
-   "cuadra": true,
+   "identidad_cuadra": true,
    "doble_computo_mm_en_la_ventana": 217.966667,
    "doble_computo_mm_a_la_escala_del_año_base": 229.287314,
    "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -349,7 +374,7 @@
     ],
     "flujo_sin_crecimiento": 248.496395343,
     "suma_de_partidas": 248.496395343,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 217.966667,
     "doble_computo_mm_a_la_escala_del_año_base": 229.287314,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -462,7 +487,7 @@
     ],
     "flujo_sin_crecimiento": 387.878115969,
     "suma_de_partidas": 387.878115969,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 85.466667,
     "doble_computo_mm_a_la_escala_del_año_base": 89.905593,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -574,7 +599,7 @@
     ],
     "flujo_sin_crecimiento": 477.783708846,
     "suma_de_partidas": 477.783708846,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 0.0,
     "doble_computo_mm_a_la_escala_del_año_base": 0.0,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -674,7 +699,7 @@
     ],
     "flujo_sin_crecimiento": 339.804571572,
     "suma_de_partidas": 339.804571572,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 0.0,
     "doble_computo_mm_a_la_escala_del_año_base": 0.0,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -752,6 +777,24 @@
    "severidad": null,
    "efecto": null,
    "detalle": "no salta",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
+   "id": "F1-M-SIM",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no salta",
+   "decision": "(1a) · simétrica de V-F1m",
+   "clase": null
+  },
+  {
+   "id": "F1-ROU-HISTORIA",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia",
    "decision": "(1a)",
    "clase": null
   },
@@ -846,13 +889,31 @@
    "clase": null
   },
   {
-   "id": "F1-K3",
+   "id": "F1-K3a",
    "salta": false,
    "severidad": null,
    "efecto": null,
-   "detalle": "puente cuadrado; partidas que no son la caja: − amortización ROU que D_X devuelve como reposición, con los pagos de arrendamiento ya dentro del FCF base; − amortización PPA que D_X devuelve como reposición (no es caja: política (2)(i))",
+   "detalle": "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada",
    "decision": "K3",
    "clase": null
+  },
+  {
+   "id": "F1-K3b",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "MODELO NO APLICABLE",
+   "detalle": "alquiler contado dos veces en la proyección con el perímetro A0_total (debe contarse una vez)",
+   "decision": "K3",
+   "clase": "modelo"
+  },
+  {
+   "id": "F1-K3c",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "reinversión media de la ventana -81.200 < 0 con ventas que no bajan: D_X devuelve más amortización de la que el capex repuso · sin justificación",
+   "decision": "K3",
+   "clase": "datos"
   },
   {
    "id": "F1-LIBRO",
@@ -885,6 +946,6 @@
  "bloquea": true,
  "utilizable_para_conclusion": false,
  "estado_propuesto": "pendiente_de_datos",
- "rotulo": "DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-2i, F1-REGISTRO, V-F1a, V-F1g, V-F1i, V-F1j, V-F1k",
+ "rotulo": "DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-2i, F1-K3b, F1-K3c, F1-REGISTRO, V-F1a, V-F1g, V-F1i, V-F1j, V-F1k",
  "declaracion_ruta": "/tmp/claude-0/-home-user/b9d62468-c45b-5fe5-8762-d58eebe9c95a/scratchpad/elis_copia/motor_a_f1.libro_tal_cual_A0.json"
 }

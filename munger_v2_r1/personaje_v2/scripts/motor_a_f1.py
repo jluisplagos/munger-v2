@@ -61,7 +61,8 @@ REGLAS_NORMALIZACION = {"N1": "no_deducible"}
 TOL_LIBRO = Fr(1, 10 ** 9)
 COLS = "CDEFGHIJKL"
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
-               "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros"}
+               "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
+               "conciliacion_fcf_base", "justificacion_reinversion_negativa"}
 SERIES = ("da_rou", "da_ppa", "pagos_arrendamiento")
 SIN_TRATAMIENTO = ("", "ninguno", "ninguna", "-", "—", "no", "n/a", "na", "sin tratamiento", "none")
 
@@ -246,7 +247,7 @@ def evaluar(L, decl, motor_libro=None):
         raise ErrorDeclaracion("la declaración no es un objeto JSON")
     desconocidas = sorted(set(decl) - CLAVES_DECL)
     res = {"version": VERSION, "fecha": dt.date.today().isoformat(), "libro_sha256": L.get("sha256"),
-           "declaracion_sha256": hashlib.sha256(json.dumps(decl, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest(),
+           "declaracion_sha256": huella_declaracion(decl),
            "apto_para_dinero_real": False, "parametros_sin_valor_adoptado": PARAMETROS_SIN_VALOR, "convencion_tau": CONVENCION_TAU}
     motor_ = motor_libro or L.get("Diagnóstico V6!C5")
     res["motor_del_libro"] = motor_
@@ -379,6 +380,21 @@ def evaluar(L, decl, motor_libro=None):
     else:
         G.add("V-F1a", False, None, None, "no aplica: el perímetro no es A0", "(1a)")
         G.add("V-F1m", False, None, None, "no aplica: el perímetro no es A0", "(1a)")
+    # (revisión F1-IMPL, H4) guarda simétrica de V-F1m: excluir la ROU de D_X solo es coherente si los pagos están dentro del FCF base.
+    # Con A1/A2/A3, D&A ROU > 0 y C49 cero o vacío, el alquiler se omitiría en la proyección: fuera del dominio (adición a E5, para la persona)
+    sim = per in ("A1_sin_ROU", "A2_propio", "A3_estimado") and rou_pos and not c49_pos
+    G.add("F1-M-SIM", sim, "BLOQUEA", "FUERA DEL DOMINIO",
+          (f"perímetro {per} con D&A ROU {float(sum_rou_w)} > 0 y C49 = {None if C49 is None else float(C49)} (cero o vacío): f devolvería la ROU sin "
+           "que los pagos estén en el FCF base; el alquiler no se contaría ninguna vez") if sim else "no salta", "(1a) · simétrica de V-F1m")
+    # (H11) C49 vacío no es cero; una ROU declarada a cero con principal (fila 17) o pasivo (fila 23) positivos en la Historia es un conflicto
+    if C49 is None:
+        G.add("F1-C49", True, "BLOQUEA", "INCOMPLETO", "Análisis C49 (principal de arrendamientos del FCF base) vacío: vacío no es cero", "(1a)")
+    fila17 = [y for y in ventana if (H["princ"][y] or 0) > 0]
+    fila23 = [y for y in ventana if (Q(L.get(f"Historia!{col[y]}23")) or 0) > 0]
+    rou_cero_conflicto = bool(rou) and not rou_vacio_w and sum_rou_w == 0 and (fila17 or fila23)
+    G.add("F1-ROU-HISTORIA", rou_cero_conflicto, "BLOQUEA", "DATOS INVÁLIDOS",
+          (f"D&A ROU declarada a cero en la ventana y la Historia muestra arrendamientos (principal fila 17 en {fila17}; pasivo fila 23 en {fila23})")
+          if rou_cero_conflicto else "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia", "(1a)")
 
     # (2)(i): la PPA no es un desembolso de reposición. A0 y A1 la tratan como reposición (D_X la contiene)
     sum_ppa_w = sum((ppa[y] for y in ventana if y in ppa), Fr(0))
@@ -449,8 +465,9 @@ def evaluar(L, decl, motor_libro=None):
     if aj_ok:
         if not norm.get("margen_objetivo_sin_ajustes"):
             vf1l.append("N1 exige el margen objetivo declarado sin esos ajustes (condición de 5a): sin declarar")
-        if fuera:
-            param_pend.append(f"alcance de N1 a los ejercicios del τ fuera de la ventana ({fuera}): sin decisión adoptada; se calculan las dos variantes")
+        # (revisión, H9) el alcance de N1 a los ejercicios del τ fuera de la ventana no está decidido: no se elige por omisión
+        param_pend.append(f"alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: {fuera or 'ninguno'}); "
+                          "no se elige por omisión" + ("; se calculan las variantes" if fuera else ""))
         if act or norm.get("actualizacion_financiera_earnout_declarada") is not False:
             param_pend.append("actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; "
                               "o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false)")
@@ -709,7 +726,7 @@ def evaluar(L, decl, motor_libro=None):
                                reinv, "sin_desglose"))
         suma = sum((x for _, x, _ in lineas), Fr(0))
         k3 = {"lineas": [{"partida": a, "mm": fl(x, 6), "clase": c} for a, x, c in lineas], "flujo_sin_crecimiento": fl(F0, 9),
-              "suma_de_partidas": fl(suma, 9), "cuadra": abs(suma - F0) <= TOL_LIBRO,
+              "suma_de_partidas": fl(suma, 9), "identidad_cuadra": abs(suma - F0) <= TOL_LIBRO * max(1, abs(F0)),
               "doble_computo_mm_en_la_ventana": fl(-sum((x for _, x, c in lineas if c in ("doble_computo", "reposicion_no_monetaria")), Fr(0)), 6),
               "doble_computo_mm_a_la_escala_del_año_base": fl(-sum((x for _, x, c in lineas if c in ("doble_computo", "reposicion_no_monetaria")), Fr(0)) * V0 / S_, 6),
               "doble_computo_por_clase_a_la_escala_del_año_base": {c: fl(-sum((x for _, x, cc in lineas if cc == c), Fr(0)) * V0 / S_, 6)
@@ -774,20 +791,95 @@ def evaluar(L, decl, motor_libro=None):
             res["efecto_N1_frente_a_sin_normalizar"] = {k: (fl(v["F0"] - sin_n1["F0"], 6) if v else None) for k, v in variantes.items()}
     if per and decl_r is None:
         G.add("F1-PERIMETRO", True, "BLOQUEA", "INCOMPLETO", f"el perímetro {per} no es calculable: faltan series (D&A ROU, PPA o R) en la ventana", "(1a)")
-    # K3 del perímetro declarado
+    # K3 (revisión F1-IMPL, H5): el puente es una identidad y se conserva como presentación (E6); las tres comprobaciones que siguen las
+    # pueden hacer fallar los datos
+    k3 = {"identidad": None, "K3a_caja_base_dos_vias": None, "K3b_alquiler_contado": None, "K3c_reposicion_frente_a_su_caja": None}
+    if decl_r and not decl_r["k3"]["identidad_cuadra"]:
+        G.add("F1-K3", True, "BLOQUEA", "DATOS INVÁLIDOS", f"el puente no cuadra: suma {decl_r['k3']['suma_de_partidas']} ≠ flujo {decl_r['k3']['flujo_sin_crecimiento']}",
+              "K3", clase="implementacion")
+    k3["identidad"] = decl_r["k3"]["identidad_cuadra"] if decl_r else None
+    # K3a · caja base por dos vías: Historia C70 frente a la media de la fila 35 (CFO − capex − intereses en financiación − principal − SBC).
+    # La diferencia se descompone en sus componentes (C46 − CFO, C47 − capex, C48 − fila 16, C49 − fila 17, C50 − fila 18 y C70 − C52); cada
+    # componente distinto de cero (más que el redondeo a 3 decimales de E7) tiene que estar explicado por una partida declarada con su fuente.
+    TOL_E7 = Fr(5, 10 ** 4)
+    f35 = [Q(L.get(f"Historia!{col[y]}35")) for y in ventana]
+    filas = {k: [Q(L.get(f"Historia!{col[y]}{fi}")) for y in ventana] for k, fi in (("cfo", 11), ("capex", 12), ("int16", 16), ("princ", 17), ("sbc", 18))}
+    an = {c: Q(L.get(f"Análisis!{c}")) for c in ("C46", "C47", "C48", "C49", "C50", "C52")}
+    resta_sbc = str(L.get("Análisis!C51") or "").strip() == "Sí"
+    k3a_mot = []
+    if any(x is None for x in f35):
+        k3a_mot.append("fila 35 de la Historia vacía en la ventana: la caja base no se puede contrastar por la segunda vía")
+    else:
+        dif = C70 - media(f35)
+        comp = {}
+        if all(v is not None for v in an.values()) and all(x is not None for v in filas.values() for x in v):
+            m = {k: media(v) for k, v in filas.items()}
+            comp = {"C46": an["C46"] - m["cfo"], "C47": -(an["C47"] - m["capex"]), "C48": -(an["C48"] - m["int16"]), "C49": -(an["C49"] - m["princ"]),
+                    "C50": -((an["C50"] if resta_sbc else Fr(0)) - m["sbc"]), "C70": C70 - an["C52"]}
+        decl_c = decl.get("conciliacion_fcf_base") or []
+        expl = {}
+        for e in decl_c if isinstance(decl_c, list) else []:
+            if not isinstance(e, dict) or Q(e.get("importe")) is None or not str(e.get("partida") or "").strip() or not e.get("fuente") or e.get("componente") not in comp:
+                k3a_mot.append(f"partida de conciliación incompleta o con un componente no reconocido: {e!r}"[:200])
+                continue
+            expl[e["componente"]] = expl.get(e["componente"], Fr(0)) + Q(e["importe"])
+        for c, d in comp.items():
+            if abs(d - expl.get(c, Fr(0))) > TOL_E7:
+                k3a_mot.append(f"componente {c}: {float(d):+.6f} en la caja base frente a la fila 35, explicado {float(expl.get(c, Fr(0))):+.6f}")
+        if not comp:
+            k3a_mot.append("faltan Análisis C46–C52 o las filas 11, 12, 16, 17 o 18 de la ventana: no se puede descomponer la diferencia")
+        elif abs(dif - sum(comp.values(), Fr(0))) > 3 * TOL_E7:
+            k3a_mot.append(f"la diferencia total {float(dif):+.6f} no es la suma de sus componentes {float(sum(comp.values(), Fr(0))):+.6f}: "
+                           "la fila 35 no es CFO − capex − intereses − principal − SBC de las filas de la Historia")
+        if abs(dif - sum(expl.values(), Fr(0))) > 3 * TOL_E7:
+            k3a_mot.append(f"diferencia total sin explicar: {float(dif - sum(expl.values(), Fr(0))):+.6f}")
+        res["K3a_caja_base"] = {"C70": fl(C70, 6), "media_fila_35": fl(media(f35), 6), "diferencia": fl(dif, 6),
+                                "componentes": {c: fl(d, 6) for c, d in comp.items()}, "explicado": {c: fl(v, 6) for c, v in expl.items()},
+                                "residuo": fl(dif - sum(expl.values(), Fr(0)), 6)}
+    k3["K3a_caja_base_dos_vias"] = not k3a_mot
+    G.add("F1-K3a", bool(k3a_mot), "BLOQUEA", "DATOS INVÁLIDOS",
+          ("caja base por dos vías: " + "; ".join(k3a_mot)) if k3a_mot else "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada", "K3")
+    # K3b · cuántas veces cuenta la proyección el coste de arrendamiento: amortización ROU en el margen + pagos en el FCF base − ROU que f devuelve
+    if per:
+        devuelve = per in ("A1_sin_ROU", "A2_propio", "A3_estimado")
+        veces = (1 if rou_pos else 0) + (1 if c49_pos else 0) - (1 if (rou_pos and devuelve) else 0)
+        esperado = 1 if (rou_pos or c49_pos) else 0
+        k3["K3b_alquiler_contado"] = {0: "ninguna vez", 1: "una vez", 2: "dos veces"}.get(veces, str(veces)) + ("" if (rou_pos or c49_pos) else " (sin arrendamientos)")
+        G.add("F1-K3b", veces != esperado, "BLOQUEA", "MODELO NO APLICABLE",
+              f"alquiler contado {k3['K3b_alquiler_contado']} en la proyección con el perímetro {per} (debe contarse una vez)" if veces != esperado
+              else f"alquiler contado {k3['K3b_alquiler_contado']}", "K3")
+    # K3c · reposición frente a su caja: con ventas que no bajan en la ventana, una reinversión media negativa (capex − D_X + circulante) dice
+    # que D_X devuelve más amortización de la que el capex pudo reponer; sin justificación declarada, bloquea
     if decl_r:
-        k3 = decl_r["k3"]
-        if not k3["cuadra"]:
-            G.add("F1-K3", True, "BLOQUEA", "DATOS INVÁLIDOS", f"el puente no cuadra: suma {k3['suma_de_partidas']} ≠ flujo {k3['flujo_sin_crecimiento']}",
-                  "K3", clase="implementacion")
-        else:
-            G.add("F1-K3", False, None, None, ("puente cuadrado; partidas que no son la caja: " + "; ".join(k3["partidas_sin_explicar"]))
-                  if k3["partidas_sin_explicar"] else "puente cuadrado; todas las partidas explicadas (sin doble cómputo detectado)", "K3")
+        neg = decl_r["reinv"] < 0 and H["V"][ventana[-1]] >= H["V"][ventana[0]]
+        just = str(decl.get("justificacion_reinversion_negativa") or "").strip()
+        k3["K3c_reposicion_frente_a_su_caja"] = not neg or bool(just)
+        G.add("F1-K3c", neg, "AVISO" if just else "BLOQUEA", "INCOMPLETO",
+              (f"reinversión media de la ventana {float(decl_r['reinv']):.3f} < 0 con ventas que no bajan: D_X devuelve más amortización de la que el capex repuso"
+               + (f" · justificación: {just}" if just else " · sin justificación")) if neg else
+              f"reinversión media {float(decl_r['reinv']):.3f} ≥ 0 (o ventas a la baja)", "K3")
+    k3["conforme"] = None if k3["identidad"] is None and k3["K3a_caja_base_dos_vias"] else all(v not in (False,) for v in (k3["identidad"], k3["K3a_caja_base_dos_vias"], k3["K3c_reposicion_frente_a_su_caja"])) \
+        and k3["K3b_alquiler_contado"] in (None, "una vez", "ninguna vez (sin arrendamientos)")
+    res["K3"] = k3
     # F1-LIBRO: el libro V6.3 calcula A0 sin normalizar
-    if per and (per != "A0_total" or aj_ok):
+    hay_terminos = bool(per) and X_terminos(per)[2]
+    dif_motor = []
+    if decl_r:
+        for nombre, fila in (("MALO", 6), ("NORMAL", 7), ("BUENO", 8)):
+            if nombre not in decl_r["esc"]:
+                continue
+            mo = decl_r["esc"][nombre]["_mo"]
+            for t, c in enumerate(["AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BF"]):
+                lv = Q(L.get(f"Motor!{c}{fila}"))
+                v = mo["flujos"][t] if t < 10 else mo["flujo_11"]
+                if lv is not None and abs(v - lv) > TOL_LIBRO * max(1, abs(lv)):
+                    dif_motor.append(f"Motor!{c}{fila}")
+    if per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor):
         G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
-              f"LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar; con {per}" + (" y N1" if aj_ok else "")
-              + " su valor no corresponde a la declaración: la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
+              f"LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con {per}" + (" y N1" if aj_ok else "")
+              + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "")
+              + (f"; flujos del perímetro declarado distintos de los del Motor en {len(dif_motor)} celdas" if dif_motor else "")
+              + ": su valor no corresponde a la declaración; la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
     else:
         G.add("F1-LIBRO", False, None, None, "el perímetro declarado es el que calcula el libro", "(1a) · implantación")
 
@@ -899,13 +991,13 @@ def informe_md(r):
         md += ["", f"## K3 · perímetro declarado ({r.get('perimetro_declarado')})", "", "| Partida | mm | Clase |", "|---|---|---|"]
         for ln in cd["K3"]["lineas"]:
             md.append(f"| {ln['partida']} | {ln['mm']:.3f} | {ln['clase']} |")
-        md.append(f"| **= flujo sin crecimiento** | **{cd['K3']['flujo_sin_crecimiento']:.3f}** | {'cuadra' if cd['K3']['cuadra'] else 'NO CUADRA'} |")
+        md.append(f"| **= flujo sin crecimiento** | **{cd['K3']['flujo_sin_crecimiento']:.3f}** | {'cuadra' if cd['K3']['identidad_cuadra'] else 'NO CUADRA'} |")
     k3a = ((r.get("diagnostico_por_perimetro") or {}).get("A0_total") or {}).get("K3")
     if k3a:
         md += ["", "## K3 · perímetro A0 (lo que calcula el libro)", "", "| Partida | mm | Clase |", "|---|---|---|"]
         for ln in k3a["lineas"]:
             md.append(f"| {ln['partida']} | {ln['mm']:.3f} | {ln['clase']} |")
-        md.append(f"| **= flujo sin crecimiento** | **{k3a['flujo_sin_crecimiento']:.3f}** | {'cuadra' if k3a['cuadra'] else 'NO CUADRA'} |")
+        md.append(f"| **= flujo sin crecimiento** | **{k3a['flujo_sin_crecimiento']:.3f}** | {'cuadra' if k3a['identidad_cuadra'] else 'NO CUADRA'} |")
         md.append(f"\nDoble cómputo señalado por K3 en A0: {k3a['doble_computo_mm_en_la_ventana']:.3f} mm de media en la ventana; "
                   f"{k3a['doble_computo_mm_a_la_escala_del_año_base']:.3f} a la escala del año base.")
     if r.get("sensibilidad_peso_arrendamiento_1b"):
@@ -914,11 +1006,112 @@ def informe_md(r):
     return "\n".join(md) + "\n"
 
 
-def exigido(carpeta):
-    """El pipeline exige la evaluación F1 del motor A si el expediente la declara (motor_a_f1.json) o es un expediente de la 4.15 preparado
-    con la declaración del modo de la entrada efectiva (entrada_efectiva.json, que cambiar_base.py escribe en todo expediente nuevo).
-    Los expedientes anteriores y la línea de base sintética v2.2 no cambian (sus salidas cerradas están ligadas a su huella)."""
-    return any(os.path.lexists(os.path.join(carpeta, n)) for n in (DECLARACION, "entrada_efectiva.json"))
+def huella_declaracion(decl):
+    return hashlib.sha256(json.dumps(decl, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+EXENCIONES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "esquema", "motor_a_f1_exenciones.json")
+
+
+def _sha(p):
+    return hashlib.sha256(open(p, "rb").read()).hexdigest()
+
+
+def _json(p):
+    try:
+        return json.load(open(p, encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def exencion(carpeta):
+    """(revisión F1-IMPL, H2) Exenciones EXPLÍCITAS de la exigencia F1, registradas (no por la ausencia de un archivo):
+    - la línea de base sintética v2.2: fase1_v63.json de una empresa marcada «(inventada)», sin entrada_efectiva.json ni motor_a_f1.json;
+    - los cierres históricos anteriores a F1-IMPL, por la huella SHA-256 de su cierre_vigente.json en esquema/motor_a_f1_exenciones.json
+      (un cierre nuevo tiene otra huella y no queda exento). Devuelve el motivo o None."""
+    f1 = _json(os.path.join(carpeta, "fase1_v63.json")) or {}
+    if (isinstance(f1, dict) and "(inventada)" in str(f1.get("empresa") or "")
+            and not any(os.path.lexists(os.path.join(carpeta, n)) for n in (DECLARACION, "entrada_efectiva.json"))):
+        return "línea de base sintética v2.2 (empresa inventada; sin declaración F1 ni entrada efectiva de la 4.15)"
+    cv = os.path.join(carpeta, "cierre_vigente.json")
+    if os.path.isfile(cv):
+        reg = _json(EXENCIONES) or {}
+        h = _sha(cv)
+        for e in reg.get("cierres_historicos") or []:
+            if e.get("cierre_vigente_sha256") == h:
+                return f"cierre histórico registrado anterior a F1-IMPL ({e.get('expediente')}): antecedente; su valor A0 no queda validado por F1"
+    return None
+
+
+def libro_del_expediente(carpeta):
+    e = os.path.basename(os.path.abspath(carpeta))
+    for p in (os.path.join(carpeta, "recalc", f"{e}_v63_evaluada.xlsx"), os.path.join(carpeta, f"{e}_v63_evaluada.xlsx")):
+        if os.path.isfile(p):
+            return p
+    return None
+
+
+def arrendamientos_en_el_libro(L):
+    """El propio libro muestra arrendamientos: Análisis C49 positivo o vacío (vacío ≠ 0), o principal (fila 17) o pasivo (fila 23)
+    positivos en algún año. La PPA no tiene fila en la Historia V6.3: no se puede ver en el libro (límite declarado)."""
+    c49 = Q(L.get("Análisis!C49"))
+    if c49 is None or c49 > 0:
+        return True
+    return any((Q(L.get(f"Historia!{c}{fi}")) or 0) > 0 for c in COLS for fi in (17, 23))
+
+
+def exigido(carpeta, libro=None, L=None):
+    """(revisión F1-IMPL, H2) Con el motor A, F1 se exige salvo exención explícita (exencion): si el expediente la declara
+    (motor_a_f1.json), si es de la 4.15 (entrada_efectiva.json, el modo en alcance_v2.json o fase1_metadatos.json, o registrado en
+    estado_pipeline.json), o si el propio libro muestra arrendamientos. Sin libro legible, se exige (falla en cerrado)."""
+    if exencion(carpeta):
+        return False
+    if any(os.path.lexists(os.path.join(carpeta, n)) for n in (DECLARACION, "entrada_efectiva.json")):
+        return True
+    for n in ("alcance_v2.json", "fase1_metadatos.json"):
+        d = _json(os.path.join(carpeta, n))
+        if isinstance(d, dict) and "entrada_efectiva" in d:
+            return True
+    st = _json(os.path.join(carpeta, "estado_pipeline.json"))
+    if isinstance(st, dict) and isinstance(st.get("entrada_efectiva"), dict):
+        return True
+    if L is None:
+        libro = libro or libro_del_expediente(carpeta)
+        if not libro:
+            return True
+        try:
+            L = leer_libro(libro)
+        except Exception:  # noqa: BLE001 — sin libro legible no se sabe que no haya arrendamientos
+            return True
+    return arrendamientos_en_el_libro(L)
+
+
+def vigencia(carpeta, motor=None):
+    """(revisión F1-IMPL, H1 y H6) Estado F1 del expediente para el cierre, la ficha y el informe: exigido, exento, vigente (el resultado
+    corresponde a la declaración y al libro evaluado actuales) y utilizable. Con el motor A y F1 exigido, sin un resultado vigente y
+    utilizable no hay conclusión del motor A."""
+    st = _json(os.path.join(carpeta, "estado_pipeline.json")) or {}
+    r = _json(os.path.join(carpeta, RESULTADO))
+    motor = motor or (st.get("motor") if isinstance(st, dict) else None) or (("A" if r.get("aplica") else (r.get("motor_del_libro"))) if isinstance(r, dict) else None)
+    out = {"motor": motor, "exento": exencion(carpeta)}
+    if motor != "A":
+        return dict(out, exigido=False, vigente=None, utilizable=None, motivo="el motor no es el A")
+    if out["exento"]:
+        return dict(out, exigido=False, vigente=None, utilizable=None, motivo=out["exento"])
+    if not exigido(carpeta):
+        return dict(out, exigido=False, vigente=None, utilizable=None, motivo="el libro no muestra arrendamientos y el expediente no es de la 4.15")
+    if not isinstance(r, dict):
+        return dict(out, exigido=True, vigente=False, utilizable=False, motivo="sin evaluación F1 (motor_a_f1_resultado.json)")
+    dp = os.path.join(carpeta, DECLARACION)
+    d = _json(dp) if os.path.exists(dp) else {}
+    if d is None or huella_declaracion(d) != r.get("declaracion_sha256"):
+        return dict(out, exigido=True, vigente=False, utilizable=False, motivo="la declaración F1 cambió (o no se puede leer) después de la evaluación")
+    e = os.path.basename(os.path.abspath(carpeta))
+    pl = os.path.join(carpeta, f"{e}_v63_evaluada.xlsx")
+    if not r.get("libro_origen_sha256") or not os.path.isfile(pl) or _sha(pl) != r.get("libro_origen_sha256"):
+        return dict(out, exigido=True, vigente=False, utilizable=False, motivo="el libro evaluado no es el que se evaluó con F1 (o no consta su huella)")
+    ok = bool(r.get("utilizable_para_conclusion"))
+    return dict(out, exigido=True, vigente=True, utilizable=ok, motivo=None if ok else str(r.get("rotulo")))
 
 
 def main(argv=None):
@@ -929,6 +1122,8 @@ def main(argv=None):
     e.add_argument("--libro")
     e.add_argument("--declaracion")
     e.add_argument("--salida")
+    e.add_argument("--motor", help="motor elegido por la fase A (el pipeline lo pasa; si no, el de Diagnóstico V6!C5)")
+    e.add_argument("--libro-origen", help="libro evaluado del expediente (su huella queda en el resultado para la vigencia)")
     sub.add_parser("plantilla")
     a = ap.parse_args(argv)
     if a.orden == "plantilla":
@@ -951,13 +1146,15 @@ def main(argv=None):
         return 2
     try:
         L = leer_libro(libro)
-        r = evaluar(L, decl)
+        r = evaluar(L, decl, motor_libro=a.motor)
     except ErrorDeclaracion as ex:
         print(f"ERROR: {ex}")
         return 2
     if not os.path.exists(pd_):
         r["declaracion"] = "ausente: todo sin declarar"
     r["declaracion_ruta"] = os.path.abspath(pd_)
+    if a.libro_origen:
+        r["libro_origen_sha256"] = _sha(a.libro_origen)
     os.makedirs(salida, exist_ok=True)
     json.dump(r, open(os.path.join(salida, RESULTADO), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     open(os.path.join(salida, RESULTADO_MD), "w", encoding="utf-8").write(informe_md(r))

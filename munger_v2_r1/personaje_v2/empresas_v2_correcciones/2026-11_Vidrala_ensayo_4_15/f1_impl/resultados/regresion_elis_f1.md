@@ -2,7 +2,7 @@
 
 Copia: `/tmp/claude-0/-home-user/b9d62468-c45b-5fe5-8762-d58eebe9c95a/scratchpad/elis_copia` (fuera del repositorio) · libro `d2593777650f1d9d…`
 
-**36 de 36 comprobaciones pasan.**
+**39 de 39 comprobaciones pasan.**
 
 | Comprobación | Resultado | Detalle |
 |---|---|---|
@@ -18,6 +18,9 @@ Copia: `/tmp/claude-0/-home-user/b9d62468-c45b-5fe5-8762-d58eebe9c95a/scratchpad
 | V-F1a salta con el libro tal cual (A0 con ROU y C49 > 0) | PASA |  |
 | K3 en A0: puente cuadrado y doble cómputo del arrendamiento señalado (132,5 de media; 139,4 a la escala de 2025) | PASA | {"doble_computo": 139.381721, "reposicion_no_monetaria": 89.905593} |
 | K3 en A2: sin doble cómputo (partidas sin explicar: ninguna) | PASA |  |
+| K3a: caja base por dos vías conforme (307,933 frente a 323,000; −25,067 de C48 y +10,0 de C47 declarados) | PASA | {"C70": 307.933, "media_fila_35": 323.0, "diferencia": -15.067, "componentes": {"C46": -0.000333, "C47": 9.999667, "C48": -25.066667, "C49": 0.0, "C50": 0.000333, "C70": 0.0}, "explicado": {"C48": -25.067, "C47": 10.0},  |
+| K3b/K3c con el libro tal cual (A0): alquiler contado dos veces y reinversión media −81,2: bloquean | PASA |  |
+| K3b con las decisiones (A3: f devuelve la ROU, pagos en el FCF base): alquiler contado una vez | PASA |  |
 | T16: N1 en A0 (τ 0,2619/0,2806/0,2559; τ5 0,28234; m0 0,131379; f 0,044900433; flujo 236,891) | PASA | f 0.044900432751701 · F0 236.890936177 · τ {'2023': 0.2619, '2024': 0.2806, '2025': 0.2559} · τ5 0.28234 |
 | T16: −11,605 (solo ventana) y variantes sin decidir −11,190 (2021–22) y −12,396 (actualización) | PASA | {"N1 solo en la ventana, sin la actualización financiera": -11.605459, "N1 también en los ejercicios del τ fuera de la ventana": -11.189527, "N1 con la actualización financiera fuera del BAI que da el tipo": -12.395744,  |
 | T16: variación del año 11 NORMAL −18,609 | PASA | -18.608670 |
@@ -29,8 +32,8 @@ Copia: `/tmp/claude-0/-home-user/b9d62468-c45b-5fe5-8762-d58eebe9c95a/scratchpad
 | Elis con las decisiones: V-F1i bloquea | PASA | transición conocida con su tratamiento pendiente (sin importe ni horizonte la conclusión queda pendiente; nunca cero por defecto) |
 | Elis con las decisiones: V-F1g bloquea | PASA | perímetro de las palancas S2C sin declarar |
 | Elis con las decisiones: V-F1k bloquea | PASA | perímetro del ROIC del terminal sin declarar |
-| Elis con las decisiones: F1-PARAM bloquea | PASA | alcance de N1 a los ejercicios del τ fuera de la ventana ([2021, 2022]): sin decisión adoptada; se calculan las dos variantes · actualización financiera del ear |
-| Elis con las decisiones: F1-LIBRO bloquea | PASA | LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar; con A3_estimado y N1 su valor no corresponde a la declaración: la conclusión del motor  |
+| Elis con las decisiones: F1-PARAM bloquea | PASA | alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: [2021, 2022]); no se elige por omisión; se calcu |
+| Elis con las decisiones: F1-LIBRO bloquea | PASA | LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con A3_estimado y N1: su valor no corresponde a la declaració |
 | Elis con las decisiones: V-F1l bloquea | PASA | N1 exige el margen objetivo declarado sin esos ajustes (condición de 5a): sin declarar |
 | Elis con las decisiones: V-F1a no salta (el perímetro no es A0) | PASA |  |
 | invariantes: C48 = 108, C49 = 128,1, C70 = 307,933 | PASA |  |

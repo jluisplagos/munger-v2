@@ -223,6 +223,8 @@ def main():
         _d = f1b.get("diferencias_frente_a_A0_flujo_sin_crecimiento") or {}
         linea += (f"\n\n> **Motor A · F1:** {'utilizable para una conclusión (condición necesaria, no suficiente)' if f1b.get('utilizable_para_conclusion') else 'el resultado del motor A no se usa para una conclusión'}"
                   + (f"; bloquean: {', '.join(sorted({str(g.get('id')) for g in f1b.get('bloquean') or []}))}" if f1b.get("bloquean") else "")
+                  + (f"; evaluación no vigente: {str((f1b.get('vigencia') or {}).get('motivo')).replace('«', '').replace('»', '')}" if (f1b.get("vigencia") or {}).get("vigente") is False else "")
+                  + (f"; K3: alquiler contado {(f1b.get('K3') or {}).get('K3b_alquiler_contado')}, caja base por dos vías {'conforme' if (f1b.get('K3') or {}).get('K3a_caja_base_dos_vias') else 'sin explicar'}" if f1b.get("K3") else "")
                   + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}"
                   + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
                   + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")

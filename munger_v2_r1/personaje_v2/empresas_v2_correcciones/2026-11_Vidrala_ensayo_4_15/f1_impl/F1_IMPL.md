@@ -39,7 +39,7 @@ el valor se calcule con el perímetro F1 (***propuesta***: una plantilla V6.3.1 
 ## 2. Tabla decisión → cambio → prueba → resultado
 
 `motor_a_f1.py` es `personaje_v2/scripts/motor_a_f1.py`; la batería es `personaje_v2/pruebas/test_motor_a_f1.py` (103 pruebas, sin
-LibreOffice); la regresión de Elis es `scripts/regresion_elis_f1.py` de esta carpeta (36 comprobaciones sobre una copia).
+LibreOffice; 142 tras la primera revisión, §10); la regresión de Elis es `scripts/regresion_elis_f1.py` de esta carpeta (36 comprobaciones sobre una copia; 39 tras §10).
 
 | Decisión | Cambio de código | Pruebas | Resultado |
 |---|---|---|---|
@@ -167,3 +167,22 @@ manifiesto y el registro de cambios (sin código de producto).
    regenerar esos expedientes con `cambiar_base.py`, que sí lo escribe.
 4. La regla de signo de las series replica la de `verificacion_entradas.py` (lista de «ninguno») sin importar la función.
 5. T15 por mecanismos, no por los 32 casos.
+
+## 10. Primera ronda de revisión independiente (CORRECCIONES) y lo que se corrigió
+
+La revisión de `2e9442f` (agente distinto, Fable) confirmó todas las cifras de Elis y pidió correcciones. Por el orden del coordinador:
+
+| Hallazgo | Corrección | Prueba |
+|---|---|---|
+| H1 · el cierre no hacía cumplir F1 | `cierre_v2.motivo_f1`, llamado desde `motivo_rechazo_cierre`: con el motor A y F1 exigido, un cierre que no sea `pendiente_de_datos` exige una evaluación F1 **vigente** (misma declaración y mismo libro evaluado) y utilizable. El paso 12 evalúa F1 después de `verificar_todo.sh` y guarda la huella del libro evaluado; el paso 13 comprueba la vigencia antes de fijar el material (si no es vigente repite el paso 12 una vez; si bloquea, termina) | batería «REV · H1» (6); P5 de la prueba del gancho: declaración cambiada tras un cierre `concluido` y `--desde 13` → `no_entregable`, sin ficha oficial `concluido` ni «comprar» |
+| H2 · F1 solo se exigía con dos archivos | `motor_a_f1.exigido`: con el motor A se exige con la declaración, con cualquier marca de la 4.15 (entrada efectiva, alcance, metadatos o estado del pipeline) o si el propio libro muestra arrendamientos (C49 positivo o **vacío**, filas 17 o 23); sin libro legible, se exige. Exenciones **explícitas y registradas**: la línea de base sintética v2.2 (empresa marcada «(inventada)» sin archivos de la 4.15) y los cierres históricos del motor A por la huella de su `cierre_vigente.json` (`esquema/motor_a_f1_exenciones.json`). Límite: la PPA no tiene fila en la Historia V6.3 y no puede activar la exigencia por sí sola | «REV · H2» (4); P4: sin archivos de la 4.15, con arrendamientos → paso 7 `pendiente_de_datos` |
+| H3 · `F1-LIBRO` con términos explícitos en A0 | `F1-LIBRO` salta también con términos explícitos (transición o compras) y si un flujo del perímetro declarado difiere del Motor del libro | «REV · H3» (4) |
+| H4 · falta la simétrica de V-F1m | `F1-M-SIM`: A1/A2/A3 con D&A ROU > 0 y C49 cero o vacío → BLOQUEA, fuera del dominio (*adición a E5: sube a la persona*). Además (H11) `F1-C49` (C49 vacío) y `F1-ROU-HISTORIA` (ROU declarada a cero con filas 17 o 23 positivas) | «REV · H4» (2), «REV · H11» (3) |
+| H5 · K3 no falsable | El puente queda como presentación (E6). Tres comprobaciones que los datos pueden hacer fallar: **K3a** caja base por dos vías (C70 frente a la media de la fila 35; cada componente C46–C50 y C70 − C52 que pase del redondeo de E7 tiene que estar explicado por una partida declarada con fuente; el total también); **K3b** alquiler contado una vez (dos: doble cómputo; ninguna: omitido); **K3c** reinversión media negativa con ventas que no bajan, sin justificación → bloquea | «REV · K3a/K3b/K3c» (11), con el FCF base que resta el alquiler dos veces; Elis: 307,933 frente a 323,000 = −25,067 (C48) + 10,0 (C47) |
+| H6 · F1 fuera del material auditado | `motor_a_f1.json` y `motor_a_f1_resultado.json` en `cierre_v2.MATERIAL_FIJO`; la ficha muestra la vigencia; el pipeline pasa el motor (`--motor`) y el libro de origen (`--libro-origen`) | «REV · H6» |
+| H7 · la batería no protegía el gancho | pruebas que ejecutan `Pipeline.motor_a_f1` (códigos 0, 3, 4 y motor B); V-F1c con la transición (R6); ancla E4 con X^v (R9); `prueba_pipeline_f1.py` obligatoria en `verificar_paquete.sh completa` (mínimo 7) | `resultados/mutaciones_motor_a_f1.txt`: R1, R2, R6 y R9 se detectan ahora |
+| H9 (parcial) | `F1-PARAM` salta siempre que se use N1 mientras su alcance no esté decidido (no se elige por omisión) | «G · V-F1l…», «ELIS · con N1…» |
+
+**No corregido en esta ronda** (para la segunda, o declarado): H8 (rotular «A0 · no usable» la escalera y los valores por acción de la ficha y del informe cuando F1 bloquea), el resto de H9 (N1 solo para ajustes de earnout y con registro), H10 (términos explícitos con importes incompletos), H12 (verificación de las series nuevas; T9 en la capa contra la página) y H13 (historias de menos de diez años, tolerancia relativa en toda la réplica, lectura de L4). No se ha implementado la plantilla V6.3.1.
+
+**Pruebas de esta ronda:** batería 142/142; regresión de Elis 39/39; prueba del gancho 7/7; mutaciones en `resultados/mutaciones_motor_a_f1.txt`; regresión completa en `resultados/verificacion_completa_*.txt`.

@@ -429,7 +429,7 @@ def motivo_rechazo_cierre(carpeta, veredicto, estado_pipeline=None, empresa=None
             # huella del archivo actual. No se atribuye una aprobación sin respaldo (encargo 4.9 §3.3): hace falta una auditoría nueva.
             return ("no consta la respuesta de auditoría aprobada (ni estado_pipeline.json → auditoria_respuesta ni cierre_vigente.json la registran): "
                     "no se atribuye la aprobación al auditoria.md actual; hace falta una auditoría nueva (paso 13)")
-    return motivo_auditoria_no_corresponde(carpeta, txt, empresa) or motivo_acreditacion_libro(carpeta)
+    return motivo_auditoria_no_corresponde(carpeta, txt, empresa) or motivo_acreditacion_libro(carpeta) or motivo_f1(carpeta, st)
 
 
 # ---------- 1d. acreditación del libro final (4.10, P-N2) ----------
@@ -449,6 +449,25 @@ MATERIAL_FIJO.append("verificacion_entradas.json")
 # (4.15, hito 2, I20) la declaración del modo de la entrada efectiva forma parte del material auditado: cambiarla retira la aprobación
 # (solo existe en los expedientes que prepara cambiar_base.py desde la 4.15; los anteriores no cambian de material)
 MATERIAL_FIJO.append("entrada_efectiva.json")
+# (4.15, F1-IMPL; revisión H6) la declaración F1 del motor A y su evaluación forman parte del material auditado: cambiarlas después del cierre
+# retira la aprobación (solo existen en los expedientes con F1; los demás conservan su identificador de material)
+MATERIAL_FIJO.extend(["motor_a_f1.json", "motor_a_f1_resultado.json"])
+
+
+def motivo_f1(carpeta, st=None):
+    """(4.15, F1-IMPL; revisión H1) Con el motor A y F1 exigido, el cierre oficial de un estado que no sea pendiente_de_datos exige una
+    evaluación F1 vigente (declaración y libro evaluado actuales) y utilizable: un bloqueo F1 nunca da una ficha oficial concluido,
+    con decisión ni con objetivo. None si no hay objeción."""
+    import motor_a_f1 as F1
+    st = st if isinstance(st, dict) else {}
+    v = F1.vigencia(carpeta, motor=st.get("motor"))
+    if not v.get("exigido") or (v.get("vigente") and v.get("utilizable")):
+        return None
+    estado = st.get("estado_pendiente") or st.get("estado_analisis_fase_c") or st.get("estado_analisis")
+    if estado == "pendiente_de_datos":
+        return None
+    return (f"motor A · F1: {v.get('motivo')}; sin una evaluación F1 vigente y utilizable no se confirma un cierre «{estado}» "
+            "(ver motor_a_f1_resultado.md)")
 
 
 def motivo_acreditacion_libro(carpeta):

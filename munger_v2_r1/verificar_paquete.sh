@@ -23,7 +23,8 @@
 #                                        105 en el hito 1 de la 4.15) y la de la entrada efectiva del FCF base test_entrada_efectiva_415.py
 #                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
 #                                        menos 5; LibreOffice), igual de obligatorias; (4.15, F1-IMPL) la del motor A con el perímetro F1
-#                                        test_motor_a_f1.py (al menos 103 pruebas; sin LibreOffice), igual de obligatoria
+#                                        test_motor_a_f1.py (al menos 142 pruebas; sin LibreOffice) y la prueba del gancho F1 del pipeline
+#                                        prueba_pipeline_f1.py (al menos 7 casos; LibreOffice), igual de obligatorias
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
 # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
@@ -207,10 +208,30 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del motor A F1 \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 103 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 142 ]; then
     echo "$linea"; echo "RESULTADO motor A F1: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 103 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 142 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== prueba del gancho F1 del pipeline (personaje_v2/…/f1_impl/scripts/prueba_pipeline_f1.py; obligatoria en «completa»; LibreOffice; 4.15, F1-IMPL, revisión H7)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  PF1=empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/f1_impl/scripts/prueba_pipeline_f1.py
+  if [ -f "personaje_v2/$PF1" ]; then
+    ( cd personaje_v2 && python3 -B "$PF1" ) > "$SALIDA_X" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/$PF1" > "$SALIDA_X"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del gancho F1 del pipeline PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 7 ]; then
+    echo "$linea"; echo "RESULTADO gancho F1 del pipeline: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO gancho F1 del pipeline: FALLA (código $rc; la prueba no pasó, no llegó a ejecutarse o tiene menos de 7 casos; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
@@ -267,7 +288,7 @@ if [ "${1:-}" = "completa" ]; then
   if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 103 ]; then
     echo "$linea"; echo "RESULTADO integridad: PASA"
   else
-    tail -5 "$SALIDA_INTEGRIDAD"; echo "RESULTADO integridad: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 103 pruebas; ver $SALIDA_INTEGRIDAD)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_INTEGRIDAD"; echo "RESULTADO integridad: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 142 pruebas; ver $SALIDA_INTEGRIDAD)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

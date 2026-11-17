@@ -63,6 +63,21 @@
    "detalle": ""
   },
   {
+   "comprobacion": "K3a: caja base por dos vías conforme (307,933 frente a 323,000; −25,067 de C48 y +10,0 de C47 declarados)",
+   "ok": true,
+   "detalle": "{\"C70\": 307.933, \"media_fila_35\": 323.0, \"diferencia\": -15.067, \"componentes\": {\"C46\": -0.000333, \"C47\": 9.999667, \"C48\": -25.066667, \"C49\": 0.0, \"C50\": 0.000333, \"C70\": 0.0}, \"explicado\": {\"C48\": -25.067, \"C47\": 10.0}, \"residuo\": 0.0}"
+  },
+  {
+   "comprobacion": "K3b/K3c con el libro tal cual (A0): alquiler contado dos veces y reinversión media −81,2: bloquean",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "K3b con las decisiones (A3: f devuelve la ROU, pagos en el FCF base): alquiler contado una vez",
+   "ok": true,
+   "detalle": ""
+  },
+  {
    "comprobacion": "T16: N1 en A0 (τ 0,2619/0,2806/0,2559; τ5 0,28234; m0 0,131379; f 0,044900433; flujo 236,891)",
    "ok": true,
    "detalle": "f 0.044900432751701 · F0 236.890936177 · τ {'2023': 0.2619, '2024': 0.2806, '2025': 0.2559} · τ5 0.28234"
@@ -120,12 +135,12 @@
   {
    "comprobacion": "Elis con las decisiones: F1-PARAM bloquea",
    "ok": true,
-   "detalle": "alcance de N1 a los ejercicios del τ fuera de la ventana ([2021, 2022]): sin decisión adoptada; se calculan las dos variantes · actualización financiera del ear"
+   "detalle": "alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: [2021, 2022]); no se elige por omisión; se calcu"
   },
   {
    "comprobacion": "Elis con las decisiones: F1-LIBRO bloquea",
    "ok": true,
-   "detalle": "LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar; con A3_estimado y N1 su valor no corresponde a la declaración: la conclusión del motor "
+   "detalle": "LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con A3_estimado y N1: su valor no corresponde a la declaració"
   },
   {
    "comprobacion": "Elis con las decisiones: V-F1l bloquea",
@@ -184,7 +199,7 @@
   }
  ],
  "resumen": {
-  "total": 36,
-  "pasan": 36
+  "total": 39,
+  "pasan": 39
  }
 }

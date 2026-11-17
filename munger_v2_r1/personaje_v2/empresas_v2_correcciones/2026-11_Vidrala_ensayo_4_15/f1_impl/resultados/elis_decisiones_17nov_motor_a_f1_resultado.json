@@ -2,7 +2,7 @@
  "version": "F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)",
  "fecha": "2026-11-17",
  "libro_sha256": "d2593777650f1d9d77bcc7b9eaa6f4c0c12a742fa4706bd20b35808f99c92385",
- "declaracion_sha256": "491acbbd5c507f10bad9c4d87a1bc80156f8038025d606447213b86c8074806d",
+ "declaracion_sha256": "2f8e7dd5023c9ac60d44b6e39718a91dc94de21e8f7f88082217a9cd026cf231",
  "apto_para_dinero_real": false,
  "parametros_sin_valor_adoptado": {
   "alcance_n1_ejercicios_tau": {
@@ -86,6 +86,31 @@
   "ancla": 9.039509536785,
   "C53": 9.039509536785,
   "flujos_contrastados": 33,
+  "conforme": true
+ },
+ "K3a_caja_base": {
+  "C70": 307.933,
+  "media_fila_35": 323.0,
+  "diferencia": -15.067,
+  "componentes": {
+   "C46": -0.000333,
+   "C47": 9.999667,
+   "C48": -25.066667,
+   "C49": 0.0,
+   "C50": 0.000333,
+   "C70": 0.0
+  },
+  "explicado": {
+   "C48": -25.067,
+   "C47": 10.0
+  },
+  "residuo": 0.0
+ },
+ "K3": {
+  "identidad": null,
+  "K3a_caja_base_dos_vias": true,
+  "K3b_alquiler_contado": "una vez",
+  "K3c_reposicion_frente_a_su_caja": null,
   "conforme": true
  },
  "bloque_10_del_libro": {
@@ -243,7 +268,7 @@
     ],
     "flujo_sin_crecimiento": 248.496395343,
     "suma_de_partidas": 248.496395343,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 217.966667,
     "doble_computo_mm_a_la_escala_del_año_base": 229.287314,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -356,7 +381,7 @@
     ],
     "flujo_sin_crecimiento": 387.878115969,
     "suma_de_partidas": 387.878115969,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 85.466667,
     "doble_computo_mm_a_la_escala_del_año_base": 89.905593,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -468,7 +493,7 @@
     ],
     "flujo_sin_crecimiento": 477.783708846,
     "suma_de_partidas": 477.783708846,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 0.0,
     "doble_computo_mm_a_la_escala_del_año_base": 0.0,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -568,7 +593,7 @@
     ],
     "flujo_sin_crecimiento": 339.804571572,
     "suma_de_partidas": 339.804571572,
-    "cuadra": true,
+    "identidad_cuadra": true,
     "doble_computo_mm_en_la_ventana": 0.0,
     "doble_computo_mm_a_la_escala_del_año_base": 0.0,
     "doble_computo_por_clase_a_la_escala_del_año_base": {
@@ -650,6 +675,24 @@
    "clase": null
   },
   {
+   "id": "F1-M-SIM",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no salta",
+   "decision": "(1a) · simétrica de V-F1m",
+   "clase": null
+  },
+  {
+   "id": "F1-ROU-HISTORIA",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
    "id": "F1-2i",
    "salta": false,
    "severidad": null,
@@ -672,7 +715,7 @@
    "salta": true,
    "severidad": "BLOQUEA",
    "efecto": "INCOMPLETO",
-   "detalle": "alcance de N1 a los ejercicios del τ fuera de la ventana ([2021, 2022]): sin decisión adoptada; se calculan las dos variantes · actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false)",
+   "detalle": "alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: [2021, 2022]); no se elige por omisión; se calculan las variantes · actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false)",
    "decision": "(5a) opciones sin decidir",
    "clase": "datos"
   },
@@ -758,11 +801,29 @@
    "clase": "datos"
   },
   {
+   "id": "F1-K3a",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada",
+   "decision": "K3",
+   "clase": null
+  },
+  {
+   "id": "F1-K3b",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "alquiler contado una vez",
+   "decision": "K3",
+   "clase": null
+  },
+  {
    "id": "F1-LIBRO",
    "salta": true,
    "severidad": "BLOQUEA",
    "efecto": "MODELO NO APLICABLE",
-   "detalle": "LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar; con A3_estimado y N1 su valor no corresponde a la declaración: la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico",
+   "detalle": "LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con A3_estimado y N1: su valor no corresponde a la declaración; la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico",
    "decision": "(1a) · implantación",
    "clase": "modelo"
   },

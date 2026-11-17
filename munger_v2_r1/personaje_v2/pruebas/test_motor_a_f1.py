@@ -36,7 +36,7 @@ REG = {"fecha": "2026-11-17", "persona": "prueba sintética", "motivo": "caso de
 
 
 def libro(ventas, ebit, da, tau, capex, adq, dwc, princ, C70, C49, n=3, pal=None, l4="IFRS (adoptadas por la Unión Europea)", c179=0.05,
-          saltos=(0.0047, 0.0068, 0.0241)):
+          saltos=(0.0047, 0.0068, 0.0241), c48=0.0, int16=0.0, fila35=None):
     """Libro sintético V6.3 (solo valores). Las anclas se calculan aquí con las fórmulas de la plantilla (Historia C52, C53, C58),
     escritas de forma independiente de motor_a_f1 (en coma flotante)."""
     L = {"sha256": "sintetico", "Diagnóstico V6!C5": "A", "Control maestro!L4": l4, "Diagnóstico V6!C179": c179}
@@ -55,7 +55,16 @@ def libro(ventas, ebit, da, tau, capex, adq, dwc, princ, C70, C49, n=3, pal=None
     L["Historia!C52"] = sum(tau[5:]) / 5
     den = sum(capex[i] - da[i] + dwc[i] + adq[i] for i in range(5, 10))
     L["Historia!C53"] = (ventas[-1] - ventas[4]) / den if den > 0 else ""
-    L["Análisis!C48"], L["Análisis!C49"], L["Análisis!C52"] = 0, C49, C70
+    # FCF base y su segunda vía (fila 35 = CFO − capex − intereses en financiación − principal − SBC), coherentes por construcción:
+    # C52 = C46 − C47 − C48 − C49 − C50; la fila 11 (CFO) se escribe para que la media de la ventana dé C46
+    w5 = range(10 - n, 10)
+    C47 = sum(capex[i] for i in w5) / n
+    for i, c in enumerate(COLS):
+        L[f"Historia!{c}11"] = C70 + capex[i] + c48 + C49
+        L[f"Historia!{c}16"], L[f"Historia!{c}18"] = int16, 0.0
+        L[f"Historia!{c}35"] = (L[f"Historia!{c}11"] - capex[i] - int16 - princ[i] - 0.0) if fila35 is None else fila35[i]
+    L["Análisis!C46"] = sum(L[f"Historia!{COLS[i]}11"] for i in w5) / n
+    L["Análisis!C47"], L["Análisis!C48"], L["Análisis!C49"], L["Análisis!C50"], L["Análisis!C51"], L["Análisis!C52"] = C47, c48, C49, 0.0, "Sí", C70
     pal = pal or {"B": (0.02, 0.10, 1.0, 0.01, 0.08), "C": (0.03, 0.10, 1.2, 0.02, 0.10), "D": (0.04, 0.11, 1.5, 0.025, 0.12)}
     for c, (g15, mo, s2c, gi, roic) in pal.items():
         L[f"Palancas!{c}14"], L[f"Palancas!{c}15"], L[f"Palancas!{c}16"], L[f"Palancas!{c}18"], L[f"Análisis!{c}68"] = g15, mo, s2c, roic, gi
@@ -72,11 +81,13 @@ def serie(vals, signo=-1, trat="publicado entre paréntesis"):
 
 
 def decl(per="A0_total", rou=None, ppa=None, norma="NIIF", margen="EBIT_NIIF16_PPA_constante", pal=None, roic=None, compras="sin_compras",
-         trans=False, **extra):
+         trans=False, conc=None, **extra):
     d = {"norma_contable": {"valor": norma, "registro": REG}, "perimetro_reinversion": {"valor": per, "registro": REG},
          "perimetro_margen": {"valor": margen, "registro": REG}, "perimetro_palancas_s2c": {"valor": pal or per, "registro": REG},
          "perimetro_roic": {"valor": roic or pal or per, "registro": REG}, "clasificacion_compras": {"valor": compras, "registro": REG},
          "transicion": {"conocida": trans, "tratamiento": None, "registro": REG}, "series": {}}
+    if conc:
+        d["conciliacion_fcf_base"] = conc
     if rou is not None:
         d["series"]["da_rou"] = serie(rou)
     if ppa is not None:
@@ -112,7 +123,7 @@ def estacionario(rou=10, ppa=0, C49=None, pagos_int=2):
     pagos = rou + (pagos_int if rou else 0)
     fcf = 100 - 20 - pagos
     L = libro(V, [float(ebit)] * 10, [float(da)] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [0.0] * 10, [float(rou)] * 10, float(fcf),
-              float(rou if C49 is None else C49))
+              float(rou if C49 is None else C49), c48=float(pagos - rou))
     return L, fcf
 
 
@@ -127,7 +138,9 @@ paso("T5 · solo arrendamientos: FCF verdadero 68; A1 y A2 dan 68; A0 da 58", ve
      and abs(F0(r5, "A2_propio") - 68) < 1e-9 and abs(F0(r5, "A0_total") - 58) < 1e-9,
      f"A0 {F0(r5, 'A0_total')} · A1 {F0(r5, 'A1_sin_ROU')} · A2 {F0(r5, 'A2_propio')}")
 L6, v6 = estacionario(10, 5)
-r6 = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5)))
+CONC_T = [{"componente": "C48", "importe": -2, "partida": "interés de caja de los arrendamientos dentro de C48 (no está en la fila 16)",
+           "fuente": {"documento": "sintético", "pagina": 1}}]
+r6 = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), conc=CONC_T))
 paso("T6 · con PPA 5 sin reposición: A2 = 68, A1 = 63, A0 = 53", abs(F0(r6, "A2_propio") - 68) < 1e-9 and abs(F0(r6, "A1_sin_ROU") - 63) < 1e-9
      and abs(F0(r6, "A0_total") - 53) < 1e-9, f"A0 {F0(r6, 'A0_total')} · A1 {F0(r6, 'A1_sin_ROU')} · A2 {F0(r6, 'A2_propio')}")
 L7, v7 = estacionario(0, 0, C49=0)
@@ -274,7 +287,8 @@ n1_ok = {"ajustes": [{"regla": "N1", "anio": 2025, "partida": "ajuste de earnout
          "bai": {"2025": {"valor": 50, "documento": "s"}}, "gasto_impuesto": {"2025": {"valor": 0, "documento": "s"}},
          "margen_objetivo_sin_ajustes": True, "actualizacion_financiera_earnout_declarada": False}
 rl0 = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), normalizacion=n1_ok))
-paso("G · V-F1l no salta con un ajuste N1 completo (fuente, regla fiscal, caja, BAI y gasto) · tampoco F1-PARAM", not salta(rl0, "V-F1l") and not salta(rl0, "F1-PARAM"))
+paso("G · V-F1l no salta con un ajuste N1 completo (fuente, regla fiscal, caja, BAI y gasto); F1-PARAM sí (alcance de N1 sin decidir: no se elige por omisión, H9)",
+     not salta(rl0, "V-F1l") and bloquea(rl0, "F1-PARAM"))
 n2 = copy.deepcopy(n1_ok)
 n2["ajustes"][0]["regla"] = "N2"
 paso("G · V-F1l: regla N2 (pendiente) → bloquea", bloquea(M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), normalizacion=n2)), "V-F1l"))
@@ -319,7 +333,7 @@ paso("G · T10: una declaración no puede tocar las entradas registradas (clave 
 
 # ================================================================== K3
 k3_6 = r6["diagnostico_por_perimetro"]
-paso("K3 · T6: el puente cuadra en todos los perímetros", all(v["K3"]["cuadra"] for v in k3_6.values()))
+paso("K3 · T6: el puente cuadra en todos los perímetros", all(v["K3"]["identidad_cuadra"] for v in k3_6.values()))
 paso("K3 · T6 A0: señala 10 de doble cómputo del arrendamiento y 5 de PPA como reposición no monetaria",
      abs(k3_6["A0_total"]["K3"]["doble_computo_por_clase_a_la_escala_del_año_base"]["doble_computo"] - 10) < 1e-9
      and abs(k3_6["A0_total"]["K3"]["doble_computo_por_clase_a_la_escala_del_año_base"]["reposicion_no_monetaria"] - 5) < 1e-9)
@@ -395,8 +409,10 @@ paso("T15 · P4f: sin términos explícitos, la capa F1 es el motor A del libro 
 Vah, EB, DO, RO, PP, IL, IF = 90000.0, 3500.0, 1700.0, 1450.0, 50.0, 494.0, 150.0
 tax = 0.25 * (EB - IL - IF)
 fcf_ah = (EB + DO + RO + PP - tax) - DO - (IF + IL) - RO
-Lah = libro([Vah] * 10, [EB] * 10, [DO + RO + PP] * 10, [tax / (EB - IL - IF)] * 10, [DO] * 10, [0.0] * 10, [0.0] * 10, [RO] * 10, fcf_ah, RO)
-rah = M.evaluar(Lah, decl("A2_propio", rou=todos(RO), ppa=todos(PP)))
+Lah = libro([Vah] * 10, [EB] * 10, [DO + RO + PP] * 10, [tax / (EB - IL - IF)] * 10, [DO] * 10, [0.0] * 10, [0.0] * 10, [RO] * 10, fcf_ah, RO,
+           c48=IL + IF, int16=IF)
+CONC_AH = [{"componente": "C48", "importe": -IL, "partida": "interés de caja de los arrendamientos dentro de C48 (no está en la fila 16)", "fuente": {"documento": "sintético", "pagina": 1}}]
+rah = M.evaluar(Lah, decl("A2_propio", rou=todos(RO), ppa=todos(PP), conc=CONC_AH))
 dah = rah["diagnostico_por_perimetro"]
 paso("AH · pagos 1.944 frente a FCF base 2.192: A2 reproduce la caja sostenible; A0 la infravalora en ROU + PPA (1.500, el 68 % del FCF)",
      abs(dah["A2_propio"]["flujo_sin_crecimiento"] - fcf_ah) < 1e-6 and abs(fcf_ah - dah["A0_total"]["flujo_sin_crecimiento"] - (RO + PP)) < 1e-6,
@@ -442,7 +458,7 @@ if os.path.exists(ELIS):
     paso("ELIS · libro d2593777: réplica conforme (33 flujos) y E9 T1, T2, T3 y T3b(a) a 10⁻¹² en f y 10⁻⁹ en flujos y C53",
          ok_sha and rE["replica_del_libro"]["conforme"] and rE["replica_del_libro"]["flujos_contrastados"] == 33 and okE)
     paso("ELIS · K3: el puente cuadra en A0, A1, A2 y la cota B, con τ de proyección distinto del de la ventana (−7,965), y F1-K3 no salta",
-         all(v["K3"]["cuadra"] for v in dE.values()) and not salta(rE, "F1-K3")
+         all(v["K3"]["identidad_cuadra"] for v in dE.values()) and not salta(rE, "F1-K3")
          and abs([ln["mm"] for ln in dE["A0_total"]["K3"]["lineas"]][2] + 7.964853) < 1e-6)
     paso("ELIS · A1 frente a A0: +139,4 en la base 2025 (139,381721)", abs(rE["diferencias_frente_a_A0_flujo_sin_crecimiento"]["A1_sin_ROU"] - 139.381721) < 1e-6)
     paso("ELIS · el libro tal cual (A0) dispara V-F1a y el resultado no se usa para una conclusión", bloquea(rE, "V-F1a") and not rE["utilizable_para_conclusion"])
@@ -467,7 +483,7 @@ if os.path.exists(ELIS):
              - dE["A1_sin_ROU"]["flujo_sin_crecimiento"] - t16["variacion_flujo_sin_crecimiento"]) < 1e-3)
     paso("ELIS · T16 control negativo: deducir el diagnóstico 27,936 no es N1 y dispara V-F1l",
          bloquea(M.evaluar(LE, decl("A0_total", rou=s_("da_rou"), ppa=s_("da_ppa"), normalizacion=dict(n1, deducir_diagnostico_partidas_puntuales=True))), "V-F1l"))
-    paso("ELIS · con N1 en A0, F1-LIBRO bloquea (el libro no normaliza)", bloquea(rN, "F1-LIBRO") and not salta(rN, "F1-PARAM"))
+    paso("ELIS · con N1 en A0, F1-LIBRO bloquea (el libro no normaliza) y F1-PARAM también (alcance sin decidir, H9)", bloquea(rN, "F1-LIBRO") and bloquea(rN, "F1-PARAM"))
     ctrl = cif["referencia_E9"]["desvio_anio_11_implementacion_parcial"]["A1"]["NORMAL"]
     a11 = dE["A1_sin_ROU"]["escenarios"]["NORMAL"]["anio_11"] - dE["A0_total"]["escenarios"]["NORMAL"]["anio_11"]
     paso("ELIS · T2 control negativo: el año 11 de A1 se aparta del de A0 en V₁₀(1+g)(f_A0 − f_A1) = 205,4 (NORMAL)", abs(a11 - ctrl) < 1e-3, f"{a11:.3f}")
@@ -487,7 +503,7 @@ try:
             wb[h][c] = v
     pl = os.path.join(tmp, "libro.xlsx")
     wb.save(pl)
-    for nombre, d_, esperado in (("A2 con todo declarado (F1-LIBRO)", decl("A2_propio", rou=todos(10), ppa=todos(5)), 4),
+    for nombre, d_, esperado in (("A2 con todo declarado (F1-LIBRO)", decl("A2_propio", rou=todos(10), ppa=todos(5), conc=CONC_T), 4),
                                  ("compras pendientes (V-F1j)", decl("A2_propio", rou=todos(10), ppa=todos(5), compras="pendiente"), 3)):
         c = os.path.join(tmp, nombre[:2])
         os.makedirs(c)
@@ -507,22 +523,196 @@ try:
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 
-# ================================================================== PIPE · exigencia y gancho del pipeline
+# ================================================================== REV · correcciones de la revisión independiente (primera ronda)
+# H4 · guarda simétrica de V-F1m: A1/A2/A3 con ROU > 0 y C49 cero o vacío omiten el alquiler
+Lh4, _ = estacionario(10, 0, C49=0)
+rh4 = M.evaluar(Lh4, decl("A1_sin_ROU", rou=todos(10), ppa=todos(0)))
+paso("REV · H4: A1 con ROU > 0 y C49 = 0 → F1-M-SIM (fuera del dominio); el flujo A1 omitiría el alquiler (78 frente a la caja 68)",
+     bloquea(rh4, "F1-M-SIM") and g(rh4, "F1-M-SIM")[1][0]["efecto"] == "FUERA DEL DOMINIO" and abs(F0(rh4, "A1_sin_ROU") - 80) < 1e-9 or
+     (bloquea(rh4, "F1-M-SIM") and F0(rh4, "A1_sin_ROU") > F0(rh4, "A0_total")), f"A1 {F0(rh4, 'A1_sin_ROU')} · A0 {F0(rh4, 'A0_total')}")
+paso("REV · H4: no salta con A1 y C49 > 0", not salta(r5, "F1-M-SIM"))
+# H11 · C49 vacío y ROU = 0 con arrendamientos en la Historia
+Lc49 = copy.deepcopy(L7)
+Lc49["Análisis!C49"] = None
+paso("REV · H11: C49 vacío → F1-C49 bloquea (vacío ≠ 0)", bloquea(M.evaluar(Lc49, decl("A0_total", rou=todos(0), ppa=todos(0))), "F1-C49"))
+Lr0, _ = estacionario(0, 0, C49=0)
+for c in COLS:
+    Lr0[f"Historia!{c}17"] = 3.0
+paso("REV · H11: ROU declarada a cero con principal en la fila 17 → F1-ROU-HISTORIA (DATOS INVÁLIDOS)", bloquea(M.evaluar(Lr0, decl("A0_total", rou=todos(0), ppa=todos(0))), "F1-ROU-HISTORIA"))
+paso("REV · H11: sin conflicto cuando las filas 17 y 23 están a cero (T7)", not salta(r7, "F1-ROU-HISTORIA") and not salta(r7, "F1-C49"))
+# H3 · F1-LIBRO con términos explícitos en A0
+dh3 = decl("A0_total", rou=todos(0), ppa=todos(0), trans=True)
+dh3["transicion"].update({"tratamiento": "termino_explicito", "importes": {str(t): 7 for t in range(1, 6)}, "horizonte": 5, "naturaleza": "temporal",
+                          "finalidad_documentada": "plan sintético", "ancla_s2c_excluye_terminos": True})
+rh3 = M.evaluar(L7, dh3)
+paso("REV · H3: A0 sin arrendamientos con una transición como término explícito → F1-LIBRO (el libro no la cobra)", bloquea(rh3, "F1-LIBRO") and not rh3["utilizable_para_conclusion"])
+dh3b = decl("A0_total", rou=todos(0), ppa=todos(0), compras="reposicion_con_importe")
+dh3b["clasificacion_compras"].update({"proporcion_ventas": 0.009, "ancla_s2c_excluye_terminos": True})
+paso("REV · H3: A0 con compras de reposición proporcionales como término → F1-LIBRO", bloquea(M.evaluar(L7, dh3b), "F1-LIBRO"))
+L7m = copy.deepcopy(L7)
+for t, c in enumerate(["AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BF"]):
+    mo7 = r7["diagnostico_por_perimetro"]["A0_total"]["escenarios"]["NORMAL"]
+    L7m[f"Motor!{c}7"] = (mo7["anios_1_10"] + [mo7["anio_11"]])[t] + (5.0 if t == 3 else 0.0)
+r7m = M.evaluar(L7m, decl("A0_total", rou=todos(0), ppa=todos(0)))
+paso("REV · H3: un flujo del Motor distinto del de la capa en A0 → F1-REPLICA y F1-LIBRO (comparación numérica)", bloquea(r7m, "F1-LIBRO") and bloquea(r7m, "F1-REPLICA"))
+paso("REV · H3: A0 sin términos ni diferencias con el Motor → F1-LIBRO no salta (T7 sigue utilizable)", not salta(r7, "F1-LIBRO") and r7["utilizable_para_conclusion"])
+# H5 · K3 falsable
+r6s = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5)))
+paso("REV · K3a: el interés de arrendamientos en C48 sin declarar → la caja base por dos vías no cuadra (componente C48, −2)",
+     bloquea(r6s, "F1-K3a") and abs(r6s["K3a_caja_base"]["componentes"]["C48"] + 2) < 1e-9)
+paso("REV · K3a: con la partida declarada y su fuente → conforme", not salta(r6, "F1-K3a") and r6["K3"]["K3a_caja_base_dos_vias"] is True)
+L56, _ = estacionario(10, 0)
+L56 = libro([1000.0] * 10, [70.0] * 10, [30.0] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [0.0] * 10, [10.0] * 10, 56.0, 10.0, c48=2.0,
+            fila35=[68.0 - 2.0 + 2.0] * 10)
+r56 = M.evaluar(L56, decl("A1_sin_ROU", rou=todos(10), ppa=todos(0), conc=CONC_T))
+# realista: C49 lleva los pagos enteros (12 = principal 10 + interés 2) y C48 también el interés: FCF base 56 frente a la caja 68
+L56b = libro([1000.0] * 10, [70.0] * 10, [30.0] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [0.0] * 10, [10.0] * 10, 56.0, 12.0, c48=2.0)
+r56b = M.evaluar(L56b, decl("A1_sin_ROU", rou=todos(10), ppa=todos(0), conc=CONC_T))
+paso("REV · K3a: C49 con los pagos enteros y C48 con el interés (alquiler restado dos veces en el FCF base) → componente C49 sin explicar, bloquea",
+     bloquea(r56b, "F1-K3a") and abs(r56b["K3a_caja_base"]["componentes"]["C49"] + 2) < 1e-9, str(r56b.get("K3a_caja_base")))
+paso("REV · K3a (S10): FCF base que resta el alquiler dos veces (56 frente a la fila 35, 68): bloquea con DATOS INVÁLIDOS; el puente sigue cuadrando",
+     bloquea(r56, "F1-K3a") and g(r56, "F1-K3a")[1][0]["efecto"] == "DATOS INVÁLIDOS" and r56["calculo_perimetro_declarado"]["K3"]["identidad_cuadra"]
+     and r56["K3"]["conforme"] is False, str(r56.get("K3a_caja_base")))
+paso("REV · K3b: A0 con arrendamientos → alquiler contado dos veces (bloquea)", bloquea(Lw[(True, True)], "F1-K3b") and Lw[(True, True)]["K3"]["K3b_alquiler_contado"] == "dos veces")
+paso("REV · K3b: A1 con C49 = 0 → ninguna vez (bloquea)", bloquea(rh4, "F1-K3b") and rh4["K3"]["K3b_alquiler_contado"] == "ninguna vez")
+paso("REV · K3b: A2 con C49 > 0 → una vez; sin arrendamientos → ninguna vez (sin arrendamientos); ninguno bloquea",
+     not salta(r6, "F1-K3b") and r6["K3"]["K3b_alquiler_contado"] == "una vez" and not salta(r7, "F1-K3b"))
+r6a0 = M.evaluar(L6, decl("A0_total", rou=todos(10), ppa=todos(5), conc=CONC_T))
+paso("REV · K3c: A0 con reinversión media negativa (−15) y ventas estables → bloquea sin justificación", bloquea(r6a0, "F1-K3c"))
+paso("REV · K3c: con justificación declarada → AVISO, no bloquea", (lambda r: salta(r, "F1-K3c") and not bloquea(r, "F1-K3c"))(
+     M.evaluar(L6, decl("A0_total", rou=todos(10), ppa=todos(5), conc=CONC_T, justificacion_reinversion_negativa="infrainversión documentada (sintética)"))))
+paso("REV · K3c: A2 (reinversión 0) no salta", not salta(r6, "F1-K3c"))
+if os.path.exists(ELIS):
+    CONC_E = [{"componente": "C48", "importe": -25.067, "partida": "interés de caja de los arrendamientos dentro de C48 (E6: 82,933 + 25,067)", "fuente": {"documento": "registro E6", "pagina": None}},
+              {"componente": "C47", "importe": 10.0, "partida": "capex neto de cesiones y subvenciones (C47) frente al bruto (fila 12)", "fuente": {"documento": "URD25", "pagina": 327}}]
+    rEk = M.evaluar(LE, decl("A0_total", rou=s_("da_rou"), ppa=s_("da_ppa"), compras="pendiente", conc=CONC_E))
+    paso("REV · ELIS K3a: C70 307,933 frente a la fila 35 323,000; −15,067 = −25,067 (C48) + 10,0 (C47): conforme con las dos partidas declaradas",
+         not salta(rEk, "F1-K3a") and abs(rEk["K3a_caja_base"]["media_fila_35"] - 323.0) < 1e-9, json.dumps(rEk["K3a_caja_base"]))
+    paso("REV · ELIS K3a sin declarar las partidas → bloquea", bloquea(rE, "F1-K3a"))
+    paso("REV · ELIS K3b y K3c: el libro tal cual (A0) cuenta el alquiler dos veces y su reinversión media es −81,2: bloquean",
+         bloquea(rEk, "F1-K3b") and bloquea(rEk, "F1-K3c"))
+
+# H7 (R6) · V-F1c compara R_propia MÁS la transición con el capex propio
+paso("REV · H7/R6: V-F1c salta con R_propia 18 + transición 7 frente a capex propio 20 (la transición está dentro del capex)",
+     salta(M.evaluar(Lc, a3(18, tr=7)), "V-F1c") and not salta(M.evaluar(Lc, a3(18, tr=0)), "V-F1c"))
+# H7 (R9) · el ancla E4 resta X^v (compras de reposición cobradas como término explícito) de su denominador
+d9 = decl("A2_propio", rou={y: rouv[i] for i, y in enumerate(ANIOS)}, ppa=todos(0), compras="reposicion_con_importe")
+d9["clasificacion_compras"].update({"proporcion_ventas": 0.009, "ancla_s2c_excluye_terminos": True})
+r9 = M.evaluar(L15, d9)
+den9 = sum(capex[i] - dao[i] for i in range(5, 10)) - 0.009 * sum(V[5:10])
+paso("REV · H7/R9: ancla de S2C con X^v fuera del denominador (V2g): ΔV ÷ (Σ inversión de crecimiento − Σ a·V)",
+     abs(r9["calculo_perimetro_declarado"]["ancla_s2c_E4"] - (V[-1] - V[4]) / den9) < 1e-9, f"{r9['calculo_perimetro_declarado']['ancla_s2c_E4']} frente a {(V[-1] - V[4]) / den9}")
+
+# H2 · exigencia y exenciones explícitas
 tmp = tempfile.mkdtemp(prefix="f1_ex_")
 try:
-    e0 = M.exigido(tmp)
+    e_sin = M.exigido(tmp)
+    json.dump({"empresa": "Empresa X (inventada)"}, open(os.path.join(tmp, "fase1_v63.json"), "w"))
+    e_sint = M.exigido(tmp, L=L6)
+    ex_sint = M.exencion(tmp)
     open(os.path.join(tmp, "entrada_efectiva.json"), "w").write('{"modo": "estricta"}')
-    e1 = M.exigido(tmp)
+    e_sint415 = M.exigido(tmp, L=L7)
     os.remove(os.path.join(tmp, "entrada_efectiva.json"))
-    open(os.path.join(tmp, "motor_a_f1.json"), "w").write("{}")
-    e2 = M.exigido(tmp)
-    paso("PIPE · exigencia: no en expedientes anteriores ni en la línea de base sintética; sí con entrada_efectiva.json (4.15) o motor_a_f1.json",
-         (e0, e1, e2) == (False, True, True))
+    os.remove(os.path.join(tmp, "fase1_v63.json"))
+    e_real_arr, e_real_sin = M.exigido(tmp, L=L6), M.exigido(tmp, L=L7)
+    json.dump({"entrada_efectiva": "estricta"}, open(os.path.join(tmp, "alcance_v2.json"), "w"))
+    e_alc = M.exigido(tmp, L=L7)
+    paso("REV · H2: F1 se exige sin libro (falla en cerrado), con arrendamientos en el libro aunque no haya archivos, con entrada_efectiva.json o con el modo en alcance_v2.json",
+         e_sin and e_real_arr and e_sint415 and e_alc, f"{(e_sin, e_real_arr, e_sint415, e_alc)}")
+    paso("REV · H2: no se exige en un libro sin arrendamientos de un expediente anterior, ni en la línea de base sintética (exención explícita y registrada)",
+         not e_real_sin and not e_sint and "sintética" in str(ex_sint), str(ex_sint))
+finally:
+    shutil.rmtree(tmp, ignore_errors=True)
+EXP_ELIS = os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_14", "elis_decisiones", "Elis")
+paso("REV · H2: los cierres históricos del motor A están exentos por la huella de su cierre_vigente.json (registro esquema/motor_a_f1_exenciones.json)",
+     "cierre histórico" in str(M.exencion(EXP_ELIS)))
+tmp = tempfile.mkdtemp(prefix="f1_ex2_")
+try:
+    open(os.path.join(tmp, "cierre_vigente.json"), "w").write('{"otro": "cierre nuevo"}')
+    paso("REV · H2: un cierre nuevo (otra huella) no queda exento", M.exencion(tmp) is None)
+finally:
+    shutil.rmtree(tmp, ignore_errors=True)
+
+# H1 y H6 · vigencia, cierre y material auditado
+
+
+def escribir_xlsx(L, ruta):
+    import openpyxl
+    wb = openpyxl.Workbook()
+    for h in ("Historia", "Análisis", "Palancas", "Motor", "Diagnóstico V6", "Control maestro"):
+        wb.create_sheet(h)
+    for k, v in L.items():
+        if "!" in k:
+            h, c = k.split("!")
+            wb[h][c] = v
+    wb.save(ruta)
+
+
+import cierre_v2 as CIE  # noqa: E402
+
+tmp = tempfile.mkdtemp(prefix="f1_cierre_")
+try:
+    c = os.path.join(tmp, "EmpresaF1")
+    os.makedirs(os.path.join(c, "recalc"))
+    pl_ok, pl_bl = os.path.join(tmp, "ok.xlsx"), os.path.join(tmp, "bl.xlsx")
+    escribir_xlsx(L7, pl_ok)
+    escribir_xlsx(L6, pl_bl)
+    shutil.copy(pl_ok, os.path.join(c, "EmpresaF1_v63_evaluada.xlsx"))
+    open(os.path.join(c, "entrada_efectiva.json"), "w").write('{"modo": "estricta"}')
+    st = {"motor": "A", "estado_pendiente": "concluido", "historial": [], "paso": 12}
+    json.dump(st, open(os.path.join(c, "estado_pipeline.json"), "w"))
+
+    def evaluar_cli(d, libro):
+        json.dump(d, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"))
+        return subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "motor_a_f1.py"), "evaluar", c, "--libro", libro, "--motor", "A",
+                               "--libro-origen", os.path.join(c, "EmpresaF1_v63_evaluada.xlsx")], capture_output=True, text=True).returncode
+
+    paso("REV · H1: sin evaluación F1, el cierre de un «concluido» del motor A se rechaza", "sin evaluación F1" in str(CIE.motivo_f1(c, st)))
+    rc_ok = evaluar_cli(decl("A0_total", rou=todos(0), ppa=todos(0)), pl_ok)
+    m_ok = CIE.motivo_f1(c, st)
+    paso("REV · H1: con una evaluación F1 vigente y utilizable, el cierre no tiene objeción F1", rc_ok == 0 and m_ok is None, f"código {rc_ok} · {m_ok}")
+    id0, _ = CIE.material(c, "EmpresaF1")
+    d_cambiada = decl("A0_total", rou=todos(0), ppa=todos(0))
+    d_cambiada["perimetro_margen"]["registro"] = dict(REG, motivo="otra")
+    json.dump(d_cambiada, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"))
+    id1, h1 = CIE.material(c, "EmpresaF1")
+    paso("REV · H6: la declaración y el resultado F1 están en el material auditado; cambiar la declaración cambia el material",
+         "motor_a_f1.json" in CIE.MATERIAL_FIJO and "motor_a_f1_resultado.json" in CIE.MATERIAL_FIJO and id0 != id1 and "motor_a_f1_resultado.json" in h1)
+    paso("REV · H1/H6: declaración cambiada tras la evaluación → no vigente → el cierre se rechaza", "cambió" in str(CIE.motivo_f1(c, st)))
+    evaluar_cli(decl("A0_total", rou=todos(0), ppa=todos(0)), pl_ok)
+    open(os.path.join(c, "EmpresaF1_v63_evaluada.xlsx"), "ab").write(b"\0")
+    paso("REV · H1/H6: libro evaluado cambiado tras la evaluación → no vigente → el cierre se rechaza", "libro evaluado" in str(CIE.motivo_f1(c, st)))
+    shutil.copy(pl_ok, os.path.join(c, "EmpresaF1_v63_evaluada.xlsx"))
+    rc_bl = evaluar_cli(decl("A2_propio", rou=todos(10), ppa=todos(5), conc=CONC_T), pl_bl)
+    paso("REV · H1: con F1 bloqueando (F1-LIBRO), un cierre «concluido» se rechaza", rc_bl == 4 and "concluido" in str(CIE.motivo_f1(c, st)))
+    paso("REV · H1: con F1 bloqueando, un cierre «pendiente_de_datos» sí se admite (Elis)", CIE.motivo_f1(c, dict(st, estado_pendiente="pendiente_de_datos")) is None)
+    paso("REV · H1: motivo_rechazo_cierre llama a la comprobación F1", "motivo_f1(carpeta, st)" in open(os.path.join(PV, "scripts", "cierre_v2.py"), encoding="utf-8").read())
+
+    # H7 · el gancho del pipeline, ejecutado (no solo leído): Pipeline.motor_a_f1 con terminar() registrado
+    import pipeline as PL
+    fin = []
+    P = PL.Pipeline.__new__(PL.Pipeline)
+    P.c, P.E, P.st = c, "EmpresaF1", {"motor": "A", "historial": [], "paso": 7}
+    P.estado_path = os.path.join(tmp, "estado_pipeline_prueba.json")
+    P.terminar = lambda estado, tipo, detalle, paso_, **k: fin.append((estado, tipo, paso_))
+    json.dump(decl("A2_propio", rou=todos(10), ppa=todos(5), conc=CONC_T), open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"))
+    t4 = P.motor_a_f1(pl_bl, 7)
+    paso("REV · H7: el gancho termina el análisis con un bloqueo de límite (código 4) → no_entregable · limite_del_modelo", t4 is True and fin[-1][:2] == ("no_entregable", "limite_del_modelo"), str(fin[-1:]))
+    json.dump(decl("A2_propio", rou=todos(10), ppa=todos(5), compras="pendiente", conc=CONC_T), open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"))
+    t3 = P.motor_a_f1(pl_bl, 7)
+    paso("REV · H7: el gancho termina con falta de datos (código 3) → pendiente_de_datos", t3 is True and fin[-1][:2] == ("pendiente_de_datos", "falta_de_datos"), str(fin[-1:]))
+    json.dump(decl("A0_total", rou=todos(0), ppa=todos(0)), open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"))
+    n_fin = len(fin)
+    t0 = P.motor_a_f1(pl_ok, 7)
+    paso("REV · H7: con F1 utilizable el gancho deja seguir y registra el resultado", t0 is False and len(fin) == n_fin and (P.st.get("motor_a_f1") or {}).get("bloquea") is False)
+    P.st["motor"] = "B"
+    paso("REV · H7: con el motor B el gancho no actúa", P.motor_a_f1(pl_bl, 7) is False)
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 src = open(os.path.join(PV, "scripts", "pipeline.py"), encoding="utf-8").read()
-paso("PIPE · el pipeline evalúa F1 en el paso 7 (antes de la fase B) y en el paso 12 (palancas finales), solo con el motor A",
-     'self.motor_a_f1(self.p("recalc", os.path.basename(libro_ev)), 7)' in src and "self.motor_a_f1(rec, 12)" in src and 'self.st.get("motor") != "A"' in src)
+paso("PIPE · el pipeline evalúa F1 en el paso 7, en el paso 12 (tras verificar el libro) y comprueba su vigencia en el paso 13 antes de fijar el material",
+     'self.motor_a_f1(self.p("recalc", os.path.basename(libro_ev)), 7)' in src and "self.motor_a_f1(rec, 12)" in src and "_F1.vigencia(self.c" in src
+     and src.index("self.motor_a_f1(rec, 12)") > src.index('"verificar_todo.sh"'))
 
 n_ok = sum(ok for _, ok in R)
 print(f"\n{n_ok}/{len(R)} pruebas del motor A F1 (4.15) PASAN")

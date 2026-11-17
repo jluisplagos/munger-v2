@@ -1,8 +1,8 @@
 # Motor A · perímetro F1 · F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)
 
-Libro `d2593777650f1d9d…` · declaración `8b774220f9228155…` · 2026-11-17
+Libro `d2593777650f1d9d…` · declaración `cae47f82a0a9aa6b…` · 2026-11-17
 
-**DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-2i, F1-REGISTRO, V-F1a, V-F1g, V-F1i, V-F1j, V-F1k**
+**DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-2i, F1-K3b, F1-K3c, F1-REGISTRO, V-F1a, V-F1g, V-F1i, V-F1j, V-F1k**
 
 Estado propuesto: pendiente_de_datos · apto para dinero real: no.
 
@@ -17,6 +17,8 @@ Estado propuesto: pendiente_de_datos · apto para dinero real: no.
 | V-F1b | no | — | — | (1a) | D&A ROU declarada en la ventana o C49 = 0 |
 | V-F1a | sí | BLOQUEA | MODELO NO APLICABLE | (1a) | coste de arrendamiento contado dos veces en la proyección: D&A ROU de la ventana 397.5 > 0 y C49 = 128.1 > 0, con perímetro A0 (sin umbral adoptado: bloquea con cualquier importe) |
 | V-F1m | no | — | — | (1a) | no salta |
+| F1-M-SIM | no | — | — | (1a) · simétrica de V-F1m | no salta |
+| F1-ROU-HISTORIA | no | — | — | (1a) | sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia |
 | F1-2i | sí | BLOQUEA | MODELO NO APLICABLE | (2)(i) | perímetro A0_total con PPA 256.4 > 0 en la ventana: trata la amortización PPA como reposición, contra la política (2)(i) aprobada; la combinación no está cubierta por las decisiones (no se resuelve aquí) |
 | V-F1l | no | — | — | (5a) | sin ajustes de normalización (el diagnóstico se muestra como diagnóstico) |
 | V-F1j | sí | BLOQUEA | INCOMPLETO | (4b) | clasificación de las compras de sociedades pendiente (opción A de 4b, hasta M6) |
@@ -27,7 +29,9 @@ Estado propuesto: pendiente_de_datos · apto para dinero real: no.
 | V-F1g | sí | BLOQUEA | MODELO NO APLICABLE | (4a) | perímetro de las palancas S2C sin declarar |
 | V-F1k | sí | BLOQUEA | MODELO NO APLICABLE | (4a) | perímetro del ROIC del terminal sin declarar |
 | F1-REPLICA | no | — | — | T1/T7 | la réplica A0 reproduce el libro (f, τ, m0, ancla y flujos): la capa F1 y el libro son el mismo motor |
-| F1-K3 | no | — | — | K3 | puente cuadrado; partidas que no son la caja: − amortización ROU que D_X devuelve como reposición, con los pagos de arrendamiento ya dentro del FCF base; − amortización PPA que D_X devuelve como reposición (no es caja: política (2)(i)) |
+| F1-K3a | no | — | — | K3 | caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada |
+| F1-K3b | sí | BLOQUEA | MODELO NO APLICABLE | K3 | alquiler contado dos veces en la proyección con el perímetro A0_total (debe contarse una vez) |
+| F1-K3c | sí | BLOQUEA | INCOMPLETO | K3 | reinversión media de la ventana -81.200 < 0 con ventas que no bajan: D_X devuelve más amortización de la que el capex repuso · sin justificación |
 | F1-LIBRO | no | — | — | (1a) · implantación | el perímetro declarado es el que calcula el libro |
 | V-F1k (salto del terminal) | no | — | — | (4a) | /salto/ ≤ C179 en los tres escenarios: informa (no acredita coherencia) |
 | V-F1f | no | — | — | (2) | {"PPA: media ÷ ventas medias (lo que devuelve f en A2)": 0.018743, "PPA: año base ÷ ventas del año base (lo que lleva m0)": 0.017866, "efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)": 4.206, "ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)": 0.029057, "ROU: año base ÷ ventas del año base (lo que lleva m0)": 0.031167, "efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)": -10.118, "años de agotamiento de la PPA al ritmo del año base (valor neto ÷ PPA)": 3.21} |

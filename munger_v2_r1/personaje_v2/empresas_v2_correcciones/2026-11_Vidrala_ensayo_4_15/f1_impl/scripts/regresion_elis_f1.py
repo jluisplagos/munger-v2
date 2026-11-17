@@ -87,6 +87,12 @@ def declaracion(cif, a0, n1=False):
         "normalizacion": {"ajustes": aj, "bai": bai, "gasto_impuesto": imp, "margen_objetivo_sin_ajustes": None,
                           "deducir_diagnostico_partidas_puntuales": False},
         "umbral_v_f1a": None,
+        # K3a: C70 (307,933) frente a la media de la fila 35 de la Historia (323,000); la diferencia, −15,067, son dos partidas registradas
+        "conciliacion_fcf_base": [
+            {"componente": "C48", "importe": -25.067, "partida": "interés de caja de los arrendamientos dentro de C48 (C48 = 82,933 + 25,067; E6)",
+             "fuente": {"documento": "registro E6 y configuracion/cambio_elis_c48_4_15.json", "pagina": None}},
+            {"componente": "C47", "importe": 10.0, "partida": "capex neto de cesiones y subvenciones en C47 (857,167) frente al bruto de la fila 12 (867,167)",
+             "fuente": {"documento": "INFORME_CONCILIACION_F1.md §4.1-4.2 (frente E)", "pagina": None}}],
     }
     if a0 and not n1:
         d["normalizacion"] = {"ajustes": [], "bai": {}, "gasto_impuesto": {}, "deducir_diagnostico_partidas_puntuales": False}
@@ -143,9 +149,14 @@ def main():
     chk("V-F1a salta con el libro tal cual (A0 con ROU y C49 > 0)", salta(rA, "V-F1a") and res["libro_tal_cual_A0"]["codigo"] in (3, 4))
     k3 = dg["A0_total"]["K3"]
     chk("K3 en A0: puente cuadrado y doble cómputo del arrendamiento señalado (132,5 de media; 139,4 a la escala de 2025)",
-        k3["cuadra"] and abs(k3["doble_computo_por_clase_a_la_escala_del_año_base"]["doble_computo"] - 139.381721) < 1e-6,
+        k3["identidad_cuadra"] and abs(k3["doble_computo_por_clase_a_la_escala_del_año_base"]["doble_computo"] - 139.381721) < 1e-6,
         json.dumps(k3["doble_computo_por_clase_a_la_escala_del_año_base"]))
-    chk("K3 en A2: sin doble cómputo (partidas sin explicar: ninguna)", dg["A2_propio"]["K3"]["cuadra"] and not dg["A2_propio"]["K3"]["partidas_sin_explicar"])
+    chk("K3 en A2: sin doble cómputo (partidas sin explicar: ninguna)", dg["A2_propio"]["K3"]["identidad_cuadra"] and not dg["A2_propio"]["K3"]["partidas_sin_explicar"])
+    chk("K3a: caja base por dos vías conforme (307,933 frente a 323,000; −25,067 de C48 y +10,0 de C47 declarados)",
+        not salta(rD, "F1-K3a") and abs(rD["K3a_caja_base"]["media_fila_35"] - 323.0) < 1e-9, json.dumps(rD["K3a_caja_base"]))
+    chk("K3b/K3c con el libro tal cual (A0): alquiler contado dos veces y reinversión media −81,2: bloquean",
+        salta(rA, "F1-K3b") and rA["K3"]["K3b_alquiler_contado"] == "dos veces" and salta(rA, "F1-K3c"))
+    chk("K3b con las decisiones (A3: f devuelve la ROU, pagos en el FCF base): alquiler contado una vez", rD["K3"]["K3b_alquiler_contado"] == "una vez" and not salta(rD, "F1-K3b"))
     t16 = cif["referencia_T16"]["N1"]
     rT = res["T16_A0_con_N1"]["resultado"]
     cT = rT["calculo_perimetro_declarado"]

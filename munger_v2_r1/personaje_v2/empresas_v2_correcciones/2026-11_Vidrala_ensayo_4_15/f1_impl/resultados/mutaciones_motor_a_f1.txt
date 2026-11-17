@@ -1,21 +1,35 @@
-# Mutaciones de motor_a_f1.py frente a pruebas/test_motor_a_f1.py (2026-11-17), versión final; detectada = la batería deja de pasar 103/103
-(antecedente: la prueba «ELIS · K3» encontró que el puente de la cota B no cuadraba; corregido antes de esta tabla)
-m1 umbral oculto en V-F1a → 102/103 pruebas PASAN
-m2 A1 no excluye la ROU → 95/103 pruebas PASAN
-m3 frontera W1 (H > 10) → 102/103 pruebas PASAN
-m4 frontera de V-F1k → 101/103 pruebas PASAN
-m5 N1 con tipo fijo → 101/103 pruebas PASAN
-m6 F1-LIBRO ignora N1 → 102/103 pruebas PASAN
-m7 sin términos explícitos → 101/103 pruebas PASAN
+# Mutaciones frente a pruebas/test_motor_a_f1.py (2026-11-17), tras la primera ronda de revisión; detectada = la batería deja de pasar 142/142
+m1 umbral oculto en V-F1a → 141/142 pruebas del motor A F1 (4.15) PASAN
+m2 A1 no excluye la ROU → 132/142 pruebas del motor A F1 (4.15) PASAN
+m3 frontera W1 (H > 10) → 141/142 pruebas del motor A F1 (4.15) PASAN
+m4 frontera de V-F1k → 140/142 pruebas del motor A F1 (4.15) PASAN
+m5 N1 con tipo fijo → 140/142 pruebas del motor A F1 (4.15) PASAN
+m6 F1-LIBRO sin términos ni comparación con el Motor (H3) → 139/142 pruebas del motor A F1 (4.15) PASAN
+m7 sin términos explícitos → 140/142 pruebas del motor A F1 (4.15) PASAN
 m8 ancla con la D&A total → TypeError: unsupported operand type(s) for -: 'NoneType' and 'float'
-m9 signo −1 sin tratamiento → 102/103 pruebas PASAN
-m10 exigencia sin entrada_efectiva → 102/103 pruebas PASAN
-m11 τ de la ventana (E8.1) → 99/103 pruebas PASAN
-m12 F1-2i solo en A0 → 102/103 pruebas PASAN
-m13 V-F1g sin comparar perímetros → 102/103 pruebas PASAN
-m14 V-F1j acepta «pendiente» → 101/103 pruebas PASAN
-m15 US GAAP sin bloqueo → 102/103 pruebas PASAN
-m16 K3 siempre cuadra → 103/103 pruebas PASAN
-m17 K3: partida del τ con el signo cambiado → 102/103 pruebas PASAN
-m18 K3: partida de la escala de f con el signo cambiado → 102/103 pruebas PASAN
-Nota: m8 se detecta por excepción (el ancla deja de ser calculable). m16 («cuadra» siempre verdadero) no lo detecta ningún caso: el puente es una identidad algebraica que solo deja de cuadrar si una partida está mal escrita (m17, m18); la comprobación protege contra eso, no contra que se anule a sí misma.
+m9 signo −1 sin tratamiento → 141/142 pruebas del motor A F1 (4.15) PASAN
+m10 exigencia sin entrada_efectiva ni declaración → 136/142 pruebas del motor A F1 (4.15) PASAN
+m11 τ de la ventana (E8.1) → 138/142 pruebas del motor A F1 (4.15) PASAN
+m12 F1-2i solo en A0 → 141/142 pruebas del motor A F1 (4.15) PASAN
+m13 V-F1g sin comparar perímetros → 141/142 pruebas del motor A F1 (4.15) PASAN
+m14 V-F1j acepta «pendiente» → 140/142 pruebas del motor A F1 (4.15) PASAN
+m15 US GAAP sin bloqueo → 141/142 pruebas del motor A F1 (4.15) PASAN
+m16 la identidad del puente siempre cuadra (presentación) → 142/142 pruebas del motor A F1 (4.15) PASAN
+m16b K3 siempre conforme en la caja base (la que antes sobrevivía, ahora sobre K3a) → 138/142 pruebas del motor A F1 (4.15) PASAN
+m16c K3b nunca salta → 139/142 pruebas del motor A F1 (4.15) PASAN
+m16d K3c nunca salta → 139/142 pruebas del motor A F1 (4.15) PASAN
+m16e K3a sin el contraste del total con sus componentes → 142/142 pruebas del motor A F1 (4.15) PASAN
+m17 K3: partida del τ con el signo cambiado → 141/142 pruebas del motor A F1 (4.15) PASAN
+m18 K3: partida de la escala de f con el signo cambiado → 141/142 pruebas del motor A F1 (4.15) PASAN
+m19 sin la guarda simétrica de V-F1m (H4) → 141/142 pruebas del motor A F1 (4.15) PASAN
+m20 C49 vacío como cero (H11) → 141/142 pruebas del motor A F1 (4.15) PASAN
+m21 exigencia sin mirar el libro (H2) → 141/142 pruebas del motor A F1 (4.15) PASAN
+m22 vigencia sin la huella del libro (H6) → 141/142 pruebas del motor A F1 (4.15) PASAN
+R6 V-F1c sin la transición → 141/142 pruebas del motor A F1 (4.15) PASAN
+R9 ancla E4 sin restar X^v → 141/142 pruebas del motor A F1 (4.15) PASAN
+R1 gancho del pipeline desactivado → 139/142 pruebas del motor A F1 (4.15) PASAN
+R2 el gancho deja pasar el código 4 → 141/142 pruebas del motor A F1 (4.15) PASAN
+m23 el cierre no mira F1 (H1) → 141/142 pruebas del motor A F1 (4.15) PASAN
+m24 motivo_f1 nunca objeta (H1) → 138/142 pruebas del motor A F1 (4.15) PASAN
+m25 F1 fuera del material auditado (H6) → 141/142 pruebas del motor A F1 (4.15) PASAN
+Nota: m8 se detecta por excepción. m16 (la identidad del puente siempre cuadra) no la detecta ningún caso porque es una identidad (queda como presentación, E6). Lo que antes sobrevivía era que K3 aprobara siempre: ahora se detecta en sus tres comprobaciones falsables (m16b, m16c, m16d). m16e es una mutación equivalente: si el total no es la suma de sus componentes, el contraste del total con lo explicado (que sigue activo) bloquea igual; ese mensaje solo aclara la causa. Las de la revisión R1, R2, R6 y R9, que antes sobrevivían, se detectan.
