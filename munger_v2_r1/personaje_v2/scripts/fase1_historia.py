@@ -206,6 +206,8 @@ def comprobar_anio(carpeta, anio, pendientes=None):
                     err.append(f"{k} {cual}: la línea «{norm(lin)[:80]}» no está en la página {pg}")
                 elif not importe_completo(norm(imp), P[pg]):
                     err.append(f"{k} {cual}: «{imp}» no está en la página {pg} como importe completo")
+        if k == "acciones_diluidas" and p.get("unidad") is not None and p.get("unidad") not in ESCALA:
+            err.append(f"acciones_diluidas: unidad {p.get('unidad')!r} no es una de {list(ESCALA)} (unidades, miles o millones de acciones)")
         cz = p.get("cero")
         if cz is not None:
             if not isinstance(cz, dict) or not cz.get("motivo") or cz.get("pagina") not in P:
@@ -463,7 +465,12 @@ def construir(carpeta):
             else:
                 v = sum(numero(c["impreso"]) * c.get("signo", 1) for c in comps)
             if k == "acciones_diluidas":
-                v = v / 1e6 if abs(v) > 1e5 else (v / 1e3 if abs(v) > 1e3 else v)
+                # (examen, Ahold) la unidad declarada por el extractor manda: con más de 1.000 millones de acciones («1,031» en
+                # millones) la regla por tamaño las tomaba como miles y las dividía por mil. Sin declaración, la regla de siempre.
+                if p.get("unidad") in ESCALA:
+                    v = v * ESCALA[p["unidad"]]
+                else:
+                    v = v / 1e6 if abs(v) > 1e5 else (v / 1e3 if abs(v) > 1e3 else v)
             else:
                 v = v * esc
             pags = sorted({c["pagina"] for c in comps})

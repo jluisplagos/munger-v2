@@ -22,7 +22,7 @@ Localiza los estados financieros consolidados (cuenta de resultados, balance, es
 | arrendamientos_principal | pagos de pasivos por arrendamiento (principal; IFRS 16) en financiación | estado de flujos |
 | sbc | gasto por pagos basados en acciones (share-based payment) | notas |
 | id | gasto de investigación y desarrollo del año reconocido en resultados | cuenta de resultados o notas |
-| acciones_diluidas | número medio ponderado de acciones diluido (en la nota de beneficio por acción) | notas |
+| acciones_diluidas | número medio ponderado de acciones diluido (en la nota de beneficio por acción); declara en la partida `"unidad"` de las acciones tal como las imprime la nota: "unidades", "miles" o "millones" (puede ser distinta de la de los estados) | notas |
 | patrimonio | patrimonio neto atribuido a la dominante, al cierre | balance |
 | deuda | deudas financieras con coste (bancos, bonos, pagarés, otros préstamos, y arrendamientos financieros que NO son NIIF 16, como leasings de maquinaria o sale & leaseback anteriores a la norma o fuera de ella), corriente + no corriente, SIN los pasivos por arrendamiento NIIF 16 | balance o notas |
 | arrendamientos | pasivos por arrendamiento NIIF 16 / IFRS 16 (solo esos), corriente + no corriente; antes de 2019, `cero` (no existían en balance) | balance o notas |
