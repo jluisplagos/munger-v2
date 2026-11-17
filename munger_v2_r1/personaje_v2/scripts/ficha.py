@@ -389,6 +389,22 @@ def main():
     if (any(os.path.isfile(os.path.join(c, n)) for n in ("verificacion_entradas.json", "entrada_efectiva.json"))
             or isinstance((pipe or {}).get("entrada_efectiva"), dict) or _declara_modo(c)):
         ficha["verificacion_entradas"] = verificacion_y_entrada_efectiva(c, pipe)
+    f1r = cargar(c, "motor_a_f1_resultado.json")
+    if isinstance(f1r, dict) and f1r.get("aplica"):
+        # (4.15, F1-IMPL) motor A con el perímetro F1: solo en los expedientes que tienen su evaluación (las salidas históricas no cambian).
+        # Con una guarda BLOQUEA, el resultado del motor A no se usa para una conclusión; los flujos F1 son un diagnóstico rotulado
+        ficha["motor_a_f1"] = {
+            "version": f1r.get("version"), "utilizable_para_conclusion": bool(f1r.get("utilizable_para_conclusion")),
+            "rotulo": f1r.get("rotulo"), "estado_propuesto": f1r.get("estado_propuesto"), "perimetro_declarado": f1r.get("perimetro_declarado"),
+            "bloquean": [{"id": g.get("id"), "efecto": g.get("efecto"), "detalle": g.get("detalle")} for g in f1r.get("guardas") or []
+                         if g.get("salta") and g.get("severidad") == "BLOQUEA"],
+            "avisos": [{"id": g.get("id"), "severidad": g.get("severidad"), "detalle": g.get("detalle")} for g in f1r.get("guardas") or []
+                       if g.get("salta") and g.get("severidad") in ("AVISO", "INFORMA")],
+            "diferencias_frente_a_A0_flujo_sin_crecimiento": f1r.get("diferencias_frente_a_A0_flujo_sin_crecimiento"),
+            "K3_cuadra": ((f1r.get("calculo_perimetro_declarado") or {}).get("K3") or {}).get("cuadra"),
+            "libro_sha256": f1r.get("libro_sha256"), "declaracion_sha256": f1r.get("declaracion_sha256"),
+            "parametros_sin_valor_adoptado": sorted((f1r.get("parametros_sin_valor_adoptado") or {}).keys()),
+            "apto_para_dinero_real": False}
     pa = SEL.leer(c)
     if pa is not None:
         # (4.11) solo en expedientes V6.4: base, versión, configuración efectiva y límites (los expedientes V6.3 no cambian de ficha)

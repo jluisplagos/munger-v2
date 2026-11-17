@@ -217,6 +217,15 @@ def main():
                   + (f"; declarado ahora: {_de.get('modo')} ({_de.get('declarado_en') or 'sin declaración'})" if not _de.get("error") else f"; declaración actual con error: {str(_de.get('error')).replace('«', '').replace('»', '')}")
                   + ("; **el modo aplicado no coincide con el declarado**" if _ee.get("coinciden") is False else "")
                   + ". Apta para dinero real: no.")
+    f1b = F.get("motor_a_f1") if isinstance(F.get("motor_a_f1"), dict) else None
+    if f1b is not None:
+        # (4.15, F1-IMPL) motor A con el perímetro F1: si una guarda bloquea, el resultado del motor A no se usa para una conclusión
+        _d = f1b.get("diferencias_frente_a_A0_flujo_sin_crecimiento") or {}
+        linea += (f"\n\n> **Motor A · F1:** {'utilizable para una conclusión (condición necesaria, no suficiente)' if f1b.get('utilizable_para_conclusion') else 'el resultado del motor A no se usa para una conclusión'}"
+                  + (f"; bloquean: {', '.join(sorted({str(g.get('id')) for g in f1b.get('bloquean') or []}))}" if f1b.get("bloquean") else "")
+                  + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}"
+                  + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
+                  + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")
     if apt:
         # (4.12 §9) aptitud de uso, separada de la auditoría (solo V6.4 experimental): ni «concluido» ni APROBADO la acreditan
         dist = str(apt.get("distinta_de_la_auditoria") or "")

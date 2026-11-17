@@ -607,6 +607,40 @@ class Pipeline:
             self.terminar("no_entregable", "fallo_de_implementacion", detalle, self.st["paso"], desde=8)
         return True
 
+    def motor_a_f1(self, libro_recalculado, paso):
+        """(4.15, F1-IMPL) Motor A con el perímetro F1 (decisiones del 17-nov-2026): con el motor A, en los expedientes que lo exigen
+        (motor_a_f1.exigido: declaración motor_a_f1.json o expediente de la 4.15 con entrada_efectiva.json), evalúa las guardas V-F1a…m y
+        K3 sobre el libro recalculado y escribe motor_a_f1_resultado.json/.md. Si una guarda BLOQUEA, el resultado del motor A no se usa
+        para una conclusión: termina en pendiente_de_datos (falta de datos o de decisión) o en no_entregable (límite del modelo o fallo
+        de implementación), con el diagnóstico F1 rotulado. Devuelve True si terminó."""
+        import motor_a_f1 as F1
+        if self.st.get("motor") != "A" or not F1.exigido(self.c):
+            return False
+        rc, out = self.run([PY, self.script("motor_a_f1.py"), "evaluar", self.c, "--libro", libro_recalculado], ok=(0, 3, 4, 5))
+        r = None
+        try:
+            r = json.load(open(self.p(F1.RESULTADO), encoding="utf-8"))
+        except (OSError, ValueError):
+            pass
+        if rc not in (0, 3, 4, 5) or r is None:
+            self.terminar("no_entregable", "fallo_de_implementacion", "motor_a_f1.py: " + out[-300:], paso, desde=paso)
+            return True
+        self.st["motor_a_f1"] = {"paso": paso, "bloquea": r.get("bloquea"), "estado_propuesto": r.get("estado_propuesto"),
+                                 "declaracion_sha256": r.get("declaracion_sha256"), "libro_sha256": r.get("libro_sha256")}
+        self.log("motor A · F1: " + str(r.get("rotulo"))[:300])
+        if rc == 0:
+            return False
+        bl = "; ".join(f"{g['id']} {g.get('efecto')}: {str(g.get('detalle'))[:120]}" for g in r.get("guardas") or [] if g.get("salta") and g.get("severidad") == "BLOQUEA")[:900]
+        detalle = f"motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · {bl}"
+        if rc == 3:
+            self.terminar("pendiente_de_datos", "falta_de_datos", detalle, paso, comprobacion="F1", categoria="F1",
+                          que_hace_falta="la declaración F1 (motor_a_f1.json) y los datos o decisiones que piden las guardas (R: M1, M2, M6; compras; transición)", desde=2)
+        else:
+            self.terminar("no_entregable", "limite_del_modelo" if rc == 4 else "fallo_de_implementacion", detalle, paso, comprobacion="F1",
+                          categoria="límite del modelo" if rc == 4 else None,
+                          que_hace_falta="ver motor_a_f1_resultado.md: un límite declarado del motor A F1 (p. ej. el libro V6.3 calcula A0) o una decisión pendiente", desde=2)
+        return True
+
     def recalc_leer_precio(self, libro):
         rc, out = self.run(["bash", self.script("recalc.sh"), libro, self.p("recalc"), self.perfil])
         if rc != 0:
@@ -746,6 +780,8 @@ class Pipeline:
                     return self.terminar("no_entregable", "limite_del_modelo",
                                          f"la configuración experimental V6.4 solo cubre el motor B y la fase A eligió el motor {st['motor']} por los criterios del personaje: la valoración experimental no se aplica a ese motor",
                                          7, que_hace_falta="ejecutar el expediente con configuracion_economica.json en modo Heredado (V6.3 efectiva) o con la V6.3 en un expediente nuevo; la elección del motor no se cambia para encajar en la plantilla", desde=2)
+                if self.motor_a_f1(self.p("recalc", os.path.basename(libro_ev)), 7):  # (4.15, F1-IMPL) guardas F1 del motor A antes de la fase B
+                    return
                 rc, out = self.run([PY, self.script("volcar_datos_v63.py"), self.p("recalc", os.path.basename(libro_ev)), self.c, "--referencias-mecanicas"])
                 if rc != 0:
                     return self.terminar("no_entregable", "fallo_de_implementacion", "referencias mecánicas: " + out[-300:], 7)
@@ -1027,6 +1063,8 @@ class Pipeline:
                 ok, rec = self.recalc_leer_precio(libro_ev)
                 if not ok:
                     return self.terminar("no_entregable", "fallo_de_implementacion", rec, 12)
+                if self.motor_a_f1(rec, 12):  # (4.15, F1-IMPL) de nuevo con las palancas finales (V-F1k numérico, flujos y K3)
+                    return
                 if self.v64 and SEL.experimental(self.c):
                     # (4.11, revisión interna H10) las variantes que evaluó la fase C tienen que corresponder a la valoración final: la
                     # variante «activa» es el libro evaluado con la configuración del expediente, así que da el precio.json de este recálculo

@@ -911,6 +911,12 @@
     }
    }
   },
+  "motor_a_f1": {
+   "description": "(4.15, F1-IMPL) Motor A con el perímetro F1 (decisiones del 17-nov-2026), solo en los expedientes con motor_a_f1_resultado.json: si una guarda V-F1 o F1-* bloquea, el resultado del motor A no se usa para una conclusión. Nunca apto para dinero real.",
+   "type": "object",
+   "required": ["utilizable_para_conclusion", "bloquean", "apto_para_dinero_real"],
+   "properties": {"utilizable_para_conclusion": {"type": "boolean"}, "bloquean": {"type": "array"}, "apto_para_dinero_real": {"const": false}}
+  },
   "verificacion_entradas": {
    "description": "(4.15, hito 2, I20) En todas las plantillas (también V6.3), en los expedientes con registro de entradas (verificacion_entradas.json, desde la 4.14) o declaración del modo (entrada_efectiva.json, desde la 4.15); las salidas históricas sin ninguno de los dos no lo llevan: la verificación de las entradas financieras (condición necesaria, no suficiente) y el modo de la entrada efectiva aplicado en el paso 2 y declarado, con su procedencia. Ninguna salida es apta para dinero real por superar este control.",
    "type": "object",
