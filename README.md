@@ -1,10 +1,10 @@
-# Candidata de integración: 4.15, hito 2
+# Candidata de integración técnica: 4.15, hito 2 (pendiente de revisión externa)
 
-Rama `integracion/candidata-cierre-v2`, creada desde 957af65 (entrega 4.15 · hito 2, corrección técnica tras la revisión externa del hito 1; `munger_v2_r1/VERSION`). No fusionada con main. No contiene el cierre económico F1 ni los expedientes regenerados. La revisión externa del hito 1 está en docs/revision_externa_4_15_hito1/ y el registro del hito 2 en `munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/hito2/HITO_2_4_15.md`.
+Rama `integracion/candidata-cierre-v2` (`jluisplagos/munger-v2-evidencias-mistral`, rama `coordinacion/cierre-v2`, `coordinacion/cierre_v2/INTEGRACION.md`:7), sobre 957af65 (entrega 4.15 · hito 2, corrección técnica tras la revisión externa del hito 1; `munger_v2_r1/VERSION`). Entrega intermedia: la revisión externa del hito 2 está pendiente (`munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/hito2/PUNTO_DE_RECUPERACION.md`, «Siguiente paso exacto»). No fusionada con main. No contiene el cierre económico F1 ni los expedientes regenerados. La revisión externa del hito 1 está en docs/revision_externa_4_15_hito1/ y el registro del hito 2 en `munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/hito2/HITO_2_4_15.md`.
 
 La base 4.14 completa sigue conservada en main y en su Release. Para ejecutar este hito: clonar main, recuperar y verificar sus binarios con tools/base_414.py y después cambiar a esta rama. La verificación de la 4.14 no debe aplicarse al código modificado de la 4.15; usar el MANIFIESTO_SHA256.txt de esta rama para contrastar su árbol.
 
-Esta rama conserva el código recibido del hito 2. Solo se incorporan en ella archivos revisados por un contexto distinto del autor, con su origen, revisión y destino registrados en el control del programa de cierre (`jluisplagos/munger-v2-evidencias-mistral`, rama `coordinacion/cierre-v2`).
+Esta rama conserva el código recibido del hito 2, sin incorporar correcciones propias al código del producto salvo decisión registrada. Cada nueva entrega de Claude se importa en una rama nueva con su manifiesto (docs/RECEPCION_ENTREGA_CLAUDE.md). Como integración técnica del programa de cierre, su contrato (`jluisplagos/munger-v2-evidencias-mistral`, rama `coordinacion/cierre-v2`, `coordinacion/cierre_v2/INTEGRACION.md`:26 y :31) solo admite en ella archivos aceptados tras la revisión de un contexto distinto del autor, con lista de archivos, huellas, SHA de origen, referencia de la revisión y SHA de destino.
 
 ---
 
@@ -14,7 +14,7 @@ La base histórica **4.14 está recuperada y verificada**: 5790 archivos de cód
 
 Repositorio público por indicación de la persona responsable: https://github.com/jluisplagos/munger-v2
 
-Las correcciones de los hitos 1 y 2 de la 4.15 están en la candidata; main conserva la 4.14 sin cambios. El trabajo en otras sesiones debe continuar sin interrupción. La 4.14 mantiene su condición experimental supervisada y las incidencias documentadas en la revisión externa. Esta migración comprueba conservación de bytes, no aptitud financiera.
+Las correcciones técnicas de los hitos 1 y 2 de la 4.15 están en el código de la candidata; los expedientes siguen sin regenerar y main conserva la 4.14 sin cambios. Otras correcciones aún en curso, como F1 en otra tarea, no están incorporadas todavía: esperar su entrega final y conservarla. El trabajo en otras sesiones debe continuar sin interrupción. La 4.14 mantiene su condición experimental supervisada y las incidencias documentadas en la revisión externa. Esta migración comprueba conservación de bytes, no aptitud financiera.
 
 ## Estructura
 
