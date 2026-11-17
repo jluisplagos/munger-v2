@@ -22,7 +22,8 @@
 #                                        corrección de la verificación de las entradas test_verificacion_entradas_415.py (al menos 190 pruebas;
 #                                        105 en el hito 1 de la 4.15) y la de la entrada efectiva del FCF base test_entrada_efectiva_415.py
 #                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
-#                                        menos 5; LibreOffice), igual de obligatorias
+#                                        menos 5; LibreOffice), igual de obligatorias; (4.15, F1-IMPL) la del motor A con el perímetro F1
+#                                        test_motor_a_f1.py (al menos 103 pruebas; sin LibreOffice), igual de obligatoria
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
 # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
@@ -191,6 +192,25 @@ if [ "${1:-}" = "completa" ]; then
     echo "$linea"; echo "RESULTADO relevo caducado: PASA"
   else
     tail -5 "$SALIDA_X"; echo "RESULTADO relevo caducado: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 5 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== batería del motor A con el perímetro F1 (personaje_v2/pruebas/test_motor_a_f1.py; obligatoria en «completa»; 4.15, F1-IMPL: decisiones F1 del 17-nov-2026)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_motor_a_f1.py ]; then
+    ( cd personaje_v2 && python3 -B pruebas/test_motor_a_f1.py ) > "$SALIDA_X" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_motor_a_f1.py" > "$SALIDA_X"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del motor A F1 \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 103 ]; then
+    echo "$linea"; echo "RESULTADO motor A F1: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 103 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

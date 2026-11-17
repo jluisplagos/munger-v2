@@ -1,0 +1,21 @@
+# Mutaciones de motor_a_f1.py frente a pruebas/test_motor_a_f1.py (2026-11-17), versión final; detectada = la batería deja de pasar 103/103
+(antecedente: la prueba «ELIS · K3» encontró que el puente de la cota B no cuadraba; corregido antes de esta tabla)
+m1 umbral oculto en V-F1a → 102/103 pruebas PASAN
+m2 A1 no excluye la ROU → 95/103 pruebas PASAN
+m3 frontera W1 (H > 10) → 102/103 pruebas PASAN
+m4 frontera de V-F1k → 101/103 pruebas PASAN
+m5 N1 con tipo fijo → 101/103 pruebas PASAN
+m6 F1-LIBRO ignora N1 → 102/103 pruebas PASAN
+m7 sin términos explícitos → 101/103 pruebas PASAN
+m8 ancla con la D&A total → TypeError: unsupported operand type(s) for -: 'NoneType' and 'float'
+m9 signo −1 sin tratamiento → 102/103 pruebas PASAN
+m10 exigencia sin entrada_efectiva → 102/103 pruebas PASAN
+m11 τ de la ventana (E8.1) → 99/103 pruebas PASAN
+m12 F1-2i solo en A0 → 102/103 pruebas PASAN
+m13 V-F1g sin comparar perímetros → 102/103 pruebas PASAN
+m14 V-F1j acepta «pendiente» → 101/103 pruebas PASAN
+m15 US GAAP sin bloqueo → 102/103 pruebas PASAN
+m16 K3 siempre cuadra → 103/103 pruebas PASAN
+m17 K3: partida del τ con el signo cambiado → 102/103 pruebas PASAN
+m18 K3: partida de la escala de f con el signo cambiado → 102/103 pruebas PASAN
+Nota: m8 se detecta por excepción (el ancla deja de ser calculable). m16 («cuadra» siempre verdadero) no lo detecta ningún caso: el puente es una identidad algebraica que solo deja de cuadrar si una partida está mal escrita (m17, m18); la comprobación protege contra eso, no contra que se anule a sí misma.

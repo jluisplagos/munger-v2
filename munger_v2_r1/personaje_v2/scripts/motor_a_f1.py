@@ -690,8 +690,9 @@ def evaluar(L, decl, motor_libro=None):
                   ("+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección", (ebit[anios[-1]] - Eb) * (1 - tau5), "explicada"),
                   ("+ τ de proyección frente al τ de cada año de la ventana", Eb * (1 - tau5) - nopat, "explicada"),
                   ("− f aplicada a las ventas del año base en lugar de las medias", -f * (V0 - S_), "explicada")]
-        if p == "A3_estimado":
-            lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − R + circulante)", reinv, "explicada"))
+        if p in ("A3_estimado", "B_cota_capex"):
+            lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D_X = "
+                           + ("R estimada)" if p == "A3_estimado" else "capex propio: cota)"), reinv, "explicada"))
         else:
             k3_rou = media(rou.get(y, Fr(0)) for y in ventana) if (p == "A0_total" and all(y in rou for y in ventana)) else Fr(0)
             k3_ppa = media(ppa.get(y, Fr(0)) for y in ventana) if (p in ("A0_total", "A1_sin_ROU") and all(y in ppa for y in ventana)) else Fr(0)
