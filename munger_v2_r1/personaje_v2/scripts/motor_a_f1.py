@@ -84,6 +84,8 @@ DECISIONES_US = {
 _LINEA_ARR_OP = re.compile(r"operating lease liabilit|lease liabilit|non-?cash (operating )?lease|amortization of (operating lease )?right-of-use|"
                            r"right-of-use assets? amortization|amortization of operating lease|operating lease (right-of-use )?assets and liabilities", re.I)
 _LINEA_ARR_NO = re.compile(r"financ|exchang|obtain|supplement|cash paid|capital lease", re.I)
+# líneas que la fase 1 sumó en la fila 8 (da) o en la fila 14 (circulante_lineas) y que nombran un arrendamiento o un derecho de uso
+_LINEA_ARR = re.compile(r"\bleas(?:e|es|ed|ing)\b|right[- ]of[- ]use|\brou\b|arrendamiento|derechos? de uso", re.I)
 # E8.1, decidido el 17-nov-2026: se mantiene el τ registrado de cinco años (Historia C52)
 CONVENCION_TAU = "cinco_anios"
 # Decisiones aplazadas (propuestas de 9cad78d sin adoptar): NO tienen valor. Si un cálculo las necesita, se calculan las variantes y la
@@ -584,7 +586,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
           (f"D&A ROU declarada a cero en la ventana y la Historia muestra arrendamientos (principal fila 17 en {fila17}; pasivo fila 23 en {fila23})")
           if rou_cero_conflicto else "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia", "(1a)")
     if us:
-        us_f = _guardas_us(G, L, U, anios, ventana, per, C49, col)
+        us_f = _guardas_us(G, L, U, anios, ventana, horiz, per, C49, col)
+        _guarda_filas_us(G, carpeta, U, sorted(set(ventana) | set(horiz)), rou_pos)
 
     # (2)(i): la PPA no es un desembolso de reposición. A0 y A1 la tratan como reposición (D_X la contiene)
     sum_ppa_w = sum((ppa[y] for y in ventana if y in ppa), Fr(0))
@@ -1221,15 +1224,15 @@ def _cerrar(res, G, motor):
 
 
 # ----------------------------------------------------------------------------------------------------------- US GAAP (ASC 842)
-def _guardas_us(G, L, U, anios, ventana, per, C49, col):
+def _guardas_us(G, L, U, anios, ventana, horiz, per, C49, col):
     """(F1 · US GAAP) Guardas de los arrendamientos con ASC 842, con los operativos y los financieros por separado (F1_USGAAP.md §3 y §5).
     El alquiler operativo ya cuenta una vez en el FCF base (coste entero en el EBIT, pago en el CFO) y la reinversión que calibra f no lleva
     ninguna partida suya (D-US2: se cuentan los pagos). Se contaría de más si su amortización quedara dentro de D_X o sola dentro del
     circulante, o si C49 llevara sus pagos; se omitiría si la variación de su pasivo quedara sola dentro del circulante. Devuelve las marcas
     que usan K3b, el puente K3 y los informes."""
     S = U["S"]
-    P, Lc, finp, pasv = S["pagos_arr_operativo"], S["coste_arr_operativo"], S["pagos_arr_financiero_principal"], S["pasivo_arr_operativo"]
-    yL, dec = anios[-1], "US GAAP · ASC 842"
+    P, Lc, finp = S["pagos_arr_operativo"], S["coste_arr_operativo"], S["pagos_arr_financiero_principal"]
+    dec = "US GAAP · ASC 842"
     faltas, incoh = list(U["faltas"]), list(U["incoherencias"])
     op, fin, en14 = U["op"], U["fin"], U["tramos_en_fila_14"]
     # F1-US-MEZCLA: partidas propias de NIIF en un libro US GAAP
@@ -1254,12 +1257,11 @@ def _guardas_us(G, L, U, anios, ventana, per, C49, col):
             if a_w:
                 faltas.append(f"series.da_rou_operativo sin declarar en {a_w} (amortización del derecho de uso operativo dentro de la fila 8)")
         if en14:
-            j_w = [y for y in ventana if y not in U["ajuste"]]
+            # la ventana de f y los cinco años H–L del ancla de S2C usan el circulante: el importe que se retira hace falta en todos (0 explícito si no lo hubo)
+            j_w = [y for y in sorted(set(ventana) | set(horiz)) if y not in U["ajuste"]]
             if j_w:
                 faltas.append(f"series.circulante_arr_operativo sin declarar en {j_w} (importe del arrendamiento operativo dentro de la fila 14, con el signo "
-                              "de esa fila" + ("; con los dos tramos dentro vale también pagos − coste lineal" if len(en14) == 2 else "") + ")")
-        if yL not in pasv:
-            faltas.append(f"series.pasivo_arr_operativo sin declarar en {yL} (pasivo por arrendamiento operativo dentro de la fila 23: puente de deuda)")
+                              "de esa fila, en la ventana de f y en los años H–L del ancla" + ("; con los dos tramos dentro vale también pagos − coste lineal" if len(en14) == 2 else "") + ")")
     if fin is True:
         r_w = [y for y in ventana if y not in U["rou_fin"]]
         if r_w:
@@ -1310,6 +1312,48 @@ def _guardas_us(G, L, U, anios, ventana, per, C49, col):
             "am14_solo_sin": am14_solo_sin, "pas14_solo_sin": pas14_solo_sin}
 
 
+def _guarda_filas_us(G, carpeta, U, anios_req, rou_fin_pos):
+    """(F1 · US GAAP) F1-US-FILAS: contraste de las ubicaciones declaradas con lo que la fase 1 sumó de verdad en la fila 8 (partida «da») y en la
+    fila 14 («circulante_lineas») del expediente (fase1_partes/*.json: concepto y línea literal de cada componente). Si una línea sumada en la
+    fila 14 nombra un arrendamiento o un derecho de uso y ningún tramo está declarado dentro de la fila 14, o una sumada en la fila 8 lo nombra
+    y la amortización no está declarada dentro de la fila 8 (ni hay derecho de uso financiero), la declaración contradice al expediente:
+    manda el dato (D-US1) → DATOS INVÁLIDOS. Sin fase1_partes no se puede contrastar (se informa; no bloquea). Es un contraste por el texto
+    de la etiqueta: no detecta un arrendamiento dentro de una línea que no lo nombra."""
+    dec = "US GAAP · filas 8 y 14 del expediente"
+    d = os.path.join(carpeta, "fase1_partes") if carpeta else None
+    if not d or not os.path.isdir(d):
+        G.add("F1-US-FILAS", True, "INFORMA", "INFORMA", "sin fase1_partes en el expediente: las ubicaciones declaradas de los tramos del arrendamiento operativo no se han "
+              "podido contrastar con las líneas que la fase 1 sumó en las filas 8 y 14", dec)
+        return
+    hall, ileg = {"da": [], "circulante_lineas": []}, []
+    for n in sorted(os.listdir(d)):
+        if not n.endswith(".json"):
+            continue
+        j = _json(os.path.join(d, n))
+        p = (j.get("partidas") if isinstance(j, dict) and isinstance(j.get("partidas"), dict) else None)
+        if p is None or j.get("anio") not in anios_req:
+            if p is None:
+                ileg.append(n)
+            continue
+        for k in hall:
+            comps = (p.get(k) or {}).get("actual") if isinstance(p.get(k), dict) else None
+            for c in comps if isinstance(comps, list) else []:
+                t = f"{c.get('concepto') or ''} · {c.get('linea') or ''}" if isinstance(c, dict) else ""
+                if _LINEA_ARR.search(t):
+                    hall[k].append(f"{n} ({j.get('anio')}): «{re.sub(chr(32) + '+', ' ', t)[:110]}»")
+    mal = []
+    if hall["circulante_lineas"] and not U["tramos_en_fila_14"]:
+        mal.append("la fila 14 del expediente suma una línea de arrendamiento (" + "; ".join(hall["circulante_lineas"][:2]) + ") y ningún tramo del arrendamiento operativo "
+                   "está declarado dentro de la fila 14")
+    if hall["da"] and not (U["op"] is True and U["ub_am"] == "fila_8") and not (U["fin"] is True and rou_fin_pos):
+        mal.append("la fila 8 del expediente suma una línea de arrendamiento o derecho de uso (" + "; ".join(hall["da"][:2]) + ") y no hay ninguna amortización de derecho "
+                   "de uso declarada dentro de la fila 8")
+    G.add("F1-US-FILAS", bool(mal), "BLOQUEA", "DATOS INVÁLIDOS",
+          ("la declaración contradice al expediente: " + "; ".join(mal) + ": donde hay línea manda el dato (D-US1); declara su ubicación y su importe") if mal else
+          (f"las ubicaciones declaradas no contradicen las líneas que la fase 1 sumó en las filas 8 y 14 ({len(hall['da'])} y {len(hall['circulante_lineas'])} líneas "
+           "con «arrendamiento» o «derecho de uso» en los años que usa el modelo)" + (f"; no se pudieron leer: {', '.join(ileg[:3])}" if ileg else "")), dec)
+
+
 def _k3b_us(G, k3, U, f, per, rou_pos, c49_pos):
     """(F1 · US GAAP) K3b por clase. Operativos: 1 (coste en el EBIT y pago en el CFO) + 1 si C49 lleva sus pagos + 1 si la amortización de
     su derecho de uso queda en D_X o sola en el circulante − 1 si la variación de su pasivo queda sola en el circulante. Financieros: como
@@ -1356,7 +1400,11 @@ def _guarda_puente_us(G, L, U, anios, motor):
          "exceso_que_restaria_el_motor_B": fl(op23, 6),
          "regla": "deuda del puente = deuda financiera + pasivo por arrendamientos financieros; el pasivo por arrendamiento operativo no entra: su pago ya está "
                   "entero en el EBIT (una sola vez)"}
-    if op23 is None:
+    if op23 is None and motor != "B" and U["op"] is True:
+        # el motor A no resta deuda: el dato del puente no bloquea su conclusión, pero sin él no se puede decir qué lleva la fila 23
+        G.add("F1-US-PUENTE", True, "AVISO", "AVISO", f"sin series.pasivo_arr_operativo de {yL} no se puede comprobar si la fila 23 lleva pasivo por arrendamiento operativo "
+              "(no afecta al motor A, que no resta deuda; con el motor B bloquearía: el puente lo restaría además del EBIT)", dec)
+    elif op23 is None:
         G.add("F1-US-PUENTE", False, None, None, "no evaluable: falta declarar si hay arrendamientos operativos o su pasivo del último ejercicio (lo bloquea F1-US-DESGLOSE)", dec)
     elif l23 is not None and op23 > l23 + TOL_E7:
         G.add("F1-US-PUENTE", True, "BLOQUEA", "DATOS INVÁLIDOS",

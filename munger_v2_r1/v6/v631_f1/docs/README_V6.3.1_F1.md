@@ -153,6 +153,16 @@ D_X); el rótulo F1 «utilizable» que conserva la ficha del control 2 de V631-8
 `verificar_paquete.sh`; el tercer caso del §2 de la revisión (una fila 8 que ya excluye la ROU: A1 la restaría dos veces) no tiene guarda
 propia (lo cubre solo la verificación de la fila 8 y de las series).
 
+## 8 bis. US GAAP (18-nov-2026) · la plantilla no cambia
+
+**Hecho.** La reparación F1 · US GAAP (`personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/f1_usgaap/F1_USGAAP.md`) no toca
+la plantilla, su referencia ni su verificador (`eaece01a…`): los expedientes V6.3.1 en curso siguen ejecutándose con sus huellas.
+- Con US GAAP, `f1_libro_v631.py aplicar` escribe en la **fila 86** la amortización de derechos de uso que está dentro de la fila 8: la de
+  los arrendamientos financieros (`da_rou`) más la de los operativos declarada dentro de la fila 8 (`da_rou_operativo`). Con NIIF, nada cambia.
+- Lo que el libro **no** calcula con US GAAP: retirar del circulante una partida del arrendamiento operativo que esté dentro de la fila 14
+  (la capa lo calcula y `F1-LIBRO` bloquea) y excluir del puente del motor B el pasivo por arrendamiento operativo (`F1-US-PUENTE`).
+- Prueba sobre el libro real recalculado: `f1_usgaap/scripts/probar_libro_v631_usgaap.py` (13 comprobaciones).
+
 ## 9. Preguntas para el revisor y límites
 
 1. **E4 con A1/A2:** confirmado por la revisión (cinco años H–L de todo el denominador; aplicado en §8).

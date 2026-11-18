@@ -221,7 +221,8 @@ def main():
     if f1b is not None:
         # (4.15, F1-IMPL) motor A con el perímetro F1: si una guarda bloquea, el resultado del motor A no se usa para una conclusión
         _d = f1b.get("diferencias_frente_a_A0_flujo_sin_crecimiento") or {}
-        _mf = "B" if F.get("motor") == "B" else "A"   # (F1 · US GAAP) con el motor B y US GAAP, F1 evalúa el puente de deuda
+        # (F1 · US GAAP) con el motor B, F1 solo se exige con US GAAP (puente de deuda): entonces la línea habla del motor B; si no, como antes
+        _mf = "B" if (F.get("motor") == "B" and (f1b.get("vigencia") or {}).get("exigido")) else "A"
         _cf, _uf = f1b.get("condicionada") or {}, f1b.get("us_gaap") or {}
         _df = (_uf.get("diferencia_coste_lineal_menos_pagos") or {}).get("coste_menos_pagos_medio")
         linea += (f"\n\n> **Motor {_mf} · F1:** {('utilizable para una conclusión' + (' CONDICIONADA' if _cf else '') + ' (condición necesaria, no suficiente)') if f1b.get('utilizable_para_conclusion') else f'el resultado del motor {_mf} no se usa para una conclusión'}"

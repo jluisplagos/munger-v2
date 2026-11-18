@@ -10,7 +10,10 @@ Casos:
   P2 · con una declaración F1 completa de una empresa sin arrendamientos ni PPA (C49 = 0, ROU = PPA = 0 declaradas, sin compras, sin
        transición, un solo perímetro A0): el gancho deja seguir; el pipeline llega a su estado final y la ficha lleva el bloque motor_a_f1
        «utilizable».
-  P3 · la misma con US GAAP declarada: el paso 7 termina en no_entregable · límite del modelo (F1-NORMA).
+  P3 · la misma con US GAAP declarada (el libro de la empresa sintética dice IFRS): mezcla de normas → el paso 7 termina en
+       pendiente_de_datos con F1-NORMA. (Hasta el 18-nov-2026 US GAAP era un límite declarado del modelo; desde F1 · US GAAP la norma es un
+       valor cerrado que la declaración y el libro tienen que compartir. El recorrido US GAAP coherente está en
+       f1_usgaap/scripts/prueba_pipeline_usgaap.py.)
   P4 · (revisión H2) sin entrada_efectiva.json ni declaración, con arrendamientos en el libro y sin la marca de la línea de base: se exige F1.
   P5 · (revisión H1) declaración cambiada después de un cierre concluido y relanzamiento con «--desde 13»: ninguna ficha oficial concluido.
 """
@@ -133,9 +136,10 @@ def main():
         rc, out = TS.correr(c, reac)
         st = TS.estado(c)
         dg = json.load(open(os.path.join(c, "diagnostico.json"), encoding="utf-8")) if os.path.exists(os.path.join(c, "diagnostico.json")) else {}
-        paso("P3 · US GAAP: el paso 7 termina en no_entregable · límite del modelo con F1-NORMA (límite declarado)",
-             st.get("estado_analisis") == "no_entregable" and st.get("paso") == 7 and (dg.get("causa") or {}).get("tipo") == "limite_del_modelo"
-             and "F1-NORMA" in str((dg.get("causa") or {}).get("detalle")), f"estado {st.get('estado_analisis')} · {str((dg.get('causa') or {}).get('detalle'))[:200]}")
+        paso("P3 · US GAAP declarada con un libro IFRS (mezcla de normas): el paso 7 termina en pendiente_de_datos con F1-NORMA; nunca un resultado silencioso",
+             st.get("estado_analisis") == "pendiente_de_datos" and st.get("paso") == 7 and "F1-NORMA" in str((dg.get("causa") or {}).get("detalle"))
+             and "mezcla de normas" in str((dg.get("causa") or {}).get("detalle")) and not os.path.exists(os.path.join(c, "fase_b.json")),
+             f"estado {st.get('estado_analisis')} · {str((dg.get('causa') or {}).get('detalle'))[:200]}")
         # P4 · (revisión H2) sin entrada_efectiva.json ni motor_a_f1.json, con arrendamientos en el libro (C49 = 3,71) y sin la marca de la
         # línea de base: F1 se exige igual → el paso 7 termina en pendiente_de_datos (no hay A0 silencioso)
         c = preparar("EmpresaY", con_4_15=False, renombrar=True)

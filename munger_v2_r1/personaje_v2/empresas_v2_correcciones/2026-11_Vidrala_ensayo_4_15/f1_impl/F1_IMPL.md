@@ -7,6 +7,11 @@ candidata `integracion/candidata-cierre-v2` @ `b129b36` (4.15 · hito 2). **Sin 
 **Aptitud: uso supervisado experimental. No apto para decisiones con dinero real.** Superar estas guardas no acredita aptitud.
 **Elis sigue en `pendiente_de_datos`.** Ningún cambio desbloquea una valoración.
 
+**Nota del 18-nov-2026 (F1 · US GAAP).** Lo que este documento dice de US GAAP (`F1-NORMA` como límite declarado; §2, §3, §6 y la prueba P3
+del §8) describe la capa tal como quedó en F1-IMPL. Desde la rama `f1/usgaap` la norma es un valor cerrado y US GAAP (ASC 842) se trata con
+los arrendamientos operativos y financieros por separado: ver `../f1_usgaap/F1_USGAAP.md`. Las dos pruebas «US» de la batería y P3 de la
+prueba del gancho se reescribieron con el comportamiento nuevo; lo demás de este registro no cambia.
+
 Fuentes de lo que se implanta:
 - decisiones registradas el 17-nov-2026: `munger-v2-evidencias-mistral`, `coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md`:68–83;
 - texto aprobado: la tabla única de `PROPUESTA_DECISIONES_F1.md` y `DECISIONES_F1_UNA_POR_UNA.md` (rama `auditoria/economica-f1-frente-e` @ `9cad78d`);

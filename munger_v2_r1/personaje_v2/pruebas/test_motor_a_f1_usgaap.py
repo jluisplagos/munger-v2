@@ -300,17 +300,26 @@ paso("U5 · US GAAP sin «arrendamientos_us_gaap»: F1-US-DESGLOSE (INCOMPLETO) 
 paso("U5 · sin el desglose K3b no afirma nada («no evaluable») y K3 no es conforme", "no evaluable" in r5["K3"]["K3b_alquiler_contado"] and r5["K3"]["conforme"] is False)
 for nombre, d_ in (("sin decir si hay financieros", decl(fin=None)), ("sin decir si hay operativos", decl(op=None)),
                    ("sin la ubicación de la variación del pasivo", decl(ub_pas=None)), ("sin la ubicación de la amortización", decl(ub_am=None)),
-                   ("sin los pagos operativos", decl(P=None)), ("sin el coste lineal (D-US2: la diferencia tiene que quedar a la vista)", decl(Lc=None)),
-                   ("sin el pasivo operativo del último ejercicio (puente)", decl(pasivo=None))):
+                   ("sin los pagos operativos", decl(P=None)), ("sin el coste lineal (D-US2: la diferencia tiene que quedar a la vista)", decl(Lc=None))):
     rr = ev_(L1, d_)
     paso(f"U5 · {nombre}: F1-US-DESGLOSE bloquea (INCOMPLETO)", bloquea(rr, "F1-US-DESGLOSE") and g(rr, "F1-US-DESGLOSE")[0]["efecto"] == "INCOMPLETO",
          g(rr, "F1-US-DESGLOSE")[0]["detalle"][:110])
+r5p = ev_(L1, decl(pasivo=None))
+paso("U5 · motor A sin el pasivo operativo del último ejercicio: no bloquea (el motor A no resta deuda); F1-US-PUENTE avisa de que el puente no se puede comprobar",
+     r5p["utilizable_para_conclusion"] and g(r5p, "F1-US-PUENTE")[0]["severidad"] == "AVISO", g(r5p, "F1-US-PUENTE")[0]["detalle"][:110])
+r5h = ev_(libro(dwc=10.0), decl("A0_total", ub_pas="fila_14", ajuste={y: 10 for y in ANIOS[-3:]}))
+paso("U5 · el importe que se retira del circulante hace falta en la ventana de f y en los años H–L del ancla: declarado solo en la ventana → INCOMPLETO",
+     bloquea(r5h, "F1-US-DESGLOSE") and "2021" in g(r5h, "F1-US-DESGLOSE")[0]["detalle"] and "2022" in g(r5h, "F1-US-DESGLOSE")[0]["detalle"])
 d5r = decl()
 d5r["arrendamientos_us_gaap"]["registro"] = {"fecha": "2026-11-18", "persona": "", "motivo": "x"}
 paso("U5 · «arrendamientos_us_gaap» sin registro (fecha, persona, motivo) → bloquea: lo declara la persona, no el agente", bloquea(ev_(L1, d5r), "F1-US-DESGLOSE"))
 d5u = decl()
 d5u["arrendamientos_us_gaap"]["operativos"]["variacion_pasivo"]["ubicacion"] = "fila_8"
 paso("U5 · ubicación no admitida (la variación del pasivo no puede estar en la fila 8) → DATOS INVÁLIDOS", g(ev_(L1, d5u), "F1-US-DESGLOSE")[0]["efecto"] == "DATOS INVÁLIDOS")
+d5x = decl()
+del d5x["arrendamientos_us_gaap"]["financieros"]["cita"]
+paso("U5 · «financieros.existen = false» sin su evidencia (documento, página y cita) → INCOMPLETO: la ausencia también se documenta",
+     bloquea(ev_(L1, d5x), "F1-US-DESGLOSE") and "financieros" in g(ev_(L1, d5x), "F1-US-DESGLOSE")[0]["detalle"])
 d5e = decl()
 del d5e["arrendamientos_us_gaap"]["operativos"]["amortizacion_rou"]["cita"]
 paso("U5 · clasificación sin su cita literal → INCOMPLETO", bloquea(ev_(L1, d5e), "F1-US-DESGLOSE") and "cita" in g(ev_(L1, d5e), "F1-US-DESGLOSE")[0]["detalle"])
@@ -464,6 +473,40 @@ uS5 = M.leer_us(dS5, ANIOS)
 paso("S · la partida del circulante lleva el signo de la fila 14: «(10)» publicado con signo −1 es +10 (consume caja) y admite importes negativos",
      uS5["ajuste"][2025] == Fr(10) and M.leer_serie({"series": {"circulante_arr_operativo": serie(-3)}}, "circulante_arr_operativo", ANIOS, con_signo=True)[0][2025] == Fr(-3)
      and M.leer_serie({"series": {"da_rou_operativo": serie(-3)}}, "da_rou_operativo", ANIOS)[0] == {})
+
+# ================================================================== F · F1-US-FILAS: las ubicaciones declaradas frente a lo que la fase 1 sumó en las filas 8 y 14
+def con_partes(d, da=("Depreciation and amortization",), wc=("Accounts receivable", "Accounts payable and accrued liabilities")):
+    """Carpeta de expediente con la fuente y un fase1_partes/AR_2025.json sintético (componentes de la fila 8 y de la fila 14)."""
+    c = fuentes(d)
+    TMP.append(c)
+    os.makedirs(os.path.join(c, "fase1_partes"))
+    comp = lambda xs: {"actual": [{"concepto": x, "impreso": "1", "pagina": 2, "linea": x + "   1   2"} for x in xs], "anterior": [], "cero": None}  # noqa: E731
+    json.dump({"anio": 2025, "archivo": "10K_2025.txt", "partidas": {"da": comp(da), "circulante_lineas": comp(wc)}},
+              open(os.path.join(c, "fase1_partes", "AR_2025.json"), "w", encoding="utf-8"))
+    return c
+
+
+dF = decl("A0_total", ub_am="no_publicada", ub_pas="no_publicada")
+rF = M.evaluar(L1, dF, carpeta=con_partes(dF))
+paso("F · fase1_partes sin líneas de arrendamiento en las filas 8 y 14: F1-US-FILAS no salta y la hipótesis D-US1 se sostiene (utilizable, condicionada)",
+     not salta(rF, "F1-US-FILAS") and rF["utilizable_para_conclusion"] and "CONDICIONADA" in rF["rotulo"], g(rF, "F1-US-FILAS")[0]["detalle"][:120])
+rF2 = M.evaluar(L1, dF, carpeta=con_partes(dF, wc=("Accounts receivable", "Operating lease liabilities")))
+paso("F · «no_publicada» cuando la fase 1 sumó «Operating lease liabilities» en la fila 14: F1-US-FILAS bloquea (DATOS INVÁLIDOS: manda el dato); no utilizable",
+     bloquea(rF2, "F1-US-FILAS") and g(rF2, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS" and "manda el dato" in g(rF2, "F1-US-FILAS")[0]["detalle"]
+     and not rF2["utilizable_para_conclusion"], g(rF2, "F1-US-FILAS")[0]["detalle"][:170])
+dF3 = decl("A0_total")
+rF3 = M.evaluar(L1, dF3, carpeta=con_partes(dF3, wc=("Prepaid expenses, ROU assets and other assets", "Accounts payable")))
+paso("F · tramos declarados «fuera de las filas» con cita, pero la fila 14 suma «Prepaid expenses, ROU assets and other assets» → F1-US-FILAS bloquea",
+     bloquea(rF3, "F1-US-FILAS"))
+dF4 = decl("A0_total")
+rF4 = M.evaluar(L1, dF4, carpeta=con_partes(dF4, da=("Depreciation and amortization, including amortization of operating lease right-of-use assets",)))
+paso("F · la fila 8 suma una línea que nombra el derecho de uso y la amortización no está declarada dentro de la fila 8 → F1-US-FILAS bloquea", bloquea(rF4, "F1-US-FILAS")
+     and "fila 8" in g(rF4, "F1-US-FILAS")[0]["detalle"])
+dF5 = decl("A0_total", ub_pas="fila_14", ajuste=10)
+rF5 = M.evaluar(libro(dwc=10.0), dF5, carpeta=con_partes(dF5, wc=("Accounts receivable", "Operating lease liabilities")))
+paso("F · con la línea declarada dentro de la fila 14 (y su importe) no hay contradicción: F1-US-FILAS no salta", not salta(rF5, "F1-US-FILAS") and bloquean(rF5) == ["F1-LIBRO"])
+paso("F · sin fase1_partes el contraste no se puede hacer: informa y no bloquea", g(r1, "F1-US-FILAS")[0]["severidad"] == "INFORMA" and r1["utilizable_para_conclusion"])
+paso("F · con NIIF no existe (nada cambia)", not g(rN, "F1-US-FILAS"))
 
 # ================================================================== V631 · libro V6.3.1 F1: la fila 86 lleva financieros + operativos dentro de la fila 8
 dV = decl("A2_propio", fin=True, rou_fin=5, fin_princ=5, ub_am="fila_8", a8=10)
