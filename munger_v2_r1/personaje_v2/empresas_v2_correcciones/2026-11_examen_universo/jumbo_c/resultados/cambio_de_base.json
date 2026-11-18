@@ -1,0 +1,869 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_jumbo_c.json",
+ "cambio_sha256": "2461bff9c26a73423c444c3ef2438878a7e4da799fa3f8ecf14c09a43f571649",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_b/Jumbo",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_c/Jumbo",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Jumbo S.A. (cerrado el 31-dic-2025), la misma base que jumbo_b. Aplica las decisiones J1, J2 y J3 de la persona responsable (18-nov-2026, tarde): C46 suma los dividendos de la cartera cotizada y los intereses cobrados que no son de la caja de C76 (regla espejo con salvaguarda); la Historia corrige las filas de intereses y principal de arrendamientos de 2020–2025 cruzadas por el emisor; C48 y C49 salen de la Historia corregida. Precio verificado por la persona responsable en Euronext Athens (27,28 €, 17-nov-2026). P-O2 (a) y J-T sin cambios."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-17",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales oficiales 2016/17–2025 y semestral H1 2026 de Jumbo S.A. (FUENTES.tsv; Release fuentes-examen-20261118). Precio: página oficial de Euronext Athens leída por la persona responsable el 18-nov-2026 (coordinacion/cierre_v2/examen/precios/JUMBO_BELA_20261118.md). Tasa sin riesgo del agente de metadatos (buscador).",
+  "ejecucion_aplicada": "2026-11-18"
+ },
+ "heredados_movidos": 19,
+ "conservados": [
+  "FUENTES.tsv",
+  "etapa1",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_listas.md",
+  "fase1_partes",
+  "pdf",
+  "texto"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Jumbo_evaluada.xlsx",
+  "original_sha256": "9476c0aa33280e879ab75207c63d929c6d86d438e46b1f00c070734318e9919f",
+  "copia_de_ensayo_sha256": "53f3a20e19bbd0bc734b7c5231ead0276a7f5ee85df9077c11bf4c6a261526cf",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C46",
+   "Análisis!C48",
+   "Análisis!C49"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!M43": {
+    "celda": "Análisis!C46",
+    "texto": "C46 = 316,475 = media 2023–2025 de [CFO 323,9189 / 300,6871 / 296,9129 + dividendos de la cartera cotizada 0,133 / 0,828 / 1,876 + intereses cobrados que no son de la caja de C76 10,905 / 8,198 / 5,965]. Reparto: s = C76 200 / caja media 471,828 = 0,4239 sobre los intereses de depósitos; los cupones de bonos de la cartera (≈ 0,595/año) cuentan enteros."
+   },
+   "Control maestro!N43": {
+    "celda": "Análisis!C46",
+    "texto": "[Clase: derivado de datos publicados + convención de reparto de la orquestación] Decisiones P-O1 (c), J1 y J2 de la persona responsable (18-nov-2026). Fuentes: AR2024 PDF p. 149, 154 y 178; AR2025 PDF p. 150, 155, 179 y 193. SI LA FASE B CAMBIA C76, hay que recalcular C46 (s depende de C76): con C76 = 0 entrarían todos los intereses (C46 ≈ 322,4); el 1,00 € extraordinario (ex 16-nov-2026) no está descontado de C76."
+   },
+   "Control maestro!M45": {
+    "celda": "Análisis!C48",
+    "texto": "Intereses de arrendamientos pagados en financiación: 2,6645 / 3,0019 / 2,3258 → media exacta 2,664 (Historia corregida por J3: el emisor rotula este importe «Lease repayments»; coincide con «Interest expense on lease liabilities» de la nota: AR2023 PDF p. 71/95, AR2024 p. 154/178, AR2025 p. 155/179)."
+   },
+   "Control maestro!N45": {
+    "celda": "Análisis!C48",
+    "texto": "Etiquetas cruzadas por el emisor de 2020 a 2025; el informe de transición 2019 (PDF p. 57/84) y el semestral H1 2026 (PDF p. 30) rotulan bien. Historia corregida en fase1_partes del expediente (decisión J3, 18-nov-2026). Intereses cobrados: en C46 (P-O1 c, J1)."
+   },
+   "Control maestro!M46": {
+    "celda": "Análisis!C49",
+    "texto": "Principal de arrendamientos en financiación: 7,446 / 8,5338 / 9,7272 → media exacta 8,569 (Historia corregida por J3; el emisor lo rotula «Interest paid for leases»)."
+   },
+   "Control maestro!N46": {
+    "celda": "Análisis!C49",
+    "texto": "LTM 10,94. Sin cobros de subarriendos (P-O1 c). Historia corregida (J3) en fase1_partes del expediente; originales en antecedentes/fase1_partes_original/."
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C46": {
+   "construido_por_fase1_historia": 307.173,
+   "valor": 316.475,
+   "naturaleza": "entrada derivada con su fórmula declarada (P-O1 c, J1, J2)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de [CFO + dividendos de la cartera + intereses cobrados − s × (intereses cobrados − cupones de bonos)], s = C76 / caja media 2023–2025 = 200 / 471,8284"
+  },
+  "C48": {
+   "construido_por_fase1_historia": 2.664,
+   "valor": 2.664,
+   "naturaleza": "cálculo declarado sobre la Historia corregida (J3)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de intereses_financiacion (Historia corregida por J3)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "intereses_financiacion",
+      "signo": 1
+     }
+    ],
+    "decision": "C48 = interés de arrendamientos pagado en financiación = media 2023–2025 de la fila de intereses en financiación de la Historia CORREGIDA por J3 (línea impresa «Lease repayments»: 2,6645 / 3,0019 / 2,3258; AR2024 PDF p. 154 y AR2025 PDF p. 155, con la nota PDF p. 178 y 179). Igual a la entrada de la etapa 1 (2,66), con su valor exacto. Los intereses cobrados se suman en C46 (P-O1 c, J1).",
+    "redondeo": 3
+   }
+  },
+  "C49": {
+   "construido_por_fase1_historia": 8.569,
+   "valor": 8.569,
+   "naturaleza": "cálculo declarado sobre la Historia corregida (J3)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de arrendamientos_principal (Historia corregida por J3)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "arrendamientos_principal",
+      "signo": 1
+     }
+    ],
+    "decision": "C49 = principal de arrendamientos = media 2023–2025 de la fila de principal de la Historia CORREGIDA por J3 (línea impresa «Interest paid for leases»: 7,446 / 8,5338 / 9,7272; AR2024 PDF p. 154 y AR2025 PDF p. 155). Igual a la entrada de la etapa 1 (8,57), con su valor exacto. Sin subarriendos que restar (P-O1 c).",
+    "redondeo": 3
+   }
+  }
+ },
+ "correcciones_fase1_partes": [
+  {
+   "archivo": "AR_2020.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.769.683)",
+    "pagina": 59,
+    "linea": "Interest paid for leases                                                             (7.769.683)            (4.312.789)            (4.162.252)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.408.176)",
+    "pagina": 59,
+    "linea": "Lease repayments                                                                      (3.408.176)            (1.488.677)            (1.488.679)"
+   },
+   "nota_antes": "Ver ambiguedad en intereses.",
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 59 y nota PDF p. 86). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2020.txt PDF p. 59 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 86 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2020.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.408.176)",
+    "pagina": 59,
+    "linea": "Lease repayments                                                                      (3.408.176)            (1.488.677)            (1.488.679)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.769.683)",
+    "pagina": 59,
+    "linea": "Interest paid for leases                                                             (7.769.683)            (4.312.789)            (4.162.252)"
+   },
+   "nota_antes": "Ver ambiguedad en intereses (el importe 2020 coincide con el gasto por intereses de arrendamientos de la nota 5.5).",
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 59 y nota PDF p. 86). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2020.txt PDF p. 59 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 86 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2020.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.769.683)",
+    "pagina": 59,
+    "linea": "Interest paid for leases                                                             (7.769.683)            (4.312.789)            (4.162.252)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.408.176)",
+    "pagina": 59,
+    "linea": "Lease repayments                                                                      (3.408.176)            (1.488.677)            (1.488.679)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2020.txt PDF p. 59 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 86 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.597.015)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.056.657)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 63 y nota PDF p. 87). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.056.657)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.597.015)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 63 y nota PDF p. 87). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.597.015)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.056.657)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "intereses_financiacion",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.769.683)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.408.176)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "arrendamientos_principal",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.408.176)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.769.683)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2021.json",
+   "partida": "intereses",
+   "lado": "anterior",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.769.683)",
+    "pagina": 63,
+    "linea": "Interest paid for leases                                                 (7.597.015)                 (7.769.683)                 (6.224.378)                 (6.538.602)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.408.176)",
+    "pagina": 63,
+    "linea": "Lease repayments                                                         (3.056.657)                 (3.408.176)                 (2.550.871)                 (2.794.942)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2021.txt PDF p. 63 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 87 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.035.150)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.628.373)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 68 y nota PDF p. 92). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(2.628.373)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.035.150)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 68 y nota PDF p. 92). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(7.035.150)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.628.373)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "intereses_financiacion",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.597.015)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.056.657)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "arrendamientos_principal",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.056.657)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.597.015)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2022.json",
+   "partida": "intereses",
+   "lado": "anterior",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(7.597.015)",
+    "pagina": 68,
+    "linea": "Interest paid for leases                                                 (7.035.150)                 (7.597.015)                 (5.583.116)                 (6.224.378)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.056.657)",
+    "pagina": 68,
+    "linea": "Lease repayments                                                         (2.628.373)                 (3.056.657)                 (2.164.506)                 (2.550.871)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2022.conversion.txt PDF p. 68 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 92 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.446.033)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.664.523)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 71 y nota PDF p. 95). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(2.664.523)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.446.033)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "nota_antes": "Impreso como 'Lease repayments'. Ambiguedad: 2.664.523 / 2.628.373 coinciden con el gasto por intereses de arrendamientos de la nota 5.5, y 'Interest paid for leases' (7.446.033 / 7.035.150) es mayor; las etiquetas podrian estar cruzadas. Se transcribe tal como esta impreso.",
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 71 y nota PDF p. 95). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(7.446.033)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.664.523)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "intereses_financiacion",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.035.150)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.628.373)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "arrendamientos_principal",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(2.628.373)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.035.150)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "intereses",
+   "lado": "anterior",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(7.035.150)",
+    "pagina": 71,
+    "linea": "Interest paid for leases                                                 (7.446.033)                 (7.035.150)                 (5.912.892)                 (5.583.116)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.628.373)",
+    "pagina": 71,
+    "linea": "Lease repayments                                                         (2.664.523)                 (2.628.373)                 (2.070.406)                 (2.164.506)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2023.conversion.txt PDF p. 71 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 95 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(8.533.836)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.001.882)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "nota_antes": "Solo intereses de arrendamientos figuran en financiacion.",
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 154 y nota PDF p. 178). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.001.882)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(8.533.836)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 154 y nota PDF p. 178). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(8.533.836)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.001.882)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "intereses_financiacion",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(7.446.033)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.664.523)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "arrendamientos_principal",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(2.664.523)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(7.446.033)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "intereses",
+   "lado": "anterior",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financiacion)",
+    "impreso": "(7.446.033)",
+    "pagina": 154,
+    "linea": "Interest paid for leases                                     (8.533.836)           (7.446.033)         (6.113.854)         (5.912.892)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.664.523)",
+    "pagina": 154,
+    "linea": "Lease repayments                                             (3.001.882)           (2.664.523)         (1.946.824)         (2.070.406)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2024.txt PDF p. 154 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 178 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "intereses_financiacion",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(9.727.205)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.325.789)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "nota_antes": "Solo intereses de arrendamientos; los demas intereses pagados figuran en explotacion.",
+   "nota_despues": "(J3) Interés de arrendamientos pagado en financiación = línea impresa «Lease repayments» (etiquetas cruzadas por el emisor; PDF p. 155 y nota PDF p. 179). Antes de la corrección esta partida llevaba «Interest paid for leases», que es el principal.",
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "arrendamientos_principal",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(2.325.789)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(9.727.205)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "nota_antes": null,
+   "nota_despues": "(J3) Principal de arrendamientos = línea impresa «Interest paid for leases» (etiquetas cruzadas por el emisor; PDF p. 155 y nota PDF p. 179). Antes llevaba «Lease repayments», que es el interés.",
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "intereses",
+   "lado": "actual",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financing)",
+    "impreso": "(9.727.205)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(2.325.789)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "intereses_financiacion",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Interest paid for leases",
+    "impreso": "(8.533.836)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.001.882)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "arrendamientos_principal",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "Lease repayments",
+    "impreso": "(3.001.882)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "despues": {
+    "concepto": "Interest paid for leases (etiqueta del emisor; es el PRINCIPAL de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(8.533.836)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "intereses",
+   "lado": "anterior",
+   "indice": 1,
+   "antes": {
+    "concepto": "Interest paid for leases (financing)",
+    "impreso": "(8.533.836)",
+    "pagina": 155,
+    "linea": "Interest paid for leases (9.727.205) (8.533.836) (6.333.624) (6.113.854)"
+   },
+   "despues": {
+    "concepto": "Lease repayments (etiqueta del emisor; es el INTERÉS de arrendamientos: etiquetas cruzadas, J3)",
+    "impreso": "(3.001.882)",
+    "pagina": 155,
+    "linea": "Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/jumbo-annual-report-fy2025.txt PDF p. 155 (estado de flujos, financiación: «Lease repayments» e «Interest paid for leases») y PDF p. 179 (nota de costes financieros: «Interest expense on lease liabilities», igual al euro que la línea «Lease repayments» del mismo informe en al menos una columna). Pruebas comunes: el informe de transición 2019 rotula bien (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)», «Interest paid for leases (1.488.679)»; nota PDF p. 84: «Interest expense on lease liabilities 1.488.678») y el semestral H1 2026 vuelve a rotular bien (texto/jumbo-h1-2026-financial-results.txt PDF p. 30: «Lease repayments (5.126.199) (3.912.464)» mayor que «Interest paid for leases (1.627.583) (1.498.780)»); pasivos por arrendamiento de 66–75 mm al 1,74–4,10 % (AR2025 PDF p. 204–205) dan 2–3 mm de interés al año. Decisión J3 de la persona responsable (DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»).",
+   "motivo": "El emisor cruza desde el informe de 2020 las etiquetas de las dos líneas de arrendamientos del estado de flujos: «Lease repayments» es el interés y «Interest paid for leases» el principal. La extracción transcribió lo impreso (correcto como transcripción); la Historia pide el concepto. Corrección pedida por la decisión J3 de la persona responsable (18-nov-2026). En la partida de intereses pagados totales, el componente de arrendamientos pasa a ser el interés (línea «Lease repayments»), no el principal."
+  }
+ ],
+ "notas_retiradas": 1,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {
+  "C47": "media exacta 2023–2025 del capex declarada con su cálculo en jumbo_b (precedente E1, supuesto de la orquestación); J3 no la toca",
+  "C50": "cero de la etapa 1 con su fuente declarado en jumbo_b (AR2025 PDF p. 51, 155 y 181); ceros de la Historia pendientes de confirmación humana (H1)"
+ },
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_jumbo_c.json"
+ }
+}
