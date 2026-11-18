@@ -40,6 +40,9 @@ def celdas(decl, anios):
     """{"Historia!REF": valor} de las filas 85–87 desde la declaración (dict) y los años de la Historia (C5:L5 del libro)."""
     import motor_a_f1 as F1
     decl = decl if isinstance(decl, dict) else {}
+    # (F1 · US GAAP, ronda 2, R1-14) una serie o una clave mal formada no hace fallar el paso 2: se lee como vacía (la fila queda vacía en el libro) y la
+    # capa lo dice en el paso 7 (F1-DECLARACION, DATOS INVÁLIDOS)
+    decl = F1._declaracion_bien_formada(decl)[0]
     per = (decl.get("perimetro_reinversion") or {}).get("valor") if isinstance(decl.get("perimetro_reinversion"), dict) else None
     out = {f"Historia!C{F_SEL}": per if per in PERIMETROS_LIBRO else None}
     reg = (decl.get("perimetro_reinversion") or {}).get("registro") if isinstance(decl.get("perimetro_reinversion"), dict) else None

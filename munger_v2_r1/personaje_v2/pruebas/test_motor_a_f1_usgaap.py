@@ -187,7 +187,7 @@ def _verdad_de(d):
 
 
 def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, wc=None, fuera=None, notas=(), anios_partes=range(2021, 2026), conceptos=None,
-               por_anio=None, fila23=()):
+               por_anio=None, fila23=(), despues_cfo=()):
     """Carpeta de expediente sintética para una declaración:
       - texto/10K_sint.txt, registrado como fuente con su huella. Página 1: notas (las cifras de las series, las citas de existencia y `notas`); página 2:
         el estado de flujos, con las líneas que la fase 1 sumó en la fila 8 (`da`) y en la fila 14 (`wc`) y las que no sumó (`fuera`); página 3: otra página;
@@ -222,6 +222,8 @@ def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, w
         poner(x, "circulante_lineas")
     poner("Net cash provided by operating activities", "cfo")
     poner("Principal payments on finance lease obligations")
+    for x in despues_cfo:   # líneas de inversión o de financiación (después del total del flujo de explotación)
+        poner(x)
     filas.append("Supplemental disclosure:")
     poner("Right-of-use assets obtained in exchange for new operating lease liabilities")
     for x in fila23:   # líneas del balance que la fase 1 sumó en la fila 23 (pasivo por arrendamientos): solo en fase1_partes
@@ -741,6 +743,14 @@ def solo_anterior_2025(a, j):
 rF6 = ev_(L6, decl("A0_total"), verdad=("fuera", "fila_14"), por_anio=solo_anterior_2025)
 paso("F · (revisión B4) la línea solo en el lado «anterior» del informe siguiente, que es el que da el valor de la Historia: se ve → DATOS INVÁLIDOS",
      bloquea(rF6, "F1-US-FILAS") and g(rF6, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS" and "anterior" in g(rF6, "F1-US-FILAS")[0]["detalle"], g(rF6, "F1-US-FILAS")[0]["detalle"][:200])
+dP = decl("A0_total")
+cP = expediente(dP, verdad=("fuera", "fila_14"), por_anio=solo_anterior_2025)
+TMP.append(cP)
+uP = M._partes_fase1(cP, list(range(2021, 2026)))
+paso("F · las líneas de cada año se toman como las toma la fase 1 (fase1_historia): el lado «anterior» del informe siguiente y, en el último año, el lado «actual»; "
+     "la línea que solo está en el «anterior» de AR_2025 es la de 2024", [any("pasivo" in c["lados"] for c in uP["usados"][a]["circulante_lineas"]) for a in range(2021, 2026)]
+     == [False, False, False, True, False] and uP["usados"][2024]["circulante_lineas"][0]["origen"].startswith("AR_2025.json") and "anterior" in uP["usados"][2024]["circulante_lineas"][0]["origen"]
+     and "actual" in uP["usados"][2025]["circulante_lineas"][0]["origen"] and not [k for k in uP["sin_examinar"] if k[1] != "arrendamientos"], str({a: uP["usados"][a]["circulante_lineas"][0]["origen"] for a in (2024, 2025)}))
 rF7 = ev_(L6, decl("A0_total"), verdad=("fuera", "fila_14"), por_anio=lambda a, j: dict(j, anio=str(a)))
 paso("F · (revisión B5) el «anio» de fase1_partes escrito como texto («2025») se lee igual → DATOS INVÁLIDOS", bloquea(rF7, "F1-US-FILAS")
      and g(rF7, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS")
@@ -758,6 +768,30 @@ paso("F · un año con la fila 14 fijada a mano (fase1_decisiones.json) no es la
 rF10 = ev_(L1, decl("A0_total"), texto=False)
 paso("F · sin texto/ de la fase 1 las etiquetas partidas no se pueden reconstruir en los informes de los demás años: «fuera» no queda contrastada → CONDICIONADA",
      "CONDICIONADA" in rF10["rotulo"] and estado_tramo(rF10, "variacion_pasivo") == "sin_contrastar" and bloquean(rF10) == [], rF10["rotulo"][:160])
+rF11 = ev_(L1, decl("A0_total"), anios_partes=range(2016, 2019))
+paso("F · si la página citada es la del estado de flujos de un informe que no es de los años que usa el modelo, «fuera» no queda contrastada → CONDICIONADA",
+     "CONDICIONADA" in rF11["rotulo"] and "años que usa el modelo" in rF11["us_gaap"]["contraste_de_ubicaciones"]["sin_contrastar"]["variacion_pasivo"])
+# etiqueta partida en dos renglones con mayúsculas de título (el segundo renglón no empieza en minúscula): la línea sumada se reconoce igual
+T_PAS = ("Increase (Decrease) in Accounts Payable, Accrued Liabilities, Operating Lease", "Liabilities and Other Liabilities")
+dF12 = decl("A0_total")
+OP_(dF12)["variacion_pasivo"]["cita"] = "Accrued Liabilities, Operating Lease Liabilities and Other Liabilities"
+rF12 = ev_(L6, dF12, verdad=("fuera", "no"), wc=("Accounts Receivable", T_PAS), conceptos={T_PAS: "Accounts payable and other liabilities"})
+paso("F · etiqueta partida con mayúsculas de título: la línea citada como «fuera» es una de las sumadas en la fila 14 → DATOS INVÁLIDOS (también sin texto/ de la fase 1)",
+     bloquea(rF12, "F1-US-FILAS") and g(rF12, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS"
+     and bloquea(ev_(L6, copy.deepcopy(dF12), verdad=("fuera", "no"), wc=("Accounts Receivable", T_PAS), conceptos={T_PAS: "Accounts payable and other liabilities"}, texto=False), "F1-US-FILAS"),
+     g(rF12, "F1-US-FILAS")[0]["detalle"][:200])
+# etiqueta partida con renglones en blanco entre sus dos partes (texto a doble espacio): la línea citada se reconoce por los renglones de la página en que está la cita
+B_PAS = ("Increase in accrued liabilities, operating lease", "", "", "liabilities and other")
+dF14 = decl("A0_total")
+OP_(dF14)["variacion_pasivo"]["cita"] = "accrued liabilities, operating lease liabilities and other"
+rF14 = ev_(L6, dF14, verdad=("fuera", "no"), wc=("Accounts receivable", B_PAS), conceptos={B_PAS: "Accrued liabilities and other"})
+paso("F · etiqueta partida con renglones en blanco en medio: la línea citada como «fuera» es una de las sumadas en la fila 14 → DATOS INVÁLIDOS",
+     bloquea(rF14, "F1-US-FILAS") and g(rF14, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS" and estado_tramo(rF14, "variacion_pasivo") == "contradicha",
+     g(rF14, "F1-US-FILAS")[0]["detalle"][:200])
+rF13 = ev_(L1, decl("A0_total"), por_anio=lambda a, j: {"anio": a, "archivo": TXT, "partidas": {}})
+paso("F · una carpeta fase1_partes sin ninguna línea de explotación no permite contrastar nada: como si no la hubiera → sin contrastar → CONDICIONADA (no «sin contradicción»)",
+     rF13["utilizable_para_conclusion"] and "CONDICIONADA" in rF13["rotulo"] and estado_tramo(rF13, "amortizacion_rou") == "sin_contrastar"
+     and "sin fase1_partes" in rF13["us_gaap"]["contraste_de_ubicaciones"]["sin_contrastar"]["amortizacion_rou"])
 paso("F · el resultado deja la huella de las líneas de la fase 1 con que se contrastó (fase1_partes) y, sin ellas, None", isinstance(r1["fase1_partes_sha256"], str)
      and len(r1["fase1_partes_sha256"]) == 64 and rF0["fase1_partes_sha256"] is None and r1["us_gaap"]["contraste_de_ubicaciones"]["fase1_partes"]["informes"] == list(range(2021, 2026)))
 
@@ -993,6 +1027,17 @@ paso("R6 · solo se excluye la línea del OTRO tramo cuando está declarada con 
 rN6 = ev_(L1, decl("A0_total", ub_am="no_publicada", ub_pas="no_publicada"), verdad=("no", "no"))
 paso("R6 · las líneas solo de financieros («Principal payments on finance lease obligations») y la información complementaria («…obtained in exchange for…») no son tramos "
      "del arrendamiento operativo: no invalidan «no_publicada»", not salta(rN6, "F1-SERIES") and rN6["F1_SERIES"]["paginas_sin_linea_propia_del_arrendamiento_operativo"] == 2)
+
+FIN_SIN = "Payments on lease liabilities"   # el principal de los financieros, en financiación, con un rótulo que no dice «finance»
+rN7 = ev_(L1, decl("A0_total", ub_am="no_publicada", ub_pas="no_publicada"), verdad=("no", "no"), despues_cfo=[FIN_SIN])
+paso("R6 · una línea que nombra el pasivo por arrendamiento DESPUÉS del total del flujo de explotación (financiación: principal de los financieros) no es un tramo del "
+     "operativo: no invalida «no_publicada»", not salta(rN7, "F1-SERIES") and rN7["utilizable_para_conclusion"] and rN7["F1_SERIES"]["paginas_sin_linea_propia_del_arrendamiento_operativo"] == 2,
+     g(rN7, "F1-SERIES")[0]["detalle"][:160])
+dN8 = decl("A0_total")
+OP_(dN8)["variacion_pasivo"]["cita"] = FIN_SIN
+rN8 = ev_(L6, dN8, verdad=("fuera", "no"), wc=("Accounts receivable", "Accrued and other liabilities"), despues_cfo=[FIN_SIN])
+paso("R6 · …y tampoco sirve para probar «fuera»: citar esa línea de financiación (real, del estado de flujos y no sumada) → F1-US-FILAS INCOMPLETO",
+     bloquean(rN8) == ["F1-US-FILAS"] and "después del total del flujo de explotación" in g(rN8, "F1-US-FILAS")[0]["detalle"], g(rN8, "F1-US-FILAS")[0]["detalle"][:260])
 
 # ================================================================== R7 · el coste lineal declarado y los pagos, con el mismo perímetro
 P_WM, L_WM = {2023: 7.7, 2024: 10.3, 2025: 21.4}, {2023: 18.9, 2024: 26.4, 2025: 42.7}   # caso Waste Management a escala: el gasto publicado lleva corto plazo y variable

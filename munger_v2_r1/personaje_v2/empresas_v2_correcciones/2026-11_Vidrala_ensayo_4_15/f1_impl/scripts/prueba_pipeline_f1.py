@@ -131,6 +131,13 @@ def main():
         paso("P2 · el estado final no es un bloqueo F1 y la ficha lleva motor_a_f1 «utilizable»",
              st.get("estado_analisis") is not None and isinstance(fi.get("motor_a_f1"), dict) and fi["motor_a_f1"]["utilizable_para_conclusion"] is True,
              f"estado {st.get('estado_analisis')}")
+        # (F1 · US GAAP, ronda 2, R1-12) la ficha y el informe de un expediente NIIF no ganan nada de US GAAP: ni claves nulas ni texto
+        inf = open(os.path.join(c, "informe.md"), encoding="utf-8").read() if os.path.exists(os.path.join(c, "informe.md")) else ""
+        lin_f1 = next((x for x in inf.splitlines() if "· F1:" in x), "")
+        paso("P2 · con NIIF la ficha no lleva las claves «condicionada» ni «us_gaap» (ni nulas) y la línea F1 del informe no habla de US GAAP ni de cotas",
+             isinstance(fi.get("motor_a_f1"), dict) and "condicionada" not in fi["motor_a_f1"] and "us_gaap" not in fi["motor_a_f1"]
+             and "Motor A · F1:" in lin_f1 and "US GAAP" not in lin_f1 and "cota:" not in lin_f1 and "D-US" not in lin_f1 and "según lo declarado" not in lin_f1
+             and "; K3: alquiler contado ninguna vez (sin arrendamientos), caja base por dos vías conforme; perímetro declarado: A0_total" in lin_f1, lin_f1[:260])
         # P3
         c = preparar("EmpresaX_USGAAP", declaracion("US_GAAP"), sin_arrendamientos=True)
         rc, out = TS.correr(c, reac)

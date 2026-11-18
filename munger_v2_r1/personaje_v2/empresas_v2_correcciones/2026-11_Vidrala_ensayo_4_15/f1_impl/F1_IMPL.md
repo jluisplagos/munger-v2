@@ -10,7 +10,9 @@ candidata `integracion/candidata-cierre-v2` @ `b129b36` (4.15 · hito 2). **Sin 
 **Nota del 18-nov-2026 (F1 · US GAAP).** Lo que este documento dice de US GAAP (`F1-NORMA` como límite declarado; §2, §3, §6 y la prueba P3
 del §8) describe la capa tal como quedó en F1-IMPL. Desde la rama `f1/usgaap` la norma es un valor cerrado y US GAAP (ASC 842) se trata con
 los arrendamientos operativos y financieros por separado: ver `../f1_usgaap/F1_USGAAP.md`. Las dos pruebas «US» de la batería y P3 de la
-prueba del gancho se reescribieron con el comportamiento nuevo; lo demás de este registro no cambia.
+prueba del gancho se reescribieron con el comportamiento nuevo; lo demás de este registro no cambia. En la ronda 2 de esa reparación la
+prueba del gancho gana un caso (P2: la ficha y el informe de un expediente NIIF no llevan nada de US GAAP; 8 casos) y una declaración mal
+formada (una clave que tiene que ser un objeto y no lo es) da `F1-DECLARACION` · DATOS INVÁLIDOS en lugar de un fallo del programa.
 
 Fuentes de lo que se implanta:
 - decisiones registradas el 17-nov-2026: `munger-v2-evidencias-mistral`, `coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md`:68–83;

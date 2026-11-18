@@ -158,10 +158,15 @@ propia (lo cubre solo la verificación de la fila 8 y de las series).
 **Hecho.** La reparación F1 · US GAAP (`personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/f1_usgaap/F1_USGAAP.md`) no toca
 la plantilla, su referencia ni su verificador (`eaece01a…`): los expedientes V6.3.1 en curso siguen ejecutándose con sus huellas.
 - Con US GAAP, `f1_libro_v631.py aplicar` escribe en la **fila 86** la amortización de derechos de uso que está dentro de la fila 8: la de
-  los arrendamientos financieros (`da_rou`) más la de los operativos declarada dentro de la fila 8 (`da_rou_operativo`). Con NIIF, nada cambia.
-- Lo que el libro **no** calcula con US GAAP: retirar del circulante una partida del arrendamiento operativo que esté dentro de la fila 14
-  (la capa lo calcula y `F1-LIBRO` bloquea) y excluir del puente del motor B el pasivo por arrendamiento operativo (`F1-US-PUENTE`).
-- Prueba sobre el libro real recalculado: `f1_usgaap/scripts/probar_libro_v631_usgaap.py` (13 comprobaciones).
+  los arrendamientos financieros (`da_rou`) más la de los operativos declarada dentro de la fila 8 (`da_rou_operativo`). No lleva la de los
+  financieros tratados como deuda (D-WM) ni la declarada fuera de la fila 8. Con NIIF, nada cambia.
+- El libro **calcula tal cual** los tramos no publicados (D-US1) o fuera de las filas, la amortización operativa dentro de la fila 8 y los
+  dos tramos dentro de la fila 14 (D-US2 bis: su valor cuenta el coste contable; la capa enseña cuánto cambiaría contando los pagos).
+- Lo que el libro **no** calcula con US GAAP: retirar del circulante el importe de **un solo** tramo del arrendamiento operativo que esté
+  dentro de la fila 14 (la capa lo calcula y `F1-LIBRO` bloquea) y excluir del puente del motor B el pasivo por arrendamiento operativo
+  (`F1-US-PUENTE`).
+- Una declaración mal formada no hace fallar `aplicar`: la serie se lee como vacía y la capa lo dice en el paso 7 (`F1-DECLARACION`).
+- Prueba sobre el libro real recalculado: `f1_usgaap/scripts/probar_libro_v631_usgaap.py` (15 comprobaciones).
 
 ## 9. Preguntas para el revisor y límites
 

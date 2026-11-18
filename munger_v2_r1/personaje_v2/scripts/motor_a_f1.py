@@ -1800,6 +1800,8 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
     if P is not None:
         C["fase1_partes"] = {"informes": P["informes"], "sin_examinar": [f"{a} · {k}: {m}" for (a, k), m in sorted(P["sin_examinar"].items()) if k != "arrendamientos"],
                              "ilegibles": P["ilegibles"], "sha256": P["sha256"]}
+        if not P["todos"]:
+            P = None   # una carpeta fase1_partes sin ninguna línea de explotación legible no permite contrastar nada: como si no la hubiera
 
     def pag_de(et, e):
         est, pag = pagina(e.get("documento"), e.get("pagina"))
@@ -1815,6 +1817,19 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
 
     def es_estado(pag):
         return len({c["nlin"] for c in en_la_pagina(pag)}) >= 2
+
+    def explotacion(pag):
+        """La página hasta el total del flujo de explotación (el renglón que la fase 1 tomó como CFO), incluido: las líneas que nombran un arrendamiento
+        después de él son de inversión o de financiación (principal de los financieros) o información complementaria, no tramos del operativo."""
+        if P is None:
+            return pag
+        cfo = {c["nlin"] for c in P["todos"] if c["k"] == "cfo" and c["nlin"]}
+        filas = str(pag).splitlines()
+        for i, raw in enumerate(filas):
+            t = _nlin(raw)
+            if t and any(x in t for x in cfo):
+                return "\n".join(filas[:i + 1])
+        return pag
 
     pag_ok = {}
     for et, e in U["evidencias"]:   # existencia de cada clase y tramos con ubicación declarada: la cita literal está en su página
@@ -1838,7 +1853,7 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
             continue
         otras = [_nlin(U["ev"][k].get("cita")) for k in _LADO_TRAMO if k != clave and U["ub_decl"].get(k) not in (None, "no_publicada")]
         lineas = []
-        for ln in pag.splitlines():
+        for ln in explotacion(pag).splitlines():
             t = _nlin(ln)
             if not _LINEA_ARR.search(t) or _LINEA_SUPL.search(t) or (_ES_FIN.search(t) and not _ES_OP.search(t)):
                 continue
@@ -1873,8 +1888,14 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
             C["sin_contrastar"].pop(clave, None)
 
     def enlazadas(pag, cn, ks):
-        """Líneas sumadas (de las filas ks) cuya etiqueta entera en la página citada contiene la cita: la línea citada es una línea sumada."""
-        return [c for c in en_la_pagina(pag) if c["k"] in ks and cn in (_etiqueta_completa(pag, c["nlin"]) or c["nlin"])]
+        """Líneas sumadas (de las filas ks) que son la línea citada: su etiqueta entera en la página citada contiene la cita, o los renglones de la página
+        en que está la cita (uno, o dos o tres seguidos de una etiqueta partida) incluyen su renglón de las cifras."""
+        de_la_cita = _lineas_con_cita(pag, cn)
+        return [c for c in en_la_pagina(pag) if c["k"] in ks and (cn in (_etiqueta_completa(pag, c["nlin"]) or c["nlin"]) or any(c["nlin"] in t for t in de_la_cita))]
+
+    def del_modelo(pag):
+        """La página citada es la del estado de flujos de un informe de los años que usa el modelo (o del siguiente, cuyo comparativo da el último de ellos)."""
+        return bool({c["informe"] for c in en_la_pagina(pag)} & (set(anios_req) | {a + 1 for a in anios_req}))
 
     if U["op"] is True:
         for clave in ("amortizacion_rou", "variacion_pasivo"):
@@ -1905,9 +1926,10 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                 continue
             # la cita tiene que ser de una línea de la conciliación: no vale si en su página solo está dentro de líneas de información complementaria
             # (altas de derechos de uso, caja pagada) o de arrendamientos financieros
-            if not [t for t in _lineas_con_cita(pag, cn) if not _LINEA_SUPL.search(t) and not (_ES_FIN.search(t) and not _ES_OP.search(t))]:
+            if not [t for t in _lineas_con_cita(explotacion(pag), cn) if not _LINEA_SUPL.search(t) and not (_ES_FIN.search(t) and not _ES_OP.search(t))]:
                 insuf.append(f"{et}: la cita {str(e.get('cita'))[:80]!r} solo está, en la página {e.get('pagina')}, dentro de líneas de información complementaria o de "
-                             f"arrendamientos financieros: no enseña la línea de {nom}; si la empresa no publica la línea, la ubicación es «no_publicada» (hipótesis D-US1)")
+                             "arrendamientos financieros, o después del total del flujo de explotación (inversión o financiación): no enseña la línea de "
+                             f"{nom}; si la empresa no publica la línea, la ubicación es «no_publicada» (hipótesis D-US1)")
                 marcar(clave, "insuficiente", "la cita no es de una línea de la conciliación del flujo de explotación")
                 continue
             if P is None:
@@ -1928,7 +1950,9 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                     continue
                 req = ("circulante_lineas",) if clave == "variacion_pasivo" else ("da", "circulante_lineas")
                 falta = [f"{a} (fila {fila[k]})" for a in anios_req for k in req if not completo(a, k)]
-                if falta:
+                if not del_modelo(pag):
+                    marcar(clave, "sin_contrastar", "la página citada no es la del estado de flujos de un informe de los años que usa el modelo")
+                elif falta:
                     marcar(clave, "sin_contrastar", "la línea citada no está entre las sumadas en el informe citado, pero no se han podido examinar enteras las líneas "
                            f"sumadas en {', '.join(falta[:6])}")
                 else:

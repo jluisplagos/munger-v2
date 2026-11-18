@@ -16,6 +16,10 @@ Casos:
   L5 · la variación del pasivo declarada dentro de la fila 14: el libro no la retira → F1-LIBRO bloquea; la réplica sigue conforme.
   L6 · motor B (Análisis C62 = «No · financiación cambia mucho»): el puente del libro resta la fila 23 entera (Diagnóstico V6 C16);
        F1-US-PUENTE bloquea por el pasivo operativo; con la fila 23 a cero y 0 declarado, no bloquea.
+  L7 · (ronda 2, D-US2 bis) los dos tramos dentro de la fila 14 con pagos ≠ coste: el libro tal cual calcula lo declarado; se publica su
+       valor (coste contable) y cuánto cambiaría contando los pagos.
+En todos los casos el expediente lleva el texto del estado de flujos (texto/) y las líneas que la fase 1 sumó en las filas 8 y 14
+(fase1_partes), coherentes con lo declarado: la capa contrasta con ellas las ubicaciones (ronda 2, R1-3).
 """
 import hashlib
 import json
@@ -34,7 +38,10 @@ import motor_a_f1 as M  # noqa: E402
 import f1_libro_v631 as V631  # noqa: E402
 
 COLS = "CDEFGHIJKL"
-DOC, FUENTE = "10-K sintético", "fuente_sintetica_us.txt"
+DOC, TXT = "10-K sintético", "10K_sint.txt"
+FUENTE = os.path.join("texto", TXT)   # el texto del informe que «usó la fase 1»: la fuente registrada de la declaración
+DA, DA_ROU = "Depreciation and amortization", "Depreciation and amortization, including amortization of operating lease right-of-use assets"
+L_AM, L_ACT, L_PAS = "Non-cash lease expense", "Operating lease right-of-use assets", "Operating lease liabilities"
 REG = {"fecha": "2026-11-18", "persona": "prueba del libro V6.3.1 con US GAAP (no es una decisión)", "motivo": "caso de prueba"}
 RES = []
 
@@ -75,7 +82,7 @@ def main(dest, salida=None):
     def decl(per, ub_am="fila_8", ub_pas="fuera_de_las_filas_8_y_14", con_a8=True, fin=False, ajuste=None, pasivo=None):
         ev = {"documento": DOC, "pagina": 1}
         def ub(clave, u, cita):
-            return {"ubicacion": u, "documento": DOC, "pagina": 2} if u == "no_publicada" else dict(ev, ubicacion=u, cita=cita)
+            return {"ubicacion": u, "documento": DOC, "pagina": 2} if u == "no_publicada" else {"documento": DOC, "pagina": 2, "ubicacion": u, "cita": cita}
         d = {"norma_contable": {"valor": "US_GAAP", "registro": REG}, "perimetro_reinversion": {"valor": per, "registro": REG},
              "perimetro_margen": {"valor": "EBIT_NIIF16_PPA_constante", "registro": REG}, "perimetro_palancas_s2c": {"valor": per, "registro": REG},
              "perimetro_roic": {"valor": per, "registro": REG},
@@ -83,9 +90,8 @@ def main(dest, salida=None):
              "transicion": {"conocida": False, "tratamiento": None, "registro": REG},
              "arrendamientos_us_gaap": {"registro": REG,
                                         "operativos": dict(ev, cita="Operating lease cost", existen=True,
-                                                           amortizacion_rou=ub("amortizacion_rou", ub_am, "Depreciation and amortization, including amortization of operating lease right-of-use assets"
-                                                                               if ub_am == "fila_8" else "Non-cash lease expense"),
-                                                           variacion_pasivo=ub("variacion_pasivo", ub_pas, "Operating lease liabilities" if ub_pas == "fila_14" else "Other operating activities, net")),
+                                                           amortizacion_rou=ub("amortizacion_rou", ub_am, DA_ROU if ub_am == "fila_8" else L_ACT if ub_am == "fila_14" else L_AM),
+                                                           variacion_pasivo=ub("variacion_pasivo", ub_pas, L_PAS)),
                                         "financieros": dict(ev, cita="Finance lease cost" if fin else "The Company has no finance leases", existen=fin)},
              "series": {"da_ppa": serie(ppa), "pagos_arr_operativo": serie(P), "coste_arr_operativo": serie(Lc),
                         "pasivo_arr_operativo": serie({anios[-1]: f23[anios[-1]] if pasivo is None else pasivo})}}
@@ -97,20 +103,43 @@ def main(dest, salida=None):
         if ajuste is not None:
             d["series"]["circulante_arr_operativo"] = serie({y: ajuste for y in w5})
         lits = sorted({str(e["literal"]) for s_ in d["series"].values() for e in s_.values()})
+        # (ronda 2, R1-3) el estado de flujos del expediente (página 2) dice la VERDAD de cada caso, que es lo que se declara: la D&A nombra el derecho de uso
+        # si su amortización está dentro de la fila 8; la línea del pasivo está entre las del circulante si está dentro de la fila 14 y, si no, es una línea
+        # propia que la fase 1 no sumó. fase1_partes lleva las líneas que la fase 1 sumó en las filas 8 y 14 (la capa contrasta con ellas las ubicaciones)
+        n, filas, comp = [10], ["CONSOLIDATED STATEMENTS OF CASH FLOWS"], {"da": [], "circulante_lineas": [], "cfo": []}
+
+        def poner(x, k=None):
+            n[0] += 3
+            ult = f"{x}    {n[0]}    {n[0] + 1}    {n[0] + 2}"
+            filas.append(ult)
+            if k:
+                comp[k].append({"concepto": x, "impreso": str(n[0]), "pagina": 2, "linea": ult})
+
+        poner("Net income")
+        poner(DA_ROU if ub_am == "fila_8" else DA, "da")
+        for u, x in ((ub_am, L_AM), (ub_pas, L_PAS)):
+            if u == "fuera_de_las_filas_8_y_14":
+                poner(x)
+        filas.append("Changes in operating assets and liabilities:")
+        for x in ("Accounts receivable", "Accounts payable and accrued liabilities") + ((L_ACT,) if ub_am == "fila_14" else ()) + ((L_PAS,) if ub_pas == "fila_14" else ()):
+            poner(x, "circulante_lineas")
+        poner("Net cash provided by operating activities", "cfo")
         txt = ("[PDF PAGE 1]\nNotas sintéticas: " + " ".join(lits) + "\nOperating lease cost\nFinance lease cost\nThe Company has no finance leases\n"
-               "Depreciation and amortization, including amortization of operating lease right-of-use assets\nNon-cash lease expense\nOperating lease liabilities\n"
-               "Other operating activities, net\n[PDF PAGE 2]\nCONSOLIDATED STATEMENTS OF CASH FLOWS\nNet income\nDepreciation and amortization\n"
-               "Changes in working capital\nNet cash provided by operating activities\n[PDF PAGE 3]\n")
-        d["_fuente"] = txt
+               "[PDF PAGE 2]\n" + "\n".join(filas) + "\n[PDF PAGE 3]\n")
+        d["_fuente"], d["_partes"] = txt, comp
         d["fuentes_series"] = {DOC: {"archivo": FUENTE, "sha256": hashlib.sha256(txt.encode("utf-8")).hexdigest()}}
         return d
 
     def libro(nombre, d, origen=base, despues=None):
         d = dict(d)
-        txt = d.pop("_fuente")
+        txt, comp = d.pop("_fuente"), d.pop("_partes")
         c = os.path.join(dest, nombre)
-        os.makedirs(c)
+        os.makedirs(os.path.join(c, "texto"))
+        os.makedirs(os.path.join(c, "fase1_partes"))
         open(os.path.join(c, FUENTE), "w", encoding="utf-8").write(txt)
+        for a in anios[-5:]:
+            json.dump({"anio": a, "archivo": TXT, "partidas": {k: {"actual": v, "anterior": v, "cero": None} for k, v in comp.items()}},
+                      open(os.path.join(c, "fase1_partes", f"AR_{a}.json"), "w", encoding="utf-8"), ensure_ascii=False)
         dp = os.path.join(c, "motor_a_f1.json")
         json.dump(d, open(dp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         b = os.path.join(dest, f"{nombre}.xlsx")
@@ -141,8 +170,11 @@ def main(dest, salida=None):
     chk("L1 · libro = capa: f (10⁻¹²), ancla de S2C (10⁻⁹) y 33 flujos; F1-LIBRO, F1-REPLICA y F1-NORMA no saltan",
         abs(cd["f"] - hh["C58"].value) <= 1e-12 and abs(cd["ancla_s2c_E4"] - hh["C53"].value) <= 1e-9 and not salta(r, "F1-LIBRO") and not salta(r, "F1-REPLICA")
         and not salta(r, "F1-NORMA") and r["libro_v631_f1"]["flujos_contrastados"] == 33, f"f {hh['C58'].value!r} · C53 {hh['C53'].value!r} · {r['libro_v631_f1']['motivos'][:2]}")
-    chk("L1 · nada bloquea: utilizable para una conclusión (sin hipótesis); K3 conforme, alquiler una vez", bloquean(r) == [] and r["utilizable_para_conclusion"]
-        and r["K3"]["conforme"] is True and r["K3"]["K3b_alquiler_contado"] == "una vez" and "condicionada" not in r, str(bloquean(r)))
+    tr = ((r.get("us_gaap") or {}).get("contraste_de_ubicaciones") or {}).get("tramos") or {}
+    chk("L1 · nada bloquea: utilizable para una conclusión (sin hipótesis ni condición: las dos ubicaciones están contrastadas con las líneas del expediente); K3 conforme, "
+        "alquiler una vez", bloquean(r) == [] and r["utilizable_para_conclusion"] and r["K3"]["conforme"] is True and r["K3"]["K3b_alquiler_contado"] == "una vez"
+        and "condicionada" not in r and {k: v.get("estado") for k, v in tr.items()} == {"amortizacion_rou": "contrastada", "variacion_pasivo": "contrastada"},
+        f"{bloquean(r)} · {({k: v.get('estado') for k, v in tr.items()})}")
     det["L1"] = {"C58": hh["C58"].value, "C53": hh["C53"].value, "C74": hh["C74"].value, "bloquean": bloquean(r)}
     # ---------------------------------------------------------------- L2 · lo mismo con A0
     rec0, d0, c0 = libro("L2_A0", decl("A0_total"))
@@ -182,6 +214,21 @@ def main(dest, salida=None):
         bloquean(r5) == ["F1-LIBRO"] and not salta(r5, "F1-REPLICA") and "retirada del circulante" in next(g["detalle"] for g in r5["guardas"] if g["id"] == "F1-LIBRO"), str(bloquean(r5)))
     chk("L5 · la f de la capa es la del libro + 2,5 ÷ ventas medias (el libro sobrevaloraría el flujo en esa parte del alquiler)",
         abs(r5["calculo_perimetro_declarado"]["f"] - (h5["C58"].value + 2.5 / s_w)) <= 1e-12, f"capa {r5['calculo_perimetro_declarado']['f']!r} · libro {h5['C58'].value!r}")
+    # ---------------------------------------------------------------- L7 · D-US2 bis: los dos tramos dentro de la fila 14 (pagos ≠ coste)
+    neto = {y: round(P[y] - Lc[y], 6) for y in w3}   # lo que llevan dentro de la fila 14 los dos tramos netos: pagos − coste = −0,1
+    rec7, d7, c7 = libro("L7_DUS2bis_A2", decl("A2_propio", ub_am="fila_14", ub_pas="fila_14"),
+                         despues={f"Historia!{c_}14": h[f"{c_}14"].value - 0.1 for c_ in "HIJKL"})
+    h7 = load_workbook(rec7, data_only=True)["Historia"]
+    r7 = M.evaluar(M.leer_libro(rec7), d7, carpeta=c7)
+    bis = (r7.get("us_gaap") or {}).get("D_US2_bis") or {}
+    chk("L7 · D-US2 bis (los dos tramos dentro de la fila 14, pagos ≠ coste): el libro V6.3.1 tal cual calcula lo declarado (libro = capa; F1-LIBRO no salta); nada bloquea; "
+        "el expediente muestra las dos líneas", abs(r7["calculo_perimetro_declarado"]["f"] - h7["C58"].value) <= 1e-12 and bloquean(r7) == [] and not salta(r7, "F1-LIBRO")
+        and bis.get("dos_lineas_comprobadas") is True and r7["libro_v631_f1"]["motivos"] == [], f"{bloquean(r7)} · f {h7['C58'].value!r}")
+    mm7 = (bis.get("contando_los_pagos") or {}).get("variacion_maxima_del_flujo_sin_crecimiento_mm")
+    chk("L7 · se publica el valor de la hoja (coste contable) y, al lado, cuánto cambiaría contando los pagos: −(pagos − coste) ÷ ventas medias × ventas del año base "
+        "(identidad con los valores del libro)", mm7 is not None and abs(mm7 - (-(sum(neto.values()) / 3) / h7["C74"].value * h7["C44"].value)) <= 1e-6
+        and "D-US2 bis" in r7["rotulo"] and "coste contable" in r7["rotulo"] and "condicionada" not in r7, f"{mm7!r} · {r7['rotulo'][:150]}")
+    det["L7"] = {"C58": h7["C58"].value, "D_US2_bis": {k: v for k, v in bis.items() if k in ("texto", "dos_lineas_comprobadas", "flujo_sin_crecimiento_de_la_hoja")}}
     # ---------------------------------------------------------------- L6 · motor B: el puente
     recb, db, cb = libro("L6_motor_B", decl("A2_propio", ub_am="fuera_de_las_filas_8_y_14"), despues={"Análisis!C62": "No · financiación cambia mucho"})
     wbb = load_workbook(recb, data_only=True)
