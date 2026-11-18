@@ -104,3 +104,66 @@ Lo resolverían dos datos:
 
 - la reinversión neta propia y las compras de 2016–2022 (Historia filas 30–31), junto con la amortización de derechos de uso, para medir en A2 el S2C y el ROIC de diez años;
 - las ventas y el resultado de Tesco Chequia y Eslovaquia.
+
+## 9. Turno 2 · comprobación conjunta, estado y conclusión
+
+No existe `comprobacion_conjunta.json`: con una conclusión no favorable no procedía. `sobrevive = null` y `resultado = no_procede`.
+
+Cierre: **estado concluido (provisional hasta la auditoría) · cubo No · acción descartar**. No hay precio objetivo.
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: descartar (No) · zona caro · precio de Sí ≤ 27.74 · precio esc. MALO 23.62 · ponderado 29.80 · fundamento no procede (conclusión no favorable)». La escalera sale de `precio.json`. El tamaño de la posición es de José Luis.
+
+Insumos para esa decisión:
+- precio 36,05 €;
+- el precio de Sí está un 23,1 % por debajo del precio, y el precio esc. MALO un 34,5 % por debajo (diferencia ÷ precio);
+- r 0,09 frente a una r mínima de 0,0786;
+- ningún dato ausente material;
+- la palanca más influyente, solo como información, es el margen.
+
+## 10. Tesis (B101)
+
+Ahold Delhaize vende comida en 9.551 tiendas (AR2025 PDF p. 58) y deja unos 2.000 millones al año para el accionista (C52), que reparte casi enteros (AR2025 PDF p. 56). Su escala local defiende la cuota, no el retorno. El margen IFRS va del 2,9 % al 4,4 % en diez años (fila 29). El ahorro de 1.294 vuelve al precio (AR2025 PDF p. 45). El ROIC del capital total, un 8,8 % (C55), no supera mi alternativa. El accionista rinde más sobre su capital propio porque el 85 % de los locales es arrendado: eso es renta fija, no foso. A 36,05 €, el precio pide un 11,3 % de crecimiento anual durante cinco años (C86), y queda por encima del ponderado (29,80 €) y del precio de Sí (27,74 €). No: descartar.
+
+## 11. Tesis inversa (B102)
+
+Mi cubo es No, así que la inversa defiende el lado contrario: el error de omisión.
+
+1. Sin fondo de comercio el ROIC es del 12,9–13,5 % (C24), y el capital propio rindió un 14,8 % en 2021–2025 (Historia filas 7, 23 y 32).
+2. Albert Heijn tiene el 38,2 % de cuota (AR2025 PDF p. 50) y Food Lion lleva 53 trimestres en positivo (AR2025 PDF p. 43).
+3. La caja vuelve al dueño y hay un 29 % menos de acciones desde 2017 (fila 20).
+4. La r es heredada: con la r mínima, el ROIC total la supera.
+5. El BUENO (38,89 €) ya supera el precio.
+
+No me basta. El retorno de más es apalancamiento con renta fija, el margen no ha subido en diez años y el precio exige un crecimiento que la empresa no ha tenido sin comprar. «I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM).
+
+## 12. Predicciones (dado el NORMAL)
+
+1. El margen subyacente del Grupo en 2027 estará entre el 3,7 % y el 4,2 %. Fecha: 2028-03-31. Probabilidad: 0,7.
+2. Las comparables sin gasolina del Grupo en 2027 crecerán entre el 0,5 % y el 3,5 %. Fecha: 2028-03-31. Probabilidad: 0,7.
+3. La caja de explotación de 2027, menos capex, arrendamientos e intereses pagados, estará entre 1.700 y 2.400 millones. Fecha: 2028-03-31. Probabilidad: 0,65.
+
+Las tres son del negocio y se pueden comprobar con el informe anual de 2027.
+
+## 13. C93, C103, B222 y B223
+
+- **C93 = Sí, se mantiene.** El g del 2 % es C45. Con un ROIC de 0,12 exige reinvertir alrededor del 17 % del resultado. El salto del NORMAL es de +1,2 puntos y el terminal pesa un 53 %.
+- **C103 = No, se mantiene.** Es un negocio que hay que vigilar.
+- **B222.** La hipótesis que más condiciona es Palancas!C18 (y D18): el ROIC terminal está en el tope de la tasa + 3 puntos. Mueve el precio de Sí entre 27,23 € y 27,85 €.
+- **B223.** La resolverían las notas de flujos y de inmovilizado de 2016–2022 (para Historia filas 30–31 en A2), y una pregunta a Relación con Inversores por las ventas, el resultado y los arrendamientos de Tesco Chequia y Eslovaquia.
+
+## 14. Qué me haría cambiar de cubo
+
+- **A Vigilar, y solo después a Sí:** tres años de ROIC del capital total por encima de r, con el margen subyacente sobre el 4,4 % y el ahorro retenido.
+- **Para reforzar el No:** un margen subyacente bajo el 3,8 % dos años seguidos, o un nuevo deterioro de Profi o de Stop & Shop (AR2025 PDF p. 238).
+- **A Demasiado difícil:** que el precio y el surtido se decidan fuera de sus canales (AR2025 PDF p. 69), o que las compras hagan del grupo algo cuyo retorno no pueda medir.
+
+## 15. Comparación con la etapa 1
+
+| | Cubo | Precio de Sí | Precio de entonces |
+|---|---|---|---|
+| Etapa 1 (v1) | Vigilar | 23,13 € (mín(MALO, 0,75 × ponderado)) | 33,14 € |
+| Ahora (v2) | No | 27,74 € (escalera k = 3, motor A en A2_propio) | 36,05 € |
+
+El cubo difiere porque la etapa 1 llamó foso a la cuota y a la densidad. La Historia de diez años da un ROIC del capital total por debajo de r, y el ahorro se lo queda el cliente. El precio de Sí es más alto porque las tiendas arrendadas se pagan dentro de f y la regla es otra. Las dos versiones coinciden en lo esencial: a precio de mercado no hay margen. La etapa 1 acertó al ver la estructura rígida; se equivocó, creo, al llamar foso a una ventaja que no da retorno.
+
+Confianza global: media.
