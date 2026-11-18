@@ -1,6 +1,6 @@
 {
- "paso": 6,
- "estado_analisis": null,
+ "paso": 7,
+ "estado_analisis": "pendiente_de_datos",
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -14,12 +14,28 @@
   "  $ python3 rellenar_fase1_v63.py Elis_v63_base.xlsx fase1_v63.json Elis_v63_datos.xlsx --estricta → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
   "  $ python3 f1_libro_v631.py aplicar Elis_v63_datos.xlsx Elis_v63_datos.xlsx.f1.xlsx Elis → 0 · OK: perímetro F1 aplicado al libro V6.3.1 (Historia C85 = None; 10 importes) → /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/Elis/Elis_",
   "  $ python3 comprobar_entrada_v63.py Elis_v63_datos.xlsx Elis → 0 · OK: 0 bloqueantes · 2 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
-  "  $ python3 volcar_datos_v63.py Elis_v63_datos.xlsx Elis → 0 · OK: datos_v63.md (14890 palabras) y datos_v63.json en /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/Elis"
+  "  $ python3 volcar_datos_v63.py Elis_v63_datos.xlsx Elis → 0 · OK: datos_v63.md (14890 palabras) y datos_v63.json en /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/Elis",
+  "  $ python3 validar_esquema.py fase_a.json fase_a --salida esquema_fase_a.json.txt → 0 · VÁLIDO · fase_a.json contra fase_a.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_a.md fase_a.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_a.json A celdas_A.json → 0 · OK: 116 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/Elis/celdas_A.json",
+  "  $ python3 escribir_v63.py Elis_v63_datos.xlsx Elis_v63_evaluada.xlsx --celdas celdas_A.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Elis_v63_evaluada.xlsx Elis_v63_datos.xlsx --fases A → 0 · PASS: 0 errores · 29 celdas correctas · fases ['A'] · motor A",
+  "  $ python3 comprobar_entrada_v63.py Elis_v63_evaluada.xlsx Elis --motor A → 0 · OK: 0 bloqueantes · 2 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
+  "  $ python3 motor_a_f1.py evaluar Elis --libro Elis_v63_evaluada.xlsx --motor A --libro-origen Elis_v63_evaluada.xlsx → 3 · DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-LIBRO, F1-PARAM, F1-PERIMETRO, V-F1d, V-F1g, V-F1i, V-F1j, V-F1k, V-F1l",
+  "2026-11-18T09:48:14 · paso 7 · motor A · F1: DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-LIBRO, F1-PARAM, F1-PERIMETRO, V-F1d, V-F1g, V-F1i, V-F1j, V-F1k, V-F1l",
+  "  $ python3 verificar_v631.py Elis_v63_evaluada.xlsx referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Elis_v63_evaluada.xlsx Elis_v63_datos.xlsx --fases A --motor A → 0 · PASS: 0 errores · 29 celdas correctas · fases ['A'] · motor A",
+  "  $ python3 diagnostico.py Elis --estado pendiente_de_datos --tipo falta_de_datos --detalle motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · V-F1l INCOMPLETO: N1 exige el margen objetivo declarado sin esos ajustes (condición de 5a): sin declarar; F1-PARAM INCOMPLETO: alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: [2021, 2; V-F1j INCOMPLETO: clasificación de las compras de sociedades pendiente (opción A de 4b, hasta M6); V-F1i INCOMPLETO: transición conocida con su tratamiento pendiente (sin importe ni horizonte la conclusión queda pendiente; nunca cero por; V-F1d INCOMPLETO: A3_estimado sin estimación de la reinversión necesaria (R sigue en pendiente_de_datos: 3a, 3b (iv)); V-F1g MODELO NO APLICABLE: perímetro de las palancas S2C sin declarar; V-F1k MODELO NO APLICABLE: perímetro del ROIC del terminal sin declarar; F1-PERIMETRO INCOMPLETO: el perímetro A3_estimado no es calculable: faltan series (D&A ROU, PPA o R) en la ventana; F1-LIBRO MODELO NO APLICABLE: el  --paso 7 --comprobacion F1 --categoria F1 --que-hace-falta la declaración F1 (motor_a_f1.json) y los datos o decisiones que piden las guardas (R: M1, M2, M6; compras; transición) --desde-paso 2 → 0 · diagnóstico escrito: pendiente_de_datos · falta_de_datos · paso 7",
+  "  $ python3 ficha.py Elis --estado pendiente_de_datos → 0 · OK: ficha.json · estado pendiente_de_datos · cubo None · acción None",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Elis → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Elis resumen_v2_v631_f1.csv → 0 · OK: fila de Elis SA en /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/resumen_v2_v631_f1.csv",
+  "2026-11-18T09:48:21 · paso 7 · FIN · estado pendiente_de_datos · falta_de_datos: motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · V-F1l INCOMPLETO: N1 exige el margen objetivo declarado sin eso"
  ],
- "motor": null,
+ "motor": "A",
  "fase_b_escrita": false,
  "fase_c_escrita": false,
- "esperando": "6:fase_a.json",
+ "esperando": null,
  "inicio": "2026-11-18T09:29:58",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -28,7 +44,17 @@
  "f1_v631_declaracion_sha256": "1264cd95afebdf648ccba4ec5ff0ff6be5cd06c1ca888b68c571e29951e9b5aa",
  "esperando_desde": 1794994457.693092,
  "consumidos": {
-  "extracto_v63.md": 1794994444.898623
+  "extracto_v63.md": 1794994444.898623,
+  "fase_a.json": 1794995081.0446725
  },
- "motivo_correccion": null
+ "motivo_correccion": null,
+ "motor_a_f1": {
+  "paso": 7,
+  "bloquea": true,
+  "estado_propuesto": "pendiente_de_datos",
+  "declaracion_sha256": "f47fba9c98ef75df50675895a4c4539eff8b09b252e0de92a8ac8933947e3fe7",
+  "libro_sha256": "213f5c32083e133b6fe786b3fdf4102e6db42b655c5b6bc9b211cba2ce2a54b2"
+ },
+ "ficha_valida": true,
+ "resumen_pendiente": false
 }
