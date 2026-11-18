@@ -45,7 +45,7 @@
      "impreso": "223",
      "pagina": 71,
      "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
-     "signo": -1
+     "signo": 1
     }
    ],
    "anterior": [
@@ -60,11 +60,11 @@
      "impreso": "206",
      "pagina": 71,
      "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
-     "signo": -1
+     "signo": 1
     }
    ],
    "cero": null,
-   "nota": "EBIT derivado = BAI - gasto por intereses. No se resta 'Other (income)/deductions-net' ni restructuring (quedan dentro del EBIT). No hay linea de ingresos financieros separada en la cuenta de resultados."
+   "nota": "(zoetis_t1c, ronda 2) EBIT derivado = BAI + «Interest expense, net of capitalized interest» (gasto impreso en positivo: signo +1); «Other (income)/deductions—net» sigue dentro del EBIT. Nota anterior: EBIT derivado = BAI - gasto por intereses. No se resta 'Other (income)/deductions-net' ni restructuring (quedan dentro del EBIT). No hay linea de ingresos financieros separada en la cuenta de resultados."
   },
   "da": {
    "actual": [
@@ -316,9 +316,9 @@
    "actual": null,
    "anterior": null,
    "cero": {
-    "motivo": "Los intereses pagados no figuran en financiacion: la seccion de financiacion no tiene linea de intereses",
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
     "pagina": 75,
-    "cita": "Payment of contingent consideration related to previously acquired assets"
+    "cita": "Interest, net of capitalized interest"
    },
    "nota": "Los intereses pagados figuran en actividades de explotacion (informacion suplementaria); el estado de financiacion no tiene linea de intereses."
   },
@@ -326,9 +326,9 @@
    "actual": null,
    "anterior": null,
    "cero": {
-    "motivo": "Solo arrendamientos operativos, sin linea de pagos de principal en financiacion",
-    "pagina": 96,
-    "cita": "We have facilities, vehicles and equipment under various non-cancellable operating leases with third parties."
+    "motivo": "2019: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 77,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
    },
    "nota": "Solo arrendamientos operativos (US GAAP); no hay pagos de principal en financiacion."
   },
@@ -447,16 +447,9 @@
   },
   "arrendamientos": {
    "actual": [],
-   "anterior": [
-    {
-     "concepto": "Operating lease liabilities 2018 (sin importe: impreso —)",
-     "impreso": "—",
-     "pagina": 73,
-     "linea": "Operating lease liabilities                                                                                                               164                  —"
-    }
-   ],
+   "anterior": [],
    "cero": {
-    "motivo": "US GAAP: en 2019 Zoetis solo tenía arrendamientos operativos; su pasivo no va en la fila 23 (que lleva solo los financieros): sin pasivo por arrendamientos financieros",
+    "motivo": "2019: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
     "pagina": 77,
     "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
    },

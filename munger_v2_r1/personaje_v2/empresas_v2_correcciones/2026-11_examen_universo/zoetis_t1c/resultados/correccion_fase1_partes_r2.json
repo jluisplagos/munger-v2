@@ -1,0 +1,980 @@
+{
+ "fecha": "2026-11-18",
+ "autor": "orquestación (Claude, agente de implementación), encargo del coordinador; sin firma humana",
+ "guion": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/resultados/scripts/corregir_fase1_partes_r2.py",
+ "fuente_de_las_correcciones": "revisión independiente del registro de Zoetis (munger-v2-evidencias-mistral, coordinacion/cierre_v2/examen/zoetis/revision_registro/, @ 1563156), comprobada en texto/",
+ "no_aplicado": "minoritarios negativos de 2022 (I26, impreso (2)) y 2023 (J26, impreso (6)): fase1_historia.py aplica abs() a «minoritarios»; llevar el signo exige cambiar el producto (inmaterial)",
+ "archivos": [
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2016.json",
+   "antes_sha256": "3b2ec042c0b6f8128d0b61b73e61a5ea8364a48bba09e45fd19c15746b6ce490",
+   "despues_sha256": "fc8dde640e64bf9f130629ba98235f5abefc232ffc7e4a9b23ea8bc2360ad309"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2017.json",
+   "antes_sha256": "54c494828055c330039b1a5fca4eae54a9be1a3a28c148da065c03a97126924a",
+   "despues_sha256": "68c3a37492fa62a821f0697676f200c5e66f7e0115c77091561c6bdd53c02b69"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2018.json",
+   "antes_sha256": "b6b44a1970f611e095aceb48569f84f8f9980b59253377ac5dcd133831199ee9",
+   "despues_sha256": "77df5c80f189bb26dde52408891f106992dc48d750b7393f86ede40798446820"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2019.json",
+   "antes_sha256": "9f8e41dfdd423ac18cd015750f4e82756a114009d5eb5cdc77c6c3f6886fbd7b",
+   "despues_sha256": "d750baaf7a075a37def8dd8974c5466f8a80d599268374e80155bb026f529dc9"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2020.json",
+   "antes_sha256": "8ff253800c853b60f47f4032b1350c09965ca4381f6003fff5544e4c7075b341",
+   "despues_sha256": "53eddd6e7af0098d7909504422eb6569feb79ea68b78c3137e901e60cab13ba6"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2021.json",
+   "antes_sha256": "30662550321b0c615e393e53dea2212a4fb72bf0093b70682903280b8ece55b4",
+   "despues_sha256": "a911eec292ce57ce5d47bbc7ed3dae5edf5a72d6a428daf8dc15af808bb287a7"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2022.json",
+   "antes_sha256": "6f976cc8c9511ff266384e3a48a72246ec11022922b7f3f5a6e472e78ce721e7",
+   "despues_sha256": "54cdb3051acf5c3880915984f2c2668195670c7ea7ce3d10a8dfd424dccb8d17"
+  },
+  {
+   "archivo": "fase1_partes/AR_2023.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2023.json",
+   "antes_sha256": "00cd5ee1f7e879fd2d6ebe5dcc9783f7d07196c269bb5ee14b60a842a8bd30d6",
+   "despues_sha256": "d8fcab52c17b9c665da20e38395cc5c96def46abf9d3bd8ff91caf8852729374"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2024.json",
+   "antes_sha256": "cec5d2c84940db18f860caa621420204ae3f3cdbee3b1cbdc133b8c01e1c394c",
+   "despues_sha256": "8db9d710e95d24376995acd95d6c7b238fd7ffbc6e732cf5f8b900361a427b2a"
+  },
+  {
+   "archivo": "fase1_partes/AR_2025.json",
+   "antes": "antecedentes/fase1_partes_antes_de_r2/AR_2025.json",
+   "antes_sha256": "4a2ee4627f638d16bcec107536371e1eedb374a366c52871f4bce66d276e04ce",
+   "despues_sha256": "e31df158f844f5bb6658932de7070442f69b4fe771d62e0f0f767e92e5f7bcd2"
+  }
+ ],
+ "cambios": [
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "166",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                         166                 124                  117",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "166",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                         166                 124                  117",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "124",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                         166                 124                  117",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "124",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                         166                 124                  117",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "175",
+    "pagina": 69,
+    "linea": "Interest expense, net of capitalized interest                                                                         175                 166                  124",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "175",
+    "pagina": 69,
+    "linea": "Interest expense, net of capitalized interest                                                                         175                 166                  124",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "166",
+    "pagina": 69,
+    "linea": "Interest expense, net of capitalized interest                                                                         175                 166                  124",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "166",
+    "pagina": 69,
+    "linea": "Interest expense, net of capitalized interest                                                                         175                 166                  124",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "206",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest 206 175 166",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "206",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest 206 175 166",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "175",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest 206 175 166",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "175",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest 206 175 166",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "223",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "223",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense 2018",
+    "impreso": "206",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense 2018",
+    "impreso": "206",
+    "pagina": 71,
+    "linea": "Interest expense, net of capitalized interest                                                                       223                   206                  175",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "231",
+    "pagina": 74,
+    "linea": "Interest expense, net of capitalized interest 231 223 206",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "231",
+    "pagina": 74,
+    "linea": "Interest expense, net of capitalized interest 231 223 206",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "223",
+    "pagina": 74,
+    "linea": "Interest expense, net of capitalized interest 231 223 206",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "223",
+    "pagina": 74,
+    "linea": "Interest expense, net of capitalized interest 231 223 206",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "224",
+    "pagina": 72,
+    "linea": "Interest expense, net of capitalized interest 224 231 223",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "224",
+    "pagina": 72,
+    "linea": "Interest expense, net of capitalized interest 224 231 223",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "231",
+    "pagina": 72,
+    "linea": "Interest expense, net of capitalized interest 224 231 223",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "231",
+    "pagina": 72,
+    "linea": "Interest expense, net of capitalized interest 224 231 223",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "221",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 221 224 231",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "221",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 221 224 231",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "224",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 221 224 231",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "224",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 221 224 231",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2023.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "239",
+    "pagina": 65,
+    "linea": "terest expense, net of capitalized interest                                                                                                    239                        221                        224",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "239",
+    "pagina": 65,
+    "linea": "terest expense, net of capitalized interest                                                                                                    239                        221                        224",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2023.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "221",
+    "pagina": 65,
+    "linea": "terest expense, net of capitalized interest                                                                                                    239                        221                        224",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "221",
+    "pagina": 65,
+    "linea": "terest expense, net of capitalized interest                                                                                                    239                        221                        224",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "225",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 225 239 221",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "225",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 225 239 221",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest 2023",
+    "impreso": "239",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 225 239 221",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest 2023",
+    "impreso": "239",
+    "pagina": 64,
+    "linea": "Interest expense, net of capitalized interest 225 239 221",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2025.json",
+   "partida": "ebit_derivado",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "222",
+    "pagina": 66,
+    "linea": "Interest expense, net of capitalized interest                                                                       222                   225                  239",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "222",
+    "pagina": 66,
+    "linea": "Interest expense, net of capitalized interest                                                                       222                   225                  239",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2025.json",
+   "partida": "ebit_derivado",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "225",
+    "pagina": 66,
+    "linea": "Interest expense, net of capitalized interest                                                                       222                   225                  239",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Interest expense, net of capitalized interest",
+    "impreso": "225",
+    "pagina": 66,
+    "linea": "Interest expense, net of capitalized interest                                                                       222                   225                  239",
+    "signo": 1
+   },
+   "motivo": "«Interest expense, net of capitalized interest» se imprime en positivo dentro de «Costs and expenses» (estado de resultados): EBIT = BAI + gasto por intereses; el signo −1 lo restaba (revisión del registro de Zoetis, punto 1)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "adquisiciones",
+   "campo": "actual",
+   "antes": [
+    {
+     "concepto": "Acquisition of Abaxis, net of cash acquired",
+     "impreso": "(1,884)",
+     "pagina": 75,
+     "linea": "Acquisition of Abaxis, net of cash acquired (1,884) — —"
+    },
+    {
+     "concepto": "Other acquisitions",
+     "impreso": "(114)",
+     "pagina": 75,
+     "linea": "Other acquisitions (114) (82) (88)"
+    },
+    {
+     "concepto": "Net proceeds from sales of assets (cobros por ventas; con signo impreso positivo)",
+     "impreso": "56",
+     "pagina": 75,
+     "linea": "Net proceeds from sales of assets 56 37 90",
+     "signo": -1
+    }
+   ],
+   "despues": [
+    {
+     "concepto": "Acquisition of Abaxis, net of cash acquired",
+     "impreso": "(1,884)",
+     "pagina": 75,
+     "linea": "Acquisition of Abaxis, net of cash acquired (1,884) — —"
+    },
+    {
+     "concepto": "Other acquisitions",
+     "impreso": "(114)",
+     "pagina": 75,
+     "linea": "Other acquisitions (114) (82) (88)"
+    }
+   ],
+   "motivo": "«Net proceeds from sales of assets» (56 en 2018, 37 en 2017) son ventas de activos, no de negocios (el 10-K 2017 tampoco las resta: AR_2017 solo «Acquisitions (82)»); con signo −1 se sumaban como pagos: D13 = 82"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "adquisiciones",
+   "campo": "anterior",
+   "antes": [
+    {
+     "concepto": "Other acquisitions",
+     "impreso": "(82)",
+     "pagina": 75,
+     "linea": "Other acquisitions (114) (82) (88)"
+    },
+    {
+     "concepto": "Net proceeds from sales of assets",
+     "impreso": "37",
+     "pagina": 75,
+     "linea": "Net proceeds from sales of assets 56 37 90",
+     "signo": -1
+    }
+   ],
+   "despues": [
+    {
+     "concepto": "Other acquisitions",
+     "impreso": "(82)",
+     "pagina": 75,
+     "linea": "Other acquisitions (114) (82) (88)"
+    }
+   ],
+   "motivo": "«Net proceeds from sales of assets» (56 en 2018, 37 en 2017) son ventas de activos, no de negocios (el 10-K 2017 tampoco las resta: AR_2017 solo «Acquisitions (82)»); con signo −1 se sumaban como pagos: D13 = 82"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "partida": "adquisiciones",
+   "campo": "actual[1].signo",
+   "antes": {
+    "concepto": "Proceeds from sale of businesses, net of cash sold (cobro por venta, resta del pago)",
+    "impreso": "293",
+    "pagina": 68,
+    "linea": "Proceeds from sale of businesses, net of cash sold 293 96 —",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Proceeds from sale of businesses, net of cash sold (cobro por venta, resta del pago)",
+    "impreso": "293",
+    "pagina": 68,
+    "linea": "Proceeds from sale of businesses, net of cash sold 293 96 —",
+    "signo": 1
+   },
+   "motivo": "cobro por venta de negocios impreso en positivo: resta de las adquisiciones (signo +1, como en AR_2025): J13 = 155 − 96 = 59"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "partida": "adquisiciones",
+   "campo": "anterior[1].signo",
+   "antes": {
+    "concepto": "Proceeds from sale of businesses, net of cash sold 2023",
+    "impreso": "96",
+    "pagina": 68,
+    "linea": "Proceeds from sale of businesses, net of cash sold 293 96 —",
+    "signo": -1
+   },
+   "despues": {
+    "concepto": "Proceeds from sale of businesses, net of cash sold 2023",
+    "impreso": "96",
+    "pagina": 68,
+    "linea": "Proceeds from sale of businesses, net of cash sold 293 96 —",
+    "signo": 1
+   },
+   "motivo": "cobro por venta de negocios impreso en positivo: resta de las adquisiciones (signo +1, como en AR_2025): J13 = 155 − 96 = 59"
+  },
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos no tiene linea de intereses en financiacion; los intereses pagados son informacion suplementaria y van dentro del resultado de explotacion.",
+    "pagina": 75,
+    "cita": "Payment of debt issuance costs"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos parte del resultado neto y la seccion de financiacion no contiene ninguna linea de intereses; los intereses pagados quedan en explotacion",
+    "pagina": 73,
+    "cita": "Net cash (used in)/provided by financing activities"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 74,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos no tiene linea de intereses en financiacion; los intereses se pagan en explotacion.",
+    "pagina": 75,
+    "cita": "Financing Activities"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Los intereses pagados no figuran en financiacion: la seccion de financiacion no tiene linea de intereses",
+    "pagina": 75,
+    "cita": "Payment of contingent consideration related to previously acquired assets"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 75,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El bloque de financiacion no tiene linea de intereses pagados; los intereses pagados figuran solo como informacion suplementaria del estado de flujos (se parte de resultado neto, ASC 230).",
+    "pagina": 78,
+    "cita": "Financing Activities"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 78,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Los intereses pagados estan dentro de actividades de explotacion (US GAAP); ninguna linea de intereses en financiacion",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Los intereses pagados figuran en explotacion (el estado de flujos no tiene linea de intereses en financiacion; US GAAP).",
+    "pagina": 68,
+    "cita": "Net cash (used in)/provided by financing activities"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 68,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2023.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos no tiene linea de intereses en financiacion; los intereses pagados son informacion suplementaria (US GAAP, en explotacion).",
+    "pagina": 69,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 69,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2024.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "La sección de actividades de financiación no incluye ninguna línea de intereses pagados; los intereses se informan solo como dato suplementario.",
+    "pagina": 68,
+    "cita": "Purchases of treasury stock, including excise taxes paid"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 68,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2025.json",
+   "partida": "intereses_financiacion",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos no tiene línea de intereses en financiación; los intereses pagados se informan como información suplementaria (clasificación en explotación, US GAAP).",
+    "pagina": 70,
+    "cita": "Cash paid during the period for:"
+   },
+   "despues": {
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 70,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "motivo": "cita anterior sin relación con el dato (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "US GAAP 2016: sin pasivos por arrendamiento NIIF 16; el estado de flujos no tiene linea de principal de arrendamientos en financiacion.",
+    "pagina": 75,
+    "cita": "Cash dividends paid"
+   },
+   "despues": {
+    "motivo": "2016: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 106,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Antes de 2019 no existian pasivos por arrendamiento NIIF 16 en balance (US GAAP).",
+    "pagina": 73,
+    "cita": "Long-term debt, net of discount and issuance costs"
+   },
+   "despues": {
+    "motivo": "2016: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 106,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Sin pasivos por arrendamiento IFRS 16 (US GAAP pre-ASC 842); la financiacion no tiene pagos de arrendamiento y solo hay arrendamientos operativos",
+    "pagina": 103,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "despues": {
+    "motivo": "2017: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 103,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2017.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Antes de ASC 842/IFRS 16 no hay pasivos por arrendamiento en balance; solo arrendamientos operativos fuera de balance",
+    "pagina": 103,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "despues": {
+    "motivo": "2017: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 103,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Antes de la adopcion de ASC 842 no hay pagos de arrendamientos en financiacion.",
+    "pagina": 78,
+    "cita": "We have substantially completed our implementation of a lease accounting system"
+   },
+   "despues": {
+    "motivo": "2018: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 110,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Antes de ASC 842 no hay pasivos por arrendamiento en balance (solo arrendamientos operativos fuera de balance).",
+    "pagina": 78,
+    "cita": "We have substantially completed our implementation of a lease accounting system"
+   },
+   "despues": {
+    "motivo": "2018: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 110,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Solo arrendamientos operativos, sin linea de pagos de principal en financiacion",
+    "pagina": 96,
+    "cita": "We have facilities, vehicles and equipment under various non-cancellable operating leases with third parties."
+   },
+   "despues": {
+    "motivo": "2019: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 77,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "US GAAP: en 2019 Zoetis solo tenía arrendamientos operativos; su pasivo no va en la fila 23 (que lleva solo los financieros): sin pasivo por arrendamientos financieros",
+    "pagina": 77,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "despues": {
+    "motivo": "2019: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 77,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Solo hay arrendamientos operativos (ASC 842); no hay pagos de principal de arrendamientos financieros en financiacion.",
+    "pagina": 98,
+    "cita": "We have facilities, vehicles and equipment under various non-cancellable operating leases with third parties."
+   },
+   "despues": {
+    "motivo": "2020: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 80,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "US GAAP: en 2020 Zoetis solo tenía arrendamientos operativos; su pasivo no va en la fila 23 (que lleva solo los financieros): sin pasivo por arrendamientos financieros",
+    "pagina": 80,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "despues": {
+    "motivo": "2020: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 80,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Solo arrendamientos operativos US GAAP; sin pagos de principal de arrendamientos financieros en financiacion",
+    "pagina": 94,
+    "cita": "Supplemental information for operating leases is as follows:"
+   },
+   "despues": {
+    "motivo": "2021: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 78,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "US GAAP: en 2021 Zoetis solo tenía arrendamientos operativos; su pasivo no va en la fila 23 (que lleva solo los financieros): sin pasivo por arrendamientos financieros",
+    "pagina": 78,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "despues": {
+    "motivo": "2021: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 78,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Zoetis solo tiene arrendamientos operativos (US GAAP); no hay linea de principal de arrendamientos financieros en financiacion.",
+    "pagina": 70,
+    "cita": "Our current portfolio includes only operating leases"
+   },
+   "despues": {
+    "motivo": "2022: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 70,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "US GAAP: en 2022 Zoetis solo tenía arrendamientos operativos; su pasivo no va en la fila 23 (que lleva solo los financieros): sin pasivo por arrendamientos financieros",
+    "pagina": 70,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "despues": {
+    "motivo": "2022: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 70,
+    "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+   },
+   "motivo": "cita anterior que no probaba el cero (revisión, punto 5)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "arrendamientos",
+   "campo": "anterior",
+   "antes": [
+    {
+     "concepto": "Operating lease liabilities 2018 (sin importe: impreso —)",
+     "impreso": "—",
+     "pagina": 73,
+     "linea": "Operating lease liabilities                                                                                                               164                  —"
+    }
+   ],
+   "despues": [],
+   "motivo": "comparativo de 2018 del pasivo OPERATIVO («—»): la fila 23 lleva solo financieros; 2018 se toma del cero de AR_2018"
+  }
+ ]
+}

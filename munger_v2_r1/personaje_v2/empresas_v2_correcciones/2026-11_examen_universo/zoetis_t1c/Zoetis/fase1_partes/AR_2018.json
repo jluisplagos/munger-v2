@@ -45,7 +45,7 @@
      "impreso": "206",
      "pagina": 71,
      "linea": "Interest expense, net of capitalized interest 206 175 166",
-     "signo": -1
+     "signo": 1
     }
    ],
    "anterior": [
@@ -60,11 +60,11 @@
      "impreso": "175",
      "pagina": 71,
      "linea": "Interest expense, net of capitalized interest 206 175 166",
-     "signo": -1
+     "signo": 1
     }
    ],
    "cero": null,
-   "nota": "EBIT derivado = BAI + gasto por intereses neto. 'Other (income)/deductions--net' queda dentro del EBIT."
+   "nota": "(zoetis_t1c, ronda 2) EBIT derivado = BAI + «Interest expense, net of capitalized interest» (gasto impreso en positivo: signo +1); «Other (income)/deductions—net» sigue dentro del EBIT. Nota anterior: EBIT derivado = BAI + gasto por intereses neto. 'Other (income)/deductions--net' queda dentro del EBIT."
   },
   "da": {
    "actual": [
@@ -199,13 +199,6 @@
      "impreso": "(114)",
      "pagina": 75,
      "linea": "Other acquisitions (114) (82) (88)"
-    },
-    {
-     "concepto": "Net proceeds from sales of assets (cobros por ventas; con signo impreso positivo)",
-     "impreso": "56",
-     "pagina": 75,
-     "linea": "Net proceeds from sales of assets 56 37 90",
-     "signo": -1
     }
    ],
    "anterior": [
@@ -214,17 +207,10 @@
      "impreso": "(82)",
      "pagina": 75,
      "linea": "Other acquisitions (114) (82) (88)"
-    },
-    {
-     "concepto": "Net proceeds from sales of assets",
-     "impreso": "37",
-     "pagina": 75,
-     "linea": "Net proceeds from sales of assets 56 37 90",
-     "signo": -1
     }
    ],
    "cero": null,
-   "nota": "Cobros por venta de activos (no solo negocios) incluidos como menos adquisiciones segun definicion; el script debe restarlos. Abaxis anterior: sin importe (-)."
+   "nota": "(zoetis_t1c, ronda 2) Sin las ventas de activos (no son ventas de negocios). Nota anterior: Cobros por venta de activos (no solo negocios) incluidos como menos adquisiciones segun definicion; el script debe restarlos. Abaxis anterior: sin importe (-)."
   },
   "circulante_lineas": {
    "actual": [
@@ -330,9 +316,9 @@
    "actual": null,
    "anterior": null,
    "cero": {
-    "motivo": "El estado de flujos no tiene linea de intereses en financiacion; los intereses se pagan en explotacion.",
-    "pagina": 75,
-    "cita": "Financing Activities"
+    "motivo": "US GAAP (ASC 230): los intereses pagados van en el flujo de explotación; el estado de flujos los da solo como información suplementaria («Cash paid during the period for: … Interest, net of capitalized interest») y su sección de financiación no tiene línea de intereses: 0 en financiación",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
    },
    "nota": null
   },
@@ -340,9 +326,9 @@
    "actual": null,
    "anterior": null,
    "cero": {
-    "motivo": "Antes de la adopcion de ASC 842 no hay pagos de arrendamientos en financiacion.",
-    "pagina": 78,
-    "cita": "We have substantially completed our implementation of a lease accounting system"
+    "motivo": "2018: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pagos de principal de arrendamientos financieros",
+    "pagina": 110,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
    },
    "nota": null
   },
@@ -457,9 +443,9 @@
    "actual": null,
    "anterior": null,
    "cero": {
-    "motivo": "Antes de ASC 842 no hay pasivos por arrendamiento en balance (solo arrendamientos operativos fuera de balance).",
-    "pagina": 78,
-    "cita": "We have substantially completed our implementation of a lease accounting system"
+    "motivo": "2018: la nota de arrendamientos solo describe arrendamientos operativos (no hay arrendamientos financieros hasta 2023: 10-K 2023 PDF p. 87, «Finance lease liabilities … 1 —»): sin pasivo por arrendamientos financieros (la fila 23 lleva solo financieros)",
+    "pagina": 110,
+    "cita": "We have facilities, vehicles and office equipment under various non-cancellable operating leases with third parties."
    },
    "nota": null
   },
