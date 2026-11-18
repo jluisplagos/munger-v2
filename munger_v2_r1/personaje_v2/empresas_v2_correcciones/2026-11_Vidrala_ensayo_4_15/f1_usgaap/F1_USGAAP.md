@@ -189,10 +189,14 @@ LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecuci�
 | `python3 -I …/f1_impl/scripts/regresion_elis_f1.py <copia>` | `39/39 PASAN`; los tres resultados F1 de Elis, idénticos a los de antes del cambio salvo versión, fecha y rutas (`resultados/regresion_elis_f1_tras_usgaap.md`) |
 | `flock … prueba_pipeline_f1.py` (gancho; P3 reescrita: mezcla de normas) | `7/7 pruebas del gancho F1 del pipeline PASAN` |
 | `flock … prueba_pipeline_v631.py` | `9/9 pruebas de la V6.3.1 F1 en el pipeline PASAN` |
+| `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `e906b06` (manifiesto 8060 · modificados 0 · ausentes 0 · de más 0) | `RESULTADO GLOBAL: PASA`, código 0 (`resultados/verificacion_completa_e906b06.txt`): los 27 bloques en PASA; comprobadores 114/114, sintética 30/30, vigencia H5 59/59, juicio 27/27, entradas 33/33 y 190/190, entrada efectiva 62/62, relevo 5/5, motor A F1 163/163, gancho 7/7, **US GAAP 121/121, 11/11 y 13/13**, V6.3.1 28/28, 21/21, 22/22, 35/35 y 9/9, V6.4 199/199, trazabilidad 78/78, integridad 103/103, auditorías 55/55, estados 28/28, resumen 45/45, cierre 55/55 |
 
 **Hecho que no es de esta reparación:** en la base (`1694f08`) la regresión de Elis no se ejecutaba: llama a `motor_a_f1.py` con `python3 -I` y,
 desde la V6.3.1, la capa importa módulos hermanos que así no se encontraban. Corregido con una línea (`sys.path`); con ella y antes de
 cualquier otro cambio daba `39/39 PASAN`, y esa ejecución es la referencia de la comparación.
+
+Después de `e906b06` solo cambian este documento, `VERSION` (la frase sobre US GAAP), el registro de esa verificación, `CAMBIOS_ARCHIVOS.txt`
+y el manifiesto: ningún código de producto ni de prueba.
 
 Las tres pruebas nuevas están registradas en `verificar_paquete.sh completa` (mínimos 121, 11 y 13). Las salidas de `regresion_elis_f1.py`,
 `probar_v631_f1.py` y las pruebas del pipeline de F1-IMPL y de la V6.3.1 no se han vuelto a escribir en sus carpetas (son registros de sus
@@ -211,13 +215,18 @@ entregas): las de esta reparación están en `f1_usgaap/resultados/`.
 5. La cota de D-US1 usa los pagos y el coste lineal como máximos (la parte que reduce el pasivo y la amortización son menores).
 6. `coste_arr_operativo` es obligatorio (para que la diferencia de D-US2 quede a la vista); con el motor A la falta de
    `pasivo_arr_operativo` solo avisa; tolerancia de `F1-US-C49`: 0,005.
-7. La lista cerrada de `L4` incluye las dos variantes NIIF que ya existían en los libros (Elis y Viscofan).
+7. La lista cerrada de `L4` incluye las dos variantes NIIF que ya existían en los libros (Elis y Viscofan; los 85 libros del árbol y del
+   examen usan `IFRS`, esas dos o `US GAAP`). **Único cambio de comportamiento con NIIF:** un libro NIIF con otra variante en `L4` (p. ej.
+   «IFRS (EU)»), que antes pasaba por contener «ifrs», bloquea ahora con `F1-NORMA` · DATOS INVÁLIDOS hasta que `L4` diga `IFRS` o la
+   variante se añada a `NORMA_DEL_LIBRO`. Es el efecto de cerrar H13.
 
 Límites:
 1. Las series y clasificaciones de US GAAP no están en el libro: quedan fuera del universo de `verificacion_entradas.py`. `F1-SERIES`
    es una condición mínima (cifra con su signo y cita en su página; sin revisor ni sello).
 2. Una ubicación «fuera de las filas» declarada con una cita real pero falsa en su sentido no la detecta la capa, salvo que
-   `fase1_partes` muestre la línea (`F1-US-FILAS`). Una línea mixta que no nombra el arrendamiento escapa a ese contraste.
+   `fase1_partes` muestre la línea (`F1-US-FILAS`). Una línea mixta que no nombra el arrendamiento escapa a ese contraste, que además
+   solo mira los componentes «actual» de los informes cuyo `anio` (entero) es un año de la ventana o del ancla; sin esos archivos dice
+   que no hay contradicción con cero líneas examinadas.
 3. El contraste de «no_publicada» con la página es por texto, con patrones en inglés.
 4. No se tratan: ventas con arrendamiento posterior, incentivos, deterioros del derecho de uso, ni ventanas con ejercicios anteriores a
    ASC 842 (antes de 2019).
