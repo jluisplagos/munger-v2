@@ -1949,6 +1949,17 @@ def main():
         return 5 if pend else 2
     if a.reiniciar and os.path.exists(os.path.join(a.carpeta, "estado_pipeline.json")):
         os.remove(os.path.join(a.carpeta, "estado_pipeline.json"))
+    if a.reiniciar or a.desde is not None:
+        # (hoja resumen, ronda 1; decisión del coordinador) al relanzar el pipeline, la hoja resumen del cierre anterior deja de valer: se
+        # archiva como NO VIGENTE (historial_hojas_resumen/) antes de tocar nada más. Si la vigencia retira además la aprobación, la retirada
+        # ya no encuentra hoja que archivar
+        _hoja = [n for n in CIE.HOJA_RESUMEN if os.path.isfile(os.path.join(a.carpeta, n))]
+        if _hoja:
+            _base = os.path.join(a.carpeta, "historial_hojas_resumen")
+            _n = 1 + (len([x for x in os.listdir(_base) if os.path.isdir(os.path.join(_base, x))]) if os.path.isdir(_base) else 0)
+            _dest = os.path.join(_base, f"{_n:02d}_relanzamiento_" + dt.datetime.now().strftime("%Y%m%dT%H%M%S"))
+            CIE.archivar_hoja_resumen(a.carpeta, _dest, "relanzamiento del pipeline" + (" con --reiniciar" if a.reiniciar else f" con --desde {a.desde}"))
+            print(f"HOJA RESUMEN ARCHIVADA COMO NO VIGENTE ({os.path.relpath(_dest, a.carpeta)}): el pipeline se relanza")
     try:
         p = Pipeline(a.carpeta, cfg, a.agentes_simulados)
     except (ValueError, OSError) as e:
@@ -1990,6 +2001,9 @@ def main():
         p.st["paso"] = a.desde
         p.st["estado_analisis"] = None
         p.st["esperando"] = None
+        if p.st.get("fin"):
+            # (hoja resumen, ronda 1) «fin» era la marca del cierre anterior: al relanzar deja de estar (el paso 14 la vuelve a escribir)
+            p.st["fin_anterior"] = p.st.pop("fin")
         if a.desde >= 7 and p.st.get("motor") is None:
             # (revisión V6.3.1, V631-1; R2-1) al reanudar después de la fase A sin el motor en el estado, el de fase_a.json (C62): el gancho F1
             # de los pasos 7 y 12 y su vigencia no se saltan por un motor desconocido

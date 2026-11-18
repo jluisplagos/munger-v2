@@ -586,6 +586,10 @@ def linea_alcance(a):
 # material. Los estados tempranos sin auditoría (ficha sin «cierre» y estado ≠ concluido) no se tocan.
 CIERRE_VIGENTE = "cierre_vigente.json"
 SALIDAS_OFICIALES = ("ficha.json", "informe.md", CIERRE_VIGENTE)
+# (hoja resumen, ronda 1 de su revisión crítica; decisión del coordinador) la hoja resumen en lenguaje llano (hoja_resumen.py) es material
+# de estudio, no una salida oficial, pero resume un cierre concreto: cuando se retira la aprobación de ese cierre, o se relanza el pipeline,
+# deja de valer y se archiva como NO VIGENTE junto al antecedente. Nunca se reactiva: una hoja nueva exige un cierre vigente nuevo.
+HOJA_RESUMEN = ("hoja_resumen.md", "hoja_resumen.json")
 NO_VIGENTE = "SIN APROBACIÓN VIGENTE"
 
 
@@ -975,6 +979,27 @@ def _retirar_fila(csv_path, empresa, material, motivo):
     return True
 
 
+def archivar_hoja_resumen(carpeta, destino, motivo):
+    """(hoja resumen, ronda 1) Mueve la hoja resumen del expediente (si la hay) a destino como hoja_resumen.NO_VIGENTE.md/.json y deja
+    en destino HOJA_RESUMEN_NO_VIGENTE.json con la fecha y el motivo. No toca ninguna salida oficial ni el estado. Devuelve los nombres
+    archivados (lista vacía si no había hoja)."""
+    import datetime as _dt
+    import shutil
+    movidos = []
+    for n in HOJA_RESUMEN:
+        p = os.path.join(carpeta, n)
+        if os.path.isfile(p):
+            os.makedirs(destino, exist_ok=True)
+            raiz, ext = os.path.splitext(n)
+            shutil.move(p, os.path.join(destino, f"{raiz}.NO_VIGENTE{ext}"))
+            movidos.append(f"{raiz}.NO_VIGENTE{ext}")
+    if movidos:
+        json.dump({"archivada": _dt.datetime.now().isoformat(timespec="seconds"), "motivo": motivo, "archivos": movidos,
+                   "nota": "hoja resumen (material de estudio, no oficial) del cierre que dejó de valer: NO VIGENTE; no se reactiva"},
+                  open(os.path.join(destino, "HOJA_RESUMEN_NO_VIGENTE.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return movidos
+
+
 def archivar_salidas(carpeta, motivo, csv_path=None, st=None):
     """Archiva las salidas oficiales presentes como antecedente (conservando el historial), retira la fila activa del resumen y
     deja el estado del pipeline sin cierre. Devuelve la carpeta del archivo o None si no había nada que archivar."""
@@ -1007,6 +1032,10 @@ def archivar_salidas(carpeta, motivo, csv_path=None, st=None):
     rastro = instantanea_rastro(carpeta, destino)
     for f in presentes:
         shutil.move(os.path.join(carpeta, f), os.path.join(destino, f))
+    try:  # (hoja resumen, ronda 1) la hoja resumen de este cierre se archiva como NO VIGENTE con el antecedente
+        hoja_archivada = archivar_hoja_resumen(carpeta, destino, motivo)
+    except OSError:
+        hoja_archivada = []
     copiada = False
     if os.path.isfile(os.path.join(carpeta, "auditoria.md")):  # (4.9, V-2) una carpeta con ese nombre no se copia
         try:
@@ -1021,6 +1050,7 @@ def archivar_salidas(carpeta, motivo, csv_path=None, st=None):
         estado_previo = (_s0 or {}).get("estado_analisis") if isinstance(_s0, dict) else None
     reg = {"retirada": _dt.datetime.now().isoformat(timespec="seconds"), "motivo": motivo, "material_auditado_en_la_aprobacion": mat,
            "material_actual": actual, "estado_que_presentaba": estado_previo, "archivos": presentes, "rastro_previo": [os.path.join("rastro_previo", x.lstrip(".")) for x in rastro],
+           **({"hoja_resumen_no_vigente": hoja_archivada} if hoja_archivada else {}),
            **({"sin_salidas_oficiales": "no quedaba ninguna salida oficial que archivar: la aprobación publicada había perdido su respaldo "
                "(sin ficha oficial cerrada ni cierre registrado); el rastro previo conserva el estado y el registro de publicaciones anteriores"}
               if not presentes else {}),

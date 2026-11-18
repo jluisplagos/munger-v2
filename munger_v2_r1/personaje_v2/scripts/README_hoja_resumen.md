@@ -1,62 +1,93 @@
 # Hoja resumen en lenguaje llano (`hoja_resumen.py`)
 
-Una página por empresa para leer sin jerga: el veredicto, por qué, lo que lo haría falso, cuánto depende de la tasa y qué
-predicciones se pueden comprobar (reorientación §7; criterios K5 y K9 de la lectura del informe).
+Una página por empresa para estudiar sin jerga: qué concluye el análisis oficial (o por qué no concluye), por qué, qué le haría
+cambiar de opinión, cuánto depende de la tasa y qué predicciones se pueden comprobar (reorientación §7; criterios K5 y K9 de la
+lectura del informe). Versión 2.0: ronda 1 de su revisión crítica (`/home/user/e_work/revision_hoja/REVISION_HOJA.md`).
+
+**La hoja no puede decir más que la ficha oficial.** No es una salida oficial ni una recomendación, y nunca dice que algo sea apto
+para dinero real.
 
 ## Uso
 
-Desde `personaje_v2/`, sobre un expediente **cerrado** (paso 14 terminado, ficha oficial):
+Desde `personaje_v2/`, sobre un expediente **cerrado y vigente**:
 
 ```
 python3 -I scripts/hoja_resumen.py CARPETA_DEL_EXPEDIENTE            # escribe hoja_resumen.md y hoja_resumen.json en el expediente
 python3 -I scripts/hoja_resumen.py CARPETA --salida OTRA_CARPETA     # o en otra carpeta
-python3 -I scripts/hoja_resumen.py CARPETA --comprobar               # ¿la hoja sigue leyendo la ficha y el material vigentes?
+python3 -I scripts/hoja_resumen.py CARPETA --comprobar               # ¿la hoja sigue siendo la del análisis oficial vigente?
 python3 -I scripts/hoja_resumen.py CARPETA --verificar-origen        # ¿cada frase sale tal cual del texto del personaje?
+python3 -I scripts/hoja_resumen.py CARPETA --antecedente             # análisis NO vigente: hoja rotulada «NO VIGENTE · ANTECEDENTE»
 ```
 
-Opciones: `--trabajo DIR` (copias temporales; se borran), `--lock ARCHIVO` (cerrojo de LibreOffice; por defecto
-`/home/user/e_work/libreoffice.lock` o `$HOJA_RESUMEN_LOCK`), `--tasas 0.07,0.08,0.09,0.10,0.11`.
+Opciones: `--trabajo DIR` (copias temporales; se borran), `--tasas 0.07,0.08,0.09,0.10,0.11` (siempre se añaden la tasa del
+análisis y las dos que están un punto por encima y por debajo), `--lock ARCHIVO` (cerrojo de LibreOffice; por defecto
+`$HOJA_RESUMEN_LOCK`, si no `/home/user/e_work/libreoffice.lock` cuando existe esa carpeta y, si no, uno en el directorio temporal),
+`--espera-cerrojo S` (900 s por recálculo), `--cerrojo-ya-tomado` (o `HOJA_RESUMEN_CERROJO_YA_TOMADO=1`).
 
-Códigos: 0 hecho · 2 uso · 3 expediente no cerrado o incoherente (no escribe nada) · 4 hoja desactualizada o frase sin origen ·
-5 la sensibilidad a la tasa heredada no reproduce el precio de Sí oficial · 6 fallo del recálculo.
+**Cerrojo.** El programa toma el cerrojo común con `flock -w` en cada recálculo. **No lo lances dentro de `flock` del mismo
+cerrojo**: se esperaría a sí mismo (ahora termina con código 6 y un mensaje claro al agotar la espera, en vez de quedarse parado).
+Si quien lo llama ya tiene el cerrojo (por ejemplo, `verificar_paquete.sh` bajo flock), usa `--cerrojo-ya-tomado`.
 
-Tarda unos 25–30 s (cinco recálculos). LibreOffice va siempre bajo `flock`: no lanzarlo en paralelo con otro pipeline.
+Códigos: 0 hecho (o hoja vigente con `--comprobar`) · 2 uso · 3 expediente no cerrado, no vigente, incompleto o mal formado ·
+4 hoja desactualizada, no vigente, editada o ausente (`--comprobar`) / frase sin origen o contenido mínimo incumplido ·
+5 la sensibilidad a la tasa del análisis no reproduce el precio de Sí de `precio.json` · 6 fallo del recálculo o del cerrojo.
+**Con cualquier código distinto de 0 no se escribe hoja**, y la anterior, si la hay, se aparta como `hoja_resumen.NO_VIGENTE.md` /
+`.json`.
 
-## Qué lee y qué escribe
+## La puerta: cuándo hay hoja
 
-- Lee: `ficha.json`, `informe.md`, `precio.json`, `resultados.json`, `fase_c.json`, `estado_pipeline.json`, el libro
-  `<E>_v63_evaluada.xlsx` y, si están, `cierre_vigente.json`, `fase1_metadatos.json`, `fase1_fuentes.json`, `fase1_v63.json`.
-- Antes de escribir comprueba que el pipeline terminó, que la ficha no es provisional, que la ficha y el informe son los de
-  `cierre_vigente.json` (si existe) y que el libro evaluado es el de `ficha.hashes.libro_evaluado`. Si algo no cuadra, no escribe.
-- Escribe solo dos archivos nuevos: `hoja_resumen.md` (la página) y `hoja_resumen.json` (huellas SHA-256 de todo lo leído,
-  origen de cada frase y la tabla de sensibilidad con las cifras exactas). No cambia ningún otro archivo. No es una salida
-  oficial ni forma parte del material auditado; la hoja no lleva línea «Material auditado» ni «Veredicto:».
-- Si la ficha cambia después, `--comprobar` lo dice (código 4) y hay que regenerar la hoja; al regenerarla, avisa de la huella
-  anterior.
+La hoja usa la **misma comprobación que el cierre oficial**, `cierre_v2.motivo_vigencia`: auditoría APROBADO del material
+vigente, material sin cambios desde la auditoría (también `fase_c.json`, `precio.json`, la declaración F1…), aprobación no retirada
+(`aprobaciones_retiradas.json`, `historial_cierres/*/RETIRADA.json`) y, con el motor A y F1 exigido, una evaluación F1 vigente y
+utilizable. Además exige un cierre registrado (`cierre_vigente.json`, `ficha.cierre.auditoria = APROBADO`), que el pipeline haya
+terminado (`estado_pipeline.json → fin`), que la ficha y el informe sean los del cierre y que el libro evaluado sea el de la ficha.
 
-## Cómo se hace cada parte
+- Los expedientes de `empresas_v2/` (Hermès, Nike…) **no son vigentes** para la vía oficial: sin `--antecedente` no tienen hoja.
+- `--comprobar` repite la puerta completa, las huellas de todo lo leído y la huella de la propia página (`md_sha256`): una edición a
+  mano, una aprobación retirada, F1 bloqueando o un `fase_c.json` cambiado después de la auditoría dan código 4 y el consejo de
+  **retirar** la hoja. Una hoja `--antecedente` nunca es vigente.
+- **Al retirar una aprobación** (`cierre_v2.archivar_salidas`, desde cualquier vía), la hoja se archiva con el antecedente como
+  `historial_cierres/NN_…/hoja_resumen.NO_VIGENTE.*` (con `HOJA_RESUMEN_NO_VIGENTE.json`). **Al relanzar el pipeline** (`--desde N`
+  o `--reiniciar`) se archiva en `historial_hojas_resumen/NN_relanzamiento_…/` y `fin` pasa a `fin_anterior`. Nunca se reactiva:
+  una hoja nueva exige un cierre vigente nuevo. Una hoja escrita con `--salida` fuera del expediente no se archiva sola:
+  `--comprobar` la da por no vigente.
 
-- **Veredicto:** estado, cubo, acción y precio de Sí de la ficha y de `precio.json`; la aptitud, tal como la declara la ficha
-  (`aptitud_de_uso`). Si la ficha no la declara (salidas V6.3 anteriores), la hoja dice «experimental; no apto para dinero real»
-  y que no se presume ninguna aptitud.
-- **Texto llano:** frases del personaje, por una regla fija: tesis (B101) frases 1, 2 y última; tesis inversa (B102) primera
-  frase con al menos seis palabras y última; «a No» de `cambiaria_de_cubo`, frase 1. Solo se quitan corchetes de fuente y
-  referencias a celdas, filas o páginas (las citas de Munger se conservan). Cada frase lleva su número de origen.
-- **Lo que lo haría falso:** `cambiaria_de_cubo` (a No, a Sí, a Demasiado difícil) y `decision.condiciones_revision`.
-- **Sensibilidad a la tasa:** copia del libro evaluado con solo `Análisis!C56` cambiada, recálculo forzado (`recalc.sh`),
-  lectura con `leer_resultados.py --exigir-recalculo-forzado` y escalera con `precio_de_si.calcular` (la misma k). A la tasa
-  heredada debe reproducir exactamente el precio de Sí de `precio.json`; si no, código 5. «Firme» = la zona no cambia entre el 8 y
-  el 10 %.
-- **Predicciones:** `Palancas!A38:C40` de `fase_c.json`, cotejadas con `ficha.predicciones`.
-- **Fechas:** análisis (ficha), datos base (último ejercicio), precio y acciones (`fase1_metadatos.json` o `fase1_v63.json`),
-  fuentes (`fase1_fuentes.json` o los años de la Historia).
+## Qué dice la página
+
+- **Qué concluye el análisis**, solo de la ficha: frase fija por estado («No comprar ahora; esperar a mejor precio», «La descarta»,
+  «Compraría al precio del análisis. Es la conclusión del personaje, no una recomendación», «Sin conclusión: falta un dato», «Sin
+  conclusión de compra: una hipótesis no se puede acotar con lo que hay»), el motivo (`causa_si_no_concluido`) y qué lo resolvería.
+  **A qué precio compraría** = `decision.precio_objetivo` (u `objetivo.precio_objetivo_emitido`); si la ficha no emite precio
+  (sin conclusión, objetivo bloqueado) lo dice, y si menciona la cifra de la hoja de cálculo dice por qué no es un precio de compra.
+  Objetivo condicionado: «Es un precio provisional». **Precio usado en el análisis** con su fecha (no es el de hoy; aviso si es de
+  más de 90 días antes del análisis).
+- **Aptitud:** «Experimental: no vale para decidir con dinero real», y debajo, cuando existen en la ficha, los datos de entrada
+  verificados (`verificacion_entradas`), el motor A · F1 (`motor_a_f1` y su vigencia actual) y la evaluación de la entrega
+  (`aptitud_de_uso`). Si la ficha no dice nada: «no se presume ninguna». Una marca `apto_para_dinero_real = true` no se repite.
+- **Salvedades de la ficha**, copiadas y recortadas: condición, objetivo, fundamento, «con datos de etapa 1 incompletos», alcance.
+- **Por qué:** la tesis y la tesis inversa **enteras** (Análisis!B101 y B102, de `fase_c.json`), solo sin referencias a celdas y
+  páginas. **Lo que le haría cambiar de opinión:** `cambiaria_de_cubo` y `decision.condiciones_revision`, con rótulos llanos.
+  Contenido mínimo, o código 4 sin hoja: tesis y tesis inversa con texto, «a No» con texto real (salvo cubo No) y tres predicciones
+  con fecha y probabilidad.
+- **Cuánto cambia el resultado si se le pide más o menos rentabilidad:** copias del libro evaluado con solo `Análisis!C56`
+  cambiada, recálculo forzado (`recalc.sh`), lectura con `leer_resultados.py --exigir-recalculo-forzado` y escalera con
+  `precio_de_si.calcular` (la misma k). A la tasa del análisis debe reproducir exactamente `precio.json` (si no, código 5); el
+  precio de Sí y el valor medio tienen que bajar al subir la tasa (si no, código 6: el libro no se recalculó). Cada fila dice si la
+  tasa queda por debajo de la mínima de la hoja de cálculo y, en el motor B, con qué tasa descuenta. Avisos fijos: la tasa es
+  provisional, el 10 % es solo una prueba, si el resultado cambia frente a la tasa (sin la palabra «firme»), el aviso A2 de la
+  ficha, que la zona no es la conclusión, que el escenario malo no es un suelo, la regla experimental k = 3 y que lo demás se
+  deja quieto. Sin conclusión, la tabla es «una lectura de la hoja de cálculo, no una conclusión».
+- **Predicciones** (`Palancas!A38:C40`, cotejadas con la ficha), **fechas**, **glosario** con los términos que aparecen y, al pie,
+  **para comprobar esta hoja** (huella de la ficha, origen de las frases, comprobación del cálculo y versiones).
 
 ## Límites
 
-- Cambiar solo la tasa deja quietas las demás celdas de juicio. Ejemplo: el ROIC de largo plazo, cuya referencia mecánica es la
-  tasa del motor. La tabla dice cuánto pesa la tasa con el mismo juicio, no qué habría decidido el personaje con otra tasa.
-- La hoja hereda los límites del libro y del expediente. Ejemplos: el motor A sin F1 en los libros V6.3 y la aptitud por entradas
-  evaluada por la entrega que cerró el expediente. Nunca declara apto nada que la ficha no declare.
-- La selección de frases es mecánica: no resume con palabras nuevas, así que alguna frase puede ser larga.
-- Pruebas: `python3 -B pruebas/test_hoja_resumen.py`, sobre copias de Hermès (V6.3) y de Vidrala 4.14 (V6.4 experimental), con
-  LibreOffice; tarda alrededor de 1 min. Todavía no está registrada en `verificar_paquete.sh`.
+- Cambiar solo la tasa deja quietas las demás celdas de juicio (por ejemplo, el ROIC de largo plazo que el personaje fijó mirando la
+  tasa). La tabla dice cuánto pesa la tasa con el mismo juicio, no qué habría decidido el personaje con otra tasa.
+- Más corta que la versión 1.0 no es: la tesis inversa entera (hallazgo 5) pesa más que la brevedad. El texto del personaje
+  conserva su jerga (se explica en el glosario) y su formato de cifras. Un resumen llano escrito por el personaje y auditado con
+  el resto del material sería la solución de fondo; está fuera del alcance de esta ronda.
+- La limpieza de referencias no quita un corchete de fuente dentro de un paréntesis sin dejar rastro («cálculo propio con)»).
+- Pruebas: `python3 -B pruebas/test_hoja_resumen.py` (sin envolverla en flock; con `HOJA_RESUMEN_CERROJO_YA_TOMADO=1` si ya se
+  tiene el cerrojo), sobre copias de Vidrala 4.10.1, Vidrala 4.14, Viscofan 4.14, Elis 4.14, Vidrala 4.13 bloqueo y Hermès, y una
+  empresa sintética V6.3.1 F1 cerrada con el pipeline real; registrada en `verificar_paquete.sh completa`.

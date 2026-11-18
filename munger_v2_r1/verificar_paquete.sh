@@ -24,7 +24,10 @@
 #                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
 #                                        menos 5; LibreOffice), igual de obligatorias; (4.15, F1-IMPL) la del motor A con el perímetro F1
 #                                        test_motor_a_f1.py (al menos 142 pruebas; sin LibreOffice) y la prueba del gancho F1 del pipeline
-#                                        prueba_pipeline_f1.py (al menos 7 casos; LibreOffice), igual de obligatorias
+#                                        prueba_pipeline_f1.py (al menos 7 casos; LibreOffice), igual de obligatorias; (examen) la de la
+#                                        hoja resumen en lenguaje llano test_hoja_resumen.py (al menos 85 pruebas; LibreOffice; se
+#                                        ejecuta con HOJA_RESUMEN_CERROJO_YA_TOMADO=1 porque este script corre bajo flock del cerrojo común),
+#                                        igual de obligatoria
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
 # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
@@ -385,6 +388,25 @@ if [ "${1:-}" = "completa" ]; then
     echo "$linea"; echo "RESULTADO auditorías: PASA"
   else
     tail -5 "$SALIDA_AUDITORIAS"; echo "RESULTADO auditorías: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 55 pruebas; ver $SALIDA_AUDITORIAS)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+echo "== batería de la hoja resumen en lenguaje llano (personaje_v2/pruebas/test_hoja_resumen.py; obligatoria en «completa»; examen, ronda 1 de su revisión crítica; LibreOffice)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  if [ -f personaje_v2/pruebas/test_hoja_resumen.py ]; then
+    # verificar_paquete.sh corre bajo flock del cerrojo común (como el resto de sus bloques con LibreOffice): la hoja no vuelve a tomarlo
+    ( cd personaje_v2 && HOJA_RESUMEN_CERROJO_YA_TOMADO="${HOJA_RESUMEN_CERROJO_YA_TOMADO:-1}" python3 -B pruebas/test_hoja_resumen.py ) > "$SALIDA_X" 2>&1; rc=$?
+  else
+    rc=127; echo "FALTA personaje_v2/pruebas/test_hoja_resumen.py" > "$SALIDA_X"
+  fi
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la hoja resumen PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 85 ]; then
+    echo "$linea"; echo "RESULTADO hoja resumen: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO hoja resumen: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 85; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
