@@ -11,6 +11,8 @@ Rutas:
 - corpus Damodaran (damodaran.md, si existe): /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/corpus/damodaran.md
 - modelo y esfuerzo previstos (config_v2.json → modelos): {"modelo": "opus", "esfuerzo": "alto"}
 
+**CORRECCIÓN pedida por el pipeline:** la fase C pide revisar palancas: Vuelta única a la fase B por palancas mal derivadas por perímetro (v2.1). El libro calcula el motor A en el perímetro declarado A2_propio (Historia C85; f = 0,0036, con los pagos de arrendamiento dentro del flujo; la reinversión es capex propio − amortización propia + circulante + adquisiciones, Historia filas 30–31), pero B16, D16 y B18:D18 se midieron con el capital invertido que incluye los pas
+
 ---
 
 # Prompt de la FASE B · Traducción a palancas (modelo: Opus, esfuerzo alto, contexto limpio, uno por empresa)
