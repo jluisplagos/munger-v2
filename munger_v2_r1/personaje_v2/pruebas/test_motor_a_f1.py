@@ -75,9 +75,24 @@ def libro(ventas, ebit, da, tau, capex, adq, dwc, princ, C70, C49, n=3, pal=None
     return L
 
 
+FUENTE_TXT = "fuente_sintetica_f1.txt"   # (revisión F1-IMPL, H12) fuente conservada de las series sintéticas
+
+
+def _literal(x):
+    return f"({abs(x)})" if x < 0 else f"{abs(x)}"
+
+
 def serie(vals, signo=-1, trat="publicado entre paréntesis"):
     return {str(y): {"valor_fuente": -v if signo == -1 else v, "signo": signo, "tratamiento": trat if signo == -1 else "ninguno",
-                     "documento": "sintético", "pagina": 1} for y, v in vals.items()}
+                     "documento": "sintético", "pagina": 1, "literal": _literal(-v if signo == -1 else v), "archivo": FUENTE_TXT} for y, v in vals.items()}
+
+
+def fuentes(carpeta, d):
+    """(H12) Escribe en la carpeta la fuente sintética: una página 1 con las cifras publicadas de las series de la declaración."""
+    lits = sorted({str(e.get("literal")) for s_ in (d.get("series") or {}).values() if isinstance(s_, dict) for e in s_.values() if isinstance(e, dict)})
+    os.makedirs(carpeta, exist_ok=True)
+    open(os.path.join(carpeta, FUENTE_TXT), "w", encoding="utf-8").write("[PDF PAGE 1]\nInforme sintético: " + " ".join(lits) + "\n[PDF PAGE 2]\n")
+    return carpeta
 
 
 def decl(per="A0_total", rou=None, ppa=None, norma="NIIF", margen="EBIT_NIIF16_PPA_constante", pal=None, roic=None, compras="sin_compras",
@@ -144,7 +159,8 @@ r6 = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), conc=CONC_T))
 paso("T6 · con PPA 5 sin reposición: A2 = 68, A1 = 63, A0 = 53", abs(F0(r6, "A2_propio") - 68) < 1e-9 and abs(F0(r6, "A1_sin_ROU") - 63) < 1e-9
      and abs(F0(r6, "A0_total") - 53) < 1e-9, f"A0 {F0(r6, 'A0_total')} · A1 {F0(r6, 'A1_sin_ROU')} · A2 {F0(r6, 'A2_propio')}")
 L7, v7 = estacionario(0, 0, C49=0)
-r7 = M.evaluar(L7, decl("A0_total", rou=todos(0), ppa=todos(0)))
+FUENTES7 = fuentes(tempfile.mkdtemp(prefix="f1_fuentes_"), decl("A0_total", rou=todos(0), ppa=todos(0)))
+r7 = M.evaluar(L7, decl("A0_total", rou=todos(0), ppa=todos(0)), carpeta=FUENTES7)
 iguales = len({round(r7["diagnostico_por_perimetro"][p]["f"], 15) for p in ("A0_total", "A1_sin_ROU", "A2_propio")}) == 1
 paso("T7 · sin NIIF 16 ni PPA: A0 = A1 = A2 = la V6.3 (f del libro) y A0 admisible: ninguna guarda bloquea; utilizable",
      iguales and r7["utilizable_para_conclusion"] and abs(r7["diagnostico_por_perimetro"]["A0_total"]["f"] - L7["Historia!C58"]) < 1e-12,
@@ -232,7 +248,8 @@ paso("G · V-F1i: sin declarar si hay transición → bloquea", bloquea(M.evalua
 def transicion(H, excluye=True, naturaleza="temporal", trat="termino_explicito"):
     d = decl("A2_propio", rou=todos(10), ppa=todos(5), trans=True)
     d["transicion"].update({"tratamiento": trat, "importes": {str(t): 7 for t in range(1, H + 1)}, "horizonte": H, "naturaleza": naturaleza,
-                            "finalidad_documentada": "plan sintético (fuente de prueba)", "ancla_s2c_excluye_terminos": excluye})
+                            "finalidad_documentada": "plan sintético (fuente de prueba)", "ancla_s2c_excluye_terminos": excluye,
+                            "importes_historicos": {str(y): 0 for y in ANIOS[-5:]}})   # (H10) X^v del ancla, 0 explícito
     return d
 
 
@@ -668,7 +685,7 @@ try:
                                "--libro-origen", os.path.join(c, "EmpresaF1_v63_evaluada.xlsx")], capture_output=True, text=True).returncode
 
     paso("REV · H1: sin evaluación F1, el cierre de un «concluido» del motor A se rechaza", "sin evaluación F1" in str(CIE.motivo_f1(c, st)))
-    rc_ok = evaluar_cli(decl("A0_total", rou=todos(0), ppa=todos(0)), pl_ok)
+    rc_ok = evaluar_cli(decl("A0_total", rou=todos(0), ppa=todos(0)), pl_ok) if fuentes(c, decl("A0_total", rou=todos(0), ppa=todos(0))) else None
     m_ok = CIE.motivo_f1(c, st)
     paso("REV · H1: con una evaluación F1 vigente y utilizable, el cierre no tiene objeción F1", rc_ok == 0 and m_ok is None, f"código {rc_ok} · {m_ok}")
     id0, _ = CIE.material(c, "EmpresaF1")
@@ -713,6 +730,68 @@ src = open(os.path.join(PV, "scripts", "pipeline.py"), encoding="utf-8").read()
 paso("PIPE · el pipeline evalúa F1 en el paso 7, en el paso 12 (tras verificar el libro) y comprueba su vigencia en el paso 13 antes de fijar el material",
      'self.motor_a_f1(self.p("recalc", os.path.basename(libro_ev)), 7)' in src and "self.motor_a_f1(rec, 12)" in src and "_F1.vigencia(self.c" in src
      and src.index("self.motor_a_f1(rec, 12)") > src.index('"verificar_todo.sh"'))
+
+# ================================================================== REV2 · H10 (términos explícitos), H11 (registro), H12 (fuentes de las series)
+d7 = decl("A0_total", rou=todos(0), ppa=todos(0))
+paso("REV2 · H12: sin la carpeta del expediente las fuentes de las series no se examinan → F1-SERIES bloquea (INCOMPLETO)",
+     bloquea(M.evaluar(L7, d7), "F1-SERIES") and M.evaluar(L7, d7)["estado_propuesto"] == "pendiente_de_datos")
+d12 = copy.deepcopy(d7)
+d12["series"]["da_ppa"]["2024"]["literal"] = "(0,5)"
+paso("REV2 · H12 / T9: la cifra publicada «(0,5)» declarada como 0 → F1-SERIES DATOS INVÁLIDOS", bloquea(M.evaluar(L7, d12, carpeta=FUENTES7), "F1-SERIES")
+     and [g for g in M.evaluar(L7, d12, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES"][0]["efecto"] == "DATOS INVÁLIDOS")
+d12b = decl("A1_sin_ROU", rou=todos(10), ppa=todos(0))
+d12b["series"]["da_rou"]["2025"].update({"valor_fuente": 10, "signo": 1, "tratamiento": "ninguno"})   # «(10)» declarado como +10: el signo publicado se pierde
+paso("REV2 · H12 / T9: «(10)» declarado como +10 con signo 1 → F1-SERIES (el signo publicado no se cambia en valor_fuente)",
+     any("con su signo" in g["detalle"] for g in M.evaluar(L6, d12b, carpeta=fuentes(tempfile.mkdtemp(prefix="f1_f12_"), d12b))["guardas"] if g["id"] == "F1-SERIES" and g["salta"]))
+d12c = copy.deepcopy(d7)
+d12c["series"]["da_rou"]["2023"]["pagina"] = 7
+d12d = copy.deepcopy(d7)
+d12d["series"]["da_rou"]["2023"]["archivo"] = "no_existe.txt"
+d12e = copy.deepcopy(d7)
+d12e["series"]["da_rou"]["2023"]["literal"] = "(3)"
+d12e["series"]["da_rou"]["2023"]["valor_fuente"] = -3
+paso("REV2 · H12: página inexistente (7) → DATOS INVÁLIDOS; fuente ausente → INCOMPLETO; cifra que no está en la página → DATOS INVÁLIDOS",
+     [g["efecto"] for g in M.evaluar(L7, d12c, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]] == ["DATOS INVÁLIDOS"]
+     and [g["efecto"] for g in M.evaluar(L7, d12d, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]] == ["INCOMPLETO"]
+     and any("no está en la página" in g["detalle"] for g in M.evaluar(L7, d12e, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]))
+rb = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), compras="pendiente", conc=CONC_T))
+paso("REV2 · H12: si otra guarda ya bloquea, F1-SERIES avisa y no cambia el estado propuesto",
+     any(g["id"] == "F1-SERIES" and g["salta"] and g["severidad"] == "AVISO" for g in rb["guardas"]) and rb["estado_propuesto"] == "pendiente_de_datos")
+paso("REV2 · H12: literales con coma o punto decimal, paréntesis, menos y miles", M._literal_valores("(149,5)") == {Fr(-299, 2)} and M._literal_valores("-1.234,5") == {Fr(-2469, 2)}
+     and M._literal_valores("nueve") == set() and Fr(1234) in M._literal_valores("1,234"))
+dh10 = decl("A0_total", rou=todos(0), ppa=todos(0), compras="reposicion_con_importe")
+dh10["clasificacion_compras"].update({"importes": {str(t): 9 for t in range(1, 11)}, "ancla_s2c_excluye_terminos": True,
+                                      "importes_historicos": {str(y): 8 for y in ANIOS[-5:]}})
+paso("REV2 · H10: compras con importes de los años 1–10 sin el del año 11 → V-F1j (vacío no es cero)",
+     bloquea(M.evaluar(L7, dh10, carpeta=FUENTES7), "V-F1j") and "11" in [g for g in M.evaluar(L7, dh10, carpeta=FUENTES7)["guardas"] if g["id"] == "V-F1j"][0]["detalle"])
+dh10b = copy.deepcopy(dh10)
+dh10b["clasificacion_compras"]["importes"].update({"11": 10, "4": "nueve"})
+paso("REV2 · H10: un importe no numérico («nueve») → V-F1j", bloquea(M.evaluar(L7, dh10b, carpeta=FUENTES7), "V-F1j"))
+dh10c = copy.deepcopy(dh10)
+dh10c["clasificacion_compras"]["importes"]["11"] = 10
+dh10c["clasificacion_compras"].pop("importes_historicos")
+paso("REV2 · H10: ancla que excluye los términos sin importes históricos H–L → V-F1j", bloquea(M.evaluar(L7, dh10c, carpeta=FUENTES7), "V-F1j"))
+dh10d = copy.deepcopy(dh10)
+dh10d["clasificacion_compras"]["importes"]["11"] = 10
+r10 = M.evaluar(L7, dh10d, carpeta=FUENTES7)
+c10, b10 = r10["calculo_perimetro_declarado"], r7["calculo_perimetro_declarado"]
+paso("REV2 · H10: completos → V-F1j no salta; el año 11 cobra su importe declarado (10), no 0 (los términos siguen bloqueados por F1-LIBRO)",
+     not salta(r10, "V-F1j") and bloquea(r10, "F1-LIBRO") and abs(c10["escenarios"]["NORMAL"]["anio_11"] - (b10["escenarios"]["NORMAL"]["anio_11"] - 10)) < 1e-9,
+     f"año 11 {c10['escenarios']['NORMAL']['anio_11']} frente a {b10['escenarios']['NORMAL']['anio_11']}")
+d15x = decl("A2_propio", rou={y: rouv[i] for i, y in enumerate(ANIOS)}, ppa=todos(0), compras="reposicion_con_importe")
+d15x["clasificacion_compras"].update({"importes": {str(t): 1 for t in range(1, 12)}, "ancla_s2c_excluye_terminos": True,
+                                      "importes_historicos": {str(y): 2 for y in ANIOS[-5:]}})
+a15, a15x = d15["A2_propio"]["ancla_s2c_E4"], M.evaluar(L15, d15x)["calculo_perimetro_declarado"]["ancla_s2c_E4"]
+den15 = (L15["Historia!L6"] - L15["Historia!G6"]) / a15
+paso("REV2 · H10: con importes por año, el ancla excluye X^v = Σ importes históricos H–L (5 × 2 = 10 menos en el denominador)",
+     abs((L15["Historia!L6"] - L15["Historia!G6"]) / a15x - (den15 - 10)) < 1e-9, f"ancla {a15} → {a15x}")
+dt10 = transicion(5)
+dt10["transicion"].pop("importes_historicos")
+paso("REV2 · H10: transición como término sin importes históricos H–L (el ancla la excluye) → V-F1i", bloquea(M.evaluar(L6, dt10), "V-F1i"))
+d11 = copy.deepcopy(d7)
+d11["transicion"]["registro"] = {"fecha": None, "persona": None, "motivo": None}
+paso("REV2 · H11: «sin transición conocida» sin registro → F1-REGISTRO", bloquea(M.evaluar(L7, d11, carpeta=FUENTES7), "F1-REGISTRO"))
+shutil.rmtree(FUENTES7, ignore_errors=True)
 
 n_ok = sum(ok for _, ok in R)
 print(f"\n{n_ok}/{len(R)} pruebas del motor A F1 (4.15) PASAN")

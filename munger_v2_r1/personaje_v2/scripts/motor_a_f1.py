@@ -240,7 +240,7 @@ class Guardas:
         return [g for g in self.lista if g["salta"] and g["severidad"] == "BLOQUEA"]
 
 
-def evaluar(L, decl, motor_libro=None):
+def evaluar(L, decl, motor_libro=None, carpeta=None):
     """Evaluación F1 completa. L: valores del libro (leer_libro). decl: declaración (dict). Devuelve el resultado (dict, serializable)."""
     G = Guardas()
     if not isinstance(decl, dict):
@@ -519,6 +519,8 @@ def evaluar(L, decl, motor_libro=None):
                     vj.append("compras de reposición con A3: R_compras por año de la ventana sin declarar")
             elif Q(cc.get("proporcion_ventas")) is None and not isinstance(cc.get("importes"), dict):
                 vj.append("compras de reposición fuera de D_X: término explícito sin importe por año ni proporción de las ventas")
+            else:
+                vj += _terminos_incompletos("compras de reposición", cc, horiz, con_proporcion=True)   # (revisión F1-IMPL, H10)
             if per != "A3_estimado" and cc.get("ancla_s2c_excluye_terminos") is not True:
                 vj.append("compras de reposición cobradas como término explícito y también en el denominador del ancla de S2C (o sin declarar que el ancla las excluye)")
                 vj_efecto = "MODELO NO APLICABLE"
@@ -553,6 +555,7 @@ def evaluar(L, decl, motor_libro=None):
                     vi_efecto = "MODELO NO APLICABLE"
                 elif any(Q(imps.get(str(t))) is None for t in range(1, H_tr + 1)):
                     vi.append("término explícito sin importe en algún año 1…H")
+                vi += _terminos_incompletos("transición", tr, horiz, anios_futuros=0)   # (H10) importes históricos del ancla (X^v)
                 if tr.get("naturaleza") == "permanente":
                     vi.append("una transición permanente no va como término temporal: en R (proporcional a las ventas) o declarada proporcional")
                     vi_efecto = "MODELO NO APLICABLE"
@@ -568,7 +571,9 @@ def evaluar(L, decl, motor_libro=None):
                     vi_efecto = "MODELO NO APLICABLE"
                 if per != "A3_estimado":
                     vi.append("transición en R con un perímetro de D&A (A1/A2): la D&A no la contiene de forma comprobable; exige A3_estimado con su importe dentro de R")
-    elif conocida is False and trt not in (None, "pendiente"):
+    elif conocida is False and not _registro_ok(tr.get("registro")):   # (revisión F1-IMPL, H11) «no hay transición conocida» es una declaración
+        G.add("F1-REGISTRO", True, "BLOQUEA", "INCOMPLETO", "«sin transición conocida» sin registro (fecha, persona, motivo)", "(5b)")
+    if conocida is False and trt not in (None, "pendiente"):
         vi.append("se declara que no hay transición conocida y a la vez un tratamiento")
         vi_efecto = "DATOS INVÁLIDOS"
     G.add("V-F1i", bool(vi), "BLOQUEA", vi_efecto, "; ".join(vi) if vi else
@@ -664,7 +669,8 @@ def evaluar(L, decl, motor_libro=None):
 
         def X(t, Vt):
             return imps_tr.get(t, Fr(0)) + (a_prop * Vt if a_prop is not None else imps_cc.get(t, Fr(0)) or Fr(0))
-        X11 = (lambda V11: a_prop * V11) if a_prop is not None else Fr(0)
+        # (H10) con importes por año, el año 11 cobra su importe declarado (antes, 0 a perpetuidad); un importe ausente lo bloquea V-F1j
+        X11 = (lambda V11: a_prop * V11) if a_prop is not None else (imps_cc.get(11) or Fr(0))
         return X, X11, bool(imps_tr or a_prop is not None or imps_cc)
 
     pal = {}
@@ -694,7 +700,10 @@ def evaluar(L, decl, motor_libro=None):
         if all(DX_de(p, y) is not None and H["capex"][y] is not None for y in horiz) and H["V"][ant] is not None:
             xv = Fr(0)
             if hay_x and ccv == "reposicion_con_importe" and p != "A3_estimado":
-                xv += sum((Q(cc.get("proporcion_ventas")) or Fr(0)) * H["V"][y] for y in horiz)
+                if Q(cc.get("proporcion_ventas")) is not None:
+                    xv += sum(Q(cc.get("proporcion_ventas")) * H["V"][y] for y in horiz)
+                else:   # (H10) con importes por año, X^v son los importes históricos declarados de H–L (obligatorios: V-F1j)
+                    xv += sum((Q(((cc.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz)
             xv += sum((Q(((tr.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz) if trt == "termino_explicito" else Fr(0)
             den = sum(H["capex"][y] - DX_de(p, y) + (H["dwc"][y] or Fr(0)) + (H["adq"][y] or Fr(0)) for y in horiz) - xv
             ancla = (H["V"][anios[-1]] - H["V"][ant]) / den if den > 0 else None
@@ -976,6 +985,7 @@ def evaluar(L, decl, motor_libro=None):
     res["diagnostico_por_perimetro"] = {k: salida(v) for k, v in diag.items()}
     if "A0_total" in diag:
         res["diferencias_frente_a_A0_flujo_sin_crecimiento"] = {k: fl(v["F0"] - diag["A0_total"]["F0"], 6) for k, v in diag.items()}
+    _guarda_fuentes_series(G, decl, carpeta, anios)   # (revisión F1-IMPL, H12) al final: BLOQUEA si nada más bloquea
     res["guardas"] = G.lista
     bl = G.bloquean()
     res["bloquea"] = bool(bl)
@@ -986,6 +996,102 @@ def evaluar(L, decl, motor_libro=None):
     res["rotulo"] = ("DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: " + ", ".join(sorted({g["id"] for g in bl}))) if bl else \
         "motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)"
     return res
+
+
+def _terminos_incompletos(nombre, d, horiz, con_proporcion=False, anios_futuros=11):
+    """(revisión F1-IMPL, H10) Términos explícitos: vacío no es cero. Con importes por año, los de los años 1–10 y el del 11 (o la proporción de
+    las ventas, que vale para todos); si el ancla de S2C los excluye, los importes históricos de los cinco años H–L (X^v). Devuelve problemas."""
+    out = []
+    prop = Q(d.get("proporcion_ventas")) if con_proporcion else None
+    if con_proporcion and d.get("proporcion_ventas") is not None and (prop is None or prop < 0):
+        out.append(f"{nombre}: proporción de las ventas no numérica o negativa ({d.get('proporcion_ventas')!r})")
+    if prop is None and anios_futuros:
+        imps = d.get("importes") if isinstance(d.get("importes"), dict) else {}
+        falta = [t for t in range(1, anios_futuros + 1) if Q(imps.get(str(t))) is None]
+        if falta:
+            out.append(f"{nombre}: importes ausentes o no numéricos en los años {falta} (1–10 y 11 obligatorios; vacío no es cero)")
+    if d.get("ancla_s2c_excluye_terminos") is True and prop is None:
+        hist = d.get("importes_historicos") if isinstance(d.get("importes_historicos"), dict) else {}
+        falta = [y for y in horiz if Q(hist.get(str(y))) is None]
+        if falta:
+            out.append(f"{nombre}: el ancla de S2C los excluye, pero faltan los importes históricos de {falta} (X^v de E4; 0 explícito si no los hubo)")
+    return out
+
+
+def _literal_valores(lit):
+    """(H12) Valores con signo que admite una cifra publicada tal como se lee («(149,5)», «-12.3», «1.234,5», «—» = 0)."""
+    t = str(lit or "").strip().replace("\u00a0", "").replace(" ", "")
+    if t in ("-", "—", "–"):
+        return {Fr(0)}
+    neg = (t.startswith("(") and t.endswith(")")) or t[:1] in ("-", "−", "–")
+    t = t.strip("()").lstrip("-−–")
+    if not t or not re.fullmatch(r"[\d.,]+", t):
+        return set()
+    cands = set()
+    for dec in (",", "."):
+        mil = "." if dec == "," else ","
+        if t.count(dec) > 1:
+            continue
+        ent = t.split(dec)[0]
+        if mil in ent and not re.fullmatch(r"\d{1,3}(" + re.escape(mil) + r"\d{3})+", ent):
+            continue
+        if dec in t and mil in t.split(dec)[1]:
+            continue
+        try:
+            cands.add(Fr(t.replace(mil, "").replace(dec, ".")))
+        except ValueError:
+            pass
+    return {-x if neg else x for x in cands}
+
+
+def _guarda_fuentes_series(G, decl, carpeta, anios):
+    """(revisión F1-IMPL, H12; como T9) Las series que entran en D_X (D&A de derechos de uso y PPA) no pasan por verificacion_entradas.py: aquí
+    se exige, por año, la cifra publicada («literal») con su signo, igual a «valor_fuente», y una fuente conservada en el expediente
+    («archivo»: texto con marcas «[PDF PAGE n]», o un PDF con «archivo_texto») cuya página citada exista y contenga esa cifra. Vacío o no
+    examinable → INCOMPLETO; signo o cifra distintos, página inexistente o cifra ausente de la página → DATOS INVÁLIDOS. No acredita la
+    entrada (no hay revisor ni sello): es la condición mínima. BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA (no cambia el estado)."""
+    import verificacion_entradas as VE
+    inval, incomp = [], []
+    for nombre in ("da_rou", "da_ppa"):
+        s = ((decl.get("series") or {}).get(nombre)) or {}
+        if not isinstance(s, dict):
+            continue
+        for k, e in sorted(s.items()):
+            if not isinstance(e, dict):
+                continue
+            et = f"series.{nombre}.{k}"
+            vals = _literal_valores(e.get("literal"))
+            vf = Q(e.get("valor_fuente"))
+            if e.get("literal") in (None, ""):
+                incomp.append(f"{et}: sin «literal» (la cifra tal como se publica, con su signo)")
+            elif not vals:
+                inval.append(f"{et}: «literal» {e.get('literal')!r} no es una cifra")
+            elif vf not in vals:
+                inval.append(f"{et}: «valor_fuente» {e.get('valor_fuente')!r} no es la cifra publicada {e.get('literal')!r} con su signo (R415-SIGNO, T9)")
+            if carpeta is None:
+                incomp.append(f"{et}: fuente no examinada (la evaluación no recibió la carpeta del expediente)")
+                continue
+            ruta = VE._ruta_fuente(carpeta, e.get("archivo"))
+            if ruta is None:
+                incomp.append(f"{et}: fuente «archivo» {e.get('archivo')!r} ausente del expediente (vacío o fuera de él)")
+                continue
+            ruta_txt = ruta if ruta.lower().endswith(".txt") else VE._ruta_fuente(carpeta, e.get("archivo_texto"))
+            if ruta_txt is None:
+                incomp.append(f"{et}: la fuente {e.get('archivo')!r} no es un texto con marcas de página y no tiene «archivo_texto» examinable")
+                continue
+            est, pag = VE._pagina_examinable(ruta_txt, e.get("pagina"))
+            if est == "discrepancia":
+                inval.append(f"{et}: {pag}")
+            elif est != "ok":
+                incomp.append(f"{et}: {pag}")
+            elif e.get("literal") and re.sub(r"\s+", "", str(e["literal"])) not in re.sub(r"\s+", "", pag):
+                inval.append(f"{et}: la cifra {e['literal']!r} no está en la página {e.get('pagina')} de {e.get('archivo')}")
+    probl = inval + incomp
+    otras = bool(G.bloquean())
+    G.add("F1-SERIES", bool(probl), "AVISO" if otras else "BLOQUEA", "DATOS INVÁLIDOS" if inval else "INCOMPLETO",
+          ("; ".join(probl)[:1500] + (" (además de las guardas que ya bloquean)" if otras else "")) if probl else
+          "D&A de derechos de uso y PPA: cada año con su cifra publicada y su signo, en una página existente de una fuente del expediente "
+          "(condición mínima; no es la verificación de entradas)", "(1a) · H12")
 
 
 def _f_vacia_v631(L):
@@ -1196,7 +1302,7 @@ def main(argv=None):
         return 2
     try:
         L = leer_libro(libro)
-        r = evaluar(L, decl, motor_libro=a.motor)
+        r = evaluar(L, decl, motor_libro=a.motor, carpeta=c)
     except ErrorDeclaracion as ex:
         print(f"ERROR: {ex}")
         return 2

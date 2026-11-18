@@ -50,8 +50,17 @@ def conciliacion_sintetica():
     return out
 
 
+FUENTE = "fuente_sintetica_f1.txt"   # (revisión F1-IMPL, H12) fuente conservada de las series: página 1 con las cifras publicadas
+
+
+def escribir_fuente(c, decl):
+    lits = sorted({str(e.get("literal")) for s_ in (decl.get("series") or {}).values() for e in s_.values() if isinstance(e, dict)})
+    open(os.path.join(c, FUENTE), "w", encoding="utf-8").write("[PDF PAGE 1]\nInforme anual sintético: " + " ".join(lits) + "\n[PDF PAGE 2]\n")
+
+
 def declaracion(norma="NIIF"):
-    cero = {str(y): {"valor_fuente": 0, "signo": 1, "tratamiento": "ninguno", "documento": "informe anual sintético", "pagina": 1} for y in range(2016, 2026)}
+    cero = {str(y): {"valor_fuente": 0, "signo": 1, "tratamiento": "ninguno", "documento": "informe anual sintético", "pagina": 1,
+                     "literal": "0", "archivo": FUENTE} for y in range(2016, 2026)}
     return {"norma_contable": {"valor": norma, "registro": REG}, "perimetro_reinversion": {"valor": "A0_total", "registro": REG},
             "perimetro_margen": {"valor": "EBIT_NIIF16_PPA_constante", "registro": REG}, "perimetro_palancas_s2c": {"valor": "A0_total", "registro": REG},
             "perimetro_roic": {"valor": "A0_total", "registro": REG}, "clasificacion_compras": {"valor": "sin_compras", "registro": REG},
@@ -82,6 +91,7 @@ def preparar(nombre, decl=None, sin_arrendamientos=False, con_4_15=True, renombr
         json.dump(f1, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if decl is not None:
         json.dump(decl, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        escribir_fuente(c, decl)
     return c
 
 
