@@ -199,3 +199,18 @@ y las funciones nuevas `_escala_serie`, `_clase_cero` y `_cero_en_pagina`):
   Zoetis en `pagos_arr_financiero_principal`; sin ella, la misma línea en `da_ppa`.
 - Jumbo (copia de comprobación): la frase de AR2025 p. 189 solo se usa para 2025; para 2021–2024 no prueba nada (es de octubre de 2025) y
   esos años siguen sin cero declarado (INCOMPLETO) hasta que la persona responsable decida.
+
+**Retoques tras la ronda 2 (`REVISION_R2.md`, conforme con límites).**
+- *Límite 2:* «All amounts in euros (thousands)» ya no se lee como «unidades» (el patrón admite un paréntesis antes de «thousands»,
+  «millions» o «'000»): declarado «unidades» queda PENDIENTE y declarado «miles» ya no se rechaza (queda PENDIENTE: «(thousands)» solo no
+  es una marca de la lista).
+- *Límite 1:* la escala se busca en el **bloque de la tabla** de la cifra, no en toda la página: desde la línea de la cifra (la que lleva
+  también la `fila`; la primera si hay varias) hacia arriba hasta dos líneas en blanco seguidas o el principio de la página
+  (`_escala_de_tabla`). Lo que va debajo (otra tabla «(in thousands)», como en la sonda R1 del revisor) no cuenta. **Límite que queda:**
+  una página de continuación cuyo encabezado quedó en la página anterior no tiene marca en el bloque y la escala queda PENDIENTE; y si
+  dos tablas van seguidas sin dos líneas en blanco entre ellas, la marca de la de arriba entra en el bloque de la de abajo (p. ej., la
+  sonda R1 del revisor con la tabla «(in thousands)» encima, y no debajo, de la de arrendamientos sin encabezado propio daría un falso
+  «comprobado» con «miles»). En Jumbo las cinco cifras siguen con la escala comprobada.
+- *Detalle menor:* con la escala pendiente, el año ya no cuenta además como columna comprobada; la columna se sigue examinando (otra
+  columna → DATOS INVÁLIDOS).
+- Batería: 80 pruebas (6 nuevas, que fallan con el código de la ronda 2).

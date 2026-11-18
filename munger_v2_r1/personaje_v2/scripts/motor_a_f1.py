@@ -1121,7 +1121,7 @@ MARCAS_ESCALA = {
     "miles": [r"\bin thousands?\b", r"\bthousands? of (?:u\.?s\.? )?(?:euros?|eur|dollars|usd|pounds|francs)\b", r"\(\s*'?000\s*\)", r"[€$£]\s?'?000\b", r"\b" + _MON + r"\s?'?000\b",
               r"\b" + _MON + r"\s?(?:k|thousand|thousands)\b", r"[€$£]\s?(?:k|thousand|thousands)\b", r"(?<!\w)(?:k€|keur|teur|t€)(?!\w)",
               r"\ben miles\b", r"\(\s*miles de\b"],
-    "unidades": [r"\b(?:amounts|figures|expressed)\s+in\s+(?:euros?|eur|u\.?s\.? dollars|dollars|usd)\b(?!\s?(?:m\b|mn\b|millions?|thousands?|'?000|k\b))",
+    "unidades": [r"\b(?:amounts|figures|expressed)\s+in\s+(?:euros?|eur|u\.?s\.? dollars|dollars|usd)\b(?!\s?\(?\s?(?:m\b|mn\b|millions?|thousands?|'?000|k\b))",
                  r"\(\s*(?:in\s+)?(?:euros?|eur|€|usd|\$)\s*\)", r"\b(?:importes |cifras )?(?:expresad[oa]s )?en euros\b(?! ?(?:miles|millones))"],
 }
 
@@ -1130,6 +1130,23 @@ def _escala_de_pagina(pagina):
     """Escalas que declara la página por sus encabezados («(in millions)», «(amounts in Euro)», «in thousands of euros», «€000»…)."""
     t = re.sub(r"\s+", " ", str(pagina)).lower()
     return {esc for esc, pats in MARCAS_ESCALA.items() if any(re.search(p, t) for p in pats)}
+
+
+def _escala_de_tabla(pagina, literal, fila=None):
+    """(ronda 2, límite 1) Escalas que declara el bloque de la tabla de la cifra, no toda la página: desde la línea de la cifra (la que
+    contiene también la «fila», si la hay; la primera, si hay varias) hacia arriba hasta dos líneas en blanco seguidas o el principio de
+    la página. Lo que va debajo de la fila (otra tabla, otra nota) no cuenta. Si el encabezado de la tabla quedó en la página anterior
+    (página de continuación), el bloque no tiene marca y la escala queda PENDIENTE."""
+    lineas = str(pagina).splitlines()
+    cifra = [i for i, ln in enumerate(lineas) if any(_sin_esp(m.group(0)) == _sin_esp(literal) for m in _TOK.finditer(ln))]
+    con_fila = [i for i in cifra if fila and _norm_fila(fila) and _norm_fila(fila) in _norm_fila(lineas[i])]
+    i = (con_fila or cifra or [len(lineas) - 1])[0]
+    j = i
+    while j > 1 and not (lineas[j - 1].strip() == "" and lineas[j - 2].strip() == ""):
+        j -= 1
+    if j == 1 and lineas[0].strip():
+        j = 0
+    return _escala_de_pagina("\n".join(lineas[j:i + 1]))
 
 
 def _aviso_cero_comprobado(G, et, e):
@@ -1340,14 +1357,31 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
             if not any(_sin_esp(m.group(0)) == _sin_esp(e["literal"]) for ln in pag.splitlines() for m in _TOK.finditer(ln)):
                 inval.append(f"{et}: la cifra {e['literal']!r} no está, como cifra completa, en la página {e.get('pagina')} de {doc!r}")
                 continue
-            if "escala" in e:   # (revisión de f1/series-escala, hallazgo B) la escala declarada, contra los encabezados de la página
-                hay = _escala_de_pagina(pag)
+            if "escala" in e:   # (revisión de f1/series-escala, hallazgo B; ronda 2, límite 1) la escala, contra el bloque de su tabla
+                hay = _escala_de_tabla(pag, e["literal"], e.get("fila"))
                 if hay and e["escala"] not in hay:
-                    inval.append(f"{et}: escala declarada «{e['escala']}», pero la página {e.get('pagina')} de {doc!r} declara {sorted(hay)}")
+                    inval.append(f"{et}: escala declarada «{e['escala']}», pero la tabla de la cifra (página {e.get('pagina')} de {doc!r}) "
+                                 f"declara {sorted(hay)}")
                     continue
                 if hay != {e["escala"]}:
-                    col_pend.append(f"{et}: escala «{e['escala']}» declarada y NO comprobada: la página {e.get('pagina')} "
+                    col_pend.append(f"{et}: escala «{e['escala']}» declarada y NO comprobada: la tabla de la cifra (página {e.get('pagina')}) "
                                     + ("declara varias escalas " + str(sorted(hay)) if hay else "no tiene encabezado de escala reconocible"))
+                    # (ronda 2, detalle menor) con la escala pendiente el año no cuenta como columna comprobada; la columna se sigue
+                    # examinando (una cifra de otro ejercicio sigue siendo DATOS INVÁLIDOS)
+                    try:
+                        anio_e = int(k)
+                    except ValueError:
+                        inval.append(f"{et}: año no válido")
+                        continue
+                    if not str(e.get("fila") or "").strip():
+                        col_pend.append(f"{et}: sin «fila» (etiqueta de la fila): columna y ejercicio sin comprobar")
+                        continue
+                    est_e, det_e = _cifra_en_columna(pag, e["fila"], anio_e, e["literal"])
+                    if est_e == "invalida":
+                        inval.append(f"{et}: {det_e}")
+                    elif est_e == "pendiente":
+                        col_pend.append(f"{et}: {det_e}")
+                    continue
             try:
                 anio = int(k)
             except ValueError:

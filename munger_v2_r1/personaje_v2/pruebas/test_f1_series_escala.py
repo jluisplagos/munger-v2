@@ -57,6 +57,12 @@ PAGINAS = {
         fila("Amortisation of other intangibles", "- 5", "- 7", "—"),
         fila("Lease payable - principal", "(12)", "(10)", "(9)"),
         fila("Right-of-use depreciation", "(3)", "(2)", "(1)")],
+    # (ronda 2 de la revisión, límites 1 y 2) página de continuación (el encabezado en millones quedó en la anterior) con otra tabla
+    # «(in thousands)» debajo; y «All amounts in euros (thousands)», que no es «unidades»
+    7: ["Note 7 Leases (continued)", fila("", "2025", "2024", "2023"), fila("Right-of-use depreciation", "(450)", "(430)", "(410)"), "",
+        "Fees of the auditor (in thousands)", fila("Audit fees", "812", "790", "755")],
+    8: ["All amounts in euros (thousands) unless otherwise stated", fila("", "2025", "2024", "2023"),
+        fila("Right-of-use depreciation", "(9.200)", "(8.660)", "(7.942)")],
 }
 TEXTO = "".join(f"[PDF PAGE {n}]\n" + "\n".join(lineas) + "\n" for n, lineas in sorted(PAGINAS.items()))
 SHA = hashlib.sha256(TEXTO.encode("utf-8")).hexdigest()
@@ -166,7 +172,7 @@ paso("ESC · mutación: cifra de 2024 declarada como de 2025, con escala → DAT
 g, _ = gs({"2025": ent("9.199.774", 9.199774, sg=1, escala="unidades")})
 paso("ESC · mutación: el signo publicado se cambia en valor_fuente con escala → DATOS INVÁLIDOS (R415-SIGNO)",
      bloquea(g, "DATOS INVÁLIDOS"), g["detalle"][:160])
-g, _ = gs({"2025": ent("(9.199.774)", -9.199774, escala="unidades", pagina=9)})
+g, _ = gs({"2025": ent("(9.199.774)", -9.199774, escala="unidades", pagina=99)})
 paso("ESC · mutación: página inexistente con escala → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "no existe"))
 
 # ================================================================== CC · cero sin cifra impresa, probado por una frase
@@ -196,7 +202,7 @@ g, _ = gs({"2025": cero(literal="(1.234)")}, nombre="da_ppa")
 paso("CC · mutación: cero_comprobado con un «literal» → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "no lleva cifra"))
 g, _ = gs({"2025": cero(cero_comprobado="no hay intangibles")}, nombre="da_ppa")
 paso("CC · mutación: cero_comprobado que no es {motivo, cita} → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "se declara {motivo, cita}"))
-g, _ = gs({"2025": cero(pagina=7)}, nombre="da_ppa")
+g, _ = gs({"2025": cero(pagina=99)}, nombre="da_ppa")
 paso("CC · mutación: página inexistente → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "no existe"))
 g, _ = gs({"2025": cero(documento="AR2099")}, nombre="da_ppa")
 paso("CC · mutación: documento sin fuente registrada → INCOMPLETO", bloquea(g, "INCOMPLETO", "sin fuente registrada"))
@@ -241,6 +247,27 @@ g, _ = gs({"2025": ent("—", 0, sg=1, fila_="of")}, nombre="da_ppa")
 paso("CI · mutación: la fila está en varias líneas → INCOMPLETO", bloquea(g, "INCOMPLETO", "líneas de la página"), g["detalle"][:160])
 g, _ = gs({"2025": ent("cero", 0, sg=1, fila_=F_PPA)}, nombre="da_ppa")
 paso("CI · mutación: «cero» no es una marca reconocida → DATOS INVÁLIDOS (no es una cifra)", bloquea(g, "DATOS INVÁLIDOS", "no es una cifra"))
+
+# (ronda 2 de la revisión, límites 1 y 2, y detalle menor)
+g, r = gs({"2025": ent("(450)", -0.45, fila_=F_ROU6, pagina=7, escala="miles")})
+paso("ESC · ronda 2, R1: la marca «(in thousands)» de otra tabla, debajo de la fila, no comprueba la escala → PENDIENTE (no comprobada)",
+     libre(g) and r["columna_comprobada"] == 0 and any("NO comprobada" in x for x in r["columna_pendiente"]), str(r["columna_pendiente"])[:200])
+g, r = gs({"2025": ent("(9.200)", -0.0092, fila_=F_ROU6, pagina=8, escala="unidades")})
+paso("ESC · ronda 2, R2: «All amounts in euros (thousands)» no es «unidades»: declarado «unidades» → PENDIENTE, no comprobada",
+     libre(g) and r["columna_comprobada"] == 0 and any("NO comprobada" in x for x in r["columna_pendiente"]), str(r["columna_pendiente"])[:200])
+g, r = gs({"2025": ent("(9.200)", -9.2, fila_=F_ROU6, pagina=8, escala="miles")})
+paso("ESC · ronda 2, R2b: la misma página declarada «miles» no se rechaza (PENDIENTE; antes DATOS INVÁLIDOS)",
+     libre(g) and not r["invalidas"], str(r)[:200])
+paso("ESC · ronda 2, detalle menor: con la escala pendiente el año no cuenta también como columna comprobada (0 comprobadas, aunque se alinea)",
+     r["columna_comprobada"] == 0 and "comprobada en 0 años" in g["detalle"], g["detalle"][:200])
+g, _ = gs({"2025": ent("(8.660)", -8.66, fila_=F_ROU6, pagina=8, escala="miles")})
+paso("ESC · ronda 2: con la escala pendiente la columna se sigue examinando: la cifra de 2024 declarada en 2025 → DATOS INVÁLIDOS",
+     bloquea(g, "DATOS INVÁLIDOS", "columna de ['2024']"), g["detalle"][:200])
+EP2 = getattr(M, "_escala_de_tabla", lambda *a: None)
+paso("ESC · ronda 2: la escala se busca en el bloque de la tabla (de la fila hacia arriba, hasta dos líneas en blanco), no en toda la página",
+     EP2("(in millions)\nRight-of-use depreciation   (3)\n\nFees (in thousands)", "(3)", "Right-of-use depreciation") == {"millones"}
+     and EP2("(in thousands)\n\n\nRight-of-use depreciation   (3)", "(3)", "Right-of-use depreciation") == set()
+     and EP2("(amounts in Euro)\n\nGroup\n\nDepreciation\n- Additions   (8.503.619)", "(8.503.619)", "- Additions") == {"unidades"})
 
 # (revisión, hallazgo A) marcas que no son la celda del ejercicio
 g, _ = gs({"2024": ent("-", 0, sg=1, fila_="Lease payable", pagina=6)}, nombre="da_ppa")
