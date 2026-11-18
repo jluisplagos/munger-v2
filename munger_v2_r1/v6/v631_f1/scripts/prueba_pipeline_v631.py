@@ -24,6 +24,7 @@ RAIZ = os.path.abspath(os.path.join(AQUI, "..", "..", ".."))
 PV = os.path.join(RAIZ, "personaje_v2")
 sys.path.insert(0, os.path.join(PV, "pruebas"))
 sys.path.insert(0, os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_15", "f1_impl", "scripts"))
+sys.path.insert(0, os.path.join(PV, "scripts"))
 sys.dont_write_bytecode = True
 import test_pipeline_sintetico as TS  # noqa: E402
 import prueba_pipeline_f1 as PF  # noqa: E402
@@ -91,8 +92,8 @@ def main():
              g and not g[0]["salta"] and (r.get("libro_v631_f1") or {}).get("motivos") == [] and r.get("utilizable_para_conclusion") is True
              and os.path.exists(os.path.join(c, "fase_b.json")) and (st.get("motor_a_f1") or {}).get("paso") == 12,
              f"código {rc} · estado {st.get('estado_analisis')} · paso {st.get('paso')} · bloquean {bloquean(r)}")
-        paso("P6 · estado final que no es un bloqueo F1; ficha con la plantilla V6.3.1 F1 y motor_a_f1 «utilizable» con el perímetro efectivo del libro",
-             st.get("estado_analisis") is not None and (fi.get("versiones") or {}).get("plantilla") == "V6.3.1 F1"
+        paso("P6 · estado final concluido; ficha con la plantilla V6.3.1 F1 y motor_a_f1 «utilizable» con el perímetro efectivo del libro",
+             st.get("estado_analisis") == "concluido" and fi.get("estado_analisis") == "concluido" and (fi.get("versiones") or {}).get("plantilla") == "V6.3.1 F1"
              and (fi.get("motor_a_f1") or {}).get("utilizable_para_conclusion") is True
              and ((fi.get("motor_a_f1") or {}).get("libro_v631_f1") or {}).get("perimetro_efectivo") == "A1_sin_ROU" and "configuracion_economica" not in fi,
              f"estado {st.get('estado_analisis')} · ficha {fi.get('estado_analisis')}")
@@ -100,10 +101,66 @@ def main():
              not os.path.exists(os.path.join(TS.BASE, "resumen_v2.csv")) and (os.path.exists(os.path.join(TS.BASE, "resumen_v2_v631_f1.csv"))
                                                                               or st.get("estado_analisis") not in ("concluido",)),
              str(sorted(x for x in os.listdir(TS.BASE) if x.endswith(".csv"))))
+        # P9 · R2-1 (revisión V6.3.1, V631-1) sobre copias del expediente cerrado: R21a (resultado F1 borrado), R21b (además, la declaración
+        # cambiada) y R21c (el estado pierde el motor, como un expediente anterior a F1): ninguna llamada llega a concluido sin F1 vigente
+        cerrado = os.path.join(TS.BASE, "_cerrado")
+        shutil.copytree(c, cerrado)
+
+        def copia(nombre):
+            d_ = os.path.join(TS.BASE, nombre, "EmpresaX_V631")
+            shutil.copytree(cerrado, d_)
+            for n_ in ("motor_a_f1_resultado.json", "motor_a_f1_resultado.md"):
+                if os.path.exists(os.path.join(d_, n_)):
+                    os.remove(os.path.join(d_, n_))
+            return d_
+
+        def lanzar(d_, *args):
+            os.environ["MUNGER_CONFIG"] = CFG631
+            try:
+                r_ = subprocess.run([TS.PY, TS.PIPE, d_, *args], capture_output=True, text=True)
+            finally:
+                os.environ.pop("MUNGER_CONFIG", None)
+            rc_ = r_.returncode
+            if rc_ == 10:
+                rc_, _ = correr(d_, CFG631)
+            return rc_, (r_.stdout + r_.stderr).strip()
+
+        def oficial(d_):
+            return (leer(d_, "ficha.json") or {}).get("estado_analisis"), str(((leer(d_, "ficha.json") or {}).get("decision") or {}).get("accion"))
+
+        ca = copia("R21a")
+        rca, outa = lanzar(ca, "--reiniciar", "--desde", "13")
+        paso("P9 · R21a: resultado F1 borrado y «--reiniciar --desde 13» → llamada rechazada (código 2), aprobación retirada: ninguna ficha oficial concluido",
+             rca == 2 and "no se combinan" in outa and oficial(ca)[0] != "concluido", f"código {rca} · ficha {oficial(ca)} · {outa[-160:]}")
+        cb = copia("R21b")
+        db = declaracion(0.40)
+        PF.escribir_fuente(cb, db)
+        json.dump(db, open(os.path.join(cb, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        rcb, outb = lanzar(cb, "--reiniciar", "--desde", "13")
+        rcb2, _ = lanzar(cb, "--desde", "13")
+        stb, rb_ = TS.estado(cb), leer(cb, "motor_a_f1_resultado.json")
+        gb = [x for x in rb_.get("guardas") or [] if x["id"] == "F1-LIBRO"]
+        paso("P9 · R21b: además la declaración cambiada (30 % → 40 %): «--reiniciar --desde 13» rechazado; «--desde 13» → F1-LIBRO bloquea, sin concluido",
+             rcb == 2 and gb and gb[0]["salta"] and stb.get("estado_analisis") in ("no_entregable", "pendiente_de_datos") and oficial(cb)[0] != "concluido",
+             f"códigos {rcb}/{rcb2} · estado {stb.get('estado_analisis')} · paso {stb.get('paso')} · ficha {oficial(cb)}")
+        cc = copia("R21c")
+        stc = TS.estado(cc)
+        stc.pop("motor", None)
+        stc.pop("motor_a_f1", None)
+        json.dump(stc, open(os.path.join(cc, "estado_pipeline.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        import motor_a_f1 as MF  # noqa: E402
+        vc = MF.vigencia(cc)
+        rcc, _ = lanzar(cc, "--desde", "13")
+        stc2, rc_r = TS.estado(cc), leer(cc, "motor_a_f1_resultado.json")
+        paso("P9 · R21c: el estado sin el motor (expediente anterior a F1) y sin resultado: vigencia() lee el motor de fase_a.json (A, no vigente) y "
+             "«--desde 13» repone el motor, evalúa F1 de nuevo y solo concluye con una evaluación F1 vigente y utilizable",
+             vc["motor"] == "A" and vc["vigente"] is False and stc2.get("motor") == "A" and (stc2.get("estado_analisis") != "concluido" or
+                                                                                         (rc_r.get("utilizable_para_conclusion") is True and MF.vigencia(cc)["vigente"] is True)),
+             f"vigencia {vc['motivo']} · código {rcc} · estado {stc2.get('estado_analisis')} · F1 {rc_r.get('utilizable_para_conclusion')}")
         # P8 · declaración cambiada después del paso 2: el libro ya no corresponde
         d = declaracion(0.31)
-        json.dump(d, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         PF.escribir_fuente(c, d)
+        json.dump(d, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         os.environ["MUNGER_CONFIG"] = CFG631
         try:
             r8 = subprocess.run([TS.PY, TS.PIPE, c, "--desde", "7"], capture_output=True, text=True)

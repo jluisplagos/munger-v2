@@ -18,7 +18,8 @@ Qué cambia frente a la V6.3 (y nada más):
     («no reconocido» con un texto que no es de la lista: entonces D_X y f quedan vacías).
   - Fila 30 (reinversión neta orgánica, y con ella la fila 31): capex − D_X + circulante. Con A0, D_X es la fila 8: mismo valor.
   - C58 (f), C76 (conciliación) y C53 (ancla de S2C): con A0 la fórmula de la V6.3 literal; con A1/A2, la reinversión de la fila 30.
-    Con A1/A2, f exige D_X en todos los años de la ventana (vacío ≠ 0) y el ancla, D_X en los cinco años H–L.
+    Con A1/A2, f exige D_X en todos los años de la ventana (vacío ≠ 0) y el ancla, los cinco años H–L de capex, adquisiciones, circulante
+    y D_X (E4; 0 explícito si no los hubo).
   - Motor E205 (validación V05 del motor A): con A1/A2 dice qué falta (INC) o qué es inválido (INV: perímetro no reconocido o
     D&A de derechos de uso + PPA mayor que la D&A total) en lugar de dejar f vacía sin explicación. Con A0 no añade nada.
   - Etiquetas de versión: Panel A1, Análisis A1, Guía V6 A1 y Control maestro A3 («V6.3.1 F1»).
@@ -117,10 +118,12 @@ def historia(wb):
     c76 = ws["C76"].value
     assert c76 == f'=IF(NOT(ISNUMBER($C$58)),"",{reinv_v63}/$C$57)'
     ws["C76"] = f'=IF({a0},{c76[1:]},IF(NOT(ISNUMBER($C$58)),"",{reinv_dx}/$C$57))'
-    # --- C53 (ancla de S2C, E4): con A1/A2 exige los cinco años H–L (vacío ≠ 0)
+    # --- C53 (ancla de S2C, E4): con A1/A2 exige los cinco años H–L de TODO el denominador (capex, adquisiciones, circulante y D_X;
+    #     vacío ≠ 0: 0 explícito si no los hubo). Revisión de la V6.3.1, V631-5 y E4
     c53 = ws["C53"].value
     assert c53 == '=IF(AND(ISNUMBER(L6),ISNUMBER(G6),COUNT(H31:L31)>=3),IF(SUM(H31:L31)>0,(L6-G6)/SUM(H31:L31),""),"")'
-    ws["C53"] = f'=IF({a0},{c53[1:]},IF(COUNT($H$31:$L$31)<5,"",{c53[1:]}))'
+    ws["C53"] = (f'=IF({a0},{c53[1:]},IF(OR(COUNT($H$12:$L$12)<5,COUNT($H$13:$L$13)<5,COUNT($H$14:$L$14)<5,COUNT($H${F_DX}:$L${F_DX})<5),"",'
+                 f'{c53[1:]}))')
     # --- validaciones de las entradas nuevas
     dv = DataValidation(type="list", formula1='"' + ",".join(PERIMETROS) + '"', allow_blank=True)
     dv.error, dv.errorTitle = "Perímetro F1: A0_total, A1_sin_ROU o A2_propio (vacío = A0_total).", "Perímetro F1"

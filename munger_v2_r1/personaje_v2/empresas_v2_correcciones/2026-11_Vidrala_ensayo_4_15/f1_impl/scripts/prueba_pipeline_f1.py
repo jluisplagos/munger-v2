@@ -54,8 +54,12 @@ FUENTE = "fuente_sintetica_f1.txt"   # (revisión F1-IMPL, H12) fuente conservad
 
 
 def escribir_fuente(c, decl):
+    """Escribe la fuente sintética de las series y registra en la declaración su archivo y su huella (fuentes_series, revisión V6.3.1 V631-2)."""
+    import hashlib
     lits = sorted({str(e.get("literal")) for s_ in (decl.get("series") or {}).values() for e in s_.values() if isinstance(e, dict)})
-    open(os.path.join(c, FUENTE), "w", encoding="utf-8").write("[PDF PAGE 1]\nInforme anual sintético: " + " ".join(lits) + "\n[PDF PAGE 2]\n")
+    txt = "[PDF PAGE 1]\nInforme anual sintético: " + " ".join(lits) + "\n[PDF PAGE 2]\n"
+    open(os.path.join(c, FUENTE), "w", encoding="utf-8").write(txt)
+    decl["fuentes_series"] = {"informe anual sintético": {"archivo": FUENTE, "sha256": hashlib.sha256(txt.encode("utf-8")).hexdigest()}}
 
 
 def declaracion(norma="NIIF"):
@@ -90,8 +94,8 @@ def preparar(nombre, decl=None, sin_arrendamientos=False, con_4_15=True, renombr
             pa["valores"] = [0] * 10
         json.dump(f1, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     if decl is not None:
-        json.dump(decl, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         escribir_fuente(c, decl)
+        json.dump(decl, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return c
 
 

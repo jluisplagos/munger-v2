@@ -276,8 +276,9 @@ def f1(dest):
         d = RE.declaracion(cif, True, False)
         d["perimetro_reinversion"] = {"valor": per, "registro": REGP}
         for n_ in ("da_rou", "da_ppa"):
-            for e in d["series"][n_].values():
-                e["archivo"] = os.path.join("texto", TEXTOS[e["documento"]])
+            for y_, e in d["series"][n_].items():
+                e["fila"] = cif["series"][n_][y_]["etiqueta"]   # (V631-2) la fila de la página, para comprobar el ejercicio y la columna
+        d["fuentes_series"] = {doc: {"archivo": os.path.join("texto", n_), "sha256": sha(os.path.join(ELIS_DIR, "texto", n_))} for doc, n_ in TEXTOS.items()}
         return d
 
     # ---------------------------------------------------------------- Elis A1 y A2 frente a E9 y a la capa
@@ -310,10 +311,32 @@ def f1(dest):
             not salta(r, "F1-LIBRO") and r["libro_v631_f1"]["motivos"] == [] and r["libro_v631_f1"]["flujos_contrastados"] == 33,
             str(r["libro_v631_f1"]["motivos"])[:200])
         fs = [g for g in r["guardas"] if g["id"] == "F1-SERIES"]
-        chk(f"Elis {k}: F1-SERIES (H12) sin problemas: cada D&A de derechos de uso y PPA con su cifra publicada y su signo en una página existente del texto del expediente",
-            fs and not fs[0]["salta"], str(fs[0]["detalle"] if fs else None)[:200])
+        chk(f"Elis {k}: F1-SERIES sin problemas: las 10 cifras de D&A de derechos de uso y PPA completas, con su signo, en su fila y en la columna de su "
+            "ejercicio, en el texto del expediente con su huella", fs and not fs[0]["salta"] and r["F1_SERIES"]["columna_comprobada"] == 10,
+            str(fs[0]["detalle"] if fs else None)[:200])
         detalle[f"Elis_{k}"] = {"C58": c58, "C53": c53, "desviacion_max_flujos_E9": dev, "bloquean": sorted({g["id"] for g in r["guardas"] if g["salta"] and g["severidad"] == "BLOQUEA"}),
                                 "estado_propuesto": r["estado_propuesto"]}
+    # ---------------------------------------------------------------- V631-2 sobre el texto real: la cifra de otro ejercicio (E1)
+    dE1 = decl_elis("A1_sin_ROU")
+    dE1["series"]["da_rou"]["2025"].update({"literal": "(132.2)", "valor_fuente": -132.2})
+    recE1 = libro("Elis_A1_E1", dE1)
+    rE1 = evaluar(recE1, dE1)
+    gE1 = guarda(rE1, "F1-SERIES")[0]
+    chk("V631-2 · E1: la D&A ROU de 2025 declarada con la cifra de 2024 de la misma página: libro y capa coinciden, pero F1-SERIES la rechaza (columna de 2024)",
+        not salta(rE1, "F1-LIBRO") and gE1["salta"] and gE1["efecto"] == "DATOS INVÁLIDOS" and "2024" in gE1["detalle"], gE1["detalle"][:160])
+    # ---------------------------------------------------------------- V631-5 y V631-4: el ancla
+    rec = libro("Elis_A1_circulante_2021", decl_elis("A1_sin_ROU"), despues={"Historia!H14": None})
+    wb = load_workbook(rec, data_only=True)
+    r = evaluar(rec, decl_elis("A1_sin_ROU"))
+    chk("V631-5 · A1 con el circulante de 2021 vacío (fuera de la ventana, dentro de H–L): C53 vacía en el libro y en la capa; f = E9",
+        wb["Historia"]["C53"].value is None and r["calculo_perimetro_declarado"]["ancla_s2c_E4"] is None
+        and abs(wb["Historia"]["C58"].value - E9["perimetros"]["A1"]["f"]) <= 1e-12 and not salta(r, "F1-LIBRO"))
+    rec = libro("Elis_A0_capex_2021", decl_elis("A0_total"), despues={"Historia!H12": None})
+    wb = load_workbook(rec, data_only=True)
+    r = evaluar(rec, decl_elis("A0_total"))
+    chk("V631-4 · A0 con el capex de 2021 vacío: el libro calcula C53 como la V6.3 (≥ 3 años) y el oráculo no lo hace bloquear (la capa no lo calcula)",
+        isinstance(wb["Historia"]["C53"].value, float) and r["calculo_perimetro_declarado"]["ancla_s2c_E4"] is None and r["libro_v631_f1"]["motivos"] == [],
+        f"C53 {wb['Historia']['C53'].value!r}")
     # ---------------------------------------------------------------- vacío no es cero; perímetro no reconocido
     d = decl_elis("A1_sin_ROU")
     d2 = json.loads(json.dumps(d))

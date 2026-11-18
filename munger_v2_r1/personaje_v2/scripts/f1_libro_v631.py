@@ -132,7 +132,11 @@ def corresponde(L, per, rou, ppa, anios, col, dx_capa, calc, dif_motor):
     f, an = (calc or {}).get("f"), (calc or {}).get("ancla")
     if (c58 is None) != (f is None) or (f is not None and abs(c58 - f) > TOL_F):
         m.append(f"f: libro (Historia C58) {None if c58 is None else float(c58)} ≠ capa {None if f is None else float(f)}")
-    if (c53 is None) != (an is None) or (an is not None and abs(c53 - an) > TOL):
+    # (revisión V6.3.1, V631-4) con A0 la rama de la V6.3 calcula C53 con tres años o más; la capa solo con los cinco completos: con A0 se
+    # contrasta C53 solo si la capa lo calcula (como F1-REPLICA). Con A1/A2, el libro y la capa exigen lo mismo y se contrasta en los dos sentidos
+    if per == "A0_total" and an is None:
+        pass
+    elif (c53 is None) != (an is None) or (an is not None and abs(c53 - an) > TOL):
         m.append(f"ancla de S2C: libro (Historia C53) {None if c53 is None else float(c53)} ≠ capa {None if an is None else float(an)}")
     if dif_motor:
         m.append(f"flujos del Motor distintos de los de la capa en {len(dif_motor)} celdas ({', '.join(dif_motor[:4])})")

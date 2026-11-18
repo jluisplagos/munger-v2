@@ -1931,6 +1931,22 @@ def main():
               + (f" · salidas oficiales archivadas en {os.path.relpath(archivo, a.carpeta)}" if archivo else ""))
         print(f"SELECCIÓN DE PLANTILLA DETENIDA: {m_sel}" + (f" · RETIRADA PENDIENTE en {pend} (ver {CIE.REGISTRO_RESUMEN})" if pend else ""))
         return 5 if pend else 2
+    if a.reiniciar and a.desde is not None:
+        # (revisión V6.3.1, V631-1; R2-1 de la revisión de F1-IMPL) «--reiniciar» junto con «--desde» borra el estado (el motor elegido, la
+        # evaluación F1, el estado propuesto por la fase C) y reanuda en un paso posterior sin repetir los que lo fijan: se rechaza. Antes de
+        # detener la llamada, una aprobación que ya no corresponde al material actual se retira, como con una selección rechazada.
+        e0 = os.path.basename(os.path.abspath(a.carpeta))
+        m_vig = CIE.motivo_vigencia(a.carpeta, Pipeline.veredicto_auditoria, e0)
+        pend = None
+        if m_vig:
+            motivo, archivo = CIE.asegurar_vigencia(a.carpeta, Pipeline.veredicto_auditoria, e0, CIE.ruta_resumen(a.carpeta, cfg))
+            pend = CIE.sincronizar_resumenes(a.carpeta, Pipeline.veredicto_auditoria, e0) or CIE.retiradas_pendientes(a.carpeta)
+            print(f"APROBACIÓN RETIRADA ANTES DE DETENER LA LLAMADA: {motivo or m_vig}"
+                  + (f" · salidas oficiales archivadas en {os.path.relpath(archivo, a.carpeta)}" if archivo else ""))
+        print("LLAMADA RECHAZADA: «--reiniciar» y «--desde» no se combinan (el estado reiniciado pierde el motor y la evaluación F1 y no se "
+              "repiten los pasos que los fijan). Relanzar con «--reiniciar» solo (desde el principio) o con «--desde N» solo."
+              + (f" · RETIRADA PENDIENTE en {pend}" if pend else ""))
+        return 5 if pend else 2
     if a.reiniciar and os.path.exists(os.path.join(a.carpeta, "estado_pipeline.json")):
         os.remove(os.path.join(a.carpeta, "estado_pipeline.json"))
     try:
@@ -1974,6 +1990,15 @@ def main():
         p.st["paso"] = a.desde
         p.st["estado_analisis"] = None
         p.st["esperando"] = None
+        if a.desde >= 7 and p.st.get("motor") is None:
+            # (revisión V6.3.1, V631-1; R2-1) al reanudar después de la fase A sin el motor en el estado, el de fase_a.json (C62): el gancho F1
+            # de los pasos 7 y 12 y su vigencia no se saltan por un motor desconocido
+            try:
+                _fa = json.load(open(p.p("fase_a.json"), encoding="utf-8"))
+            except (OSError, ValueError):
+                _fa = None
+            _c62 = ((_fa.get("celdas") or {}) if isinstance(_fa, dict) else {}).get("C62")
+            p.st["motor"] = {"Sí": "A", "No · financiación cambia mucho": "B", "No · banco o aseguradora": "C"}.get(_c62)
         p.guardar()  # verificar_todo.sh lee estado_pipeline.json del disco: no debe ver el estado final de la ejecución anterior
     m_re = p.reaplicar_configuracion()  # (4.11) después de la vigencia (que ya retiró la aprobación si el material cambió)
     if m_re:

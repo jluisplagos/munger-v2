@@ -76,6 +76,9 @@ def libro(ventas, ebit, da, tau, capex, adq, dwc, princ, C70, C49, n=3, pal=None
 
 
 FUENTE_TXT = "fuente_sintetica_f1.txt"   # (revisión F1-IMPL, H12) fuente conservada de las series sintéticas
+FUENTE_CONTENIDO = "[PDF PAGE 1]\nInforme sintético: 0 (0) 5 (5) 10 (10)\n[PDF PAGE 2]\n"   # (V631-2) fija: su huella va en la declaración
+import hashlib  # noqa: E402
+FUENTES_SERIES = {"sintético": {"archivo": FUENTE_TXT, "sha256": hashlib.sha256(FUENTE_CONTENIDO.encode("utf-8")).hexdigest()}}
 
 
 def _literal(x):
@@ -89,9 +92,8 @@ def serie(vals, signo=-1, trat="publicado entre paréntesis"):
 
 def fuentes(carpeta, d):
     """(H12) Escribe en la carpeta la fuente sintética: una página 1 con las cifras publicadas de las series de la declaración."""
-    lits = sorted({str(e.get("literal")) for s_ in (d.get("series") or {}).values() if isinstance(s_, dict) for e in s_.values() if isinstance(e, dict)})
     os.makedirs(carpeta, exist_ok=True)
-    open(os.path.join(carpeta, FUENTE_TXT), "w", encoding="utf-8").write("[PDF PAGE 1]\nInforme sintético: " + " ".join(lits) + "\n[PDF PAGE 2]\n")
+    open(os.path.join(carpeta, FUENTE_TXT), "w", encoding="utf-8").write(FUENTE_CONTENIDO)
     return carpeta
 
 
@@ -100,7 +102,7 @@ def decl(per="A0_total", rou=None, ppa=None, norma="NIIF", margen="EBIT_NIIF16_P
     d = {"norma_contable": {"valor": norma, "registro": REG}, "perimetro_reinversion": {"valor": per, "registro": REG},
          "perimetro_margen": {"valor": margen, "registro": REG}, "perimetro_palancas_s2c": {"valor": pal or per, "registro": REG},
          "perimetro_roic": {"valor": roic or pal or per, "registro": REG}, "clasificacion_compras": {"valor": compras, "registro": REG},
-         "transicion": {"conocida": trans, "tratamiento": None, "registro": REG}, "series": {}}
+         "transicion": {"conocida": trans, "tratamiento": None, "registro": REG}, "series": {}, "fuentes_series": json.loads(json.dumps(FUENTES_SERIES))}
     if conc:
         d["conciliacion_fcf_base"] = conc
     if rou is not None:
@@ -746,14 +748,18 @@ paso("REV2 · H12 / T9: «(10)» declarado como +10 con signo 1 → F1-SERIES (e
 d12c = copy.deepcopy(d7)
 d12c["series"]["da_rou"]["2023"]["pagina"] = 7
 d12d = copy.deepcopy(d7)
-d12d["series"]["da_rou"]["2023"]["archivo"] = "no_existe.txt"
+d12d["fuentes_series"]["sintético"]["archivo"] = "no_existe.txt"
+for _s in d12d["series"].values():
+    for _e in _s.values():
+        _e["archivo"] = "no_existe.txt"
 d12e = copy.deepcopy(d7)
 d12e["series"]["da_rou"]["2023"]["literal"] = "(3)"
 d12e["series"]["da_rou"]["2023"]["valor_fuente"] = -3
 paso("REV2 · H12: página inexistente (7) → DATOS INVÁLIDOS; fuente ausente → INCOMPLETO; cifra que no está en la página → DATOS INVÁLIDOS",
      [g["efecto"] for g in M.evaluar(L7, d12c, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]] == ["DATOS INVÁLIDOS"]
      and [g["efecto"] for g in M.evaluar(L7, d12d, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]] == ["INCOMPLETO"]
-     and any("no está en la página" in g["detalle"] for g in M.evaluar(L7, d12e, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]))
+     and any("como cifra completa" in g["detalle"] for g in M.evaluar(L7, d12e, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES" and g["salta"]),
+     " | ".join(str([(g["efecto"], g["detalle"][:90]) for g in M.evaluar(L7, d_, carpeta=FUENTES7)["guardas"] if g["id"] == "F1-SERIES"]) for d_ in (d12c, d12d, d12e)))
 rb = M.evaluar(L6, decl("A2_propio", rou=todos(10), ppa=todos(5), compras="pendiente", conc=CONC_T))
 paso("REV2 · H12: si otra guarda ya bloquea, F1-SERIES avisa y no cambia el estado propuesto",
      any(g["id"] == "F1-SERIES" and g["salta"] and g["severidad"] == "AVISO" for g in rb["guardas"]) and rb["estado_propuesto"] == "pendiente_de_datos")
@@ -791,6 +797,58 @@ paso("REV2 · H10: transición como término sin importes históricos H–L (el 
 d11 = copy.deepcopy(d7)
 d11["transicion"]["registro"] = {"fecha": None, "persona": None, "motivo": None}
 paso("REV2 · H11: «sin transición conocida» sin registro → F1-REGISTRO", bloquea(M.evaluar(L7, d11, carpeta=FUENTES7), "F1-REGISTRO"))
+# ================================================================== REV V6.3.1 · V631-2: la cifra completa, de su ejercicio y su columna, en una fuente del expediente
+TABLA = ("[PDF PAGE 1]\n(In millions of euros)" + " " * 20 + "2025" + " " * 10 + "2024\n"
+         + "Right-of-use assets" + " " * 21 + "(149.5)" + " " * 7 + "(132.2)\n"
+         + "Other items" + " " * 28 + "(1149.57)" + " " * 5 + "(2008.5)\n[PDF PAGE 2]\n")
+CT = tempfile.mkdtemp(prefix="f1_v631_2_")
+os.makedirs(os.path.join(CT, "texto"))
+open(os.path.join(CT, "texto", "ar2025.txt"), "w", encoding="utf-8").write(TABLA)
+open(os.path.join(os.path.dirname(CT), "ajeno_" + os.path.basename(CT) + ".txt"), "w", encoding="utf-8").write(TABLA)
+SHA_T = hashlib.sha256(TABLA.encode("utf-8")).hexdigest()
+
+
+def g_series(entradas, fuentes=None, carpeta=CT):
+    d = {"series": {"da_rou": entradas}, "fuentes_series": fuentes if fuentes is not None else {"AR2025": {"archivo": "texto/ar2025.txt", "sha256": SHA_T}}}
+    G, res = M.Guardas(), {}
+    M._guarda_fuentes_series(G, d, carpeta, ANIOS, res)
+    g = [x for x in G.lista if x["id"] == "F1-SERIES"][0]
+    return g, res["F1_SERIES"]
+
+
+def ent(lit, vf, sg=-1, fila="Right-of-use assets", doc="AR2025", **k):
+    e = {"valor_fuente": vf, "signo": sg, "tratamiento": "publicado entre paréntesis" if sg == -1 else "ninguno", "documento": doc, "pagina": 1, "literal": lit}
+    if fila:
+        e["fila"] = fila
+    e.update(k)
+    return e
+
+
+g, r_ = g_series({"2025": ent("(149.5)", -149.5), "2024": ent("(132.2)", -132.2)})
+paso("V631-2 · cifras completas en su fila y en la columna de su ejercicio, fuente del expediente con su huella → F1-SERIES no salta (2 columnas comprobadas)",
+     not g["salta"] and r_["columna_comprobada"] == 2, g["detalle"][:120])
+g, _ = g_series({"2025": ent("(132.2)", -132.2)})
+paso("V631-2 · E1: la cifra de 2024 declarada para 2025 (misma página) → DATOS INVÁLIDOS (columna de otro ejercicio)",
+     g["salta"] and g["efecto"] == "DATOS INVÁLIDOS" and "columna" in g["detalle"], g["detalle"][:140])
+g1, _ = g_series({"2025": ent("149.5", 149.5, sg=1, fila=None)})
+g2, _ = g_series({"2025": ent("8.5", 8.5, sg=1, fila=None)})
+paso("V631-2 · S1/S3: «149.5» (dentro de «(1149.57)» o sin paréntesis) y «8.5» (dentro de «(2008.5)») no son la cifra publicada → DATOS INVÁLIDOS",
+     g1["salta"] and g1["efecto"] == "DATOS INVÁLIDOS" and g2["salta"] and g2["efecto"] == "DATOS INVÁLIDOS", g1["detalle"][:100])
+g, _ = g_series({"2025": ent("(149.5)", -149.5)}, {"AR2025": {"archivo": "../ajeno_" + os.path.basename(CT) + ".txt", "sha256": SHA_T}})
+paso("V631-2 · S5: fuente fuera de la carpeta del expediente (otro expediente o el paquete) → DATOS INVÁLIDOS", g["salta"] and g["efecto"] == "DATOS INVÁLIDOS", g["detalle"][:120])
+g, _ = g_series({"2025": ent("(149.5)", -149.5)}, {"AR2025": {"archivo": "texto/ar2025.txt", "sha256": "0" * 64}})
+paso("V631-2 · S4: huella declarada distinta de la de la fuente → DATOS INVÁLIDOS", g["salta"] and g["efecto"] == "DATOS INVÁLIDOS" and "sha256" in g["detalle"])
+g, _ = g_series({"2025": ent("(149.5)", -149.5)}, {"AR2025": {"archivo": "texto/ar2025.txt"}})
+paso("V631-2 · fuente sin huella → INCOMPLETO", g["salta"] and g["efecto"] == "INCOMPLETO")
+g, _ = g_series({"2025": ent("(149.5)", -149.5, doc="AR2022")})
+paso("V631-2 · S6: «documento» sin fuente registrada → INCOMPLETO; «archivo» de la entrada distinto del registrado para su documento → DATOS INVÁLIDOS",
+     g["salta"] and g["efecto"] == "INCOMPLETO"
+     and g_series({"2025": ent("(149.5)", -149.5, archivo="texto/otro.txt")})[0]["efecto"] == "DATOS INVÁLIDOS")
+g, r_ = g_series({"2025": ent("(149.5)", -149.5, fila=None)})
+paso("V631-2 · sin «fila»: la columna queda PENDIENTE (no bloquea F1; la aptitud por entradas la bloquea el universo)",
+     not g["salta"] and len(r_["columna_pendiente"]) == 1 and "PENDIENTE" in g["detalle"])
+shutil.rmtree(CT, ignore_errors=True)
+os.remove(os.path.join(os.path.dirname(CT), "ajeno_" + os.path.basename(CT) + ".txt"))
 shutil.rmtree(FUENTES7, ignore_errors=True)
 
 n_ok = sum(ok for _, ok in R)
