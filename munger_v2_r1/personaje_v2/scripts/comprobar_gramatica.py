@@ -232,8 +232,10 @@ class Gramatica:
         vara4 = ""
         if pf4:
             rp4 = num(pf4.get("roic_propio_pagado_el_alquiler_medio"))
+            # (C1) la cifra solo se da si es utilizable (intereses comprobados con su columna en los cinco años)
             vara4 = (f" [P-FOSO: el foso se juzga con el ROIC del capital propio pagado todo el alquiler"
-                     + (f" ({rp4:.4f}{'' if pf4.get('roic_propio_utilizable') else ', fuente de los intereses NO comprobada'})" if rp4 is not None else " (no calculable: faltan los intereses de arrendamiento)")
+                     + (f" ({rp4:.4f})" if (rp4 is not None and pf4.get("roic_propio_utilizable")) else
+                        f" (no aplicable: {pf4.get('motivo_no_aplicable')})" if not pf4.get("aplicable", True) else " (NO COMPROBADO: no se compara con r)")
                      + " frente a r; C55 solo frente al sector; r no se traduce a otro perímetro]")
         for e in ESC:
             r_lp = V["roic_lp"][e]
@@ -277,7 +279,8 @@ class Gramatica:
                 rot7 = (f" [perímetro F1 {pf.get('perimetro')}: ROIC histórico del perímetro del S2C, NOPAT NIIF 16 ÷ (capital invertido − arrendamientos), "
                         f"media {pf['anios'][0]}–{pf['anios'][-1]} = {base7:.4f}; C55 de todo el capital = {c55 if c55 is None else round(c55, 4)}]")
             elif pf:
-                rot7 = f" [perímetro F1 {pf.get('perimetro')} declarado sin ROIC del perímetro calculable (filas 7, 10, 23 o 32): umbral con C55, de todo el capital]"
+                rot7 = (f" [perímetro F1 {pf.get('perimetro')} declarado sin ROIC del perímetro calculable ("
+                        + (str(pf.get("motivo_no_aplicable")) if not pf.get("aplicable", True) else "filas 7, 10, 23 o 32") + "): umbral con C55, de todo el capital]")
             for e in ESC:
                 s = V["s2c"][e]; m = V["margen_objetivo"][e]
                 if s is None:
@@ -290,6 +293,16 @@ class Gramatica:
                     self.add("G7", "desviación", f"rentabilidad marginal {e} = S2C {s} × margen {m} × (1 − {t:.3f}) = {s * m * (1 - t):.3f} > 2 × ROIC histórico ({2 * base7:.3f})"
                              + rot7 + (" [bases heredadas: tipo de la Historia y S2C sin f; en modo experimental no es la rentabilidad marginal del motor ni una comprobación del modelo experimental]" if exp else ""),
                              e, "A, B", requiere_justificacion=True, consecuencia="justificar por qué cada euro nuevo rendiría el doble que la historia")
+            if pf and pf.get("aplicable", True) and motor == "A":
+                # (P-FOSO, D3 de la revisión: visibilidad) las palancas frente a las medidas del perímetro, con cifras, en gramatica.md (pasos 8–10,
+                # que lee la fase C); la capa F1 lo repite en el paso 12 con la f del perímetro. Informa: ni bloquea ni pide justificación
+                import perimetro_f1 as PF
+                pal_pf = {e: {"s2c": V["s2c"][e], "roic": V["roic_lp"][e], "m_obj": V["margen_objetivo"][e]} for e in ESC}
+                _, txt_g, txt_k, _ = PF.lectura_palancas(pf, pal_pf, num(an.get("C56")), num(pf.get("C52_tau")), num(pf.get("C58_f")),
+                                                         num(pf.get("C53_ancla_s2c")) or num((pf.get("anclas_capa_f1") or {}).get("A1_sin_ROU")),
+                                                         "Historia!C53" if num(pf.get("C53_ancla_s2c")) else "cota A1 de la capa F1")
+                self.add("P-FOSO", "aviso", f"perímetro F1 {pf.get('perimetro')} · {txt_g} · {txt_k} (neutro con τ = Historia!C52 y f = Historia!C58)",
+                         motores="A", consecuencia="información para la fase C: no bloquea ni pide justificación")
         # --- G10 probabilidades ---
         ps = [V["probabilidades"][e] for e in ESC]
         if all(p is not None for p in ps):

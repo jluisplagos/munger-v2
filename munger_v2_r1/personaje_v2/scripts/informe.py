@@ -228,6 +228,11 @@ def main():
                   + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}"
                   + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
                   + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")
+        _pf = [g for g in (f1b.get("avisos") or []) if str(g.get("id")).startswith(("V-F1g (valores)", "V-F1k (valores)"))]
+        if _pf:
+            # (P-FOSO, D3 de la revisión de la implantación) las palancas frente a las medidas del perímetro, con cifras (informan; solo con A1/A2)
+            linea += "\n\n> **Perímetro F1 · palancas por valores (P-FOSO):** " + " · ".join(
+                f"{g.get('id')}: {str(g.get('detalle')).replace('«', '').replace('»', '')}" for g in _pf) + "."
     if apt:
         # (4.12 §9) aptitud de uso, separada de la auditoría (solo V6.4 experimental): ni «concluido» ni APROBADO la acreditan
         dist = str(apt.get("distinta_de_la_auditoria") or "")

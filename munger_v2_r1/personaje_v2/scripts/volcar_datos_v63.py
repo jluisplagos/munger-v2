@@ -153,7 +153,8 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     s = p["sector"]
     md.append(f"- Crecimiento de ventas del sector (3 años) Q1 / mediana / Q3: {fmt(s['crecimiento_q1'])} / {fmt(s['crecimiento_mediana'])} / {fmt(s['crecimiento_q3'])} · media propia (F14): {fmt(p['media_propia']['crecimiento'])}")
     md.append(f"- Margen operativo del sector Q1 / mediana / Q3: {fmt(s['margen_q1'])} / {fmt(s['margen_mediana'])} / {fmt(s['margen_q3'])} · media propia (F15): {fmt(p['media_propia']['margen'])}")
-    md.append(f"- ROIC medio del sector (H18): {fmt(s['roic_media'])} · ROIC propio 5 años (F18): {fmt(p['media_propia']['roic'])}")
+    rot_f18 = "5 años de todo el capital (F18 = C55; ver 1 bis)" if t.get("perimetro_f1") else "propio 5 años (F18)"
+    md.append(f"- ROIC medio del sector (H18): {fmt(s['roic_media'])} · ROIC {rot_f18}: {fmt(p['media_propia']['roic'])}")
     md.append(f"- S2C MEDIO del sector (ventas ÷ capital; medida distinta de la palanca) Q1 / mediana / Q3: {fmt(s['s2c_medio_q1'])} / {fmt(s['s2c_medio_mediana'])} / {fmt(s['s2c_medio_q3'])} · propio (F19): {fmt(p['media_propia']['s2c_medio'])} · S2C MARGINAL propio (F16, la palanca): {fmt(p['media_propia']['s2c_marginal'])}")
     md.append(f"- Tasa sin riesgo (Análisis!C57): {fmt(a.get('C57'))} · r del inversor (C56, heredada): {fmt(a.get('C56'))} · r mínima (Diagnóstico!C17): {fmt(d['r_minima'])} · {d['r_vs_minima']} · r operativa del motor B (C15): {fmt(d['r_operativa'])}")
     geo = [g for g in p["geografia"] if g[0]]

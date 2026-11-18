@@ -74,7 +74,7 @@ paso("PF · ROIC sin arrendamientos (NOPAT NIIF 16 ÷ capital propio) 2021–202
      cerca(pf0["roic_sin_arrendamientos_medio"], 0.148181), f"{pf0['roic_sin_arrendamientos_medio']:.6f}")
 paso("PF · sin la serie de intereses de arrendamiento: ROIC propio pagado el alquiler no calculable y no utilizable; se dice qué falta",
      pf0["roic_propio_pagado_el_alquiler_medio"] is None and not pf0["roic_propio_utilizable"]
-     and "sin declarar" in " ".join(pf0["intereses_arrendamiento"]["comprobacion_fuentes"]["incompletas"]))
+     and pf0["intereses_arrendamiento"]["estado"] == "sin_declarar" and "sin declarar" in PF.problemas_intereses(pf0))
 pf1 = PF.desde_datos(T0, D1, EXP)
 paso("PF · con los intereses publicados: ROIC del capital propio pagado todo el alquiler 2021–2025 = 13,03 % (dictamen 13,0 %)",
      cerca(pf1["roic_propio_pagado_el_alquiler_medio"], 0.130280), f"{pf1['roic_propio_pagado_el_alquiler_medio']:.6f}")
@@ -85,8 +85,48 @@ paso("PF · por año 14,22 / 14,75 / 11,48 / 10,67 / 14,03 % (el peor, 2024: 10,
 paso("PF · fuente de los intereses comprobada (cifra en la página del documento con su huella; columna del ejercicio en los 5 años) → utilizable",
      pf1["roic_propio_utilizable"] and pf1["intereses_arrendamiento"]["comprobacion_fuentes"]["columna_comprobada"] == 5)
 pfx = PF.desde_datos(T0, con_intereses(D0, {2025: {"valor_fuente": -466, "literal": "(466)"}}), EXP)
-paso("PF · un literal que no está en la página (466 en lugar de 465) → NO comprobada, no utilizable, y el problema nombra la serie",
-     not pfx["roic_propio_utilizable"] and any("intereses_arrendamiento.2025" in x for x in pfx["intereses_arrendamiento"]["comprobacion_fuentes"]["invalidas"]))
+paso("PF · un literal que no está en la página (466 en lugar de 465) → INVÁLIDA, no utilizable, y el problema nombra la serie",
+     not pfx["roic_propio_utilizable"] and pfx["intereses_arrendamiento"]["estado"] == "invalida"
+     and any("intereses_arrendamiento.2025" in x for x in pfx["intereses_arrendamiento"]["comprobacion_fuentes"]["invalidas"]))
+# (C1 de la revisión) sin «fila» la columna no se comprueba: la cifra podría ser la de otra fila u otro ejercicio de la misma página
+SIN_FILA = {y: {"fila": None} for y in INT}
+pf_sf = PF.desde_datos(T0, con_intereses(D0, SIN_FILA), EXP)
+pf_422 = PF.desde_datos(T0, con_intereses(D0, {**SIN_FILA, 2025: {"fila": None, "valor_fuente": -422, "literal": "(422)"}}), EXP)
+pf_57 = PF.desde_datos(T0, con_intereses(D0, {**SIN_FILA, 2025: {"fila": None, "valor_fuente": -57, "literal": "(57)"}}), EXP)
+paso("PF · C1: la serie buena sin «fila» → columna pendiente, NO utilizable (antes contaba como comprobada)",
+     pf_sf["intereses_arrendamiento"]["estado"] == "columna_pendiente" and not pf_sf["roic_propio_utilizable"]
+     and cerca(pf_sf["roic_propio_pagado_el_alquiler_medio"], 0.130280) and "fila" in PF.problemas_intereses(pf_sf))
+paso("PF · C1: sin «fila», la cifra de 2024 (422) o el «Total rent expense» (57) de la misma página de 2025 → NO utilizables",
+     all(p["intereses_arrendamiento"]["estado"] == "columna_pendiente" and not p["roic_propio_utilizable"] for p in (pf_422, pf_57)),
+     f"{pf_422['roic_propio_pagado_el_alquiler_medio']:.4f} / {pf_57['roic_propio_pagado_el_alquiler_medio']:.4f}")
+pf_57f = PF.desde_datos(T0, con_intereses(D0, {2025: {"valor_fuente": -57, "literal": "(57)"}}), EXP)
+paso("PF · C1: con «fila», una cifra de otra fila de la misma página (57) → INVÁLIDA (no está en la fila de los intereses)",
+     pf_57f["intereses_arrendamiento"]["estado"] == "invalida" and not pf_57f["roic_propio_utilizable"])
+pf_sg = PF.desde_datos(T0, con_intereses(D0, {2025: {"signo": 1}}), EXP)
+paso("PF · C1: un signo cambiado (+1 con el literal entre paréntesis) → INVÁLIDA (lectura de la serie), no utilizable",
+     pf_sg["intereses_arrendamiento"]["estado"] == "invalida" and not pf_sg["roic_propio_utilizable"])
+d_fal = con_intereses(D0)
+d_fal["series"][PF.SERIE_INTERESES].pop("2022")
+pf_fal = PF.desde_datos(T0, d_fal, EXP)
+paso("PF · C1: falta un año (2022) → incompleta, sin media y no utilizable", pf_fal["intereses_arrendamiento"]["estado"] == "incompleta"
+     and pf_fal["roic_propio_pagado_el_alquiler_medio"] is None and not pf_fal["roic_propio_utilizable"])
+# (C3) US GAAP: el arrendamiento operativo va entero en el EBIT
+d_us = con_intereses(D0)
+d_us["norma_contable"] = {"valor": "US_GAAP", "registro": d_us["norma_contable"].get("registro")}
+pf_us = PF.desde_datos(T0, d_us, EXP)
+paso("PF · C3: con US GAAP declarado la medida NO se emite (no resta intereses a un EBIT que ya lleva el alquiler) y se dice por qué",
+     pf_us is not None and pf_us["aplicable"] is False and "US GAAP" in pf_us["motivo_no_aplicable"] and "dos veces" in pf_us["motivo_no_aplicable"]
+     and pf_us["roic_propio_pagado_el_alquiler_medio"] is None and pf_us["roic_sin_arrendamientos_medio"] is None and not pf_us["roic_propio_utilizable"])
+# historia con menos de diez años: aviso en vez de desaparecer
+t9 = copy.deepcopy(T0)
+t9["historia"]["partidas"]["anio"][0] = None
+t4 = copy.deepcopy(T0)
+t4["historia"]["partidas"]["anio"][-1] = None
+pf9, pf4 = PF.desde_datos(t9, D1, EXP), PF.desde_datos(t4, D1, EXP)
+paso("PF · Historia sin el primer año: las medidas de los cinco últimos se calculan igual (13,03 %)",
+     pf9["aplicable"] and cerca(pf9["roic_propio_pagado_el_alquiler_medio"], 0.130280))
+paso("PF · Historia sin uno de los cinco últimos años: bloque «no aplicable» con su motivo (no desaparece)",
+     pf4 is not None and pf4["aplicable"] is False and "últimos ejercicios" in pf4["motivo_no_aplicable"])
 paso("PF · ROIC terminal neutro r·N/(N − f) con el margen de partida y la f de A2 = 9,04 % (dictamen: 9,04 % en el NORMAL)",
      cerca(pf1["roic_neutro_con_m0"], 0.0904, 1e-4) and cerca(PF.neutro(0.09, 0.04, T0["historia"]["anclas"]["tipo_impositivo_5"], T0["historia"]["anclas"]["f"]), 0.090402, 2e-6))
 paso("PF · la regla es la de la decisión (foso con el capital propio pagado el alquiler frente a r; C55 solo frente al sector; G4 r + 0,03)",
@@ -102,18 +142,42 @@ md0 = VOL.seccion_md(copy.deepcopy(T0), H)
 paso("VOL · datos_v63.md con F1 en A2: sección «1 bis» con el perímetro declarado, la regla y la fórmula",
      "## 1 bis. Perímetro F1 declarado y vara del foso" in md1 and "Perímetro de la reinversión (motor_a_f1.json): **A2_propio**" in md1
      and pf1["regla"] in md1 and "(EBIT − intereses de arrendamiento) × (1 − t) ÷ (capital invertido − arrendamientos)" in md1)
-paso("VOL · cifras por año y medias: 13.03 % frente a r 9.00 % (+4.03 puntos), 14.82 % y ancla de G7 29.64 % (no 2 × C55 = 17.56 %), C55 8.78 % solo frente al sector",
-     all(s in md1 for s in ("ROIC del capital propio pagado todo el alquiler: 13.03 %", "+4.03 puntos", "14.82 %", "29.64 %", "17.56 %", "| 2024 | 2784 |",
-                            "Historia!K7, K10, K32, K23", "AR2024 p. 321")))
-paso("VOL · C54 y C55 rotulados «todo el capital» en las anclas, y ROIC terminal neutro 9.04 %",
-     "roic_medio_5 (todo el capital" in md1 and "s2c_medio (todo el capital" in md1 and "9.04 %" in md1 and "r no se traduce a otro perímetro" in md1)
-paso("VOL · sin intereses comprobados la sección lo dice («NO COMPROBADOS») y no da la media como cifra",
-     "**NO COMPROBADOS**" in VOL.seccion_md({**copy.deepcopy(T0), "perimetro_f1": pf0}, H) and "no es calculable" in VOL.seccion_md({**copy.deepcopy(T0), "perimetro_f1": pf0}, H))
+paso("VOL · cifras por año y medias: 13.03 % frente a r 9.00 % (+4.03 puntos, peor año 10.67 %), 14.82 % y ancla de G7 29.64 % (no 2 × C55 = 17.56 %)",
+     all(s in md1 for s in ("ROIC del capital propio pagado todo el alquiler: 13.03 %**", "+4.03 puntos (peor año 10.67 %)", "14.82 %", "29.64 %", "17.56 %",
+                            "| 2024 | 2784 |", "Historia!K7, K10, K32, K23", "AR2024 p. 321")))
+paso("VOL · el titular da también C55 frente al sector con la misma vara: 8.78 % frente a 10.08 % (−1.30 puntos)",
+     "ROIC de todo el capital (Historia!C55): 8.78 %** frente al sector (Palancas!H18) 10.08 %: -1.30 puntos" in md1)
+paso("VOL · C54 y C55 rotulados «todo el capital» (anclas y F18), ROIC terminal neutro 9.04 %, G4 dicho como es y límites declarados",
+     "roic_medio_5 (todo el capital" in md1 and "s2c_medio (todo el capital" in md1 and "ROIC 5 años de todo el capital (F18 = C55" in md1
+     and "9.04 %" in md1 and "r no se traduce a otro perímetro" in md1 and "hasta r + 0,03 no pide nada" in md1
+     and all(s in md1 for s in ("A1_sin_ROU", "fila 42", "pasivo por arrendamientos")))
+
+
+def md_de(pf, t=None):
+    return VOL.seccion_md({**copy.deepcopy(t or T0), "perimetro_f1": pf}, H)
+
+
+md_sf, md_inv = md_de(pf_sf), md_de(pfx)
+paso("VOL · sin intereses declarados la sección dice NO COMPROBADO y que no es calculable", "**NO COMPROBADO**" in md_de(pf0) and "No es calculable" in md_de(pf0))
+paso("VOL · C1: sin «fila» (columna pendiente) la sección NO titula la media ni la compara con r, y dice por qué",
+     "**NO COMPROBADO** (columna_pendiente" in md_sf and "pagado todo el alquiler: 13.03 %**" not in md_sf and "+4.03 puntos" not in md_sf
+     and "no se titula ni se compara con r" in md_sf and "(sin comprobar)" in md_sf)
+paso("VOL · C1: con la fuente inválida tampoco: ni negrita ni diferencia frente a r (antes «13.21 % … +4.21 puntos»)",
+     "**NO COMPROBADO** (invalida" in md_inv and all("puntos" not in x and not x.startswith("- **Media") for x in md_inv.splitlines()
+                                                      if x.startswith("- ") and "pagado todo el alquiler" in x))
+md_us = md_de(pf_us)
+paso("VOL · C3: con US GAAP la sección dice NO APLICABLES, con el motivo, sin tabla ni cifras del perímetro",
+     "Medidas del perímetro NO APLICABLES" in md_us and "US GAAP" in md_us and "| Año |" not in md_us and "norma contable: US_GAAP" in md_us)
+paso("VOL · Historia sin uno de los cinco últimos años: la sección lo dice (no desaparece)", "NO APLICABLES" in md_de(pf4, t4) and "últimos ejercicios" in md_de(pf4, t4))
+tid = copy.deepcopy(T0)
+tid["palancas"]["C9"] = "Sí"
+paso("VOL · con I+D capitalizada (Palancas!C9 = Sí) la sección avisa de que estas medidas no llevan el ajuste de C55",
+     "estas medidas no llevan ese ajuste" in md_de(PF.desde_datos(tid, D1, EXP), tid) and "estas medidas no llevan ese ajuste" not in md1)
 paso("SIN · sin perímetro F1 el volcado no lleva la sección ni los rótulos nuevos", "1 bis" not in md0 and "todo el capital" not in md0 and "P-FOSO" not in md0)
 lineas0, lineas1 = md0.splitlines(), md1.splitlines()
 quitadas = [x for x in lineas0 if x not in lineas1]
-paso("SIN · con F1 solo se AÑADE la sección y cambian dos rótulos (C54, C55): el resto del volcado es idéntico",
-     len(quitadas) == 2 and all(x.startswith("| s2c_medio |") or x.startswith("| roic_medio_5 |") for x in quitadas), str(quitadas)[:200])
+paso("SIN · con F1 solo se AÑADE la sección y cambian tres rótulos (C54, C55 y F18): el resto del volcado es idéntico",
+     len(quitadas) == 3 and all(x.startswith(("| s2c_medio |", "| roic_medio_5 |", "- ROIC medio del sector (H18)")) for x in quitadas), str(quitadas)[:200])
 # main(): carpeta temporal con el libro ausente → se prueba la lectura de la declaración por la carpeta
 tmp = tempfile.mkdtemp(prefix="perimetro_foso_")
 try:
@@ -150,6 +214,12 @@ paso("RM · ROIC terminal BUENO: con P-FOSO (13,03 % comprobado) = mín(13,03 %,
 paso("RM · sin intereses comprobados: ROIC BUENO como antes (C55) y la nota lo dice; el tope del S2C sí usa el perímetro (filas del libro)",
      rmn["palancas"]["roic_lp"]["BUENO"] == 0.09 and any("P-FOSO" in x and "C55" in x for x in rmn["palancas"]["roic_lp"]["notas"])
      and rmn["palancas"]["s2c"]["BUENO"] == 6.4)
+paso("RM · C1: con la serie sin «fila», con 422 o con 57 en 2025 la referencia BUENO del ROIC terminal queda en r = 0,09 (no 0,12)",
+     all(RM.calcular({**copy.deepcopy(Ts), "perimetro_f1": p}, CFG)["palancas"]["roic_lp"]["BUENO"] == 0.09 for p in (pf_sf, pf_422, pf_57, pfx)))
+rmu = RM.calcular({**copy.deepcopy(Ts), "perimetro_f1": pf_us}, CFG)
+paso("RM · C3: con US GAAP las referencias son las de antes (tope del S2C con C55 y ROIC BUENO 0,09) y una nota lo dice",
+     rmu["palancas"]["s2c"]["BUENO"] == rm0["palancas"]["s2c"]["BUENO"] and rmu["palancas"]["roic_lp"]["BUENO"] == 0.09
+     and any("P-FOSO" in x for x in rmu["palancas"]["roic_lp"]["notas"]))
 Tb = {**copy.deepcopy(Ts), "perimetro_f1": pf1}
 Tb["diagnostico"]["motor"] = "B"
 Tb["diagnostico"]["r_operativa"] = 0.07   # tasa del motor B (Diagnóstico V6!C15), sintética
@@ -186,7 +256,20 @@ paso("GRAM · G4 sigue igual con A2: tres G4 sin justificar con C18 = No (0,13/0
      and all("P-FOSO" in x["detalle"] and "0.1303" in x["detalle"] for x in g4(h1)) and all("P-FOSO" not in x["detalle"] for x in g4(h0)))
 h2, _ = gramatica({**copy.deepcopy(T0), "perimetro_f1": pf1}, motor="B")
 paso("SIN · con motor B el perímetro F1 no cambia G7", [x["escenario"] for x in g7(h2)] == ["BUENO"] and "perímetro F1" not in g7(h2)[0]["detalle"])
-paso("SIN · sin perímetro, los hallazgos fuera de G7/G4 son idénticos con y sin la clave", [x for x in h0 if x["id"] not in ("G7", "G4")] == [x for x in h1 if x["id"] not in ("G7", "G4")])
+paso("SIN · sin perímetro, los hallazgos fuera de G7/G4/P-FOSO son idénticos con y sin la clave",
+     [x for x in h0 if x["id"] not in ("G7", "G4", "P-FOSO")] == [x for x in h1 if x["id"] not in ("G7", "G4", "P-FOSO")] and not [x for x in h0 if x["id"] == "P-FOSO"])
+pfo = [x for x in h1 if x["id"] == "P-FOSO"]
+paso("GRAM · D3 (visibilidad): aviso P-FOSO con las palancas frente a las medidas del perímetro, con cifras, en gramatica.md (la lee la fase C); no cambia el código",
+     len(pfo) == 1 and pfo[0]["categoria"] == "aviso" and "NORMAL 5.4" in pfo[0]["detalle"] and "frente al neutro 9.04 %" in pfo[0]["detalle"]
+     and "13.03 %" in pfo[0]["detalle"] and c1 == 1)
+h_sf, c_sf = gramatica({**copy.deepcopy(T0), "perimetro_f1": pf_sf})
+paso("GRAM · C1: con la serie sin comprobar G4 no da la cifra (dice NO COMPROBADO) y el aviso P-FOSO tampoco la compara con r",
+     all("NO COMPROBADO" in x["detalle"] and "0.130" not in x["detalle"] for x in g4(h_sf))
+     and all("NO COMPROBADO" in x["detalle"] for x in h_sf if x["id"] == "P-FOSO"))
+h_us, _ = gramatica({**copy.deepcopy(T0), "perimetro_f1": pf_us})
+paso("GRAM · C3: con US GAAP G7 vuelve a C55 (BUENO salta, 0,176) diciendo el motivo, y no hay aviso P-FOSO con cifras",
+     [x["escenario"] for x in g7(h_us)] == ["BUENO"] and "0.176" in g7(h_us)[0]["detalle"] and "US GAAP" in g7(h_us)[0]["detalle"]
+     and not [x for x in h_us if x["id"] == "P-FOSO"])
 # un G7 que salta también con el perímetro: S2C 9,0 en el BUENO → 9 × 0,045 × (1 − 0,214) = 0,318 > 0,296
 fb = json.load(open(os.path.join(EXP, "fase_b.json"), encoding="utf-8"))
 tmp = tempfile.mkdtemp(prefix="perimetro_foso_gram_")
@@ -252,25 +335,79 @@ paso("F1 · V-F1g sin palancas (paso 7) ya no afirma «palancas S2C en el mismo 
      and "no cifras" in fila(r_sin, "V-F1k")[0]["detalle"])
 paso("F1 · sin palancas: «V-F1g (valores)» y «V-F1k (valores)» dicen «aún sin palancas» y no saltan",
      all(fila(r_sin, k) and not fila(r_sin, k)[0]["salta"] and "aún sin palancas" in fila(r_sin, k)[0]["detalle"] for k in ("V-F1g (valores)", "V-F1k (valores)"))
-     and r_sin["perimetro_f1_valores"] == {"palancas": None})
+     and (r_sin["perimetro_f1_valores"] or {}).get("palancas", 0) is None)
+paso("F1 · sin la serie de intereses la capa no bloquea por ella (F1-INTERESES-ARR no salta) y lo dice",
+     fila(r_sin, "F1-INTERESES-ARR") and not fila(r_sin, "F1-INTERESES-ARR")[0]["salta"] and "sin_declarar" in fila(r_sin, "F1-INTERESES-ARR")[0]["detalle"])
 PAL_TODO = {"B": (0.0, 0.03, 1.3, 0.01, 0.13), "C": (0.025, 0.04, 1.6, 0.02, 0.15), "D": (0.04, 0.045, 1.8, 0.025, 0.15)}
 PAL_PROP = {"B": (0.0, 0.03, 1.9, 0.01, 0.09), "C": (0.025, 0.04, 2.5, 0.02, 0.09), "D": (0.04, 0.045, 2.8, 0.025, 0.12)}
 r_t = M.evaluar(libro(PAL_TODO), decl())
 r_p = M.evaluar(libro(PAL_PROP), decl())
 vt, vp = (fila(r_t, "V-F1g (valores)") or [{}])[0], (fila(r_p, "V-F1g (valores)") or [{}])[0]
-paso("F1 · con palancas: V-F1g (valores) INFORMA y señala el NORMAL más cerca de C54 (todo el capital, 1,67) que del ancla del perímetro "
-     "(S2C medio sin arrendamientos 2,5)", vt.get("salta") and vt.get("severidad") == "INFORMA" and "NORMAL: la cifra se parece más a la de todo el capital" in vt.get("detalle", ""))
-paso("F1 · con el S2C del perímetro (NORMAL 2,5) la fila informa sin señalar; nunca bloquea", vp and not vp.get("salta") and not any(
-     x["severidad"] == "BLOQUEA" for x in fila(r_t, "V-F1g (valores)") + fila(r_t, "V-F1k (valores)")))
+paso("F1 · con palancas: V-F1g (valores) INFORMA (con cifras; la ficha y el informe la recogen) y señala el NORMAL 1,6 más cerca del medio de "
+     "todo el capital (C54 1,67) que del medio sin arrendamientos (2,5), como lectura orientativa",
+     vt.get("salta") and vt.get("severidad") == "INFORMA" and "¿perímetro cruzado? (lectura orientativa" in vt.get("detalle", ""))
+paso("F1 · con el S2C del perímetro (NORMAL 2,5) la fila informa sin señalar; nunca bloquea", vp.get("salta") and "¿perímetro cruzado?" not in vp.get("detalle", "")
+     and not any(x["severidad"] == "BLOQUEA" for x in fila(r_t, "V-F1g (valores)") + fila(r_t, "V-F1k (valores)")))
+# (C4) medio con medio: en Jumbo (ancla marginal 1,70; S2C medio sin arrendamientos 1,19; C54 1,11) un NORMAL 1,2 apoyado en el medio propio
+_, tj, _, cj = PF.lectura_palancas({"s2c_medio_sin_arrendamientos_ultimo": 1.19, "C54_s2c_medio_todo_el_capital": 1.11},
+                                   {"NORMAL": {"s2c": 1.2, "roic": 0.12, "m_obj": 0.2}}, 0.09, 0.25, 0.0, 1.70, "Historia!C53")
+paso("F1 · C4: Jumbo (NORMAL 1,2; medio propio 1,19; C54 1,11; ancla marginal 1,70 aparte) ya no sale como «perímetro cruzado»",
+     not cj and "ancla marginal del perímetro, aparte: Historia!C53 = 1.7" in tj and "orientativa" in tj, tj[:160])
+
+
+def libro_ahold(t):
+    """Valores del libro de Ahold que usa perimetro_f1.desde_libro, tomados del volcado (sin binarios)."""
+    h = t["historia"]
+    L = {"Análisis!C56": t["analisis"]["C56"], **{f"Historia!{c}": h["anclas"][n] for c, n in (("C52", "tipo_impositivo_5"), ("C58", "f"), ("C54", "s2c_medio"),
+                                                                                              ("C55", "roic_medio_5"), ("C48", "margen_ultimo"), ("C53", "s2c_marginal"))}}
+    for n, serie in ((5, h["partidas"]["anio"]), (6, h["partidas"]["ventas"]), (7, h["partidas"]["ebit"]), (10, h["partidas"]["tipo_impositivo"]),
+                     (23, h["partidas"]["arrendamientos"]), (32, h["series"]["capital_invertido"])):
+        for c, x in zip(COLS, serie):
+            L[f"Historia!{c}{n}"] = x
+    return L
+
+
+LA = libro_ahold(T0)
+PAL_A = {"MALO": {"s2c": 3.9, "roic": 0.13, "m_obj": 0.03}, "NORMAL": {"s2c": 5.4, "roic": 0.15, "m_obj": 0.04}, "BUENO": {"s2c": 5.9, "roic": 0.15, "m_obj": 0.045}}
+
+
+def capa(d, pal=None):
+    G = M.Guardas()
+    out = PF.guardas_valores(G, LA, d, "A2_propio", pal, None, None, EXP)
+    return {x["id"]: x for x in G.lista}, out
+
+
+g_ok, _ = capa(D1)
+g_inv, _ = capa(con_intereses(D0, {2025: {"valor_fuente": -466, "literal": "(466)"}}))
+g_57, _ = capa(con_intereses(D0, {2025: {"valor_fuente": -57, "literal": "(57)"}}))
+g_sf, _ = capa(con_intereses(D0, SIN_FILA))
+paso("F1 · C1: una serie de intereses con la fuente inválida (466; o 57, de otra fila) BLOQUEA la capa F1 como DATOS INVÁLIDOS, ya en el paso 7",
+     all(g["F1-INTERESES-ARR"]["salta"] and g["F1-INTERESES-ARR"]["severidad"] == "BLOQUEA" and g["F1-INTERESES-ARR"]["efecto"] == "DATOS INVÁLIDOS"
+         and g["F1-INTERESES-ARR"]["clase"] == "datos" for g in (g_inv, g_57)))
+paso("F1 · C1: la serie buena no bloquea; sin «fila» (columna pendiente) tampoco bloquea, pero no es utilizable",
+     not g_ok["F1-INTERESES-ARR"]["salta"] and not g_sf["F1-INTERESES-ARR"]["salta"] and "columna_pendiente" in g_sf["F1-INTERESES-ARR"]["detalle"])
+gk_ok, o_ok = capa(D1, PAL_A)
+gk_sf, _ = capa(con_intereses(D0, SIN_FILA), PAL_A)
+paso("F1 · C1: «V-F1k (valores)» con Ahold informa el neutro (9,05/9,04/9,04 %) y 13,03 %; sin «fila» AVISA y no compara con r",
+     gk_ok["V-F1k (valores)"]["severidad"] == "INFORMA" and "13.03 %" in gk_ok["V-F1k (valores)"]["detalle"]
+     and "NORMAL 0.15 frente al neutro 9.04 %" in gk_ok["V-F1k (valores)"]["detalle"]
+     and gk_sf["V-F1k (valores)"]["severidad"] == "AVISO" and "NO COMPROBADO" in gk_sf["V-F1k (valores)"]["detalle"] and "13.03" not in gk_sf["V-F1k (valores)"]["detalle"])
+paso("F1 · C2: el texto de G4 dice lo que hace (hasta r + 0,03 nada; por encima, solo con C18 = Sí), sin «sin foso no admite exceso»",
+     "hasta r + 0,03 no pide nada" in gk_ok["V-F1k (valores)"]["detalle"] and "sin foso no admite exceso" not in gk_ok["V-F1k (valores)"]["detalle"])
+d_us_capa = copy.deepcopy(d_us)
+gk_us, o_us = capa(d_us_capa, PAL_A)
+paso("F1 · C3: con US GAAP las filas «(valores)» dicen que las medidas no son aplicables y no dan cifras",
+     not gk_us["V-F1k (valores)"]["salta"] and "no aplicables" in gk_us["V-F1k (valores)"]["detalle"] and o_us["aplicable"] is False)
 kv = (r_t.get("perimetro_f1_valores") or {}).get("palancas") or {"NORMAL": {"roic_neutro": None, "exceso_sobre_neutro": None}}
 N = 0.04 * (1 - 0.2)
 fA2 = (70 * 0.8 - (20 - 15) - 50) / 1000   # f del perímetro A2: D_X = D&A − ROU − PPA = 15
 paso("F1 · V-F1k (valores): ROIC terminal frente al neutro r·N/(N − f) con la f del perímetro; exceso del NORMAL 0,15 sobre el neutro",
      cerca(kv["NORMAL"]["roic_neutro"], 0.09 * N / (N - fA2), 1e-9) and cerca(kv["NORMAL"]["exceso_sobre_neutro"], 0.15 - 0.09 * N / (N - fA2), 1e-9)
-     and (fila(r_t, "V-F1k (valores)") or [{}])[0].get("severidad") == "INFORMA", f"neutro {kv['NORMAL']['roic_neutro']}")
+     and (fila(r_t, "V-F1k (valores)") or [{}])[0].get("severidad") == "AVISO", f"neutro {kv['NORMAL']['roic_neutro']}")
 r_a0 = M.evaluar(libro(PAL_TODO), decl("A0_total"))
-paso("SIN · con A0_total no hay filas «(valores)» ni detalle numérico (nada cambia para los expedientes sin perímetro propio)",
-     not fila(r_a0, "V-F1g (valores)") and not fila(r_a0, "V-F1k (valores)") and r_a0.get("perimetro_f1_valores") is None)
+paso("SIN · con A0_total no hay filas «(valores)» ni F1-INTERESES-ARR ni detalle numérico, y V-F1g/V-F1k no remiten a ellas",
+     not fila(r_a0, "V-F1g (valores)") and not fila(r_a0, "V-F1k (valores)") and not fila(r_a0, "F1-INTERESES-ARR")
+     and r_a0.get("perimetro_f1_valores") is None and "(valores)" not in fila(r_a0, "V-F1g")[0]["detalle"] + fila(r_a0, "V-F1k")[0]["detalle"])
 paso("SIN · la guarda por etiquetas sigue bloqueando un perímetro declarado distinto (palancas A0 con reinversión A2)",
      any(x["salta"] and x["severidad"] == "BLOQUEA" for x in fila(M.evaluar(libro(PAL_TODO), {**decl(), "perimetro_palancas_s2c": {"valor": "A0_total", "registro": REG}}), "V-F1g")))
 
