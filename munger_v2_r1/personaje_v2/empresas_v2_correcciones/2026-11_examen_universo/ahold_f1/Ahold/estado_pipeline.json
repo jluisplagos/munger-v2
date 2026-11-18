@@ -46,7 +46,9 @@
   "  $ bash recalc.sh Ahold_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f1/Ahold/recalc/Ahold_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_work/wt",
   "  $ python3 leer_resultados.py Ahold_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f1/Ahold/resultados.json · motor A · estado INCOMPLETO · libro NO LIS",
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 36.05 · esc. MALO 23.6164157478233 · precio de Sí 27.7359 (P* 27.7359) · ponderado 29.7957 · zona caro",
-  "  $ python3 comprobar_gramatica.py Ahold --tras-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 2 (sin justificar 0) · avisos 1 → gramatica.md"
+  "  $ python3 comprobar_gramatica.py Ahold --tras-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 2 (sin justificar 0) · avisos 1 → gramatica.md",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -62,15 +64,16 @@
   "extracto_v63.md": 1794969134.9888709,
   "fase_a.json": 1794993973.9086363,
   "fase_b.json": 1794996075.5803506,
-  "fase_c.json": 1794995856.9032128
+  "fase_c.json": 1794996383.7362392
  },
- "motivo_correccion": "la fase B ya revisó las palancas en la única vuelta C→B admitida (§4.5): el libro está recalculado con las palancas nuevas; otro revisar_palancas termina en no_entregable",
- "esperando_desde": 1794996145.369453,
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1794996968.576216,
  "motor_a_f1": {
   "paso": 7,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "e431b19ffa4b39221a20ab3ab1ace11f195ab9f2ff4c51aebd4480c6facc61f2",
   "libro_sha256": "d8b02a523d943b9404b97843d61376edf64cc196d3977a9019ed7e05e553d8b9"
- }
+ },
+ "turno_c": 2
 }
