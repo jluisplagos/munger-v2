@@ -408,7 +408,10 @@ comparaba; sin ese cambio el D1 veraz del revisor daría DATOS INVÁLIDOS. Los g
 
 **Paquete.** `verificar_paquete.sh completa` no se ha repetido en el cierre: sus bloques de F1 se han ejecutado uno a uno (arriba: US GAAP
 290, 26 y 16; motor A F1 163; gancho 8; V6.3.1 29 y 21); los demás (comprobadores, sintética, V6.4, cierre…) no. Sus mínimos pasan a 290,
-26 y 16. El modo rápido sobre una copia limpia se registra en el commit siguiente, en el que solo cambian este documento y el manifiesto.
+26 y 16. `flock … bash verificar_paquete.sh rapida` sobre una copia limpia de `898992a` (`git archive` más los 1.059 binarios del
+manifiesto, copiados con su huella; 1 min 26 s): `8066 archivos en el manifiesto · modificados 0 · ausentes 0 · de más 0`, `RESULTADO
+manifiesto: PASA`, `RESULTADO entorno: PASA`, `35 comprobaciones CUMPLEN · salida idéntica a resultados/contraste_salida.txt`,
+`114/114 comprobaciones PASAN`, `RESULTADO GLOBAL: PASA`, código 0. Después de `898992a` solo cambian este documento y el manifiesto.
 
 ## 9. Interpretaciones del autor y límites para el revisor
 
