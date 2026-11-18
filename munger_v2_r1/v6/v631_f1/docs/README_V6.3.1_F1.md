@@ -116,6 +116,7 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
 | `flock … python3 -I v6/v631_f1/scripts/probar_v631_f1.py f1 <carpeta nueva>` | `32/32 comprobaciones V6.3.1 F1 (f1) PASAN` (`pruebas/resultado_f1.md`) |
 | `flock … python3 -B v6/v631_f1/scripts/prueba_pipeline_v631.py` | `6/6 pruebas de la V6.3.1 F1 en el pipeline PASAN` (`pruebas/resultado_pipeline_v631.txt`) |
 | `flock … python3 -B …/f1_impl/scripts/prueba_pipeline_f1.py` (desde `personaje_v2/`) | `7/7 pruebas del gancho F1 del pipeline PASAN` (`pruebas/resultado_prueba_pipeline_f1.txt`) |
+| `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `f4be12b` (manifiesto 7811 archivos) | `RESULTADO GLOBAL: PASA`, código 0 (`pruebas/verificacion_completa_f4be12b.txt`): motor A F1 155/155, gancho 7/7, V6.4 199/199, cierre 55/55, resumen 45/45, sintética con los nombres de la línea de base… |
 
 - *f1*: Elis con A1 y A2 recalculado por LibreOffice: f, C53 y los 33 flujos = E9 de `datos/elis_cifras_f1.json` (f 0,0126242253232846 y
   −0,00611860174416477; C53 2,4453316953317 y 1,61252430330525; desviación máxima de los flujos 1,0·10⁻¹²); año 11 A1 − A0 = 205,363093;
