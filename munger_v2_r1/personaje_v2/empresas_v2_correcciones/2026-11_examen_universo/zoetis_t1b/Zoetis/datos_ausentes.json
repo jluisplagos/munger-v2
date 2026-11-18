@@ -1,10 +1,24 @@
 [
  {
-  "dato": "evidencia Análisis!C48",
-  "que": "Intereses pagados clasificados en financiación · IFRS: no verificable",
+  "dato": "evidencia Historia!C23:L23",
+  "que": "Pasivo por arrendamientos: no verificable",
   "nivel": "necesario para LISTO·PROVISIONAL",
   "origen_esperado": "fase1_v63.json (fuente y página del dato) o etapa 1",
   "nota": "el dato está pero su clasificación/documento no permite LISTO·PROVISIONAL; la fase C juzga si es material"
+ },
+ {
+  "dato": "evidencia Historia!C26:L26",
+  "que": "Minoritarios: no verificable",
+  "nivel": "necesario para LISTO·PROVISIONAL",
+  "origen_esperado": "fase1_v63.json (fuente y página del dato) o etapa 1",
+  "nota": "el dato está pero su clasificación/documento no permite LISTO·PROVISIONAL; la fase C juzga si es material"
+ },
+ {
+  "dato": "evidencia Análisis!C48",
+  "que": "Intereses pagados clasificados en financiación · IFRS: cero pendiente de verificación",
+  "nivel": "necesario para LISTO·PROVISIONAL",
+  "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
+  "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Análisis!C48 depende de la Historia; 2023, 2024, 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
  },
  {
   "dato": "evidencia Historia!C16:L16",
@@ -21,24 +35,124 @@
   "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, arrendamientos_principal; 2016, 2017, 2018, 2019, 2020, 2021, 2022): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
  },
  {
-  "dato": "evidencia Historia!C23:L23",
-  "que": "Pasivo por arrendamientos: cero pendiente de verificación",
-  "nivel": "necesario para LISTO·PROVISIONAL",
-  "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
-  "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, arrendamientos; 2016, 2017): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
- },
- {
-  "dato": "evidencia Historia!C26:L26",
-  "que": "Minoritarios: cero pendiente de verificación",
-  "nivel": "necesario para LISTO·PROVISIONAL",
-  "origen_esperado": "decisión humana registrada en fase1_decisiones.json (valor, fuente con página, fecha y persona)",
-  "nota": "[H1] Depende de un cero PENDIENTE DE VERIFICACIÓN (Historia, minoritarios; 2025): la cita del informe no se ha contrastado con la partida. El valor se conserva; solo una decisión humana registrada en fase1_decisiones.json lo confirma."
- },
- {
   "dato": "Palancas!C24",
   "que": "tamaño del mercado año 10",
   "nivel": "no bloqueante",
   "origen_esperado": "extractos (solo con cifra de fuente primaria)",
   "nota": ""
+ },
+ {
+  "dato": "extracto_v63: Tamaño del mercado de salud animal en dólares y su crecimiento anual publicado por la empresa.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Cuota de mercado de Zoetis en porcentaje, global o por región o especie.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Cuota de cada competidor (Boehringer Ingelheim, Merck, Elanco, IDEXX) y quién es el más peligroso.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Guía numérica de 2026 (ingresos, crecimiento orgánico, margen, BPA, capex) en los 10-K y 10-Q de la carpeta; la «guía orgánica 2026» que cita datos_v63.md no ap",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Capex previsto para 2026 y capex por destino (capacidad, I+D, informática).",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Importe y calendario de la planta de Atlanta, de la ampliación de Tullamore y de la de Lincoln.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Precio y múltiplo de la adquisición de la genómica de Neogen, de Veterinary Pathology Group y de Basepaws.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Ingresos en dólares de cada producto (solo porcentajes de los dos primeros y de los cinco y diez primeros).",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Ventas de Librela en cifra y causa de su caída (solo «menores ventas de Librela»).",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Margen en porcentaje por segmento en el 10-K (solo resultado en dólares; margen bruto por segmento solo en los 10-Q de 2026).",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Coste medio de la deuda publicado por la empresa y WACC o tasa de descuento propia.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Apalancamiento real medido frente al covenant de 3,50 a 1.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Perspectiva o acción de las agencias de calificación posterior a abril de 2025.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Efecto en dólares de la alineación del año fiscal sobre ingresos de T1 2026.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Causa de la caída de ingresos en China de 2023 a 2025.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Cartera de pedidos, número de clientes, tiendas y unidades: no se publican.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Ratios de capital regulatorio: no aplica (no financiera).",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
+ },
+ {
+  "dato": "extracto_v63: Cifra correcta de ingresos por intereses de 2023: 103 en [zoetis-10k-fy2025.txt, PDF p. 54] frente a 105 en [zoetis-10k-fy2025.txt, PDF p. 80]; sin resolver.",
+  "nivel": "no bloqueante",
+  "origen_esperado": "informes de la empresa (fase 1 / extracción)",
+  "nota": "declarado «no encontrado» por el agente de extracción; la fase C decide si afecta a una celda de juicio"
  }
 ]
