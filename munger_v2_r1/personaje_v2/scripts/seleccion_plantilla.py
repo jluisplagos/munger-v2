@@ -29,6 +29,10 @@ V64 = "V6.4 experimental"
 # (config_v2_v641_experimental.json); los expedientes V6.4 siguen con la V6.4 (plantilla_activa.json fija sus huellas)
 V641 = "V6.4.1 experimental"
 FAMILIA_V64 = (V64, V641)
+# (4.15, F1-IMPL) V6.3.1 F1: la V6.3 del motor A con el perímetro F1 de la reinversión (Historia C85:L89). Familia V6.3 (sin configuración
+# económica), pero con su propia referencia y selección registrada (plantilla_activa.json), como la V6.4.1; se elige con
+# config_v2_v631_f1.json. Un expediente V6.3 no se ejecuta con ella ni uno V6.3.1 con la V6.3.
+V631 = "V6.3.1 F1"
 ARCHIVO = "plantilla_activa.json"
 CONF = "configuracion_economica.json"
 
@@ -48,6 +52,15 @@ def es_v64(cfg):
 
 def es_v641(cfg):
     return version(cfg) == V641
+
+
+def es_v631(cfg):
+    return version(cfg) == V631
+
+
+def registra(cfg):
+    """Plantillas que fijan su selección en plantilla_activa.json (todas salvo la V6.3)."""
+    return es_v64(cfg) or es_v631(cfg)
 
 
 def compatibilidad_perimetro(conf, cfg):
@@ -96,11 +109,13 @@ def comprobar(carpeta, cfg):
         if dif:
             return (f"el expediente se preparó con {reg.get('version')} ({ARCHIVO}: {', '.join(f'{k} {str(reg.get(k))[:12]}' for k in dif)}) y esta ejecución "
                     f"selecciona {sel['version']} ({sel['config']}): un expediente solo se ejecuta con su plantilla; para cambiarla, prepara un expediente nuevo")
-    elif not es_v64(cfg):
+    elif not registra(cfg):
         if os.path.exists(os.path.join(carpeta, CONF)):
             return f"el expediente trae {CONF} pero la configuración {sel['config']} selecciona la V6.3: la configuración económica exige la plantilla {V64} o la {V641} (no se ignora)"
         return None
     else:
+        if es_v631(cfg) and os.path.exists(os.path.join(carpeta, CONF)):
+            return f"el expediente trae {CONF} pero la configuración {sel['config']} selecciona la {V631}: la configuración económica exige la plantilla {V64} o la {V641} (no se ignora)"
         # (4.11, revisión interna H1) con la V6.4 y SIN plantilla_activa.json: si la carpeta ya tiene libros V6.3 o pasos hechos, el
         # expediente se preparó con la V6.3 (que nunca escribe plantilla_activa.json): no se ejecuta con la V6.4 ni se le escribe nada
         previos = [f for f in sorted(os.listdir(carpeta)) if f.endswith(("_v63_base.xlsx", "_v63_datos.xlsx", "_v63_evaluada.xlsx"))]
@@ -132,8 +147,9 @@ def comprobar(carpeta, cfg):
 
 
 def registrar(carpeta, cfg):
-    """Escribe plantilla_activa.json en la primera ejecución con la V6.4 (no lo reescribe si ya existe: comprobar() exige que coincida)."""
-    if not es_v64(cfg):
+    """Escribe plantilla_activa.json en la primera ejecución con la V6.4, la V6.4.1 o la V6.3.1 F1 (no lo reescribe si ya existe: comprobar()
+    exige que coincida)."""
+    if not registra(cfg):
         return None
     pa = os.path.join(carpeta, ARCHIVO)
     if os.path.exists(pa):
@@ -172,11 +188,11 @@ def resolver(carpeta, cfg):
         if m2:
             return cfg, f"la selección registrada ({reg.get('version')}, {nombre}) no corresponde a los archivos actuales: {m2}", None
         return cfg2, None, f"selección del expediente resuelta: {nombre} ({reg.get('version')}; la configuración cargada era {os.path.basename(cfg.get('_ruta_config') or '')})"
-    if es_v64(cfg):
+    if registra(cfg):
         cfg2 = config_v2.cargar(config_v2.POR_DEFECTO)
         m2 = comprobar(carpeta, cfg2)
         if not m2:
-            return cfg2, None, "expediente sin plantilla_activa.json (V6.3): se usa config_v2.json, no la configuración V6.4 cargada"
+            return cfg2, None, f"expediente sin plantilla_activa.json (V6.3): se usa config_v2.json, no la configuración {version(cfg)} cargada"
         return cfg, m2, None
     return cfg, m, None
 

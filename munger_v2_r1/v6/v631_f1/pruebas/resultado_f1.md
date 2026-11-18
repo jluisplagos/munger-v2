@@ -1,0 +1,38 @@
+# Pruebas V6.3.1 F1 · f1
+
+Fecha 2026-11-18 · plantilla `266d53bdd8af13d5…` · referencia `cd564e43f60239c8…`
+
+**PASA: 30/30**
+
+| Comprobación | Resultado | Detalle |
+|---|---|---|
+| libro de Elis: d2593777…, sin cambios | PASA |  |
+| Elis A1: perímetro efectivo A1_sin_ROU y Motor V05 OK | PASA | V05 'OK' |
+| Elis A1 recalculado por LibreOffice: f = E9 (10⁻¹²) | PASA | 0.0126242253232846 frente a 0.012624225323285 |
+| Elis A1: C53 (ancla de S2C) = E9 (10⁻⁹) | PASA | 2.4453316953317 frente a 2.445331695332 |
+| Elis A1: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹) | PASA | desviación máxima 1.02e-12 |
+| Elis A1: el año 11 NORMAL se aparta del de A0 en 205,363 (control negativo: el terminal usa la f del perímetro) | PASA | 205.363093 |
+| Elis A1: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro) | PASA | réplica D_X del libro (A1_sin_ROU) · 33 flujos |
+| Elis A1: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa) | PASA | [] |
+| Elis A2: perímetro efectivo A2_propio y Motor V05 OK | PASA | V05 'OK' |
+| Elis A2 recalculado por LibreOffice: f = E9 (10⁻¹²) | PASA | -0.00611860174416477 frente a -0.006118601744165 |
+| Elis A2: C53 (ancla de S2C) = E9 (10⁻⁹) | PASA | 1.61252430330525 frente a 1.612524303305 |
+| Elis A2: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹) | PASA | desviación máxima 1.02e-12 |
+| Elis A2: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro) | PASA | réplica D_X del libro (A2_propio) · 33 flujos |
+| Elis A2: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa) | PASA | [] |
+| A1 con la D&A ROU de 2024 vacía (ventana): f y C53 vacías en el libro, Motor V05 INCOMPLETO, capa en pendiente_de_datos sin error ni F1-REPLICA | PASA | 'Motor A · perímetro A1_sin_ROU: falta la amortización de derechos de uso (Historia fila 86) o la PPA (fila 87) en algún año de la ventana que calibra f; vacío  |
+| A1 con la D&A ROU de 2021 vacía (fuera de la ventana, dentro del ancla H–L): f = E9, C53 vacía (cinco años) y la capa coincide | PASA |  |
+| A2 con la PPA de 2025 vacía: f vacía y Motor V05 INCOMPLETO (vacío no es cero) | PASA |  |
+| C85 = «A3_estimado» (no está en el libro): perímetro efectivo «no reconocido», f vacía y Motor V05 DATOS INVÁLIDOS | PASA |  |
+| A3_estimado declarado (sin estimación): la capa termina en pendiente_de_datos (V-F1d) y F1-LIBRO bloquea (A3 no está en el libro) | PASA |  |
+| libro A1 con la declaración A2: F1-LIBRO bloquea (perímetro efectivo distinto) | PASA |  |
+| libro A1 con una D&A ROU distinta de la declarada (2024): F1-LIBRO bloquea (serie, D_X, f y flujos) | PASA |  |
+| libro V6.3 (Elis tal cual) con la declaración A1: F1-LIBRO bloquea como antes (límite declarado) y no hay bloque V6.3.1 | PASA |  |
+| libro V6.3.1 con A0 y la declaración A0: F1-LIBRO no salta, la réplica es la de A0 y V-F1a sigue bloqueando (arrendamiento dos veces) | PASA |  |
+| sintético NIIF 16 pesado · A0_total: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan | PASA | f 0.0400000005795958 · C53 1.48148148148148 · [] |
+| sintético NIIF 16 pesado · A1_sin_ROU: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan | PASA | f 0.0100000003592903 · C53 0.925925923782236 · [] |
+| sintético NIIF 16 pesado · A2_propio: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan | PASA | f 0.00400000017151303 · C53 0.861326440960309 · [] |
+| sintético: NIIF 16 pesado (D&A ROU media ≥ 40 % del FCF base, con el principal dentro) | PASA | 27.833 / 55.665 |
+| sintético: f_A1 = f_A0 − ROU media ÷ ventas medias (identidad, con los valores del libro) | PASA | ROU media 27.833 = 50 % del FCF base 55.665 |
+| sintético: f_A2 = f_A0 − (ROU + PPA) media ÷ ventas medias | PASA |  |
+| sintético: C53_A1 = ΔV ÷ (Σ fila 31 en A0 + Σ ROU H–L) y C53_A2 con la PPA | PASA |  |

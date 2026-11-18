@@ -111,7 +111,7 @@ def leer_libro(ruta):
     import openpyxl
     wb = openpyxl.load_workbook(ruta, data_only=True, read_only=True)
     v = {"sha256": hashlib.sha256(open(ruta, "rb").read()).hexdigest(), "ruta": os.path.abspath(ruta)}
-    rangos = [("Historia", "A5:L81"), ("Análisis", "B44:D80"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
+    rangos = [("Historia", "A5:L81"), ("Historia", "A84:L89"), ("Análisis", "B44:D80"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
               ("Diagnóstico V6", "B5:D16"), ("Diagnóstico V6", "B174:D179"), ("Control maestro", "H4:L4")]
     for hoja, rango in rangos:
         if hoja not in wb.sheetnames:
@@ -274,7 +274,7 @@ def evaluar(L, decl, motor_libro=None):
     C70, C58, C52, C53 = (Q(L.get(f"Historia!{c}")) for c in ("C70", "C58", "C52", "C53"))
     C49 = Q(L.get("Análisis!C49"))
     V0, m0_libro = Q(L.get("Historia!C44")), Q(L.get("Historia!C48"))
-    if n is None or C70 is None or C58 is None or V0 is None:
+    if n is None or C70 is None or (C58 is None and not _f_vacia_v631(L)) or V0 is None:
         raise ErrorDeclaracion("el libro no tiene f calculada (Historia C57, C58, C70 o C44 vacías): el motor A no es calculable")
     ventana = anios[-n:]
     horiz = anios[-5:]
@@ -649,6 +649,8 @@ def evaluar(L, decl, motor_libro=None):
             return (e["R_propia"] + e["R_compras"] + e["transicion"]) if e else None
         if p == "B_cota_capex":
             return H["capex"][y]
+        if p == "LIBRO_DX":  # (V6.3.1 F1) D_X que calcula el propio libro (Historia fila 88): solo para la réplica
+            return Q(L.get(f"Historia!{col[y]}88"))
         return None
 
     def X_terminos(p):
@@ -743,17 +745,20 @@ def evaluar(L, decl, motor_libro=None):
     # réplica del libro (F1-REPLICA): A0 sin normalizar reproduce Historia C58, C53 y los flujos del Motor
     rep = []
     r0 = diag.get("A0_total")
-    if r0 is None:
-        rep.append("A0 no calculable con la Historia del libro")
+    r0, p_rep = _replica_v631(L, r0, calcular, anios, col, rep)
+    if r0 is None and C58 is None and p_rep != "A0":
+        res["replica_del_libro"] = {"perimetro_replicado": p_rep, "conforme": not rep, "nota": "f vacía en el libro y en la réplica (D_X incompleta en la ventana)"}
+    elif r0 is None:
+        rep.append(f"{p_rep} no calculable con la Historia del libro")
     else:
-        if abs(r0["f"] - C58) > Fr(1, 10 ** 12):
-            rep.append(f"f A0 {float(r0['f'])} ≠ Historia C58 {float(C58)}")
+        if C58 is None or abs(r0["f"] - C58) > Fr(1, 10 ** 12):
+            rep.append(f"f {p_rep} {float(r0['f'])} ≠ Historia C58 {None if C58 is None else float(C58)}")
         if C52 is not None and abs(r0["tau5"] - C52) > Fr(1, 10 ** 12):
             rep.append(f"τ de 5 años {float(r0['tau5'])} ≠ Historia C52 {float(C52)}")
         if m0_libro is not None and abs(r0["m0"] - m0_libro) > Fr(1, 10 ** 12):
             rep.append(f"m0 {float(r0['m0'])} ≠ Historia C48 {float(m0_libro)}")
         if C53 is not None and r0["ancla"] is not None and abs(r0["ancla"] - C53) > Fr(1, 10 ** 9):
-            rep.append(f"ancla A0 {float(r0['ancla'])} ≠ Historia C53 {float(C53)}")
+            rep.append(f"ancla {p_rep} {float(r0['ancla'])} ≠ Historia C53 {float(C53)}")
         n_flujos = 0
         for nombre, fila in (("MALO", 6), ("NORMAL", 7), ("BUENO", 8)):
             if nombre not in r0["esc"]:
@@ -771,7 +776,7 @@ def evaluar(L, decl, motor_libro=None):
                 if abs(mo["flujo_11"] - lv) > TOL_LIBRO:
                     rep.append(f"Motor!BF{fila} {float(lv)} ≠ réplica {float(mo['flujo_11'])}")
         res["replica_del_libro"] = {"f": fl(r0["f"], 15), "C58": fl(C58, 15), "ancla": fl(r0["ancla"]), "C53": fl(C53),
-                                    "flujos_contrastados": n_flujos, "conforme": not rep}
+                                    "flujos_contrastados": n_flujos, "conforme": not rep, "perimetro_replicado": p_rep}
     G.add("F1-REPLICA", bool(rep), "BLOQUEA", "DATOS INVÁLIDOS", "; ".join(rep) if rep else
           "la réplica A0 reproduce el libro (f, τ, m0, ancla y flujos): la capa F1 y el libro son el mismo motor", "T1/T7", clase="implementacion")
 
@@ -874,7 +879,18 @@ def evaluar(L, decl, motor_libro=None):
                 v = mo["flujos"][t] if t < 10 else mo["flujo_11"]
                 if lv is not None and abs(v - lv) > TOL_LIBRO * max(1, abs(lv)):
                     dif_motor.append(f"Motor!{c}{fila}")
-    if per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor):
+    v631 = _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor)
+    if v631 is not None:  # (V6.3.1 F1) el libro calcula el perímetro F1: la capa es el oráculo
+        res["libro_v631_f1"] = v631
+        if per and (v631["motivos"] or aj_ok or hay_terminos):
+            G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
+                  f"el libro V6.3.1 F1 no calcula lo declarado ({per}" + (", N1" if aj_ok else "") + (", términos explícitos" if hay_terminos else "")
+                  + "; N1 y los términos explícitos no están en el libro): " + "; ".join(v631["motivos"])[:900]
+                  + ": la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
+        else:
+            G.add("F1-LIBRO", False, None, None, f"el libro V6.3.1 F1 calcula el perímetro declarado ({per}): f, ancla, D_X, series y "
+                  f"{v631['flujos_contrastados']} flujos del Motor coinciden con la capa", "(1a) · implantación")
+    elif per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor):
         G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
               f"LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con {per}" + (" y N1" if aj_ok else "")
               + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "")
@@ -970,6 +986,40 @@ def evaluar(L, decl, motor_libro=None):
     res["rotulo"] = ("DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: " + ", ".join(sorted({g["id"] for g in bl}))) if bl else \
         "motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)"
     return res
+
+
+def _f_vacia_v631(L):
+    """(V6.3.1 F1) En un libro V6.3.1 con un perímetro F1 distinto de A0, f vacía (D_X incompleta en la ventana) no es un libro ilegible: es
+    un dato que falta (la capa lo dice con V-F1b o F1-PERIMETRO)."""
+    import f1_libro_v631 as V631
+    return V631.perimetro_del_libro(L) not in (None, "A0_total")
+
+
+def _replica_v631(L, r0, calcular, anios, col, rep):
+    """(V6.3.1 F1) La réplica (F1-REPLICA) contrasta el perímetro que calcula el libro: A0 en un libro V6.3 (o V6.3.1 con A0); en un libro
+    V6.3.1 con A1/A2, las ecuaciones con la D_X del propio libro (fila 88), y D_X con las filas 8, 86 y 87 del libro."""
+    import f1_libro_v631 as V631
+    p = V631.perimetro_del_libro(L)
+    if p in (None, "A0_total"):
+        return r0, "A0"
+    rep.extend(V631.replica_dx(L, anios, col))
+    return calcular("LIBRO_DX", aplicar_n1=False), f"D_X del libro ({p})"
+
+
+def _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor):
+    """(V6.3.1 F1) None si el libro no es V6.3.1 F1; si lo es, {perimetro_efectivo, motivos, flujos_contrastados}: motivos vacío = el libro
+    calcula el perímetro declarado (comparación numérica con la capa, que queda como oráculo)."""
+    import f1_libro_v631 as V631
+    p = V631.perimetro_del_libro(L)
+    if p is None:
+        return None
+    n = sum(1 for k in L if k.startswith("Motor!") and k[6:8] in ("AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BF")
+            and k[8:] in ("6", "7", "8") and Q(L[k]) is not None)
+    mot = V631.corresponde(L, per, rou, ppa, anios, col, (lambda y: DX_de(per, y)) if per else (lambda y: None), decl_r, dif_motor)
+    esperado = 11 * len(decl_r["esc"]) if decl_r else 0   # sin palancas todavía (paso 7) no hay flujos en el libro ni en la capa
+    if decl_r and n != esperado:
+        mot.append(f"{n} flujos del Motor en el libro y {esperado} en la capa (11 por escenario con palancas)")
+    return {"perimetro_efectivo": p, "motivos": mot, "flujos_contrastados": n}
 
 
 def informe_md(r):

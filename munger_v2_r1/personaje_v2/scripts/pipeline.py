@@ -703,6 +703,18 @@ class Pipeline:
                 rc, out = self.run([PY, self.script("rellenar_fase1_v63.py"), libro_base, self.p("fase1_v63.json"), libro_datos] + (["--estricta"] if _estricta else []))
                 if rc != 0:
                     return self.terminar("no_entregable" if rc == 1 else "pendiente_de_datos", "fallo_de_implementacion" if rc == 1 else "falta_de_datos", "rellenar_fase1: " + out[-300:], 2)
+                if SEL.es_v631(self.cfg):
+                    # (4.15, F1-IMPL · V6.3.1 F1) el perímetro F1 y las series D&A de derechos de uso y PPA de motor_a_f1.json entran en el libro de
+                    # datos antes del primer recálculo (sin declaración: filas vacías = A0). Si la declaración cambia después, el libro deja de
+                    # corresponder y la capa bloquea (F1-LIBRO): hay que relanzar desde el paso 2
+                    rc, out = self.run([PY, self.script("f1_libro_v631.py"), "aplicar", libro_datos, libro_datos + ".f1.xlsx", self.c])
+                    if rc != 0:
+                        if os.path.exists(libro_datos + ".f1.xlsx"):
+                            os.remove(libro_datos + ".f1.xlsx")
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "perímetro F1 en el libro V6.3.1: " + out[-300:], 2)
+                    os.replace(libro_datos + ".f1.xlsx", libro_datos)
+                    pd_ = self.p("motor_a_f1.json")
+                    st["f1_v631_declaracion_sha256"] = CIE._sha(pd_) if os.path.exists(pd_) else None
                 if self.v64:
                     # (4.11) la configuración económica explícita del expediente entra en el libro de datos, antes del primer recálculo
                     # y de las fases (que no pueden cambiarla: no está en su lista blanca); el verificador de la V6.4 la reconoce

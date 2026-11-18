@@ -10,6 +10,13 @@ estructura: reconstrucción determinista (mismo SHA-256 que el entregable y que 
   Motor E205 y Panel A1; fórmulas nuevas C88:L89; tres etiquetas; la sección nueva A84:S90; dos validaciones; inventario + C85:L87 y
   M85:S87); con A0 las fórmulas de C53, C58 y C76 contienen literalmente las de la V6.3; el verificador de la V6.3.1 acepta la plantilla y
   rechaza una mutación, y el de la V6.3 la rechaza.
+f1: (LibreOffice) el libro calcula el perímetro declarado y la capa motor_a_f1.py es su oráculo. Elis con A1_sin_ROU y A2_propio aplicados
+  desde la declaración (f1_libro_v631.aplicar): f, C53 y los 33 flujos del Motor coinciden con los valores E9 del frente E (datos/elis_cifras_f1.json;
+  10⁻¹² en f, 10⁻⁹ en C53 y flujos) y con la capa; F1-REPLICA y F1-LIBRO no saltan. Vacío no es cero (ROU o PPA vacía en la ventana → f
+  vacía, Motor V05 INCOMPLETO y la capa en pendiente_de_datos, sin error); perímetro no reconocido → INV. La capa bloquea (F1-LIBRO) si el
+  libro no corresponde: otro perímetro, otra serie, o un libro V6.3. Caso sintético NIIF 16 pesado (Empresa X con la D&A de derechos de uso
+  = 75 % de la D&A, su principal en el FCF base y PPA = 15 %; ROU media ≥ 40 % del FCF base): libro = capa, e identidades f_A1 = f_A0 − ROU media ÷ ventas medias, f_A2 = f_A0 − (ROU + PPA) media ÷
+  ventas medias y C53 = ΔV ÷ (Σ fila 31 en A0 + Σ ROU) con los valores del propio libro.
 a0: con el perímetro vacío y con «A0_total» escrito, 0 celdas distintas (tolerancia 0, igualdad exacta) en las once hojas frente a la V6.3
   con las mismas entradas, recalculadas las dos por LibreOffice: libro de Elis (d2593777…, el que concilió el frente E) y los tres ejemplos
   de la V6.3 (Empresa X, ABB, Hermès). Excluidas solo las cuatro etiquetas de versión y la sección nueva (que no existe en la V6.3).
@@ -205,6 +212,184 @@ def a0(dest):
     return detalle
 
 
+def _escribir_libro(libro, salida, celdas):
+    sys.path.insert(0, os.path.join(PV, "scripts"))
+    from v63_xml import LibroV63
+    lb = LibroV63(libro)
+    lb.escribir_celdas({k: ({"valor": v, "tipo": "texto"} if isinstance(v, str) else v) for k, v in celdas.items()})
+    lb.borrar_caches()
+    lb.guardar(salida)
+
+
+def _serie(vals, doc):
+    return {str(y): {"valor_fuente": v, "signo": 1, "tratamiento": "ninguno", "documento": doc, "pagina": 1} for y, v in vals.items()}
+
+
+def f1(dest):
+    from fractions import Fraction as Fr
+    from openpyxl import load_workbook
+    sys.path.insert(0, os.path.join(PV, "scripts"))
+    import motor_a_f1 as M
+    import f1_libro_v631 as V631
+    F1D = os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_15", "f1_impl")
+    sys.path.insert(0, os.path.join(F1D, "scripts"))
+    import regresion_elis_f1 as RE
+    if os.path.exists(dest):
+        raise SystemExit(f"{dest} ya existe: las pruebas escriben en una carpeta nueva")
+    if os.path.commonpath([os.path.abspath(dest), RAIZ]) == RAIZ:
+        raise SystemExit("DESTINO va fuera del repositorio")
+    os.makedirs(dest)
+    cif = json.load(open(os.path.join(F1D, "datos", "elis_cifras_f1.json"), encoding="utf-8"))
+    E9 = cif["referencia_E9"]
+    REGP = {"fecha": "2026-11-18", "persona": "prueba V6.3.1 F1 (no es una decisión)", "motivo": "caso de prueba del libro"}
+    chk("libro de Elis: d2593777…, sin cambios", sha(ELIS) == SHA_ELIS)
+    base = os.path.join(dest, "Elis_V6.3.1_entradas.xlsx")
+    preparar(ELIS, PLANTILLA, base)
+    detalle = {}
+
+    def libro(nombre, decl, origen=base, despues=None):
+        dp = os.path.join(dest, f"{nombre}.motor_a_f1.json")
+        json.dump(decl, open(dp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        b = os.path.join(dest, f"{nombre}.xlsx")
+        V631.aplicar(origen, b, dp)
+        if despues:
+            _escribir_libro(b, b + ".tmp.xlsx", despues)
+            os.replace(b + ".tmp.xlsx", b)
+        return recalc(b, dest)
+
+    def evaluar(rec, decl):
+        return M.evaluar(M.leer_libro(rec), decl)
+
+    def guarda(r, gid):
+        return [g for g in r["guardas"] if g["id"] == gid]
+
+    def salta(r, gid):
+        return any(g["salta"] for g in guarda(r, gid))
+
+    def decl_elis(per):
+        d = RE.declaracion(cif, True, False)
+        d["perimetro_reinversion"] = {"valor": per, "registro": REGP}
+        return d
+
+    # ---------------------------------------------------------------- Elis A1 y A2 frente a E9 y a la capa
+    recs = {}
+    for per, k in (("A1_sin_ROU", "A1"), ("A2_propio", "A2")):
+        d = decl_elis(per)
+        rec = libro(f"Elis_{k}", d)
+        recs[k] = rec
+        wb = load_workbook(rec, data_only=True)
+        h, mo = wb["Historia"], wb["Motor"]
+        c58, c53 = h["C58"].value, h["C53"].value
+        ref = E9["perimetros"][k]
+        flujos = E9["A1_A2_flujos_palancas_actuales"][k]
+        dev = max(abs(mo[f"{c}{fila}"].value - flujos[esc][t]) for esc, fila in (("MALO", 6), ("NORMAL", 7), ("BUENO", 8))
+                  for t, c in enumerate(["AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BF"]))
+        chk(f"Elis {k}: perímetro efectivo {per} y Motor V05 OK", h["C89"].value == per and mo["D205"].value == "OK", f"V05 {mo['D205'].value!r}")
+        chk(f"Elis {k} recalculado por LibreOffice: f = E9 (10⁻¹²)", abs(c58 - ref["f"]) <= 1e-12, f"{c58!r} frente a {ref['f']!r}")
+        chk(f"Elis {k}: C53 (ancla de S2C) = E9 (10⁻⁹)", abs(c53 - ref["S2C_C53"]) <= 1e-9, f"{c53!r} frente a {ref['S2C_C53']!r}")
+        chk(f"Elis {k}: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹)", dev <= 1e-9, f"desviación máxima {dev:.2e}")
+        if k == "A1":
+            a11 = mo["BF7"].value - E9["A0_flujos_libro"]["NORMAL"][10]
+            chk("Elis A1: el año 11 NORMAL se aparta del de A0 en 205,363 (control negativo: el terminal usa la f del perímetro)",
+                abs(a11 - E9["desvio_anio_11_implementacion_parcial"]["A1"]["NORMAL"]) < 1e-3, f"{a11:.6f}")
+        r = evaluar(rec, d)
+        cd = r["calculo_perimetro_declarado"]
+        chk(f"Elis {k}: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro)",
+            abs(cd["f"] - c58) <= 1e-12 and abs(cd["ancla_s2c_E4"] - c53) <= 1e-9 and not salta(r, "F1-REPLICA")
+            and per in str(r["replica_del_libro"].get("perimetro_replicado")), f"réplica {r['replica_del_libro'].get('perimetro_replicado')} · {r['replica_del_libro'].get('flujos_contrastados')} flujos")
+        chk(f"Elis {k}: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa)",
+            not salta(r, "F1-LIBRO") and r["libro_v631_f1"]["motivos"] == [] and r["libro_v631_f1"]["flujos_contrastados"] == 33,
+            str(r["libro_v631_f1"]["motivos"])[:200])
+        detalle[f"Elis_{k}"] = {"C58": c58, "C53": c53, "desviacion_max_flujos_E9": dev, "bloquean": sorted({g["id"] for g in r["guardas"] if g["salta"] and g["severidad"] == "BLOQUEA"}),
+                                "estado_propuesto": r["estado_propuesto"]}
+    # ---------------------------------------------------------------- vacío no es cero; perímetro no reconocido
+    d = decl_elis("A1_sin_ROU")
+    d2 = json.loads(json.dumps(d))
+    del d2["series"]["da_rou"]["2024"]
+    rec = libro("Elis_A1_sin_ROU_2024", d2)
+    wb = load_workbook(rec, data_only=True)
+    r = evaluar(rec, d2)
+    chk("A1 con la D&A ROU de 2024 vacía (ventana): f y C53 vacías en el libro, Motor V05 INCOMPLETO, capa en pendiente_de_datos sin error ni F1-REPLICA",
+        wb["Historia"]["C58"].value is None and wb["Historia"]["C53"].value is None and wb["Motor"]["D205"].value == "INCOMPLETO"
+        and r["estado_propuesto"] == "pendiente_de_datos" and not salta(r, "F1-REPLICA"), f"{wb['Motor']['F205'].value!r}"[:160])
+    d3 = json.loads(json.dumps(d))
+    del d3["series"]["da_rou"]["2021"]
+    rec = libro("Elis_A1_sin_ROU_2021", d3)
+    wb = load_workbook(rec, data_only=True)
+    r = evaluar(rec, d3)
+    chk("A1 con la D&A ROU de 2021 vacía (fuera de la ventana, dentro del ancla H–L): f = E9, C53 vacía (cinco años) y la capa coincide",
+        abs(wb["Historia"]["C58"].value - E9["perimetros"]["A1"]["f"]) <= 1e-12 and wb["Historia"]["C53"].value is None
+        and r["calculo_perimetro_declarado"]["ancla_s2c_E4"] is None and not salta(r, "F1-LIBRO") and not salta(r, "F1-REPLICA"))
+    d4 = decl_elis("A2_propio")
+    del d4["series"]["da_ppa"]["2025"]
+    rec = libro("Elis_A2_sin_PPA_2025", d4)
+    wb = load_workbook(rec, data_only=True)
+    chk("A2 con la PPA de 2025 vacía: f vacía y Motor V05 INCOMPLETO (vacío no es cero)", wb["Historia"]["C58"].value is None and wb["Motor"]["D205"].value == "INCOMPLETO")
+    rec = libro("Elis_no_reconocido", decl_elis("A1_sin_ROU"), despues={"Historia!C85": "A3_estimado"})
+    wb = load_workbook(rec, data_only=True)
+    chk("C85 = «A3_estimado» (no está en el libro): perímetro efectivo «no reconocido», f vacía y Motor V05 DATOS INVÁLIDOS",
+        wb["Historia"]["C89"].value == "no reconocido" and wb["Historia"]["C58"].value is None and wb["Motor"]["D205"].value == "DATOS INVÁLIDOS")
+    rA3 = evaluar(rec, dict(decl_elis("A1_sin_ROU"), perimetro_reinversion={"valor": "A3_estimado", "registro": REGP}))
+    chk("A3_estimado declarado (sin estimación): la capa termina en pendiente_de_datos (V-F1d) y F1-LIBRO bloquea (A3 no está en el libro)",
+        rA3["estado_propuesto"] == "pendiente_de_datos" and salta(rA3, "V-F1d") and salta(rA3, "F1-LIBRO"))
+    # ---------------------------------------------------------------- el oráculo bloquea si el libro no corresponde
+    r = evaluar(recs["A1"], decl_elis("A2_propio"))
+    chk("libro A1 con la declaración A2: F1-LIBRO bloquea (perímetro efectivo distinto)", salta(r, "F1-LIBRO") and any("perímetro efectivo" in x for x in r["libro_v631_f1"]["motivos"]))
+    rec = libro("Elis_A1_serie_distinta", decl_elis("A1_sin_ROU"), despues={"Historia!K86": 131.0})
+    r = evaluar(rec, decl_elis("A1_sin_ROU"))
+    chk("libro A1 con una D&A ROU distinta de la declarada (2024): F1-LIBRO bloquea (serie, D_X, f y flujos)",
+        salta(r, "F1-LIBRO") and any("D&A de derechos de uso 2024" in x for x in r["libro_v631_f1"]["motivos"]) and not salta(r, "F1-REPLICA"))
+    r = evaluar(recalc(ELIS, os.path.join(dest, "v63")), decl_elis("A1_sin_ROU"))
+    chk("libro V6.3 (Elis tal cual) con la declaración A1: F1-LIBRO bloquea como antes (límite declarado) y no hay bloque V6.3.1",
+        salta(r, "F1-LIBRO") and "libro_v631_f1" not in r and "LÍMITE DECLARADO" in guarda(r, "F1-LIBRO")[0]["detalle"])
+    rec = libro("Elis_A0", dict(decl_elis("A0_total")))
+    r = evaluar(rec, decl_elis("A0_total"))
+    chk("libro V6.3.1 con A0 y la declaración A0: F1-LIBRO no salta, la réplica es la de A0 y V-F1a sigue bloqueando (arrendamiento dos veces)",
+        not salta(r, "F1-LIBRO") and r["replica_del_libro"]["perimetro_replicado"] == "A0" and not salta(r, "F1-REPLICA") and salta(r, "V-F1a"))
+    # ---------------------------------------------------------------- sintético NIIF 16 pesado (Empresa X)
+    ex = EJEMPLOS[0]
+    wb = load_workbook(ex, data_only=True)
+    h = wb["Historia"]
+    anios = [h[f"{c}5"].value for c in COLS]
+    da = {y: h[f"{c}8"].value for c, y in zip(COLS, anios)}
+    rou = {y: round(0.75 * v, 6) for y, v in da.items()}
+    ppa = {y: round(0.15 * v, 6) for y, v in da.items()}
+    otras = {f"Historia!{c}17": rou[y] for c, y in zip(COLS, anios)}
+    otras["Análisis!C49"] = round(sum(rou[y] for y in anios[-3:]) / 3, 6)
+    sx = os.path.join(dest, "Sintetico_entradas.xlsx")
+    preparar(ex, PLANTILLA, sx, otras)
+    dsint = {"perimetro_reinversion": {"valor": "A0_total", "registro": REGP},
+             "series": {"da_rou": _serie(rou, "informe sintético (inventado)"), "da_ppa": _serie(ppa, "informe sintético (inventado)")}}
+    vals = {}
+    for per in ("A0_total", "A1_sin_ROU", "A2_propio"):
+        d = json.loads(json.dumps(dsint))
+        d["perimetro_reinversion"]["valor"] = per
+        rec = libro(f"Sintetico_{per}", d, origen=sx)
+        w = load_workbook(rec, data_only=True)
+        hh = w["Historia"]
+        vals[per] = {"C58": hh["C58"].value, "C53": hh["C53"].value, "C74": hh["C74"].value, "C70": hh["C70"].value,
+                     "S31": sum(hh[f"{c}31"].value for c in "HIJKL"), "dV": hh["L6"].value - hh["G6"].value, "V05": w["Motor"]["D205"].value}
+        r = evaluar(rec, d)
+        cd = r["calculo_perimetro_declarado"]
+        chk(f"sintético NIIF 16 pesado · {per}: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan",
+            vals[per]["V05"] == "OK" and abs(cd["f"] - vals[per]["C58"]) <= 1e-12 and abs(cd["ancla_s2c_E4"] - vals[per]["C53"]) <= 1e-9
+            and not salta(r, "F1-LIBRO") and not salta(r, "F1-REPLICA"), f"f {vals[per]['C58']!r} · C53 {vals[per]['C53']!r} · {r['libro_v631_f1']['motivos'][:2]}")
+    w3 = anios[-3:]
+    m_rou = sum(rou[y] for y in w3) / 3
+    m_ppa = sum(ppa[y] for y in w3) / 3
+    a0v = vals["A0_total"]
+    chk("sintético: NIIF 16 pesado (D&A ROU media ≥ 40 % del FCF base, con el principal dentro)", m_rou >= 0.4 * a0v["C70"], f"{m_rou:.3f} / {a0v['C70']:.3f}")
+    chk("sintético: f_A1 = f_A0 − ROU media ÷ ventas medias (identidad, con los valores del libro)", abs(vals["A1_sin_ROU"]["C58"] - (a0v["C58"] - m_rou / a0v["C74"])) <= 1e-12,
+        f"ROU media {m_rou:.3f} = {100 * m_rou / a0v['C70']:.0f} % del FCF base {a0v['C70']:.3f}")
+    chk("sintético: f_A2 = f_A0 − (ROU + PPA) media ÷ ventas medias", abs(vals["A2_propio"]["C58"] - (a0v["C58"] - (m_rou + m_ppa) / a0v["C74"])) <= 1e-12)
+    chk("sintético: C53_A1 = ΔV ÷ (Σ fila 31 en A0 + Σ ROU H–L) y C53_A2 con la PPA",
+        abs(vals["A1_sin_ROU"]["C53"] - a0v["dV"] / (a0v["S31"] + sum(rou[y] for y in anios[-5:]))) <= 1e-9
+        and abs(vals["A2_propio"]["C53"] - a0v["dV"] / (a0v["S31"] + sum(rou[y] + ppa[y] for y in anios[-5:]))) <= 1e-9)
+    detalle["sintetico"] = vals
+    shutil.rmtree(os.path.join(dest, "_perfil_lo"), ignore_errors=True)
+    return detalle
+
+
 def escribir(nombre, extra=None):
     ok = all(r["ok"] for r in RES)
     out = {"prueba": nombre, "fecha": dt.date.today().isoformat(), "plantilla_sha256": sha(PLANTILLA), "referencia_sha256": sha(REF),
@@ -223,7 +408,7 @@ def escribir(nombre, extra=None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2 or sys.argv[1] not in ("estructura", "a0"):
+    if len(sys.argv) < 2 or sys.argv[1] not in ("estructura", "a0", "f1"):
         print(__doc__)
         sys.exit(2)
     if sys.argv[1] == "estructura":
@@ -232,5 +417,5 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print(__doc__)
         sys.exit(2)
-    det = a0(sys.argv[2])
-    sys.exit(escribir("a0", det))
+    det = (a0 if sys.argv[1] == "a0" else f1)(sys.argv[2])
+    sys.exit(escribir(sys.argv[1], det))

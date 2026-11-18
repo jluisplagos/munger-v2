@@ -1,0 +1,219 @@
+{
+ "prueba": "f1",
+ "fecha": "2026-11-18",
+ "plantilla_sha256": "266d53bdd8af13d5c20b42d05c017360542d614fb3a6a95cc7b549a0edf608cd",
+ "referencia_sha256": "cd564e43f60239c8beaf6faceb85218f6939aa745ebc7772e2f06f48c823d1bf",
+ "resultado": "PASA",
+ "total": 30,
+ "pasan": 30,
+ "comprobaciones": [
+  {
+   "prueba": "libro de Elis: d2593777…, sin cambios",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "Elis A1: perímetro efectivo A1_sin_ROU y Motor V05 OK",
+   "ok": true,
+   "detalle": "V05 'OK'"
+  },
+  {
+   "prueba": "Elis A1 recalculado por LibreOffice: f = E9 (10⁻¹²)",
+   "ok": true,
+   "detalle": "0.0126242253232846 frente a 0.012624225323285"
+  },
+  {
+   "prueba": "Elis A1: C53 (ancla de S2C) = E9 (10⁻⁹)",
+   "ok": true,
+   "detalle": "2.4453316953317 frente a 2.445331695332"
+  },
+  {
+   "prueba": "Elis A1: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹)",
+   "ok": true,
+   "detalle": "desviación máxima 1.02e-12"
+  },
+  {
+   "prueba": "Elis A1: el año 11 NORMAL se aparta del de A0 en 205,363 (control negativo: el terminal usa la f del perímetro)",
+   "ok": true,
+   "detalle": "205.363093"
+  },
+  {
+   "prueba": "Elis A1: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro)",
+   "ok": true,
+   "detalle": "réplica D_X del libro (A1_sin_ROU) · 33 flujos"
+  },
+  {
+   "prueba": "Elis A1: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "prueba": "Elis A2: perímetro efectivo A2_propio y Motor V05 OK",
+   "ok": true,
+   "detalle": "V05 'OK'"
+  },
+  {
+   "prueba": "Elis A2 recalculado por LibreOffice: f = E9 (10⁻¹²)",
+   "ok": true,
+   "detalle": "-0.00611860174416477 frente a -0.006118601744165"
+  },
+  {
+   "prueba": "Elis A2: C53 (ancla de S2C) = E9 (10⁻⁹)",
+   "ok": true,
+   "detalle": "1.61252430330525 frente a 1.612524303305"
+  },
+  {
+   "prueba": "Elis A2: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹)",
+   "ok": true,
+   "detalle": "desviación máxima 1.02e-12"
+  },
+  {
+   "prueba": "Elis A2: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro)",
+   "ok": true,
+   "detalle": "réplica D_X del libro (A2_propio) · 33 flujos"
+  },
+  {
+   "prueba": "Elis A2: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "prueba": "A1 con la D&A ROU de 2024 vacía (ventana): f y C53 vacías en el libro, Motor V05 INCOMPLETO, capa en pendiente_de_datos sin error ni F1-REPLICA",
+   "ok": true,
+   "detalle": "'Motor A · perímetro A1_sin_ROU: falta la amortización de derechos de uso (Historia fila 86) o la PPA (fila 87) en algún año de la ventana que calibra f; vacío "
+  },
+  {
+   "prueba": "A1 con la D&A ROU de 2021 vacía (fuera de la ventana, dentro del ancla H–L): f = E9, C53 vacía (cinco años) y la capa coincide",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "A2 con la PPA de 2025 vacía: f vacía y Motor V05 INCOMPLETO (vacío no es cero)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "C85 = «A3_estimado» (no está en el libro): perímetro efectivo «no reconocido», f vacía y Motor V05 DATOS INVÁLIDOS",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "A3_estimado declarado (sin estimación): la capa termina en pendiente_de_datos (V-F1d) y F1-LIBRO bloquea (A3 no está en el libro)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "libro A1 con la declaración A2: F1-LIBRO bloquea (perímetro efectivo distinto)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "libro A1 con una D&A ROU distinta de la declarada (2024): F1-LIBRO bloquea (serie, D_X, f y flujos)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "libro V6.3 (Elis tal cual) con la declaración A1: F1-LIBRO bloquea como antes (límite declarado) y no hay bloque V6.3.1",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "libro V6.3.1 con A0 y la declaración A0: F1-LIBRO no salta, la réplica es la de A0 y V-F1a sigue bloqueando (arrendamiento dos veces)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "sintético NIIF 16 pesado · A0_total: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan",
+   "ok": true,
+   "detalle": "f 0.0400000005795958 · C53 1.48148148148148 · []"
+  },
+  {
+   "prueba": "sintético NIIF 16 pesado · A1_sin_ROU: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan",
+   "ok": true,
+   "detalle": "f 0.0100000003592903 · C53 0.925925923782236 · []"
+  },
+  {
+   "prueba": "sintético NIIF 16 pesado · A2_propio: libro = capa (f, ancla) y F1-LIBRO y F1-REPLICA no saltan",
+   "ok": true,
+   "detalle": "f 0.00400000017151303 · C53 0.861326440960309 · []"
+  },
+  {
+   "prueba": "sintético: NIIF 16 pesado (D&A ROU media ≥ 40 % del FCF base, con el principal dentro)",
+   "ok": true,
+   "detalle": "27.833 / 55.665"
+  },
+  {
+   "prueba": "sintético: f_A1 = f_A0 − ROU media ÷ ventas medias (identidad, con los valores del libro)",
+   "ok": true,
+   "detalle": "ROU media 27.833 = 50 % del FCF base 55.665"
+  },
+  {
+   "prueba": "sintético: f_A2 = f_A0 − (ROU + PPA) media ÷ ventas medias",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "sintético: C53_A1 = ΔV ÷ (Σ fila 31 en A0 + Σ ROU H–L) y C53_A2 con la PPA",
+   "ok": true,
+   "detalle": ""
+  }
+ ],
+ "detalle": {
+  "Elis_A1": {
+   "C58": 0.0126242253232846,
+   "C53": 2.4453316953317,
+   "desviacion_max_flujos_E9": 1.0231815394945443e-12,
+   "bloquean": [
+    "F1-2i",
+    "F1-REGISTRO",
+    "V-F1g",
+    "V-F1i",
+    "V-F1j",
+    "V-F1k"
+   ],
+   "estado_propuesto": "pendiente_de_datos"
+  },
+  "Elis_A2": {
+   "C58": -0.00611860174416477,
+   "C53": 1.61252430330525,
+   "desviacion_max_flujos_E9": 1.0231815394945443e-12,
+   "bloquean": [
+    "F1-REGISTRO",
+    "V-F1g",
+    "V-F1i",
+    "V-F1j",
+    "V-F1k"
+   ],
+   "estado_propuesto": "pendiente_de_datos"
+  },
+  "sintetico": {
+   "A0_total": {
+    "C58": 0.0400000005795958,
+    "C53": 1.48148148148148,
+    "C74": 927.754915409236,
+    "C70": 55.6652943868313,
+    "S31": 215.6063420022167,
+    "dV": 319.416802966247,
+    "V05": "OK"
+   },
+   "A1_sin_ROU": {
+    "C58": 0.0100000003592903,
+    "C53": 0.925925923782236,
+    "C74": 927.754915409236,
+    "C70": 55.6652943868313,
+    "S31": 344.9701480022167,
+    "dV": 319.416802966247,
+    "V05": "OK"
+   },
+   "A2_propio": {
+    "C58": 0.00400000017151303,
+    "C53": 0.861326440960309,
+    "C74": 927.754915409236,
+    "C70": 55.6652943868313,
+    "S31": 370.8429090022167,
+    "dV": 319.416802966247,
+    "V05": "OK"
+   }
+  }
+ }
+}
