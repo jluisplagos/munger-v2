@@ -1,0 +1,244 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Ahold",
+ "_estado_del_archivo": "Examen del personaje (18-nov-2026, noche). Expediente nuevo ahold_f2 desde ahold_f1 (que no se toca) con las decisiones de la persona responsable del 18-nov-2026 (tarde), DECISIONES_PARA_EL_USUARIO.md (rama coordinacion/cierre-v2): P-O1 (c) «regla espejo» → C46 = media 2023–2025 de (CFO + dividendos de negocios conjuntos) = 6.583,667; C48 = media de (intereses pagados − intereses cobrados) = 77,000; C49 = media de (pagos de arrendamientos − cobros de subarriendos) = 1.707,333; cada componente con archivo, página PDF y cita de texto/ (AR2024 p. 263, AR2025 p. 216); salvaguarda: C76 = 0 en la etapa 1, así que los intereses cobrados entran (si una fase pusiera C76 > 0, habría que sacar de C48 los intereses de esa caja). P-O2 (a) → acciones en circulación a 28-dic-2025 = 886,877259 M (AR2025 PDF p. 244; Q3-2026 PDF p. 21) y capitalización 36,05 × 886,877259 = 31.971,925 mm. Se conservan F1 (motor_a_f1.json con las decisiones F1-A/F1-B), C47 (media exacta, precedente E1) y todo lo demás; motor_a_f1.json del destino recibe, tras la preparación, la conciliacion_fcf_base de la guarda F1-K3a (C46 +24,000; C48 +162,000; C49 +126,667) que pide el dictamen §4. RESULTADO ESPERADO (réplica del motor A del dictamen O1/O2, replica/motor.py, con C52 = 2.312,001, f = 0,000140 y 886,877259 acciones; no sustituye al recálculo oficial del pipeline): MALO 28,41 · NORMAL 36,28 · BUENO 46,07 · ponderado 35,78 € · precio de Sí ≈ 33,32 € (dictamen: 33,32 y 35,78; solo O1: 32,66; solo O2: 28,30); con el precio de 36,05 € la zona sería «caro». Las fases B y C y la auditoría tienen que repetirse. No se adopta nada; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f1/Ahold",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f2",
+ "base_economica": {
+  "fecha": "2025-12-28",
+  "descripcion": "Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma base que la etapa 1 y que ahold_f1. Aplica dos decisiones de la persona responsable del 18-nov-2026 (tarde): P-O1 (c) «regla espejo» en C46, C48 y C49 con cálculo declarado, y P-O2 (a) acciones en circulación al cierre del ejercicio base (886,877259 M a 28-dic-2025) en lugar de la media ponderada diluida (905). Medias exactas (precedente E1): supuesto de la orquestación, no decisión para Ahold."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-13",
+  "acciones": "2025-12-28",
+  "publicacion_fuentes": "Informes anuales 2016–2025 de Ahold Delhaize (páginas oficiales del emisor; huellas en INDICE_FUENTES.csv del repositorio auxiliar). Precio y tasa sin riesgo del agente de metadatos, pendientes de fuente oficial."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "pdf_DESCARGAS_2026.tsv",
+  "extracto_v63.md",
+  "motor_a_f1.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {
+  "acciones_diluidas": {
+   "valor": 886.877259,
+   "fecha": "2025-12-28",
+   "fuente": "Acciones ordinarias EN CIRCULACIÓN a 28-dic-2025 = 891.188 miles emitidas − 4.311 miles en autocartera = 886.877 miles (Ahold Delhaize Annual Report 2025, nota 21, texto/AD_annual-report-2025.txt PDF p. 244: «Balance as of December 28, 2025 891,188 4,311 886,877»); cifra exacta 886.877.259 en el informe del tercer trimestre de 2026 (texto/AD_q3-2026-interim-report.txt PDF p. 21: «The number of outstanding common shares as of September 27, 2026, was 865,173,863 (December 28, 2025: 886,877,259)») y del segundo (texto/AD_q2-2026-interim-report.txt). Decisión P-O2 (a) de la persona responsable (18-nov-2026): acciones en circulación al cierre del ejercicio base, criterio de D3 (Viscofan) y E6 (Elis). No es la media ponderada diluida del BPA de 2025 (905 M, nota 29, PDF p. 260). Dilución potencial NO incluida (se declara aparte): ≈ 4 M de acciones condicionales del plan de acciones (diferencia entre la media diluida 905 y la básica 901 de 2025; efecto ≈ −0,13 € por acción según el dictamen O1/O2 §4). No se aplica la recompra de 2026 (23.847.837 acciones hasta el 27-sep-2026): no es una valoración actualizada a 2026.",
+   "pagina": "AR2025 PDF 244; informe Q3-2026 PDF 21",
+   "periodo": "28-dic-2025 (cierre del ejercicio base)",
+   "unidad": "millones de acciones",
+   "literal": "Balance as of December 28, 2025 891,188 4,311 886,877 (AR2025 PDF p. 244) · December 28, 2025: 886,877,259 (Q3-2026 PDF p. 21)"
+  },
+  "capitalizacion": {
+   "valor": 31971.92518695,
+   "fecha": "2026-11-13",
+   "fuente": "36,05 € (precio de los metadatos de la fase 1, 13-nov-2026; pendiente de fuente oficial, sin cambio) × 886,877259 millones de acciones en circulación a 28-dic-2025 = 31.971,925 mm. Fechas distintas (precio de 2026, acciones del cierre de 2025), derivado de la decisión P-O2 (a). No recoge la recompra de 2026.",
+   "pagina": "derivado (acciones: AR2025 PDF p. 244; Q3-2026 PDF p. 21)",
+   "periodo": "precio del 13-nov-2026 × acciones a 28-dic-2025",
+   "unidad": "millones de EUR"
+  }
+ },
+ "analisis_que_se_descartan": {},
+ "evidencia": {},
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · AHOLD DELHAIZE (caso F1, arrendamientos) · plantilla V6.3.1 F1 revisada con la declaración F1 (F1-A/F1-B). Aplica las decisiones P-O1 (c) «regla espejo» (C46 + dividendos de negocios conjuntos; C48 intereses netos; C49 alquileres netos de subarriendos; SALVAGUARDA: si C76 suma caja, sus intereses salen de C48) y P-O2 (a) (acciones en circulación a 28-dic-2025, 886,877 M) de la persona responsable (18-nov-2026). Ejercicio 2025 cerrado el 28-dic-2025. Tasa 9 % provisional, sin decidir. Precio (36,05 €, 13-nov-2026) y tasa sin riesgo pendientes de fuente oficial. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»: P-O1 (c) y P-O2 (a); dictamen O1/O2 de Ahold §4; configuracion/cambio_ahold_po1_po2.json. Metadato de la orquestación.",
+  "fecha": "2026-11-18"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ },
+ "analisis_que_se_conservan": {
+  "C47": "media exacta 2023–2025 declarada con su cálculo en ahold_4_15 (supuesto de la orquestación, precedente E1); sin cambio"
+ },
+ "nota_metadatos": "(P-O2 (a), decisión de la persona responsable del 18-nov-2026) Metadatos ACTIVOS escritos por cambiar_base.py: acciones en circulación a 28-dic-2025 (886,877259 M, AR2025 PDF p. 244 y Q3-2026 PDF p. 21) y capitalización = 36,05 € × esas acciones (31.971,9 mm), con fechas distintas declaradas; precio y tasa sin riesgo sin cambios (siguen pendientes de fuente oficial). Dilución potencial (≈ 4 M de acciones condicionales) no incluida. Hechos posteriores que NO se aplican a esta base: recompra de 23.847.837 acciones hasta el 27-sep-2026 (865.173.863 en circulación a esa fecha, Q3-2026 PDF p. 21). C42, C53 y C54 siguen a 28-jun-2026 como en la etapa 1. (P-O1 (c)) C46, C48 y C49 llevan los cobros que Ahold presenta en inversión (dividendos de negocios conjuntos, intereses cobrados y cobros de subarriendos), con su cálculo declarado.",
+ "notas_que_se_retiran": [
+  "^Acciones diluidas: es la media ponderada del ejercicio 2025",
+  "^Capitalización calculada con la media ponderada diluida"
+ ],
+ "analisis": {
+  "C46": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "cfo",
+      "signo": 1
+     },
+     {
+      "componente": "dividendos_negocios_conjuntos",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "dividendos_negocios_conjuntos": {
+      "2023": {
+       "valor": 22,
+       "fuente": "texto/AD_annual-report-2024.txt",
+       "pagina": 263,
+       "cita": "Dividends received from joint ventures 15 22 22"
+      },
+      "2024": {
+       "valor": 22,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Dividends received from joint ventures 15 28 22"
+      },
+      "2025": {
+       "valor": 28,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Dividends received from joint ventures 15 28 22"
+      }
+     }
+    },
+    "decision": "Decisión P-O1 (c) «regla espejo» de la persona responsable (18-nov-2026; munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md, sección «18-nov-2026 (tarde)»; dictamen examen/revisiones/dictamen_O1_O2_ahold/DICTAMEN.md §2 y §4): si se resta lo que se paga, se suma lo que se cobra por lo mismo. Sustituye la decisión de la etapa 1 (Control maestro M43/M47: «no se suman (sensibilidad)»). C46 = flujo de explotación de la Historia (6.466 / 6.224 / 6.989) + dividendos cobrados de negocios conjuntos, que Ahold presenta en inversión (22 / 22 / 28; nota 15). Media exacta (precedente E1).",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada efectiva con su cálculo declarado (P-O1 c)",
+   "fecha": "2025-12-28",
+   "derivacion": "media 2023–2025 de (CFO + dividendos cobrados de negocios conjuntos)",
+   "evidencia": {
+    "L": "AR2024 PDF p. 263 y AR2025 PDF p. 216 (estados de flujos)",
+    "M": "C46 = media 2023–2025 de (CFO + dividendos de negocios conjuntos) = (6.466 + 22, 6.224 + 22, 6.989 + 28) / 3 = 6.583,667. Decisión P-O1 (c) «regla espejo» (18-nov-2026), que sustituye la de la etapa 1 (28-oct-2026: «intereses recibidos en inversión», «no se suman (sensibilidad)»). Periodo de 3 años: decisión del inversor del 28-oct-2026, sin cambio.",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta en cifras] Cálculo declarado en fase1_metadatos.json (cambio_ahold_po1_po2.json). Los dividendos de negocios conjuntos van en inversión en el estado de flujos (AR2025 PDF p. 216; AR2024 PDF p. 263). Regla espejo: el flujo del accionista se mide igual presente la empresa el cobro donde lo presente. 3 años: incluye la devolución fiscal belga (+367 en 2023) y circulante favorable (+309 en 2025)."
+   }
+  },
+  "C48": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "intereses_financiacion",
+      "signo": 1
+     },
+     {
+      "componente": "intereses_cobrados",
+      "signo": -1
+     }
+    ],
+    "componentes": {
+     "intereses_cobrados": {
+      "2023": {
+       "valor": 160,
+       "fuente": "texto/AD_annual-report-2024.txt",
+       "pagina": 263,
+       "cita": "Interest received 196 160"
+      },
+      "2024": {
+       "valor": 196,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Interest received 130 196"
+      },
+      "2025": {
+       "valor": 130,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Interest received 130 196"
+      }
+     }
+    },
+    "decision": "Decisión P-O1 (c) «regla espejo» de la persona responsable (18-nov-2026; munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md, sección «18-nov-2026 (tarde)»; dictamen examen/revisiones/dictamen_O1_O2_ahold/DICTAMEN.md §2 y §4): si se resta lo que se paga, se suma lo que se cobra por lo mismo. Sustituye la decisión de la etapa 1 (Control maestro M43/M47: «no se suman (sensibilidad)»). C48 = intereses pagados (Historia, financiación: 226 / 230 / 261) − intereses cobrados, que Ahold presenta en inversión (160 / 196 / 130). Salvaguarda de la decisión: si se suma caja en Análisis!C76, sus intereses no entran (sin doble cuenta); en la etapa 1 C76 = 0.",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada efectiva con su cálculo declarado (P-O1 c): intereses netos",
+   "fecha": "2025-12-28",
+   "derivacion": "media 2023–2025 de (intereses pagados − intereses cobrados)",
+   "evidencia": {
+    "L": "AR2024 PDF p. 263 y AR2025 PDF p. 216 (estados de flujos)",
+    "M": "C48 = media 2023–2025 de (intereses pagados − intereses cobrados) = ((226 − 160) + (230 − 196) + (261 − 130)) / 3 = 77,000. Solo intereses de préstamos y de caja; los de arrendamientos van en C49. Decisión P-O1 (c) «regla espejo» (18-nov-2026), que sustituye la de la etapa 1 («intereses recibidos (en inversión) solo como sensibilidad»).",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta en cifras, media en el nivel: depende de la caja y de los tipos de 2023–2025; con el nivel de 2025 los intereses cobrados serían 130] SALVAGUARDA (P-O1): si Análisis!C76 suma caja sobrante, los intereses de esa caja no pueden estar también aquí (doble cuenta); con C76 > 0 hay que quitar de C48 los intereses cobrados de esa caja. En la etapa 1 C76 = 0 (vacío)."
+   }
+  },
+  "C49": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "arrendamientos_principal",
+      "signo": 1
+     },
+     {
+      "componente": "cobros_subarriendos",
+      "signo": -1
+     }
+    ],
+    "componentes": {
+     "cobros_subarriendos": {
+      "2023": {
+       "valor": 117,
+       "fuente": "texto/AD_annual-report-2024.txt",
+       "pagina": 263,
+       "cita": "Lease payments received on lease receivables 125 117"
+      },
+      "2024": {
+       "valor": 125,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Lease payments received on lease receivables 138 125"
+      },
+      "2025": {
+       "valor": 138,
+       "fuente": "texto/AD_annual-report-2025.txt",
+       "pagina": 216,
+       "cita": "Lease payments received on lease receivables 138 125"
+      }
+     }
+    },
+    "decision": "Decisión P-O1 (c) «regla espejo» de la persona responsable (18-nov-2026; munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md, sección «18-nov-2026 (tarde)»; dictamen examen/revisiones/dictamen_O1_O2_ahold/DICTAMEN.md §2 y §4): si se resta lo que se paga, se suma lo que se cobra por lo mismo. Sustituye la decisión de la etapa 1 (Control maestro M43/M47: «no se suman (sensibilidad)»). C49 = pagos de pasivos por arrendamiento (Historia, «Repayment of lease liabilities», principal + intereses: 1.815 / 1.743 / 1.944) − cobros de arrendamientos financieros a cobrar, que son los subarriendos de locales arrendados (AR2025 PDF p. 273) y Ahold presenta en inversión (117 / 125 / 138).",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada efectiva con su cálculo declarado (P-O1 c): alquileres netos de subarriendos",
+   "fecha": "2025-12-28",
+   "derivacion": "media 2023–2025 de (pagos de pasivos por arrendamiento − cobros de subarriendos)",
+   "evidencia": {
+    "L": "AR2024 PDF p. 263 y AR2025 PDF p. 216 (estados de flujos); AR2025 PDF p. 273 (subarriendos)",
+    "M": "C49 = media 2023–2025 de (pagos de pasivos por arrendamiento − cobros de subarriendos) = ((1.815 − 117) + (1.743 − 125) + (1.944 − 138)) / 3 = 1.707,333. AD presenta principal + intereses en una sola línea («Repayment of lease liabilities»): se resta la línea completa, como en la etapa 1. Decisión P-O1 (c) «regla espejo» (18-nov-2026), que sustituye la de la etapa 1 (M47: «cobros por subarriendos … no se suman (sensibilidad)»).",
+    "N": "[Clase: derivado de datos publicados] [Confianza: alta] El alquiler de los locales subarrendados está en los pagos que se restan y su derecho de uso se dio de baja (AR2025 PDF p. 273): se cuenta el alquiler una vez, neto de su reembolso (idea de F1). Conciliado en motor_a_f1.json (conciliacion_fcf_base, componente C49)."
+   }
+  }
+ },
+ "textos_prohibidos": [
+  "no se suman \\(sensibilidad\\)",
+  "solo como sensibilidad",
+  "→ C48 = 239\\.0",
+  "→ C49 = 1834\\.0",
+  "→ C46 = 6559\\.7"
+ ]
+}

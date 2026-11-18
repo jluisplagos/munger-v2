@@ -1,0 +1,369 @@
+{
+ "motor": "A",
+ "palancas": {
+  "crecimiento_1_5": {
+   "MALO": {
+    "referencia_mecanica": -0.045,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.0,
+    "desviacion": 0.045,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Traduzco el MALO de la fase A: la inversión en precio baja el tique y parte del volumen se va al descuento, y eso se come la inflación de alimentos. Ventas nominales planas cinco años: una caída real de un 2 % anual. La referencia (−4,5 % anual) sale de una σ inflada por la fusión de 2017 (+26,6 %) y por 2022 (+15,1 %), no de un mecanismo de esta historia: pedirla sería perder una quinta parte de las ventas sin cierres de tiendas en el relato.",
+    "apoyo": "Historia fila 28: el peor año de la década fue −0,2 % (2018) y 2024 dio +0,7 %; 39 semanas de 2026: −0,5 % a tipos reales y +1,9 % a tipo constante, comparables 1,4 % (Q3-26 PDF p. 3); inflación de alimentos prevista 2,3–2,7 % (AR2025 PDF p. 59); riesgo de down trading (AR2025 PDF p. 69, 77).",
+    "lo_sustituiria": "Cierres de tiendas o pérdida de cuota con cifra (Albert Heijn por debajo del 38,2 %) me llevarían a un MALO negativo; volumen comparable positivo sostenido con la inversión en precio, a 0,01."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.045,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.03,
+    "desviacion": -0.015,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Por componentes: precio con la inflación de alimentos (2,3–2,7 %), volumen casi plano (las comparables de 2026 quedan por debajo de la inflación) y compras pequeñas en Europa (Delfood, unos 200 de ventas; Tesco Chequia y Eslovaquia desde 2027) que añaden en torno a medio punto. La referencia es la CAGR de cinco años (C46 4,3 %), que lleva dentro Profi (2.867 de ventas de una vez) y el salto de inflación y dólar de 2022 (+15,1 %): no lo extrapolo.",
+    "apoyo": "C45 2,0 % (CAGR 3 años); C46 4,3 %; Historia fila 28 (2022 +15,1 %); Profi 2.867 de ventas (AR2025 PDF p. 222); Delfood unos 200 (Q3-26 PDF p. 9); comparables 1,4 % a 39 semanas (Q3-26 PDF p. 3); inflación prevista (AR2025 PDF p. 59).",
+    "lo_sustituiria": "Dos años de comparables por encima del 3 % sin compras, o el cierre de Tesco con sus ventas publicadas, me llevarían a 0,035–0,04; comparables por debajo del 1 %, a 0,02."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.065,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.045,
+    "desviacion": -0.02,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "El BUENO de la fase A es de margen, no de volumen. Le doy lo que hizo la empresa en cinco años con las compras dentro (C46 4,3 %): inflación, online creciendo a doble dígito (11 % de las ventas) y adquisiciones como Tesco Chequia y Eslovaquia, cuyo capital paga el S2C del BUENO. La referencia (6,5 %) exigiría repetir cada año Profi y 2022.",
+    "apoyo": "C46 4,3 %; online 10.274, +11,2 % en 2025 (AR2025 PDF p. 343); online de EE. UU. +14,2 % en el 3T de 2026 (Q3-26 PDF p. 3); Tesco Chequia y Eslovaquia, 1.200 de valor empresa (Q3-26 PDF p. 30); Q3 del sector 9,1 % (Palancas!I14) solo como contexto.",
+    "lo_sustituiria": "Las ventas de Tesco publicadas y comparables del 3 % o más me llevarían a 0,05; si la compra no cierra, a 0,035."
+   }
+  },
+  "margen_objetivo": {
+   "MALO": {
+    "referencia_mecanica": 0.035,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.03,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La historia MALA dice que el margen sale por abajo de su banda. Como nivel sostenido, un 3,0 % IFRS queda por debajo de cualquier media de tres años de la década (la menor, 3,4 % en 2023–2025) y al nivel del suelo de un solo año (2,9 % en 2020, con la COVID). Mecanismo: apalancamiento operativo sobre un margen fino con renta casi fija; la mejora se la quedan el cliente y el arrendador.",
+    "apoyo": "C50 2,93 %; Historia fila 29 (2023 3,21 %, 2024 3,12 %); margen subyacente de EE. UU. 4,3 % frente a 4,6 % en el 3T de 2026 (Q3-26 PDF p. 3); 1.000 M$ de inversión en precio 2025–2028 (AR2025 PDF p. 22); 85 % de los locales arrendados (AR2025 PDF p. 58).",
+    "lo_sustituiria": "Un margen IFRS por debajo del 3 % dos años seguidos me llevaría a 0,025; el margen subyacente de EE. UU. de vuelta al 4,5 % con la inversión en precio ya hecha, a 0,035."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.04,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.035,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "El NORMAL deja el margen en su banda. Lo mido en IFRS, que es lo que usa el motor (C48), no en subyacente: en diez años el subyacente supera al IFRS en 0,5 puntos de media (0,4 en 2021–2025) por deterioros y reestructuraciones que vuelven cada año, y los trato como gasto. Un subyacente de alrededor del 4,0 % (lo que hace la empresa y lo que dice su guía) menos ese diferencial da un 3,6 %: 0,035. La referencia 0,04 sale del último año (3,84 %), que tuvo pocos cargos.",
+    "apoyo": "Historia fila 29 (media C49 3,67 %); margen subyacente 2016–2025 de 3,8 % a 4,8 % (AR2025 PDF p. 64); deterioros de 147 (2025) y 229 (2024) y reestructuración de 414 en 2024 (AR2025 PDF p. 46); «If it happens every year like clockwork, what's so extraordinary about it?» (PCA p.119; HIM).",
+    "lo_sustituiria": "Tres años de margen IFRS a menos de 0,2 puntos del subyacente me llevarían a 0,04; un subyacente del 3,8 % sostenido, a 0,03."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.045,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.04,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La historia BUENA lleva el margen a la parte alta de su década: subyacente del 4,4 % (2018, 2021), que con el diferencial de cargos recurrentes es un 4,0 % IFRS. Mecanismo: medios y datos, marca propia, online rentable y automatización; se lo queda la empresa solo si la competencia es racional. La referencia 0,045 pasaría del máximo IFRS de la década (C51 4,39 %) y de la guía de la propia dirección (alrededor del 4 % subyacente) sin un mecanismo con cifra que lo sostenga.",
+    "apoyo": "C51 4,39 %; subyacente 4,4 % en 2018 y 2021 (AR2025 PDF p. 64); medios y datos 0,3 % de las ventas (AR2025 PDF p. 225); marca propia por encima del 40 % (Q2-26 PDF p. 4); guía 2025–2028 de margen alrededor del 4 % (AR2025 PDF p. 22, 60); «how much is going to stay home and how much is just going to flow through to the customer» (PCA p.189; HIM).",
+    "lo_sustituiria": "Dos años de ahorro retenido a la vista (subyacente por encima del 4,4 %) me llevarían a 0,045, con su justificación; otro año con todo el ahorro reinvertido en precio, a 0,035."
+   }
+  },
+  "s2c": {
+   "MALO": {
+    "referencia_mecanica": null,
+    "referencia_no_disponible_motivo": "no disponible: Historia!C53 (S2C marginal 5 años) no es un número > 0 (reinversión neta acumulada ≤ 0 o datos insuficientes). No se sustituye por el S2C medio del sector, que es otra medida",
+    "valor": 3.9,
+    "desviacion": null,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "Corrección de la fase C: mido en el perímetro del libro (A2_propio, Historia C85: capital propio sin pasivos por arrendamiento, cuyos pagos ya van dentro de f). En el MALO las reformas, la logística y el precio no traen ventas y no hay compras (crece 0 en los años 1–5), así que Profi (unos 2,3) no entra. Tomo la rotación más pesada de la serie con IFRS 16 sin arrendamientos: 62.791 ÷ 16.136 = 3,89 en 2018 (4,11 en 2019). Rentabilidad marginal 3,9 × 0,03 × (1 − 0,214) ≈ 9,2 %.",
+    "apoyo": "Historia filas 6, 23 y 32: capital propio = capital invertido − arrendamientos, 16.136 (2018) y 16.115 (2019); ventas 62.791 y 66.260. Rango plausible 3,6–4,1.",
+    "lo_sustituiria": "Que el MALO tuviera que comprar para sostener las ventas me bajaría hacia 2,3 (Profi, AR2025 PDF p. 222); una C53 calculable en A2 la sustituiría."
+   },
+   "NORMAL": {
+    "referencia_mecanica": null,
+    "referencia_no_disponible_motivo": "no disponible: Historia!C53 (S2C marginal 5 años) no es un número > 0 (reinversión neta acumulada ≤ 0 o datos insuficientes). No se sustituye por el S2C medio del sector, que es otra medida",
+    "valor": 4.8,
+    "desviacion": null,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Corrección de la fase C: mido en el perímetro del libro (A2_propio, Historia C85: capital propio sin pasivos por arrendamiento, cuyos pagos ya van dentro de f) y con la misma mezcla que cuenta C14 (unos 2,5 puntos orgánicos y 0,5 de compras). Lo orgánico de 2022–2025 sin Profi: +2.501 de ventas con unos 406 de reinversión (237 orgánica de la fila 30 más 169 de compras pequeñas de la fila 13), unos 6,2; Profi, 2.867 ÷ 1.249, unos 2,3. La mezcla da 4,8. La ventana 2022–2025 entera (3,2) es Profi en el 53 % de las ventas nuevas: no es la mezcla del NORMAL. Rentabilidad marginal 4,8 × 0,035 × (1 − 0,214) ≈ 13,2 %.",
+    "apoyo": "Historia filas 6, 13, 30 y 31 (2022–2025); Profi (AR2025 PDF p. 222); rotación del capital propio de 4,6–5,4 en 2021–2025 (filas 6, 23 y 32). Rango plausible 4,2–5,4.",
+    "lo_sustituiria": "Las ventas y el precio de Tesco (Q3-26 PDF p. 30) fijarían el peso de las compras; si el NORMAL comprara al ritmo de Profi, bajaría a 3,2–3,5."
+   },
+   "BUENO": {
+    "referencia_mecanica": null,
+    "referencia_no_disponible_motivo": "no disponible: Historia!C53 (S2C marginal 5 años) no es un número > 0 (reinversión neta acumulada ≤ 0 o datos insuficientes). No se sustituye por el S2C medio del sector, que es otra medida",
+    "valor": 6.9,
+    "desviacion": null,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "Corrección de la fase C: mido en el perímetro del libro (A2_propio, Historia C85: capital propio sin pasivos por arrendamiento, cuyos pagos ya van dentro de f). D14 da al BUENO lo que hizo la empresa en 2020–2025 con las compras dentro (C46); el S2C de esa misma ventana en A2 es +17.616 de ventas con +2.552 de capital propio (14.467 → 17.019): 6,9. La empresa crece con tiendas arrendadas, cuyo coste ya está en el margen y en f, así que el capital propio apenas crece. Rentabilidad marginal 6,9 × 0,04 × (1 − 0,214) ≈ 21,7 %: pasa de 2 × C55, que es un ROIC con arrendamientos (justificada en G7).",
+    "apoyo": "Historia filas 6, 23 y 32 (2020: 74.736, 9.585 y 24.052; 2025: 92.352, 11.974 y 28.993); ROIC del capital propio 2021–2025 de 12,6–16,5 %, media 14,8 % (filas 7, 23 y 32). Rango plausible 5,4–6,9.",
+    "lo_sustituiria": "Una ventana distinta con más capital propio (o Tesco a múltiplo alto) me bajaría a 5,4, la rotación media de 2025; una C53 en A2 la sustituiría."
+   }
+  },
+  "g_perpetuo": {
+   "MALO": {
+    "referencia_mecanica": 0.015,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.01,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "En el MALO la empresa pierde poder de precio: no le doy la inflación para siempre. Un 1 % nominal es una caída real. La referencia (NORMAL menos un punto) no mira esta historia.",
+    "apoyo": "C45 2,0 %; comparables de 2026 por debajo de la inflación (1,4 % a 39 semanas, Q3-26 PDF p. 3; inflación prevista 2,3–2,7 %, AR2025 PDF p. 59); g < r 0,09 (C56) y < rf 0,0334 (C57).",
+    "lo_sustituiria": "Comparables por encima de la inflación con el margen estable me llevarían a 0,015; cuota perdida con cifra, a 0,005."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.025,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.02,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Para siempre, la comida en sus mercados crece con la inflación y poco más. Las comparables de 2026 (1,2–1,4 %) quedan por debajo de la inflación prevista y el crecimiento de tres años es del 2,0 % (C45) con Profi dentro. La rf (3,34 %) es un techo de orientación (CV; E1), no un objetivo. El ROIC terminal del NORMAL (0,12) es del capital propio y está apalancado por los arrendamientos; con el capital total el retorno sigue bajo r (C55), así que el crecimiento no crea valor de verdad (GV; E3): no inflo g.",
+    "apoyo": "C45 2,0 %; C57 0,0334; comparables 1,2 % en el 2T (Q2-26 PDF p. 3) y en el 3T de 2026 (Q3-26 PDF p. 3); inflación de alimentos prevista 2,3–2,7 % (AR2025 PDF p. 59).",
+    "lo_sustituiria": "Comparables por encima del 2,5 % tres años seguidos sin compras me llevarían a 0,025; pérdida de cuota con cifra, a 0,015."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.03,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.025,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "El BUENO es de margen, no de cuota para siempre. Un 2,5 % es el centro de la horquilla de inflación prevista; un 3 % exigiría ganar cuota a perpetuidad: «at last come to grief on a finite earth» (PCA p.394; HIM).",
+    "apoyo": "Inflación de alimentos prevista 2,3–2,7 % (AR2025 PDF p. 59); C45 2,0 %; C57 0,0334; Albert Heijn ya en el 38,2 % de cuota (AR2025 PDF p. 50).",
+    "lo_sustituiria": "Ganancias de cuota con cifra en EE. UU. me llevarían a 0,03; un margen sin mejora, a 0,02."
+   }
+  },
+  "roic_lp": {
+   "MALO": {
+    "referencia_mecanica": 0.09,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.09,
+    "desviacion": 0.0,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Corrección de la fase C: el terminal reinvierte g ÷ ROIC en capital propio (A2), así que el ROIC tiene que ser el de la reinversión A2 del MALO: S2C × margen × (1 − 0,214) = 3,9 × 0,03 × 0,786 ≈ 9,2 %, igual a r (0,09). El MALO no gana nada por encima de su coste; el 0,07 anterior medía capital con arrendamientos. ROIC 0,09 > g 0,01; salto del año 11 ≈ 0.",
+    "apoyo": "B16 = 3,9 y B15 = 0,03; C52 0,214; Historia filas 23 y 32 (capital propio); a márgenes del 2,9–3,1 % el ROIC del capital propio fue 11,9 % (2020) y 12,6 % (2024), con más rotación que la del MALO.",
+    "lo_sustituiria": "Una rotación del MALO como la de 2020 (5,2) me subiría a 0,12; un margen bajo el 3 %, a 0,08."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.09,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.12,
+    "desviacion": 0.03,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Corrección de la fase C: la reinversión A2 del NORMAL rinde 4,8 × 0,035 × 0,786 ≈ 13,2 %, por debajo de lo que rindió el capital propio en 2021–2025 (media 14,8 %). Pero ese retorno está apalancado por los arrendamientos y no prueba un foso: con el capital total el ROIC sigue bajo r (C55 8,8 %) y C18 = No. Sin foso, a perpetuidad no doy más de 3 puntos sobre r (MR; E2): 0,12. El punto que pierde en el año 11 (13,2 % → 12 %) es la competencia llevando el retorno hacia el coste.",
+    "apoyo": "C16 = 4,8 y C15 = 0,035; Historia filas 7, 23 y 32 (ROIC del capital propio 12,6–16,5 % en 2021–2025); C55 8,8 %; C56 0,09; Análisis!C18 = No.",
+    "lo_sustituiria": "Un C18 = Sí con hechos de duración permitiría 0,13; un NORMAL que comprara al ritmo de Profi (C16 hacia 3,2) me bajaría a 0,09."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.09,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.12,
+    "desviacion": 0.03,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "Corrección de la fase C: la reinversión A2 del BUENO rinde 6,9 × 0,04 × 0,786 ≈ 21,7 % en los años 1–10. No la llevo a perpetuidad: C18 = No, el retorno del capital propio está apalancado por los arrendamientos y no prueba un foso, y sin foso doy como mucho 3 puntos sobre r (MR; E2): 0,12, igual que el NORMAL. Salto del año 11 ≈ 10 puntos: es mi hipótesis de pérdida de ventaja: el crecimiento por eficiencia del margen se agota (GV; I1) y la competencia se lleva lo que la escala dio en diez años.",
+    "apoyo": "D16 = 6,9 y D15 = 0,04; Historia filas 7, 23 y 32; C18 = No; C56 0,09; «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM).",
+    "lo_sustituiria": "Solo un C18 = Sí con hechos de duración (ahorro retenido varios años con el margen sobre el 4,4 %) permitiría subirlo; un BUENO con más compras, a 0,11."
+   }
+  },
+  "probabilidades": {
+   "MALO": {
+    "referencia_mecanica": 0.2,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.25,
+    "desviacion": 0.05,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "El MALO solo necesita que siga lo que ya pasa: presión competitiva intensificada, margen de EE. UU. a la baja y guía de flujo libre rebajada en 2026.",
+    "apoyo": "Presión competitiva y down trading (AR2025 PDF p. 69, 77); margen subyacente de EE. UU. 4,3 % frente a 4,6 % y guía de flujo libre de unos 2.100 frente a al menos 2.300 (Q3-26 PDF p. 2, 3, 9).",
+    "lo_sustituiria": "Dos trimestres con el margen de EE. UU. de vuelta al 4,5 % me devolverían a 0,2; un subyacente por debajo del 3,8 %, a 0,3."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.6,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.6,
+    "desviacion": 0.0,
+    "clase": "convención",
+    "confianza": "media",
+    "porque": "Mantengo 0,6 en el centro: la banda del margen es estrecha en diez años y la empresa ha cumplido su guía en 2024 y 2025.",
+    "apoyo": "Historia fila 29 (2,9–4,4 %); guía cumplida en 2024 y 2025 (AR2025 PDF p. 40; AR2024 PDF p. 37).",
+    "lo_sustituiria": "Un año fuera de la banda (IFRS por debajo del 2,9 % o por encima del 4,4 %) me haría bajar el NORMAL a 0,5."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.2,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.15,
+    "desviacion": -0.05,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "El BUENO exige que la empresa cambie una política de diez años (reinvertir el ahorro en precio) y que la competencia sea racional; la propia dirección no apunta ahí.",
+    "apoyo": "Ahorro de 1.294 reinvertido en precio en 2025 (AR2025 PDF p. 45); subyacente sin tendencia al alza 2016–2025 (AR2025 PDF p. 64); guía de margen alrededor del 4 % para 2025–2028 (AR2025 PDF p. 22, 60).",
+    "lo_sustituiria": "Dos años de subyacente por encima del 4,4 % me llevarían a 0,2."
+   },
+   "argumento": "Asimetría estructural, no castigo: el BUENO exige que la empresa cambie una política de diez años (reinvertir todo el ahorro en precio: 1.294 en 2025, AR2025 PDF p. 45; subyacente sin tendencia al alza en 2016–2025, AR2025 PDF p. 64) y que la competencia sea racional, y la dirección no apunta ahí (margen alrededor del 4 % en su guía 2025–2028, AR2025 PDF p. 22, 60). El MALO solo exige que continúe lo que ya pasa: presión competitiva intensificada (AR2025 PDF p. 69, 77), margen de EE. UU. 4,3 % frente a 4,6 % y guía de flujo libre rebajada (Q3-26 PDF p. 2, 3, 9). Son hechos distintos de los que bajaron el margen del NORMAL (los cargos recurrentes), así que no cuento dos veces lo mismo. Muevo 0,05 del BUENO al MALO (0,25/0,6/0,15); el NORMAL se queda en 0,6 porque la banda de diez años del margen es estrecha (Historia fila 29). Los tres escenarios cubren el rango que veo, con el MALO por debajo de la banda (PA; E6)."
+  }
+ },
+ "quiebra": {
+  "C22": 0,
+  "C23": null,
+  "disparadores": [
+   "Análisis!C34 = No (la caja no cubre la deuda a corto)",
+   "deuda + arrendamientos (Historia!C64 = 18403) > 3 × FCF base (1999.334)"
+  ],
+  "clase": "fundamentada",
+  "porque": "Referencia 0,05 por dos disparadores mecánicos; decido 0 (desviación −0,05) porque ninguno señala una deuda que mate en un mal año. C34 = No: la liquidez es de 3.115 más 1.500 de línea sin disponer, el covenant solo se prueba por debajo de BBB/Baa2 con un rating BBB+/Baa1 al cierre de 2025, y 590 de la caja son cash pooling compensado con descubiertos (AR2025 PDF p. 53, 55). Deuda + arrendamientos > 3 × FCF: el FCF base ya va después de pagar arrendamientos e intereses (Historia filas 15 y 17), así que compararlo con los arrendamientos mezcla bases; deuda neta/EBITDA 2,2 (C33) y unas 0,7 veces sin arrendamientos. El riesgo real que señalan, la renta fija sobre un margen fino, ya está en el MALO (margen 0,03) y en la prima de r por los arrendamientos (fase A, C56): un 5 % más lo contaría dos veces (PA; E6). C23 queda vacía porque C22 = 0."
+ },
+ "mercado": {
+  "C24": null,
+  "fuente": null
+ },
+ "exceso_caja": {
+  "C76": 0,
+  "clase": "fundamentada",
+  "porque": "Cero, igual que la referencia, y por debajo de C53 (3.196). No hay caja sobrante: la deuda neta es de 14.699 al cierre de 2025 (AR2025 PDF p. 54) y 16.087 en el 3T de 2026 (Q3-26 PDF p. 24), C34 = No, 590 de la caja son cash pooling compensado con descubiertos (AR2025 PDF p. 53) y hay un dividendo a cuenta de 0,51 € declarado y unos 436 de recompra pendiente (nota de C53). Los intereses cobrados van en inversión (Historia fila 16, nota de 2025), así que el problema no es la doble cuenta sino que no sobra nada."
+ },
+ "fcf_normalizado": {
+  "C44": null,
+  "clase": null,
+  "porque": "No aplica: Palancas!C43 = No aplica porque el FCF base es positivo (C52 = 1.999) y la fase A no lo declaró transitorio ni extraordinario. C44 queda vacía por su regla."
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G7",
+   "escenario": "BUENO",
+   "justificacion": "La rentabilidad marginal del BUENO (6,9 × 0,04 × (1 − 0,214) ≈ 21,7 %) se mide en el perímetro del libro (A2_propio, sin pasivos por arrendamiento), y C55 (8,8 %) es un ROIC con arrendamientos: el doble de C55 compara medidas distintas. En A2 el capital propio rindió una media del 14,8 % en 2021–2025, y 21,7 % es menos de 1,5 veces eso. Mecanismo: la empresa crece con tiendas arrendadas, cuyo coste ya está en el margen y en f, y con negocios de poco capital (online rentable, medios y datos), así que cada euro nuevo de ventas apenas pide capital propio: de 2020 a 2025 las ventas subieron 17.616 con 2.552 de capital propio.",
+   "hechos": [
+    "Historia filas 6, 23 y 32 (2020 y 2025)",
+    "Historia C55",
+    "Historia C85 (A2_propio)",
+    "online rentable (AR2025 PDF p. 44)"
+   ],
+   "clase": "fundamentada"
+  },
+  {
+   "comprobacion": "G8",
+   "escenario": "BUENO",
+   "justificacion": "El salto del año 11 del BUENO (≈ 21,7 % de rentabilidad marginal en los años 1–10 frente a un ROIC terminal de 0,12) es mi hipótesis de pérdida de ventaja: C18 = No, el retorno del capital propio está apalancado por los arrendamientos y no prueba un foso, y el crecimiento por eficiencia del margen se agota (GV; I1). Lo que la escala y el capital arrendado dan en diez años no lo doy a perpetuidad; a perpetuidad, como mucho 3 puntos sobre r (MR; E2).",
+   "hechos": [
+    "Palancas!D16 = 6,9 y D15 = 0,04",
+    "Análisis!C18 = No",
+    "Historia filas 7, 23 y 32",
+    "Análisis!C56 = 0,09"
+   ],
+   "clase": "fundamentada"
+  }
+ ],
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": null
+ },
+ "herencia": {
+  "B68": {
+   "etapa1": 0.01,
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 puso 0,01 por convención; con la Historia (C45 2,0 %) y las comparables de 2026 por debajo de la inflación prevista (Q3-26 PDF p. 3; AR2025 PDF p. 59) el MALO sin poder de precio sigue en un 1 % nominal."
+  },
+  "C68": {
+   "etapa1": 0.02,
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 lo apoyaba en la cuota y en un informe de 2022 que no tengo; lo sostengo con C45 2,0 % y con comparables de 2026 del 1,2–1,4 % frente a una inflación prevista del 2,3–2,7 % (Q3-26 PDF p. 3; AR2025 PDF p. 59)."
+  },
+  "D68": {
+   "etapa1": 0.025,
+   "decision": "mantiene",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 usó el ROCE del 10,9 % (C24); con la V6.3 el ROIC terminal del BUENO en el perímetro del libro es 0,12 y la reinversión g ÷ ROIC es una quinta parte; un 2,5 % es el centro de la inflación prevista (AR2025 PDF p. 59), sin ganar cuota para siempre."
+  },
+  "B69": {
+   "etapa1": 0.2,
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 mantuvo 0,2 por no contar dos veces la meseta de la caja; los hechos de 2026 (margen de EE. UU. 4,3 % frente a 4,6 %, guía de flujo libre rebajada, Q3-26 PDF p. 2, 3, 9) son nuevos y muestran que el MALO solo exige que siga lo que ya pasa: 0,25."
+  },
+  "C69": {
+   "etapa1": 0.6,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la banda del margen de diez años (Historia fila 29, 2,9–4,4 %) y la guía cumplida en 2024 y 2025 (AR2025 PDF p. 40), el centro sigue siendo el escenario más probable: 0,6."
+  },
+  "D69": {
+   "etapa1": 0.2,
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 lo mantuvo por no sesgar la convención y ya lo llamaba generoso; la serie subyacente de diez años sin tendencia al alza (AR2025 PDF p. 64) y la guía de margen alrededor del 4 % (AR2025 PDF p. 22, 60) dicen que el BUENO exige cambiar una política de diez años: 0,15."
+  },
+  "C76": {
+   "etapa1": 0,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: deuda neta de 14.699 (AR2025 PDF p. 54), C34 = No y 590 de cash pooling compensado (AR2025 PDF p. 53); no hay caja claramente sobrante y cero sigue siendo lo correcto."
+  }
+ },
+ "dos_errores": {
+  "mas_cerca_de": "pagar cualquier cosa",
+  "porque": "La tentación con Ahold es pagar durabilidad como si fuera calidad: 53 trimestres de comparables en Food Lion, el 38,2 % de cuota de Albert Heijn y la caja repartida parecen un gran negocio, y la etapa 1 dijo foso = Sí. Pero el ROIC de cinco años (C55 8,8 %) no supera r y a 36,05 € se pagan 16,3 veces el FCF base (C41 ÷ C52), por encima de la mediana de 14,7 a la que ha cotizado (C88). «Since it's so obvious that investing in great companies works, it gets horribly overdone» (PCA p.214; HIM). El error opuesto, regatear, solo me alcanzaría si el ahorro empezara a quedarse en casa; lo vigilo en el margen subyacente de EE. UU. (Q3-26 PDF p. 3)."
+ },
+ "celdas": {
+  "Palancas!B14": 0.0,
+  "Palancas!C14": 0.03,
+  "Palancas!D14": 0.045,
+  "Palancas!B15": 0.03,
+  "Palancas!C15": 0.035,
+  "Palancas!D15": 0.04,
+  "Palancas!B16": 3.9,
+  "Palancas!C16": 4.8,
+  "Palancas!D16": 6.9,
+  "Palancas!B18": 0.09,
+  "Palancas!C18": 0.12,
+  "Palancas!D18": 0.12,
+  "B68": 0.01,
+  "B69": 0.25,
+  "C68": 0.02,
+  "C69": 0.6,
+  "D68": 0.025,
+  "D69": 0.15,
+  "C76": 0,
+  "Palancas!C22": 0,
+  "Palancas!C23": null,
+  "Palancas!C24": null,
+  "Palancas!C44": null
+ },
+ "observaciones": {
+  "Palancas!B14": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: −0,045 (mín(Q1, C46 − σ), σ de la fila 28). Decisión: 0. Desviación: +0,045 porque el MALO es de precio y descuento: la inversión en precio y el volumen perdido se comen la inflación de alimentos y las ventas nominales quedan planas (−2 % real al año); la σ que da −4,5 % sale de la fusión de 2017 (+26,6 %) y de 2022 (+15,1 %), no de esta historia. Apoyo: Historia fila 28, peor año −0,2 % (2018); 39 semanas de 2026: −0,5 % a tipos reales y comparables 1,4 % (Q3-26 PDF p. 3); inflación prevista 2,3–2,7 % (AR2025 PDF p. 59); down trading (AR2025 PDF p. 69, 77). Lo sustituiría: cierres o cuota perdida con cifra me llevarían a un MALO negativo; volumen positivo sostenido con la inversión en precio, a 0,01.",
+  "Palancas!C14": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,045 (C46, CAGR de 5 años, dentro de [Q1, Q3]). Decisión: 0,03. Desviación: −0,015 porque razono por componentes: precio con la inflación de alimentos (2,3–2,7 %), volumen casi plano y compras pequeñas en Europa (Delfood, Tesco Chequia y Eslovaquia) por medio punto; C46 lleva dentro Profi (2.867 de ventas de una vez) y el salto de 2022 (+15,1 %), que no extrapolo. Apoyo: C45 2,0 %; Historia fila 28; Profi (AR2025 PDF p. 222); Delfood unos 200 (Q3-26 PDF p. 9); comparables 1,4 % a 39 semanas (Q3-26 PDF p. 3); inflación prevista (AR2025 PDF p. 59). Lo sustituiría: dos años de comparables sobre el 3 % sin compras, o Tesco cerrada con ventas publicadas, me llevarían a 0,035–0,04; comparables bajo el 1 %, a 0,02.",
+  "Palancas!D14": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,065 (mín(C46 + σ, Q3, 1,5 × C46)). Decisión: 0,045. Desviación: −0,02 porque el BUENO de la fase A es de margen, no de volumen: le doy lo que hizo la empresa en cinco años con compras dentro (C46 4,3 %), con inflación, online a doble dígito y compras como Tesco, cuyo capital paga el S2C del BUENO; 6,5 % exigiría repetir cada año Profi y 2022. Apoyo: C46; online 10.274, +11,2 % en 2025 (AR2025 PDF p. 343) y +14,2 % en EE. UU. en el 3T de 2026 (Q3-26 PDF p. 3); Tesco, 1.200 de valor empresa (Q3-26 PDF p. 30). Lo sustituiría: ventas de Tesco publicadas y comparables del 3 % o más me llevarían a 0,05; si la compra no cierra, a 0,035.",
+  "Palancas!B15": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,035 (máx(mín(m0, C49), C50)). Decisión: 0,03. Desviación: −0,005 porque la historia MALA saca el margen por abajo de su banda: un 3,0 % IFRS sostenido queda bajo cualquier media de tres años de la década (la menor, 3,4 % en 2023–2025) y al nivel del suelo de un año (2,9 % en 2020, con la COVID); apalancamiento operativo con renta casi fija, y la mejora se la quedan cliente y arrendador. Apoyo: C50 2,93 %; Historia fila 29; margen de EE. UU. 4,3 % frente a 4,6 % en el 3T de 2026 (Q3-26 PDF p. 3); 1.000 M$ en precio (AR2025 PDF p. 22); 85 % de locales arrendados (AR2025 PDF p. 58). Lo sustituiría: IFRS bajo el 3 % dos años seguidos me llevaría a 0,025; EE. UU. de vuelta al 4,5 %, a 0,035.",
+  "Palancas!C15": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,04 (m0 = C48, último año). Decisión: 0,035. Desviación: −0,005 porque mido en IFRS, como el motor, y en diez años el subyacente supera al IFRS en 0,5 puntos de media (0,4 en 2021–2025) por deterioros y reestructuraciones que vuelven cada año: los trato como gasto. Un subyacente de alrededor del 4,0 % menos ese diferencial da un 3,6 %; el 3,84 % de 2025 tuvo pocos cargos. Apoyo: Historia fila 29 (C49 3,67 %); subyacente 3,8–4,8 % en 2016–2025 (AR2025 PDF p. 64); deterioros 147 y 229, reestructuración 414 en 2024 (AR2025 PDF p. 46); «If it happens every year like clockwork, what's so extraordinary about it?» (PCA p.119; HIM). Lo sustituiría: tres años de IFRS a menos de 0,2 puntos del subyacente, 0,04; subyacente del 3,8 % sostenido, 0,03.",
+  "Palancas!D15": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,045 (máx(m0, mín(C51, Q3))). Decisión: 0,04. Desviación: −0,005 porque la historia BUENA lleva el margen a la parte alta de su década, un subyacente del 4,4 % (2018, 2021), que con el diferencial de cargos recurrentes es un 4,0 % IFRS; 0,045 pasaría del máximo IFRS (C51 4,39 %) y de la guía propia sin mecanismo con cifra. Se lo queda la empresa solo si la competencia es racional. Apoyo: C51; subyacente (AR2025 PDF p. 64); medios y datos 0,3 % de las ventas (AR2025 PDF p. 225); marca propia sobre el 40 % (Q2-26 PDF p. 4); guía de margen alrededor del 4 % (AR2025 PDF p. 22, 60). Lo sustituiría: dos años de subyacente sobre el 4,4 %, 0,045 justificado; otro año con todo el ahorro en precio, 0,035.",
+  "Palancas!B16": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: no disponible: Historia!C53 no es un número > 0 y no se sustituye por el S2C medio. Decisión: 3,9 (antes 2,5; corrección de la fase C). Desviación: sin referencia porque mido en el perímetro del libro (A2_propio, Historia C85), sin pasivos por arrendamiento: el MALO no compra (crece 0) y sus reformas y su precio no traen ventas, así que tomo la rotación más pesada de la serie con IFRS 16 sin arrendamientos, 62.791 ÷ 16.136 = 3,89 (2018). Rentabilidad marginal ≈ 9,2 %. Apoyo: Historia filas 6, 23 y 32 (2018: 3,89; 2019: 4,11). Rango plausible 3,6–4,1. Lo sustituiría: un MALO que comprara para sostener ventas me bajaría hacia 2,3 (Profi, AR2025 PDF p. 222); una C53 en A2.",
+  "Palancas!C16": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: no disponible: Historia!C53 no es un número > 0 y no se sustituye por el S2C medio. Decisión: 4,8 (antes 3,2; corrección de la fase C). Desviación: sin referencia porque mido en el perímetro del libro (A2_propio) y con la mezcla de C14 (2,5 puntos orgánicos, 0,5 de compras): lo orgánico de 2022–2025 sin Profi, +2.501 de ventas con unos 406 de reinversión, da 6,2; Profi, 2.867 ÷ 1.249, 2,3. La ventana entera (3,2) es Profi en el 53 % de las ventas nuevas. Rentabilidad marginal ≈ 13,2 %. Apoyo: Historia filas 6, 13, 30 y 31; Profi (AR2025 PDF p. 222). Rango plausible 4,2–5,4. Lo sustituiría: las ventas y el precio de Tesco (Q3-26 PDF p. 30); un NORMAL que comprara al ritmo de Profi, 3,2–3,5.",
+  "Palancas!D16": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: no disponible: Historia!C53 no es un número > 0 y no se sustituye por el S2C medio. Decisión: 6,9 (antes 3,6; corrección de la fase C). Desviación: sin referencia porque mido en el perímetro del libro (A2_propio) y en la misma ventana que D14 (2020–2025, compras dentro): +17.616 de ventas con +2.552 de capital propio (14.467 → 17.019). Crece con tiendas arrendadas, cuyo coste ya está en el margen y en f. Rentabilidad marginal ≈ 21,7 %, sobre 2 × C55, que es un ROIC con arrendamientos: justificada en G7 (capital propio 2021–2025: media 14,8 %). Apoyo: Historia filas 6, 23 y 32. Rango plausible 5,4–6,9. Lo sustituiría: una ventana con más capital propio o Tesco a múltiplo alto, 5,4; una C53 en A2.",
+  "Palancas!B18": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (igual a la tasa del motor, convención). Decisión: 0,09 (antes 0,07; corrección de la fase C). Desviación: ninguna porque el terminal reinvierte g ÷ ROIC en capital propio (A2_propio) y el ROIC coherente con la reinversión del MALO es 3,9 × 0,03 × (1 − 0,214) ≈ 9,2 %: igual a r, sin nada por encima del coste; el 0,07 anterior medía capital con arrendamientos. ROIC 0,09 > g 0,01; salto del año 11 ≈ 0. Apoyo: B16 y B15; Historia filas 23 y 32; con márgenes del 2,9–3,1 % el capital propio rindió 11,9 % (2020) y 12,6 % (2024), con más rotación. Lo sustituiría: una rotación del MALO como la de 2020 (5,2), 0,12; un margen bajo el 3 %, 0,08.",
+  "Palancas!C18": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (igual a la tasa del motor, convención). Decisión: 0,12 (antes 0,08; corrección de la fase C). Desviación: +0,03 porque mido en capital propio (A2_propio): la reinversión del NORMAL rinde 4,8 × 0,035 × 0,786 ≈ 13,2 % (el capital propio rindió 14,8 % de media en 2021–2025), pero ese retorno está apalancado por los arrendamientos y no prueba un foso: con el capital total sigue bajo r (C55 8,8 %) y C18 = No. Sin foso, a perpetuidad no más de 3 puntos sobre r (MR; E2): 0,12. El punto que pierde en el año 11 es la competencia. Apoyo: C16, C15; Historia filas 7, 23 y 32; C55; C56. Lo sustituiría: un C18 = Sí con hechos de duración, 0,13; un NORMAL que comprara al ritmo de Profi, 0,09.",
+  "Palancas!D18": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor: C55 < tasa). Decisión: 0,12 (antes 0,10; corrección de la fase C). Desviación: +0,03 porque la reinversión A2 del BUENO rinde 6,9 × 0,04 × 0,786 ≈ 21,7 % en los años 1–10 y no la llevo a perpetuidad: C18 = No y el retorno del capital propio está apalancado por los arrendamientos; sin foso, como mucho 3 puntos sobre r (MR; E2). Salto del año 11 ≈ 10 puntos: mi hipótesis de pérdida de ventaja, el crecimiento por eficiencia se agota (GV; I1) y la competencia se lleva lo que dio la escala (G8 justificada). Apoyo: D16, D15; Historia filas 7, 23 y 32; C18; «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM). Lo sustituiría: solo un C18 = Sí con hechos de duración lo subiría; más compras, 0,11.",
+  "Palancas!C22": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,05 (disparadores: C34 = No; Historia!C64 > 3 × FCF base). Decisión: 0. Desviación: −0,05 porque ningún disparador señala una deuda que mate en un mal año: liquidez de 3.115 más 1.500 sin disponer, covenant que solo se prueba bajo BBB/Baa2 con BBB+/Baa1, y 590 de cash pooling compensado (AR2025 PDF p. 53, 55); el FCF base ya va después de arrendamientos e intereses (Historia filas 15 y 17), así que compararlo con ellos mezcla bases. La renta fija sobre un margen fino ya está en el MALO (margen 0,03) y en la prima de r (fase A, C56): sumarla otra vez sería contar dos veces (PA; E6). Apoyo: C33 2,2 (≈0,7 sin arrendamientos); C34. Lo sustituiría: una rebaja bajo BBB/Baa2 o deuda neta/EBITDA sobre 3, 0,05.",
+  "Palancas!C23": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: 0 (C23 = 0 cuando hay disparador). Decisión: vacía, que equivale a recuperación 0. Desviación: ninguna porque la celda solo se informa con C22 > 0 y he puesto C22 = 0; si la quiebra se activara, la recuperación sería 0, como casi siempre. Apoyo: C22 = 0 por los motivos de su Observación; arrendamientos de 11.974 y deuda de 6.429 (Historia filas 22 y 23) irían por delante del accionista. Lo sustituiría: cualquier C22 > 0 me obligaría a escribir aquí 0 explícito.",
+  "Palancas!C24": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: no disponible: solo con cifra de fuente primaria en los extractos. Decisión: vacía. Desviación: sin referencia porque el extracto no trae tamaño de mercado propio: solo la cuota de Albert Heijn sin definición del mercado de referencia y macro de inflación. Sin cifra, el techo de cuota no se comprueba (convención del ejercicio). Apoyo: «Tamaño de mercado… No encontrado en los documentos» (extracto §1 y §9); Albert Heijn 38,2 % (AR2025 PDF p. 50). Lo sustituiría: una cifra primaria del mercado de alimentación de EE. UU. o de Países Bajos publicada por la empresa.",
+  "Palancas!C44": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: no aplica (solo con C43 = Transitorio o Extraordinario). Decisión: vacía. Desviación: sin referencia porque la fase A puso C43 = No aplica: el FCF base es positivo (C52 = 1.999) y no lo declaró transitorio. Apoyo: C52 1.999; Historia fila 35, flujo del accionista positivo los diez años (1.096 a 2.150). Lo sustituiría: que la fase C devolviera C43 como Transitorio por la caída de 2026 (747 a 39 semanas frente a 1.104, Q3-26 PDF p. 3); entonces normalizaría aquí.",
+  "B68": "[Clase: fundamentada] [Confianza: media] Hereda: 0.01 → mantiene (evidencia_nueva): la etapa 1 lo puso por convención; ahora lo sostienen C45 y las comparables de 2026 bajo la inflación. Referencia mecánica: 0,015 (NORMAL − 0,01, de la lista). Decisión: 0,01. Desviación: −0,005 porque el MALO pierde poder de precio y no le doy la inflación para siempre: 1 % nominal es una caída real. Apoyo: C45 2,0 %; comparables 1,4 % a 39 semanas (Q3-26 PDF p. 3) frente a una inflación prevista del 2,3–2,7 % (AR2025 PDF p. 59); g < r 0,09 (C56) y < rf (C57). Lo sustituiría: comparables sobre la inflación con margen estable, 0,015; cuota perdida con cifra, 0,005.",
+  "C68": "[Clase: fundamentada] [Confianza: media] Hereda: 0.02 → mantiene (evidencia_nueva): la etapa 1 se apoyaba en un informe de 2022 que no tengo; lo sostengo con C45 y las comparables de 2026. Referencia mecánica: 0,025 (mín(0,025; rf), de la lista). Decisión: 0,02. Desviación: −0,005 porque para siempre la comida crece con la inflación y poco más, y las comparables de 2026 (1,2–1,4 %) quedan bajo la prevista; la rf es un techo de orientación (CV; E1), no un objetivo, y el ROIC terminal (0,12, capital propio apalancado por los arrendamientos) no prueba que crecer cree valor: con el capital total sigue bajo r (C55). Apoyo: C45 2,0 %; C57; comparables (Q2-26 PDF p. 3; Q3-26 PDF p. 3); inflación prevista (AR2025 PDF p. 59). Lo sustituiría: tres años de comparables sobre el 2,5 % sin compras, 0,025; cuota perdida con cifra, 0,015.",
+  "D68": "[Clase: fundamentada] [Confianza: baja] Hereda: 0.025 → mantiene (evidencia_nueva): la etapa 1 usó el ROCE del 10,9 % (C24); con la V6.3 el ROIC terminal del BUENO en el perímetro del libro es 0,12 y la reinversión g ÷ ROIC es una quinta parte. Referencia mecánica: 0,03 (mín(NORMAL + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque el BUENO es de margen, no de cuota a perpetuidad: 2,5 % es el centro de la inflación prevista y un 3 % exigiría ganar cuota para siempre; «at last come to grief on a finite earth» (PCA p.394; HIM). Apoyo: inflación de alimentos 2,3–2,7 % (AR2025 PDF p. 59); C45 2,0 %; Albert Heijn ya en el 38,2 % (AR2025 PDF p. 50). Lo sustituiría: ganancias de cuota con cifra en EE. UU., 0,03; un margen sin mejora, 0,02.",
+  "B69": "[Clase: fundamentada] [Confianza: media] Hereda: 0.2 → cambia (evidencia_nueva): los hechos de 2026 no estaban en la etapa 1. Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,25. Desviación: +0,05 porque hay una asimetría estructural: el MALO solo exige que siga lo que ya pasa, y el BUENO exige cambiar una política de diez años. No son los hechos que bajaron el margen del NORMAL (cargos recurrentes): no cuento dos veces. Apoyo: presión competitiva y down trading (AR2025 PDF p. 69, 77); margen de EE. UU. 4,3 % frente a 4,6 % y guía de flujo libre de unos 2.100 frente a al menos 2.300 (Q3-26 PDF p. 2, 3, 9). Lo sustituiría: dos trimestres con EE. UU. de vuelta al 4,5 % me devolverían a 0,2; un subyacente bajo el 3,8 %, a 0,3.",
+  "C69": "[Clase: convención] [Confianza: media] Hereda: 0.6 → mantiene (misma_evidencia): revisada la banda del margen y la guía cumplida, el centro sigue siendo lo más probable. Referencia mecánica: 0,6 (convención 0,2/0,6/0,2). Decisión: 0,6. Desviación: ninguna porque la banda del margen de diez años es estrecha y la empresa cumplió su guía en 2024 y 2025; el peso que muevo va del BUENO al MALO, no del centro. Suman 1 con B69 y D69. Apoyo: Historia fila 29 (2,9–4,4 %); guía cumplida (AR2025 PDF p. 40; AR2024 PDF p. 37). Lo sustituiría: un año con el margen IFRS fuera de la banda (bajo el 2,9 % o sobre el 4,4 %) me haría bajar el centro a 0,5.",
+  "D69": "[Clase: fundamentada] [Confianza: baja] Hereda: 0.2 → cambia (evidencia_nueva): la etapa 1 ya lo llamaba generoso y lo mantuvo por no sesgar; la serie subyacente de diez años lo contradice. Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,15. Desviación: −0,05 porque el BUENO exige que la empresa deje de reinvertir el ahorro en precio, cosa que no ha hecho en diez años, y que la competencia sea racional; la propia dirección no apunta ahí. Apoyo: ahorro de 1.294 reinvertido en precio en 2025 (AR2025 PDF p. 45); subyacente sin tendencia al alza en 2016–2025 (AR2025 PDF p. 64); guía de margen alrededor del 4 % (AR2025 PDF p. 22, 60). Lo sustituiría: dos años de subyacente sobre el 4,4 % me devolverían a 0,2.",
+  "C76": "[Clase: fundamentada] [Confianza: alta] Hereda: 0 → mantiene (misma_evidencia): revisadas la deuda neta, C34 y el cash pooling, no hay caja sobrante. Referencia mecánica: 0 (regla del inversor). Decisión: 0. Desviación: ninguna porque no sobra caja: deuda neta de 14.699 al cierre de 2025 (AR2025 PDF p. 54) y 16.087 en el 3T de 2026 (Q3-26 PDF p. 24), C34 = No y 590 de cash pooling compensado (AR2025 PDF p. 53); los intereses cobrados van en inversión (Historia fila 16, nota de 2025), así que no hay doble cuenta, solo nada que sumar. 0 ≤ C53 (3.196). Apoyo: C53; C34; «Excess cash is an advantage, not a disadvantage» (TCI p.141; HIM): aquí no la hay. Lo sustituiría: una deuda neta sin arrendamientos por debajo de la caja; cada 100 son unos 0,11 € por acción."
+ }
+}

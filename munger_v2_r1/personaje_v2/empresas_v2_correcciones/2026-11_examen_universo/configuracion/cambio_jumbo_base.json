@@ -1,0 +1,198 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Jumbo",
+ "_estado_del_archivo": "Examen del personaje (18-nov-2026, noche). Expediente nuevo jumbo_b desde jumbo/Jumbo (que no se toca), que se paró en el paso 2 por el modo estricto (diagnostico.md; Jumbo_v63_datos.xlsx.fase1.registro.json). Resuelve las cinco entradas del FCF base con cálculo declarado y fuente: C46 = 307,173 y C47 = 63,788 (medias exactas 2023–2025; la etapa 1 traía los redondeos 307,17 y 63,79; precedente E1, supuesto de la orquestación). C48 = 2,664 (interés de arrendamientos) y C49 = 8,569 (principal): prevalece la entrada de la etapa 1 (2,66 / 8,57), justificada por sus fuentes: el emisor cruza las etiquetas del estado de flujos desde el informe 2020 («Lease repayments» = «Interest expense on lease liabilities» de la nota de costes financieros: AR2023 PDF p. 71/95, AR2024 p. 154/178, AR2025 p. 155/179; el informe de transición 2019, PDF p. 57/84, las rotulaba bien; interés verosímil con pasivos de 66–75 mm al 1,74–4,10 %, AR2025 p. 204–205). La Historia de la fase 1 transcribe lo impreso (fila 16 = principal; fila 17 = interés): C48 + C49 = 11,233 = media de las filas 16 + 17, así que el FCF base (C52 = 232,152) no cambia; si se prepara motor_a_f1.json (motor A con F1), su conciliacion_fcf_base tendrá que explicar C48 +5,905 y C49 −5,905 (guarda F1-K3a). C50 = 0 con su cita (AR2025 PDF p. 51, 155 y 181; AR2024 p. 48; AR2023 p. 43); los ceros de la Historia de 2023 y 2025 siguen pendientes de confirmación humana (H1). P-O1 (c): sin efecto en Jumbo (no hay dividendos de participadas ni de negocios conjuntos: los «Dividends received» son de la cartera FVOCI, nota 5.11.1; no hay subarriendos), y los intereses cobrados (media 2023–2025 de 14,07 mm, en inversión) no entran por la salvaguarda, porque la etapa 1 suma 200 mm de caja en C76; queda para la persona responsable si entran los de la caja que NO está en C76. P-O2 (a): 134,365561 M acciones a 31-dic-2025 (sin autocartera ni dilutivos), ya en los metadatos. J-T: 2019 marcado «6 meses, no comparable» en la Historia. PRECIO: se deja el de la etapa 1 (24,72 €, 8-oct-2026, proveedores secundarios), PENDIENTE DE VERIFICACIÓN; el 27,28 € del 17-nov-2026 de los metadatos de la fase 1 salió de un extracto de buscador sin año confirmado y no se usa como verificado. Tasa sin riesgo y tasa 9 % provisionales. No se adopta nada; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo/Jumbo",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_b",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Jumbo S.A. (año natural, cerrado el 31-dic-2025), la misma base que la fase 1 de jumbo/Jumbo. Resuelve la parada del modo estricto del paso 2: C46 y C47 con su media exacta (precedente E1, supuesto de la orquestación), C48 y C49 con la entrada de la etapa 1 (etiquetas del estado de flujos cruzadas por el emisor) y su cálculo declarado, y C50 = 0 con su fuente. Decisiones de la persona responsable del 18-nov-2026: P-O1 (c) (sin efecto en Jumbo, ver C48), P-O2 (a) (134,365561 M acciones a 31-dic-2025, ya en los metadatos) y J-T (2019, seis meses, no comparable, ya en la Historia)."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-10-08",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales oficiales 2016/17–2025 y semestral H1 2026 de Jumbo S.A. (FUENTES.tsv; Release fuentes-examen-20261118). Precio de la etapa 1 (8-oct-2026, proveedores secundarios) pendiente de verificación; tasa sin riesgo del agente de metadatos (buscador)."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {
+  "precio": {
+   "valor": 24.72,
+   "moneda_cotizacion": "EUR",
+   "fecha": "2026-10-08",
+   "fx": null,
+   "fx_fecha": null,
+   "fuente": "Precio de la ETAPA 1 de la persona responsable (etapa1/Jumbo_evaluada.xlsx, Análisis!C37 y Control maestro fila 38): último cierre en Euronext Athens del 8-oct-2026, 24,72 €, con dos proveedores secundarios coincidentes (MarketScreener y StockAnalysis; contraste Naftemporiki). La etapa 1 avisa: «ACTUALIZAR ANTES DE CUALQUIER DECISIÓN»; cotizaba con derecho a la distribución extraordinaria de 1,00 € (ex 16-nov-2026). PENDIENTE DE VERIFICACIÓN. No se usa el 27,28 € «del 17-nov-2026» de los metadatos de la fase 1: salió de un extracto de buscador sin el año confirmado.",
+   "nota": "precio de la etapa 1, pendiente de verificación en una fuente oficial (Euronext Athens) antes de cualquier decisión"
+  },
+  "capitalizacion": {
+   "valor": 3321.51666792,
+   "fecha": "2026-10-08",
+   "fuente": "24,72 € (precio de la etapa 1, 8-oct-2026, pendiente de verificación) × 134,365561 millones de acciones en circulación a 31-dic-2025 (sin autocartera; P-O2 (a)) = 3.321,517 mm (la etapa 1 daba 3.321,52 con las mismas acciones a 30-jun-2026).",
+   "pagina": "derivado (acciones: informe 2025, nota de capital PDF p. 142 y nota 5.7 PDF p. 181)",
+   "periodo": "precio del 8-oct-2026 × acciones a 31-dic-2025",
+   "unidad": "millones de EUR"
+  }
+ },
+ "nota_metadatos": "(cambio_jumbo_base.json, 18-nov-2026) Precio ACTIVO = el de la etapa 1 (24,72 €, 8-oct-2026, proveedores secundarios), PENDIENTE DE VERIFICACIÓN; el 27,28 € del agente de metadatos (extracto de buscador sin año confirmado) no se usa como verificado. Capitalización = 24,72 × 134,365561 M (acciones en circulación a 31-dic-2025, P-O2 (a)). Tasa sin riesgo (3,35 %, buscador) sin cambios. Hecho posterior que no se aplica: distribución extraordinaria de 1,00 € por acción con fecha ex del 16-nov-2026 (etapa 1, Control maestro fila 50).",
+ "notas_que_se_retiran": [
+  "^Precio: no se pudo abrir ninguna página de cotización"
+ ],
+ "analisis": {
+  "C46": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "cfo",
+      "signo": 1
+     }
+    ],
+    "decision": "Media 2023–2025 de «Net cash flows from operating activities» del grupo (323,9189 / 300,6871 / 296,9129: informes 2024 PDF p. 154 y 2025 PDF p. 155), valor exacto; precedente E1 (valores exactos en lugar de redondeos): SUPUESTO DE LA ORQUESTACIÓN, no decisión de la persona responsable para Jumbo; la etapa 1 traía el redondeo 307,17. Ventana de 3 años: decisión del inversor del 11-oct-2026 (etapa 1). P-O1 (c) no añade nada: Jumbo no cobra dividendos de participadas ni de negocios conjuntos (los «Dividends received» son de su cartera de acciones y bonos cotizados, nota 5.11.1) y los intereses cobrados quedan fuera por la salvaguarda (ver C48).",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 del CFO de la Historia",
+   "evidencia": {
+    "M": "Decisión del inversor (11-oct-2026): ventana 3 años FY2023–25. CFO neto del Grupo (tras intereses no-lease e impuestos): 323,9189 / 300,6871 / 296,9129 → media exacta 307,173 (cálculo declarado; la etapa 1 traía el redondeo 307,17; precedente E1, supuesto de la orquestación).",
+    "N": "LTM 30.06.2026: 341,95 (no representativo por circulante). P-O1 (c) «regla espejo» (18-nov-2026): sin dividendos de participadas ni negocios conjuntos ni subarriendos que sumar; los intereses cobrados (en inversión) no entran porque C76 suma caja (salvaguarda; ver C48). Confianza alta en las cifras."
+   }
+  },
+  "C47": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "capex",
+      "signo": 1
+     }
+    ],
+    "decision": "Media 2023–2025 de «Acquisition of tangible and intangible assets» del grupo (86,6412 / 66,3383 / 38,384: informes 2024 PDF p. 154 y 2025 PDF p. 155), valor exacto; precedente E1 (valores exactos en lugar de redondeos): SUPUESTO DE LA ORQUESTACIÓN, no decisión de la persona responsable para Jumbo; la etapa 1 traía el redondeo 63,79.",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 del capex de la Historia",
+   "evidencia": {
+    "M": "Decisión del inversor: 3 años FY2023–25. Capex bruto (tangible + intangible): 86,6412 / 66,3383 / 38,384 → media exacta 63,788 (cálculo declarado; la etapa 1 traía el redondeo 63,79; precedente E1, supuesto de la orquestación)."
+   }
+  },
+  "C48": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "arrendamientos_principal",
+      "signo": 1
+     }
+    ],
+    "decision": "C48 = intereses de arrendamientos pagados en financiación = media 2023–2025 de la línea impresa «Lease repayments» (Historia, fila 17: 2,6645 / 3,0019 / 2,3258), que es el INTERÉS. Etiquetas del estado de flujos CRUZADAS por el emisor desde el informe de 2020 (la etapa 1 lo había visto: Control maestro M45/N45 y M40, «verificado con XBRL y nota 5.5»): la línea «Lease repayments» es el interés de los arrendamientos y la línea «Interest paid for leases» es el principal. Pruebas, con página PDF: (1) la línea «Lease repayments» coincide al euro con el gasto por intereses de arrendamientos de la nota de costes financieros: informe 2023 (texto/jumbo-annual-report-fy2023.conversion.txt) PDF p. 71 «Lease repayments (2.664.523) (2.628.373) (2.070.406) (2.164.506)» y nota PDF p. 95 «Interest expense on lease liabilities 2.664.523 2.628.373 2.070.406 2.164.506» (grupo y sociedad, 2023 y 2022); informe 2024 PDF p. 154 «Lease repayments (3.001.882) (2.664.523) (1.946.824) (2.070.406)» y nota PDF p. 178 «Interest expense on lease liabilities 2.526.806 2.664.523 1.946.824 2.070.406» (iguales el grupo 2023 y la sociedad 2024 y 2023; el grupo 2024, 3,00 pagado frente a 2,53 devengado); informe 2025 PDF p. 155 «Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)» y nota 5.5 PDF p. 179 «Interest expense on lease liabilities 2.390.655 2.526.806 1.821.081 1.946.824» (iguales la sociedad 2025 y 2024; el grupo, 2,33 pagado frente a 2,39 devengado); (2) el propio emisor rotulaba bien las mismas cifras de 2019 en el informe de transición (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)» e «Interest paid for leases (1.488.679)», con «Interest expense on lease liabilities 1.488.678» en PDF p. 84) y las rotula al revés como comparativo en el informe 2020 (PDF p. 59: «Lease repayments (3.408.176) (1.488.677) (1.488.679)», «Interest paid for leases (7.769.683) (4.312.789) (4.162.252)»); (3) verosimilitud: pasivos por arrendamiento de 66,4 a 75,2 mm (nota 5.23, informe 2025 PDF p. 204) con tipo incremental del 1,74 % al 4,10 % (PDF p. 205) dan unos 2–3 mm de interés al año, no 7–10. La Historia (fase1_partes) transcribe lo impreso, así que su fila 16 (intereses_financiacion) lleva el principal y su fila 17 (arrendamientos_principal) el interés; la suma C48 + C49 es la misma de las dos maneras. Se conserva la entrada de la etapa 1 (2,66), justificada por sus fuentes, con su valor exacto 2,664 (precedente E1). Intereses de deuda bancaria: ya dentro del CFO («Interest paid», en explotación). P-O1 (c) y su salvaguarda: Jumbo presenta los intereses cobrados en inversión («Interest received», 9,9 en 2025 y 13,8 en 2024, informe 2025 PDF p. 155) y la etapa 1 suma caja sobrante en Análisis!C76 (200 mm): por la salvaguarda de la decisión, los intereses de esa caja no entran, y no se restan aquí (la etapa 1 ya lo dijo en Control maestro N40).",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada de la etapa 1 conservada con su cálculo declarado (etiquetas cruzadas del emisor)",
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de la línea «Lease repayments» del estado de flujos (interés de arrendamientos, etiqueta cruzada)",
+   "evidencia": {
+    "M": "Decisión del inversor: 3 años FY2023–25. Intereses de arrendamientos pagados en financiación: 2,6645 / 3,0019 / 2,3258 → media exacta 2,664 (la etapa 1 traía 2,66). Etiquetas del estado de flujos cruzadas por la empresa desde 2020: la línea impresa «Lease repayments» es el interés (coincide con «Interest expense on lease liabilities» de la nota de costes financieros: AR2023 PDF p. 71 y 95; AR2024 PDF p. 154 y 178; AR2025 PDF p. 155 y 179); el informe de transición 2019 (PDF p. 57 y 84) las rotulaba bien.",
+    "N": "Etiquetas cruzadas en el AR (la etapa 1 lo verificó con XBRL y la nota 5.5). La Historia transcribe lo impreso (fila 16 = principal; fila 17 = interés): C48 + C49 = media de las filas 16 + 17, sin efecto en C52. P-O1 (c) (18-nov-2026), salvaguarda: con C76 > 0 (200), los intereses cobrados (en inversión) no entran; si una fase dejara C76 = 0, habría que revisar C48 (intereses netos)."
+   }
+  },
+  "C49": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "intereses_financiacion",
+      "signo": 1
+     }
+    ],
+    "decision": "C49 = principal de arrendamientos pagado en financiación = media 2023–2025 de la línea impresa «Interest paid for leases» (Historia, fila 16: 7,446 / 8,5338 / 9,7272), que es el PRINCIPAL. Etiquetas del estado de flujos CRUZADAS por el emisor desde el informe de 2020 (la etapa 1 lo había visto: Control maestro M45/N45 y M40, «verificado con XBRL y nota 5.5»): la línea «Lease repayments» es el interés de los arrendamientos y la línea «Interest paid for leases» es el principal. Pruebas, con página PDF: (1) la línea «Lease repayments» coincide al euro con el gasto por intereses de arrendamientos de la nota de costes financieros: informe 2023 (texto/jumbo-annual-report-fy2023.conversion.txt) PDF p. 71 «Lease repayments (2.664.523) (2.628.373) (2.070.406) (2.164.506)» y nota PDF p. 95 «Interest expense on lease liabilities 2.664.523 2.628.373 2.070.406 2.164.506» (grupo y sociedad, 2023 y 2022); informe 2024 PDF p. 154 «Lease repayments (3.001.882) (2.664.523) (1.946.824) (2.070.406)» y nota PDF p. 178 «Interest expense on lease liabilities 2.526.806 2.664.523 1.946.824 2.070.406» (iguales el grupo 2023 y la sociedad 2024 y 2023; el grupo 2024, 3,00 pagado frente a 2,53 devengado); informe 2025 PDF p. 155 «Lease repayments (2.325.789) (3.001.882) (1.821.081) (1.946.824)» y nota 5.5 PDF p. 179 «Interest expense on lease liabilities 2.390.655 2.526.806 1.821.081 1.946.824» (iguales la sociedad 2025 y 2024; el grupo, 2,33 pagado frente a 2,39 devengado); (2) el propio emisor rotulaba bien las mismas cifras de 2019 en el informe de transición (texto/jumbo-annual-report-transition-2019.txt PDF p. 57: «Lease repayments (4.162.252)» e «Interest paid for leases (1.488.679)», con «Interest expense on lease liabilities 1.488.678» en PDF p. 84) y las rotula al revés como comparativo en el informe 2020 (PDF p. 59: «Lease repayments (3.408.176) (1.488.677) (1.488.679)», «Interest paid for leases (7.769.683) (4.312.789) (4.162.252)»); (3) verosimilitud: pasivos por arrendamiento de 66,4 a 75,2 mm (nota 5.23, informe 2025 PDF p. 204) con tipo incremental del 1,74 % al 4,10 % (PDF p. 205) dan unos 2–3 mm de interés al año, no 7–10. La Historia (fase1_partes) transcribe lo impreso, así que su fila 16 (intereses_financiacion) lleva el principal y su fila 17 (arrendamientos_principal) el interés; la suma C48 + C49 es la misma de las dos maneras. Se conserva la entrada de la etapa 1 (8,57), justificada por sus fuentes, con su valor exacto 8,569 (precedente E1). Sin subarriendos ni cobros de arrendamientos a cobrar que restar (P-O1 c).",
+    "redondeo": 3
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada de la etapa 1 conservada con su cálculo declarado (etiquetas cruzadas del emisor)",
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de la línea «Interest paid for leases» del estado de flujos (principal de arrendamientos, etiqueta cruzada)",
+   "evidencia": {
+    "M": "Decisión del inversor: 3 años FY2023–25. Principal de arrendamientos en financiación: 7,446 / 8,5338 / 9,7272 → media exacta 8,569 (la etapa 1 traía 8,57; etiquetas cruzadas corregidas, ver C48).",
+    "N": "LTM 10,94. La línea impresa «Interest paid for leases» es el principal (ver C48: coincidencias con la nota de costes financieros y rótulos del informe de transición 2019). Sin cobros de subarriendos (P-O1 c)."
+   }
+  },
+  "C50": {
+   "valor": 0,
+   "fuente": "SBC = 0 en 2023–2025: «No options have been granted and no share disposal plan is in place.» (informe 2025, texto/jumbo-annual-report-fy2025.txt PDF p. 51; la misma frase en el informe 2024 PDF p. 48 y en el de 2023 PDF p. 43); el estado de flujos no tiene ajuste por pagos basados en acciones (informe 2025 PDF p. 155; 2024 PDF p. 154) y el BPA básico es igual al diluido, sin instrumentos dilusivos (nota 5.7, informe 2025 PDF p. 181). Entrada de la etapa 1 (0) conservada y declarada. Límite: la frase se refiere a la remuneración del consejo; la Historia lleva los ceros de 2023 y 2025 PENDIENTES DE VERIFICACIÓN (H1) y 2024 sin dato, y solo una persona puede confirmarlos (fase1_decisiones.json).",
+   "pagina": "AR2025 PDF 51, 155 y 181; AR2024 PDF 48 y 154; AR2023 PDF 43",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "cero de la etapa 1 conservado con su fuente (pendiente de confirmación humana H1)",
+   "fecha": "2025-12-31",
+   "evidencia": {
+    "M": "SBC = 0: «No options have been granted and no share disposal plan is in place» (AR2025 PDF p. 51; AR2024 PDF p. 48; AR2023 PDF p. 43); sin línea de SBC en flujos (AR2025 PDF p. 155) ni instrumentos dilusivos (nota 5.7, AR2025 PDF p. 181).",
+    "N": "Punto 8 de la junta 2026 (reparto de beneficios a directivos/empleados) probablemente en efectivo: no verificado. Ceros de la Historia 2023 y 2025 pendientes de verificación (H1): los confirma solo una persona. Confianza alta en el dato; la confirmación es humana."
+   }
+  }
+ },
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {},
+ "evidencia": {},
+ "textos_prohibidos": [
+  "27,28",
+  "→ media 307,17\\.",
+  "→ media 63,79\\."
+ ],
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · JUMBO S.A. (caso del examen: «posible Sí») · plantilla V6.3.1 F1 (config_v2_v631_f1.json; rama examen/ahold-f1). Etapa 1 de la persona responsable (Jumbo_evaluada.xlsx cb81b5ac…66ca, Jumbo_respuesta.md 127e92ec…3572; rama fuentes/etapa1-examen-20261117 del repositorio auxiliar). Fuentes oficiales con huella en la Release fuentes-examen-20261118 (FUENTES.tsv): informes anuales 2016/17–2025 y semestral H1 2026. Cambio de ejercicio: julio–junio hasta 2018/19, transición de seis meses jul–dic 2019 y año natural desde 2020; en fase1_fuentes.json cada informe lleva el año de inicio de su ejercicio (2016 = 2016/17, 2017 = 2017/18, 2018 = 2018/19, 2019 = transición jul–dic 2019). 2022 y 2023 son conversiones a PDF registradas de los XHTML ESEF oficiales (originales en pdf/originales_xhtml/; anexo de RELEASE_FUENTES_EXAMEN_VERIFICACION.md); sus páginas son las de la conversión. Expediente jumbo_b (cambio_jumbo_base.json): C46/C47 exactas (precedente E1, supuesto de la orquestación); C48/C49 de la etapa 1 con las etiquetas cruzadas del estado de flujos corregidas (C48 = interés 2,664; C49 = principal 8,569); C50 = 0 (ceros H1 pendientes de confirmación humana). P-O1 (c) «regla espejo»: sin cobros que sumar; los intereses cobrados (en inversión) no entran porque C76 suma caja (salvaguarda; si C76 = 0, revisar C48). P-O2 (a): 134,365561 M acciones a 31-dic-2025. J-T: 2019 = seis meses, no comparable. PRECIO de la etapa 1 (24,72 €, 8-oct-2026) PENDIENTE DE VERIFICACIÓN. Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen); fuentes_usuario/jumbo_etapa1/SHA256SUMS; metadato de la orquestación. · configuracion/cambio_jumbo_base.json; DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»: P-O1 (c), P-O2 (a), J-T.",
+  "fecha": "2026-11-18"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ }
+}

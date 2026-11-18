@@ -1,0 +1,1 @@
+ESPERANDO al agente **fase_c_turno2** (paso 10). CORRECCIÓN: segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2) Entradas: fase_c.json (turno 1), comprobacion_conjunta.json (si existe). Escribe **fase_c.json** en esta carpeta y vuelve a lanzar pipeline.py.
