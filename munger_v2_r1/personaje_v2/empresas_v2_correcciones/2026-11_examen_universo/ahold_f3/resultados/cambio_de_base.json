@@ -1,0 +1,56 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_ahold_f3.json",
+ "cambio_sha256": "20fc926a66a48a6335397d535a43bb3ad210279f998d64f044ca1d3c2c894d6c",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f2/Ahold",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/Ahold",
+ "base_economica": {
+  "fecha": "2025-12-28",
+  "descripcion": "Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma base y las mismas entradas que ahold_f2 (P-O1 (c) y P-O2 (a)). Único cambio: la serie F1 de intereses de arrendamiento (series.intereses_arrendamiento) en motor_a_f1.json, que pide la vara del foso de P-FOSO (a) con F1 en A2_propio; las fases del personaje se repiten con el código integrado."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-13",
+  "acciones": "2025-12-28",
+  "publicacion_fuentes": "Informes anuales 2016–2025 de Ahold Delhaize (páginas oficiales del emisor; huellas en INDICE_FUENTES.csv del repositorio auxiliar). Precio y tasa sin riesgo del agente de metadatos, pendientes de fuente oficial.",
+  "ejecucion_aplicada": "2026-11-18"
+ },
+ "heredados_movidos": 47,
+ "conservados": [
+  "etapa1",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_partes",
+  "motor_a_f1.json",
+  "pdf",
+  "pdf_DESCARGAS_2026.tsv",
+  "texto"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Ahold_evaluada.xlsx",
+  "original_sha256": "bd09e74ee0744690c9e1a51f83e174519af7bada7df0d5fd5d430fbaf792cacb",
+  "copia_de_ensayo_sha256": "bd09e74ee0744690c9e1a51f83e174519af7bada7df0d5fd5d430fbaf792cacb",
+  "miembros_cambiados": [],
+  "vaciadas": [],
+  "evidencia_escrita": {}
+ },
+ "sustituidas_en_fase1_v63": {},
+ "correcciones_fase1_partes": [],
+ "notas_retiradas": 0,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {
+  "C46": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media 2023–2025 de CFO + dividendos de negocios conjuntos, cálculo declarado) sin cambio: la serie de intereses de arrendamiento no cambia las entradas del FCF base",
+  "C47": "entrada de ahold_f2 (media exacta 2023–2025 declarada en ahold_4_15, precedente E1) sin cambio",
+  "C48": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media de intereses pagados − intereses cobrados, cálculo declarado) sin cambio: los intereses de arrendamiento no entran en C48 (van en C49)",
+  "C49": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media de pagos de arrendamientos − cobros de subarriendos, cálculo declarado) sin cambio"
+ },
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_ahold_f3.json"
+ }
+}

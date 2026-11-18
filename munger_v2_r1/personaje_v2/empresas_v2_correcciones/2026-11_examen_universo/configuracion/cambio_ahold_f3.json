@@ -1,0 +1,59 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Ahold",
+ "_estado_del_archivo": "Examen del personaje (18-nov-2026, noche). Expediente nuevo ahold_f3 desde ahold_f2/Ahold (que no se toca), sobre la rama examen/expedientes-f1 (desde examen/integracion-f1 @ a9dff6a: F1-SERIES con escala, F1 con US GAAP y P-FOSO (a) integrados). POR QUÉ: la decisión P-FOSO (a) de la persona responsable (18-nov-2026, DECISIONES_PARA_EL_USUARIO.md, rama coordinacion/cierre-v2) manda juzgar el foso (Análisis!C18) con el ROIC del capital propio pagado todo el alquiler, (EBIT − intereses de arrendamiento) × (1 − t) ÷ (capital invertido − arrendamientos), frente a r; su implantación (perimetro_f1.py) necesita la serie F1 series.intereses_arrendamiento con su fuente comprobada, que la declaración de ahold_f2 no lleva. Se añade tras la preparación en motor_a_f1.json del destino (registro en ahold_f3/resultados/): 337 / 356 / 382 / 422 / 465 mm EUR (2021–2025), «Interest accretion to lease liability», nota 33 Leases, cuadro «Amounts recognized in the income statement»: AR2022 PDF p. 251 (2022 y 2021), AR2023 p. 262, AR2024 p. 321, AR2025 p. 272; cada cifra comprobada en texto/ antes de declararla. Las fases A, B y C se repiten (P-FOSO cambia la vara del foso y la referencia mecánica del ROIC terminal). Se conservan, sin cambios, las entradas de ahold_f2: P-O1 (c) en C46/C48/C49 con su cálculo declarado, C47 (media exacta, precedente E1), P-O2 (a) en las acciones y la capitalización (metadatos del origen) y el resto de la declaración F1 (F1-A/F1-B, conciliación K3a). Perímetro del foso: A2_propio (P-FOSO (a) solo se implantó para A2). Nada adoptado; tasa 9 % provisional; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f2/Ahold",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3",
+ "base_economica": {
+  "fecha": "2025-12-28",
+  "descripcion": "Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma base y las mismas entradas que ahold_f2 (P-O1 (c) y P-O2 (a)). Único cambio: la serie F1 de intereses de arrendamiento (series.intereses_arrendamiento) en motor_a_f1.json, que pide la vara del foso de P-FOSO (a) con F1 en A2_propio; las fases del personaje se repiten con el código integrado."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-13",
+  "acciones": "2025-12-28",
+  "publicacion_fuentes": "Informes anuales 2016–2025 de Ahold Delhaize (páginas oficiales del emisor; huellas en INDICE_FUENTES.csv del repositorio auxiliar). Precio y tasa sin riesgo del agente de metadatos, pendientes de fuente oficial."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "pdf_DESCARGAS_2026.tsv",
+  "extracto_v63.md",
+  "motor_a_f1.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "notas_que_se_retiran": [],
+ "analisis": {},
+ "analisis_que_se_conservan": {
+  "C46": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media 2023–2025 de CFO + dividendos de negocios conjuntos, cálculo declarado) sin cambio: la serie de intereses de arrendamiento no cambia las entradas del FCF base",
+  "C47": "entrada de ahold_f2 (media exacta 2023–2025 declarada en ahold_4_15, precedente E1) sin cambio",
+  "C48": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media de intereses pagados − intereses cobrados, cálculo declarado) sin cambio: los intereses de arrendamiento no entran en C48 (van en C49)",
+  "C49": "entrada de ahold_f2 (cambio_ahold_po1_po2.json, P-O1 (c): media de pagos de arrendamientos − cobros de subarriendos, cálculo declarado) sin cambio"
+ },
+ "analisis_que_se_descartan": {},
+ "evidencia": {},
+ "textos_prohibidos": [
+  "no se suman \\(sensibilidad\\)",
+  "solo como sensibilidad",
+  "→ C48 = 239\\.0",
+  "→ C49 = 1834\\.0",
+  "→ C46 = 6559\\.7"
+ ],
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · AHOLD DELHAIZE (caso F1, arrendamientos) · expediente ahold_f3 · plantilla V6.3.1 F1 con el código integrado (examen/integracion-f1: F1-SERIES con escala, US GAAP y P-FOSO (a)). Mismas entradas que ahold_f2: P-O1 (c) «regla espejo» (C46 + dividendos de negocios conjuntos; C48 intereses netos; C49 alquileres netos de subarriendos; SALVAGUARDA: si C76 suma caja, sus intereses salen de C48) y P-O2 (a) (acciones en circulación a 28-dic-2025, 886,877 M). Nuevo: serie de intereses de arrendamiento 2021–2025 (337/356/382/422/465 mm, AR2022 p. 251, AR2023 p. 262, AR2024 p. 321, AR2025 p. 272) para la vara del foso de P-FOSO (a) en A2_propio: el foso se juzga con el ROIC del capital propio pagado todo el alquiler frente a r; Historia!C55 solo frente al sector; G4 sigue con r + 0,03; la cifra no decide la celda. Ejercicio 2025 cerrado el 28-dic-2025. Tasa 9 % provisional, sin decidir. Precio (36,05 €, 13-nov-2026) y tasa sin riesgo pendientes de fuente oficial. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2): «18-nov-2026 (tarde)» P-O1 (c), P-O2 (a) y P-FOSO (a); dictamen examen/revisiones/dictamen_perimetro_g4/DICTAMEN.md y REVISION_IMPLANTACION.md; configuracion/cambio_ahold_po1_po2.json y cambio_ahold_f3.json. Metadato de la orquestación.",
+  "fecha": "2026-11-18"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ }
+}
