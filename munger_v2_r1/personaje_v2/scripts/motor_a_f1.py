@@ -34,6 +34,10 @@ import re
 import sys
 from fractions import Fraction as Fr
 
+# los módulos hermanos (f1_libro_v631, verificacion_entradas) se importan dentro de las funciones: con «python3 -I» la carpeta del guion no
+# está en sys.path (la regresión de Elis lo llama así) y el import fallaba desde la V6.3.1
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 VERSION = "F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)"
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
