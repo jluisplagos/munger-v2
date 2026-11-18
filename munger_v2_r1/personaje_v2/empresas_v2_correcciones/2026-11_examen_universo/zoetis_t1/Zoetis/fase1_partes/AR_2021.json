@@ -1,0 +1,531 @@
+{
+ "anio": 2021,
+ "archivo": "zoetis-10k-fy2021.txt",
+ "fecha_cierre": "2021-12-31",
+ "moneda": "USD",
+ "unidad": "millones",
+ "reexpresion": null,
+ "partidas": {
+  "ventas": {
+   "actual": [
+    {
+     "concepto": "Revenue",
+     "impreso": "7,776",
+     "pagina": 72,
+     "linea": "Revenue $ 7,776 §$ 6,675 $ 6,260"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Revenue",
+     "impreso": "6,675",
+     "pagina": 72,
+     "linea": "Revenue $ 7,776 §$ 6,675 $ 6,260"
+    }
+   ],
+   "cero": null,
+   "nota": null
+  },
+  "ebit": {
+   "actual": null,
+   "anterior": null,
+   "cero": null,
+   "nota": "La cuenta de resultados no imprime subtotal de operating income; null."
+  },
+  "ebit_derivado": {
+   "actual": [
+    {
+     "concepto": "Income before provision for taxes on income",
+     "impreso": "2,488",
+     "pagina": 72,
+     "linea": "Income before provision for taxes on income 2,488 1,996 1,801",
+     "signo": 1
+    },
+    {
+     "concepto": "Interest expense, net of capitalized interest",
+     "impreso": "224",
+     "pagina": 72,
+     "linea": "Interest expense, net of capitalized interest 224 231 223",
+     "signo": -1
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Income before provision for taxes on income",
+     "impreso": "1,996",
+     "pagina": 72,
+     "linea": "Income before provision for taxes on income 2,488 1,996 1,801",
+     "signo": 1
+    },
+    {
+     "concepto": "Interest expense, net of capitalized interest",
+     "impreso": "231",
+     "pagina": 72,
+     "linea": "Interest expense, net of capitalized interest 224 231 223",
+     "signo": -1
+    }
+   ],
+   "cero": null,
+   "nota": "EBIT derivado = BAI + gasto por intereses. Como pide el prompt, 'Other (income)/deductions-net' (48 en 2021; 17 en 2020) NO se resta y queda dentro del EBIT; 'Restructuring charges and certain acquisition-related costs' tambien queda dentro. No hay ingresos financieros separados (el interes es neto de capitalizado). OCR: BAI y gastos cuadran con la suma de la cuenta (7,776-2,303-2,001-508-161-43-224-48=2,488; 2020: 1,996)."
+  },
+  "da": {
+   "actual": [
+    {
+     "concepto": "Depreciation and amortization expense",
+     "impreso": "448",
+     "pagina": 76,
+     "linea": "Depreciation and amortization expense 448 441 412"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Depreciation and amortization expense",
+     "impreso": "441",
+     "pagina": 76,
+     "linea": "Depreciation and amortization expense 448 441 412"
+    }
+   ],
+   "cero": null,
+   "nota": "448/441 coinciden con la tabla de segmentos (pag. 106, 'Total Earnings' 448 441 412). Las 'Asset write-offs and asset impairments' (47/43) van en otra linea y no se incluyen."
+  },
+  "beneficio_neto": {
+   "actual": [
+    {
+     "concepto": "Net income attributable to Zoetis Inc.",
+     "impreso": "2,037",
+     "pagina": 72,
+     "linea": "Net income attributable to Zoetis Inc. $ 2,037 $ 1,638 §$ 1,500"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Net income attributable to Zoetis Inc.",
+     "impreso": "1,638",
+     "pagina": 72,
+     "linea": "Net income attributable to Zoetis Inc. $ 2,037 $ 1,638 §$ 1,500"
+    }
+   ],
+   "cero": null,
+   "nota": "Coincide con MD&A y nota 17 (2,037 / 1,638). Cuadra: 2,034 + 3 = 2,037; 1,636 + 2 = 1,638."
+  },
+  "impuestos": {
+   "actual": [
+    {
+     "concepto": "Provision for taxes on income",
+     "impreso": "454",
+     "pagina": 72,
+     "linea": "Provision for taxes on income 454 360 301"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Provision for taxes on income",
+     "impreso": "360",
+     "pagina": 72,
+     "linea": "Provision for taxes on income 454 360 301"
+    }
+   ],
+   "cero": null,
+   "nota": "Cuadra: 2,488-454=2,034; 1,996-360=1,636."
+  },
+  "bai": {
+   "actual": [
+    {
+     "concepto": "Income before provision for taxes on income",
+     "impreso": "2,488",
+     "pagina": 72,
+     "linea": "Income before provision for taxes on income 2,488 1,996 1,801"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Income before provision for taxes on income",
+     "impreso": "1,996",
+     "pagina": 72,
+     "linea": "Income before provision for taxes on income 2,488 1,996 1,801"
+    }
+   ],
+   "cero": null,
+   "nota": null
+  },
+  "cfo": {
+   "actual": [
+    {
+     "concepto": "Net cash provided by operating activities",
+     "impreso": "2,213",
+     "pagina": 76,
+     "linea": "Net cash provided by operating activities 2,213 2,126 1,795"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Net cash provided by operating activities",
+     "impreso": "2,126",
+     "pagina": 76,
+     "linea": "Net cash provided by operating activities 2,213 2,126 1,795"
+    }
+   ],
+   "cero": null,
+   "nota": "Coincide con MD&A (2,213 / 2,126) y el resumen de la pagina inicial. Las lineas del flujo suman el total."
+  },
+  "capex": {
+   "actual": [
+    {
+     "concepto": "Capital expenditures",
+     "impreso": "(477)",
+     "pagina": 76,
+     "linea": "Capital expenditures (477) (453) (460)"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Capital expenditures",
+     "impreso": "(453)",
+     "pagina": 76,
+     "linea": "Capital expenditures (477) (453) (460)"
+    }
+   ],
+   "cero": null,
+   "nota": null
+  },
+  "adquisiciones": {
+   "actual": [
+    {
+     "concepto": "Acquisitions, net of cash acquired",
+     "impreso": "(14)",
+     "pagina": 76,
+     "linea": "Acquisitions, net of cash acquired (14) (113) (195)"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Acquisitions, net of cash acquired",
+     "impreso": "(113)",
+     "pagina": 76,
+     "linea": "Acquisitions, net of cash acquired (14) (113) (195)"
+    }
+   ],
+   "cero": null,
+   "nota": "No hay cobros por venta de negocios; 'Net proceeds from sale of assets' (2 / 21) son activos, no negocios, y no se incluyen. 'Payment of consideration related to previous acquisitions' en financiacion ((6) / (2)) tampoco se incluye."
+  },
+  "circulante_lineas": {
+   "actual": [
+    {
+     "concepto": "Accounts receivable",
+     "impreso": "(155)",
+     "pagina": 76,
+     "linea": "Accounts receivable (155) 74 (69)"
+    },
+    {
+     "concepto": "Inventories",
+     "impreso": "(366)",
+     "pagina": 76,
+     "linea": "Inventories (366) (346) (104)"
+    },
+    {
+     "concepto": "Other assets",
+     "impreso": "(7)",
+     "pagina": 76,
+     "linea": "Other assets (7) (68) (51)"
+    },
+    {
+     "concepto": "Accounts payable",
+     "impreso": "(17)",
+     "pagina": 76,
+     "linea": "Accounts payable (17) 147 (10)"
+    },
+    {
+     "concepto": "Other liabilities",
+     "impreso": "227",
+     "pagina": 76,
+     "linea": "Other liabilities 227 91 91"
+    },
+    {
+     "concepto": "Other tax accounts, net",
+     "impreso": "(25)",
+     "pagina": 76,
+     "linea": "Other tax accounts, net (25) 17 (8)"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Accounts receivable",
+     "impreso": "74",
+     "pagina": 76,
+     "linea": "Accounts receivable (155) 74 (69)"
+    },
+    {
+     "concepto": "Inventories",
+     "impreso": "(346)",
+     "pagina": 76,
+     "linea": "Inventories (366) (346) (104)"
+    },
+    {
+     "concepto": "Other assets",
+     "impreso": "(68)",
+     "pagina": 76,
+     "linea": "Other assets (7) (68) (51)"
+    },
+    {
+     "concepto": "Accounts payable",
+     "impreso": "147",
+     "pagina": 76,
+     "linea": "Accounts payable (17) 147 (10)"
+    },
+    {
+     "concepto": "Other liabilities",
+     "impreso": "91",
+     "pagina": 76,
+     "linea": "Other liabilities 227 91 91"
+    },
+    {
+     "concepto": "Other tax accounts, net",
+     "impreso": "17",
+     "pagina": 76,
+     "linea": "Other tax accounts, net (25) 17 (8)"
+    }
+   ],
+   "cero": null,
+   "nota": "Bloque 'Other changes in assets and liabilities, net of acquisitions and divestitures'. Incluida 'Other tax accounts, net' ((25) / 17) por estar en el bloque; si se quisiera excluir por ser impuestos, queda dudosa. Comprobado: la suma de ajustes y estas lineas da el CFO impreso (2021: 2,556 - 343 = 2,213; 2020: 2,211 - 85 = 2,126). Se excluyen impuestos diferidos, provisiones no monetarias."
+  },
+  "intereses": {
+   "actual": [
+    {
+     "concepto": "Interest, net of capitalized interest (cash paid)",
+     "impreso": "253",
+     "pagina": 76,
+     "linea": "Interest, net of capitalized interest 253 257 247"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Interest, net of capitalized interest (cash paid)",
+     "impreso": "257",
+     "pagina": 76,
+     "linea": "Interest, net of capitalized interest 253 257 247"
+    }
+   ],
+   "cero": null,
+   "nota": "Informacion suplementaria del flujo de efectivo, neto de intereses capitalizados."
+  },
+  "intereses_financiacion": {
+   "actual": null,
+   "anterior": null,
+   "cero": {
+    "motivo": "Los intereses pagados estan dentro de actividades de explotacion (US GAAP); ninguna linea de intereses en financiacion",
+    "pagina": 76,
+    "cita": "Interest, net of capitalized interest"
+   },
+   "nota": "Bajo US GAAP los intereses pagados figuran en actividades de explotacion; el flujo de financiacion no tiene linea de intereses."
+  },
+  "arrendamientos_principal": {
+   "actual": null,
+   "anterior": null,
+   "cero": {
+    "motivo": "Solo arrendamientos operativos US GAAP; sin pagos de principal de arrendamientos financieros en financiacion",
+    "pagina": 94,
+    "cita": "Supplemental information for operating leases is as follows:"
+   },
+   "nota": "Zoetis solo informa arrendamientos operativos (ASC 842); sus pagos van en explotacion. No hay linea de principal de arrendamientos en financiacion."
+  },
+  "sbc": {
+   "actual": [
+    {
+     "concepto": "Share-based compensation expense - total",
+     "impreso": "58",
+     "pagina": 99,
+     "linea": "Share-based compensation expense—total” $ 58 $ 59 §$ 67"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Share-based compensation expense - total",
+     "impreso": "59",
+     "pagina": 99,
+     "linea": "Share-based compensation expense—total” $ 58 $ 59 §$ 67"
+    }
+   ],
+   "cero": null,
+   "nota": "Coincide con el estado de flujos (58 / 59). OCR: la linea lleva marca de nota; cifras cuadran: 9+33+16=58; 9+31+19=59."
+  },
+  "id": {
+   "actual": [
+    {
+     "concepto": "Research and development expenses",
+     "impreso": "508",
+     "pagina": 72,
+     "linea": "Research and development expenses” 508 463 457"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Research and development expenses",
+     "impreso": "463",
+     "pagina": 72,
+     "linea": "Research and development expenses” 508 463 457"
+    }
+   ],
+   "cero": null,
+   "nota": "Coincide con MD&A (508 / 463)."
+  },
+  "acciones_diluidas": {
+   "actual": [
+    {
+     "concepto": "Weighted-average common and potential dilutive shares outstanding",
+     "impreso": "476.717",
+     "pagina": 102,
+     "linea": "Weighted-average common and potential dilutive shares outstanding 476.717 478.569 481.787"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Weighted-average common and potential dilutive shares outstanding",
+     "impreso": "478.569",
+     "pagina": 102,
+     "linea": "Weighted-average common and potential dilutive shares outstanding 476.717 478.569 481.787"
+    }
+   ],
+   "cero": null,
+   "nota": "Nota 17: 474.348 + 2.369 = 476.717; 2020: 475.502 + 3.067 = 478.569. Coincide con la cuenta de resultados.",
+   "unidad": "millones"
+  },
+  "patrimonio": {
+   "actual": [
+    {
+     "concepto": "Total Zoetis Inc. equity",
+     "impreso": "4,543",
+     "pagina": 74,
+     "linea": "Total Zoetis Inc. equity 4,543 3,769"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Total Zoetis Inc. equity",
+     "impreso": "3,769",
+     "pagina": 74,
+     "linea": "Total Zoetis Inc. equity 4,543 3,769"
+    }
+   ],
+   "cero": null,
+   "nota": "Cuadra: 5-2,952+1,068+7,186-764=4,543; 2020: 5-2,230+1,065+5,659-730=3,769."
+  },
+  "deuda": {
+   "actual": [
+    {
+     "concepto": "Long-term debt, net of discount and issuance costs",
+     "impreso": "6,592",
+     "pagina": 74,
+     "linea": "Long-term debt, net of discount and issuance costs 6,592 6,595"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Short-term borrowings",
+     "impreso": "4",
+     "pagina": 74,
+     "linea": "Short-term borrowings $ — §$ 4"
+    },
+    {
+     "concepto": "Current portion of long-term debt",
+     "impreso": "600",
+     "pagina": 74,
+     "linea": "Current portion of long-term debt —_— 600"
+    },
+    {
+     "concepto": "Long-term debt, net of discount and issuance costs",
+     "impreso": "6,595",
+     "pagina": 74,
+     "linea": "Long-term debt, net of discount and issuance costs 6,592 6,595"
+    }
+   ],
+   "cero": null,
+   "nota": "2021: short-term borrowings y porcion corriente aparecen como '-' (sin importe; el OCR de la porcion corriente sale '—_—'), solo se da la deuda a largo plazo. Coincide con MD&A (pag. 63: 6,592 y 6,595; 4 y 600). Cuadra con el total de pasivos: 1,797+6,592+320+151+257+239=9,356."
+  },
+  "arrendamientos": {
+   "actual": [
+    {
+     "concepto": "Total operating lease liabilities",
+     "impreso": "192",
+     "pagina": 94,
+     "linea": "Total operating lease liabilities $ 192 $ 203"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Total operating lease liabilities",
+     "impreso": "203",
+     "pagina": 94,
+     "linea": "Total operating lease liabilities $ 192 $ 203"
+    }
+   ],
+   "cero": null,
+   "nota": "Duda de OCR: la linea corriente sale '4]' en 2021 (41 por cuadre: 192-151=41); por eso se usa el total impreso 192 / 203, que cuadra con corriente + no corriente (41+151; 40+163). Pasivos de arrendamiento operativos ASC 842 (el balance solo muestra la parte no corriente 151/163; la corriente va en Other current liabilities)."
+  },
+  "caja": {
+   "actual": [
+    {
+     "concepto": "Cash and cash equivalents",
+     "impreso": "3,485",
+     "pagina": 74,
+     "linea": "Cash and cash equivalents $ 3,485 $ 3,604"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Cash and cash equivalents",
+     "impreso": "3,604",
+     "pagina": 74,
+     "linea": "Cash and cash equivalents $ 3,485 $ 3,604"
+    }
+   ],
+   "cero": null,
+   "nota": "Incluye caja restringida de 3 (2021) y 2 (2020). Coincide con el estado de flujos y MD&A."
+  },
+  "otros_activos_financieros": {
+   "actual": null,
+   "anterior": null,
+   "cero": null,
+   "nota": "El balance no tiene linea de inversiones financieras corrientes; el flujo muestra 'Purchase of investments' (12) en 2021, cuya ubicacion en balance no se identifica (posiblemente en Other current assets, 389). No se da cero ni cifra: desconocido."
+  },
+  "pensiones": {
+   "actual": [
+    {
+     "concepto": "Funded status - PBO in excess of plan assets (in Other noncurrent liabilities)",
+     "impreso": "(67)",
+     "pagina": 97,
+     "linea": "Funded status—Projected benefit obligation in excess of plan assets at end of year” $ (67) $ (79)"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Funded status - PBO in excess of plan assets (in Other noncurrent liabilities)",
+     "impreso": "(79)",
+     "pagina": 97,
+     "linea": "Funded status—Projected benefit obligation in excess of plan assets at end of year” $ (67) $ (79)"
+    }
+   ],
+   "cero": null,
+   "nota": "Cuadra: 159-92=67; 164-85=79. Solo planes internacionales dedicados; los planes de EE.UU. de Pfizer no se reconocen en Zoetis. Postretirement ~4 anuales como gasto, sin pasivo separado identificado."
+  },
+  "minoritarios": {
+   "actual": [
+    {
+     "concepto": "Equity attributable to noncontrolling interests",
+     "impreso": "1",
+     "pagina": 74,
+     "linea": "Equity attributable to noncontrolling interests 1 4"
+    }
+   ],
+   "anterior": [
+    {
+     "concepto": "Equity attributable to noncontrolling interests",
+     "impreso": "4",
+     "pagina": 74,
+     "linea": "Equity attributable to noncontrolling interests 1 4"
+    }
+   ],
+   "cero": null,
+   "nota": "Cuadra: 4,543+1=4,544; 3,769+4=3,773."
+  }
+ }
+}
