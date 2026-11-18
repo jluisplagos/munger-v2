@@ -1,0 +1,56 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Jumbo",
+ "_estado_del_archivo": "Examen del personaje (18-nov-2026, noche). Expediente nuevo jumbo_d desde jumbo_c (que no se toca), que se paró en el paso 7 porque faltaba la declaración F1 del motor A (F1-NORMA, F1-PERIMETRO, V-F1b, V-F1g/h/i/j/k, F1-K3a). Ruta: cambiar_base.py con las mismas entradas que jumbo_c (C46–C50 reconocidas en analisis_que_se_conservan; fase1_partes con J3 y extracto_v63.md conservados); la fase A de jumbo_c queda en antecedentes/heredados/ y el pipeline la pide de nuevo (cambiar_base no hereda fases). Después de preparar, la orquestación añade en el DESTINO (registrado en resultados/declaracion_f1_jumbo_d.json): (1) motor_a_f1.json con norma NIIF (AR2025 PDF p. 157), perímetros A2_propio (F1-A) y EBIT_NIIF16_PPA_constante ((2)(v), (4a)), compras como crecimiento (F1-B), sin transición conocida (AR2025 PDF p. 110–111), D&A de derechos de uso 2021–2025 = 9,199774 / 8,660374 / 7,942175 / 8,292855 / 8,503619 mm (nota 5.8, columna «Total of leasehold fixed assets»: AR2022 p. 97, AR2023 p. 100, AR2024 p. 183, AR2025 p. 185), PPA = 0 por lectura (sin intangibles de combinaciones; HERALD 2 sin intangibles, AR2025 p. 189) y la conciliación de F1-K3a (C46 +9,302 por J1/J2); (2) el cero de SBC de 2024 en fase1_partes/AR_2024.json (misma frase y mismo tratamiento que 2023 y 2025: AR2024 PDF p. 48), pendiente de confirmación humana (H1), que la fila 18 necesitaba para F1-K3a; con fase1_v63.json reconstruido. Previsión con la capa sobre el libro de jumbo_c: A2_propio da f = −0,003011 y flujo sin crecimiento 325,623 (+8,805 frente a A0). Límites que siguen bloqueando F1-SERIES (producto): Jumbo publica en euros y la serie F1 no tiene escala; la PPA cero no tiene cifra impresa. No se adopta nada; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_c/Jumbo",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_d",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Jumbo S.A., la misma base y las mismas entradas que jumbo_c (J1–J3, precio verificado 27,28 €). Único cambio: la declaración F1 del motor A (motor_a_f1.json: norma NIIF, perímetros por F1-A, compras por F1-B, transición, series de amortización de derechos de uso y PPA, conciliación de la caja base para F1-K3a) y el cero de SBC de 2024 en fase1_partes, que faltaban para la capa F1 (parada del paso 7 de jumbo_c)."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-17",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales oficiales 2016/17–2025 y semestral H1 2026 de Jumbo S.A. (FUENTES.tsv; Release fuentes-examen-20261118). Precio: página oficial de Euronext Athens leída por la persona responsable el 18-nov-2026 (coordinacion/cierre_v2/examen/precios/JUMBO_BELA_20261118.md). Tasa sin riesgo del agente de metadatos (buscador)."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md",
+  "extracto_v63.md"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "notas_que_se_retiran": [],
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {
+  "C46": "entrada de jumbo_c (cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base",
+  "C47": "entrada de jumbo_c (cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base",
+  "C48": "entrada de jumbo_c (cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base",
+  "C49": "entrada de jumbo_c (cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base",
+  "C50": "entrada de jumbo_c (cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base"
+ },
+ "evidencia": {},
+ "textos_prohibidos": [
+  "24,72 € \\(precio de la etapa 1",
+  "PENDIENTE DE VERIFICACIÓN\\. No se usa el 27,28"
+ ],
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · JUMBO S.A. (caso del examen: «posible Sí») · plantilla V6.3.1 F1 (config_v2_v631_f1.json). Expediente jumbo_d (cambio_jumbo_d.json) desde jumbo_c, con la declaración F1 del motor A (motor_a_f1.json; F1-A A2_propio, F1-B compras como crecimiento) y las mismas entradas que jumbo_c: decisiones J1–J3 de la persona responsable (18-nov-2026): C46 = 316,475 con los dividendos de la cartera cotizada y los intereses cobrados que no son de la caja de C76 (reparto s = C76/caja media = 200/471,83; SI LA FASE B CAMBIA C76, C46 HAY QUE RECALCULARLA); Historia de arrendamientos 2020–2025 corregida (etiquetas cruzadas por el emisor), C48 = interés 2,664 y C49 = principal 8,569. P-O2 (a): 134,365561 M acciones a 31-dic-2025. J-T: 2019 = seis meses, no comparable (2019 queda tal como se publicó). Precio 27,28 € del 17-nov-2026, verificado en Euronext Athens; es posterior a la fecha ex de la distribución extraordinaria de 1,00 € (≈ 134,37 mm), que C76 = 200 de la etapa 1 NO descuenta (límite para la fase B). Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen); fuentes_usuario/jumbo_etapa1/SHA256SUMS; metadato de la orquestación. · configuracion/cambio_jumbo_c.json (desde cambio_jumbo_base.json); DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»: P-O1 (c), P-O2 (a), J-T. J1–J3 y precio: DECISIONES_PARA_EL_USUARIO.md y examen/precios/JUMBO_BELA_20261118.md (coordinacion/cierre-v2). · configuracion/cambio_jumbo_d.json (declaración F1).",
+  "fecha": "2026-11-18"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ }
+}

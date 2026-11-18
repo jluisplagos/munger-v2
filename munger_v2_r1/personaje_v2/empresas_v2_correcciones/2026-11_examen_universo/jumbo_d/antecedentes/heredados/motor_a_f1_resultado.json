@@ -1,0 +1,439 @@
+{
+ "version": "F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)",
+ "fecha": "2026-11-18",
+ "libro_sha256": "44bffd9645b2895c16e5f927a52cfade1a3dd4febd31818ed3be8f3c6ad4aec4",
+ "declaracion_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+ "apto_para_dinero_real": false,
+ "parametros_sin_valor_adoptado": {
+  "alcance_n1_ejercicios_tau": {
+   "valor": null,
+   "opciones": [
+    "solo_ventana",
+    "tambien_ejercicios_tau_fuera_de_la_ventana"
+   ],
+   "documento": "N1_ALCANCE_EJERCICIOS_TAU.md (propuesta, no adoptada)"
+  },
+  "n1_actualizacion_financiera_earnout": {
+   "valor": null,
+   "opciones": [
+    "excluida",
+    "incluida_fuera_del_BAI"
+   ],
+   "documento": "N1_ACTUALIZACION_EARNOUT_MEXICO.md (propuesta, no adoptada)"
+  },
+  "umbral_v_f1a": {
+   "valor": null,
+   "opciones": [
+    "sin umbral (V-F1a bloquea con cualquier importe)",
+    "una medida y un valor"
+   ],
+   "documento": "PROPUESTA_UMBRAL_V-F1a.md (propuesta, no adoptada)"
+  }
+ },
+ "convencion_tau": "cinco_anios",
+ "motor_del_libro": "A",
+ "aplica": true,
+ "entradas_registradas": {
+  "Historia!C70 (FCF base que calibra f)": 241.454,
+  "Análisis!C48": 2.664,
+  "Análisis!C49 (principal de arrendamientos)": 8.569,
+  "Análisis!C52": 241.454,
+  "Historia!C58 (f del libro, A0)": 0.00412983023782,
+  "Historia!C52 (τ de 5 años)": 0.17988,
+  "Historia!C53 (S2C, A0)": 1.965672534672,
+  "V0": 1232.9048,
+  "m0 del libro": 0.318366268020045,
+  "ventana": [
+   2023,
+   2024,
+   2025
+  ],
+  "horizonte_ancla": [
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "nota": "entradas registradas del FCF base: no cambian con F1 (E0.3, T10); la capa F1 no las escribe"
+ },
+ "palancas": null,
+ "replica_del_libro": {
+  "f": 0.00412983023782,
+  "C58": 0.00412983023782,
+  "ancla": 1.965672534672,
+  "C53": 1.965672534672,
+  "flujos_contrastados": 0,
+  "conforme": true,
+  "perimetro_replicado": "A0"
+ },
+ "K3a_caja_base": {
+  "C70": 241.454,
+  "media_fila_35": 232.152067,
+  "diferencia": 9.301933,
+  "componentes": {},
+  "explicado": {},
+  "residuo": 9.301933
+ },
+ "K3": {
+  "identidad": null,
+  "K3a_caja_base_dos_vias": false,
+  "K3b_alquiler_contado": null,
+  "K3c_reposicion_frente_a_su_caja": null,
+  "conforme": false
+ },
+ "libro_v631_f1": {
+  "perimetro_efectivo": "A0_total",
+  "motivos": [
+   "el perímetro declarado None no está en el libro V6.3.1 (solo A0_total, A1_sin_ROU, A2_propio)",
+   "perímetro efectivo del libro (Historia C89) 'A0_total' ≠ declarado None",
+   "D_X 2016: libro 23.0544 ≠ capa None",
+   "D_X 2017: libro 24.7086 ≠ capa None",
+   "D_X 2018: libro 25.7059 ≠ capa None",
+   "D_X 2019: libro 31.1387 ≠ capa None",
+   "D_X 2020: libro 36.9172 ≠ capa None",
+   "D_X 2021: libro 36.2047 ≠ capa None",
+   "D_X 2022: libro 35.394 ≠ capa None",
+   "D_X 2023: libro 36.5182 ≠ capa None",
+   "D_X 2024: libro 41.0583 ≠ capa None",
+   "D_X 2025: libro 43.2215 ≠ capa None",
+   "f: libro (Historia C58) 0.00412983023781956 ≠ capa None",
+   "ancla de S2C: libro (Historia C53) 1.96567253467181 ≠ capa None"
+  ],
+  "flujos_contrastados": 0
+ },
+ "bloque_10_del_libro": null,
+ "sensibilidad_peso_arrendamiento_1b": null,
+ "perimetro_declarado": null,
+ "calculo_perimetro_declarado": null,
+ "diagnostico_por_perimetro": {
+  "A0_total": {
+   "f": 0.00412983023782,
+   "flujo_sin_crecimiento": 316.817960313,
+   "tau_proyeccion": 0.17988,
+   "m0": 0.31836626802,
+   "nopat_medio": 309.823336137,
+   "reinversion_media": 63.600533333,
+   "ancla_s2c_E4": 1.965672534672,
+   "tau_ventana": {
+    "2023": 0.1794,
+    "2024": 0.1798,
+    "2025": 0.1893
+   },
+   "escenarios": {},
+   "K3": {
+    "lineas": [
+     {
+      "partida": "FCF base que calibra f (Historia C70, entrada registrada)",
+      "mm": 241.454,
+      "clase": "caja"
+     },
+     {
+      "partida": "+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección",
+      "mm": 10.921893,
+      "clase": "explicada"
+     },
+     {
+      "partida": "+ τ de proyección frente al τ de cada año de la ventana",
+      "mm": 1.164418,
+      "clase": "explicada"
+     },
+     {
+      "partida": "− f aplicada a las ventas del año base en lugar de las medias",
+      "mm": -0.322885,
+      "clase": "explicada"
+     },
+     {
+      "partida": "+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D&A ROU o PPA sin declarar)",
+      "mm": 63.600533,
+      "clase": "sin_desglose"
+     }
+    ],
+    "flujo_sin_crecimiento": 316.817960313,
+    "suma_de_partidas": 316.817960313,
+    "identidad_cuadra": true,
+    "doble_computo_mm_en_la_ventana": 0.0,
+    "doble_computo_mm_a_la_escala_del_año_base": 0.0,
+    "doble_computo_por_clase_a_la_escala_del_año_base": {
+     "doble_computo": 0.0,
+     "reposicion_no_monetaria": 0.0
+    },
+    "partidas_sin_explicar": [
+     "+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D&A ROU o PPA sin declarar)"
+    ]
+   }
+  },
+  "B_cota_capex": {
+   "f": 0.024499969779143,
+   "flujo_sin_crecimiento": 291.703517495,
+   "tau_proyeccion": 0.17988,
+   "m0": 0.31836626802,
+   "nopat_medio": 309.823336137,
+   "reinversion_media": 40.0787,
+   "ancla_s2c_E4": 3.601553242327,
+   "tau_ventana": {
+    "2023": 0.1794,
+    "2024": 0.1798,
+    "2025": 0.1893
+   },
+   "escenarios": {},
+   "K3": {
+    "lineas": [
+     {
+      "partida": "FCF base que calibra f (Historia C70, entrada registrada)",
+      "mm": 241.454,
+      "clase": "caja"
+     },
+     {
+      "partida": "+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección",
+      "mm": 10.921893,
+      "clase": "explicada"
+     },
+     {
+      "partida": "+ τ de proyección frente al τ de cada año de la ventana",
+      "mm": 1.164418,
+      "clase": "explicada"
+     },
+     {
+      "partida": "− f aplicada a las ventas del año base en lugar de las medias",
+      "mm": -1.915494,
+      "clase": "explicada"
+     },
+     {
+      "partida": "+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D_X = capex propio: cota)",
+      "mm": 40.0787,
+      "clase": "explicada"
+     }
+    ],
+    "flujo_sin_crecimiento": 291.703517495,
+    "suma_de_partidas": 291.703517495,
+    "identidad_cuadra": true,
+    "doble_computo_mm_en_la_ventana": 0.0,
+    "doble_computo_mm_a_la_escala_del_año_base": 0.0,
+    "doble_computo_por_clase_a_la_escala_del_año_base": {
+     "doble_computo": 0.0,
+     "reposicion_no_monetaria": 0.0
+    },
+    "partidas_sin_explicar": []
+   }
+  }
+ },
+ "diferencias_frente_a_A0_flujo_sin_crecimiento": {
+  "A0_total": 0.0,
+  "B_cota_capex": -25.114443
+ },
+ "F1_SERIES": {
+  "invalidas": [],
+  "incompletas": [],
+  "columna_comprobada": 0,
+  "columna_pendiente": [],
+  "nota": "condición mínima, no la verificación de entradas: las filas 85–87 del libro V6.3.1 entran en su universo"
+ },
+ "guardas": [
+  {
+   "id": "F1-NORMA",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "norma contable sin declarar en la declaración F1 (entrada obligatoria)",
+   "decision": "generalidad",
+   "clase": "datos"
+  },
+  {
+   "id": "V-F1e",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "invariantes de E1 y signos declarados: conformes",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
+   "id": "F1-PERIMETRO",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "perimetro_reinversion sin declarar",
+   "decision": "(1a)",
+   "clase": "datos"
+  },
+  {
+   "id": "V-F1b",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "C49 = 8.569 > 0 y D&A ROU vacía en [2023, 2024, 2025]: vacío no es cero",
+   "decision": "(1a)",
+   "clase": "datos"
+  },
+  {
+   "id": "V-F1a",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no aplica: el perímetro no es A0",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
+   "id": "V-F1m",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no aplica: el perímetro no es A0",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
+   "id": "F1-M-SIM",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no salta",
+   "decision": "(1a) · simétrica de V-F1m",
+   "clase": null
+  },
+  {
+   "id": "F1-ROU-HISTORIA",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia",
+   "decision": "(1a)",
+   "clase": null
+  },
+  {
+   "id": "F1-2i",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "el perímetro no trata la PPA como reposición",
+   "decision": "(2)(i)",
+   "clase": null
+  },
+  {
+   "id": "V-F1l",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "sin ajustes de normalización (el diagnóstico se muestra como diagnóstico)",
+   "decision": "(5a)",
+   "clase": null
+  },
+  {
+   "id": "V-F1j",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "clasificación de las compras de sociedades sin declarar",
+   "decision": "(4b)",
+   "clase": "datos"
+  },
+  {
+   "id": "V-F1i",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "INCOMPLETO",
+   "detalle": "sin declarar si hay una inversión de transición conocida (publicada o documentada)",
+   "decision": "(5b)",
+   "clase": "datos"
+  },
+  {
+   "id": "V-F1d",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no aplica: el perímetro no es A3_estimado",
+   "decision": "(3a)",
+   "clase": null
+  },
+  {
+   "id": "V-F1c",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "no aplica: el perímetro no es A3_estimado",
+   "decision": "(3a)",
+   "clase": null
+  },
+  {
+   "id": "V-F1h",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "MODELO NO APLICABLE",
+   "detalle": "perimetro_margen sin declarar",
+   "decision": "(2)",
+   "clase": "modelo"
+  },
+  {
+   "id": "V-F1g",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "MODELO NO APLICABLE",
+   "detalle": "perímetro de las palancas S2C sin declarar",
+   "decision": "(4a)",
+   "clase": "modelo"
+  },
+  {
+   "id": "V-F1k",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "MODELO NO APLICABLE",
+   "detalle": "perímetro del ROIC del terminal sin declarar",
+   "decision": "(4a)",
+   "clase": "modelo"
+  },
+  {
+   "id": "F1-REPLICA",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "la réplica A0 reproduce el libro (f, τ, m0, ancla y flujos): la capa F1 y el libro son el mismo motor",
+   "decision": "T1/T7",
+   "clase": null
+  },
+  {
+   "id": "F1-K3a",
+   "salta": true,
+   "severidad": "BLOQUEA",
+   "efecto": "DATOS INVÁLIDOS",
+   "detalle": "caja base por dos vías: faltan Análisis C46–C52 o las filas 11, 12, 16, 17 o 18 de la ventana: no se puede descomponer la diferencia; diferencia total sin explicar: +9.301933",
+   "decision": "K3",
+   "clase": "datos"
+  },
+  {
+   "id": "F1-LIBRO",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "el libro V6.3.1 F1 calcula el perímetro declarado (None): f, ancla, D_X, series y 0 flujos del Motor coinciden con la capa",
+   "decision": "(1a) · implantación",
+   "clase": null
+  },
+  {
+   "id": "V-F1f",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "sin series para los efectos de escala",
+   "decision": "(2)",
+   "clase": null
+  },
+  {
+   "id": "F1-SERIES",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "D&A de derechos de uso y PPA: cifra publicada con su signo, como cifra completa, en una página existente de una fuente del expediente con su huella; columna del ejercicio comprobada en 0 años",
+   "decision": "(1a) · H12 · V631-2",
+   "clase": null
+  }
+ ],
+ "bloquea": true,
+ "utilizable_para_conclusion": false,
+ "estado_propuesto": "pendiente_de_datos",
+ "rotulo": "DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-K3a, F1-NORMA, F1-PERIMETRO, V-F1b, V-F1g, V-F1h, V-F1i, V-F1j, V-F1k",
+ "declaracion": "ausente: todo sin declarar",
+ "declaracion_ruta": "/home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_c/Jumbo/motor_a_f1.json",
+ "libro_origen_sha256": "73b0783ace04a6adfd0d9c6d303fd4a2f015802917d3a7d4e4cdb870a5fb2b27"
+}

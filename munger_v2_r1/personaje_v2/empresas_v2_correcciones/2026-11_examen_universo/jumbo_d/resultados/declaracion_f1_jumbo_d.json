@@ -1,0 +1,35 @@
+{
+ "fecha": "2026-11-18",
+ "autor": "orquestación (Claude), encargo del coordinador; sin firma humana",
+ "cambios_en_el_destino": [
+  {
+   "archivo": "Jumbo/fase1_partes/AR_2024.json",
+   "partida": "sbc",
+   "antes": {
+    "actual": null,
+    "anterior": null,
+    "cero": null,
+    "nota": "No hay gasto por pagos basados en acciones en los estados ni en las notas leidas; solo p.48 dice 'No options have been granted and no share disposal plan is in place' para el consejo. Sin cita suficiente: null, no cero."
+   },
+   "despues_cero": {
+    "motivo": "El informe declara que no se han concedido opciones ni hay plan de enajenación de acciones (misma frase y mismo tratamiento que los informes 2023, PDF p. 43, y 2025, PDF p. 51; afirmación referida a la remuneración del consejo).",
+    "pagina": 48,
+    "cita": "granted and no share disposal plan is in place."
+   },
+   "original": "antecedentes/fase1_partes_original/AR_2024.json",
+   "original_sha256": "7c1dda82da2b779dfc304adf2583a8b9285cb623f94ffdbb427ef15fc9a8b03e",
+   "nuevo_sha256": "77e5e9a8bb57c584560166be77343c2b24effb8c5060730267195a4e7dc67571",
+   "motivo": "F1-K3a necesita la fila 18 (SBC) en toda la ventana 2023–2025; 2024 estaba vacía porque el extractor no aceptó como cero la frase del consejo, que sí aceptó en 2023 y 2025. Mismo tratamiento; el cero queda pendiente de confirmación humana (H1)."
+  },
+  {
+   "archivo": "Jumbo/fase1_v63.json",
+   "motivo": "reconstruido con fase1_historia.py construir tras el cambio anterior; entradas de Análisis idénticas (comprobado); anterior en antecedentes/fase1_v63_antes_de_sbc_2024.json",
+   "sha256": "90ad33506a3b6d623109ca197f49bf26ca5a6b4f37ae20c01c8090e1e04cf146"
+  },
+  {
+   "archivo": "Jumbo/motor_a_f1.json",
+   "sha256": "33639e4adbf6f34244a6428ee04afbeda87e07743d7e65c45af24850229dbea6",
+   "motivo": "declaración F1 del motor A que faltaba (parada del paso 7 de jumbo_c); generada por la orquestación con las decisiones registradas F1-A, F1-B, (2)(v), (4a), (5b); ver configuracion/cambio_jumbo_d.json"
+  }
+ ]
+}
