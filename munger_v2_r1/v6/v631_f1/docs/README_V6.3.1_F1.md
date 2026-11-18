@@ -165,3 +165,20 @@ propia (lo cubre solo la verificación de la fila 8 y de las series).
    `test_v631_f1.py`, `probar_v631_f1.py` y `prueba_pipeline_v631.py` no están registrados en `verificar_paquete.sh`.
 5. **No comprobado:** Excel real (todo el recálculo es LibreOffice); `regresion_elis_f1.py` no se volvió a ejecutar (escribe en los
    resultados de F1-IMPL).
+
+## 10. `F1-SERIES` con escala y ceros sin cifra (18-nov-2026, rama `f1/series-escala`)
+
+**Hecho.** El examen de Jumbo (`2026-11_examen_universo/jumbo_d`) no tenía salida honrada en `F1-SERIES`: Jumbo publica en euros enteros
+(el modelo trabaja en millones) y su PPA es cero sin cifra impresa (no hay intangibles de combinaciones). La revisión de `f1/usgaap` (R1-2)
+encontró el mismo hueco con un cero impreso como «—» (10-K de Zoetis). Cambio en `motor_a_f1.py` (`leer_serie`, `_guarda_fuentes_series`
+y las funciones nuevas `_escala_serie`, `_clase_cero` y `_cero_en_pagina`):
+- `escala` opcional en cada año de una serie: «unidades», «miles» o «millones» (sin ella, la del modelo: el comportamiento anterior).
+  `valor_fuente` sigue en la escala del modelo y tiene que ser **exactamente** la cifra de `literal` convertida; la cifra impresa sigue
+  buscándose literal, completa, en su fila y su columna. Otro valor de `escala` → DATOS INVÁLIDOS (también en `leer_serie`: V-F1e).
+- Cero impreso sin dígitos (`literal` «—», «–», «-» o «nil», `valor_fuente` 0): exige `fila`; la marca, aislada y después de la etiqueta,
+  en esa línea y en la columna del ejercicio. Sin encabezado alineado queda PENDIENTE, como una cifra.
+- Cero sin cifra impresa: `cero_comprobado` {`motivo`, `cita`}, sin `literal` y con `valor_fuente` 0. La cita tiene que estar literal en la
+  página citada (espacios y mayúsculas aparte), con al menos 8 palabras y sin importes. El programa comprueba la cita, **no** que pruebe la
+  inexistencia: queda PENDIENTE de revisor (no bloquea F1; la aptitud por entradas sigue en «no»). Amplía el límite 3 de este §9.
+- Nada más se relaja. Batería `personaje_v2/pruebas/test_f1_series_escala.py` (55 pruebas, registrada en `verificar_paquete.sh` en los
+  dos modos; con el código anterior pasan 12 de 55: las que comprueban que lo que bloqueaba sigue bloqueando).
