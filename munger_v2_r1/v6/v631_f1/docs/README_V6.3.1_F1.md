@@ -165,8 +165,9 @@ la plantilla, su referencia ni su verificador (`eaece01a…`): los expedientes V
 - Lo que el libro **no** calcula con US GAAP: retirar del circulante el importe de **un solo** tramo del arrendamiento operativo que esté
   dentro de la fila 14 (la capa lo calcula y `F1-LIBRO` bloquea) y excluir del puente del motor B el pasivo por arrendamiento operativo
   (`F1-US-PUENTE`).
-- Una declaración mal formada no hace fallar `aplicar`: la serie se lee como vacía y la capa lo dice en el paso 7 (`F1-DECLARACION`).
-- Prueba sobre el libro real recalculado: `f1_usgaap/scripts/probar_libro_v631_usgaap.py` (15 comprobaciones).
+- Una declaración mal formada no hace fallar `aplicar`: la serie se lee como vacía y la capa lo dice en el paso 7 (`F1-DECLARACION`). Una
+  nota de texto dentro de `series`, en una clave que no es el nombre de una serie, se admite y no cambia ninguna celda (cierre de la ronda 2).
+- Prueba sobre el libro real recalculado: `f1_usgaap/scripts/probar_libro_v631_usgaap.py` (16 comprobaciones).
 
 ## 9. Preguntas para el revisor y límites
 

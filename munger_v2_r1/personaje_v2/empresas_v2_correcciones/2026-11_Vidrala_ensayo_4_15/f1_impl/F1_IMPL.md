@@ -12,7 +12,10 @@ del §8) describe la capa tal como quedó en F1-IMPL. Desde la rama `f1/usgaap` 
 los arrendamientos operativos y financieros por separado: ver `../f1_usgaap/F1_USGAAP.md`. Las dos pruebas «US» de la batería y P3 de la
 prueba del gancho se reescribieron con el comportamiento nuevo; lo demás de este registro no cambia. En la ronda 2 de esa reparación la
 prueba del gancho gana un caso (P2: la ficha y el informe de un expediente NIIF no llevan nada de US GAAP; 8 casos) y una declaración mal
-formada (una clave que tiene que ser un objeto y no lo es) da `F1-DECLARACION` · DATOS INVÁLIDOS en lugar de un fallo del programa.
+formada (una clave que tiene que ser un objeto y no lo es) da `F1-DECLARACION` · DATOS INVÁLIDOS en lugar de un fallo del programa. En el
+cierre de esa ronda (revisión R2): vacío = sin declarar también con `[]`, `""` o `0`; un texto dentro de `series`, en una clave que no es
+el nombre de una serie, es una nota (se admite y queda a la vista; es el caso de la declaración real de Jumbo); y un libro con «Otro» en
+`Control maestro L4` es un límite del modelo (`no_entregable`), no un dato que falte.
 
 Fuentes de lo que se implanta:
 - decisiones registradas el 17-nov-2026: `munger-v2-evidencias-mistral`, `coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md`:68–83;

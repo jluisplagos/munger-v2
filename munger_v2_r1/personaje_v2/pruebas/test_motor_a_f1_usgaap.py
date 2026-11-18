@@ -20,6 +20,7 @@ la hoja y cuánto cambiaría contando los pagos), W (D-WM: financieros no desglo
 (amortización financiera fuera de la fila 8), R9 (motor B: ancla de S2C), R1 (motor B: norma sin determinar, falla en cerrado) y R11 (norma
 de la fase 1 como lista cerrada).
 """
+import atexit
 import copy
 import hashlib
 import json
@@ -168,10 +169,17 @@ def decl(per="A0_total", norma="US_GAAP", op=True, fin=False, ub_am="fuera_de_la
     return d
 
 
-def _renglones(x, n):
-    """Texto de una línea del estado de flujos: una etiqueta (o una etiqueta partida en dos renglones) y sus tres cifras; devuelve (texto, renglón con cifras)."""
+# (cierre de la ronda 2, R2-2) cifra impresa de las líneas PROPIAS del arrendamiento operativo cuando la fase 1 las sumó en la fila 14, coherente con la
+# empresa de referencia: la variación del pasivo consume 10 de caja («(10)» en el estado de flujos → +10 en la fila 14) y la amortización del derecho de
+# uso se suma («10» → −10 en la fila 14). Las demás líneas llevan cifras cualesquiera (n, n+1, n+2)
+IMPORTES = {"Operating lease liabilities": "(10)", "Operating lease right-of-use assets": "10"}
+
+
+def _renglones(x, n, imp=None):
+    """Texto de una línea del estado de flujos: una etiqueta (o una etiqueta partida en dos renglones) y sus tres cifras (imp, la misma en las tres
+    columnas, o n, n+1 y n+2); devuelve (texto, renglón con cifras)."""
     partes = [x] if isinstance(x, str) else list(x)
-    ultimo = f"{partes[-1]}    {n}    {n + 1}    {n + 2}"
+    ultimo = f"{partes[-1]}    {imp}    {imp}    {imp}" if imp else f"{partes[-1]}    {n}    {n + 1}    {n + 2}"
     return "\n".join(partes[:-1] + [ultimo]), ultimo
 
 
@@ -187,7 +195,7 @@ def _verdad_de(d):
 
 
 def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, wc=None, fuera=None, notas=(), anios_partes=range(2021, 2026), conceptos=None,
-               por_anio=None, fila23=(), despues_cfo=()):
+               por_anio=None, fila23=(), despues_cfo=(), importes=None, unidad="millones"):
     """Carpeta de expediente sintética para una declaración:
       - texto/10K_sint.txt, registrado como fuente con su huella. Página 1: notas (las cifras de las series, las citas de existencia y `notas`); página 2:
         el estado de flujos, con las líneas que la fase 1 sumó en la fila 8 (`da`) y en la fila 14 (`wc`) y las que no sumó (`fuera`); página 3: otra página;
@@ -195,7 +203,8 @@ def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, w
         de cada línea sumada (y `conceptos` para el concepto que «escribió el agente»).
     `verdad` = (amortización, pasivo) dice dónde están DE VERDAD los dos tramos (por omisión, donde dice la declaración): «fuera» (línea propia que la fase 1
     no sumó), «fila_8» (la D&A la nombra), «fila_14» (línea propia sumada en el circulante) o «no» (la empresa no publica la línea).
-    partes=False: sin fase1_partes; texto=False: la fuente está en la raíz y no hay texto/ (la fase 1 no puede reconstruir etiquetas partidas)."""
+    partes=False: sin fase1_partes; texto=False: la fuente está en la raíz y no hay texto/ (la fase 1 no puede reconstruir etiquetas partidas).
+    importes: {etiqueta: cifra impresa} de las líneas sumadas en las filas 8 y 14 (por omisión, IMPORTES para las de la fila 14); unidad: la del informe."""
     carpeta = carpeta or tempfile.mkdtemp(prefix="f1_us_")
     v_am, v_pas = verdad if verdad is not None else _verdad_de(d)
     l_da = list(da) if da is not None else [DA_ROU if v_am == "fila_8" else DA]
@@ -206,10 +215,12 @@ def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, w
 
     def poner(x, k=None):
         n[0] += 3
-        txt, ult = _renglones(x, n[0])
+        etq = x if isinstance(x, str) else " ".join(x)
+        imp = (importes or {}).get(etq, IMPORTES.get(etq) if (k == "circulante_lineas" and importes is None) else None) if k in ("da", "circulante_lineas") else None
+        txt, ult = _renglones(x, n[0], imp)
         filas.append(txt)
         if k:
-            comp[k].append({"concepto": conceptos.get(x, x if isinstance(x, str) else " ".join(x)), "impreso": str(n[0]), "pagina": 2, "linea": ult})
+            comp[k].append({"concepto": conceptos.get(x, etq), "impreso": imp or str(n[0]), "pagina": 2, "linea": ult})
 
     filas.append("CONSOLIDATED STATEMENTS OF CASH FLOWS")
     poner("Net income")
@@ -240,7 +251,7 @@ def expediente(d, verdad=None, carpeta=None, partes=True, texto=True, da=None, w
     if partes:
         os.makedirs(os.path.join(carpeta, "fase1_partes"), exist_ok=True)
         for a in anios_partes:
-            j = {"anio": a, "archivo": TXT, "partidas": {k: {"actual": copy.deepcopy(v), "anterior": copy.deepcopy(v), "cero": None} for k, v in comp.items()}}
+            j = {"anio": a, "archivo": TXT, "unidad": unidad, "partidas": {k: {"actual": copy.deepcopy(v), "anterior": copy.deepcopy(v), "cero": None} for k, v in comp.items()}}
             if por_anio:
                 j = por_anio(a, j)
             if j is not None:
@@ -254,6 +265,8 @@ def fuentes(d, carpeta=None):
 
 
 TMP = []
+# las carpetas temporales se borran también si la batería se interrumpe (una excepción a medio camino no llega al «finally» del final)
+atexit.register(lambda: [shutil.rmtree(t, ignore_errors=True) for t in TMP])
 
 
 def ev_(L, d, con_fuentes=True, motor_libro=None, **k):
@@ -983,6 +996,11 @@ paso("W · con los operativos contrastados con su línea, la única condición e
 dw7 = d_wm()
 FIN_(dw7)["desglose"] = "a medias"
 paso("W · «desglose» es un valor cerrado (publicado | no_publicado)", g(ev_(L1, dw7), "F1-US-DESGLOSE")[0]["efecto"] == "DATOS INVÁLIDOS")
+dw9 = d_wm()
+FIN_(dw9)["amortizacion_rou"] = {"ubicacion": "fuera_de_la_fila_8", "documento": DOC, "pagina": 1, "cita": "Finance lease cost"}
+gw9 = g(ev_(L1, dw9), "F1-US-DESGLOSE")[0]
+paso("W · «desglose»: «no_publicado» (D-WM) y la ubicación de la amortización de los financieros no se declaran a la vez: DATOS INVÁLIDOS (con D-WM esa amortización "
+     "queda dentro de la propia)", gw9["salta"] and gw9["efecto"] == "DATOS INVÁLIDOS" and "no se declara dónde está esa amortización" in gw9["detalle"], gw9["detalle"][:200])
 dw8 = decl("A0_total", fin=True, rou_fin=5, fin_princ=5)
 dw8["series"]["caja_pagada_arr_financiero"] = serie(6)
 paso("W · las series de D-WM con el desglose «publicado» no se ignoran en silencio → DATOS INVÁLIDOS", g(ev_(L2, dw8), "F1-US-DESGLOSE")[0]["efecto"] == "DATOS INVÁLIDOS")
@@ -1170,9 +1188,9 @@ for i in range(N_FUZZ):
     dz = mutar(base, rnd.choice([0.03, 0.1, 0.25]))
     Lz = libro(da=rnd.choice([20.0, 25.0, 30.0]), dwc=rnd.choice([0.0, 10.0, -10.0]), C49=rnd.choice([0.0, 5.0]), princ=rnd.choice([0.0, 5.0]), fila23=rnd.choice([0.0, 50.0]),
                motor=rnd.choice(["A", "A", "B"]), l4=rnd.choice(["US GAAP", "US GAAP", "IFRS", "U.S. GAAP"]))
-    cz = None
+    cz_tmp = tempfile.mkdtemp(prefix="f1_us_")   # se crea aquí para poder borrarla aunque la fuente no se llegue a escribir (antes quedaba vacía en /tmp)
     try:
-        cz = expediente(copy.deepcopy(dz) if not isinstance(dz.get("series"), dict) else dz, partes=rnd.random() < 0.7)
+        cz = expediente(copy.deepcopy(dz) if not isinstance(dz.get("series"), dict) else dz, carpeta=cz_tmp, partes=rnd.random() < 0.7)
     except Exception:  # noqa: BLE001 — la declaración mutada no deja escribir la fuente: se evalúa sin carpeta
         cz = None
     try:
@@ -1191,8 +1209,7 @@ for i in range(N_FUZZ):
         k_ = f"{type(ex).__name__} @ {os.path.basename(tb.filename)}:{tb.lineno} {tb.name}"
         exc[k_] = exc.get(k_, 0) + 1
     finally:
-        if cz:
-            shutil.rmtree(cz, ignore_errors=True)
+        shutil.rmtree(cz_tmp, ignore_errors=True)
 paso(f"R14 · {N_FUZZ} declaraciones mal formadas al azar (semilla fija): ninguna excepción sin controlar (antes, AttributeError en una de cada nueve) y ningún «utilizable» "
      "con el desglose de arrendamientos incompleto", not exc and not util_incompleto, f"utilizables {n_util} · excepciones {exc} · utilizables incompletos {util_incompleto[:5]}")
 
@@ -1229,6 +1246,245 @@ paso("R11 · …y las variantes verosímiles que antes llegaban al paso 7 se rec
 prm = open(os.path.join(PV, "prompts", "metadatos_fase1.md"), encoding="utf-8").read()
 paso("R11 · la instrucción de los metadatos de la fase 1 cierra el vocabulario («IFRS» o «US GAAP», exactamente)", 'EXACTAMENTE `"IFRS"`' in prm and '`"US GAAP"`' in prm
      and '("IFRS" / "US GAAP" / …)' not in prm)
+
+# ================================================================== X · cierre de la ronda 2 (revisión R2): líneas ajenas al tramo, importes, financieros en la fila 8, notas y «Otro»
+SEN_ACT, SEN_PAS, SEN_GEN = "Impairment of operating lease right-of-use assets", "Gain on termination of operating lease liabilities", "Loss on lease termination"
+SEN_PARTIDA = ("Impairment of long-lived assets and operating lease", "right-of-use assets")
+WC_SIN = list(WC) + ["Accrued and other liabilities"]
+LX = libro_v631(libro(dwc=10.0, palancas=False), "A2_propio", 0.0)   # la variación del pasivo (10) va dentro de «Accrued and other liabilities»: el libro da 78; lo correcto, 68
+LX0 = libro_v631(libro(palancas=False), "A2_propio", 0.0)
+
+
+def d_np():
+    return decl("A2_propio", ub_am="no_publicada", ub_pas="no_publicada")
+
+
+def con_citas(am=None, pas=None, **k):
+    d = decl("A2_propio", **k)
+    for clave, cita in (("amortizacion_rou", am), ("variacion_pasivo", pas)):
+        if cita:
+            OP_(d)[clave]["cita"] = cita
+    return d
+
+
+def ajenas(r):
+    return r["us_gaap"]["contraste_de_ubicaciones"]["lineas_ajenas_al_tramo"]
+
+
+# ---- R2-1 · una línea que nombra el arrendamiento sin ser el tramo
+rx1 = ev_(LX, d_np(), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_ACT])
+paso("X · (R2-1, C1) declaración VERAZ «no_publicada» con una línea de deterioro del derecho de uso en el estado de flujos: ya no bloquea («manda el dato» no salta); "
+     "utilizable y CONDICIONADA (D-US1), con la cota que cubre el error (+10 dentro de −12) y la línea ajena a la vista",
+     rx1["utilizable_para_conclusion"] and bloquean(rx1) == [] and rx1["condicionada"]["hipotesis"] == "D-US1" and min(cotas(rx1).values()) <= -12 + 1e-9
+     and any("Impairment" in x for x in ajenas(rx1)) and not salta(rx1, "F1-SERIES") and "no son un tramo" in g(rx1, "F1-US-FILAS")[0]["detalle"],
+     f"{bloquean(rx1)} · {sorted(cotas(rx1).values())}")
+rx1b = ev_(LX, d_np(), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_PARTIDA])
+paso("X · (R2-1) lo mismo con la etiqueta partida en dos renglones (el deterioro está en el primero; el derecho de uso, en el de las cifras): la línea entera es ajena",
+     rx1b["utilizable_para_conclusion"] and rx1b["condicionada"]["hipotesis"] == "D-US1" and len(ajenas(rx1b)) == 1 and "Impairment" in ajenas(rx1b)[0]
+     and "right-of-use" in ajenas(rx1b)[0], str(bloquean(rx1b)))
+rx1c = ev_(LX, d_np(), verdad=("no", "no"), wc=WC_SIN + [SEN_GEN])
+paso("X · (R2-1) una línea ajena que la fase 1 SUMÓ en la fila 14 («Loss on lease termination») no contradice la declaración veraz «no_publicada» (antes: DATOS INVÁLIDOS)",
+     rx1c["utilizable_para_conclusion"] and rx1c["condicionada"]["hipotesis"] == "D-US1" and not bloquea(rx1c, "F1-US-FILAS"), str(bloquean(rx1c)))
+rx1d = ev_(LX, d_np(), verdad=("no", "no"), wc=WC_SIN, fuera=["Operating lease liabilities and other"])
+paso("X · (R2-1) control: una línea que SÍ nombra el tramo sigue haciendo saltar «manda el dato» frente a «no_publicada»", bloquean(rx1d) == ["F1-SERIES"]
+     and "manda el dato" in g(rx1d, "F1-SERIES")[0]["detalle"], str(bloquean(rx1d)))
+rx2 = ev_(LX, con_citas(SEN_ACT, SEN_PAS), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_ACT, SEN_PAS])
+gx2 = g(rx2, "F1-US-FILAS")[0]
+paso("X · (R2-1, C3) los dos tramos «fuera» citando una línea de deterioro y otra de cancelación: no valen como línea del tramo → F1-US-FILAS INCOMPLETO, y el mensaje "
+     "lleva a «no_publicada» (antes: utilizable sin condición, con 78)", bloquean(rx2) == ["F1-US-FILAS"] and gx2["efecto"] == "INCOMPLETO"
+     and estado_tramo(rx2, "amortizacion_rou") == "insuficiente" and estado_tramo(rx2, "variacion_pasivo") == "insuficiente" and "junto a otra cosa" in gx2["detalle"]
+     and "no_publicada" in gx2["detalle"] and rx2["K3"]["K3b_contrastado"] is False, gx2["detalle"][:200])
+rx2g = ev_(LX, con_citas(SEN_GEN, SEN_GEN), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_GEN])
+rx2m = ev_(LX, con_citas(SEN_ACT, ub_pas="no_publicada"), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_ACT])
+paso("X · (R2-1, C4 y C2) lo mismo con una sola línea genérica («Loss on lease termination») para los dos, y con solo la amortización «fuera» citando el deterioro",
+     bloquean(rx2g) == ["F1-US-FILAS"] and bloquean(rx2m) == ["F1-US-FILAS"] and estado_tramo(rx2m, "amortizacion_rou") == "insuficiente", f"{bloquean(rx2g)} · {bloquean(rx2m)}")
+rx2d = ev_(LX, con_citas(L_ACT), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_ACT, SEN_PAS])
+gx2d = g(rx2d, "F1-US-FILAS")[0]
+paso("X · (R2-1) una cita que es un TROZO de una línea ajena («Operating lease liabilities» dentro de «Gain on termination of operating lease liabilities») tampoco vale",
+     bloquean(rx2d) == ["F1-US-FILAS"] and gx2d["efecto"] == "INCOMPLETO" and "dentro de una línea que nombra el arrendamiento junto a otra cosa" in gx2d["detalle"]
+     and estado_tramo(rx2d, "variacion_pasivo") == "insuficiente", gx2d["detalle"][:220])
+rx2p = ev_(LX, con_citas("right-of-use assets", ub_pas="no_publicada"), verdad=("no", "no"), wc=WC_SIN, fuera=[SEN_PARTIDA])
+paso("X · (R2-1) …ni la cita tomada del último renglón de una etiqueta partida cuyo primer renglón dice «Impairment»", bloquean(rx2p) == ["F1-US-FILAS"]
+     and estado_tramo(rx2p, "amortizacion_rou") == "insuficiente", g(rx2p, "F1-US-FILAS")[0]["detalle"][:200])
+rx2e = ev_(LX0, decl("A2_propio"), verdad=("fuera", "fuera"), fuera=[L_AM, L_PAS, SEN_GEN, SEN_ACT])
+paso("X · (R2-1) control: con las líneas reales de los dos tramos (no sumadas) y además dos líneas ajenas, «fuera» citando las reales sigue CONTRASTADA y sin condición (68)",
+     rx2e["utilizable_para_conclusion"] and rx2e.get("condicionada") is None and estado_tramo(rx2e, "amortizacion_rou") == "contrastada"
+     and estado_tramo(rx2e, "variacion_pasivo") == "contrastada" and cerca(F0(rx2e), 68), str(bloquean(rx2e)))
+rx2h = ev_(LX0, decl("A2_propio"), verdad=("fuera", "fuera"), wc=list(WC) + [SEN_PAS], fuera=[L_AM, L_PAS])
+paso("X · (R2-1) control: la línea real del pasivo no está sumada y la fase 1 sí sumó en la fila 14 una línea AJENA que contiene las mismas palabras («Gain on "
+     "termination of operating lease liabilities»): «fuera» sigue contrastada (la ajena no es «la línea citada» ni nombra el tramo)", rx2h["utilizable_para_conclusion"]
+     and rx2h.get("condicionada") is None and estado_tramo(rx2h, "variacion_pasivo") == "contrastada" and estado_tramo(rx2h, "amortizacion_rou") == "contrastada",
+     f"{bloquean(rx2h)} · {estado_tramo(rx2h, 'variacion_pasivo')}")
+rx2f = ev_(libro_v631(libro(da=30.0, capex=30.0, palancas=False), "A2_propio", 0.0), con_citas(SEN_ACT), verdad=("no", "fuera"), fuera=[SEN_ACT, L_PAS])
+paso("X · (R2-1, C5) el error a la baja también se cierra: amortización dentro de una D&A que no la nombra, declarada «fuera» con la línea de deterioro → bloquea",
+     bloquean(rx2f) == ["F1-US-FILAS"], str(bloquean(rx2f)))
+NO_TRAMO = ("Impairment of operating lease right-of-use assets", "Impairment of long-lived assets and operating lease right-of-use assets", "Loss on lease termination",
+            "Gain on lease modification", "Gain on termination of operating lease liabilities", "Lease termination costs", "Lease incentives received",
+            "Amortization of lease incentives", "Operating lease abandonment charges", "Lease exit costs", "Deterioro de derechos de uso",
+            "Resultado por cancelación de arrendamientos", "Write-off of right-of-use assets", "Gain on sale and leaseback of leased assets")
+SI_TRAMO = {"Operating lease liabilities": {"pasivo"}, "Operating lease right-of-use assets": {"activo"}, "Non-cash lease expense": {"activo"},
+            "Amortization of operating lease right-of-use assets": {"activo"}, "Operating leases, net": {"activo", "pasivo"},
+            "Reduction in the carrying amount of right-of-use assets": {"activo"}, "Variación de pasivos por arrendamiento": {"pasivo"}}
+paso("X · (R2-1, C6) catorce rótulos habituales que nombran el arrendamiento junto a otra cosa: ninguno cuenta como tramo (_lados vacío); los de los tramos, como antes",
+     all(M._ajena(M._nlin(t)) and not M._lados(M._nlin(t)) for t in NO_TRAMO) and all(M._lados(M._nlin(t)) == v and not M._ajena(M._nlin(t)) for t, v in SI_TRAMO.items()),
+     str([t for t in NO_TRAMO if M._lados(M._nlin(t))] + [t for t, v in SI_TRAMO.items() if M._lados(M._nlin(t)) != v]))
+paso("X · (R2-1) _lineas_logicas: una etiqueta partida es una sola línea; una cabecera con dos puntos no se une a la línea siguiente",
+     [t for t, _ in M._lineas_logicas("Changes in operating assets and liabilities:\nImpairment of long-lived assets and operating lease\n   right-of-use assets   19   20\n"
+                                      "Accounts receivable   (5)   (6)\n")]
+     == ["changes in operating assets and liabilities:", "impairment of long-lived assets and operating lease right-of-use assets 19 20", "accounts receivable (5) (6)"])
+
+# ---- R2-2 · el importe declarado dentro de una fila frente a la cifra impresa de su línea
+rd1 = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste=10), verdad=("fuera", "fila_14"))
+paso("X · (R2-2, D1) VERAZ: la variación del pasivo es una línea propia sumada en la fila 14 (impreso «(10)» → +10 en la fila) y se declara con su importe 10: "
+     "contrastada, también el importe; sigue el límite F1-LIBRO (nada más bloquea)", bloquean(rd1) == ["F1-LIBRO"] and estado_tramo(rd1, "variacion_pasivo") == "contrastada"
+     and rd1["us_gaap"]["contraste_de_ubicaciones"]["importe_sin_contrastar"] == [], str(bloquean(rd1)))
+rd2 = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste=0), verdad=("fuera", "fila_14"))
+gd2 = g(rd2, "F1-US-FILAS")[0]
+paso("X · (R2-2, D2) la misma línea con importe declarado 0: DATOS INVÁLIDOS («el importe dentro de la fila es el de su línea»); antes, utilizable sin condición con 78",
+     bloquean(rd2) == ["F1-US-FILAS"] and gd2["efecto"] == "DATOS INVÁLIDOS" and estado_tramo(rd2, "variacion_pasivo") == "contradicha"
+     and "el importe dentro de la fila es el de su línea" in gd2["detalle"] and "'(10)'" in gd2["detalle"] and rd2["K3"]["K3b_contrastado"] is False, gd2["detalle"][:260])
+rd3 = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste={**{y: 10 for y in ANIOS[-5:]}, 2024: 9}), verdad=("fuera", "fila_14"))
+paso("X · (R2-2) no solo el cero: un importe distinto del impreso en un solo año (9 en 2024) también es DATOS INVÁLIDOS, y el mensaje dice el año",
+     bloquea(rd3, "F1-US-FILAS") and g(rd3, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS" and "en 2024" in g(rd3, "F1-US-FILAS")[0]["detalle"])
+LXa = libro_v631(libro(dwc=-10.0, palancas=False), "A2_propio", 0.0)
+rd4 = ev_(LXa, decl("A2_propio", ub_am="fila_14", ajuste=-10), verdad=("fila_14", "fuera"))
+rd4b = ev_(LXa, decl("A2_propio", ub_am="fila_14", ajuste=0), verdad=("fila_14", "fuera"))
+paso("X · (R2-2) lo mismo con la amortización como línea propia de la fila 14 (impreso «10» → −10): con −10, contrastada (F1-LIBRO); con 0, DATOS INVÁLIDOS",
+     bloquean(rd4) == ["F1-LIBRO"] and estado_tramo(rd4, "amortizacion_rou") == "contrastada" and bloquea(rd4b, "F1-US-FILAS")
+     and g(rd4b, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS" and estado_tramo(rd4b, "amortizacion_rou") == "contradicha", f"{bloquean(rd4)} · {bloquean(rd4b)}")
+dmx = decl("A2_propio", ub_pas="fila_14", ajuste=0)
+OP_(dmx)["variacion_pasivo"]["cita"] = "accrued liabilities, operating lease"
+rmx = ev_(LX, dmx, verdad=("fuera", "no"), wc=list(WC) + [NIKE_PAS], fuera=[L_AM])
+paso("X · (R2-2) el pasivo va dentro de una línea MEZCLADA de la fila 14 (la etiqueta de Nike) y se declara con importe 0: la ubicación está contrastada, pero el importe "
+     "no se puede comparar con una cifra → CONDICIONADA, con los pagos como cota (−12 cubre el error de +10); K3b no dice «contrastado»",
+     rmx["utilizable_para_conclusion"] and rmx["condicionada"]["hipotesis"] == "F1-US-FILAS" and estado_tramo(rmx, "variacion_pasivo") == "sin_contrastar"
+     and rmx["us_gaap"]["contraste_de_ubicaciones"]["importe_sin_contrastar"] == ["variacion_pasivo"] and min(cotas(rmx).values()) <= -12 + 1e-9
+     and rmx["K3"]["K3b_contrastado"] is False and any("los pagos menos el importe declarado" in k for k in cotas(rmx)), f"{bloquean(rmx)} · {cotas(rmx)}")
+rd6 = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste=0), verdad=("fuera", "fila_14"), partes=False)
+paso("X · (R2-2, D2b) sin fase1_partes, «fila_14» con importe 0: condicionada como antes, pero ahora la cota cubre el error (−12; antes, 0)",
+     rd6["utilizable_para_conclusion"] and rd6["condicionada"] and min(cotas(rd6).values()) <= -12 + 1e-9 and cerca(F0(rd6), 78), str(sorted(cotas(rd6).values())))
+rd6a = ev_(LXa, decl("A2_propio", ub_am="fila_14", ajuste=0), verdad=("fila_14", "fuera"), partes=False)
+paso("X · (R2-2) …y lo mismo al revés con la amortización (el error es a la baja, −10): la cota al alza es el coste lineal (+12); aquí además salta K3c (la "
+     "reinversión media sale negativa), que es la regla general", rd6a["condicionada"] and max(cotas(rd6a).values()) >= 12 - 1e-9 and cerca(F0(rd6a), 58)
+     and bloquean(rd6a) in ([], ["F1-K3c"]), f"{bloquean(rd6a)} · {sorted(cotas(rd6a).values())}")
+rd7 = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste=10), verdad=("fuera", "fila_14"), importes={L_PAS: "(10,000)"}, unidad="miles")
+rd7b = ev_(LX, decl("A2_propio", ub_pas="fila_14", ajuste=10), verdad=("fuera", "fila_14"), importes={L_PAS: "(10,000)"})
+paso("X · (R2-2) la cifra impresa se lleva a la escala del modelo con la unidad del informe (como la fase 1): «(10,000)» en miles es 10 (contrastada); en millones, no",
+     bloquean(rd7) == ["F1-LIBRO"] and estado_tramo(rd7, "variacion_pasivo") == "contrastada" and bloquea(rd7b, "F1-US-FILAS")
+     and estado_tramo(rd7b, "variacion_pasivo") == "contradicha", f"{bloquean(rd7)} · {bloquean(rd7b)}")
+AM8 = "Amortization of operating lease right-of-use assets"
+d8 = con_citas(AM8, ub_am="fila_8", a8=10)
+r8 = ev_(libro_v631(libro(da=30.0, palancas=False), "A2_propio", 10.0), d8, verdad=("fila_8", "fuera"), da=[DA, AM8], importes={AM8: "10"})
+d8b = con_citas(AM8, ub_am="fila_8", a8=15)
+r8b = ev_(libro_v631(libro(da=30.0, palancas=False), "A2_propio", 15.0), d8b, verdad=("fila_8", "fuera"), da=[DA, AM8], importes={AM8: "10"})
+paso("X · (R2-2) también en la fila 8 cuando la amortización es una línea PROPIA que la fase 1 sumó en la D&A: con su importe (10), contrastada y utilizable (68); "
+     "con 15, DATOS INVÁLIDOS", r8["utilizable_para_conclusion"] and r8.get("condicionada") is None and cerca(F0(r8), 68) and bloquean(r8b) == ["F1-US-FILAS"]
+     and g(r8b, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS", f"{bloquean(r8)} · {bloquean(r8b)}")
+r8c = ev_(libro_v631(libro(da=30.0, palancas=False), "A2_propio", 15.0), decl("A2_propio", ub_am="fila_8", a8=15), verdad=("fila_8", "fuera"))
+paso("X · (R2-2, D3) LÍMITE declarado: con la amortización dentro de una D&A MEZCLADA (su línea la nombra pero su cifra es la de toda la D&A) un importe inflado (15 por "
+     "10) no se puede comparar con una cifra impresa: sigue utilizable (73); es el mismo límite que NIIF con da_rou", r8c["utilizable_para_conclusion"]
+     and estado_tramo(r8c, "amortizacion_rou") == "contrastada" and cerca(F0(r8c), 73), str(bloquean(r8c)))
+paso("X · (R2-2) _valor_en_la_fila sigue las reglas de la fase 1: «(28)» en la fila 14 es +28; «1,125» en miles en la fila 8 es 1,125; con signo −1 se invierte; lo "
+     "que no es una cifra, o sin unidad válida, no se compara", M._valor_en_la_fila("circulante_lineas", {"impreso": "(28)"}, "millones") == 28
+     and M._valor_en_la_fila("da", {"impreso": "1,125"}, "miles") == Fr(1125, 1000) and M._valor_en_la_fila("circulante_lineas", {"impreso": "(28)", "signo": -1}, "millones") == -28
+     and M._valor_en_la_fila("da", {"impreso": "n/d"}, "millones") is None and M._valor_en_la_fila("da", {"impreso": "10"}, None) is None
+     and M._valor_en_la_fila("da", {"impreso": "9,199,774"}, "unidades") == Fr(9199774, 10 ** 6))
+paso("X · (R2-2) _linea_propia: solo las etiquetas que nombran únicamente el arrendamiento; las mezcladas (Nike, la D&A) y las que no lo nombran, no",
+     all(M._linea_propia(t) for t in (L_PAS, L_ACT, L_AM, AM8, "Operating leases, net", "Change in operating lease assets and liabilities"))
+     and not any(M._linea_propia(t) for t in (" ".join(NIKE_PAS), " ".join(NIKE_ACT), DA_ROU, DA, "Other assets and liabilities", "Accrued and other liabilities")))
+
+# ---- R2-3 · financieros con la amortización del derecho de uso «dentro de la fila 8» por omisión
+F_FIN = "Amortization of finance lease right-of-use assets"
+LE = libro_v631(libro(ebit=68.0, da=20.0, C70=68.0, C49=5.0, princ=5.0, palancas=False), "A2_propio", 5.0)
+
+
+def d_fin8():
+    return decl("A2_propio", fin=True, rou_fin=5, fin_princ=5)
+
+
+re1 = ev_(LE, d_fin8(), verdad=("fuera", "fuera"))
+paso("X · (R2-3, E1) amortización del derecho de uso financiero dentro de la fila 8 por omisión y ninguna línea sumada la nombra: sigue utilizable (como NIIF 16), pero el "
+     "tramo queda «por_omision», K3b dice «según lo declarado» y K3 no se presenta como conforme",
+     re1["utilizable_para_conclusion"] and estado_tramo(re1, "amortizacion_rou_financiero") == "por_omision" and re1["K3"]["K3b_contrastado"] is False
+     and "según lo declarado" in re1["K3"]["K3b_fundamento"] and re1["K3"]["conforme"] is None and estado_tramo(re1, "amortizacion_rou") == "contrastada",
+     f"{bloquean(re1)} · {re1['K3']['K3b_fundamento'][:60]}")
+re2 = ev_(LE, d_fin8(), verdad=("fuera", "fuera"), fuera=[L_AM, L_PAS, F_FIN])
+ge2 = g(re2, "F1-US-FILAS")[0]
+paso("X · (R2-3, E2) …y si el estado de flujos la muestra en una línea propia que la fase 1 NO sumó en la fila 8, manda el dato: DATOS INVÁLIDOS, y el mensaje dice "
+     "cómo declararla («fuera_de_la_fila_8»); antes, utilizable sin condición con +5", bloquean(re2) == ["F1-US-FILAS"] and ge2["efecto"] == "DATOS INVÁLIDOS"
+     and estado_tramo(re2, "amortizacion_rou_financiero") == "contradicha" and "fuera_de_la_fila_8" in ge2["detalle"] and "Amortization of finance lease" in ge2["detalle"],
+     ge2["detalle"][:240])
+re4 = ev_(libro_v631(libro(ebit=68.0, da=25.0, capex=20.0, C70=68.0, C49=5.0, princ=5.0, palancas=False), "A2_propio", 5.0), d_fin8(), verdad=("fuera", "fuera"),
+          da=["Depreciation and amortization, including amortization of finance lease assets"])
+paso("X · (R2-3, E4) control: si la línea de la D&A que la fase 1 sumó la nombra, queda contrastada y K3b dice «contrastado» (68)", re4["utilizable_para_conclusion"]
+     and estado_tramo(re4, "amortizacion_rou_financiero") == "contrastada" and re4["K3"]["K3b_contrastado"] is True and cerca(F0(re4), 68), str(bloquean(re4)))
+re5 = ev_(LE, d_fin8(), verdad=("fuera", "fuera"), partes=False)
+re6 = ev_(LE, d_fin8(), verdad=("fuera", "fuera"), da=[DA, F_FIN])
+paso("X · (R2-3) sin fase1_partes queda «por_omision» (no se ha contrastado); y si la línea propia SÍ está entre las sumadas en la fila 8, contrastada (no hay contradicción)",
+     estado_tramo(re5, "amortizacion_rou_financiero") == "por_omision" and "sin fase1_partes" in re5["us_gaap"]["contraste_de_ubicaciones"]["tramos"]["amortizacion_rou_financiero"]["motivo"]
+     and estado_tramo(re6, "amortizacion_rou_financiero") == "contrastada" and not bloquea(re6, "F1-US-FILAS"))
+paso("X · (R2-3) con D-WM (como deuda) o con la amortización declarada fuera de la fila 8 no hay tramo «por omisión»: nada cambia",
+     "amortizacion_rou_financiero" not in ev_(L1, d_wm())["us_gaap"]["contraste_de_ubicaciones"]["tramos"])
+
+# ---- R2-4 · notas de texto dentro de «series» y valores vacíos
+dN4 = copy.deepcopy(dN)
+dN4["series"]["pagos_arrendamiento_sin_declarar"] = "vacío: el estado de flujos los publica en dos líneas (interés y principal), no en una"
+rN4 = ev_(LN, dN4)
+paso("X · (R2-4) una nota de texto dentro de «series», en una clave que no es una serie (la declaración real de Jumbo), ya no es DATOS INVÁLIDOS: se admite, queda a la "
+     "vista (INFORMA) y el resultado es el de la declaración sin la nota", bloquean(rN4) == bloquean(rN) and rN4["utilizable_para_conclusion"] == rN["utilizable_para_conclusion"]
+     and rN4.get("notas_en_series") == ["pagos_arrendamiento_sin_declarar"] and rN4["calculo_perimetro_declarado"] == rN["calculo_perimetro_declarado"]
+     and [x["severidad"] for x in g(rN4, "F1-DECLARACION")] == ["INFORMA"] and "pagos_arrendamiento_sin_declarar" in g(rN4, "F1-DECLARACION")[0]["detalle"]
+     and "notas_en_series" not in rN, str(bloquean(rN4)))
+dN5 = copy.deepcopy(dN)
+dN5["series"]["da_rou"] = "no la publica"
+rN5 = ev_(LN, dN5)
+paso("X · (R2-4) un texto en el lugar de una SERIE conocida sigue siendo DATOS INVÁLIDOS, y el mensaje dice exactamente dónde se escribe una nota",
+     bloquea(rN5, "F1-DECLARACION") and "«nota»" in g(rN5, "F1-DECLARACION")[0]["detalle"] and "una clave que no sea el nombre de una serie" in g(rN5, "F1-DECLARACION")[0]["detalle"],
+     g(rN5, "F1-DECLARACION")[0]["detalle"][:200])
+dN6 = copy.deepcopy(dN)
+dN6["series"]["otra_cosa"] = [1, 2]
+paso("X · (R2-4) lo que no es un texto ni un objeto (una lista con contenido) en una clave desconocida de «series» tampoco se admite", bloquea(ev_(LN, dN6), "F1-DECLARACION"))
+
+
+def con(d, **k):
+    x = copy.deepcopy(d)
+    x.update(k)
+    return x
+
+
+paso("X · (R2-4) vacío = sin declarar: «normalizacion» con [], \"\" o 0 se toma como vacía, como antes de la ronda 2 (la revisión contó 3 formas que pasaban de utilizable "
+     "a bloqueada); con contenido y sin ser un objeto, DATOS INVÁLIDOS", all(bloquean(ev_(LN, con(dN, normalizacion=v))) == bloquean(rN) for v in ([], "", 0))
+     and bloquea(ev_(LN, con(dN, normalizacion="x")), "F1-DECLARACION") and bloquea(ev_(LN, con(dN, normalizacion=[1])), "F1-DECLARACION"))
+dU4 = decl("A2_propio", fin=True, rou_fin=5, fin_princ=5, ub_am="fila_8", a8=10)
+dU4n = copy.deepcopy(dU4)
+dU4n["series"]["nota_del_examen"] = "texto libre"
+paso("X · (R2-4) la nota tampoco estorba al escribir el libro V6.3.1 (f1_libro_v631.celdas da las mismas celdas)", V631.celdas(dU4n, ANIOS) == V631.celdas(dU4, ANIOS))
+
+# ---- «Otro» en Control maestro L4: límite del modelo, no falta de datos
+LO = libro(l4="Otro")
+rO1 = ev_(LO, dN)
+paso("X · («Otro») libro con «Otro» en Control maestro L4 y una declaración completa: F1-NORMA es un LÍMITE DEL MODELO (F1 solo tiene reglas para NIIF y US GAAP), no un "
+     "dato que falte → «no_entregable · limite_del_modelo» (antes: pendiente_de_datos)", bloquea(rO1, "F1-NORMA") and g(rO1, "F1-NORMA")[0]["efecto"] == "MODELO NO APLICABLE"
+     and rO1["estado_propuesto"] == "no_entregable · limite_del_modelo" and "no un dato que falte" in g(rO1, "F1-NORMA")[0]["detalle"], rO1["estado_propuesto"])
+rO2 = M.evaluar(LO, {})
+paso("X · («Otro») …también sin declaración: faltan datos, pero ninguno arregla la norma; manda el límite del modelo", len(bloquean(rO2)) > 1
+     and rO2["estado_propuesto"] == "no_entregable · limite_del_modelo", f"{bloquean(rO2)[:4]} · {rO2['estado_propuesto']}")
+rO3 = M.evaluar(libro(l4="Otro", motor="B", fila23=50.0), {}, carpeta=t415)
+paso("X · («Otro») con el motor B en un expediente de la 4.15 (se exige F1 porque no se puede descartar US GAAP): límite del modelo, ya no pendiente_de_datos",
+     rO3["aplica"] is True and bloquean(rO3) == ["F1-NORMA"] and rO3["estado_propuesto"] == "no_entregable · limite_del_modelo", rO3["estado_propuesto"])
+rO4 = ev_(libro(l4="U.S. GAAP"), dN)
+paso("X · («Otro») control: un texto fuera de la lista («U.S. GAAP») sigue siendo un dato mal escrito → DATOS INVÁLIDOS, pendiente_de_datos",
+     g(rO4, "F1-NORMA")[0]["efecto"] == "DATOS INVÁLIDOS" and rO4["estado_propuesto"] == "pendiente_de_datos")
+
+# ---- R2-6 · F1-US-C49 «explicado»: el texto distingue el sentido de la diferencia
+dE6f = decl("A2_propio", fin=True, rou_fin=5, fin_princ=FP6)
+dE6f["conciliacion_fcf_base"] = [{"componente": "C49", "importe": 0.166667, "partida": "principal pagado en diciembre y registrado en otra partida de la caja base",
+                                  "fuente": {"documento": DOC, "pagina": 1}}]
+rE6f = ev_(libro(ebit=63.0, da=25.0, C70=61.5, C49=5.5, princ=PR6), dE6f)
+paso("X · (R2-6) C49 por DEBAJO del principal publicado y la diferencia explicada: el aviso pide comprobar que el principal que falta está restado en esa partida (se "
+     "omitiría), no que «no son pagos operativos»; por encima, sigue pidiendo lo segundo", g(rE6f, "F1-US-C49")[0]["severidad"] == "AVISO"
+     and "se omitiría" in g(rE6f, "F1-US-C49")[0]["detalle"] and "pagos de arrendamientos operativos" not in g(rE6f, "F1-US-C49")[0]["detalle"]
+     and "los contaría dos veces" in g(rE6d, "F1-US-C49")[0]["detalle"], g(rE6f, "F1-US-C49")[0]["detalle"][-170:])
 
 # ================================================================== V631 · libro V6.3.1 F1: la fila 86 lleva financieros + operativos dentro de la fila 8
 dV = decl("A2_propio", fin=True, rou_fin=5, fin_princ=5, ub_am="fila_8", a8=10)

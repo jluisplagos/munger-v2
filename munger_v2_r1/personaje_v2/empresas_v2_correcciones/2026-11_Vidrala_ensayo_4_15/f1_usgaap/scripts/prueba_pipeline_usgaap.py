@@ -32,6 +32,15 @@ Ronda 2 (revisión R1 y decisiones D-US2 bis y D-WM):
         deuda (no de «caja base por dos vías sin explicar» ni de «perímetro declarado: sin declarar») y la ficha lleva el aviso del ancla.
   PU11 · (R1-11) «norma_contable» fuera de la lista cerrada en fase1_v63.json («U.S. GAAP»): el paso 2 termina en pendiente_de_datos,
         antes de gastar la fase A.
+Cierre de la ronda 2 (revisión R2):
+  PU12 · (R2-1) el estado de flujos lleva una línea que nombra el arrendamiento sin ser un tramo («Loss on lease termination») y la
+        variación del pasivo va dentro de «Accrued and other liabilities»: con la declaración VERAZ («no_publicada») llega a concluido
+        CONDICIONADA con su cota (antes: pendiente_de_datos); con los dos tramos «fuera» citando esa línea, pendiente_de_datos en el
+        paso 7 (antes: concluido sin condición y sobrevalorado).
+  PU13 · (R2-2) «Operating lease liabilities» (2,5 al año) es una línea propia sumada en la fila 14 y se declara «fila_14» con importe 0:
+        pendiente_de_datos en el paso 7 (F1-US-FILAS, DATOS INVÁLIDOS); antes, concluido sin condición.
+  PU14 · («Otro») motor B con «Otro» como norma de la fase 1: el paso 7 termina en no_entregable · límite del modelo (antes:
+        pendiente_de_datos).
 """
 import hashlib
 import json
@@ -94,21 +103,23 @@ def declaracion(bloque=True, ub_pas="no_publicada", ajuste=None, financieros=Fal
     return d
 
 
-def escribir_fuente(c, d, da=(DA,), wc=WC, fuera=(), notas=(), partes=False):
+def escribir_fuente(c, d, da=(DA,), wc=WC, fuera=(), notas=(), partes=False, importes=None):
     """La fuente del expediente (texto/10K_sint.txt, registrada con su huella). Página 1: notas (las cifras de las series y las citas de existencia);
     página 2: el estado de flujos, con las líneas que la fase 1 sumó en la fila 8 (`da`) y en la fila 14 (`wc`) y las que no sumó (`fuera`).
     partes=True: además fase1_partes/AR_2021…2025.json con el renglón de las cifras de cada línea sumada (el pipeline no las usa: fase1_v63.json ya
-    existe; las lee la capa F1 para contrastar las ubicaciones declaradas)."""
+    existe; las lee la capa F1 para contrastar las ubicaciones declaradas). importes: {etiqueta: cifra impresa} de las líneas que la llevan propia (la
+    misma en las tres columnas); las demás llevan cifras cualesquiera."""
     lits = sorted({str(e.get("literal")) for s_ in (d.get("series") or {}).values() for e in s_.values() if isinstance(e, dict)})
     n, filas, comp = [10], ["CONSOLIDATED STATEMENTS OF CASH FLOWS"], {"da": [], "circulante_lineas": [], "cfo": []}
 
     def poner(x, k=None):
         n[0] += 3
         pp = [x] if isinstance(x, str) else list(x)
-        ult = f"{pp[-1]}    {n[0]}    {n[0] + 1}    {n[0] + 2}"
+        imp = (importes or {}).get(" ".join(pp))
+        ult = f"{pp[-1]}    {imp}    {imp}    {imp}" if imp else f"{pp[-1]}    {n[0]}    {n[0] + 1}    {n[0] + 2}"
         filas.extend(pp[:-1] + [ult])
         if k:
-            comp[k].append({"concepto": pp[-1] if len(pp) > 1 else x, "impreso": str(n[0]), "pagina": 2, "linea": ult})
+            comp[k].append({"concepto": pp[-1] if len(pp) > 1 else x, "impreso": imp or str(n[0]), "pagina": 2, "linea": ult})
 
     poner("Net income")
     for x in da:
@@ -128,7 +139,7 @@ def escribir_fuente(c, d, da=(DA,), wc=WC, fuera=(), notas=(), partes=False):
     if partes:
         os.makedirs(os.path.join(c, "fase1_partes"), exist_ok=True)
         for a in range(2021, 2026):
-            json.dump({"anio": a, "archivo": TXT, "partidas": {k: {"actual": v, "anterior": v, "cero": None} for k, v in comp.items()}},
+            json.dump({"anio": a, "archivo": TXT, "unidad": "millones", "partidas": {k: {"actual": v, "anterior": v, "cero": None} for k, v in comp.items()}},
                       open(os.path.join(c, "fase1_partes", f"AR_{a}.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
 
@@ -151,6 +162,9 @@ def preparar(nombre, d, circulante_extra=0.0, con_c49=False, fila23=None, norma=
         w = f1["historia"]["partidas"]["circulante"]["valores"]
         f1["historia"]["partidas"]["circulante"]["valores"] = w[:5] + [x + circulante_extra for x in w[5:]]
     json.dump(f1, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if circulante_extra and "importes" not in fuente:
+        # (R2-2) si la variación del pasivo es una línea propia de la fila 14, su cifra impresa es la que la fase 1 sumó: «(2.5)» → +2,5 en la fila
+        fuente["importes"] = {L_PAS: f"({circulante_extra:g})"}
     escribir_fuente(c, d, **fuente)
     if not sin_decl:
         json.dump(d, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -353,6 +367,52 @@ def main():
         paso("PU11 · (R1-11) «norma_contable» = «U.S. GAAP» en fase1_v63.json: el paso 2 termina en pendiente_de_datos con el motivo, antes de gastar la fase A (antes: paso 7)",
              st.get("estado_analisis") == "pendiente_de_datos" and st.get("paso") == 2 and "lista cerrada" in str((dg.get("causa") or {}).get("detalle"))
              and not os.path.exists(os.path.join(c, "fase_a.json")), f"estado {st.get('estado_analisis')} · paso {st.get('paso')} · {str((dg.get('causa') or {}).get('detalle'))[:160]}")
+        # ---------------------------------------------------------------- cierre de la ronda 2 (revisión R2)
+        SEN = "Loss on lease termination"
+        fuera_ = "fuera_de_las_filas_8_y_14"
+        # PU12 · (R2-1) línea que nombra el arrendamiento sin ser un tramo: declaración veraz y declaración falsa
+        c = preparar("EmpresaX_US_r21h", declaracion(), circulante_extra=2.5, wc=WC + ("Accrued and other liabilities",), fuera=(SEN,), partes=True)
+        rc, out = correr(c)
+        st, r, linea = TS.estado(c), leer(c, "motor_a_f1_resultado.json"), linea_f1(c)
+        aj = (((r.get("us_gaap") or {}).get("contraste_de_ubicaciones") or {}).get("lineas_ajenas_al_tramo") or [])
+        paso("PU12 · (R2-1, Y4h) el estado de flujos lleva «Loss on lease termination» (no es un tramo) y la declaración es VERAZ («no_publicada» los dos): ya no se bloquea; "
+             "llega a concluido CONDICIONADA (D-US1), con la cota en el informe y la línea ajena a la vista (antes: pendiente_de_datos en el paso 7)",
+             st.get("estado_analisis") == "concluido" and bloquean(r) == [] and (r.get("condicionada") or {}).get("hipotesis") == "D-US1" and "CONDICIONADA" in linea
+             and "cota: el flujo sin crecimiento podría cambiar entre" in linea and any(SEN in x for x in aj),
+             f"estado {st.get('estado_analisis')} · paso {st.get('paso')} · bloquean {bloquean(r)} · ajenas {aj}")
+        d12 = declaracion()
+        for k_ in ("amortizacion_rou", "variacion_pasivo"):
+            d12["arrendamientos_us_gaap"]["operativos"][k_] = {"ubicacion": fuera_, "documento": DOC, "pagina": 2, "cita": SEN}
+        c = preparar("EmpresaX_US_r21", d12, circulante_extra=2.5, wc=WC + ("Accrued and other liabilities",), fuera=(SEN,), partes=True)
+        rc, out = correr(c)
+        st, r = TS.estado(c), leer(c, "motor_a_f1_resultado.json")
+        g_f = [x for x in r.get("guardas") or [] if x["id"] == "F1-US-FILAS"]
+        paso("PU12 · (R2-1, Y4) los dos tramos declarados «fuera» citando esa línea: no vale como línea del tramo → pendiente_de_datos en el paso 7 (F1-US-FILAS, "
+             "INCOMPLETO), sin fase B (antes: concluido sin condición, con el valor sobrestimado)",
+             st.get("estado_analisis") == "pendiente_de_datos" and st.get("paso") == 7 and bloquean(r) == ["F1-US-FILAS"] and g_f and g_f[0]["efecto"] == "INCOMPLETO"
+             and "junto a otra cosa" in str(g_f[0]["detalle"]) and not os.path.exists(os.path.join(c, "fase_b.json")),
+             f"estado {st.get('estado_analisis')} · paso {st.get('paso')} · {str(g_f[0]['detalle'])[:160] if g_f else bloquean(r)}")
+        # PU13 · (R2-2) importe cero en un tramo cuya línea propia está sumada en la fila 14
+        d13 = declaracion(ub_pas="fila_14", ajuste=0)
+        d13["arrendamientos_us_gaap"]["operativos"]["amortizacion_rou"] = {"ubicacion": fuera_, "documento": DOC, "pagina": 2, "cita": "Non-cash lease expense"}
+        c = preparar("EmpresaX_US_r22", d13, circulante_extra=2.5, wc=WC + (L_PAS,), fuera=("Non-cash lease expense",), partes=True)
+        rc, out = correr(c)
+        st, r = TS.estado(c), leer(c, "motor_a_f1_resultado.json")
+        g_f = [x for x in r.get("guardas") or [] if x["id"] == "F1-US-FILAS"]
+        paso("PU13 · (R2-2, Y5) «Operating lease liabilities» (2,5 al año) es una línea propia sumada en la fila 14 y se declara «fila_14» con importe 0: el importe dentro "
+             "de la fila es el de su línea → pendiente_de_datos en el paso 7 (F1-US-FILAS, DATOS INVÁLIDOS), sin fase B (antes: concluido sin condición)",
+             st.get("estado_analisis") == "pendiente_de_datos" and st.get("paso") == 7 and bloquean(r) == ["F1-US-FILAS"] and g_f and g_f[0]["efecto"] == "DATOS INVÁLIDOS"
+             and "el importe dentro de la fila es el de su línea" in str(g_f[0]["detalle"]) and not os.path.exists(os.path.join(c, "fase_b.json")),
+             f"estado {st.get('estado_analisis')} · paso {st.get('paso')} · {str(g_f[0]['detalle'])[:200] if g_f else bloquean(r)}")
+        # PU14 · «Otro» como norma de la fase 1, con el motor B
+        c = preparar("EmpresaX_US_otro", declaracion(), norma="Otro", sin_decl=True)
+        rc, out = correr(c, motor="B")
+        st, r, dg = TS.estado(c), leer(c, "motor_a_f1_resultado.json"), leer(c, "diagnostico.json")
+        paso("PU14 · («Otro», Y9) motor B con «Otro» como norma de la fase 1 en un expediente de la 4.15: el paso 7 termina en no_entregable · límite del modelo (F1 no "
+             "tiene regla para otras normas; ningún dato lo arregla); antes, pendiente_de_datos",
+             st.get("motor") == "B" and st.get("estado_analisis") == "no_entregable" and st.get("paso") == 7 and (dg.get("causa") or {}).get("tipo") == "limite_del_modelo"
+             and bloquean(r) == ["F1-NORMA"] and not os.path.exists(os.path.join(c, "fase_b.json")),
+             f"estado {st.get('estado_analisis')} · paso {st.get('paso')} · causa {(dg.get('causa') or {}).get('tipo')} · bloquean {bloquean(r)}")
     finally:
         shutil.rmtree(TS.BASE, ignore_errors=True)
         TS.BASE = base0

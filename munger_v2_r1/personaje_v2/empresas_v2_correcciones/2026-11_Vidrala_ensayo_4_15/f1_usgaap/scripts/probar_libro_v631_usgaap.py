@@ -108,12 +108,12 @@ def main(dest, salida=None):
         # propia que la fase 1 no sumó. fase1_partes lleva las líneas que la fase 1 sumó en las filas 8 y 14 (la capa contrasta con ellas las ubicaciones)
         n, filas, comp = [10], ["CONSOLIDATED STATEMENTS OF CASH FLOWS"], {"da": [], "circulante_lineas": [], "cfo": []}
 
-        def poner(x, k=None):
+        def poner(x, k=None, imp=None):
             n[0] += 3
-            ult = f"{x}    {n[0]}    {n[0] + 1}    {n[0] + 2}"
+            ult = f"{x}    {imp}    {imp}    {imp}" if imp else f"{x}    {n[0]}    {n[0] + 1}    {n[0] + 2}"
             filas.append(ult)
             if k:
-                comp[k].append({"concepto": x, "impreso": str(n[0]), "pagina": 2, "linea": ult})
+                comp[k].append({"concepto": x, "impreso": imp or str(n[0]), "pagina": 2, "linea": ult})
 
         poner("Net income")
         poner(DA_ROU if ub_am == "fila_8" else DA, "da")
@@ -121,8 +121,10 @@ def main(dest, salida=None):
             if u == "fuera_de_las_filas_8_y_14":
                 poner(x)
         filas.append("Changes in operating assets and liabilities:")
+        # (cierre de la ronda 2, R2-2) con un solo tramo dentro de la fila 14, su línea propia lleva impresa la cifra que la fase 1 sumó («(2.5)» → +2,5)
+        solo_pas = ajuste is not None and ub_pas == "fila_14" and ub_am != "fila_14"
         for x in ("Accounts receivable", "Accounts payable and accrued liabilities") + ((L_ACT,) if ub_am == "fila_14" else ()) + ((L_PAS,) if ub_pas == "fila_14" else ()):
-            poner(x, "circulante_lineas")
+            poner(x, "circulante_lineas", f"({ajuste:g})" if (solo_pas and x == L_PAS) else None)
         poner("Net cash provided by operating activities", "cfo")
         txt = ("[PDF PAGE 1]\nNotas sintéticas: " + " ".join(lits) + "\nOperating lease cost\nFinance lease cost\nThe Company has no finance leases\n"
                "[PDF PAGE 2]\n" + "\n".join(filas) + "\n[PDF PAGE 3]\n")
@@ -138,7 +140,7 @@ def main(dest, salida=None):
         os.makedirs(os.path.join(c, "fase1_partes"))
         open(os.path.join(c, FUENTE), "w", encoding="utf-8").write(txt)
         for a in anios[-5:]:
-            json.dump({"anio": a, "archivo": TXT, "partidas": {k: {"actual": v, "anterior": v, "cero": None} for k, v in comp.items()}},
+            json.dump({"anio": a, "archivo": TXT, "unidad": "millones", "partidas": {k: {"actual": v, "anterior": v, "cero": None} for k, v in comp.items()}},
                       open(os.path.join(c, "fase1_partes", f"AR_{a}.json"), "w", encoding="utf-8"), ensure_ascii=False)
         dp = os.path.join(c, "motor_a_f1.json")
         json.dump(d, open(dp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -212,6 +214,9 @@ def main(dest, salida=None):
     s_w = h5["C74"].value
     chk("L5 · variación del pasivo dentro de la fila 14 (2,5 al año): el libro no la retira → F1-LIBRO es lo único que bloquea; la réplica del libro sigue conforme",
         bloquean(r5) == ["F1-LIBRO"] and not salta(r5, "F1-REPLICA") and "retirada del circulante" in next(g["detalle"] for g in r5["guardas"] if g["id"] == "F1-LIBRO"), str(bloquean(r5)))
+    t5 = r5["us_gaap"]["contraste_de_ubicaciones"]
+    chk("L5 · (R2-2) el importe declarado (2,5) es el de la línea propia que la fase 1 sumó en la fila 14 (impreso «(2.5)»): contrastada también en el importe, sin condición",
+        t5["tramos"]["variacion_pasivo"]["estado"] == "contrastada" and t5["importe_sin_contrastar"] == [] and r5.get("condicionada") is None, str(t5["tramos"]["variacion_pasivo"]))
     chk("L5 · la f de la capa es la del libro + 2,5 ÷ ventas medias (el libro sobrevaloraría el flujo en esa parte del alquiler)",
         abs(r5["calculo_perimetro_declarado"]["f"] - (h5["C58"].value + 2.5 / s_w)) <= 1e-12, f"capa {r5['calculo_perimetro_declarado']['f']!r} · libro {h5['C58'].value!r}")
     # ---------------------------------------------------------------- L7 · D-US2 bis: los dos tramos dentro de la fila 14 (pagos ≠ coste)

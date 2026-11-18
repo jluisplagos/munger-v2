@@ -44,7 +44,7 @@ from fractions import Fraction as Fr
 # está en sys.path (la regresión de Elis lo llama así) y el import fallaba desde la V6.3.1
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-VERSION = "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026)"
+VERSION = "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2)"
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
 RESULTADO_MD = "motor_a_f1_resultado.md"
@@ -106,6 +106,20 @@ _T_PASIVO = re.compile(r"leas(?:e|es|ing)\s+(?:assets?\s+and\s+)?(?:liabilit|obl
                        r"pasivos?\s+(?:por|de)\s+arrendamiento", re.I)
 _T_ACTIVO = re.compile(r"right[- ]of[- ]use|\brou\b|leas(?:e|es|ing)\s+(?:assets?|expenses?|costs?|amortization)|non-?cash\s+(?:operating\s+)?leas|"
                        r"amortization\s+of\s+(?:\w+\s+){0,4}leas|derechos?\s+de\s+uso|activos?\s+por\s+arrendamiento|gastos?\s+por\s+arrendamiento", re.I)
+# (cierre de la ronda 2, R2-1) líneas que nombran un arrendamiento JUNTO A OTRA COSA —deterioro, baja, cancelación, modificación, abandono, costes de
+# salida, incentivos, venta con arrendamiento posterior, resultados—: no son la amortización del derecho de uso ni la variación del pasivo. No hacen
+# saltar «manda el dato» frente a «no_publicada», no valen como cita de una ubicación y no cuentan entre las líneas sumadas que nombran un tramo
+_LINEA_AJENA = re.compile(r"impair|write[- ]?(?:offs?|downs?)|written[- ](?:off|down)|terminat|modif|remeasur|abandon|\bexit\b|incentiv|lease[- ]?backs?\b|"
+                          r"\bgains?\b|\bloss(?:es)?\b|deterioro|saneamiento|\bbajas?\b|cancelaci|rescisi|terminaci|modificaci|abandono|costes?\s+de\s+salida|"
+                          r"incentivo|arrendamiento\s+posterior|ganancia|p[eé]rdida|plusval|minusval", re.I)
+# (R2-2) palabras de una línea PROPIA de un tramo: si la etiqueta entera solo lleva estas, su cifra impresa es la del arrendamiento; con cualquier otra
+# («accounts payable, accrued liabilities, operating lease liabilities and other…», «depreciation and amortization, including…») es una línea mezclada
+_PALABRAS_PROPIAS = frozenset("""operating finance financing lease leases leasing leased right of use rou asset assets liability liabilities obligation obligations
+non noncash cash expense expenses cost costs amortization amortisation reduction reductions in the carrying amount amounts change changes increase decrease net and
+for on under to from a total current noncurrent long term short portion payments payment principal accretion interest
+arrendamiento arrendamientos operativo operativos financiero financieros derecho derechos de uso activo activos pasivo pasivos por variación variacion cambio
+cambios aumento disminución disminucion amortización amortizacion gasto gastos coste costes neto neta y en del los las el la no monetario monetarios corriente
+corrientes pagos pago principal""".split())
 _ES_FIN = re.compile(r"financ|capital\s+leas", re.I)
 _ES_OP = re.compile(r"operating|operativ", re.I)
 _NOMBRE_TRAMO = {"amortizacion_rou": "la amortización del derecho de uso", "variacion_pasivo": "la variación del pasivo",
@@ -234,32 +248,46 @@ def _valor(decl, clave):
 
 def _declaracion_bien_formada(decl):
     """(ronda 2, R1-14) Copia de la declaración en la que las claves que tienen que ser un objeto (o una lista) lo son; lo que no lo es se sustituye por un
-    valor vacío y se anota (DATOS INVÁLIDOS en F1-DECLARACION), en lugar de hacer fallar el programa. Devuelve (declaración, problemas)."""
-    d, mal = dict(decl), []
+    valor vacío y se anota (DATOS INVÁLIDOS en F1-DECLARACION), en lugar de hacer fallar el programa. Devuelve (declaración, problemas, notas).
+    (cierre de la ronda 2, R2-4) Vacío = sin declarar: un valor vacío que no es un objeto ([], "" o 0) se toma como vacío, como antes de la ronda 2; solo
+    lo que tiene contenido y no es un objeto es DATOS INVÁLIDOS. Dentro de «series», un TEXTO en una clave que no es el nombre de una serie es una nota:
+    se admite, no entra en el cálculo y queda a la vista (notas). Los demás sitios de una nota: «nota» en el primer nivel y «nota» dentro del año de una serie."""
+    d, mal, notas = dict(decl), [], []
     objetos = ("norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic", "clasificacion_compras", "transicion",
                "series", "normalizacion", "fuentes_series")
     for k in objetos:
         if d.get(k) is not None and not isinstance(d[k], dict):
-            mal.append(f"«{k}» no es un objeto ({type(d[k]).__name__})")
+            if d[k]:   # con contenido y sin ser un objeto; vacío ([], "", 0) = sin declarar
+                mal.append(f"«{k}» no es un objeto ({type(d[k]).__name__})")
             d[k] = {}
     if isinstance(d.get("series"), dict):
         s = dict(d["series"])
         for k, v in list(s.items()):
-            if v is not None and not isinstance(v, dict):
-                mal.append(f"series.{k} no es un objeto por año ({type(v).__name__})")
+            if v is None or isinstance(v, dict):
+                continue
+            if isinstance(v, str) and v.strip() and k not in SERIES and k not in SERIES_US:
+                notas.append(k)   # una nota de texto, no una serie: admitida y a la vista
+                del s[k]
+            elif not v:
+                s[k] = {}
+            else:
+                mal.append(f"series.{k} no es un objeto por año ({type(v).__name__}); una nota de texto se escribe en «nota» (primer nivel de la declaración), en "
+                           "«nota» dentro del año de una serie o, dentro de «series», como texto en una clave que no sea el nombre de una serie")
                 s[k] = {}
         d["series"] = s
     if isinstance(d.get("normalizacion"), dict):
         n = dict(d["normalizacion"])
         for k in ("bai", "gasto_impuesto"):
             if n.get(k) is not None and not isinstance(n[k], dict):
-                mal.append(f"normalizacion.{k} no es un objeto por año")
+                if n[k]:
+                    mal.append(f"normalizacion.{k} no es un objeto por año")
                 n[k] = {}
             elif isinstance(n.get(k), dict) and any(not str(a).lstrip("-").isdigit() for a in n[k]):
                 mal.append(f"normalizacion.{k}: clave de año no válida")
                 n[k] = {a: v for a, v in n[k].items() if str(a).lstrip("-").isdigit()}
         if n.get("ajustes") is not None and not isinstance(n["ajustes"], list):
-            mal.append("normalizacion.ajustes no es una lista")
+            if n["ajustes"]:
+                mal.append("normalizacion.ajustes no es una lista")
             n["ajustes"] = []
         d["normalizacion"] = n
     for k in ("clasificacion_compras", "transicion"):
@@ -267,7 +295,8 @@ def _declaracion_bien_formada(decl):
             c = dict(d[k])
             for kk in ("importes", "importes_historicos"):
                 if c.get(kk) is not None and not isinstance(c[kk], dict):
-                    mal.append(f"{k}.{kk} no es un objeto por año")
+                    if c[kk]:
+                        mal.append(f"{k}.{kk} no es un objeto por año")
                     c[kk] = None
                 elif isinstance(c.get(kk), dict) and any(not str(a).lstrip("-").isdigit() for a in c[kk]):
                     mal.append(f"{k}.{kk}: clave de año no válida")
@@ -275,12 +304,13 @@ def _declaracion_bien_formada(decl):
             d[k] = c
     re_ = d.get("reinversion_estimada")
     if re_ is not None and not isinstance(re_, dict):
-        mal.append("«reinversion_estimada» no es un objeto")
+        if re_:
+            mal.append("«reinversion_estimada» no es un objeto")
         d["reinversion_estimada"] = None
     elif isinstance(re_, dict) and (re_.get("por_anio") is not None) and (not isinstance(re_["por_anio"], dict) or any(v is not None and not isinstance(v, dict) for v in re_["por_anio"].values())):
         mal.append("reinversion_estimada.por_anio no es un objeto por año de objetos")
         d["reinversion_estimada"] = dict(re_, por_anio={k: v for k, v in re_["por_anio"].items() if isinstance(v, dict)} if isinstance(re_["por_anio"], dict) else {})
-    return d, mal
+    return d, mal, notas
 
 
 def leer_serie(decl, nombre, anios, con_signo=False):
@@ -530,7 +560,12 @@ def _guarda_norma(G, L, decl):
     norma, reg_norma = _valor(decl, "norma_contable")
     l4 = re.sub(r"\s+", " ", str(L.get("Control maestro!L4") or "")).strip()
     nl = norma_del_libro(L)
-    if norma is None:
+    if l4.casefold() == "otro":
+        # (cierre de la ronda 2, interpretación 5) «Otro» es un valor de la lista de la plantilla, pero F1 no tiene regla para otras normas: es un límite del
+        # modelo, no un dato que falte (ningún dato lo arregla sin cambiar la norma). Manda sobre lo que falte en la declaración (clase «norma»)
+        G.add("F1-NORMA", True, "BLOQUEA", "MODELO NO APLICABLE", "el libro declara «Otro» como norma contable (Control maestro L4): F1 solo tiene reglas para "
+              "NIIF y US GAAP; con otra norma el resultado del motor no se usa para una conclusión (límite del modelo, no un dato que falte)", "generalidad", clase="norma")
+    elif norma is None:
         G.add("F1-NORMA", True, "BLOQUEA", "INCOMPLETO", "norma contable sin declarar en la declaración F1 (entrada obligatoria)", "generalidad")
     elif norma not in NORMAS:
         G.add("F1-NORMA", True, "BLOQUEA", "MODELO NO APLICABLE", f"norma contable {norma!r} no soportada por F1 (valor cerrado: {' o '.join(NORMAS)})", "generalidad")
@@ -574,7 +609,7 @@ class Guardas:
 
     def add(self, gid, salta, severidad, efecto, detalle, decision, clase=None):
         """clase (solo si bloquea): «datos» (falta de datos o de decisión → pendiente_de_datos), «modelo» (límite del modelo),
-        «implementacion» (fallo de la réplica o de K3)."""
+        «implementacion» (fallo de la réplica o de K3), «norma» (norma contable para la que F1 no tiene regla: límite del modelo aunque falten datos)."""
         if clase is None:
             clase = {"INCOMPLETO": "datos", "DATOS INVÁLIDOS": "datos", "FUERA DEL DOMINIO": "datos"}.get(efecto, "modelo")
         self.lista.append({"id": gid, "salta": bool(salta), "severidad": severidad if salta else None, "efecto": efecto if salta else None,
@@ -597,7 +632,12 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["motor_del_libro"] = motor_
     # (ronda 2, R1-14) una clave que tiene que ser un objeto o una lista y no lo es no hace fallar el programa: DATOS INVÁLIDOS (la huella de la
     # declaración ya está tomada sobre el original)
-    decl, mal_formadas = _declaracion_bien_formada(decl)
+    decl, mal_formadas, notas_series = _declaracion_bien_formada(decl)
+    if notas_series:
+        # (cierre de la ronda 2, R2-4) un texto dentro de «series» en una clave que no es una serie es una nota: no se ignora en silencio ni bloquea
+        res["notas_en_series"] = list(notas_series)
+        G.add("F1-DECLARACION", True, "INFORMA", "INFORMA", "notas de texto dentro de «series» (no son series: no entran en el cálculo y quedan a la vista): "
+              + ", ".join(notas_series)[:300], "—")
     if motor_ == "B":
         nd, nl = _valor(decl, "norma_contable")[0], norma_del_libro(L)
         # (F1 · US GAAP) con el motor B y US GAAP se evalúa solo el puente de deuda (el pasivo por arrendamiento operativo no es deuda del puente).
@@ -1394,6 +1434,7 @@ def _cerrar(res, G, motor):
     res["utilizable_para_conclusion"] = not bl
     clases = {g["clase"] for g in bl}
     res["estado_propuesto"] = (None if not bl else "no_entregable · fallo_de_implementacion" if "implementacion" in clases
+                               else "no_entregable · limite_del_modelo" if "norma" in clases   # «Otro»: ningún dato lo arregla
                                else "pendiente_de_datos" if "datos" in clases else "no_entregable · limite_del_modelo")
     cond = res.get("condicionada")
     bis = ((res.get("us_gaap") or {}).get("D_US2_bis") or {}).get("texto")
@@ -1521,8 +1562,9 @@ def _guardas_us(G, L, U, decl, anios, ventana, horiz, per, C49, col):
                f"({float(-dif)}), mayor que el redondeo de C49 (±{float(tol)})" + (f" y que lo explicado en conciliacion_fcf_base ({float(expl):+})" if expl else "")
                + ", se pagó en financiación y no está en el FCF base: se omitiría") if defecto_c49 else
               (f"C49 = {float(C49)} difiere en {float(dif):+} del principal publicado de los arrendamientos financieros ({float(fin_m)} de media en la ventana); la "
-               f"diferencia está explicada por una partida declarada en conciliacion_fcf_base ({float(expl):+}, componente C49): compruébese que no son pagos de "
-               "arrendamientos operativos (ya están en el CFO)") if explicado else
+               f"diferencia está explicada por una partida declarada en conciliacion_fcf_base ({float(expl):+}, componente C49): "
+               + ("compruébese que no son pagos de arrendamientos operativos (ya están en el CFO: restarlos además en C49 los contaría dos veces)" if dif > 0 else
+                  "compruébese que el principal que C49 no lleva está restado de la caja base en esa partida (si no, se omitiría)")) if explicado else
               f"C49 = {float(C49)} es el principal publicado de los arrendamientos financieros ({float(fin_m)} de media en la ventana; redondeo de C49 ±{float(tol)})", dec)
     # F1-US-DA (dos veces) y F1-US-SIM (ninguna): la amortización del derecho de uso operativo o la variación de su pasivo dentro de la reinversión
     a8_pos = sum((U["a8"].get(y, Fr(0)) for y in ventana), Fr(0)) > 0
@@ -1567,10 +1609,47 @@ def _sin_cifras(t):
 def _lados(t):
     """Tramos del arrendamiento que nombra un texto: conjunto de «pasivo» (la variación del pasivo) y «activo» (la amortización del derecho de uso).
     Vacío si no nombra un arrendamiento ni un derecho de uso; los dos si lo nombra sin precisar (línea genérica o neta: «Operating leases, net»)."""
-    if not _LINEA_ARR.search(t):
+    if not _LINEA_ARR.search(t) or _LINEA_AJENA.search(t):   # (R2-1) una línea ajena al tramo (deterioro, cancelación…) no nombra ninguno
         return set()
     s = ({"pasivo"} if _T_PASIVO.search(t) else set()) | ({"activo"} if _T_ACTIVO.search(t) else set())
     return s or {"pasivo", "activo"}
+
+
+def _ajena(t):
+    """(cierre de la ronda 2, R2-1) True si el texto nombra un arrendamiento o un derecho de uso junto a un término de otra cosa (deterioro, baja, cancelación,
+    modificación, abandono, incentivos, resultado…): la línea no es un tramo del arrendamiento operativo."""
+    return bool(_LINEA_ARR.search(t) and _LINEA_AJENA.search(t))
+
+
+def _linea_propia(etiqueta):
+    """(cierre de la ronda 2, R2-2) True si la etiqueta entera de una línea (sin sus cifras) solo nombra el arrendamiento: todas sus palabras son del
+    vocabulario de un tramo (_PALABRAS_PROPIAS). Solo entonces su cifra impresa es el importe del arrendamiento dentro de la fila."""
+    palabras = re.findall(r"[^\W\d_]+", _sin_cifras(_nlin(etiqueta)))
+    return bool(palabras) and all(p in _PALABRAS_PROPIAS for p in palabras) and bool(_LINEA_ARR.search(_nlin(etiqueta)))
+
+
+def _lineas_logicas(pagina):
+    """Líneas de una página con la etiqueta ENTERA: cada renglón con cifras, precedido de los renglones anteriores de su etiqueta cuando está partida (hasta
+    tres renglones sin cifras que no terminan en «:»); los renglones sin cifras que no preceden a uno con cifras van solos (cabeceras). Devuelve
+    [(texto normalizado, texto tal como está)]. Sirve para que un término que está en el primer renglón de una etiqueta partida («Impairment of long-lived
+    assets and operating lease» / «right-of-use assets 19 20») cuente para toda la línea."""
+    out, pend = [], []
+    for raw in str(pagina).splitlines():
+        t = _nlin(raw)
+        if not t:
+            continue
+        if _TOK.search(t):
+            out.extend(pend[:-3])
+            out.append((" ".join([x[0] for x in pend[-3:]] + [t]), " ".join([x[1] for x in pend[-3:]] + [raw.strip()])))
+            pend = []
+        elif t.endswith(":"):
+            out.extend(pend)
+            out.append((t, raw.strip()))
+            pend = []
+        else:
+            pend.append((t, raw.strip()))
+    out.extend(pend)
+    return out
 
 
 def _solapa(a, b, minimo=12):
@@ -1635,6 +1714,21 @@ def _etiqueta_completa(pagina, linea):
     return None
 
 
+def _valor_en_la_fila(k, c, unidad):
+    """(cierre de la ronda 2, R2-2) Lo que un componente de fase1_partes aporta a su fila de la Historia, en la escala del modelo (millones), con las reglas
+    de fase1_historia.construir: en la fila 8 («da»), impreso × signo × escala; en la fila 14 («circulante_lineas»), lo mismo con el signo cambiado
+    (+ consume caja). None si no se puede calcular (cifra no numérica, signo o unidad no válidos): entonces el importe no se compara."""
+    try:
+        import fase1_historia as FH
+        sg = c.get("signo", 1)
+        if isinstance(sg, bool) or sg not in (1, -1):
+            return None
+        v = Q(float(FH.numero(c["impreso"]))) * sg * Q(float(FH.ESCALA[unidad]))
+    except Exception:  # noqa: BLE001 — una partida que la fase 1 no habría aceptado: no se compara
+        return None
+    return -v if k == "circulante_lineas" else v
+
+
 def _partes_fase1(carpeta, anios_req):
     """(ronda 2, R1-3) Las líneas que la fase 1 sumó en la fila 8 (partida «da»), en la fila 14 («circulante_lineas») y en la fila 23 («arrendamientos»)
     en los años que usa el modelo, tomadas como las toma fase1_historia.construir: para el año a, el lado «anterior» del informe a+1 si tiene
@@ -1683,12 +1777,17 @@ def _partes_fase1(carpeta, anios_req):
             for c in _componentes_parte(p.get(lado) if isinstance(p, dict) else None):
                 lin = _nlin(c.get("linea"))
                 arch = j.get("archivo") if isinstance(j.get("archivo"), str) else None
-                comp = _etiqueta_completa(pagina(arch, c.get("pagina")), lin)
+                pg = pagina(arch, c.get("pagina"))
+                comp = _etiqueta_completa(pg, lin)
                 texto = f"{_nlin(c.get('concepto'))} · {comp or lin}"
+                # (cierre de la ronda 2) «ajena»: nombra el arrendamiento junto a otra cosa (R2-1; sus «lados» quedan vacíos); «propia»: la etiqueta entera
+                # solo nombra el arrendamiento, así que su cifra impresa es el importe del tramo dentro de la fila («valor», R2-2); «pag»: su página
                 out.append({"k": k, "informe": a, "lado": lado, "origen": f"{j['_nombre']}, lado «{lado}»", "nlin": lin, "etiqueta": _sin_cifras(lin),
                             "completa": comp is not None, "texto": texto, "ver": _sin_cifras(comp) if comp else texto, "lados": _lados(texto),
                             "generica": bool(_LINEA_ARR.search(texto)) and not _T_PASIVO.search(texto) and not _T_ACTIVO.search(texto),
-                            "solo_fin": bool(_ES_FIN.search(texto)) and not _ES_OP.search(texto), "es_op": bool(_ES_OP.search(texto))})
+                            "solo_fin": bool(_ES_FIN.search(texto)) and not _ES_OP.search(texto), "es_op": bool(_ES_OP.search(texto)),
+                            "ajena": _ajena(texto), "propia": comp is not None and _linea_propia(comp), "impreso": c.get("impreso"),
+                            "valor": _valor_en_la_fila(k, c, j.get("unidad")), "pag": pg})
         cache[(a, k, lado)] = out
         return out
 
@@ -1767,9 +1866,13 @@ def _lector_paginas(decl, carpeta):
 
 def _lineas_con_cita(pagina, cn):
     """Líneas de la página (un renglón, o dos o tres renglones seguidos de una etiqueta partida) en las que está la cita. Sirve para saber DE QUÉ línea es
-    una cita: «operating lease liabilities» también está dentro de «Right-of-use assets obtained in exchange for new operating lease liabilities»."""
+    una cita: «operating lease liabilities» también está dentro de «Right-of-use assets obtained in exchange for new operating lease liabilities».
+    (cierre de la ronda 2, R2-1) Primero, las líneas con la etiqueta ENTERA (_lineas_logicas) que contienen la cita: así una cita tomada del último
+    renglón de «Impairment of long-lived assets and operating lease» / «right-of-use assets» se reconoce como de una línea ajena al tramo."""
+    out = [t for t, _ in _lineas_logicas(pagina) if cn in t]
+    if out:
+        return out
     filas = [x for x in (_nlin(r) for r in str(pagina).splitlines()) if x]
-    out = []
     for i in range(len(filas)):
         for n in (1, 2, 3):
             t = " ".join(filas[i:i + n])
@@ -1793,10 +1896,18 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
         línea del OTRO tramo cuando está declarada con su ubicación, la información complementaria y las líneas solo de financieros);
       - en todos los casos: una línea sumada que nombra un tramo declarado en otro sitio contradice la declaración → DATOS INVÁLIDOS;
       - los dos tramos «fila_14» (D-US2 bis): hacen falta las dos líneas contrastadas; si no, INCOMPLETO (no se publica el valor de la hoja).
+    (cierre de la ronda 2, revisión R2)
+      - R2-1 · una línea que nombra el arrendamiento junto a otra cosa (deterioro, cancelación, modificación, incentivos, resultado…: _LINEA_AJENA) no es
+        un tramo: no hace saltar «manda el dato» frente a «no_publicada», no vale como cita de una ubicación (INCOMPLETO) y no cuenta entre las sumadas;
+      - R2-2 · el importe declarado dentro de una fila se compara con la cifra impresa de la línea PROPIA que la fase 1 sumó ahí (otro importe, también
+        un 0 → DATOS INVÁLIDOS); con una línea mezclada dentro de la fila 14 el importe no se puede comparar → SIN CONTRASTAR (condicionada, con cota);
+      - R2-3 · la amortización del derecho de uso FINANCIERO dentro de la fila 8 por omisión: si el estado de flujos la muestra en una línea propia que
+        la fase 1 no sumó en la fila 8 → DATOS INVÁLIDOS; si ninguna línea sumada la nombra, queda «por_omision» (K3b no dice «contrastado»).
     Los tramos SIN CONTRASTAR dejan la conclusión CONDICIONADA, con su cota (_informes_us). Los problemas de las citas y de sus páginas se pasan a
     F1-SERIES. solo_existencia (motor B): solo las citas de existencia de cada clase; las ubicaciones son del motor A."""
     dec = "US GAAP · ubicaciones frente a las líneas del expediente (D-US1: manda el dato)"
-    C = {"invalidas": [], "incompletas": [], "citas_ok": 0, "aus_ok": 0, "tramos": {}, "sin_contrastar": {}, "fase1_partes": None}
+    C = {"invalidas": [], "incompletas": [], "citas_ok": 0, "aus_ok": 0, "tramos": {}, "sin_contrastar": {}, "fase1_partes": None, "lineas_ajenas": [],
+         "importe_sin_contrastar": []}
     U["contraste"] = C
     pagina = _lector_paginas(decl, carpeta)
     P = _partes_fase1(carpeta, anios_req)
@@ -1857,13 +1968,16 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
             continue
         otras = [_nlin(U["ev"][k].get("cita")) for k in _LADO_TRAMO if k != clave and U["ub_decl"].get(k) not in (None, "no_publicada")]
         lineas = []
-        for ln in explotacion(pag).splitlines():
-            t = _nlin(ln)
+        for t, raw in _lineas_logicas(explotacion(pag)):   # con la etiqueta entera: lo que hace ajena una línea puede estar en su primer renglón
             if not _LINEA_ARR.search(t) or _LINEA_SUPL.search(t) or (_ES_FIN.search(t) and not _ES_OP.search(t)):
+                continue
+            if _ajena(t):   # (R2-1) deterioro, cancelación, modificación…: no es un tramo; queda a la vista y no hace saltar «manda el dato»
+                if raw not in C["lineas_ajenas"]:
+                    C["lineas_ajenas"].append(raw)
                 continue
             if _LADO_TRAMO[clave] not in _lados(t) or any(_solapa(o, t) for o in otras):
                 continue
-            lineas.append(ln.strip())
+            lineas.append(raw)
         if P is not None and not es_estado(pag):
             C["incompletas"].append(f"{et}: «no_publicada», pero la página {e.get('pagina')} de {str(e.get('documento'))!r} no es la del estado de flujos que usó la "
                                     "fase 1 (no lleva sus líneas de explotación): se examina la página del estado de flujos")
@@ -1895,7 +2009,40 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
         """Líneas sumadas (de las filas ks) que son la línea citada: su etiqueta entera en la página citada contiene la cita, o los renglones de la página
         en que está la cita (uno, o dos o tres seguidos de una etiqueta partida) incluyen su renglón de las cifras."""
         de_la_cita = _lineas_con_cita(pag, cn)
-        return [c for c in en_la_pagina(pag) if c["k"] in ks and (cn in (_etiqueta_completa(pag, c["nlin"]) or c["nlin"]) or any(c["nlin"] in t for t in de_la_cita))]
+        return [c for c in en_la_pagina(pag) if c["k"] in ks and not c["ajena"]   # (R2-1) una línea ajena al tramo no es «la línea citada»
+                and (cn in (_etiqueta_completa(pag, c["nlin"]) or c["nlin"]) or any(c["nlin"] in t for t in de_la_cita))]
+
+    def importe_frente_a_la_linea(clave, k_decl, etqs, lado):
+        """(cierre de la ronda 2, R2-2) El importe declarado dentro de la fila frente a la cifra impresa de la línea sumada que nombra el tramo. Si la línea
+        es PROPIA (su etiqueta entera solo nombra el arrendamiento), lo que hay dentro de la fila es exactamente lo que esa línea aporta: otro importe →
+        DATOS INVÁLIDOS (también un 0, se declare como se declare). Si es una línea mezclada con otras partidas, o su cifra no se puede leer, el importe
+        no se puede comparar: con un tramo solo dentro de la fila 14 queda SIN CONTRASTAR (conclusión condicionada, con el pago o el coste como cota); en
+        la fila 8 es el límite general de la D&A (el importe lleva su propia cifra publicada: F1-SERIES)."""
+        if k_decl == "circulante_lineas" and not U["retira_de_14"]:
+            return   # los dos tramos dentro de la fila 14 (D-US2 bis): no se retira nada
+        decl_ = U["ajuste"] if k_decl == "circulante_lineas" else U["a8"]
+        mal, sin_cifra = [], []
+        for a in anios_req:
+            ls_ = [c for c in (usados(a, k_decl) or []) if c["etiqueta"] in etqs or (lado in c["lados"] and not c["solo_fin"])]
+            if not ls_ or a not in decl_:
+                continue   # el año sin línea o sin importe declarado lo señalan el contraste de la ubicación y F1-US-DESGLOSE
+            if all(c["propia"] and c["valor"] is not None for c in ls_):
+                v = sum((c["valor"] for c in ls_), Fr(0))
+                if abs(decl_[a] - v) > TOL_LIBRO * max(1, abs(v)):
+                    mal.append((a, decl_[a], v, ls_[0]))
+            else:
+                sin_cifra.append(a)
+        if mal:
+            a, x, v, c = mal[0]
+            contradice.append(f"{_NOMBRE_TRAMO[clave]} está declarada dentro de la fila {fila[k_decl]} con un importe de {float(x)} en {a}"
+                              + (f" (y otro distinto del impreso en {[m[0] for m in mal[1:]]})" if len(mal) > 1 else "")
+                              + f", pero la línea propia que la fase 1 sumó en esa fila ({c['origen']}: «{c['ver'][:110]}», impreso {str(c['impreso'])[:24]!r}) le "
+                              f"aporta {float(v)}: el importe dentro de la fila es el de su línea")
+            marcar(clave, "contradicha", "el importe declarado no es el de la línea propia sumada en esa fila")
+        elif sin_cifra and k_decl == "circulante_lineas":
+            marcar(clave, "sin_contrastar", f"la ubicación está contrastada, pero el importe no: en {sin_cifra} la línea sumada en la fila 14 que nombra ese tramo "
+                   "es una línea mezclada con otras partidas (o su cifra no se puede leer) y el importe declarado no se puede comparar con una cifra impresa")
+            C["importe_sin_contrastar"].append(clave)
 
     def del_modelo(pag):
         """La página citada es la del estado de flujos de un informe de los años que usa el modelo (o del siguiente, cuyo comparativo da el último de ellos)."""
@@ -1917,6 +2064,12 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                 marcar(clave, "sin_evidencia", "la cita no se ha podido examinar en su página (F1-SERIES o F1-US-DESGLOSE)")
                 continue
             cn, pag = _nlin(e.get("cita")), pag_ok[et]
+            if _ajena(cn):   # (R2-1)
+                insuf.append(f"{et}: la cita {str(e.get('cita'))[:80]!r} nombra el arrendamiento junto a otra cosa (deterioro, baja, cancelación, modificación, "
+                             f"abandono, incentivos, resultado…): no es la línea de {nom} y no prueba su ubicación; si la empresa no publica la línea del tramo, la "
+                             "ubicación es «no_publicada» (hipótesis D-US1)")
+                marcar(clave, "insuficiente", "la cita es una línea ajena al tramo")
+                continue
             ls = _lados(cn)
             if not ls or _LINEA_SUPL.search(cn):
                 insuf.append(f"{et}: la cita {str(e.get('cita'))[:80]!r} no nombra el arrendamiento ni el derecho de uso (o es información complementaria del estado de "
@@ -1930,7 +2083,14 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                 continue
             # la cita tiene que ser de una línea de la conciliación: no vale si en su página solo está dentro de líneas de información complementaria
             # (altas de derechos de uso, caja pagada) o de arrendamientos financieros
-            if not [t for t in _lineas_con_cita(explotacion(pag), cn) if not _LINEA_SUPL.search(t) and not (_ES_FIN.search(t) and not _ES_OP.search(t))]:
+            de_la_cita = [t for t in _lineas_con_cita(explotacion(pag), cn) if not _LINEA_SUPL.search(t) and not (_ES_FIN.search(t) and not _ES_OP.search(t))]
+            if de_la_cita and all(_ajena(t) for t in de_la_cita):   # (R2-1) la cita es un trozo de una línea ajena al tramo
+                insuf.append(f"{et}: la cita {str(e.get('cita'))[:80]!r} solo está, en la página {e.get('pagina')}, dentro de una línea que nombra el arrendamiento "
+                             f"junto a otra cosa («{de_la_cita[0][:110]}»: deterioro, baja, cancelación, modificación, abandono, incentivos, resultado…): no enseña "
+                             f"la línea de {nom}; si la empresa no publica la línea del tramo, la ubicación es «no_publicada» (hipótesis D-US1)")
+                marcar(clave, "insuficiente", "la cita es de una línea ajena al tramo")
+                continue
+            if not de_la_cita:
                 insuf.append(f"{et}: la cita {str(e.get('cita'))[:80]!r} solo está, en la página {e.get('pagina')}, dentro de líneas de información complementaria o de "
                              "arrendamientos financieros, o después del total del flujo de explotación (inversión o financiación): no enseña la línea de "
                              f"{nom}; si la empresa no publica la línea, la ubicación es «no_publicada» (hipótesis D-US1)")
@@ -1986,6 +2146,7 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                 marcar(clave, "contradicha", "la línea citada no está entre las sumadas en esa fila")
             elif not sin and not sin_ex:
                 marcar(clave, "contrastada", f"una línea sumada en la fila {fila[k_decl]} nombra ese tramo en {con}")
+                importe_frente_a_la_linea(clave, k_decl, etqs, lado)
             else:
                 marcar(clave, "sin_contrastar", "; ".join(([f"ninguna línea sumada en la fila {fila[k_decl]} nombra ese tramo en {sin}"] if sin else [])
                                                           + ([f"sin líneas examinadas en {sin_ex}"] if sin_ex else [])))
@@ -2015,10 +2176,39 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                 else:
                     marcar(clave, "sin_contrastar", "la cita no es una línea del estado de flujos que usó la fase 1" if not es_estado(pag)
                            else f"no se han podido examinar enteras las líneas sumadas en la fila 8 en {falta}")
+    # (cierre de la ronda 2, R2-3) financieros con la amortización de su derecho de uso DENTRO de la fila 8 (por omisión, como NIIF 16): manda el dato si el
+    # estado de flujos la muestra en una línea propia que la fase 1 no sumó en la fila 8; y solo cuenta como contrastada si una línea sumada la nombra
+    fin8 = U["fin"] is True and not U["fin_como_deuda"] and U["fin_am_ub"] == "fila_8" and rou_fin_pos
+    if fin8:
+        clave = "amortizacion_rou_financiero"
+        C["tramos"][clave] = {"ubicacion_declarada": "fila_8", "estado": None, "motivo": None}
+        if P is None:
+            marcar(clave, "por_omision", "dentro de la fila 8 por omisión (como NIIF 16); sin fase1_partes no se ha contrastado con las líneas sumadas en la fila 8")
+        else:
+            pags, a_la_vista = [], []
+            for pg in [c["pag"] for c in P["todos"] if c["pag"] is not None] + list(pag_ok.values()):
+                if not any(pg is x for x in pags) and es_estado(pg) and del_modelo(pg):
+                    pags.append(pg)
+            for pg in pags:
+                sumadas = [c["nlin"] for c in en_la_pagina(pg) if c["k"] == "da"]
+                for t, raw in _lineas_logicas(explotacion(pg)):
+                    if (_LINEA_ARR.search(t) and not _LINEA_SUPL.search(t) and not _ajena(t) and _ES_FIN.search(t) and not _ES_OP.search(t) and "activo" in _lados(t)
+                            and not any(s in t for s in sumadas) and raw not in a_la_vista):
+                        a_la_vista.append(raw)
+            sin_l = [a for a in anios_req if not any("activo" in c["lados"] and not c["es_op"] for c in (usados(a, "da") or []))]
+            if a_la_vista:
+                contradice.append(f"{_NOMBRE_TRAMO[clave]} está declarada dentro de la fila 8 (series.da_rou; es la ubicación por omisión), pero el estado de flujos la "
+                                  f"muestra en una línea propia que la fase 1 no sumó en la fila 8 («{a_la_vista[0][:120]}»): se declara «fuera_de_la_fila_8» con esa "
+                                  "línea (financieros.amortizacion_rou) y su cifra en series.da_rou_financiero_fuera")
+                marcar(clave, "contradicha", "el estado de flujos la muestra en una línea propia que la fase 1 no sumó en la fila 8")
+            elif not sin_l:
+                marcar(clave, "contrastada", "una línea sumada en la fila 8 nombra la amortización de arrendamientos financieros o de derechos de uso en los años del modelo")
+            else:
+                marcar(clave, "por_omision", f"dentro de la fila 8 por omisión (como NIIF 16): ninguna línea sumada en la fila 8 la nombra en {sin_l}; no se ha contrastado "
+                       "con una línea (el importe es el declarado en series.da_rou)")
     # líneas sumadas en los años del modelo que nombran un tramo declarado en otro sitio: la declaración contradice al expediente
     if P is not None and U["op"] is not None:
         en8 = U["op"] is True and U["ub_decl"]["amortizacion_rou"] == "fila_8"
-        fin8 = U["fin"] is True and not U["fin_como_deuda"] and U["fin_am_ub"] == "fila_8" and rou_fin_pos
         fuera14 = [k for k in _LADO_TRAMO if U["ub_decl"].get(k) != "fila_14"]
         vistas = set()
         for a in anios_req:
@@ -2079,6 +2269,8 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
             (not est and P is not None and all(completo(a, k) for a in anios_req for k in ("da", "circulante_lineas"))) else "declarado"
     resumen = "; ".join(f"{_NOMBRE_TRAMO[k]}: {_UB_TXT.get(v.get('ubicacion_declarada'), v.get('ubicacion_declarada'))} · {str(v.get('estado')).replace('_', ' ')}"
                         for k, v in C["tramos"].items())
+    ajenas = (" · líneas de la página examinada que nombran el arrendamiento junto a otra cosa y no son un tramo (no cuentan; R2-1): "
+              + "; ".join(f"«{x[:100]}»" for x in C["lineas_ajenas"][:3])) if C["lineas_ajenas"] else ""
     if contradice or insuf:
         G.add("F1-US-FILAS", True, "BLOQUEA", "DATOS INVÁLIDOS" if contradice else "INCOMPLETO",
               ((("la declaración contradice al expediente: " + "; ".join(contradice[:4]) + ": donde hay línea manda el dato (D-US1)") if contradice else "")
@@ -2086,15 +2278,15 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
     elif C["sin_contrastar"]:
         G.add("F1-US-FILAS", True, "AVISO", "AVISO", "ubicaciones declaradas SIN CONTRASTAR con una línea del expediente: "
               + "; ".join(f"{_NOMBRE_TRAMO[k]} ({_UB_TXT.get(C['tramos'][k]['ubicacion_declarada'])}): {m}" for k, m in C["sin_contrastar"].items())
-              + ". La conclusión queda CONDICIONADA, con su cota (F1-US-HIPOTESIS)", dec)
+              + ". La conclusión queda CONDICIONADA, con su cota (F1-US-HIPOTESIS)" + ajenas, dec)
     elif P is None:
         G.add("F1-US-FILAS", True, "INFORMA", "INFORMA", "sin fase1_partes en el expediente: no se ha podido contrastar lo declarado con las líneas que la fase 1 sumó "
-              "en las filas 8 y 14" + (f" ({resumen})" if resumen else ""), dec)
+              "en las filas 8 y 14" + (f" ({resumen})" if resumen else "") + ajenas, dec)
     else:
         G.add("F1-US-FILAS", False, None, None, (f"{resumen} · " if resumen else "") + "lo declarado no contradice las líneas que la fase 1 sumó en las filas 8 y 14 en los "
               f"años que usa el modelo ({anios_req[0]}–{anios_req[-1]}; informes {P['informes'][0] if P['informes'] else '—'}–{P['informes'][-1] if P['informes'] else '—'})"
               + (f"; sin examinar: {'; '.join(C['fase1_partes']['sin_examinar'][:4])}" if C["fase1_partes"]["sin_examinar"] else "")
-              + (f"; no se pudieron leer: {', '.join(P['ilegibles'][:3])}" if P["ilegibles"] else ""), dec)
+              + (f"; no se pudieron leer: {', '.join(P['ilegibles'][:3])}" if P["ilegibles"] else "") + ajenas, dec)
     return C
 
 
@@ -2328,8 +2520,20 @@ def _informes_us(G, res, L, U, f, anios, ventana, col, V0, S_w, decl_r, pal, mot
                 entradas["si la amortización del derecho de uso, declarada dentro de la fila 8 y sin contrastar con una línea, no estuviera dentro de la D&A (D_X "
                          "la habría excluido sin llevarla): el importe declarado"] = efecto(a8_m / S_w)
             elif ub == "fila_14" and aj_m is not None:
-                entradas[f"si {_NOMBRE_TRAMO[clave]}, declarada dentro de la fila 14 y sin contrastar con una línea, no estuviera dentro del circulante (se habría "
-                         "retirado sin estar): el importe declarado"] = efecto(-aj_m / S_w)
+                if clave in (C.get("importe_sin_contrastar") or []):
+                    entradas[f"si {_NOMBRE_TRAMO[clave]} dentro de la fila 14 fuera menor que el importe declarado, que no se ha podido comparar con una cifra "
+                             "impresa (se habría retirado de más): como máximo, el importe declarado"] = efecto(-aj_m / S_w)
+                else:
+                    entradas[f"si {_NOMBRE_TRAMO[clave]}, declarada dentro de la fila 14 y sin contrastar con una línea, no estuviera dentro del circulante (se "
+                             "habría retirado sin estar): el importe declarado"] = efecto(-aj_m / S_w)
+                # (cierre de la ronda 2, R2-2) el importe tampoco está contrastado con una cifra impresa: si lo que hay dentro de la fila fuera más que lo
+                # declarado (un 0, por ejemplo), la parte sin retirar seguiría dentro de la reinversión. Como máximo, los pagos (pasivo) o el coste lineal
+                if clave == "variacion_pasivo" and p_m is not None and p_m > aj_m:
+                    entradas["si la variación del pasivo dentro de la fila 14 fuera mayor que el importe declarado (la parte sin retirar omitiría el alquiler): "
+                             "como máximo, los pagos menos el importe declarado"] = efecto((p_m - aj_m) / S_w)
+                elif clave == "amortizacion_rou" and l_m is not None and l_m > -aj_m:
+                    entradas["si la amortización del derecho de uso dentro de la fila 14 fuera mayor que el importe declarado (la parte sin retirar se contaría dos "
+                             "veces): como máximo, el coste lineal menos el importe declarado" + holgada] = efecto(-(l_m + aj_m) / S_w)
             elif clave == "amortizacion_rou_financiero" and af_m is not None:
                 entradas["si la amortización del derecho de uso de los arrendamientos financieros, declarada fuera de la fila 8 y sin contrastar con una línea, "
                          "estuviera dentro de la D&A (se contaría dos veces): el importe publicado"] = efecto(-af_m / S_w)
@@ -2393,7 +2597,8 @@ def _informes_us(G, res, L, U, f, anios, ventana, col, V0, S_w, decl_r, pal, mot
                         "amortizacion_dentro_de_la_fila_8_media": fl(media(U["rou_fin"][y] for y in ventana), 6) if all(y in U["rou_fin"] for y in ventana) else None},
         "diferencia_coste_lineal_menos_pagos": dif, "D_US2_bis": bis, "D_WM": wm, "cota_D_US1": cota,
         "contraste_de_ubicaciones": {"tramos": C.get("tramos"), "fundamento": C.get("fundamento"), "fase1_partes": C.get("fase1_partes"),
-                                     "sin_contrastar": C.get("sin_contrastar")},
+                                     "sin_contrastar": C.get("sin_contrastar"), "importe_sin_contrastar": C.get("importe_sin_contrastar") or [],
+                                     "lineas_ajenas_al_tramo": C.get("lineas_ajenas") or []},
         "puente_de_deuda": puente}
 
 

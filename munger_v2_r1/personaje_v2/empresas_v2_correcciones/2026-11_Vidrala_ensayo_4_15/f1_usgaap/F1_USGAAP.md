@@ -1,10 +1,12 @@
 # F1 · US GAAP (ASC 842) · motor A con arrendamientos operativos y financieros
 
 Fecha: 18-nov-2026. Lo escribe el agente autor de la reparación (Claude, modelo Fable 5.2) en la rama `f1/usgaap`, creada desde
-`examen/ahold-f1` @ `1694f08`. **Ronda 2.** La ronda 1 (`34b68fc`) la revisó otro agente: veredicto CORRECCIONES acotadas
-(`munger-v2-evidencias-mistral`, `coordinacion/cierre_v2/examen/revisiones/f1_usgaap/REVISION_R1.md`). Este documento describe el
-estado después de esas correcciones y de las dos decisiones que la persona responsable tomó tras la revisión. **La ronda 2 no está
-revisada todavía.** Se distinguen **hechos** (comprobados con una prueba o un archivo), *interpretaciones* y ***propuestas***.
+`examen/ahold-f1` @ `1694f08`. **Ronda 2 y su cierre.** La ronda 1 (`34b68fc`) la revisó otro agente: veredicto CORRECCIONES acotadas
+(`munger-v2-evidencias-mistral`, `coordinacion/cierre_v2/examen/revisiones/f1_usgaap/REVISION_R1.md`). La ronda 2 (`bcb6dc3`) la revisó
+también otro agente (`REVISION_R2.md`, con sus guiones en `evidencia_r2/`): CORRECCIONES acotadas, **sin pedir otra ronda completa**: basta
+con que pasen sus pruebas de aceptación. Este documento describe el estado después de las dos rondas y del cierre (§0 bis). **Las
+correcciones del cierre no las ha revisado nadie más que sus pruebas.** Se distinguen **hechos** (comprobados con una prueba o un archivo),
+*interpretaciones* y ***propuestas***.
 
 **Aptitud: uso supervisado experimental. No apto para decisiones con dinero real.** Superar estas guardas no acredita aptitud.
 La V6.3, la V6.3.1 F1 (`eaece01a…`), sus referencias y los expedientes hechos con ellas **no cambian**. NIIF no cambia de valor (§8).
@@ -34,6 +36,25 @@ Pruebas: **U** = `personaje_v2/pruebas/test_motor_a_f1_usgaap.py` (grupo entre p
 
 **No tocados, por encargo:** R1-2 (el cero publicado «—» en `F1-SERIES`: lo resuelve la rama `f1/series-escala`; la validación de las series
 no se ha reescrito) y R1-10 (la instrucción de la fase 1 `historia_anio.md` no está adaptada a US GAAP: solo información).
+
+## 0 bis. Cierre de la ronda 2 (revisión R2): hallazgo → cambio → prueba
+
+Pruebas: **X** = grupo «X» de la batería `test_motor_a_f1_usgaap.py` (40 casos nuevos, más uno en el grupo W); **PU12–PU14** = `prueba_pipeline_usgaap.py`; **L5**
+= `probar_libro_v631_usgaap.py`; **rNN** = `mutaciones_usgaap.py`; **revisor** = sus guiones de aceptación, sin cambios, con
+`COPIA_REVISION` apuntando al árbol corregido (§8).
+
+| Hallazgo de la revisión R2 | Cambio | Prueba |
+|---|---|---|
+| **R2-1** (ALTA acotada) · una línea que nombra el arrendamiento **sin ser el tramo** («Loss on lease termination», el deterioro del derecho de uso…) valía como cita de «fuera» y llevaba a `concluido` sin condición; y con esa misma línea la declaración veraz «no_publicada» se bloqueaba | lista cerrada de términos **ajenos al tramo** (`_LINEA_AJENA`: deterioro, baja, cancelación, modificación, abandono, costes de salida, incentivos, venta con arrendamiento posterior, resultados; inglés y español), aplicada a los dos lados y sobre la etiqueta **entera** (también partida en renglones): una línea ajena **no** hace saltar «manda el dato» (la declaración veraz concluye CONDICIONADA, con su cota y la línea a la vista), **no** vale como cita de una ubicación (INCOMPLETO; el mensaje lleva a «no_publicada») y **no** cuenta entre las líneas sumadas que nombran un tramo | X (13), **PU12**, r01–r06 · revisor: `capa_r2.py C`, `pipeline_r2.py Y4 Y4h`, `matriz_r2.py` |
+| **R2-2** (MEDIA) · un tramo contrastado dentro de la fila 14 admitía un importe declarado 0 sin compararlo con la cifra impresa | el importe declarado dentro de una fila se compara, año a año, con lo que la línea **propia** que la fase 1 sumó aporta a esa fila (su cifra impresa con el signo y la escala de la fase 1): otro importe —también un 0, se declare como se declare (con `cero_comprobado` en la rama de series incluido)— es DATOS INVÁLIDOS. Si la línea es **mezclada** con otras partidas (o su cifra no se puede leer), el importe no se puede comparar: con un tramo solo dentro de la fila 14 la conclusión queda CONDICIONADA, con los pagos o el coste como cota. Sin `fase1_partes`, la cota de un tramo declarado en la fila 14 cubre también el importe | X (12), **PU13**, **L5**, r07–r15 · revisor: `capa_r2.py D`, `pipeline_r2.py Y5`, `fusion_r2.py` (M2), `matriz_r2.py` |
+| **R2-3** (MEDIA) · la amortización del derecho de uso **financiero** «dentro de la fila 8» por omisión no miraba una línea contraria a la vista, y K3b decía «contrastado» | si el estado de flujos la muestra en una línea propia que la fase 1 **no** sumó en la fila 8 → DATOS INVÁLIDOS (el mensaje dice cómo declararla: `fuera_de_la_fila_8`); si ninguna línea sumada la nombra, el tramo queda «por_omision» y K3b dice «según lo declarado» (K3 no se presenta como conforme). El caso por omisión sigue sin condicionar (como NIIF 16) | X (5), r16–r18 · revisor: `capa_r2.py E` |
+| **R2-4** (MEDIA) · la comprobación de forma de la ronda 2 bloqueaba la declaración real de `jumbo_d` (NIIF) por una nota de texto dentro de `series` | dentro de `series`, un **texto** en una clave que no es el nombre de una serie es una **nota**: se admite, no entra en el cálculo y queda a la vista (`F1-DECLARACION`, INFORMA; `notas_en_series`). Un texto en el lugar de una serie conocida sigue siendo DATOS INVÁLIDOS y el mensaje dice dónde se escribe una nota. Vacío = sin declarar: `[]`, `""` o `0` donde va un objeto se toman como vacíos, como antes de la ronda 2 (las 3 formas que pasaban de utilizable a bloqueada vuelven a ser utilizables). El expediente no se ha tocado | X (5), r19–r21 · la declaración real de Jumbo y las 135 formas del revisor (§8) |
+| **Interpretación 5** · «Otro» en `L4` terminaba en `pendiente_de_datos`, como si faltara un dato | es un **límite del modelo**: `F1-NORMA` · MODELO NO APLICABLE (clase «norma»), que manda sobre lo que falte en la declaración → `no_entregable · límite del modelo`, con los motores A y B | X (4), **PU14**, r22–r23 · revisor: `pipeline_r2.py Y9` |
+| **R2-6** (baja) · el aviso de `F1-US-C49` «explicado» pedía comprobar el riesgo contrario cuando C49 queda por debajo del principal | el texto distingue el sentido de la diferencia | X (1), r24 |
+
+**No tocados** (gravedad baja, no pedidos en el cierre): R2-5 (a: con D-US2 bis, «cuánto cambiaría» usa la línea neta declarada aunque
+contradiga pagos − coste; b: si no se puede calcular, publica igual, sin condición), la huella de `fase1_partes` en `vigencia()` (límite 5)
+y el importe dentro de una D&A mezclada (D3: límite 11). Siguen sin tocar R1-2 (rama `f1/series-escala`) y R1-10.
 
 ## 1. Qué había y qué cambia
 
@@ -85,10 +106,12 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
    exactos, sin distinguir mayúsculas ni espacios de más: `IFRS`, `NIIF`, `IFRS (IFRS-EU)`, `IFRS (adoptadas por la Unión Europea)` → NIIF;
    `US GAAP` → US GAAP. Cualquier otro texto bloquea. La declaración y el libro tienen que decir lo mismo. La norma se cierra en su origen:
    la instrucción de metadatos de la fase 1 pide exactamente «IFRS» o «US GAAP», y el paso 2 del pipeline detiene el expediente
-   (`pendiente_de_datos`) si `fase1_v63.json` trae otra cosa («Otro», el tercer valor de la lista de la plantilla, pasa; la capa no lo
-   soporta y lo dirá en el paso 7).
+   (`pendiente_de_datos`) si `fase1_v63.json` trae otra cosa. «Otro», el tercer valor de la lista de la plantilla, pasa el paso 2, y en el
+   paso 7 la capa lo declara **límite del modelo** (F1 solo tiene reglas para NIIF y US GAAP; ningún dato lo arregla): `no_entregable`.
 2. **Financieros.** Por omisión, como NIIF 16: `da_rou` es la amortización de su derecho de uso dentro de la fila 8 y C49 su principal;
-   valen V-F1a, V-F1b, V-F1m, `F1-M-SIM`, A1/A2. Dos declaraciones lo cambian, con su evidencia:
+   valen V-F1a, V-F1b, V-F1m, `F1-M-SIM`, A1/A2. El caso por omisión no se condiciona, pero manda el dato: si el estado de flujos muestra
+   esa amortización en una línea propia que la fase 1 no sumó en la fila 8, es DATOS INVÁLIDOS; y si ninguna línea sumada la nombra, el tramo
+   queda «por_omision» y K3b no dice «contrastado» (R2-3). Dos declaraciones lo cambian, con su evidencia:
    - `financieros.amortizacion_rou.ubicacion`: `fuera_de_la_fila_8` → D_X no la lleva; `da_rou` no se declara y `da_rou_financiero_fuera`
      es su cifra publicada (para la cota). `F1-ROU-HISTORIA` y V-F1m no bloquean.
    - `financieros.desglose`: `no_publicado` → **D-WM**: no se piden `da_rou` ni el principal; nada se excluye de D_X, C49 tiene que ser 0
@@ -131,10 +154,24 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
    | `fuera_de_las_filas_8_y_14` | la cita es una línea del estado de flujos de un informe del modelo, la fase 1 no la sumó, y las líneas sumadas de todos los años se examinaron enteras | sin `fase1_partes` o sin `texto/`; faltan años | la línea citada está entre las sumadas (DATOS INVÁLIDOS); la página no es la del estado de flujos, o la cita solo está en información complementaria (INCOMPLETO: si no hay línea, es `no_publicada`) |
    | `no_publicada` | — | siempre (hipótesis D-US1) | la página muestra una línea de ese tramo (DATOS INVÁLIDOS: manda el dato); la página no es la del estado de flujos (INCOMPLETO) |
    | cualquiera | — | — | una línea sumada en la fila 8 o en la 14 nombra un tramo declarado en otro sitio (DATOS INVÁLIDOS) |
+   | `fila_8`, `fila_14` con su importe (R2-2) | el importe es el de la línea **propia** sumada en esa fila, cada año | un tramo solo en la fila 14 cuya línea es **mezclada**: el importe no se puede comparar | el importe no es el de su línea propia, también si es 0 (DATOS INVÁLIDOS) |
+   | cualquier cita (R2-1) | — | — | la cita es, o está dentro de, una línea **ajena al tramo** (INCOMPLETO: si no hay línea del tramo, es `no_publicada`) |
    | los dos `fila_14` (D-US2 bis) | las dos líneas, la del activo y la del pasivo (o una que nombre los dos) | — | no se pueden comprobar las dos líneas (INCOMPLETO): no se publica el valor de la hoja |
 
    El tramo se reconoce por los términos pegados a «lease» o a «right-of-use» («lease liabilities» → pasivo; «right-of-use assets», «lease
    expense», «non-cash lease» → activo o gasto); una línea que nombra el arrendamiento sin precisar («Operating leases, net») vale para los dos.
+
+   **Líneas ajenas al tramo** (R2-1). Una línea que nombra el arrendamiento junto a un término de otra cosa —*impairment, write-off,
+   termination, modification, remeasurement, abandonment, exit, incentive, leaseback, gain, loss*; deterioro, saneamiento, baja, cancelación,
+   rescisión, modificación, abandono, costes de salida, incentivo, arrendamiento posterior, ganancia, pérdida— no es ni la amortización del
+   derecho de uso ni la variación del pasivo. Se mira la etiqueta entera (en «Impairment of long-lived assets and operating lease» /
+   «right-of-use assets» el término está en el primer renglón). Una línea ajena no hace saltar «manda el dato», no prueba una ubicación y no
+   cuenta entre las sumadas; las que haya en la página examinada quedan a la vista (`contraste_de_ubicaciones.lineas_ajenas_al_tramo`).
+
+   **Importes** (R2-2). Lo que hay dentro de una fila es lo que la fase 1 sumó: cifra impresa × signo × escala del informe (en la fila 14,
+   con el signo cambiado: «(10)» consume 10 de caja). Una línea es **propia** si su etiqueta entera solo lleva palabras de un tramo
+   («Operating lease liabilities», «Non-cash lease expense»); con cualquier otra partida («accounts payable, accrued liabilities, operating
+   lease liabilities and other…», «Depreciation and amortization, including…») es **mezclada** y su cifra no es la del arrendamiento.
 
 ## 4. Qué se declara (en `motor_a_f1.json`, además de lo de NIIF)
 
@@ -158,8 +195,10 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
 - `coste_comparable_con_los_pagos` (opcional; por omisión, sí): `false`, con su motivo, si el coste publicado lleva corto plazo o variable
   y la empresa no lo separa.
 - `desglose` (opcional; por omisión `publicado`) y `amortizacion_rou` de los financieros (opcional; por omisión dentro de la fila 8): regla 2.
-  `desglose: "no_publicado"` (D-WM) y `amortizacion_rou` no se declaran a la vez: da DATOS INVÁLIDOS (`F1-US-DESGLOSE`; comprobado a mano
-  el 18-nov-2026, sin caso propio en la batería).
+  `desglose: "no_publicado"` (D-WM) y `amortizacion_rou` no se declaran a la vez: da DATOS INVÁLIDOS (`F1-US-DESGLOSE`; grupo W de la batería).
+- **Notas** (R2-4; vale también con NIIF): una nota de texto se escribe en `nota` (primer nivel), en `nota` dentro del año de una serie o,
+  dentro de `series`, como texto en una clave que **no** sea el nombre de una serie (queda a la vista en `notas_en_series`). Un texto en el
+  lugar de una serie es DATOS INVÁLIDOS. Vacío = sin declarar (`null`, `{}`, `[]`, `""`, `0`).
 
 Series (formato de `da_rou`: `valor_fuente` con su signo, `signo`, `tratamiento`, `documento`, `pagina`, `literal`, `fila`):
 
@@ -182,14 +221,14 @@ no cambian: con US GAAP, `EBIT_NIIF16_PPA_constante` designa el EBIT publicado.
 
 | Id | Salta cuando | Efecto |
 |---|---|---|
-| `F1-NORMA` | norma sin declarar o fuera de la lista; `L4` vacío o no reconocido; declaración ≠ libro | BLOQUEA |
-| `F1-DECLARACION` | claves no reconocidas, o una clave que tiene que ser un objeto y no lo es | BLOQUEA · DATOS INVÁLIDOS |
+| `F1-NORMA` | norma sin declarar o fuera de la lista; `L4` vacío o no reconocido; declaración ≠ libro. `L4` = «Otro»: límite del modelo | BLOQUEA (con «Otro»: MODELO NO APLICABLE → `no_entregable`, aunque falten datos) |
+| `F1-DECLARACION` | claves no reconocidas, o una clave con contenido que tiene que ser un objeto y no lo es. Notas de texto dentro de `series`: INFORMA | BLOQUEA · DATOS INVÁLIDOS (las notas no bloquean) |
 | `F1-US-MEZCLA` | declaración NIIF con claves o series de US GAAP; US GAAP con intereses pagados en financiación | BLOQUEA · DATOS INVÁLIDOS |
 | `F1-US-DESGLOSE` | falta `arrendamientos_us_gaap`, su registro, la existencia de una clase, una ubicación, su evidencia o una serie exigida; declaraciones incoherentes entre sí | BLOQUEA · INCOMPLETO o DATOS INVÁLIDOS |
 | `F1-US-C49` | C49 distinto del principal financiero publicado más allá de su redondeo y sin explicar; C49 > 0 sin financieros o con D-WM | BLOQUEA · DATOS INVÁLIDOS (explicado: AVISO) |
 | `F1-US-DA` | amortización del derecho de uso operativo dentro de la D&A con A0, o sola dentro del circulante sin su importe: dos veces | BLOQUEA · MODELO NO APLICABLE |
 | `F1-US-SIM` | la simétrica: variación del pasivo sola dentro del circulante sin su importe, o amortización excluida de D_X sin pagos en el CFO | BLOQUEA · FUERA DEL DOMINIO |
-| `F1-US-FILAS` | regla 8: contradicha o sin la línea que la prueba | BLOQUEA · DATOS INVÁLIDOS o INCOMPLETO; sin contrastar: AVISO |
+| `F1-US-FILAS` | regla 8: contradicha (también por el importe de una línea propia, o por una línea propia de la amortización financiera que la fase 1 no sumó en la fila 8) o sin la línea que la prueba (también si la cita es de una línea ajena al tramo) | BLOQUEA · DATOS INVÁLIDOS o INCOMPLETO; sin contrastar: AVISO |
 | `F1-US-PUENTE` | la fila 23 lleva pasivo por arrendamiento operativo, o lo declarado contradice sus líneas | BLOQUEA con el motor B · INFORMA o AVISA con el A |
 | `F1-K3b` | alguna clase no se cuenta exactamente una vez | BLOQUEA |
 | `F1-LIBRO` | además: hay que retirar del circulante el importe de **un** tramo, que ningún libro retira (§7) | BLOQUEA · límite declarado |
@@ -205,12 +244,14 @@ no cambian: con US GAAP, `EBIT_NIIF16_PPA_constante` designa el EBIT publicado.
 | variación del pasivo no publicada, o declarada fuera sin contrastar | como máximo, − los pagos (estaría sola en la fila 14) |
 | amortización no publicada, o declarada fuera sin contrastar | como máximo, + el coste lineal (estaría en la fila 8 o sola en la 14) |
 | amortización declarada en la fila 8 sin contrastar | − el importe declarado (exacto) |
-| un tramo declarado en la fila 14 sin contrastar | + el importe retirado (con su signo) |
+| un tramo declarado en la fila 14 sin contrastar | + el importe retirado (con su signo), si no estuviera dentro; y, si el importe fuera mayor que el declarado: como máximo, − (los pagos − el importe) para el pasivo o + (el coste − el importe) para la amortización |
+| un tramo dentro de una línea mezclada de la fila 14 (ubicación contrastada, importe sin comparar) | las dos anteriores, sobre el importe |
 | amortización financiera declarada fuera de la fila 8 sin contrastar | + el importe publicado |
 | D-WM | − (caja pagada − gasto total): **estimación**, no cota |
 
 El resumen (`cota.resumen`) suma las variaciones del mismo signo (dos ubicaciones falsas a la vez se acumulan) y no compensa las de signo
-contrario. Con declaraciones veraces, la cota cubre el error en todos los casos de la matriz de la revisión.
+contrario. Con declaraciones veraces, la cota cubre el error en todos los casos de la matriz de la revisión; con la matriz de la revisión R2
+(360 pares, cinco formas de citar), también con las falsas: ningún caso utilizable con el error fuera de la cota (§8).
 
 ## 6. Norma → tratamiento → prueba
 
@@ -232,7 +273,12 @@ Empresa de referencia: ventas 1.000; EBIT 68 tras un alquiler operativo de 12; C
 | US GAAP · coste lineal ≠ pagos | D-US2: se cuentan los pagos; diferencia a la vista | D, PU1, R7 | no bloquea |
 | US GAAP · financieros no desglosados (WM) | D-WM: como deuda; diferencia estimada a la vista | W | utilizable y condicionada |
 | US GAAP · amortización financiera fuera de la D&A (Zoetis) | `fuera_de_la_fila_8` | R16 | utilizable (condicionada si no se contrasta) |
+| US GAAP · línea que nombra el arrendamiento sin ser un tramo (deterioro, cancelación…) | no es un tramo: «no_publicada» veraz → D-US1; como cita de «fuera» → INCOMPLETO | X, PU12 | condicionada · `pendiente_de_datos` |
+| US GAAP · un tramo en una línea propia de la fila 14 con otro importe (un 0) | DATOS INVÁLIDOS: el importe es el de su línea | X, PU13 | `pendiente_de_datos` |
+| US GAAP · un tramo en una línea mezclada de la fila 14 con importe 0 | el importe no se puede comparar: condicionada, con los pagos o el coste como cota | X | utilizable y condicionada |
+| US GAAP · amortización financiera en una línea propia que la fase 1 no sumó en la fila 8, declarada dentro por omisión | DATOS INVÁLIDOS: se declara `fuera_de_la_fila_8` | X | `pendiente_de_datos` |
 | Mezcla de normas | `F1-NORMA`, `F1-US-MEZCLA` | N, PU9 | `pendiente_de_datos` |
+| Norma «Otro» | `F1-NORMA` · límite del modelo | X, PU14 | `no_entregable` |
 | Motor B con US GAAP | puente sin el pasivo operativo; `F1-US-PUENTE`; `F1-US-ANCLA` | P, R9, L6, EX, PU8, PU10 | bloquea si la fila 23 lo lleva |
 | Motor B, norma sin determinar (4.15) | F1 se exige; `F1-NORMA` | R1, EX, PU8 | `pendiente_de_datos` |
 
@@ -258,8 +304,10 @@ histórico (filas 32–33, C54–C55) también usan la fila 23: no se ajustan.
 
 ## 8. Pruebas ejecutadas (hechos; resultados literales)
 
-LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecución detrás de otra. Salidas de la ronda 2 en `resultados/`
-(las de la ronda 1 se conservan con el sufijo de su commit o se sustituyen por las nuevas del mismo guion).
+LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecución detrás de otra. Salidas en `resultados/` (las de una
+ronda anterior se conservan con el sufijo de su commit o se sustituyen por las nuevas del mismo guion).
+
+### 8.1 Ronda 2 (código de `a6fc300`; es lo que examinó la revisión R2)
 
 | Orden | Resultado literal |
 |---|---|
@@ -291,10 +339,13 @@ evaluado: se ha desdoblado (sin libro, se exige; con un libro NIIF, no).
 **Limpieza de las pruebas** (hecho, después de la verificación completa). Una batería que se interrumpe no borra sus carpetas temporales
 `f1_us_*`, y el guion de mutaciones interrumpe muchas: en esta sesión se habían acumulado 23.059 carpetas (unos 360 MB) en el directorio
 temporal del sistema, ya borradas. Ahora cada batería mutada crea sus carpetas dentro de su copia (`TMPDIR`) y se borran con ella; la
-campaña repetida con ese cambio da la misma salida, byte a byte (`84 de 84 mutaciones detectadas`), y no deja nada. Queda un defecto menor
-sin corregir, para no cambiar después de verificarlo ningún archivo de los que ejecuta `completa`: una ejecución normal de la batería deja
-41 carpetas **vacías** (el bucle de declaraciones al azar, cuando la declaración mutada no deja escribir la fuente). No afecta a ningún
-resultado; se corrige con el próximo cambio de código.
+campaña repetida con ese cambio da la misma salida, byte a byte (`84 de 84 mutaciones detectadas`), y no deja nada. Quedaba un defecto
+menor: una ejecución normal de la batería dejaba 41 carpetas **vacías** (el bucle de declaraciones al azar, cuando la declaración mutada no
+deja escribir la fuente). **Corregido en el cierre de la ronda 2:** la batería ya no deja ninguna y borra las suyas también si se interrumpe.
+
+### 8.2 Cierre de la ronda 2 (correcciones de la revisión R2)
+
+@@CIERRE_R2@@
 
 ## 9. Interpretaciones del autor y límites para el revisor
 
@@ -316,7 +367,15 @@ resultado; se corrige con el próximo cambio de código.
 7. A0 con amortización operativa dentro de la fila 8 bloquea siempre; `F1-US-MEZCLA` con C48 o fila 16 positivos; `coste_arr_operativo`
    es obligatorio aunque no sea comparable (hace de cota holgada); con el motor A la falta de `pasivo_arr_operativo` solo avisa.
 8. La amortización del derecho de uso **financiero** dentro de la fila 8 (el caso por omisión, como NIIF 16) no se condiciona aunque no se
-   contraste con una línea; solo se contrasta la declaración contraria (`fuera_de_la_fila_8`).
+   contraste con una línea. Desde el cierre (R2-3): manda el dato si una línea propia que la fase 1 no sumó la muestra fuera, y K3b no dice
+   «contrastado» si ninguna línea sumada la nombra. La revisión R2 la juzgó «razonable como omisión»; no viene de ninguna decisión.
+9. (cierre) **La lista de términos ajenos es cerrada y es del autor** (los diez de la revisión, sus variantes y sus equivalentes en español).
+   Una línea que mezcla un tramo con un término ajeno («Amortization and impairment of operating lease right-of-use assets») se trata como
+   ajena: no se puede citar y no hace saltar «manda el dato»; la conclusión sale condicionada, con la cota que cubre el tramo.
+10. (cierre) Una línea es «propia» por vocabulario (`_PALABRAS_PROPIAS`): en caso de duda se toma como mezclada, que condiciona en lugar de
+   bloquear. El importe se compara también en la fila 8 cuando la amortización es una línea propia que la fase 1 sumó en la D&A.
+11. (cierre) Dentro de `series`, cualquier texto en una clave que no sea una serie se admite como nota. Las claves desconocidas que sí son
+   un objeto por año se siguen sin examinar, como antes.
 
 Límites:
 1. **El cero publicado sigue sin poder declararse** (R1-2): un principal «—», o un importe «dentro de la fila» igual a cero, da
@@ -325,14 +384,11 @@ Límites:
    una línea que no lo nombra en ningún renglón: por eso lo que no se puede contrastar queda condicionado, no acreditado. Una cabecera sin
    cifras y sin dos puntos justo encima de una línea se toma como primer renglón de su etiqueta; si nombrara el arrendamiento, la línea
    se trataría como suya (bloquearía; no cambia ningún valor).
-3. **Falsos positivos del patrón amplio** (R1-6 pidió usarlo; es el lado seguro, pero no tiene salida en la declaración). Una línea de la
-   conciliación que nombra un arrendamiento sin ser uno de los dos tramos (el deterioro de un derecho de uso, el resultado por cancelar un
-   arrendamiento, incentivos) hace saltar «manda el dato» frente a un `no_publicada` veraz, y una línea así sumada en la fila 8 o en la 14
-   contradice una declaración veraz: el expediente queda en `pendiente_de_datos`. No debería afectar a Zoetis ni a Waste Management: según
-   el §4 de la revisión R1, sus estados de flujos no nombran el arrendamiento (es una previsión; su fase 1 no se ha ejecutado).
-   ***Propuesta***, sin implantar porque abre una vía que hay que revisar: permitir declarar, con
-   su cita y su motivo, las líneas de la página que nombran un arrendamiento y **no** son el tramo, dejando la conclusión condicionada y
-   esas líneas a la vista.
+3. **Líneas que nombran el arrendamiento sin ser un tramo** (R2-1). Cerrado para los términos de la lista (regla 8). Queda el límite de toda
+   lista cerrada: una línea que nombre el arrendamiento, no sea un tramo y no lleve ninguno de esos términos sigue valiendo como cita de
+   «fuera» y sigue bloqueando un `no_publicada` veraz. La comprobación más robusta que propone la revisión (con los dos tramos «fuera» en
+   líneas propias, que sus cifras impresas sumen coste − pagos) **no** está implantada: exige leer las cifras de líneas que la fase 1 no
+   guarda. Según la revisión R2 (§8, con sus datos reales), Zoetis y Waste Management no tienen líneas de este tipo.
 4. «Fuera» queda contrastada con la página de **un** informe; en los demás años del modelo se comprueba que ninguna línea sumada nombra el
    tramo, no que la línea citada exista también en esos estados de flujos.
 5. Las series y clasificaciones de US GAAP no están en el libro: quedan fuera del universo de `verificacion_entradas.py`. `F1-SERIES`
@@ -348,3 +404,10 @@ Límites:
    (pagos < coste) y la inversión neta propia es casi nula: es la regla general, con su salida (justificación declarada).
 10. Todo el recálculo es LibreOffice; Excel real, sin probar. No se ha ejecutado la fase 1 ni el pipeline con Zoetis, Waste Management o
    Nike reales.
+11. **El importe dentro de una D&A mezclada no se compara con ninguna cifra impresa** (R2-2, caso D3 de la revisión): con la amortización del
+   derecho de uso operativo dentro de una D&A que la nombra, un importe inflado sobrevalora y uno reducido infravalora, sin condición. Es
+   el mismo límite que tiene NIIF con `da_rou`: el importe lleva su propia cifra publicada (`F1-SERIES`), no la de la línea.
+12. Con **un solo tramo** dentro de la fila 14 la declaración veraz sigue sin salida (R1-10, `F1-LIBRO`): con su importe, ningún libro lo
+   retira; con otro importe, DATOS INVÁLIDOS o condicionada. La salida sigue siendo la del §7.
+13. R2-5 (D-US2 bis): «cuánto cambiaría contando los pagos» usa la línea neta declarada aunque no coincida con pagos − coste, y si no se
+   puede calcular se publica igual, sin condición. Sin tocar.
