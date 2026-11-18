@@ -3,7 +3,9 @@
 capa cambiada a propósito) tiene que hacer fallar alguna prueba. Sirve para comprobar que la batería protege las guardas nuevas.
 
 Uso (desde cualquier carpeta): python3 -I mutaciones_usgaap.py [SALIDA.txt]
-Trabaja sobre copias temporales de personaje_v2/scripts, esquema y la batería: no toca el árbol. Sin LibreOffice.
+Trabaja sobre copias temporales de personaje_v2/scripts, esquema, prompts y la batería: no toca el árbol. Sin LibreOffice.
+Las carpetas temporales que crea cada batería mutada van dentro de su copia (TMPDIR) y se borran con ella: una batería que se interrumpe
+no borra las suyas, y antes se quedaban en el directorio temporal del sistema.
 """
 import os
 import shutil
@@ -136,7 +138,10 @@ def una(m):
         os.makedirs(os.path.join(pv, "pruebas"))
         shutil.copy(os.path.join(PV, "pruebas", "test_motor_a_f1_usgaap.py"), os.path.join(pv, "pruebas"))
         open(os.path.join(pv, "scripts", "motor_a_f1.py"), "w", encoding="utf-8").write(src.replace(viejo, nuevo))
-        r = subprocess.run([sys.executable, "-B", os.path.join("pruebas", "test_motor_a_f1_usgaap.py")], cwd=pv, capture_output=True, text=True)
+        tmpdir = os.path.join(tmp, "tmp")
+        os.makedirs(tmpdir)
+        r = subprocess.run([sys.executable, "-B", os.path.join("pruebas", "test_motor_a_f1_usgaap.py")], cwd=pv, capture_output=True, text=True,
+                           env=dict(os.environ, TMPDIR=tmpdir))
         fallan = [l[8:90] for l in r.stdout.splitlines() if l.startswith("FALLA")]
         ok = r.returncode != 0
         return ok, (("DETECTADA   " if ok else "NO DETECTADA") + f" · {nombre}" + (f" · {len(fallan)} pruebas fallan (p. ej. «{fallan[0]}»)" if fallan else

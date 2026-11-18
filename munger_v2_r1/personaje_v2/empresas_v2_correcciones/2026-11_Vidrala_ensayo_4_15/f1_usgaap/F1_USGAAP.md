@@ -275,7 +275,7 @@ LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecuci�
 | diferencial NIIF de la revisión (400 casos al azar, el libro real de Elis con sus declaraciones y 21 variantes de `L4`), ronda 1 frente a ronda 2 | `idénticos (todo el resultado salvo versión y fecha): 425 · distintos: 0` (`resultados/diferencial_niif_ronda1_ronda2.txt`) |
 | `python3 -I …/f1_impl/scripts/regresion_elis_f1.py <copia>` | `39/39 PASAN` (`resultados/regresion_elis_f1_tras_usgaap.md`) |
 | los guiones de la revisión, **sin cambios**, contra la capa de la ronda 2 (`adversarial_capa.py`, `matriz_verdad_declaracion.py`, `error_a_la_baja.py`, `fuzz_us.py 3000`) | B1–B6 y C1 bloquean; B7 condicionada con cota; E6 no salta; N1–N3 bloquean; N4: los 14 rótulos se ven; G3 bloquea; matriz: `sin condición ni cota: 0` en las dos pasadas; 3.000 declaraciones al azar sin excepciones (`resultados/guiones_de_la_revision_R1_contra_la_ronda_2.txt`, con su montaje y dos matices) |
-| `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `a6fc300`, el commit del código de la ronda 2 (manifiesto 8063 · modificados 0 · ausentes 0 · de más 0; 83 minutos) | `RESULTADO GLOBAL: PASA`, código 0 (`resultados/verificacion_completa_a6fc300.txt`): los 27 bloques en PASA; comprobadores 114/114, sintética 30/30, vigencia H5 59/59, juicio 27/27, entradas 33/33 y 190/190, entrada efectiva 62/62, relevo 5/5, motor A F1 163/163, gancho 8/8, **US GAAP 246/246, 22/22 y 15/15**, V6.3.1 29/29, 21/21, 22/22, 35/35 y 9/9, V6.4 199/199, trazabilidad 78/78, integridad 103/103, auditorías 55/55, estados 28/28, resumen 45/45, cierre 55/55. El commit que registra este resultado no cambia código ni pruebas: solo este documento, el registro, `CAMBIOS_ARCHIVOS.txt` y el manifiesto |
+| `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `a6fc300`, el commit del código de la ronda 2 (manifiesto 8063 · modificados 0 · ausentes 0 · de más 0; 83 minutos) | `RESULTADO GLOBAL: PASA`, código 0 (`resultados/verificacion_completa_a6fc300.txt`): los 27 bloques en PASA; comprobadores 114/114, sintética 30/30, vigencia H5 59/59, juicio 27/27, entradas 33/33 y 190/190, entrada efectiva 62/62, relevo 5/5, motor A F1 163/163, gancho 8/8, **US GAAP 246/246, 22/22 y 15/15**, V6.3.1 29/29, 21/21, 22/22, 35/35 y 9/9, V6.4 199/199, trazabilidad 78/78, integridad 103/103, auditorías 55/55, estados 28/28, resumen 45/45, cierre 55/55. Después de `a6fc300` no cambia nada de lo que ejecuta `completa`, salvo el manifiesto: solo este documento, el registro, el guion de mutaciones (limpieza de sus carpetas temporales; no forma parte de `completa`), `CAMBIOS_ARCHIVOS.txt` y el manifiesto. Sobre una copia limpia del último commit: manifiesto sin diferencias (modo rápido, PASA) y las baterías sin LibreOffice 246/246, 163/163 y 29/29 |
 
 **NIIF no cambia de valor.** Cambios de comportamiento con NIIF, todos sobre casos antes mal tratados: (a) un libro NIIF cuyo `L4` no es
 de la lista cerrada bloquea con `F1-NORMA` (ronda 1, H13) y ahora se detiene antes, en el paso 2; (b) con el motor B, un expediente de la
@@ -287,6 +287,14 @@ expediente NIIF vuelve a no llevar ninguna clave de US GAAP (R1-12).
 Las pruebas de US GAAP están registradas en `verificar_paquete.sh completa` (mínimos 246, 22 y 15; el gancho, 8; la V6.3.1 sin LibreOffice, 29). Una prueba de la V6.3.1
 (`test_v631_f1.py`, «V631-1: con el motor B F1 no se exige») afirmaba lo contrario de R1-1 para un expediente de la 4.15 sin libro
 evaluado: se ha desdoblado (sin libro, se exige; con un libro NIIF, no).
+
+**Limpieza de las pruebas** (hecho, después de la verificación completa). Una batería que se interrumpe no borra sus carpetas temporales
+`f1_us_*`, y el guion de mutaciones interrumpe muchas: en esta sesión se habían acumulado 23.059 carpetas (unos 360 MB) en el directorio
+temporal del sistema, ya borradas. Ahora cada batería mutada crea sus carpetas dentro de su copia (`TMPDIR`) y se borran con ella; la
+campaña repetida con ese cambio da la misma salida, byte a byte (`84 de 84 mutaciones detectadas`), y no deja nada. Queda un defecto menor
+sin corregir, para no cambiar después de verificarlo ningún archivo de los que ejecuta `completa`: una ejecución normal de la batería deja
+41 carpetas **vacías** (el bucle de declaraciones al azar, cuando la declaración mutada no deja escribir la fuente). No afecta a ningún
+resultado; se corrige con el próximo cambio de código.
 
 ## 9. Interpretaciones del autor y límites para el revisor
 
