@@ -177,7 +177,15 @@ try:
     v = M.vigencia(c)
     paso("V631-1: el motor se lee de fase_a.json (C62 = Sí → A): sin evaluación F1, no vigente", v["motor"] == "A" and v["vigente"] is False and "sin evaluación" in v["motivo"])
     json.dump({"celdas": {"C62": "No · financiación cambia mucho"}}, open(os.path.join(c, "fase_a.json"), "w"))
-    paso("V631-1: con el motor B (fase_a.json) F1 no se exige", M.vigencia(c)["exigido"] is False)
+    # (F1 · US GAAP, ronda 2, R1-1) con el motor B, F1 no se exige si el libro dice una norma NIIF reconocida; si la norma no se puede determinar en un
+    # expediente de la 4.15 (aquí, sin libro evaluado), no se puede descartar US GAAP (puente de deuda) y se exige: falla en cerrado, como el motor A
+    paso("V631-1: con el motor B (fase_a.json) y sin libro evaluado en un expediente de la 4.15 la norma no se puede determinar: F1 se exige (falla en cerrado; R1-1 de US GAAP)",
+         M.vigencia(c)["motor"] == "B" and M.vigencia(c)["exigido"] is True)
+    import openpyxl  # noqa: E402
+    wb_ = openpyxl.Workbook()
+    wb_.create_sheet("Control maestro")["L4"] = "IFRS"
+    wb_.save(os.path.join(c, "EmpresaR_v63_evaluada.xlsx"))
+    paso("V631-1: con el motor B (fase_a.json) y un libro NIIF, F1 no se exige", M.vigencia(c)["exigido"] is False and M.vigencia(c)["motivo"] == "el motor no es el A")
     r = subprocess.run([sys.executable, os.path.join(PV, "scripts", "pipeline.py"), c, "--reiniciar", "--desde", "13"], capture_output=True, text=True)
     paso("V631-1: «--reiniciar» con «--desde» se rechaza (código 2) sin borrar el estado del pipeline",
          r.returncode == 2 and "no se combinan" in r.stdout and os.path.exists(os.path.join(c, "estado_pipeline.json")), (r.stdout + r.stderr).strip()[-120:])

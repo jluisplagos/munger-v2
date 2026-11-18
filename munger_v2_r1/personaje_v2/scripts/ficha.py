@@ -403,11 +403,6 @@ def main():
             "vigencia": {k: vig.get(k) for k in ("exigido", "exento", "vigente", "utilizable", "motivo")},
             "rotulo": f1r.get("rotulo") or vig.get("motivo"), "estado_propuesto": f1r.get("estado_propuesto"), "perimetro_declarado": f1r.get("perimetro_declarado"),
             "libro_v631_f1": f1r.get("libro_v631_f1"),  # (V6.3.1 F1) perímetro efectivo del libro y motivos de no correspondencia; None con un libro V6.3
-            # (F1 · US GAAP) D-US1: la conclusión que se apoya en la hipótesis general declarada es CONDICIONADA (con su cota); D-US2: se cuentan los
-            # pagos y la diferencia con el coste lineal queda a la vista; puente de deuda. None con NIIF
-            "condicionada": f1r.get("condicionada"),
-            "us_gaap": ({k: (f1r.get("us_gaap") or {}).get(k) for k in ("base_del_arrendamiento_operativo", "diferencia_coste_lineal_menos_pagos", "puente_de_deuda")}
-                        if f1r.get("us_gaap") else None),
             "bloquean": [{"id": g.get("id"), "efecto": g.get("efecto"), "detalle": g.get("detalle")} for g in f1r.get("guardas") or []
                          if g.get("salta") and g.get("severidad") == "BLOQUEA"],
             "avisos": [{"id": g.get("id"), "severidad": g.get("severidad"), "detalle": g.get("detalle")} for g in f1r.get("guardas") or []
@@ -417,6 +412,13 @@ def main():
             "libro_sha256": f1r.get("libro_sha256"), "libro_origen_sha256": f1r.get("libro_origen_sha256"), "declaracion_sha256": f1r.get("declaracion_sha256"),
             "parametros_sin_valor_adoptado": sorted((f1r.get("parametros_sin_valor_adoptado") or {}).keys()),
             "apto_para_dinero_real": False}
+        if f1r.get("us_gaap"):
+            # (F1 · US GAAP; ronda 2, R1-12: solo con US GAAP, para que la ficha de un expediente NIIF sea la misma de antes) la conclusión que se apoya
+            # en una hipótesis declarada (D-US1, D-WM) o en una ubicación sin contrastar es CONDICIONADA, con su cota; D-US2: se cuentan los pagos y la
+            # diferencia con el coste lineal queda a la vista; D-US2 bis: el valor de la hoja y cuánto cambiaría contando los pagos; puente de deuda
+            ficha["motor_a_f1"]["condicionada"] = f1r.get("condicionada")
+            ficha["motor_a_f1"]["us_gaap"] = {k: f1r["us_gaap"].get(k) for k in ("base_del_arrendamiento_operativo", "diferencia_coste_lineal_menos_pagos", "D_US2_bis",
+                                                                                 "D_WM", "contraste_de_ubicaciones", "puente_de_deuda")}
     pa = SEL.leer(c)
     if pa is not None and pa.get("version") != SEL.V631:  # (V6.3.1 F1) sin configuración económica: su perímetro está en el bloque motor_a_f1
         # (4.11) solo en expedientes V6.4: base, versión, configuración efectiva y límites (los expedientes V6.3 no cambian de ficha)

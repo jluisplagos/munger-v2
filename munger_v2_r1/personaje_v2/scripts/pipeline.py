@@ -703,6 +703,19 @@ class Pipeline:
                     return self.terminar("no_entregable", "fallo_de_implementacion", f"entrada_efectiva.json: {ex}", 2)
                 _estricta = _modo == "estricta"
                 self.st["entrada_efectiva"] = {"modo": _modo, "declarado_en": _origen_modo}  # (T5) queda en estado_pipeline.json
+                # (4.15, F1 · US GAAP, ronda 2, R1-11) la norma contable llega al libro (Control maestro L4) desde «norma_contable» de fase1_v63.json: es
+                # un valor de lista cerrada y se comprueba aquí, antes de escribirlo y de gastar la fase A (antes, un valor fuera de la lista se
+                # descubría en el paso 7, con F1-NORMA)
+                try:
+                    _f1j = json.load(open(self.p("fase1_v63.json"), encoding="utf-8"))
+                except (OSError, ValueError):
+                    _f1j = None   # un fase1_v63.json ilegible lo dice rellenar_fase1_v63.py
+                if isinstance(_f1j, dict):
+                    import motor_a_f1 as _F1n
+                    _mot_norma = _F1n.norma_fase1_no_admitida(_f1j.get("norma_contable"))
+                    if _mot_norma:
+                        return self.terminar("pendiente_de_datos", "falta_de_datos", _mot_norma, 2, comprobacion="norma_contable",
+                                             que_hace_falta="fase1_v63.json (o fase1_metadatos.json) con «norma_contable» igual a «IFRS» o «US GAAP»", desde=2)
                 rc, out = self.run([PY, self.script("rellenar_fase1_v63.py"), libro_base, self.p("fase1_v63.json"), libro_datos] + (["--estricta"] if _estricta else []))
                 if rc != 0:
                     return self.terminar("no_entregable" if rc == 1 else "pendiente_de_datos", "fallo_de_implementacion" if rc == 1 else "falta_de_datos", "rellenar_fase1: " + out[-300:], 2)

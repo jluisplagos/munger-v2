@@ -224,14 +224,25 @@ def main():
         # (F1 · US GAAP) con el motor B, F1 solo se exige con US GAAP (puente de deuda): entonces la línea habla del motor B; si no, como antes
         _mf = "B" if (F.get("motor") == "B" and (f1b.get("vigencia") or {}).get("exigido")) else "A"
         _cf, _uf = f1b.get("condicionada") or {}, f1b.get("us_gaap") or {}
-        _df = (_uf.get("diferencia_coste_lineal_menos_pagos") or {}).get("coste_menos_pagos_medio")
+        _dif = _uf.get("diferencia_coste_lineal_menos_pagos") or {}
+        _df = _dif.get("coste_menos_pagos_medio")
+        # (F1 · US GAAP, ronda 2) R1-8: la cota de la conclusión condicionada, en dos cifras; D-US2 bis: el valor de la hoja y cuánto cambiaría contando
+        # los pagos; R1-15: K3b «según lo declarado» cuando no se contrastó con líneas; R1-9: con el motor B la línea habla solo del puente de deuda
+        _cota = str((((_cf.get("cota") or {}).get("resumen") or {}).get("texto")) or "")
+        _bis = (_uf.get("D_US2_bis") or {}).get("texto")
+        _k3 = f1b.get("K3") or {}
+        _k3b_nota = " (según lo declarado o la hipótesis: sin contraste independiente con las líneas del expediente)" if _k3.get("K3b_contrastado") is False else ""
         linea += (f"\n\n> **Motor {_mf} · F1:** {('utilizable para una conclusión' + (' CONDICIONADA' if _cf else '') + ' (condición necesaria, no suficiente)') if f1b.get('utilizable_para_conclusion') else f'el resultado del motor {_mf} no se usa para una conclusión'}"
                   + (f"; condicionada a la {str(_cf.get('texto')).replace('«', '').replace('»', '')}" if _cf else "")
-                  + (f"; US GAAP: se cuentan los pagos del arrendamiento operativo (coste lineal − pagos = {_df:+.3f} de media en la ventana)" if _df is not None else "")
+                  + (f"; {_cota}" if _cota else "")
+                  + (f"; {str(_bis).replace('«', '').replace('»', '')}" if _bis else
+                     f"; US GAAP: se cuentan los pagos del arrendamiento operativo (coste lineal − pagos = {_df:+.3f} de media en la ventana)" if _df is not None else
+                     "; US GAAP: se cuentan los pagos del arrendamiento operativo (el coste publicado no es comparable con los pagos: la diferencia no se calcula)" if _dif.get("comparable") is False else "")
                   + (f"; bloquean: {', '.join(sorted({str(g.get('id')) for g in f1b.get('bloquean') or []}))}" if f1b.get("bloquean") else "")
                   + (f"; evaluación no vigente: {str((f1b.get('vigencia') or {}).get('motivo')).replace('«', '').replace('»', '')}" if (f1b.get("vigencia") or {}).get("vigente") is False else "")
-                  + (f"; K3: alquiler contado {(f1b.get('K3') or {}).get('K3b_alquiler_contado')}, caja base por dos vías {'conforme' if (f1b.get('K3') or {}).get('K3a_caja_base_dos_vias') else 'sin explicar'}" if f1b.get("K3") else "")
-                  + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}"
+                  + ((f"; puente de deuda: alquiler contado {_k3.get('K3b_alquiler_contado')} (los perímetros de la reinversión son del motor A y no se evalúan)" if _k3 else "") if _mf == "B" else
+                     (f"; K3: alquiler contado {_k3.get('K3b_alquiler_contado')}{_k3b_nota}, caja base por dos vías {'conforme' if _k3.get('K3a_caja_base_dos_vias') else 'sin explicar'}" if _k3 else "")
+                     + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}")
                   + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
                   + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")
     if apt:
