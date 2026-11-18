@@ -4,21 +4,21 @@
   "D3": "AD",
   "B4": "Consumo básico · distribución alimentaria (supermercados y e-commerce, EE. UU. y Europa)",
   "D4": "2026-11-18",
-  "C7": 3,
-  "D7": 6,
+  "C7": 4,
+  "D7": 5,
   "A6": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
   "C11": "Sí",
   "C12": "Sí",
   "C13": "No",
-  "C14": "Calidad a precio razonable",
+  "C14": "Cíclica / commodity",
   "C17": "No",
-  "C18": "Sí",
-  "C19": "Sí",
+  "C18": "No",
+  "C19": "No",
   "C20": "Riesgo real alto",
   "C24": 0.109,
   "C25": "No",
   "C26": 2.9229,
-  "C27": "Comprimiendo",
+  "C27": "Estable",
   "C28": "Recompra",
   "C31": "Sí",
   "C32": 0.1704,
@@ -46,12 +46,12 @@
   "C60": -0.033,
   "C61": "Sí",
   "C62": "Sí",
-  "B65": "Otra (explícala en tus palabras)",
+  "B65": "Márgenes se comprimen (costes o precios)",
   "C65": "Crece al ritmo de su mercado",
-  "D65": "Otra (explícala en tus palabras)",
-  "B66": "La guerra de precios en EE. UU. se cronifica: el margen subyacente baja del 4,0% hacia el 3,3-3,5%, la inversión de $1.000m en precios no devuelve volumen, Stop & Shop no se recupera y los pagos de arrendamientos siguen subiendo más rápido que el resultado; la caja libre cae ~2% al año en nominal, que con inflación es un 4% real.",
-  "C66": "La empresa crece con su mercado: ventas comparables del 2-3% por inflación de alimentos y algo de volumen, margen subyacente defendido en torno al 4,0%, capex y arrendamientos que siguen subiendo, y una caja libre que crece un 3% al año mientras el dividendo y la recompra se llevan casi todo.",
-  "D66": "El ahorro se queda en casa: el programa de €5 mil millones 2025-2028 y los ingresos complementarios de retail media llegan al margen, el online ya rentable apalanca, Profi integra sin sorpresas y el margen subyacente sube del 4,0% hacia el 4,5-5,0%; la caja libre crece un 8% al año.",
+  "D65": "Márgenes suben por escala o precios",
+  "B66": "La competencia en precio y el paso del cliente al descuento obligan a seguir cediendo el ahorro; con costes que suben más que la inflación minorista y la renta de los locales fija, el margen vuelve al nivel de 2023-2024 y se queda ahí: la mejora se la queda el cliente y la pierde el accionista.",
+  "C66": "La empresa crece con la inflación de los alimentos y algo de volumen, mantiene el margen en su banda de diez años porque el ahorro compensa la inversión en precio, y la caja que queda tras capex y arrendamientos vuelve al accionista en dividendo y recompra; la eficiencia se reparte y casi toda acaba en el cliente.",
+  "D66": "El ahorro deja de irse entero al cliente: la escala en Europa Central y del Este, la marca propia, el online ya rentable y los ingresos de medios elevan el margen por encima de su banda, y se lo queda la empresa porque los competidores no igualan cada bajada de precio.",
   "B67": null,
   "C67": null,
   "D67": null,
@@ -85,13 +85,13 @@
    "D13": "✗ BANDERA",
    "D14": "—",
    "D17": "✗ BANDERA",
-   "D18": "✓ PASA",
-   "D19": "✓ PASA",
+   "D18": "✗ BANDERA",
+   "D19": "⚠ REVISAR · depende de la tesis",
    "D20": "✗ BANDERA",
-   "D24": "⚠ REVISAR",
+   "D24": "ℹ CONTEXTO · no es el criterio principal",
    "D25": "⚠ REVISAR · averigua por qué",
    "D26": "✓ PASA",
-   "D27": "⚠ REVISAR · márgenes deteriorándose",
+   "D27": "✓ PASA · estables",
    "D28": "ℹ RECOMPRA · juzga precio y SBC",
    "D31": "⚠ REVISAR · puede ser señal de demanda/contabilidad",
    "D32": "ℹ BAJO",
@@ -430,11 +430,11 @@
   ]
  },
  "palancas": {
-  "C5": null,
-  "C6": null,
+  "C5": "Madura",
+  "C6": "Ninguno",
   "C7": "Retail (Grocery and Food)",
-  "C8": null,
-  "C9": null,
+  "C8": "Último año",
+  "C9": "No",
   "C10": null,
   "B14": null,
   "C14": null,
@@ -539,16 +539,16 @@
     null
    ]
   ],
-  "C43": null,
+  "C43": "No aplica",
   "C44": null,
   "C45": "2026-11-13",
   "C46": "2025-12-28",
-  "C47": null,
+  "C47": "Ninguna",
   "C48": "EUR"
  },
  "diagnostico": {
   "motor": "A",
-  "coherencia_tipo_motor": "—",
+  "coherencia_tipo_motor": "✓ PASA · tipo y motor coherentes",
   "V0": 92352,
   "m0": 0.0383532571032571,
   "t": 0.21436,
@@ -694,7 +694,7 @@
    "fila49": [
     "Tipo de empresa frente a motor",
     null,
-    "—",
+    "✓ PASA · tipo y motor coherentes",
     null
    ],
    "fila50": [
@@ -828,7 +828,7 @@
    ],
    [
     "Tipo de empresa y caso especial elegidos",
-    "⛔ TÉCNICO · Falta la etapa o el caso especial (Palancas C5, C6)"
+    "✓ PASA"
    ],
    [
     "El motor calcula un valor en los tres escenarios",
@@ -836,7 +836,7 @@
    ],
    [
     "ESTADO DEL LIBRO · LISTO = el cálculo está completo y pasa sus comprobaciones. No es una aprobación de inversión ni dice que los datos sean ciertos: mira el estado de las evidencias y las advertencias.",
-    "NO LISTO · incompleto (6 pendientes)"
+    "NO LISTO · incompleto (5 pendientes)"
    ]
   ],
   "parametros": {
@@ -856,8 +856,7 @@
    "5. AVISO · Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido",
    "6. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
    "7. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
-   "8. INCOMPLETO · Falta la etapa o el caso especial (Palancas C5, C6)",
-   "9. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)"
+   "8. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)"
   ],
   "salto_anio_11": {
    "filas": [
@@ -1406,11 +1405,11 @@
   "causa_tecnica_B256": "Faltan palancas de crecimiento (Palancas B14:D14)",
   "estado_inversion_B258": "DESCARTADA POR FILTRO PABRAI",
   "n_avisos_B260": 3,
-  "n_causas_B261": 9,
-  "estado_libro_B266": "NO LISTO · incompleto (6 pendientes)",
+  "n_causas_B261": 8,
+  "estado_libro_B266": "NO LISTO · incompleto (5 pendientes)",
   "lectura_precio_B267": null,
   "veredicto_B268": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
-  "evidencias_B269": "INCOMPLETAS · datos 19 de 19 · hipótesis confirmadas 0 de 24 · 1 estimaciones · 0 no verificables · 9 hipótesis pendientes · 14 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido",
+  "evidencias_B269": "INCOMPLETAS · datos 19 de 19 · hipótesis confirmadas 0 de 24 · 6 estimaciones · 0 no verificables · 6 hipótesis pendientes · 12 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido",
   "dcf_inverso_monotono_B193": "—",
   "reglas": [
    {
@@ -1846,12 +1845,12 @@
     "id": "C03",
     "regla": "Tipo de empresa (Palancas C5, C6)",
     "aplica": true,
-    "resultado": "INCOMPLETO",
-    "codigo": "INC|Falta la etapa o el caso especial (Palancas C5, C6)",
-    "causa": "Falta la etapa o el caso especial (Palancas C5, C6)",
+    "resultado": "OK",
+    "codigo": null,
+    "causa": null,
     "nivel": 3,
     "prioridad": 9,
-    "n_causa_activa": 8
+    "n_causa_activa": null
    },
    {
     "id": "C04",
@@ -1895,7 +1894,7 @@
     "causa": "Faltan 3 predicciones (Palancas A38:A40)",
     "nivel": 3,
     "prioridad": 9,
-    "n_causa_activa": 9
+    "n_causa_activa": 8
    },
    {
     "id": "C08",
@@ -2032,8 +2031,8 @@
     "celda": "Análisis!C11",
     "concepto": "Entender el negocio en ≤5 frases",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2041,14 +2040,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: alta] Apoyo: lo explico en cinco frases con hechos del extracto. Vende comida en 9.551 tiendas de EE. UU. y Europa y por internet, con 17 marcas locales y 77 millones de clientes a la semana [AR2025 p. 12, 58]. Paga el consumidor final en el punto de venta, más franquiciados y afiliados en Europa (€10.545m de ventas y cuotas en 2025) y algo de mayorista (€328m) [AR2025 p. 225]. Paga por proximidad, surtido y precio; el 80% de las ventas es comida (perecederos 44,9% y no perecederos 35,1%) [AR2025 p. 225]. La caja sale de un margen bruto del 26,5% menos gastos operativos del 23,2%, que dejaron €6.989m de caja operativa en 2025 [AR2025 p. 41, 56]. De ahí salen €2.564m de capex y €1.944m de arrendamientos, y quedan unos €2.000m (Control maestro, C46-C50: 6.559,7 − 2.432,3 − 239 − 1.834 − 55 = 1.999,4). No necesito EBITDA para contarlo, y eso ya es una señal: «every time you see the word EBITDA [earnings before interest, taxes, depreciation, and amortization, you should substitute the words \"bullshit earnings.\"» (PCA p.124; TCI p.125; HIM). Lo sustituiría: si no pudiera reconstruir la caja del accionista sin el EBITDA ni la APM de la empresa, pondría No."
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: Sí → mantiene (misma_evidencia): lo explico en cinco frases con hechos del extracto y de la Historia, sin EBITDA.\nApoyo: vende comida en 9.551 tiendas de EE. UU. y Europa y por internet a 77 millones de clientes a la semana [AR2025, PDF p. 12, 58]; paga el consumidor en tienda propia (70.956 mm), online (10.274) y vía franquiciados y afiliados (10.545) [AR2025, PDF p. 225]; la caja sale de un margen bruto del 26,5 % menos gastos del 23,2 % [AR2025, PDF p. 42]: CFO de 6.989 menos capex 2.564, arrendamientos 1.944, intereses 261 y SBC 70 dejan 2.150 en 2025 (Historia, fila 35); FCF base 2.312 (C52).\nLo sustituiría: no poder reconstruir la caja del accionista sin la APM de la empresa; entonces No."
    },
    "22": {
     "celda": "Análisis!C12",
     "concepto": "Círculo de competencia",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2056,14 +2055,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: la pregunta no es si entiendo el producto, es si sé qué decide el valor en diez años. Aquí lo sé y es medible: cuota local, densidad de tiendas, qué parte del ahorro se queda la empresa y qué parte va al cliente, y la renta. Tengo las dos puntas: Albert Heijn declara el 38,2% de cuota en Países Bajos con el séptimo año consecutivo de ganancias, y Food Lion lleva 53 trimestres consecutivos de comparables positivos [AR2025 p. 43, 50]. Y tengo el contraste: €1.294m de ahorro capturado en 2025 con el margen subyacente clavado en el 4,0% [AR2025 p. 45, 64]. La prueba de Munger es saber dónde está el borde: «It's not a competency if you don't know the edge of it» (TCI p.100; HIM). Mi borde: no sé juzgar qué hará la *agentic shopping* que la propia empresa nombra como riesgo [AR2025 p. 69], y el extracto no nombra ni un competidor, cuando lo primero que pide Munger es «I think it's important to know which competitor is most likely to do you in» (AIWTK p.131; HIM). Lo sustituiría: si la empresa mostrara que el precio y el surtido se deciden fuera de la tienda —en un agregador o en un agente—, pondría No y el cubo pasaría a demasiado difícil."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → mantiene (misma_evidencia): sé qué decide el valor a diez años y puedo seguirlo: margen retenido frente a ahorro cedido, renta de los locales y cuota local.\nApoyo: 1.294 mm de ahorro reinvertidos en precio y experiencia del cliente con el margen subyacente en 4,0 % [AR2025, PDF p. 42, 45]; 85 % de los locales arrendados y pasivo de 11.974 mm [AR2025, PDF p. 58, 271]; margen EBIT de 2,9 % a 4,4 % en diez años (Historia, fila 29). Mi borde: el extracto no nombra competidores (sección 9) y no sé quién me mata en EE. UU.: «I think it's important to know which competitor is most likely to do you in» (AIWTK p.131; HIM).\nLo sustituiría: que el precio y el surtido se decidieran fuera de la tienda, o un margen de EE. UU. que cae sin causa legible; entonces No."
    },
    "23": {
     "celda": "Análisis!C13",
     "concepto": "Valor claro sin modelo complejo",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2071,14 +2070,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: alta] Apoyo: para ver que está barata hace falta la hoja, y eso ya es la respuesta. A €33,14 (Control maestro, C37) la capitalización es de €28.626m (C41) sobre un FCF LTM de €1.821m (C40): 15,7 veces, frente a la mediana de 14,7 veces a la que ha cotizado desde 2019 (C88). EV/EBITDA 6,1 veces (C42) dentro de su rango histórico de 5,5-7,0 (mediana 6,6). No es una decisión obvia en ningún sentido: «The decision should be obvious» no se cumple. Y haber caído un 22% desde el máximo de marzo de 2026 (C37, observaciones) no es estar barata; comparo con el valor, no con el máximo. Lo sustituiría: a un precio donde el FCF yield fuera claramente de dos dígitos sin tocar los supuestos —en torno a €18-20 por acción—, la aritmética sería «simple, overpoweringly clear, and positive» y pondría Sí."
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: No → mantiene (evidencia_nueva): a 36,05 € (C37, 13-nov-2026) el precio es más alto que en la etapa 1 y sigue haciendo falta la hoja.\nApoyo: capitalización de 31.971,9 mm (C41) sobre un FCF base de 2.312 (C52): 13,8 veces, junto a la mediana histórica de 14,7 (C88); EV/EBITDA 6,1 dentro de su rango de 5,5-7,0 (C42). Un rendimiento de caja del 7,2 % solo alcanza r = 0,09 si la caja crece cerca del 2 % para siempre: eso hay que demostrarlo. El valor externo de 61,27 (C38) es solo contraste.\nLo sustituiría: un precio al que la caja de hoy, sin crecer, rindiera claramente más que r: por debajo de unos 26 € por acción rinde un 10 % (2.312 ÷ (26 × 886,877)); entonces Sí."
    },
    "24": {
     "celda": "Análisis!C14",
     "concepto": "Tipo de oportunidad",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2086,14 +2085,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: no es compounder. El criterio de Munger es claro: «it's obvious that if a company generates high returns on capital and reinvests at high returns, it will do well» (TCI p.70; HIM), y aquí el ROCE antes de impuestos es del 10,9% y el ROIC después de impuestos del 9,2% (Control maestro, C24), con una media 2021-25 del 9,0% IFRS. Sobre el propio WACC de las pruebas de deterioro de la empresa (EE. UU. 6,7%; Países Bajos 5,0%) el diferencial es de 2-3 puntos: positivo y flaco. Tampoco es deep value a 15,7 veces el FCF, ni cíclica (la comida no lo es), ni turnaround de grupo: Stop & Shop está en *revitalization* [AR2025 p. 43], pero es una marca de diecisiete y el grupo creció las ventas un 5,9% a tipos constantes en 2025 [AR2025 p. 64]. Queda «Calidad a precio razonable», y la mitad «precio razonable» no se cumple hoy (C13). Lo sustituiría: si el ROCE subiera de forma sostenida por encima del 15% con el margen expandiendo, sería Compounder; si la caja libre cayera de €1.800m varios años seguidos, lo movería a Cíclica / commodity."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Calidad a precio razonable → cambia (evidencia_nueva): la Historia de diez años no sostiene la mitad «calidad».\nApoyo: ROIC medio de cinco años 8,8 % (Historia!C55), bajo r = 0,09 y bajo la media del sector, 10,1 % (Palancas!H18); el ahorro va al precio [AR2025, PDF p. 45]. Commodity por la economía, no por el ciclo: el margen EBIT se movió entre 2,9 % y 4,4 % en diez años (Historia!C50:C51), por eso C6 = Ninguno y C8 = Último año. No es Deep value a 13,8 veces el FCF base ni Turnaround de grupo. «Many businesses that you thought were hugely advantaged can be hugely commoditized» (AIWTK p.130; HIM).\nLo sustituiría: ROIC sostenido por encima del 10 % con el margen retenido; entonces Calidad a precio razonable."
    },
    "25": {
     "celda": "Análisis!C17",
     "concepto": "Viento de cola duradero",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2101,14 +2100,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: alta] Apoyo: el viento de cola hay que atribuirlo con honradez, y aquí no lo veo. La comida crece con la población y con la inflación de los alimentos; lo que la empresa enumera para 2025 son vientos en contra, no de cola: cese regulatorio de la venta de tabaco en Países Bajos y Bélgica, decreto de precios en Serbia, menor poder adquisitivo del consumidor en Europa Central y del Este, efectos de mezcla por online y farmacia, y un impacto de la Inflation Reduction Act en farmacia de EE. UU. que pasó de ≈$350m a ≈$450m [AR2025 p. 43, 59-60; Q2-2026 p. 8]. El online sí ha crecido (de €2.817m en 2018 a €10.274m en 2025) y alcanzó rentabilidad en base totalmente asignada en el primer semestre de 2025 [AR2025 p. 44, 64], pero fue un coste que hubo que absorber durante siete años, no una ola que te lleve. Y el crecimiento del sector no es ventaja de la empresa: eso es exactamente lo que Munger separa. Lo sustituiría: si el retail media y los *ingresos complementarios* llegaran a los €3 mil millones de 2028 y se vieran en el margen, no en la guía, pondría Sí; hoy es un plan y los planes no los cuento."
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: No → mantiene (misma_evidencia): lo que la empresa cita son vientos en contra y la inflación de alimentos es marea, no viento propio.\nApoyo: fin del tabaco en Países Bajos y Bélgica, decreto de precios en Serbia, menos poder adquisitivo en Europa Central y del Este [AR2025, PDF p. 43]; Inflation Reduction Act, −450 millones de dólares de ventas en 2026 [Q3-26, PDF p. 9]; inflación de alimentos prevista 2,3-2,7 % [AR2025, PDF p. 59]. El online crece (10.274 mm, +11,2 %) y es rentable desde el 1S 2025 [AR2025, PDF p. 44, 343], dentro del mismo mercado. Crecer el sector no dice «what its profit margins and returns on capital will be as a host of competitors battle for supremacy» (AIWTK p.126; REPORTED).\nLo sustituiría: ingresos complementarios que se vieran en el margen, no en la guía [AR2025, PDF p. 22]; entonces Sí."
    },
    "26": {
     "celda": "Análisis!C18",
     "concepto": "Ventaja competitiva sostenible",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2116,14 +2115,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: el foso existe, es de escala local y es estrecho. Tipo: escala en compras, distribución e información, que es el foso que Munger considera decisivo —«in terms of which businesses succeed and which businesses fail, advantages of scale are ungodly important» (PCA pp.174-177; HIM)—, más densidad de red (9.551 tiendas; 8.152 locales) y marca propia (hacia el 45% de las ventas de alimentación) [AR2025 p. 22, 58]. La prueba está en los hechos, no en el relato: Albert Heijn declara el 38,2% de cuota con siete años consecutivos de ganancias y *record market share*, y Food Lion lleva 53 trimestres de comparables positivos y Hannaford 18 [AR2025 p. 43, 50]. Prueba del sobrino idiota: Stop & Shop ha cerrado 32 tiendas y está en revitalización y el grupo sigue generando €6.989m de caja operativa; «The margin of safety in a great business is that it will stand a fair amount of mismanagement if that unfortunate circumstance happens to come along.» (AIWTK p.129; HIM). Lo que falta es lo que más le importaba a Munger: «So they have huge untapped pricing power that they're not using. That is the ultimate no-brainer.» (PCA pp.214-215; HIM). Aquí es al revés: $1.000m comprometidos en inversión de precios en EE. UU. para 2025-2028 [AR2025 p. 22]. Lo sustituiría: si la cuota de Albert Heijn retrocediera dos años seguidos o si los comparables de Food Lion se rompieran, pondría No."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → cambia (evidencia_nueva): con diez años de Historia la posición local no se ve en el retorno.\nApoyo: Albert Heijn 38,2 % y séptimo año ganando cuota; Food Lion 53 trimestres de comparables positivas [AR2025, PDF p. 43, 50]. Pero el ROIC va de 6,1 % a 11,5 %, media de cinco años 8,8 % (Historia!C55), bajo r = 0,09 y bajo el sector, 10,1 % (Palancas!H18); sin fondo de comercio sería 12,9-13,5 % (C24), pero ese capital lo puso el accionista. El ahorro no se queda en casa [AR2025, PDF p. 45]: «how much is going to stay home and how much is just going to flow through to the customer» (PCA pp.187–189; HIM). Escala que defiende volumen, no foso que rinda más que r.\nLo sustituiría: tres años de ROIC por encima del 10 % con margen subyacente sobre el 4,2 %; entonces Sí."
    },
    "27": {
     "celda": "Análisis!C19",
     "concepto": "Consistencia de crecimiento de ingresos/beneficios",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2131,14 +2130,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: las ventas han crecido a tipos constantes todos los años de la serie (2016-2025: 32,3%, 28,9%, 2,5%, 2,3%, 12,3%, 5,0%, 6,9%, 3,9%, 0,9%, 5,9%) y el BPA subyacente diluido ha pasado de €1,70 en 2019 a €2,67 en 2025, con el dividendo subiendo once años seguidos de €0,48 a €1,24 [AR2025 p. 64; AR2020 p. 99]. El resultado operativo subyacente, en cambio, está plano desde 2022 (3.728, 3.604, 3.608, 3.734). Lo leo como un bache de la inflación y del margen europeo, no como una ruptura, y el procedimiento es explícito: «We don't expect linear growth; cyclicality is fine with us as long as the price is appropriate» (PCA p.223; HIM). Lo sustituiría: si las comparables se volvieran negativas en las dos regiones a la vez —en el 2T de 2026 son +0,8% en EE. UU. y +1,7% en Europa [Q2-2026 p. 2-9]— pondría No."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → cambia (evidencia_nueva): las filas de diez años muestran ventas que crecen en parte compradas y beneficio en meseta.\nApoyo: ventas de 49.695 a 92.352 mm (Historia, fila ventas), con Delhaize y con Profi, que aportó 2.867 de los 2.996 de aumento de 2025 [AR2025, PDF p. 222]. EBIT de 3.768 (2022) a 3.542 (2025); beneficio neto de 1.817 (2017) a 2.264 (2025), con caídas en 2020, 2023 y 2024 (Historia, filas ebit y beneficio_neto). La comida no es cíclica, así que no lo leo como bache: «We don't expect linear growth; cyclicality is fine with us as long as the price is appropriate» (PCA p.223; HIM) cubre un ciclo, no una meseta sin ciclo.\nLo sustituiría: EBIT IFRS por encima del de 2022 en 2026-2027 sin contar la semana 53; entonces Sí."
    },
    "28": {
     "celda": "Análisis!C20",
     "concepto": "Riesgo vs incertidumbre",
     "naturaleza": "Juicio del inversor / cualitativo",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2146,7 +2145,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: aplico la definición del inversor, que manda: el riesgo es la pérdida permanente al precio pagado, no la volatilidad ni solo la solvencia. Separo las dos partes. El negocio: riesgo moderado-bajo. Deuda neta / EBITDA de 2,2 veces (Control maestro, C33), BBB+ estable y Baa1 estable, línea de €1.500m sin disponer hasta 2029 y covenant de 5,5:1 que solo se prueba si el rating cae por debajo de BBB/Baa2 [AR2025 p. 54-55]; la demanda de comida no desaparece. El precio: ahí está el riesgo. A €33,14 pago un 43% por encima de mi valor del escenario malo (€23 por acción) y el escenario malo no es exótico: es la continuación de lo que ya pasó, con la caja libre del accionista en 2.149 (2022) → 1.911 (2025) → 1.813 (LTM) (Control maestro, C25). Por eso «Ambos bajos» no encaja: la valoración no protege frente a un deterioro del poder de ganancia. «Incert. alta + riesgo bajo» tampoco: la incertidumbre del negocio no es alta. Elijo la más cercana por exclusión, con la salvedad de que la mitad del negocio no es de riesgo alto. Base del concepto: «Risk to us is 1) the risk of permanent loss of capital, or 2) the risk of inadequate return» (TCI p.91; HIM). Lo sustituiría: a un precio en el entorno de mi escenario malo, esta celda pasaría a «Ambos bajos» sin tocar un solo hecho del negocio."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Riesgo real alto → mantiene (misma_evidencia): el balance aguanta; el riesgo de pérdida permanente está en el margen fino y en el precio.\nApoyo: «Risk to us is 1) the risk of permanent loss of capital, or 2) the risk of inadequate return» (TCI p.91; HIM). Deuda neta/EBITDA 2,2 veces (C33), BBB+ y Baa1, línea de 1.500 mm sin disponer [AR2025, PDF p. 55]. Pero margen de 3,8 % (Historia!C48) con 1.944 mm de arrendamientos al año [AR2025, PDF p. 56] y 85 % de locales alquilados: medio punto de margen son unos 460 mm de EBIT, el 13 % del de 2025. A 13,8 veces el FCF base no hay colchón (C13). «Incert. alta» no encaja: el negocio es previsible.\nLo sustituiría: un precio con rendimiento de caja claramente por encima de r; entonces Ambos bajos."
    },
    "29": {
     "celda": "Análisis!C24",
@@ -2167,8 +2166,8 @@
     "celda": "Análisis!C25",
     "concepto": "FCF creciente",
     "naturaleza": "Juicio asistido por históricos",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2176,7 +2175,7 @@
     "K": null,
     "L": null,
     "M": "Evidencia (pkg_FIN): FCF del accionista sin circulante 1.136 (2021) → 2.149 (2022) → 2.041 → 2.059 → 1.911 (2025) → 1.813 (LTM): escalón en 2022 y meseta. Crecimiento 2021–25: +12,4%/año sin ajustar frente a ~3% normalizado; 2022–25 plano o negativo. Definición de la empresa: 1.618 → 2.600 (2021–25), pero la guía 2026 (≥2.300) implica un retroceso. Por acción crece por las recompras.",
-    "N": "[Clase: fundamentada] [Confianza: alta] Apoyo: los hechos de la fase 1 son una meseta, no una subida (Control maestro, C25): caja libre del accionista sin circulante 1.136 (2021) → 2.149 (2022) → 2.041 → 2.059 → 1.911 (2025) → 1.813 (LTM). Hubo un escalón en 2022 y desde entonces es plano o a la baja, y el LTM es el más bajo desde 2021. En la definición de la propia empresa sube de €1.618m a €2.600m (2021-2025), pero su propia guía de 2026 (≥€2.300m) admite el retroceso [AR2025 p. 59-60], y el primer semestre de 2026 trae €302m frente a €715m un año antes [Q2-2026 p. 2-9]. La razón no es un bache: el capex y los arrendamientos crecen más rápido que el resultado (pagos de arrendamientos de €1.530m en 2019 a €1.944m en 2025; capex guiado a ~€2.700m en 2026 frente a €2.564m en 2025) [AR2025 p. 56, 59-60]. Por acción sí crece, pero eso es la recompra, no el negocio. Lo sustituiría: dos ejercicios con caja libre por encima de €2.300m sin ayuda del circulante y lo pondría Sí."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: No → mantiene (evidencia_nueva): la fila 35 sube por el circulante; normalizada, está plana a la baja desde 2022.\nApoyo: fila 35 de 1.342 (2021) a 2.150 (2025); sin el circulante (Historia, fila circulante): 2.415 (2022), 2.192, 1.920 y 1.986 (2025), y 2023 lleva la devolución fiscal belga de 367 (nota de Análisis!C47). La guía (no hecho) baja el flujo libre de la empresa de 2026 a unos 2.100 mm desde 2.600 [Q3-26, PDF p. 2, 9]; a 39 semanas, 747 frente a 1.104 [Q3-26, PDF p. 3]. Por acción crece, pero eso es la recompra.\nLo sustituiría: dos ejercicios con la fila 35 por encima de 2.300 mm sin ayuda del circulante; entonces Sí."
    },
    "31": {
     "celda": "Análisis!C26",
@@ -2197,8 +2196,8 @@
     "celda": "Análisis!C27",
     "concepto": "Tendencia de márgenes 5–10 años",
     "naturaleza": "Juicio asistido por históricos",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2206,7 +2205,7 @@
     "K": null,
     "L": null,
     "M": "Evidencia (pkg_OPS): margen operativo subyacente (la métrica menos distorsionada) 4,0–4,4% desde 2018 (sin el 4,8% de 2020); 4,04% en 2024–25 y 4,08% LTM. Pendiente 2021–25: −0,10 pp/año; margen bruto 27,36 → 26,54%; EBITDA subyacente 8,4 → 7,9%. Interpretación: \"Estable\" como base; \"Comprimiendo\" como alternativa conservadora.",
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: todas las líneas de margen están por debajo de hace cuatro o cinco años. Margen bruto de 27,4% (2021) a 26,5% (2025); EBITDA subyacente de 8,4% a 7,9%; margen operativo subyacente con pendiente de −0,10 puntos al año en 2021-25, y el 2T de 2026 en 3,9%, −0,1 puntos (Control maestro, C27; [AR2025 p. 64; Q2-2026 p. 2-9]). La fase 1 ofrecía «Estable» como base; elijo la alternativa porque la causa está declarada y es prospectiva, no pasada: $1.000m de inversión en precios en EE. UU. para 2025-2028 y la frase de la propia empresa, *Although the investments may pressure margins in the short term, they support long-term growth and brand strength* [AR2025 p. 22, 47]. Y porque el ahorro no se queda en casa: €1.294m capturados en 2025 y el margen subyacente igual que en 2024. Esa es la segunda parte del análisis que Munger dice que nadie hace: «they don't do the second step of the analysis-which is to determine how much is going to stay home and how much is just going to flow through to the customer.» (PCA pp.187-189; HIM). No cuento como deterioro el capex con retorno: eso es «pain today, gain tomorrow» (TCI p.85; HIM), y aquí no es capex, es precio regalado. Lo sustituiría: dos años de margen subyacente por encima del 4,2% con el ahorro retenido y pondría Estable."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Comprimiendo → cambia (evidencia_nueva): con diez años de la fila 29 el margen está en una banda, no en una pendiente.\nApoyo: margen EBIT de 3,2 % (2016) a 3,8 % (2025), media 3,7 % (Historia!C49); el subyacente promedia lo mismo en 2016-2019 que en 2022-2025, en torno al 4,1 %, y el 4,8 % de 2020 es el único fuera de banda [AR2025, PDF p. 64]; 4,0 % a 39 semanas de 2026 [Q3-26, PDF p. 3]. Separo lo accidental: «carefully examine each past success, looking for accidental, non causative factors» (PCA pp.548–549; HIM). La etapa 1 se apoyó en una guía de presión [AR2025, PDF p. 47]. El margen bruto sí cae de 27,4 % a 26,5 % [AR2025, PDF p. 42].\nLo sustituiría: dos años de margen subyacente por debajo del 3,8 %; entonces Comprimiendo."
    },
    "33": {
     "celda": "Análisis!C28",
@@ -2452,8 +2451,8 @@
     "celda": "Análisis!C51",
     "concepto": "¿Restar SBC del FCF base?",
     "naturaleza": "Decisión del inversor / metodología elegida",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2461,7 +2460,7 @@
     "K": null,
     "L": null,
     "M": "Evidencia: SBC ≈ 55–58 M€ = 2–4% del FCF → no material (<10%).",
-    "N": "[Clase: convención] [Confianza: alta] Apoyo: se resta siempre. «A stock option is both an expense and dilution To argue anything else is insane.» (PCA pp.126-127; HIM). El importe es pequeño —€55m de media de tres años, un 2-4% del FCF (Control maestro, C50)—, y el gasto de 2025 subió a €70m frente a €42m en 2024 [AR2025 p. 270-271]. Que sea pequeño no cambia el criterio: con SBC restada el FCF base es €1.999,4m frente a €2.054m sin restarla, un 2,7% menos. Detalle que lo hace menos grave: la entrega se hace con acciones propias, así que no hay emisión nueva [AR2025 p. 270-271]; pero entonces la paga la caja de la recompra, que es mía igual. Lo sustituiría: nada. Es regla fija de la plantilla y tiene evidencia en el corpus."
+    "N": "[Clase: convención] [Confianza: alta]\nHereda: Sí → mantiene (misma_evidencia): se resta siempre, con independencia del importe.\nApoyo: «A stock option is both an expense and dilution To argue anything else is insane» (PCA pp.126–127; HIM). SBC media de tres años 55 mm (C50), 70 mm en 2025 (Historia, fila sbc), un 2,3 % del FCF base (C59), ya restada en C52 = 2.312. Se entrega con acciones propias (C28): la paga la caja de la recompra.\nLo sustituiría: nada; es regla fija del ejercicio con evidencia en el corpus."
    },
    "50": {
     "celda": "Análisis!C53",
@@ -2512,8 +2511,8 @@
     "celda": "Análisis!C56",
     "concepto": "Rentabilidad exigida al accionista (r)",
     "naturaleza": "Decisión del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2521,7 +2520,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: convención] [Confianza: media] Apoyo: la celda C56 del Control maestro está vacía —la fase 1 dice que el 10% de la plantilla original no se considera decisión del inversor—, así que aplico la convención del ejercicio: r = 0,09. Digo qué alternativa representa, porque Munger lo exige: «it's only fair, if you're going to use the cost of capital, to say what it is.» (DR pp.303-304; HIM). Representa mi coste de oportunidad: el bono alemán a diez años está al 3,34% (Control maestro, C57) y el Tesoro estadounidense al 5,00%, con ~57% de las ventas en dólares; 0,09 es ese suelo más una prima por una empresa de margen del 4% con €11.974m de arrendamientos. No es CAPM ni beta: «it's your alternatives that matter. That's how we make all of our decisions.» (PCA p.114; TCI p.124; HIM). Y no la bajo para que salga el número. Sensibilidad: con r = 0,08 el valor normal pasa de €35,6 a €41,7 y el precio de Sí de €23 a €26; con r = 0,10, a €20,7. El cubo no cambia en ninguno de los tres. Lo sustituiría: la r del inversor, literal, el día que la fije."
+    "N": "[Clase: convención] [Confianza: media]\nHereda: 0,09 → mantiene (misma_evidencia): es la r heredada y no la cambio.\nApoyo: representa mi coste de oportunidad en euros: el Bund a diez años al 3,34 % (C57) más lo que exijo a un negocio de margen del 3,8 % (Historia!C48) con 11.974 mm de arrendamientos (Historia, fila arrendamientos); no es CAPM. «it's your alternatives that matter» (PCA p.114; AIWTK p.163; HIM). Está por encima de la r mínima de la hoja, 0,0786 (Diagnóstico V6!C17): pasa. Contraste: la empresa descuenta sus pruebas de deterioro a tasas antes de impuestos de 6,8 % a 13,5 % según la unidad [AR2025, PDF p. 238]. No la bajo para que salga el número.\nLo sustituiría: la r del inversor, literal, el día que la fije."
    },
    "54": {
     "celda": "Análisis!C57",
@@ -2557,8 +2556,8 @@
     "celda": "Análisis!C61",
     "concepto": "¿Recompras neutralizan la SBC?",
     "naturaleza": "Juicio asistido por datos",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2566,14 +2565,14 @@
     "K": null,
     "L": null,
     "M": "Evidencia (pkg_CAP): entregas a empleados de 2,1–3,4 M acciones/año frente a 28,8–45,6 M recompradas; las diluidas bajan un 3,0–3,6% al año → los datos apoyan \"Sí\".",
-    "N": "[Clase: fundamentada] [Confianza: alta] Apoyo: los hechos de la fase 1 no dejan duda (Control maestro, C61 y C28): entregas a empleados de 2,1 a 3,4 millones de acciones al año frente a 28,8-45,6 millones recompradas, y las diluidas medias bajan un 3,0-3,6% al año. Las acciones en circulación pasaron de 1.088 millones en 2019 a 887 millones en 2025, y en 2025 se cancelaron 29.305 miles [AR2025 p. 64, 244]. La recompra no solo neutraliza la SBC: la supera con mucho. Lo que no responde esta celda es si recomprar a esos precios creó valor; eso va en C98. Lo sustituiría: si las diluidas dejaran de bajar con la SBC subiendo, pondría No está claro."
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: Sí → mantiene (misma_evidencia): la recompra supera con mucho la SBC.\nApoyo: acciones diluidas medias de 1.281 millones (2017) a 905 (2025) (Historia, fila 20), −3,3 % anual (C60); entregas a empleados de 2,1-3,4 millones de acciones al año frente a 28,8-45,6 millones recompradas (C28); en 2026, 23,8 millones recompradas a 35,41 € de media hasta el 3T [Q3-26, PDF p. 21]. Si recomprar a esos precios crea valor es otra pregunta (C98).\nLo sustituiría: que las diluidas dejaran de bajar con la SBC subiendo; entonces No está claro."
    },
    "57": {
     "celda": "Análisis!C62",
     "concepto": "Aplicabilidad del DCF simplificado / estabilidad financiación",
     "naturaleza": "Juicio metodológico del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2581,14 +2580,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: es un negocio de caja recurrente, con ingresos reconocidos en el punto de venta y sin beneficio reconocido antes de cobrarlo [AR2025 p. 225-227]; la caja operativa está entre €5.468m y €6.989m todos los años desde 2021 y la conversión a caja es alta (CFO ÷ beneficio neto de 2,92 veces; Control maestro, C26). No es financiera ni necesita un método distinto. La única cautela real es IFRS 16: en IFRS los intereses y el principal de los arrendamientos van en financiación y quedan fuera del CFO, por lo que el 2,92 está estructuralmente inflado (Control maestro, C26) y hay que restar €1.834m de arrendamientos y €239m de intereses, como hace la fila 52. Hecho eso, el DCF es aplicable. Pero aplicable no es lo mismo que fiable: «some of the worst business decisions I've ever seen are those that are done with a lot of formal projections and discounts back» (AIWTK p.150; HIM). La hoja comprueba si el cubo sobrevive a errores razonables; no produce un valor exacto. Lo sustituiría: si la financiación cambiara mucho —una recapitalización o una venta grande de inmuebles— pondría «No · financiación cambia mucho»."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → mantiene (misma_evidencia): el flujo al accionista aproxima bien y la financiación es estable: motor A.\nApoyo: deuda entre 4.968 y 8.062 mm y arrendamientos entre 9.432 y 12.253 desde 2018, sin saltos de estructura (Historia, filas deuda y arrendamientos); deuda neta/EBITDA 2,2 veces (C33); minoritarios cero; f = 0,00014 (Historia!C58); FCF base positivo después de intereses netos y arrendamientos (C48, C49; C52 = 2.312); motor A calculable (entrada_v63). Tesco Chequia y Eslovaquia, unos 1.200 mm [Q3-26, PDF p. 30], no cambia la estructura. Cautela: C48 ya resta los intereses cobrados; sumar caja en C76 los contaría dos veces.\nLo sustituiría: una recapitalización o una compra grande con deuda; entonces «No · financiación cambia mucho»."
    },
    "58": {
     "celda": "Análisis!B65",
     "concepto": "MALO: ¿qué tiene que pasar?",
     "naturaleza": "Decisión del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2596,14 +2595,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: técnico] [Confianza: media] Apoyo: no puedo leer la hoja Opciones (no abro el Excel), así que uso la opción abierta que la plantilla permite en vez de inventar un texto de desplegable. Mi escenario malo no es «el viento de cola se frena», porque he dicho que no hay viento de cola (C17): es que la guerra de precios en EE. UU. se cronifica y el margen se va del 4,0% hacia el 3,3-3,5% mientras la renta sigue subiendo. Lo sustituiría: la opción literal de la hoja Opciones que describa una compresión de margen por competencia en precio, si existe."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Otra (explícala en tus palabras) → cambia (evidencia_nueva): ya tengo la lista de Opciones y la etapa 1 pedía esta opción si existía.\nApoyo: describe mi MALO: presión competitiva intensificada y riesgo de «down trading» hacia el descuento [AR2025, PDF p. 69, 77]; costes por encima de la inflación minorista [AR2025, PDF p. 18]; margen de EE. UU. de 4,6 % a 4,3 % en el 3T de 2026 [Q3-26, PDF p. 7]; margen EBIT de 3,1-3,2 % en 2023-2024 (Historia, fila 29).\nLo sustituiría: que el MALO viniera de una compra cara en Europa Central; entonces «Compra cara o mala gestión del capital»."
    },
    "59": {
     "celda": "Análisis!B66",
     "concepto": "MALO: descripción en una frase",
     "naturaleza": "Decisión del inversor / narrativa",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2611,7 +2610,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: no es un escenario cosmético, es la prolongación de lo que ya está en los números: €1.294m de ahorro capturado en 2025 con el margen igual que en 2024, margen bruto de 27,4% a 26,5% en cuatro años, 2T de 2026 en 3,9% y caja libre del semestre de €302m frente a €715m [AR2025 p. 45, 64; Q2-2026 p. 2-9]. Más la rigidez: el 85% de los 8.152 locales son alquilados y el pasivo por arrendamientos es de €11.974m, con ~€35 mil millones sin descontar en prórrogas no comprometidas [AR2025 p. 58, 271]. El escenario malo tiene que poder pasar: «We don't think because it's never happened that it won't» (AIWTK p.55; HIM). Lo sustituiría: si el margen subyacente aguantara el 4,0% dos años más con el ahorro retenido, suavizaría el malo a caja libre plana."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: guerra de precios en EE. UU. con caja libre −2 % al año → cambia (definicion_o_medicion_distinta): la V6.3 no escribe el crecimiento de la caja aquí; conservo el mecanismo.\nApoyo: 1.294 mm de ahorro reinvertidos en precio y experiencia del cliente [AR2025, PDF p. 45]; 1.000 millones de dólares de inversión en precios en EE. UU. [AR2025, PDF p. 22]; margen EBIT de 3,1-3,2 % en 2023-2024 (Historia, fila 29); 85 % de locales arrendados [AR2025, PDF p. 58]. El MALO tiene que poder pasar: «We don't think because it's never happened that it won't» (AIWTK p.55; HIM); aquí ya pasó dos años.\nLo sustituiría: margen subyacente en 4,0 % dos años más con volumen positivo; entonces suavizaría el MALO."
    },
    "60": {
     "celda": "Análisis!B67",
@@ -2662,8 +2661,8 @@
     "celda": "Análisis!C65",
     "concepto": "NORMAL: ¿qué tiene que pasar?",
     "naturaleza": "Decisión del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2671,14 +2670,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: técnico] [Confianza: media] Apoyo: es la opción que mejor describe mi caso normal y aparece en el ejemplo del esquema, así que la uso tal cual. El mercado de la comida crece con la población y con la inflación de los alimentos; las comparables sin gasolina del Grupo fueron del 3,2% en 2025 y del 1,2% en 2024 [AR2025 p. 64], y la empresa mantiene la cuota (Albert Heijn 38,2%) sin ensanchar el margen. Lo sustituiría: la opción literal de la hoja Opciones si su redacción es distinta."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Crece al ritmo de su mercado → mantiene (misma_evidencia): es lo que la serie hace sin ayuda.\nApoyo: comparables sin gasolina de 3,2 % (2025) y 1,4 % a 39 semanas de 2026 [AR2025, PDF p. 344; Q3-26, PDF p. 3]; inflación de alimentos prevista del 2,3-2,7 % [AR2025, PDF p. 59]; margen subyacente en 4,0 % en 2024 y 2025 [AR2025, PDF p. 42]; cuota de Albert Heijn ganada sin mover el margen del grupo [AR2025, PDF p. 50].\nLo sustituiría: si el volumen comparable se volviera negativo de forma sostenida, el NORMAL dejaría de crecer con su mercado y lo explicaría como Otra."
    },
    "64": {
     "celda": "Análisis!C66",
     "concepto": "NORMAL: descripción en una frase",
     "naturaleza": "Decisión del inversor / narrativa",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2686,7 +2685,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: es lo que la serie dice sin ayuda de nada. Comparables sin gasolina del Grupo del 3,2% (2025) y 1,2% (2024); margen subyacente del 4,0% en 2024 y 2025 y 4,08% LTM; guía propia de ~4% para 2026 [AR2025 p. 59-60, 64]. El reparto: €1.008m de recompra más €1.070m de dividendo en 2025 = €2.078m, prácticamente toda la caja libre [AR2025 p. 56]. Lo sustituiría: si el volumen comparable se volviera negativo de forma sostenida, bajaría el normal al 1-2%."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: crece con su mercado con caja libre +3 % al año → cambia (definicion_o_medicion_distinta): el crecimiento lo ponen las palancas; conservo el mecanismo.\nApoyo: comparables de 3,2 % (2025) y 1,4 % (39 semanas de 2026) [AR2025, PDF p. 344; Q3-26, PDF p. 3]; margen EBIT en banda de 2,9-4,4 % diez años (Historia, fila 29); ahorro reinvertido en precio [AR2025, PDF p. 45]; dividendo 1.070 y recompra 1.008 en 2025 frente a la fila 35 de 2.150 [AR2025, PDF p. 56].\nLo sustituiría: volumen negativo sostenido o margen fuera de la banda dos años; entonces reescribiría el NORMAL."
    },
    "65": {
     "celda": "Análisis!C67",
@@ -2737,8 +2736,8 @@
     "celda": "Análisis!D65",
     "concepto": "BUENO: ¿qué tiene que pasar?",
     "naturaleza": "Decisión del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2746,14 +2745,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: técnico] [Confianza: media] Apoyo: uso la opción abierta porque mi caso bueno no es «gana cuota». La cuota ya la gana —siete años consecutivos en Países Bajos [AR2025 p. 43, 50]— y el margen sigue en el 4,0%: ganar cuota no es lo que haría bueno el escenario. Lo que lo haría bueno es retener el ahorro en vez de regalarlo: €5 mil millones de programa 2025-2028 y €3 mil millones de ingresos complementarios en 2028 que se vean en el margen [AR2025 p. 22, 60]. Lo sustituiría: la opción literal de la hoja Opciones que hable de expansión de margen, si existe."
+    "N": "[Clase: fundamentada] [Confianza: baja]\nHereda: Otra (explícala en tus palabras) → cambia (evidencia_nueva): con la lista de Opciones existe la opción que la etapa 1 buscaba.\nApoyo: el BUENO es que el ahorro se quede en casa. Un hecho a favor: el margen subyacente de Europa subió de 3,3 % (2023) a 3,8 % (2025) [AR2025, PDF p. 49] y 4,0 % en el 3T de 2026 [Q3-26, PDF p. 3], con sinergias en Rumanía [Q3-26, PDF p. 8]. Lo demás es guía: 5.000 mm de ahorro y 3.000 mm de ingresos complementarios en 2028 [AR2025, PDF p. 22, 60]. No elijo «Gana cuota»: ya la gana sin mover el margen del grupo.\nLo sustituiría: si la mejora viniera sobre todo de Tesco Chequia y Eslovaquia, «Nuevo producto o mercado funciona»."
    },
    "69": {
     "celda": "Análisis!D66",
     "concepto": "BUENO: descripción en una frase",
     "naturaleza": "Decisión del inversor / narrativa",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2761,7 +2760,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": "[Clase: fundamentada] [Confianza: baja] Apoyo: el escenario bueno tiene que poder ser bueno, y los ingredientes están nombrados: €5 mil millones de ahorro 2025-2028, €3 mil millones de ingresos complementarios en 2028, rentabilidad del comercio electrónico en base totalmente asignada desde el primer semestre de 2025, y márgenes subyacentes regionales de 4,5% en EE. UU. y 3,8% en Europa que tienen hueco [AR2025 p. 22, 44, 49, 60]. La confianza es baja porque no ha pasado en cinco años: el margen subyacente lleva en 4,0-4,4% desde 2018 y los dos últimos años en 4,0%. Y porque son objetivos de la dirección, que es justo lo que el procedimiento descuenta: «A projection prepared by… an executive trying to justify a particular course of action will frequently be a lie» (TCI p.60; HIM). Lo sustituiría: si dos años seguidos el ahorro capturado se viera en el margen, subiría la probabilidad del bueno antes que su crecimiento."
+    "N": "[Clase: fundamentada] [Confianza: baja]\nHereda: el ahorro se queda en casa, margen 4,5-5,0 % y caja +8 % → cambia (definicion_o_medicion_distinta): las cifras son de la fase B; conservo el mecanismo.\nApoyo: margen subyacente de Europa de 3,3 % a 3,8 % en 2023-2025 [AR2025, PDF p. 49]; online rentable desde el 1S 2025 [AR2025, PDF p. 44]; medios y datos 0,3 % de las ventas [AR2025, PDF p. 225]; productividad de los centros Home Shop +20 % (declaración) [Q3-26, PDF p. 5]. Confianza baja: el margen del grupo no ha salido de su banda en diez años (Historia, fila 29) y el resto es guía.\nLo sustituiría: dos años con el ahorro visible en el margen del grupo; entonces subiría su confianza."
    },
    "70": {
     "celda": "Análisis!D67",
@@ -2857,8 +2856,8 @@
     "celda": "Análisis!C97",
     "concepto": "Insiders comprando o vendiendo",
     "naturaleza": "Dato objetivo con periodo definido",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": "25-oct-2025 a 25-oct-2026",
     "unidad": "Clasificación",
     "tipo_fuente": "Registro AFM de consejeros (Wft 5:48)",
@@ -2866,14 +2865,14 @@
     "K": "https://www.afm.nl/en/sector/registers/meldingenregisters/bestuurders-commissarissen?KeyWords=Ahold",
     "L": "—",
     "M": "ESCALADO: dos lecturas con veredictos distintos. Discrecionales: venta del CEO Muller de 58.000 acciones a 34,38 € (≈1,99 M€; 12-dic-2025; ~10% de sus ordinarias; la notificación no la liga a ningún plan) y compra del consejero Bank de 10.000 a 30,41 € (≈0,30 M€; 28-ago-2026). Entradas del 9-abr-2026 a 41,80 € (Muller, Fleeman, Poots-Bijl), probablemente consolidación del plan de acciones (inferido; la notificación no lo dice). \"Neutral\" (criterio acordado: una operación aislada no es un patrón) frente a \"Vendiendo\" (neto vendedor ≈1,7 M€). Celda vacía hasta decisión.",
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: aplico la regla del inversor (25-oct-2026) sobre los hechos de la fase 1, ventana de doce meses (Control maestro, C97). Discrecionales: una venta, el CEO Muller, 58.000 acciones a €34,38 (≈€1,99m) el 12-dic-2025, sin que la notificación la ligue a ningún plan; y una compra, el consejero Bank, 10.000 acciones a €30,41 (≈€0,30m) el 28-ago-2026. Las entradas del 9-abr-2026 a €41,80 de Muller, Fleeman y Poots-Bijl son probablemente consolidación del plan de acciones (así lo infiere la fase 1; la notificación no lo dice). Para «Vendiendo» la regla pide al menos dos insiders vendiendo sin compras y en más de una ventana: hay un vendedor y hay una compra. Para «Comprando» pide dos personas o el CEO por importe relevante: hay un consejero por €0,30m. Es una operación aislada con señales mixtas, luego Neutral. Contexto: el 0,07% de las acciones está en manos del consejo (Control maestro, C96); Muller tenía 515.850 acciones más 9.579 ADR a cierre de 2025 [AR2025 p. 194-206], y la exigencia de tenencia es del 400% del salario. Lo que mide esto, para Munger, es si quien decide carga con las consecuencias: «the system is responsible in proportion to the degree that the people who make the decisions bear the consequences.» (AIWTK p.102; HIM). Lo sustituiría: si en los próximos doce meses hubiera dos o más ventas discrecionales sin compras, pasaría a Vendiendo."
+    "N": "[Clase: fundamentada] [Confianza: baja]\nHereda: Neutral → mantiene (misma_evidencia): un vendedor y un comprador en doce meses: señal aislada y mixta.\nApoyo: ventana hasta el 18-nov-2026 con los hechos de fase 1 que transcribe datos_v63 (sección 6): venta discrecional del CEO Muller, 58.000 acciones a 34,38 € el 12-dic-2025; compra del consejero Bank, 10.000 acciones a 30,41 € el 28-ago-2026. Ni dos vendedores sin compras ni dos compradores. Confianza baja: el extracto actual no encontró serie de operaciones (sección 9) y los nombrados el 13-oct-2026 aún no tienen notificaciones (C96); el consejo tiene el 0,064 % (C96).\nLo sustituiría: dos o más ventas discrecionales sin compras en los próximos doce meses; entonces Vendiendo."
    },
    "77": {
     "celda": "Análisis!C98",
     "concepto": "Asignación de capital de la dirección",
     "naturaleza": "Juicio del inversor",
-    "E": "Pendiente de inversor",
-    "F": "Pendiente de inversor",
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -2881,7 +2880,7 @@
     "K": null,
     "L": null,
     "M": "Evidencia (pkg_CAP): recompras 2019–26 de 7.888 M€ a 27,47 € de media (2025: 34,67 €; 2026: 35,22 €, por encima del precio actual de 33,14 €). Profi: 1.210 M€, fondo de comercio 866, holgura de deterioro \"marginal\". FreshDirect: compra de 271 M€ (2021) → deterioro y venta con pérdida de 250 M€ (2023). Rating BBB+/Baa1. Dividendo 0,95 → 1,24 €.",
-    "N": "[Clase: fundamentada] [Confianza: media] Apoyo: «Proper allocation of capital is an investor's number one job.» (TCI p.114; HIM), y el criterio es «how do they deploy cash? Do they allocate it intelligently on behalf of the owners, or do they overcompensate themselves, or pursue ego-oriented growth for growth's sake?» (PCA p.74; AUTHOR). A favor: recompra de ~€1.000m al año desde 2019 que de verdad reduce el capital (1.088 millones de acciones en 2019 a 887 en 2025, −3,3% anual; Control maestro, C28 y C60) a un precio medio de €27,47 frente a los €33,14 de hoy; dividendo subiendo once años con política declarada del 40-50% y pago del 47%; rating BBB+ / Baa1 mantenido; y voluntad de encoger en vez de hacer tonterías —32 tiendas de Stop & Shop cerradas y 128 tiendas belgas traspasadas a afiliados [AR2024 p. 43-44]—, que es la conducta que Munger aplaude: «At Berkshire Hathaway we try and let the place shrink.» (AIWTK p.45; HIM). En contra: FreshDirect, comprada por €271m en 2021, deteriorada en €153m en 2023 y vendida con una pérdida antes de impuestos de €250m [AR2021 p. 191; AR2023 p. 212]; Profi por €1.239m con €866m de fondo de comercio y holgura de deterioro *marginal* (Control maestro, C32), y con *a modest negative impact on net income* en su primer año; fondo de comercio total de €8.363m, el 17,0% del activo; y recompras de 2025 y 2026 hechas a €34,67 y €35,22, por encima del precio de hoy. Y el resultado agregado de una década de reinversión y de una fusión de €10,8 mil millones es un ROCE del 10,9%: ni excelente ni destructivo. No es Buena porque el retorno no lo demuestra; no es Dudosa porque no hay crecimiento por ego, ni apalancamiento temerario, ni negativa a reconocer errores. Lo sustituiría: Buena si el ROCE superara el 13% de forma sostenida con el mismo reparto; Dudosa si hubiera otra adquisición grande fuera del negocio o si la recompra se hiciera por encima de mi valor ponderado."
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: Aceptable → mantiene (evidencia_nueva): el historial de diez años no da para Buena ni para Dudosa.\nApoyo: «Proper allocation of capital is an investor's number one job» (TCI p.114; HIM). A favor: recompra que reduce acciones un 3,3 % al año (C60), dividendo creciente con payout de 40-50 % [AR2025, PDF p. 63, 64]. En contra: una década de reinversión y compras deja el ROIC en 8,8 % (Historia!C55), en torno a r; deterioro de FreshDirect (C32); Profi a 1.210 mm con 866 de fondo de comercio y holgura que «apenas supera» [AR2025, PDF p. 222, 238]; en 2026, Tesco Chequia y Eslovaquia por unos 1.200 mm [Q3-26, PDF p. 30]. Compra dentro de su negocio, sin diversificar por ego.\nLo sustituiría: Dudosa si otra compra grande no se viera en el ROIC; Buena con ROIC sostenido sobre el 10 %."
    },
    "78": {
     "celda": "Análisis!B101",
@@ -3697,8 +3696,8 @@
     "celda": "Palancas!C5",
     "concepto": "Etapa del ciclo de vida",
     "naturaleza": "Juicio del inversor / V6",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -3706,14 +3705,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: crecimiento orgánico cerca de la inflación (comparables de 3,2 % en 2025 y 1,4 % a 39 semanas de 2026 [AR2025, PDF p. 344; Q3-26, PDF p. 3]); reinversión neta orgánica casi nula, 198, −46 y 85 mm en 2023-2025 (Historia, serie reinversion_neta_organica); reparte casi toda la caja [AR2025, PDF p. 56]; margen en banda diez años (Historia, fila 29). La CAGR de la serie, 7,1 % (Historia!C47), es Delhaize y Profi, no el negocio (GV; E4).\nLo sustituiría: crecimiento orgánico sostenido claramente por encima de la inflación de alimentos; entonces Madura en crecimiento."
    },
    "138": {
     "celda": "Palancas!C6",
     "concepto": "Caso especial",
     "naturaleza": "Juicio del inversor / V6",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -3721,14 +3720,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: no es financiera ni regulada en capital (extracto, sección 7); no es cíclica: margen EBIT entre 2,9 % y 4,4 % en diez años (Historia!C50:C51); la I+D no se publica (Historia, fila id); el riesgo país es pequeño: EE. UU. 57,5 %, Países Bajos 21,6 % y el resto agrupado como Europa occidental 21,0 % (Palancas!A28:B33); un solo negocio en dos segmentos [AR2025, PDF p. 49]. Coherente con el motor A (C62). Serbia y Rumanía van dentro del resto.\nLo sustituiría: que Europa Central y del Este pesara como mercado emergente con regulación de precios; entonces Emergente (riesgo país)."
    },
    "139": {
     "celda": "Palancas!C8",
     "concepto": "Base de partida del margen",
     "naturaleza": "Juicio del inversor / V6",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -3736,14 +3735,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: margen EBIT de 2025 3,84 % (Historia!C48), ni el máximo 4,39 % (2021, C51) ni el mínimo 2,93 % (2020, C50); media 3,67 % (C49); C6 no es cíclica. Media del ciclo solo con ciclo o último año extremo (UD; E5). El último año ya incluye deterioros de 147 mm y reestructuración de 44 [AR2025, PDF p. 46], cargos que se repiten y trato como gasto.\nLo sustituiría: que 2025 resultara un máximo tras un 2026 bajo por el incidente de ciberseguridad (−75 a −100 mm en el 4T, estimación [Q3-26, PDF p. 2]); entonces Media del ciclo."
    },
    "140": {
     "celda": "Palancas!C9",
     "concepto": "I+D capitalizada en las anclas",
     "naturaleza": "Juicio del inversor / V6",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -3751,14 +3750,14 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la I+D no se publica como partida (Historia, fila id vacía los diez años; extracto, sección 3: «No encontrado»); C6 = Ninguno, no Intangibles. Creo que un minorista de alimentación no tiene I+D material que capitalizar en las anclas (MR; E8).\nLo sustituiría: una cifra publicada de I+D o desarrollo capitalizable por encima del 5 % de las ventas; entonces Sí."
    },
    "141": {
     "celda": "Palancas!C10",
     "concepto": "Vida útil de la I+D",
     "naturaleza": "Juicio del inversor / V6",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -3766,7 +3765,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: no aplica porque C9 = No: sin I+D capitalizada no hay vida útil que fijar y la celda queda vacía por su regla (Anexo A). La I+D no se publica (Historia, fila id).\nLo sustituiría: C9 = Sí; entonces 3 años, la convención de software."
    },
    "142": {
     "celda": "Palancas!B14",
@@ -4132,8 +4131,8 @@
     "celda": "Palancas!C43",
     "concepto": "Naturaleza del FCF base ≤ 0 (motor A)",
     "naturaleza": "Juicio del inversor / V6.1",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -4141,7 +4140,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: el FCF base es positivo, C52 = 2.312 mm, y la fila 35 de la Historia fue positiva los diez años (de 1.096 en 2016 a 2.150 en 2025). La celda solo aplica con FCF base ≤ 0.\nLo sustituiría: un FCF base ≤ 0; entonces decidiría entre Transitorio, Extraordinario y Estructural."
    },
    "167": {
     "celda": "Palancas!C44",
@@ -4192,8 +4191,8 @@
     "celda": "Palancas!C47",
     "concepto": "Causa declarada de la diferencia precio × acciones frente a capitalización",
     "naturaleza": "Juicio del inversor / V6.1",
-    "E": "Pendiente de inversor",
-    "F": null,
+    "E": "Listo para auditoría",
+    "F": "Estimación declarada",
     "periodo": null,
     "unidad": null,
     "tipo_fuente": null,
@@ -4201,7 +4200,7 @@
     "K": null,
     "L": null,
     "M": null,
-    "N": null
+    "N": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la conciliación no lo pide: C41 = 36,05 × 886,877 = 31.971,9 por construcción y V22, V26 y V27 están en OK (datos_v63, sección 5). V28 avisa de fechas separadas (precio 13-nov-2026, acciones 28-dic-2025): con las 865,17 millones de acciones del 27-sep-2026 [Q3-26, PDF p. 21] la capitalización sería 31.189,5, un 2,4 % menos, dentro de la tolerancia de 0,05.\nLo sustituiría: una desviación por encima de la tolerancia; entonces Fechas distintas."
    },
    "171": {
     "celda": "Palancas!C48",
@@ -4652,10 +4651,10 @@
     "motores": "A · B · C",
     "aplica": true,
     "condicion": "siempre (elección del motor)",
-    "clasificacion": "Pendiente de inversor",
+    "clasificacion": "Estimación declarada",
     "documento": null,
     "justificada": true,
-    "estado_evidencia": "hipótesis pendiente"
+    "estado_evidencia": "estimación"
    },
    {
     "fila_cm": 53,
@@ -4665,10 +4664,10 @@
     "motores": "A · B · C",
     "aplica": true,
     "condicion": "siempre (r exigida; en B entra en la r operativa)",
-    "clasificacion": "Pendiente de inversor",
+    "clasificacion": "Estimación declarada",
     "documento": null,
     "justificada": true,
-    "estado_evidencia": "hipótesis pendiente"
+    "estado_evidencia": "estimación"
    },
    {
     "fila_cm": 138,
@@ -4678,10 +4677,10 @@
     "motores": "A · B · C",
     "aplica": true,
     "condicion": "siempre (aplicabilidad del motor: «Financiera» bloquea A y B)",
-    "clasificacion": null,
+    "clasificacion": "Estimación declarada",
     "documento": null,
-    "justificada": false,
-    "estado_evidencia": "sin clasificar"
+    "justificada": true,
+    "estado_evidencia": "estimación"
    },
    {
     "fila_cm": 139,
@@ -4691,10 +4690,10 @@
     "motores": "A · B",
     "aplica": true,
     "condicion": "A y B (margen de partida: último año o media del ciclo)",
-    "clasificacion": null,
+    "clasificacion": "Estimación declarada",
     "documento": null,
-    "justificada": false,
-    "estado_evidencia": "sin clasificar"
+    "justificada": true,
+    "estado_evidencia": "estimación"
    },
    {
     "fila_cm": 129,
@@ -4717,10 +4716,10 @@
     "motores": "A",
     "aplica": true,
     "condicion": "A, si la SBC (C50) no es 0",
-    "clasificacion": "Pendiente de inversor",
+    "clasificacion": "Estimación declarada",
     "documento": null,
     "justificada": true,
-    "estado_evidencia": "hipótesis pendiente"
+    "estado_evidencia": "estimación"
    },
    {
     "fila_cm": 142,
@@ -5003,9 +5002,9 @@
     "motores": "A",
     "aplica": false,
     "condicion": "A, si el FCF base (Análisis C52) ≤ 0",
-    "clasificacion": null,
+    "clasificacion": "Estimación declarada",
     "documento": null,
-    "justificada": false,
+    "justificada": true,
     "estado_evidencia": "—"
    },
    {
@@ -5029,9 +5028,9 @@
     "motores": "A · B · C",
     "aplica": false,
     "condicion": "si la desviación capitalización ÷ (precio × acciones) supera el umbral (Diagnóstico C91) o hay causa declarada",
-    "clasificacion": null,
+    "clasificacion": "Estimación declarada",
     "documento": null,
-    "justificada": false,
+    "justificada": true,
     "estado_evidencia": "—"
    }
   ],
@@ -5041,12 +5040,12 @@
    "D242": 19,
    "D243": 24,
    "D244": 0,
-   "D245": 1,
+   "D245": 6,
    "D246": 0,
-   "D247": 9,
-   "D248": 14,
+   "D247": 6,
+   "D248": 12,
    "D249": 0,
-   "D250": "INCOMPLETAS · datos 19 de 19 · hipótesis confirmadas 0 de 24 · 1 estimaciones · 0 no verificables · 9 hipótesis pendientes · 14 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido"
+   "D250": "INCOMPLETAS · datos 19 de 19 · hipótesis confirmadas 0 de 24 · 6 estimaciones · 0 no verificables · 6 hipótesis pendientes · 12 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido"
   }
  },
  "herencia": {
