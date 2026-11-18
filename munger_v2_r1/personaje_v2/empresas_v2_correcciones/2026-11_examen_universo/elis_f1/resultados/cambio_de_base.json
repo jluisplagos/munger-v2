@@ -1,0 +1,596 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_elis_f1.json",
+ "cambio_sha256": "008641ea6c5f0ba566cf622ee565679ca0b9030069cd73ff227d27f2f077789e",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_14/elis_motor_A/Elis",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/elis_f1/Elis",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Rama E6 de Elis (motor A, plantilla V6.3) con la decisión E6 de la persona responsable (14-nov-2026): base coherente a 31-dic-2025. Acciones EN CIRCULACIÓN a 31-dic-2025 (emitidas 232.848.588 − propias 371.778 = 232.476.810); OCEANE 2029 como deuda por su componente de deuda a esa fecha (362,0 mm a coste amortizado, más 2,4 de interés devengado: 364,4), sin añadir sus acciones de conversión al denominador; C48 conserva el cupón de la OCEANE (coherente con esa base); dilución potencial identificada aparte y NO incorporada. No se incorpora ninguna operación de 2026 (ni la recompra de 500 mm ni la conversión del 7-oct-2026): no es una valoración actualizada a 2026. Precio del 4-nov-2026 (fechas distintas, declaradas). Corrección de EXTRACCIÓN de pensiones I25:L25 en fase1_partes (línea (3) de la nota 5.3, `correcciones_fase1_partes`). Reexpresadas a 31-dic-2025 las entradas de la etapa 1 que usaban 2026 (C24, C31, C33, C34, C40, C42, C53, C54; evidencia de C76). Medias C46, C47 y C50 exactas: supuesto de la orquestación (precedente E1), no decisión de la persona responsable para Elis."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-04",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "URD 2025 de Elis (estados financieros consolidados 2025, edición inglesa) e histórico NO AJUSTADO de Euronext Paris (FR0012435121-XPAR) leído el 14-nov-2026 (fuentes_mercado/)",
+  "ejecucion_aplicada": "2026-11-18"
+ },
+ "heredados_movidos": 71,
+ "conservados": [
+  "etapa1",
+  "fase1_fuentes.json",
+  "fase1_partes",
+  "fuentes_2026",
+  "fuentes_mercado",
+  "fuentes_pdf",
+  "texto",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Elis_evaluada.xlsx",
+  "original_sha256": "b775e6b061b752cc531d72d82ba84a803fb0bfe3431c17b70bad7dbd5b43151b",
+  "copia_de_ensayo_sha256": "89d31b3d0d719d1726c6d37e162baef9a6f7e612deaf06afb002139f0f7d6e04",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet1.xml",
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C24",
+   "Análisis!C31",
+   "Análisis!C33",
+   "Análisis!C34",
+   "Análisis!C40",
+   "Análisis!C42",
+   "Análisis!C53",
+   "Análisis!C54",
+   "Análisis!C46",
+   "Análisis!C47",
+   "Análisis!C50",
+   "Análisis!C48"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!I29": {
+    "celda": "Análisis!C24",
+    "texto": "Informe anual auditado + cálculo derivado"
+   },
+   "Control maestro!K29": {
+    "celda": "Análisis!C24",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M29": {
+    "celda": "Análisis!C24",
+    "texto": "Decisión del inversor (10-nov-2026) sobre la DEFINICIÓN: C24 = ROCE antes de impuestos sobre el capital empleado total, goodwill incluido (misma base que el umbral de la plantilla). Reexpresado a 31-dic-2025 (E6): EBIT ajustado 2025 766,6 ÷ capital empleado bruto medio dic-24/dic-25 7.899,2 (dic-24: patrimonio 3.598,1 + deuda bruta 3.660,1 + arrendamientos 606,2 = 7.864,4; dic-25: 3.812,5 + 3.418,3 + 703,2 = 7.934,0) = 9,7 % → C24 = 0.097. Alternativas de la etapa 1 para el ejercicio 2025: ROCE publicado por Elis 14,7 % (sin intangibles del LBO; capital al inicio del año) y ROIC propio después de impuestos 7,2 %."
+   },
+   "Control maestro!N29": {
+    "celda": "Análisis!C24",
+    "texto": "[Clase: derivado de datos publicados] [Confianza: alta en cifras, media en la definición] URD 2025 PDF p. 315 (EBIT ajustado), 326 (patrimonio), 384 (deuda), 366 (arrendamientos). Serie de la etapa 1, FY21–25: ROIC propio 3,9 / 5,6 / 6,5 / 6,8 / 7,2 %; ROCE Elis 8,4 / 11,6 / 13,9 / 14,5 / 14,7 %. Decisión E6 (base 31-dic-2025)."
+   },
+   "Control maestro!G29": {
+    "celda": "Análisis!C24",
+    "texto": "ejercicio 2025 (capital empleado medio dic-2024/dic-2025)"
+   },
+   "Control maestro!I34": {
+    "celda": "Análisis!C31",
+    "texto": "Informe anual auditado"
+   },
+   "Control maestro!K34": {
+    "celda": "Análisis!C31",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M34": {
+    "celda": "Análisis!C31",
+    "texto": "\"Sí\" (literal, ejercicio 2025). Cuentas a cobrar comerciales netas 31-dic-25 838,6 vs 31-dic-24 771,0 = +8,8 % frente a ingresos +4,9 % (4.796,8 vs 4.573,7). Parte es perímetro: las adquisiciones de 2025 aportaron 17,4 de cuentas a cobrar comerciales y otras (PDF p. 340). La empresa lo atribuye al «mechanical effect of the increase in revenue throughout 2025 on trade receivables» (PDF p. 310). Existencias +3,0 % (205,9 vs 200,0), menos que los ingresos. Partida relevante: cuentas a cobrar."
+   },
+   "Control maestro!N34": {
+    "celda": "Análisis!C31",
+    "texto": "Vigilancia moderada. URD 2025 PDF p. 324, 326, 340, 349 y 310. Decisión E6 (base 31-dic-2025): no se usan datos del semestre de 2026."
+   },
+   "Control maestro!G34": {
+    "celda": "Análisis!C31",
+    "texto": "31-dic-2025 frente a 31-dic-2024"
+   },
+   "Control maestro!I36": {
+    "celda": "Análisis!C33",
+    "texto": "Informe anual auditado"
+   },
+   "Control maestro!K36": {
+    "celda": "Análisis!C33",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M36": {
+    "celda": "Análisis!C33",
+    "texto": "Reexpresado a 31-dic-2025 (E6), con la definición de la decisión del inversor del 10-nov-2026 (deuda bruta + arrendamientos − caja no restringida, sobre EBITDA ajustado NIIF 16): (3.418,3 + 703,2 − 341,5) ÷ 1.700,1 = 2,22x → PASA (< 2,5x). Con la caja total: (4.121,5 − 398,1) ÷ 1.700,1 = 2,19x. Definición de Elis (deuda neta sin arrendamientos ÷ EBITDA pro forma): 1,75x a 31-dic-2025 (PDF p. 394)."
+   },
+   "Control maestro!N36": {
+    "celda": "Análisis!C33",
+    "texto": "Covenant contractual (RCF y USPP): leverage ratio < 3,75x semestral (PDF p. 380). La OCEANE 2029 (362,0) está dentro de la deuda bruta: no se aplica su conversión de 2026 ni la recompra de 2026 (decisión E6). Confianza alta en cifras."
+   },
+   "Control maestro!G36": {
+    "celda": "Análisis!C33",
+    "texto": "31-dic-2025; EBITDA ajustado del ejercicio 2025"
+   },
+   "Control maestro!I37": {
+    "celda": "Análisis!C34",
+    "texto": "Informe anual auditado"
+   },
+   "Control maestro!K37": {
+    "celda": "Análisis!C34",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M37": {
+    "celda": "Análisis!C34",
+    "texto": "\"No\" (literal: caja no restringida ÷ deuda financiera a corto). 31-dic-2025: 341,5 ÷ 800,5 = 0,43x (caja total 0,50x)."
+   },
+   "Control maestro!N37": {
+    "celda": "Análisis!C34",
+    "texto": "La deuda a corto es sobre todo instrumentos renovables: NEU CP 480,0, titulización 200,3 y NEU MTN 80,1 vencen en 2026 (PDF p. 383). Holgura según la etapa 1: RCF no dispuesto de 900 (con él, 1,55x a dic-25). Decisión E6 (base 31-dic-2025)."
+   },
+   "Control maestro!G37": {
+    "celda": "Análisis!C34",
+    "texto": "31-dic-2025"
+   },
+   "Control maestro!I40": {
+    "celda": "Análisis!C40",
+    "texto": "Informe anual auditado + cálculo derivado"
+   },
+   "Control maestro!K40": {
+    "celda": "Análisis!C40",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M40": {
+    "celda": "Análisis!C40",
+    "texto": "Decisión del inversor (10-nov-2026) sobre la DEFINICIÓN: FCF menos SBC (C51 = Sí). Reexpresado al ejercicio 2025 (E6): FCF 2025 358,6 (= FCF publicado por Elis, PDF p. 314) − SBC 34,7 = 323,9 → C40 = 323.9. Otras lecturas de la etapa 1: media 3 años 336,2 (−SBC 308,0)."
+   },
+   "Control maestro!N40": {
+    "celda": "Análisis!C40",
+    "texto": "[Clase: derivado de datos publicados] [Confianza: alta] URD 2025 PDF p. 314 y 327. FCF yield con C41 = 5621.3: 323,9 ÷ 5621.3 = 5.76% (sin SBC: 358,6 ÷ 5621.3 = 6.38%). Decisión E6: sin la recompra ni la conversión de 2026."
+   },
+   "Control maestro!G40": {
+    "celda": "Análisis!C40",
+    "texto": "ejercicio 2025"
+   },
+   "Control maestro!I42": {
+    "celda": "Análisis!C42",
+    "texto": "Cálculo derivado"
+   },
+   "Control maestro!K42": {
+    "celda": "Análisis!C42",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M42": {
+    "celda": "Análisis!C42",
+    "texto": "EV = C41 5621.3 + deuda neta (misma definición que C33) 3.780,0 + híbridos 0 + minoritarios 0 = 9401.3; ÷ EBITDA ajustado 2025 1.700,1 = 5,53x. Sin la conversión de la OCEANE: la OCEANE (362,0) sigue dentro de la deuda y sus acciones no están en C41."
+   },
+   "Control maestro!N42": {
+    "celda": "Análisis!C42",
+    "texto": "Compararlo con pares e historia. Fechas distintas declaradas (precio de 2026, balance de 2025). Decisión E6 (base 31-dic-2025)."
+   },
+   "Control maestro!G42": {
+    "celda": "Análisis!C42",
+    "texto": "precio 4-nov-2026 × acciones 31-dic-2025; deuda 31-dic-2025; EBITDA ajustado 2025"
+   },
+   "Control maestro!I50": {
+    "celda": "Análisis!C53",
+    "texto": "Informe anual auditado"
+   },
+   "Control maestro!K50": {
+    "celda": "Análisis!C53",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M50": {
+    "celda": "Análisis!C53",
+    "texto": "Caja y equivalentes 398,1 a 31-dic-2025 (efectivo 296,3 + equivalentes 101,7). Posibles restricciones: Latinoamérica 45,8 (controles de cambio), Rusia 8,0 y contrato de liquidez 2,8 (PDF p. 383)."
+   },
+   "Control maestro!N50": {
+    "celda": "Análisis!C53",
+    "texto": "Contexto. No es caja sobrante: deuda bruta 3.418,3 y deuda a menos de un año 800,5 > caja (PDF p. 384). Decisión E6 (base 31-dic-2025)."
+   },
+   "Control maestro!G50": {
+    "celda": "Análisis!C53",
+    "texto": "31-dic-2025"
+   },
+   "Control maestro!I51": {
+    "celda": "Análisis!C54",
+    "texto": "Informe anual auditado"
+   },
+   "Control maestro!K51": {
+    "celda": "Análisis!C54",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!M51": {
+    "celda": "Análisis!C54",
+    "texto": "Deuda total con arrendamientos 4.121,5 a 31-dic-2025 = deuda financiera 3.418,3 (de ella, OCEANE 2029 362,0; a menos de un año 800,5) + arrendamientos 703,2."
+   },
+   "Control maestro!N51": {
+    "celda": "Análisis!C54",
+    "texto": "Contexto. Deuda neta según Elis 3.020,2 a 31-dic-2025 (PDF p. 384). No se aplican la conversión de la OCEANE ni la recompra de 2026 (decisión E6)."
+   },
+   "Control maestro!G51": {
+    "celda": "Análisis!C54",
+    "texto": "31-dic-2025"
+   },
+   "Control maestro!M43": {
+    "celda": "Análisis!C46",
+    "texto": "1429.433 (media exacta 2023–2025 de «Net cash from operating activities»: 1.325,6 + 1.452,1 + 1.510,6)"
+   },
+   "Control maestro!N43": {
+    "celda": "Análisis!C46",
+    "texto": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; SUPUESTO DE LA ORQUESTACIÓN (14-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala (valores exactos en lugar de redondeos); NO es una decisión de la persona responsable para Elis. Sustituye el redondeo de la etapa 1 (1429.4). Periodo: decisión del inversor del 10-nov-2026 (media 3 años FY23–FY25)."
+   },
+   "Control maestro!I43": {
+    "celda": "Análisis!C46",
+    "texto": "Informe anual auditado: URD 2025 (ejercicios 2025 y 2024) y DEU 2024 (comparativo de 2023), ejercicios 2023–2025 · (E6, base 31-dic-2025: sin la nota de prensa del primer semestre de 2026)"
+   },
+   "Control maestro!M44": {
+    "celda": "Análisis!C47",
+    "texto": "857.167 (media exacta 2023–2025 del «Net capex» publicado: 820,8 + 876,0 + 874,7); con las líneas del estado de flujos sería 857,133 (820,7 en 2023)"
+   },
+   "Control maestro!N44": {
+    "celda": "Análisis!C47",
+    "texto": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; SUPUESTO DE LA ORQUESTACIÓN (14-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala (valores exactos en lugar de redondeos); NO es una decisión de la persona responsable para Elis. Sustituye el redondeo de la etapa 1 (857.1). Concepto: capex NETO (definición de Elis), decisión del inversor del 10-nov-2026; la Historia (fila 12) es bruta (media 867,167)."
+   },
+   "Control maestro!I44": {
+    "celda": "Análisis!C47",
+    "texto": "Informe anual auditado: URD 2025 (ejercicios 2025 y 2024) y DEU 2024 (comparativo de 2023), ejercicios 2023–2025 · (E6, base 31-dic-2025: sin la nota de prensa del primer semestre de 2026)"
+   },
+   "Control maestro!M48": {
+    "celda": "Análisis!C50",
+    "texto": "28.233 (media exacta 2023–2025 de «Share-based payments»: 22,9 + 27,1 + 34,7)"
+   },
+   "Control maestro!N48": {
+    "celda": "Análisis!C50",
+    "texto": "[Clase: derivado de datos publicados] [Confianza: alta] Valor exacto de los datos; SUPUESTO DE LA ORQUESTACIÓN (14-nov-2026), por el precedente de la decisión E1 de la persona responsable en Viscofan y Vidrala (valores exactos en lugar de redondeos); NO es una decisión de la persona responsable para Elis. Sustituye el redondeo de la etapa 1 (28.2). Excluye las cargas sociales asociadas, que ya son caja dentro del CFO."
+   },
+   "Control maestro!I48": {
+    "celda": "Análisis!C50",
+    "texto": "Informe anual auditado: URD 2025 (ejercicios 2025 y 2024) y DEU 2024 (comparativo de 2023), ejercicios 2023–2025 · (E6, base 31-dic-2025: sin la nota de prensa del primer semestre de 2026)"
+   },
+   "Control maestro!N45": {
+    "celda": "Análisis!C48",
+    "texto": "(E6, base 31-dic-2025) Tratamiento de intereses conciliado con la base: C48 = 108,0 = media 2023–2025 de «Net interest paid» (70,5 / 78,9 / 99,4; DEU 2024 PDF p. 273 y URD 2025 PDF p. 327) 82,933 + intereses de arrendamientos implícitos (pagos con intereses − principal: 130,8 − 111,0; 150,8 − 125,0; 177,9 − 148,3) 25,067. Con la OCEANE como deuda y sin sus acciones en el denominador, su cupón en efectivo (2,25 % s/ 380,0 = 8,55 mm al año, URD 2025 PDF p. 380; 8,6 al año en el cuadro de flujos contractuales, PDF p. 377) es un coste del accionista y se mantiene: el estado de flujos no lo desglosa, pero es interés financiero pagado y no consta en otra línea. El devengo no monetario del componente de deuda (9,7 en 2025, PDF p. 314) no es caja y no está en C48. Sin cambio de valor; decisión E6 del 14-nov-2026."
+   },
+   "Control maestro!I45": {
+    "celda": "Análisis!C48",
+    "texto": "Informe anual auditado: URD 2025 (ejercicios 2025 y 2024) y DEU 2024 (comparativo de 2023), ejercicios 2023–2025 · (E6, base 31-dic-2025: sin la nota de prensa del primer semestre de 2026)"
+   },
+   "Control maestro!G82": {
+    "celda": "Análisis!C76",
+    "texto": "31-dic-2025"
+   },
+   "Control maestro!I82": {
+    "celda": "Análisis!C76",
+    "texto": "Decisión del inversor (preparada con el balance auditado)"
+   },
+   "Control maestro!J82": {
+    "celda": "Análisis!C76",
+    "texto": "URD 2025, notas 8.4 y 8.5 (PDF p. 383 y 384)"
+   },
+   "Control maestro!K82": {
+    "celda": "Análisis!C76",
+    "texto": "fuentes_pdf/Elis - 2025 Universal Registration Document.pdf (copia local, sha256 04bfd08724e76880…; texto con marcas en texto/)"
+   },
+   "Control maestro!L82": {
+    "celda": "Análisis!C76",
+    "texto": "PDF 383–384"
+   },
+   "Control maestro!M82": {
+    "celda": "Análisis!C76",
+    "texto": "Preparación reexpresada a 31-dic-2025 (E6): caja 398,1; restringida o limitada ≈ 53,8 (Latinoamérica 45,8 + Rusia 8,0) y 2,8 del contrato de liquidez; deuda financiera bruta 3.418,3 y deuda a menos de un año 800,5, ambas mayores que la caja. No es caja económicamente sobrante: el valor sigue en 0 (vacío)."
+   },
+   "Control maestro!N82": {
+    "celda": "Análisis!C76",
+    "texto": "[Clase: fundamentada] [Confianza: alta] Apoyo: 0. A 31-dic-2025 la caja (398,1 mm, C53) es menor que la deuda a menos de un año (800,5) y que la deuda bruta (3.418,3); ≈ 53,8 está en países con posibles restricciones (URD 2025 PDF p. 383). No es caja claramente sobrante. «Excess cash is an advantage, not a disadvantage» (TCI p.141; HIM), pero aquí no sobra. Lo sustituiría: la caja por encima de 2–3 % de las ventas si la deuda a corto quedara cubierta por la caja. Reexpresado a la base 31-dic-2025 (decisión E6)."
+   },
+   "Control maestro!N73": {
+    "celda": "Análisis!C88",
+    "texto": "Sin 2020: 16,0x media / 14,7x mediana; 2021–25 14,5x / 14,6x. Es contexto, no juez. (E6, base 31-dic-2025; revisión independiente RE6, D2) Se retiran los múltiplos «actuales» de la etapa 1, calculados con la base de 30-jun-2026 y con la conversión pro forma de la OCEANE: no pertenecen a la base 2025. El valor de C88 (mediana histórica) no cambia."
+   },
+   "Control maestro!I46": {
+    "celda": "Análisis!C49",
+    "texto": "Informe anual auditado: URD 2025 (ejercicios 2025 y 2024) y DEU 2024 (comparativo de 2023), ejercicios 2023–2025 · (E6, base 31-dic-2025: sin la nota de prensa del primer semestre de 2026)"
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C24": {
+   "construido_por_fase1_historia": null,
+   "valor": 0.097,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C31": {
+   "construido_por_fase1_historia": null,
+   "valor": "Sí",
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C33": {
+   "construido_por_fase1_historia": null,
+   "valor": 2.22,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C34": {
+   "construido_por_fase1_historia": null,
+   "valor": "No",
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C40": {
+   "construido_por_fase1_historia": null,
+   "valor": 323.9,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C42": {
+   "construido_por_fase1_historia": null,
+   "valor": 5.53,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C53": {
+   "construido_por_fase1_historia": null,
+   "valor": 398.1,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C54": {
+   "construido_por_fase1_historia": null,
+   "valor": 4121.5,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C46": {
+   "construido_por_fase1_historia": 1429.433,
+   "valor": 1429.433,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C47": {
+   "construido_por_fase1_historia": 867.167,
+   "valor": 857.167,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C50": {
+   "construido_por_fase1_historia": 28.233,
+   "valor": 28.233,
+   "naturaleza": null,
+   "perimetro": null,
+   "fecha": null,
+   "derivacion": null
+  },
+  "C48": {
+   "construido_por_fase1_historia": 82.933,
+   "valor": 108.0,
+   "naturaleza": "entrada efectiva justificada con su derivación (sin cambio de valor)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de (intereses financieros netos pagados + pagos de arrendamientos con intereses − principal de arrendamientos)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "partida": "intereses_financiacion",
+      "signo": 1
+     },
+     {
+      "componente": "pagos_arrendamientos_con_intereses",
+      "signo": 1
+     },
+     {
+      "partida": "arrendamientos_principal",
+      "signo": -1
+     }
+    ],
+    "componentes": {
+     "pagos_arrendamientos_con_intereses": {
+      "2023": {
+       "valor": 130.8,
+       "fuente": "texto/Elis_Document d'enregistrement universel_2024_FR.txt",
+       "pagina": 273,
+       "cita": "Paiements de passifs locatifs (y compris intérêts sur passifs locatifs) (150,8) (130,8)",
+       "documento": "Document d'enregistrement universel 2024 d'Elis (incluye los estados financieros consolidados 2024; en francés)",
+       "valor_fuente": -130.8,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
+      },
+      "2024": {
+       "valor": 150.8,
+       "fuente": "texto/Elis - 2025 Universal Registration Document.txt",
+       "pagina": 327,
+       "cita": "Lease liability payments (including interest on lease liabilities) (177.9) (150.8)",
+       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)",
+       "valor_fuente": -150.8,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
+      },
+      "2025": {
+       "valor": 177.9,
+       "fuente": "texto/Elis - 2025 Universal Registration Document.txt",
+       "pagina": 327,
+       "cita": "Lease liability payments (including interest on lease liabilities) (177.9) (150.8)",
+       "documento": "Universal Registration Document 2025 de Elis (incluye los estados financieros consolidados 2025)",
+       "valor_fuente": -177.9,
+       "signo": -1,
+       "tratamiento": "pago publicado entre paréntesis (salida de caja) en el estado de flujos de efectivo; el cálculo usa su magnitud positiva para restarle el principal y obtener los intereses de arrendamientos (4.15, hito 2, R415-SIGNO: conversión declarada, sin cambio de valor)"
+      }
+     }
+    },
+    "decision": "Tratamiento del inversor del 10-nov-2026 registrado en el Control maestro de la etapa 1 (filas 45 y 47: «C48 = intereses netos en financiación 82,9 + intereses de arrendamientos 25,1»), conciliado con la base E6 (cupón de la OCEANE dentro de «Net interest paid»). Intereses de arrendamientos = pagos de pasivos por arrendamiento con intereses − principal (desde el informe 2024 «Net interest paid» los excluye).",
+    "redondeo": 3
+   }
+  }
+ },
+ "correcciones_fase1_partes": [
+  {
+   "archivo": "AR_2023.json",
+   "partida": "pensiones",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS",
+    "impreso": "78.3",
+    "pagina": 307,
+    "linea": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS (5)=(3)+(4)                                                 78.3               50.7"
+   },
+   "despues": {
+    "concepto": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)",
+    "impreso": "74.9",
+    "pagina": 307,
+    "linea": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     74.9               47.4"
+   },
+   "nota_antes": "Neto (Note 5.3, PDF PAGE 307): pasivo 90.7 menos activo 12.3 del balance (2022: 69.4 - 18.7).",
+   "nota_despues": "Déficit neto de prestación definida, línea (3) = (1) − (2) del cuadro «FUNDED STATUS OF EMPLOYEE BENEFIT OBLIGATION» (Note 5.3, PDF PAGE 307): 74.9 (2023) y 47.4 (2022). No incluye «Other long-term benefits» (línea 4), que la línea (5) sí suma.",
+   "fuente": "texto/Elis_Universal Registration Document_2023_EN.txt [PDF PAGE 307], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 12/31/2023: «NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     74.9               47.4»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (3,5). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!J25 (vía el comparativo del DEU 2024; aquí, el valor propio del informe 2023)) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  },
+  {
+   "archivo": "AR_2023.json",
+   "partida": "pensiones",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS",
+    "impreso": "50.7",
+    "pagina": 307,
+    "linea": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS (5)=(3)+(4)                                                 78.3               50.7"
+   },
+   "despues": {
+    "concepto": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)",
+    "impreso": "47.4",
+    "pagina": 307,
+    "linea": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     74.9               47.4"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/Elis_Universal Registration Document_2023_EN.txt [PDF PAGE 307], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 12/31/2022: «NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     74.9               47.4»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (3,3). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!I25) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "pensiones",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "PASSIFS (ACTIFS) RELATIFS AUX AVANTAGES A LONG TERME DU PERSONNEL",
+    "impreso": "104,1",
+    "pagina": 301,
+    "linea": "PASSIFS (ACTIFS) RELATIFS AUX AVANTAGES À LONG TERME DU PERSONNEL (5)=(3)+(4)                                          104,1               78,3"
+   },
+   "despues": {
+    "concepto": "VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)",
+    "impreso": "91,6",
+    "pagina": 301,
+    "linea": "VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)                               91,6               74,9"
+   },
+   "nota_antes": "Neto (note 5.3, PDF PAGE 301): pasivo 108,6 menos activo 4,5 del balance (2023: 90,7 - 12,3).",
+   "nota_despues": "Déficit neto de prestación definida, línea (3) = (1) − (2) del cuadro de la note 5.3 (PDF PAGE 301): 91,6 (2024) y 74,9 (2023). No incluye los «autres avantages à long terme» (línea 4), que la línea (5) sí suma.",
+   "fuente": "texto/Elis_Document d'enregistrement universel_2024_FR.txt [PDF PAGE 301], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 31/12/2024: «VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)                               91,6               74,9»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (12,5). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!K25 (vía el comparativo del URD 2025; aquí, el valor propio del informe 2024)) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  },
+  {
+   "archivo": "AR_2024.json",
+   "partida": "pensiones",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "PASSIFS (ACTIFS) RELATIFS AUX AVANTAGES A LONG TERME DU PERSONNEL",
+    "impreso": "78,3",
+    "pagina": 301,
+    "linea": "PASSIFS (ACTIFS) RELATIFS AUX AVANTAGES À LONG TERME DU PERSONNEL (5)=(3)+(4)                                          104,1               78,3"
+   },
+   "despues": {
+    "concepto": "VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)",
+    "impreso": "74,9",
+    "pagina": 301,
+    "linea": "VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)                               91,6               74,9"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/Elis_Document d'enregistrement universel_2024_FR.txt [PDF PAGE 301], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 31/12/2023: «VALEUR NETTE DU PASSIF (ACTIF) RELATIF AUX RÉGIMES À PRESTATIONS DÉFINIES (3) = (1) - (2)                               91,6               74,9»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (3,5). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!J25) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "pensiones",
+   "lado": "actual",
+   "indice": 0,
+   "antes": {
+    "concepto": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS",
+    "impreso": "79.7",
+    "pagina": 355,
+    "linea": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS (5)=(3)+(4)                                                 79.7            104.1"
+   },
+   "despues": {
+    "concepto": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)",
+    "impreso": "67.1",
+    "pagina": 355,
+    "linea": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     67.1              91.6"
+   },
+   "nota_antes": "Neto (Note 5.3, PDF PAGE 355): pasivo 93.2 menos activo 13.5 del balance (2024: 108.6 - 4.5).",
+   "nota_despues": "Déficit neto de prestación definida, línea (3) = (1) − (2) del cuadro «FUNDED STATUS OF EMPLOYEE BENEFIT OBLIGATION» (Note 5.3, PDF PAGE 355): 67.1 (2025) y 91.6 (2024). No incluye «Other long-term benefits» (línea 4), que la línea (5) sí suma.",
+   "fuente": "texto/Elis - 2025 Universal Registration Document.txt [PDF PAGE 355], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 12/31/2025: «NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     67.1              91.6»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (12,6). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!L25) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  },
+  {
+   "archivo": "AR_2025.json",
+   "partida": "pensiones",
+   "lado": "anterior",
+   "indice": 0,
+   "antes": {
+    "concepto": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS",
+    "impreso": "104.1",
+    "pagina": 355,
+    "linea": "LIABILITIES (ASSETS) RELATED TO LONG-TERM EMPLOYEE BENEFITS (5)=(3)+(4)                                                 79.7            104.1"
+   },
+   "despues": {
+    "concepto": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)",
+    "impreso": "91.6",
+    "pagina": 355,
+    "linea": "NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     67.1              91.6"
+   },
+   "nota_antes": null,
+   "nota_despues": null,
+   "fuente": "texto/Elis - 2025 Universal Registration Document.txt [PDF PAGE 355], nota 5.3, cuadro del estado de financiación de las prestaciones, línea (3), columna 12/31/2024: «NET VALUE OF DEFINED BENEFIT PLAN LIABILITY (ASSET) (3) = (1) − (2)                                                     67.1              91.6»",
+   "motivo": "La fila 25 de la Historia pide el déficit neto de pensiones («Posición neta (obligación − activos del plan)»), que es la línea (3) = (1) − (2) de la nota 5.3; la extracción tomó la línea (5) = (3) + (4), que suma los «Other long-term benefits (4)» (12,5). Discrepancia de concepto confirmada por la revisión independiente (verificacion_entradas.json, Historia!K25) y corrección pedida en la decisión E6 de la persona responsable (14-nov-2026)."
+  }
+ ],
+ "notas_retiradas": 4,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {},
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_elis_f1.json"
+ }
+}
