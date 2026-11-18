@@ -40,18 +40,27 @@ def celdas(decl, anios):
     """{"Historia!REF": valor} de las filas 85–87 desde la declaración (dict) y los años de la Historia (C5:L5 del libro)."""
     import motor_a_f1 as F1
     decl = decl if isinstance(decl, dict) else {}
+    # (F1 · US GAAP, ronda 2, R1-14) una serie o una clave mal formada no hace fallar el paso 2: se lee como vacía (la fila queda vacía en el libro) y la
+    # capa lo dice en el paso 7 (F1-DECLARACION, DATOS INVÁLIDOS)
+    decl = F1._declaracion_bien_formada(decl)[0]
     per = (decl.get("perimetro_reinversion") or {}).get("valor") if isinstance(decl.get("perimetro_reinversion"), dict) else None
     out = {f"Historia!C{F_SEL}": per if per in PERIMETROS_LIBRO else None}
     reg = (decl.get("perimetro_reinversion") or {}).get("registro") if isinstance(decl.get("perimetro_reinversion"), dict) else None
     out[f"Historia!M{F_SEL}"] = (f"motor_a_f1.json · perimetro_reinversion = {per} · registro {json.dumps(reg, ensure_ascii=False)[:200]}"
                                  if per in PERIMETROS_LIBRO else None)
     validos = {y for y in anios if isinstance(y, int)}
+    us = (decl.get("norma_contable") or {}).get("valor") == "US_GAAP" if isinstance(decl.get("norma_contable"), dict) else False
     for nombre, fila in (("da_rou", F_ROU), ("da_ppa", F_PPA)):
         serie, _ = F1.leer_serie(decl, nombre, validos)
+        nombres = (nombre,)
+        if us and nombre == "da_rou":
+            # (F1 · US GAAP) la fila 86 lleva la amortización de derechos de uso DENTRO de la fila 8: la de los arrendamientos financieros (da_rou)
+            # más la de los operativos que esté declarada dentro de la fila 8 (da_rou_operativo), con la misma lectura que la capa (rou_fila8)
+            serie, nombres = F1.rou_fila8(decl, validos), ("da_rou", "da_rou_operativo")
         for c, y in zip(COLS, anios):
             out[f"Historia!{c}{fila}"] = float(serie[y]) if y in serie else None
-        docs = sorted({str(e.get("documento")) for e in ((decl.get("series") or {}).get(nombre) or {}).values() if isinstance(e, dict) and e.get("documento")})
-        out[f"Historia!M{fila}"] = (f"motor_a_f1.json · series.{nombre} (documento y página por año en la declaración): " + "; ".join(docs))[:900] if serie else None
+        docs = sorted({str(e.get("documento")) for n_ in nombres for e in ((decl.get("series") or {}).get(n_) or {}).values() if isinstance(e, dict) and e.get("documento")})
+        out[f"Historia!M{fila}"] = (f"motor_a_f1.json · series.{' + series.'.join(nombres)} (documento y página por año en la declaración): " + "; ".join(docs))[:900] if serie else None
     return out
 
 
