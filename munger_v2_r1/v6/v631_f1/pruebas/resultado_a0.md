@@ -1,6 +1,6 @@
 # Pruebas V6.3.1 F1 · a0
 
-Fecha 2026-11-18 · plantilla `266d53bdd8af13d5…` · referencia `cd564e43f60239c8…`
+Fecha 2026-11-18 · plantilla `eaece01a7d6a1d86…` · referencia `9587aefdfe3ef11f…`
 
 **PASA: 22/22**
 

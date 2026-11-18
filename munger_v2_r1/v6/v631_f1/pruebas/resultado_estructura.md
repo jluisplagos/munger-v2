@@ -1,13 +1,13 @@
 # Pruebas V6.3.1 F1 · estructura
 
-Fecha 2026-11-18 · plantilla `266d53bdd8af13d5…` · referencia `cd564e43f60239c8…`
+Fecha 2026-11-18 · plantilla `eaece01a7d6a1d86…` · referencia `9587aefdfe3ef11f…`
 
 **PASA: 21/21**
 
 | Comprobación | Resultado | Detalle |
 |---|---|---|
 | la V6.3 no cambia (SHA-256 = origen de su referencia) | PASA | 8381a6cd7b1d798f |
-| reconstrucción determinista: el guion desde la V6.3 da el mismo SHA-256 que el entregable | PASA | 266d53bdd8af13d5 / 266d53bdd8af13d5 |
+| reconstrucción determinista: el guion desde la V6.3 da el mismo SHA-256 que el entregable | PASA | eaece01a7d6a1d86 / eaece01a7d6a1d86 |
 | la referencia salió de este entregable | PASA |  |
 | SHA256_entregables_V6.3.1_F1.txt coincide | PASA |  |
 | fórmulas alteradas = fila 30, C53, C58, C76, Motor E205 y Panel A1 (y ninguna más) | PASA | de más [] · de menos [] |

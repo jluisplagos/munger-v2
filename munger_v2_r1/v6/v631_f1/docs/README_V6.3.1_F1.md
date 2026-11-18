@@ -31,7 +31,7 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
 | Archivo | Qué es |
 |---|---|
 | `entregables/Plantilla_V6.3.1_F1.xlsx` | La plantilla. SHA-256 en `referencia/SHA256_entregables_V6.3.1_F1.txt` y en el manifiesto. **No va en Git** (los `.xlsx` están excluidos): se reconstruye desde la V6.3 de la base con `python3 -I scripts/construir_v631_f1.py ../entregables/Plantilla_V6.3.xlsx entregables/Plantilla_V6.3.1_F1.xlsx` y tiene que dar la misma huella. |
-| `referencia/referencia_V6.3.1_F1.json` | Referencia de integridad nueva: 10.975 fórmulas, 5.140 celdas fijas, 52 validaciones, 13 partes del paquete (idénticas a las de la V6.3). |
+| `referencia/referencia_V6.3.1_F1.json` | Referencia de integridad nueva (regenerada con la C53 de la revisión, §8): 10.975 fórmulas, 5.140 celdas fijas, 52 validaciones, 13 partes del paquete (idénticas a las de la V6.3). |
 | `scripts/construir_v631_f1.py` | La construye a partir de la V6.3, que no se modifica. Determinista: dos ejecuciones dan el mismo SHA-256. |
 | `scripts/verificar_v631.py`, `generar_referencia.py`, `inventario_entradas.py`, `add_sliders.py` | Copias de los de la V6.3: `add_sliders.py` idéntico; en `verificar_v631.py` y `generar_referencia.py` cambia solo el docstring; el inventario añade Historia C85, C86:L87 y M85:S87. |
 | `scripts/trasladar_entradas.py`, `comparar_libros.py` | Copias de las de la V6.4.1, adaptadas (sin hoja de configuración; todas las columnas; solo se excluyen las etiquetas de versión y la sección nueva). |
@@ -45,7 +45,8 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
 - **Fila 30** (y con ella la 31): `capex − D_X + circulante`. Con A0, D_X es el valor de la fila 8: la misma operación.
 - **C58 (f), C76 (conciliación de f) y C53 (ancla de S2C):** `=IF($C$89="A0_total", <fórmula literal de la V6.3>, <fórmula con D_X>)`.
   Con A1/A2: la reinversión es la de la fila 30; f exige D_X en todos los años de la ventana (vacío ≠ 0) y el ancla, los cinco años H–L
-  (la V6.3 admite tres; *interpretación*: con un perímetro F1 el ancla de E4 es la suma de H–L y un año sin D_X no se rellena).
+  de **todo** el denominador: capex (fila 12), adquisiciones (13), circulante (14) y D_X (88), con 0 explícito si no los hubo (E4, confirmado
+  por la revisión de la V6.3.1; la V6.3 admite tres años y cuenta los vacíos de las filas 13 y 14 como 0, y su rama A0 no cambia).
 - **Motor E205 (validación V05 del motor A):** al final, tres causas nuevas, que solo pueden saltar con A1/A2 o con un texto no reconocido:
   perímetro no reconocido (INV), D_X vacía en la ventana (INC) y D&A de derechos de uso + PPA mayor que la D&A total (INV).
 - **Etiquetas de versión:** Panel A1, Análisis A1, Guía V6 A1 y Control maestro A3.
@@ -129,15 +130,37 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
   gancho en los pasos 7 y 12, `concluido`, resumen en `resumen_v2_v631_f1.csv`; P7 la misma con la V6.3 → paso 7 `no_entregable ·
   límite del modelo` (`F1-LIBRO`); P8 declaración cambiada y `--desde 7` → `F1-LIBRO` bloquea.
 
-## 8. Preguntas para el revisor y límites
+## 8. Primera ronda de revisión independiente de la V6.3.1 (`4928fc9`, CORRECCIONES acotadas) y lo que se corrigió
 
-1. **E4 con A1/A2 (interpretación):** el ancla exige D_X en los cinco años H–L; la V6.3 admite tres años con reinversión. ¿Es la lectura
-   correcta de E4 o debe mantenerse «≥ 3 años»?
+| Hallazgo | Corrección | Prueba |
+|---|---|---|
+| V631-1 · R2-1 abierto: `--reiniciar --desde 13` con el resultado F1 borrado llegaba a `concluido` | `pipeline.py` rechaza `--reiniciar` junto con `--desde` (código 2), después de retirar una aprobación que ya no corresponde al material; al reanudar con `--desde ≥ 7` sin el motor en el estado, lo repone desde `fase_a.json`; `vigencia()` toma el motor de `fase_a.json` y «motor desconocido» con F1 exigido no es «no es el A» | `prueba_pipeline_v631.py` P9 (R21a, R21b, R21c); `test_v631_f1.py` (vigencia y rechazo) |
+| V631-2 · `F1-SERIES` aceptaba subcadenas, otro ejercicio y fuentes sin huella | la cifra se busca como cifra completa; con `fila`, en esa línea y en la columna cuyo encabezado de ejercicio (alineado en el texto con marcas) es el año; `fuentes_series` liga cada `documento` a un `archivo` **dentro de la carpeta del expediente** con su `sha256` (y `archivo_texto`/`sha256_texto` para un PDF); sin `fila` o sin encabezado alineado, la columna queda **pendiente** (no bloquea F1; la aptitud por entradas la bloquea el universo, V631-3) | `test_motor_a_f1.py` «V631-2» (8); `probar_v631_f1.py f1`: E1 sobre el texto real de Elis, y las 10 cifras de Elis con la columna comprobada |
+| V631-3 · la huella y la aptitud por entradas no veían las filas 85–87 | `entradas_economicas.instantanea` incluye Historia C85 y C86:L87 en los libros V6.3.1 (marca de A84): A1 y A2 tienen huellas distintas, y las celdas entran en el universo de `verificacion_entradas.py`, así que sin su verificación la aptitud por entradas es «no». Los libros V6.3 y V6.4 no cambian de huella | `test_v631_f1.py` «V631-3» (3) |
+| E4 y V631-5 · ancla con A1/A2 | C53 (rama A1/A2) exige las filas 12, 13, 14 y 88 numéricas en H–L; la capa también (para todos los perímetros) | `probar_v631_f1.py f1` (circulante de 2021 vacío) |
+| V631-4 · con A0 el oráculo bloqueaba donde la V6.3 no | con A0, C53 se contrasta solo si la capa lo calcula | `probar_v631_f1.py f1` (capex de 2021 vacío) |
+| V631-8 (P6) | P6 exige `concluido` | `prueba_pipeline_v631.py` |
+
+**Pruebas de esta ronda (resultados literales; plantilla reconstruida `eaece01a…`, porque cambió C53):** `test_v631_f1.py` `28/28 … PASAN` ·
+`test_motor_a_f1.py` `163/163 … PASAN` · `probar_v631_f1.py estructura` `21/21 … PASAN` · `flock … probar_v631_f1.py a0` `22/22 … PASAN`
+(0 celdas distintas, igualdad exacta) · `flock … probar_v631_f1.py f1` `35/35 … PASAN` · `flock … prueba_pipeline_v631.py` `9/9 … PASAN` ·
+`flock … prueba_pipeline_f1.py` `7/7 … PASAN`.
+
+**No corregido (declarado):** V631-6 (el oráculo contrasta valores en caché: en el pipeline lo cubren el recálculo forzado y
+`verificar_v631.py` en el paso 12; a mano sobre un libro de origen desconocido, no); V631-7 (rótulos de A30/A76; la nota de A90 explica
+D_X); el rótulo F1 «utilizable» que conserva la ficha del control 2 de V631-8; las tres pruebas nuevas siguen sin registrar en
+`verificar_paquete.sh`; el tercer caso del §2 de la revisión (una fila 8 que ya excluye la ROU: A1 la restaría dos veces) no tiene guarda
+propia (lo cubre solo la verificación de la fila 8 y de las series).
+
+## 9. Preguntas para el revisor y límites
+
+1. **E4 con A1/A2:** confirmado por la revisión (cinco años H–L de todo el denominador; aplicado en §8).
 2. `F1-SERIES` solo cubre la D&A de derechos de uso y la PPA (no `pagos_arrendamiento`, que solo da la sensibilidad (1b)); avisa sin cambiar
-   el estado cuando otra guarda ya bloquea. ¿Es aceptable como condición mínima hasta meter D_X en el universo de entradas?
-3. La PPA declarada a cero no tiene contraste en la Historia (no hay fila): `F1-SERIES` exige su cifra y su página, nada más.
-4. Fuera de alcance: D_X y sus series en el control de evidencias del libro (Control maestro) y en `verificacion_entradas.py`; el resto
-   de H9 (registro y alcance de N1); `test_v631_f1.py`, `probar_v631_f1.py` y `prueba_pipeline_v631.py` no están registrados en
-   `verificar_paquete.sh`.
+   el estado cuando otra guarda ya bloquea. La columna se comprueba por alineación en el texto «-layout»: una tabla con otra maquetación la
+   deja pendiente (no la inventa). Una fuente fabricada dentro del expediente con su huella pasa `F1-SERIES`: la cubre la verificación de
+   entradas (revisor y sello), que sigue siendo condición de la aptitud.
+3. La PPA declarada a cero no tiene contraste en la Historia (no hay fila): `F1-SERIES` exige su cifra, su página y su columna, nada más.
+4. Fuera de alcance: D_X y sus series en el control de evidencias del libro (Control maestro); el resto de H9 (registro y alcance de N1);
+   `test_v631_f1.py`, `probar_v631_f1.py` y `prueba_pipeline_v631.py` no están registrados en `verificar_paquete.sh`.
 5. **No comprobado:** Excel real (todo el recálculo es LibreOffice); `regresion_elis_f1.py` no se volvió a ejecutar (escribe en los
    resultados de F1-IMPL).
