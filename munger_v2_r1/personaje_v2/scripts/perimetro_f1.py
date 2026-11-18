@@ -22,8 +22,9 @@ es la condición mínima de F1-SERIES (cifra publicada con su signo, en la pági
 ejercicio comprobada en los cinco años (por eso cada año declara «fila»). Solo así la medida es UTILIZABLE: si no, la sección «1 bis» no la
 titula ni la compara con r, «V-F1k (valores)» avisa y las referencias mecánicas no la usan; si la fuente es INVÁLIDA, la capa F1 bloquea.
 Límites declarados: solo NIIF (con US GAAP el arrendamiento operativo va entero en el EBIT y la fórmula restaría su interés otra vez: la
-medida no se emite, C3); la decisión nombra A2_propio y se aplica igual a A1_sin_ROU (mismo trato del arrendamiento: extensión que la
-persona conoce); sin el ajuste de la I+D capitalizada que lleva C55 con Palancas!C9 = Sí; con menos de cinco ejercicios en la Historia, la
+medida no se emite, C3); solo A2_propio, que es el perímetro que nombra la decisión: con A1_sin_ROU las medidas quedan «no aplicables ·
+pendiente de decisión» y nada cambia respecto a antes (G7, referencias, gramática y capa F1 como sin perímetro propio; PREGUNTA ABIERTA para
+la persona: ¿se extiende la vara a A1_sin_ROU, que trata el arrendamiento igual?); sin el ajuste de la I+D capitalizada que lleva C55 con Palancas!C9 = Sí; con menos de cinco ejercicios en la Historia, la
 medida no se emite y se dice; el semáforo del libro de la rentabilidad marginal (Diagnóstico V6, fila 42) sigue con 2 × C55; el capital
 propio es el capital invertido menos el PASIVO por arrendamientos (la definición del libro), y pierde sentido si es pequeño o negativo.
 """
@@ -44,7 +45,9 @@ REGLA = ("con F1 en {per}, el foso (Análisis!C18) se juzga comparando el ROIC d
 G4_TEXTO = ("G4 no cambia: hasta r + 0,03 no pide nada; por encima de r + 0,03 exige C18 = Sí y una justificación de cuánto dura la ventaja "
             "(sin foso, por encima de r + 0,03 no hay justificación posible)")
 ESTADOS_INTERESES = ("comprobada", "sin_declarar", "incompleta", "columna_pendiente", "invalida")
-LIMITES = ("la decisión nombra A2_propio; aquí se aplica igual a A1_sin_ROU (mismo trato del arrendamiento), extensión que la persona conoce",
+PERIMETRO_DECIDIDO = "A2_propio"   # la decisión P-FOSO solo nombra A2_propio (coordinación, 18-nov-2026: A1 queda pendiente de decisión)
+PREGUNTA_A1 = ("con A1_sin_ROU la decisión P-FOSO no está tomada: la persona decidirá si la vara del foso (capital propio pagado todo el alquiler) se extiende a A1, que trata el arrendamiento igual que A2; mientras tanto, nada cambia respecto a antes")
+LIMITES = (f"solo {PERIMETRO_DECIDIDO}, el perímetro que nombra la decisión; con A1_sin_ROU las medidas quedan no aplicables, pendiente de decisión",
            "el semáforo del libro de la rentabilidad marginal (Diagnóstico V6, fila 42) sigue comparando con 2 × C55, de todo el capital: con F1 en "
            "este perímetro manda G7 de la gramática",
            "el capital propio es el capital invertido menos el pasivo por arrendamientos (la definición del libro, no el activo por derecho de uso); "
@@ -154,6 +157,10 @@ def calcular(anios, fila, decl, carpeta=None, r=None, c55=None, c54=None, sector
                "roic_todo_el_capital": "EBIT × (1 − t) ÷ capital invertido (fila 33; su media de cinco años es Historia!C55)",
                "roic_terminal_neutro": "r × N ÷ (N − f), N = margen objetivo × (1 − Historia!C52), f = Historia!C58 (el ROIC terminal con el que el "
                                        "crecimiento perpetuo ni crea ni destruye valor en el motor A)"}}
+    if per != PERIMETRO_DECIDIDO:
+        # (ronda 3) A1_sin_ROU: pendiente de decisión de la persona; no se emite nada que cambie G7, las referencias, la gramática ni la capa
+        out["pendiente_de_decision"] = True
+        return _no_aplicable(out, f"no aplicables · pendiente de decisión: {PREGUNTA_A1}")
     if norma != "NIIF":
         # (C3) con US GAAP el arrendamiento operativo va entero en el EBIT (un solo coste lineal): restar sus «intereses» lo contaría dos veces
         return _no_aplicable(out, f"norma contable {norma!r}: la medida solo tiene fórmula con NIIF (NIIF 16). Con US GAAP el arrendamiento operativo "
@@ -315,7 +322,7 @@ def guardas_valores(G, L, decl, per, pal, decl_r, diag, carpeta=None):
     medidas del perímetro. INFORMA, sin umbral nuevo (G4 y G7 siguen siendo los que exigen justificación); «V-F1k (valores)» AVISA si la
     medida del foso no es utilizable. (C1) Una serie de intereses declarada con su fuente o su lectura INVÁLIDAS bloquea (DATOS INVÁLIDOS),
     como F1-SERIES. Sin palancas (paso 7) lo dice y no afirma nada. Solo con F1 en A1_sin_ROU o A2_propio. Devuelve el detalle o None."""
-    if per not in PERIMETROS_PROPIOS:
+    if per != PERIMETRO_DECIDIDO:   # (ronda 3) A1_sin_ROU pendiente de decisión: la capa F1 queda como sin perímetro propio
         return None
     pf = desde_libro(L, decl, carpeta) or {}
     if not pf.get("aplicable"):
@@ -375,6 +382,9 @@ def seccion_md(pf, motor=None):
            f"- Perímetro de la reinversión (motor_a_f1.json): **{per}** · palancas S2C: {pf['perimetro_palancas_s2c'] or '—'} · ROIC terminal: "
            f"{pf['perimetro_roic'] or '—'} · norma contable: {pf.get('norma_contable') or 'sin declarar'}. F1 solo afecta al motor A"
            + (f" (motor del libro: {motor})" if motor else "") + "."]
+    if pf.get("pendiente_de_decision"):
+        return cab + [f"- **Medidas del perímetro no aplicables · pendiente de decisión.** {PREGUNTA_A1}: G7, las referencias mecánicas y "
+                      "la gramática siguen con Historia!C55, como antes.\n"]
     if not pf.get("aplicable"):
         return cab + [f"- **Medidas del perímetro NO APLICABLES:** {pf.get('motivo_no_aplicable')}. La regla de la decisión (P-FOSO) queda sin su cifra: "
                       "no compares Historia!C55 (todo el capital) con r como si fuera la del accionista; dilo en la Observación de C18.\n"]

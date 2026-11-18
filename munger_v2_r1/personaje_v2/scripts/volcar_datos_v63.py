@@ -126,6 +126,8 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     if t.get("perimetro_f1"):
         # (P-FOSO, D2 del dictamen del perímetro) solo con F1 declarado en A1_sin_ROU o A2_propio: sin él, el volcado no cambia
         md.extend(PF.seccion_md(t["perimetro_f1"], d.get("motor")))
+    # (ronda 3) con A1_sin_ROU (pendiente de decisión) solo la nota de la sección 1 bis: los rótulos no cambian
+    _pf_vara = bool(t.get("perimetro_f1")) and not (t.get("perimetro_f1") or {}).get("pendiente_de_decision")
     md.append("## 2. Datos de Análisis con su evidencia (Control maestro)\n")
     md.append("| Celda | Concepto | Valor | Clasificación (F) | Documento (J) | Página (L) | Observación (N) |\n|---|---|---|---|---|---|---|")
     for ref in DATOS_ANALISIS:
@@ -146,14 +148,14 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     md.append("\n### Anclas (Historia C43:C66)\n")
     md.append("| Ancla | Celda | Valor |\n|---|---|---|")
     for ref, nombre in L.ANCLAS.items():
-        rot = " (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis)" if (t.get("perimetro_f1") and ref in ("C54", "C55")) else ""
+        rot = " (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis)" if (_pf_vara and ref in ("C54", "C55")) else ""
         md.append(f"| {nombre}{rot} | {ref} | {fmt(h['anclas'][nombre])} |")
     md.append("\n## 4. Sector y riesgo país que usa la hoja\n")
     md.append(f"- Sector de Damodaran (Palancas!C7): **{p['C7']}** · etapa (C5): {p['C5']} · caso especial (C6): {p['C6']} · base del margen (C8): {p['C8']} · I+D capitalizada (C9/C10): {p['C9']} / {p['C10']}")
     s = p["sector"]
     md.append(f"- Crecimiento de ventas del sector (3 años) Q1 / mediana / Q3: {fmt(s['crecimiento_q1'])} / {fmt(s['crecimiento_mediana'])} / {fmt(s['crecimiento_q3'])} · media propia (F14): {fmt(p['media_propia']['crecimiento'])}")
     md.append(f"- Margen operativo del sector Q1 / mediana / Q3: {fmt(s['margen_q1'])} / {fmt(s['margen_mediana'])} / {fmt(s['margen_q3'])} · media propia (F15): {fmt(p['media_propia']['margen'])}")
-    rot_f18 = "5 años de todo el capital (F18 = C55; ver 1 bis)" if t.get("perimetro_f1") else "propio 5 años (F18)"
+    rot_f18 = "5 años de todo el capital (F18 = C55; ver 1 bis)" if _pf_vara else "propio 5 años (F18)"
     md.append(f"- ROIC medio del sector (H18): {fmt(s['roic_media'])} · ROIC {rot_f18}: {fmt(p['media_propia']['roic'])}")
     md.append(f"- S2C MEDIO del sector (ventas ÷ capital; medida distinta de la palanca) Q1 / mediana / Q3: {fmt(s['s2c_medio_q1'])} / {fmt(s['s2c_medio_mediana'])} / {fmt(s['s2c_medio_q3'])} · propio (F19): {fmt(p['media_propia']['s2c_medio'])} · S2C MARGINAL propio (F16, la palanca): {fmt(p['media_propia']['s2c_marginal'])}")
     md.append(f"- Tasa sin riesgo (Análisis!C57): {fmt(a.get('C57'))} · r del inversor (C56, heredada): {fmt(a.get('C56'))} · r mínima (Diagnóstico!C17): {fmt(d['r_minima'])} · {d['r_vs_minima']} · r operativa del motor B (C15): {fmt(d['r_operativa'])}")

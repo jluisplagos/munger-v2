@@ -229,6 +229,7 @@ class Gramatica:
         u4 = float(self.cfg.get("convenciones", {}).get("umbral_g4_roic_lp_sobre_tasa", 0.10))
         # (P-FOSO) G4 no cambia (r + 0,03); con F1 en A1/A2 el hallazgo recuerda con qué vara se juzga el foso (C18)
         pf4 = (self.d or {}).get("perimetro_f1") if motor == "A" else None
+        pf4 = None if (pf4 or {}).get("pendiente_de_decision") else pf4   # (ronda 3) A1_sin_ROU: como sin perímetro propio
         vara4 = ""
         if pf4:
             rp4 = num(pf4.get("roic_propio_pagado_el_alquiler_medio"))
@@ -273,6 +274,7 @@ class Gramatica:
             # (P-FOSO, D1 del dictamen del perímetro) con F1 declarado en A1/A2 y motor A, el S2C es del capital propio: la rentabilidad marginal
             # se compara con 2 × el ROIC histórico del MISMO perímetro (NOPAT NIIF 16 ÷ capital sin arrendamientos), no con 2 × C55 (todo el capital)
             pf = (self.d or {}).get("perimetro_f1") if motor == "A" else None
+            pf = None if (pf or {}).get("pendiente_de_decision") else pf   # (ronda 3) A1_sin_ROU: como sin perímetro propio
             base7, rot7 = c55, ""
             if pf and num(pf.get("roic_sin_arrendamientos_medio")) is not None:
                 base7 = num(pf["roic_sin_arrendamientos_medio"])

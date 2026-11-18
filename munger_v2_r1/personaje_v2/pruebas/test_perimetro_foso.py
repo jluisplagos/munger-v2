@@ -411,6 +411,27 @@ paso("SIN · con A0_total no hay filas «(valores)» ni F1-INTERESES-ARR ni deta
 paso("SIN · la guarda por etiquetas sigue bloqueando un perímetro declarado distinto (palancas A0 con reinversión A2)",
      any(x["salta"] and x["severidad"] == "BLOQUEA" for x in fila(M.evaluar(libro(PAL_TODO), {**decl(), "perimetro_palancas_s2c": {"valor": "A0_total", "registro": REG}}), "V-F1g")))
 
+# =========================================================================================== A1 · pendiente de decisión (ronda 3)
+# La decisión P-FOSO solo nombra A2_propio: con A1_sin_ROU las medidas quedan «no aplicables · pendiente de decisión» y nada cambia
+d_a1 = con_intereses(D0)
+for k in ("perimetro_reinversion", "perimetro_palancas_s2c", "perimetro_roic"):
+    d_a1[k] = {"valor": "A1_sin_ROU", "registro": d_a1[k].get("registro")}
+pf_a1 = PF.desde_datos(T0, d_a1, EXP)
+md_a1 = md_de(pf_a1)
+h_a1, c_a1 = gramatica({**copy.deepcopy(T0), "perimetro_f1": pf_a1})
+r_a1 = M.evaluar(libro(PAL_TODO), decl("A1_sin_ROU"))
+g_a1 = {x["id"]: x for x in r_a1["guardas"]}
+paso("A1 · con A1_sin_ROU (y la serie de intereses buena) no hay medidas: «no aplicables · pendiente de decisión», con la pregunta para la persona; "
+     "volcado sin más cambio que esa nota, gramática y referencias idénticas a sin perímetro, y la capa F1 sin filas «(valores)»",
+     pf_a1["aplicable"] is False and pf_a1.get("pendiente_de_decision") and "pendiente de decisión" in pf_a1["motivo_no_aplicable"]
+     and pf_a1["roic_propio_pagado_el_alquiler_medio"] is None and pf_a1["roic_sin_arrendamientos_medio"] is None
+     and "no aplicables · pendiente de decisión" in md_a1 and "A1" in md_a1 and "| Año |" not in md_a1
+     and [x for x in md0.splitlines() if x not in md_a1.splitlines()] == []
+     and h_a1 == h0 and c_a1 == c0
+     and RM.calcular({**copy.deepcopy(Ts), "perimetro_f1": pf_a1}, CFG) == rm0
+     and not any(k.endswith("(valores)") or k == "F1-INTERESES-ARR" for k in g_a1) and r_a1.get("perimetro_f1_valores") is None
+     and "(valores)" not in g_a1["V-F1g"]["detalle"] + g_a1["V-F1k"]["detalle"])
+
 n_ok = sum(1 for _, ok in R if ok)
 print(f"\n{n_ok}/{len(R)} pruebas del perímetro F1 y la vara del foso (P-FOSO) PASAN")
 sys.exit(0 if n_ok == len(R) else 1)

@@ -335,7 +335,7 @@ fi
 
 # (4.15, P-FOSO) perímetro F1 en las fases (D2), G7 y referencias con el ROIC del perímetro (D1) y V-F1g/V-F1k por valores (D3); dictamen
 # examen/revisiones/dictamen_perimetro_g4 y decisión P-FOSO (a) del 18-nov-2026. Sin LibreOffice ni binarios, unos segundos; obligatoria en
-# los dos modos; al menos 65 pruebas (ronda 2: C1–C4 y D3 de la revisión de la implantación)
+# los dos modos; al menos 66 pruebas (ronda 2: C1–C4 y D3 de la revisión de la implantación; ronda 3: A1 pendiente de decisión)
 echo "== batería del perímetro F1 y la vara del foso (personaje_v2/pruebas/test_perimetro_foso.py; obligatoria en los dos modos; sin LibreOffice)"
 SALIDA_X="$(mktemp)"
 if [ -f personaje_v2/pruebas/test_perimetro_foso.py ]; then
@@ -345,10 +345,10 @@ else
 fi
 linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del perímetro F1 y la vara del foso \(P-FOSO\) PASAN$' "$SALIDA_X" | tail -1)"
 n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 65 ]; then
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 66 ]; then
   echo "$linea"; echo "RESULTADO perímetro F1 y vara del foso: PASA"
 else
-  tail -5 "$SALIDA_X"; echo "RESULTADO perímetro F1 y vara del foso: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 65 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  tail -5 "$SALIDA_X"; echo "RESULTADO perímetro F1 y vara del foso: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 66 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
 echo "== batería de trazabilidad de la 4.10 (personaje_v2/pruebas/test_trazabilidad_v2.py; obligatoria en «completa»; BOM, marcadores de cierre y libro final)"

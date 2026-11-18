@@ -172,6 +172,7 @@ def calcular(d, config):
     # (P-FOSO, D1 del dictamen del perímetro) con F1 declarado en A1/A2 y motor A, el tope de la rentabilidad marginal (2 × ROIC histórico, el
     # mismo umbral que G7) usa el ROIC del perímetro del S2C: NOPAT NIIF 16 ÷ (capital invertido − arrendamientos); C55 es de todo el capital
     pf = d.get("perimetro_f1") if motor == "A" else None
+    pf = None if (pf or {}).get("pendiente_de_decision") else pf   # (ronda 3) A1_sin_ROU pendiente de decisión: como sin perímetro propio
     if pf and num(pf.get("roic_sin_arrendamientos_medio")) is not None:
         c55 = num(pf["roic_sin_arrendamientos_medio"])
         nota.append(f"perímetro F1 {pf.get('perimetro')}: el tope usa el ROIC histórico del perímetro del S2C (NOPAT NIIF 16 ÷ capital sin "

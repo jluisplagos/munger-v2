@@ -634,11 +634,11 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     G.add("V-F1g", ppal is None or ppal != per, "BLOQUEA", "MODELO NO APLICABLE",
           ("perímetro de las palancas S2C sin declarar" if ppal is None else f"palancas S2C ancladas en {ppal!r} ≠ perímetro de la reinversión {per!r}")
           if (ppal is None or ppal != per) else f"perímetro declarado de las palancas S2C = perímetro de la reinversión ({per}): compara etiquetas de la "
-          "declaración, no cifras" + ("; los valores, en «V-F1g (valores)» (P-FOSO, D3)" if per in ("A1_sin_ROU", "A2_propio") else ""), "(4a)")
+          "declaración, no cifras" + ("; los valores, en «V-F1g (valores)» (P-FOSO, D3)" if per == "A2_propio" else ""), "(4a)")
     G.add("V-F1k", proi is None or proi != ppal, "BLOQUEA", "MODELO NO APLICABLE",
           ("perímetro del ROIC del terminal sin declarar" if proi is None else f"ROIC del terminal en {proi!r} ≠ palancas S2C {ppal!r}")
           if (proi is None or proi != ppal) else f"perímetro declarado del ROIC del terminal = el de las palancas S2C ({ppal}): compara etiquetas de la "
-          "declaración, no cifras" + ("; los valores, en «V-F1k (valores)» (P-FOSO, D3)" if per in ("A1_sin_ROU", "A2_propio") else ""), "(4a)")
+          "declaración, no cifras" + ("; los valores, en «V-F1k (valores)» (P-FOSO, D3)" if per == "A2_propio" else ""), "(4a)")
 
     # ---------------------------------------------------------------- cálculo por perímetro (diagnóstico A0, A1, A2 y el declarado)
     def DX_de(p, y):
