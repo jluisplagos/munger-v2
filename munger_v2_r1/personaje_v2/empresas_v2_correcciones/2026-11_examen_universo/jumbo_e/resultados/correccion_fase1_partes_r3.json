@@ -1,0 +1,133 @@
+{
+ "fecha": "2026-11-18",
+ "guion": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/resultados/scripts/corregir_fase1_partes_r3.py",
+ "fuente": "REVISION_ORQUESTACION.md (auxiliar @ 9740e27)",
+ "archivos": [
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "antes_sha256": "4d2bfa0b56603e1ab9ff2577d51c539ef5c7fc657a725ad68f34b9dffb9061e3",
+   "despues_sha256": "a2488c5e5184580b2525d7f3ad40ccda04dce980e3bdab9bbd6e46be97e7fe39"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "antes_sha256": "0718350451c86637cb17ee5aa25829ab7d513cb3445b205f182dbf380b879b42",
+   "despues_sha256": "6f3539addb31f98a6a3d0bb6d7313f6e52d0ae2469508c32dfd72ef0346808c2"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "antes_sha256": "e704eea28b329e45f47daae46903ce379052c24f1b1248c84da994532c9a999e",
+   "despues_sha256": "a76b6db757d8e9c33b92a5945dadce0ce55631ef6e7fc69c850e49a10cabd189"
+  },
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "antes_sha256": "fe3a4abfa582f9e5442147623ab1e4ab1fbc2f9b9664c928508d51068f55519e",
+   "despues_sha256": "16e8be03d454c396af5b31691cda78b783e9617cef0cd4ca71b065586e3cec18"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "antes_sha256": "4c5bd7ef8ed9ee23f6983b3319680d98de6a1f5cc9e1868a59a853dd312660c7",
+   "despues_sha256": "c605e3fed82ecb99e4538dea4a55540f37011739279ed76d96fab6e312bd450b"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "antes_sha256": "f20541a84f76ce1769efd6052821d7dc76edcf3c3d8063a327d03db76dbb0bc2",
+   "despues_sha256": "69a5345cc5fa23fa9cd86e772527b8b4d8df0b1ac82ac6934b5d33d8630fbeec"
+  }
+ ],
+ "cambios": [
+  {
+   "archivo": "fase1_partes/AR_2020.json",
+   "partida": "adquisiciones",
+   "campo": "anterior",
+   "antes": [
+    {
+     "concepto": "Share Capital Change of Subsidiaries 2019 (grupo, impreso -)",
+     "impreso": "-",
+     "pagina": 59,
+     "linea": "Share Capital Change of Subsidiaries                                     5.10                      -                      -                      -"
+    }
+   ],
+   "despues": [],
+   "motivo": "se retira el «-» de la ronda 2: 2019 vuelve a cero pendiente (revisión de la orquestación)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2022.json",
+   "partida": "adquisiciones",
+   "campo": "anterior",
+   "antes": [
+    {
+     "concepto": "Share Capital Change of Subsidiaries 2021 (grupo, impreso -)",
+     "impreso": "-",
+     "pagina": 68,
+     "linea": "Share Capital Change of Subsidiaries                     5.10                         -                        -                 20.336.687                            -"
+    }
+   ],
+   "despues": [],
+   "motivo": "se retira el «-» de la ronda 2: 2021 vuelve a cero pendiente (revisión de la orquestación)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2021.json",
+   "partida": "adquisiciones",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos de inversión no contiene ninguna línea de adquisición ni venta de negocios (solo 'Share Capital Change of Subsidiaries' = '-' en el grupo, ambos años).",
+    "pagina": 63,
+    "cita": "Net cash flows from investing activities"
+   },
+   "despues": {
+    "motivo": "El bloque de inversión del grupo no tiene ninguna línea de compra ni venta de negocios; la única línea de sociedades dependientes, «Share Capital Change of Subsidiaries», imprime «-» en la columna del grupo de 2021 (y del grupo de 2021 en AR2022 p. 68); esa línea recoge aportaciones a filiales, no compras: cero PENDIENTE de verificación, como 2020",
+    "pagina": 63,
+    "cita": "Share Capital Change of Subsidiaries"
+   },
+   "motivo": "cita: la línea de sociedades dependientes del bloque de inversión (antes «Net cash flows from investing activities»)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2019.json",
+   "partida": "adquisiciones",
+   "campo": "cero",
+   "antes": {
+    "motivo": "El estado de flujos consolidado no contiene linea de adquisiciones/ventas de negocios; solo hay una linea de ampliacion de capital de filiales sin importe consolidado",
+    "pagina": 57,
+    "cita": "Net cash flows from investing activities"
+   },
+   "despues": {
+    "motivo": "El bloque de inversión del grupo no tiene ninguna línea de compra ni venta de negocios; «Share Capital Change of Subsidiaries» imprime «-» en la columna del grupo (informe de transición, jul–dic 2019, p. 57; la columna del año natural 2019 de AR2020 PDF p. 59 imprime también «-», pero el cero solo puede citar el informe propio); esa línea recoge aportaciones a filiales, no compras: cero PENDIENTE de verificación, como 2020",
+    "pagina": 57,
+    "cita": "Share Capital Change of"
+   },
+   "motivo": "cita: la línea de sociedades dependientes del bloque de inversión (antes «Net cash flows from investing activities»)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2016.json",
+   "partida": "arrendamientos_principal",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Antes de la NIIF 16 (aplicada desde el 1-jul-2019): los compromisos son arrendamientos operativos, sin pasivo ni pagos de principal de arrendamientos en financiación",
+    "pagina": 93,
+    "cita": "Commitments mostly pertain to operating leases of stores, warehouses and transportation equipment"
+   },
+   "despues": {
+    "motivo": "NIC 17: el bloque de financiación del estado de flujos (dividendos, devolución de capital, dividendo a cuenta, préstamos obtenidos y devueltos) no tiene ninguna línea de pagos de arrendamientos; los compromisos son sobre todo arrendamientos operativos (p. 93): cero PENDIENTE de verificación",
+    "pagina": 46,
+    "cita": "Cash flows from financing activities"
+   },
+   "motivo": "cita: el bloque de financiación sin línea de arrendamientos (revisión: «mostly» no excluye arrendamientos financieros NIC 17)"
+  },
+  {
+   "archivo": "fase1_partes/AR_2018.json",
+   "partida": "arrendamientos",
+   "campo": "cero",
+   "antes": {
+    "motivo": "Ejercicio 2018/19, anterior a la aplicación de la NIIF 16 por el grupo (primer ejercicio desde el 1-jul-2019): sin pasivo por arrendamientos en el balance",
+    "pagina": 52,
+    "cita": "The Group will implement IFRS 16 from its mandatory effective date"
+   },
+   "despues": {
+    "motivo": "Ejercicio 2018/19, anterior a la aplicación de la NIIF 16 por el grupo (1-jul-2019): el bloque de financiación del estado de flujos (dividendos, préstamos, costes del bono, devoluciones) no tiene ninguna línea de pagos de arrendamientos, así que no hay pasivo por arrendamientos financieros NIC 17 que pagar: cero PENDIENTE de verificación",
+    "pagina": 48,
+    "cita": "Cash flows from financing activities"
+   },
+   "motivo": "cita: el bloque de financiación sin línea de arrendamientos (revisión: la frase de la NIIF 16 no prueba la falta de pasivo)"
+  }
+ ]
+}

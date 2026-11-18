@@ -1,0 +1,74 @@
+{
+ "fecha": "2026-11-18",
+ "guion": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/resultados/scripts/entradas_analisis.py",
+ "especificacion": {
+  "declarar": {
+   "C42": {
+    "valor": 7.227054276475324,
+    "esperado": 7.227054276475324,
+    "L": "H1 2026 PDF p. 20, 23, 25 y 57; AR2025 PDF p. 148",
+    "M": "C42 = EV ÷ EBITDA LTM = (27,28 × 134,365561 + 62,247015 − 546,140091) ÷ (435,659964 + 169,927311 − 165,352664) = 3181.599428 ÷ 440.234611 = 7.227054. Misma fórmula que la etapa 1 (6,4458 con 24,72 €), con el precio activo del expediente (C37 = 27,28 €, 17-nov-2026) y las acciones de P-O2 (a). DESALINEACIÓN DE FECHAS (revisión de la orquestación): el precio del 17-nov-2026 (27,28 €) es posterior al dividendo de 0,70 € (94,056 mm, pagado el 28-jul-2026, H1 2026 PDF p. 20) y a la fecha ex (16-nov-2026) del reparto extraordinario de 1,00 € (134,366 mm; fase1_metadatos, precio), mientras la caja es la del 30-jun-2026 y aún los incluye. Descontando de la caja solo el dividendo de julio: 7.441x; descontando los dos: 7.746x. El valor declarado no se ajusta (decisión pendiente).",
+    "N": "[Clase: derivado de datos publicados] Recalculado en jumbo_e con el precio activo (27,28 €): el valor de la etapa 1 (6,4458) y sus sensibilidades se calcularon con 24,72 € y se retiran. Con las cifras redondeadas de la etapa 1 (440,24) sale 7,2270. DESALINEACIÓN DE FECHAS (revisión de la orquestación): el precio del 17-nov-2026 (27,28 €) es posterior al dividendo de 0,70 € (94,056 mm, pagado el 28-jul-2026, H1 2026 PDF p. 20) y a la fecha ex (16-nov-2026) del reparto extraordinario de 1,00 € (134,366 mm; fase1_metadatos, precio), mientras la caja es la del 30-jun-2026 y aún los incluye. Descontando de la caja solo el dividendo de julio: 7.441x; descontando los dos: 7.746x. El valor declarado no se ajusta (decisión pendiente).",
+    "periodo": "EV con precio del 17-nov-2026 y balance a 30-jun-2026; EBITDA LTM a 30-jun-2026",
+    "unidad": "x"
+   },
+   "C40": {
+    "valor": 254.31756701901787,
+    "esperado": 246.48,
+    "L": "AR2025 PDF p. 150, 155 y 179",
+    "M": "FCF del accionista 2025 con la misma definición que la caja base tras P-O1 (c), J1 y J2 (C46): CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 (= 246,48 de la etapa 1) + dividendos de la cartera cotizada 1,8762 («Dividends received», AR2025 PDF p. 155) + intereses cobrados que no son de la caja de C76 5.965467 (9,91679 − s × (9,91679 − cupones 0,595058), s = C76 200 ÷ caja media 471,8284 = 0.423883; AR2025 PDF p. 150, 155 y 179) = 254.317567",
+    "N": "[Clase: derivado de datos publicados + convención de reparto de C46] Recalculado en jumbo_e: la etapa 1 (246,48, FCF yield 7,42 % con 24,72 €) es anterior a J1/J2. Con C41 = 3.665,49 el FCF yield es 6.94 %. Se mantiene el ejercicio 2025 y no el LTM (decisión documentada de la etapa 1: el LTM a 30-jun-2026 está inflado por el circulante y un capex mínimo). SI LA FASE B CAMBIA C76, hay que recalcular los intereses que entran (como C46). Las variantes de la etapa 1 (LTM 298,07, normalizado 247–260, medias 232,15/217,79, penalizado 221,07, y sus yields) usan la definición anterior y el precio de 24,72 €: se retiran. No le afecta la desalineación de fechas de C42 (no usa caja ni precio).",
+    "periodo": "ejercicio 2025",
+    "unidad": "mm"
+   },
+   "C96": {
+    "valor": 0.16628031642721308,
+    "esperado": 0.1663,
+    "L": "AR2025 PDF p. 48, 49, 16 y 143",
+    "M": "% de insiders (consejo y alta dirección) a 31-dic-2025 = (A.-E. Vakakis 22.339.966 indirectas + A. Athanasiou 360, AR2025 PDF p. 48 + I. Terzaki 2.022, alta dirección, p. 49) ÷ 134.365.561 acciones (sin autocartera, p. 16; = C55, P-O2 a) = 0.166280",
+    "N": "[Clase: derivado de datos publicados] La cifra impresa del 16,42 % / 16,419 % (AR2025 PDF p. 143, TANOCERIAN MARITIME) no es esta partida: es solo la sociedad del presidente y está calculada sobre 136.059.759 acciones, la base anterior a la amortización de 2025 (22.339.966 ÷ 136.059.759 = 16,419 %); con las acciones a 31-dic-2025 de C55 la misma participación es el 16,63 %. Las compras de 2026 que citaba la etapa 1 (16,89 %, anuncios leídos en la web) no tienen fuente en el expediente y no se usan. Accionista de control = contexto.",
+    "periodo": "31-dic-2025",
+    "unidad": "proporción"
+   }
+  },
+  "solo_evidencia": {
+   "C88": {
+    "F": "Dato no verificable",
+    "N": "NO VERIFICABLE: capitalizaciones de fin de año de terceros (MarketScreener / StockAnalysis) sin bytes en el expediente; los informes de Jumbo no publican su cotización de cierre, así que no se puede recalcular. Además el FCF de cada año es la definición ANTERIOR a J1/J2 y P-O1 (sin intereses cobrados ni dividendos de la cartera; con ellos el FCF de 2023–2025 sube ≈ 3 %, C46 frente a la media de la fila 11, y el múltiplo bajaría en esa proporción). Valor de la etapa 1 conservado solo como contexto, no como dato verificado; la variante normalizada (12,3x) tiene la misma fuente."
+   }
+  }
+ },
+ "antes": {
+  "Análisis!C42": "(vacío en la etapa 1; entrada declarada anterior 7.227054276475324)",
+  "Análisis!C40": 246.48,
+  "Análisis!C96": 0.1663,
+  "Control maestro!L42": "H1 2026 PDF p. 23, p. 25, p. 57; AR2025 PDF p. 148",
+  "Control maestro!M42": "C42 = EV ÷ EBITDA LTM = (27,28 × 134,365561 + 62,247015 − 546,140091) ÷ (435,659964 + 169,927311 − 165,352664) = 3181.599428 ÷ 440.234611 = 7.227054. Misma fórmula que la etapa 1 (6,4458 con 24,72 €), con el precio activo del expediente (C37 = 27,28 €, 17-nov-2026) y las acciones de P-O2 (a).",
+  "Control maestro!N42": "[Clase: derivado de datos publicados] Recalculado en jumbo_e (revisión del registro de Jumbo, punto 3): el valor de la etapa 1 y sus sensibilidades se calcularon con 24,72 € y ya no corresponden al precio del expediente. Con las cifras redondeadas de la etapa 1 (440,24) sale 7,2270.",
+  "Control maestro!L40": "p.155",
+  "Control maestro!M40": "FCF accionista = CFO 296,91 − capex 38,38 − intereses leases 2,33 − principal leases 9,73 = 246,48 (FCF yield 7,42%). Intereses no-lease ya dentro del CFO. SBC 0, sin híbridos ni minoritarios. Etiquetas de leases en inglés cruzadas en el AR (verificado con XBRL y nota 5.5): total igual.",
+  "Control maestro!N40": "Se aparta de la regla LTM (documentado): LTM 30.06.2026 = 298,07 (yield 8,97%) inflado por circulante (+38,5 vs H1 2025) y capex mínimo (30,5 vs 63,8 media 3a). Normalizado 247–260 (estimación; yield 7,4–7,8%); medias 3a/5a 232,15/217,79 (7,0%/6,6%); penalizado 221,07 (6,7%). Todas ≥5% → mismo veredicto, no se escala. Intereses cobrados (~10/año, en inversión) excluidos: sumarlos es incompatible con C76>0 (doble conteo). Confianza alta.",
+  "Control maestro!L75": "p.143",
+  "Control maestro!M75": "Consejo y alta dirección: (22.339.966 + 360 + 2.022) / 134.365.561 = 16,63%; casi todo indirecto del fundador y presidente A.-E. Vakakis vía Tanocerian Maritime / Karpathia Foundation (el AR muestra 16,42% sobre la base previa a la amortización).",
+  "Control maestro!N75": "Con compras MAR de 2026 (anuncios leídos vía web, pendientes de cotejar con PDF): 16,89%. Accionista de control = contexto; no se han documentado derechos especiales. Confianza alta (auditado).",
+  "Control maestro!F73": "Rellenado y verificado",
+  "Control maestro!N73": "Con FCF normalizado (sin circulante, impuesto = gasto): mediana 12,3x. Precios 2016–19 no disponibles. 2021–22 distorsionados por circulante COVID. Confianza media."
+ },
+ "celdas_cambiadas": [
+  "Análisis!C40",
+  "Análisis!C96",
+  "Control maestro!F73",
+  "Control maestro!L40",
+  "Control maestro!L42",
+  "Control maestro!L75",
+  "Control maestro!M40",
+  "Control maestro!M42",
+  "Control maestro!M75",
+  "Control maestro!N40",
+  "Control maestro!N42",
+  "Control maestro!N73",
+  "Control maestro!N75"
+ ],
+ "etapa1_antes_sha256": "512a44763c93e18ce3ced9e0e278327757aa198bcdfd21df22d08e310ce517af",
+ "etapa1_despues_sha256": "ef275807352081d36a7c28cde3d3bf41cf74121cf136e12fd1e4905f4ba7fbcb"
+}

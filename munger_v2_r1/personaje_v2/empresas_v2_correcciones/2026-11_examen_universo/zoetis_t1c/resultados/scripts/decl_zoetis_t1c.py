@@ -36,10 +36,15 @@ F_ROU = "Amortization of right-of-use assets"
 F_PPA = "Amortization and depreciation"
 NOTA_PPA = ("«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de "
             "los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y "
-            "compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the "
+            "compras de activos netos (10-K 2025 PDF p. 52: «These impacts, primarily associated with certain acquisitions, include amortization related to the "
             "increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the "
-            "acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y "
-            "las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8.")
+            "acquired fixed assets»). Es la PPA más cercana que publica Zoetis y se declara como COTA SUPERIOR de la PPA: incluye la depreciación de la "
+            "revalorización de los activos fijos adquiridos y la amortización de compras de activos netos (p. ej. derechos de producto comprados, que pueden "
+            "ser reinversión recurrente). Efecto en A2 (D_X = D&A − ROU − PPA): si parte de esta cifra fuera reposición, D_X y f están subestimadas y el valor "
+            "sobrestimado: sesgo OPTIMISTA de hasta ≈ 1,35 % de las ventas (128 ÷ 9.467 en 2025; 1,54 % de media en la ventana, V-F1f). Comparación con A1 "
+            "(sin restar la PPA; diagnóstico de la capa F1 en el paso 7, 18-nov-2026): f 0,0255 frente a 0,0101 en A2, flujo sin crecimiento 2.624,9 frente a "
+            "2.771,1 mm (−146,2 mm, −5,3 %). Cuadra 325 + 34 + 128 = 487 = D&A de la fila 8 (10-K 2025 PDF p. 54 y 70), así que la amortización del derecho "
+            "de uso operativo no está en la fila 8 (refuerza D-US1). Lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8.")
 d = O()
 d["formato"] = "motor_a_f1 v1"
 d["nota"] = ("Declaración F1 de Zoetis (examen, primer tiempo, expediente zoetis_t1c, 18-nov-2026), la primera del expediente. Aplica literalmente las "
@@ -83,8 +88,8 @@ S["pagos_arr_operativo"] = O([(str(y), cifra(D25, 89, "Operating cash flows – 
 S["coste_arr_operativo"] = O([(str(y), cifra(D25, 89, "Operating lease expense", v, "coste lineal de los arrendamientos operativos capitalizados; el variable y el de corto plazo se publican aparte (mismo perímetro que los pagos)", str(y))) for y, v in ((2023, "56"), (2024, "59"), (2025, "68"))])
 S["pasivo_arr_operativo"] = O([("2025", cero(D25, 89, "Pasivo por arrendamiento OPERATIVO dentro de la fila 23 de la Historia en 2025 = 0: la fila 23 lleva solo el pasivo por arrendamientos financieros (1 + 6 = 7, PDF p. 89) por la corrección registrada de fase1_partes (resultados/correccion_fase1_partes.json); el pasivo operativo publicado (52 + 196 = 248, misma página) no está en ella. La capa lo contrasta con las líneas que la fase 1 sumó en la fila 23. PENDIENTE DE REVISOR", "Supplemental information for our lease portfolio is as follows:"))])
 S["pagos_arr_financiero_principal"] = O([("2023", cifra(D25, 89, "Financing cash flows – finance leases", "—", "cero impreso «—» en la columna de 2023", "2023")),
-    ("2024", cifra(D25, 89, "Financing cash flows – finance leases", "1", "principal pagado del arrendamiento financiero (dentro de «Other financing activities» del estado de flujos)", "2024")),
-    ("2025", cifra(D25, 89, "Financing cash flows – finance leases", "2", "principal pagado del arrendamiento financiero (dentro de «Other financing activities» del estado de flujos)", "2025"))])
+    ("2024", cifra(D25, 89, "Financing cash flows – finance leases", "1", "principal pagado del arrendamiento financiero (nota de arrendamientos, información complementaria; la línea del estado de flujos donde va no está publicada: en 2024 «Other financing activities» es «—» y el pago es 1, PDF p. 70)", "2024")),
+    ("2025", cifra(D25, 89, "Financing cash flows – finance leases", "2", "principal pagado del arrendamiento financiero (nota de arrendamientos, información complementaria; la línea del estado de flujos donde va no está publicada: en 2024 «Other financing activities» es «—» y el pago es 1, PDF p. 70)", "2025"))])
 d["series"] = S
 d["normalizacion"] = O([("ajustes", []), ("bai", {}), ("gasto_impuesto", {}), ("margen_objetivo_sin_ajustes", None), ("deducir_diagnostico_partidas_puntuales", False),
                         ("nota", "N1 no se usa: Zoetis no tiene partidas N1 (no hay ajustes de earnout como en Elis); N2 sigue pendiente y no se aplica")])

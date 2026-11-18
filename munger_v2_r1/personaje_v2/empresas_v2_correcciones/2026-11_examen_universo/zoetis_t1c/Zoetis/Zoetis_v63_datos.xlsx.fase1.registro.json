@@ -11,6 +11,9 @@
   "Análisis!C47",
   "Análisis!C49",
   "Análisis!C50",
+  "Análisis!C42",
+  "Análisis!C33",
+  "Análisis!C40",
   "Análisis!C48"
  ],
  "derivadas": [],
@@ -86,6 +89,20 @@
     "M": "0,0522: Treasury a 10 años (par yield) del 8-oct-2026; la vista de texto y el XML coinciden. Flujos en USD.",
     "N": "FRED DGS10 a 7-oct: 5,28%. Sin riesgo país (emisora de EE. UU.). La r sigue siendo decisión del inversor."
    }
+  },
+  {
+   "celda": "Análisis!C42",
+   "fila_control_maestro": 42,
+   "antes": {
+    "G": "EV con precio 8-oct-2026 y balance 30-jun-2026 · EBITDA TTM",
+    "H": "x",
+    "I": "10-Q 2T26 y 10-K 2025 (primaria) · cálculo derivado",
+    "J": "Zoetis 10-Q 2T26 (R5); Zoetis · Informe anual 2025 (10-K FY2025)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R5.htm",
+    "L": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10; Análisis C41",
+    "M": "EV ÷ EBITDA TTM = (C41 31053.73824 = 73,08 × 424,928 + deuda 9.048 − caja 1.476 (10-Q T2 2026 p. 5)) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3992 (EBIT = BAI + intereses, signo corregido) = 38625.73824 ÷ 3992 = 9.675786",
+    "N": "[Clase: derivado de datos publicados, aproximado] Recalculado en zoetis_t1c: la etapa 1 (9,57x) usaba una capitalización de 30.198 sin fuente en el expediente y el EBIT derivado con el signo de los intereses invertido. APROXIMACIÓN por la «Fiscal Year Alignment» (desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; los seis meses de 2025 del 10-Q del T2 2026 están reexpresados, p. 10–11): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (la etapa 1 usó el 10-Q del T2 2025, que no está en el expediente). Con el 6M-2025 todo reexpresado (BAI 1.685) sale 9,61x. Las variantes de la etapa 1 (FY25 9,4x, ajustado 9,3x, forward ≈ 10,3x, consenso ≈ 9,7x, historia 36,9…14,9x) tienen las definiciones o la capitalización antiguas y se retiran."
+   }
   }
  ],
  "pendientes_verificacion": [
@@ -96,5 +113,5 @@
   "Historia!C26:L26",
   "Análisis!C24"
  ],
- "n_celdas": 529
+ "n_celdas": 554
 }

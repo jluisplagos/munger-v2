@@ -1,0 +1,38 @@
+{
+ "fecha": "2026-11-18",
+ "guion": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/resultados/scripts/entradas_analisis.py",
+ "especificacion": {
+  "declarar": {
+   "C96": {
+    "valor": 0.0006390331855380227,
+    "esperado": 0.0007,
+    "L": "AR2025 PDF p. 199 y 209; Q3-2026 PDF p. 21",
+    "M": "% de insiders a 28-dic-2025 = (Management Board 556.165 acciones, AR2025 PDF p. 199, + 9.579 ADR de F. Muller, nota 2 de la misma tabla, + 1.000 de H. Weir, único miembro del Supervisory Board con acciones, PDF p. 209) = 566.744 ÷ 886.877.259 acciones en circulación (C55, P-O2 a; Q3-2026 PDF p. 21) = 0.000639",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3: la etapa 1 (0,0007) usaba 613.101 acciones de notificaciones AFM de 2026 sin fuente en el expediente sobre 863,79 M acciones de oct-2026. No incluye al Comité Ejecutivo fuera del Management Board. Contexto (no son insiders): sin accionista de control; BlackRock 5,63 %, Amundi 3,09 % (etapa 1, sin fuente en el expediente).",
+    "periodo": "28-dic-2025",
+    "unidad": "proporción"
+   }
+  },
+  "solo_evidencia": {
+   "C26": {
+    "N": "Valor sin cambio (2,9229 = Σ CFO 2021–2025 31.257 ÷ Σ beneficio neto 10.694, Historia filas 11 y 9): C26 es la conversión del beneficio en el CFO PUBLICADO, no la caja base; P-O1 (c) es una regla de la caja base (si se resta lo que se paga, se suma lo que se cobra) y aquí no se resta nada, así que la definición no es la misma y no se cambia. Variante con el CFO de C46 (más dividendos de negocios conjuntos 138): 2.94x. Versión económica de la etapa 1 (CFO − intereses − arrendamientos) ÷ beneficio = 2.00x; con la regla espejo (+ dividendos de negocios conjuntos 138, intereses cobrados 558 y cobros de subarriendos 598 de 2021–2025, AR2022 p. 194, AR2023 p. 204, AR2024 p. 263, AR2025 p. 216) = 2.12x. Todas pasan. D&A ≈ 1,6x el beneficio neto."
+   }
+  }
+ },
+ "antes": {
+  "Análisis!C96": 0.0007,
+  "Control maestro!L75": "AR25 p180",
+  "Control maestro!M75": "Literal (Management Board + Supervisory Board): 613.101 acciones (Muller 583.013 + 9.579 ADR; Poots-Bijl 9.509; Weir 1.000; Bank 10.000) ÷ 863,79 M = 0,07%. Cifra MÍNIMA verificable.",
+  "Control maestro!N75": "A 28-dic-2025 (AR25): 566.744 = 0,064%. No incluye al ExCo fuera del MB ni a los nombrados el 13-oct-2026 (sin notificaciones aún). Contexto: sin accionista de control; BlackRock 5,63%, Amundi 3,09% (institucionales). Confianza media.",
+  "Control maestro!N31": "FY2020–24: 3,12x. Versión económica (CFO − intereses − arrendamientos) ÷ beneficio neto = 2,00x (pasa igual). D&A ≈ 1,6x el beneficio neto. Confianza alta."
+ },
+ "celdas_cambiadas": [
+  "Análisis!C96",
+  "Control maestro!L75",
+  "Control maestro!M75",
+  "Control maestro!N31",
+  "Control maestro!N75"
+ ],
+ "etapa1_antes_sha256": "83d79f86d0c4268251ce49d9299e8b29b027dff8090e2f414115892c53d3f160",
+ "etapa1_despues_sha256": "0c607ce53db32f8cce0423ecf1769424bb99fec6e72deaede74ec77a1dadb66e"
+}

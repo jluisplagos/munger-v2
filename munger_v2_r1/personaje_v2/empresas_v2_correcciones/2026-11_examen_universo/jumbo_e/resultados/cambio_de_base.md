@@ -13,3 +13,13 @@ Ejercicio 2025 de Jumbo S.A., la misma base y las mismas entradas que jumbo_d (J
 - Configuración económica V6.4: no · alcance: sí.
 - Entradas `analisis` heredadas de los metadatos del origen que se conservan: C46 (entrada de jumbo_d (= jumbo_c, cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base); C47 (entrada de jumbo_d (= jumbo_c, cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base); C48 (entrada de jumbo_d (= jumbo_c, cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base); C49 (entrada de jumbo_d (= jumbo_c, cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base); C50 (entrada de jumbo_d (= jumbo_c, cambio_jumbo_c.json) sin cambio: la declaración F1 no cambia las entradas registradas del FCF base) · que se descartan: ninguna.
 - Entrada efectiva del FCF base: «estricta» (`entrada_efectiva.json`; expediente nuevo de la 4.15 (modo por defecto)).
+
+## Adenda (orquestación, 18-nov-2026, después de la preparación)
+
+La línea «Correcciones de extracción en fase1_partes … ninguna» describe solo la preparación con `cambiar_base.py`. Después se aplicaron, con su rastro:
+- `declaracion_f1_jumbo_e.json` y `declaracion_f1_jumbo_e_r3.json`: declaración F1 (`motor_a_f1.json`) en el formato integrado y motivo de la PPA de 2023 (NIVAMO).
+- `correccion_fase1_partes_r2.json`: J3 en la columna 2019 de AR2020 p. 59 y citas de ceros (originales en `antecedentes/fase1_partes_antes_de_r2/`).
+- `correccion_fase1_partes_r3.json`: adquisiciones 2019 y 2021 de vuelta a cero pendiente; citas del bloque de financiación en 2016 y 2018 (originales en `antecedentes/fase1_partes_antes_de_r3/`).
+- `recalculo_C42.json`: C42 con el precio activo (copia anterior en `antecedentes/etapa1_antes_de_C42/`).
+- `entradas_r3.json` y `entradas_r3_registro.json`: C40, C96, notas de C42 y C88 (copia anterior en `antecedentes/entradas_antes_de_r3/`).
+- `relevo_extraccion_jumbo_e_r2.json` y los relevos de extracción posteriores.

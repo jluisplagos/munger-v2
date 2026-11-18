@@ -1,0 +1,379 @@
+{
+ "formato": "motor_a_f1 v1",
+ "nota": "Declaración F1 de Zoetis (examen, primer tiempo, expediente zoetis_t1c, 18-nov-2026), la primera del expediente. Aplica literalmente las decisiones registradas del 17-nov (F1 (1a)–(5b), E8.1) y del 18-nov (Examen F1-A y F1-B; D-US1, D-US2, D-US2 bis y D-WM). US GAAP (ASC 842): arrendamientos OPERATIVOS (coste lineal en el EBIT y pago en el CFO; Zoetis no publica en qué líneas del estado de flujos van la amortización del derecho de uso ni la variación del pasivo: hipótesis D-US1, conclusión CONDICIONADA) y un arrendamiento FINANCIERO desde 2023 (desglosado: amortización 1/1/1 y principal 2/1/—, 10-K 2025 PDF p. 89; D-WM no aplica). La fila 23 de la Historia lleva solo el pasivo financiero (corrección registrada en resultados/correccion_fase1_partes.json). La reinversión A2 es una HIPÓTESIS DECLARADA (F1-A), no un dato. La PPA es la línea «Amortization and depreciation» de los ajustes de contabilidad de adquisiciones (lectura pendiente de revisor). P-FOSO (a): con US GAAP la medida no tiene fórmula (perimetro_f1.py, C3): no se declara la serie de intereses de arrendamiento. N1 no se usa. Preparada por un agente de la orquestación; no acredita aptitud.",
+ "norma_contable": {
+  "valor": "US_GAAP",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "Los estados financieros consolidados se preparan con US GAAP: «The consolidated financial statements were prepared in accordance with accounting principles generally accepted in the United States of America (U.S. GAAP)» (10-K 2025, texto/zoetis-10k-fy2025.txt PDF p. 71); el libro dice «US GAAP» (Control maestro L4). Arrendamientos con ASC 842."
+  }
+ },
+ "perimetro_reinversion": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · Examen F1-A: reinversión necesaria = amortización propia sin derechos de uso ni PPA (A2_propio), como hipótesis declarada, no como dato; se presenta condicionada y con su sensibilidad. Zoetis no publica el reparto entre mantenimiento y crecimiento."
+  }
+ },
+ "perimetro_margen": {
+  "valor": "EBIT_NIIF16_PPA_constante",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (2)(v): la PPA y la ROU como proporción constante de las ventas (la que devuelve f); con US GAAP el identificador designa el EBIT publicado (F1_USGAAP.md §4)"
+  }
+ },
+ "perimetro_palancas_s2c": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (4a): un solo perímetro para f, el ancla de S2C, el margen y el ROIC del terminal (A2_propio por F1-A)"
+  }
+ },
+ "perimetro_roic": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (4a): un solo perímetro (A2_propio por F1-A)"
+  }
+ },
+ "clasificacion_compras": {
+  "valor": "crecimiento_por_hipotesis",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · Examen F1-B: compras de empresas como crecimiento, hipótesis declarada y revisable (equivale a (4b) opción B)"
+  },
+  "importes": null,
+  "proporcion_ventas": null,
+  "ancla_s2c_excluye_terminos": null,
+  "fundamento": "regla general F1-B del 18-nov-2026: las compras de sociedades de la Historia (fila 13: 14 en 2021, 312 en 2022, 251 en 2023, −285 en 2024 por ventas de negocios netas, 28 en 2025) se tratan como crecimiento. El 10-K no publica un reparto entre compras de mantenimiento y de crecimiento. Si una compra pareciera necesaria para mantener las ventas, lo señala el personaje; aquí no se juzga"
+ },
+ "transicion": {
+  "conocida": false,
+  "tratamiento": null,
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (5b) por finalidad documentada; regla del encargo del coordinador (18-nov): sin inversión de transición documentada con importe → «sin transición conocida» con su motivo"
+  },
+  "importes": null,
+  "horizonte": null,
+  "naturaleza": null,
+  "finalidad_documentada": null,
+  "ancla_s2c_excluye_terminos": null,
+  "motivo_sin_transicion": "El 10-K 2025 no documenta una inversión de transición con importe propio: la carta habla de «more than 30 carbon reduction projects at key sites» para «long-term climate goals» (PDF p. 6), sin importe, y los riesgos dicen que «it is not possible to accurately estimate the timing for the emergence of new regulation, their scope or our future costs relating to implementation and compliance» (PDF p. 31). Límite: «sin transición conocida» significa sin importe documentado, no que no haya inversión climática"
+ },
+ "reinversion_estimada": null,
+ "arrendamientos_us_gaap": {
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · D-US1 (hipótesis general declarada si la empresa no publica en qué líneas del estado de flujos van los dos tramos del arrendamiento operativo), D-US2 (se cuentan los pagos), D-WM (no aplica: financieros desglosados)"
+  },
+  "operativos": {
+   "existen": true,
+   "documento": "Zoetis · Form 10-K FY2025",
+   "pagina": 88,
+   "cita": "We have facilities and vehicles under various non-cancellable operating leases with third parties",
+   "amortizacion_rou": {
+    "ubicacion": "no_publicada",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "pagina": 70
+   },
+   "variacion_pasivo": {
+    "ubicacion": "no_publicada",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "pagina": 70
+   }
+  },
+  "financieros": {
+   "existen": true,
+   "documento": "Zoetis · Form 10-K FY2025",
+   "pagina": 88,
+   "cita": "an equipment finance lease with a third party",
+   "desglose": "publicado"
+  }
+ },
+ "series": {
+  "da_rou": {
+   "2021": {
+    "valor_fuente": 0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2021",
+    "archivo": "texto/zoetis-10k-fy2021.txt",
+    "pagina": 78,
+    "cero_comprobado": {
+     "motivo": "Sin arrendamientos financieros en 2021: «Our current portfolio includes only operating leases»; la amortización del derecho de uso de los operativos no está dentro de la fila 8 (D-US1). Cero por lectura, PENDIENTE DE REVISOR",
+     "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+    }
+   },
+   "2022": {
+    "valor_fuente": 0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2022",
+    "archivo": "texto/zoetis-10k-fy2022.txt",
+    "pagina": 70,
+    "cero_comprobado": {
+     "motivo": "Sin arrendamientos financieros en 2022: «Our current portfolio includes only operating leases»; la amortización del derecho de uso de los operativos no está dentro de la fila 8 (D-US1). Cero por lectura, PENDIENTE DE REVISOR",
+     "cita": "Our current portfolio includes only operating leases which are recorded as a right of use"
+    }
+   },
+   "2023": {
+    "valor_fuente": 1.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "1",
+    "fila": "Amortization of right-of-use assets",
+    "columna": "2023",
+    "nota": "amortización del derecho de uso del arrendamiento FINANCIERO (Supplemental Income Statement information for finance leases); dentro de la D&A de la fila 8 por omisión (F1_USGAAP.md regla 2)"
+   },
+   "2024": {
+    "valor_fuente": 1.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "1",
+    "fila": "Amortization of right-of-use assets",
+    "columna": "2024",
+    "nota": "ídem 2024"
+   },
+   "2025": {
+    "valor_fuente": 1.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "1",
+    "fila": "Amortization of right-of-use assets",
+    "columna": "2025",
+    "nota": "ídem 2025"
+   }
+  },
+  "da_ppa": {
+   "2021": {
+    "valor_fuente": 175.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2022",
+    "archivo": "texto/zoetis-10k-fy2022.txt",
+    "pagina": 52,
+    "literal": "175",
+    "fila": "Amortization and depreciation",
+    "columna": "2021",
+    "nota": "«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8."
+   },
+   "2022": {
+    "valor_fuente": 160.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2022",
+    "archivo": "texto/zoetis-10k-fy2022.txt",
+    "pagina": 52,
+    "literal": "160",
+    "fila": "Amortization and depreciation",
+    "columna": "2022",
+    "nota": "«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8."
+   },
+   "2023": {
+    "valor_fuente": 153.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 54,
+    "literal": "153",
+    "fila": "Amortization and depreciation",
+    "columna": "2023",
+    "nota": "«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8."
+   },
+   "2024": {
+    "valor_fuente": 140.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 54,
+    "literal": "140",
+    "fila": "Amortization and depreciation",
+    "columna": "2024",
+    "nota": "«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8."
+   },
+   "2025": {
+    "valor_fuente": 128.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 54,
+    "literal": "128",
+    "fila": "Amortization and depreciation",
+    "columna": "2025",
+    "nota": "«Purchase accounting adjustments: Amortization and depreciation» de la conciliación del beneficio ajustado: amortización del mayor valor razonable de los intangibles de vida definida adquiridos y amortización por la revalorización de los activos fijos adquiridos, en combinaciones de negocios y compras de activos netos (10-K 2025 PDF p. 53: «These impacts, primarily associated with certain acquisitions, include amortization related to the increase in fair value of the acquired finite-lived intangible assets and depreciation related to the increase/decrease to fair value of the acquired fixed assets»). Es la PPA más cercana que publica Zoetis; incluye la depreciación de la revalorización de los activos fijos adquiridos y las compras de activos netos: lectura de la orquestación, PENDIENTE DE REVISOR. Está dentro de la D&A de la fila 8."
+   }
+  },
+  "pagos_arr_operativo": {
+   "2023": {
+    "valor_fuente": 57.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "57",
+    "fila": "Operating cash flows – operating leases",
+    "columna": "2023",
+    "nota": "caja pagada por arrendamientos operativos (dentro del CFO)"
+   },
+   "2024": {
+    "valor_fuente": 61.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "61",
+    "fila": "Operating cash flows – operating leases",
+    "columna": "2024",
+    "nota": "caja pagada por arrendamientos operativos (dentro del CFO)"
+   },
+   "2025": {
+    "valor_fuente": 67.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "67",
+    "fila": "Operating cash flows – operating leases",
+    "columna": "2025",
+    "nota": "caja pagada por arrendamientos operativos (dentro del CFO)"
+   }
+  },
+  "coste_arr_operativo": {
+   "2023": {
+    "valor_fuente": 56.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "56",
+    "fila": "Operating lease expense",
+    "columna": "2023",
+    "nota": "coste lineal de los arrendamientos operativos capitalizados; el variable y el de corto plazo se publican aparte (mismo perímetro que los pagos)"
+   },
+   "2024": {
+    "valor_fuente": 59.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "59",
+    "fila": "Operating lease expense",
+    "columna": "2024",
+    "nota": "coste lineal de los arrendamientos operativos capitalizados; el variable y el de corto plazo se publican aparte (mismo perímetro que los pagos)"
+   },
+   "2025": {
+    "valor_fuente": 68.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "68",
+    "fila": "Operating lease expense",
+    "columna": "2025",
+    "nota": "coste lineal de los arrendamientos operativos capitalizados; el variable y el de corto plazo se publican aparte (mismo perímetro que los pagos)"
+   }
+  },
+  "pasivo_arr_operativo": {
+   "2025": {
+    "valor_fuente": 0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "cero_comprobado": {
+     "motivo": "Pasivo por arrendamiento OPERATIVO dentro de la fila 23 de la Historia en 2025 = 0: la fila 23 lleva solo el pasivo por arrendamientos financieros (1 + 6 = 7, PDF p. 89) por la corrección registrada de fase1_partes (resultados/correccion_fase1_partes.json); el pasivo operativo publicado (52 + 196 = 248, misma página) no está en ella. La capa lo contrasta con las líneas que la fase 1 sumó en la fila 23. PENDIENTE DE REVISOR",
+     "cita": "Supplemental information for our lease portfolio is as follows:"
+    }
+   }
+  },
+  "pagos_arr_financiero_principal": {
+   "2023": {
+    "valor_fuente": 0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "—",
+    "fila": "Financing cash flows – finance leases",
+    "columna": "2023",
+    "nota": "cero impreso «—» en la columna de 2023"
+   },
+   "2024": {
+    "valor_fuente": 1.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "1",
+    "fila": "Financing cash flows – finance leases",
+    "columna": "2024",
+    "nota": "principal pagado del arrendamiento financiero (dentro de «Other financing activities» del estado de flujos)"
+   },
+   "2025": {
+    "valor_fuente": 2.0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "Zoetis · Form 10-K FY2025",
+    "archivo": "texto/zoetis-10k-fy2025.txt",
+    "pagina": 89,
+    "literal": "2",
+    "fila": "Financing cash flows – finance leases",
+    "columna": "2025",
+    "nota": "principal pagado del arrendamiento financiero (dentro de «Other financing activities» del estado de flujos)"
+   }
+  }
+ },
+ "normalizacion": {
+  "ajustes": [],
+  "bai": {},
+  "gasto_impuesto": {},
+  "margen_objetivo_sin_ajustes": null,
+  "deducir_diagnostico_partidas_puntuales": false,
+  "nota": "N1 no se usa: Zoetis no tiene partidas N1 (no hay ajustes de earnout como en Elis); N2 sigue pendiente y no se aplica"
+ },
+ "umbral_v_f1a": null,
+ "fuentes_series": {
+  "Zoetis · Form 10-K FY2025": {
+   "archivo": "texto/zoetis-10k-fy2025.txt",
+   "sha256": "4159130b8f53d35cb18c0617b2ac8f0e6405b1e5a808ce9014e6a6f0566a503a"
+  },
+  "Zoetis · Form 10-K FY2022": {
+   "archivo": "texto/zoetis-10k-fy2022.txt",
+   "sha256": "2df7a0be6c34dcbfb1897889e2ed53398454b1d3ec52a33d5ff16b6618fde565"
+  },
+  "Zoetis · Form 10-K FY2021": {
+   "archivo": "texto/zoetis-10k-fy2021.txt",
+   "sha256": "fcf5a3cef38369b97895cd9bb9c22e7125bebc5eb50a487e006e8b06d9fd9cca"
+  }
+ }
+}
