@@ -1,0 +1,116 @@
+{
+ "prueba": "estructura",
+ "fecha": "2026-11-18",
+ "plantilla_sha256": "266d53bdd8af13d5c20b42d05c017360542d614fb3a6a95cc7b549a0edf608cd",
+ "referencia_sha256": "cd564e43f60239c8beaf6faceb85218f6939aa745ebc7772e2f06f48c823d1bf",
+ "resultado": "PASA",
+ "total": 21,
+ "pasan": 21,
+ "comprobaciones": [
+  {
+   "prueba": "la V6.3 no cambia (SHA-256 = origen de su referencia)",
+   "ok": true,
+   "detalle": "8381a6cd7b1d798f"
+  },
+  {
+   "prueba": "reconstrucción determinista: el guion desde la V6.3 da el mismo SHA-256 que el entregable",
+   "ok": true,
+   "detalle": "266d53bdd8af13d5 / 266d53bdd8af13d5"
+  },
+  {
+   "prueba": "la referencia salió de este entregable",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "SHA256_entregables_V6.3.1_F1.txt coincide",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "fórmulas alteradas = fila 30, C53, C58, C76, Motor E205 y Panel A1 (y ninguna más)",
+   "ok": true,
+   "detalle": "de más [] · de menos []"
+  },
+  {
+   "prueba": "ninguna fórmula de la V6.3 quitada",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "prueba": "fórmulas nuevas = Historia C88:L88 (D_X) y C89 (perímetro efectivo)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "prueba": "Historia C53: con A0 la fórmula de la V6.3 literal",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "Historia C58: con A0 la fórmula de la V6.3 literal",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "Historia C76: con A0 la fórmula de la V6.3 literal",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "fila 30: la de la V6.3 con D_X (fila 88) en lugar de la D&A (fila 8)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "Motor E205: la de la V6.3 más tres causas al final (perímetro no reconocido, D_X vacía, D_X negativa) en lugar del último «»",
+   "ok": true,
+   "detalle": "IF(Historia!$C$89=\"no reconocido\",\"INV|Perímetro F1 de la reinversión (Historia "
+  },
+  {
+   "prueba": "celdas fijas alteradas = tres etiquetas de versión",
+   "ok": true,
+   "detalle": "['Análisis!A1', 'Control maestro!A3', 'Guía V6!A1']"
+  },
+  {
+   "prueba": "ninguna celda fija de la V6.3 quitada",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "celdas fijas nuevas solo en la sección nueva (Historia filas 84–90)",
+   "ok": true,
+   "detalle": "13 celdas"
+  },
+  {
+   "prueba": "mismas hojas, formato condicional, nombres definidos y partes del paquete",
+   "ok": true,
+   "detalle": "13 partes"
+  },
+  {
+   "prueba": "validaciones: solo dos nuevas en la Historia (lista del perímetro en C85; ≥ 0 en C86:L87)",
+   "ok": true,
+   "detalle": "[['C85', 'list', '', '\"A0_total,A1_sin_ROU,A2_propio\"', '', True], ['C86:L87', 'decimal', 'greaterThanOrEqual', '0', '', True]]"
+  },
+  {
+   "prueba": "inventario de entradas: el de la V6.3 más Historia C85, C86:L87 y M85:S87",
+   "ok": true,
+   "detalle": "['C5:L26', 'C57', 'M5:S26', 'C85', 'C86:L87', 'M85:S87']"
+  },
+  {
+   "prueba": "verificar_v631.py: la plantilla es ÍNTEGRA frente a su referencia",
+   "ok": true,
+   "detalle": "VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos"
+  },
+  {
+   "prueba": "verificar_v63.py (V6.3) rechaza la V6.3.1: una plantilla no pasa por la otra",
+   "ok": true,
+   "detalle": "VEREDICTO: ALTERADO · 30 fallos · 13 avisos"
+  },
+  {
+   "prueba": "verificar_v631.py rechaza una mutación de D_X (C88 = C8)",
+   "ok": true,
+   "detalle": "VEREDICTO: ALTERADO · 1 fallos · 0 avisos"
+  }
+ ]
+}
