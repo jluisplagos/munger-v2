@@ -237,6 +237,83 @@ else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
 fi
 
+echo "== pruebas de la plantilla V6.3.1 F1 sin LibreOffice (personaje_v2/pruebas/test_v631_f1.py; obligatoria en «completa»; examen, condición de la revisión de la V6.3.1)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  ( cd personaje_v2 && python3 -B pruebas/test_v631_f1.py ) > "$SALIDA_X" 2>&1; rc=$?
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas V6\.3\.1 F1 \(sin LibreOffice\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 28 ]; then
+    echo "$linea"; echo "RESULTADO V6.3.1 F1 sin LibreOffice: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.1 F1 sin LibreOffice: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 28; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== estructura de la plantilla V6.3.1 F1 (v6/v631_f1/scripts/probar_v631_f1.py estructura; obligatoria en «completa»)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  ( python3 -I v6/v631_f1/scripts/probar_v631_f1.py estructura ) > "$SALIDA_X" 2>&1; rc=$?
+  linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones V6\.3\.1 F1 \(estructura\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 21 ]; then
+    echo "$linea"; echo "RESULTADO estructura V6.3.1 F1: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO estructura V6.3.1 F1: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 21; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== V6.3.1 F1 en A0 idéntica a la V6.3 (probar_v631_f1.py a0; obligatoria en «completa»; LibreOffice)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  D_A0="$(mktemp -d)"; rmdir "$D_A0"
+  ( python3 -I v6/v631_f1/scripts/probar_v631_f1.py a0 "$D_A0" ) > "$SALIDA_X" 2>&1; rc=$?
+  linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones V6\.3\.1 F1 \(a0\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 22 ]; then
+    echo "$linea"; echo "RESULTADO V6.3.1 F1 en A0: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.1 F1 en A0: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 22; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== V6.3.1 F1 con los perímetros F1 (probar_v631_f1.py f1; obligatoria en «completa»; LibreOffice)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  D_F1="$(mktemp -d)"; rmdir "$D_F1"
+  ( python3 -I v6/v631_f1/scripts/probar_v631_f1.py f1 "$D_F1" ) > "$SALIDA_X" 2>&1; rc=$?
+  linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones V6\.3\.1 F1 \(f1\) PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 35 ]; then
+    echo "$linea"; echo "RESULTADO V6.3.1 F1 con perímetros: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.1 F1 con perímetros: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 35; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
+echo "== V6.3.1 F1 en el pipeline (v6/v631_f1/scripts/prueba_pipeline_v631.py; obligatoria en «completa»; LibreOffice)"
+if [ "${1:-}" = "completa" ]; then
+  SALIDA_X="$(mktemp)"
+  ( python3 -B v6/v631_f1/scripts/prueba_pipeline_v631.py ) > "$SALIDA_X" 2>&1; rc=$?
+  linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la V6\.3\.1 F1 en el pipeline PASAN$' "$SALIDA_X" | tail -1)"
+  n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 9 ]; then
+    echo "$linea"; echo "RESULTADO V6.3.1 F1 en el pipeline: PASA"
+  else
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.1 F1 en el pipeline: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 9; ver $SALIDA_X)"; fallos=$((fallos+1))
+  fi
+else
+  echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
+fi
+
 echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_V64="$(mktemp)"
