@@ -1384,6 +1384,28 @@ r8c = ev_(libro_v631(libro(da=30.0, palancas=False), "A2_propio", 15.0), decl("A
 paso("X · (R2-2, D3) LÍMITE declarado: con la amortización dentro de una D&A MEZCLADA (su línea la nombra pero su cifra es la de toda la D&A) un importe inflado (15 por "
      "10) no se puede comparar con una cifra impresa: sigue utilizable (73); es el mismo límite que NIIF con da_rou", r8c["utilizable_para_conclusion"]
      and estado_tramo(r8c, "amortizacion_rou") == "contrastada" and cerca(F0(r8c), 73), str(bloquean(r8c)))
+# (cierre de la ronda 2, R2-2) la fila 8 puede llevar también la amortización de los financieros: una línea genérica del derecho de uso, o una que nombra
+# los financieros, no tiene la cifra del tramo operativo y su importe no se compara (como el límite 11); una línea solo de los operativos, sí
+LVf = libro_v631(libro(ebit=63.0, da=35.0, C70=62.0, C49=5.0, princ=5.0, palancas=False), "A2_propio", 15.0)
+GEN8, OPFIN8 = "Amortization of right-of-use assets", "Amortization of operating and finance lease right-of-use assets"
+rf8 = {etq: ev_(LVf, con_citas(etq, fin=True, rou_fin=5, fin_princ=5, ub_am="fila_8", a8=10), verdad=("fila_8", "fuera"), da=[DA, etq], importes={etq: "15"})
+       for etq in (GEN8, OPFIN8)}
+paso("X · (R2-2) declaración VERAZ con los financieros también dentro de la fila 8: la línea genérica «Amortization of right-of-use assets» (o la que nombra los "
+     "operativos y los financieros) suma las dos amortizaciones (15 = 10 + 5); su cifra no es la del tramo operativo y el importe no se compara: utilizable (62), "
+     "sin DATOS INVÁLIDOS; la línea que nombra los financieros cuenta como línea de su amortización (contrastada)",
+     all(r["utilizable_para_conclusion"] and cerca(F0(r), 62) and estado_tramo(r, "amortizacion_rou") == "contrastada"
+         and estado_tramo(r, "amortizacion_rou_financiero") == "contrastada" for r in rf8.values()),
+     str({k[:24]: (bloquean(r), estado_tramo(r, "amortizacion_rou_financiero")) for k, r in rf8.items()}))
+rf8b = ev_(libro_v631(libro(ebit=63.0, da=35.0, C70=62.0, C49=5.0, princ=5.0, palancas=False), "A2_propio", 20.0),
+           con_citas(AM8, fin=True, rou_fin=5, fin_princ=5, ub_am="fila_8", a8=15), verdad=("fila_8", "fuera"), da=[DA, AM8], importes={AM8: "10"})
+paso("X · (R2-2) control: con los financieros dentro de la fila 8, la línea que solo nombra los operativos sí se compara (15 declarado frente a 10 impreso → "
+     "DATOS INVÁLIDOS)", bloquea(rf8b, "F1-US-FILAS") and g(rf8b, "F1-US-FILAS")[0]["efecto"] == "DATOS INVÁLIDOS", str(bloquean(rf8b)))
+OPFIN14 = "Operating and finance lease liabilities"
+rf14 = ev_(LX, con_citas(pas=OPFIN14, ub_pas="fila_14", ajuste=10), verdad=("fuera", "no"), wc=list(WC) + [OPFIN14], fuera=[L_AM], importes={OPFIN14: "(12)"})
+paso("X · (R2-2) una línea de la fila 14 que nombra también los financieros («Operating and finance lease liabilities», impreso «(12)») no tiene la cifra del tramo "
+     "operativo: el importe declarado (10) no se compara (no es DATOS INVÁLIDOS); la ubicación está contrastada y el importe no → condicionada; sigue el límite F1-LIBRO",
+     bloquean(rf14) == ["F1-LIBRO"] and estado_tramo(rf14, "variacion_pasivo") == "sin_contrastar"
+     and rf14["us_gaap"]["contraste_de_ubicaciones"]["importe_sin_contrastar"] == ["variacion_pasivo"], f"{bloquean(rf14)} · {estado_tramo(rf14, 'variacion_pasivo')}")
 paso("X · (R2-2) _valor_en_la_fila sigue las reglas de la fase 1: «(28)» en la fila 14 es +28; «1,125» en miles en la fila 8 es 1,125; con signo −1 se invierte; lo "
      "que no es una cifra, o sin unidad válida, no se compara", M._valor_en_la_fila("circulante_lineas", {"impreso": "(28)"}, "millones") == 28
      and M._valor_en_la_fila("da", {"impreso": "1,125"}, "miles") == Fr(1125, 1000) and M._valor_en_la_fila("circulante_lineas", {"impreso": "(28)", "signo": -1}, "millones") == -28

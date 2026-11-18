@@ -136,7 +136,8 @@ M = [
   '            out.extend(pend)\n            out.append((t, raw.strip()))'),
  ("r07 · (R2-2) el importe declarado dentro de una fila no se compara con la cifra impresa de su línea", '                importe_frente_a_la_linea(clave, k_decl, etqs, lado)', '                pass'),
  ("r08 · (R2-2) cualquier importe vale frente a la línea propia", '                if abs(decl_[a] - v) > TOL_LIBRO * max(1, abs(v)):', '                if False:'),
- ("r09 · (R2-2) una línea mezclada se compara como si fuera propia", '            if all(c["propia"] and c["valor"] is not None for c in ls_):', '            if all(c["valor"] is not None for c in ls_):'),
+ ("r09 · (R2-2) una línea mezclada se compara como si fuera propia", '            return (c["propia"] and c["valor"] is not None and not c["con_fin"]',
+  '            return (c["valor"] is not None and not c["con_fin"]'),
  ("r10 · (R2-2) el importe dentro de una línea mezclada de la fila 14 no condiciona", '        elif sin_cifra and k_decl == "circulante_lineas":', '        elif False:'),
  ("r11 · (R2-2) el importe solo se compara en la fila 14 (no en la fila 8)", '        if k_decl == "circulante_lineas" and not U["retira_de_14"]:\n            return',
   '        if k_decl != "circulante_lineas" or not U["retira_de_14"]:\n            return'),
@@ -158,6 +159,12 @@ M = [
  ("r22 · («Otro») «Otro» en L4 vuelve a tratarse como un dato que falta", '    if l4.casefold() == "otro":', '    if False:'),
  ("r23 · («Otro») el límite del modelo por la norma no manda sobre los datos que faltan", 'else "no_entregable · limite_del_modelo" if "norma" in clases', 'else "no_entregable · limite_del_modelo" if False'),
  ("r24 · (R2-6) el aviso de la diferencia explicada no distingue el sentido", 'los contaría dos veces)" if dif > 0 else', 'los contaría dos veces)" if True else'),
+ ("r25 · (R2-2) una línea que nombra también los financieros se compara con el importe del tramo operativo",
+  '            return (c["propia"] and c["valor"] is not None and not c["con_fin"]', '            return (c["propia"] and c["valor"] is not None'),
+ ("r26 · (R2-2) en la fila 8, una línea genérica se compara aunque pueda llevar la amortización de los financieros",
+  '                    and (k_decl != "da" or c["es_op"] or not fin_en_8))', '                    and (k_decl != "da" or c["es_op"] or True))'),
+ ("r27 · (R2-3) una línea sumada que nombra los operativos y los financieros no cuenta como línea de la amortización financiera",
+  '"activo" in c["lados"] and (c["con_fin"] or not c["es_op"])', '"activo" in c["lados"] and not c["es_op"]'),
 ]
 src = open(os.path.join(PV, "scripts", "motor_a_f1.py"), encoding="utf-8").read()
 

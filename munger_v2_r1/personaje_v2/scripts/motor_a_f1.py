@@ -1786,8 +1786,8 @@ def _partes_fase1(carpeta, anios_req):
                             "completa": comp is not None, "texto": texto, "ver": _sin_cifras(comp) if comp else texto, "lados": _lados(texto),
                             "generica": bool(_LINEA_ARR.search(texto)) and not _T_PASIVO.search(texto) and not _T_ACTIVO.search(texto),
                             "solo_fin": bool(_ES_FIN.search(texto)) and not _ES_OP.search(texto), "es_op": bool(_ES_OP.search(texto)),
-                            "ajena": _ajena(texto), "propia": comp is not None and _linea_propia(comp), "impreso": c.get("impreso"),
-                            "valor": _valor_en_la_fila(k, c, j.get("unidad")), "pag": pg})
+                            "ajena": _ajena(texto), "propia": comp is not None and _linea_propia(comp), "con_fin": bool(_ES_FIN.search(texto)),
+                            "impreso": c.get("impreso"), "valor": _valor_en_la_fila(k, c, j.get("unidad")), "pag": pg})
         cache[(a, k, lado)] = out
         return out
 
@@ -2017,16 +2017,24 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
         es PROPIA (su etiqueta entera solo nombra el arrendamiento), lo que hay dentro de la fila es exactamente lo que esa línea aporta: otro importe →
         DATOS INVÁLIDOS (también un 0, se declare como se declare). Si es una línea mezclada con otras partidas, o su cifra no se puede leer, el importe
         no se puede comparar: con un tramo solo dentro de la fila 14 queda SIN CONTRASTAR (conclusión condicionada, con el pago o el coste como cota); en
-        la fila 8 es el límite general de la D&A (el importe lleva su propia cifra publicada: F1-SERIES)."""
+        la fila 8 es el límite general de la D&A (el importe lleva su propia cifra publicada: F1-SERIES). Tampoco se compara la cifra de una línea que
+        nombra los financieros, ni, en la fila 8, la de una línea genérica del derecho de uso si la amortización de los financieros puede estar dentro."""
         if k_decl == "circulante_lineas" and not U["retira_de_14"]:
             return   # los dos tramos dentro de la fila 14 (D-US2 bis): no se retira nada
         decl_ = U["ajuste"] if k_decl == "circulante_lineas" else U["a8"]
         mal, sin_cifra = [], []
+
+        def comparable(c):
+            """La cifra impresa de la línea es la del tramo operativo: línea propia con cifra legible que no nombra los financieros y, en la fila 8, que
+            nombra los operativos o no puede llevar la amortización de los financieros (dentro de la fila 8 por omisión o como activos propios, D-WM)."""
+            return (c["propia"] and c["valor"] is not None and not c["con_fin"]
+                    and (k_decl != "da" or c["es_op"] or not fin_en_8))
+
         for a in anios_req:
             ls_ = [c for c in (usados(a, k_decl) or []) if c["etiqueta"] in etqs or (lado in c["lados"] and not c["solo_fin"])]
             if not ls_ or a not in decl_:
                 continue   # el año sin línea o sin importe declarado lo señalan el contraste de la ubicación y F1-US-DESGLOSE
-            if all(c["propia"] and c["valor"] is not None for c in ls_):
+            if all(comparable(c) for c in ls_):
                 v = sum((c["valor"] for c in ls_), Fr(0))
                 if abs(decl_[a] - v) > TOL_LIBRO * max(1, abs(v)):
                     mal.append((a, decl_[a], v, ls_[0]))
@@ -2047,6 +2055,10 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
     def del_modelo(pag):
         """La página citada es la del estado de flujos de un informe de los años que usa el modelo (o del siguiente, cuyo comparativo da el último de ellos)."""
         return bool({c["informe"] for c in en_la_pagina(pag)} & (set(anios_req) | {a + 1 for a in anios_req}))
+
+    # (R2-2) la fila 8 puede llevar también la amortización del derecho de uso de los financieros (dentro por omisión, o con D-WM como activos propios):
+    # una línea genérica de la D&A («Amortization of right-of-use assets») puede sumar las dos, y su cifra impresa no es la del tramo operativo
+    fin_en_8 = U["fin"] is not False and (U["fin_como_deuda"] or U["fin_am_ub"] == "fila_8")
 
     if U["op"] is True:
         for clave in ("amortizacion_rou", "variacion_pasivo"):
@@ -2195,7 +2207,7 @@ def _contraste_us(G, decl, carpeta, U, anios_req, rou_fin_pos, solo_existencia=F
                     if (_LINEA_ARR.search(t) and not _LINEA_SUPL.search(t) and not _ajena(t) and _ES_FIN.search(t) and not _ES_OP.search(t) and "activo" in _lados(t)
                             and not any(s in t for s in sumadas) and raw not in a_la_vista):
                         a_la_vista.append(raw)
-            sin_l = [a for a in anios_req if not any("activo" in c["lados"] and not c["es_op"] for c in (usados(a, "da") or []))]
+            sin_l = [a for a in anios_req if not any("activo" in c["lados"] and (c["con_fin"] or not c["es_op"]) for c in (usados(a, "da") or []))]
             if a_la_vista:
                 contradice.append(f"{_NOMBRE_TRAMO[clave]} está declarada dentro de la fila 8 (series.da_rou; es la ubicación por omisión), pero el estado de flujos la "
                                   f"muestra en una línea propia que la fase 1 no sumó en la fila 8 («{a_la_vista[0][:120]}»): se declara «fuera_de_la_fila_8» con esa "
