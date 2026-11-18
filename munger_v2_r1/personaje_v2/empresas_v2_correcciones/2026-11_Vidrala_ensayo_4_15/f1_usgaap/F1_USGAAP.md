@@ -39,16 +39,20 @@ no se ha reescrito) y R1-10 (la instrucción de la fase 1 `historia_anio.md` no 
 
 ## 0 bis. Cierre de la ronda 2 (revisión R2): hallazgo → cambio → prueba
 
-Pruebas: **X** = grupo «X» de la batería `test_motor_a_f1_usgaap.py` (40 casos nuevos, más uno en el grupo W); **PU12–PU14** = `prueba_pipeline_usgaap.py`; **L5**
-= `probar_libro_v631_usgaap.py`; **rNN** = `mutaciones_usgaap.py`; **revisor** = sus guiones de aceptación, sin cambios, con
-`COPIA_REVISION` apuntando al árbol corregido (§8).
+Pruebas: **X** = grupo «X» de la batería `test_motor_a_f1_usgaap.py` (43 casos nuevos, más uno en el grupo W: 246 → 290); **PU12–PU14** =
+`prueba_pipeline_usgaap.py`; **L5** = `probar_libro_v631_usgaap.py`; **rNN** = `mutaciones_usgaap.py`; **revisor** = sus guiones de aceptación, sin
+cambios, con `COPIA_REVISION` apuntando al árbol corregido (resultados literales en el §8.2).
+
+El cierre lo empezó otro agente y quedó guardado sin probar cuando su modelo agotó el límite (`b234e20`, «WIP»); lo terminó un agente
+distinto (Claude, modelo Opus 5.5) en `00aa717`: ejecutó todas las pruebas, corrigió un fallo del borrador (fila R2-2: una declaración veraz
+quedaba bloqueada) y escribió los resultados. Ninguno de los dos es el revisor.
 
 | Hallazgo de la revisión R2 | Cambio | Prueba |
 |---|---|---|
 | **R2-1** (ALTA acotada) · una línea que nombra el arrendamiento **sin ser el tramo** («Loss on lease termination», el deterioro del derecho de uso…) valía como cita de «fuera» y llevaba a `concluido` sin condición; y con esa misma línea la declaración veraz «no_publicada» se bloqueaba | lista cerrada de términos **ajenos al tramo** (`_LINEA_AJENA`: deterioro, baja, cancelación, modificación, abandono, costes de salida, incentivos, venta con arrendamiento posterior, resultados; inglés y español), aplicada a los dos lados y sobre la etiqueta **entera** (también partida en renglones): una línea ajena **no** hace saltar «manda el dato» (la declaración veraz concluye CONDICIONADA, con su cota y la línea a la vista), **no** vale como cita de una ubicación (INCOMPLETO; el mensaje lleva a «no_publicada») y **no** cuenta entre las líneas sumadas que nombran un tramo | X (13), **PU12**, r01–r06 · revisor: `capa_r2.py C`, `pipeline_r2.py Y4 Y4h`, `matriz_r2.py` |
-| **R2-2** (MEDIA) · un tramo contrastado dentro de la fila 14 admitía un importe declarado 0 sin compararlo con la cifra impresa | el importe declarado dentro de una fila se compara, año a año, con lo que la línea **propia** que la fase 1 sumó aporta a esa fila (su cifra impresa con el signo y la escala de la fase 1): otro importe —también un 0, se declare como se declare (con `cero_comprobado` en la rama de series incluido)— es DATOS INVÁLIDOS. Si la línea es **mezclada** con otras partidas (o su cifra no se puede leer), el importe no se puede comparar: con un tramo solo dentro de la fila 14 la conclusión queda CONDICIONADA, con los pagos o el coste como cota. Sin `fase1_partes`, la cota de un tramo declarado en la fila 14 cubre también el importe | X (12), **PU13**, **L5**, r07–r15 · revisor: `capa_r2.py D`, `pipeline_r2.py Y5`, `fusion_r2.py` (M2), `matriz_r2.py` |
-| **R2-3** (MEDIA) · la amortización del derecho de uso **financiero** «dentro de la fila 8» por omisión no miraba una línea contraria a la vista, y K3b decía «contrastado» | si el estado de flujos la muestra en una línea propia que la fase 1 **no** sumó en la fila 8 → DATOS INVÁLIDOS (el mensaje dice cómo declararla: `fuera_de_la_fila_8`); si ninguna línea sumada la nombra, el tramo queda «por_omision» y K3b dice «según lo declarado» (K3 no se presenta como conforme). El caso por omisión sigue sin condicionar (como NIIF 16) | X (5), r16–r18 · revisor: `capa_r2.py E` |
-| **R2-4** (MEDIA) · la comprobación de forma de la ronda 2 bloqueaba la declaración real de `jumbo_d` (NIIF) por una nota de texto dentro de `series` | dentro de `series`, un **texto** en una clave que no es el nombre de una serie es una **nota**: se admite, no entra en el cálculo y queda a la vista (`F1-DECLARACION`, INFORMA; `notas_en_series`). Un texto en el lugar de una serie conocida sigue siendo DATOS INVÁLIDOS y el mensaje dice dónde se escribe una nota. Vacío = sin declarar: `[]`, `""` o `0` donde va un objeto se toman como vacíos, como antes de la ronda 2 (las 3 formas que pasaban de utilizable a bloqueada vuelven a ser utilizables). El expediente no se ha tocado | X (5), r19–r21 · la declaración real de Jumbo y las 135 formas del revisor (§8) |
+| **R2-2** (MEDIA) · un tramo contrastado dentro de la fila 14 admitía un importe declarado 0 sin compararlo con la cifra impresa | el importe declarado dentro de una fila se compara, año a año, con lo que la línea **propia** que la fase 1 sumó aporta a esa fila (su cifra impresa con el signo y la escala de la fase 1): otro importe —también un 0, se declare como se declare (con `cero_comprobado` en la rama de series incluido)— es DATOS INVÁLIDOS. Si la línea es **mezclada** con otras partidas (o su cifra no se puede leer), el importe no se puede comparar: con un tramo solo dentro de la fila 14 la conclusión queda CONDICIONADA, con los pagos o el coste como cota. Sin `fase1_partes`, la cota de un tramo declarado en la fila 14 cubre también el importe. La cifra de una línea que nombra **también los financieros**, o, en la fila 8, la de una línea **genérica** del derecho de uso («Amortization of right-of-use assets») cuando la amortización de los financieros puede estar dentro (por omisión o con D-WM), no es la del tramo operativo y **no se compara** (en la fila 14 condiciona; en la fila 8 es el límite 11). El borrador del cierre sí la comparaba y bloqueaba como DATOS INVÁLIDOS una declaración veraz (operativos 10 + financieros 5 = 15 impreso) | X (15), **PU13**, **L5**, r07–r15, r25–r26 · revisor: `capa_r2.py D`, `pipeline_r2.py Y5`, `fusion_r2.py` (M2), `matriz_r2.py` |
+| **R2-3** (MEDIA) · la amortización del derecho de uso **financiero** «dentro de la fila 8» por omisión no miraba una línea contraria a la vista, y K3b decía «contrastado» | si el estado de flujos la muestra en una línea propia que la fase 1 **no** sumó en la fila 8 → DATOS INVÁLIDOS (el mensaje dice cómo declararla: `fuera_de_la_fila_8`); si ninguna línea sumada la nombra (una genérica del derecho de uso o una que nombra los financieros, también junto a los operativos), el tramo queda «por_omision» y K3b dice «según lo declarado» (K3 no se presenta como conforme). El caso por omisión sigue sin condicionar (como NIIF 16) | X (5), r16–r18, r27 · revisor: `capa_r2.py E` |
+| **R2-4** (MEDIA) · la comprobación de forma de la ronda 2 bloqueaba la declaración real de `jumbo_d` (NIIF) por una nota de texto dentro de `series` | dentro de `series`, un **texto** en una clave que no es el nombre de una serie es una **nota**: se admite, no entra en el cálculo y queda a la vista (`F1-DECLARACION`, INFORMA; `notas_en_series`). Un texto en el lugar de una serie conocida sigue siendo DATOS INVÁLIDOS y el mensaje dice dónde se escribe una nota. Vacío = sin declarar: `[]`, `""` o `0` donde va un objeto se toman como vacíos, como antes de la ronda 2 (las 3 formas que pasaban de utilizable a bloqueada vuelven a ser utilizables). El expediente no se ha tocado | X (5), r19–r21 · la declaración real de Jumbo y las 135 formas del revisor (§8.2) |
 | **Interpretación 5** · «Otro» en `L4` terminaba en `pendiente_de_datos`, como si faltara un dato | es un **límite del modelo**: `F1-NORMA` · MODELO NO APLICABLE (clase «norma»), que manda sobre lo que falte en la declaración → `no_entregable · límite del modelo`, con los motores A y B | X (4), **PU14**, r22–r23 · revisor: `pipeline_r2.py Y9` |
 | **R2-6** (baja) · el aviso de `F1-US-C49` «explicado» pedía comprobar el riesgo contrario cuando C49 queda por debajo del principal | el texto distingue el sentido de la diferencia | X (1), r24 |
 
@@ -172,6 +176,9 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
    con el signo cambiado: «(10)» consume 10 de caja). Una línea es **propia** si su etiqueta entera solo lleva palabras de un tramo
    («Operating lease liabilities», «Non-cash lease expense»); con cualquier otra partida («accounts payable, accrued liabilities, operating
    lease liabilities and other…», «Depreciation and amortization, including…») es **mezclada** y su cifra no es la del arrendamiento.
+   Tampoco es la del tramo operativo la cifra de una línea que nombra los financieros («Operating and finance lease liabilities») ni, en la
+   fila 8, la de una línea genérica del derecho de uso («Amortization of right-of-use assets») cuando la amortización de los financieros
+   puede estar dentro de la fila 8 (por omisión o con D-WM): esas cifras no se comparan.
 
 ## 4. Qué se declara (en `motor_a_f1.json`, además de lo de NIIF)
 
@@ -251,7 +258,7 @@ no cambian: con US GAAP, `EBIT_NIIF16_PPA_constante` designa el EBIT publicado.
 
 El resumen (`cota.resumen`) suma las variaciones del mismo signo (dos ubicaciones falsas a la vez se acumulan) y no compensa las de signo
 contrario. Con declaraciones veraces, la cota cubre el error en todos los casos de la matriz de la revisión; con la matriz de la revisión R2
-(360 pares, cinco formas de citar), también con las falsas: ningún caso utilizable con el error fuera de la cota (§8).
+(360 pares, cinco formas de citar), también con las falsas: ningún caso utilizable con el error fuera de la cota ni con error y sin condición (§8.2).
 
 ## 6. Norma → tratamiento → prueba
 
@@ -276,6 +283,7 @@ Empresa de referencia: ventas 1.000; EBIT 68 tras un alquiler operativo de 12; C
 | US GAAP · línea que nombra el arrendamiento sin ser un tramo (deterioro, cancelación…) | no es un tramo: «no_publicada» veraz → D-US1; como cita de «fuera» → INCOMPLETO | X, PU12 | condicionada · `pendiente_de_datos` |
 | US GAAP · un tramo en una línea propia de la fila 14 con otro importe (un 0) | DATOS INVÁLIDOS: el importe es el de su línea | X, PU13 | `pendiente_de_datos` |
 | US GAAP · un tramo en una línea mezclada de la fila 14 con importe 0 | el importe no se puede comparar: condicionada, con los pagos o el coste como cota | X | utilizable y condicionada |
+| US GAAP · amortización operativa en una línea genérica de la D&A que también lleva la de los financieros (10 + 5 impreso como 15) | su cifra no es la del tramo operativo: no se compara (límite 11) | X | utilizable (declaración veraz) |
 | US GAAP · amortización financiera en una línea propia que la fase 1 no sumó en la fila 8, declarada dentro por omisión | DATOS INVÁLIDOS: se declara `fuera_de_la_fila_8` | X | `pendiente_de_datos` |
 | Mezcla de normas | `F1-NORMA`, `F1-US-MEZCLA` | N, PU9 | `pendiente_de_datos` |
 | Norma «Otro» | `F1-NORMA` · límite del modelo | X, PU14 | `no_entregable` |
@@ -343,9 +351,64 @@ campaña repetida con ese cambio da la misma salida, byte a byte (`84 de 84 muta
 menor: una ejecución normal de la batería dejaba 41 carpetas **vacías** (el bucle de declaraciones al azar, cuando la declaración mutada no
 deja escribir la fuente). **Corregido en el cierre de la ronda 2:** la batería ya no deja ninguna y borra las suyas también si se interrumpe.
 
-### 8.2 Cierre de la ronda 2 (correcciones de la revisión R2)
+### 8.2 Cierre de la ronda 2 (correcciones de la revisión R2; código de `00aa717`)
 
-@@CIERRE_R2@@
+Los guiones del revisor (`evidencia_r2/` de la revisión R2) se ejecutan **sin cambios**, con `COPIA_REVISION` = el árbol del worktree y
+`TMP_R2` = una carpeta temporal propia. Salidas: `resultados/guiones_de_la_revision_R2_contra_el_cierre.txt` (salidas completas de los
+guiones de aceptación) y `resultados/diferenciales_niif_y_examen_cierre.txt` (NIIF, expedientes reales y declaraciones al azar); las de las
+baterías del autor sustituyen a las de la ronda 2 (`mutaciones_usgaap.txt`, `prueba_pipeline_usgaap.txt`, `probar_libro_v631_usgaap.json`,
+`prueba_pipeline_f1_gancho.txt`, `regresion_elis_f1_tras_usgaap.md`).
+
+**Pruebas de aceptación de la revisión R2** (criterios de su §5):
+
+| Guion del revisor | Criterio | Resultado literal |
+|---|---|---|
+| `capa_r2.py C` (R2-1) | C1 utilizable y condicionado; C2–C4 ya no «contrastada» | C1: `utilizable True · CONDICIONADA (D-US1) cota [-12.0, 12.0] · flujo capa 78.0 · … error +10.0 · bloquean []` (antes bloqueaba `F1-SERIES`); C2: `utilizable False · … bloquean ['F1-US-FILAS'] · contraste [am:insuficiente/pas:hipotesis_D_US1]`; C3 y C4: `utilizable False · … bloquean ['F1-US-FILAS'] · contraste [am:insuficiente/pas:insuficiente]` (antes utilizables sin condición, error +10); C5: `bloquean ['F1-US-FILAS']` (antes error −10 sin condición); C6: los 14 rótulos, `lados —` |
+| `capa_r2.py D` (R2-2) | D2 bloquea; D1 igual que hoy | D1: `utilizable False · sin condición · flujo capa 68.0 · flujo del libro 78.0 · bloquean ['F1-LIBRO'] · contraste [am:contrastada/pas:contrastada]` (igual que en `bcb6dc3`); D2: `utilizable False · … bloquean ['F1-US-FILAS'] · contraste [am:contrastada/pas:contradicha]` (antes utilizable sin condición, error +10); D2b: `CONDICIONADA (F1-US-FILAS) cota [-12.0, 12.0] · … error +10.0` (antes cota `[0, 12.0]`, que no cubría el error); D3 y D4, sin cambio (límite 11 y R2-5, no pedidos) |
+| `capa_r2.py E` (R2-3) | E2 no se acepta; K3b no dice «contrastado» | E1: `utilizable True · sin condición · … contraste [am:contrastada/pas:contrastada/fin:por_omision] · K3b una vez (no contrastado)` (el caso por omisión no se condiciona: interpretación 8); E2: `utilizable False · … bloquean ['F1-US-FILAS'] · contraste [… fin:contradicha]` (antes +5 sin condición); E3 y E4 sin cambio |
+| `matriz_r2.py` | 0 «ERROR SIN CONDICIÓN» y 0 «FUERA DE COTA» | pasada A: `utilizables 8 de 120 · con error y SIN condición: 0 · condicionados con el error FUERA de la cota: 0`; pasada B: `utilizables 24 de 120 · … 0 · … 0`; pasada C: `utilizables 24 de 120 · … 0 · … 0` (en `bcb6dc3`: 2 y 1, 1 y 3, 0 y 2) |
+| `pipeline_r2.py Y0 Y4 Y4h Y5 Y9` (LibreOffice) | Y4h `concluido` CONDICIONADA; Y4 no `concluido` sin condición; Y5 | Y0 (control): `estado final: concluido · paso 14 · … bloquean []`, flujo 148,000; Y4: `estado final: pendiente_de_datos · paso 7 · … bloquean ['F1-US-FILAS']` (INCOMPLETO: «la cita 'Loss on lease termination' nombra el arrendamiento junto a…»; antes `concluido` sin condición, +2,695); Y4h: `estado final: concluido · paso 14 · … bloquean []`, `condicionada: D-US1`, `cota: el flujo sin crecimiento podría cambiar entre -3.449 y +3.557 mm (-2.3 % y +2.4 %)` (error +2,695, dentro; antes `pendiente_de_datos`); Y5: `estado final: pendiente_de_datos · paso 7 · … bloquean ['F1-US-FILAS']` (DATOS INVÁLIDOS; antes `concluido` sin condición); Y9: `estado final: no_entregable · paso 7 · motor B · … bloquean ['F1-NORMA']`, `causa: limite_del_modelo` (antes `pendiente_de_datos`) |
+| `fusion_r2.py`, árbol fusionado con `origin/f1/series-escala` @ `a27788c` | M2 bloquea | M2: `utilizable: False · condicionada: None · bloquean: ['F1-US-FILAS'] · flujo 78.0 (correcto 68) · contraste {'amortizacion_rou': 'contrastada', 'variacion_pasivo': 'contradicha'}` (antes utilizable sin condición); M1 (Zoetis real, «—» de 2023) igual que en la revisión: `bloquean: ['F1-K3a', 'F1-LIBRO'] · condicionada: D-US1` |
+
+El árbol fusionado se obtiene sin fusionar ramas: `git merge-tree --write-tree HEAD origin/f1/series-escala` (solo choca el manifiesto;
+`motor_a_f1.py`, `metadatos_fase1.md`, `README_V6.3.1_F1.md` y `verificar_paquete.sh` se fusionan solos), con `personaje_v2/{scripts,
+pruebas,esquema,prompts}` y los `config*.json` de ese árbol en una carpeta temporal y lo demás enlazado en solo lectura. En él: `290/290 pruebas del motor A F1 con US GAAP PASAN`, `163/163 pruebas del motor A F1 (4.15) PASAN`, `80/80 pruebas de F1-SERIES con escala y ceros PASAN` (`test_f1_series_escala.py`) y `29/29 pruebas V6.3.1 F1 (sin LibreOffice) PASAN`; con la declaración real de Jumbo, la nota tampoco bloquea.
+
+**Baterías del autor** (código de `00aa717`):
+
+| Orden | Resultado literal |
+|---|---|
+| `cd personaje_v2 && python3 -B pruebas/test_motor_a_f1_usgaap.py` (ronda 2: 246; borrador del cierre: 287) | `290/290 pruebas del motor A F1 con US GAAP PASAN` |
+| `python3 -I …/f1_usgaap/scripts/mutaciones_usgaap.py` (112: las 84 de la ronda 2, n47 y las 27 del cierre, r01–r27) | `112 de 112 mutaciones detectadas` (15 min 34 s con dos trabajadores; `resultados/mutaciones_usgaap.txt`) |
+| `flock … python3 -B …/f1_usgaap/scripts/prueba_pipeline_usgaap.py` (ronda 2: 22) | `26/26 pruebas de F1 · US GAAP en el pipeline PASAN` (582 s) |
+| `flock … python3 -I …/f1_usgaap/scripts/probar_libro_v631_usgaap.py <carpeta nueva>` (ronda 2: 15) | `16/16 comprobaciones de F1 · US GAAP sobre el libro V6.3.1 PASAN` |
+| NIIF: `python3 -B pruebas/test_motor_a_f1.py` | `163/163 pruebas del motor A F1 (4.15) PASAN` |
+| `python3 -B pruebas/test_v631_f1.py` | `29/29 pruebas V6.3.1 F1 (sin LibreOffice) PASAN` |
+| `python3 -I v6/v631_f1/scripts/probar_v631_f1.py estructura` | `21/21 comprobaciones V6.3.1 F1 (estructura) PASAN` |
+| `flock … prueba_pipeline_f1.py` (gancho) | `8/8 pruebas del gancho F1 del pipeline PASAN` |
+| `python3 -I …/f1_impl/scripts/regresion_elis_f1.py <copia>` | `39/39 PASAN` (el informe es el de la ronda 2, salvo la ruta de la copia; los archivos que el guion reescribe en `f1_impl/resultados/` se han devuelto a su versión registrada) |
+
+**NIIF y expedientes reales** (solo lectura; `resultados/diferenciales_niif_y_examen_cierre.txt`):
+- Declaraciones NIIF reales del examen sobre sus libros (`examen_real_worker.py`): Ahold ×3 y Elis, idénticas a `bcb6dc3` (todo el
+  resultado salvo versión y fecha). Jumbo (`jumbo_d`) vuelve a lo de la base (`1694f08`): bloquea solo `F1-SERIES` (la escala de su
+  declaración, que trata `f1/series-escala`), con la nota a la vista (`F1-DECLARACION` · INFORMA, `notas_en_series`); sin la nota, lo
+  mismo. Con el código fusionado, igual: la nota ya no bloquea. El expediente no se ha tocado.
+- 135 formas mal construidas de una declaración NIIF utilizable (`formas_niif_worker.py`): «utilizable» igual que en la ronda 1 en las
+  135 (31 utilizables; en la ronda 2, 28): las tres de `normalizacion` con `[]`, `""` o `0` vuelven a ser utilizables; ninguna excepción
+  (cuatro de la ronda 1 son ahora DATOS INVÁLIDOS).
+- `vigencia()` de F1 de los expedientes con `estado_pipeline.json`: 53 del árbol y 21 del examen, **0 distintos** entre `bcb6dc3` y `00aa717`.
+- Zoetis real (`zoetis_real_r2.py`): el mismo resultado que en la revisión; solo aparece el tramo financiero como `por_omision` (R2-3).
+- `fuzz_r2.py 3000`: ninguna excepción; 46 utilizables, todos sin tramos del arrendamiento operativo.
+
+**Ayudas de las pruebas.** Desde el borrador del cierre, las ayudas que también usan los guiones del revisor (`expediente()` de la batería,
+`escribir_fuente`/`preparar` de `prueba_pipeline_usgaap.py` y el expediente de `probar_libro_v631_usgaap.py`) imprimen en las líneas
+propias del arrendamiento que la fase 1 suma en la fila 14 la cifra que suma de verdad («(10)» → +10 en la fila; «10» → −10), coherente
+con el libro, y llevan la unidad del informe en `fase1_partes` (la fase 1 la exige). Antes llevaban una cifra cualquiera, que nadie
+comparaba; sin ese cambio el D1 veraz del revisor daría DATOS INVÁLIDOS. Los guiones del revisor no se han tocado.
+
+**Paquete.** `verificar_paquete.sh completa` no se ha repetido en el cierre: sus bloques de F1 se han ejecutado uno a uno (arriba: US GAAP
+290, 26 y 16; motor A F1 163; gancho 8; V6.3.1 29 y 21); los demás (comprobadores, sintética, V6.4, cierre…) no. Sus mínimos pasan a 290,
+26 y 16. El modo rápido sobre una copia limpia se registra en el commit siguiente, en el que solo cambian este documento y el manifiesto.
 
 ## 9. Interpretaciones del autor y límites para el revisor
 
@@ -373,7 +436,10 @@ deja escribir la fuente). **Corregido en el cierre de la ronda 2:** la batería 
    Una línea que mezcla un tramo con un término ajeno («Amortization and impairment of operating lease right-of-use assets») se trata como
    ajena: no se puede citar y no hace saltar «manda el dato»; la conclusión sale condicionada, con la cota que cubre el tramo.
 10. (cierre) Una línea es «propia» por vocabulario (`_PALABRAS_PROPIAS`): en caso de duda se toma como mezclada, que condiciona en lugar de
-   bloquear. El importe se compara también en la fila 8 cuando la amortización es una línea propia que la fase 1 sumó en la D&A.
+   bloquear. El importe se compara también en la fila 8 cuando la amortización es una línea propia que la fase 1 sumó en la D&A, salvo que la
+   línea nombre también los financieros o que sea genérica («Amortization of right-of-use assets») y la amortización de los financieros
+   pueda estar dentro de la fila 8 (por omisión o con D-WM): su cifra puede sumar las dos y no se compara (en la fila 14 la misma regla
+   condiciona). Ante la duda, no comparar: una comparación equivocada bloquearía una declaración veraz (lo hacía el borrador del cierre).
 11. (cierre) Dentro de `series`, cualquier texto en una clave que no sea una serie se admite como nota. Las claves desconocidas que sí son
    un objeto por año se siguen sin examinar, como antes.
 
@@ -406,7 +472,8 @@ Límites:
    Nike reales.
 11. **El importe dentro de una D&A mezclada no se compara con ninguna cifra impresa** (R2-2, caso D3 de la revisión): con la amortización del
    derecho de uso operativo dentro de una D&A que la nombra, un importe inflado sobrevalora y uno reducido infravalora, sin condición. Es
-   el mismo límite que tiene NIIF con `da_rou`: el importe lleva su propia cifra publicada (`F1-SERIES`), no la de la línea.
+   el mismo límite que tiene NIIF con `da_rou`: el importe lleva su propia cifra publicada (`F1-SERIES`), no la de la línea. Lo mismo con una
+   línea genérica del derecho de uso que puede llevar también la amortización de los financieros (interpretación 10).
 12. Con **un solo tramo** dentro de la fila 14 la declaración veraz sigue sin salida (R1-10, `F1-LIBRO`): con su importe, ningún libro lo
    retira; con otro importe, DATOS INVÁLIDOS o condicionada. La salida sigue siendo la del §7.
 13. R2-5 (D-US2 bis): «cuánto cambiaría contando los pagos» usa la línea neta declarada aunque no coincida con pagos − coste, y si no se

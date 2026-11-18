@@ -20,4 +20,8 @@ PASA  · PU9 · (R1-1, XB4) motor B, libro US GAAP y declaración que dice NIIF:
 PASA  · PU10 · (XB2) motor B con US GAAP, la fila 23 a cero y el pasivo operativo 0 declarado: F1 se evalúa en los pasos 7 y 12 y no bloquea; el pipeline llega al paso 14
 PASA  · PU10 · (R1-9) la línea del informe habla del puente de deuda (ya no dice «caja base por dos vías sin explicar» ni «perímetro declarado: sin declarar») y la ficha lleva el aviso de lo que F1 no mira con el motor B (el ancla de S2C y el ROIC)
 PASA  · PU11 · (R1-11) «norma_contable» = «U.S. GAAP» en fase1_v63.json: el paso 2 termina en pendiente_de_datos con el motivo, antes de gastar la fase A (antes: paso 7)
-22/22 pruebas de F1 · US GAAP en el pipeline PASAN
+PASA  · PU12 · (R2-1, Y4h) el estado de flujos lleva «Loss on lease termination» (no es un tramo) y la declaración es VERAZ («no_publicada» los dos): ya no se bloquea; llega a concluido CONDICIONADA (D-US1), con la cota en el informe y la línea ajena a la vista (antes: pendiente_de_datos en el paso 7)
+PASA  · PU12 · (R2-1, Y4) los dos tramos declarados «fuera» citando esa línea: no vale como línea del tramo → pendiente_de_datos en el paso 7 (F1-US-FILAS, INCOMPLETO), sin fase B (antes: concluido sin condición, con el valor sobrestimado)
+PASA  · PU13 · (R2-2, Y5) «Operating lease liabilities» (2,5 al año) es una línea propia sumada en la fila 14 y se declara «fila_14» con importe 0: el importe dentro de la fila es el de su línea → pendiente_de_datos en el paso 7 (F1-US-FILAS, DATOS INVÁLIDOS), sin fase B (antes: concluido sin condición)
+PASA  · PU14 · («Otro», Y9) motor B con «Otro» como norma de la fase 1 en un expediente de la 4.15: el paso 7 termina en no_entregable · límite del modelo (F1 no tiene regla para otras normas; ningún dato lo arregla); antes, pendiente_de_datos
+26/26 pruebas de F1 · US GAAP en el pipeline PASAN

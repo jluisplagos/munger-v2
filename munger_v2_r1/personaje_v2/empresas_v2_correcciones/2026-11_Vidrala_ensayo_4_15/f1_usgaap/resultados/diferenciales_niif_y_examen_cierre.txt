@@ -1,0 +1,82 @@
+# Diferenciales NIIF, expedientes reales del examen (solo lectura) y declaraciones al azar · cierre de la ronda 2 (00aa717) frente a la ronda 2
+# (bcb6dc3) y a la ronda 1 (34b68fc). Guiones del revisor (munger-v2-evidencias-mistral, coordinacion/cierre_v2/examen/revisiones/f1_usgaap/evidencia_r2/) sin cambios, y dos propios (vigencia, resumen de formas).
+
+
+## declaraciones NIIF reales del examen (examen_real_worker.py; todo el resultado salvo versión y fecha)
+ahold_f1/Ahold · norma NIIF · libro Ahold_v63_evaluada.xlsx · cierre: utilizable True · estado None · bloquean []
+   ronda 2 bcb6dc3 ↔ cierre: idéntico (todo el resultado salvo versión y fecha)
+ahold_f2/Ahold · norma NIIF · libro Ahold_v63_evaluada.xlsx · cierre: utilizable True · estado None · bloquean []
+   ronda 2 bcb6dc3 ↔ cierre: idéntico (todo el resultado salvo versión y fecha)
+ahold_v631/Ahold · norma NIIF · libro Ahold_v63_datos.xlsx · cierre: utilizable False · estado no_entregable · limite_del_modelo · bloquean ['F1-LIBRO']
+   ronda 2 bcb6dc3 ↔ cierre: idéntico (todo el resultado salvo versión y fecha)
+elis_f1/Elis · norma NIIF · libro Elis_v63_evaluada.xlsx · cierre: utilizable False · estado pendiente_de_datos · bloquean ['F1-LIBRO', 'F1-PARAM', 'F1-PERIMETRO', 'V-F1d', 'V-F1g', 'V-F1i', 'V-F1j', 'V-F1k', 'V-F1l']
+   ronda 2 bcb6dc3 ↔ cierre: idéntico (todo el resultado salvo versión y fecha)
+jumbo_d/Jumbo · norma NIIF · libro Jumbo_v63_datos.xlsx · cierre: utilizable False · estado pendiente_de_datos · bloquean ['F1-SERIES']
+   ronda 2 bcb6dc3 ↔ cierre: DISTINTO en 9 campos
+         /resultado/guardas/0/clase : datos  →  None
+         /resultado/guardas/0/detalle : declaración mal formada: series.pagos_arrendamiento_sin_declarar no es un objeto por año (str)  →  notas de texto dentro de «series» (no son series: no entran en el cálculo y quedan a la vista): pagos_arrendam
+         /resultado/guardas/0/efecto : DATOS INVÁLIDOS  →  INFORMA
+         /resultado/guardas/0/severidad : BLOQUEA  →  INFORMA
+         /resultado/guardas/23/clase : None  →  datos
+         /resultado/guardas/23/detalle : series.da_rou.2021: «valor_fuente» -9.199774 no es la cifra publicada '(9.199.774)' con su signo (R415-SIGNO,   →  series.da_rou.2021: «valor_fuente» -9.199774 no es la cifra publicada '(9.199.774)' con su signo (R415-SIGNO, 
+         /resultado/guardas/23/severidad : AVISO  →  BLOQUEA
+         /resultado/notas_en_series/0 : None  →  pagos_arrendamiento_sin_declarar
+         /resultado/rotulo : DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-DECLARACION  →  DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-SERIES
+
+## Jumbo real (jumbo_d, NIIF; jumbo_real_worker.py) con el código de la base (1694f08), el del cierre y el fusionado con f1/series-escala
+base 1694f08           utilizable False · estado pendiente_de_datos · bloquean [('F1-SERIES', 'DATOS INVÁLIDOS')]
+cierre 00aa717         utilizable False · estado pendiente_de_datos · bloquean [('F1-SERIES', 'DATOS INVÁLIDOS')]
+     F1-DECLARACION: notas de texto dentro de «series» (no son series: no entran en el cálculo y quedan a la vista): pagos_arrendamiento_sin_declarar
+  · sin esa clave      utilizable False · estado pendiente_de_datos · bloquean [('F1-SERIES', 'DATOS INVÁLIDOS')]
+fusionado (+escala)    utilizable False · estado pendiente_de_datos · bloquean [('F1-SERIES', 'DATOS INVÁLIDOS')]
+     F1-DECLARACION: notas de texto dentro de «series» (no son series: no entran en el cálculo y quedan a la vista): pagos_arrendamiento_sin_declarar
+  · sin esa clave      utilizable False · estado pendiente_de_datos · bloquean [('F1-SERIES', 'DATOS INVÁLIDOS')]
+
+## 135 formas mal construidas de una declaración NIIF utilizable (formas_niif_worker.py)
+135 formas de una declaración NIIF utilizable (mal construidas a propósito; guion del revisor formas_niif_worker.py), evaluadas con la ronda 1 (34b68fc), la ronda 2 (bcb6dc3) y el cierre (00aa717)
+cierre frente a la ronda 1: {'idénticas': 123, 'bloqueaba y sigue bloqueando (cambia la lista o el estado)': 8, 'excepción → bloquea': 4}
+cierre frente a la ronda 2: {'idénticas': 99, 'bloqueaba y sigue bloqueando (cambia la lista o el estado)': 33, 'bloquea → UTILIZABLE': 3}
+utilizables: ronda 1 31 · ronda 2 28 · cierre 31
+formas cuyo «utilizable» cambia entre la ronda 1 y el cierre: []
+formas cuyo «utilizable» cambia entre la ronda 2 y el cierre:
+  normalizacion = []: ronda 2 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION']} → cierre {'utilizable': True, 'estado': None, 'bloquean': []}
+  normalizacion = '': ronda 2 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION']} → cierre {'utilizable': True, 'estado': None, 'bloquean': []}
+  normalizacion = 0: ronda 2 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION']} → cierre {'utilizable': True, 'estado': None, 'bloquean': []}
+excepciones con el cierre: []
+las que cambian frente a la ronda 1 (todas bloqueaban y siguen bloqueando, o eran una excepción):
+  norma_contable = 'x': ronda 1 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-NORMA']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'F1-NORMA']}
+  perimetro_reinversion = 'x': ronda 1 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-PERIMETRO', 'V-F1g']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'F1-PERIMETRO', 'V-F1g']}
+  perimetro_margen = 'x': ronda 1 {'utilizable': False, 'estado': 'no_entregable · limite_del_modelo', 'bloquean': ['V-F1h']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1h']}
+  perimetro_palancas_s2c = 'x': ronda 1 {'utilizable': False, 'estado': 'no_entregable · limite_del_modelo', 'bloquean': ['V-F1g', 'V-F1k']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1g', 'V-F1k']}
+  perimetro_roic = 'x': ronda 1 {'utilizable': False, 'estado': 'no_entregable · limite_del_modelo', 'bloquean': ['V-F1k']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1k']}
+  clasificacion_compras = 'x': ronda 1 {'excepcion': "AttributeError: 'str' object has no attribute 'get'"} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1j']}
+  transicion = 'x': ronda 1 {'excepcion': "AttributeError: 'str' object has no attribute 'get'"} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1i']}
+  series = 'x': ronda 1 {'excepcion': "AttributeError: 'str' object has no attribute 'get'"} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-2i', 'F1-DECLARACION', 'V-F1b']}
+  normalizacion = 'x': ronda 1 {'excepcion': "AttributeError: 'str' object has no attribute 'get'"} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION']}
+  fuentes_series = 'x': ronda 1 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-SERIES']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION']}
+  series.da_ppa = 'x': ronda 1 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-2i', 'V-F1e']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-2i', 'F1-DECLARACION']}
+  series.da_rou = 'x': ronda 1 {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['V-F1b', 'V-F1e']} → cierre {'utilizable': False, 'estado': 'pendiente_de_datos', 'bloquean': ['F1-DECLARACION', 'V-F1b']}
+
+## vigencia() de los expedientes con pipeline
+vigencia() de F1 (expedientes con estado_pipeline.json): 53 del árbol y 21 del examen (solo lectura) · distintos entre la ronda 2 (bcb6dc3) y el cierre (00aa717): 0 · excepciones: 0
+
+## Zoetis real (zoetis_real_r2.py): diferencias con la salida de la revisión (bcb6dc3)
+23c23
+<    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1'} · fundamento: hipótesis
+---
+>    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1', 'amortizacion_rou_financiero': 'por_omision'} · fundamento: hipótesis
+54c54
+<    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1'} · fundamento: hipótesis
+---
+>    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1', 'amortizacion_rou_financiero': 'por_omision'} · fundamento: hipótesis
+69c69
+<    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1'} · fundamento: hipótesis
+---
+>    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1', 'amortizacion_rou_financiero': 'por_omision'} · fundamento: hipótesis
+86c86
+<    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1'} · fundamento: hipótesis
+---
+>    contraste: {'amortizacion_rou': 'hipotesis_D_US1', 'variacion_pasivo': 'hipotesis_D_US1', 'amortizacion_rou_financiero': 'por_omision'} · fundamento: hipótesis
+
+## fuzz_r2.py 3000 (declaraciones y fase1_partes mal formados al azar; semilla del revisor)
+3000 casos (declaraciones y fase1_partes mal formados) · utilizables: 46 · de ellos sin condición: 46 · estados del contraste en los utilizables sin condición: {'(sin tramos)': 46}

@@ -25,7 +25,7 @@
 #                                        menos 5; LibreOffice), igual de obligatorias; (4.15, F1-IMPL) la del motor A con el perímetro F1
 #                                        test_motor_a_f1.py (al menos 142 pruebas; sin LibreOffice) y la prueba del gancho F1 del pipeline
 #                                        prueba_pipeline_f1.py (al menos 8 casos; LibreOffice), igual de obligatorias; (4.15, F1 · US GAAP,
-#                                        ASC 842; ronda 2 y su cierre) la del motor A F1 con US GAAP test_motor_a_f1_usgaap.py (al menos 287 pruebas; sin
+#                                        ASC 842; ronda 2 y su cierre) la del motor A F1 con US GAAP test_motor_a_f1_usgaap.py (al menos 290 pruebas; sin
 #                                        LibreOffice), la de extremo a extremo prueba_pipeline_usgaap.py (al menos 26 casos; LibreOffice) y la
 #                                        del libro V6.3.1 real probar_libro_v631_usgaap.py (al menos 16 comprobaciones; LibreOffice), igual
 #                                        de obligatorias
@@ -251,10 +251,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del motor A F1 con US GAAP PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 287 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 290 ]; then
     echo "$linea"; echo "RESULTADO motor A F1 con US GAAP: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1 con US GAAP: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 287 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1 con US GAAP: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 290 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

@@ -19,6 +19,9 @@ la hoja y cuánto cambiaría contando los pagos), W (D-WM: financieros no desglo
 (coste no comparable), R13 (C49: redondeo y diferencia explicada), R14 (declaraciones mal formadas), R15 (K3b según lo declarado), R16
 (amortización financiera fuera de la fila 8), R9 (motor B: ancla de S2C), R1 (motor B: norma sin determinar, falla en cerrado) y R11 (norma
 de la fase 1 como lista cerrada).
+Cierre de la ronda 2 (revisión R2): grupo X (líneas que nombran el arrendamiento sin ser un tramo, importe dentro de una fila frente a la
+cifra impresa de su línea, amortización financiera dentro de la fila 8 por omisión, notas de texto dentro de «series» y valores vacíos,
+«Otro» como límite del modelo y el aviso de C49 «explicado»).
 """
 import atexit
 import copy
