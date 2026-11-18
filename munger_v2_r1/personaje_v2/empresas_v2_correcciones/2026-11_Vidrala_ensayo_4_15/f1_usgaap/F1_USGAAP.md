@@ -147,7 +147,7 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
                   "variacion_pasivo": {"ubicacion": "fila_14", "documento": "…", "pagina": 0, "cita": "…"},
                   "coste_comparable_con_los_pagos": false, "coste_no_comparable_motivo": "…"},
   "financieros": {"existen": true, "documento": "…", "pagina": 0, "cita": "…",
-                  "desglose": "no_publicado",
+                  "desglose": "publicado",
                   "amortizacion_rou": {"ubicacion": "fuera_de_la_fila_8", "documento": "…", "pagina": 0, "cita": "…"}}
 }
 ```
@@ -158,7 +158,8 @@ Con los dos tramos netos dentro del circulante, la fila 14 lleva `pagos − cost
 - `coste_comparable_con_los_pagos` (opcional; por omisión, sí): `false`, con su motivo, si el coste publicado lleva corto plazo o variable
   y la empresa no lo separa.
 - `desglose` (opcional; por omisión `publicado`) y `amortizacion_rou` de los financieros (opcional; por omisión dentro de la fila 8): regla 2.
-  Los dos a la vez no se admiten.
+  `desglose: "no_publicado"` (D-WM) y `amortizacion_rou` no se declaran a la vez: da DATOS INVÁLIDOS (`F1-US-DESGLOSE`; comprobado a mano
+  el 18-nov-2026, sin caso propio en la batería).
 
 Series (formato de `da_rou`: `valor_fuente` con su signo, `signo`, `tratamiento`, `documento`, `pagina`, `literal`, `fila`):
 
@@ -274,7 +275,7 @@ LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecuci�
 | diferencial NIIF de la revisión (400 casos al azar, el libro real de Elis con sus declaraciones y 21 variantes de `L4`), ronda 1 frente a ronda 2 | `idénticos (todo el resultado salvo versión y fecha): 425 · distintos: 0` (`resultados/diferencial_niif_ronda1_ronda2.txt`) |
 | `python3 -I …/f1_impl/scripts/regresion_elis_f1.py <copia>` | `39/39 PASAN` (`resultados/regresion_elis_f1_tras_usgaap.md`) |
 | los guiones de la revisión, **sin cambios**, contra la capa de la ronda 2 (`adversarial_capa.py`, `matriz_verdad_declaracion.py`, `error_a_la_baja.py`, `fuzz_us.py 3000`) | B1–B6 y C1 bloquean; B7 condicionada con cota; E6 no salta; N1–N3 bloquean; N4: los 14 rótulos se ven; G3 bloquea; matriz: `sin condición ni cota: 0` en las dos pasadas; 3.000 declaraciones al azar sin excepciones (`resultados/guiones_de_la_revision_R1_contra_la_ronda_2.txt`, con su montaje y dos matices) |
-| `flock … bash verificar_paquete.sh completa` sobre una copia limpia del commit del código de la ronda 2 | se registra en el commit siguiente (`resultados/verificacion_completa_<commit>.txt`) |
+| `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `a6fc300`, el commit del código de la ronda 2 (manifiesto 8063 · modificados 0 · ausentes 0 · de más 0; 83 minutos) | `RESULTADO GLOBAL: PASA`, código 0 (`resultados/verificacion_completa_a6fc300.txt`): los 27 bloques en PASA; comprobadores 114/114, sintética 30/30, vigencia H5 59/59, juicio 27/27, entradas 33/33 y 190/190, entrada efectiva 62/62, relevo 5/5, motor A F1 163/163, gancho 8/8, **US GAAP 246/246, 22/22 y 15/15**, V6.3.1 29/29, 21/21, 22/22, 35/35 y 9/9, V6.4 199/199, trazabilidad 78/78, integridad 103/103, auditorías 55/55, estados 28/28, resumen 45/45, cierre 55/55. El commit que registra este resultado no cambia código ni pruebas: solo este documento, el registro, `CAMBIOS_ARCHIVOS.txt` y el manifiesto |
 
 **NIIF no cambia de valor.** Cambios de comportamiento con NIIF, todos sobre casos antes mal tratados: (a) un libro NIIF cuyo `L4` no es
 de la lista cerrada bloquea con `F1-NORMA` (ronda 1, H13) y ahora se detiene antes, en el paso 2; (b) con el motor B, un expediente de la
@@ -316,18 +317,26 @@ Límites:
    una línea que no lo nombra en ningún renglón: por eso lo que no se puede contrastar queda condicionado, no acreditado. Una cabecera sin
    cifras y sin dos puntos justo encima de una línea se toma como primer renglón de su etiqueta; si nombrara el arrendamiento, la línea
    se trataría como suya (bloquearía; no cambia ningún valor).
-3. «Fuera» queda contrastada con la página de **un** informe; en los demás años del modelo se comprueba que ninguna línea sumada nombra el
+3. **Falsos positivos del patrón amplio** (R1-6 pidió usarlo; es el lado seguro, pero no tiene salida en la declaración). Una línea de la
+   conciliación que nombra un arrendamiento sin ser uno de los dos tramos (el deterioro de un derecho de uso, el resultado por cancelar un
+   arrendamiento, incentivos) hace saltar «manda el dato» frente a un `no_publicada` veraz, y una línea así sumada en la fila 8 o en la 14
+   contradice una declaración veraz: el expediente queda en `pendiente_de_datos`. No debería afectar a Zoetis ni a Waste Management: según
+   el §4 de la revisión R1, sus estados de flujos no nombran el arrendamiento (es una previsión; su fase 1 no se ha ejecutado).
+   ***Propuesta***, sin implantar porque abre una vía que hay que revisar: permitir declarar, con
+   su cita y su motivo, las líneas de la página que nombran un arrendamiento y **no** son el tramo, dejando la conclusión condicionada y
+   esas líneas a la vista.
+4. «Fuera» queda contrastada con la página de **un** informe; en los demás años del modelo se comprueba que ninguna línea sumada nombra el
    tramo, no que la línea citada exista también en esos estados de flujos.
-4. Las series y clasificaciones de US GAAP no están en el libro: quedan fuera del universo de `verificacion_entradas.py`. `F1-SERIES`
+5. Las series y clasificaciones de US GAAP no están en el libro: quedan fuera del universo de `verificacion_entradas.py`. `F1-SERIES`
    es una condición mínima (cifra con su signo y cita en su página; sin revisor ni sello). El resultado guarda la huella de las líneas de
    la fase 1 examinadas (`fase1_partes_sha256`), pero `vigencia()` no la comprueba.
-5. No se tratan: ventas con arrendamiento posterior, incentivos, deterioros del derecho de uso, ni ventanas con ejercicios anteriores a
+6. No se tratan: ventas con arrendamiento posterior, incentivos, deterioros del derecho de uso, ni ventanas con ejercicios anteriores a
    ASC 842 (antes de 2019).
-6. Con la plantilla V6.4.1 (motor B, perímetro «NIIF 16»), las altas de derechos de uso operativos no deberían entrar con US GAAP: no hay
+7. Con la plantilla V6.4.1 (motor B, perímetro «NIIF 16»), las altas de derechos de uso operativos no deberían entrar con US GAAP: no hay
    guarda.
-7. Con el motor B, F1 solo mira el puente. El ancla de S2C y el ROIC histórico pueden llevar partidas del arrendamiento operativo: se avisa,
+8. Con el motor B, F1 solo mira el puente. El ancla de S2C y el ROIC histórico pueden llevar partidas del arrendamiento operativo: se avisa,
    no se corrige. El motor B cuenta el alquiler por su coste lineal (va en el EBIT; no tiene f): D-US2 no se le aplica.
-8. K3c (reinversión media negativa con ventas que no bajan) puede saltar con D-US2 bis cuando el neto dentro de la fila 14 es negativo
+9. K3c (reinversión media negativa con ventas que no bajan) puede saltar con D-US2 bis cuando el neto dentro de la fila 14 es negativo
    (pagos < coste) y la inversión neta propia es casi nula: es la regla general, con su salida (justificación declarada).
-9. Todo el recálculo es LibreOffice; Excel real, sin probar. No se ha ejecutado la fase 1 ni el pipeline con Zoetis, Waste Management o
+10. Todo el recálculo es LibreOffice; Excel real, sin probar. No se ha ejecutado la fase 1 ni el pipeline con Zoetis, Waste Management o
    Nike reales.
