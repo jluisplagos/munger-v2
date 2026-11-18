@@ -1,0 +1,289 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_zoetis_t1.json",
+ "cambio_sha256": "fc37c15e6b259f3c879c75ffe49e0bb5b405a6b830abf2171faf829429e4867f",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1/Zoetis",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1b/Zoetis",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Zoetis (cerrado el 31-dic-2025), la misma base que zoetis_t1 (primer tiempo: nada publicado después del 9-oct-2026). Resuelve la parada del modo estricto del paso 2: C46, C47 y C50 con su media exacta y cálculo declarado sobre el 10-K 2025 (precedente E1, supuesto de la orquestación), y C49 = 1,0 (principal de arrendamientos financieros publicado). P-O1 (c) sin efecto (US GAAP: cobros en el CFO); P-O2 (a): 424,928 M acciones a 31-dic-2025."
+ },
+ "fechas": {
+  "ejecucion": "2026-10-09",
+  "precio": "2026-10-08",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Form 10-K 2016–2025 y 10-Q T1/T2 2026 de Zoetis (FUENTES.tsv; Release fuentes-examen-20261118); 10-K 2020–2024 en texto por OCR (zoetis_t1/ocr_400dpi/LEEME.md). Corte del primer tiempo: nada publicado después del 9-oct-2026; fecha de análisis = 2026-10-09 (corte), como en zoetis_t1.",
+  "ejecucion_aplicada": "2026-10-09"
+ },
+ "heredados_movidos": 27,
+ "conservados": [
+  "FUENTES.tsv",
+  "etapa1",
+  "fase1_fuentes.json",
+  "fase1_listas.md",
+  "fase1_partes",
+  "pdf",
+  "texto"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Zoetis_evaluada.xlsx",
+  "original_sha256": "c33f17d1583abaa0f560cc0fd2e0a89d4e87bc63f005a1fe679e325975d45093",
+  "copia_de_ensayo_sha256": "8f0c349503bdc296df10671e1f1a0d166f5aadea3377e89407cba68ef6273b99",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet1.xml",
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C46",
+   "Análisis!C47",
+   "Análisis!C49",
+   "Análisis!C50"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!M43": {
+    "celda": "Análisis!C46",
+    "texto": "Decisión del inversor (18-oct-2026): FCF base con media 3 años FY23–25. CFO 2.353 / 2.953 / 2.904 → media exacta 2.736,667 (cálculo declarado; la etapa 1 traía el redondeo 2.736,7; precedente E1, supuesto de la orquestación)."
+   },
+   "Control maestro!N43": {
+    "celda": "Análisis!C46",
+    "texto": "P-O1 (c) «regla espejo» (18-nov-2026): con US GAAP los intereses y dividendos cobrados ya están en el CFO (10-K 2025 PDF p. 70, sin líneas de cobro en inversión): nada que añadir. Cifras del 10-K 2025 (sin OCR)."
+   },
+   "Control maestro!M44": {
+    "celda": "Análisis!C47",
+    "texto": "Decisión del inversor (18-oct-2026): 3 años FY23–25. Capex 732 / 655 / 621 → media exacta 669,333 (cálculo declarado; la etapa 1 traía 669,3; precedente E1)."
+   },
+   "Control maestro!M46": {
+    "celda": "Análisis!C49",
+    "texto": "US GAAP: los pagos por arrendamientos operativos van en el CFO. Principal de arrendamientos financieros (financiación): — / 1 / 2 (FY23–25; 10-K 2025 PDF p. 89) → media 1,000 (cálculo declarado). Pasivo por arrendamiento financiero 7."
+   },
+   "Control maestro!N46": {
+    "celda": "Análisis!C49",
+    "texto": "Inmaterial (<0,1 % del FCF). La etapa 1 lo dejaba vacío (= 0). Desglosado en la nota: D-WM (no desglosados como deuda) no aplica."
+   },
+   "Control maestro!M48": {
+    "celda": "Análisis!C50",
+    "texto": "Decisión del inversor (18-oct-2026): 3 años FY23–25. SBC (estado de flujos = nota): 60 / 74 / 83 → media exacta 72,333 (cálculo declarado; la etapa 1 traía 72,3; precedente E1). 10-K 2025 PDF p. 70 y 94."
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C46": {
+   "construido_por_fase1_historia": 2736.667,
+   "valor": 2736.667,
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 del CFO (10-K 2025 PDF p. 70)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "cfo_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "cfo_10k2025": {
+      "2025": {
+       "valor": 2904,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 2953,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 2353,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Net cash provided by operating activities» (2.904 / 2.953 / 2.353; 10-K 2025 PDF p. 70) = 2.736,667, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 2.736,7. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos. P-O1 (c): con US GAAP los intereses cobrados (ingresos por intereses de 93 mm en 2025, 10-K 2025 PDF p. 54 y p. 80) van dentro del CFO: el estado de flujos no tiene ninguna línea de intereses ni de dividendos cobrados en inversión (PDF p. 70; los intereses pagados, 261 / 274 / 295, figuran como información suplementaria y también están en el CFO); no hay subarriendos ni dividendos de negocios conjuntos que sumar. Nada que añadir.",
+    "redondeo": 3
+   }
+  },
+  "C47": {
+   "construido_por_fase1_historia": 669.333,
+   "valor": 669.333,
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 del capex (10-K 2025 PDF p. 70)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "capex_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "capex_10k2025": {
+      "2025": {
+       "valor": 621,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -621,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      },
+      "2024": {
+       "valor": 655,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -655,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      },
+      "2023": {
+       "valor": 732,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -732,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Capital expenditures» (621 / 655 / 732; 10-K 2025 PDF p. 70) = 669,333, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 669,3. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos.",
+    "redondeo": 3
+   }
+  },
+  "C49": {
+   "construido_por_fase1_historia": null,
+   "valor": 1.0,
+   "naturaleza": "cálculo declarado (US GAAP; principal de arrendamientos financieros publicado)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 del principal de arrendamientos financieros (10-K 2025 PDF p. 89)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "principal_arrendamientos_financieros",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "principal_arrendamientos_financieros": {
+      "2025": {
+       "valor": 2,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 1,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 0,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "C49 = principal de arrendamientos FINANCIEROS pagado en financiación: «Financing cash flows – finance leases» 2 / 1 / — (cero) en 2025 / 2024 / 2023 (nota de arrendamientos, 10-K 2025 PDF p. 89) → media 1,000. Con US GAAP los pagos de arrendamientos operativos (67 / 61 / 57, «Operating cash flows – operating leases», misma página) van dentro del CFO y no tienen principal en financiación. Los arrendamientos financieros SÍ están desglosados (pasivo de 7 mm, misma página), así que no se aplica la hipótesis D-WM («tratarlos como deuda», para los no desglosados): se resta su principal, como pide el coordinador (C49 = 1,0). La etapa 1 dejaba la celda vacía (= 0) por inmaterial (<0,1 % del FCF) y anotaba «si se quiere exactitud literal: 1». Contraste: el 10-K 2024 (OCR, PDF p. 86) da «Financing cash flows — finance leases 1 — —» para 2024, 2023 y 2022.",
+    "redondeo": 3
+   }
+  },
+  "C50": {
+   "construido_por_fase1_historia": 72.333,
+   "valor": 72.333,
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "perimetro": null,
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de la SBC (10-K 2025 PDF p. 70 y p. 94)",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "sbc_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "sbc_10k2025": {
+      "2025": {
+       "valor": 83,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 74,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 60,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Share-based compensation expense» del estado de flujos (83 / 74 / 60; 10-K 2025 PDF p. 70; igual en la nota de pagos en acciones, PDF p. 94) = 72,333, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 72,3. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos.",
+    "redondeo": 3
+   }
+  }
+ },
+ "correcciones_fase1_partes": [],
+ "notas_retiradas": 0,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {},
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_zoetis_t1.json"
+ }
+}

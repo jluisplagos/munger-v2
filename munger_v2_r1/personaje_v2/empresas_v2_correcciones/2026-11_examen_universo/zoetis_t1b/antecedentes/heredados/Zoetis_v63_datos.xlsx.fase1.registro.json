@@ -1,0 +1,134 @@
+{
+ "escritas": [
+  "Análisis!B3",
+  "Análisis!D3",
+  "Análisis!D4",
+  "Análisis!C37",
+  "Análisis!C55",
+  "Análisis!C41",
+  "Análisis!C57",
+  "Análisis!C48"
+ ],
+ "derivadas": [],
+ "no_pisadas": [
+  {
+   "celda": "Análisis!B4",
+   "actual": "Salud animal (medicamentos, vacunas y diagnóstico veterinario)",
+   "nuevo": "Medicamentos, vacunas, diagnósticos y servicios genéticos para salud animal (mascotas ≈70 % y ganado ≈30 % de los ingresos)"
+  },
+  {
+   "celda": "Análisis!C46",
+   "actual": 2736.7,
+   "nuevo": 2736.667
+  },
+  {
+   "celda": "Análisis!C47",
+   "actual": 669.3,
+   "nuevo": 669.333
+  },
+  {
+   "celda": "Análisis!C50",
+   "actual": 72.3,
+   "nuevo": 72.333
+  }
+ ],
+ "convenciones": [],
+ "avisos": [
+  "Análisis!C46: se conserva 2736.7 de la etapa 1 y fase1_v63.json declara 2736.667: entrada efectiva NO reproducible por la vía generativa (declare su cálculo)",
+  "Análisis!C47: se conserva 669.3 de la etapa 1 y fase1_v63.json declara 669.333: entrada efectiva NO reproducible por la vía generativa (declare su cálculo)",
+  "Análisis!C48: depende de un cero pendiente de verificación → «Dato no verificable»",
+  "Análisis!C50: se conserva 72.3 de la etapa 1 y fase1_v63.json declara 72.333: entrada efectiva NO reproducible por la vía generativa (declare su cálculo)",
+  "Historia!C16:L16: cero pendiente de verificación en [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025] → «Dato no verificable»",
+  "Historia!C17:L17: cero pendiente de verificación en [2016, 2017, 2018, 2019, 2020, 2021, 2022] → «Dato no verificable»",
+  "Historia!C23:L23: cero pendiente de verificación en [2016, 2017] → «Dato no verificable»",
+  "Historia!C26:L26: cero pendiente de verificación en [2025] → «Dato no verificable»"
+ ],
+ "evidencias_sustituidas": [
+  {
+   "celda": "Análisis!C37",
+   "fila_control_maestro": 38,
+   "antes": {
+    "G": "Cierre del 8-oct-2026",
+    "H": "USD / acción",
+    "I": "Secundaria (3 fuentes coincidentes)",
+    "J": "stockanalysis.com (histórico); StatMuse; Digrin",
+    "K": "https://stockanalysis.com/stocks/zts/history/",
+    "L": "Tabla diaria",
+    "M": "73,08 USD: último cierre consolidado en NYSE (8-oct-2026). ACTUALIZAR ANTES DE CUALQUIER DECISIÓN.",
+    "N": "El cierre del 9-oct-2026 no estaba consolidado al registrar (74,77–74,81 según la fuente; +2,3%). Rango de 52 semanas 68,77–148,30. −41,9% desde 125,82 (31-dic-2025)."
+   }
+  },
+  {
+   "celda": "Análisis!C55",
+   "fila_control_maestro": 52,
+   "antes": {
+    "G": "2T 2026 (3 meses a 30-jun-2026)",
+    "H": "mm acciones",
+    "I": "10-Q 2T26 (primaria)",
+    "J": "Zoetis 10-Q 2T26 (R23)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R23.htm",
+    "L": "R23",
+    "M": "417,7 = acciones medias ponderadas diluidas del 2T26 (cuenta de resultados; método de la autocartera; el convertible no diluye por debajo de 148,20 USD).",
+    "N": "Sensibilidad: en circulación en portada (31-jul-2026) 413,2 + 0,1 equivalentes = 413,3 (−1,1%). Convertible: dilución neta ≈0 hasta 211,72 USD gracias al capped call. [Guía de la plantilla: Documentar si son acciones diluidas medias ponderadas o base actual; no mezclar sin explicación.]"
+   }
+  },
+  {
+   "celda": "Análisis!C41",
+   "fila_control_maestro": 41,
+   "antes": {
+    "G": "Precio 8-oct-2026 · acciones a 31-jul-2026",
+    "H": "USD mm",
+    "I": "10-Q 2T26 (acciones, primaria) · precio secundario",
+    "J": "Zoetis 10-Q 2T26 (portada)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R1.htm",
+    "L": "R1 (dei:EntityCommonStockSharesOutstanding)",
+    "M": "30.198,4 = 73,08 × 413,223602 mm acciones en circulación (portada del 10-Q 2T26; una sola clase; ya netas de autocartera, no se resta otra vez).",
+    "N": "Con 417,7 mm diluidas: 30.525,5. Recompras posteriores al 31-jul no publicadas (la cifra real sería algo menor). Proveedores: ≈30,2 bn (solo contraste)."
+   }
+  },
+  {
+   "celda": "Análisis!C57",
+   "fila_control_maestro": 54,
+   "antes": {
+    "G": "8-oct-2026",
+    "H": "% (decimal)",
+    "I": "Primaria (U.S. Treasury)",
+    "J": "U.S. Department of the Treasury · Daily Treasury Par Yield Curve Rates",
+    "K": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
+    "L": "Columna 10 Yr",
+    "M": "0,0522: Treasury a 10 años (par yield) del 8-oct-2026; la vista de texto y el XML coinciden. Flujos en USD.",
+    "N": "FRED DGS10 a 7-oct: 5,28%. Sin riesgo país (emisora de EE. UU.). La r sigue siendo decisión del inversor."
+   }
+  }
+ ],
+ "entradas_migradas_distintas": [
+  {
+   "celda": "Análisis!C46",
+   "libro": 2736.7,
+   "fase1_v63": 2736.667,
+   "evidencia_libro": "Zoetis · Informes anuales 2021–2025; 10-Q 2T25 y 2T26 (estados de flujos)",
+   "motivo": "valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa"
+  },
+  {
+   "celda": "Análisis!C47",
+   "libro": 669.3,
+   "fase1_v63": 669.333,
+   "evidencia_libro": "Zoetis · Informes anuales 2021–2025; 10-Q 2T26",
+   "motivo": "valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa"
+  },
+  {
+   "celda": "Análisis!C50",
+   "libro": 72.3,
+   "fase1_v63": 72.333,
+   "evidencia_libro": "Zoetis · Informes anuales 2019–2025 (estado de flujos y nota 15); 10-Q 2T26 (R8, R70)",
+   "motivo": "valor migrado de la etapa 1 conservado; fase1_v63.json declara otro: la entrada efectiva no es reproducible desde la vía generativa"
+  }
+ ],
+ "pendientes_verificacion": [
+  "Análisis!C48",
+  "Historia!C16:L16",
+  "Historia!C17:L17",
+  "Historia!C23:L23",
+  "Historia!C26:L26"
+ ]
+}
