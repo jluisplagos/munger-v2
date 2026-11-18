@@ -11,6 +11,8 @@ Rutas:
 - corpus Damodaran (damodaran.md, si existe): /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/corpus/damodaran.md
 - modelo y esfuerzo previstos (config_v2.json → modelos): {"modelo": "opus", "esfuerzo": "alto", "turnos": 2}
 
+**CORRECCIÓN pedida por el pipeline:** la fase B ya revisó las palancas en la única vuelta C→B admitida (§4.5): el libro está recalculado con las palancas nuevas; otro revisar_palancas termina en no_entregable
+
 ---
 
 # Prompt de la FASE C · primer turno · Revisión inversa, datos ausentes y fundamento material (modelo: Opus, esfuerzo alto, contexto limpio, uno por empresa)

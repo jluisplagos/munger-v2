@@ -10,9 +10,10 @@ Categorías (D17): **error** bloquea y ninguna explicación lo aprueba · **lím
 
 - ninguno
 
-## desviación (0)
+## desviación (2)
 
-- ninguno
+- **G7** · BUENO · rentabilidad marginal BUENO = S2C 6.9 × margen 0.04 × (1 − 0.214) = 0.217 > 2 × ROIC histórico (0.176) → justificar por qué cada euro nuevo rendiría el doble que la historia · **justificada**
+- **G8** · BUENO · salto del año 11 BUENO = 0.097 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan → la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11 · **justificada**
 
 ## aviso (1)
 

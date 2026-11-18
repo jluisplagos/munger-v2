@@ -54,3 +54,14 @@ Saltos del año 11 que espero, rentabilidad marginal menos ROIC terminal: −0,0
 ## Los dos errores opuestos
 
 Estoy más cerca de **pagar cualquier cosa**. La tentación con Ahold es pagar la durabilidad como si fuera calidad: 53 trimestres de comparables, el 38,2 % de cuota de Albert Heijn y la caja repartida parecen un gran negocio, y la etapa 1 dijo foso = Sí. Pero el ROIC no supera r, y a 36,05 € se pagan 16,3 veces el FCF base, por encima de la mediana de 14,7 (C88): «Since it's so obvious that investing in great companies works, it gets horribly overdone» (PCA p.214; HIM). El error opuesto, **regatear**, solo me alcanzaría si el ahorro empezara a quedarse en casa. Lo vigilo en el margen subyacente de EE. UU.
+
+## Corrección pedida por la fase C
+
+La fase C devolvió B16, D16 y B18:D18 porque los medí con un capital invertido que incluye los pasivos por arrendamiento (Historia filas 23, 32 y 33; C54). El libro calcula el motor A en el perímetro A2_propio (Historia C85): los pagos de arrendamiento ya van dentro de f, y la reinversión es la de las filas 30 y 31. Rehago esas palancas y C16, que la fase C también pidió revisar, en el mismo perímetro, con el capital propio (capital invertido menos arrendamientos). Crecimientos, márgenes, g, probabilidades, quiebra y C76 no cambian.
+
+- **B16: 2,5 → 3,9.** El MALO no compra (crece 0), así que Profi no entra. Tomo la rotación más pesada sin arrendamientos: 62.791 ÷ 16.136 = 3,89 en 2018 (Historia filas 6, 23 y 32).
+- **C16: 3,2 → 4,8.** Uso la mezcla que cuenta C14 (2,5 puntos orgánicos y 0,5 de compras). Lo orgánico de 2022–2025 sin Profi da unos 6,2 (+2.501 de ventas con unos 406 de reinversión: filas 13 y 30) y Profi unos 2,3 (AR2025 PDF p. 222). La ventana entera (3,2) es Profi en el 53 % de las ventas nuevas.
+- **D16: 3,6 → 6,9.** Es la misma ventana que D14 (2020–2025, compras dentro): +17.616 de ventas con +2.552 de capital propio. La rentabilidad marginal (≈ 21,7 %) pasa de 2 × C55, pero C55 es un ROIC con arrendamientos; el capital propio rindió una media del 14,8 % en 2021–2025. G7 queda justificada.
+- **B18:D18: 0,07 / 0,08 / 0,10 → 0,09 / 0,12 / 0,12.** Cada ROIC es la rentabilidad de la reinversión A2 de su escenario, S2C × margen × (1 − 0,214): 9,2 %, 13,2 % y 21,7 %. El retorno del capital propio está apalancado por los arrendamientos y no prueba un foso (C18 = No). Por eso, a perpetuidad no doy más de 3 puntos sobre r (MR; E2), y NORMAL y BUENO quedan en 0,12. Saltos del año 11 que espero: ≈ 0 en el MALO, +0,01 en el NORMAL y ≈ +0,10 en el BUENO. El del BUENO es mi hipótesis de pérdida de ventaja: el crecimiento por eficiencia del margen se agota (GV; I1) y la competencia se lleva lo que dio la escala. Lo dejo justificado como G8 para la lectura tras el recálculo.
+
+Con esto, las secciones de S2C y de ROIC de arriba describen la primera pasada; mandan los valores de esta sección y de fase_b.json.
