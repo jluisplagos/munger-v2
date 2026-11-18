@@ -384,7 +384,8 @@
     }
    ],
    "cero": null,
-   "nota": "Unidad: millones de acciones (impreso 'MILLIONS OF DOLLARS AND SHARES'). Coincide con la nota 17 (470.385 / 476.717)."
+   "nota": "Unidad: millones de acciones (impreso 'MILLIONS OF DOLLARS AND SHARES'). Coincide con la nota 17 (470.385 / 476.717). | Unidad declarada «miles» por limitación de fase1_historia.numero(): el 10-K imprime millones con tres decimales en notación de EE. UU. («498.225» = 498,225 millones) y numero() lee el punto con tres cifras como separador de miles (498225); con «miles» el valor resultante es el correcto en millones. Pendiente: corrección de producto (formato decimal declarado). Orquestador, 18-nov-2026.",
+   "unidad": "miles"
   },
   "patrimonio": {
    "actual": [
