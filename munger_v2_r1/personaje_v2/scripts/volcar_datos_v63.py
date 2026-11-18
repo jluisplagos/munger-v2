@@ -20,6 +20,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 import config_v2  # noqa: E402
 import leer_v63 as L  # noqa: E402
+import perimetro_f1 as PF  # noqa: E402
 import referencias_mecanicas as RM  # noqa: E402
 
 V53_JUICIO = ["C11", "C12", "C13", "C14", "C17", "C18", "C19", "C20", "C25", "C27", "C51", "C56", "C61", "C62", "B65", "C65", "D65",
@@ -122,6 +123,9 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     causas = [x for x in d["causas_activas"] if x]
     md.append("- Causas activas: " + ("; ".join(causas) if causas else "ninguna"))
     md.append("- Reglas del motor que no están en OK/N/A: " + ("; ".join(f"{r['id']} {r['resultado']} ({r['causa']})" for r in m["reglas"] if r["resultado"] not in ("OK", "N/A")) or "ninguna") + "\n")
+    if t.get("perimetro_f1"):
+        # (P-FOSO, D2 del dictamen del perímetro) solo con F1 declarado en A1_sin_ROU o A2_propio: sin él, el volcado no cambia
+        md.extend(PF.seccion_md(t["perimetro_f1"], d.get("motor")))
     md.append("## 2. Datos de Análisis con su evidencia (Control maestro)\n")
     md.append("| Celda | Concepto | Valor | Clasificación (F) | Documento (J) | Página (L) | Observación (N) |\n|---|---|---|---|---|---|---|")
     for ref in DATOS_ANALISIS:
@@ -142,7 +146,8 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     md.append("\n### Anclas (Historia C43:C66)\n")
     md.append("| Ancla | Celda | Valor |\n|---|---|---|")
     for ref, nombre in L.ANCLAS.items():
-        md.append(f"| {nombre} | {ref} | {fmt(h['anclas'][nombre])} |")
+        rot = " (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis)" if (t.get("perimetro_f1") and ref in ("C54", "C55")) else ""
+        md.append(f"| {nombre}{rot} | {ref} | {fmt(h['anclas'][nombre])} |")
     md.append("\n## 4. Sector y riesgo país que usa la hoja\n")
     md.append(f"- Sector de Damodaran (Palancas!C7): **{p['C7']}** · etapa (C5): {p['C5']} · caso especial (C6): {p['C6']} · base del margen (C8): {p['C8']} · I+D capitalizada (C9/C10): {p['C9']} / {p['C10']}")
     s = p["sector"]
@@ -214,6 +219,13 @@ def main():
     herencia = leer_etapa1(etapa1)
     t["herencia"] = {k: v for k, v in herencia.items() if k not in ("respuesta.md", "extracto.md", "juicio.json")}
     os.makedirs(a.carpeta, exist_ok=True)
+    # (P-FOSO, 18-nov-2026; dictamen del perímetro, D2) con F1 declarado en A1_sin_ROU o A2_propio, las fases y las referencias reciben el
+    # perímetro, los retornos del capital propio y la regla de la decisión; sin declaración (o con A0/A3) no se añade nada
+    pf = PF.desde_datos(t, PF.leer_declaracion(a.carpeta), a.carpeta)
+    if pf:
+        import hashlib
+        pf["anclas_capa_f1"] = PF.anclas_capa(a.carpeta, hashlib.sha256(open(a.recalc_xlsx, "rb").read()).hexdigest())
+        t["perimetro_f1"] = pf
     refs = None
     if a.referencias_mecanicas:
         refs = RM.calcular(t, cfg)

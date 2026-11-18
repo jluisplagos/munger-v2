@@ -227,11 +227,19 @@ class Gramatica:
                 self.add("G10a", "error", f"g para siempre {e} = {g} fuera de la lista", e, consecuencia="corregir")
         # --- G4 ROIC LP --- (umbral v2.1: config convenciones.umbral_g4_roic_lp_sobre_tasa, 0,03 por MR pp. 62–63)
         u4 = float(self.cfg.get("convenciones", {}).get("umbral_g4_roic_lp_sobre_tasa", 0.10))
+        # (P-FOSO) G4 no cambia (r + 0,03); con F1 en A1/A2 el hallazgo recuerda con qué vara se juzga el foso (C18)
+        pf4 = (self.d or {}).get("perimetro_f1") if motor == "A" else None
+        vara4 = ""
+        if pf4:
+            rp4 = num(pf4.get("roic_propio_pagado_el_alquiler_medio"))
+            vara4 = (f" [P-FOSO: el foso se juzga con el ROIC del capital propio pagado todo el alquiler"
+                     + (f" ({rp4:.4f}{'' if pf4.get('roic_propio_utilizable') else ', fuente de los intereses NO comprobada'})" if rp4 is not None else " (no calculable: faltan los intereses de arrendamiento)")
+                     + " frente a r; C55 solo frente al sector; r no se traduce a otro perímetro]")
         for e in ESC:
             r_lp = V["roic_lp"][e]
             if r_lp is not None and c56a is not None and r_lp > c56a + u4 + 1e-9:
                 if c18 != "Sí":
-                    self.add("G4", "desviación", f"ROIC/ROE largo plazo {e} = {r_lp} > C56 + {u4:.2f} = {c56a + u4:.3f} con C18 (foso) = {c18!r}: no justificable sin foso", e,
+                    self.add("G4", "desviación", f"ROIC/ROE largo plazo {e} = {r_lp} > C56 + {u4:.2f} = {c56a + u4:.3f} con C18 (foso) = {c18!r}: no justificable sin foso" + vara4, e,
                              requiere_justificacion=True, consecuencia="con foso ≠ Sí no hay justificación posible: bajar el ROIC")
                     self.h[-1]["justificada"] = False
                 else:
@@ -260,17 +268,27 @@ class Gramatica:
                          consecuencia="justificar por componentes (unidades, precio, mezcla) y dónde se reinvierte")
         # --- G7, G9 S2C ---
         if motor in ("A", "B"):
+            # (P-FOSO, D1 del dictamen del perímetro) con F1 declarado en A1/A2 y motor A, el S2C es del capital propio: la rentabilidad marginal
+            # se compara con 2 × el ROIC histórico del MISMO perímetro (NOPAT NIIF 16 ÷ capital sin arrendamientos), no con 2 × C55 (todo el capital)
+            pf = (self.d or {}).get("perimetro_f1") if motor == "A" else None
+            base7, rot7 = c55, ""
+            if pf and num(pf.get("roic_sin_arrendamientos_medio")) is not None:
+                base7 = num(pf["roic_sin_arrendamientos_medio"])
+                rot7 = (f" [perímetro F1 {pf.get('perimetro')}: ROIC histórico del perímetro del S2C, NOPAT NIIF 16 ÷ (capital invertido − arrendamientos), "
+                        f"media {pf['anios'][0]}–{pf['anios'][-1]} = {base7:.4f}; C55 de todo el capital = {c55 if c55 is None else round(c55, 4)}]")
+            elif pf:
+                rot7 = f" [perímetro F1 {pf.get('perimetro')} declarado sin ROIC del perímetro calculable (filas 7, 10, 23 o 32): umbral con C55, de todo el capital]"
             for e in ESC:
                 s = V["s2c"][e]; m = V["margen_objetivo"][e]
                 if s is None:
                     continue
                 if s <= 0:
                     self.add("G9", "error", f"S2C {e} = {s} ≤ 0 (N3)", e, "A, B", consecuencia="corregir")
-                elif m is not None and t is not None and c55 is not None and s * m * (1 - t) > 2 * c55 + 1e-9:
+                elif m is not None and t is not None and base7 is not None and s * m * (1 - t) > 2 * base7 + 1e-9:
                     # (4.12 §5) en modo experimental V6.4, G7 usa las bases heredadas (tipo de la Historia, S2C sin f): se dice en el hallazgo
                     exp = str(((self.d or {}).get("configuracion_v64") or {}).get("modo") or "") == "Experimental"
-                    self.add("G7", "desviación", f"rentabilidad marginal {e} = S2C {s} × margen {m} × (1 − {t:.3f}) = {s * m * (1 - t):.3f} > 2 × ROIC histórico ({2 * c55:.3f})"
-                             + (" [bases heredadas: tipo de la Historia y S2C sin f; en modo experimental no es la rentabilidad marginal del motor ni una comprobación del modelo experimental]" if exp else ""),
+                    self.add("G7", "desviación", f"rentabilidad marginal {e} = S2C {s} × margen {m} × (1 − {t:.3f}) = {s * m * (1 - t):.3f} > 2 × ROIC histórico ({2 * base7:.3f})"
+                             + rot7 + (" [bases heredadas: tipo de la Historia y S2C sin f; en modo experimental no es la rentabilidad marginal del motor ni una comprobación del modelo experimental]" if exp else ""),
                              e, "A, B", requiere_justificacion=True, consecuencia="justificar por qué cada euro nuevo rendiría el doble que la historia")
         # --- G10 probabilidades ---
         ps = [V["probabilidades"][e] for e in ESC]
