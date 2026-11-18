@@ -14,12 +14,12 @@ Páginas: AR2025, AR2024, Q2-26 y Q3-26 con la marca [PDF PAGE n] del texto, com
 - **NORMAL, 0,04 (= referencia).** Margen IFRS de 3,84 % en 2025 y media de cinco años de 3,78 %; redondeado, 0,04. Los cargos de 2023-2024, que trato como gasto, empujan hacia 0,035; el subyacente en 4,0 % tres años (AR2025 PDF p. 42; Q3-26 PDF p. 3) sostiene 0,04. Confianza media.
 - **BUENO, 0,045 (= referencia).** Volver al 4,4 % de 2021-2022 y sostenerlo: Europa sube hacia el 4,5 % de EE. UU. por escala y mezcla (3,3 % a 3,8 % en 2023-2025, AR2025 PDF p. 49; 4,0 % en el 3T de 2026) y los cargos de cierres no se repiten. Redondeado queda 0,06 puntos sobre el máximo histórico (Historia!C51): G5, justificada con el mecanismo. La mejora se la queda la empresa solo si los competidores no igualan cada bajada.
 
-## S2C marginal (B16:D16): 2,5 / 3,2 / 3,5 · sin referencia
+## S2C marginal (B16:D16): 3,9 / 5,4 / 5,9 · sin referencia · corregido en la vuelta C→B
 
-Historia!C53 no es un número y no lo sustituyo por el S2C medio del sector. Decido con el rango propio de ventas ÷ capital invertido desde la NIIF 16: 2,46 (2018) a 3,19 (2025, Historia!C54).
-- **MALO, 2,5.** El capital comprometido (centros de distribución de 860 M$, AR2025 PDF p. 51, y unos 1.000 M$ en Burlington, Q3-26 PDF p. 23) se gasta sin volumen y lo que crece viene de compras como Profi (2.867 mm de ventas por 1.210 de precio, AR2025 PDF p. 222).
-- **NORMAL, 3,2.** Cada euro nuevo pide el capital de hoy; la reinversión neta total de 2023-2025 (1.655 mm) frente a 5.368 mm de ventas nuevas da lo mismo. Rentabilidad marginal ≈ 10 %.
-- **BUENO, 3,5.** Más volumen por tienda y por centro; sigo un tramo la tendencia propia. Rentabilidad marginal ≈ 12 %, lejos de 2 × Historia!C55.
+Historia!C53 no es un número y no lo sustituyo por el S2C medio del sector. En la primera pasada (2,5 / 3,2 / 3,5) medí ventas ÷ capital invertido con el pasivo por arrendamientos. La fase C señaló, con razón, que el motor reinvierte en el perímetro A2_propio de `motor_a_f1.json` (sin derechos de uso ni PPA) y que la declaración F1 pide un solo perímetro para f, el ancla de S2C, el margen y el ROIC del terminal: el coste del local arrendado ya está en el margen (1.400 mm de amortización de derechos de uso en 2025, AR2025 PDF p. 272), y cargar también su capital como reinversión lo cobraba dos veces. Mido ahora ventas ÷ (capital invertido − arrendamientos), aproximación declarada (pasivo en lugar de derechos de uso, PPA sin restar): 3,89 (2018), 4,11, 5,17, 4,57, 4,83, 5,16, 5,15 y 5,43 (2025); el ancla A1_sin_ROU de la capa F1 es 5,10.
+- **MALO, 3,9.** Misma lógica: el peor año desde la NIIF 16; el capital comprometido se gasta sin volumen y lo que crece viene de compras como Profi (AR2025 PDF p. 222).
+- **NORMAL, 5,4.** Cada euro nuevo pide el capital propio de hoy (5,43 en 2025). Rentabilidad marginal ≈ 17 %.
+- **BUENO, 5,9.** Dos años más de la tendencia propia (+0,22 al año). Rentabilidad marginal ≈ 21 %, por encima de 2 × Historia!C55 (17,6 %), que mide el otro perímetro; frente al ROIC propio de 2021-2025 (12,6-16,3 %) es 1,4 veces la media: G7 justificada.
 
 ## g para siempre (B68:D68): 0,01 / 0,02 / 0,025 · mantiene la etapa 1
 
@@ -27,11 +27,14 @@ Historia!C53 no es un número y no lo sustituyo por el S2C medio del sector. Dec
 - **NORMAL, 0,02 (referencia 0,025).** Un supermercado maduro crece con el gasto nominal en comida; en el NORMAL la inversión en precio baja el ticket y queda algo por debajo de la inflación de alimentos. Con ROIC terminal = r el g casi no mueve el valor (GV; E3), y no lo elijo por eso.
 - **BUENO, 0,025 (referencia 0,03).** El BUENO no es de crecimiento eterno; 0,03 es casi la tasa sin riesgo (CV p. 5; E1) y queda sobre el centro del terminal que la dirección usa en sus pruebas de deterioro, 1,9-2,8 % (AR2025 PDF p. 238).
 
-## ROIC a largo plazo (B18:D18): 0,08 / 0,09 / 0,09
+## ROIC a largo plazo (B18:D18): 0,13 / 0,15 / 0,15 · corregido en la vuelta C→B
 
-- **MALO, 0,08 (referencia 0,09).** Con margen del 3,1-3,2 % el ROIC fue 7,9 % y 7,4 % en 2023-2024 (Historia fila 33): el MALO no gana su coste de capital a perpetuidad.
-- **NORMAL, 0,09 (= referencia).** C18 = No y la Historia da lo mismo: 8,8 % de media de cinco años (Historia!C55), 9,5 % en 2025.
-- **BUENO, 0,09 (= referencia).** Sin foso no defiendo una ventaja eterna: el retorno de los años 1-10 (≈ 12 %) vuelve a r cuando los competidores igualan precios. El salto del año 11, unos 3 puntos, es esa pérdida y la acepto. «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM).
+Mismo perímetro que el S2C. ROIC propio, EBIT × (1 − t) ÷ (capital invertido − arrendamientos): 15,8 %, 16,3 %, 13,3 %, 12,6 % y 16,1 % en 2021-2025, media 14,8 %; con todo el capital, 8,8 % (Historia!C55). La razón entre las dos medidas es 1,69, y traduzco con ella la lógica de la primera pasada (0,08 / 0,09 / 0,09).
+- **MALO, 0,13.** El ROIC propio de los años de margen del MALO (2023-2024). Equivale a un 7,7 % con todo el capital: el MALO sigue sin ganar su coste.
+- **NORMAL, 0,15.** La media de cinco años: el equivalente de r en este perímetro. Salto del año 11 ≈ 2 puntos.
+- **BUENO, 0,15.** Sin foso el retorno de los años 1-10 (≈ 21 % aquí) vuelve al del NORMAL cuando los competidores igualan precios; el salto del año 11 sale de unos 6 puntos, por encima del umbral de 5, y es esa pérdida de ventaja. «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM).
+
+Las tres superan r + 3 puntos (G4) por el perímetro, no por un foso: C18 = No se mantiene, porque el ROIC con todo el capital sigue siendo la medida económica y el EBIT NIIF 16 no lleva los 465 mm de intereses de arrendamientos (AR2025 PDF p. 227), así que el ROIC propio sobrestima el retorno del accionista. `comprobar_gramatica.py` no admite justificar G4 con C18 = No (la marca sin justificar por construcción): la gramática sale con código 1 por G4 en los tres escenarios. No bajo el ROIC por debajo de 0,12 para que calle: sería elegir la cifra por el umbral y volver a mezclar perímetros. Es un conflicto entre la regla G4, medida con todo el capital, y la declaración F1, que tiene que resolver la persona responsable.
 
 ## Probabilidades (B69:D69): 0,2 / 0,6 / 0,2 · convención argumentada
 
@@ -46,8 +49,8 @@ El margen se movió en una banda de 2,9-4,4 % en diez años (Historia!C50:C51), 
 
 ## Lo que la fase C debería mirar
 
-Las tres desviaciones grandes son hacia abajo en crecimiento (NORMAL −0,02, BUENO −0,025) y g (−0,005 en los tres) y la quiebra quitada (−0,05). Las sostengo con hechos, pero juntas acercan el análisis al lado de regatear. El S2C no tiene referencia y es mi palanca con menos fundamento (confianza baja en los tres).
+Las desviaciones de la primera pasada fueron hacia abajo en crecimiento (NORMAL −0,02, BUENO −0,025) y g (−0,005 en los tres) y la quiebra quitada (−0,05); la vuelta C→B sube S2C y ROIC terminal al perímetro del motor y no toca nada más. El S2C sigue sin referencia y medido con una aproximación (pasivo por arrendamientos, PPA sin restar); lo resolverían los derechos de uso y la PPA en libros de 2021-2025. G4 queda sin justificar por construcción del script (C18 = No).
 
 ## Los dos errores opuestos
 
-Más cerca de **regatear**: Ahold es estable, solvente y devuelve unos 2.000 mm al año (AR2025 PDF p. 56), y su retorno se parece a mi r; con crecimiento y g por debajo de las referencias y un MALO con ROIC bajo r, añadir quiebra o subir el MALO sería castigar el mismo riesgo tres veces. «We left a lot of money on the table through early fretting» (TCI p.79; HIM). Pagar cualquier cosa por calidad lo tengo lejos: la cuota de Albert Heijn no es retorno (C18 = No) y el ROIC terminal no pasa de r en ningún escenario.
+Más cerca de **regatear**: Ahold es estable, solvente y devuelve unos 2.000 mm al año (AR2025 PDF p. 56), y su retorno con todo el capital se parece a mi r; con crecimiento y g por debajo de las referencias y un MALO que no gana su coste, añadir quiebra o subir el MALO sería castigar el mismo riesgo tres veces, y medir la reinversión con el local arrendado lo cobraba dos veces: por eso acepté la corrección de perímetro, que va al alza. «We left a lot of money on the table through early fretting» (TCI p.79; HIM). Pagar cualquier cosa por calidad lo tengo lejos: la cuota de Albert Heijn no es retorno (C18 = No) y el ROIC terminal, medido con todo el capital, no pasa de r en ningún escenario.
