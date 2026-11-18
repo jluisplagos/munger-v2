@@ -11,6 +11,8 @@ Rutas:
 - corpus Damodaran (damodaran.md, si existe): /home/user/e_work/wt_examen/munger_v2_r1/personaje_v2/corpus/damodaran.md
 - modelo y esfuerzo previstos (config_v2.json → modelos): {"modelo": "opus", "esfuerzo": "alto"}
 
+**CORRECCIÓN pedida por el pipeline:** la fase C pide revisar palancas: Palancas!B16:D16 (S2C) y Palancas!B18:D18 (ROIC LP), ambas al alza, al perímetro A2_propio del motor (motor_a_f1.json): hoy salen del capital con arrendamientos (Historia!C54, C55) y cobran dos veces el local arrendado. S2C: ventas ÷ (capital_invertido − arrendamientos) = 3,89 (2018) a 5,43 (2025). ROIC: NOPAT ÷ ese capital = 12,6-16,3 % (2021-2025). G4 como perímetro, no foso; C18 = No. Nada más 
+
 ---
 
 # Prompt de la FASE B · Traducción a palancas (modelo: Opus, esfuerzo alto, contexto limpio, uno por empresa)
