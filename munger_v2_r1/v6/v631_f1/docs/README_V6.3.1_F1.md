@@ -144,7 +144,8 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
 **Pruebas de esta ronda (resultados literales; plantilla reconstruida `eaece01a…`, porque cambió C53):** `test_v631_f1.py` `28/28 … PASAN` ·
 `test_motor_a_f1.py` `163/163 … PASAN` · `probar_v631_f1.py estructura` `21/21 … PASAN` · `flock … probar_v631_f1.py a0` `22/22 … PASAN`
 (0 celdas distintas, igualdad exacta) · `flock … probar_v631_f1.py f1` `35/35 … PASAN` · `flock … prueba_pipeline_v631.py` `9/9 … PASAN` ·
-`flock … prueba_pipeline_f1.py` `7/7 … PASAN`.
+`flock … prueba_pipeline_f1.py` `7/7 … PASAN`. `flock … bash verificar_paquete.sh completa` sobre una copia limpia de `0917de9`: `RESULTADO GLOBAL: PASA`, código 0
+(`pruebas/verificacion_completa_0917de9.txt`).
 
 **No corregido (declarado):** V631-6 (el oráculo contrasta valores en caché: en el pipeline lo cubren el recálculo forzado y
 `verificar_v631.py` en el paso 12; a mano sobre un libro de origen desconocido, no); V631-7 (rótulos de A30/A76; la nota de A90 explica
