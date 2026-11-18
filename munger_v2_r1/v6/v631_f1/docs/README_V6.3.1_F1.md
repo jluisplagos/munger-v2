@@ -165,3 +165,52 @@ propia (lo cubre solo la verificación de la fila 8 y de las series).
    `test_v631_f1.py`, `probar_v631_f1.py` y `prueba_pipeline_v631.py` no están registrados en `verificar_paquete.sh`.
 5. **No comprobado:** Excel real (todo el recálculo es LibreOffice); `regresion_elis_f1.py` no se volvió a ejecutar (escribe en los
    resultados de F1-IMPL).
+
+## 10. `F1-SERIES` con escala y ceros sin cifra (18-nov-2026, rama `f1/series-escala`)
+
+**Hecho.** El examen de Jumbo (`2026-11_examen_universo/jumbo_d`) no tenía salida honrada en `F1-SERIES`: Jumbo publica en euros enteros
+(el modelo trabaja en millones) y su PPA es cero sin cifra impresa (no hay intangibles de combinaciones). La revisión de `f1/usgaap` (R1-2)
+encontró el mismo hueco con un cero impreso como «—» (10-K de Zoetis). Cambio en `motor_a_f1.py` (`leer_serie`, `_guarda_fuentes_series`
+y las funciones nuevas `_escala_serie`, `_clase_cero` y `_cero_en_pagina`):
+- `escala` opcional en cada año de una serie: «unidades», «miles» o «millones» (sin ella, la del modelo: el comportamiento anterior).
+  `valor_fuente` sigue en la escala del modelo y tiene que ser **exactamente** la cifra de `literal` convertida; la cifra impresa sigue
+  buscándose literal, completa, en su fila y su columna. Otro valor de `escala` → DATOS INVÁLIDOS (también en `leer_serie`: V-F1e).
+- Cero impreso sin dígitos (`literal` «—», «–», «-» o «nil», `valor_fuente` 0): exige `fila`; la marca, aislada y después de la etiqueta,
+  en esa línea y en la columna del ejercicio. Sin encabezado alineado queda PENDIENTE, como una cifra.
+- Cero sin cifra impresa: `cero_comprobado` {`motivo`, `cita`}, sin `literal` y con `valor_fuente` 0. La cita tiene que estar literal en la
+  página citada (espacios y mayúsculas aparte), con al menos 8 palabras y sin importes. El programa comprueba la cita, **no** que pruebe la
+  inexistencia: queda PENDIENTE de revisor (no bloquea F1; la aptitud por entradas sigue en «no»). Amplía el límite 3 de este §9.
+- Nada más se relaja. Batería `personaje_v2/pruebas/test_f1_series_escala.py` (55 pruebas, registrada en `verificar_paquete.sh` en los
+  dos modos; con el código anterior pasan 12 de 55: las que comprueban que lo que bloqueaba sigue bloqueando).
+
+**Ronda 2 (revisión independiente, `coordinacion/cierre_v2/examen/revisiones/f1_series_escala/REVISION.md`).**
+- *Hallazgo A (cero impreso):* una marca solo es la celda del ejercicio si a su derecha no quedan letras (no es parte de la etiqueta:
+  «Finance lease - principal», «Financing cash flows – finance leases» del 10-K de Zoetis) y no la sigue, con un espacio como mucho, una
+  cifra o un paréntesis (no es el signo de «- 7»). Si no queda ninguna, DATOS INVÁLIDOS.
+- *Hallazgo B (escala):* con `escala` declarada, la página tiene que declarar esa escala en un encabezado (lista cerrada `MARCAS_ESCALA`:
+  «(in millions)», «(amounts in Euro)», «in thousands of euros», «€000», «EUR m», «en miles de euros»…; la prosa con una cifra en medio
+  no cuenta). Otra escala → DATOS INVÁLIDOS; sin encabezado reconocible, o con varias escalas, la escala queda PENDIENTE («declarada y NO
+  comprobada»). Sin `escala` no se contrasta nada (el comportamiento anterior). En Jumbo las cuatro páginas dicen «(amounts in Euro)».
+- *Cero comprobado, visible:* **antes un cero sin cifra impresa dejaba F1-SERIES en INCOMPLETO; ahora no la bloquea.** No hay vía para que
+  un revisor lo cierre dentro de la capa: queda siempre pendiente y, para que nadie lo lea como comprobado, cada año sale en un aviso propio,
+  `F1-SERIES-CERO` (AVISO, PENDIENTE), con su motivo y su cita, que aparece en la tabla de guardas de `motor_a_f1_resultado.md` y en los
+  avisos del bloque `motor_a_f1` de la ficha. La aptitud por entradas sigue en «no».
+- La batería pasa a 74 pruebas (13 nuevas fallan con el código de la ronda 1), con un caso US: con la capa de `f1/usgaap`, la línea de
+  Zoetis en `pagos_arr_financiero_principal`; sin ella, la misma línea en `da_ppa`.
+- Jumbo (copia de comprobación): la frase de AR2025 p. 189 solo se usa para 2025; para 2021–2024 no prueba nada (es de octubre de 2025) y
+  esos años siguen sin cero declarado (INCOMPLETO) hasta que la persona responsable decida.
+
+**Retoques tras la ronda 2 (`REVISION_R2.md`, conforme con límites).**
+- *Límite 2:* «All amounts in euros (thousands)» ya no se lee como «unidades» (el patrón admite un paréntesis antes de «thousands»,
+  «millions» o «'000»): declarado «unidades» queda PENDIENTE y declarado «miles» ya no se rechaza (queda PENDIENTE: «(thousands)» solo no
+  es una marca de la lista).
+- *Límite 1:* la escala se busca en el **bloque de la tabla** de la cifra, no en toda la página: desde la línea de la cifra (la que lleva
+  también la `fila`; la primera si hay varias) hacia arriba hasta dos líneas en blanco seguidas o el principio de la página
+  (`_escala_de_tabla`). Lo que va debajo (otra tabla «(in thousands)», como en la sonda R1 del revisor) no cuenta. **Límite que queda:**
+  una página de continuación cuyo encabezado quedó en la página anterior no tiene marca en el bloque y la escala queda PENDIENTE; y si
+  dos tablas van seguidas sin dos líneas en blanco entre ellas, la marca de la de arriba entra en el bloque de la de abajo (p. ej., la
+  sonda R1 del revisor con la tabla «(in thousands)» encima, y no debajo, de la de arrendamientos sin encabezado propio daría un falso
+  «comprobado» con «miles»). En Jumbo las cinco cifras siguen con la escala comprobada.
+- *Detalle menor:* con la escala pendiente, el año ya no cuenta además como columna comprobada; la columna se sigue examinando (otra
+  columna → DATOS INVÁLIDOS).
+- Batería: 80 pruebas (6 nuevas, que fallan con el código de la ronda 2).

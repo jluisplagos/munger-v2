@@ -314,6 +314,23 @@ else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
 fi
 
+# (4.15, F1-SERIES-ESCALA) escala de la cifra impresa, cero comprobado por una frase y cero impreso sin dígitos en F1-SERIES (examen,
+# jumbo_d; revisión de f1/usgaap, R1-2): sin LibreOffice ni binarios, unos segundos; obligatoria en los dos modos; al menos 80 pruebas (55 en la ronda 1, 74 en la 2)
+echo "== batería de F1-SERIES con escala y ceros (personaje_v2/pruebas/test_f1_series_escala.py; obligatoria en los dos modos; sin LibreOffice)"
+SALIDA_X="$(mktemp)"
+if [ -f personaje_v2/pruebas/test_f1_series_escala.py ]; then
+  ( cd personaje_v2 && python3 -B pruebas/test_f1_series_escala.py ) > "$SALIDA_X" 2>&1; rc=$?
+else
+  rc=127; echo "FALTA personaje_v2/pruebas/test_f1_series_escala.py" > "$SALIDA_X"
+fi
+linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de F1-SERIES con escala y ceros PASAN$' "$SALIDA_X" | tail -1)"
+n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 80 ]; then
+  echo "$linea"; echo "RESULTADO F1-SERIES con escala y ceros: PASA"
+else
+  tail -5 "$SALIDA_X"; echo "RESULTADO F1-SERIES con escala y ceros: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 80 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+fi
+
 echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_V64="$(mktemp)"

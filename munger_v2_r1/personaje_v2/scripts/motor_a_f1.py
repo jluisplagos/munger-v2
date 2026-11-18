@@ -189,6 +189,9 @@ def leer_serie(decl, nombre, anios):
         if sg not in (1, -1):
             problemas.append(f"series.{nombre}.{y}: signo sin declarar (1 o −1)")
             continue
+        if "escala" in e and _escala_serie(e) is None:   # (F1-SERIES-ESCALA) la escala de la cifra impresa: solo los tres valores
+            problemas.append(f"series.{nombre}.{y}: escala {e.get('escala')!r} no válida (se declara «unidades», «miles» o «millones»)")
+            continue
         trat = re.sub(r"[\s.,;:()¡!¿?«»\"']+", " ", str(e.get("tratamiento") or "").lower()).strip()
         if sg == -1 and trat in SIN_TRATAMIENTO:
             problemas.append(f"series.{nombre}.{y}: signo −1 con el tratamiento «ninguno»: el cambio de signo se declara en «tratamiento»")
@@ -1086,6 +1089,144 @@ def _cifra_en_columna(pagina, fila, anio, literal, tol=4):
     return "invalida", f"la cifra {literal!r} de la fila {fila!r} está en la columna de {sorted(anios_col)}, no en la de {anio}"
 
 
+# (F1-SERIES-ESCALA) Escala de la cifra impresa y ceros sin cifra en las series F1. El modelo trabaja en millones (la misma tabla que
+# fase1_historia.ESCALA): «valor_fuente» es la cifra con su signo publicado en la escala del modelo y «escala» dice en qué escala está
+# impresa la cifra de «literal»; sin «escala», la del modelo (el comportamiento anterior). La comparación sigue siendo exacta.
+ESCALAS_SERIE = {"unidades": Fr(1, 10 ** 6), "miles": Fr(1, 10 ** 3), "millones": Fr(1)}
+CEROS_IMPRESOS = ("—", "–", "-", "nil")   # un cero publicado sin dígitos, en la fila y la columna de su ejercicio
+CITA_CERO_PALABRAS = 8                    # una cita más corta es un fragmento (un encabezado, una etiqueta): no prueba una inexistencia
+
+
+def _escala_serie(e):
+    """Factor de la escala declarada en un elemento de serie hacia la del modelo (millones); None si «escala» no es uno de los tres valores."""
+    x = e.get("escala", "millones")
+    return ESCALAS_SERIE.get(x) if isinstance(x, str) else None
+
+
+def _clase_cero(e):
+    """«comprobado» (cero sin cifra impresa, probado por una frase: «cero_comprobado» {motivo, cita}), «impreso» (cero publicado como «—»,
+    «–», «-» o «nil» en «literal») o None (una cifra con dígitos: el camino de siempre)."""
+    if "cero_comprobado" in e:
+        return "comprobado"
+    lit = e.get("literal")
+    return "impreso" if isinstance(lit, str) and lit.strip() in CEROS_IMPRESOS else None
+
+
+# (revisión de f1/series-escala, hallazgo B) marcas de escala de una página (lista cerrada, en minúsculas y con los espacios reducidos).
+# Solo encabezados, no importes de la prosa: «EUR 15 million» no es una marca (hay una cifra en medio).
+_MON = r"(?:eur|euros?|usd|us\$|gbp|chf|sek|dkk|nok)"
+MARCAS_ESCALA = {
+    "millones": [r"\bin millions?\b", r"\bmillions? of (?:u\.?s\.? )?(?:euros?|eur|dollars|usd|pounds|francs)\b", r"\(\s*millions?\s*\)", r"\b" + _MON + r"\s?(?:m|mn|million|millions)\b",
+                 r"[€$£]\s?(?:m|mn|million|millions)\b", r"(?<!\w)(?:m€|meur|mio\.? ?(?:eur|€))(?!\w)", r"\ben millones\b", r"\(\s*millones de\b"],
+    "miles": [r"\bin thousands?\b", r"\bthousands? of (?:u\.?s\.? )?(?:euros?|eur|dollars|usd|pounds|francs)\b", r"\(\s*'?000\s*\)", r"[€$£]\s?'?000\b", r"\b" + _MON + r"\s?'?000\b",
+              r"\b" + _MON + r"\s?(?:k|thousand|thousands)\b", r"[€$£]\s?(?:k|thousand|thousands)\b", r"(?<!\w)(?:k€|keur|teur|t€)(?!\w)",
+              r"\ben miles\b", r"\(\s*miles de\b"],
+    "unidades": [r"\b(?:amounts|figures|expressed)\s+in\s+(?:euros?|eur|u\.?s\.? dollars|dollars|usd)\b(?!\s?\(?\s?(?:m\b|mn\b|millions?|thousands?|'?000|k\b))",
+                 r"\(\s*(?:in\s+)?(?:euros?|eur|€|usd|\$)\s*\)", r"\b(?:importes |cifras )?(?:expresad[oa]s )?en euros\b(?! ?(?:miles|millones))"],
+}
+
+
+def _escala_de_pagina(pagina):
+    """Escalas que declara la página por sus encabezados («(in millions)», «(amounts in Euro)», «in thousands of euros», «€000»…)."""
+    t = re.sub(r"\s+", " ", str(pagina)).lower()
+    return {esc for esc, pats in MARCAS_ESCALA.items() if any(re.search(p, t) for p in pats)}
+
+
+def _escala_de_tabla(pagina, literal, fila=None):
+    """(ronda 2, límite 1) Escalas que declara el bloque de la tabla de la cifra, no toda la página: desde la línea de la cifra (la que
+    contiene también la «fila», si la hay; la primera, si hay varias) hacia arriba hasta dos líneas en blanco seguidas o el principio de
+    la página. Lo que va debajo de la fila (otra tabla, otra nota) no cuenta. Si el encabezado de la tabla quedó en la página anterior
+    (página de continuación), el bloque no tiene marca y la escala queda PENDIENTE."""
+    lineas = str(pagina).splitlines()
+    cifra = [i for i, ln in enumerate(lineas) if any(_sin_esp(m.group(0)) == _sin_esp(literal) for m in _TOK.finditer(ln))]
+    con_fila = [i for i in cifra if fila and _norm_fila(fila) and _norm_fila(fila) in _norm_fila(lineas[i])]
+    i = (con_fila or cifra or [len(lineas) - 1])[0]
+    j = i
+    while j > 1 and not (lineas[j - 1].strip() == "" and lineas[j - 2].strip() == ""):
+        j -= 1
+    if j == 1 and lineas[0].strip():
+        j = 0
+    return _escala_de_pagina("\n".join(lineas[j:i + 1]))
+
+
+def _aviso_cero_comprobado(G, et, e):
+    """(revisión de f1/series-escala, punto 3) Un cero comprobado por una frase no bloquea F1-SERIES, pero tampoco está comprobado: queda
+    como aviso propio, F1-SERIES-CERO (PENDIENTE de revisor), con su motivo y su cita, en la guarda, en motor_a_f1_resultado.md (tabla de
+    guardas) y en los avisos del bloque motor_a_f1 de la ficha. Un aviso por evaluación; cada año se añade a su detalle."""
+    cc = e.get("cero_comprobado") or {}
+    linea = (f"{et}: motivo «{str(cc.get('motivo')).strip()[:300]}»; cita (p. {e.get('pagina')} de {e.get('documento')!r}) "
+             f"«{str(cc.get('cita')).strip()[:200]}»")
+    g = next((x for x in G.lista if x["id"] == "F1-SERIES-CERO"), None)
+    if g is None:
+        G.add("F1-SERIES-CERO", True, "AVISO", "PENDIENTE",
+              "CERO SIN CIFRA IMPRESA, PENDIENTE DE REVISOR (no comprobado: el programa solo ha visto que la frase está en la página; no "
+              "bloquea F1-SERIES y la aptitud por entradas sigue en «no»): " + linea, "(1a) · F1-SERIES-ESCALA")
+    else:
+        g["detalle"] += " · " + linea
+
+
+def _cero_en_pagina(pagina, e, anio):
+    """(F1-SERIES-ESCALA; revisión de f1/usgaap, R1-2) Comprueba un cero en la página citada. Devuelve («ok» | «pendiente» | «invalida» |
+    «incompleta», detalle):
+      - cero impreso: la marca de «literal», aislada (no pegada a una cifra ni a una palabra), en la única línea de la página que contiene
+        la «fila» declarada, después de su etiqueta, y en la columna del ejercicio (alineada con su encabezado, como _cifra_en_columna). Sin
+        «fila» → incompleta (un guion suelto en una página no prueba nada); fila sin la marca, o la marca solo en columnas de otros
+        ejercicios → invalida; sin encabezado alineado → pendiente (no bloquea F1; la aptitud por entradas sigue en «no»);
+      - cero comprobado: «motivo» y «cita» literal (espacios y mayúsculas aparte) en la página, de al menos CITA_CERO_PALABRAS palabras y
+        sin importes. El programa comprueba que la frase está en la página, no que pruebe la inexistencia: queda siempre «pendiente» (la
+        confirma un revisor; no bloquea F1 y la aptitud por entradas sigue en «no»)."""
+    import verificacion_entradas as VE
+    if _clase_cero(e) == "comprobado":
+        cc = e.get("cero_comprobado")
+        if not isinstance(cc, dict):
+            return "invalida", "«cero_comprobado» se declara {motivo, cita}"
+        if not str(cc.get("motivo") or "").strip() or not str(cc.get("cita") or "").strip():
+            return "incompleta", "«cero_comprobado» sin «motivo» o sin «cita» literal que pruebe la inexistencia"
+        cita = VE._norm_txt(cc["cita"])
+        if len(cita.split()) < CITA_CERO_PALABRAS:
+            return "invalida", f"la cita del cero tiene menos de {CITA_CERO_PALABRAS} palabras: un fragmento no prueba la inexistencia"
+        importes = [s for s in (m.group(0).rstrip(".,") for m in _TOK.finditer(cita)) if not re.fullmatch(r"\(?(?:19|20)\d\d\)?", s)
+                    and (re.search(r"\d[.,]\d", s) or (s.startswith("(") and s.endswith(")"))) and any(v != 0 for v in _literal_valores(s))]
+        if importes:
+            return "invalida", (f"la cita del cero contiene importes ({', '.join(importes[:3])}): una cifra no prueba una inexistencia "
+                                f"(un cero impreso se declara en «literal»)")
+        if cita not in VE._norm_txt(pagina):
+            return "invalida", f"la cita del cero no está en la página {e.get('pagina')}"
+        return "pendiente", ("cero comprobado por una frase de la página: el programa comprueba la cita, no que pruebe la inexistencia; "
+                             "la confirma un revisor (la aptitud por entradas sigue en «no»)")
+    lit, fila = e["literal"].strip(), str(e.get("fila") or "").strip()
+    if not fila:
+        return "incompleta", f"cero impreso {lit!r} sin «fila»: una marca sin dígitos solo prueba un cero en su fila y su columna"
+    lineas = [x.expandtabs(8) for x in str(pagina).splitlines()]
+    cand = [i for i, x in enumerate(lineas) if _norm_fila(fila) in _norm_fila(x)]
+    if len(cand) != 1:
+        return "incompleta", f"la fila {fila!r} está en {len(cand)} líneas de la página (hace falta una): el cero impreso {lit!r} no se puede situar"
+    i = cand[0]
+    m = re.search(r"\s+".join(map(re.escape, fila.split())), lineas[i], re.I)
+    # (revisión de f1/series-escala, hallazgo A) una marca es una celda: se descarta si a su derecha quedan letras (es parte de la etiqueta:
+    # «Finance lease - principal», «Financing cash flows – finance leases») o si la sigue, con un espacio como mucho, una cifra o un
+    # paréntesis (es el signo de un negativo: «- 7»). Otra marca «nil» a la derecha no cuenta como letras.
+    marcas = [mk for mk in re.compile(r"(?<!\S)" + re.escape(lit) + r"(?!\S)").finditer(lineas[i], m.end() if m else 0)
+              if not re.search(r"[^\W\d_]", re.sub(r"(?<!\S)nil(?!\S)", "", lineas[i][mk.end():], flags=re.I))
+              and not re.match(r" ?[\d(]", lineas[i][mk.end():])]
+    if not marcas:
+        return "invalida", f"la fila {fila!r} no contiene el cero impreso {lit!r} como marca aislada después de su etiqueta"
+    alineados = []
+    for mk in marcas:
+        al = None
+        for k in range(i - 1, max(-1, i - 80), -1):
+            ys = [y.group(1) for y in _ANIO.finditer(lineas[k]) if abs(y.end() - mk.end()) <= 4]
+            if ys:
+                al = ys[0]
+                break
+        alineados.append(al)
+    if str(anio) in alineados:
+        return "ok", f"cero impreso {lit} en la columna {anio} de la fila {fila!r}"
+    if None in alineados:
+        return "pendiente", f"sin encabezado de ejercicio alineado con el cero impreso {lit!r} en la fila {fila!r}"
+    return "invalida", f"el cero impreso {lit!r} de la fila {fila!r} está en la columna de {sorted(set(alineados))}, no en la de {anio}"
+
+
 def _fuente_del_expediente(carpeta, archivo):
     """Ruta real de un archivo DENTRO de la carpeta del expediente (no del paquete ni de otro expediente); None si no lo está o no existe."""
     if not carpeta or not archivo or os.path.isabs(str(archivo)):
@@ -1111,6 +1252,14 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
       - «documento» registrado en «fuentes_series» con su «archivo» (dentro de la carpeta del expediente) y su «sha256» vigente; un PDF, con
         «archivo_texto» y «sha256_texto»; «archivo» en la entrada, si lo hay, el mismo (la fuente queda ligada al documento);
       - la página citada existe y contiene la cifra como cifra completa (no como parte de otra: «149.5» no vale en «(1149.57)»);
+      - (F1-SERIES-ESCALA) «escala» opcional de la cifra impresa («unidades», «miles» o «millones»; sin ella, la del modelo, en millones):
+        «valor_fuente» (en la escala del modelo) tiene que ser exactamente la cifra de «literal» convertida (Jumbo publica en euros:
+        «(9.199.774)» con escala «unidades» es −9,199774); otro valor de «escala» → DATOS INVÁLIDOS. Un cero publicado sin dígitos
+        («—», «–», «-», «nil» en «literal», «valor_fuente» 0) se busca como marca aislada en su «fila» y en la columna del ejercicio; un cero
+        sin cifra impresa se declara «cero_comprobado» {motivo, cita}, sin «literal» y con «valor_fuente» 0: la cita literal tiene que estar
+        en la página citada (al menos 8 palabras, sin importes) y queda PENDIENTE de revisor, como una columna (_cero_en_pagina), con su
+        aviso propio F1-SERIES-CERO. (Ronda 2) La escala declarada se contrasta con los encabezados de la página (_escala_de_pagina): otra
+        escala → DATOS INVÁLIDOS; sin encabezado reconocible → PENDIENTE;
       - «fila» (la etiqueta de la fila en la página): la cifra está en esa fila y en la columna del ejercicio del año. Si la fila o la columna
         no se pueden identificar, la columna queda PENDIENTE (no bloquea F1; la aptitud por entradas sigue en «no» porque las filas 85–87 del
         libro entran en el universo de verificacion_entradas.py y exigen su comprobación por un revisor).
@@ -1161,16 +1310,26 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
             if not isinstance(e, dict):
                 continue
             et = f"series.{nombre}.{k}"
-            vals = _literal_valores(e.get("literal"))
+            cero = _clase_cero(e)   # (F1-SERIES-ESCALA) None: cifra con dígitos · «impreso»: «—», «–», «-», «nil» · «comprobado»: sin cifra
+            vals = {Fr(0)} if cero else _literal_valores(e.get("literal"))
             vf = Q(e.get("valor_fuente"))
-            if e.get("literal") in (None, ""):
+            esc = _escala_serie(e)
+            if esc is None:
+                inval.append(f"{et}: escala {e.get('escala')!r} no válida (se declara «unidades», «miles» o «millones»)")
+                continue
+            if cero == "comprobado" and e.get("literal") not in (None, ""):
+                inval.append(f"{et}: «cero_comprobado» con «literal» {e.get('literal')!r}: un cero sin cifra impresa no lleva cifra")
+                continue
+            if e.get("literal") in (None, "") and cero is None:
                 incomp.append(f"{et}: sin «literal» (la cifra tal como se publica, con su signo)")
                 continue
             if not vals:
                 inval.append(f"{et}: «literal» {e.get('literal')!r} no es una cifra")
                 continue
-            if vf not in vals:
-                inval.append(f"{et}: «valor_fuente» {e.get('valor_fuente')!r} no es la cifra publicada {e.get('literal')!r} con su signo (R415-SIGNO, T9)")
+            if vf not in {v * esc for v in vals}:
+                inval.append(f"{et}: «valor_fuente» {e.get('valor_fuente')!r} no es la cifra publicada {e.get('literal')!r} con su signo"
+                             + (f" en la escala del modelo (impresa en {e['escala']})" if "escala" in e else "")
+                             + (" (un cero tiene «valor_fuente» 0)" if cero else "") + " (R415-SIGNO, T9)")
             doc = str(e.get("documento") or "")
             f = fs.get(doc) if isinstance(fs.get(doc), dict) else {}
             if e.get("archivo") and f and os.path.normpath(str(e["archivo"])) != os.path.normpath(str(f.get("archivo"))):
@@ -1187,9 +1346,42 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
             if est != "ok":
                 incomp.append(f"{et}: {pag}")
                 continue
+            if cero:   # (F1-SERIES-ESCALA) un cero sin dígitos: su marca en la fila y la columna, o la frase que prueba la inexistencia
+                est_c, det = _cero_en_pagina(pag, e, k)
+                {"invalida": inval, "incompleta": incomp, "pendiente": col_pend}.get(est_c, []).append(f"{et}: {det}")
+                if est_c == "ok":
+                    col_ok += 1
+                elif est_c == "pendiente" and cero == "comprobado":   # (revisión, punto 3) visible como aviso propio: no está comprobado
+                    _aviso_cero_comprobado(G, et, e)
+                continue
             if not any(_sin_esp(m.group(0)) == _sin_esp(e["literal"]) for ln in pag.splitlines() for m in _TOK.finditer(ln)):
                 inval.append(f"{et}: la cifra {e['literal']!r} no está, como cifra completa, en la página {e.get('pagina')} de {doc!r}")
                 continue
+            if "escala" in e:   # (revisión de f1/series-escala, hallazgo B; ronda 2, límite 1) la escala, contra el bloque de su tabla
+                hay = _escala_de_tabla(pag, e["literal"], e.get("fila"))
+                if hay and e["escala"] not in hay:
+                    inval.append(f"{et}: escala declarada «{e['escala']}», pero la tabla de la cifra (página {e.get('pagina')} de {doc!r}) "
+                                 f"declara {sorted(hay)}")
+                    continue
+                if hay != {e["escala"]}:
+                    col_pend.append(f"{et}: escala «{e['escala']}» declarada y NO comprobada: la tabla de la cifra (página {e.get('pagina')}) "
+                                    + ("declara varias escalas " + str(sorted(hay)) if hay else "no tiene encabezado de escala reconocible"))
+                    # (ronda 2, detalle menor) con la escala pendiente el año no cuenta como columna comprobada; la columna se sigue
+                    # examinando (una cifra de otro ejercicio sigue siendo DATOS INVÁLIDOS)
+                    try:
+                        anio_e = int(k)
+                    except ValueError:
+                        inval.append(f"{et}: año no válido")
+                        continue
+                    if not str(e.get("fila") or "").strip():
+                        col_pend.append(f"{et}: sin «fila» (etiqueta de la fila): columna y ejercicio sin comprobar")
+                        continue
+                    est_e, det_e = _cifra_en_columna(pag, e["fila"], anio_e, e["literal"])
+                    if est_e == "invalida":
+                        inval.append(f"{et}: {det_e}")
+                    elif est_e == "pendiente":
+                        col_pend.append(f"{et}: {det_e}")
+                    continue
             try:
                 anio = int(k)
             except ValueError:
