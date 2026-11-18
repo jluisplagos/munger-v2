@@ -107,6 +107,8 @@ Lo resolverían dos datos:
 
 ## 9. Turno 2 · comprobación conjunta, estado y conclusión
 
+**Nota:** las secciones 9 a 15 recogen el cierre antes de responder al contradictor (No · descartar). Mandan la sección 16 y `fase_c.json`: Vigilar · esperar, con objetivo provisional.
+
 No existe `comprobacion_conjunta.json`: con una conclusión no favorable no procedía. `sobrevive = null` y `resultado = no_procede`.
 
 Cierre: **estado concluido (provisional hasta la auditoría) · cubo No · acción descartar**. No hay precio objetivo.
@@ -167,3 +169,26 @@ Las tres son del negocio y se pueden comprobar con el informe anual de 2027.
 El cubo difiere porque la etapa 1 llamó foso a la cuota y a la densidad. La Historia de diez años da un ROIC del capital total por debajo de r, y el ahorro se lo queda el cliente. El precio de Sí es más alto porque las tiendas arrendadas se pagan dentro de f y la regla es otra. Las dos versiones coinciden en lo esencial: a precio de mercado no hay margen. La etapa 1 acertó al ver la estructura rígida; se equivocó, creo, al llamar foso a una ventaja que no da retorno.
 
 Confianza global: media.
+
+## 16. Respuesta al contradictor
+
+Objeciones de `coordinacion/cierre_v2/examen/contradictor/ahold/OBJECIONES.json`. Las cifras salen de mi réplica del motor, que reproduce el libro al céntimo; no son el recálculo oficial.
+
+| Objeción | Respuesta | Dato | Efecto |
+|---|---|---|---|
+| O1 · al flujo del accionista le faltan cobros | **No rebatida.** Posible defecto de entrada o de plantilla | El estado de flujos de 2025 (AR2025 PDF p. 216) presenta en inversión los intereses cobrados (130; 196 en 2024), los cobros de subarriendos (138; 125) y los dividendos de negocios conjuntos (28; 22). La Historia fila 35, C52 y f no los suman, y sí restan los intereses pagados y todos los pagos de arrendamiento | Con f = 0,0015–0,0027 el precio de Sí queda entre 28,97 y 30,73 €. Mi incoherencia 5 del turno 1 tenía el signo equivocado. Zona caro. Cuenta para el movimiento |
+| O2 · acciones de 2025 con precio de 2026 | **No rebatida.** Posible defecto de entrada o de plantilla | 865,17 millones de acciones a 27-sep-2026 (Q3-26 PDF p. 21), frente a 905 en C55. Las recompras de 2026 salieron de una caja que el motor no resta; aun así, llevando el valor a noviembre de 2026 y restando lo repartido, el efecto sigue al alza (+4–5 %) | Precio de Sí 28,94 € por sí sola; con O1, 30,23–32,07 € (ponderado 32,47–34,44 €). Zona caro. Cuenta para el movimiento |
+| O3 · la prueba del foso cruza perímetros | **No rebatida** | Intereses de arrendamiento: 465 (AR2025 PDF p. 227). Tasas de deterioro después de impuestos: 5,0–6,7 % (AR2025 PDF p. 238). Con pesos de mercado, el coste del capital total es de un 7,1 % (cálculo mío), y el ROIC total (8,8 %, C55) lo supera. El 13–15 % del capital propio está medido después de pagar la renta, así que no basta con llamarlo apalancamiento | Análisis!C18 debería ser Sí (foso estrecho). No reescribo la celda. Es lo que lleva el cubo a Vigilar |
+| O4 · margen del NORMAL y p(MALO) apoyados en cargos puntuales | **Rebatida** | El NORMAL usa el diferencial de 2021–2025 (0,4 puntos), que no incluye el cargo de pensiones de 2020 (Observación de Palancas!C15; AR2025 PDF p. 64). Con el redondeo del ejercicio (múltiplos de 0,005), tanto 3,6 % como 3,67 % se escriben 0,035; 0,036 y 0,0367 no son valores admitidos. p(MALO) se apoya en motivos estructurales (Observación de B69). Sin 2020, quedan 3 de 10 años con margen bajo | Ninguno. Saco 2020 del recuento |
+
+**Regla de movimiento.** O1, O2 y O3 son válidas y no las rebato. Todas van al alza, así que la conclusión sube un escalón y solo uno: de **No · descartar** a **Vigilar · esperar**.
+
+**Conclusión antes:** concluido · No · descartar · precio de Sí 27,74 €.
+
+**Conclusión después:** concluido (provisional hasta la auditoría) · Vigilar · esperar · precio objetivo 27,74 €, el de `precio.json`. El objetivo es provisional: el libro tiene dos posibles defectos de entrada (O1 y O2). Si una persona los confirma y el pipeline recalcula, mi réplica deja el precio de Sí en 30,23–32,07 €. La zona seguiría en caro (precio 36,05 € frente a un ponderado de 32,47–34,44 €).
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 27.74 · zona caro · precio de Sí ≤ 27.74 · precio esc. MALO 23.62 · ponderado 29.80 · fundamento no procede (conclusión no favorable) · objetivo provisional: posible defecto de entrada en el flujo del accionista (O1) y en las acciones (O2)».
+
+**Celdas que reescribí:** B101 (tesis de Vigilar con foso estrecho), B102 (ahora defiende el No: ahorro al cliente, renta fija, holguras de deterioro, guía de 2026 y deuda), C104, B222 y B223. También cambié la decisión, los insumos, la herencia, la comparación con la etapa 1 y qué cambiaría el cubo. C93, C103, las predicciones, las palancas y el libro no cambian; no relanzo el pipeline.
+
+**Comparación con la etapa 1.** Ahora coincido en el cubo (Vigilar). La razón es distinta: el ROIC del capital total supera el coste del capital total, no la cuota. El precio de Sí también es otro: 27,74 € frente a 23,13 €, por el método y el perímetro.
