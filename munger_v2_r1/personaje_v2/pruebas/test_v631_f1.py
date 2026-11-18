@@ -128,6 +128,62 @@ casos = {"perímetro declarado distinto": V631.corresponde(L, "A2_propio", rou, 
 paso("corresponde: cada diferencia bloquea (perímetro, serie, vacío ≠ 0, PPA, f a 10⁻¹¹, ancla, flujos, A3, libro V6.3)",
      all(casos.values()), "; ".join(f"{k}: {len(v)}" for k, v in casos.items()))
 
+# ------------------------------------------------------------------------------------------------ V631-3 · huella y universo de entradas
+import entradas_economicas as EE  # noqa: E402
+import verificacion_entradas as VE  # noqa: E402
+import motor_a_f1 as M  # noqa: E402
+tmp = tempfile.mkdtemp(prefix="v631_ee_")
+try:
+    ser = {"da_rou": {str(y): entrada(10 + i) for i, y in enumerate(ANIOS)}, "da_ppa": {str(y): entrada(2) for y in ANIOS}}
+    libros = {}
+    from v63_xml import LibroV63
+    lb0 = LibroV63(CFG631["plantilla"]["archivo"])
+    lb0.escribir_celdas({f"Historia!{x}5": y for x, y in zip(V631.COLS, ANIOS)})
+    base631 = os.path.join(tmp, "base.xlsx")
+    lb0.guardar(base631)
+    for per in ("A1_sin_ROU", "A2_propio"):
+        dp = os.path.join(tmp, f"{per}.json")
+        json.dump({"perimetro_reinversion": {"valor": per, "registro": REG}, "series": ser}, open(dp, "w", encoding="utf-8"))
+        libros[per] = os.path.join(tmp, f"{per}.xlsx")
+        V631.aplicar(base631, libros[per], dp)
+    h1, h2 = EE.instantanea(libros["A1_sin_ROU"]), EE.instantanea(libros["A2_propio"])
+    h63 = EE.instantanea(CFG63["plantilla"]["archivo"])
+    paso("V631-3: la huella de entradas ve el perímetro y las series: A1 y A2 con las mismas series tienen huellas distintas",
+         h1["huella"] != h2["huella"] and h1["celdas"]["Historia!C85"] == "A1_sin_ROU" and h1["celdas"]["Historia!L86"] == 19)
+    paso("V631-3: la plantilla V6.3 no lleva esas celdas (su huella no cambia)", not any(k.startswith("Historia!") and k[9:].endswith(("85", "86", "87")) for k in h63["celdas"]))
+    c = os.path.join(tmp, "EmpresaZ")
+    os.makedirs(c)
+    shutil.copy(libros["A1_sin_ROU"], os.path.join(c, "EmpresaZ_v63_evaluada.xlsx"))
+    u = VE.universo(c)
+    f1c = {f"Historia!C85"} | {f"Historia!{x}{f}" for x in V631.COLS for f in (86, 87)}
+    ok, rs = VE.aptitud(c)
+    paso("V631-3: las filas 85–87 entran en el universo de verificacion_entradas.py y, sin verificar, la aptitud por entradas es «no»",
+         f1c <= set(u["celdas"]) and ok is False and all(u["ambito"][k] == "calculo" for k in f1c), f"universo {u['n']} · {rs['motivo'][:80]}")
+finally:
+    shutil.rmtree(tmp, ignore_errors=True)
+
+# ------------------------------------------------------------------------------------------------ V631-1 · R2-1
+import subprocess  # noqa: E402
+tmp = tempfile.mkdtemp(prefix="v631_r21_")
+try:
+    c = os.path.join(tmp, "EmpresaR")
+    os.makedirs(c)
+    json.dump({"modo": "estricta"}, open(os.path.join(c, "entrada_efectiva.json"), "w"))
+    json.dump({"paso": 14, "estado_analisis": "concluido", "historial": []}, open(os.path.join(c, "estado_pipeline.json"), "w"))
+    v = M.vigencia(c)
+    paso("V631-1: sin el motor en el estado, sin resultado F1 ni fase_a.json: «motor desconocido», F1 exigido y no utilizable (no «el motor no es el A»)",
+         v["exigido"] is True and v["utilizable"] is False and "desconocido" in v["motivo"], str(v["motivo"])[:100])
+    json.dump({"celdas": {"C62": "Sí"}}, open(os.path.join(c, "fase_a.json"), "w"))
+    v = M.vigencia(c)
+    paso("V631-1: el motor se lee de fase_a.json (C62 = Sí → A): sin evaluación F1, no vigente", v["motor"] == "A" and v["vigente"] is False and "sin evaluación" in v["motivo"])
+    json.dump({"celdas": {"C62": "No · financiación cambia mucho"}}, open(os.path.join(c, "fase_a.json"), "w"))
+    paso("V631-1: con el motor B (fase_a.json) F1 no se exige", M.vigencia(c)["exigido"] is False)
+    r = subprocess.run([sys.executable, os.path.join(PV, "scripts", "pipeline.py"), c, "--reiniciar", "--desde", "13"], capture_output=True, text=True)
+    paso("V631-1: «--reiniciar» con «--desde» se rechaza (código 2) sin borrar el estado del pipeline",
+         r.returncode == 2 and "no se combinan" in r.stdout and os.path.exists(os.path.join(c, "estado_pipeline.json")), (r.stdout + r.stderr).strip()[-120:])
+finally:
+    shutil.rmtree(tmp, ignore_errors=True)
+
 # ------------------------------------------------------------------------------------------------ ficha
 esq = json.load(open(os.path.join(PV, "esquema", "ficha.esquema.json"), encoding="utf-8"))
 paso("ficha.esquema.json admite la versión de plantilla «V6.3.1 F1»", "V6.3.1 F1" in esq["properties"]["versiones"]["properties"]["plantilla"]["enum"])

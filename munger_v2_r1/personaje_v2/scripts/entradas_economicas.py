@@ -124,6 +124,15 @@ def instantanea(libro, version=RELACION_ACTUAL):
                 celdas[k] = v
                 tipos[k] = "configuracion"
                 ids[k] = clave
+    if "Historia" in hojas and "PERÍMETRO F1 DE LA REINVERSIÓN" in str(lec.leer("Historia", "A84") or ""):
+        # (revisión V6.3.1, V631-3) libro V6.3.1 F1: el perímetro (C85) y las series D&A de derechos de uso y PPA (C86:L87) mueven f, el ancla
+        # y el terminal: entran en la huella y en el universo de verificacion_entradas.py (los libros V6.3 y V6.4 no cambian de huella)
+        for ref, tipo, ident in ([("C85", "configuracion", "F1.perimetro_reinversion")]
+                                 + [(f"{c}{f}", "dato", n) for f, n in ((86, "F1.da_rou"), (87, "F1.da_ppa")) for c in "CDEFGHIJKL"]):
+            k = f"Historia!{ref}"
+            celdas[k] = _norm(lec.leer("Historia", ref))
+            tipos[k] = tipo
+            ids[k] = ident
     texto = json.dumps(sorted(celdas.items()), ensure_ascii=False, default=str, separators=(",", ":"))
     return {"celdas": celdas, "tipos": tipos, "ids": ids, "n": len(celdas), "huella": hashlib.sha256(texto.encode("utf-8")).hexdigest(),
             "version": version if CE.HOJA in hojas else RELACION_4_12,

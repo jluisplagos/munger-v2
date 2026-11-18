@@ -62,7 +62,7 @@ TOL_LIBRO = Fr(1, 10 ** 9)
 COLS = "CDEFGHIJKL"
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
                "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
-               "conciliacion_fcf_base", "justificacion_reinversion_negativa"}
+               "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series"}
 SERIES = ("da_rou", "da_ppa", "pagos_arrendamiento")
 SIN_TRATAMIENTO = ("", "ninguno", "ninguna", "-", "—", "no", "n/a", "na", "sin tratamiento", "none")
 
@@ -697,7 +697,9 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         X, X11, hay_x = X_terminos(p)
         # ancla de S2C (E4): (V_L − V_G) ÷ Σ_H..L (capex − D_X + ΔWC + adquisiciones − X^v); X^v = términos explícitos de la ventana del ancla
         ancla = None
-        if all(DX_de(p, y) is not None and H["capex"][y] is not None for y in horiz) and H["V"][ant] is not None:
+        # (revisión V6.3.1, V631-5 y E4) los cinco años H–L de TODO el denominador: capex, D_X, circulante y adquisiciones (vacío ≠ 0)
+        if all(DX_de(p, y) is not None and H["capex"][y] is not None and H["dwc"][y] is not None and H["adq"][y] is not None for y in horiz) \
+                and H["V"][ant] is not None:
             xv = Fr(0)
             if hay_x and ccv == "reposicion_con_importe" and p != "A3_estimado":
                 if Q(cc.get("proporcion_ventas")) is not None:
@@ -985,7 +987,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["diagnostico_por_perimetro"] = {k: salida(v) for k, v in diag.items()}
     if "A0_total" in diag:
         res["diferencias_frente_a_A0_flujo_sin_crecimiento"] = {k: fl(v["F0"] - diag["A0_total"]["F0"], 6) for k, v in diag.items()}
-    _guarda_fuentes_series(G, decl, carpeta, anios)   # (revisión F1-IMPL, H12) al final: BLOQUEA si nada más bloquea
+    _guarda_fuentes_series(G, decl, carpeta, anios, res)   # (revisión F1-IMPL, H12; V631-2) al final: BLOQUEA si nada más bloquea
     res["guardas"] = G.lista
     bl = G.bloquean()
     res["bloquea"] = bool(bl)
@@ -1044,14 +1046,113 @@ def _literal_valores(lit):
     return {-x if neg else x for x in cands}
 
 
-def _guarda_fuentes_series(G, decl, carpeta, anios):
-    """(revisión F1-IMPL, H12; como T9) Las series que entran en D_X (D&A de derechos de uso y PPA) no pasan por verificacion_entradas.py: aquí
-    se exige, por año, la cifra publicada («literal») con su signo, igual a «valor_fuente», y una fuente conservada en el expediente
-    («archivo»: texto con marcas «[PDF PAGE n]», o un PDF con «archivo_texto») cuya página citada exista y contenga esa cifra. Vacío o no
-    examinable → INCOMPLETO; signo o cifra distintos, página inexistente o cifra ausente de la página → DATOS INVÁLIDOS. No acredita la
-    entrada (no hay revisor ni sello): es la condición mínima. BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA (no cambia el estado)."""
+_TOK = re.compile(r"(?<![\w.,/])\(?[-−–]?\d[\d.,]*\)?(?![\w.,/])")
+_ANIO = re.compile(r"(?<!\d)((?:19|20)\d\d)(?!\d)")
+
+
+def _sin_esp(x):
+    return re.sub(r"\s+", "", str(x or ""))
+
+
+def _norm_fila(x):
+    return re.sub(r"\s+", " ", str(x or "")).strip().lower()
+
+
+def _cifra_en_columna(pagina, fila, anio, literal, tol=4):
+    """(revisión V6.3.1, V631-2) Localiza la cifra en la página: («ok», detalle) si está, como cifra completa (no como parte de otra), en la
+    única línea de la página que contiene la fila declarada y en la columna cuyo encabezado de ejercicio (alineado por posición en el texto
+    con marcas de página, «pdftotext -layout») es el año declarado; («invalida», …) si la fila no la contiene o está en la columna de otro
+    ejercicio; («pendiente», …) si la fila no se identifica en una sola línea o no hay encabezado alineado (la columna no se puede comprobar)."""
+    lineas = [x.expandtabs(8) for x in str(pagina).splitlines()]
+    cand = [i for i, x in enumerate(lineas) if _norm_fila(fila) and _norm_fila(fila) in _norm_fila(x)]
+    if len(cand) != 1:
+        return "pendiente", f"la fila {fila!r} está en {len(cand)} líneas de la página (hace falta una)"
+    i = cand[0]
+    toks = [m for m in _TOK.finditer(lineas[i]) if _sin_esp(m.group(0)) == _sin_esp(literal)]
+    if not toks:
+        return "invalida", f"la fila {fila!r} no contiene la cifra {literal!r} como cifra completa"
+    anios_col = set()
+    for m in toks:
+        r = m.end() - (1 if m.group(0).endswith(")") else 0)
+        for k in range(i - 1, max(-1, i - 80), -1):
+            al = [y.group(1) for y in _ANIO.finditer(lineas[k]) if abs(y.end() - r) <= tol]
+            if al:
+                anios_col.add(al[0])
+                break
+    if not anios_col:
+        return "pendiente", f"sin encabezado de ejercicio alineado con {literal!r} en la fila {fila!r}"
+    if anios_col == {str(anio)}:
+        return "ok", f"{literal} en la columna {anio} de la fila {fila!r}"
+    return "invalida", f"la cifra {literal!r} de la fila {fila!r} está en la columna de {sorted(anios_col)}, no en la de {anio}"
+
+
+def _fuente_del_expediente(carpeta, archivo):
+    """Ruta real de un archivo DENTRO de la carpeta del expediente (no del paquete ni de otro expediente); None si no lo está o no existe."""
+    if not carpeta or not archivo or os.path.isabs(str(archivo)):
+        return None
+    b = os.path.realpath(carpeta)
+    p = os.path.realpath(os.path.join(carpeta, str(archivo)))
+    return p if p.startswith(b + os.sep) and os.path.isfile(p) else None
+
+
+def _fuera_del_expediente(carpeta, archivo):
+    """True si «archivo» es absoluto o sale de la carpeta del expediente (p. ej. «../otro/texto.txt»)."""
+    if not archivo:
+        return False
+    if os.path.isabs(str(archivo)):
+        return True
+    b = os.path.realpath(carpeta)
+    return not os.path.realpath(os.path.join(carpeta, str(archivo))).startswith(b + os.sep)
+
+
+def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
+    """(revisión F1-IMPL, H12; revisión V6.3.1, V631-2) Las series que entran en D_X (D&A de derechos de uso y PPA). Por año se exige:
+      - «literal»: la cifra tal como se publica, con su signo; «valor_fuente» tiene que ser esa cifra (R415-SIGNO, T9);
+      - «documento» registrado en «fuentes_series» con su «archivo» (dentro de la carpeta del expediente) y su «sha256» vigente; un PDF, con
+        «archivo_texto» y «sha256_texto»; «archivo» en la entrada, si lo hay, el mismo (la fuente queda ligada al documento);
+      - la página citada existe y contiene la cifra como cifra completa (no como parte de otra: «149.5» no vale en «(1149.57)»);
+      - «fila» (la etiqueta de la fila en la página): la cifra está en esa fila y en la columna del ejercicio del año. Si la fila o la columna
+        no se pueden identificar, la columna queda PENDIENTE (no bloquea F1; la aptitud por entradas sigue en «no» porque las filas 85–87 del
+        libro entran en el universo de verificacion_entradas.py y exigen su comprobación por un revisor).
+    Vacío o no examinable → INCOMPLETO; cifra, signo, página, columna o huella distintos, o fuente fuera del expediente → DATOS INVÁLIDOS.
+    No acredita la entrada (sin revisor ni sello). BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA (no cambia el estado)."""
     import verificacion_entradas as VE
-    inval, incomp = [], []
+    inval, incomp, col_pend, col_ok = [], [], [], 0
+    fs = decl.get("fuentes_series") if isinstance(decl.get("fuentes_series"), dict) else {}
+    textos = {}
+
+    def texto(doc):
+        if doc in textos:
+            return textos[doc]
+        f = fs.get(doc) if isinstance(fs.get(doc), dict) else None
+        out = None
+        if f is None:
+            out = ("incompleto", f"documento {doc!r} sin fuente registrada en «fuentes_series» (archivo y sha256)")
+        elif carpeta is None:
+            out = ("incompleto", "fuente no examinada (la evaluación no recibió la carpeta del expediente)")
+        else:
+            ruta = _fuente_del_expediente(carpeta, f.get("archivo"))
+            if ruta is None:
+                fuera = _fuera_del_expediente(carpeta, f.get("archivo"))
+                out = ("invalido" if fuera else "incompleto",
+                       f"la fuente {f.get('archivo')!r} de {doc!r} " + ("está fuera de la carpeta del expediente" if fuera else "no existe en el expediente"))
+            elif not str(f.get("sha256") or "").strip():
+                out = ("incompleto", f"la fuente {f.get('archivo')!r} de {doc!r} sin «sha256»")
+            elif VE._sha(ruta) != str(f["sha256"]).strip().lower():
+                out = ("invalido", f"la fuente {f.get('archivo')!r} de {doc!r} cambió (sha256 distinto del declarado)")
+            else:
+                rt = ruta
+                if not ruta.lower().endswith(".txt"):
+                    rt = _fuente_del_expediente(carpeta, f.get("archivo_texto"))
+                    if rt is None or not str(f.get("sha256_texto") or "").strip():
+                        out = ("incompleto", f"{doc!r}: la fuente no es un texto con marcas de página y su «archivo_texto» (con «sha256_texto») no está en el expediente")
+                    elif VE._sha(rt) != str(f["sha256_texto"]).strip().lower():
+                        out = ("invalido", f"{doc!r}: el texto de la fuente cambió (sha256_texto distinto del declarado)")
+                if out is None:
+                    out = ("ok", rt)
+        textos[doc] = out
+        return out
+
     for nombre in ("da_rou", "da_ppa"):
         s = ((decl.get("series") or {}).get(nombre)) or {}
         if not isinstance(s, dict):
@@ -1064,34 +1165,56 @@ def _guarda_fuentes_series(G, decl, carpeta, anios):
             vf = Q(e.get("valor_fuente"))
             if e.get("literal") in (None, ""):
                 incomp.append(f"{et}: sin «literal» (la cifra tal como se publica, con su signo)")
-            elif not vals:
+                continue
+            if not vals:
                 inval.append(f"{et}: «literal» {e.get('literal')!r} no es una cifra")
-            elif vf not in vals:
+                continue
+            if vf not in vals:
                 inval.append(f"{et}: «valor_fuente» {e.get('valor_fuente')!r} no es la cifra publicada {e.get('literal')!r} con su signo (R415-SIGNO, T9)")
-            if carpeta is None:
-                incomp.append(f"{et}: fuente no examinada (la evaluación no recibió la carpeta del expediente)")
+            doc = str(e.get("documento") or "")
+            f = fs.get(doc) if isinstance(fs.get(doc), dict) else {}
+            if e.get("archivo") and f and os.path.normpath(str(e["archivo"])) != os.path.normpath(str(f.get("archivo"))):
+                inval.append(f"{et}: «archivo» {e.get('archivo')!r} no es la fuente registrada de {doc!r} ({f.get('archivo')!r})")
                 continue
-            ruta = VE._ruta_fuente(carpeta, e.get("archivo"))
-            if ruta is None:
-                incomp.append(f"{et}: fuente «archivo» {e.get('archivo')!r} ausente del expediente (vacío o fuera de él)")
+            est_t, rt = texto(doc)
+            if est_t != "ok":
+                (inval if est_t == "invalido" else incomp).append(f"{et}: {rt}")
                 continue
-            ruta_txt = ruta if ruta.lower().endswith(".txt") else VE._ruta_fuente(carpeta, e.get("archivo_texto"))
-            if ruta_txt is None:
-                incomp.append(f"{et}: la fuente {e.get('archivo')!r} no es un texto con marcas de página y no tiene «archivo_texto» examinable")
-                continue
-            est, pag = VE._pagina_examinable(ruta_txt, e.get("pagina"))
+            est, pag = VE._pagina_examinable(rt, e.get("pagina"))
             if est == "discrepancia":
                 inval.append(f"{et}: {pag}")
-            elif est != "ok":
+                continue
+            if est != "ok":
                 incomp.append(f"{et}: {pag}")
-            elif e.get("literal") and re.sub(r"\s+", "", str(e["literal"])) not in re.sub(r"\s+", "", pag):
-                inval.append(f"{et}: la cifra {e['literal']!r} no está en la página {e.get('pagina')} de {e.get('archivo')}")
+                continue
+            if not any(_sin_esp(m.group(0)) == _sin_esp(e["literal"]) for ln in pag.splitlines() for m in _TOK.finditer(ln)):
+                inval.append(f"{et}: la cifra {e['literal']!r} no está, como cifra completa, en la página {e.get('pagina')} de {doc!r}")
+                continue
+            try:
+                anio = int(k)
+            except ValueError:
+                inval.append(f"{et}: año no válido")
+                continue
+            if not str(e.get("fila") or "").strip():
+                col_pend.append(f"{et}: sin «fila» (etiqueta de la fila): columna y ejercicio sin comprobar")
+                continue
+            est_c, det = _cifra_en_columna(pag, e["fila"], anio, e["literal"])
+            if est_c == "invalida":
+                inval.append(f"{et}: {det}")
+            elif est_c == "pendiente":
+                col_pend.append(f"{et}: {det}")
+            else:
+                col_ok += 1
     probl = inval + incomp
     otras = bool(G.bloquean())
+    if res is not None:
+        res["F1_SERIES"] = {"invalidas": inval, "incompletas": incomp, "columna_comprobada": col_ok, "columna_pendiente": col_pend,
+                            "nota": "condición mínima, no la verificación de entradas: las filas 85–87 del libro V6.3.1 entran en su universo"}
     G.add("F1-SERIES", bool(probl), "AVISO" if otras else "BLOQUEA", "DATOS INVÁLIDOS" if inval else "INCOMPLETO",
           ("; ".join(probl)[:1500] + (" (además de las guardas que ya bloquean)" if otras else "")) if probl else
-          "D&A de derechos de uso y PPA: cada año con su cifra publicada y su signo, en una página existente de una fuente del expediente "
-          "(condición mínima; no es la verificación de entradas)", "(1a) · H12")
+          (f"D&A de derechos de uso y PPA: cifra publicada con su signo, como cifra completa, en una página existente de una fuente del expediente "
+           f"con su huella; columna del ejercicio comprobada en {col_ok} años" + (f", PENDIENTE en {len(col_pend)} (la aptitud por entradas sigue en «no»)"
+                                                                                  if col_pend else "")), "(1a) · H12 · V631-2")
 
 
 def _f_vacia_v631(L):
@@ -1249,7 +1372,16 @@ def vigencia(carpeta, motor=None):
     st = _json(os.path.join(carpeta, "estado_pipeline.json")) or {}
     r = _json(os.path.join(carpeta, RESULTADO))
     motor = motor or (st.get("motor") if isinstance(st, dict) else None) or (("A" if r.get("aplica") else (r.get("motor_del_libro"))) if isinstance(r, dict) else None)
+    if motor is None:
+        # (revisión V6.3.1, V631-1; R2-1) sin el motor en el estado ni en el resultado, el de la fase A (fase_a.json, C62)
+        fa = _json(os.path.join(carpeta, "fase_a.json"))
+        c62 = ((fa.get("celdas") or {}) if isinstance(fa, dict) else {}).get("C62")
+        motor = {"Sí": "A", "No · financiación cambia mucho": "B", "No · banco o aseguradora": "C"}.get(c62)
     out = {"motor": motor, "exento": exencion(carpeta)}
+    if motor is None and not out["exento"] and exigido(carpeta):
+        # motor desconocido no es «no es el A»: con F1 exigido, sin saber el motor no hay conclusión acreditada
+        return dict(out, exigido=True, vigente=False, utilizable=False, motivo="motor desconocido (ni el estado del pipeline, ni el resultado F1, "
+                    "ni fase_a.json lo dicen): F1 no se puede dar por no aplicable")
     if motor != "A":
         return dict(out, exigido=False, vigente=None, utilizable=None, motivo="el motor no es el A")
     if out["exento"]:
