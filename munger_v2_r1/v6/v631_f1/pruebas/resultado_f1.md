@@ -2,7 +2,7 @@
 
 Fecha 2026-11-18 · plantilla `266d53bdd8af13d5…` · referencia `cd564e43f60239c8…`
 
-**PASA: 30/30**
+**PASA: 32/32**
 
 | Comprobación | Resultado | Detalle |
 |---|---|---|
@@ -14,12 +14,14 @@ Fecha 2026-11-18 · plantilla `266d53bdd8af13d5…` · referencia `cd564e43f6023
 | Elis A1: el año 11 NORMAL se aparta del de A0 en 205,363 (control negativo: el terminal usa la f del perímetro) | PASA | 205.363093 |
 | Elis A1: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro) | PASA | réplica D_X del libro (A1_sin_ROU) · 33 flujos |
 | Elis A1: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa) | PASA | [] |
+| Elis A1: F1-SERIES (H12) sin problemas: cada D&A de derechos de uso y PPA con su cifra publicada y su signo en una página existente del texto del expediente | PASA | D&A de derechos de uso y PPA: cada año con su cifra publicada y su signo, en una página existente de una fuente del expediente (condición mínima; no es la verificación de entradas) |
 | Elis A2: perímetro efectivo A2_propio y Motor V05 OK | PASA | V05 'OK' |
 | Elis A2 recalculado por LibreOffice: f = E9 (10⁻¹²) | PASA | -0.00611860174416477 frente a -0.006118601744165 |
 | Elis A2: C53 (ancla de S2C) = E9 (10⁻⁹) | PASA | 1.61252430330525 frente a 1.612524303305 |
 | Elis A2: los 33 flujos del Motor (años 1–10 y 11, tres escenarios) = E9 (10⁻⁹) | PASA | desviación máxima 1.02e-12 |
 | Elis A2: la capa coincide con el libro (f 10⁻¹², ancla 10⁻⁹) y F1-REPLICA no salta (réplica con la D_X del libro) | PASA | réplica D_X del libro (A2_propio) · 33 flujos |
 | Elis A2: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa) | PASA | [] |
+| Elis A2: F1-SERIES (H12) sin problemas: cada D&A de derechos de uso y PPA con su cifra publicada y su signo en una página existente del texto del expediente | PASA | D&A de derechos de uso y PPA: cada año con su cifra publicada y su signo, en una página existente de una fuente del expediente (condición mínima; no es la verificación de entradas) |
 | A1 con la D&A ROU de 2024 vacía (ventana): f y C53 vacías en el libro, Motor V05 INCOMPLETO, capa en pendiente_de_datos sin error ni F1-REPLICA | PASA | 'Motor A · perímetro A1_sin_ROU: falta la amortización de derechos de uso (Historia fila 86) o la PPA (fila 87) en algún año de la ventana que calibra f; vacío  |
 | A1 con la D&A ROU de 2021 vacía (fuera de la ventana, dentro del ancla H–L): f = E9, C53 vacía (cinco años) y la capa coincide | PASA |  |
 | A2 con la PPA de 2025 vacía: f vacía y Motor V05 INCOMPLETO (vacío no es cero) | PASA |  |

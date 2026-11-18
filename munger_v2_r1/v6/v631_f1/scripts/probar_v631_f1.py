@@ -12,7 +12,8 @@ estructura: reconstrucción determinista (mismo SHA-256 que el entregable y que 
   rechaza una mutación, y el de la V6.3 la rechaza.
 f1: (LibreOffice) el libro calcula el perímetro declarado y la capa motor_a_f1.py es su oráculo. Elis con A1_sin_ROU y A2_propio aplicados
   desde la declaración (f1_libro_v631.aplicar): f, C53 y los 33 flujos del Motor coinciden con los valores E9 del frente E (datos/elis_cifras_f1.json;
-  10⁻¹² en f, 10⁻⁹ en C53 y flujos) y con la capa; F1-REPLICA y F1-LIBRO no saltan. Vacío no es cero (ROU o PPA vacía en la ventana → f
+  10⁻¹² en f, 10⁻⁹ en C53 y flujos) y con la capa; F1-REPLICA y F1-LIBRO no saltan; F1-SERIES (H12) acepta sus series con las páginas
+  del texto conservado en el expediente. Vacío no es cero (ROU o PPA vacía en la ventana → f
   vacía, Motor V05 INCOMPLETO y la capa en pendiente_de_datos, sin error); perímetro no reconocido → INV. La capa bloquea (F1-LIBRO) si el
   libro no corresponde: otro perímetro, otra serie, o un libro V6.3. Caso sintético NIIF 16 pesado (Empresa X con la D&A de derechos de uso
   = 75 % de la D&A, su principal en el FCF base y PPA = 15 %; ROU media ≥ 40 % del FCF base): libro = capa, e identidades f_A1 = f_A0 − ROU media ÷ ventas medias, f_A2 = f_A0 − (ROU + PPA) media ÷
@@ -257,8 +258,13 @@ def f1(dest):
             os.replace(b + ".tmp.xlsx", b)
         return recalc(b, dest)
 
+    ELIS_DIR = os.path.dirname(ELIS)
+    TEXTOS = {"URD2022": "Elis - 2022 Universal Registration Document.txt", "URD2023": "Elis_Universal Registration Document_2023_EN.txt",
+              "DEU2024FR": "Elis_Document d'enregistrement universel_2024_FR.txt", "URD2025": "Elis - 2025 Universal Registration Document.txt"}
+
     def evaluar(rec, decl):
-        return M.evaluar(M.leer_libro(rec), decl)
+        # (H12) las fuentes de las series se examinan en el expediente de Elis (solo lectura): texto/ con marcas «[PDF PAGE n]»
+        return M.evaluar(M.leer_libro(rec), decl, carpeta=ELIS_DIR)
 
     def guarda(r, gid):
         return [g for g in r["guardas"] if g["id"] == gid]
@@ -269,6 +275,9 @@ def f1(dest):
     def decl_elis(per):
         d = RE.declaracion(cif, True, False)
         d["perimetro_reinversion"] = {"valor": per, "registro": REGP}
+        for n_ in ("da_rou", "da_ppa"):
+            for e in d["series"][n_].values():
+                e["archivo"] = os.path.join("texto", TEXTOS[e["documento"]])
         return d
 
     # ---------------------------------------------------------------- Elis A1 y A2 frente a E9 y a la capa
@@ -300,6 +309,9 @@ def f1(dest):
         chk(f"Elis {k}: F1-LIBRO NO salta (libro V6.3.1 con el perímetro, las series, D_X, f, ancla y 33 flujos de la capa)",
             not salta(r, "F1-LIBRO") and r["libro_v631_f1"]["motivos"] == [] and r["libro_v631_f1"]["flujos_contrastados"] == 33,
             str(r["libro_v631_f1"]["motivos"])[:200])
+        fs = [g for g in r["guardas"] if g["id"] == "F1-SERIES"]
+        chk(f"Elis {k}: F1-SERIES (H12) sin problemas: cada D&A de derechos de uso y PPA con su cifra publicada y su signo en una página existente del texto del expediente",
+            fs and not fs[0]["salta"], str(fs[0]["detalle"] if fs else None)[:200])
         detalle[f"Elis_{k}"] = {"C58": c58, "C53": c53, "desviacion_max_flujos_E9": dev, "bloquean": sorted({g["id"] for g in r["guardas"] if g["salta"] and g["severidad"] == "BLOQUEA"}),
                                 "estado_propuesto": r["estado_propuesto"]}
     # ---------------------------------------------------------------- vacío no es cero; perímetro no reconocido

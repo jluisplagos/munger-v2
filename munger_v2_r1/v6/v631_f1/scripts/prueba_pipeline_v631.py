@@ -51,7 +51,7 @@ def declaracion(frac=0.3):
                                        "partida": "C49 registrado con 2 decimales en la etapa 1 frente a la media de la Historia",
                                        "fuente": {"documento": "EmpresaX_v53_evaluada_sintetica.xlsx (Análisis) y fase1_v63.ejemplo.json (Historia)", "pagina": None}})
     d["series"]["da_rou"] = {str(y): {"valor_fuente": round(frac * v, 6), "signo": 1, "tratamiento": "ninguno", "documento": "informe anual sintético",
-                                      "pagina": 1} for y, v in zip(anios, da)}
+                                      "pagina": 1, "literal": repr(round(frac * v, 6)), "archivo": PF.FUENTE} for y, v in zip(anios, da)}
     return d
 
 
@@ -103,6 +103,7 @@ def main():
         # P8 · declaración cambiada después del paso 2: el libro ya no corresponde
         d = declaracion(0.31)
         json.dump(d, open(os.path.join(c, "motor_a_f1.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        PF.escribir_fuente(c, d)
         os.environ["MUNGER_CONFIG"] = CFG631
         try:
             r8 = subprocess.run([TS.PY, TS.PIPE, c, "--desde", "7"], capture_output=True, text=True)

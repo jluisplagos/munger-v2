@@ -1,8 +1,9 @@
 # Plantilla V6.3.1 F1 del motor A
 
 Escrita el 18-nov-2026 por el agente autor de la plantilla (Claude, Opus) en la rama `f1/plantilla-v631`, desde `f1/implantacion` @ `24e9a30`.
-**Sin revisión independiente todavía**: la hará otro agente. **Estado: punto de control a mitad** (guion, referencia, verificador y
-prueba A0). La selección en el pipeline, el cambio de `motor_a_f1.py` y la validación con A1/A2 no están hechos (§5).
+**Sin revisión independiente todavía**: la hará otro agente. Punto de control (guion, referencia, verificador y prueba A0) en `a4feae1`;
+segunda mitad (selección, declaración en el libro, oráculo en `motor_a_f1.py`, validación A1/A2, sintético NIIF 16 y H10/H11/H12 de la
+revisión de F1-IMPL) en los commits siguientes (§5–§8).
 
 **Aptitud: uso supervisado experimental. No apto para decisiones con dinero real.** La V6.3, su referencia, sus ejemplos y los expedientes
 hechos con ella **no cambian**.
@@ -67,15 +68,75 @@ FCF base, Análisis C46–C52) ni las entradas registradas.
   frente a su referencia; con A0, D_X = D&A; el libro de Elis tal cual, recalculado, coincide con la V6.3 con sus entradas trasladadas
   (el traslado es fiel); los orígenes no cambian.
 
-## 5. Lo que falta (después del punto de control)
+## 5. Uso en el pipeline (hechos)
 
-1. Selección explícita: `personaje_v2/config_v2_v631_f1.json` y `seleccion_plantilla.py` (familia V6.3; un expediente solo con su plantilla).
-2. Aplicar la declaración F1 al libro (perímetro, D&A de derechos de uso y PPA con sus fuentes) y que `motor_a_f1.py` deje de bloquear con
-   `F1-LIBRO` **solo** si el libro es V6.3.1, su perímetro efectivo y sus series son los declarados y f, el ancla y los 33 flujos del Motor
-   coinciden con la capa (oráculo).
-3. Validación con A1 y A2 en el libro de Elis recalculado por LibreOffice frente a la capa; un caso sintético NIIF 16 pesado; vacío → f
-   vacía; las baterías existentes.
-4. No previsto en este encargo: D_X y sus series en el control de evidencias del libro (Control maestro) y en la verificación de entradas
-   de la 4.15.
+- **Selección explícita:** `personaje_v2/config_v2_v631_f1.json` (= `config_v2.json` salvo la plantilla, `version_config` y el resumen
+  `resumen_v2_v631_f1.csv`). Nunca es la de por defecto. `seleccion_plantilla.py`: `V631 = "V6.3.1 F1"`, `es_v631`, `registra`. Con la
+  V6.3.1 la primera ejecución escribe `plantilla_activa.json` (como la V6.4); un expediente V6.3.1 no se ejecuta con la V6.3 ni con la V6.4,
+  uno V6.3 ya empezado no se ejecuta con la V6.3.1, y una `configuracion_economica.json` se rechaza. `cierre_v2.nombre_resumen` y
+  `ficha.esquema.json` conocen la versión; `ficha.py` no escribe el bloque de configuración económica para la V6.3.1 y añade
+  `motor_a_f1.libro_v631_f1`.
+- **Declaración al libro:** `personaje_v2/scripts/f1_libro_v631.py aplicar` escribe en Historia C85 el perímetro (solo `A0_total`,
+  `A1_sin_ROU`, `A2_propio`; con `A3_estimado` o sin declarar queda vacío = A0), en C86:L87 las magnitudes de las series (signo ×
+  valor_fuente, con la misma lectura que la capa; una entrada inválida queda vacía) y en M85:M87 la procedencia. Reescribe siempre las
+  tres filas. El pipeline lo llama en el **paso 2**, tras `rellenar_fase1_v63.py`, solo con la V6.3.1.
+- **Oráculo (`motor_a_f1.py`, cambio aislado en `_libro_v631`, `_replica_v631`, `_f_vacia_v631` y cuatro líneas en `evaluar`):** con un libro
+  V6.3.1, `F1-LIBRO` deja de bloquear solo si el perímetro efectivo (C89) es el declarado, las series del libro son las declaradas (vacío
+  ≠ 0), D_X, f (10⁻¹²), el ancla (10⁻⁹) y los flujos del Motor (tantos como escenarios con palancas tenga la capa: 33 en el paso 12, 0 en el
+  paso 7) coinciden con la capa, y no hay N1 ni términos explícitos. Cualquier diferencia bloquea. La réplica (`F1-REPLICA`) contrasta
+  en un libro A1/A2 las ecuaciones con la D_X del propio libro y D_X con sus filas 8, 86 y 87. Con un libro V6.3 nada cambia (`F1-LIBRO`
+  límite declarado). Si la declaración cambia después del paso 2, el libro deja de corresponder y la capa bloquea (P8).
+- **A3_estimado** no lo calcula el libro: sin estimación la capa termina en `pendiente_de_datos` (V-F1d); con estimación, `F1-LIBRO` bloquea
+  (`no_entregable · límite del modelo`). Tampoco N1 ni los términos explícitos.
 
-**No comprobado:** Excel real (todo el recálculo es LibreOffice); A1/A2 en el libro (§5).
+## 6. Correcciones H10, H11 y H12 de la revisión de F1-IMPL (en `motor_a_f1.py`)
+
+- **H10 · términos explícitos, vacío no es cero** (`_terminos_incompletos`): compras de reposición con importes por año exigen los años
+  1–10 y el 11 (o la proporción de las ventas); con `ancla_s2c_excluye_terminos`, los importes históricos H–L (X^v, 0 explícito); la
+  transición como término, sus importes históricos H–L. El año 11 cobra el importe declarado (antes, 0) y X^v usa los importes históricos
+  de las compras. Los términos siguen bloqueados por `F1-LIBRO` (no están en el libro).
+- **H11:** `F1-C49` y `F1-ROU-HISTORIA` ya estaban (primera ronda). Se añade el registro obligatorio de «sin transición conocida».
+  No se hizo el registro de la normalización (resto de H9: N1 sigue bloqueado por `F1-PARAM`).
+- **H12 · `F1-SERIES`** (`_guarda_fuentes_series`, como T9): para cada año de la D&A de derechos de uso y de la PPA, la cifra publicada
+  (`literal`, p. ej. «(149,5)») tiene que ser `valor_fuente` con su signo, y la fuente (`archivo`: texto con marcas «[PDF PAGE n]» dentro del
+  expediente, o un PDF con `archivo_texto`) tiene que existir, tener la página citada y contener esa cifra en ella. Vacío o no examinable →
+  INCOMPLETO; signo o cifra distintos, página inexistente o cifra ausente → DATOS INVÁLIDOS. `evaluar(..., carpeta=None)` no examina y
+  bloquea; el CLI y el pipeline pasan la carpeta. BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA y no cambia el estado.
+  **No es la verificación de entradas** (sin revisor, sello ni contraste con el PDF): las series siguen fuera del universo de
+  `verificacion_entradas.py`.
+- Para estas pruebas se ajustaron `test_motor_a_f1.py` (las series sintéticas llevan `literal` y `archivo`; tres casos pasan la carpeta con
+  una fuente sintética; el caso de transición lleva sus importes históricos) y `prueba_pipeline_f1.py` (la fuente sintética de las series).
+
+## 7. Pruebas de la segunda mitad (hechos; resultados literales)
+
+| Orden | Resultado |
+|---|---|
+| `cd personaje_v2 && python3 -B pruebas/test_v631_f1.py` (selección, aplicación, oráculo; sin LibreOffice) | `21/21 pruebas V6.3.1 F1 (sin LibreOffice) PASAN` |
+| `cd personaje_v2 && python3 -B pruebas/test_motor_a_f1.py` | `155/155 pruebas del motor A F1 (4.15) PASAN` (142 + 13 de H10/H11/H12) |
+| `flock … python3 -I v6/v631_f1/scripts/probar_v631_f1.py f1 <carpeta nueva>` | `32/32 comprobaciones V6.3.1 F1 (f1) PASAN` (`pruebas/resultado_f1.md`) |
+| `flock … python3 -B v6/v631_f1/scripts/prueba_pipeline_v631.py` | `6/6 pruebas de la V6.3.1 F1 en el pipeline PASAN` (`pruebas/resultado_pipeline_v631.txt`) |
+| `flock … python3 -B …/f1_impl/scripts/prueba_pipeline_f1.py` (desde `personaje_v2/`) | `7/7 pruebas del gancho F1 del pipeline PASAN` (`pruebas/resultado_prueba_pipeline_f1.txt`) |
+
+- *f1*: Elis con A1 y A2 recalculado por LibreOffice: f, C53 y los 33 flujos = E9 de `datos/elis_cifras_f1.json` (f 0,0126242253232846 y
+  −0,00611860174416477; C53 2,4453316953317 y 1,61252430330525; desviación máxima de los flujos 1,0·10⁻¹²); año 11 A1 − A0 = 205,363093;
+  capa = libro; `F1-REPLICA`, `F1-LIBRO` y `F1-SERIES` no saltan (las series con las páginas del texto del expediente de Elis, solo
+  lectura). Vacío ≠ 0 (ROU 2024 o PPA 2025 vacías → f vacía, V05 INCOMPLETO, capa en `pendiente_de_datos`; ROU 2021 vacía → f igual y
+  C53 vacía). C85 no reconocido → V05 DATOS INVÁLIDOS. Bloquea si el libro no corresponde (otro perímetro, otra serie, libro V6.3).
+  Sintético NIIF 16 pesado (Empresa X: D&A de derechos de uso 75 % de la D&A con su principal en el FCF base, PPA 15 %): libro = capa en
+  A0, A1 y A2 e identidades de f y C53 con los valores del libro.
+- *pipeline*: P6 empresa sintética con arrendamientos y A1 declarado con la V6.3.1 → `plantilla_activa.json` V6.3.1, F1 utilizable,
+  gancho en los pasos 7 y 12, `concluido`, resumen en `resumen_v2_v631_f1.csv`; P7 la misma con la V6.3 → paso 7 `no_entregable ·
+  límite del modelo` (`F1-LIBRO`); P8 declaración cambiada y `--desde 7` → `F1-LIBRO` bloquea.
+
+## 8. Preguntas para el revisor y límites
+
+1. **E4 con A1/A2 (interpretación):** el ancla exige D_X en los cinco años H–L; la V6.3 admite tres años con reinversión. ¿Es la lectura
+   correcta de E4 o debe mantenerse «≥ 3 años»?
+2. `F1-SERIES` solo cubre la D&A de derechos de uso y la PPA (no `pagos_arrendamiento`, que solo da la sensibilidad (1b)); avisa sin cambiar
+   el estado cuando otra guarda ya bloquea. ¿Es aceptable como condición mínima hasta meter D_X en el universo de entradas?
+3. La PPA declarada a cero no tiene contraste en la Historia (no hay fila): `F1-SERIES` exige su cifra y su página, nada más.
+4. Fuera de alcance: D_X y sus series en el control de evidencias del libro (Control maestro) y en `verificacion_entradas.py`; el resto
+   de H9 (registro y alcance de N1); `test_v631_f1.py`, `probar_v631_f1.py` y `prueba_pipeline_v631.py` no están registrados en
+   `verificar_paquete.sh`.
+5. **No comprobado:** Excel real (todo el recálculo es LibreOffice); `regresion_elis_f1.py` no se volvió a ejecutar (escribe en los
+   resultados de F1-IMPL).
