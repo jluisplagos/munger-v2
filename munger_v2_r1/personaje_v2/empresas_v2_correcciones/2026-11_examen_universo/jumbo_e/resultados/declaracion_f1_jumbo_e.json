@@ -1,0 +1,25 @@
+{
+ "fecha": "2026-11-18",
+ "autor": "orquestación (Claude, agente de implementación), encargo del coordinador; sin firma humana",
+ "cambios_en_el_destino": [
+  {
+   "archivo": "Jumbo/motor_a_f1.json",
+   "antes_sha256": "33639e4adbf6f34244a6428ee04afbeda87e07743d7e65c45af24850229dbea6",
+   "despues_sha256": "a7e646317b50d9702f45f2701e74511ede6554032587158a2b7641d61036418f",
+   "origen_del_anterior": "conservado de jumbo_d/Jumbo/motor_a_f1.json (cambiar_base.py, «conservar»); su registro: jumbo_d/resultados/declaracion_f1_jumbo_d.json",
+   "guion": "resultados/scripts/decl_jumbo_e.py (transformación determinista de la declaración de jumbo_d)",
+   "guion_sha256": "7d810d35419d8063b018d57c9926b5237100558914bf5e971a4d736d0a5268c8",
+   "cambios": [
+    "series.da_rou 2021–2025: «escala»: «unidades»; valor_fuente sin cambio (= literal ÷ 1.000.000, comprobado exacto); tratamiento y nota reescritos (ya no dicen que la capa no tiene escala)",
+    "series.da_ppa 2021–2025: valor 0 con «cero_comprobado» {motivo, cita} y sin «literal»; 2021 AR2022 p. 97, 2022 AR2023 p. 100, 2023 AR2024 p. 183, 2024 AR2025 p. 185 (frase «The Group’s fixed assets movements for the year were as follows:», que introduce el cuadro de la nota 5.8 cuyo único intangible es «Software»); 2025 AR2025 p. 189 (frase que introduce la asignación del precio de HERALD 2, sin intangibles). PENDIENTE DE REVISOR (F1-SERIES-CERO): el programa solo comprueba que la frase está en la página",
+    "series.intereses_arrendamiento 2021–2025 (nueva): 3.056.657 / 2.628.373 / 2.664.523 / 2.526.806 / 2.390.655 € (escala «unidades»), nota 5.5 «Finance income / expenses and other financial results», fila «Interest expense on lease liabilities», columna THE GROUP: AR2021 p. 87, AR2022 p. 92, AR2023 p. 95, AR2024 p. 178, AR2025 p. 179. Se usa la nota de costes financieros y no el estado de flujos (etiquetas cruzadas por el emisor, J3)",
+    "fuentes_series: se añade AR2021 (texto/jumbo-annual-report-fy2021.txt con su huella) para el interés de 2021 (en AR2022 p. 92 la columna de 2021 no queda alineada con su encabezado)",
+    "series.pagos_arrendamiento_sin_declarar (texto) sale de «series» y su texto pasa a «nota» (R2-4 de la revisión R2 de f1/usgaap)",
+    "«nota» de la declaración reescrita (cambios frente a jumbo_d)"
+   ],
+   "comprobacion_previa": "cada cifra buscada en su página de texto/ (marcas [PDF PAGE n]); intereses: 2021 «Interest expense on lease liabilities 3.056.657 3.408.176» (AR2021 p. 87), 2022 «2.628.373 3.056.657» (AR2022 p. 92), 2023 «2.664.523 2.628.373» (AR2023 p. 95), 2024 «2.526.806 2.664.523» (AR2024 p. 178), 2025 «2.390.655 2.526.806» (AR2025 p. 179). Ninguna cifra ajustada.",
+   "desviacion_del_encargo": "el encargo pedía la PPA como cero_comprobado 2021–2025 «con su página (AR2025 p. 189)». Para 2025 se usa esa página; para 2021–2024 se cita la página del cuadro de la nota 5.8 de cada ejercicio, porque la frase de AR2025 p. 189 (combinación de octubre de 2025) no prueba nada para años anteriores (revisión R2 de f1/series-escala §3; README_V6.3.1_F1.md §10). En los dos casos el cero sigue pendiente de revisor.",
+   "motivo": "formato nuevo de motor_a_f1 de la integración (F1-SERIES con escala y ceros, R2-4) y P-FOSO (a)"
+  }
+ ]
+}
