@@ -466,7 +466,7 @@ def motivo_f1(carpeta, st=None):
     estado = st.get("estado_pendiente") or st.get("estado_analisis_fase_c") or st.get("estado_analisis")
     if estado == "pendiente_de_datos":
         return None
-    return (f"motor A · F1: {v.get('motivo')}; sin una evaluación F1 vigente y utilizable no se confirma un cierre «{estado}» "
+    return (f"motor {v.get('motor') or 'A'} · F1: {v.get('motivo')}; sin una evaluación F1 vigente y utilizable no se confirma un cierre «{estado}» "
             "(ver motor_a_f1_resultado.md)")
 
 

@@ -17,6 +17,12 @@ Qué NO es. No cambia el libro, la plantilla V6.3, sus fuentes ni sus entradas r
 sigue calculando A0: con otro perímetro (o con N1), su valor no corresponde a la declaración y la conclusión del motor A queda
 bloqueada (F1-LIBRO, límite declarado); los flujos F1 se muestran como diagnóstico rotulado. No adopta ningún valor sin decidir
 (PARAMETROS_SIN_VALOR) ni declara aptitud para dinero real.
+US GAAP (ASC 842; 18-nov-2026, F1_USGAAP.md). La norma es un valor cerrado (NIIF o US_GAAP) y los arrendamientos OPERATIVOS y FINANCIEROS
+se tratan por separado. Financieros: como NIIF 16 (da_rou y C49). Operativos: su coste va entero en el EBIT y su pago en el CFO, así que
+ya cuentan una vez en el FCF base; la reinversión que calibra f no lleva ninguna partida suya (D-US2: se cuentan los pagos): la
+amortización de su derecho de uso que esté dentro de la fila 8 sale de D_X y lo que esté dentro de la fila 14 se retira del circulante.
+Si la empresa no publica en qué líneas del flujo van esos dos tramos, se aplica la hipótesis general declarada D-US1 (fuera de las filas 8
+y 14) y la conclusión queda condicionada, con su cota. Con el motor B y US GAAP solo se evalúa el puente de deuda (F1-US-PUENTE).
 
 Uso:
   motor_a_f1.py evaluar CARPETA [--libro LIBRO_RECALCULADO] [--declaracion motor_a_f1.json] [--salida DIR]
@@ -38,7 +44,7 @@ from fractions import Fraction as Fr
 # está en sys.path (la regresión de Elis lo llama así) y el import fallaba desde la V6.3.1
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-VERSION = "F1-IMPL 1 (4.15 · decisiones F1 del 17-nov-2026)"
+VERSION = "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1 y D-US2 del 18-nov-2026)"
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
 RESULTADO_MD = "motor_a_f1_resultado.md"
@@ -48,6 +54,36 @@ MARGENES = ("EBIT_NIIF16_PPA_constante", "EBIT_NIIF16_PPA_decreciente", "EBIT_NI
 COMPRAS = ("pendiente", "crecimiento_por_hipotesis", "reposicion_con_importe", "sin_compras")
 TRANSICION = ("pendiente", "en_R", "termino_explicito", "crecimiento")
 NORMAS = ("NIIF", "US_GAAP")
+# (F1 · US GAAP; revisión F1-IMPL, H13) La norma es un VALOR CERRADO. En la declaración: NIIF o US_GAAP. En el libro (Control maestro L4,
+# cuya lista de validación es «IFRS, US GAAP, Otro»): una lista cerrada de valores EXACTOS (sin distinguir mayúsculas ni espacios de más), los
+# de la lista y las dos variantes con que se escribieron los libros NIIF anteriores. No se busca «ifrs» dentro de un texto: «US GAAP (no
+# IFRS)» no es ningún valor de la lista y bloquea.
+NORMA_DEL_LIBRO = {"ifrs": "NIIF", "niif": "NIIF", "ifrs (ifrs-eu)": "NIIF", "ifrs (adoptadas por la unión europea)": "NIIF", "us gaap": "US_GAAP"}
+# (F1 · US GAAP, ASC 842) series propias de US GAAP (mismo formato que da_rou) y ubicaciones admitidas de los dos tramos no monetarios del
+# arrendamiento operativo en el estado de flujos (fila 8 = D&A; fila 14 = variación del circulante)
+SERIES_US = ("pagos_arr_operativo", "coste_arr_operativo", "da_rou_operativo", "circulante_arr_operativo", "pasivo_arr_operativo",
+             "pagos_arr_financiero_principal")
+SERIES_US_CON_SIGNO = ("circulante_arr_operativo",)   # lleva el signo de la fila 14 (+ consume caja): puede ser negativa
+UBICACIONES = {"amortizacion_rou": ("fila_8", "fila_14", "fuera_de_las_filas_8_y_14", "no_publicada"),
+               "variacion_pasivo": ("fila_14", "fuera_de_las_filas_8_y_14", "no_publicada")}
+TOL_E7 = Fr(5, 10 ** 4)        # redondeo a 3 decimales de E7 (K3a)
+TOL_US_C49 = Fr(5, 1000)       # C49 frente al principal financiero publicado: medio céntimo de la unidad del modelo (redondeo a 2 decimales de la etapa 1)
+CITA_MINIMA = 10               # caracteres mínimos de la cita literal de una clasificación (una cita más corta no identifica una línea)
+# Decisiones de la persona responsable del 18-nov-2026 sobre US GAAP (reglas generales, iguales para todas las empresas; no se declaran por
+# expediente). D-US1 es una HIPÓTESIS declarada, no un dato: donde la empresa publica las líneas, manda el dato.
+_REG_US = {"fecha": "2026-11-18", "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+           "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md:96–98"}
+DECISIONES_US = {
+    "D-US1": {"regla": ("si la empresa no publica en qué líneas del estado de flujos van los dos tramos del arrendamiento operativo (la amortización "
+                        "del derecho de uso y la variación del pasivo), se supone que van netos dentro del flujo de explotación, fuera de las filas 8 "
+                        "(D&A) y 14 (circulante) de la Historia: hipótesis declarada, no dato; la conclusión se presenta como condicionada, con su "
+                        "cota de sensibilidad. Donde la empresa publica las líneas, manda el dato"), "registro": dict(_REG_US)},
+    "D-US2": {"regla": ("cuando el coste lineal del arrendamiento operativo y los pagos del año difieren, se cuentan los pagos y la diferencia "
+                        "queda a la vista, sin bloquear"), "registro": dict(_REG_US)}}
+# líneas de un estado de flujos que publican un tramo del arrendamiento operativo (para contrastar un «no_publicada» con la página citada)
+_LINEA_ARR_OP = re.compile(r"operating lease liabilit|lease liabilit|non-?cash (operating )?lease|amortization of (operating lease )?right-of-use|"
+                           r"right-of-use assets? amortization|amortization of operating lease|operating lease (right-of-use )?assets and liabilities", re.I)
+_LINEA_ARR_NO = re.compile(r"financ|exchang|obtain|supplement|cash paid|capital lease", re.I)
 # E8.1, decidido el 17-nov-2026: se mantiene el τ registrado de cinco años (Historia C52)
 CONVENCION_TAU = "cinco_anios"
 # Decisiones aplazadas (propuestas de 9cad78d sin adoptar): NO tienen valor. Si un cálculo las necesita, se calculan las variantes y la
@@ -66,7 +102,7 @@ TOL_LIBRO = Fr(1, 10 ** 9)
 COLS = "CDEFGHIJKL"
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
                "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
-               "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series"}
+               "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series", "arrendamientos_us_gaap"}
 SERIES = ("da_rou", "da_ppa", "pagos_arrendamiento")
 SIN_TRATAMIENTO = ("", "ninguno", "ninguna", "-", "—", "no", "n/a", "na", "sin tratamiento", "none")
 
@@ -148,6 +184,7 @@ def plantilla_declaracion():
         "transicion": {"conocida": None, "tratamiento": None, "registro": dict(reg), "importes": None, "horizonte": None,
                        "naturaleza": None, "finalidad_documentada": None, "ancla_s2c_excluye_terminos": None},
         "reinversion_estimada": None,
+        "arrendamientos_us_gaap": None,   # solo con US_GAAP: {registro, operativos: {existen, documento, pagina, cita, amortizacion_rou, variacion_pasivo}, financieros: {…}}
         "series": {s: {} for s in SERIES},
         "normalizacion": {"ajustes": [], "bai": {}, "gasto_impuesto": {}, "margen_objetivo_sin_ajustes": None,
                           "deducir_diagnostico_partidas_puntuales": False},
@@ -166,10 +203,11 @@ def _valor(decl, clave):
     return None, None
 
 
-def leer_serie(decl, nombre, anios):
+def leer_serie(decl, nombre, anios, con_signo=False):
     """{año: magnitud} de una serie declarada y sus problemas. Cada año: {valor_fuente, signo, tratamiento, documento, pagina}; la magnitud
     del modelo es signo × valor_fuente (R415-SIGNO: la cifra publicada con su signo; un cambio de signo declara su tratamiento). Vacío =
-    desconocido (no cero); 0 solo con valor_fuente 0 declarado."""
+    desconocido (no cero); 0 solo con valor_fuente 0 declarado. con_signo: la magnitud puede ser negativa (solo la partida del arrendamiento
+    operativo dentro de la fila 14, que lleva el signo de esa fila)."""
     s = ((decl.get("series") or {}).get(nombre)) or {}
     out, problemas = {}, []
     if not isinstance(s, dict):
@@ -201,11 +239,158 @@ def leer_serie(decl, nombre, anios):
             problemas.append(f"series.{nombre}.{y}: sin documento o página de la fuente")
             continue
         m = sg * vf
-        if m < 0:
+        if m < 0 and not con_signo:
             problemas.append(f"series.{nombre}.{y}: magnitud negativa ({float(m)}): una amortización o un pago no es negativo en el modelo")
             continue
         out[y] = m
     return out, problemas
+
+
+# ----------------------------------------------------------------------------------------------------------- norma contable · US GAAP (ASC 842)
+def norma_del_libro(L):
+    """Norma que declara el libro (Control maestro L4) por la lista cerrada NORMA_DEL_LIBRO: «NIIF», «US_GAAP» o None (vacío o no reconocido)."""
+    t = re.sub(r"\s+", " ", str(L.get("Control maestro!L4") or "")).strip()
+    return NORMA_DEL_LIBRO.get(t.casefold()) if t else None
+
+
+def _evidencia_ok(d, con_cita=True):
+    return (isinstance(d, dict) and bool(str(d.get("documento") or "").strip()) and d.get("pagina") not in (None, "")
+            and (not con_cita or bool(str(d.get("cita") or "").strip())))
+
+
+def leer_us(decl, anios):
+    """(F1 · US GAAP, ASC 842) Lo que la declaración dice de los arrendamientos con US GAAP, con los OPERATIVOS y los FINANCIEROS por separado:
+      - arrendamientos_us_gaap: registro; por clase, «existen» (true/false) con documento, página y cita; de los operativos, dónde están en
+        el estado de flujos sus dos tramos no monetarios («amortizacion_rou» y «variacion_pasivo»: ubicacion, documento, página y cita);
+      - las series SERIES_US y da_rou (con US GAAP, la amortización del derecho de uso de los FINANCIEROS dentro de la fila 8).
+    Devuelve: op / fin (True, False o None = sin declarar), ub_am / ub_pas (ubicación efectiva; con «no_publicada» la de la hipótesis D-US1,
+    fuera de las filas 8 y 14, y el tramo queda anotado en hipotesis_D_US1), rou_fin, a8 (amortización del derecho de uso operativo dentro de
+    la fila 8), rou8 = rou_fin + a8 (lo que A1/A2 excluyen de D_X), tramos_en_fila_14 y ajuste (lo que se retira del circulante por año:
+    la línea publicada o, con los dos tramos dentro, pagos − coste lineal), y las faltas, incoherencias y evidencias que examinan las guardas.
+    Vacío ≠ 0: una ubicación sin declarar deja a8 y rou8 sin valor."""
+    b = decl.get("arrendamientos_us_gaap")
+    faltas, incoh, evid, ausencias, hip = [], [], [], [], []
+    U = {"bloque": isinstance(b, dict)}
+    if not U["bloque"]:
+        faltas.append("falta «arrendamientos_us_gaap»: si hay arrendamientos operativos y financieros (cada clase con su evidencia) y su registro")
+    b = b if isinstance(b, dict) else {}
+    U["registro_ok"] = _registro_ok(b.get("registro"))
+    if U["bloque"] and not U["registro_ok"]:
+        faltas.append("arrendamientos_us_gaap sin registro (fecha, persona, motivo): lo declara la persona, no el agente")
+    op_d = b.get("operativos") if isinstance(b.get("operativos"), dict) else {}
+    fin_d = b.get("financieros") if isinstance(b.get("financieros"), dict) else {}
+
+    def existe(d, nombre):
+        if not isinstance(d.get("existen"), bool):
+            if U["bloque"]:
+                faltas.append(f"arrendamientos_us_gaap.{nombre}.existen sin declarar (true o false): sin el desglose entre operativos y financieros no hay regla")
+            return None
+        if not _evidencia_ok(d):
+            faltas.append(f"arrendamientos_us_gaap.{nombre}: sin documento, página y cita literal de que existen o de que no existen")
+        else:
+            evid.append((f"arrendamientos_us_gaap.{nombre}", d))
+        return d["existen"]
+
+    U["op"], U["fin"] = existe(op_d, "operativos"), existe(fin_d, "financieros")
+
+    def ubicacion(clave):
+        d = op_d.get(clave) if isinstance(op_d.get(clave), dict) else {}
+        et = f"arrendamientos_us_gaap.operativos.{clave}"
+        u = d.get("ubicacion")
+        if u is None:
+            faltas.append(f"{et}.ubicacion sin declarar ({' | '.join(UBICACIONES[clave])})")
+            return None
+        if u not in UBICACIONES[clave]:
+            incoh.append(f"{et}.ubicacion {u!r} no admitida ({' | '.join(UBICACIONES[clave])})")
+            return None
+        if u == "no_publicada":
+            # D-US1: la empresa no publica la línea → hipótesis general declarada (fuera de las filas 8 y 14). Se cita la página examinada
+            if not _evidencia_ok(d, con_cita=False):
+                faltas.append(f"{et}: «no_publicada» sin el documento y la página del estado de flujos que se examinó")
+            else:
+                ausencias.append((et, d))
+            hip.append(clave)
+            return "fuera_de_las_filas_8_y_14"
+        if not _evidencia_ok(d):
+            faltas.append(f"{et}: sin documento, página y cita literal de la línea que lo muestra")
+        else:
+            evid.append((et, d))
+        return u
+
+    U["ub_am"] = ubicacion("amortizacion_rou") if U["op"] else None
+    U["ub_pas"] = ubicacion("variacion_pasivo") if U["op"] else None
+    U["hipotesis_D_US1"] = hip
+    S, probl = {}, []
+    for s in SERIES_US:
+        S[s], p = leer_serie(decl, s, anios, con_signo=(s in SERIES_US_CON_SIGNO))
+        probl += p
+    rou_decl, _ = leer_serie(decl, "da_rou", anios)   # sus problemas ya los recoge la lectura general de SERIES
+    cero = {y: Fr(0) for y in anios}
+    # financieros: como NIIF 16 (amortización del derecho de uso dentro de la fila 8 y principal en C49)
+    if U["fin"] is False:
+        if any(v != 0 for v in rou_decl.values()) or any(v != 0 for v in S["pagos_arr_financiero_principal"].values()):
+            incoh.append("financieros.existen = false y hay importes en series.da_rou o en series.pagos_arr_financiero_principal")
+        U["rou_fin"] = dict(cero)
+    else:
+        U["rou_fin"] = dict(rou_decl)
+    # operativos: amortización del derecho de uso dentro de la fila 8 (si lo está, A1/A2 la excluyen de D_X)
+    conocida = U["op"] is False or (U["op"] is True and U["ub_am"] is not None)
+    if U["op"] is True and U["ub_am"] == "fila_8":
+        U["a8"] = dict(S["da_rou_operativo"])
+    else:
+        if any(v != 0 for v in S["da_rou_operativo"].values()):
+            incoh.append("series.da_rou_operativo con importes, y la amortización del derecho de uso operativo no está declarada dentro de la fila 8")
+        U["a8"] = dict(cero) if conocida else {}
+    U["rou8"] = {y: U["rou_fin"][y] + U["a8"][y] for y in anios if y in U["rou_fin"] and y in U["a8"]}
+    # operativos: lo que esté dentro de la fila 14 se retira del circulante que usa la reinversión (D-US2: se cuentan los pagos, una vez)
+    en14 = [k for k, u in (("amortizacion_rou", U["ub_am"]), ("variacion_pasivo", U["ub_pas"])) if u == "fila_14"] if U["op"] is True else []
+    aj, derivado = {}, []
+    if en14:
+        for y in anios:
+            if y in S["circulante_arr_operativo"]:
+                aj[y] = S["circulante_arr_operativo"][y]
+            elif len(en14) == 2 and y in S["pagos_arr_operativo"] and y in S["coste_arr_operativo"]:
+                # los dos tramos dentro de la fila 14: su importe neto es pagos − coste lineal (identidad de ASC 842), salvo línea neta publicada
+                aj[y] = S["pagos_arr_operativo"][y] - S["coste_arr_operativo"][y]
+                derivado.append(y)
+    elif any(v != 0 for v in S["circulante_arr_operativo"].values()):
+        incoh.append("series.circulante_arr_operativo con importes, y ningún tramo del arrendamiento operativo está declarado dentro de la fila 14")
+    if U["op"] is False and any(v != 0 for s in ("pagos_arr_operativo", "coste_arr_operativo", "pasivo_arr_operativo") for v in S[s].values()):
+        incoh.append("operativos.existen = false y hay importes en sus series")
+    U.update({"tramos_en_fila_14": en14, "ajuste": aj, "ajuste_derivado": derivado, "S": S, "problemas_series": probl, "faltas": faltas,
+              "incoherencias": incoh, "evidencias": evid, "ausencias": ausencias})
+    return U
+
+
+def rou_fila8(decl, anios):
+    """Amortización de derechos de uso dentro de la fila 8 que A1 y A2 excluyen de D_X (la que el libro V6.3.1 lleva en la fila 86): con NIIF,
+    series.da_rou; con US GAAP, la de los financieros más la de los operativos que esté declarada dentro de la fila 8."""
+    if _valor(decl, "norma_contable")[0] == "US_GAAP":
+        return leer_us(decl, anios)["rou8"]
+    return leer_serie(decl, "da_rou", anios)[0]
+
+
+def _guarda_norma(G, L, decl):
+    """F1-NORMA: la norma es un valor cerrado en la declaración (NORMAS) y en el libro (NORMA_DEL_LIBRO), y los dos dicen lo mismo."""
+    norma, reg_norma = _valor(decl, "norma_contable")
+    l4 = re.sub(r"\s+", " ", str(L.get("Control maestro!L4") or "")).strip()
+    nl = norma_del_libro(L)
+    if norma is None:
+        G.add("F1-NORMA", True, "BLOQUEA", "INCOMPLETO", "norma contable sin declarar en la declaración F1 (entrada obligatoria)", "generalidad")
+    elif norma not in NORMAS:
+        G.add("F1-NORMA", True, "BLOQUEA", "MODELO NO APLICABLE", f"norma contable {norma!r} no soportada por F1 (valor cerrado: {' o '.join(NORMAS)})", "generalidad")
+    elif not l4:
+        G.add("F1-NORMA", True, "BLOQUEA", "INCOMPLETO", "el libro no declara la norma contable (Control maestro L4)", "generalidad")
+    elif nl is None:
+        G.add("F1-NORMA", True, "BLOQUEA", "DATOS INVÁLIDOS", f"el libro dice {l4!r} en Control maestro L4, que no es un valor reconocido de la norma (lista cerrada de "
+              "valores exactos: IFRS, NIIF, IFRS (IFRS-EU), IFRS (adoptadas por la Unión Europea), US GAAP); no se busca la norma dentro de un texto", "generalidad")
+    elif nl != norma:
+        G.add("F1-NORMA", True, "BLOQUEA", "DATOS INVÁLIDOS", f"mezcla de normas: la declaración F1 dice {norma} y el libro dice {l4!r} (Control maestro L4)", "generalidad")
+    else:
+        G.add("F1-NORMA", False, None, None, f"{'NIIF' if norma == 'NIIF' else 'US GAAP'} declarada; libro: {l4}", "generalidad")
+    if norma is not None and not _registro_ok(reg_norma):
+        G.add("F1-REGISTRO", True, "BLOQUEA", "INCOMPLETO", "norma_contable sin registro (fecha, persona, motivo)", "E2 (registro de cada declaración)")
+    return norma
 
 
 # ----------------------------------------------------------------------------------------------------------- motor A (Convenciones V6.3)
@@ -255,6 +440,9 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
            "apto_para_dinero_real": False, "parametros_sin_valor_adoptado": PARAMETROS_SIN_VALOR, "convencion_tau": CONVENCION_TAU}
     motor_ = motor_libro or L.get("Diagnóstico V6!C5")
     res["motor_del_libro"] = motor_
+    if motor_ == "B" and "US_GAAP" in (_valor(decl, "norma_contable")[0], norma_del_libro(L)):
+        # (F1 · US GAAP) con el motor B y US GAAP se evalúa solo el puente de deuda (el pasivo por arrendamiento operativo no es deuda del puente)
+        return _evaluar_puente_motor_b(L, decl, res, G, desconocidas, carpeta)
     if motor_ != "A":
         res.update({"aplica": False, "motivo": f"el libro usa el motor {motor_!r}: F1 solo afecta al motor A (T11)", "guardas": [],
                     "bloquea": False, "utilizable_para_conclusion": None})
@@ -295,28 +483,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                                    "nota": "entradas registradas del FCF base: no cambian con F1 (E0.3, T10); la capa F1 no las escribe"}
 
     # ---------------------------------------------------------------- norma contable (entrada declarada)
-    norma, reg_norma = _valor(decl, "norma_contable")
-    l4 = str(L.get("Control maestro!L4") or "").strip()
-    if norma is None:
-        G.add("F1-NORMA", True, "BLOQUEA", "INCOMPLETO", "norma contable sin declarar en la declaración F1 (entrada obligatoria)", "generalidad")
-    elif norma not in NORMAS:
-        G.add("F1-NORMA", True, "BLOQUEA", "MODELO NO APLICABLE", f"norma contable {norma!r} no soportada por F1 (solo NIIF; US GAAP bloquea)", "generalidad")
-    elif norma == "US_GAAP":
-        G.add("F1-NORMA", True, "BLOQUEA", "MODELO NO APLICABLE",
-              "LÍMITE DECLARADO · US GAAP (ASC 842): en los arrendamientos operativos el coste va en un solo gasto lineal del EBIT, los pagos en "
-              "las operaciones (CFO) y no hay principal en financiación (C49 = 0); que la amortización del derecho de uso esté o no dentro de "
-              "la fila 8, y la variación del pasivo dentro o fuera de la fila 14, cambia el perímetro correcto con las mismas entradas "
-              "(prueba sintética US1/US2 de test_motor_a_f1.py). F1 no tiene esas entradas: el motor A no se usa para una conclusión", "generalidad",
-              clase="modelo")
-    else:
-        if not l4:
-            G.add("F1-NORMA", True, "BLOQUEA", "INCOMPLETO", "el libro no declara la norma contable (Control maestro L4)", "generalidad")
-        elif not re.search(r"\b(ifrs|niif|ias)\b", l4.lower()):
-            G.add("F1-NORMA", True, "BLOQUEA", "DATOS INVÁLIDOS", f"la declaración F1 dice NIIF y el libro dice {l4!r} (Control maestro L4)", "generalidad")
-        else:
-            G.add("F1-NORMA", False, None, None, f"NIIF declarada; libro: {l4}", "generalidad")
-    if norma is not None and not _registro_ok(reg_norma):
-        G.add("F1-REGISTRO", True, "BLOQUEA", "INCOMPLETO", "norma_contable sin registro (fecha, persona, motivo)", "E2 (registro de cada declaración)")
+    norma = _guarda_norma(G, L, decl)
+    us = norma == "US_GAAP"   # (F1 · US GAAP) arrendamientos operativos y financieros por separado (leer_us); con NIIF nada cambia
 
     # ---------------------------------------------------------------- series declaradas
     S, probl_series = {}, []
@@ -324,18 +492,30 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         S[s], p = leer_serie(decl, s, anios)
         probl_series += p
     rou, ppa, pagos = S["da_rou"], S["da_ppa"], S["pagos_arrendamiento"]
+    # rou8: la amortización de derechos de uso DENTRO de la fila 8, la que A1 y A2 excluyen de D_X. Con NIIF es la serie da_rou (el mismo objeto).
+    # (F1 · US GAAP) rou pasa a ser la de los arrendamientos FINANCIEROS (la que se relaciona con C49: V-F1a, V-F1b, V-F1m y F1-M-SIM) y rou8 le
+    # suma la de los operativos que esté declarada dentro de la fila 8
+    rou8, U, us_f = rou, None, None
+    _ser = decl.get("series") if isinstance(decl.get("series"), dict) else {}
+    if us:
+        U = leer_us(decl, anios)
+        probl_series += U["problemas_series"]
+        rou, rou8 = U["rou_fin"], U["rou8"]
+    elif norma == "NIIF" and (decl.get("arrendamientos_us_gaap") is not None or any(_ser.get(s) for s in SERIES_US)):
+        G.add("F1-US-MEZCLA", True, "BLOQUEA", "DATOS INVÁLIDOS", "mezcla de normas: la declaración dice NIIF y lleva «arrendamientos_us_gaap» o series propias "
+              f"de US GAAP ({', '.join(SERIES_US)}): no se ignoran en silencio", "generalidad · US GAAP")
     # V-F1e: invariantes de E1 y signos
     inv = []
     for y in anios:
         da = H["DA"][y]
         if da is None:
             continue
-        if y in rou and rou[y] > da:
-            inv.append(f"{y}: D&A ROU {float(rou[y])} > D&A total {float(da)}")
+        if y in rou8 and rou8[y] > da:
+            inv.append(f"{y}: D&A ROU {float(rou8[y])} > D&A total {float(da)}")
         if y in ppa and ppa[y] > da:
             inv.append(f"{y}: PPA {float(ppa[y])} > D&A total {float(da)}")
-        if y in rou and y in ppa and rou[y] + ppa[y] > da:
-            inv.append(f"{y}: D&A ROU + PPA {float(rou[y] + ppa[y])} > D&A total {float(da)}")
+        if y in rou8 and y in ppa and rou8[y] + ppa[y] > da:
+            inv.append(f"{y}: D&A ROU + PPA {float(rou8[y] + ppa[y])} > D&A total {float(da)}")
     G.add("V-F1e", bool(inv or probl_series), "BLOQUEA", "DATOS INVÁLIDOS",
           "; ".join(probl_series + inv) if (inv or probl_series) else "invariantes de E1 y signos declarados: conformes", "(1a)")
 
@@ -395,10 +575,16 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         G.add("F1-C49", True, "BLOQUEA", "INCOMPLETO", "Análisis C49 (principal de arrendamientos del FCF base) vacío: vacío no es cero", "(1a)")
     fila17 = [y for y in ventana if (H["princ"][y] or 0) > 0]
     fila23 = [y for y in ventana if (Q(L.get(f"Historia!{col[y]}23")) or 0) > 0]
+    if us:
+        # (F1 · US GAAP) la fila 17 es el principal de los financieros y la fila 23 puede llevar el pasivo de los operativos: hay conflicto si la
+        # fila 17 es positiva sin derecho de uso financiero, o si la fila 23 es positiva sin arrendamientos de ninguna clase
+        fila23 = fila23 if (U["op"] is False and U["fin"] is False) else []
     rou_cero_conflicto = bool(rou) and not rou_vacio_w and sum_rou_w == 0 and (fila17 or fila23)
     G.add("F1-ROU-HISTORIA", rou_cero_conflicto, "BLOQUEA", "DATOS INVÁLIDOS",
           (f"D&A ROU declarada a cero en la ventana y la Historia muestra arrendamientos (principal fila 17 en {fila17}; pasivo fila 23 en {fila23})")
           if rou_cero_conflicto else "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia", "(1a)")
+    if us:
+        us_f = _guardas_us(G, L, U, anios, ventana, per, C49, col)
 
     # (2)(i): la PPA no es un desembolso de reposición. A0 y A1 la tratan como reposición (D_X la contiene)
     sum_ppa_w = sum((ppa[y] for y in ventana if y in ppa), Fr(0))
@@ -650,9 +836,9 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         if p == "A0_total":
             return da
         if p == "A1_sin_ROU":
-            return da - rou[y] if y in rou else None
+            return da - rou8[y] if y in rou8 else None
         if p == "A2_propio":
-            return da - rou[y] - ppa[y] if (y in rou and y in ppa) else None
+            return da - rou8[y] - ppa[y] if (y in rou8 and y in ppa) else None
         if p == "A3_estimado":
             e = R_por.get(y)
             return (e["R_propia"] + e["R_compras"] + e["transicion"]) if e else None
@@ -685,13 +871,21 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             pal[esc] = vals
     res["palancas"] = {k: {kk: fl(vv) for kk, vv in v.items()} for k, v in pal.items()} or None
 
-    def calcular(p, con_fuera=False, aplicar_n1=True, con_act=False):
-        if any(DX_de(p, y) is None for y in ventana):
+    def WC_de(y, con_ajuste=True):
+        """Circulante que usa la reinversión: la fila 14 y, con US GAAP, sin la partida del arrendamiento operativo que esté dentro de ella (None si
+        hay que retirarla y su importe no está declarado: vacío ≠ 0). con_ajuste=False: la fila 14 tal cual, que es lo que calcula el libro."""
+        w = H["dwc"][y]
+        if w is None or not us or not con_ajuste or not U["tramos_en_fila_14"]:
+            return w
+        return w - U["ajuste"][y] if y in U["ajuste"] else None
+
+    def calcular(p, con_fuera=False, aplicar_n1=True, con_act=False, con_ajuste=True):
+        if any(DX_de(p, y) is None or WC_de(y, con_ajuste) is None for y in ventana):
             return None
         tau, ebit = tasas_y_ebit(con_fuera, con_act) if aplicar_n1 else ({y: H["tau"][y] for y in anios}, {y: H["EBIT"][y] for y in anios})
         S_ = media(H["V"][y] for y in ventana)
         nopat = media(ebit[y] * (1 - tau[y]) for y in ventana)
-        reinv = media(H["capex"][y] - DX_de(p, y) + H["dwc"][y] for y in ventana)
+        reinv = media(H["capex"][y] - DX_de(p, y) + WC_de(y, con_ajuste) for y in ventana)
         f = (nopat - reinv - C70) / S_
         if any(tau[y] is None for y in tau_anios):
             return None
@@ -702,8 +896,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         # ancla de S2C (E4): (V_L − V_G) ÷ Σ_H..L (capex − D_X + ΔWC + adquisiciones − X^v); X^v = términos explícitos de la ventana del ancla
         ancla = None
         # (revisión V6.3.1, V631-5 y E4) los cinco años H–L de TODO el denominador: capex, D_X, circulante y adquisiciones (vacío ≠ 0)
-        if all(DX_de(p, y) is not None and H["capex"][y] is not None and H["dwc"][y] is not None and H["adq"][y] is not None for y in horiz) \
-                and H["V"][ant] is not None:
+        if all(DX_de(p, y) is not None and H["capex"][y] is not None and H["dwc"][y] is not None and H["adq"][y] is not None
+               and WC_de(y, con_ajuste) is not None for y in horiz) and H["V"][ant] is not None:
             xv = Fr(0)
             if hay_x and ccv == "reposicion_con_importe" and p != "A3_estimado":
                 if Q(cc.get("proporcion_ventas")) is not None:
@@ -711,7 +905,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 else:   # (H10) con importes por año, X^v son los importes históricos declarados de H–L (obligatorios: V-F1j)
                     xv += sum((Q(((cc.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz)
             xv += sum((Q(((tr.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz) if trt == "termino_explicito" else Fr(0)
-            den = sum(H["capex"][y] - DX_de(p, y) + (H["dwc"][y] or Fr(0)) + (H["adq"][y] or Fr(0)) for y in horiz) - xv
+            den = sum(H["capex"][y] - DX_de(p, y) + (WC_de(y, con_ajuste) or Fr(0)) + (H["adq"][y] or Fr(0)) for y in horiz) - xv
             ancla = (H["V"][anios[-1]] - H["V"][ant]) / den if den > 0 else None
         esc = {}
         for nombre, pv in pal.items():
@@ -719,7 +913,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             esc[nombre] = {"anios_1_10": [fl(x) for x in mo["flujos"]], "anio_11": fl(mo["flujo_11"]), "_mo": mo}
         # K3: puente FCF base → flujo sin crecimiento, partida a partida
         Eb = media(ebit[y] for y in ventana)
-        da_own = {y: H["DA"][y] - rou.get(y, Fr(0)) - ppa.get(y, Fr(0)) for y in ventana}
+        da_own = {y: H["DA"][y] - rou8.get(y, Fr(0)) - ppa.get(y, Fr(0)) for y in ventana}
         lineas = [("FCF base que calibra f (Historia C70, entrada registrada)", C70, "caja"),
                   ("+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección", (ebit[anios[-1]] - Eb) * (1 - tau5), "explicada"),
                   ("+ τ de proyección frente al τ de cada año de la ventana", Eb * (1 - tau5) - nopat, "explicada"),
@@ -728,16 +922,19 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D_X = "
                            + ("R estimada)" if p == "A3_estimado" else "capex propio: cota)"), reinv, "explicada"))
         else:
-            k3_rou = media(rou.get(y, Fr(0)) for y in ventana) if (p == "A0_total" and all(y in rou for y in ventana)) else Fr(0)
+            k3_rou = media(rou8.get(y, Fr(0)) for y in ventana) if (p == "A0_total" and all(y in rou8 for y in ventana)) else Fr(0)
             k3_ppa = media(ppa.get(y, Fr(0)) for y in ventana) if (p in ("A0_total", "A1_sin_ROU") and all(y in ppa for y in ventana)) else Fr(0)
-            conocido = all(y in rou and y in ppa for y in ventana)
+            conocido = all(y in rou8 and y in ppa for y in ventana)
             if conocido:
                 lineas.append(("+ inversión neta propia y circulante de la ventana (capex − D&A propia + circulante)",
                                media(H["capex"][y] - da_own[y] + H["dwc"][y] for y in ventana), "explicada"))
                 lineas.append(("− amortización ROU que D_X devuelve como reposición, con los pagos de arrendamiento ya dentro del FCF base",
-                               -k3_rou, "doble_computo" if (k3_rou > 0 and c49_pos) else ("fuera_de_dominio" if k3_rou > 0 else "explicada")))
+                               -k3_rou, "doble_computo" if (k3_rou > 0 and (c49_pos or (us and us_f["pagos_op_pos"]))) else ("fuera_de_dominio" if k3_rou > 0 else "explicada")))
                 lineas.append(("− amortización PPA que D_X devuelve como reposición (no es caja: política (2)(i))",
                                -k3_ppa, "reposicion_no_monetaria" if k3_ppa > 0 else "explicada"))
+                if us and con_ajuste and U["tramos_en_fila_14"]:
+                    lineas.append(("− partida del arrendamiento operativo dentro de la fila 14, que se retira del circulante (US GAAP: su pago ya está en el FCF base)",
+                                   -media(U["ajuste"][y] for y in ventana), "explicada"))
             else:
                 lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D&A ROU o PPA sin declarar)",
                                reinv, "sin_desglose"))
@@ -760,7 +957,9 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     # réplica del libro (F1-REPLICA): A0 sin normalizar reproduce Historia C58, C53 y los flujos del Motor
     rep = []
     r0 = diag.get("A0_total")
-    r0, p_rep = _replica_v631(L, r0, calcular, anios, col, rep)
+    if us and U["tramos_en_fila_14"]:
+        r0 = calcular("A0_total", aplicar_n1=False, con_ajuste=False)   # (F1 · US GAAP) la réplica es la del libro, que no retira nada del circulante
+    r0, p_rep = _replica_v631(L, r0, lambda p, **k: calcular(p, **dict(k, con_ajuste=False)), anios, col, rep)
     if r0 is None and C58 is None and p_rep != "A0":
         res["replica_del_libro"] = {"perimetro_replicado": p_rep, "conforme": not rep, "nota": "f vacía en el libro y en la réplica (D_X incompleta en la ventana)"}
     elif r0 is None:
@@ -810,7 +1009,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         if sin_n1:
             res["efecto_N1_frente_a_sin_normalizar"] = {k: (fl(v["F0"] - sin_n1["F0"], 6) if v else None) for k, v in variantes.items()}
     if per and decl_r is None:
-        G.add("F1-PERIMETRO", True, "BLOQUEA", "INCOMPLETO", f"el perímetro {per} no es calculable: faltan series (D&A ROU, PPA o R) en la ventana", "(1a)")
+        G.add("F1-PERIMETRO", True, "BLOQUEA", "INCOMPLETO", f"el perímetro {per} no es calculable: faltan series (D&A ROU, PPA o R) en la ventana"
+              + (" o, con US GAAP, la ubicación de la amortización del derecho de uso operativo o el importe que se retira del circulante" if us else ""), "(1a)")
     # K3 (revisión F1-IMPL, H5): el puente es una identidad y se conserva como presentación (E6); las tres comprobaciones que siguen las
     # pueden hacer fallar los datos
     k3 = {"identidad": None, "K3a_caja_base_dos_vias": None, "K3b_alquiler_contado": None, "K3c_reposicion_frente_a_su_caja": None}
@@ -860,7 +1060,9 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     G.add("F1-K3a", bool(k3a_mot), "BLOQUEA", "DATOS INVÁLIDOS",
           ("caja base por dos vías: " + "; ".join(k3a_mot)) if k3a_mot else "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada", "K3")
     # K3b · cuántas veces cuenta la proyección el coste de arrendamiento: amortización ROU en el margen + pagos en el FCF base − ROU que f devuelve
-    if per:
+    if per and us:
+        _k3b_us(G, k3, U, us_f, per, rou_pos, c49_pos)
+    elif per:
         devuelve = per in ("A1_sin_ROU", "A2_propio", "A3_estimado")
         veces = (1 if rou_pos else 0) + (1 if c49_pos else 0) - (1 if (rou_pos and devuelve) else 0)
         esperado = 1 if (rou_pos or c49_pos) else 0
@@ -883,6 +1085,10 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["K3"] = k3
     # F1-LIBRO: el libro V6.3 calcula A0 sin normalizar
     hay_terminos = bool(per) and X_terminos(per)[2]
+    # (F1 · US GAAP) ningún libro retira del circulante la partida del arrendamiento operativo: si el ajuste declarado no es cero, el libro no calcula lo declarado
+    hay_ajuste = bool(us and U["tramos_en_fila_14"] and any(U["ajuste"].get(y) for y in set(ventana) | set(horiz)))
+    txt_ajuste = (", partida del arrendamiento operativo retirada del circulante (US GAAP; LÍMITE DECLARADO: ningún libro la retira; la salida es corregir la "
+                  "fila 14 con una corrección registrada de las entradas en un expediente nuevo, o una plantilla con ese ajuste)") if hay_ajuste else ""
     dif_motor = []
     if decl_r:
         for nombre, fila in (("MALO", 6), ("NORMAL", 7), ("BUENO", 8)):
@@ -894,21 +1100,21 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 v = mo["flujos"][t] if t < 10 else mo["flujo_11"]
                 if lv is not None and abs(v - lv) > TOL_LIBRO * max(1, abs(lv)):
                     dif_motor.append(f"Motor!{c}{fila}")
-    v631 = _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor)
+    v631 = _libro_v631(L, per, rou8, ppa, anios, col, DX_de, decl_r, dif_motor)
     if v631 is not None:  # (V6.3.1 F1) el libro calcula el perímetro F1: la capa es el oráculo
         res["libro_v631_f1"] = v631
-        if per and (v631["motivos"] or aj_ok or hay_terminos):
+        if per and (v631["motivos"] or aj_ok or hay_terminos or hay_ajuste):
             G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
-                  f"el libro V6.3.1 F1 no calcula lo declarado ({per}" + (", N1" if aj_ok else "") + (", términos explícitos" if hay_terminos else "")
+                  f"el libro V6.3.1 F1 no calcula lo declarado ({per}" + (", N1" if aj_ok else "") + (", términos explícitos" if hay_terminos else "") + txt_ajuste
                   + "; N1 y los términos explícitos no están en el libro): " + "; ".join(v631["motivos"])[:900]
                   + ": la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
         else:
             G.add("F1-LIBRO", False, None, None, f"el libro V6.3.1 F1 calcula el perímetro declarado ({per}): f, ancla, D_X, series y "
                   f"{v631['flujos_contrastados']} flujos del Motor coinciden con la capa", "(1a) · implantación")
-    elif per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor):
+    elif per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor or hay_ajuste):
         G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
               f"LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con {per}" + (" y N1" if aj_ok else "")
-              + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "")
+              + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "") + txt_ajuste
               + (f"; flujos del perímetro declarado distintos de los del Motor en {len(dif_motor)} celdas" if dif_motor else "")
               + ": su valor no corresponde a la declaración; la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
     else:
@@ -942,14 +1148,15 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         info_f["PPA: media ÷ ventas medias (lo que devuelve f en A2)"] = fl(media(ppa[y] for y in ventana) / S_w, 6)
         info_f["PPA: año base ÷ ventas del año base (lo que lleva m0)"] = fl(ppa[yL] / V0, 6)
         info_f["efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)"] = fl(media(ppa[y] for y in ventana) / S_w * V0 - ppa[yL], 3)
-    if all(y in rou for y in ventana) and yL in rou:
-        info_f["ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)"] = fl(media(rou[y] for y in ventana) / S_w, 6)
-        info_f["ROU: año base ÷ ventas del año base (lo que lleva m0)"] = fl(rou[yL] / V0, 6)
-        info_f["efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)"] = fl(media(rou[y] for y in ventana) / S_w * V0 - rou[yL], 3)
+    if all(y in rou8 for y in ventana) and yL in rou8:
+        info_f["ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)"] = fl(media(rou8[y] for y in ventana) / S_w, 6)
+        info_f["ROU: año base ÷ ventas del año base (lo que lleva m0)"] = fl(rou8[yL] / V0, 6)
+        info_f["efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)"] = fl(media(rou8[y] for y in ventana) / S_w * V0 - rou8[yL], 3)
     vnc = Q(((decl.get("series") or {}).get("vnc_intangibles_adquiridos") or {}).get("valor")) if isinstance((decl.get("series") or {}).get("vnc_intangibles_adquiridos"), dict) else None
     if vnc is not None and yL in ppa and ppa[yL] > 0:
         info_f["años de agotamiento de la PPA al ritmo del año base (valor neto ÷ PPA)"] = fl(vnc / ppa[yL], 2)
-    G.add("V-F1f", per in ("A1_sin_ROU", "A2_propio") and (sum_rou_w > 0 or (per == "A2_propio" and sum_ppa_w > 0)), "INFORMA", "INFORMA",
+    sum_rou8_w = sum((rou8[y] for y in ventana if y in rou8), Fr(0))   # con NIIF, igual que sum_rou_w
+    G.add("V-F1f", per in ("A1_sin_ROU", "A2_propio") and (sum_rou8_w > 0 or (per == "A2_propio" and sum_ppa_w > 0)), "INFORMA", "INFORMA",
           json.dumps(info_f, ensure_ascii=False) if info_f else "sin series para los efectos de escala", "(2)")
 
     # (1b) sensibilidad al peso de 2025 de los pagos y de la amortización ROU (la media de la ventana es la convención declarada)
@@ -966,13 +1173,13 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["sensibilidad_peso_arrendamiento_1b"] = sens
 
     # (3a) materialidad de R: D&A propia y capex propio de la ventana (no son R; R sigue pendiente)
-    if all(y in rou and y in ppa for y in ventana):
-        res["materialidad_R_3a"] = {"D&A propia media (referencia inferior; no es cota)": fl(media(H["DA"][y] - rou[y] - ppa[y] for y in ventana), 3),
+    if all(y in rou8 and y in ppa for y in ventana):
+        res["materialidad_R_3a"] = {"D&A propia media (referencia inferior; no es cota)": fl(media(H["DA"][y] - rou8[y] - ppa[y] for y in ventana), 3),
                                     "capex propio medio (cota superior de R_propia + transición)": fl(media(H["capex"][y] for y in ventana), 3),
                                     "nota": "solo mide la materialidad de R_propia más la transición; no fija R (3a)"}
     # materialidad de V-F1a (para un umbral futuro; sin umbral adoptado)
-    if r0 and all(y in rou for y in ventana):
-        rou_m = media(rou[y] for y in ventana)
+    if r0 and all(y in rou8 for y in ventana):
+        rou_m = media(rou8[y] for y in ventana)
         res["materialidad_V_F1a"] = {"D&A ROU media de la ventana (mm)": fl(rou_m, 3), "÷ ventas medias": fl(rou_m / S_w, 6),
                                      "÷ FCF base": fl(rou_m / C70, 6), "exceso en el flujo sin crecimiento del año base (mm)": fl(rou_m / S_w * V0, 3),
                                      "umbral": "ninguno adoptado: V-F1a bloquea con cualquier importe"}
@@ -991,7 +1198,14 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["diagnostico_por_perimetro"] = {k: salida(v) for k, v in diag.items()}
     if "A0_total" in diag:
         res["diferencias_frente_a_A0_flujo_sin_crecimiento"] = {k: fl(v["F0"] - diag["A0_total"]["F0"], 6) for k, v in diag.items()}
-    _guarda_fuentes_series(G, decl, carpeta, anios, res)   # (revisión F1-IMPL, H12; V631-2) al final: BLOQUEA si nada más bloquea
+    if us:
+        _informes_us(G, res, L, U, us_f, anios, ventana, col, V0, S_w, decl_r, pal, motor_)
+    _guarda_fuentes_series(G, decl, carpeta, anios, res, us=U)   # (revisión F1-IMPL, H12; V631-2) al final: BLOQUEA si nada más bloquea
+    return _cerrar(res, G, "A")
+
+
+def _cerrar(res, G, motor):
+    """Estado propuesto y rótulo a partir de las guardas. Una conclusión que se apoya en la hipótesis D-US1 se rotula CONDICIONADA."""
     res["guardas"] = G.lista
     bl = G.bloquean()
     res["bloquea"] = bool(bl)
@@ -999,9 +1213,275 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     clases = {g["clase"] for g in bl}
     res["estado_propuesto"] = (None if not bl else "no_entregable · fallo_de_implementacion" if "implementacion" in clases
                                else "pendiente_de_datos" if "datos" in clases else "no_entregable · limite_del_modelo")
-    res["rotulo"] = ("DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: " + ", ".join(sorted({g["id"] for g in bl}))) if bl else \
-        "motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)"
+    cond = res.get("condicionada")
+    res["rotulo"] = (f"DIAGNÓSTICO F1 · el resultado del motor {motor} no se usa para una conclusión: " + ", ".join(sorted({g["id"] for g in bl}))) if bl else \
+        (f"motor {motor} utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)" if not cond else
+         f"motor {motor} utilizable para una conclusión CONDICIONADA según F1 · {cond['texto']} (condición necesaria, no suficiente; no apto para dinero real)")
     return res
+
+
+# ----------------------------------------------------------------------------------------------------------- US GAAP (ASC 842)
+def _guardas_us(G, L, U, anios, ventana, per, C49, col):
+    """(F1 · US GAAP) Guardas de los arrendamientos con ASC 842, con los operativos y los financieros por separado (F1_USGAAP.md §3 y §5).
+    El alquiler operativo ya cuenta una vez en el FCF base (coste entero en el EBIT, pago en el CFO) y la reinversión que calibra f no lleva
+    ninguna partida suya (D-US2: se cuentan los pagos). Se contaría de más si su amortización quedara dentro de D_X o sola dentro del
+    circulante, o si C49 llevara sus pagos; se omitiría si la variación de su pasivo quedara sola dentro del circulante. Devuelve las marcas
+    que usan K3b, el puente K3 y los informes."""
+    S = U["S"]
+    P, Lc, finp, pasv = S["pagos_arr_operativo"], S["coste_arr_operativo"], S["pagos_arr_financiero_principal"], S["pasivo_arr_operativo"]
+    yL, dec = anios[-1], "US GAAP · ASC 842"
+    faltas, incoh = list(U["faltas"]), list(U["incoherencias"])
+    op, fin, en14 = U["op"], U["fin"], U["tramos_en_fila_14"]
+    # F1-US-MEZCLA: partidas propias de NIIF en un libro US GAAP
+    c48 = Q(L.get("Análisis!C48"))
+    f16 = [y for y in ventana if (Q(L.get(f"Historia!{col[y]}16")) or 0) > 0]
+    mez = ([f"Análisis C48 = {float(c48)}"] if (c48 is not None and c48 > TOL_E7) else []) + ([f"Historia fila 16 positiva en {f16}"] if f16 else [])
+    G.add("F1-US-MEZCLA", bool(mez), "BLOQUEA", "DATOS INVÁLIDOS",
+          ("mezcla de normas: intereses pagados «en financiación» (" + "; ".join(mez) + ") con US GAAP, donde los intereses pagados van siempre en el flujo "
+           "de explotación (ASC 230): el FCF base los restaría dos veces") if mez else "sin partidas propias de NIIF en un libro US GAAP (C48 y fila 16 a cero)", dec)
+    # series exigidas (vacío ≠ 0)
+    pagos_op_pos = sum((P[y] for y in ventana if y in P), Fr(0)) > 0
+    if op is True:
+        p_w, l_w = [y for y in ventana if y not in P], [y for y in ventana if y not in Lc]
+        if p_w:
+            faltas.append(f"series.pagos_arr_operativo sin declarar en {p_w} (caja pagada por arrendamientos operativos dentro del flujo de explotación)")
+        elif not pagos_op_pos:
+            incoh.append("operativos.existen = true y series.pagos_arr_operativo suma cero en la ventana")
+        if l_w:
+            faltas.append(f"series.coste_arr_operativo sin declarar en {l_w} (coste lineal; D-US2: su diferencia con los pagos queda a la vista)")
+        if U["ub_am"] == "fila_8":
+            a_w = [y for y in ventana if y not in U["a8"]]
+            if a_w:
+                faltas.append(f"series.da_rou_operativo sin declarar en {a_w} (amortización del derecho de uso operativo dentro de la fila 8)")
+        if en14:
+            j_w = [y for y in ventana if y not in U["ajuste"]]
+            if j_w:
+                faltas.append(f"series.circulante_arr_operativo sin declarar en {j_w} (importe del arrendamiento operativo dentro de la fila 14, con el signo "
+                              "de esa fila" + ("; con los dos tramos dentro vale también pagos − coste lineal" if len(en14) == 2 else "") + ")")
+        if yL not in pasv:
+            faltas.append(f"series.pasivo_arr_operativo sin declarar en {yL} (pasivo por arrendamiento operativo dentro de la fila 23: puente de deuda)")
+    if fin is True:
+        r_w = [y for y in ventana if y not in U["rou_fin"]]
+        if r_w:
+            faltas.append(f"series.da_rou sin declarar en {r_w} (amortización del derecho de uso de los arrendamientos financieros dentro de la fila 8)")
+    G.add("F1-US-DESGLOSE", bool(faltas or incoh), "BLOQUEA", "DATOS INVÁLIDOS" if incoh else "INCOMPLETO",
+          ("; ".join(incoh + faltas))[:1500] if (faltas or incoh) else
+          "arrendamientos operativos y financieros declarados por separado, con sus series" + (" · hipótesis D-US1 en " + ", ".join(U["hipotesis_D_US1"]) if U["hipotesis_D_US1"] else ""), dec)
+    # F1-US-C49: con US GAAP, C49 solo lleva el principal de los arrendamientos financieros (los pagos de los operativos están en el CFO)
+    fin_m = Fr(0) if fin is False else (media(finp[y] for y in ventana) if (fin is True and all(y in finp for y in ventana)) else None)
+    exceso_c49 = defecto_c49 = False
+    if C49 is None:
+        G.add("F1-US-C49", False, None, None, "C49 vacío: lo señala F1-C49", dec)
+    elif fin is None:
+        G.add("F1-US-C49", False, None, None, "no evaluable: falta declarar si hay arrendamientos financieros (F1-US-DESGLOSE)", dec)
+    elif fin_m is None:
+        G.add("F1-US-C49", True, "BLOQUEA", "INCOMPLETO", f"series.pagos_arr_financiero_principal sin declarar en {[y for y in ventana if y not in finp]}: sin el "
+              "principal publicado de los arrendamientos financieros no se puede comprobar que C49 no lleva pagos de los operativos", dec)
+    else:
+        dif = C49 - fin_m
+        exceso_c49, defecto_c49 = dif > TOL_US_C49, dif < -TOL_US_C49
+        G.add("F1-US-C49", exceso_c49 or defecto_c49, "BLOQUEA", "DATOS INVÁLIDOS",
+              (f"C49 = {float(C49)} supera en {float(dif)} el principal publicado de los arrendamientos financieros ({float(fin_m)} de media en la ventana"
+               + ("; no hay financieros" if fin is False else "") + "): con US GAAP los pagos de los arrendamientos operativos ya están en el CFO; restarlos además en "
+               "C49 los cuenta dos veces") if exceso_c49 else
+              (f"C49 = {float(C49)} no alcanza el principal publicado de los arrendamientos financieros ({float(fin_m)} de media en la ventana): la diferencia "
+               f"({float(-dif)}) se pagó en financiación y no está en el FCF base: se omitiría") if defecto_c49 else
+              f"C49 = {float(C49)} es el principal publicado de los arrendamientos financieros ({float(fin_m)} de media en la ventana)", dec)
+    # F1-US-DA (dos veces) y F1-US-SIM (ninguna): la amortización del derecho de uso operativo o la variación de su pasivo dentro de la reinversión
+    a8_pos = sum((U["a8"].get(y, Fr(0)) for y in ventana), Fr(0)) > 0
+    sin_ajuste = bool(en14) and any(y not in U["ajuste"] for y in ventana)
+    am14_solo_sin = sin_ajuste and en14 == ["amortizacion_rou"]
+    pas14_solo_sin = sin_ajuste and en14 == ["variacion_pasivo"]
+    da1 = per == "A0_total" and a8_pos
+    G.add("F1-US-DA", da1 or am14_solo_sin, "BLOQUEA", "MODELO NO APLICABLE",
+          ("alquiler operativo contado dos veces: " + "; ".join(
+              (["la amortización de su derecho de uso está dentro de la D&A (fila 8) y el perímetro A0 la trata como reposición, con el pago ya dentro del "
+                "FCF base (CFO): hace falta un perímetro que la excluya (A1 o A2)"] if da1 else [])
+              + (["la amortización de su derecho de uso está sola dentro del circulante (fila 14) y su importe no está declarado para retirarla"] if am14_solo_sin else [])))
+          if (da1 or am14_solo_sin) else "la amortización del derecho de uso operativo no queda dentro de la reinversión", dec)
+    s1 = per in ("A1_sin_ROU", "A2_propio", "A3_estimado") and a8_pos and not pagos_op_pos
+    G.add("F1-US-SIM", s1 or pas14_solo_sin, "BLOQUEA", "FUERA DEL DOMINIO",
+          ("alquiler operativo omitido: " + "; ".join(
+              (["la variación de su pasivo está sola dentro del circulante (fila 14) y su importe no está declarado para retirarla: la proyección trataría "
+                "como inversión que no se repite la parte del pago que reduce el pasivo"] if pas14_solo_sin else [])
+              + ([f"el perímetro {per} excluye de D_X la amortización de su derecho de uso sin pagos declarados dentro del CFO"] if s1 else [])))
+          if (s1 or pas14_solo_sin) else "la variación del pasivo operativo no queda sola dentro de la reinversión", "simétrica · " + dec)
+    return {"pagos_op_pos": pagos_op_pos, "a8_pos": a8_pos, "exceso_c49": exceso_c49, "defecto_c49": defecto_c49, "fin_m": fin_m,
+            "am14_solo_sin": am14_solo_sin, "pas14_solo_sin": pas14_solo_sin}
+
+
+def _k3b_us(G, k3, U, f, per, rou_pos, c49_pos):
+    """(F1 · US GAAP) K3b por clase. Operativos: 1 (coste en el EBIT y pago en el CFO) + 1 si C49 lleva sus pagos + 1 si la amortización de
+    su derecho de uso queda en D_X o sola en el circulante − 1 si la variación de su pasivo queda sola en el circulante. Financieros: como
+    NIIF 16 (amortización en el margen + principal en C49 − la que f devuelve). Cada clase que exista tiene que dar exactamente uno."""
+    nombre = {0: "ninguna vez", 1: "una vez", 2: "dos veces", 3: "tres veces"}
+    if U["op"] is None or U["fin"] is None:
+        k3["K3b_alquiler_contado"], k3["K3b_por_clase"] = "no evaluable (falta declarar si hay arrendamientos operativos y financieros)", None
+        G.add("F1-K3b", False, None, None, "no evaluable sin el desglose de US GAAP (lo bloquea F1-US-DESGLOSE)", "K3")
+        return
+    devuelve = per in ("A1_sin_ROU", "A2_propio", "A3_estimado")
+    clases, mal = {}, []
+    if U["op"]:
+        v = ((1 if f["pagos_op_pos"] else 0) + (1 if f["exceso_c49"] else 0) + (1 if (f["a8_pos"] and not devuelve) else 0)
+             + (1 if f["am14_solo_sin"] else 0) - (1 if f["pas14_solo_sin"] else 0))
+        clases["operativos"] = nombre.get(v, f"{v} veces")
+        if v != 1:
+            mal.append(f"operativos {clases['operativos']}")
+    if U["fin"]:
+        v = (1 if rou_pos else 0) + (1 if c49_pos else 0) - (1 if (rou_pos and devuelve) else 0) + (1 if (f["exceso_c49"] and not U["op"]) else 0)
+        esperado = 1 if (rou_pos or c49_pos or (f["fin_m"] is not None and f["fin_m"] > TOL_US_C49)) else 0
+        clases["financieros"] = nombre.get(v, f"{v} veces") + ("" if esperado else " (sin importes)")
+        if v != esperado:
+            mal.append(f"financieros {clases['financieros']}")
+    elif f["exceso_c49"] and not U["op"]:
+        mal.append("C49 positivo sin arrendamientos de ninguna clase")
+    k3["K3b_por_clase"] = clases or None
+    k3["K3b_alquiler_contado"] = ("; ".join(f"{k}: {v}" for k, v in clases.items()) if mal else ("una vez" if clases else "ninguna vez (sin arrendamientos)"))
+    G.add("F1-K3b", bool(mal), "BLOQUEA", "MODELO NO APLICABLE",
+          (f"alquiler mal contado en la proyección con el perímetro {per} ({'; '.join(mal)}): cada clase debe contarse una vez") if mal
+          else f"alquiler contado {k3['K3b_alquiler_contado']}" + (f" ({', '.join(clases)})" if clases else ""), "K3")
+
+
+def _guarda_puente_us(G, L, U, anios, motor):
+    """(F1 · US GAAP) Puente de deuda. El motor B proyecta el EBIT, que con US GAAP ya lleva entero el alquiler operativo: su pasivo no es
+    deuda del puente (se contaría dos veces). Deuda coherente = deuda financiera (fila 22) + pasivo por arrendamientos financieros (fila 23
+    sin el pasivo operativo). El libro resta Historia C64 = fila 22 + fila 23: si la fila 23 lleva pasivo operativo, con el motor B bloquea
+    (límite declarado: ningún libro lo excluye) y con el motor A informa (el motor A no resta deuda)."""
+    yL, dec = anios[-1], "puente de deuda · US GAAP"
+    l22, l23, c64 = Q(L.get("Historia!L22")), Q(L.get("Historia!L23")), Q(L.get("Historia!C64"))
+    op23 = Fr(0) if U["op"] is False else (U["S"]["pasivo_arr_operativo"].get(yL) if U["op"] is True else None)
+    coh = (l22 + l23 - op23) if None not in (l22, l23, op23) else None
+    p = {"ejercicio": yL, "motor": motor, "deuda_financiera_fila_22": fl(l22, 6), "pasivo_por_arrendamientos_fila_23": fl(l23, 6),
+         "pasivo_operativo_dentro_de_la_fila_23": fl(op23, 6), "deuda_del_puente_del_libro_C64": fl(c64, 6), "deuda_del_puente_coherente": fl(coh, 6),
+         "exceso_que_restaria_el_motor_B": fl(op23, 6),
+         "regla": "deuda del puente = deuda financiera + pasivo por arrendamientos financieros; el pasivo por arrendamiento operativo no entra: su pago ya está "
+                  "entero en el EBIT (una sola vez)"}
+    if op23 is None:
+        G.add("F1-US-PUENTE", False, None, None, "no evaluable: falta declarar si hay arrendamientos operativos o su pasivo del último ejercicio (lo bloquea F1-US-DESGLOSE)", dec)
+    elif l23 is not None and op23 > l23 + TOL_E7:
+        G.add("F1-US-PUENTE", True, "BLOQUEA", "DATOS INVÁLIDOS",
+              f"el pasivo por arrendamiento operativo declarado dentro de la fila 23 ({float(op23)}) supera la fila 23 del libro ({float(l23)}) en {yL}", dec)
+    elif op23 > TOL_E7 and motor == "B":
+        G.add("F1-US-PUENTE", True, "BLOQUEA", "MODELO NO APLICABLE",
+              f"LÍMITE DECLARADO · el puente del motor B (Historia C64 = fila 22 + fila 23 = {None if c64 is None else float(c64)}) resta {float(op23)} de pasivo por "
+              f"arrendamiento operativo, cuyo pago ya está entero en el EBIT que proyecta el motor B: el alquiler se contaría dos veces. Deuda coherente del puente: "
+              f"{None if coh is None else float(coh)}. Ningún libro lo excluye: la salida es que la fila 23 lleve solo el pasivo por arrendamientos financieros "
+              "(corrección registrada de las entradas en un expediente nuevo)", dec, clase="modelo")
+    elif op23 > TOL_E7:
+        G.add("F1-US-PUENTE", True, "INFORMA", "INFORMA",
+              f"la fila 23 lleva {float(op23)} de pasivo por arrendamiento operativo. El motor A no resta deuda, así que no afecta a su valor; sí entra en el capital "
+              f"invertido y en el ROIC histórico del libro (filas 32–33) y en Historia C64. Deuda coherente de un puente (motor B): {None if coh is None else float(coh)}", dec)
+    else:
+        G.add("F1-US-PUENTE", False, None, None, "la fila 23 no lleva pasivo por arrendamiento operativo: la deuda del puente es la del libro", dec)
+    return p
+
+
+def _informes_us(G, res, L, U, f, anios, ventana, col, V0, S_w, decl_r, pal, motor):
+    """(F1 · US GAAP) Lo que queda a la vista: D-US2 (se cuentan los pagos; diferencia con el coste lineal), D-US1 (hipótesis declarada y su cota:
+    cuánto cambiaría el resultado si los tramos no publicados no estuvieran fuera de las filas 8 y 14) y el puente de deuda."""
+    S = U["S"]
+    P, Lc = S["pagos_arr_operativo"], S["coste_arr_operativo"]
+    yL, esc = anios[-1], V0 / S_w
+    completo = U["op"] is True and all(y in P and y in Lc for y in ventana)
+    p_m = media(P[y] for y in ventana) if (U["op"] is True and all(y in P for y in ventana)) else None
+    l_m = media(Lc[y] for y in ventana) if (U["op"] is True and all(y in Lc for y in ventana)) else None
+    dif = None
+    if completo:
+        dif = {"coste_lineal_medio_de_la_ventana": fl(l_m, 6), "pagos_medios_de_la_ventana": fl(p_m, 6), "coste_menos_pagos_medio": fl(l_m - p_m, 6),
+               "coste_menos_pagos_a_la_escala_del_año_base": fl((l_m - p_m) * esc, 6),
+               "coste_menos_pagos_del_año_base": fl(Lc[yL] - P[yL], 6) if (yL in Lc and yL in P) else None,
+               "nota": "D-US2: se cuentan los pagos. Si se contara el coste lineal, el flujo sin crecimiento cambiaría en −(coste − pagos) a la escala del año base"}
+    G.add("F1-US-BASE", U["op"] is True, "INFORMA", "INFORMA",
+          ("arrendamientos operativos: la proyección cuenta los PAGOS (D-US2)"
+           + (f"; coste lineal medio {float(l_m):.3f}, pagos medios {float(p_m):.3f}: coste − pagos = {float(l_m - p_m):+.3f} de media en la ventana "
+              f"({float((l_m - p_m) * esc):+.3f} a la escala del año base)" if completo else "; coste lineal o pagos sin declarar: la diferencia no se puede mostrar")
+           + (f"; en {U['ajuste_derivado']} lo que se retira del circulante es pagos − coste lineal (los dos tramos están dentro de la fila 14 sin línea neta publicada)"
+              if U["ajuste_derivado"] else "")) if U["op"] is True else "sin arrendamientos operativos declarados", "D-US2")
+    # D-US1: hipótesis general declarada para los tramos que la empresa no publica, con su cota
+    hip = U["hipotesis_D_US1"] if U["op"] is True else []
+    cota = None
+    if hip:
+        F0 = decl_r["F0"] if decl_r else None
+        cota = {"flujo_sin_crecimiento_con_la_hipotesis": fl(F0, 6), "tramos_con_hipotesis": list(hip)}
+        dfs = {}
+        if "variacion_pasivo" in hip and p_m is not None:
+            dfs["si la variación del pasivo estuviera sola dentro de la fila 14 (el alquiler se omitiría): como máximo, los pagos"] = p_m / S_w
+        if "amortizacion_rou" in hip and l_m is not None:
+            dfs["si la amortización del derecho de uso estuviera dentro de la fila 8, o sola dentro de la fila 14 (se contaría dos veces): como máximo, el coste lineal"] = -l_m / S_w
+        r_ = Q(L.get("Análisis!C56"))
+        for txt, df in dfs.items():
+            e = {"variacion_maxima_de_f": fl(df, 9), "variacion_maxima_del_flujo_sin_crecimiento_mm": fl(-df * V0, 6),
+                 "variacion_maxima_del_flujo_sin_crecimiento_%": fl(-100 * df * V0 / F0, 3) if F0 else None}
+            if decl_r and r_ is not None:
+                vp = {}
+                for n_, v_ in decl_r["esc"].items():
+                    mo, g_ = v_["_mo"], pal[n_]["g_inf"]
+                    if r_ <= g_:
+                        continue
+                    k_ = sum(mo["V"][t] / (1 + r_) ** (t + 1) for t in range(10)) + mo["V"][-1] * (1 + g_) / ((r_ - g_) * (1 + r_) ** 10)
+                    base = sum(mo["flujos"][t] / (1 + r_) ** (t + 1) for t in range(10)) + mo["flujo_11"] / ((r_ - g_) * (1 + r_) ** 10)
+                    vp[n_] = {"variacion_maxima_del_valor_presente_de_los_flujos_mm": fl(-df * k_, 3),
+                              "variacion_maxima_%": fl(-100 * df * k_ / base, 2) if base > 0 else None}
+                e["por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)"] = vp or None
+            cota[txt] = e
+        cota["nota"] = ("cotas, no estimaciones: la parte del pago que reduce el pasivo es menor que el pago y la amortización del derecho de uso es menor que el "
+                        "coste lineal; si los dos tramos estuvieran netos dentro de la fila 14, la variación sería solo −(pagos − coste lineal)")
+        res["condicionada"] = {"hipotesis": "D-US1", "tramos": list(hip),
+                               "texto": ("hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van "
+                                         + " ni ".join({"amortizacion_rou": "la amortización del derecho de uso", "variacion_pasivo": "la variación del pasivo"}[k] for k in hip)
+                                         + " del arrendamiento operativo; se supone" + ("n" if len(hip) > 1 else "") + " dentro del flujo de explotación, fuera de las filas 8 y 14"),
+                               "regla": DECISIONES_US["D-US1"]["regla"], "registro": DECISIONES_US["D-US1"]["registro"], "cota": cota}
+    G.add("F1-US-HIPOTESIS", bool(hip), "AVISO", "AVISO",
+          (res["condicionada"]["texto"] + ". CONCLUSIÓN CONDICIONADA. Cota: "
+           + "; ".join(f"{k}: flujo sin crecimiento {v['variacion_maxima_del_flujo_sin_crecimiento_mm']:+.3f} mm"
+                       + (f" ({v['variacion_maxima_del_flujo_sin_crecimiento_%']:+.1f} %)" if v.get("variacion_maxima_del_flujo_sin_crecimiento_%") is not None else "")
+                       for k, v in cota.items() if isinstance(v, dict) and "variacion_maxima_del_flujo_sin_crecimiento_mm" in v)
+           + f" · registro de la regla: {DECISIONES_US['D-US1']['registro']['fecha']}, {DECISIONES_US['D-US1']['registro']['motivo']}") if hip
+          else "sin hipótesis D-US1: los tramos del arrendamiento operativo están declarados con su línea (o no hay operativos)", "D-US1")
+    puente = _guarda_puente_us(G, L, U, anios, motor)
+    aj = U["ajuste"]
+    res["us_gaap"] = {
+        "decisiones": DECISIONES_US, "base_del_arrendamiento_operativo": "pagos (D-US2)",
+        "operativos": {"existen": U["op"], "ubicacion_de_la_amortizacion_del_derecho_de_uso": U["ub_am"], "ubicacion_de_la_variacion_del_pasivo": U["ub_pas"],
+                       "hipotesis_D_US1_en": list(U["hipotesis_D_US1"]), "pagos_medios_de_la_ventana": fl(p_m, 6), "coste_lineal_medio_de_la_ventana": fl(l_m, 6),
+                       "amortizacion_dentro_de_la_fila_8_media": fl(media(U["a8"][y] for y in ventana), 6) if all(y in U["a8"] for y in ventana) else None,
+                       "tramos_dentro_de_la_fila_14": list(U["tramos_en_fila_14"]),
+                       "retirado_del_circulante_medio": fl(media(aj[y] for y in ventana), 6) if (U["tramos_en_fila_14"] and all(y in aj for y in ventana)) else None,
+                       "retirado_derivado_de_pagos_menos_coste_lineal_en": list(U["ajuste_derivado"])},
+        "financieros": {"existen": U["fin"], "principal_publicado_medio_de_la_ventana": fl(f["fin_m"], 6),
+                        "amortizacion_dentro_de_la_fila_8_media": fl(media(U["rou_fin"][y] for y in ventana), 6) if all(y in U["rou_fin"] for y in ventana) else None},
+        "diferencia_coste_lineal_menos_pagos": dif, "cota_D_US1": cota, "puente_de_deuda": puente}
+
+
+def _evaluar_puente_motor_b(L, decl, res, G, desconocidas, carpeta):
+    """(F1 · US GAAP) Con el motor B, F1 solo evalúa el puente de deuda: norma (valor cerrado), existencia de arrendamientos por clase y pasivo
+    por arrendamiento operativo dentro de la fila 23 (F1-US-PUENTE). Los perímetros de la reinversión son del motor A y no se evalúan."""
+    res.update({"aplica": True, "alcance": "puente de deuda del motor B con US GAAP (F1-US-PUENTE): los perímetros de la reinversión son del motor A y no se evalúan"})
+    if desconocidas:
+        G.add("F1-DECLARACION", True, "BLOQUEA", "DATOS INVÁLIDOS", f"claves no reconocidas en la declaración: {', '.join(desconocidas)} (no se ignoran en silencio)", "—")
+    anios_raw = _hist(L, 5)
+    if not all(isinstance(a, (int, float)) for a in anios_raw):
+        raise ErrorDeclaracion("Historia C5:L5 no tiene los diez años")
+    anios = [int(a) for a in anios_raw]
+    _guarda_norma(G, L, decl)
+    U = leer_us(decl, anios)
+    yL, pasv = anios[-1], U["S"]["pasivo_arr_operativo"]
+    # del desglose, lo que usa el puente: registro, existencia por clase y el pasivo operativo (las ubicaciones de los tramos son del motor A)
+    faltas = [x for x in U["faltas"] if ".amortizacion_rou" not in x and ".variacion_pasivo" not in x]
+    if U["op"] is True and yL not in pasv:
+        faltas.append(f"series.pasivo_arr_operativo sin declarar en {yL} (pasivo por arrendamiento operativo dentro de la fila 23)")
+    incoh = [x for x in U["incoherencias"] if "pasivo_arr_operativo" in x or "existen" in x]
+    G.add("F1-US-DESGLOSE", bool(faltas or incoh), "BLOQUEA", "DATOS INVÁLIDOS" if incoh else "INCOMPLETO",
+          ("; ".join(incoh + faltas))[:1500] if (faltas or incoh) else "arrendamientos operativos y financieros declarados por separado", "US GAAP · ASC 842")
+    puente = _guarda_puente_us(G, L, U, anios, "B")
+    doble = any(g["id"] == "F1-US-PUENTE" and g["salta"] and g["severidad"] == "BLOQUEA" for g in G.lista)
+    res["K3"] = {"K3b_alquiler_contado": ("operativos: dos veces (en el EBIT y en la deuda del puente)" if doble else
+                                          "no evaluable" if (U["op"] is None or (U["op"] and yL not in pasv)) else "una vez" if U["op"] else "ninguna vez (sin arrendamientos operativos)")}
+    res["us_gaap"] = {"decisiones": DECISIONES_US, "operativos": {"existen": U["op"]}, "financieros": {"existen": U["fin"]}, "puente_de_deuda": puente}
+    U["evidencias"] = [e for e in U["evidencias"] if ".amortizacion_rou" not in e[0] and ".variacion_pasivo" not in e[0]]
+    U["ausencias"] = []
+    _guarda_fuentes_series(G, decl, carpeta, anios, res, us=U, series=("pasivo_arr_operativo",))
+    return _cerrar(res, G, "B")
 
 
 def _terminos_incompletos(nombre, d, horiz, con_proporcion=False, anios_futuros=11):
@@ -1109,7 +1589,7 @@ def _fuera_del_expediente(carpeta, archivo):
     return not os.path.realpath(os.path.join(carpeta, str(archivo))).startswith(b + os.sep)
 
 
-def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
+def _guarda_fuentes_series(G, decl, carpeta, anios, res=None, us=None, series=None):
     """(revisión F1-IMPL, H12; revisión V6.3.1, V631-2) Las series que entran en D_X (D&A de derechos de uso y PPA). Por año se exige:
       - «literal»: la cifra tal como se publica, con su signo; «valor_fuente» tiene que ser esa cifra (R415-SIGNO, T9);
       - «documento» registrado en «fuentes_series» con su «archivo» (dentro de la carpeta del expediente) y su «sha256» vigente; un PDF, con
@@ -1119,7 +1599,10 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
         no se pueden identificar, la columna queda PENDIENTE (no bloquea F1; la aptitud por entradas sigue en «no» porque las filas 85–87 del
         libro entran en el universo de verificacion_entradas.py y exigen su comprobación por un revisor).
     Vacío o no examinable → INCOMPLETO; cifra, signo, página, columna o huella distintos, o fuente fuera del expediente → DATOS INVÁLIDOS.
-    No acredita la entrada (sin revisor ni sello). BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA (no cambia el estado)."""
+    No acredita la entrada (sin revisor ni sello). BLOQUEA si nada más bloquea; si otra guarda ya bloquea, AVISA (no cambia el estado).
+    (F1 · US GAAP) us = leer_us(…): se examinan además las series propias de US GAAP (SERIES_US) y las clasificaciones: cada cita literal
+    tiene que estar en la página citada de una fuente registrada con su huella; un tramo «no_publicada» (hipótesis D-US1) cita la página del
+    estado de flujos examinada, que tiene que existir y no mostrar una línea propia del arrendamiento operativo (si la muestra, manda el dato)."""
     import verificacion_entradas as VE
     inval, incomp, col_pend, col_ok = [], [], [], 0
     fs = decl.get("fuentes_series") if isinstance(decl.get("fuentes_series"), dict) else {}
@@ -1157,7 +1640,7 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
         textos[doc] = out
         return out
 
-    for nombre in ("da_rou", "da_ppa"):
+    for nombre in (series if series is not None else ("da_rou", "da_ppa") + (SERIES_US if us is not None else ())):
         s = ((decl.get("series") or {}).get(nombre)) or {}
         if not isinstance(s, dict):
             continue
@@ -1209,14 +1692,56 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None):
                 col_pend.append(f"{et}: {det}")
             else:
                 col_ok += 1
+    citas_ok = aus_ok = 0
+    if us is not None:
+        def pagina_de(et, e):
+            est_t, rt = texto(str(e.get("documento") or ""))
+            if est_t != "ok":
+                (inval if est_t == "invalido" else incomp).append(f"{et}: {rt}")
+                return None
+            est, pag = VE._pagina_examinable(rt, e.get("pagina"))
+            if est != "ok":
+                (inval if est == "discrepancia" else incomp).append(f"{et}: {pag}")
+                return None
+            return pag
+        for et, e in us["evidencias"]:   # clasificaciones con su cita literal
+            pag = pagina_de(et, e)
+            if pag is None:
+                continue
+            cita = VE._norm_txt(e.get("cita"))
+            if len(cita) < CITA_MINIMA:
+                incomp.append(f"{et}: la cita tiene menos de {CITA_MINIMA} caracteres: no identifica una línea")
+            elif cita not in VE._norm_txt(pag):
+                inval.append(f"{et}: la cita no está en la página {e.get('pagina')} de {str(e.get('documento'))!r}")
+            else:
+                citas_ok += 1
+        _s = decl.get("series") if isinstance(decl.get("series"), dict) else {}
+        declaradas = ({VE._norm_txt(e.get("cita")) for _, e in us["evidencias"]}
+                      | {VE._norm_txt(e.get("fila")) for n_ in SERIES_US + ("da_rou",) for e in (_s.get(n_) or {}).values() if isinstance(e, dict) and e.get("fila")})
+        declaradas.discard("")
+        for et, e in us["ausencias"]:    # D-US1: la página examinada no muestra una línea propia del arrendamiento operativo
+            pag = pagina_de(et, e)
+            if pag is None:
+                continue
+            lineas = [ln.strip() for ln in pag.splitlines() if _LINEA_ARR_OP.search(ln) and not _LINEA_ARR_NO.search(ln)
+                      and not any(d in VE._norm_txt(ln) for d in declaradas)]
+            if lineas:
+                inval.append(f"{et}: «no_publicada», pero la página {e.get('pagina')} de {str(e.get('documento'))!r} muestra una línea del arrendamiento "
+                             f"operativo ({lineas[0][:90]!r}): donde la empresa publica la línea manda el dato (D-US1); declara su ubicación")
+            else:
+                aus_ok += 1
     probl = inval + incomp
     otras = bool(G.bloquean())
     if res is not None:
         res["F1_SERIES"] = {"invalidas": inval, "incompletas": incomp, "columna_comprobada": col_ok, "columna_pendiente": col_pend,
                             "nota": "condición mínima, no la verificación de entradas: las filas 85–87 del libro V6.3.1 entran en su universo"}
+        if us is not None:
+            res["F1_SERIES"].update({"citas_de_clasificacion_comprobadas": citas_ok, "paginas_sin_linea_propia_del_arrendamiento_operativo": aus_ok,
+                                     "nota_us_gaap": "las series y clasificaciones propias de US GAAP no están en el libro: quedan fuera del universo de verificacion_entradas.py"})
     G.add("F1-SERIES", bool(probl), "AVISO" if otras else "BLOQUEA", "DATOS INVÁLIDOS" if inval else "INCOMPLETO",
           ("; ".join(probl)[:1500] + (" (además de las guardas que ya bloquean)" if otras else "")) if probl else
-          (f"D&A de derechos de uso y PPA: cifra publicada con su signo, como cifra completa, en una página existente de una fuente del expediente "
+          ((f"US GAAP · {citas_ok} clasificaciones con su cita en la página citada y {aus_ok} páginas examinadas sin línea propia (D-US1) · " if us is not None else "") +
+           f"D&A de derechos de uso y PPA: cifra publicada con su signo, como cifra completa, en una página existente de una fuente del expediente "
            f"con su huella; columna del ejercicio comprobada en {col_ok} años" + (f", PENDIENTE en {len(col_pend)} (la aptitud por entradas sigue en «no»)"
                                                                                   if col_pend else "")), "(1a) · H12 · V631-2")
 
@@ -1283,6 +1808,8 @@ def informe_md(r):
         md.append(f"| **= flujo sin crecimiento** | **{k3a['flujo_sin_crecimiento']:.3f}** | {'cuadra' if k3a['identidad_cuadra'] else 'NO CUADRA'} |")
         md.append(f"\nDoble cómputo señalado por K3 en A0: {k3a['doble_computo_mm_en_la_ventana']:.3f} mm de media en la ventana; "
                   f"{k3a['doble_computo_mm_a_la_escala_del_año_base']:.3f} a la escala del año base.")
+    if r.get("us_gaap"):
+        md += ["", "## US GAAP (ASC 842) · arrendamientos operativos y financieros por separado", "", "```", json.dumps(r["us_gaap"], ensure_ascii=False, indent=1), "```"]
     if r.get("sensibilidad_peso_arrendamiento_1b"):
         md += ["", "## (1b) Sensibilidad al peso del año base", "", "```", json.dumps(r["sensibilidad_peso_arrendamiento_1b"], ensure_ascii=False, indent=1), "```"]
     md += ["", "## Parámetros sin valor adoptado", ""] + [f"- {k}: sin valor ({v['documento']})" for k, v in PARAMETROS_SIN_VALOR.items()]
@@ -1366,7 +1893,34 @@ def exigido(carpeta, libro=None, L=None):
             L = leer_libro(libro)
         except Exception:  # noqa: BLE001 — sin libro legible no se sabe que no haya arrendamientos
             return True
-    return arrendamientos_en_el_libro(L)
+    # (F1 · US GAAP) un libro US GAAP no muestra los arrendamientos operativos (C49 y la fila 17 van a cero): con el motor A, F1 se exige siempre
+    return arrendamientos_en_el_libro(L) or norma_del_libro(L) == "US_GAAP"
+
+
+def us_gaap_del_expediente(carpeta, libro=None, L=None):
+    """(F1 · US GAAP) True si la declaración F1 dice US_GAAP o el libro del expediente dice «US GAAP» (Control maestro L4, lista cerrada)."""
+    d = _json(os.path.join(carpeta, DECLARACION))
+    if isinstance(d, dict) and _valor(d, "norma_contable")[0] == "US_GAAP":
+        return True
+    if L is None:
+        libro = libro or libro_del_expediente(carpeta)
+        if not libro:
+            return False
+        try:
+            from v63_xml import LibroV63
+            L = {"Control maestro!L4": LibroV63(libro).leer("Control maestro", "L4")}
+        except Exception:  # noqa: BLE001 — sin lector ligero, la lectura completa
+            try:
+                L = leer_libro(libro)
+            except Exception:  # noqa: BLE001
+                return False
+    return norma_del_libro(L) == "US_GAAP"
+
+
+def exigido_puente(carpeta, libro=None, L=None):
+    """(F1 · US GAAP) Con el motor B, F1 se exige solo con US GAAP y solo para el puente de deuda (F1-US-PUENTE: el pasivo por arrendamiento
+    operativo no es deuda del puente), salvo exención explícita (exencion)."""
+    return not exencion(carpeta) and us_gaap_del_expediente(carpeta, libro=libro, L=L)
 
 
 def vigencia(carpeta, motor=None):
@@ -1375,7 +1929,8 @@ def vigencia(carpeta, motor=None):
     utilizable no hay conclusión del motor A."""
     st = _json(os.path.join(carpeta, "estado_pipeline.json")) or {}
     r = _json(os.path.join(carpeta, RESULTADO))
-    motor = motor or (st.get("motor") if isinstance(st, dict) else None) or (("A" if r.get("aplica") else (r.get("motor_del_libro"))) if isinstance(r, dict) else None)
+    motor = motor or (st.get("motor") if isinstance(st, dict) else None) or (
+        (r.get("motor_del_libro") if r.get("motor_del_libro") in ("A", "B", "C") else ("A" if r.get("aplica") else r.get("motor_del_libro"))) if isinstance(r, dict) else None)
     if motor is None:
         # (revisión V6.3.1, V631-1; R2-1) sin el motor en el estado ni en el resultado, el de la fase A (fase_a.json, C62)
         fa = _json(os.path.join(carpeta, "fase_a.json"))
@@ -1386,11 +1941,12 @@ def vigencia(carpeta, motor=None):
         # motor desconocido no es «no es el A»: con F1 exigido, sin saber el motor no hay conclusión acreditada
         return dict(out, exigido=True, vigente=False, utilizable=False, motivo="motor desconocido (ni el estado del pipeline, ni el resultado F1, "
                     "ni fase_a.json lo dicen): F1 no se puede dar por no aplicable")
-    if motor != "A":
+    puente_b = motor == "B" and not out["exento"] and us_gaap_del_expediente(carpeta)   # (F1 · US GAAP) con el motor B, solo el puente de deuda
+    if motor != "A" and not puente_b:
         return dict(out, exigido=False, vigente=None, utilizable=None, motivo="el motor no es el A")
     if out["exento"]:
         return dict(out, exigido=False, vigente=None, utilizable=None, motivo=out["exento"])
-    if not exigido(carpeta):
+    if not puente_b and not exigido(carpeta):
         return dict(out, exigido=False, vigente=None, utilizable=None, motivo="el libro no muestra arrendamientos y el expediente no es de la 4.15")
     if not isinstance(r, dict):
         return dict(out, exigido=True, vigente=False, utilizable=False, motivo="sin evaluación F1 (motor_a_f1_resultado.json)")

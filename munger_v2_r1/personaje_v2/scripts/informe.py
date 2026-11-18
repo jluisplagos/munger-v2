@@ -221,7 +221,12 @@ def main():
     if f1b is not None:
         # (4.15, F1-IMPL) motor A con el perímetro F1: si una guarda bloquea, el resultado del motor A no se usa para una conclusión
         _d = f1b.get("diferencias_frente_a_A0_flujo_sin_crecimiento") or {}
-        linea += (f"\n\n> **Motor A · F1:** {'utilizable para una conclusión (condición necesaria, no suficiente)' if f1b.get('utilizable_para_conclusion') else 'el resultado del motor A no se usa para una conclusión'}"
+        _mf = "B" if F.get("motor") == "B" else "A"   # (F1 · US GAAP) con el motor B y US GAAP, F1 evalúa el puente de deuda
+        _cf, _uf = f1b.get("condicionada") or {}, f1b.get("us_gaap") or {}
+        _df = (_uf.get("diferencia_coste_lineal_menos_pagos") or {}).get("coste_menos_pagos_medio")
+        linea += (f"\n\n> **Motor {_mf} · F1:** {('utilizable para una conclusión' + (' CONDICIONADA' if _cf else '') + ' (condición necesaria, no suficiente)') if f1b.get('utilizable_para_conclusion') else f'el resultado del motor {_mf} no se usa para una conclusión'}"
+                  + (f"; condicionada a la {str(_cf.get('texto')).replace('«', '').replace('»', '')}" if _cf else "")
+                  + (f"; US GAAP: se cuentan los pagos del arrendamiento operativo (coste lineal − pagos = {_df:+.3f} de media en la ventana)" if _df is not None else "")
                   + (f"; bloquean: {', '.join(sorted({str(g.get('id')) for g in f1b.get('bloquean') or []}))}" if f1b.get("bloquean") else "")
                   + (f"; evaluación no vigente: {str((f1b.get('vigencia') or {}).get('motivo')).replace('«', '').replace('»', '')}" if (f1b.get("vigencia") or {}).get("vigente") is False else "")
                   + (f"; K3: alquiler contado {(f1b.get('K3') or {}).get('K3b_alquiler_contado')}, caja base por dos vías {'conforme' if (f1b.get('K3') or {}).get('K3a_caja_base_dos_vias') else 'sin explicar'}" if f1b.get("K3") else "")

@@ -5,7 +5,7 @@ Uso (desde personaje_v2/): python3 -B pruebas/test_motor_a_f1.py
 Sin LibreOffice: los libros sintéticos se escriben con valores (openpyxl) y la capa F1 solo lee valores. Con el libro real de Elis
 (d2593777…, materializado desde la Release base-4.14) comprueba E9 (T1–T3b) y T16; si no está, esas pruebas FALLAN (no se saltan).
 Grupos: SIN (T5, T6, T7), G (T8: cada guarda salta cuando debe y no cuando no debe), K3, T4, T9, T10, T11, T15 (mecanismos de
-correspondencia de caja), AH (NIIF 16 con arrendamientos pesados tipo Ahold, sintético), US (US GAAP: límite declarado),
+correspondencia de caja), AH (NIIF 16 con arrendamientos pesados tipo Ahold, sintético), US (US GAAP: ya no es un límite; su batería es test_motor_a_f1_usgaap.py),
 ELIS (libro real), CLI (códigos de salida y archivos) y PIPE (el gancho del pipeline, comprobación textual y exigencia).
 """
 import copy
@@ -442,23 +442,43 @@ paso("AH · con A0 bloquean V-F1a y F1-2i; K3 señala 1.450 de doble cómputo y 
 paso("AH · con A2 y todo declarado solo bloquea F1-LIBRO (el libro V6.3 calcula A0): límite declarado, no un resultado silencioso",
      sorted({x["id"] for x in rah["guardas"] if x["salta"] and x["severidad"] == "BLOQUEA"}) == ["F1-LIBRO"])
 
-# ================================================================== US · US GAAP (ASC 842): límite declarado, demostrado
-# Arrendamiento operativo: coste lineal 12 (= amortización 10 + interés 2) en el EBIT; pagos 12 en el CFO; sin principal en financiación.
-# La fila 8 (D&A del estado de flujos) incluye la amortización no monetaria del derecho de uso (10). FCF verdadero = 100 − 12 − 20 = 68.
-#   US1: la variación del pasivo por arrendamiento (−10) NO está en la fila 14 → el perímetro correcto es A1 (excluir 10 de D_X);
-#   US2: la variación SÍ está en la fila 14 (+10, consume caja) → el perímetro correcto es A0.
-# Las mismas entradas F1 (D&A ROU 10, C49 = 0) piden perímetros distintos según una clasificación que F1 no tiene: no se puede dar una regla.
-us = {}
-for nombre, dwc in (("US1", 0.0), ("US2", 10.0)):
-    Lu = libro([1000.0] * 10, [68.0] * 10, [30.0] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [dwc] * 10, [0.0] * 10, 68.0, 0.0, l4="US GAAP")
-    ru = M.evaluar(Lu, decl("A1_sin_ROU", rou=todos(10), ppa=todos(0), norma="US_GAAP"))
-    us[nombre] = ru
-correcto_US1 = abs(F0(us["US1"], "A1_sin_ROU") - 68) < 1e-9 and abs(F0(us["US1"], "A0_total") - 58) < 1e-9
-correcto_US2 = abs(F0(us["US2"], "A0_total") - 68) < 1e-9 and abs(F0(us["US2"], "A1_sin_ROU") - 78) < 1e-9
-paso("US · demostración: con las mismas entradas F1, US1 exige A1 y US2 exige A0 (la fila 14 decide y F1 no la clasifica)", correcto_US1 and correcto_US2,
-     f"US1 A0 {F0(us['US1'], 'A0_total')} A1 {F0(us['US1'], 'A1_sin_ROU')} · US2 A0 {F0(us['US2'], 'A0_total')} A1 {F0(us['US2'], 'A1_sin_ROU')}")
-paso("US · por eso US GAAP bloquea con un mensaje de límite declarado (F1-NORMA, MODELO NO APLICABLE), nunca un resultado silencioso",
-     all(bloquea(r, "F1-NORMA") and "LÍMITE DECLARADO" in g(r, "F1-NORMA")[1][0]["detalle"] for r in us.values()))
+# ================================================================== US · US GAAP (ASC 842): ya no es un límite declarado (F1_USGAAP.md, 18-nov-2026)
+# El mismo arrendamiento operativo de la demostración de F1-IMPL: coste lineal 12 (= amortización 10 + interés 2) en el EBIT; pagos 12 en el
+# CFO; sin principal en financiación; la fila 8 lleva la amortización no monetaria del derecho de uso (10). FCF verdadero = 100 − 12 − 20 = 68.
+#   US1: la variación del pasivo por arrendamiento NO está en la fila 14; US2: SÍ está en la fila 14 (+10, consume caja).
+# Antes las mismas entradas F1 pedían perímetros distintos según una clasificación que F1 no tenía, y US GAAP bloqueaba como límite (F1-NORMA).
+# Ahora se declara dónde está cada tramo (arrendamientos_us_gaap) y hay regla: se cuentan los pagos, una vez. La batería propia de US GAAP es
+# pruebas/test_motor_a_f1_usgaap.py; aquí quedan las dos comprobaciones que sustituyen a las dos de la demostración.
+
+
+def decl_us(per, ub_pas, ajuste=None):
+    d = decl(per, ppa=todos(0), norma="US_GAAP")
+    e = {"documento": "sintético", "pagina": 1, "cita": "Informe sintético"}
+    d["arrendamientos_us_gaap"] = {"registro": REG, "financieros": dict(e, existen=False),
+                                   "operativos": dict(e, existen=True, amortizacion_rou=dict(e, ubicacion="fila_8"), variacion_pasivo=dict(e, ubicacion=ub_pas))}
+    d["series"].update({"pagos_arr_operativo": serie(todos(12)), "coste_arr_operativo": serie(todos(12)), "da_rou_operativo": serie(todos(10)),
+                        "pasivo_arr_operativo": serie({2025: 0})})
+    if ajuste is not None:
+        d["series"]["circulante_arr_operativo"] = serie(todos(ajuste))
+    return d
+
+
+us = {nombre: libro([1000.0] * 10, [68.0] * 10, [30.0] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [dwc] * 10, [0.0] * 10, 68.0, 0.0, l4="US GAAP")
+      for nombre, dwc in (("US1", 0.0), ("US2", 10.0))}
+ru0 = M.evaluar(us["US1"], decl("A1_sin_ROU", rou=todos(10), ppa=todos(0), norma="US_GAAP"))
+paso("US · US GAAP ya no bloquea por F1-NORMA como límite: sin el desglose de arrendamientos bloquea por falta de datos (F1-US-DESGLOSE, pendiente_de_datos)",
+     not salta(ru0, "F1-NORMA") and bloquea(ru0, "F1-US-DESGLOSE") and ru0["estado_propuesto"] == "pendiente_de_datos")
+ru1 = M.evaluar(us["US1"], decl_us("A2_propio", "fuera_de_las_filas_8_y_14"))
+ru1a = M.evaluar(us["US1"], decl_us("A0_total", "fuera_de_las_filas_8_y_14"))
+ru2 = M.evaluar(us["US2"], decl_us("A2_propio", "fila_14", ajuste=10))
+ru2x = M.evaluar(us["US2"], decl_us("A2_propio", "fuera_de_las_filas_8_y_14"))   # la misma empresa sin retirar la variación del pasivo: 78 (alquiler omitido)
+paso("US · con el desglose declarado hay regla: US1 → A2 excluye de D_X la amortización operativa (68; con A0, 58 y F1-US-DA); US2 → además se retira del "
+     "circulante la variación del pasivo (68; sin retirarla A2 daría 78) y, como ningún libro la retira, F1-LIBRO bloquea",
+     abs(ru1["calculo_perimetro_declarado"]["flujo_sin_crecimiento"] - 68) < 1e-9 and abs(F0(ru1a, "A0_total") - 58) < 1e-9 and bloquea(ru1a, "F1-US-DA")
+     and abs(ru2["calculo_perimetro_declarado"]["flujo_sin_crecimiento"] - 68) < 1e-9 and bloquea(ru2, "F1-LIBRO")
+     and abs(ru2x["calculo_perimetro_declarado"]["flujo_sin_crecimiento"] - 78) < 1e-9,
+     f"US1 A2 {ru1['calculo_perimetro_declarado']['flujo_sin_crecimiento']} · US1 A0 {F0(ru1a, 'A0_total')} · US2 A2 {ru2['calculo_perimetro_declarado']['flujo_sin_crecimiento']} "
+     f"· US2 A2 sin retirar {ru2x['calculo_perimetro_declarado']['flujo_sin_crecimiento']}")
 
 # ================================================================== ELIS · libro real (E9 T1–T3b, T16 en test de regresión aparte)
 ELIS = os.path.join(PV, "empresas_v2_correcciones", "2026-11_Vidrala_ensayo_4_14", "elis_decisiones", "Elis", "Elis_v63_evaluada.xlsx")

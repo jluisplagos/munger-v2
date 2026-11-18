@@ -46,12 +46,18 @@ def celdas(decl, anios):
     out[f"Historia!M{F_SEL}"] = (f"motor_a_f1.json · perimetro_reinversion = {per} · registro {json.dumps(reg, ensure_ascii=False)[:200]}"
                                  if per in PERIMETROS_LIBRO else None)
     validos = {y for y in anios if isinstance(y, int)}
+    us = (decl.get("norma_contable") or {}).get("valor") == "US_GAAP" if isinstance(decl.get("norma_contable"), dict) else False
     for nombre, fila in (("da_rou", F_ROU), ("da_ppa", F_PPA)):
         serie, _ = F1.leer_serie(decl, nombre, validos)
+        nombres = (nombre,)
+        if us and nombre == "da_rou":
+            # (F1 · US GAAP) la fila 86 lleva la amortización de derechos de uso DENTRO de la fila 8: la de los arrendamientos financieros (da_rou)
+            # más la de los operativos que esté declarada dentro de la fila 8 (da_rou_operativo), con la misma lectura que la capa (rou_fila8)
+            serie, nombres = F1.rou_fila8(decl, validos), ("da_rou", "da_rou_operativo")
         for c, y in zip(COLS, anios):
             out[f"Historia!{c}{fila}"] = float(serie[y]) if y in serie else None
-        docs = sorted({str(e.get("documento")) for e in ((decl.get("series") or {}).get(nombre) or {}).values() if isinstance(e, dict) and e.get("documento")})
-        out[f"Historia!M{fila}"] = (f"motor_a_f1.json · series.{nombre} (documento y página por año en la declaración): " + "; ".join(docs))[:900] if serie else None
+        docs = sorted({str(e.get("documento")) for n_ in nombres for e in ((decl.get("series") or {}).get(n_) or {}).values() if isinstance(e, dict) and e.get("documento")})
+        out[f"Historia!M{fila}"] = (f"motor_a_f1.json · series.{' + series.'.join(nombres)} (documento y página por año en la declaración): " + "; ".join(docs))[:900] if serie else None
     return out
 
 

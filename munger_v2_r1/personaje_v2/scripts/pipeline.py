@@ -614,10 +614,13 @@ class Pipeline:
         para una conclusión: termina en pendiente_de_datos (falta de datos o de decisión) o en no_entregable (límite del modelo o fallo
         de implementación), con el diagnóstico F1 rotulado. Devuelve True si terminó."""
         import motor_a_f1 as F1
-        if self.st.get("motor") != "A" or not F1.exigido(self.c, libro=libro_recalculado):
+        motor = self.st.get("motor")
+        # (F1 · US GAAP) con el motor B, F1 se exige solo con US GAAP y solo para el puente de deuda (F1-US-PUENTE: el pasivo por arrendamiento
+        # operativo no es deuda del puente); con el motor A, como hasta ahora (y siempre con un libro US GAAP)
+        if not ((motor == "A" and F1.exigido(self.c, libro=libro_recalculado)) or (motor == "B" and F1.exigido_puente(self.c, libro=libro_recalculado))):
             return False
         libro_ev = self.p(f"{self.E}_v63_evaluada.xlsx")
-        rc, out = self.run([PY, self.script("motor_a_f1.py"), "evaluar", self.c, "--libro", libro_recalculado, "--motor", "A"]
+        rc, out = self.run([PY, self.script("motor_a_f1.py"), "evaluar", self.c, "--libro", libro_recalculado, "--motor", motor]
                            + (["--libro-origen", libro_ev] if os.path.isfile(libro_ev) else []), ok=(0, 3, 4, 5))
         r = None
         try:
@@ -629,11 +632,11 @@ class Pipeline:
             return True
         self.st["motor_a_f1"] = {"paso": paso, "bloquea": r.get("bloquea"), "estado_propuesto": r.get("estado_propuesto"),
                                  "declaracion_sha256": r.get("declaracion_sha256"), "libro_sha256": r.get("libro_sha256")}
-        self.log("motor A · F1: " + str(r.get("rotulo"))[:300])
+        self.log(f"motor {motor} · F1: " + str(r.get("rotulo"))[:300])
         if rc == 0:
             return False
         bl = "; ".join(f"{g['id']} {g.get('efecto')}: {str(g.get('detalle'))[:120]}" for g in r.get("guardas") or [] if g.get("salta") and g.get("severidad") == "BLOQUEA")[:900]
-        detalle = f"motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · {bl}"
+        detalle = f"motor {motor} · F1 (motor_a_f1_resultado.md): el resultado del motor {motor} no se usa para una conclusión · {bl}"
         if rc == 3:
             self.terminar("pendiente_de_datos", "falta_de_datos", detalle, paso, comprobacion="F1", categoria="F1",
                           que_hace_falta="la declaración F1 (motor_a_f1.json) y los datos o decisiones que piden las guardas (R: M1, M2, M6; compras; transición)", desde=2)
@@ -1127,7 +1130,8 @@ class Pipeline:
                 if _v1.get("exigido") and not _v1.get("utilizable"):
                     _r1 = json.load(open(self.p(_F1.RESULTADO), encoding="utf-8"))
                     _ep = str(_r1.get("estado_propuesto") or "")
-                    _det = f"motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · {str(_r1.get('rotulo'))[:600]}"
+                    _mf = _v1.get("motor") or "A"   # (F1 · US GAAP) con el motor B y US GAAP, el puente de deuda
+                    _det = f"motor {_mf} · F1 (motor_a_f1_resultado.md): el resultado del motor {_mf} no se usa para una conclusión · {str(_r1.get('rotulo'))[:600]}"
                     if _ep == "pendiente_de_datos":
                         return self.terminar("pendiente_de_datos", "falta_de_datos", _det, 13, comprobacion="F1", categoria="F1", desde=2)
                     return self.terminar("no_entregable", "fallo_de_implementacion" if "implementacion" in _ep else "limite_del_modelo", _det, 13,
