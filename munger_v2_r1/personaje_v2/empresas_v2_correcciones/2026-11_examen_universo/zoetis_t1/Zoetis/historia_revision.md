@@ -20,7 +20,7 @@ Informes usados: 2016 zoetis-10k-fy2016.txt, 2017 zoetis-10k-fy2017.txt, 2018 zo
 | arrendamientos_principal | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 | 1.000 | — |
 | sbc | 37.000 | 44.000 | 53.000 | 67.000 | 59.000 | 58.000 | 62.000 | 60.000 | 74.000 | 83.000 |
 | id | 376.000 | 382.000 | 432.000 | 457.000 | 463.000 | 508.000 | 539.000 | 614.000 | 686.000 | 698.000 |
-| acciones_diluidas | 0.498 | 0.493 | 486,898.000 | 481,787.000 | 478,569.000 | 0.477 | 470,385.000 | 462,269.000 | 0.455 | 0.444 |
+| acciones_diluidas | 498.225 | 493.161 | 486.898 | 481.787 | 478.569 | 476.717 | 470.385 | 462.269 | 454.848 | 443.835 |
 | patrimonio | 1,487.000 | 1,770.000 | 2,185.000 | 2,708.000 | 3,769.000 | 4,543.000 | 4,405.000 | 4,997.000 | 4,770.000 | 3,331.000 |
 | deuda | 4,468.000 | 4,953.000 | 6,452.000 | 6,447.000 | 7,199.000 | 6,592.000 | 7,904.000 | 6,576.000 | 6,578.000 | 9,049.000 |
 | arrendamientos | 0.000 | 0.000 | 0.000 | 199.000 | 203.000 | 192.000 | 229.000 | 236.000 | 225.000 | 248.000 |
@@ -35,10 +35,6 @@ Informes usados: 2016 zoetis-10k-fy2016.txt, 2017 zoetis-10k-fy2017.txt, 2018 zo
 - **adquisiciones 2023**: informe 2023 = 59.0 · comparativo del informe 2024 = 251.0 → se usa el más reciente (zoetis-10k-fy2024.txt p.68). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2024: «El informe dice (p. 69): «Certain reclassifications of prior year information have been made to conform to the current year's presentation.» Sin cifras cuantificadas; en la p. 74 hay una categoría de »
 - **adquisiciones 2024**: informe 2024 = 301.0 · comparativo del informe 2025 = -285.0 → se usa el más reciente (zoetis-10k-fy2025.txt p.70). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2025: «sin nota de reexpresión»
 - **circulante_lineas 2017**: informe 2017 = 29.0 · comparativo del informe 2018 = 10.0 → se usa el más reciente (zoetis-10k-fy2018.txt p.75). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2018: «Impuestos diferidos: el pie (a) del estado de flujos 2018 indica reclasificacion del impuesto de repatriacion unico, sin reexpresar cuenta de resultados.»
-- **acciones_diluidas 2018**: informe 2018 = 0.487 · comparativo del informe 2019 = 486898.0 → se usa el más reciente (zoetis-10k-fy2019.txt p.71). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2019: «2018: el estado de flujos indica reclasificacion del impuesto one-time deemed repatriation entre Noncurrent deferred tax liabilities y Income taxes payable/Other taxes payable (afecta Deferred taxes y»
-- **acciones_diluidas 2021**: informe 2021 = 476717.0 · comparativo del informe 2022 = 0.477 → se usa el más reciente (zoetis-10k-fy2022.txt p.64). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2022: «sin nota de reexpresión»
-- **acciones_diluidas 2022**: informe 2022 = 0.47 · comparativo del informe 2023 = 470385.0 → se usa el más reciente (zoetis-10k-fy2023.txt p.95). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2023: «sin nota de reexpresión»
-- **acciones_diluidas 2024**: informe 2024 = 454848.0 · comparativo del informe 2025 = 0.455 → se usa el más reciente (zoetis-10k-fy2025.txt p.96). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2025: «sin nota de reexpresión»
 - **deuda 2023**: informe 2023 = 6567.0 · comparativo del informe 2024 = 6576.0 → se usa el más reciente (zoetis-10k-fy2024.txt p.66,86). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2024: «El informe dice (p. 69): «Certain reclassifications of prior year information have been made to conform to the current year's presentation.» Sin cifras cuantificadas; en la p. 74 hay una categoría de »
 - **arrendamientos 2023**: informe 2023 = 245.0 · comparativo del informe 2024 = 236.0 → se usa el más reciente (zoetis-10k-fy2024.txt p.86). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe 2024: «El informe dice (p. 69): «Certain reclassifications of prior year information have been made to conform to the current year's presentation.» Sin cifras cuantificadas; en la p. 74 hay una categoría de »
 
@@ -91,11 +87,3 @@ El informe no imprime cifra; la cita existe en la página, pero nadie ha comprob
 ## Convenciones
 
 {"caja_incluye_otros_activos_financieros": false, "motivo_caja": "El balance del 31-dic-2025 (10-K p. 68) solo muestra «Cash and cash equivalents» de 2.312 mm USD y no hay inversiones financieras corrientes ni depósitos a plazo separados; los equivalentes incluyen fondos monetarios, certificados y depósitos a ≤3 meses (p. 75)."}
-
-## BLOQUEA
-
-- acciones_diluidas: salto de 0.4932 (2017) a 486898 (2018) millones, más de 10 veces (¿unidad mal inferida? declare «unidad» en la partida de cada año)
-- acciones_diluidas: salto de 478569 (2020) a 0.4767 (2021) millones, más de 10 veces (¿unidad mal inferida? declare «unidad» en la partida de cada año)
-- acciones_diluidas: salto de 0.4767 (2021) a 470385 (2022) millones, más de 10 veces (¿unidad mal inferida? declare «unidad» en la partida de cada año)
-- acciones_diluidas: salto de 462269 (2023) a 0.4548 (2024) millones, más de 10 veces (¿unidad mal inferida? declare «unidad» en la partida de cada año)
-- acciones_diluidas: 0.4438 millones en 2025 frente a 424.928 millones en los metadatos (Análisis!C55): más de 10 veces (¿unidad mal inferida?)

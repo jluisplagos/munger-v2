@@ -1,4 +1,4 @@
-# Zoetis (None) · informe del personaje v2 · 2026-11-18
+# Zoetis Inc. (ZTS) · informe del personaje v2 · 2026-10-09
 
 ## 1. Estado, cubo y conclusión
 
@@ -6,7 +6,7 @@
 
 **Estado `pendiente_de_datos` · cubo — · acción ninguna**
 
-> **Entradas financieras:** apta por entradas: no; no hay libro del expediente: no se puede fijar el universo de entradas; motivo: no hay libro del expediente: no se puede fijar el universo de entradas. Entrada efectiva: modo aplicado en el paso 2: sin registro; declarado ahora: estricta (alcance_v2.json). Apta para dinero real: no.
+> **Entradas financieras:** apta por entradas: no; no hay libro del expediente: no se puede fijar el universo de entradas; motivo: no hay libro del expediente: no se puede fijar el universo de entradas. Entrada efectiva: modo aplicado en el paso 2: estricta (declarado en alcance_v2.json); declarado ahora: estricta (alcance_v2.json). Apta para dinero real: no.
 
 ## 2. Qué cambió respecto a la etapa 1 y por qué
 
