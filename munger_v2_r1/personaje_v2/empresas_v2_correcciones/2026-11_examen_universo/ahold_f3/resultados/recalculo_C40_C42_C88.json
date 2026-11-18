@@ -1,0 +1,113 @@
+{
+ "fecha": "2026-11-18",
+ "guion": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/resultados/scripts/recalcular_C40_C42_C88.py",
+ "antes": {
+  "Análisis!C40": 1821,
+  "Control maestro!L40": "Q2-26 p15; FS25 estado de flujos",
+  "Control maestro!M40": "Caja del accionista ordinario: CFO 6.598 − capex bruto 2.566 − intereses pagados 271 − pagos de arrendamientos (principal + intereses) 1.940 − híbridos 0 = 1.821 (antes de SBC). Estado actual → LTM. FCF yield 6,4%.",
+  "Control maestro!N40": "Si C51 = Sí, pasar a 1.763 (yield 6,2%). FY2025: 2.220 (7,8%); media 3 años 2.054 (7,2%); 5 años 1.849 (6,5%). Todas → ATRACTIVO. FCF reportado por la empresa (APM; suma intereses recibidos, subarriendos y dividendos de negocios conjuntos): LTM 2.187. Minoritarios 0. D40 no avisa con ningún C52 posible (máx. −14%). Confianza alta.",
+  "Análisis!C42": 6.129,
+  "Control maestro!L42": "Q2-26 p13",
+  "Control maestro!M42": "EV = 28.626 + deuda neta 16.065 (misma definición que C33) + híbridos 0 + minoritarios 0 − negocios conjuntos 244 = 44.447 ÷ EBITDA IFRS 16 LTM 7.252 = 6,1x.",
+  "Control maestro!N42": "EBITDA subyacente: 6,12x. Sin arrendamientos: 6,05x (aproximación). Forward 2026 ≈ 6,0x (estimación con consenso de abril-26). Con las acciones de junio: 6,17x. Estrés de fechas: 6,23x. Histórico homogéneo 2019–25: 5,5–7,0x (mediana 6,6x IFRS). Recalcular con el Q3 (4-nov-2026). Confianza alta.",
+  "Análisis!C88": 14.7,
+  "Control maestro!L73": "Secciones de la acción de cada informe anual",
+  "Control maestro!M73": "Mediana P/FCF con la definición de la fila 52 (antes de SBC): 14,7x (2019 16,4; 2020 12,4; 2021 21,9; 2022 15,5; 2023 12,4; 2024 14,7; 2025 13,8). Media 15,3x.",
+  "Control maestro!N73": "Después de SBC: 15,0x. Con el FCF de la empresa (APM): mediana 11,8x. Hoy: 15,7x (fila 52, LTM) / 13,1x (APM). Antes de 2019 no es homogéneo (IAS 17). Confianza alta."
+ },
+ "despues": {
+  "C40": 2096,
+  "C42": 6.590309595552951,
+  "C88": 12.491503267973856
+ },
+ "ev": 47792.92518695,
+ "ebitda_ltm": 7252,
+ "cobros_ltm": {
+  "dividendos_negocios_conjuntos": 27,
+  "intereses_cobrados": 104,
+  "cobros_subarriendos": 144
+ },
+ "p_fcf_por_anio": {
+  "2019": {
+   "capitalizacion": 24751,
+   "fcf_regla_espejo": 1698,
+   "p_fcf": 14.57656065959953,
+   "cobros": [
+    36,
+    56,
+    94,
+    "AR2020 p. 149"
+   ]
+  },
+  "2020": {
+   "capitalizacion": 24197,
+   "fcf_regla_espejo": 2090,
+   "p_fcf": 11.577511961722488,
+   "cobros": [
+    16,
+    24,
+    99,
+    "AR2021 p. 184"
+   ]
+  },
+  "2021": {
+   "capitalizacion": 30482,
+   "fcf_regla_espejo": 1537,
+   "p_fcf": 19.83214053350683,
+   "cobros": [
+    28,
+    16,
+    103,
+    "AR2022 p. 194"
+   ]
+  },
+  "2022": {
+   "capitalizacion": 26232,
+   "fcf_regla_espejo": 1900,
+   "p_fcf": 13.806315789473684,
+   "cobros": [
+    38,
+    56,
+    115,
+    "AR2023 p. 204"
+   ]
+  },
+  "2023": {
+   "capitalizacion": 24615,
+   "fcf_regla_espejo": 2290,
+   "p_fcf": 10.748908296943231,
+   "cobros": [
+    22,
+    160,
+    117,
+    "AR2024 p. 263"
+   ]
+  },
+  "2024": {
+   "capitalizacion": 28668,
+   "fcf_regla_espejo": 2295,
+   "p_fcf": 12.491503267973856,
+   "cobros": [
+    22,
+    196,
+    125,
+    "AR2025 p. 216"
+   ]
+  },
+  "2025": {
+   "capitalizacion": 30659,
+   "fcf_regla_espejo": 2516,
+   "p_fcf": 12.185612082670906,
+   "cobros": [
+    28,
+    130,
+    138,
+    "AR2025 p. 216"
+   ]
+  }
+ },
+ "etapa1_antes_sha256": "bd09e74ee0744690c9e1a51f83e174519af7bada7df0d5fd5d430fbaf792cacb",
+ "etapa1_despues_sha256": "83d79f86d0c4268251ce49d9299e8b29b027dff8090e2f414115892c53d3f160",
+ "no_tocado": "aux:etapa1_capitalizacion_oct2026 está en el registro del repositorio auxiliar (coordinacion/cierre-v2), no en el expediente: en el expediente la convención desaparece (C42 deriva de C41); el auxiliar del registro hay que retirarlo al sellar ahold_f3",
+ "motivo": "cifras de juicio desfasadas (precio/acciones de la etapa 1 y definición anterior a P-O1) que la fase A vería"
+}

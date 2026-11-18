@@ -27,9 +27,9 @@
   "C37": 36.05,
   "C38": 61.27,
   "C39": null,
-  "C40": 1821,
+  "C40": 2096,
   "C41": 31971.92518695,
-  "C42": 6.129,
+  "C42": 6.59030959555295,
   "C46": 6583.667,
   "C47": 2432.333,
   "C48": 77,
@@ -70,7 +70,7 @@
   "C85": null,
   "C86": null,
   "C87": null,
-  "C88": 14.7,
+  "C88": 12.4915032679739,
   "C93": "Sí",
   "C96": 0.0007,
   "C97": "Neutral",
@@ -2319,14 +2319,14 @@
     "naturaleza": "Dato objetivo condicionado a periodo",
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "periodo": "LTM a 28-jun-2026",
-    "unidad": "M€",
+    "periodo": "12 meses a 28-jun-2026",
+    "unidad": "mm",
     "tipo_fuente": "Cálculo derivado (estados de flujos)",
-    "J": "FS25; Q2-26; pkg_FIN",
+    "J": "FCF LTM a 28-jun-2026 con la regla espejo (P-O1 c), misma definición que la caja base: CFO 6.598 − capex 2.566 − intereses pagados 271 − pagos de arrendamientos 1.940 (= 1.821 de la etapa 1) + dividendos de negocios conjuntos 27 + intereses cobrados 104 + cobros de subarriendos 144 = 2096; cada partida LTM = 1S-2026 + 2025 − 1S-2025",
     "K": "https://aholddelhaize.com/investors/",
-    "L": "Q2-26 p15; FS25 estado de flujos",
-    "M": "Caja del accionista ordinario: CFO 6.598 − capex bruto 2.566 − intereses pagados 271 − pagos de arrendamientos (principal + intereses) 1.940 − híbridos 0 = 1.821 (antes de SBC). Estado actual → LTM. FCF yield 6,4%.",
-    "N": "Si C51 = Sí, pasar a 1.763 (yield 6,2%). FY2025: 2.220 (7,8%); media 3 años 2.054 (7,2%); 5 años 1.849 (6,5%). Todas → ATRACTIVO. FCF reportado por la empresa (APM; suma intereses recibidos, subarriendos y dividendos de negocios conjuntos): LTM 2.187. Minoritarios 0. D40 no avisa con ningún C52 posible (máx. −14%). Confianza alta."
+    "L": "Q2-26 PDF p. 15; AR2025 PDF p. 216",
+    "M": "FCF LTM a 28-jun-2026 con la regla espejo (P-O1 c), misma definición que la caja base: CFO 6.598 − capex 2.566 − intereses pagados 271 − pagos de arrendamientos 1.940 (= 1.821 de la etapa 1) + dividendos de negocios conjuntos 27 + intereses cobrados 104 + cobros de subarriendos 144 = 2096; cada partida LTM = 1S-2026 + 2025 − 1S-2025",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3 (revisión del registro, C40): la etapa 1 (1.821) es anterior a P-O1; C76 = 0, así que los intereses cobrados entran (salvaguarda de P-O1). Las variantes de la etapa 1 (1.763, 2.220, 2.054, 1.849) tienen la definición anterior. La propia definición de FCF de Ahold (Q2-26 p. 23) suma esos cobros."
    },
    "41": {
     "celda": "Análisis!C41",
@@ -2349,14 +2349,14 @@
     "naturaleza": "Dato objetivo condicionado a periodo/definición",
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "periodo": "EV: precio oct-2026 + deuda 28-jun-2026 · EBITDA LTM",
+    "periodo": "EV con precio del 13-nov-2026 y balance a 28-jun-2026; EBITDA LTM a 28-jun-2026",
     "unidad": "x",
-    "tipo_fuente": "Cálculo derivado",
-    "J": "Q2-26; pkg_VAL",
-    "K": "https://aholddelhaize.com/investors/",
-    "L": "Q2-26 p13",
-    "M": "EV = 28.626 + deuda neta 16.065 (misma definición que C33) + híbridos 0 + minoritarios 0 − negocios conjuntos 244 = 44.447 ÷ EBITDA IFRS 16 LTM 7.252 = 6,1x.",
-    "N": "EBITDA subyacente: 6,12x. Sin arrendamientos: 6,05x (aproximación). Forward 2026 ≈ 6,0x (estimación con consenso de abril-26). Con las acciones de junio: 6,17x. Estrés de fechas: 6,23x. Histórico homogéneo 2019–25: 5,5–7,0x (mediana 6,6x IFRS). Recalcular con el Q3 (4-nov-2026). Confianza alta."
+    "tipo_fuente": null,
+    "J": "EV/EBITDA = (C41 31.971,925 + C54 19.261 − C53 3.196 − negocios conjuntos 244) ÷ EBITDA LTM (3.542 + 1.760 − 1.741 + 3.733 + 1.828 − 1.870 = 7.252) = 47792.925 ÷ 7252 = 6.590310",
+    "K": null,
+    "L": "Q2-26 PDF p. 11, 13 y 15; AR2025 PDF p. 216; Análisis C41, C53 y C54",
+    "M": null,
+    "N": null
    },
    "43": {
     "celda": "Análisis!C46",
@@ -2814,14 +2814,14 @@
     "naturaleza": "Dato objetivo condicionado a periodo",
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "periodo": "FY2019–FY2025, cierre de cada ejercicio",
+    "periodo": "mediana 2019–2025",
     "unidad": "x",
     "tipo_fuente": "Cálculo derivado (capitalización de cierre ÷ FCF fila 52)",
-    "J": "Informes anuales 2019–25; pkg_VAL/FIN",
+    "J": "Mediana 2019–2025 de capitalización de cierre ÷ FCF con la regla espejo (P-O1 c): 2019 24751 ÷ 1698 = 14.58; 2020 24197 ÷ 2090 = 11.58; 2021 30482 ÷ 1537 = 19.83; 2022 26232 ÷ 1900 = 13.81; 2023 24615 ÷ 2290 = 10.75; 2024 28668 ÷ 2295 = 12.49; 2025 30659 ÷ 2516 = 12.19 → mediana 12.4915",
     "K": "https://www.aholddelhaize.com/investors/annual-reports/",
-    "L": "Secciones de la acción de cada informe anual",
-    "M": "Mediana P/FCF con la definición de la fila 52 (antes de SBC): 14,7x (2019 16,4; 2020 12,4; 2021 21,9; 2022 15,5; 2023 12,4; 2024 14,7; 2025 13,8). Media 15,3x.",
-    "N": "Después de SBC: 15,0x. Con el FCF de la empresa (APM): mediana 11,8x. Hoy: 15,7x (fila 52, LTM) / 13,1x (APM). Antes de 2019 no es homogéneo (IAS 17). Confianza alta."
+    "L": "AR2025 PDF p. 65; AR2020 p. 149, AR2021 p. 184, AR2022 p. 194, AR2023 p. 204, AR2024 p. 263, AR2025 p. 216; Historia F11:L17",
+    "M": "Mediana 2019–2025 de capitalización de cierre ÷ FCF con la regla espejo (P-O1 c): 2019 24751 ÷ 1698 = 14.58; 2020 24197 ÷ 2090 = 11.58; 2021 30482 ÷ 1537 = 19.83; 2022 26232 ÷ 1900 = 13.81; 2023 24615 ÷ 2290 = 10.75; 2024 28668 ÷ 2295 = 12.49; 2025 30659 ÷ 2516 = 12.19 → mediana 12.4915",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3 (revisión del registro, C88): la etapa 1 (14,7x) es anterior a P-O1; con la regla espejo baja a 12,5x (estimación del revisor ≈ 12,5x). Cobros de cada año del comparativo del informe siguiente, como la Historia."
    },
    "74": {
     "celda": "Análisis!C93",
@@ -5105,9 +5105,9 @@
    "C34": "No",
    "C37": 33.14,
    "C38": 61.27,
-   "C40": 1821,
+   "C40": null,
    "C41": 28626,
-   "C42": 6.129,
+   "C42": null,
    "C46": null,
    "C47": null,
    "C48": null,
@@ -5119,7 +5119,7 @@
    "C55": 881,
    "C57": 0.0334,
    "C60": -0.033,
-   "C88": 14.7,
+   "C88": null,
    "C96": 0.0007
   },
   "observaciones": {
@@ -5264,7 +5264,7 @@
    "C40": {
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "N": "Si C51 = Sí, pasar a 1.763 (yield 6,2%). FY2025: 2.220 (7,8%); media 3 años 2.054 (7,2%); 5 años 1.849 (6,5%). Todas → ATRACTIVO. FCF reportado por la empresa (APM; suma intereses recibidos, subarriendos y dividendos de negocios conjuntos): LTM 2.187. Minoritarios 0. D40 no avisa con ningún C52 posible (máx. −14%). Confianza alta.",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3 (revisión del registro, C40): la etapa 1 (1.821) es anterior a P-O1; C76 = 0, así que los intereses cobrados entran (salvaguarda de P-O1). Las variantes de la etapa 1 (1.763, 2.220, 2.054, 1.849) tienen la definición anterior. La propia definición de FCF de Ahold (Q2-26 p. 23) suma esos cobros.",
     "fila": 40
    },
    "C41": {
@@ -5276,7 +5276,7 @@
    "C42": {
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "N": "EBITDA subyacente: 6,12x. Sin arrendamientos: 6,05x (aproximación). Forward 2026 ≈ 6,0x (estimación con consenso de abril-26). Con las acciones de junio: 6,17x. Estrés de fechas: 6,23x. Histórico homogéneo 2019–25: 5,5–7,0x (mediana 6,6x IFRS). Recalcular con el Q3 (4-nov-2026). Confianza alta.",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3 (revisión del registro de Ahold, punto 3): la etapa 1 usaba una capitalización sin fuente (28.626 = 33,14 € × 863,79 M) y daba 6,129; ahora usa C41 (36,05 € × 886,877259 M, P-O2 a). Las sensibilidades de la etapa 1 (6,12x, 6,05x, 6,17x…) se calcularon con la capitalización antigua y se retiran.",
     "fila": 42
    },
    "C46": {
@@ -5456,7 +5456,7 @@
    "C88": {
     "E": "Listo para auditoría",
     "F": "Rellenado y verificado",
-    "N": "Después de SBC: 15,0x. Con el FCF de la empresa (APM): mediana 11,8x. Hoy: 15,7x (fila 52, LTM) / 13,1x (APM). Antes de 2019 no es homogéneo (IAS 17). Confianza alta.",
+    "N": "[Clase: derivado de datos publicados] Recalculado en ahold_f3 (revisión del registro, C88): la etapa 1 (14,7x) es anterior a P-O1; con la regla espejo baja a 12,5x (estimación del revisor ≈ 12,5x). Cobros de cada año del comparativo del informe siguiente, como la Historia.",
     "fila": 73
    },
    "C93": {

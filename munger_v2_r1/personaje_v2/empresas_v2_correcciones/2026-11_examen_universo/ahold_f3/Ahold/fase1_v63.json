@@ -622,6 +622,27 @@
    "valor_sin_redondear": 1707.3333333333333,
    "fuente": "Cálculo declarado (media 2023–2025 de: arrendamientos_principal − cobros_subarriendos; redondeo a 3 decimales; sin redondear 1707.3333333333333): 2023 arrendamientos_principal (Historia) 1815.0; 2023 cobros_subarriendos 117 (texto/AD_annual-report-2024.txt p.263); 2024 arrendamientos_principal (Historia) 1743.0; 2024 cobros_subarriendos 125 (texto/AD_annual-report-2025.txt p.216); 2025 arrendamientos_principal (Historia) 1944.0; 2025 cobros_subarriendos 138 (texto/AD_annual-report-2025.txt p.216). Decisión P-O1 (c) «regla espejo» de la persona responsable (18-nov-2026; munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md, sección «18-nov-2026 (tarde)»; dictamen examen/revisiones/dictamen_O1_O2_ahold/DICTAMEN.md §2 y §4): si se resta lo que se paga, se suma lo que se cobra por lo mismo. Sustituye la decisión de la etapa 1 (Control maestro M43/M47: «no se suman (sensibilidad)»). C49 = pagos de pasivos por arrendamiento (Historia, «Repayment of lease liabilities», principal + intereses: 1.815 / 1.743 / 1.944) − cobros de arrendamientos financieros a cobrar, que son los subarriendos de locales arrendados (AR2025 PDF p. 273) y Ahold presenta en inversión (117 / 125 / 138)."
   },
+  "C40": {
+   "valor": 2096,
+   "fuente": "FCF LTM a 28-jun-2026 con la regla espejo (P-O1 c), misma definición que la caja base: CFO 6.598 − capex 2.566 − intereses pagados 271 − pagos de arrendamientos 1.940 (= 1.821 de la etapa 1) + dividendos de negocios conjuntos 27 + intereses cobrados 104 + cobros de subarriendos 144 = 2096; cada partida LTM = 1S-2026 + 2025 − 1S-2025",
+   "pagina": "Q2-26 PDF p. 15; AR2025 PDF p. 216",
+   "periodo": "12 meses a 28-jun-2026",
+   "unidad": "mm"
+  },
+  "C42": {
+   "valor": 6.590309595552951,
+   "fuente": "EV/EBITDA = (C41 31.971,925 + C54 19.261 − C53 3.196 − negocios conjuntos 244) ÷ EBITDA LTM (3.542 + 1.760 − 1.741 + 3.733 + 1.828 − 1.870 = 7.252) = 47792.925 ÷ 7252 = 6.590310",
+   "pagina": "Q2-26 PDF p. 11, 13 y 15; AR2025 PDF p. 216; Análisis C41, C53 y C54",
+   "periodo": "EV con precio del 13-nov-2026 y balance a 28-jun-2026; EBITDA LTM a 28-jun-2026",
+   "unidad": "x"
+  },
+  "C88": {
+   "valor": 12.491503267973856,
+   "fuente": "Mediana 2019–2025 de capitalización de cierre ÷ FCF con la regla espejo (P-O1 c): 2019 24751 ÷ 1698 = 14.58; 2020 24197 ÷ 2090 = 11.58; 2021 30482 ÷ 1537 = 19.83; 2022 26232 ÷ 1900 = 13.81; 2023 24615 ÷ 2290 = 10.75; 2024 28668 ÷ 2295 = 12.49; 2025 30659 ÷ 2516 = 12.19 → mediana 12.4915",
+   "pagina": "AR2025 PDF p. 65; AR2020 p. 149, AR2021 p. 184, AR2022 p. 194, AR2023 p. 204, AR2024 p. 263, AR2025 p. 216; Historia F11:L17",
+   "periodo": "mediana 2019–2025",
+   "unidad": "x"
+  },
   "C50": {
    "valor": 55.0,
    "fuente": "Historia de fase1_v63.json, media 2023–2025 de sbc: AD_annual-report-2024.txt p.263 (comparativo del informe siguiente); AD_annual-report-2025.txt p.216 (comparativo del informe siguiente); AD_annual-report-2025.txt p.216",
@@ -636,8 +657,7 @@
   "Tasa sin riesgo: último dato verificable del Bund a 10 años es de finales de octubre de 2026 (3,34 %); no hay cifra de noviembre. Rating de Alemania no comprobado en esta búsqueda.",
   "Geografía: el informe solo separa EE. UU., Países Bajos y Resto del mundo; el resto se asigna a 'Región · Western Europe' como aproximación (incluye Indonesia y Europa central/oriental). Los pct se redondean a 4 decimales y suman 1,0000.",
   "(P-O2 (a), decisión de la persona responsable del 18-nov-2026) Metadatos ACTIVOS escritos por cambiar_base.py: acciones en circulación a 28-dic-2025 (886,877259 M, AR2025 PDF p. 244 y Q3-2026 PDF p. 21) y capitalización = 36,05 € × esas acciones (31.971,9 mm), con fechas distintas declaradas; precio y tasa sin riesgo sin cambios (siguen pendientes de fuente oficial). Dilución potencial (≈ 4 M de acciones condicionales) no incluida. Hechos posteriores que NO se aplican a esta base: recompra de 23.847.837 acciones hasta el 27-sep-2026 (865.173.863 en circulación a esa fecha, Q3-2026 PDF p. 21). C42, C53 y C54 siguen a 28-jun-2026 como en la etapa 1. (P-O1 (c)) C46, C48 y C49 llevan los cobros que Ahold presenta en inversión (dividendos de negocios conjuntos, intereses cobrados y cobros de subarriendos), con su cálculo declarado.",
-  "12 ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md.",
-  "(cambio de base, 2025-12-28) Entradas sustituidas por cambiar_base.py desde cambio_ahold_f3.json: "
+  "12 ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md."
  ],
  "pendientes_verificacion": [
   {
