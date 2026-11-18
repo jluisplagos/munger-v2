@@ -1099,7 +1099,9 @@ def d16(per="A2_propio", pagina=1, **k):
 
 
 r16v = ev_(L16, decl("A2_propio", fin=True, rou_fin=0, fin_princ=1))
-paso("R16 · (control) da_rou = 0 con principal en la fila 17 y sin decir dónde está esa amortización: F1-ROU-HISTORIA sigue bloqueando", bloquea(r16v, "F1-ROU-HISTORIA"))
+paso("R16 · (control) da_rou = 0 con principal en la fila 17 y sin decir dónde está esa amortización: F1-ROU-HISTORIA sigue bloqueando, y el mensaje dice cómo se "
+     "declara la verdad con US GAAP («fuera_de_la_fila_8» o D-WM)", bloquea(r16v, "F1-ROU-HISTORIA") and "fuera_de_la_fila_8" in g(r16v, "F1-ROU-HISTORIA")[0]["detalle"]
+     and "D-WM" in g(r16v, "F1-ROU-HISTORIA")[0]["detalle"])
 r16 = ev_(L16, d16(), notas=(F16,))
 c16 = [v for k, v in cotas(r16).items() if "financieros" in k]
 paso("R16 · declarar la verdad no bloquea: amortización del derecho de uso financiero «fuera_de_la_fila_8» (con su evidencia y su cifra publicada) → F1-ROU-HISTORIA no salta; "

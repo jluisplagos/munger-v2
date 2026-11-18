@@ -45,10 +45,3 @@ Copia: `<copia fuera del repositorio>` (fuera del repositorio) · libro `d259377
 | informe provisional de la copia: línea «Motor A · F1» | PASA | código 0  |
 | el libro de la copia no cambia | PASA |  |
 | el expediente original no cambia (huellas de todos sus archivos) | PASA |  |
-
-## Comparación de los resultados F1 de Elis antes y después de F1 · US GAAP (mismo libro y mismas declaraciones)
-
-- elis_T16_A0_con_N1_motor_a_f1_resultado.json: IGUAL (sin version, fecha ni rutas)
-- elis_decisiones_17nov_motor_a_f1_resultado.json: IGUAL (sin version, fecha ni rutas)
-- elis_libro_tal_cual_A0_motor_a_f1_resultado.json: IGUAL (sin version, fecha ni rutas)
-- regresion_elis_f1.json: IGUAL (sin version, fecha ni rutas)

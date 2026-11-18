@@ -753,7 +753,11 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             fila17 = []
     rou_cero_conflicto = bool(rou) and not rou_vacio_w and sum_rou_w == 0 and (fila17 or fila23)
     G.add("F1-ROU-HISTORIA", rou_cero_conflicto, "BLOQUEA", "DATOS INVÁLIDOS",
-          (f"D&A ROU declarada a cero en la ventana y la Historia muestra arrendamientos (principal fila 17 en {fila17}; pasivo fila 23 en {fila23})")
+          (f"D&A ROU declarada a cero en la ventana y la Historia muestra arrendamientos (principal fila 17 en {fila17}; pasivo fila 23 en {fila23})"
+           # (ronda 2, R1-16) con US GAAP la amortización del derecho de uso financiero puede no estar dentro de la D&A: se declara así, no con un cero
+           + ("; con US GAAP, si la amortización del derecho de uso de los arrendamientos financieros no está dentro de la D&A (fila 8), no se declara da_rou a cero: "
+              "se declara «financieros.amortizacion_rou.ubicacion»: «fuera_de_la_fila_8», con su evidencia y su cifra publicada (series.da_rou_financiero_fuera); y si "
+              "la empresa no desglosa sus arrendamientos financieros, «financieros.desglose»: «no_publicado» (D-WM)" if us else ""))
           if rou_cero_conflicto else "sin conflicto entre la ROU declarada y las filas 17 y 23 de la Historia", "(1a)")
     if us:
         us_f = _guardas_us(G, L, U, decl, anios, ventana, horiz, per, C49, col)

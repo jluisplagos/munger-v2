@@ -271,6 +271,9 @@ LibreOffice siempre con `flock /home/user/e_work/libreoffice.lock`, una ejecuci�
 | `python3 -I v6/v631_f1/scripts/probar_v631_f1.py estructura` | `21/21 comprobaciones V6.3.1 F1 (estructura) PASAN` (plantilla `eaece01a…`) |
 | `flock … prueba_pipeline_f1.py` (gancho; un caso más: la ficha y el informe NIIF no llevan nada de US GAAP) | `8/8 pruebas del gancho F1 del pipeline PASAN` |
 | estado F1 (`vigencia()`) de los expedientes con pipeline, con el código de la ronda 1 y con el de la ronda 2 | 38 del árbol y 10 del examen (solo lectura): **0 distintos** |
+| diferencial NIIF de la revisión (400 casos al azar, el libro real de Elis con sus declaraciones y 21 variantes de `L4`), ronda 1 frente a ronda 2 | `idénticos (todo el resultado salvo versión y fecha): 425 · distintos: 0` (`resultados/diferencial_niif_ronda1_ronda2.txt`) |
+| `python3 -I …/f1_impl/scripts/regresion_elis_f1.py <copia>` | `39/39 PASAN` (`resultados/regresion_elis_f1_tras_usgaap.md`) |
+| los guiones de la revisión, **sin cambios**, contra la capa de la ronda 2 (`adversarial_capa.py`, `matriz_verdad_declaracion.py`, `error_a_la_baja.py`, `fuzz_us.py 3000`) | B1–B6 y C1 bloquean; B7 condicionada con cota; E6 no salta; N1–N3 bloquean; N4: los 14 rótulos se ven; G3 bloquea; matriz: `sin condición ni cota: 0` en las dos pasadas; 3.000 declaraciones al azar sin excepciones (`resultados/guiones_de_la_revision_R1_contra_la_ronda_2.txt`, con su montaje y dos matices) |
 | `flock … bash verificar_paquete.sh completa` sobre una copia limpia del commit del código de la ronda 2 | se registra en el commit siguiente (`resultados/verificacion_completa_<commit>.txt`) |
 
 **NIIF no cambia de valor.** Cambios de comportamiento con NIIF, todos sobre casos antes mal tratados: (a) un libro NIIF cuyo `L4` no es
@@ -298,7 +301,8 @@ evaluado: se ha desdoblado (sin libro, se exige; con un libro NIIF, no).
 4. Una ubicación declarada que no se puede contrastar **se usa en el cálculo** y condiciona la conclusión, con la cota del caso contrario.
    La alternativa (tratarla como no publicada) cambiaría el valor en contra de lo declarado con una cifra publicada.
 5. Con la norma sin determinar y el motor B, F1 se exige **solo en expedientes de la 4.15** (los que declaran F1 o llevan
-   `entrada_efectiva`); los históricos no cambian. «Otro» en `L4` cuenta como norma sin determinar.
+   `entrada_efectiva`); los históricos no cambian. «Otro» en `L4` cuenta como norma sin determinar: F1 no tiene regla para otras
+   normas y, con los motores A y B, un expediente de la 4.15 con «Otro» no concluye (`F1-NORMA`).
 6. Tolerancia de `F1-US-C49`: la del redondeo con que está escrito C49; un cero se toma exacto.
 7. A0 con amortización operativa dentro de la fila 8 bloquea siempre; `F1-US-MEZCLA` con C48 o fila 16 positivos; `coste_arr_operativo`
    es obligatorio aunque no sea comparable (hace de cota holgada); con el motor A la falta de `pasivo_arr_operativo` solo avisa.
