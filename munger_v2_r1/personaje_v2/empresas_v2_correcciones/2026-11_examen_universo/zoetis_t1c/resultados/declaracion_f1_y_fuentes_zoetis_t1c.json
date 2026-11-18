@@ -1,0 +1,47 @@
+{
+ "fecha": "2026-11-18",
+ "autor": "orquestación (Claude, agente de implementación), encargo del coordinador; sin firma humana",
+ "cambios_en_el_destino": [
+  {
+   "archivo": "Zoetis/motor_a_f1.json",
+   "sha256": "f317734fbb8483f45572812c22a7fd84edc3edc0ca39967a7cc8389f6ee9a790",
+   "guion": "resultados/scripts/decl_zoetis_t1c.py",
+   "guion_sha256": "0e70ce93c45e39b2784165484fe32454ddfadb0c587a07edb1d428cba054451d",
+   "motivo": "declaración F1 con US GAAP (no existía en zoetis_t1b); norma US_GAAP (10-K 2025 PDF p. 71), A2_propio (F1-A), compras F1-B, sin transición conocida, D-US1 para los dos tramos operativos (estado de flujos PDF p. 70), financieros desglosados (amortización 1/1/1, principal 2/1/—, PDF p. 89), pagos y coste operativos 2023–2025 (PDF p. 89), pasivo operativo dentro de la fila 23 = 0 (cero_comprobado, PENDIENTE DE REVISOR, tras la corrección de la fila 23), da_rou 2021–2022 = 0 (cero_comprobado: «only operating leases», 10-K 2021 p. 78 y 10-K 2022 p. 70), PPA 2021–2025 = 175/160/153/140/128 (ajustes de contabilidad de adquisiciones, 10-K 2022 p. 52 y 10-K 2025 p. 54; lectura PENDIENTE DE REVISOR)"
+  },
+  {
+   "archivo": "Zoetis/fase1_partes/AR_2019…2025.json y Zoetis/fase1_v63.json",
+   "registro": "resultados/correccion_fase1_partes.json",
+   "guion": "resultados/scripts/corregir_fase1_partes.py"
+  },
+  {
+   "archivo": "Zoetis/texto/zoetis-2q2026-press-release.txt",
+   "sha256": "ec00778106a3cd7c87c8589d1b1e842ee133185d8cc89956c4f3a0212daa757d",
+   "desde": "Zoetis/pdf/zoetis-2q2026-press-release.html (8ccb57bc…, = Release fuentes-examen-20261118 «Zoetis.Inc.-.Zoetis.Announces.Second.Quarter.2026.Results.html»)",
+   "guion": "resultados/scripts/html_a_texto.py",
+   "guion_sha256": "e7b28457cb263dfbfbb6bf9ebc8fe413a3ecb8dc28e196b93378535abab764ad"
+  },
+  {
+   "archivo": "Zoetis/texto/zoetis-2q2026-earnings-call.txt y zoetis-2q2026-financial-results.txt",
+   "registro": "resultados/cambio_de_base.json (fuentes_adicionales, cambiar_base.py)"
+  },
+  {
+   "archivo": "Zoetis/pdf/zoetis-2q2026-earnings-call.pdf, zoetis-2q2026-financial-results.pdf, zoetis-2q2026-press-release.html",
+   "sha256": {
+    "earnings-call": "88a61cb5ee2daa492773287fe87fac6ff8341ae596099ff130523da98e0ae843",
+    "financial-results": "130a148ebefba6244024f8f8967acdd4ee0fbabbd21a98640dc29cf93e03d571",
+    "press-release": "8ccb57bcc445a29facfa79cf22f415485dbe0af25a7fe88ed18fe75f8c2a39b1"
+   },
+   "origen": "Release fuentes-examen-20261118 de jluisplagos/munger-v2-evidencias-mistral (descarga por la API de GitHub el 18-nov-2026); huellas iguales a las del anexo 2 de RELEASE_FUENTES_EXAMEN_VERIFICACION.md",
+   "fecha_publicacion": "2026-08-06 (antes del corte del 9-oct-2026)"
+  },
+  {
+   "archivo": "Zoetis/FUENTES.tsv",
+   "antes": "antecedentes/FUENTES_antes_de_t2_2026.tsv",
+   "antes_sha256": "7c41e3dbda46a29ac17dfda0e249a7ecbedec94d12ef801486e9c10bfb238249",
+   "despues_sha256": "14f958093f6c4023687ff2ffa36aed9dd413a7a93d2790fac96063cf0458fcd4",
+   "motivo": "tres filas nuevas (fuentes del T2 2026)"
+  }
+ ],
+ "comprobacion_fuga_temporal": "los tres documentos son del 5–6-ago-2026 (metadatos de los PDF: creación 5-ago 20:07 UTC y 6-ago 19:40 UTC; comunicado fechado «08/06/2026»); en su texto no aparece ninguna fecha posterior al 9-oct-2026 ni el tercer trimestre"
+}
