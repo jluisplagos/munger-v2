@@ -182,3 +182,20 @@ y las funciones nuevas `_escala_serie`, `_clase_cero` y `_cero_en_pagina`):
   inexistencia: queda PENDIENTE de revisor (no bloquea F1; la aptitud por entradas sigue en «no»). Amplía el límite 3 de este §9.
 - Nada más se relaja. Batería `personaje_v2/pruebas/test_f1_series_escala.py` (55 pruebas, registrada en `verificar_paquete.sh` en los
   dos modos; con el código anterior pasan 12 de 55: las que comprueban que lo que bloqueaba sigue bloqueando).
+
+**Ronda 2 (revisión independiente, `coordinacion/cierre_v2/examen/revisiones/f1_series_escala/REVISION.md`).**
+- *Hallazgo A (cero impreso):* una marca solo es la celda del ejercicio si a su derecha no quedan letras (no es parte de la etiqueta:
+  «Finance lease - principal», «Financing cash flows – finance leases» del 10-K de Zoetis) y no la sigue, con un espacio como mucho, una
+  cifra o un paréntesis (no es el signo de «- 7»). Si no queda ninguna, DATOS INVÁLIDOS.
+- *Hallazgo B (escala):* con `escala` declarada, la página tiene que declarar esa escala en un encabezado (lista cerrada `MARCAS_ESCALA`:
+  «(in millions)», «(amounts in Euro)», «in thousands of euros», «€000», «EUR m», «en miles de euros»…; la prosa con una cifra en medio
+  no cuenta). Otra escala → DATOS INVÁLIDOS; sin encabezado reconocible, o con varias escalas, la escala queda PENDIENTE («declarada y NO
+  comprobada»). Sin `escala` no se contrasta nada (el comportamiento anterior). En Jumbo las cuatro páginas dicen «(amounts in Euro)».
+- *Cero comprobado, visible:* **antes un cero sin cifra impresa dejaba F1-SERIES en INCOMPLETO; ahora no la bloquea.** No hay vía para que
+  un revisor lo cierre dentro de la capa: queda siempre pendiente y, para que nadie lo lea como comprobado, cada año sale en un aviso propio,
+  `F1-SERIES-CERO` (AVISO, PENDIENTE), con su motivo y su cita, que aparece en la tabla de guardas de `motor_a_f1_resultado.md` y en los
+  avisos del bloque `motor_a_f1` de la ficha. La aptitud por entradas sigue en «no».
+- La batería pasa a 74 pruebas (13 nuevas fallan con el código de la ronda 1), con un caso US: con la capa de `f1/usgaap`, la línea de
+  Zoetis en `pagos_arr_financiero_principal`; sin ella, la misma línea en `da_ppa`.
+- Jumbo (copia de comprobación): la frase de AR2025 p. 189 solo se usa para 2025; para 2021–2024 no prueba nada (es de octubre de 2025) y
+  esos años siguen sin cero declarado (INCOMPLETO) hasta que la persona responsable decida.

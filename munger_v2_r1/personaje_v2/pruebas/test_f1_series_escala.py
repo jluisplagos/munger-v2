@@ -49,6 +49,14 @@ PAGINAS = {
         fila("Dash in 2024 only", "4", "—", "6")],
     2: ["Note 5.8 Intangible assets", "", FRASE[:FRASE.rindex(" ", 0, 60)], FRASE[FRASE.rindex(" ", 0, 60) + 1:], "", FRASE_IMPORTE],
     3: ["Lease note without year headers", fila("Finance lease principal", "2", "1", "—")],
+    5: ["Group (in thousands of euros)", fila("", "2025", "2024"), fila("- Additions", "(1.234.567)", "(1.111.111)")],
+    # (revisión, hallazgos A y B) una nota en millones como la del 10-K de Zoetis: guion dentro de la etiqueta, negativo «- 7» con espacio,
+    # y un «Year ended 2024» cuyo año queda alineado con el guion de «Lease payable - principal» (sonda S3 de la revisión)
+    6: ["Leases (in millions)", "Year ended 2024", fila("", "2025", "2024", "2023"),
+        fila("Financing cash flows – finance leases", "2", "1", "—"),
+        fila("Amortisation of other intangibles", "- 5", "- 7", "—"),
+        fila("Lease payable - principal", "(12)", "(10)", "(9)"),
+        fila("Right-of-use depreciation", "(3)", "(2)", "(1)")],
 }
 TEXTO = "".join(f"[PDF PAGE {n}]\n" + "\n".join(lineas) + "\n" for n, lineas in sorted(PAGINAS.items()))
 SHA = hashlib.sha256(TEXTO.encode("utf-8")).hexdigest()
@@ -79,7 +87,15 @@ def gs(serie, nombre="da_rou", fuentes=None, carpeta=CT):
     d = {"series": {nombre: serie}, "fuentes_series": copy.deepcopy(FS if fuentes is None else fuentes)}
     G, res = M.Guardas(), {}
     M._guarda_fuentes_series(G, d, carpeta, ANIOS, res)
+    ULTIMA[:] = G.lista
     return [x for x in G.lista if x["id"] == "F1-SERIES"][0], res["F1_SERIES"]
+
+
+ULTIMA = []   # guardas de la última evaluación de gs (para F1-SERIES-CERO)
+
+
+def aviso_cero():
+    return next((x for x in ULTIMA if x["id"] == "F1-SERIES-CERO"), None)
 
 
 def bloquea(g, efecto=None, texto=None):
@@ -95,12 +111,35 @@ g, r = gs({"2025": ent("(9.199.774)", -9.199774, escala="unidades"), "2024": ent
            "2023": ent("(7.942.175)", -7.942175, escala="unidades")})
 paso("ESC · cifras impresas en euros con escala «unidades» y valor_fuente en millones → F1-SERIES no salta; 3 columnas comprobadas",
      libre(g) and r["columna_comprobada"] == 3, g["detalle"][:160])
-g, r = gs({"2025": ent("(1.234.567)", -1234.567, fila_="- Additions", escala="miles")})
+g, r = gs({"2025": ent("(1.234.567)", -1234.567, fila_="- Additions", escala="miles", pagina=5)})
 paso("ESC · escala «miles»: «(1.234.567)» miles = −1.234,567 millones → no salta (la etiqueta «- Additions» con guion no estorba)",
      libre(g) and r["columna_comprobada"] == 1, g["detalle"][:160])
-g, r = gs({"2025": ent("(3)", -3, fila_="Glued marks", escala="millones"), "2024": ent("(3)", -3, fila_="Glued marks")})
-paso("ESC · escala «millones» explícita = sin escala (el comportamiento anterior): «(3)» es −3; la columna de 2024 no es la de «(3)» → inválida",
-     bloquea(g, "DATOS INVÁLIDOS") and "2024" in g["detalle"] and "2025" not in g["detalle"].split("series.da_rou.2024")[0], g["detalle"][:200])
+F_ROU6 = "Right-of-use depreciation"
+g, r = gs({"2025": ent("(3)", -3, fila_=F_ROU6, pagina=6, escala="millones"), "2024": ent("(2)", -2, fila_=F_ROU6, pagina=6)})
+paso("ESC · escala «millones» explícita en una página «(in millions)» = sin escala (el comportamiento anterior) → no salta; 2 columnas",
+     libre(g) and r["columna_comprobada"] == 2 and not r["columna_pendiente"], g["detalle"][:200])
+g, _ = gs({"2025": ent("(3)", -0.003, fila_=F_ROU6, pagina=6, escala="miles")})
+paso("ESC · revisión B (S1): escala «miles» a la baja en una página «(in millions)» → DATOS INVÁLIDOS (la página declara otra escala)",
+     bloquea(g, "DATOS INVÁLIDOS", "declara ['millones']"), g["detalle"][:200])
+g, _ = gs({"2025": ent("(3)", -0.000003, fila_=F_ROU6, pagina=6, escala="unidades")})
+paso("ESC · revisión B (S1b): escala «unidades» a la baja en una página «(in millions)» → DATOS INVÁLIDOS",
+     bloquea(g, "DATOS INVÁLIDOS", "declara ['millones']"), g["detalle"][:200])
+g, _ = gs({"2025": ent("(1.234.567)", -1234.567, fila_="- Additions", escala="miles", pagina=1)})
+paso("ESC · revisión B: escala «miles» en una página «(Amounts in euros)» → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "declara ['unidades']"))
+g, _ = gs({"2025": ent("(1.234.567)", -1.234567, fila_="- Additions", escala="unidades", pagina=5)})
+paso("ESC · revisión B: escala «unidades» en una página «in thousands of euros» → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "declara ['miles']"))
+g, r = gs({"2025": ent("2", 2, sg=1, fila_="Finance lease principal", pagina=3, escala="millones")})
+paso("ESC · revisión B: página sin encabezado de escala → la escala queda PENDIENTE (declarada y no comprobada; no bloquea)",
+     libre(g) and any("NO comprobada" in x for x in r["columna_pendiente"]), str(r["columna_pendiente"])[:200])
+g, r = gs({"2025": ent("(3)", -3, fila_=F_ROU6, pagina=6)})
+paso("ESC · revisión B: sin «escala» no se contrasta nada (el comportamiento anterior, sin pendiente nuevo)",
+     libre(g) and not r["columna_pendiente"])
+EP = getattr(M, "_escala_de_pagina", lambda t: None)   # sin la función (código anterior) la prueba falla, no se interrumpe
+paso("ESC · marcas de escala: «(amounts in Euro)», «(in millions, except per share data)», «€000», «EUR m», «en miles de euros»; la prosa no",
+     EP("Note 5.8 (amounts in Euro)") == {"unidades"} and EP("(in millions, except per share data)") == {"millones"}
+     and EP("Revenue (€000)") == {"miles"} and EP("EUR m 2025 2024") == {"millones"}
+     and EP("Cifras en miles de euros") == {"miles"}
+     and EP("Sales grew to EUR 15 million and 300 millones de euros") == set())
 g, _ = gs({"2025": ent("(9.199.774)", -9.199774)})
 paso("ESC · sin escala, cifra en euros y valor_fuente en millones → DATOS INVÁLIDOS (como antes)",
      bloquea(g, "DATOS INVÁLIDOS", "no es la cifra publicada"), g["detalle"][:160])
@@ -202,6 +241,62 @@ g, _ = gs({"2025": ent("—", 0, sg=1, fila_="of")}, nombre="da_ppa")
 paso("CI · mutación: la fila está en varias líneas → INCOMPLETO", bloquea(g, "INCOMPLETO", "líneas de la página"), g["detalle"][:160])
 g, _ = gs({"2025": ent("cero", 0, sg=1, fila_=F_PPA)}, nombre="da_ppa")
 paso("CI · mutación: «cero» no es una marca reconocida → DATOS INVÁLIDOS (no es una cifra)", bloquea(g, "DATOS INVÁLIDOS", "no es una cifra"))
+
+# (revisión, hallazgo A) marcas que no son la celda del ejercicio
+g, _ = gs({"2024": ent("-", 0, sg=1, fila_="Lease payable", pagina=6)}, nombre="da_ppa")
+paso("CI · revisión A1 (S3): el guion de la etiqueta «Lease payable - principal», alineado con «Year ended 2024», no es un cero → DATOS INVÁLIDOS",
+     bloquea(g, "DATOS INVÁLIDOS", "no contiene el cero impreso"), g["detalle"][:200])
+g, _ = gs({"2024": ent("-", 0, sg=1, fila_="Amortisation of other intangibles", pagina=6)}, nombre="da_ppa")
+paso("CI · revisión A2 (S4): «- 7» (negativo con espacio) no es un cero de 2024 → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "no contiene el cero impreso"))
+g, _ = gs({"2025": ent("-", 0, sg=1, fila_="Amortisation of other intangibles", pagina=6)}, nombre="da_ppa")
+paso("CI · revisión A2 (S4b): «- 5» tampoco es un cero de 2025 → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "no contiene el cero impreso"))
+g, r = gs({"2023": ent("—", 0, sg=1, fila_="Amortisation of other intangibles", pagina=6)}, nombre="da_ppa")
+paso("CI · revisión A (S10): en esa misma fila el «—» de 2023 sí es un cero → no salta, columna comprobada", libre(g) and r["columna_comprobada"] == 1,
+     g["detalle"][:160])
+# caso US: con la capa de f1/usgaap (SERIES_US y el parámetro «series»), la misma línea de Zoetis en una serie propia de US GAAP
+import inspect  # noqa: E402
+US = "pagos_arr_financiero_principal"
+if "series" in inspect.signature(M._guarda_fuentes_series).parameters and US in getattr(M, "SERIES_US", ()):
+    def gs_us(serie):
+        d = {"series": {US: serie}, "fuentes_series": copy.deepcopy(FS)}
+        G, res = M.Guardas(), {}
+        M._guarda_fuentes_series(G, d, CT, ANIOS, res, series=(US,))
+        return [x for x in G.lista if x["id"] == "F1-SERIES"][0], res["F1_SERIES"]
+    capa = "US GAAP, " + US
+else:
+    def gs_us(serie):
+        return gs(serie, nombre="da_ppa")
+    capa = "NIIF, da_ppa (sin la capa de US GAAP en este árbol)"
+F_Z = "Financing cash flows"
+g, _ = gs_us({"2024": ent("–", 0, sg=1, fila_=F_Z, pagina=6)})
+paso(f"CI · caso US ({capa}): «Financing cash flows – finance leases 2 1 —»: el «–» de la etiqueta no es el cero de 2024 → DATOS INVÁLIDOS",
+     bloquea(g, "DATOS INVÁLIDOS", "no contiene el cero impreso"), g["detalle"][:200])
+g, r = gs_us({"2023": ent("—", 0, sg=1, fila_=F_Z, pagina=6)})
+paso(f"CI · caso US ({capa}): el «—» de 2023 de esa fila sí es un cero → no salta, columna comprobada", libre(g) and r["columna_comprobada"] == 1,
+     g["detalle"][:200])
+g, _ = gs_us({"2025": ent("2", 2, sg=1, fila_=F_Z, pagina=6, escala="miles")})
+paso(f"CI · caso US ({capa}): «2» con escala «miles» en una nota «(in millions)» → DATOS INVÁLIDOS", bloquea(g, "DATOS INVÁLIDOS", "declara ['millones']"))
+
+# ================================================================== VIS · el cero comprobado se ve como PENDIENTE (revisión, punto 3)
+g, r = gs({"2025": cero(), "2024": cero(motivo="otro motivo declarado")}, nombre="da_ppa")
+a = aviso_cero()
+paso("VIS · cero_comprobado: aviso propio F1-SERIES-CERO (AVISO, PENDIENTE) con los dos años, su motivo y su cita; F1-SERIES no salta",
+     libre(g) and a is not None and a["salta"] and a["severidad"] == "AVISO" and a["efecto"] == "PENDIENTE" and "PENDIENTE DE REVISOR" in a["detalle"]
+     and "series.da_ppa.2024" in a["detalle"] and "series.da_ppa.2025" in a["detalle"] and "otro motivo declarado" in a["detalle"]
+     and "The Group has no intangible" in a["detalle"], (a or {}).get("detalle", "")[:200])
+rr = {"aplica": True, "guardas": [dict(x) for x in ULTIMA], "version": "prueba"}
+gs({"2025": ent("—", 0, sg=1, fila_=F_PPA)}, nombre="da_ppa")
+paso("VIS · un cero impreso comprobado en su columna no crea el aviso de cero comprobado", aviso_cero() is None)
+gs({"2025": cero(cita="")}, nombre="da_ppa")
+paso("VIS · un cero comprobado que bloquea (sin cita) no crea el aviso: lo dice F1-SERIES", aviso_cero() is None)
+md = M.informe_md(rr)
+paso("VIS · motor_a_f1_resultado.md: la tabla de guardas lleva F1-SERIES-CERO con «PENDIENTE DE REVISOR»",
+     "| F1-SERIES-CERO | sí | AVISO | PENDIENTE |" in md and "PENDIENTE DE REVISOR" in md)
+import ficha as FI  # noqa: E402
+src = inspect.getsource(FI)
+paso("VIS · ficha: los avisos del bloque motor_a_f1 son las guardas que saltan con severidad AVISO o INFORMA (F1-SERIES-CERO entra)",
+     '"avisos": [{"id": g.get("id"), "severidad": g.get("severidad"), "detalle": g.get("detalle")} for g in f1r.get("guardas") or []' in src
+     and 'g.get("severidad") in ("AVISO", "INFORMA")' in src)
 
 # ================================================================== LS · leer_serie (V-F1e)
 s, p = M.leer_serie({"series": {"da_rou": {"2025": ent("(9.199.774)", -9.199774, escala="unidades")}}}, "da_rou", ANIOS)
