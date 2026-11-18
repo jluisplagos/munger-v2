@@ -1043,10 +1043,12 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     G.add("V-F1h", bool(vh), "BLOQUEA", "MODELO NO APLICABLE", "; ".join(vh) if vh else f"margen {pmar} coherente con {per}", "(2)")
     G.add("V-F1g", ppal is None or ppal != per, "BLOQUEA", "MODELO NO APLICABLE",
           ("perímetro de las palancas S2C sin declarar" if ppal is None else f"palancas S2C ancladas en {ppal!r} ≠ perímetro de la reinversión {per!r}")
-          if (ppal is None or ppal != per) else f"palancas S2C en el mismo perímetro ({per})", "(4a)")
+          if (ppal is None or ppal != per) else f"perímetro declarado de las palancas S2C = perímetro de la reinversión ({per}): compara etiquetas de la "
+          "declaración, no cifras" + ("; los valores, en «V-F1g (valores)» (P-FOSO, D3)" if per == "A2_propio" else ""), "(4a)")
     G.add("V-F1k", proi is None or proi != ppal, "BLOQUEA", "MODELO NO APLICABLE",
           ("perímetro del ROIC del terminal sin declarar" if proi is None else f"ROIC del terminal en {proi!r} ≠ palancas S2C {ppal!r}")
-          if (proi is None or proi != ppal) else f"ROIC del terminal en el perímetro de las palancas ({ppal})", "(4a)")
+          if (proi is None or proi != ppal) else f"perímetro declarado del ROIC del terminal = el de las palancas S2C ({ppal}): compara etiquetas de la "
+          "declaración, no cifras" + ("; los valores, en «V-F1k (valores)» (P-FOSO, D3)" if per == "A2_propio" else ""), "(4a)")
 
     # ---------------------------------------------------------------- cálculo por perímetro (diagnóstico A0, A1, A2 y el declarado)
     def DX_de(p, y):
@@ -1362,6 +1364,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
               (f"|salto| > C179 en {sup}: G8 (vigente) exige justificación en la tesis u Observación de B18:D18" if sup
                else "|salto| ≤ C179 en los tres escenarios: informa (no acredita coherencia)"), "(4a)")
     res["bloque_10_del_libro"] = bloque10 or None
+    import perimetro_f1 as PF   # (P-FOSO, D3) V-F1g/V-F1k por valores, donde las palancas existen (paso 12; en el paso 7, «aún sin palancas»)
+    res["perimetro_f1_valores"] = PF.guardas_valores(G, L, decl, per, pal, decl_r, diag, carpeta)
 
     # V-F1f (INFORMA): efectos de escala de la PPA y de la ROU, agotamiento de la PPA
     info_f = {}

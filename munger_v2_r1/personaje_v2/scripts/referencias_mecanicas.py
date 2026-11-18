@@ -168,6 +168,15 @@ def calcular(d, config):
     # ---------- S2C marginal (A, B) ----------
     nota = []
     c55 = num(anc.get("roic_medio_5"))
+    c55_todo = c55
+    # (P-FOSO, D1 del dictamen del perímetro) con F1 declarado en A1/A2 y motor A, el tope de la rentabilidad marginal (2 × ROIC histórico, el
+    # mismo umbral que G7) usa el ROIC del perímetro del S2C: NOPAT NIIF 16 ÷ (capital invertido − arrendamientos); C55 es de todo el capital
+    pf = d.get("perimetro_f1") if motor == "A" else None
+    pf = None if (pf or {}).get("pendiente_de_decision") else pf   # (ronda 3) A1_sin_ROU pendiente de decisión: como sin perímetro propio
+    if pf and num(pf.get("roic_sin_arrendamientos_medio")) is not None:
+        c55 = num(pf["roic_sin_arrendamientos_medio"])
+        nota.append(f"perímetro F1 {pf.get('perimetro')}: el tope usa el ROIC histórico del perímetro del S2C (NOPAT NIIF 16 ÷ capital sin "
+                    f"arrendamientos, {c55:.4f}), no C55 de todo el capital ({c55_todo})")
     if motor == "C":
         out["palancas"]["s2c"] = {"NORMAL": None, "MALO": None, "BUENO": None, "referencia_no_disponible_motivo": "no aplica en el motor C (B16:D16 se dejan vacías)", "anclas_usadas": {}}
     else:
@@ -205,8 +214,9 @@ def calcular(d, config):
             out["palancas"]["s2c"] = {"NORMAL": n_ref, "MALO": m_ref, "BUENO": b_ref, "referencia_no_disponible_motivo": None,
                                       "regla": ("NORMAL = " + ("Configuración V6.4!B155 (S2C histórico con el perímetro NIIF 16)" if per_niif else "Historia!C53")
                                                 + " con tope (rentabilidad marginal ≤ 2× ROIC histórico); MALO = 0,75 × NORMAL; BUENO = 1,25 × NORMAL con el mismo tope"),
-                                      "anclas_usadas": {"s2c_marginal_C53": c53_caja, "roic_medio_5_C55": c55, "tipo_impositivo_C52": t,
-                                                        **({"s2c_perimetro_niif16_B155": c53} if per_niif else {})},
+                                      "anclas_usadas": {"s2c_marginal_C53": c53_caja, "roic_medio_5_C55": c55_todo, "tipo_impositivo_C52": t,
+                                                        **({"s2c_perimetro_niif16_B155": c53} if per_niif else {}),
+                                                        **({"roic_perimetro_f1_sin_arrendamientos": c55} if c55 != c55_todo else {})},
                                       "criterio_relacionado": "I1 (reinversión = Δventas ÷ S2C); la banda ±25 % es convención del ejercicio", "notas": nota}
 
     # ---------- g para siempre ----------
@@ -240,8 +250,19 @@ def calcular(d, config):
     if tasa is None:
         out["palancas"]["roic_lp"] = {"NORMAL": None, "MALO": None, "BUENO": None, "referencia_no_disponible_motivo": "no disponible: falta la tasa del motor (Análisis!C56 o Diagnóstico V6!C15)", "anclas_usadas": {}}
     else:
-        hist = num(anc.get("roe_medio_5")) if motor == "C" else c55
+        hist = num(anc.get("roe_medio_5")) if motor == "C" else c55_todo
         c56a = num(an.get("C56"))
+        # (P-FOSO, 18-nov-2026) con F1 en A1/A2 el retorno histórico que se compara con la tasa es el del capital propio pagado todo el
+        # alquiler, solo si sus intereses de arrendamiento pasan la comprobación de la fuente; si no, C55 como antes y se dice
+        hist_pf = None
+        if pf:
+            if pf.get("roic_propio_utilizable") and num(pf.get("roic_propio_pagado_el_alquiler_medio")) is not None:
+                hist_pf = hist = num(pf["roic_propio_pagado_el_alquiler_medio"])
+                nota.append(f"P-FOSO (perímetro F1 {pf.get('perimetro')}): ROIC histórico = capital propio pagado todo el alquiler ({hist:.4f}); "
+                            f"C55 de todo el capital ({c55_todo}) solo frente al sector")
+            else:
+                nota.append(f"P-FOSO (perímetro F1 {pf.get('perimetro')}): el ROIC del capital propio pagado todo el alquiler no está disponible o sus "
+                            "intereses de arrendamiento no pasan la comprobación de la fuente: se usa C55 (todo el capital), que cruza perímetros")
         n_ref = m_ref = tasa
         if hist is None:
             b_ref, motivo_b = None, "BUENO no disponible: faltan cinco ejercicios con ROIC (Historia!C55)" if motor != "C" else "BUENO no disponible: faltan cinco ejercicios con ROE (Historia!C56)"
@@ -259,7 +280,8 @@ def calcular(d, config):
             nota.append(f"tasa del motor {tasa} ≤ g_ref {g_max}: ROIC_ref ≤ g (N2); la fase B tiene que resolverlo")
         out["palancas"]["roic_lp"] = {"NORMAL": n_ref, "MALO": m_ref, "BUENO": b_ref, "referencia_no_disponible_motivo": motivo_b,
                                       "regla": "NORMAL = MALO = tasa del motor (convención: sin retornos en exceso a perpetuidad como caso neutro; no una ley); BUENO = mín(ROIC medio 5a, Análisis!C56 + 0,10), y la tasa si el histórico es menor",
-                                      "anclas_usadas": {"tasa_del_motor": tasa, "roic_hist": hist, "C56": c56a, "sector_roic_media_H18_solo_contexto": num(sec.get("roic_media"))},
+                                      "anclas_usadas": {"tasa_del_motor": tasa, "roic_hist": hist, "C56": c56a, "sector_roic_media_H18_solo_contexto": num(sec.get("roic_media")),
+                                                        **({"roic_propio_pagado_el_alquiler_P_FOSO": hist_pf} if hist_pf is not None else {})},
                                       "criterio_relacionado": "E2, E3; I2 (reinversión terminal g ÷ ROIC); el tope sobre la tasa es config referencias_mecanicas.roic_lp_bueno_tope_sobre_c56 (0,03 desde v2.1, MR pp. 62–63)", "notas": nota}
 
     # ---------- probabilidades, quiebra, exceso de caja, mercado ----------
