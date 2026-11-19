@@ -1,6 +1,6 @@
 {
- "paso": 12,
- "estado_analisis": "no_entregable",
+ "paso": 13,
+ "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -69,19 +69,29 @@
   "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
   "  $ python3 informe.py Zoetis → 0 · OK: informe.md (13 secciones)",
   "  $ python3 resumen.py Zoetis resumen_v2_v631_f1.csv → 0 · OK: fila de Zoetis Inc. en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/resumen_v2_v631_f1.csv",
-  "2026-11-19T01:46:55 · paso 12 · FIN · estado no_entregable · fallo_de_implementacion: motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · F1-REPLICA DATOS INVÁLIDOS: Motor!AU6 2453.48261683346 ≠ réplic"
+  "2026-11-19T01:46:55 · paso 12 · FIN · estado no_entregable · fallo_de_implementacion: motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · F1-REPLICA DATOS INVÁLIDOS: Motor!AU6 2453.48261683346 ≠ réplic",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 62.0658527968958 · precio de Sí 73.3103 (P* 73.3103) · ponderado 80.0570 · zona cumple_regla_k",
+  "  $ bash verificar_todo.sh Zoetis Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor A --libro-origen Zoetis_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del",
+  "2026-11-19T05:05:18 · paso 12 · motor A · F1: motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas ",
+  "2026-11-19T05:05:21 · paso 12 · verificación de las entradas financieras: 0 de 315 celdas del universo comprobadas · apta por entradas: no (0 de 315 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 101 de juicio; +176 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 12 datos )",
+  "  $ python3 ficha.py Zoetis --estado pendiente_de_datos --provisional → 0 · OK: ficha_provisional.json · estado propuesto pendiente_de_datos · cubo Vigilar · acción None",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-19T05:05:25 · paso 13 · solicitud de auditoría SA-4456f50971f1118d registrada para el material 91a9726f8fcf8982"
  ],
  "motor": "A",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": null,
+ "esperando": "13:auditoria.md",
  "inicio": "2026-11-18T23:14:51",
  "entrada_efectiva": {
   "modo": "estricta",
   "declarado_en": "entrada_efectiva.json"
  },
  "f1_v631_declaracion_sha256": "f82959cdf79c61e90f0f0c1a83ef7cd42e3ff0ce7229bf0ce3e6ebdd9db72095",
- "esperando_desde": 1795048418.570258,
+ "esperando_desde": 1795064725.036384,
  "consumidos": {
   "extracto_v63.md": 1795045489.0549998,
   "fase_a.json": 1795046401.9437134,
@@ -91,15 +101,64 @@
  "motivo_correccion": null,
  "motor_a_f1": {
   "paso": 12,
-  "bloquea": true,
-  "estado_propuesto": "no_entregable · fallo_de_implementacion",
+  "bloquea": false,
+  "estado_propuesto": null,
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
-  "libro_sha256": "532504ee82b7c74a69eaf9993a249f4cb6d77a7ff6a7df14d2171270d887f97e"
+  "libro_sha256": "21f3411c09d9576fbf24cbcdf4726540f72de506d365d9a6d3b0187cd00b5dfb"
  },
  "turno_c": null,
  "estado_pendiente": "pendiente_de_datos",
  "estado_analisis_fase_c": "pendiente_de_datos",
  "motivo_correccion_c": null,
  "ficha_valida": true,
- "resumen_pendiente": false
+ "resumen_pendiente": false,
+ "verificacion_entradas": {
+  "universo": 315,
+  "comprobadas": 0,
+  "comprobadas_universo": 0,
+  "auxiliares": 176,
+  "universo_calculo": 214,
+  "universo_juicio": 101,
+  "comprobadas_calculo": 0,
+  "comprobadas_juicio": 0,
+  "lecturas_externas": 0,
+  "formato_registro": "4.15",
+  "entradas_no_reproducibles": 0,
+  "datos_como_hipotesis": 12,
+  "no_materiales": 0,
+  "no_materiales_sin_revisar": 0,
+  "no_aplicables": 26,
+  "resumen": "0 de 315 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 101 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 12 datos tratados como hipótesis o convención; 26 no aplicables; 0 lecturas externas sin bytes; 0 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
+  "derivados_comprobados": 0,
+  "pendientes": 491,
+  "desactualizadas": 0,
+  "discrepancias": 0,
+  "errores": 0,
+  "materiales_no_comprobadas": 315,
+  "apto_por_entradas": false,
+  "motivo": "0 de 315 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 101 de juicio; +176 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 12 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materialidad revisado); 26 no aplicables; 315 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
+  "huella_entradas_economicas": "3c42236cb475145374b5f414bbff95349aec55ed0817f0e061315ed74ca7526c",
+  "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
+ },
+ "libros_verificados": {
+  "evaluado": "7cb988d0a6e6067c6cad2b341be79b27f8f853d30f66f3bbb10a470c95da6226",
+  "datos": "37841b1eb7d998e5d38cea5983f30b6d248e0323325accf75a79bca1025a98a9"
+ },
+ "f1_repite_12": false,
+ "material_auditoria": "91a9726f8fcf8982",
+ "solicitudes_auditoria": [
+  {
+   "id": "SA-4456f50971f1118d",
+   "material": "91a9726f8fcf8982",
+   "creada": "2026-11-19T05:05:24+00:00",
+   "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "pendiente",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null
+  }
+ ],
+ "anteriores_sha256": [],
+ "anteriores_contenido": [],
+ "auditoria": null
 }
