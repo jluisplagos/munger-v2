@@ -452,6 +452,10 @@ MATERIAL_FIJO.append("entrada_efectiva.json")
 # (4.15, F1-IMPL; revisión H6) la declaración F1 del motor A y su evaluación forman parte del material auditado: cambiarlas después del cierre
 # retira la aprobación (solo existen en los expedientes con F1; los demás conservan su identificador de material)
 MATERIAL_FIJO.extend(["motor_a_f1.json", "motor_a_f1_resultado.json"])
+# (4.15, entradas dependientes de celdas de juicio; examen, Jumbo, J1) el rastro del recálculo de las entradas declaradas dependientes
+# (entradas_dependientes.py, paso 9) forma parte del material auditado: solo existe en los expedientes que declaran dependencias en el
+# registro de entradas; los demás conservan su identificador de material
+MATERIAL_FIJO.append("recalculo_dependientes.json")
 
 
 def motivo_f1(carpeta, st=None):

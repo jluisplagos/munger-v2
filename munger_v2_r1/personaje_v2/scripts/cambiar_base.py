@@ -392,7 +392,9 @@ def preparar(conf):
 
 
 def comprobar(conf, libro=None):
-    """Concordancia de las entradas declaradas y búsqueda de restos en la evidencia activa y en las notas."""
+    """Concordancia de las entradas declaradas y búsqueda de restos en la evidencia activa y en las notas. (4.15) Una entrada que el
+    pipeline recalculó tras la fase B con su celda de juicio (entradas_dependientes.py, recalculo_dependientes.json) se espera con el valor
+    recalculado cuando el CAMBIO declaró su valor de partida; la fila lo dice («recalculada_tras_fase_b»)."""
     import openpyxl
     ens = ruta(conf["destino"])
     dest = os.path.join(ens, conf["empresa"])
@@ -401,15 +403,29 @@ def comprobar(conf, libro=None):
     an, cm = wb["Análisis"], wb["Control maestro"]
     f1 = json.load(open(os.path.join(dest, "fase1_v63.json"), encoding="utf-8"))
     meta = json.load(open(os.path.join(dest, "fase1_metadatos.json"), encoding="utf-8"))
+    # (4.15, entradas dependientes de celdas de juicio) una entrada que el pipeline recalculó tras la fase B con su celda de juicio
+    # (entradas_dependientes.py; rastro vigente en recalculo_dependientes.json) se espera con el valor recalculado si el CAMBIO declaró el
+    # valor de partida de ese recálculo
+    try:
+        recalculadas = (json.load(open(os.path.join(dest, "recalculo_dependientes.json"), encoding="utf-8")).get("vigente") or {})
+    except (OSError, ValueError, AttributeError):
+        recalculadas = {}
     filas = []
     for celda, d in (conf.get("analisis") or {}).items():
         v_l = an[celda].value
         v_f = (f1.get("analisis", {}).get(celda) or {}).get("valor")
         # (4.15) con cálculo declarado y sin valor fijo, lo esperado es lo que calcula `construir` (y tiene que estar en el libro)
         esp = d["valor"] if "valor" in d else (v_f if isinstance(d.get("calculo"), dict) else None)
+        rec = recalculadas.get(f"Análisis!{celda}") if isinstance(recalculadas, dict) else None
+        recalc = None
+        if (isinstance(rec, dict) and isinstance(esp, (int, float)) and isinstance(rec.get("valor_declarado"), (int, float))
+                and abs(rec["valor_declarado"] - esp) < 1e-9 and isinstance(rec.get("valor"), (int, float))):
+            recalc = {"valor_declarado": esp, "valor": rec["valor"], "celdas_de_juicio": rec.get("celdas_de_juicio")}
+            esp = rec["valor"]
         ok = esp is not None and ((v_l == esp) or (isinstance(v_l, (int, float)) and isinstance(esp, (int, float)) and abs(v_l - esp) < 1e-9))
         ok = ok and (d.get("derivada") or v_f == esp)
-        filas.append({"celda": f"Análisis!{celda}", "configuracion": esp, "fase1_v63": v_f if not d.get("derivada") else "(derivada)", "libro": v_l, "concuerda": bool(ok)})
+        filas.append({"celda": f"Análisis!{celda}", "configuracion": esp, "fase1_v63": v_f if not d.get("derivada") else "(derivada)", "libro": v_l, "concuerda": bool(ok)}
+                     | ({"recalculada_tras_fase_b": recalc} if recalc else {}))
     for clave, celda in (("precio", "C37"), ("capitalizacion", "C41"), ("acciones_diluidas", "C55"), ("tasa_sin_riesgo", "C57")):
         if clave in (conf.get("metadatos") or {}):
             esperado = conf["metadatos"][clave]["valor"]
@@ -451,7 +467,9 @@ def comprobar(conf, libro=None):
     base = os.path.splitext(os.path.basename(libro))[0]
     json.dump(out, open(os.path.join(ens, "resultados", f"concordancia_{base}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
     md = [f"# Concordancia del cambio de base · `{out['libro']}`", "", "| Celda | Configuración | fase 1 | Libro | ¿Concuerda? |", "|---|---|---|---|---|"]
-    md += [f"| {x['celda']} | {x['configuracion']!r} | {x.get('fase1_v63', x.get('fase1_metadatos'))!r} | {x['libro']!r} | {'sí' if x['concuerda'] else 'NO'} |" for x in filas]
+    md += [f"| {x['celda']} | {x['configuracion']!r}"
+           + (f" (recalculada tras la fase B desde {x['recalculada_tras_fase_b']['valor_declarado']!r}: {x['recalculada_tras_fase_b'].get('celdas_de_juicio')})" if x.get("recalculada_tras_fase_b") else "")
+           + f" | {x.get('fase1_v63', x.get('fase1_metadatos'))!r} | {x['libro']!r} | {'sí' if x['concuerda'] else 'NO'} |" for x in filas]
     md += ["", f"**Restos de la base anterior en la evidencia activa o en las notas:** {len(restos)}"] + [f"- `{x['celda']}`: «{x['texto'][:140]}»" for x in restos]
     md += ["", f"**Textos de la base anterior fuera de la evidencia activa** (cabecera y bloque de auditoría heredado; informativos, no cuentan para el resultado): {len(informativos)}"]
     md += [f"- `{x['celda']}`: «{x['texto'][:140]}»" for x in informativos]
