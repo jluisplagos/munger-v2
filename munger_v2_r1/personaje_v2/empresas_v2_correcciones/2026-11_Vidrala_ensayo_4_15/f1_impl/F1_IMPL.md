@@ -219,10 +219,24 @@ ella, con la celda de la Historia que elige C8, con `Diagnóstico V6!C10` y con 
 `F1-PARAM` dice además que no hay decisión sobre si N1 alcanza el EBIT de los demás años del ciclo (ya bloqueaba). `leer_libro` lee `Palancas!C8`.
 No cambian el libro, la plantilla, las entradas registradas ni las decisiones.
 
-**Pruebas** (fallan con el código anterior y pasan con el corregido): `test_motor_a_f1.py` grupo M0 (13; 176 en total), `test_motor_a_f1_usgaap.py`
-grupo M0 (4, el caso de Zoetis en sintético; 294), `probar_libro_v631_usgaap.py` caso L8 (2, libro V6.3.1 real recalculado con LibreOffice; 18).
-Con la capa corregida, el libro real de `zoetis_t1c` (sin tocar el expediente): réplica y `F1-LIBRO` conformes (m0 = C49, 33 flujos), nada bloquea,
-«utilizable CONDICIONADA según F1 (D-US1)»; flujo sin crecimiento 2.484,631 (antes 2.771,101, calculado con C48); cota de D-US1 −2,6 % / +2,6 %.
+**Pruebas** (código de `7bf8bd2`; resultados literales en `resultados/margen_de_partida_5f52734.txt`):
+- `test_motor_a_f1.py`, grupo M0 (13 pruebas): con la capa anterior (`15c4ccf`) 165/176 (fallan las 11 que no son controles de «Último año»);
+  con la corrección, 176/176.
+- `test_motor_a_f1_usgaap.py`, grupo M0 (4: el caso de Zoetis en sintético, con palancas y en el paso 7, la cota frente al flujo del libro y un
+  libro incoherente): 290/294 → 294/294.
+- `probar_libro_v631_usgaap.py` (LibreOffice), caso L8 sobre el libro V6.3.1 real: 17/18 → 18/18 (la comprobación de la plantilla pasa con las dos).
+- Mutaciones: `scripts/mutaciones_margen_de_partida.py` 12 de 12 detectadas (`resultados/mutaciones_margen_de_partida_7bf8bd2.txt`);
+  `f1_usgaap/scripts/mutaciones_usgaap.py` 112 de 112 (sus patrones siguen aplicando una vez).
+- Sin cambio de resultado: P-FOSO 66/66, F1-SERIES 80/80, V6.3.1 sin LibreOffice 29/29 y estructura 21/21.
+- `verificar_paquete.sh rapida` sobre `5f52734`: `RESULTADO GLOBAL: PASA` (manifiesto: 9413 archivos · modificados 0 · ausentes 0 · de más 0).
+- Con LibreOffice, sobre `5f52734` (en secuencia, cada una con `flock`): US GAAP en el pipeline 26/26, libro V6.3.1 con US GAAP 18/18,
+  V6.3.1 a0 22/22 y f1 35/35, V6.3.1 en el pipeline 9/9 y gancho F1 del pipeline 8/8.
+Con la capa corregida, el libro real de `zoetis_t1c` (evaluado en una copia; el expediente no se toca): réplica y `F1-LIBRO` conformes (m0 = C49,
+33 flujos) y nada bloquea; siguen, como antes, los avisos `V-F1k` y `F1-US-HIPOTESIS` y el cero de `F1-SERIES-CERO`, pendiente de revisor.
+«Utilizable CONDICIONADA según F1 (D-US1)»; flujo sin crecimiento 2.484,631 (antes 2.771,101, calculado con C48); cota de D-US1 −2,6 % / +2,6 %
+(antes −2,3 % / +2,3 %). Las fases A, B y C no recibieron esas cifras (ni `datos_v63.md` ni sus encargos las llevan) y las referencias mecánicas ya
+usaban la base de C8. Queda para el expediente repetir el paso 12 con esta capa (`pipeline.py` con `--desde 12`: recalcula, verifica, vuelve a
+evaluar F1 y sigue hasta el relevo de la auditoría); no se ha hecho en esta rama.
 
 **Límite que queda** (no forma parte de esta corrección): `perimetro_f1.py` (P-FOSO, solo NIIF y A2) sigue rotulando «margen de partida
 (Historia!C48)» en el ROIC terminal neutro que muestra como referencia; con «Media del ciclo» el margen de partida es C49. Es informativo y no
