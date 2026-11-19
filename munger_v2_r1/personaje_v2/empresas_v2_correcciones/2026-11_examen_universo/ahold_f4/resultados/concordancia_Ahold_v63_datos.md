@@ -11,11 +11,10 @@
 | Análisis!C55 | 886.877259 | 886.877259 | 886.877259 | sí |
 | Análisis!C57 | 0.0337 | 0.0337 | 0.0337 | sí |
 
-**Restos de la base anterior en la evidencia activa o en las notas:** 1
-- `Control maestro!M47`: «En CFO: arrendamientos a corto plazo, de bajo valor y variables (57 en 2025). Cobros por subarriendos (138 en 2025) y dividendos de negocios»
+**Restos de la base anterior en la evidencia activa o en las notas:** 0
 
 **Textos de la base anterior fuera de la evidencia activa** (cabecera y bloque de auditoría heredado; informativos, no cuentan para el resultado): 0
 
 **Fechas:** {'Análisis!D4 (fecha de análisis)': '2026-11-19', 'Palancas!C45 (fecha del precio)': '2026-11-13 00:00:00', 'Palancas!C46 (fecha de las acciones)': '2025-12-28 00:00:00'}
 
-**Resultado:** NO CONCUERDA O QUEDAN RESTOS
+**Resultado:** CONCUERDA Y SIN RESTOS

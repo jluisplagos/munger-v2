@@ -22,3 +22,24 @@ Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma 
 - Pipeline (`config_v2_v631_f1.json`) desde el paso 0: se detiene en el relevo de la fase A (paso 6, código 10).
 - `cambiar_base.py comprobar`: las 8 entradas concuerdan (C24, C33, C40, C42, C53, C54, C55, C57); queda 1 resto: `Control maestro!M47` (fila «CONTROL», heredada de la etapa 1: «Cobros por subarriendos … y dividendos de negocios conjuntos van en inversión: no se suman (sensibilidad)»), anterior a P-O1 (c). No es la evidencia de una celda (B47 = «CONTROL»): `cambiar_base.py` no puede reescribirla (`evidencia` exige una celda en la columna B). Ya estaba en ahold_f3.
 - Código: árbol de examen/expedientes-f1 @ 24f2bd3 (incluye producto/minoritarios-cero, c1b0b77), el mismo en la preparación, el registro y el pipeline. `verificacion_entradas.py comprobar`: universo 309 · comprobadas del universo 262 · en total 471 (los 471 sellos de ahold_f3 de entradas no cambiadas siguen vigentes) · pendientes 49 · desactualizadas 18 (casillas de Palancas que escriben las fases B/C, vacías hasta entonces) · 0 discrepancias · 0 errores · apto por entradas: False.
+
+## Correcciones de la revisión independiente antes de la fase A (Claude orquestación, 19-nov-2026)
+
+Revisión: `coordinacion/cierre_v2/examen/revisiones/expedientes_f1/REVISION_AHOLD_F4.md` @ 19c17a9 (repositorio auxiliar). Copias anteriores en `antecedentes/revision_ahold_f4/` (con `evidencia_anterior.json`); la etapa 1 original (`antecedentes/etapa1_original/`) no se toca.
+- `resultados/scripts/correcciones_revision_ahold_f4.py` (rastro en `resultados/registro_correcciones_revision_ahold_f4.json`). En la copia de ensayo de la etapa 1:
+  - M47 (fila CONTROL) pasa a «Decisión sustituida por P-O1 (c)…».
+  - C38 pasa a «Dato no verificable».
+  - La N de C47 recoge la guía de FCF rebajada el 4-nov a unos 2.100 (Q3-26 PDF p. 2 y 5).
+  - El contexto del 2T de C28, C32 y C60 pasa al 3T; sus valores no cambian.
+- Metadatos:
+  - El precio (C37) y la capitalización (C41) citan el histórico oficial de Euronext conservado en `fuentes_mercado/` (cierre de 36,05 el 13-nov-2026), no Trivano.
+  - Notas con la limitación de la tabla de Damodaran de EE. UU. y con el cash pool nocional de los descubiertos de 2016–2017 (1.184 y 1.367, AR2017 PDF p. 191).
+  - `fase1_v63.json` se reconstruye con `fase1_historia.py construir`; solo cambian `precio`, `capitalizacion` y `_notas`.
+- Registro: 10 entradas más quedan pendientes de otro revisor (C37, C41, C38, C47, C28, C32, C60, Palancas!C7, Historia C22 y D22).
+- `resultados/scripts/relevo_extraccion_ahold_f4.py` (rastro en `resultados/relevo_extraccion_ahold_f4.json`): relevo de extracción registrado del paso 5, tras relanzar con `--desde 1`. Añade al principio de `extracto_v63.md` un bloque «## 0.» con:
+  - la tabla de vigencia de las cifras de la etapa 1 que citan los textos heredados;
+  - la evidencia al 3T de C25, C27 y C76, con su página.
+  Las secciones 1–9 no cambian.
+- Pipeline: se detiene otra vez en el relevo de la fase A (paso 6).
+- `cambiar_base.py comprobar`: CONCUERDA Y SIN RESTOS.
+- `verificacion_entradas.py comprobar`: 465 comprobadas en total · 55 pendientes · 18 desactualizadas (casillas de las fases B y C) · 0 discrepancias · 0 errores · apto por entradas: False.
