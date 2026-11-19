@@ -87,9 +87,9 @@ La lista `hipotesis_sin_fundamento` queda vacía y el resultado es `sin_limitaci
 
 No existe `comprobacion_conjunta.json`: con la lista de hipótesis sin fundamento vacía no procedía, y `sobrevive` queda `null`. El fundamento es `sin_limitacion`.
 
-El orden de mando no cambia: no hay bloqueo, límite del modelo, descalificador ni dato ausente material, y la zona es `cumple_regla_k`. **Estado `concluido` (provisional hasta la auditoría) · cubo Sí · acción comprar**, sin precio objetivo ni condición.
+El orden de mando no cambia: no hay bloqueo, límite del modelo, descalificador ni dato ausente material, y la zona es `cumple_regla_k`. Antes del contradictor: concluido · Sí · comprar. **Tras la respuesta al contradictor (sección 15): estado `concluido` (provisional hasta la auditoría) · cubo Vigilar · acción esperar**, con precio objetivo de 32,38 € y una condición que no es de precio.
 
-C104: «Pendiente de decisión de cartera · conclusión del personaje: comprar al precio actual · zona cumple_regla_k · precio de Sí ≤ 32.38 · precio esc. MALO 25.88 · ponderado 35.63 · fundamento lista vacía». El tamaño de la posición lo decide José Luis.
+C104: «Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 32.38 · zona cumple_regla_k · precio de Sí ≤ 32.38 · precio esc. MALO 25.88 · ponderado 35.63 · fundamento no procede (conclusión no favorable)». El tamaño de la posición lo decide José Luis.
 
 Lo que esta conclusión no es: no es una garantía. El precio de Sí sale de una convención k = 3 cuya suficiencia no está demostrada. El MALO no es un suelo: el precio está solo 1,40 € por encima de su valor, y mi MALO está en el lado suave. La r heredada está por debajo de la mínima de la hoja: con la r mínima, el precio de Sí bajaría a ≈ 28,01 €. Queda pendiente para la orquestación recalcular C46, C40, C52 y f por J1 (±0,13 € en el precio de Sí).
 
@@ -99,7 +99,7 @@ Lo que esta conclusión no es: no es una garantía. El precio de Sí sale de una
 2. El foso es la escala de compra y el formato. Cuánto dura frente a las plataformas es la pregunta abierta, con el margen bruto bajando del 55,61 % al 53,53 %.
 3. La dirección devuelve la caja y recompró a 25,42 €.
 4. A 27,28 € el precio no paga crecimiento (valor sin crecimiento 28,12 €) y queda bajo el precio de Sí de 32,38 €.
-5. Comprar, con los dos avisos: el MALO cerca y la dependencia de la r.
+5. Esperar (sección 15): la regla se cumple, pero tres hechos que mis escenarios no recogían bajan los tres valores y la dejan en el filo con la r mínima.
 
 ## 11. Tesis inversa (B102)
 
@@ -124,16 +124,42 @@ Es el nivel que pide «I'm not entitled to have an opinion unless I can state th
 
 ## 13. Qué me haría cambiar de cubo
 
-- **A Vigilar:** un precio por encima de 32,38 €.
+- **De nuevo a Sí:** cumplirse la condición (margen EBIT de 2026 del 31 % o más y margen bruto del 54 % o más) con la escalera corregida todavía en cumple_regla_k.
 - **A No:** un margen EBIT bajo el 30 % dos años sin causa transitoria, deuda nueva, o capital propio en Balfin, Canadá o los pop-ups sin retorno publicado.
 - **A Demasiado difícil:** un margen que pase a moverse con el dólar, el flete o los aranceles, o ventas que caigan sin que pueda separar las plataformas del consumo.
 
 ## 14. Comparación con la etapa 1
 
-La etapa 1 decía Vigilar a 24,72 €, con un precio de Sí de ≈ 19 € (regla antigua, estimado). La v2 dice Sí a 27,28 €, con 32,38 €. La mayor parte de la diferencia es la regla: con la regla antigua la v2 daría 25,88 € y no compraría. El resto:
+La etapa 1 decía Vigilar a 24,72 €, con un precio de Sí de ≈ 19 € (regla antigua, estimado). La v2 dijo Sí a 27,28 €, con 32,38 €, y tras el contradictor queda en Vigilar (esperar), con el mismo precio de Sí. La mayor parte de la diferencia es la regla: con la regla antigua la v2 daría 25,88 € y no compraría. El resto:
 
 - un MALO más suave (EBIT 0,27 frente a un EBITDA hacia el 25–28 %);
 - probabilidades que restan (0,25 / 0,6 / 0,15);
 - C76 de 160 con el precio ya sin el 1,00 € extraordinario.
 
 Lo digo sin blandura: el cambio de cubo depende sobre todo de la convención de precio del ejercicio, no de un hecho nuevo del negocio. Y de los dos errores opuestos, el que tengo más cerca sigue siendo pagar por una calidad cuya duración no puedo medir: «I know it's wonderful, but is it wonderful enough to justify that big a premium?» (DR p.308; HIM). Aquí la prima es pequeña: el precio no paga crecimiento.
+
+## 15. Respuesta al contradictor
+
+Comprobé en los textos los tres hechos que cita y reproduje sus cuentas con mi réplica del motor (que reproduce B78:D78). Las tres objeciones son válidas y ninguna queda rebatida; solo rebato los extremos altos de O1 y O3.
+
+| Objeción | Respuesta | Dato | Efecto |
+|---|---|---|---|
+| O1 · el tipo impositivo de 2025–2026 es mayor que el de C52 (0,17988) | no rebatida (rebato solo el extremo alto) | Tipo de 2025: 18,93 % [AR2025, PDF p. 148], con Pilar II de 2,20 mm [AR2025, PDF p. 180]. El 19,97 % de H1 2026 no es anual: H1 2025 dio 19,77 % frente al 18,93 % del año [H1 2026, PDF p. 23] | Precio de Sí 32,00 € (−0,38 €); la zona no cambia |
+| O2 · f lleva un 2023 atípico | no rebatida | Caja inicial de 802,9 mm repartida en dividendos (400,98 mm) y bono (200,39 mm); intereses de 18,49 mm e impuesto pagado bajo el devengado [AR2024, PDF p. 154] | f de 2024–2025 con J1: 32,20 € (−0,18 € neto); la zona no cambia |
+| O3 · el MALO no paga los centros de distribución | no rebatida (rebato solo la cota alta) | Más de 95 mm en tres años [AR2025, PDF p. 25], frente a 37,4 mm de reinversión del MALO en los años 1–3. La cota alta exagera: Rumanía abrió Timisoara en 2025 [AR2025, PDF p. 21] con 7,09 mm de altas en todo el país [H1 2026, PDF p. 38] | MALO 25,48 €, precio de Sí 32,18 € (−0,20 €); la zona no cambia |
+| Conjunto | regla de movimiento | Combinación suave: precio de Sí ≈ 31,64 €; dura: ≈ 30,96 €. Valor sin crecimiento ≈ 27,3–27,7 €; con la r mínima, ≈ 27,35 € | Un escalón a la baja: de comprar (Sí) a esperar (Vigilar) |
+
+Tres objeciones válidas no rebatidas, las tres a la baja: un solo escalón, el máximo por dirección. La zona sigue en `cumple_regla_k` con r = 0,09 y k = 3. Lo que cambia es la holgura:
+
+- el valor sin crecimiento queda casi en el precio;
+- con la r mínima de la hoja, la regla queda a siete céntimos del precio;
+- el MALO se aleja más de un suelo.
+
+El aviso contrario del contradictor (la fecha de valoración, de +0,5 a +2,1 €) no lo cuento como rebatida: no está calculado en el expediente.
+
+**Conclusión final: concluido · Vigilar · esperar.** Precio objetivo: precio de Sí ≤ 32,38 € (`precio.json`). Como el precio ya cumple la regla, la espera tiene una condición que no es de precio. Hacen falta dos cosas:
+
+- que el informe anual de 2026 publique un margen EBIT del grupo del 31 % o más y un margen bruto del 54 % o más;
+- que se corrijan, sin errores, el tipo impositivo (Historia C52), f sin 2023 y con J1 (Historia C58) y los centros en el MALO (Palancas!B16, vuelta a la fase B).
+
+`fundamento_material.resultado = no_procede`; la lista de hipótesis sin fundamento sigue vacía.
