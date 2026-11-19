@@ -1,0 +1,356 @@
+{
+ "motor": "A",
+ "palancas": {
+  "crecimiento_1_5": {
+   "MALO": {
+    "referencia_mecanica": -0.005,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.02,
+    "desviacion": 0.025,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (−0,005) sale de restar al NORMAL_ref una σ del 10,7 % inflada por la caída de 2020 y el rebote de 2021. El MALO de la fase A es de margen, no de volumen: Jumbo sostiene el precio para no perder clientes, así que las ventas crecen poco y sobre todo por aperturas. Por componentes: superficie +2 % al año (unas dos aperturas sobre 89 hipermercados), ventas comparables planas en euros corrientes (el precio sostenido y la pérdida de volumen frente a las plataformas se compensan) y socios sin aportar. Total, 2 %. El crecimiento se reinvierte en las tiendas nuevas, sobre todo en Rumanía.",
+    "apoyo": "Guía de unos dos hipermercados nuevos al año [FY2025, PDF p. 26]; 89 hipermercados a 30-jun-2026 [H1 2026, PDF p. 7]; Rumanía −6,50 % en H1 2026 tras absorber el IVA [H1 2026, PDF p. 6 y p. 7]; el peor año sin pandemia de la serie fue +4,4 % (Historia!F28) y el único descenso, −18,2 % en 2020 (Historia!G28), sin causa en el extracto; σ de la referencia en referencias_mecanicas.json. Rango 0–0,03.",
+    "lo_sustituiria": "0 o negativo si las ventas de Grecia de 2026–2027 caen con las aperturas en marcha; 0,03 si las plataformas se frenan tras el derecho de aduana de 3 € [H1 2026, PDF p. 14] y el MALO queda solo en margen."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.105,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.055,
+    "desviacion": -0.05,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,105) es el CAGR de cinco años (12,2 %, Historia!C46) recortado al Q3 del sector, y ese CAGR arranca en 2020, el año de la caída: incluye el rebote de 2021 (+19,9 %, Historia!H28) y la inflación de 2022–2023. No es repetible (PCA pp.548–549; HIM). Por componentes: superficie +2 % al año (unas dos aperturas, con Grecia en pausa en 2027), ventas comparables en torno a la inflación (+2,5–3 %) y socios +0,5–1 punto (6,5 % de las ventas creciendo en torno al 13 %). Total, 5,5 %. Contraste: +6,3 % en 2024, +7,2 % en 2025, +4,4 % en H1 2026, ≈ +6 % de enero a agosto de 2026. Se reinvierte en tiendas propias y en los centros de distribución.",
+    "apoyo": "Ventas +6,3 % y +7,2 % en 2024–2025 (Historia!K28:L28); CAGR de tres años 9,1 % (Historia!C45) con +13,9 % en 2023 (Historia!J28); H1 2026 519,26 frente a 497,28 mm [H1 2026, PDF p. 37]; enero–agosto de 2026 ≈ +6 % [H1 2026, PDF p. 67]; unos dos hipermercados al año [FY2025, PDF p. 26]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]; ventas a socios de 61,7 a 80,5 mm en 2024–2025 [FY2025, PDF p. 175] y de 38,29 a 43,20 mm en H1 [H1 2026, PDF p. 37]. Rango 0,045–0,065.",
+    "lo_sustituiria": "0,045 si 2026 cierra por debajo del +5 % con las aperturas previstas; 0,065 si los socios mantienen un +25 % al año y Rumanía vuelve a crecer en 2027."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.105,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.08,
+    "desviacion": -0.025,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La referencia (0,105) es la misma cifra recortada al Q3 y hereda el rebote posterior a 2020. El BUENO de la fase A crece más en ventas que en margen, y lo hago por componentes: superficie +3,5 % al año (Rumanía hacia el objetivo de duplicar sus 20 hipermercados en una década, más Bulgaria, Chipre y Grecia desde 2028), comparables +3 % y socios +1,5 puntos (Israel, Canadá, los seis mercados de Balfin, creciendo como en 2025). Total, 8 %. Por debajo del Q3 del sector y de 1,5 × la historia. Se reinvierte en Rumanía y en logística; los socios ponen su capital.",
+    "apoyo": "Objetivo de duplicar Rumanía en una década y aperturas por país (guía) [FY2025, PDF p. 26]; tiendas en Chíos, Cefalonia y Pyrgos previstas para 2028 [H1 2026, PDF p. 17]; ventas a socios +30,5 % en 2025 [FY2025, PDF p. 175]; Balfin en seis mercados nuevos sin costes de operación ni inversión del grupo [H1 2026, PDF p. 18 y p. 19]; ventas 2022–2025 +9,1 % anual (Historia!C45). Rango 0,07–0,09.",
+    "lo_sustituiria": "0,07 si los socios incumplen otra vez sus aperturas (Israel: cuatro tiendas frente a cinco previstas [FY2025, PDF p. 58]); 0,09 si Rumanía abre dos hipermercados al año desde 2027."
+   }
+  },
+  "margen_objetivo": {
+   "MALO": {
+    "referencia_mecanica": 0.29,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.26,
+    "desviacion": -0.03,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,29) es la media de diez años, que mezcla dos niveles. El MALO de la fase A dice que el margen EBIT vuelve hacia el nivel de 2016–2020 y no se recupera: la mejora de la compra directa se la queda el cliente. Lo traduzco en el centro de ese nivel, 26 % (2016–2020: 25,2 %, 26,4 %, 26,2 %, 26,9 %, 24,8 %). Mecanismo: precio limitado por las plataformas y por no trasladar IVA ni divisa, coste en dólares y flete largo, costes de tienda que no bajan. Sigue por encima del Q3 del sector porque el formato y la escala de compra no desaparecen: el mínimo de diez años, en 2020, fue 24,8 %.",
+    "apoyo": "Margen EBIT 2016–2020 (Historia!C29:G29) y mínimo 24,8 % (Historia!C50); margen bruto 55,61 % → 54,72 % en 2025 [FY2025, PDF p. 15] y 53,53 % en H1 2026 [H1 2026, PDF p. 7]; margen EBITDA 36,77 % → 35,34 % [FY2025, PDF p. 15]; absorción del IVA rumano [H1 2026, PDF p. 7]; compras y flete en dólares, tránsito de unos 60 días [H1 2026, PDF p. 14]. Rango 0,245–0,28. «when you're managing your money, recognize that terrible things can happen» (AIWTK pp.77–78; HIM).",
+    "lo_sustituiria": "0,245 si el margen bruto anual baja del 52 %; 0,28 si el margen bruto de 2026 se queda en el 54 % con Rumanía cayendo."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.32,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.315,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,32) es el margen de 2025 (31,84 %, Historia!C48) redondeado hacia arriba. El NORMAL mantiene un margen parecido al de 2021–2025 (31,7–33,4 %), pero el primer semestre de 2026 ya trae medio punto menos de margen EBITDA y un tercio de punto menos de margen bruto, por Rumanía y el IVA. Por eso 31,5 %: el nivel de 2021–2025 con lo que ya se ha visto en 2026. La mejora se reparte: la escala de compra se queda en casa y el cliente recibe el resto en precio, porque la dirección dice no perseguir ventas a costa de rentabilidad.",
+    "apoyo": "Margen EBIT 32,3 %, 31,7 %, 33,4 %, 33,4 % y 31,8 % en 2021–2025 (Historia!H29:L29); margen EBITDA 32,73 % en H1 2026 frente a 33,25 % y margen bruto 53,53 % frente a 53,86 % [H1 2026, PDF p. 7]; más de 200 proveedores, ninguno por encima del 3 %, y 70 % del producto de Asia [FY2025, PDF p. 24]; política de precios [H1 2026, PDF p. 16]. Rango 0,30–0,325. «how much is going to stay home and how much is just going to flow through to the customer» (PCA pp.187–189; HIM).",
+    "lo_sustituiria": "0,30 si 2026 cierra con margen EBIT por debajo del 30,5 %; 0,325 si el margen bruto de 2026 vuelve al 55 %."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.32,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.32,
+    "desviacion": 0.0,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Copio la referencia (0,32, el margen de 2025) con juicio propio: el BUENO de la fase A crece más en ventas que en margen, porque las ventas a socios dejan un margen mayorista más bajo, y la mayor escala de compra solo protege el margen actual. No pongo el máximo de 2023 (33,4 %). Está por encima del Q3 del sector por el mismo mecanismo que el NORMAL (escala de compra directa y formato); la mejora de volumen se la reparten Jumbo (margen mayorista y escala) y los socios (margen de tienda).",
+    "apoyo": "Margen EBIT de 2025 31,8 % (Historia!L29) y máximo 33,4 % en 2023 (Historia!C51); el menor peso de las ventas a socios mejoró el margen bruto en H1 2026 [H1 2026, PDF p. 7]; ventas a socios 80,5 mm en 2025 [FY2025, PDF p. 175]; Q3 del sector 8,6 % (Palancas!I15). Rango 0,315–0,33.",
+    "lo_sustituiria": "0,33 si la tienda en línea y los socios suben el margen bruto por encima del 55,6 % de 2024 [FY2025, PDF p. 15]; 0,315 si el peso de los socios sigue bajando el margen bruto."
+   }
+  },
+  "s2c": {
+   "MALO": {
+    "referencia_mecanica": 1.3,
+    "referencia_no_disponible_motivo": null,
+    "valor": 1.1,
+    "desviacion": -0.2,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La referencia (1,3) es 0,75 × 1,7. En el MALO el capital se sigue poniendo (aperturas, centros de distribución) y el volumen por tienda no acompaña: tomo el S2C medido de 2021 a 2025 sin ajustes, 1,1 (las ventas suben 401 mm con 357 mm de reinversión neta), que es lo que rindió el capital nuevo cuando no hubo rebote que lo ayudara. Es del capital propio, sin derechos de uso, y queda cerca del S2C medio sin arrendamientos (1,19). Rentabilidad marginal 1,1 × 0,26 × 0,82 = 0,235.",
+    "apoyo": "Ventas 2021 y 2025, 831,9 y 1.232,9 mm (Historia!H6, L6); reinversión neta total 2022–2025 de 128,2 / 67,7 / 84,2 / 76,7 mm (Historia!I31:L31); S2C medio sin arrendamientos 2025 1,186 (datos_v63, sección 1 bis); Historia!C53 = 1,70. Rango 1,0–1,3.",
+    "lo_sustituiria": "1,0 si los centros de distribución superan los 95 mm previstos [FY2025, PDF p. 25] sin más ventas; 1,3 si el MALO se queda en margen y las aperturas rinden como antes."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 1.7,
+    "referencia_no_disponible_motivo": null,
+    "valor": 1.4,
+    "desviacion": -0.3,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La referencia (1,7) es Historia!C53, que mide de 2020 a 2025 y por eso cuenta como ventas nuevas el rebote de 2021, conseguido con reinversión negativa (−40,2 mm). De 2021 a 2025 el S2C marginal es 1,12; ese cálculo incluye unos 75 mm de compra de tiendas que Jumbo ya alquilaba (no añaden ventas) y el centro comercial de Patras. Sin esas partidas sale en torno a 1,4, que es mi cifra, entre 1,12 y 1,70. Sobre el capital propio sin derechos de uso, como pide el perímetro F1; el S2C medio sin arrendamientos es 1,19. Rentabilidad marginal 1,4 × 0,315 × 0,82 = 0,362, por encima del ROIC histórico sin arrendamientos (28,9 %) y por debajo de 2 × 28,9 %.",
+    "apoyo": "Reinversión neta total −40,2 mm en 2021 (Historia!H31) y 128,2 / 67,7 / 84,2 / 76,7 mm en 2022–2025 (Historia!I31:L31); ventas (Historia!G6, H6, L6); unos 75 mm en nueve tiendas antes alquiladas desde 2021 [FY2025, PDF p. 25]; Herald Hellas 2 por 10,8 mm [FY2025, PDF p. 21] (Historia!L13); circulante +89,9 mm en 2022 (Historia!I14); S2C medio sin arrendamientos 1,186 y ROIC sin arrendamientos 28,93 % (datos_v63, sección 1 bis). Rango 1,1–1,7. «Better roughly right than precisely wrong» (PCA p.451; HIM).",
+    "lo_sustituiria": "1,1 si la inversión por hipermercado (no encontrada en el extracto) resulta mayor que la de la base actual; 1,7 si las ventas a socios, sin capital de Jumbo, pasan del 6,5 % al 10 % de las ventas."
+   },
+   "BUENO": {
+    "referencia_mecanica": 2.1,
+    "referencia_no_disponible_motivo": null,
+    "valor": 1.7,
+    "desviacion": -0.4,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La referencia (2,1) es 1,25 × 1,7, una banda de convención. En el BUENO una parte del crecimiento viene de socios que ponen su capital, pero la otra es Rumanía con hipermercados propios de más de 9.000 m². El mejor S2C marginal medido es el de Historia!C53 (1,70), y ya incluye el rebote gratuito de 2021: lo tomo como techo de lo observado y no voy más allá. Rentabilidad marginal 1,7 × 0,32 × 0,82 = 0,446, por debajo de 2 × 28,9 %.",
+    "apoyo": "Historia!C53 = 1,70; ventas a socios de 61,7 a 80,5 mm en 2024–2025 [FY2025, PDF p. 175]; Balfin sin costes de inversión del grupo [H1 2026, PDF p. 19]; hipermercados de más de 9.000 m² [H1 2026, PDF p. 18]; centros de distribución de más de 95 mm en tres años [FY2025, PDF p. 25]. Rango 1,4–2,0.",
+    "lo_sustituiria": "2,0 si las ventas a socios superan el 12 % de las ventas con el capex en su nivel de 2025 (38,4 mm, Historia!L12); 1,4 si Balfin o Canadá piden capital a Jumbo (no encontrado en el extracto)."
+   }
+  },
+  "g_perpetuo": {
+   "MALO": {
+    "referencia_mecanica": 0.015,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.01,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,015) es NORMAL_ref − 0,01. En el MALO Jumbo pierde peso frente a las plataformas y el juguete sigue retrocediendo: para siempre crece por debajo de la inflación del 2 % que la propia empresa supone. 1 %, como la etapa 1. Con ROIC terminal igual a r el crecimiento no añade valor (E3), así que la cifra pesa poco.",
+    "apoyo": "Inflación del 2,00 % en las hipótesis de pensiones [FY2025, PDF p. 202 y p. 203]; el juguete pierde peso en la actividad [FY2025, PDF p. 60]; plataformas transfronterizas [FY2025, PDF p. 23]. Rango 0–0,015. g < r (0,09) y < ROIC (0,09).",
+    "lo_sustituiria": "0,005 si el MALO resulta ser pérdida de cuota sostenida y no solo de margen; 0,015 si el derecho de aduana frena a las plataformas."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.025,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.02,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,025) es mín(0,025; rf). Para siempre, la empresa crece con la economía donde vende, sin más espacio: Grecia, el 58 % de las ventas, está madura (una tienda nueva cada tres años como objetivo, ninguna en 2027), y lo que crece (Rumanía, socios) se agota antes del año 11. Tomo la inflación del 2 % que la empresa supone en sus pensiones: 2 %, como la etapa 1, por debajo de rf (3,35 %) (CV p. 5; E1). «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM).",
+    "apoyo": "Grecia 58,29 % de las ventas en 2025 [FY2025, PDF p. 17]; objetivo de una tienda nueva cada tres años en Grecia [FY2024, PDF p. 24]; Grecia sin hipermercado en 2027 [H1 2026, PDF p. 17]; inflación 2,00 % [FY2025, PDF p. 202 y p. 203]; rf 3,35 % (Análisis!C57). Rango 0,015–0,025.",
+    "lo_sustituiria": "0,015 si las aperturas se detienen después de 2030; 0,025 si los socios demuestran que la marca crece en mercados nuevos sin capital propio."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.03,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.025,
+    "desviacion": -0.005,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "La referencia (0,03) es el máximo de la lista. En el BUENO la marca sigue creciendo en mercados nuevos con capital de los socios, pero para siempre no pongo el techo: los grandes historiales se agotan. 2,5 %, la inflación más medio punto de socios y Rumanía, por debajo de rf (CV p. 5; E1). «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM).",
+    "apoyo": "Inflación 2,00 % [FY2025, PDF p. 202 y p. 203]; 46 tiendas de socios en siete países a 30-jun-2026 [H1 2026, PDF p. 7]; Balfin en seis mercados nuevos [H1 2026, PDF p. 18]; rf 3,35 % (Análisis!C57). Rango 0,02–0,03.",
+    "lo_sustituiria": "0,03 solo con pruebas de que el formato funciona en los mercados de Balfin y en Canadá sin capital propio; 0,02 si los socios incumplen sus planes."
+   }
+  },
+  "roic_lp": {
+   "MALO": {
+    "referencia_mecanica": 0.09,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.09,
+    "desviacion": 0.0,
+    "clase": "fundamentada",
+    "confianza": "media",
+    "porque": "Copio la referencia (0,09 = r) con juicio propio: en el MALO la ventaja de compra la traslada Jumbo al cliente y el capital nuevo del año 11 en adelante rinde lo que cuesta, cerca del ROIC terminal neutro del motor (8,86 %). El salto del año 11 (0,235 − 0,09 = 0,145) es mi hipótesis: las aperturas de los años 1–10 aprovechan la escala de compra y la logística que ya existen, y después el capital nuevo deja de tener ventaja. «Many businesses that you thought were hugely advantaged can be hugely commoditized» (AIWTK p.130; HIM).",
+    "apoyo": "r 0,09 (Análisis!C56); ROIC terminal neutro 8,86 % (datos_v63, sección 1 bis); plataformas transfronterizas [FY2025, PDF p. 23]; margen EBIT de 2016–2020 (Historia!C29:G29). La vara P-FOSO está NO COMPROBADA: no comparo C55 con r. Rango 0,09–0,10.",
+    "lo_sustituiria": "0,10 si con margen del 26 % la empresa sigue ganando sobre su capital propio más de 3 puntos sobre r en 2027–2028."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.09,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.1,
+    "desviacion": 0.01,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "La referencia (0,09) es la convención de r. Me desvío un punto: con Análisis!C18 = Sí, diez años de margen EBIT de tres a cuatro veces el Q3 del sector y ROIC de todo el capital de 26,8 % frente al 11,7 % del sector (misma vara), espero que algo de la escala de compra dure más allá del año 10, pero la fase A lee una ventaja de años, no de décadas: 10 %, por debajo de r + 0,03 y del exceso de 2–3 puntos que el criterio admite como mucho a perpetuidad (MR p. 63; E2). Salto del año 11: 0,362 − 0,10 = 0,262, por la misma pérdida de ventaja del capital nuevo. «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM).",
+    "apoyo": "Margen EBIT 24,8–33,4 % en 2016–2025 (Historia!C29:L29) frente a Q3 del sector 8,6 % (Palancas!I15); ROIC de todo el capital 26,80 % (Historia!C55) frente al sector 11,72 % (Palancas!H18); ROIC terminal neutro 8,86 % (datos_v63, sección 1 bis); C18 = Sí (fase A). Rango 0,09–0,11.",
+    "lo_sustituiria": "0,09 si el margen EBIT baja del 28 % dos años seguidos (el umbral de C18); 0,11 si el margen aguanta a las plataformas hasta 2028."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.12,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.12,
+    "desviacion": 0.0,
+    "clase": "fundamentada",
+    "confianza": "baja",
+    "porque": "Copio la referencia (0,12 = r + 0,03) con juicio propio: en el BUENO la escala de compra crece con el volumen de los socios y la ventaja dura toda la perpetuidad en el máximo que admite el criterio, 3 puntos sobre el coste (MR p. 63; E2). No subo de ahí: la vara P-FOSO del capital propio pagado el alquiler está sin comprobar y el canal cambia. Salto del año 11: 0,446 − 0,12 = 0,326; la tesis lo tendrá que explicar.",
+    "apoyo": "Análisis!C18 = Sí (fase A); margen EBIT 24,8–33,4 % en diez años (Historia!C29:L29); ventas a socios de 61,7 a 80,5 mm [FY2025, PDF p. 175]; Balfin en seis mercados [H1 2026, PDF p. 18]; datos_v63, sección 1 bis (vara NO COMPROBADA). Rango 0,10–0,12.",
+    "lo_sustituiria": "0,10 si los socios no cumplen sus aperturas en 2026–2027; por encima de 0,12 solo con la vara P-FOSO comprobada y ventaja duradera demostrada."
+   }
+  },
+  "probabilidades": {
+   "MALO": {
+    "referencia_mecanica": 0.2,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.2,
+    "desviacion": 0.0,
+    "clase": "convención",
+    "confianza": "media",
+    "porque": "Mantengo 0,2. El mecanismo del MALO ya asoma (margen bruto bajando desde 2024), pero ese tramo ya está en el margen del NORMAL (31,5 %) y el MALO lleva la vuelta completa al nivel de 2016–2020: subirle además la probabilidad castigaría dos veces lo mismo (PA p. 20; E6).",
+    "apoyo": "Margen bruto 55,61 % en 2024 y 54,72 % en 2025 [FY2025, PDF p. 15], 53,53 % en H1 2026 [H1 2026, PDF p. 7]; margen EBIT estable en 2021–2025 (Historia!H29:L29); derecho de aduana de 3 € desde julio de 2026 [H1 2026, PDF p. 14].",
+    "lo_sustituiria": "0,3 si el margen bruto de 2026 baja del 53 % o el margen EBIT de 2026 del 30 %."
+   },
+   "NORMAL": {
+    "referencia_mecanica": 0.6,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.6,
+    "desviacion": 0.0,
+    "clase": "convención",
+    "confianza": "media",
+    "porque": "Mantengo 0,6: un negocio con diez años de margen EBIT entre el 24,8 % y el 33,4 % y un solo año de caída de ventas es predecible, sin deuda y no cíclico. Las tres suman 1 y cubren el rango.",
+    "apoyo": "Margen EBIT 2016–2025 (Historia!C29:L29); ventas con un solo año de caída (Historia!C28:L28); caso especial Ninguno (Palancas!C6); sin préstamos [H1 2026, PDF p. 9].",
+    "lo_sustituiria": "0,5 si sube la del MALO."
+   },
+   "BUENO": {
+    "referencia_mecanica": 0.2,
+    "referencia_no_disponible_motivo": null,
+    "valor": 0.2,
+    "desviacion": 0.0,
+    "clase": "convención",
+    "confianza": "media",
+    "porque": "Mantengo 0,2, igual que el MALO y no más: el BUENO depende de planes de socios que la dirección ya ha rebajado alguna vez.",
+    "apoyo": "Israel: cinco tiendas previstas a fin de 2025 y cuatro abiertas [FY2025, PDF p. 58]; ventas a socios de 61,7 a 80,5 mm [FY2025, PDF p. 175]; Grecia, cuatro aperturas en tres años en la guía de 2025 y ninguna en 2027 [H1 2026, PDF p. 17].",
+    "lo_sustituiria": "0,25 si Rumanía vuelve a crecer en 2027 y los socios cumplen sus aperturas de 2026."
+   },
+   "argumento": "Mantengo la convención 0,2/0,6/0,2 con argumento. Predictibilidad: diez años de margen EBIT en una banda de 24,8–33,4 % (Historia!C29:L29), un solo año de caída de ventas (Historia!G28), sin deuda y sin ciclo. Señales en los dos sentidos: el margen bruto baja (54,72 % en 2025 [FY2025, PDF p. 15]; 53,53 % en H1 2026 [H1 2026, PDF p. 7]) y el derecho de aduana de 3 € puede frenar a las plataformas [H1 2026, PDF p. 14]. La bajada ya observada está en el margen del NORMAL y la vuelta al nivel de 2016–2020 en el MALO: no la cuento otra vez en la probabilidad (PA p. 20; E6). El BUENO no recibe más que el MALO porque depende de planes de socios que ya se han retrasado [FY2025, PDF p. 58]. No ajusto nada para cuadrar con la cotización."
+  }
+ },
+ "quiebra": {
+  "C22": null,
+  "C23": null,
+  "disparadores": [],
+  "clase": "convención",
+  "porque": "Ningún disparador del ejercicio: deuda neta ÷ EBITDA −1,10 (Análisis!C33, no > 4), la caja cubre la deuda a corto (C34 = Sí), la etapa es Madura en crecimiento (Palancas!C5) y deuda + arrendamientos de 66,4 mm (Historia!C64) frente a 3 × FCF base = 727,8 mm (Análisis!C52). Sin préstamos [H1 2026, PDF p. 9]. C22 vacía (= 0) y C23 vacía. El riesgo de margen está en el MALO, no en una quiebra."
+ },
+ "mercado": {
+  "C24": null,
+  "fuente": null
+ },
+ "exceso_caja": {
+  "C76": 150,
+  "clase": "fundamentada",
+  "porque": "Caja de 546,14 mm a 30-jun-2026 (Análisis!C53). Resto lo comprometido después: dividendo de 0,70 € (94,06 mm) pagado el 28-jul-2026 [H1 2026, PDF p. 67]; reparto extraordinario de 1,00 € (134,37 mm), cuya fecha ex (16-nov-2026) es anterior al precio de 27,28 € (C37, C53); saldo de Nea Filadelfeia de 5,7 mm, a liquidar el 30-jul-2026 [FY2025, PDF p. 28]. Resto también lo que la empresa necesita: más de 95 mm de centros de distribución en tres años [FY2025, PDF p. 25] y un colchón de un mes de costes de caja, (1.232,9 − 435,7) ÷ 12 = 66,4 mm (Historia!C44 y C62), por la estacionalidad (Navidad 28 % de la facturación [FY2025, PDF p. 23]) y la compra anticipada de inventario [FY2025, PDF p. 22]. Quedan ≈ 150 mm (rango 120–180), ≤ C53. Los intereses cobrados de esta caja no deben entrar en el flujo: C46 los aparta con el reparto J1, pero se calculó con C76 = 160 (s = 0,3391); con 150 (s = 0,3179) C46 sube ≈ 0,29 mm y C40 ≈ 0,20 mm, y la orquestación tiene que recalcularlos (lo dice la propia nota de C46). Los depósitos restringidos ya están fuera de C53 (C34). «Excess cash is an advantage, not a disadvantage» (TCI p.141; HIM)."
+ },
+ "fcf_normalizado": {
+  "C44": null,
+  "clase": null,
+  "porque": "No aplica: Palancas!C43 = No aplica (fase A) porque el FCF base es positivo (Análisis!C52 = 242,596 mm) y el FCF al accionista lo es los diez años (Historia!C35:L35)."
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G5",
+   "escenario": "todos",
+   "justificacion": "Los tres márgenes objetivo (0,26 / 0,315 / 0,32) superan el Q3 del sector (8,6 %) porque el margen es de la empresa, no del nicho: diez años de margen EBIT entre el 24,8 % y el 33,4 % frente a una mediana del sector del 4,2 %. Mecanismo: escala de compra directa en Asia a más de 200 proveedores, ninguno por encima del 3 % de las ventas, en hipermercados grandes en buena parte propios; ese coste bajo es lo que el sector no tiene. Quién se queda la mejora: en el MALO el cliente (el margen vuelve al nivel de 2016–2020, que ya era tres veces el Q3); en el NORMAL se reparte (31,5 %, por debajo del último año); en el BUENO Jumbo se queda la escala y el margen mayorista y los socios el de tienda (32 %, el de 2025). Ninguno supera el máximo histórico (33,4 %).",
+   "hechos": [
+    "Historia!C29:L29 (margen EBIT 2016–2025)",
+    "Historia!C50 y C51 (mínimo 24,8 % y máximo 33,4 %)",
+    "Palancas!I15 (Q3 del sector 8,6 %)",
+    "Más de 200 proveedores, ninguno > 3 %, 70 % de Asia [FY2025, PDF p. 24]",
+    "Margen bruto 54,72 % en 2025 [FY2025, PDF p. 15]; 53,53 % en H1 2026 [H1 2026, PDF p. 7]",
+    "89 hipermercados de más de 9.000 m² [H1 2026, PDF p. 7 y p. 18]"
+   ],
+   "clase": "fundamentada"
+  }
+ ],
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": null
+ },
+ "herencia": {
+  "B68": {
+   "etapa1": 0.01,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: en el MALO Jumbo pierde peso frente a las plataformas [FY2025, PDF p. 23] y el juguete retrocede [FY2025, PDF p. 60]; para siempre crece por debajo de la inflación del 2,00 % que la empresa supone [FY2025, PDF p. 203]. 0,01 < r y < ROIC del MALO (0,09)."
+  },
+  "C68": {
+   "etapa1": 0.02,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: la inflación del 2,00 % de las hipótesis de pensiones [FY2025, PDF p. 202 y p. 203] para un minorista con Grecia madura (58,29 % de las ventas [FY2025, PDF p. 17]; una tienda cada tres años [FY2024, PDF p. 24]); por debajo de rf 3,35 % (Análisis!C57)."
+  },
+  "D68": {
+   "etapa1": 0.025,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: socios y Rumanía dan medio punto sobre la inflación del 2,00 % [FY2025, PDF p. 203]; no pongo el techo de la lista porque los historiales se agotan y los planes de socios se retrasan (Israel [FY2025, PDF p. 58])."
+  },
+  "B69": {
+   "etapa1": 0.2,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia más la Historia de diez años: la bajada del margen bruto [FY2025, PDF p. 15; H1 2026, PDF p. 7] ya está en el margen del NORMAL y en el MALO; subirle la probabilidad la contaría dos veces. Margen EBIT 2016–2025 en 24,8–33,4 % (Historia!C29:L29)."
+  },
+  "C69": {
+   "etapa1": 0.6,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: negocio predecible, sin deuda ni ciclo (Historia!C29:L29; sin préstamos [H1 2026, PDF p. 9]); las tres probabilidades suman 1 y cubren el rango."
+  },
+  "D69": {
+   "etapa1": 0.2,
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia: el BUENO depende de planes de socios que ya se han retrasado (Israel, cuatro tiendas frente a cinco [FY2025, PDF p. 58]); no recibe más probabilidad que el MALO."
+  },
+  "C76": {
+   "etapa1": 200,
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 partía de 546,14 mm y restaba el dividendo de 94,06 mm, unos 100 mm de centros y 150 mm de colchón. Ahora el precio (27,28 €, 17-nov-2026, C37) es posterior a la fecha ex del reparto extraordinario de 1,00 € (134,37 mm, C53), que la etapa 1 no restaba, y queda el saldo de Nea Filadelfeia (5,7 mm [FY2025, PDF p. 28]). Con un mes de costes de caja como colchón (66,4 mm: ventas menos EBITDA, Historia!C44 y C62) y 95 mm de centros [FY2025, PDF p. 25] queda ≈ 150 mm."
+  }
+ },
+ "dos_errores": {
+  "mas_cerca_de": "regatear",
+  "porque": "Con Jumbo el error que tengo más cerca es regatear: diez años de margen EBIT de tres a cuatro veces el Q3 del sector (Historia!C29:L29; Palancas!I15), sin deuda (Historia!J22:L22) y a PER ≈ 11 es el caso en que pedir un MALO de pesadilla y un margen de ingeniero deja pasar la calidad: «We left a lot of money on the table through early fretting» (TCI p.79; HIM). Mi MALO ya es duro (margen del 26 %, ROIC terminal = r) y no lo endurezco más con la probabilidad. El otro error no está lejos si me creo el margen de 2021–2025 sin saber por qué saltó: por eso el NORMAL va un poco por debajo del último año y el ROIC terminal solo un punto sobre r. «Since it's so obvious that investing in great companies works, it gets horribly overdone» (PCA p.214; HIM)."
+ },
+ "celdas": {
+  "Palancas!B14": 0.02,
+  "Palancas!C14": 0.055,
+  "Palancas!D14": 0.08,
+  "Palancas!B15": 0.26,
+  "Palancas!C15": 0.315,
+  "Palancas!D15": 0.32,
+  "Palancas!B16": 1.1,
+  "Palancas!C16": 1.4,
+  "Palancas!D16": 1.7,
+  "Palancas!B18": 0.09,
+  "Palancas!C18": 0.1,
+  "Palancas!D18": 0.12,
+  "Palancas!C22": null,
+  "Palancas!C23": null,
+  "Palancas!C24": null,
+  "Palancas!C44": null,
+  "B68": 0.01,
+  "C68": 0.02,
+  "D68": 0.025,
+  "B69": 0.2,
+  "C69": 0.6,
+  "D69": 0.2,
+  "C76": 150
+ },
+ "observaciones": {
+  "Palancas!B14": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: −0,005 (NORMAL_ref − σ). Decisión: 0,02. Desviación: +0,025 porque el MALO es de margen: aperturas +2 % y comparables planas en euros corrientes. Apoyo: unos dos hipermercados al año sobre 89 [FY2025, PDF p. 26; H1 2026, PDF p. 7]; Rumanía −6,50 % en H1 2026 [H1 2026, PDF p. 6]; peor año sin pandemia +4,4 % (Historia!F28); la σ de la referencia sale de 2020–2021 (Historia!G28:H28). Rango 0–0,03. Lo sustituiría: 0 o negativo si Grecia cae en 2026–2027 con las aperturas en marcha.",
+  "Palancas!C14": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (CAGR 5a acotado al Q3). Decisión: 0,055. Desviación: −0,05 porque el CAGR de 5 años (Historia!C46) arranca en la caída de 2020 y lleva el rebote de 2021; por componentes: superficie +2 %, comparables +2,5–3 %, socios +0,5–1 punto. Apoyo: +6,3 % y +7,2 % en 2024–2025 (Historia!K28:L28); H1 2026 +4,4 % [H1 2026, PDF p. 37]; enero–agosto ≈ +6 % [H1 2026, PDF p. 67]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]; socios 61,7 → 80,5 mm [FY2025, PDF p. 175]. Rango 0,045–0,065. Lo sustituiría: 0,045 si 2026 cierra por debajo del +5 %; 0,065 si los socios siguen al +25 %.",
+  "Palancas!D14": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (mín(NORMAL + σ, Q3)). Decisión: 0,08. Desviación: −0,025 porque por componentes salen superficie +3,5 %, comparables +3 % y socios +1,5 puntos; queda por debajo del Q3 y de 1,5 × la historia. Apoyo: objetivo de duplicar Rumanía en una década (guía) [FY2025, PDF p. 26]; tiendas previstas en 2028 [H1 2026, PDF p. 17]; socios +30,5 % en 2025 [FY2025, PDF p. 175]; Balfin sin inversión del grupo [H1 2026, PDF p. 19]. Rango 0,07–0,09. Lo sustituiría: 0,07 si los socios vuelven a incumplir (Israel [FY2025, PDF p. 58]).",
+  "Palancas!B15": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,29 (media de diez años). Decisión: 0,26. Desviación: −0,03 porque el MALO de la fase A vuelve al nivel de 2016–2020 y la media de diez años mezcla dos niveles; el cliente se queda la mejora. Apoyo: margen EBIT 2016–2020 (Historia!C29:G29), mínimo 24,8 % (Historia!C50); margen bruto 54,72 % en 2025 [FY2025, PDF p. 15] y 53,53 % en H1 2026 [H1 2026, PDF p. 7]; dólar y flete [H1 2026, PDF p. 14]. Sobre el Q3 del sector por formato y escala (G5 justificada). Rango 0,245–0,28. Lo sustituiría: 0,245 si el margen bruto anual baja del 52 %.",
+  "Palancas!C15": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (m0 = último año). Decisión: 0,315. Desviación: −0,005 porque H1 2026 ya trae medio punto menos de margen EBITDA (Rumanía, IVA) y la referencia redondea el 31,84 % hacia arriba. Apoyo: margen EBIT 2021–2025 (Historia!H29:L29); EBITDA 32,73 % frente a 33,25 % en H1 [H1 2026, PDF p. 7]; más de 200 proveedores, ninguno > 3 % [FY2025, PDF p. 24]. Mejora repartida con el cliente; sobre el Q3 por escala (G5 justificada). Rango 0,30–0,325. Lo sustituiría: 0,30 si 2026 cierra por debajo del 30,5 %; 0,325 si el margen bruto vuelve al 55 %.",
+  "Palancas!D15": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (máx(m0, mín(máximo, Q3))). Decisión: 0,32. Desviación: ninguna porque el BUENO crece más en ventas que en margen: el margen mayorista de los socios es menor y la escala solo protege el actual. Apoyo: margen 2025 31,8 % (Historia!L29), máximo 33,4 % (Historia!C51); menos peso de socios subió el margen bruto en H1 2026 [H1 2026, PDF p. 7]; Q3 del sector 8,6 % (Palancas!I15; G5 justificada). Rango 0,315–0,33. Lo sustituiría: 0,33 si el margen bruto pasa del 55,6 % de 2024 [FY2025, PDF p. 15].",
+  "Palancas!B16": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,3 (0,75 × NORMAL). Decisión: 1,1. Desviación: −0,2 porque en el MALO el capital se pone y el volumen no acompaña: S2C de 2021–2025 sin ajustes. Apoyo: ventas +401 mm (Historia!H6, L6) con 357 mm de reinversión (Historia!I31:L31) = 1,12; S2C medio sin arrendamientos 1,19 (datos_v63, 1 bis). Rentabilidad marginal 0,235. Rango 1,0–1,3. Lo sustituiría: 1,0 si los centros de distribución superan los 95 mm [FY2025, PDF p. 25] sin más ventas.",
+  "Palancas!C16": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,7 (Historia!C53). Decisión: 1,4. Desviación: −0,3 porque Historia!C53 cuenta el rebote de 2021, hecho con reinversión negativa (Historia!H31); de 2021 a 2025 sale 1,12 con unos 75 mm de compra de tiendas alquiladas, que no añaden ventas: sin ellas ≈ 1,4. Apoyo: Historia!I31:L31; tiendas compradas [FY2025, PDF p. 25]; Patras (Historia!L13); S2C medio sin arrendamientos 1,19 y ROIC sin arrendamientos 28,9 % (datos_v63, 1 bis). Rentabilidad marginal 0,362 < 2 × 28,9 %. Rango 1,1–1,7. Lo sustituiría: 1,1 si la inversión por tienda nueva resulta mayor que la de la base; 1,7 si los socios llegan al 10 % de las ventas.",
+  "Palancas!D16": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 2,1 (1,25 × NORMAL). Decisión: 1,7. Desviación: −0,4 porque el mejor S2C marginal medido es Historia!C53 (1,70) y ya incluye el rebote de 2021; Rumanía pide hipermercados propios. Apoyo: socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Balfin sin inversión del grupo [H1 2026, PDF p. 19]; hipermercados de más de 9.000 m² [H1 2026, PDF p. 18]. Rentabilidad marginal 0,446 < 0,579. Rango 1,4–2,0. Lo sustituiría: 2,0 si los socios superan el 12 % de las ventas con capex como en 2025 (Historia!L12).",
+  "Palancas!B18": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,09. Desviación: ninguna porque en el MALO la ventaja se traslada al cliente y el capital nuevo rinde lo que cuesta; salto del año 11 de 0,145 por esa pérdida. Apoyo: r 0,09 (Análisis!C56); neutro del motor 8,86 % (datos_v63, 1 bis); plataformas [FY2025, PDF p. 23]. Vara P-FOSO NO COMPROBADA. Rango 0,09–0,10. Lo sustituiría: 0,10 si con margen del 26 % el capital propio sigue ganando más de r + 3 puntos.",
+  "Palancas!C18": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,1. Desviación: +0,01 porque con Análisis!C18 = Sí algo de la escala dura más allá del año 10, pero es una ventaja de años, no de décadas: un punto sobre r, bajo r + 0,03 (MR p. 63; E2); salto del año 11 de 0,262 por la pérdida de ventaja. Apoyo: margen EBIT 2016–2025 (Historia!C29:L29) frente a Q3 8,6 % (Palancas!I15); ROIC de todo el capital 26,8 % (Historia!C55) frente a 11,7 % del sector (Palancas!H18); neutro 8,86 % (datos_v63, 1 bis). Rango 0,09–0,11. Lo sustituiría: 0,09 si el margen EBIT baja del 28 % dos años seguidos.",
+  "Palancas!D18": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,12 (C56 + 0,03). Decisión: 0,12. Desviación: ninguna porque en el BUENO la escala crece con los socios y la ventaja dura en el máximo de 3 puntos sobre el coste (MR p. 63; E2); sin vara P-FOSO comprobada no subo; salto del año 11 de 0,326. Apoyo: Análisis!C18 = Sí; margen EBIT 2016–2025 (Historia!C29:L29); socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Balfin [H1 2026, PDF p. 18]. Rango 0,10–0,12. Lo sustituiría: 0,10 si los socios no cumplen sus aperturas de 2026–2027.",
+  "Palancas!C22": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío (= 0) sin disparador. Decisión: vacía. Desviación: ninguna porque no hay ningún disparador: deuda neta ÷ EBITDA −1,10 (C33), la caja cubre la deuda a corto (C34 = Sí), no es joven (Palancas!C5) y arrendamientos de 66,4 mm (Historia!C64) frente a 3 × FCF base de 727,8 mm. Apoyo: sin préstamos [H1 2026, PDF p. 9]; bono amortizado en 2023 [FY2023, PDF p. 12]. «Three things ruin people: drugs, liquor, and leverage» (TCI p.68; HIM). Lo sustituiría: 0,05 si se endeudara para los centros o los inmuebles.",
+  "Palancas!C23": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío sin quiebra; 0 si C22 > 0. Decisión: vacía. Desviación: ninguna porque sin probabilidad de quiebra (C22 vacía) la recuperación no se usa. Apoyo: deuda cero en 2023 y 2025 (Historia!J22:L22); caja 536,7 mm a fin de 2025 (Historia!L24). Lo sustituiría: 0 explícito si C22 pasara a 0,05.",
+  "Palancas!C24": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: no disponible: solo con cifra de fuente primaria. Decisión: vacía. Desviación: sin referencia porque el extracto no trae tamaño de mercado ni cuota (extracto_v63, sección 1 y sección 9). Apoyo: posición declarada sin cifra [FY2025, PDF p. 58]; competidores solo por categoría [H1 2026, PDF p. 15]. Lo sustituiría: una cifra de mercado de fuente primaria en un informe de la empresa, como techo del BUENO.",
+  "Palancas!C44": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: no aplica (C43 = No aplica). Decisión: vacía. Desviación: sin referencia porque el FCF base es positivo y la fase A no lo declaró transitorio ni extraordinario. Apoyo: FCF base 242,596 mm (Análisis!C52); FCF al accionista positivo los diez años (Historia!C35:L35). Lo sustituiría: un FCF normalizado si el FCF base pasara a ser ≤ 0 por los centros de distribución o por inventario.",
+  "B68": "[Clase: fundamentada] [Confianza: media] Hereda: 0,01 → mantiene (misma_evidencia): MALO con pérdida de peso frente a las plataformas y el juguete en retroceso. Referencia mecánica: 0,015 (NORMAL_ref − 0,01). Decisión: 0,01. Desviación: −0,005 porque para siempre crece por debajo de la inflación del 2 % que la empresa supone; con ROIC = r pesa poco (E3). Apoyo: inflación 2,00 % [FY2025, PDF p. 203]; juguete [FY2025, PDF p. 60]; plataformas [FY2025, PDF p. 23]. 0,01 < 0,09. Rango 0–0,015. Lo sustituiría: 0,005 si el MALO resulta pérdida de cuota sostenida; 0,015 si el derecho de aduana frena a las plataformas.",
+  "C68": "[Clase: fundamentada] [Confianza: media] Hereda: 0,02 → mantiene (misma_evidencia): inflación del 2 % para un minorista con Grecia madura. Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque Grecia, el 58 % de las ventas, está madura y lo que crece (Rumanía, socios) se agota antes del año 11; bajo rf (CV p. 5; E1). Apoyo: Grecia 58,29 % [FY2025, PDF p. 17]; una tienda cada tres años [FY2024, PDF p. 24]; ninguna en 2027 [H1 2026, PDF p. 17]; inflación 2,00 % [FY2025, PDF p. 203]; rf 3,35 % (Análisis!C57). Rango 0,015–0,025. Lo sustituiría: 0,015 si las aperturas se detienen después de 2030.",
+  "D68": "[Clase: fundamentada] [Confianza: media] Hereda: 0,025 → mantiene (misma_evidencia): socios y Rumanía dan medio punto sobre la inflación. Referencia mecánica: 0,03 (mín(NORMAL_ref + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque los grandes historiales se agotan y no pongo el techo de la lista. Apoyo: inflación 2,00 % [FY2025, PDF p. 203]; 46 tiendas de socios [H1 2026, PDF p. 7]; Balfin [H1 2026, PDF p. 18]; bajo rf (CV p. 5; E1). Rango 0,02–0,03. Lo sustituiría: 0,03 solo si el formato funciona en Canadá y en los mercados de Balfin sin capital propio.",
+  "B69": "[Clase: convención] [Confianza: media] Hereda: 0,2 → mantiene (misma_evidencia): la bajada del margen bruto ya está en el NORMAL y en el MALO. Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,2. Desviación: ninguna porque subirla contaría dos veces el mismo riesgo (PA p. 20; E6). Apoyo: margen bruto 54,72 % en 2025 [FY2025, PDF p. 15] y 53,53 % en H1 2026 [H1 2026, PDF p. 7]; margen EBIT 2021–2025 estable (Historia!H29:L29); derecho de aduana de 3 € [H1 2026, PDF p. 14]. Lo sustituiría: 0,3 si el margen bruto de 2026 baja del 53 %.",
+  "C69": "[Clase: convención] [Confianza: media] Hereda: 0,6 → mantiene (misma_evidencia): negocio predecible sin deuda ni ciclo. Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque diez años de margen EBIT en 24,8–33,4 % y un solo año de caída de ventas lo hacen predecible; suman 1. Apoyo: Historia!C29:L29; Historia!G28; sin préstamos [H1 2026, PDF p. 9]; caso especial Ninguno (Palancas!C6). Lo sustituiría: 0,5 si sube la del MALO.",
+  "D69": "[Clase: convención] [Confianza: media] Hereda: 0,2 → mantiene (misma_evidencia): el BUENO depende de planes de socios. Referencia mecánica: 0,2 (convención). Decisión: 0,2. Desviación: ninguna porque el BUENO no recibe más que el MALO sin razón estructural y los socios ya se han retrasado. Apoyo: Israel, cuatro tiendas frente a cinco previstas [FY2025, PDF p. 58]; socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]. Lo sustituiría: 0,25 si Rumanía vuelve a crecer en 2027 y los socios cumplen sus aperturas.",
+  "C76": "[Clase: fundamentada] [Confianza: media] Hereda: 200 → cambia (evidencia_nueva): el precio es posterior a la fecha ex del 1,00 € extraordinario, que la etapa 1 no restaba. Referencia mecánica: 0 (regla del inversor v1.2). Decisión: 150. Desviación: +150 porque hay caja claramente sobrante: 546,14 − 94,06 (dividendo de julio) − 134,37 (1,00 €) − 5,7 (Nea Filadelfeia) − 95 (centros) − 66,4 (un mes de costes de caja) ≈ 150. Apoyo: C53; [H1 2026, PDF p. 67]; [FY2025, PDF p. 25 y p. 28]; Historia!C44 y C62. Intereses de esta caja fuera de C46 (J1). C46 y C40 se calcularon con 160: con 150 hay que recalcularlos. Rango 120–180. Lo sustituiría: 0 si la caja se destina a adquisiciones o inmuebles no comerciales."
+ }
+}
