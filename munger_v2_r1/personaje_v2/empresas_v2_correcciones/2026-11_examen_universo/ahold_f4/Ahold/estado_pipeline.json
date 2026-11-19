@@ -1,6 +1,6 @@
 {
- "paso": 13,
- "estado_analisis": null,
+ "paso": 14,
+ "estado_analisis": "concluido",
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -83,12 +83,18 @@
   "2026-11-19T11:11:20 · paso 12 · verificación de las entradas financieras: 308 de 309 celdas del universo comprobadas · apta por entradas: sí",
   "  $ python3 ficha.py Ahold --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Ahold --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-19T11:11:27 · paso 13 · solicitud de auditoría SA-c5976a5dafc02f41 registrada para el material 083e40dd7095eaa0 (sustituye a SA-4d51f20873dd3f5b)"
+  "2026-11-19T11:11:27 · paso 13 · solicitud de auditoría SA-c5976a5dafc02f41 registrada para el material 083e40dd7095eaa0 (sustituye a SA-4d51f20873dd3f5b)",
+  "2026-11-19T11:16:40 · paso 13 · auditoría consumida: respuesta a la solicitud SA-c5976a5dafc02f41 (SHA-256 90a59756d6ff…)",
+  "  $ python3 ficha.py Ahold --estado concluido → 0 · OK: ficha.json · estado concluido · cubo Vigilar · acción esperar",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Ahold → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Ahold resumen_v2_v631_f1.csv → 0 · OK: fila de Koninklijke Ahold Delhaize N.V. en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/resumen_v2_v631_f1.csv",
+  "2026-11-19T11:16:47 · paso 14 · FIN · estado concluido · auditoría APROBADO"
  ],
  "motor": "A",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "13:auditoria.md",
+ "esperando": null,
  "inicio": "2026-11-19T08:48:34",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -99,7 +105,8 @@
   "extracto_v63.md": 1795079049.958037,
   "fase_a.json": 1795079904.29985,
   "fase_b.json": 1795080905.1068358,
-  "fase_c.json": 1795083929.824976
+  "fase_c.json": 1795083929.824976,
+  "auditoria.md": 1795086980.9375365
  },
  "motivo_correccion": null,
  "esperando_desde": 1795086687.142453,
@@ -178,15 +185,17 @@
    "material": "083e40dd7095eaa0",
    "creada": "2026-11-19T11:11:26+00:00",
    "motivo": "relevo caducado: el material fijado a3b0c6383c853d61 ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
-   "estado": "pendiente",
-   "respuesta_sha256": null,
-   "respondida": null,
-   "veredicto": null
+   "estado": "respondida",
+   "respuesta_sha256": "90a59756d6fff34ac76a7606c5dfa0a03c590431c646ddad17064f00faa733a2",
+   "respondida": "2026-11-19T11:16:40+00:00",
+   "veredicto": "APROBADO",
+   "respuesta_contenido": "e96185bb5be119f7a79347c687d6406f2a032699adbde110b7cbbc04b8d4cbdb",
+   "respuesta_fiel": "a38beba0d5b77f012d7c928b488ad5f6dace463267fbfbade5543defb3e4f173"
   }
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null,
+ "auditoria": "APROBADO",
  "relevos_caducados": [
   {
    "material_fijado": "06ae5cebd512644a",
@@ -208,5 +217,23 @@
    "material_refijado": "083e40dd7095eaa0",
    "solicitud": "SA-c5976a5dafc02f41"
   }
- ]
+ ],
+ "auditoria_respuesta": {
+  "solicitud": "SA-c5976a5dafc02f41",
+  "sha256": "90a59756d6fff34ac76a7606c5dfa0a03c590431c646ddad17064f00faa733a2",
+  "contenido": "e96185bb5be119f7a79347c687d6406f2a032699adbde110b7cbbc04b8d4cbdb",
+  "fiel": "a38beba0d5b77f012d7c928b488ad5f6dace463267fbfbade5543defb3e4f173",
+  "material": "083e40dd7095eaa0"
+ },
+ "fin": "2026-11-19T11:16:40",
+ "ficha_valida": true,
+ "publicaciones_de_la_aprobacion": [
+  {
+   "solicitud": "SA-c5976a5dafc02f41",
+   "auditoria_fiel": "a38beba0d5b77f012d7c928b488ad5f6dace463267fbfbade5543defb3e4f173",
+   "csv": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/resumen_v2_v631_f1.csv",
+   "fecha": "2026-11-19T11:16:46"
+  }
+ ],
+ "resumen_pendiente": false
 }
