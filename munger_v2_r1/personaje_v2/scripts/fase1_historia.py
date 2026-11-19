@@ -59,6 +59,11 @@ CON_SIGNO = {"ebit", "ebit_derivado", "beneficio_neto", "bai", "cfo", "patrimoni
 # v2.2 (Nike, 3-nov-2026): EBIT con una sola definición en los diez años. `ebit_derivado` = BAI − resultado financiero; si está
 # los diez años se usa para todos, si no, el subtotal impreso; nunca se mezclan definiciones sin dejarlo en historia_revision.md
 OPCIONALES = ["ebit_derivado"]
+# (revisión de producto/minoritarios-acciones, extra) saldos de balance en los que un negativo impreso es un signo, no la convención de
+# pago de los flujos: ajustar los guarda en valor absoluto (la plantilla quiere estas filas ≥ 0: Motor!E234 y la validación de Historia)
+# y construir lo avisa en historia_revision.md. No cambia la conversión: eso es una decisión (Z-MIN para minoritarios). Pensiones no
+# está: la fila 25 es una posición neta con signo y el estado de financiación suele imprimir el déficit en negativo (funded status).
+SALDOS_SIN_SIGNO = ("deuda", "arrendamientos", "caja", "otros_activos_financieros", "minoritarios", "acciones_diluidas")
 ESENCIALES = ["ventas", "ebit", "beneficio_neto", "cfo", "capex", "patrimonio", "caja", "acciones_diluidas"]
 ESCALA = {"unidades": 1e-6, "miles": 1e-3, "millones": 1.0}
 # (redondeo exacto) la misma escala, exacta: los importes de la Historia se calculan con fracciones desde la cifra impresa
@@ -242,6 +247,63 @@ def incoherencias_acciones(anios, valores, acciones_meta=None, factor=10.0):
         if max(m, v1) / min(m, v1) > factor:
             out.append(f"acciones_diluidas: {v1:g} millones en {a1} frente a {m:g} millones en los metadatos (Análisis!C55): más de {factor:g} veces (¿unidad mal inferida?)")
     return out
+
+
+def _cifra_acciones(c, donde):
+    """(cifra exacta en millones de acciones, None) o (None, defecto) de {"impreso": texto, "escala_impreso": unidades|miles|millones}."""
+    imp, esc = c.get("impreso"), c.get("escala_impreso", "unidades")
+    if not isinstance(imp, str):
+        return None, f"{donde}: «impreso» {imp!r} tiene que ser la cifra tal como se imprime (texto)"
+    if esc not in ESCALA_EXACTA:
+        return None, f"{donde}: escala_impreso {esc!r} no es una de {list(ESCALA_EXACTA)} (la escala de la cifra impresa; «unidad» es la de «valor»)"
+    try:
+        n = numero_exacto(imp)
+    except ValueError as e:
+        return None, f"{donde}: {e}"
+    if n <= 0:
+        return None, f"{donde}: «impreso» {imp!r} no es un número positivo de acciones"
+    return n * ESCALA_EXACTA[esc], None
+
+
+def defecto_acciones_meta(ac):
+    """(examen, zoetis_t1c, Análisis!C55; rama producto/minoritarios-acciones y su revisión, C1 y C2) Las acciones de los metadatos son un
+    número de acciones, no un importe: el redondeo del libro a 3 decimales en mm no vale para ellas (verificacion_entradas, N4).
+    Si los metadatos traen la cifra impresa de las acciones en circulación («impreso», con su escala en «escala_impreso»: unidades por
+    omisión, miles o millones) y, si hay dilución, sus componentes impresos («dilucion»: [{"impreso", "escala_impreso", "pagina",
+    "concepto"}], cada uno con su escala), «valor» tiene que ser EXACTAMENTE su suma en millones, con todos sus decimales
+    (424.927.535 acciones → 424.927535, no 424,928). «unidad» sigue siendo la unidad de «valor» (rellenar la escribe en el Control
+    maestro) y no se mira aquí. Lista de defectos; vacía si no hay o si los metadatos no traen «impreso» (metadatos anteriores a esta
+    regla: no se bloquean; construir lo avisa en historia_revision.md)."""
+    if not isinstance(ac, dict) or ac.get("impreso") is None:
+        return []
+    exacta, err = _cifra_acciones(ac, "acciones_diluidas de los metadatos")
+    if err:
+        return [err]
+    dil = ac.get("dilucion") or []
+    if not isinstance(dil, list) or not all(isinstance(c, dict) for c in dil):
+        return ["acciones_diluidas de los metadatos: «dilucion» tiene que ser una lista de {impreso, escala_impreso, pagina, concepto}"]
+    for n_c, c in enumerate(dil, 1):
+        x, err = _cifra_acciones(c, f"acciones_diluidas de los metadatos, dilución {n_c}")
+        if err:
+            return [err]
+        exacta += x
+    v = ac.get("valor")
+    try:
+        ok = exacto(v) == exacta
+    except (TypeError, ValueError):
+        ok = False
+    if ok:
+        return []
+    que = f"la cifra impresa «{ac['impreso']}» ({ac.get('escala_impreso', 'unidades')})" + (f" más {len(dil)} componentes de dilución" if dil else "")
+    msg = (f"acciones_diluidas de los metadatos (Análisis!C55): valor {v!r} no es {que} en millones = {float(exacta)!r}, con todos sus "
+           f"decimales (un número de acciones no se redondea)")
+    try:
+        if exacto(v) * 1000 == exacta and re.search(r"[.,]\d{3}$", ac["impreso"].strip(" ()")):
+            msg += (f"; «{ac['impreso']}» se lee como entero con separador de miles: si lleva decimales, escríbalo en unidades como lo "
+                    f"imprime la fuente (p. ej. «424.927.535») o con dos decimales como mucho")
+    except (TypeError, ValueError):
+        pass
+    return [msg]
 
 
 def comprobar_anio(carpeta, anio, pendientes=None):
@@ -578,6 +640,7 @@ def construir(carpeta):
         return abs(v)
 
     serie, fuente, notas_k = {}, {}, {}
+    signo_perdido = []  # (revisión de producto/minoritarios-acciones, extra) saldos de balance impresos en negativo y guardados en positivo
     pend_usados, confirmados, dec_invalidas = {}, [], []
     for k in PARTIDAS + OPCIONALES:
         serie[k], fuente[k] = [], []
@@ -610,6 +673,10 @@ def construir(carpeta):
                 rev.append(f"- **{k} {a}**: fijado a mano en fase1_decisiones.json = {v} ({f})")
                 serie[k].append(v)
             else:
+                if k in SALDOS_SIN_SIGNO and v is not None and v < 0:  # (revisión, extra) aviso: la conversión no cambia
+                    signo_perdido.append(f"- **{k} {a}**: impreso negativo ({redondear(v, 4)}, {f}); la Historia guarda {redondear(ajustar(k, v), 4)} "
+                                         f"porque la plantilla quiere esta fila ≥ 0. Revisar qué significa el signo"
+                                         + (" (minoritarios deficitarios: tratamiento pendiente de decisión)" if k == "minoritarios" else ""))
                 serie[k].append(None if v is None else redondear(ajustar(k, v), 4))  # (redondeo exacto) ROUND de la hoja sobre la cifra exacta
             if pendiente:
                 pend_usados.setdefault(k, []).append(a)
@@ -723,7 +790,8 @@ def construir(carpeta):
         e["pendiente_verificacion"] = sorted(set(pend_c) | set(e.get("pendiente_verificacion") or []))  # (4.15) sin perder los del cálculo
         e["nota"] = ((e.get("nota") or "") + f" Depende de la Historia con ceros pendientes en {', '.join(map(str, pend_c))}." + aviso_pend(pend_c)).strip()
     if not f1.get("capitalizacion") and f1.get("precio") and f1.get("acciones_diluidas"):
-        f1["capitalizacion"] = {"valor": redondear(exacto(f1["precio"]["valor"]) * exacto(f1["acciones_diluidas"]["valor"]), 1), "fecha": f1["precio"].get("fecha"), "fuente": "precio × acciones diluidas"}
+        # (revisión de producto/minoritarios-acciones, C3) exacta, sin redondear (antes a 1 decimal: 31.053,7 frente a 31.053,7042578)
+        f1["capitalizacion"] = {"valor": float(exacto(f1["precio"]["valor"]) * exacto(f1["acciones_diluidas"]["valor"])), "fecha": f1["precio"].get("fecha"), "fuente": "precio × acciones diluidas"}
     f1["_notas"] = ["Historia construida por scripts/fase1_historia.py (pieza 7); revisión completa en historia_revision.md."] + list(meta.get("_notas") or [])
     f1["pendientes_verificacion"] = [dict(pend_ar_idx[(k, a)]) for k in sorted(pend_usados) for a in pend_usados[k]]
     if confirmados:
@@ -731,7 +799,7 @@ def construir(carpeta):
     if f1["pendientes_verificacion"]:
         f1["_notas"].append(f"{len(f1['pendientes_verificacion'])} ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md.")
     faltan_meta = [k for k in ("empresa", "ticker", "moneda_modelo", "precio", "acciones_diluidas", "sector_damodaran") if not f1.get(k)]
-    inc_acc = incoherencias_acciones(anios, serie["acciones_diluidas"], meta.get("acciones_diluidas"))
+    inc_acc = incoherencias_acciones(anios, serie["acciones_diluidas"], meta.get("acciones_diluidas")) + defecto_acciones_meta(meta.get("acciones_diluidas"))
     # revisión
     with open(os.path.join(carpeta, "historia_revision.md"), "w", encoding="utf-8") as f:
         f.write(f"# Revisión de la Historia · {f1.get('empresa')}\n\nInformes usados: " + ", ".join(f"{a} {fuentes[a]}" for a in anios) + "\n\n")
@@ -751,6 +819,14 @@ def construir(carpeta):
             f.write("\n## Fuentes independientes no aceptadas (la celda sigue pendiente)\n\n" + "\n".join(f"- {x}" for x in indep_rechazadas) + "\n")
         if dec_invalidas:
             f.write("\n## DECISIONES INVÁLIDAS (bloquea)\n\n" + "\n".join(f"- {x}" for x in dec_invalidas) + "\n")
+        ac_m = meta.get("acciones_diluidas") if isinstance(meta.get("acciones_diluidas"), dict) else {}
+        f.write("\n## Acciones de los metadatos (Análisis!C55)\n\n" + (
+            f"- valor {ac_m.get('valor')!r} comprobado exacto contra la cifra impresa «{ac_m['impreso']}»" + (f" y {len(ac_m.get('dilucion') or [])} componentes de dilución" if ac_m.get("dilucion") else "")
+            if ac_m.get("impreso") is not None and not defecto_acciones_meta(ac_m) else
+            f"- AVISO: los metadatos no traen «impreso» (la cifra impresa de las acciones): la precisión de valor {ac_m.get('valor')!r} no se comprueba (un número de acciones no se redondea)"
+            if ac_m.get("impreso") is None else "- no coincide con la cifra impresa: ver BLOQUEA") + "\n")
+        if signo_perdido:
+            f.write("\n## Signo de saldos impresos en negativo (la Historia guarda el valor absoluto)\n\n" + "\n".join(signo_perdido) + "\n")
         f.write("\n## Convenciones\n\n" + json.dumps(conv, ensure_ascii=False) + "\n")
         if falt or faltan_meta or inc_acc:
             f.write("\n## BLOQUEA\n\n" + "\n".join([f"- falta {x}" for x in falt + faltan_meta] + [f"- {x}" for x in inc_acc]) + "\n")
