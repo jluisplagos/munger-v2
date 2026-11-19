@@ -1,0 +1,280 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_ahold_f4.json",
+ "cambio_sha256": "69e5ae99d20d9e446b81d41689bb962658736bd16714654126e85c73413e1cd3",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/Ahold",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold",
+ "base_economica": {
+  "fecha": "2025-12-28",
+  "descripcion": "Ejercicio 2025 de Ahold Delhaize (52 semanas, cerrado el 28-dic-2025), la misma base y entradas del FCF base que ahold_f3 (P-O1 (c), P-O2 (a), P-FOSO (a)). Cambian solo las entradas de juicio LTM y de balance reciente, que pasan del informe del 2T (28-jun-2026) al del 3T (27-sep-2026) por la decisión A-Q3."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-13",
+  "acciones": "2025-12-28",
+  "publicacion_fuentes": "Informes anuales 2016–2025 de Ahold Delhaize e informes interinos del 2T (5-ago-2026) y del 3T 2026 (4-nov-2026), páginas oficiales del emisor (pdf_DESCARGAS_2026.tsv; huellas en INDICE_FUENTES.csv del repositorio auxiliar). LTM y balance reciente: 3T 2026 (27-sep-2026). Precio 13-nov-2026 (Euronext, fuentes_mercado/); tasa sin riesgo del 13-nov-2026 (Bundesbank, serie WT1010, fuentes_mercado/).",
+  "ejecucion_aplicada": "2026-11-19"
+ },
+ "heredados_movidos": 81,
+ "conservados": [
+  "etapa1",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_partes",
+  "fuentes_mercado",
+  "motor_a_f1.json",
+  "pdf",
+  "pdf_DESCARGAS_2026.tsv",
+  "texto",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Ahold_evaluada.xlsx",
+  "original_sha256": "0c607ce53db32f8cce0423ecf1769424bb99fec6e72deaede74ec77a1dadb66e",
+  "copia_de_ensayo_sha256": "42c6fadf2f3d12be8281d1a79d9e0c3572b9fc7abd2ddcd2f89718c46b348074",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet1.xml",
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C24",
+   "Análisis!C33",
+   "Análisis!C40",
+   "Análisis!C42",
+   "Análisis!C53",
+   "Análisis!C54"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!I29": {
+    "celda": "Análisis!C24",
+    "texto": "Cálculo derivado sobre estados auditados 2025 + intermedio Q3-26 (A-Q3)"
+   },
+   "Control maestro!N29": {
+    "celda": "Análisis!C24",
+    "texto": "[Clase: derivado de datos publicados] (ahold_f4, A-Q3 de la persona responsable, 19-nov-2026) Recalculado con el 3T: 3.635 ÷ 34.122 = 0,1065 → 0,107 (antes 0,109 con el 2T). La decisión del inversor del 28-oct-2026 (M) fija la definición; su «10,9 %» y su «→ C24 = 0.109» son las cifras del 2T, sustituidas. Fecha del denominador: 27-sep-2026, el fin de los doce meses y la fecha de C53 y C54. Sensibilidad con otras fechas del capital: a a 28-dic-2025 (14.195 + 18.404 = 32.599) → 0,112; media de 28-dic-2025 y 27-sep-2026 → 0,109; neto de caja (− 3.559) → 0,119. Contexto de la etapa 1: media ROIC 2021–25 9,0 % IFRS / 9,9 % subyacente; sin fondo de comercio 12,9–13,5 %; WACC de las pruebas de deterioro (EE. UU. 6,7 %, NL 5,0 %) no es el coste del capital propio. Confianza en la cifra: alta; en la definición: media."
+   },
+   "Control maestro!I36": {
+    "celda": "Análisis!C33",
+    "texto": "Intermedio Q3-26 + AR2025 (cálculo derivado; A-Q3)"
+   },
+   "Control maestro!M36": {
+    "celda": "Análisis!C33",
+    "texto": "NIIF 16 coherente: (deuda bruta con arrendamientos 19.747 − caja 3.559) = 16.188 ÷ EBITDA LTM a 27-sep-2026 7.334 (resultado operativo 3.635 + amortizaciones y deterioros 3.699) = 2,2073x. Sin híbridos ni preferentes."
+   },
+   "Control maestro!N36": {
+    "celda": "Análisis!C33",
+    "texto": "[Clase: derivado de datos publicados] (ahold_f4, A-Q3, 19-nov-2026) Recalculado con el 3T (antes 2,2153 con el 2T). Con el 3T: definición de la empresa (deuda neta 16.087, que resta también depósitos 15 y el fondo de bonos 86; Q3-26 PDF p. 24) ÷ 7.334 = 2,19x; sin la caja restringida (36): 2,21x; balance y EBITDA de 2025 ((18.404 − 3.605) ÷ (3.542 + 3.733)): 2,03x. Las demás sensibilidades de la etapa 1 (estrés, sin arrendamientos) eran del 2T y se retiran. Covenant 5,5:1 solo si el rating baja de BBB/Baa2 (AR2025 p. 54-55). No usa acciones: Z-ACC no le afecta. Confianza alta."
+   },
+   "Control maestro!I40": {
+    "celda": "Análisis!C40",
+    "texto": "Cálculo derivado (estados de flujos AR2025 + intermedio Q3-26)"
+   },
+   "Control maestro!M40": {
+    "celda": "Análisis!C40",
+    "texto": "FCF LTM a 27-sep-2026 con la regla espejo (P-O1 c), misma definición que la caja base: CFO 6.731 − capex 2.657 − intereses pagados 265 − pagos de arrendamientos 1.956 (= 1.853 sin la regla espejo) + dividendos de negocios conjuntos 22 + intereses y dividendos cobrados 128 + cobros de subarriendos 147 = 2150; cada partida LTM = 2025 + 39 semanas de 2026 − 39 semanas de 2025"
+   },
+   "Control maestro!N40": {
+    "celda": "Análisis!C40",
+    "texto": "[Clase: derivado de datos publicados] (ahold_f4, A-Q3, 19-nov-2026) Recalculado con el 3T (antes 2.096 con el 2T); sin la regla espejo saldría 1.853. C76 = 0, así que los intereses cobrados entran (salvaguarda de P-O1). El 3T rotula «Interest and dividend received» la línea que el informe anual y el 2T llaman «Interest received»: es la misma serie (1S 2026 50 + 3T 39 = 89; 1S 2025 76 + 3T 15 = 91) e incluye dividendos de activos financieros, que la regla espejo también suma. La definición de FCF de la empresa (Q3-26 PDF p. 24) suma además las desinversiones de activos. Z-ACC (19-nov-2026): se mantienen las acciones al cierre del ejercicio (C55 = 886,877259 M a 28-dic-2025, P-O2 a) con el balance a 27-sep-2026, que ya descuenta 864 de recompras pagadas en 2026 (Q3-26 PDF p. 16; 23.847.837 acciones, 865.173.863 en circulación a 27-sep-2026, p. 21): desalineación de fechas declarada: FCF yield con C41 (acciones a 28-dic-2025) 6.72%; con las acciones a 27-sep-2026 (31.189,5 mm) 6.89%. Semana 53 de 2026 fuera del LTM."
+   },
+   "Control maestro!G42": {
+    "celda": "Análisis!C42",
+    "texto": "EV: precio 13-nov-2026 × acciones 28-dic-2025 + deuda y caja 27-sep-2026 · EBITDA LTM a 27-sep-2026"
+   },
+   "Control maestro!J42": {
+    "celda": "Análisis!C42",
+    "texto": "Q3-26; AR2025; Análisis C41, C53 y C54"
+   },
+   "Control maestro!M42": {
+    "celda": "Análisis!C42",
+    "texto": "EV/EBITDA = (C41 31.971,925 + C54 19.747 − C53 3.559 − negocios conjuntos 254) ÷ EBITDA LTM 7.334 = 47.905,925 ÷ 7.334 = 6.532032"
+   },
+   "Control maestro!N42": {
+    "celda": "Análisis!C42",
+    "texto": "[Clase: derivado de datos publicados] (ahold_f4, A-Q3, 19-nov-2026) Recalculado con el 3T (antes 6,590310 con el 2T). Z-ACC (19-nov-2026): se mantienen las acciones al cierre del ejercicio (C55 = 886,877259 M a 28-dic-2025, P-O2 a) con el balance a 27-sep-2026, que ya descuenta 864 de recompras pagadas en 2026 (Q3-26 PDF p. 16; 23.847.837 acciones, 865.173.863 en circulación a 27-sep-2026, p. 21): desalineación de fechas declarada: con las acciones a 27-sep-2026 (36,05 × 865,173863 = 31.189,518) saldría 6.425350. Misma definición de EBITDA que C33."
+   },
+   "Control maestro!G50": {
+    "celda": "Análisis!C53",
+    "texto": "27-sep-2026"
+   },
+   "Control maestro!J50": {
+    "celda": "Análisis!C53",
+    "texto": "Informe Q3 2026"
+   },
+   "Control maestro!L50": {
+    "celda": "Análisis!C53",
+    "texto": "Q3-26 PDF p. 14"
+   },
+   "Control maestro!M50": {
+    "celda": "Análisis!C53",
+    "texto": "Caja y equivalentes 3.559 a 27-sep-2026 (28-dic-2025: 3.605). Incluye 36 de caja restringida y 1.176 de cash pool nocional, compensado por un importe igual en la deuda a corto (Q3-26 PDF p. 21 y 24)."
+   },
+   "Control maestro!N50": {
+    "celda": "Análisis!C53",
+    "texto": "(ahold_f4, A-Q3, 19-nov-2026) Antes 3.196 (2T). Z-ACC (19-nov-2026): se mantienen las acciones al cierre del ejercicio (C55 = 886,877259 M a 28-dic-2025, P-O2 a) con el balance a 27-sep-2026, que ya descuenta 864 de recompras pagadas en 2026 (Q3-26 PDF p. 16; 23.847.837 acciones, 865.173.863 en circulación a 27-sep-2026, p. 21): desalineación de fechas declarada. El dividendo a cuenta de 0,51 € se pagó el 27-ago-2026 (Q3-26 PDF p. 21), antes del balance. Confianza alta."
+   },
+   "Control maestro!G51": {
+    "celda": "Análisis!C54",
+    "texto": "27-sep-2026"
+   },
+   "Control maestro!J51": {
+    "celda": "Análisis!C54",
+    "texto": "Informe Q3 2026"
+   },
+   "Control maestro!L51": {
+    "celda": "Análisis!C54",
+    "texto": "Q3-26 PDF p. 24"
+   },
+   "Control maestro!I51": {
+    "celda": "Análisis!C54",
+    "texto": "Conciliación de deuda neta del intermedio (nota 12)"
+   },
+   "Control maestro!M51": {
+    "celda": "Análisis!C54",
+    "texto": "Deuda bruta con arrendamientos 19.747 (préstamos no corrientes 4.854 + arrendamientos no corrientes 10.572 + deuda a corto y porción corriente de deuda y arrendamientos 4.321), Q3-26 PDF p. 24. Incluye 1.176 de cash pool compensado en la caja. Solo contexto."
+   },
+   "Control maestro!N51": {
+    "celda": "Análisis!C54",
+    "texto": "(ahold_f4, A-Q3, 19-nov-2026) Antes 19.261 (2T). La porción corriente de los arrendamientos no se publica en el 3T (a 28-dic-2025 era 1.448, AR2025). Z-ACC (19-nov-2026): se mantienen las acciones al cierre del ejercicio (C55 = 886,877259 M a 28-dic-2025, P-O2 a) con el balance a 27-sep-2026, que ya descuenta 864 de recompras pagadas en 2026 (Q3-26 PDF p. 16; 23.847.837 acciones, 865.173.863 en circulación a 27-sep-2026, p. 21): desalineación de fechas declarada. Confianza alta."
+   },
+   "Control maestro!G34": {
+    "celda": "Análisis!C31",
+    "texto": "12 meses a 27-sep-2026 (variaciones del estado de flujos) · ventas: 39 semanas de 2026"
+   },
+   "Control maestro!I34": {
+    "celda": "Análisis!C31",
+    "texto": "Intermedio Q3-26 (estado de flujos) + AR2025 (A-Q3)"
+   },
+   "Control maestro!J34": {
+    "celda": "Análisis!C31",
+    "texto": "Informe Q3 2026; AR2025"
+   },
+   "Control maestro!L34": {
+    "celda": "Análisis!C31",
+    "texto": "Q3-26 PDF p. 3 y 16; AR2025 PDF p. 216"
+   },
+   "Control maestro!N34": {
+    "celda": "Análisis!C31",
+    "texto": "(ahold_f4, A-Q3 de la persona responsable, 19-nov-2026) Comprobado con el 3T; el valor «Sí» no cambia. El 3T no publica el balance de sep-2025, así que la comparación interanual del 2T de la etapa 1 no se repite; se usan las variaciones del estado de flujos (sin divisa ni adquisiciones), 2025 + 39 semanas de 2026 − 39 semanas de 2025: cobros y otros activos corrientes −91 + 83 − 128 = −136 (aumentan 136, ≈ +4,7 % sobre 2.904 = 2.659 + 381 − 136 a 27-sep-2026) e inventario −158 − 42 + 258 = +58 (bajan 58, ≈ −1,2 %), frente a ventas +1,9 % a tipo constante en las 39 semanas (Q3-26 PDF p. 3). Lectura literal de la decisión del inversor («cobros o inventario», M): «Sí»; económica (inventario): «No». La línea de cobros incluye otros activos corrientes; aproximación declarada. Confianza media."
+   },
+   "Control maestro!G37": {
+    "celda": "Análisis!C34",
+    "texto": "27-sep-2026 (balance del 3T 2026)"
+   },
+   "Control maestro!I37": {
+    "celda": "Análisis!C34",
+    "texto": "Intermedio Q3-26 (balance y deuda neta; A-Q3)"
+   },
+   "Control maestro!J37": {
+    "celda": "Análisis!C34",
+    "texto": "Informe Q3 2026; AR2025"
+   },
+   "Control maestro!L37": {
+    "celda": "Análisis!C34",
+    "texto": "Q3-26 PDF p. 14, 16, 21 y 24"
+   },
+   "Control maestro!N37": {
+    "celda": "Análisis!C34",
+    "texto": "(ahold_f4, A-Q3, 19-nov-2026) Comprobado con el 3T; el valor «No» no cambia. Con el criterio de la decisión del inversor (M: deuda a corto con los arrendamientos corrientes): caja 3.559 (p. 14) ÷ préstamos a corto y porción corriente de deuda y arrendamientos 4.321 (p. 24) = 0,82x → «No» (con el 2T, 0,87x). Sin el cash pool nocional de 1.176, que está en los dos lados (p. 21 y 24): 2.383 ÷ 3.145 = 0,76x. Sin arrendamientos corrientes (no publicados en el 3T; 1.448 a 28-dic-2025, estimación): caja no restringida 3.523 ÷ ≈ 2.873 ≈ 1,2x («Sí» en la lectura sin arrendamientos, que la decisión descartó). La deuda a corto sube de 3.301 (28-dic-2025) a 4.321, con 1.292 de aumento neto de préstamos a corto en 39 semanas (p. 16). Confianza media-alta."
+   },
+   "Control maestro!M30": {
+    "celda": "Análisis!C25",
+    "texto": "Evidencia (pkg_FIN): FCF del accionista sin circulante 1.136 (2021) → 2.149 (2022) → 2.041 → 2.059 → 1.911 (2025) → 1.725 (LTM a 27-sep-2026, 3T 2026: FCF sin la regla espejo 1.853 − circulante 128; A-Q3, ahold_f4; con el 2T era 1.813): escalón en 2022 y meseta. Crecimiento 2021–25: +12,4%/año sin ajustar frente a ~3% normalizado; 2022–25 plano o negativo. Definición de la empresa: 1.618 → 2.600 (2021–25); guía de 2026 actualizada el 4-nov-2026: unos 2.100 (Q3-26). Por acción crece por las recompras."
+   },
+   "Control maestro!M32": {
+    "celda": "Análisis!C27",
+    "texto": "Evidencia (pkg_OPS): margen operativo subyacente (la métrica menos distorsionada) 4,0–4,4% desde 2018 (sin el 4,8% de 2020); 4,04% en 2024–25 y 4,07% LTM a 27-sep-2026 (3.734, AR2025 PDF p. 42, + 2.748 − 2.740 = 3.742 ÷ ventas 92.352 + 68.529 − 68.862 = 92.019; Q3-26 PDF p. 3 y 25; A-Q3, ahold_f4; con el 2T era 4,08%). Pendiente 2021–25: −0,10 pp/año; margen bruto 27,36 → 26,54%; EBITDA subyacente 8,4 → 7,9%. Interpretación: \"Estable\" como base; \"Comprimiendo\" como alternativa conservadora."
+   },
+   "Control maestro!G82": {
+    "celda": "Análisis!C76",
+    "texto": "27-sep-2026"
+   },
+   "Control maestro!I82": {
+    "celda": "Análisis!C76",
+    "texto": "Balance intermedio Q3-26 (evidencia preparada; A-Q3)"
+   },
+   "Control maestro!J82": {
+    "celda": "Análisis!C76",
+    "texto": "Q3-26; pkg_BAL"
+   },
+   "Control maestro!L82": {
+    "celda": "Análisis!C76",
+    "texto": "Q3-26 PDF p. 14, 21 y 24"
+   },
+   "Control maestro!M82": {
+    "celda": "Análisis!C76",
+    "texto": "Evidencia (3T 2026, ahold_f4, A-Q3): caja 3.559; restringida 36; cash pool nocional 1.176 compensado por un importe igual en la deuda a corto; deuda neta con arrendamientos 16.188 (19.747 − 3.559; la de la empresa, que resta también depósitos y el fondo de bonos, 16.087). Caja sin restringida ni cash pool ≈ 2.347, menor que la deuda a corto sin el cash pool (3.145). Recomendación de la etapa 1 (hecha con el 2T): vacío (= 0). Decide el inversor."
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C24": {
+   "construido_por_fase1_historia": null,
+   "valor": 0.107,
+   "naturaleza": "derivado de datos publicados (definición de la etapa 1; periodo de A-Q3)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": "round((EBIT 2025 + resultado operativo 39 semanas 2026 − 39 semanas 2025) ÷ (patrimonio + deuda bruta con arrendamientos a 27-sep-2026), 3)"
+  },
+  "C33": {
+   "construido_por_fase1_historia": null,
+   "valor": 2.2073,
+   "naturaleza": "derivado de datos publicados (definición de la etapa 1; periodo de A-Q3)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": "round((C54 − C53) ÷ (EBIT LTM + amortizaciones y deterioros LTM), 4)"
+  },
+  "C40": {
+   "construido_por_fase1_historia": null,
+   "valor": 2150,
+   "naturaleza": "derivado de datos publicados (P-O1 c; periodo de A-Q3)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": "Σ (2025 + Q3 YTD 2026 − Q3 YTD 2025) de CFO, capex, intereses pagados, pagos de arrendamientos, dividendos de negocios conjuntos, intereses cobrados y cobros de subarriendos"
+  },
+  "C42": {
+   "construido_por_fase1_historia": null,
+   "valor": 6.532032340734933,
+   "naturaleza": "derivado de datos publicados (periodo de A-Q3; acciones de P-O2 a, desalineación declarada por Z-ACC)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": "(C41 + C54 − C53 − inversiones en negocios conjuntos) ÷ (EBIT LTM + amortizaciones y deterioros LTM)"
+  },
+  "C53": {
+   "construido_por_fase1_historia": null,
+   "valor": 3559,
+   "naturaleza": "dato publicado (A-Q3)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": null
+  },
+  "C54": {
+   "construido_por_fase1_historia": null,
+   "valor": 19747,
+   "naturaleza": "dato publicado (A-Q3)",
+   "perimetro": null,
+   "fecha": "2026-09-27",
+   "derivacion": null
+  }
+ },
+ "correcciones_fase1_partes": [],
+ "notas_retiradas": 2,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {
+  "C46": "entrada de ahold_f3 (P-O1 (c), cálculo declarado; cambio_ahold_po1_po2.json) sin cambio: el FCF base sigue con la media 2023–2025 de los ejercicios cerrados; A-Q3 solo mueve las cifras LTM y de balance reciente",
+  "C47": "entrada de ahold_f3 (media exacta 2023–2025, precedente E1) sin cambio",
+  "C48": "entrada de ahold_f3 (P-O1 (c), cálculo declarado) sin cambio",
+  "C49": "entrada de ahold_f3 (P-O1 (c), cálculo declarado) sin cambio",
+  "C88": "entrada de ahold_f3 (resultados/recalculo_C40_C42_C88.json: mediana 2019–2025 de capitalización de cierre ÷ FCF con la regla espejo, ejercicios cerrados) sin cambio: no usa el 2T",
+  "C96": "entrada de ahold_f3 (resultados/entradas_r3.json: insiders a 28-dic-2025 ÷ acciones a 28-dic-2025, P-O2 a) sin cambio: no usa el 2T"
+ },
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_ahold_f4.json"
+ }
+}
