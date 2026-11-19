@@ -1,5 +1,5 @@
 {
- "paso": 8,
+ "paso": 10,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -23,12 +23,22 @@
   "  $ python3 comprobar_entrada_v63.py Zoetis_v63_evaluada.xlsx Zoetis --motor B → 0 · OK: 0 bloqueantes · 6 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
   "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor B --libro-origen Zoetis_v63_evaluada.xlsx → 0 · motor B utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
   "2026-11-19T09:27:44 · paso 7 · motor B · F1: motor B utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
-  "  $ python3 volcar_datos_v63.py Zoetis_v63_evaluada.xlsx Zoetis --referencias-mecanicas → 0 · OK: datos_v63.md (15798 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis · referencias_mecani"
+  "  $ python3 volcar_datos_v63.py Zoetis_v63_evaluada.xlsx Zoetis --referencias-mecanicas → 0 · OK: datos_v63.md (15798 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis · referencias_mecani",
+  "  $ python3 validar_esquema.py fase_b.json fase_b --salida esquema_fase_b.json.txt → 0 · VÁLIDO · fase_b.json contra fase_b.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_b.md fase_b.md → 0 · RESULTADO: PASS",
+  "  $ python3 comprobar_gramatica.py Zoetis --antes-de-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 3 (sin justificar 0) · avisos 0 → gramatica.md",
+  "  $ python3 fase_a_celdas.py fase_b.json B celdas_B.json → 0 · OK: 92 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/celdas_B.json",
+  "  $ python3 escribir_v63.py Zoetis_v63_evaluada.xlsx Zoetis_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_B.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx --fases A,B → 0 · PASS: 0 errores · 49 celdas correctas · fases ['A', 'B'] · motor B",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/resultados.json · motor B · estado INCOMPLETO · libr",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 57.2049869582141 · precio de Sí 73.2704 (P* 73.2704) · ponderado 82.9096 · zona cumple_regla_k",
+  "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 2 → gramatica.md"
  ],
  "motor": "B",
- "fase_b_escrita": false,
+ "fase_b_escrita": true,
  "fase_c_escrita": false,
- "esperando": "8:fase_b.json",
+ "esperando": "10:fase_c.json",
  "inicio": "2026-11-19T09:08:28",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -37,10 +47,11 @@
  "f1_v631_declaracion_sha256": "f82959cdf79c61e90f0f0c1a83ef7cd42e3ff0ce7229bf0ce3e6ebdd9db72095",
  "consumidos": {
   "extracto_v63.md": 1795079283.491037,
-  "fase_a.json": 1795080395.5327404
+  "fase_a.json": 1795080395.5327404,
+  "fase_b.json": 1795081374.7867842
  },
  "motivo_correccion": null,
- "esperando_desde": 1795080465.097629,
+ "esperando_desde": 1795081392.126217,
  "motor_a_f1": {
   "paso": 7,
   "bloquea": false,
