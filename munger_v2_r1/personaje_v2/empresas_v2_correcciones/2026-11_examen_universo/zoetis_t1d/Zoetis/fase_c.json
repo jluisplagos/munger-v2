@@ -1,0 +1,384 @@
+{
+ "turno": 1,
+ "una_sola_historia": {
+  "coherente": true,
+  "incoherencias": [
+   "fase_a.md §4 y fase_a.json (foso.duracion) atribuyen a Historia!C55 un 27,7 % que «dobla» al sector; Historia!C55 es 0,236 (media 2021–25 del ROIC con la I+D capitalizada, fila roic_con_id de datos_v63 §3) y el 27,7 % es la media de la fila sin capitalizar. Frente al sector (0,147, Palancas!H18) es 1,6 veces. No cambia C18 = No (con US GAAP no hay vara F1 y C55 solo se compara con el sector, datos_v63 §1 bis) ni ninguna palanca: la fase B ya usó 0,236. Se corrige en los textos del turno 2.",
+   "C93 heredada (Sí) se apoya en «crecer un 2,5 % con un ROIC de ≈27 %» y una reinversión del ≈9 %; mi terminal NORMAL usa ROIC 0,08 y g 0,025: reinvierte g ÷ ROIC ≈ 31 % del beneficio operativo (I2). La celda se re-decide en el turno 2 con el terminal que hay.",
+   "B101, B102 y C104 heredadas citan un precio de Sí ≈49 USD, un MALO ≈49 y «0 %»; la escalera vigente es 73,27 / 57,20 / 82,91 (precio.json) y D16 prohíbe cualquier porcentaje de posición. Se reescriben en el turno 2.",
+   "La zona es cumple_regla_k y las cifras, solas, invitarían a comprar; A6 dice «DESCARTADA POR FILTRO PABRAI · fuera del círculo de competencia (C12)» y mi cubo es Demasiado difícil por el descalificador de la fase A. No es incoherencia de las palancas: la zona es el último criterio (sección 15). Además la zona es frágil: el precio está un 0,26 % por debajo del precio de Sí (diferencia ÷ precio de Sí) y cambios del tamaño de un redondeo la mueven a vigilar (lo_que_dice_la_hoja.fragilidad_de_la_zona).",
+   "El MALO tiene más FCF a la empresa en el año 1 (2.519) que el NORMAL (2.255) y que 2025 (≈2.196 = EBIT 3.582 × (1 − 0,1997) − reinversión 671, derivado): con crecimiento 0 el motor no exige reinversión neta (reinversión = Δventas ÷ S2C). Es la identidad del motor, no un error, pero supone que mantener las ventas planas mientras dermatología y parasiticidas caen no consume capital neto. Va en la tesis inversa del turno 2.",
+   "La hoja resta los pasivos netos de 31-dic-2025 (6.779 = deuda 9.042 + arrendamientos 7 + pensiones 42 − caja 2.312) con las acciones de esa fecha (424,93 m); la fase A razona el motor B con la deuda neta de 30-jun-2026 (7.572). La pareja de fechas de la hoja es coherente: con la de junio (≈7.621 y 414,15 m acciones) el NORMAL cambiaría ≈+0,1 USD (derivado). No pide corrección."
+  ]
+ },
+ "lo_que_dice_la_hoja": {
+  "valores": {
+   "MALO_B78": 57.2,
+   "NORMAL_C78": 81.65,
+   "BUENO_D78": 124.61,
+   "ponderado_C83": 82.91,
+   "precio_C37": 73.08,
+   "valor_sin_crecimiento": 64.23
+  },
+  "escalera": "Leída de precio.json: precio esc. MALO 57,20 · precio de Sí 73,27 (P*, sin tope del NORMAL) · ponderado 82,91 · zona cumple_regla_k. El precio está un 0,26 % por debajo del precio de Sí (diferencia ÷ precio de Sí) y el precio esc. MALO está un 21,7 % por debajo del precio (diferencia ÷ precio). Regla antigua (C156) = 57,20.",
+  "semaforos_relevantes": [
+   "Fila 41, margen frente a su máximo y al sector: ⚠ REVISAR en los tres escenarios (supera el Q3 del sector, 15,5 %; ninguno pasa del máximo propio, 37,8 %): G5 ya justificada en la fase B.",
+   "Fila 48, r frente a r mínima: ⚠ REVISAR · r 9,0 % < r mínima 10,8 % (A2; r heredada, S-3): se informa.",
+   "Filas 40, 42, 43, 44, 46, 47, 49 y 50: ✓ PASA (crecimiento, ROIC marginal, ROIC a largo plazo, peso del terminal, S2C medio, orden, tipo y motor, f). Fila 45 (cuota implícita): sin C24.",
+   "V16 y la autocomprobación del ROIC terminal: AVISO por el salto del año 11 (G8).",
+   "Estado técnico INCOMPLETO solo por las tres predicciones (Palancas!A38:A40), que son del turno 2; B252 y B254 falsos: el valor no está bloqueado.",
+   "«Cuánto pagas por crecer»: pagas 8,85 por acción sobre el valor sin crecimiento (64,23) y el crecimiento del NORMAL vale 17,42: 0,51, ✓ PASA."
+  ],
+  "peso_terminal": {
+   "MALO": 0.488,
+   "NORMAL": 0.57,
+   "BUENO": 0.649
+  },
+  "peso_terminal_NORMAL": 0.57,
+  "salto_anio_11": {
+   "MALO": 0.064,
+   "NORMAL": 0.138,
+   "BUENO": 0.176,
+   "explicacion": "Rentabilidad marginal de los años 1–10 = S2C × margen × (1 − 0,1997): 14,4 %, 21,8 % y 29,6 %; ROIC terminal 0,08, 0,08 y 0,12. En el MALO y el NORMAL el terminal está en la tasa del motor (0,0757 redondeada): es la convención del caso neutro y el valor cae en el año 11 por gramática, no por fallo. La hipótesis que escribo en la tesis: en los años 1–10 el crecimiento sale de franquicias con exclusividad y capacidad ya construida; en el año 11 supongo que las de hoy (Simparica, Apoquel, Cytopoint, Librela) han perdido la exclusividad o han sido igualadas, como Draxxin (−66 % tras el genérico, 10-K 2025 PDF p. 42), y el capital nuevo solo gana su coste. En el BUENO lo lanzado en 2026–30 conserva algo de exclusividad: 3 puntos sobre C56 (4,4 sobre la tasa del motor). Justificado en desviaciones_justificadas (G8, tres escenarios)."
+  },
+  "dcf_inverso": "Con el resto de palancas del NORMAL, el precio de 73,08 descuenta un crecimiento de ventas de ≈1,3 % anual en 2026–30 (C86 = 0,0126; la tabla es monótona y coincide con C86); el precio de Sí, ≈1,3 % (0,0132). Mi NORMAL pide 3,5 % y el MALO 0 %: el precio descuenta una historia entre los dos, con erosión pero sin un precipicio. La guía de 2026 es (3) %–(1) % orgánico (guía, no hecho): el primer año va por debajo de lo que descuenta el precio.",
+  "palanca_mas_influyente": "ROIC / ROE largo plazo (±5 pts)",
+  "tornado": "Sobre el NORMAL (81,65): ROIC a largo plazo ±5 puntos 42,13 USD (0,52); tasa de descuento ±1 punto 22,54 (0,28); crecimiento ±2 puntos 8,60; margen ±2 puntos 5,50; S2C ±0,3 4,24; g ±0,5 puntos 1,42. El valor depende sobre todo de cuánto dura la ventaja después del año 10, que es justo lo que declaré no saber juzgar (C12 = No). No aparece el aviso de tasa de descuento como palanca más influyente.",
+  "fragilidad_de_la_zona": "Aproximaciones mías con el valor terminal de resultados.json (el factor 1 − g ÷ ROIC reproduce el −42,13 del tornado), no recálculos del libro: con el ROIC del BUENO en 0,11 el precio de Sí bajaría a ≈72,92 y con 0,10 a ≈72,51; con el MALO y el NORMAL en la tasa exacta (0,0757) en vez de 0,08, a ≈72,66; las tres dejan el precio en vigilar. Con las probabilidades de referencia 0,2/0,6/0,2 subiría a ≈77,31. El BUENO aporta el 71 % de la ganancia esperada al precio de Sí (10,27 de 14,46). La zona no lleva información: no cambia nada de mi conclusión, que no se apoya en ella.",
+  "veredicto_hoja_A6": "DESCARTADA POR FILTRO PABRAI · fuera del círculo de competencia (C12). Mi cubo provisional es Demasiado difícil: C12 = No por el descalificador de la fase A, que es lo que la hoja también lee.",
+  "nota": "el tornado es información, no criterio"
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G8",
+   "escenario": "MALO",
+   "justificacion": "Salto de 6,4 puntos: la rentabilidad marginal de los años 1–10 es 0,6 × 0,30 × (1 − 0,1997) ≈ 14,4 % porque el poco capital nuevo que pide un MALO sin crecimiento aún trabaja sobre franquicias y plantas que existen. En el año 11 el ROIC terminal es la tasa del motor (0,0757 redondeada a 0,08): supongo que para entonces la erosión que hoy se mide en dermatología y Simparica Trio, con descuentos y rebajas de los competidores y genéricos de Cerenia y Convenia, ha alcanzado a toda la cartera de compañía como alcanzó a Draxxin, y el capital nuevo solo gana su coste. Es la convención del caso neutro (ROIC = tasa), no un cambio de clase de la palanca; con g = 0,01 su efecto en el valor es mínimo.",
+   "hechos": [
+    "Palancas!B15 = 0,30 y B16 = 0,6; Historia!C52 = 0,1997",
+    "Diagnóstico V6!C15 = 0,0757 (tasa del motor)",
+    "pres. T2 2026 PDF p. 6 (dermatología ≈86 %, −10 puntos en un año)",
+    "call T2 2026 PDF p. 3 (descuentos, rebajas y paquetes de competidores nuevos)",
+    "10-Q T2 2026 PDF p. 35 (genéricos de Cerenia y Convenia)",
+    "10-K 2025 PDF p. 42 (Draxxin −66 % en EE. UU. desde el genérico)"
+   ],
+   "clase": "convención"
+  },
+  {
+   "comprobacion": "G8",
+   "escenario": "NORMAL",
+   "justificacion": "Salto de 13,8 puntos: en los años 1–10 cada euro reinvertido rinde 0,8 × 0,34 × (1 − 0,1997) ≈ 21,8 %, por debajo del ROIC histórico de todo el capital (23,6 %, Historia!C55), porque el NORMAL crece con su mercado sobre franquicias con exclusividad y capacidad ya pagada. En el año 11 paso a la tasa del motor: supongo que las franquicias de hoy (Simparica y Apoquel, el 28 % de los ingresos) han perdido la exclusividad o han sido igualadas por moléculas de otros, y que el foso de producto, que hay que rehacer cada década, ya no da exceso al capital nuevo. No conozco sus fechas (extracto §9): el año 11 es el horizonte del modelo, no una fecha que yo sepa; las fechas que sí publica la empresa (Cerenia inyectable hasta 2025–2028, Excede expirando) caen dentro de los diez años. «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM).",
+   "hechos": [
+    "Palancas!C15 = 0,34 y C16 = 0,8; Historia!C53 = 0,81 y C55 = 0,236",
+    "Análisis!C18 = No (fase A)",
+    "10-K 2025 PDF p. 44 (Simparica 16 % y Apoquel 12 % de los ingresos)",
+    "10-K 2025 PDF p. 17 (exclusividades con fecha: Excede, Cerenia; principios activos de Draxxin y Excede ya expirados)",
+    "10-K 2025 PDF p. 42 (Draxxin −66 %)",
+    "pres. T2 2026 PDF p. 6 (dermatología −10 puntos)"
+   ],
+   "clase": "convención"
+  },
+  {
+   "comprobacion": "G8",
+   "escenario": "BUENO",
+   "justificacion": "Salto de 17,6 puntos: en los años 1–10 la rentabilidad marginal es 1,0 × 0,37 × (1 − 0,1997) ≈ 29,6 % (menos de 2 × C55) porque el BUENO crece con lanzamientos de precio y exclusividad nuevos (Lenivia y Portela, aprobados en 2025 y lanzados en 2026) sobre capacidad de anticuerpos ya construida o comprada (Tullamore, Atlanta). En el año 11 las franquicias de hoy han perdido la exclusividad y solo lo lanzado en 2026–30 conserva parte: ROIC 0,12, tres puntos sobre C56, el exceso a perpetuidad que el criterio admite como mucho (MR pp. 62–63; E2). Frente a la tasa del motor (0,0757) son 4,4 puntos; lo anoto en celdas_corregidas sin cambiarlo. Más exceso pediría C18 = Sí y fechas que no tengo.",
+   "hechos": [
+    "Palancas!D15 = 0,37, D16 = 1,0 y D18 = 0,12; Análisis!C56 = 0,09",
+    "10-K 2025 PDF p. 12 (Lenivia y Portela aprobados en 2025)",
+    "10-Q T2 2026 PDF p. 35 (lanzados en Internacional en 2026)",
+    "10-K 2022 PDF p. 4 (ampliación de Tullamore para anticuerpos)",
+    "10-K 2025 PDF p. 16 (planta de Atlanta comprada en 2023, sin producción comercial)",
+    "10-K 2023 PDF p. 13 (15 productos de más de 100)"
+   ],
+   "clase": "fundamentada"
+  }
+ ],
+ "autocomprobacion": [
+  {
+   "sesgo": "anclaje en la etapa 1",
+   "hallazgo": "La etapa 1 dejó Vigilar con precio de Sí ≈49, C12 = Sí, C18 = Sí y motor A. La fase A cambió C12, C18 y C62 con hechos nuevos (T2 2026) o razonamiento corregido, no por la etapa 1. Quedan heredadas sin re-decidir C93 (apoyada en un ROIC de ≈27 % que no es el terminal del modelo), B101, B102, C103 y C104 (que cita 49 USD y un «0 %»).",
+   "cambio": "ninguno en A ni en B; C93, B101, B102 y C104 se re-deciden en el turno 2 con el terminal y la escalera vigentes, no con los de la etapa 1"
+  },
+  {
+   "sesgo": "anclaje en el precio o en la fuente externa",
+   "hallazgo": "El precio de Sí (73,27) queda a 0,19 USD del precio (73,08). Lo miré como sospecha: las palancas se fijaron en la fase B antes del recálculo, cada una con su derivación (crecimiento por componentes, margen medio, S2C de Historia), y la probabilidad del MALO subió con la cuota medida, lo que baja el precio de Sí. No uso el Fair Value de Simply Wall St (197,36, no verificable) ni el objetivo de analistas (96). La cercanía es casual y hace la zona inservible: un redondeo la mueve.",
+   "cambio": "ninguno en las palancas; declaro la zona como frontera sin contenido y no la uso para concluir"
+  },
+  {
+   "sesgo": "consistencia y compromiso",
+   "hallazgo": "Decidí Demasiado difícil en la fase A. Busqué lo que lo contradice: diez años sin caída de ventas (Historia!C6:L6), margen de 28,5 % a 37,8 %, deuda manejable y una escalera que cumple la regla. Nada de eso dice cuánto duran Simparica y Apoquel frente a competidores que ya quitan 10 puntos de dermatología con las franquicias protegidas (pres. T2 2026 PDF p. 6). Las palancas no se ajustaron al cubo: dan una zona favorable que el cubo no usa.",
+   "cambio": "ninguno: mantengo C12 = No y el cubo; lo dejo escrito en celdas_corregidas (C12, antes = después)"
+  },
+  {
+   "sesgo": "historia bonita / viento de cola atribuido a la empresa",
+   "hallazgo": "C17 = Sí: el gasto en compañía pasó de 2.613 a 6.587 en 2018–25 (10-K 2020 PDF p. 54; 10-K 2025 PDF p. 48), parte nicho y parte empresa (3 puntos sobre la industria según la propia empresa, 10-K 2024 PDF p. 3). El mercado de ≈5 % del NORMAL sale de esa frase de la dirección; en 2026 las visitas a clínicas bajan en todos los mercados (call T2 2026 PDF p. 3). En 2026 lo que falla es la parte de la empresa (dermatología, Simparica Trio).",
+   "cambio": "ninguno en las palancas: el NORMAL (0,035) ya no copia la historia; en la tesis separo el viento del sector del mérito de Zoetis"
+  },
+  {
+   "sesgo": "optimismo del BUENO frente a la tasa base",
+   "hallazgo": "El BUENO (124,61) aporta el 71 % de la ganancia esperada al precio de Sí. Pide 16.083 de ventas en el año 10 (+70 %), margen 0,37 y ROIC terminal 0,12, que es C56 + 0,03 pero 4,4 puntos sobre la tasa del motor. La tasa base de la empresa es buena (15 productos de más de 100, 10-K 2023 PDF p. 13), pero riñón y oncología son guía. Con ROIC 0,11 el precio de Sí bajaría a ≈72,92 y la zona a vigilar (aproximación mía).",
+   "cambio": "ninguno en D18 (convención declarada, no mal derivada); lo anoto en celdas_corregidas y en la fragilidad de la zona; no cambia el cubo ni la conclusión"
+  },
+  {
+   "sesgo": "doble castigo del mismo riesgo",
+   "hallazgo": "El riesgo de concentración aparece en la r heredada (≈4 puntos sobre el Treasury, C56), en la probabilidad del MALO (0,3) y en el ROIC terminal del NORMAL en la tasa. Miré si es la misma cuenta: la r (0,09) está por debajo de la r mínima de la hoja (0,108), la quiebra es 0 y el 2026 está en el nivel de los tres escenarios, no en la probabilidad. Con 0,2/0,6/0,2 el precio de Sí sería ≈77,31 (aproximación mía).",
+   "cambio": "ninguno: no veo dos castigos del mismo hecho; la probabilidad cuenta si la erosión sigue, la r es el coste de oportunidad heredado"
+  },
+  {
+   "sesgo": "disponibilidad (lo vívido del extracto)",
+   "hallazgo": "Lo vívido es el T2 2026: dermatología −10 puntos, guía rebajada, «julio sin estabilización». Pesa en B69 = 0,3 y en C12. Frente a eso, la Historia muestra diez filas sin caída de ventas. Draxxin también es vívido y es un producto de ganado; no sé si el precedente se traslada a compañía. «An idea or a fact is not worth more merely because it is easily available to you» (PCA p.587; HIM).",
+   "cambio": "ninguno en las palancas: B69 tiene confianza baja escrita y la conclusión no depende de ella; en la tesis inversa digo que el MALO se apoya en dos trimestres"
+  },
+  {
+   "sesgo": "autoridad (guía de la dirección como hecho)",
+   "hallazgo": "Usan guía: el año 2026 dentro del crecimiento de los tres escenarios ((3) %–(1) % orgánico, junto al −1 % real del semestre), el precio de 0 % a −2 % del MALO, el mercado de ≈5 % (frase de la empresa) y riñón 2027 y oncología 2028–29 del BUENO. Cada uso está marcado como guía en la fase B. La guía de 2026 va contra el interés de la dirección (es una rebaja), lo que la hace menos sospechosa; la del BUENO es promesa.",
+   "cambio": "ninguno: ninguna palanca copia una guía favorable como hecho; el BUENO queda con probabilidad 0,2, no más que el MALO"
+  },
+  {
+   "sesgo": "¿el MALO es de verdad malo?",
+   "hallazgo": "El MALO es real (ventas planas cinco años, margen 0,30 como en 2016–19, probabilidad 0,3, valor 57,20) pero no es un precipicio: su FCF del año 1 (2.519) supera al de 2025 (≈2.196, derivado) porque sin crecimiento el motor no pide reinversión, y no incluye que Simparica y Apoquel caigan como Draxxin (28 % × 66 % ≈ 18 % de los ingresos, derivado). «We don't think because it's never happened that it won't» (AIWTK p.55; HIM). El precio esc. MALO no es un suelo.",
+   "cambio": "ninguno en las palancas (la conclusión no es favorable y D10 no la limita); va en la tesis inversa y refuerza que el rango no se puede acotar con confianza"
+  },
+  {
+   "sesgo": "lo no numerable que pesa y no está en las palancas",
+   "hallazgo": "No están en las palancas: si los competidores nuevos son racionales o seguirán comprando cuota con descuentos; la lealtad del veterinario cuando llega una alternativa más barata; la asignación de capital (recompras con deuda a ≈134 en 2025 y ≈105 en 2026 frente a 73,08 hoy; C98 = Dudosa) que puede seguir restando valor; la salida del director financiero; litigios o reputación, que los extractos no traen.",
+   "cambio": "ninguno en las palancas; está en lo_que_no_se de la fase A y lo llevo a B102 y B222 en el turno 2"
+  }
+ ],
+ "revisar_palancas": false,
+ "instrucciones_revision": null,
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": null
+ },
+ "cubo_provisional": "Demasiado difícil",
+ "conclusion_provisional": "demasiado_dificil",
+ "revision_datos_ausentes": {
+  "revisados": [
+   {
+    "dato": "evidencia Historia!C23:L23",
+    "que_falta": "Clasificación verificable del pasivo por arrendamientos financieros (7 en 2025; 9 y 8 en 2023–24; 0 antes).",
+    "conclusion_afectada": "pasivos netos que resta el motor B (Diagnóstico V6!C16 = 6.779) y Historia!C64",
+    "material_para_conclusion_favorable": false,
+    "porque": "Son 7 de 6.779 de pasivos netos: ≈0,02 USD por acción (derivado). Los arrendamientos operativos (248 descontados, 10-K 2025 PDF p. 89) van en el EBIT con US GAAP y no entran aquí. No mueve ninguna escalera ni la conclusión demasiado_dificil."
+   },
+   {
+    "dato": "evidencia Historia!C26:L26",
+    "que_falta": "Clasificación verificable de los minoritarios (0 en 2025; resultado atribuible 0 en 2025, 10-K 2025 PDF p. 48).",
+    "conclusion_afectada": "pasivos netos del motor B (Historia!C65 = 42, solo pensiones)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Con resultado atribuible a minoritarios de 0 en 2025 y 10 en 2024 (10-K 2025 PDF p. 48), un patrimonio de minoritarios no nulo sería de decenas de millones frente a 31.054 de capitalización: inmaterial para el valor y ajeno al descalificador que decide la conclusión."
+   },
+   {
+    "dato": "evidencia Análisis!C24",
+    "que_falta": "Contraste del cero de 2021 del que depende el ROIC/ROCE de la etapa 1 (0,266).",
+    "conclusion_afectada": "ninguna celda de juicio: C24 es un ratio de contexto de la etapa 1; las palancas usan Historia!C55 (0,236) y C18 no se apoya en él",
+    "material_para_conclusion_favorable": false,
+    "porque": "Ni la escalera ni ninguna palanca usan C24; el ROIC de 2021 sin el cero dudoso sigue entre 25 y 29 % (Historia fila 33). C18 = No no depende del nivel del ROIC sino de su duración, que no sé juzgar."
+   },
+   {
+    "dato": "evidencia Análisis!C48",
+    "que_falta": "Contraste del cero de intereses pagados en financiación de 2023–25.",
+    "conclusion_afectada": "ninguna celda de juicio: C48 solo entra en el FCF base (C52) del motor A",
+    "material_para_conclusion_favorable": false,
+    "porque": "Con US GAAP los intereses pagados van en el flujo de explotación (ASC 230), así que 0 en financiación es lo esperado; además el libro usa el motor B, que parte de ventas y margen y no de C52. No afecta ni a la escalera ni a la conclusión."
+   },
+   {
+    "dato": "evidencia Historia!C16:L16",
+    "que_falta": "Contraste de los ceros de intereses en financiación 2016–25.",
+    "conclusion_afectada": "ninguna celda de juicio: fila de Historia que alimenta el FCF al accionista (fila 35) que leí para C25",
+    "material_para_conclusion_favorable": false,
+    "porque": "Con US GAAP los intereses ya restan dentro del CFO, así que los ceros no inflan el FCF al accionista (1.078 → 2.198 en 2017–25). C25 = Sí no cambia y el motor B no usa esta fila para el valor."
+   },
+   {
+    "dato": "evidencia Historia!C17:L17",
+    "que_falta": "Contraste de los ceros de principal de arrendamientos financieros 2016–22.",
+    "conclusion_afectada": "ninguna celda de juicio: fila de Historia del FCF al accionista",
+    "material_para_conclusion_favorable": false,
+    "porque": "Los arrendamientos financieros aparecen en 2023 con 1 de pasivo (10-K 2023 PDF p. 87, citado en datos_v63 §3) y su principal es 1–2 al año en 2024–25: un cero equivocado en 2016–22 movería el FCF en unidades, no en cientos."
+   },
+   {
+    "dato": "Palancas!C24",
+    "que_falta": "Tamaño del mercado en el año 10 con cifra de fuente primaria.",
+    "conclusion_afectada": "comprobación de realismo del BUENO (G17, cuota implícita) y lectura del viento de cola (C17)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No hay cifra primaria (extracto §1 y §9); los TAM de riñón, oncología y otros del T2 2026 son guía. El BUENO pide 16.083 de ventas en el año 10 (resultados.json), +70 % sobre 2025, que habría que contrastar con un mercado; pero mi conclusión no es favorable y no se apoya en el BUENO."
+   },
+   {
+    "dato": "extracto_v63: Tamaño del mercado de salud animal en dólares y su crecimiento anual publicado por la empresa.",
+    "que_falta": "Tamaño del mercado en dólares y su crecimiento.",
+    "conclusion_afectada": "C17 (viento de cola) y el crecimiento del NORMAL, que deriva un mercado de ≈5 % de una frase de la empresa (10-K 2024 PDF p. 3)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El NORMAL (0,035) ya descuenta un año 2026 negativo y no depende de un mercado exacto: con un mercado del 4 % o del 6 % el NORMAL se movería medio punto. Un dato así afinaría la cifra, no el descalificador: no sé juzgar si las franquicias resisten a los competidores."
+   },
+   {
+    "dato": "extracto_v63: Cuota de mercado de Zoetis en porcentaje, global o por región o especie (solo dos cuotas de clínica en EE. UU. del T2 2026: dermatología y Simparica Trio).",
+    "que_falta": "Cuota de Zoetis global o por región o especie.",
+    "conclusion_afectada": "probabilidad y narrativa del MALO (B65:B66, B69)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las dos cuotas que sí hay son las de las franquicias que deciden el valor (dermatología ≈86 %, −10 puntos; Simparica Trio ≈21 %; pres. T2 2026 PDF p. 6–7). Una cuota global no cambiaría lo que me descalifica, que es juzgar la duración de esas franquicias."
+   },
+   {
+    "dato": "extracto_v63: Cuota de cada competidor (Boehringer Ingelheim, Merck, Elanco, IDEXX) y quién es el más peligroso.",
+    "que_falta": "Cuota de cada competidor y quién gana la cuota que pierde Zoetis en dermatología y parasiticidas.",
+    "conclusion_afectada": "C12, C18 y la probabilidad del MALO (B69): saber quién me mata y con qué producto",
+    "material_para_conclusion_favorable": true,
+    "porque": "Material para una conclusión favorable: sin saber qué competidor y con qué molécula gana 10 puntos de dermatología en un año (pres. T2 2026 PDF p. 6) no puedo sostener comprar ni un precio objetivo. No afecta a demasiado_dificil, que emito por el descalificador de la fase A y que va antes que el dato ausente (sección 15): aun con el nombre, juzgar si su producto es mejor exige la ciencia que no sé juzgar."
+   },
+   {
+    "dato": "extracto_v63: Guía de capex de 2026 (la guía del 6-ago-2026 no lo incluye).",
+    "que_falta": "Guía de capex de 2026.",
+    "conclusion_afectada": "S2C del NORMAL y del BUENO (Palancas!C16:D16)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El capex de seis meses ya está (227 frente a 324; 10-Q T2 2026 PDF p. 8) y el S2C se apoya en diez años de Historia (C53 = 0,81). Una guía de capex es guía y movería el S2C en décimas, no la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Capex previsto para 2026 y capex por destino con importes (solo «≈ 225 en fabricación, I+D e informática» (paráfrasis traducida) en seis meses, sin reparto).",
+    "que_falta": "Capex previsto y por destino.",
+    "conclusion_afectada": "S2C del BUENO (crecer sobre capacidad ya construida)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El BUENO supone capacidad de anticuerpos ya hecha (Tullamore, Atlanta; 10-K 2022 PDF p. 4; 10-K 2025 PDF p. 16); el reparto del capex lo confirmaría o no, pero mueve el S2C del BUENO dentro de su rango (0,9–1,3) y el BUENO no sostiene ninguna conclusión favorable aquí."
+   },
+   {
+    "dato": "extracto_v63: Importe y calendario de la planta de Atlanta, de la ampliación de Tullamore y de la de Lincoln.",
+    "que_falta": "Importe y calendario de las plantas.",
+    "conclusion_afectada": "S2C del BUENO y del NORMAL",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase B ya dejó escrito que el S2C del NORMAL bajaría a 0,7 si Atlanta exige una inversión grande; con crecimiento del 3,5 % eso mueve el NORMAL en pocos dólares por acción. No toca el descalificador."
+   },
+   {
+    "dato": "extracto_v63: Precio y múltiplo de la adquisición de la genómica de Neogen, de Veterinary Pathology Group, de Basepaws y de VitalRADS.",
+    "que_falta": "Precio de cuatro adquisiciones pequeñas.",
+    "conclusion_afectada": "C98 (asignación de capital)",
+    "material_para_conclusion_favorable": false,
+    "porque": "C98 = Dudosa se apoya en las recompras con deuda (3.200 en 2025 y 1.159 en 2026; 10-K 2025 PDF p. 59; 10-Q T2 2026 PDF p. 44), no en estas compras, que la empresa califica de no materiales (10-K 2025 PDF p. 78). No cambian C98 ni la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela.",
+    "que_falta": "Fechas de pérdida de exclusividad de las cuatro franquicias que más deciden el valor.",
+    "conclusion_afectada": "C12, C18, Palancas!B18:D18 (ROIC terminal, la palanca más influyente del tornado), B69 y la narrativa del MALO",
+    "material_para_conclusion_favorable": true,
+    "porque": "Material para una conclusión favorable: Simparica y Apoquel son el 28 % de los ingresos (10-K 2025 PDF p. 44) y sin sus fechas no puedo sostener comprar ni un precio objetivo. No afecta a demasiado_dificil, que emito por el descalificador (sección 15: va antes que el dato ausente): la erosión de 2026 (dermatología −10 puntos) ocurre con las franquicias aún protegidas, frente a moléculas de otros, así que una fecha de patente no responde a si el foso dura; reabriría el análisis, no lo resolvería."
+   },
+   {
+    "dato": "extracto_v63: Ingresos en dólares de cada producto (solo porcentajes de los dos primeros y de los cinco y diez primeros).",
+    "que_falta": "Ingresos en dólares por producto.",
+    "conclusion_afectada": "derivación del crecimiento del MALO (Palancas!B14)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las categorías en dólares bastan para la derivación (dermatología 1.754, parasiticidas 2.341 de 9.467; 10-K 2025 PDF p. 78) y los porcentajes dan Simparica ≈1.515 y Apoquel ≈1.136 (derivado). El dato afinaría el MALO, no la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Ventas de Librela sola en cifra (solo el total canino de Librela y Lenivia: 105 en el T2 2026).",
+    "que_falta": "Ventas de Librela sola.",
+    "conclusion_afectada": "narrativa del MALO (B66) y del BUENO (D66: anticuerpos de acción larga)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Librela y Lenivia caninos suman 105 en el T2 2026, −8 % (pres. T2 2026 PDF p. 20): un 4 % de los ingresos del trimestre. Separarlas diría si Lenivia canibaliza a Librela, que importa al BUENO, no a la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Margen en porcentaje por segmento en el 10-K (solo resultado en dólares; margen bruto por segmento solo en los 10-Q de 2026).",
+    "que_falta": "Margen por segmento en porcentaje en el 10-K.",
+    "conclusion_afectada": "margen del MALO (Palancas!B15: se pierde precio en el segmento de más margen)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Se deriva de los dólares (EE. UU. 3.438 de 5.097 = 67,5 % en 2025; extracto §2) y los 10-Q de 2026 dan el margen bruto (82,7 % frente a 71,0 %; 10-Q T2 2026 PDF p. 35). No falta información para el MALO."
+   },
+   {
+    "dato": "extracto_v63: Coste medio de la deuda publicado por la empresa y WACC o tasa de descuento propia.",
+    "que_falta": "Coste medio de la deuda y tasa de descuento de la empresa.",
+    "conclusion_afectada": "r operativa del motor B (Diagnóstico V6!C15 = 0,0757, con coste de la deuda derivado C63 = 0,0334); C56 es heredada",
+    "material_para_conclusion_favorable": false,
+    "porque": "La WACC de la empresa no es mi coste de oportunidad (C56 heredada, S-3). El coste de la deuda subirá al refinanciar el convertible del 0,25 % en 2029 (10-K 2025 PDF p. 59): con el tornado (±1 punto de tasa = 22,5 USD en el NORMAL) es una sensibilidad del precio, no un dato que cambie demasiado_dificil."
+   },
+   {
+    "dato": "extracto_v63: Apalancamiento real medido frente al covenant de 3,50 a 1.",
+    "que_falta": "Ratio del covenant calculado por la empresa.",
+    "conclusion_afectada": "descalificador de deuda (fase A) y C22 = 0",
+    "material_para_conclusion_favorable": false,
+    "porque": "Deuda neta ÷ EBITDA ≈1,90x (C33, aproximación declarada) frente a 3,50x, covenant cumplido a 30-jun-2026 (10-Q T2 2026 PDF p. 42): la holgura es grande y la cifra exacta de la empresa no cambiaría ni el descalificador de deuda (no aplica) ni la quiebra."
+   },
+   {
+    "dato": "extracto_v63: Perspectiva o acción de las agencias de calificación posterior a abril de 2025.",
+    "que_falta": "Acción de rating tras la subida de deuda de 2025.",
+    "conclusion_afectada": "C22 (quiebra) y coste de refinanciación",
+    "material_para_conclusion_favorable": false,
+    "porque": "A3/BBB+ estables hasta abril de 2025 (10-K 2025 PDF p. 59); una rebaja de un escalón con 1,9x no crea un riesgo de quiebra ni cambia la conclusión; encarecería algo la refinanciación de 2027–29."
+   },
+   {
+    "dato": "extracto_v63: Efecto en dólares de la alineación del año fiscal sobre ingresos de T1 2026.",
+    "que_falta": "Efecto de la Fiscal Year Alignment en el T1 2026.",
+    "conclusion_afectada": "lectura del año 2026 dentro del crecimiento de los tres escenarios (Palancas!B14:D14)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El semestre ya está reexpresado (−1 % operativo; 10-Q T2 2026 PDF p. 27) y el adelanto del T4 2025 se cifra en 2,5–3,5 % de Internacional (10-K 2025 PDF p. 47). El efecto del T1 cambia el reparto entre trimestres, no el año ni la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Causa de la caída de ingresos en China de 2023 a 2025.",
+    "que_falta": "Causa de la caída de China (320 → 227).",
+    "conclusion_afectada": "g del MALO (B68) y narrativa del MALO",
+    "material_para_conclusion_favorable": false,
+    "porque": "China es el 2 % de los ingresos de 2025 (10-K 2025 PDF p. 2 y 77); su causa no mueve el valor de forma apreciable ni el descalificador, que está en las franquicias de compañía de EE. UU."
+   },
+   {
+    "dato": "extracto_v63: Cartera de pedidos, número de clientes, tiendas y unidades: no se publican.",
+    "que_falta": "Cartera, clientes y unidades.",
+    "conclusion_afectada": "ninguna celda de juicio: un fabricante de medicinas veterinarias no trabaja con cartera de pedidos y ninguna palanca la usa",
+    "material_para_conclusion_favorable": false,
+    "porque": "El crecimiento se razona por precio, volumen y productos nuevos que la empresa sí publica (extracto §4); las unidades no se publican y no cambian ninguna celda ni la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Ratios de capital regulatorio: no aplica (no financiera).",
+    "que_falta": "Capital regulatorio.",
+    "conclusion_afectada": "ninguna celda de juicio: no es una financiera (motor B, Palancas!C6 = Intangibles)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No aplica a Zoetis: no hay capital regulatorio que limite el ROE ni ningún motor C. No afecta a nada."
+   },
+   {
+    "dato": "extracto_v63: Cifra correcta de ingresos por intereses de 2023: 103 en [zoetis-10k-fy2025.txt, PDF p. 54] frente a 105 en [zoetis-10k-fy2025.txt, PDF p. 80]; sin resolver.",
+    "que_falta": "Ingresos por intereses de 2023 (103 o 105).",
+    "conclusion_afectada": "ninguna celda de juicio: C76 está vacía (motor B) y los intereses cobrados van dentro del CFO (P-O1)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Son 2 millones de un año que no entra en el FCF base del motor B; no cambia ninguna celda ni la conclusión."
+   }
+  ],
+  "alguno_material": true
+ },
+ "fundamento_material": {
+  "hipotesis_sin_fundamento": [],
+  "comprobacion_conjunta": {
+   "procede": false,
+   "combinacion": null,
+   "coherencia_economica": null,
+   "sobrevive": null
+  },
+  "resultado": "no_procede",
+  "hipotesis_que_mas_condiciona": "Análisis!C12 y su traducción en Palancas!B18:D18: que no sé juzgar cuánto duran Simparica y Apoquel (28 % de los ingresos) frente a competidores que ya les quitan cuota con las franquicias protegidas; el tornado lo confirma como información (ROIC a largo plazo, 42,13 USD sobre el NORMAL), pero la conclusión sale del descalificador, no del tornado",
+  "que_lo_resolveria": "Ningún documento de hoy lo resuelve solo. Reabrirían el análisis: las fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela (pregunta a Relación con Inversores; el 10-K 2025 PDF p. 17 solo las da para Excede y Cerenia), el nombre y el producto del competidor que gana cuota en dermatología, y dos o tres trimestres de cuota estable de dermatología y Simparica Trio en clínicas de EE. UU. (presentaciones del T3 2026 al T2 2027, misma definición Kynetec) con precio realizado positivo"
+ },
+ "celdas_corregidas": {
+  "C12": {
+   "antes": "No",
+   "despues": "No",
+   "motivo": "Revisada contra lo que la contradiría (diez años sin caída de ventas, Historia!C6:L6; margen al alza; deuda manejable). Lo que decide el valor, la duración de las franquicias frente a moléculas competidoras y el éxito de la I+D, sigue fuera de lo que sé juzgar: la erosión de 2026 ocurre con las franquicias aún protegidas (pres. T2 2026 PDF p. 6; fechas no publicadas, extracto §9). Se mantiene."
+  },
+  "C18": {
+   "antes": "No",
+   "despues": "No",
+   "motivo": "Revisada: la fase A cita Historia!C55 como 27,7 % («lo dobla»); C55 es 0,236, 1,6 veces el sector (0,147, Palancas!H18). La cifra no decide el foso (sin vara F1 con US GAAP, datos_v63 §1 bis) y la evidencia de 2026 sigue en contra (dermatología −10 puntos; rebajas, call T2 2026 PDF p. 12). Se mantiene No; la corrección es de texto y va en el turno 2."
+  },
+  "Palancas!D18": {
+   "antes": 0.12,
+   "despues": 0.12,
+   "motivo": "Revisada: 0,12 = C56 + 0,03 (la referencia v2.1 y G4 miden contra C56), pero el motor B descuenta a 0,0757 (Diagnóstico V6!C15): frente a esa tasa el exceso a perpetuidad es de 4,4 puntos, más que los 2–3 de MR (E2). No es una palanca mal derivada (ni aritmética, ni perímetro, ni dato: es la convención declarada de la referencia). Calculado (aproximación mía con el valor terminal de resultados.json, no recálculo): con 0,11 el BUENO baja ≈2,77 USD (124,61 → 121,84) y el precio de Sí ≈0,35 (73,27 → 72,92, −0,5 %), y la zona pasaría a vigilar; con 0,10, ≈72,51. No cambia el cubo ni la conclusión (Demasiado difícil por el descalificador). No pido revisión."
+  }
+ },
+ "estado_analisis": null,
+ "cubo_final": null,
+ "escalera": null,
+ "decision": null,
+ "insumos_decision_cartera": null,
+ "herencia": null,
+ "comparacion_etapa_1": null,
+ "celdas": null,
+ "cambiaria_de_cubo": null,
+ "observaciones": null,
+ "confianza_global": null,
+ "configuracion_v64": null
+}
