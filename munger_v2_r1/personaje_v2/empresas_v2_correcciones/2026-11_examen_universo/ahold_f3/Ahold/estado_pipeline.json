@@ -67,7 +67,18 @@
   "2026-11-19T01:27:45 · paso 12 · verificación de las entradas financieras: 0 de 309 celdas del universo comprobadas · apta por entradas: no (no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada))",
   "  $ python3 ficha.py Ahold --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Ahold --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-19T01:27:46 · paso 13 · solicitud de auditoría SA-82d781535b78554c registrada para el material a35a557526b6df99"
+  "2026-11-19T01:27:46 · paso 13 · solicitud de auditoría SA-82d781535b78554c registrada para el material a35a557526b6df99",
+  "2026-11-19T01:45:47 · paso 13 · relevo caducado: el material fijado a35a557526b6df99 ya no es el vigente 255e6dcfc8a8418c (cambian: verificacion_entradas.json); se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente",
+  "  $ bash recalc.sh Ahold_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/Ahold/recalc/Ahold_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wo",
+  "  $ python3 leer_resultados.py Ahold_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f3/Ahold/resultados.json · motor A · estado COMPLETO Y VÁLIDO · ",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 36.05 · esc. MALO 28.4719036905127 · precio de Sí 36.8420 (P* 36.8420) · ponderado 40.1900 · zona cumple_regla_k",
+  "  $ bash verificar_todo.sh Ahold Ahold_v63_evaluada.xlsx Ahold_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Ahold --libro Ahold_v63_evaluada.xlsx --motor A --libro-origen Ahold_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T01:45:55 · paso 12 · motor A · F1: motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T01:46:01 · paso 12 · verificación de las entradas financieras: 0 de 309 celdas del universo comprobadas · apta por entradas: no (0 de 309 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 95 de juicio; +222 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 3 datos tr)",
+  "  $ python3 ficha.py Ahold --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
+  "  $ python3 informe.py Ahold --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-19T01:46:08 · paso 13 · solicitud de auditoría SA-b6574e364a1951e9 registrada para el material 130cf3c8b97d1894 (sustituye a SA-82d781535b78554c)"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -86,13 +97,13 @@
   "fase_c.json": 1795051604.5055773
  },
  "motivo_correccion": null,
- "esperando_desde": 1795051666.767534,
+ "esperando_desde": 1795052768.262119,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "b31cafa8abe02b20375433502676bf8b5ca404394a5b028d9b45fbf9fefbbc5a",
-  "libro_sha256": "d595dabbe1bd6dac32804c5ea153f65c2a67c371aa45a57965c46a96d3013328"
+  "libro_sha256": "69fe5ffcccd86e6e530069887b87171a0132fcf5fe162b48a7d62c52058586c0"
  },
  "turno_c": null,
  "estado_pendiente": null,
@@ -102,27 +113,27 @@
   "universo": 309,
   "comprobadas": 0,
   "comprobadas_universo": 0,
-  "auxiliares": 0,
+  "auxiliares": 222,
   "universo_calculo": 214,
   "universo_juicio": 95,
   "comprobadas_calculo": 0,
   "comprobadas_juicio": 0,
   "lecturas_externas": 0,
-  "formato_registro": null,
+  "formato_registro": "4.15",
   "entradas_no_reproducibles": 0,
-  "datos_como_hipotesis": 0,
+  "datos_como_hipotesis": 3,
   "no_materiales": 0,
   "no_materiales_sin_revisar": 0,
-  "no_aplicables": 0,
-  "resumen": "no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada)",
+  "no_aplicables": 4,
+  "resumen": "0 de 309 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 95 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 3 datos tratados como hipótesis o convención; 4 no aplicables; 0 lecturas externas sin bytes; 0 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
   "derivados_comprobados": 0,
-  "pendientes": 309,
+  "pendientes": 531,
   "desactualizadas": 0,
   "discrepancias": 0,
   "errores": 0,
-  "materiales_no_comprobadas": 279,
+  "materiales_no_comprobadas": 309,
   "apto_por_entradas": false,
-  "motivo": "no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada)",
+  "motivo": "0 de 309 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 95 de juicio; +222 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 3 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materialidad revisado); 4 no aplicables; 309 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
   "huella_entradas_economicas": "897ed9051259b0eedd516854a0874f09705afd67de5801edd815d2e55a07ec72",
   "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
  },
@@ -131,13 +142,25 @@
   "datos": "b04bc490e7704dfe698352728d55074d9c5f0d553d8dd45555eb82e7460d2528"
  },
  "f1_repite_12": false,
- "material_auditoria": "a35a557526b6df99",
+ "material_auditoria": "130cf3c8b97d1894",
  "solicitudes_auditoria": [
   {
    "id": "SA-82d781535b78554c",
    "material": "a35a557526b6df99",
    "creada": "2026-11-19T01:27:45+00:00",
    "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "sustituida",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null,
+   "sustituida": "2026-11-19T01:46:07+00:00",
+   "motivo_sustitucion": "el material fijado es 130cf3c8b97d1894, no a35a557526b6df99"
+  },
+  {
+   "id": "SA-b6574e364a1951e9",
+   "material": "130cf3c8b97d1894",
+   "creada": "2026-11-19T01:46:07+00:00",
+   "motivo": "relevo caducado: el material fijado a35a557526b6df99 ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
    "estado": "pendiente",
    "respuesta_sha256": null,
    "respondida": null,
@@ -146,5 +169,17 @@
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null
+ "auditoria": null,
+ "relevos_caducados": [
+  {
+   "material_fijado": "a35a557526b6df99",
+   "material_vigente": "255e6dcfc8a8418c",
+   "archivos_cambiados": [
+    "verificacion_entradas.json"
+   ],
+   "detectado": "2026-11-19T01:45:47+00:00",
+   "material_refijado": "130cf3c8b97d1894",
+   "solicitud": "SA-b6574e364a1951e9"
+  }
+ ]
 }
