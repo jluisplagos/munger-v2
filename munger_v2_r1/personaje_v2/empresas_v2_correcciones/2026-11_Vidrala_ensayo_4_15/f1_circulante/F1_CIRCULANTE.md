@@ -96,16 +96,16 @@ C94:L94 como configuración en los libros V6.3.2 (y con ello el universo de `ver
 | lectura y forma | `motor_a_f1.leer_circulante`, `CLAVES_CIRCULANTE`, `_declaracion_bien_formada` | G (forma, 8 casos; vacío; no-objeto) · c13–c15 |
 | circulante de la reinversión | `WC_de`, `_wc_normalizado`, `calcular` | VINCI, G (ventana, H–L), K3 · c01–c04 |
 | F1-CIRC | `_guarda_circulante` | G (cobertura, fundamento, registro, caja base ×4, US GAAP, norma) · c07–c11, c16, c17 |
-| K3 y K3c | `calcular` (partida), K3c | K3 (4) · c05, c06 |
-| réplica y oráculo | `_replica_v631`, `f1_libro_v631.normalizacion_del_libro`, `replica_circulante`, `corresponde`, `_f_vacia_v631` | LIBRO (14) · c18–c25, c28, c29 |
-| libro | `f1_libro_v631.celdas(…, circulante=True)`, `aplicar`, `es_v632`; plantilla V6.3.2 | APLICAR (7), `probar_v632_f1.py` · c26, c27 |
+| K3 y K3c | `calcular` (partida), K3c | K3 (5) · c05, c06 |
+| réplica y oráculo | `_replica_v631`, `f1_libro_v631.normalizacion_del_libro`, `replica_circulante`, `corresponde`, `_f_vacia_v631` | LIBRO (15) · c18–c25, c28, c29 |
+| libro | `f1_libro_v631.celdas(…, circulante=True)`, `aplicar`, `es_v632`; plantilla V6.3.2 | APLICAR (8), `probar_v632_f1.py` · c26, c27 |
 | huella, selección, resumen, volcado | `entradas_economicas`, `seleccion_plantilla`, `cierre_v2`, `volcar_datos_v63`, `ficha`, `informe` | EE, SEL, DATOS, MD, `prueba_pipeline_v632.py` · c30–c33 |
 
 ## 5. Pruebas ejecutadas (hechos; resultados literales en `resultados/` y en `v6/v632_f1/pruebas/`)
 
 | Orden | Resultado |
 |---|---|
-| `cd personaje_v2 && python3 -B pruebas/test_circulante_f1.py` | `77/77 pruebas de la normalización del circulante (V-CIRC) PASAN` |
+| `cd personaje_v2 && python3 -B pruebas/test_circulante_f1.py` (grupos VINCI 13, G 25, K3 5, LIBRO 15, APLICAR 8, EE 2, SEL 6, DATOS 1, MD 2) | `77/77 pruebas de la normalización del circulante (V-CIRC) PASAN` |
 | la misma batería contra el código anterior (`scripts/antes_y_despues.py ebf47fc`) | `pasan 8 de 77` (los ocho controles, marcados «(control)»: estado actual sin la declaración, la V6.3.1 sin cambios…); 77 de 77 con el actual (`resultados/antes_y_despues.txt`) |
 | `python3 -I scripts/mutaciones_circulante.py` (33 líneas del producto cambiadas a propósito; baterías `test_circulante_f1`, `test_motor_a_f1`, `test_v631_f1`) | `33 de 33 mutaciones detectadas` (`resultados/mutaciones_circulante.txt`) |
 | baterías sin LibreOffice que no pueden cambiar | motor A F1 `177/177`; US GAAP `294/294`; P-FOSO `72/72`; F1-SERIES `80/80`; redondeo `44/44`; V6.3.1 `29/29` |
@@ -114,7 +114,7 @@ C94:L94 como configuración en los libros V6.3.2 (y con ello el universo de `ver
 | regresión con la capa nueva (LibreOffice, en secuencia con `flock`) | `probar_v631_f1.py f1` `35/35`; `prueba_pipeline_v631.py` `9/9`; gancho F1 `prueba_pipeline_f1.py` `8/8`; `probar_libro_v631_usgaap.py` `18/18` (`resultados/regresion_v631/`; el registro de la V6.3.1 que reescribe `probar_v631_f1.py` se devolvió a su versión) |
 | otras baterías sin LibreOffice de los módulos tocados | entradas dependientes `51/51`, acciones exactas `30/30`, verificación de entradas 4.15 `190/190` y 4.14 `33/33`, entrada efectiva `62/62`, vigencia H5 `59/59`, juicio sobre el objetivo `27/27` (`resultados/baterias_sin_libreoffice.txt`) |
 | efecto nulo en los expedientes en curso (`scripts/comprobar_efecto_nulo.py`) | ahold_f3, jumbo_g, zoetis_t1c y vinci/Vinci: **idénticos** con el código anterior (`ebf47fc`) y con el actual (evaluación F1 completa salvo versión y fecha, informe .md, celdas que `aplicar` escribe en el libro V6.3.1, huella de entradas del libro evaluado y del de datos, vigencia F1; `resultados/efecto_nulo_expedientes.json`) |
-| `verificar_paquete.sh rapida` sobre una copia limpia | pendiente: se ejecuta sobre una copia limpia del commit del manifiesto y se registra en el commit siguiente |
+| `flock … bash verificar_paquete.sh rapida` sobre una copia limpia de `f4b44e8` (`git archive` más los 1.060 binarios del manifiesto, copiados con su huella; 2 min) | manifiesto `9859 archivos · modificados 6 · ausentes 0 · de más 14`: son exactamente los 20 archivos de jumbo_g que `ebf47fc` añadió o cambió sin regenerar el manifiesto y que este cambio no acepta (ninguno de este cambio) → `RESULTADO manifiesto: FALLA`; los demás bloques PASAN: entorno, piloto, comprobadores `114/114`, normalización del circulante `77/77`, F1-SERIES `80/80`, redondeo `44/44`, acciones `30/30`, P-FOSO `72/72`, entradas dependientes `51/51`; `RESULTADO GLOBAL: FALLA (1 bloques)`, solo por el manifiesto de jumbo_g (`resultados/verificacion_rapida_f4b44e8.txt`). Después de `f4b44e8` solo cambian este documento, ese registro y el manifiesto |
 
 Una mutación de la primera campaña (c29 antigua: la marca de un año admite cualquier número en `normalizacion_del_libro`) era **equivalente**: con la
 normalización efectiva todas las marcas son 1, así que no cambia nada observable; se sustituyó por la mutación de la réplica (c29 actual). La c11
