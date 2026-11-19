@@ -36,7 +36,9 @@
   "  $ bash recalc.sh Jumbo_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_g/Jumbo/recalc/Jumbo_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
   "  $ python3 leer_resultados.py Jumbo_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_g/Jumbo/resultados.json · motor A · estado INCOMPLETO · libro NO",
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 27.28 · esc. MALO 26.1248662934934 · precio de Sí 33.4209 (P* 33.4209) · ponderado 36.3394 · zona cumple_regla_k",
-  "  $ python3 comprobar_gramatica.py Jumbo --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 4 → gramatica.md"
+  "  $ python3 comprobar_gramatica.py Jumbo --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 4 → gramatica.md",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -51,10 +53,11 @@
  "consumidos": {
   "extracto_v63.md": 1795045665.0145948,
   "fase_a.json": 1795066228.7448037,
-  "fase_b.json": 1795067122.1035898
+  "fase_b.json": 1795067122.1035898,
+  "fase_c.json": 1795077548.7982106
  },
- "motivo_correccion": null,
- "esperando_desde": 1795076640.555411,
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1795077761.076271,
  "motor_a_f1": {
   "paso": 7,
   "bloquea": false,
@@ -94,5 +97,6 @@
    "Jumbo_v63_evaluada.xlsx"
   ],
   "rastro": "recalculo_dependientes.json"
- }
+ },
+ "turno_c": 2
 }
