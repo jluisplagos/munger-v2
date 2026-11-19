@@ -137,9 +137,9 @@ try:
              repr(v) if rc == 0 else out[-200:])
         rev = open(os.path.join(t, "anterior", "Zoetis", "historia_revision.md"), encoding="utf-8").read()
         paso("(C2) y historia_revision.md avisa de que falta «impreso»", "AVISO: los metadatos no traen «impreso»" in rev)
-        paso("(extra) historia_revision.md avisa del signo de los minoritarios impresos (2) y (6) que la Historia guarda en positivo",
+        paso("(extra) historia_revision.md avisa del signo de los minoritarios impresos (2) y (6) (la Historia guarda 0: decisión Z-MIN)",
              "## Signo de saldos impresos en negativo" in rev and "**minoritarios 2022**" in rev and "**minoritarios 2023**" in rev
-             and f1["historia"]["partidas"]["minoritarios"]["valores"][f1["historia"]["anios"].index(2022)] == 2.0
+             and f1["historia"]["partidas"]["minoritarios"]["valores"][f1["historia"]["anios"].index(2022)] == 0.0
              and "**pensiones" not in rev, "(la conversión no cambia; pensiones, posición neta, no se avisa)")
         rc, out, f1 = construir_con(copiar(os.path.join(t, "c1", "Zoetis")), lambda a: a.update(valor=424.927535, unidad="millones de acciones", **Z))
         rev = open(os.path.join(t, "c1", "Zoetis", "historia_revision.md"), encoding="utf-8").read()

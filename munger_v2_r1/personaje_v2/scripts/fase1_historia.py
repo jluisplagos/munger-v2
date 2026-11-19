@@ -16,6 +16,8 @@ Convenciones (declaradas en las notas de cada partida y en historia_revision.md)
   - magnitudes de coste en positivo (capex, D&A, intereses, arrendamientos, I+D, SBC, impuestos); EBIT, beneficio y CFO con su signo;
   - adquisiciones = −(suma de lo impreso en el estado de flujos: pagos negativos, cobros positivos);
   - circulante (aumento = consume caja) = −(suma de las líneas de variación del circulante del estado de flujos);
+  - minoritarios impresos en negativo (déficit de los intereses no dominantes) = 0 con aviso en historia_revision.md y la cifra impresa en
+    la fuente de la fila (decisión Z-MIN de la persona responsable, 19-nov-2026; la plantilla quiere la fila 26 ≥ 0); no el valor absoluto;
   - tipo impositivo = impuestos ÷ resultado antes de impuestos (vacío si este ≤ 0);
   - caja = efectivo y equivalentes; + otros activos financieros corrientes SOLO si fase1_metadatos.json lo declara
     (convenciones.caja_incluye_otros_activos_financieros = true, con motivo);
@@ -61,7 +63,7 @@ CON_SIGNO = {"ebit", "ebit_derivado", "beneficio_neto", "bai", "cfo", "patrimoni
 OPCIONALES = ["ebit_derivado"]
 # (revisión de producto/minoritarios-acciones, extra) saldos de balance en los que un negativo impreso es un signo, no la convención de
 # pago de los flujos: ajustar los guarda en valor absoluto (la plantilla quiere estas filas ≥ 0: Motor!E234 y la validación de Historia)
-# y construir lo avisa en historia_revision.md. No cambia la conversión: eso es una decisión (Z-MIN para minoritarios). Pensiones no
+# y construir lo avisa en historia_revision.md. Solo minoritarios cambia, por la decisión Z-MIN (19-nov-2026): 0, no |v|. Pensiones no
 # está: la fila 25 es una posición neta con signo y el estado de financiación suele imprimir el déficit en negativo (funded status).
 SALDOS_SIN_SIGNO = ("deuda", "arrendamientos", "caja", "otros_activos_financieros", "minoritarios", "acciones_diluidas")
 ESENCIALES = ["ventas", "ebit", "beneficio_neto", "cfo", "capex", "patrimonio", "caja", "acciones_diluidas"]
@@ -637,6 +639,8 @@ def construir(carpeta):
             return v
         if k == "adquisiciones":
             return -v
+        if k == "minoritarios" and v < 0:  # decisión Z-MIN (19-nov-2026): minoritarios deficitarios → 0, con aviso (no el valor absoluto)
+            return Fraction(0)
         return abs(v)
 
     serie, fuente, notas_k = {}, {}, {}
@@ -673,10 +677,15 @@ def construir(carpeta):
                 rev.append(f"- **{k} {a}**: fijado a mano en fase1_decisiones.json = {v} ({f})")
                 serie[k].append(v)
             else:
-                if k in SALDOS_SIN_SIGNO and v is not None and v < 0:  # (revisión, extra) aviso: la conversión no cambia
-                    signo_perdido.append(f"- **{k} {a}**: impreso negativo ({redondear(v, 4)}, {f}); la Historia guarda {redondear(ajustar(k, v), 4)} "
-                                         f"porque la plantilla quiere esta fila ≥ 0. Revisar qué significa el signo"
-                                         + (" (minoritarios deficitarios: tratamiento pendiente de decisión)" if k == "minoritarios" else ""))
+                if k in SALDOS_SIN_SIGNO and v is not None and v < 0:  # (revisión, extra) aviso; minoritarios: decisión Z-MIN
+                    if k == "minoritarios":
+                        signo_perdido.append(f"- **{k} {a}**: impreso negativo ({redondear(v, 4)}, {f}); la Historia guarda 0: minoritarios "
+                                             f"deficitarios → cero con aviso (decisión Z-MIN de la persona responsable, 19-nov-2026); la cifra "
+                                             f"impresa se conserva aquí y en la fuente de la fila")
+                        f = f"{f} (impreso {redondear(v, 4)}: minoritarios deficitarios → 0, decisión Z-MIN)"
+                    else:
+                        signo_perdido.append(f"- **{k} {a}**: impreso negativo ({redondear(v, 4)}, {f}); la Historia guarda {redondear(ajustar(k, v), 4)} "
+                                             f"porque la plantilla quiere esta fila ≥ 0. Revisar qué significa el signo")
                 serie[k].append(None if v is None else redondear(ajustar(k, v), 4))  # (redondeo exacto) ROUND de la hoja sobre la cifra exacta
             if pendiente:
                 pend_usados.setdefault(k, []).append(a)
@@ -826,7 +835,9 @@ def construir(carpeta):
             f"- AVISO: los metadatos no traen «impreso» (la cifra impresa de las acciones): la precisión de valor {ac_m.get('valor')!r} no se comprueba (un número de acciones no se redondea)"
             if ac_m.get("impreso") is None else "- no coincide con la cifra impresa: ver BLOQUEA") + "\n")
         if signo_perdido:
-            f.write("\n## Signo de saldos impresos en negativo (la Historia guarda el valor absoluto)\n\n" + "\n".join(signo_perdido) + "\n")
+            z_min = any(x.startswith("- **minoritarios ") for x in signo_perdido)  # el título de siempre si no hay minoritarios
+            f.write("\n## Signo de saldos impresos en negativo (" + ("valor absoluto; minoritarios: 0, decisión Z-MIN" if z_min else "la Historia guarda el valor absoluto")
+                    + ")\n\n" + "\n".join(signo_perdido) + "\n")
         f.write("\n## Convenciones\n\n" + json.dumps(conv, ensure_ascii=False) + "\n")
         if falt or faltan_meta or inc_acc:
             f.write("\n## BLOQUEA\n\n" + "\n".join([f"- falta {x}" for x in falt + faltan_meta] + [f"- {x}" for x in inc_acc]) + "\n")

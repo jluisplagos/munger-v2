@@ -435,6 +435,25 @@ else
   tail -5 "$SALIDA_X"; echo "RESULTADO acciones exactas de los metadatos: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de $minimo comprobaciones; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
+# (4.15, minoritarios impresos en negativo → 0 con aviso; decisión Z-MIN de la persona responsable, 19-nov-2026; examen, zoetis_t1c;
+# rama producto/minoritarios-cero) por construir sobre una copia de zoetis_t1c; sin el expediente la prueba se omite y lo dice (0
+# comprobaciones). Sin LibreOffice ni binarios, unos segundos; obligatoria en los dos modos; al menos 11 comprobaciones
+echo "== batería de los minoritarios impresos en negativo (personaje_v2/pruebas/test_minoritarios_cero.py; obligatoria en los dos modos; sin LibreOffice)"
+SALIDA_X="$(mktemp)"
+if [ -f personaje_v2/pruebas/test_minoritarios_cero.py ]; then
+  ( cd personaje_v2 && python3 -B pruebas/test_minoritarios_cero.py ) > "$SALIDA_X" 2>&1; rc=$?
+else
+  rc=127; echo "FALTA personaje_v2/pruebas/test_minoritarios_cero.py" > "$SALIDA_X"
+fi
+linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones PASAN$' "$SALIDA_X" | tail -1)"
+n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+minimo=11; grep -qE '^OMITIDA' "$SALIDA_X" && minimo=0   # sin zoetis_t1c no hay nada que construir: se omite y lo dice
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge $minimo ]; then
+  echo "$linea"; grep -E '^OMITIDA' "$SALIDA_X"; echo "RESULTADO minoritarios impresos en negativo: PASA"
+else
+  tail -5 "$SALIDA_X"; echo "RESULTADO minoritarios impresos en negativo: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de $minimo comprobaciones; ver $SALIDA_X)"; fallos=$((fallos+1))
+fi
+
 echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_V64="$(mktemp)"
