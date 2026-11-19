@@ -98,3 +98,97 @@ La lista `hipotesis_sin_fundamento` está vacía y D10 no limita la conclusión.
 1. La cuenta de resultados por naturaleza y el margen bruto de los informes de 2016 a 2021, para separar compra, precio y apalancamiento operativo.
 2. Preguntar a Relación con Inversores qué parte del salto atribuyen a la compra directa y qué parte al precio.
 3. El margen bruto y el margen EBIT de 2026 completo, el primer año con el derecho de aduana de 3 € [H1 2026, PDF p. 14].
+
+# Turno 2 · Conclusión
+
+## 9. Comprobación conjunta
+
+No existe `comprobacion_conjunta.json` porque no procedía: la lista de hipótesis sin fundamento está vacía. `sobrevive = null` y `resultado = sin_limitacion`. No hay rango del precio de Sí bajo una combinación adversa. El único peldaño es el de `precio.json`.
+
+## 10. Estado, cubo y acción
+
+**`concluido` (provisional hasta la auditoría) · cubo Sí · `comprar` al precio actual.**
+
+El orden de mando es el del turno 1:
+
+- sin bloqueo;
+- sin límite del modelo;
+- sin descalificadores;
+- sin datos ausentes materiales;
+- lista vacía de hipótesis sin fundamento;
+- zona `cumple_regla_k`.
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: comprar al precio actual · zona cumple_regla_k · precio de Sí ≤ 33.42 · precio esc. MALO 26.12 · ponderado 36.34 · fundamento lista vacía».
+
+Lo que no es la conclusión, y José Luis debe pesar:
+
+- **La regla k = 3 es una convención experimental (D11).** Con la regla antigua de la hoja (C156 = 26,12 €), el precio de 27,28 € quedaría por encima del precio de Sí.
+- **La r del 9 % no es mía.** Es heredada, provisional según `alcance_v2.json` y menor que la r mínima (10,19 %), y es la palanca de mayor efecto del tornado.
+- **No hay colchón.** El precio está solo un 4,4 % por encima del precio esc. MALO (diferencia ÷ precio esc. MALO), y el MALO no es un suelo.
+
+De los dos errores, con Jumbo estoy más cerca de regatear: «We left a lot of money on the table through early fretting» (TCI p.79; HIM). Pero el otro está a la vista si me creo sin causa el margen de 2021–2025: «Since it's so obvious that investing in great companies works, it gets horribly overdone» (PCA p.214; HIM).
+
+C93 = Sí. Con g 0,02 y ROIC terminal 0,10, el terminal reinvierte un 20 % del beneficio operativo y pesa un 51 %.
+
+C103 = No. Es un foso de escala en un canal que cambia.
+
+## 11. Tesis (B101)
+
+Jumbo es una tienda de precio bajo y surtido enorme: 89 hipermercados propios y 46 tiendas de socios. Compra directo en Asia a más de 200 proveedores y ha ganado un margen EBIT del 24,8–33,4 % durante diez años, frente a un Q3 del sector del 8,6 %.
+
+No tiene deuda, reparte casi toda la caja y en Grecia vende más con las mismas 53 tiendas.
+
+A 27,28 € el precio no paga nada por crecer (valor sin crecimiento 28,17 €) y descuenta ventas que caen un 1,7 % al año. Mi NORMAL vale 37,02 € y el MALO, con el margen de 2016–2020, 26,12 €.
+
+El precio está por debajo del precio de Sí (33,42 €, k = 3), sin hipótesis sin fundamento ni datos ausentes materiales: comprar al precio actual.
+
+Su fuerza depende de que dure el margen de 2021–2025 y de una r heredada, provisional y por debajo de la r mínima.
+
+## 12. Tesis inversa (B102)
+
+«I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM).
+
+- **El margen saltó sin causa explicada, y ya cede.** Pasó del 24,8–26,9 % al 31,7–33,4 % sin que ningún informe del expediente diga por qué. El margen bruto bajó del 55,61 % al 54,72 % [FY2025, PDF p. 15] y luego al 53,53 % en H1 2026 [H1 2026, PDF p. 7].
+- **Las plataformas atacan la ventaja de compra.** Venden desde China lo mismo, barato y voluminoso [FY2025, PDF p. 23]. Si el cliente compra directo, la escala de compra deja de ser una ventaja, y el margen puede bajar por debajo de cualquier escenario.
+- **El crecimiento se frena.** El beneficio de 2025 fue plano (Historia!K9:L9), Rumanía cayó un 6,50 % [H1 2026, PDF p. 6] y Grecia no tendrá tienda nueva en 2027 [H1 2026, PDF p. 17].
+- **El inventario crece más que las ventas.** Subió un 19,0 % frente a ventas +7,2 % (C31). En un minorista eso anticipa rebajas.
+- **Hay dependencia del presidente.** El bono caía si él o su familia dejaban el control [FY2022, PDF p. 57], y no hay plan de sucesión en el expediente.
+- **El precio pasa la regla con poco margen.** Solo la pasa con r = 9 % y con k = 3. El mercado descuenta −1,7 % al año (C86) y puede estar viendo lo que yo no veo.
+
+Quité de la tesis inversa de la etapa 1 tres hechos que no tienen fuente en este expediente: la edad del presidente, el voto de la remuneración y las ventas de su sociedad.
+
+## 13. Predicciones (Palancas!A38:C40)
+
+Las tres se comprueban con el informe anual de 2027 (fecha 2028-04-30). La probabilidad es la de que cada predicción se cumpla dado el NORMAL.
+
+| Predicción | Probabilidad | Por qué |
+|---|---|---|
+| Margen EBIT del grupo de 2027 ≥ 30,0 % | 0,75 | Pone a prueba la hipótesis de B222. El NORMAL da ≈ 31,7 % en 2027. |
+| Ventas netas del grupo de 2027 ≥ 1.350 mm | 0,65 | El NORMAL da ≈ 1.372 mm. |
+| El inventario de 2027 crece menos que las ventas de 2027 | 0,6 | Pone a prueba la señal de la tesis inversa. |
+
+## 14. B222 y B223
+
+**B222.** La hipótesis fundamentada de la que más depende la conclusión es que el margen EBIT de 2021–2025 dure frente a las plataformas (C15:D15, C18).
+
+**B223.** Lo resolverían tres cosas:
+
+1. La cuenta de resultados por naturaleza y el margen bruto de 2016–2021.
+2. La pregunta a Relación con Inversores sobre la causa del salto de 2021.
+3. El margen bruto y el margen EBIT de 2026 completo, el primer año con el derecho de aduana.
+
+## 15. Qué me haría cambiar de cubo
+
+- **A Vigilar:** un precio por encima de 33,42 €, o una r de José Luis que deje el precio por encima del precio de Sí. También un margen EBIT de 2026 por debajo del 30 % mientras investigo la causa.
+- **A No:** un margen EBIT por debajo del 28 % dos años seguidos, ventas griegas que caigan con la misma red, o deuda para centros o inmuebles.
+- **A Demasiado difícil:** no poder explicar con los informes una caída en Grecia, una caja que pase a depender de socios, Balfin o inmuebles, o una compra grande no relacionada.
+
+## 16. Comparación con la etapa 1
+
+La etapa 1 decía Vigilar con un precio de Sí ≈ 19 € (estimado) a 24,72 €. Ahora digo Sí con un precio de Sí de 33,42 € a 27,28 €. El negocio que veo es el mismo. Cambian tres cosas:
+
+1. **La regla.** El paso a Sí depende de la convención k = 3. Con la regla antigua de hoy (26,12 €) seguiría en Vigilar.
+2. **El MALO.** Antes era un FCF que caía un 2 % al año, estimado en ≈ 19 €. Ahora es un margen que vuelve al 26 % y vale 26,12 €. Es más suave, y lo digo.
+3. **El precio y la caja.** El precio sube a 27,28 € ya sin los repartos de 1,70 € por acción, y C76 pasa de 200 a 150.
+
+La etapa 1 no se equivocó en el negocio. Lo que la separa de esta conclusión es una convención y un MALO menos duro, y las dos cosas las tiene que juzgar José Luis.
