@@ -1,5 +1,5 @@
 {
- "paso": 10,
+ "paso": 13,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -35,12 +35,33 @@
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 57.2049869582141 · precio de Sí 73.2704 (P* 73.2704) · ponderado 82.9096 · zona cumple_regla_k",
   "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 2 → gramatica.md",
   "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
-  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 2 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 2)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_c.json C celdas_C.json → 0 · OK: 58 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/celdas_C.json",
+  "  $ python3 escribir_v63.py Zoetis_v63_evaluada.xlsx Zoetis_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_C.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx --fases A,B,C → 0 · PASS: 0 errores · 65 celdas correctas · fases ['A', 'B', 'C'] · motor B",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/resultados.json · motor B · estado COMPLETO Y VÁLIDO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 57.2049869582141 · precio de Sí 73.2704 (P* 73.2704) · ponderado 82.9096 · zona cumple_regla_k",
+  "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo --con-fase-c → 0 · código 0 · errores 0 · límites 0 · desviaciones 6 (sin justificar 0) · avisos 2 → gramatica.md",
+  "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Demasiado difícil · acción demasiado_dificil",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis/resultados.json · motor B · estado COMPLETO Y VÁLIDO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 57.2049869582141 · precio de Sí 73.2704 (P* 73.2704) · ponderado 82.9096 · zona cumple_regla_k",
+  "  $ bash verificar_todo.sh Zoetis Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor B --libro-origen Zoetis_v63_evaluada.xlsx → 0 · motor B utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T10:58:38 · paso 12 · motor B · F1: motor B utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T10:58:41 · paso 12 · verificación de las entradas financieras: 249 de 315 celdas del universo comprobadas · apta por entradas: no (249 de 315 celdas del universo comprobadas (160 de 214 de cálculo y 89 de 101 de juicio; +178 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 d)",
+  "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Demasiado difícil · acción demasiado_dificil",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-19T10:58:44 · paso 13 · solicitud de auditoría SA-68fcbacebf5abeb4 registrada para el material 87c07ec4ab55d0af"
  ],
  "motor": "B",
  "fase_b_escrita": true,
- "fase_c_escrita": false,
- "esperando": "10:fase_c.json",
+ "fase_c_escrita": true,
+ "esperando": "13:auditoria.md",
  "inicio": "2026-11-19T09:08:28",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -51,16 +72,68 @@
   "extracto_v63.md": 1795079283.491037,
   "fase_a.json": 1795080395.5327404,
   "fase_b.json": 1795081374.7867842,
-  "fase_c.json": 1795082004.591826
+  "fase_c.json": 1795084587.580358
  },
- "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
- "esperando_desde": 1795082073.708269,
+ "motivo_correccion": null,
+ "esperando_desde": 1795085924.673657,
  "motor_a_f1": {
-  "paso": 7,
+  "paso": 12,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
-  "libro_sha256": "d33f49011461aad0aabe92d0013dc0865a1d43c29d32b7360c0ecb168bc0abd7"
+  "libro_sha256": "ffc88797eb8b7bb6b4812e9f52ed328358b756ccb76091219f82ad4c955ba02d"
  },
- "turno_c": 2
+ "turno_c": null,
+ "estado_pendiente": null,
+ "estado_analisis_fase_c": "concluido",
+ "motivo_correccion_c": null,
+ "verificacion_entradas": {
+  "universo": 315,
+  "comprobadas": 425,
+  "comprobadas_universo": 249,
+  "auxiliares": 178,
+  "universo_calculo": 214,
+  "universo_juicio": 101,
+  "comprobadas_calculo": 160,
+  "comprobadas_juicio": 89,
+  "lecturas_externas": 0,
+  "formato_registro": "4.15",
+  "entradas_no_reproducibles": 0,
+  "datos_como_hipotesis": 15,
+  "no_materiales": 0,
+  "no_materiales_sin_revisar": 0,
+  "no_aplicables": 26,
+  "resumen": "249 de 315 celdas del universo comprobadas (160 de 214 de cálculo y 89 de 101 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 15 datos tratados como hipótesis o convención; 26 no aplicables; 0 lecturas externas sin bytes; 60 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
+  "derivados_comprobados": 60,
+  "pendientes": 51,
+  "desactualizadas": 17,
+  "discrepancias": 0,
+  "errores": 0,
+  "materiales_no_comprobadas": 66,
+  "apto_por_entradas": false,
+  "motivo": "249 de 315 celdas del universo comprobadas (160 de 214 de cálculo y 89 de 101 de juicio; +178 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materialidad revisado); 26 no aplicables; 66 entradas materiales sin comprobar; 17 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
+  "huella_entradas_economicas": "ec1e1cfc3cfe2e29b46f0be65ce4c7acec61304a37c1c8eb4b176d6e195c2570",
+  "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
+ },
+ "libros_verificados": {
+  "evaluado": "3aa3827a3ed818ce325cb09d9a1090ce74cb77ba0558c7aea9a743836b58e573",
+  "datos": "b31e365e7154d9537d21a2e0fd0991796b3d40bb0fa2b20cd0775430f4687cc5"
+ },
+ "f1_repite_12": false,
+ "material_auditoria": "87c07ec4ab55d0af",
+ "solicitudes_auditoria": [
+  {
+   "id": "SA-68fcbacebf5abeb4",
+   "material": "87c07ec4ab55d0af",
+   "creada": "2026-11-19T10:58:44+00:00",
+   "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "pendiente",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null
+  }
+ ],
+ "anteriores_sha256": [],
+ "anteriores_contenido": [],
+ "auditoria": null
 }

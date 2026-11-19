@@ -194,3 +194,145 @@
 - fase_c.celdas_corregidas.C18.despues: No
 - fase_c.celdas_corregidas.C18.motivo: Revisada: la fase A cita Historia!C55 como 27,7 % («lo dobla»); C55 es 0,236, 1,6 veces el sector (0,147, Palancas!H18). La cifra no decide el foso (sin vara F1 con US GAAP, datos_v63 §1 bis) y la evidencia de 2026 sigue en contra (dermatología −10 puntos; rebajas, call T2 2026 PDF p. 12). Se mantiene No; la corrección es de texto y va en el turno 2.
 - fase_c.celdas_corregidas.Palancas!D18.motivo: Revisada: 0,12 = C56 + 0,03 (la referencia v2.1 y G4 miden contra C56), pero el motor B descuenta a 0,0757 (Diagnóstico V6!C15): frente a esa tasa el exceso a perpetuidad es de 4,4 puntos, más que los 2–3 de MR (E2). No es una palanca mal derivada (ni aritmética, ni perímetro, ni dato: es la convención declarada de la referencia). Calculado (aproximación mía con el valor terminal de resultados.json, no recálculo): con 0,11 el BUENO baja ≈2,77 USD (124,61 → 121,84) y el precio de Sí ≈0,35 (73,27 → 72,92, −0,5 %), y la zona pasaría a vigilar; con 0,10, ≈72,51. No cambia el cubo ni la conclusión (Demasiado difícil por el descalificador). No pido revisión.
+- fase_c.estado_analisis: concluido
+- fase_c.cubo_final: Demasiado difícil
+- fase_c.escalera.de: precio.json
+- fase_c.escalera.zona: cumple_regla_k
+- fase_c.escalera.convencion: escalera experimental del ejercicio (D11), k = 3; la zona no es la conclusión: no mide riesgo ni fundamento
+- fase_c.escalera.nota: la zona no decide: la conclusión sale del descalificador; la zona es frágil (un redondeo la lleva a vigilar)
+- fase_c.decision.accion: demasiado_dificil
+- fase_c.decision.condiciones_revision.al_alza: Reabriría el análisis (hacia Vigilar) con las fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela posteriores a 2030, el competidor de dermatología identificado y dos o tres trimestres de cuota de dermatología y Simparica Trio estable en clínicas de EE. UU. con precio realizado positivo (presentaciones del T3 2026 al T2 2027).
+- fase_c.decision.condiciones_revision.a_la_baja: Pasaría a No si la cuota de dermatología sigue cayendo en 2027 (por debajo de ≈80 %), Simparica Trio empieza a perder cuota, el precio realizado vuelve a ser negativo en 2027 o la dirección sigue recomprando con deuda hasta acercar la deuda neta ÷ EBITDA a 2,5x.
+- fase_c.insumos_decision_cartera.zona: cumple_regla_k
+- fase_c.insumos_decision_cartera.fundamento: no procede (conclusión no favorable): demasiado difícil por el descalificador de la fase A; lista D10 vacía; sin comprobación conjunta
+- fase_c.insumos_decision_cartera.datos_ausentes_materiales[0]: extracto_v63: Cuota de cada competidor (Boehringer Ingelheim, Merck, Elanco, IDEXX) y quién es el más peligroso.
+- fase_c.insumos_decision_cartera.datos_ausentes_materiales[1]: extracto_v63: Fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela.
+- fase_c.insumos_decision_cartera.descalificadores_considerados[0]: no aplica: no puedo explicar de dónde viene la caja
+- fase_c.insumos_decision_cartera.descalificadores_considerados[1]: no aplica: el valor depende de macro, tipos, divisas o materias primas
+- fase_c.insumos_decision_cartera.descalificadores_considerados[2]: aplica: cambio tecnológico o científico que no me deja juzgar si el foso dura
+- fase_c.insumos_decision_cartera.descalificadores_considerados[3]: no aplica: gestión en la que no confío
+- fase_c.insumos_decision_cartera.descalificadores_considerados[4]: no aplica: deuda que puede matar la empresa en un mal año
+- fase_c.insumos_decision_cartera.descalificadores_considerados[5]: no aplica: reinvierte toda la caja solo para mantenerse con retornos mediocres
+- fase_c.insumos_decision_cartera.descalificadores_considerados[6]: no aplica: demasiadas piezas móviles
+- fase_c.insumos_decision_cartera.descalificadores_considerados[7]: no aplica: sin historial: start-up, salida a bolsa reciente u operación promocionada
+- fase_c.insumos_decision_cartera.descalificadores_considerados[8]: no aplica: reestructuración o «la nueva dirección lo arreglará»
+- fase_c.insumos_decision_cartera.palanca_mas_influyente: ROIC / ROE largo plazo (±5 pts) (información, no criterio)
+- fase_c.herencia.C93.etapa1: Sí
+- fase_c.herencia.C93.decision: mantiene
+- fase_c.herencia.C93.motivo: razonamiento_corregido
+- fase_c.herencia.C93.evidencia_y_razonamiento: La etapa 1 dijo Sí con un ROIC de ≈27 % que exigía reinvertir ≈9 %; el terminal del NORMAL usa ROIC 0,08, así que crecer 2,5 % pide reinvertir ≈31 % del beneficio operativo (g ÷ ROIC, I2). Sigue habiendo dónde (capex 621 e I+D 698 en 2025, Historia!L12; 10-K 2025 PDF p. 49), g está bajo rf (Análisis!C57) y la tasa del motor, y diez años sin caída de ventas (Historia!C6:L6) sostienen un crecimiento nominal modesto. Mantengo Sí con otro razonamiento.
+- fase_c.herencia.B101.etapa1: Zoetis vende medicamentos, vacunas y diagnósticos para animales, sobre todo para perros y gatos (≈70 % de los ingresos de 2025), a veterinarios, distribuidores, minoristas y comercio electrónico; supongo que, al final, paga el dueño del animal o el ganadero. Leo que gana porque sus franquicias de marca (parasiticidas, dermatología, dolor) le han dejado subir precios todos los años con márgenes crecientes y un ROIC del 26–30 %. La caja es real: CFO ÷ beneficio 1,06 en cinco años e impuestos pagados en caja por encima del gasto. El riesgo es la concentración (cinco productos = 42 % de las ventas) y que la erosión que sufrió Draxxin llegue a las franquicias de compañía, justo cuando la guía de 2026 es de crecimiento orgánico negativo por causas que mis documentos no explican. A 73 USD no hay margen: la miraría por debajo de ≈49 USD.
+- fase_c.herencia.B101.decision: cambia
+- fase_c.herencia.B101.motivo: evidencia_nueva
+- fase_c.herencia.B101.evidencia_y_razonamiento: La etapa 1 leía un problema de precio (Vigilar bajo ≈49 USD, estimado sin la hoja). El T2 2026 mide la pérdida de cuota en dermatología (−10 puntos, pres. T2 2026 PDF p. 6) con la franquicia protegida, y la escalera de la hoja da un precio de Sí de 73,27: el problema ya no es el precio sino que no sé juzgar si el foso dura (C12 = No).
+- fase_c.herencia.B102.etapa1: El foso es una suma de exclusividades de producto que caducan, no una marca que dura: Draxxin perdió el 66 % de sus ventas en EE. UU. desde que llegaron los genéricos en 2021, Excede y Cerenia ya están perdiendo exclusividad y la concentración ha subido (cinco primeros productos del 29 % en 2019 al 42 % en 2025), así que cada vez hay más huevos en menos cestas. El crecimiento reciente fue sobre todo precio (≈5, ≈6 y ≈4 puntos en 2023–25), y el precio que sube más que el valor entregado invita a genéricos, alternativas baratas y a minoristas que, según la propia empresa, pueden impedirle sostener márgenes. Los resultados que la hicieron grande ya han empezado a pararse: US plano en 2025, Librela vendiendo menos y guía orgánica de −3 % a −1 % para 2026, y no sé por qué. El inventario crece más que las ventas en cinco de seis años mientras las provisiones bajan (115 → 97 → 68), lo que puede anticipar cargos; el calendario de 2025 (Fiscal Year Alignment) subió entre un 2,5 % y un 3,5 % las ventas internacionales del 4T25 y la empresa dice que no se repetirá. La dirección se endeudó (principal de 6.650 a 9.150 mm) para recomprar a ≈136 USD de media en 2025 y la autocartera costó ≈139 USD por acción frente a 73 hoy; el IRS reclama ≈450 mm. Si el FCF cae como en el escenario malo, 73 USD vale ≈49 y la mediana histórica de 47x FCF no vuelve: se puede perder un tercio de forma permanente.
+- fase_c.herencia.B102.decision: cambia
+- fase_c.herencia.B102.motivo: evidencia_nueva
+- fase_c.herencia.B102.evidencia_y_razonamiento: Conservo su núcleo (exclusividades que caducan, Draxxin −66 %, concentración, crecimiento por precio, recompras caras con deuda) con las cifras vigentes (10-K 2025 PDF p. 42, 44 y 86) y añado lo medido en 2026: cuota de dermatología −10 puntos (pres. T2 2026 PDF p. 6), compañía EE. UU. −11 % (10-Q T2 2026 PDF p. 33), rebajas en Apoquel (call T2 2026 PDF p. 8). Quito lo que no está en mis extractos (la reclamación del IRS) y el MALO estimado sin la hoja.
+- fase_c.herencia.C103.etapa1: No
+- fase_c.herencia.C103.decision: mantiene
+- fase_c.herencia.C103.motivo: misma_evidencia
+- fase_c.herencia.C103.evidencia_y_razonamiento: Revisada la misma evidencia: un foso de productos con exclusividad que hay que renovar con I+D (Draxxin −66 %, 10-K 2025 PDF p. 42; cinco productos = 42 %, 10-K 2025 PDF p. 44) no es el negocio que se puede tener para siempre sin mirar. La cuota de 2026 lo confirma.
+- fase_c.herencia.C104.etapa1: 0% · Watchlist · precio de Sí ≈ 49 USD (estimación)
+- fase_c.herencia.C104.decision: cambia
+- fase_c.herencia.C104.motivo: definicion_o_medicion_distinta
+- fase_c.herencia.C104.evidencia_y_razonamiento: La V6.3 escribe C104 con el texto cerrado de la sección 15, sin porcentajes de posición (D16), con la escalera de precio.json (73,27 / 57,20 / 82,91) en lugar de una estimación, y la conclusión cambia de Vigilar a demasiado difícil por el descalificador de la fase A (Análisis!C12 = No).
+- fase_c.comparacion_etapa_1.cubo_v1: Vigilar
+- fase_c.comparacion_etapa_1.cubo_v2: Demasiado difícil
+- fase_c.comparacion_etapa_1.por_que_difieren: El v1 dejó Vigilar con un precio de Sí de ≈49 USD estimado sin la hoja: mín(MALO ≈48,7, ¾ × ponderado), con un MALO de FCF −2 % al año durante diez años y motor A sin restar la deuda. El v2 calcula la escalera k = 3 con el motor B y mis palancas: MALO 57,20 (ventas planas, margen 0,30), precio de Sí 73,27. El precio de Sí sube porque la regla es otra y porque el MALO del v2 es menos duro en caja que el del v1; no es más optimismo sobre el foso. El cubo cambia por C12: el v1 lo dejó en Sí con un argumento de precio y él mismo escribió que, si no conseguía las fechas de exclusividad, el cubo pasaría a demasiado difícil; el T2 2026 añadió la pérdida de cuota medida (pres. T2 2026 PDF p. 6) y las fechas siguen sin publicarse (extracto §9).
+- fase_c.celdas.C93: Sí
+- fase_c.celdas.C103: No
+- fase_c.celdas.C104: Pendiente de decisión de cartera · conclusión del personaje: demasiado difícil · zona cumple_regla_k · precio de Sí ≤ 73.27 · precio esc. MALO 57.20 · ponderado 82.91 · fundamento no procede (conclusión no favorable)
+- fase_c.celdas.B101: Zoetis vende medicinas, vacunas y diagnóstico para animales, sobre todo perros y gatos (6.283 de 9.467 en 2025, 10-K 2025 PDF p. 78), y franquicias con exclusividad le dejaron subir precio cada año y llevar el margen EBIT del 28,5 % al 37,8 % en diez años (Historia!C29:L29). La caja es real (CFO ÷ beneficio 1,058, Análisis!C26; FCF al accionista de 1.078 a 2.198 en 2017–25) y la deuda no mata (1,90x, Análisis!C33). Pero el valor depende de cuánto duran Simparica y Apoquel, el 28 % de los ingresos (10-K 2025 PDF p. 44), frente a competidores que ya quitan 10 puntos de cuota en dermatología con la franquicia protegida (pres. T2 2026 PDF p. 6), y eso no sé juzgarlo. A 73,08 el precio cumple la regla de la escalera por 0,19 USD (precio de Sí 73,27), una frontera que mueve un redondeo y que no decide nada: cubo Demasiado difícil.
+- fase_c.celdas.B102: El foso es una suma de exclusividades que caducan: Draxxin perdió el 66 % en EE. UU. desde el genérico (10-K 2025 PDF p. 42) y en 2026 la erosión llega sin genérico: la cuota de dermatología en clínicas de EE. UU. cae a ≈86 %, 10 puntos en un año (pres. T2 2026 PDF p. 6), animal de compañía en EE. UU. cae un 11 % en el semestre (10-Q T2 2026 PDF p. 33), Apoquel ya compite por precio con rebajas que bajan el precio realizado (call T2 2026 PDF p. 8 y 12) y la guía pasó de +2–5 % a (3)–(1) % en tres meses (comunicado T2 2026 PDF p. 1). El crecimiento de 2023–25 fue sobre todo precio (5, 6 y 4 puntos, extracto §4), lo que ahora se pierde, y el margen de 2025 llevó ayudas que no se repiten (MFA y adelanto del T4; 10-K 2025 PDF p. 47 y 49). La concentración sube: cinco productos del 37 % al 42 % de los ingresos en 2023–25 (10-K 2023 PDF p. 13; 10-K 2025 PDF p. 44). La dirección se endeudó (principal de 6.650 a 9.150, 10-K 2025 PDF p. 86) para recomprar a ≈134 en 2025 y siguió a ≈105 en 2026 (10-Q T2 2026 PDF p. 44), frente a 73,08 hoy. Mi MALO (57,20) no es un suelo: supone ventas planas, no que Simparica y Apoquel caigan como Draxxin (≈18 % de los ingresos, derivado). Si eso pasa, la pérdida es permanente.
+- fase_c.celdas.Palancas!A38: Los ingresos totales de Zoetis de 2027, según la cuenta de resultados del 10-K de 2027, serán iguales o superiores a 9.500 millones de USD.
+- fase_c.celdas.Palancas!B38: 2028-03-01
+- fase_c.celdas.Palancas!A39: Los ingresos de la categoría dermatología de 2027, en la tabla de ingresos por categoría del 10-K de 2027, serán iguales o superiores a 1.600 millones de USD.
+- fase_c.celdas.Palancas!B39: 2028-03-01
+- fase_c.celdas.Palancas!A40: El margen EBIT de 2027 (resultado antes de impuestos más gasto por intereses neto de capitalizados, dividido entre ingresos, 10-K de 2027) será igual o superior al 33 por ciento.
+- fase_c.celdas.Palancas!B40: 2028-03-01
+- fase_c.celdas.Diagnóstico V6!B222: Cuánto duran Simparica y Apoquel, el 28 % de los ingresos (10-K 2025 PDF p. 44), frente a competidores que ya les quitan cuota con las franquicias protegidas (dermatología ≈86 %, −10 puntos; pres. T2 2026 PDF p. 6). Es Análisis!C12 y, en cifras, el ROIC terminal (Palancas!B18:D18), la palanca más influyente del tornado (información). La lista D10 está vacía: es la hipótesis fundamentada de la que más depende la conclusión.
+- fase_c.celdas.Diagnóstico V6!B223: Pregunta a Relación con Inversores: fechas de pérdida de exclusividad (patente y protección de datos) de Simparica Trio, Apoquel, Cytopoint y Librela en EE. UU. y la UE (el 10-K 2025 PDF p. 17 solo las da para Excede y Cerenia) y qué competidor y producto gana la cuota de dermatología. Y la cuota Kynetec de dermatología y Simparica Trio de las presentaciones de resultados del T3 2026 al T2 2027, con el precio realizado del 10-Q. Reabrirían el análisis; no sustituyen el juicio sobre la I+D.
+- fase_c.cambiaria_de_cubo.a_si: Primero tendría que salir de Demasiado difícil (ver a Vigilar en condiciones_revision.al_alza: fechas de exclusividad posteriores a 2030, competidor identificado, cuota estable con precio positivo); después, Sí solo con el precio en cumple_regla_k con holgura frente al precio de Sí recalculado, no por 0,19 USD, y con recompras financiadas con caja propia.
+- fase_c.cambiaria_de_cubo.a_no: Si en 2027 la cuota de dermatología baja de ≈80 % o Simparica Trio pierde cuota como dermatología, los ingresos de 2027 quedan por debajo de los de 2025 (9.467) y la dirección sigue recomprando con deuda: lo habría evaluado y sería malo.
+- fase_c.cambiaria_de_cubo.a_demasiado_dificil: Es el cubo actual; sigue mientras no tenga las fechas de exclusividad ni pueda juzgar si los productos nuevos (Lenivia, Portela, riñón) sustituyen a los que pierden cuota.
+- fase_c.observaciones.C93: [Clase: fundamentada] [Confianza: media]
+Hereda: Sí → mantiene (razonamiento_corregido): la etapa 1 lo apoyó en un ROIC de ≈27 % y una reinversión del ≈9 %; el terminal NORMAL usa ROIC 0,08 y g 0,025, que piden reinvertir g ÷ ROIC ≈ 31 % del beneficio operativo (I2), y hay dónde: capex 621 e I+D 698 en 2025 (Historia!L12; 10-K 2025 PDF p. 49).
+Apoyo: g 0,025 < rf 0,0522 (Análisis!C57) y < tasa del motor 0,0757 (Diagnóstico V6!C15); ventas sin un año de caída en 2016–25 (Historia!C6:L6); peso del terminal NORMAL 57 % y salto del año 11 de 13,8 puntos, que es mi hipótesis de pérdida de ventaja: con ROIC = tasa, g no crea valor (tornado: ±0,5 puntos = 1,42 USD).
+Lo sustituiría: No lo sé, si la erosión de dermatología sigue en 2027 y las ventas totales caen dos años seguidos.
+- fase_c.observaciones.C103: [Clase: fundamentada] [Confianza: media]
+Hereda: No → mantiene (misma_evidencia): revisada la misma evidencia, el foso es de productos con exclusividad que hay que renovar cada década, no de un negocio que dura solo.
+Apoyo: Draxxin −66 % tras el genérico (10-K 2025 PDF p. 42); cinco productos = 42 % de los ingresos (10-K 2025 PDF p. 44); dermatología −10 puntos de cuota con la franquicia protegida (pres. T2 2026 PDF p. 6). «if you can buy a few great companies then you can sit on your ass» (PCA pp.85–86; HIM) pide un negocio que no dependa de acertar en la I+D.
+Lo sustituiría: Sí, con años de ventas sostenidas tras pérdidas de exclusividad en productos de compañía.
+- fase_c.observaciones.C104: [Clase: convención] [Confianza: alta]
+Hereda: el texto de la etapa 1 (tamaño cero, lista de seguimiento, precio de Sí ≈49 USD estimado) → cambia (definicion_o_medicion_distinta): la V6.3 no admite porcentajes de posición (D16), la escalera la calcula un script y el cubo pasa a Demasiado difícil.
+Apoyo: precio.json: precio de Sí 73,27, precio esc. MALO 57,20, ponderado 82,91, zona cumple_regla_k. La zona no decide: manda el descalificador de la fase A (Análisis!C12 = No). El tamaño de la posición es de José Luis.
+Lo sustituiría: «esperar: precio de Sí ≤ P» si el cubo pasa a Vigilar con los hechos de cambiaria_de_cubo.
+- fase_c.observaciones.B101: [Clase: fundamentada] [Confianza: media]
+Hereda: tesis de la etapa 1 (Vigilar, «la miraría por debajo de ≈49 USD») → cambia (evidencia_nueva): el T2 2026 mide la pérdida de cuota que la etapa 1 solo temía y la escalera vigente la calcula la hoja.
+Apoyo: 10-K 2025 PDF p. 44 y 78; Historia!C29:L29; Análisis!C26 y C33; pres. T2 2026 PDF p. 6; precio.json (precio de Sí 73,27, zona cumple_regla_k).
+Lo sustituiría: una tesis de Vigilar si las fechas de exclusividad resultan posteriores a 2030 y la cuota de dermatología se estabiliza dos o tres trimestres.
+- fase_c.observaciones.B102: [Clase: fundamentada] [Confianza: media]
+Hereda: tesis inversa de la etapa 1 → cambia (evidencia_nueva): conserva el argumento de las exclusividades y la concentración y añade las cuotas medidas del T2 2026, la guía rebajada y el precio pagado en las recompras.
+Apoyo: 10-K 2025 PDF p. 42, 44, 47, 49 y 86; 10-K 2023 PDF p. 13; 10-Q T2 2026 PDF p. 33 y 44; pres. T2 2026 PDF p. 6; call T2 2026 PDF p. 8 y 12; resultados.json (MALO 57,20).
+Lo sustituiría: dos o tres trimestres de cuota de dermatología estable con precio realizado positivo, que quitarían fuerza al argumento central.
+- fase_c.observaciones.Palancas!A38: [Clase: fundamentada] [Confianza: media]
+Hereda: nueva en V6.3.
+Apoyo: 9.467 en 2025 (Historia!L6); guía de 2026 de 9.120 a 9.320 (comunicado T2 2026 PDF p. 1; guía); el NORMAL crece ≈5 % desde 2027 (Palancas!C14 = 0,035 con 2026 en ≈−2 %): ≈9.700 en 2027 (derivado). La falsa el MALO (ventas planas, ≈9.300).
+Lo sustituiría: el dato del 10-K 2027; si falla, sube la probabilidad del MALO.
+- fase_c.observaciones.Palancas!B38: [Clase: convención] [Confianza: alta]
+Hereda: nueva en V6.3.
+Apoyo: el 10-K de un ejercicio se publica a mediados de febrero del siguiente (el 10-K 2025 da acciones a 6-feb-2026, 10-K 2025 PDF p. 39); 2028-03-01 cae dentro de los 12–24 meses desde Análisis!D4 (2026-10-09).
+Lo sustituiría: la fecha real de presentación del 10-K 2027.
+- fase_c.observaciones.Palancas!C38: [Clase: fundamentada] [Confianza: media]
+Hereda: nueva en V6.3.
+Apoyo: dado el NORMAL, 2027 queda ≈200 por encima del umbral (≈2 %, derivado); el cambio de divisa (42 % de los ingresos en otras monedas, 10-K 2025 PDF p. 43) y un 2026 en el extremo bajo de la guía pueden dejarlo debajo. 0,7.
+Lo sustituiría: el cierre de 2026 del 10-K 2026: con ventas por debajo de 9.120, bajaría a 0,5.
+- fase_c.observaciones.Palancas!A39: [Clase: fundamentada] [Confianza: baja]
+Hereda: nueva en V6.3.
+Apoyo: dermatología 1.754 en 2025 (10-K 2025 PDF p. 78) y la franquicia clave −16 % en el T2 2026 (pres. T2 2026 PDF p. 20): 2026 rondará ≈1.550 (derivado). 1.600 en 2027 exige que el bache se absorba y vuelva a crecer, que es el NORMAL; en el MALO sigue cayendo.
+Lo sustituiría: el dato del 10-K 2027; por debajo de 1.500, la erosión sigue y el cubo iría hacia No.
+- fase_c.observaciones.Palancas!B39: [Clase: convención] [Confianza: alta]
+Hereda: nueva en V6.3.
+Apoyo: la tabla de ingresos por categoría está en el 10-K (10-K 2025 PDF p. 78), que se publica a mediados de febrero; 2028-03-01 está dentro de la ventana de 12–24 meses desde Análisis!D4.
+Lo sustituiría: la fecha real de presentación del 10-K 2027.
+- fase_c.observaciones.Palancas!C39: [Clase: fundamentada] [Confianza: baja]
+Hereda: nueva en V6.3.
+Apoyo: aun dado el NORMAL la cifra está en el filo: con 2026 en ≈1.550 (derivado), llegar a 1.600 pide ≈3 % en 2027 justo cuando un competidor gana cuota (pres. T2 2026 PDF p. 6) y Apoquel compite por precio (call T2 2026 PDF p. 8). 0,5.
+Lo sustituiría: la cuota de dermatología del T4 2026: estable, 0,6; otra caída de 5 puntos, 0,3.
+- fase_c.observaciones.Palancas!A40: [Clase: fundamentada] [Confianza: media]
+Hereda: nueva en V6.3.
+Apoyo: margen EBIT de 28,5 % a 37,8 % en 2016–25 (Historia!C29:L29), media 34,1 % (Historia!C49); el NORMAL converge a 0,34 (Palancas!C15) y el MALO a 0,30 (Palancas!B15): 33 % separa los dos en 2027. Misma definición que la Historia (EBIT = resultado antes de impuestos más intereses).
+Lo sustituiría: el dato del 10-K 2027.
+- fase_c.observaciones.Palancas!B40: [Clase: convención] [Confianza: alta]
+Hereda: nueva en V6.3.
+Apoyo: cuenta de resultados y gasto por intereses del 10-K 2027 (como el 10-K 2025 PDF p. 50 y 66), publicado a mediados de febrero; 2028-03-01 está dentro de la ventana de 12–24 meses desde Análisis!D4.
+Lo sustituiría: la fecha real de presentación del 10-K 2027.
+- fase_c.observaciones.Palancas!C40: [Clase: fundamentada] [Confianza: media]
+Hereda: nueva en V6.3.
+Apoyo: dado el NORMAL el margen de 2027 rondará el 34–35 % (derivado de la convergencia de Palancas!C15 desde la media del ciclo); en 2026 el coste de ventas sube (27,4 % → 27,8 % en 6M26, 10-Q T2 2026 PDF p. 30) y hay 99 de reestructuración (10-Q T2 2026 PDF p. 14). 0,75.
+Lo sustituiría: el margen de 2026 del 10-K 2026: por debajo del 33 %, bajaría a 0,5.
+- fase_c.confianza_global: media
+- fase_c.respuesta_contradictor.origen: OBJECIONES.json del contradictor (dirección «sube»; O1 y O2)
+- fase_c.respuesta_contradictor.regla_de_movimiento: cada objeción válida no rebatida mueve la conclusión un escalón en su dirección; como mucho un escalón por dirección
+- fase_c.respuesta_contradictor.objeciones[0].id: O1
+- fase_c.respuesta_contradictor.objeciones[0].direccion: sube
+- fase_c.respuesta_contradictor.objeciones[0].respuesta: rebatida
+- fase_c.respuesta_contradictor.objeciones[0].concedo: La lectura de la p. 17 es correcta: es el resumen de los vencimientos clave «recientes y próximos» (10-K 2025 PDF p. 17), y ninguna de las cuatro franquicias aparece en él. La empresa anuncia algunos vencimientos con años de antelación: Cerenia, «between May 2020 and January 2027», en el 10-K 2017 PDF p. 17. Mi frase «solo las da para Excede y Cerenia» describía la página, pero no recogía esa inferencia. De ella se deduce que no hay vencimiento clave anunciado como próximo; no se deducen las fechas.
+- fase_c.respuesta_contradictor.objeciones[0].rebate_con[0]: El ROIC terminal empieza en el año 11, es decir, en 2036. «No hay vencimiento clave próximo» sostiene, como mucho, exclusividad hasta 2030 o algo más, dentro de los años 1–10. En esos años ya rinde 21,8 % en el NORMAL (resultados.json, salto_anio_11). No dice nada del capital nuevo después de 2036.
+- fase_c.respuesta_contradictor.objeciones[0].rebate_con[1]: La propia regla de la fase B para 0,11 en Palancas!C18 exige dos cosas: fechas posteriores a 2030 y C18 = Sí. C18 sigue en No. La erosión de 2026 ocurre con las patentes en vigor: es la lectura de la propia O1. La cuota de dermatología en clínicas de EE. UU. baja a ≈86 %, 5 puntos frente al T1 y 10 en un año, por «intensified promotion-led competition» (pres. T2 2026 PDF p. 6). La patente no protege de otra molécula.
+- fase_c.respuesta_contradictor.objeciones[0].rebate_con[2]: La dirección no sabe cuánto dura la presión: su volumen y su cuota seguirán bajo presión y no sabe decir si serán seis, doce o dieciocho meses (paráfrasis traducida) (call T2 2026 PDF p. 13).
+- fase_c.respuesta_contradictor.objeciones[0].rebate_con[3]: Que el ROIC del terminal converja hacia el coste de capital es el caso neutro declarado del ejercicio (CV pp. 10–11; E2). La carga de la prueba la tiene quien afirma un exceso, y el aviso V16 que señala la objeción es el G8 ya justificado en desviaciones_justificadas. El S2C implícito de 0,29 es la consecuencia de esa convención, no un error de derivación.
+- fase_c.respuesta_contradictor.objeciones[0].efecto: ninguno: no mueve la conclusión; Palancas!C18 sigue en 0,08 y los dos datos ausentes siguen materiales (una inferencia por omisión no es una fecha)
+- fase_c.respuesta_contradictor.objeciones[1].id: O2
+- fase_c.respuesta_contradictor.objeciones[1].direccion: sube
+- fase_c.respuesta_contradictor.objeciones[1].respuesta: rebatida
+- fase_c.respuesta_contradictor.objeciones[1].concedo: Draxxin es un antibiótico de ganado («bovine and swine respiratory disease»; 10-K 2025 PDF p. 15). El precedente de compañía con cifras es Rimadyl (perros; 10-K 2025 PDF p. 14): −39 % en EE. UU. desde los genéricos (10-K 2025 PDF p. 25). Mi MALO erosiona dermatología y parasiticidas a ese ritmo o más deprisa. Así, el suelo del MALO queda acotado por un precedente de compañía. Retiro la frase de que el MALO «refuerza que el rango no se puede acotar con confianza» en lo que toca al suelo. La duda de la fase A sobre Draxxin («no sé si se vendía para compañía o para ganado») queda resuelta: era de ganado.
+- fase_c.respuesta_contradictor.objeciones[1].rebate_con[0]: El descalificador no descansa en el suelo, sino en la parte de arriba. Para llegar a una conclusión favorable hace falta juzgar el BUENO, que aporta el 71 % de la ganancia esperada al precio de Sí (10,27 de 14,46; precio.json, resultados.json D78 = 124,61). El BUENO se apoya en la I+D (riñón 2027 y oncología 2028–29 son guía; 10-K 2025 PDF p. 4). La nota del propio contradictor lo calcula: con BUENO = NORMAL, P* = 67,90, por debajo de 73,08.
+- fase_c.respuesta_contradictor.objeciones[1].rebate_con[1]: El ataque a dermatología no es Rimadyl: no es un genérico de un antiinflamatorio viejo, sino un competidor nuevo, con su producto y bajo patente, que entró en EE. UU. en el T2 2026 (call T2 2026 PDF p. 13). Se lleva 5 puntos de cuota en un trimestre (pres. T2 2026 PDF p. 6), y la franquicia clave cae un 16 % (pres. T2 2026 PDF p. 20), unas tres veces el ritmo anual de Rimadyl.
+- fase_c.respuesta_contradictor.objeciones[1].rebate_con[2]: Que la dirección lo llame «mostly a competitive situation» (call T2 2026 PDF p. 15) no lo hace juzgable para mí. Saber si el producto nuevo se queda con la cuota y si Lenivia, Portela y el Cytopoint de larga duración la recuperan es juzgar producto contra producto. La propia dirección no se atreve: «I can't tell you» (call T2 2026 PDF p. 13). Simparica Trio también cede 2 puntos frente al T1 (pres. T2 2026 PDF p. 7).
+- fase_c.respuesta_contradictor.objeciones[1].rebate_con[3]: El círculo (Análisis!C12 = No) pregunta si sé juzgar las variables que deciden el valor. Que el suelo esté acotado no responde a esa pregunta.
+- fase_c.respuesta_contradictor.objeciones[1].efecto: ninguno: no mueve la conclusión; corrijo el papel de Draxxin y del suelo en el texto de esta sección, sin tocar celdas
+- fase_c.respuesta_contradictor.movimiento.motivo: las dos objeciones quedan rebatidas en lo que cambiaría la conclusión, con los datos citados; los hechos concedidos no la cambian
+- fase_c.respuesta_contradictor.hechos_en_otra_direccion_no_usados: El contradictor señala, sin desarrollarla como objeción, una demanda colectiva de accionistas del 27-may-2026 por declaraciones sobre la seguridad, la posición competitiva y la cuota (paráfrasis traducida) de Librela, Simparica Trio, Apoquel y Cytopoint (10-Q T2 2026 PDF p. 23). La he comprobado. Contradice la frase de la fase A de que los extractos no traen litigios. Va en la dirección de mi conclusión y no la mueve; la anoto para la auditoría. No hay objeción en la dirección «baja», así que no aplico ningún escalón.
+- fase_c.respuesta_contradictor.conclusion_final: concluido (provisional hasta la auditoría) · Demasiado difícil · demasiado_dificil · sin precio objetivo
