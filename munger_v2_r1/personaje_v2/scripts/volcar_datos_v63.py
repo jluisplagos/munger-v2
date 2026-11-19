@@ -145,6 +145,13 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     md.append("| Serie | " + " | ".join(fmt(x) for x in anios) + " |\n|---|" + "---|" * 10)
     for nombre, serie in h["series"].items():
         md.append(f"| {nombre} | " + " | ".join(fmt(x) for x in serie) + " |")
+    nc = t.get("normalizacion_circulante")
+    if nc:
+        # (V-CIRC) solo con la normalización del circulante efectiva en un libro V6.3.2 F1: sin ella, el volcado no cambia
+        md.append(f"\nNormalización declarada del circulante (libro V6.3.2 F1, Historia C93:L97; motor_a_f1.json → normalizacion_circulante; decisión V-CIRC de "
+                  f"la persona responsable): en {nc['anios']} el circulante NO entra en la reinversión neta (filas 30–31), en f (C58) ni en el ancla de S2C "
+                  f"(C53): ni entradas ni salidas de circulante, igual que en la caja base (Análisis C46). La fila «circulante» de la Historia es la cifra "
+                  f"publicada; lo excluido por año es {nc['excluido']}.")
     md.append("\n### Anclas (Historia C43:C66)\n")
     md.append("| Ancla | Celda | Valor |\n|---|---|---|")
     for ref, nombre in L.ANCLAS.items():
@@ -207,6 +214,19 @@ def seccion_md(t, herencia, refs=None, datos_ausentes=None):
     return "\n".join(md)
 
 
+def normalizacion_circulante(wb):
+    """(V-CIRC) Normalización efectiva del circulante de un libro V6.3.2 F1 recalculado (Historia A92, C93:L97): {anios, excluido} si C97 es
+    «circulante_a_cero»; None en los demás libros (V6.3, V6.3.1, V6.4) o sin normalización efectiva."""
+    if "Historia" not in wb.sheetnames:
+        return None
+    ws = wb["Historia"]
+    if "NORMALIZACIÓN DEL CIRCULANTE" not in str(ws["A92"].value or "") or ws["C97"].value != "circulante_a_cero":
+        return None
+    cols = "CDEFGHIJKL"
+    marcados = [(c, ws[f"{c}5"].value) for c in cols if ws[f"{c}94"].value == 1]
+    return {"anios": [y for _, y in marcados], "excluido": {str(y): ws[f"{c}95"].value for c, y in marcados}}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("recalc_xlsx")
@@ -218,6 +238,9 @@ def main():
     cfg = config_v2.cargar(a.config)
     wb = L.abrir(a.recalc_xlsx)
     t = L.todo(wb)
+    nc = normalizacion_circulante(wb)
+    if nc:   # (V-CIRC) libro V6.3.2 F1 con la normalización del circulante efectiva
+        t["normalizacion_circulante"] = nc
     etapa1 = a.etapa1 or os.path.join(a.carpeta, "etapa1")
     herencia = leer_etapa1(etapa1)
     t["herencia"] = {k: v for k, v in herencia.items() if k not in ("respuesta.md", "extracto.md", "juicio.json")}

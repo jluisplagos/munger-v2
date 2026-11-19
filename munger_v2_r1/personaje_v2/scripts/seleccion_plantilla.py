@@ -33,6 +33,12 @@ FAMILIA_V64 = (V64, V641)
 # económica), pero con su propia referencia y selección registrada (plantilla_activa.json), como la V6.4.1; se elige con
 # config_v2_v631_f1.json. Un expediente V6.3 no se ejecuta con ella ni uno V6.3.1 con la V6.3.
 V631 = "V6.3.1 F1"
+# (19-nov-2026, V-CIRC) V6.3.2 F1: la V6.3.1 F1 con la normalización declarada del circulante de la reinversión (Historia C93:L97). Es de la familia
+# V6.3.1 (el paso 2 le aplica la declaración F1 y la capa es su oráculo), con su propia plantilla, referencia, verificador y selección registrada
+# (config_v2_v632_f1.json). Los expedientes V6.3.1 siguen con la V6.3.1 (plantilla_activa.json fija sus huellas): cambiar de plantilla exige un
+# expediente nuevo
+V632 = "V6.3.2 F1"
+FAMILIA_V631 = (V631, V632)
 ARCHIVO = "plantilla_activa.json"
 CONF = "configuracion_economica.json"
 
@@ -55,7 +61,12 @@ def es_v641(cfg):
 
 
 def es_v631(cfg):
-    return version(cfg) == V631
+    """True para toda plantilla de la familia V6.3.1 F1 (V6.3.1 F1 y V6.3.2 F1): el perímetro F1 de la reinversión en la Historia."""
+    return version(cfg) in FAMILIA_V631
+
+
+def es_v632(cfg):
+    return version(cfg) == V632
 
 
 def registra(cfg):
@@ -115,7 +126,7 @@ def comprobar(carpeta, cfg):
         return None
     else:
         if es_v631(cfg) and os.path.exists(os.path.join(carpeta, CONF)):
-            return f"el expediente trae {CONF} pero la configuración {sel['config']} selecciona la {V631}: la configuración económica exige la plantilla {V64} o la {V641} (no se ignora)"
+            return f"el expediente trae {CONF} pero la configuración {sel['config']} selecciona la {version(cfg)}: la configuración económica exige la plantilla {V64} o la {V641} (no se ignora)"
         # (4.11, revisión interna H1) con la V6.4 y SIN plantilla_activa.json: si la carpeta ya tiene libros V6.3 o pasos hechos, el
         # expediente se preparó con la V6.3 (que nunca escribe plantilla_activa.json): no se ejecuta con la V6.4 ni se le escribe nada
         previos = [f for f in sorted(os.listdir(carpeta)) if f.endswith(("_v63_base.xlsx", "_v63_datos.xlsx", "_v63_evaluada.xlsx"))]
@@ -147,7 +158,7 @@ def comprobar(carpeta, cfg):
 
 
 def registrar(carpeta, cfg):
-    """Escribe plantilla_activa.json en la primera ejecución con la V6.4, la V6.4.1 o la V6.3.1 F1 (no lo reescribe si ya existe: comprobar()
+    """Escribe plantilla_activa.json en la primera ejecución con la V6.4, la V6.4.1, la V6.3.1 F1 o la V6.3.2 F1 (no lo reescribe si ya existe: comprobar()
     exige que coincida)."""
     if not registra(cfg):
         return None

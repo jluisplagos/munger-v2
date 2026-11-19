@@ -230,3 +230,11 @@ y las funciones nuevas `_escala_serie`, `_clase_cero` y `_cero_en_pagina`):
 - *Detalle menor:* con la escala pendiente, el año ya no cuenta además como columna comprobada; la columna se sigue examinando (otra
   columna → DATOS INVÁLIDOS).
 - Batería: 80 pruebas (6 nuevas, que fallan con el código de la ronda 2).
+
+## 11. Normalización del circulante (19-nov-2026) · la V6.3.1 no cambia
+
+**Hecho.** La normalización declarada del circulante de la reinversión (decisión V-CIRC (a); `personaje_v2/empresas_v2_correcciones/2026-11_Vidrala_ensayo_4_15/f1_circulante/F1_CIRCULANTE.md`)
+no está en la V6.3.1 F1: la plantilla, su referencia, su verificador (`eaece01a…`) y los expedientes hechos con ella no cambian. Con la normalización
+declarada y un libro V6.3.1, la capa bloquea con F1-LIBRO (límite declarado). Se calcula en la plantilla hermana **V6.3.2 F1** (`v6/v632_f1/`,
+`config_v2_v632_f1.json`), que sin normalización es exactamente la V6.3.1 (0 celdas distintas de 39.950 con las mismas entradas). `f1_libro_v631.py
+aplicar` escribe en un libro V6.3.1 las mismas 24 celdas de antes.

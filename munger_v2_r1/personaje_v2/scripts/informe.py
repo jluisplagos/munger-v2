@@ -232,6 +232,7 @@ def main():
         _bis = (_uf.get("D_US2_bis") or {}).get("texto")
         _k3 = f1b.get("K3") or {}
         _k3b_nota = " (según lo declarado o la hipótesis: sin contraste independiente con las líneas del expediente)" if _k3.get("K3b_contrastado") is False else ""
+        _nc = f1b.get("normalizacion_circulante") or {}   # (V-CIRC)
         linea += (f"\n\n> **Motor {_mf} · F1:** {('utilizable para una conclusión' + (' CONDICIONADA' if _cf else '') + ' (condición necesaria, no suficiente)') if f1b.get('utilizable_para_conclusion') else f'el resultado del motor {_mf} no se usa para una conclusión'}"
                   + (f"; condicionada a la {str(_cf.get('texto')).replace('«', '').replace('»', '')}" if _cf else "")
                   + (f"; {_cota}" if _cota else "")
@@ -244,6 +245,9 @@ def main():
                      (f"; K3: alquiler contado {_k3.get('K3b_alquiler_contado')}{_k3b_nota}, caja base por dos vías {'conforme' if _k3.get('K3a_caja_base_dos_vias') else 'sin explicar'}" if _k3 else "")
                      + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}")
                   + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
+                  # (V-CIRC) solo con la normalización declarada del circulante: la línea de los demás expedientes no cambia
+                  + ((f"; circulante normalizado a cero en {_nc.get('anios')} (V-CIRC: ni entradas ni salidas de circulante en la reinversión; la caja base ya lo "
+                      "excluye)" if _nc.get("aplicada") else "; normalización del circulante declarada y no aplicada (F1-CIRC)") if _nc else "")
                   + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")
         _pf = [g for g in (f1b.get("avisos") or []) if str(g.get("id")).startswith(("V-F1g (valores)", "V-F1k (valores)"))]
         if _pf:

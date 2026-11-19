@@ -25,6 +25,12 @@ ya cuentan una vez en el FCF base; la reinversión que calibra f no lleva ningun
 amortización de su derecho de uso que esté dentro de la fila 8 sale de D_X y lo que esté dentro de la fila 14 se retira del circulante.
 Si la empresa no publica en qué líneas del flujo van esos dos tramos, se aplica la hipótesis general declarada D-US1 (fuera de las filas 8
 y 14) y la conclusión queda condicionada, con su cota. Con el motor B y US GAAP solo se evalúa el puente de deuda (F1-US-PUENTE).
+Normalización declarada del circulante (19-nov-2026, decisión V-CIRC (a) de la persona responsable; F1_CIRCULANTE.md). Si la caja base excluye el
+circulante (Análisis C46, p. ej. Control maestro M43 en VINCI), la reinversión que calibra f y la del ancla de S2C tampoco lo llevan: con
+`normalizacion_circulante` (regla «circulante_a_cero», años, fundamento y registro; solo NIIF) el circulante de esos años no entra en la
+reinversión (ni entradas ni salidas). La fila 14 sigue siendo la cifra publicada; el ajuste (−fila 14) queda a la vista en el resultado y en las
+filas 93–97 del libro V6.3.2 F1. F1-CIRC exige que la normalización cubra los años que usa la reinversión (la ventana de f y los cinco del ancla) y
+que la caja base excluya el mismo circulante (una partida del componente C46 de conciliacion_fcf_base). Sin la declaración no cambia nada.
 
 Uso:
   motor_a_f1.py evaluar CARPETA [--libro LIBRO_RECALCULADO] [--declaracion motor_a_f1.json] [--salida DIR]
@@ -47,7 +53,7 @@ from fractions import Fraction as Fr
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 VERSION = ("F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2"
-           " · margen de partida según Palancas C8, 19-nov-2026)")
+           " · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026)")
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
 RESULTADO_MD = "motor_a_f1_resultado.md"
@@ -152,9 +158,16 @@ BASES_MARGEN = ("Último año", "Media del ciclo")
 BASE_CICLO = "Media del ciclo"
 TOL_M0 = Fr(1, 10 ** 12)
 COLS = "CDEFGHIJKL"
+# (19-nov-2026, V-CIRC) normalización declarada del circulante de la reinversión: decisión de la persona responsable del 19-nov-2026 sobre VINCI,
+# opción (a): «circulante a 0 también en la reinversión, con un mecanismo declarado: ni entradas ni salidas de circulante», porque la caja base
+# (Análisis C46) ya lo excluye (Control maestro M43). Una sola regla; solo NIIF. La caja base tiene que excluir el mismo circulante (F1-CIRC)
+CIRCULANTE = "normalizacion_circulante"
+REGLA_CIRCULANTE = "circulante_a_cero"
+CLAVES_CIRCULANTE = {"regla", "anios", "fundamento", "registro", "nota"}
+_REG_CIRC = "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md:134 (V-CIRC, 19-nov-2026, opción (a))"
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
                "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
-               "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series", "arrendamientos_us_gaap"}
+               "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series", "arrendamientos_us_gaap", CIRCULANTE}
 SERIES = ("da_rou", "da_ppa", "pagos_arrendamiento")
 SIN_TRATAMIENTO = ("", "ninguno", "ninguna", "-", "—", "no", "n/a", "na", "sin tratamiento", "none")
 
@@ -203,7 +216,8 @@ def leer_libro(ruta):
     import openpyxl
     wb = openpyxl.load_workbook(ruta, data_only=True, read_only=True)
     v = {"sha256": hashlib.sha256(open(ruta, "rb").read()).hexdigest(), "ruta": os.path.abspath(ruta)}
-    rangos = [("Historia", "A5:L81"), ("Historia", "A84:L89"), ("Análisis", "B44:D80"), ("Palancas", "C8:C8"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
+    # (V-CIRC) Historia A91:L98: la normalización del circulante del libro V6.3.2 F1 (en los libros V6.3 y V6.3.1 esas filas están vacías)
+    rangos = [("Historia", "A5:L81"), ("Historia", "A84:L89"), ("Historia", "A91:L98"), ("Análisis", "B44:D80"), ("Palancas", "C8:C8"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
               ("Diagnóstico V6", "B5:D16"), ("Diagnóstico V6", "B174:D179"), ("Control maestro", "H4:L4")]
     for hoja, rango in rangos:
         if hoja not in wb.sheetnames:
@@ -237,6 +251,7 @@ def plantilla_declaracion():
                        "naturaleza": None, "finalidad_documentada": None, "ancla_s2c_excluye_terminos": None},
         "reinversion_estimada": None,
         "arrendamientos_us_gaap": None,   # solo con US_GAAP: {registro, operativos: {existen, documento, pagina, cita, amortizacion_rou, variacion_pasivo}, financieros: {…}}
+        CIRCULANTE: None,   # (V-CIRC) solo si la caja base excluye el circulante: {regla: «circulante_a_cero», anios: [...], fundamento, registro}
         "series": {s: {} for s in SERIES},
         "normalizacion": {"ajustes": [], "bai": {}, "gasto_impuesto": {}, "margen_objetivo_sin_ajustes": None,
                           "deducir_diagnostico_partidas_puntuales": False},
@@ -263,7 +278,7 @@ def _declaracion_bien_formada(decl):
     se admite, no entra en el cálculo y queda a la vista (notas). Los demás sitios de una nota: «nota» en el primer nivel y «nota» dentro del año de una serie."""
     d, mal, notas = dict(decl), [], []
     objetos = ("norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic", "clasificacion_compras", "transicion",
-               "series", "normalizacion", "fuentes_series")
+               "series", "normalizacion", "fuentes_series", CIRCULANTE)
     for k in objetos:
         if d.get(k) is not None and not isinstance(d[k], dict):
             if d[k]:   # con contenido y sin ser un objeto; vacío ([], "", 0) = sin declarar
@@ -567,6 +582,102 @@ def rou_fila8(decl, anios):
     return leer_serie(decl, "da_rou", anios)[0]
 
 
+# ----------------------------------------------------------------------------------------------------------- (V-CIRC) normalización del circulante
+def leer_circulante(decl, anios):
+    """(19-nov-2026, V-CIRC) La normalización declarada del circulante de la reinversión (`normalizacion_circulante` de motor_a_f1.json), con la
+    misma lectura en la capa y en el libro (f1_libro_v631.celdas). None si no se declara (vacío = sin declarar: null o {}; un valor con contenido
+    que no es un objeto ya es DATOS INVÁLIDOS en F1-DECLARACION). Si se declara: {regla, anios (los válidos, ordenados), fundamento, registro,
+    forma: [(efecto, problema)], aplicable}. «aplicable» = la forma es válida (regla «circulante_a_cero», una lista de años de la Historia sin
+    repetir, sin claves desconocidas) y la norma declarada es NIIF: entonces la reinversión no lleva el circulante de esos años (ni entradas ni
+    salidas). El fundamento, el registro, la cobertura de los años que usa la reinversión y la coherencia con la caja base no deciden el cálculo:
+    los examinan las guardas (F1-CIRC, F1-REGISTRO), como con un perímetro declarado."""
+    n = decl.get(CIRCULANTE) if isinstance(decl, dict) else None
+    if not isinstance(n, dict) or not n:
+        return None
+    forma = []
+    desc = sorted(set(n) - CLAVES_CIRCULANTE)
+    if desc:
+        forma.append(("DATOS INVÁLIDOS", f"claves no reconocidas en {CIRCULANTE}: {', '.join(map(str, desc))} (se declaran regla, anios, fundamento, registro y, si "
+                                         "se quiere, nota; no se ignoran en silencio)"))
+    regla = n.get("regla")
+    if regla in (None, ""):
+        forma.append(("INCOMPLETO", f"regla sin declarar (la única admitida es «{REGLA_CIRCULANTE}»: ni entradas ni salidas de circulante en los años declarados)"))
+    elif regla != REGLA_CIRCULANTE:
+        forma.append(("DATOS INVÁLIDOS", f"regla {regla!r} no admitida (la única admitida es «{REGLA_CIRCULANTE}»)"))
+    lista, ok = n.get("anios"), []
+    if lista in (None, [], ""):
+        forma.append(("INCOMPLETO", "anios sin declarar: la lista de los ejercicios cuyo circulante no entra en la reinversión"))
+    elif not isinstance(lista, list):
+        forma.append(("DATOS INVÁLIDOS", f"anios no es una lista de años ({type(lista).__name__})"))
+    else:
+        for a in lista:
+            if isinstance(a, bool) or not isinstance(a, int):
+                forma.append(("DATOS INVÁLIDOS", f"anios: {a!r} no es un año (número entero)"))
+            elif a not in anios:
+                forma.append(("DATOS INVÁLIDOS", f"anios: {a} no está en la Historia del libro (fila 5)"))
+            elif a in ok:
+                forma.append(("DATOS INVÁLIDOS", f"anios: {a} repetido"))
+            else:
+                ok.append(a)
+    norma = _valor(decl, "norma_contable")[0]
+    return {"regla": regla, "anios": sorted(ok), "fundamento": n.get("fundamento"), "registro": n.get("registro"), "forma": forma,
+            "aplicable": not forma and norma == "NIIF", "norma": norma}
+
+
+def _guarda_circulante(G, C, decl, H, ventana, horiz):
+    """(V-CIRC) F1-CIRC: la normalización declarada del circulante (C = leer_circulante) solo es coherente si (i) su forma es válida, (ii) la norma es
+    NIIF (con US GAAP la fila 14 puede llevar tramos del arrendamiento operativo: D-US2 y D-US2 bis), (iii) cubre todos los años que usa la reinversión:
+    la ventana de f y los cinco años H–L del ancla de S2C (un ancla con el circulante en unos años y sin él en otros mezcla dos definiciones de la
+    reinversión; E4: todo el denominador), (iv) lleva su fundamento (la decisión y dónde la caja base excluye el mismo circulante) y (v) la caja base
+    excluye de verdad ese circulante: una partida completa de conciliacion_fcf_base del componente C46 (C46 − CFO medio, el que contrasta K3a) igual a la
+    media de la fila 14 de la ventana. Sin (v), excluir el circulante de la reinversión lo contaría como caja permanente dentro de C70 (una vez) en lugar
+    de ninguna. Severidad BLOQUEA; el registro lo exige F1-REGISTRO. Devuelve lo que enseña el resultado (o None sin declaración)."""
+    if C is None:
+        return None
+    prob = list(C["forma"])
+    if C["norma"] == "US_GAAP":
+        prob.append(("MODELO NO APLICABLE", "con US GAAP la fila 14 puede llevar tramos del arrendamiento operativo (D-US2, D-US2 bis): la normalización del "
+                                            "circulante solo está definida con NIIF (decisión V-CIRC, sobre un expediente NIIF); no se aplica"))
+    elif C["norma"] != "NIIF":
+        prob.append(("INCOMPLETO", "sin la norma contable declarada como NIIF la normalización del circulante no se aplica (solo está definida con NIIF)"))
+    marc = set(C["anios"])
+    falta_w = [y for y in ventana if y not in marc]
+    falta_h = [y for y in horiz if y not in marc and y not in ventana]
+    if not C["forma"]:   # con la forma inválida o incompleta la normalización no se aplica: la cobertura no añade nada
+        if falta_w:
+            prob.append(("INCOMPLETO", f"la normalización no cubre los años {falta_w} de la ventana que calibra f: f no se calcula (cubre todos los años que usa "
+                                       "la reinversión: la ventana de f y los cinco del ancla de S2C)"))
+        if falta_h:
+            prob.append(("INCOMPLETO", f"la normalización no cubre los años {falta_h} del ancla de S2C (H–L): el ancla no se calcula (un ancla con el circulante "
+                                       "en unos años y sin él en otros mezcla dos definiciones de la reinversión)"))
+    if not str(C["fundamento"] or "").strip():
+        prob.append(("INCOMPLETO", "fundamento sin declarar: la decisión de la persona y dónde excluye la caja base el mismo circulante (p. ej. Control "
+                                   "maestro M43)"))
+    wc_w = [H["dwc"][y] for y in ventana]
+    media_w = media(wc_w) if all(x is not None for x in wc_w) else None
+    partidas = [e for e in (decl.get("conciliacion_fcf_base") if isinstance(decl.get("conciliacion_fcf_base"), list) else [])
+                if isinstance(e, dict) and e.get("componente") == "C46" and Q(e.get("importe")) is not None and str(e.get("partida") or "").strip()
+                and e.get("fuente")]
+    coinc = [e for e in partidas if media_w is not None and abs(Q(e["importe"]) - media_w) <= TOL_E7]
+    if media_w is None:
+        prob.append(("INCOMPLETO", "la fila 14 tiene huecos en la ventana: no se puede comprobar que la caja base excluye el circulante"))
+    elif media_w != 0 and not coinc:
+        prob.append(("DATOS INVÁLIDOS", f"la caja base no excluye el circulante de la ventana: ninguna partida completa de conciliacion_fcf_base del componente C46 "
+                                        f"(C46 − CFO medio) es la media de la fila 14 de la ventana ({float(media_w):+.3f}); sin esa exclusión, quitar el circulante "
+                                        "de la reinversión lo contaría como caja permanente dentro de C70 (una vez) en lugar de ninguna"))
+    efecto = ("MODELO NO APLICABLE" if any(p[0] == "MODELO NO APLICABLE" for p in prob) else "DATOS INVÁLIDOS" if any(p[0] == "DATOS INVÁLIDOS" for p in prob)
+              else "INCOMPLETO")
+    G.add("F1-CIRC", bool(prob), "BLOQUEA", efecto,
+          ("normalización del circulante: " + "; ".join(p[1] for p in prob))[:1500] if prob else
+          (f"normalización del circulante «{REGLA_CIRCULANTE}» en {C['anios']}: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo "
+           f"circulante (conciliacion_fcf_base, C46: {float(Q(coinc[0]['importe'])) if coinc else 0.0:+.3f} = media de la fila 14 de la ventana)"),
+          "V-CIRC (a) · 19-nov-2026")
+    if not _registro_ok(C["registro"]):
+        G.add("F1-REGISTRO", True, "BLOQUEA", "INCOMPLETO", f"{CIRCULANTE} sin registro (fecha, persona, motivo): es una decisión, no la rellena el agente",
+              "E2 (registro de cada declaración)")
+    return {"media_fila_14_ventana": media_w, "partida_caja_base": coinc[0] if coinc else None, "problemas": [p[1] for p in prob]}
+
+
 def _guarda_norma(G, L, decl):
     """F1-NORMA: la norma es un valor cerrado en la declaración (NORMAS) y en el libro (NORMA_DEL_LIBRO), y los dos dicen lo mismo."""
     norma, reg_norma = _valor(decl, "norma_contable")
@@ -741,6 +852,14 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     # ---------------------------------------------------------------- norma contable (entrada declarada)
     norma = _guarda_norma(G, L, decl)
     us = norma == "US_GAAP"   # (F1 · US GAAP) arrendamientos operativos y financieros por separado (leer_us); con NIIF nada cambia
+    # (V-CIRC) normalización declarada del circulante (None sin declaración: nada cambia) y la del libro (None si el libro no es V6.3.2 F1)
+    import f1_libro_v631 as V631m
+    circ = leer_circulante(decl, set(anios))
+    circ_aplica = bool(circ and circ["aplicable"])
+    circ_anios = set(circ["anios"]) if circ_aplica else set()
+    nl = V631m.normalizacion_del_libro(L, anios, col)
+    nl_activa = nl is not None and nl["efectiva"] in V631m.EFECTIVAS_ACTIVAS
+    usados = set(ventana) | set(horiz)   # los años que usa la reinversión: la ventana de f y los cinco del ancla
 
     # ---------------------------------------------------------------- series declaradas
     S, probl_series = {}, []
@@ -1146,21 +1265,40 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             pal[esc] = vals
     res["palancas"] = {k: {kk: fl(vv) for kk, vv in v.items()} for k, v in pal.items()} or None
 
-    def WC_de(y, con_ajuste=True):
-        """Circulante que usa la reinversión: la fila 14 y, con US GAAP, sin la partida del arrendamiento operativo que esté dentro de ella (None si
-        hay que retirarla y su importe no está declarado: vacío ≠ 0). con_ajuste=False: la fila 14 tal cual, que es lo que calcula el libro."""
+    def _wc_normalizado(y, marcados):
+        """(V-CIRC) Circulante de la reinversión con una normalización «circulante_a_cero» en los años `marcados`: 0 en ellos (la fila 14 tiene que estar
+        publicada: vacío ≠ 0); None en un año que usa la reinversión (ventana de f o H–L del ancla) y no está marcado (no se mezclan las dos definiciones);
+        la fila 14 en los demás años (no entran en f ni en el ancla)."""
         w = H["dwc"][y]
-        if w is None or not us or not con_ajuste or not U["retira_de_14"]:
+        if w is None:
+            return None
+        if y in marcados:
+            return Fr(0)
+        return None if y in usados else w
+
+    def WC_de(y, con_ajuste=True, normalizar=True):
+        """Circulante que usa la reinversión: la fila 14 y, con US GAAP, sin la partida del arrendamiento operativo que esté dentro de ella (None si
+        hay que retirarla y su importe no está declarado: vacío ≠ 0); (V-CIRC) con la normalización declarada y aplicable, 0 en sus años (la fila 14
+        sigue siendo la cifra publicada; normalizar=False: sin ella, como diagnóstico). con_ajuste=False: lo que calcula el libro: la fila 14 tal
+        cual o, en un libro V6.3.2 F1 con su normalización efectiva, la de sus filas 93–97 (con «no reconocida», el libro deja f y el ancla vacías)."""
+        if not con_ajuste:
+            if nl_activa:
+                return _wc_normalizado(y, set(nl["anios"])) if nl["efectiva"] == REGLA_CIRCULANTE else None
+            return H["dwc"][y]
+        if circ_aplica and normalizar:
+            return _wc_normalizado(y, circ_anios)
+        w = H["dwc"][y]
+        if w is None or not us or not U["retira_de_14"]:
             return w
         return w - U["ajuste"][y] if y in U["ajuste"] else None
 
-    def calcular(p, con_fuera=False, aplicar_n1=True, con_act=False, con_ajuste=True):
-        if any(DX_de(p, y) is None or WC_de(y, con_ajuste) is None for y in ventana):
+    def calcular(p, con_fuera=False, aplicar_n1=True, con_act=False, con_ajuste=True, normalizar=True):
+        if any(DX_de(p, y) is None or WC_de(y, con_ajuste, normalizar) is None for y in ventana):
             return None
         tau, ebit = tasas_y_ebit(con_fuera, con_act) if aplicar_n1 else ({y: H["tau"][y] for y in anios}, {y: H["EBIT"][y] for y in anios})
         S_ = media(H["V"][y] for y in ventana)
         nopat = media(ebit[y] * (1 - tau[y]) for y in ventana)
-        reinv = media(H["capex"][y] - DX_de(p, y) + WC_de(y, con_ajuste) for y in ventana)
+        reinv = media(H["capex"][y] - DX_de(p, y) + WC_de(y, con_ajuste, normalizar) for y in ventana)
         f = (nopat - reinv - C70) / S_
         if any(tau[y] is None for y in tau_anios):
             return None
@@ -1172,7 +1310,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         ancla = None
         # (revisión V6.3.1, V631-5 y E4) los cinco años H–L de TODO el denominador: capex, D_X, circulante y adquisiciones (vacío ≠ 0)
         if all(DX_de(p, y) is not None and H["capex"][y] is not None and H["dwc"][y] is not None and H["adq"][y] is not None
-               and WC_de(y, con_ajuste) is not None for y in horiz) and H["V"][ant] is not None:
+               and WC_de(y, con_ajuste, normalizar) is not None for y in horiz) and H["V"][ant] is not None:
             xv = Fr(0)
             if hay_x and ccv == "reposicion_con_importe" and p != "A3_estimado":
                 if Q(cc.get("proporcion_ventas")) is not None:
@@ -1180,7 +1318,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 else:   # (H10) con importes por año, X^v son los importes históricos declarados de H–L (obligatorios: V-F1j)
                     xv += sum((Q(((cc.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz)
             xv += sum((Q(((tr.get("importes_historicos") or {}).get(str(y)))) or Fr(0)) for y in horiz) if trt == "termino_explicito" else Fr(0)
-            den = sum(H["capex"][y] - DX_de(p, y) + (WC_de(y, con_ajuste) or Fr(0)) + (H["adq"][y] or Fr(0)) for y in horiz) - xv
+            den = sum(H["capex"][y] - DX_de(p, y) + (WC_de(y, con_ajuste, normalizar) or Fr(0)) + (H["adq"][y] or Fr(0)) for y in horiz) - xv
             ancla = (H["V"][anios[-1]] - H["V"][ant]) / den if den > 0 else None
         esc = {}
         for nombre, pv in pal.items():
@@ -1213,6 +1351,11 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 if us and con_ajuste and U["retira_de_14"]:
                     lineas.append(("− partida del arrendamiento operativo dentro de la fila 14, que se retira del circulante (US GAAP: su pago ya está en el FCF base)",
                                    -media(U["ajuste"][y] for y in ventana), "explicada"))
+                elif (circ_aplica and normalizar) if con_ajuste else nl_activa:
+                    # (V-CIRC) el circulante que la normalización declarada excluye de la reinversión (la caja base ya lo excluye: Análisis C46)
+                    lineas.append(("− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de "
+                                   "circulante; la caja base ya lo excluye, Análisis C46)",
+                                   -media(H["dwc"][y] - WC_de(y, con_ajuste, normalizar) for y in ventana), "normalizacion_declarada"))
             else:
                 lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D&A ROU o PPA sin declarar)",
                                reinv, "sin_desglose"))
@@ -1235,15 +1378,20 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     # réplica del libro (F1-REPLICA): A0 sin normalizar reproduce Historia C58, C53 y los flujos del Motor
     rep = []
     r0 = diag.get("A0_total")
-    if us and U["retira_de_14"]:
-        r0 = calcular("A0_total", aplicar_n1=False, con_ajuste=False)   # (F1 · US GAAP) la réplica es la del libro, que no retira nada del circulante
+    if (us and U["retira_de_14"]) or circ_aplica or nl_activa:
+        # (F1 · US GAAP) la réplica es la del libro, que no retira nada del circulante; (V-CIRC) y que solo normaliza el circulante si es un libro V6.3.2 F1
+        # con su normalización efectiva: la de sus filas 93–97, no la declarada (la correspondencia con la declaración la mira F1-LIBRO)
+        r0 = calcular("A0_total", aplicar_n1=False, con_ajuste=False)
     r0, p_rep = _replica_v631(L, r0, lambda p, **k: calcular(p, **dict(k, con_ajuste=False)), anios, col, rep)
+    rep.extend(V631m.replica_circulante(L, anios, col))   # (V-CIRC) filas 95–97 del libro V6.3.2 F1 frente a sus entradas (fila 14, C93 y C94:L94)
     # (19-nov-2026) el margen de partida de la réplica (sin N1) frente al que usa el libro (la celda de la Historia según Palancas C8, Diagnóstico V6 C10
     # y Motor D6:D8), con f o sin ella: en el paso 7, sin palancas, no hay flujos que lo delaten
     m0_rep = margen_de_partida(anios, H["V"], H["EBIT"], V0, ciclo)
     rep.extend(_replica_m0(L, m0_rep, base_m0, celda_m0))
-    if r0 is None and C58 is None and p_rep != "A0":
-        res["replica_del_libro"] = {"perimetro_replicado": p_rep, "conforme": not rep, "nota": "f vacía en el libro y en la réplica (D_X incompleta en la ventana)"}
+    if r0 is None and C58 is None and (p_rep != "A0" or nl_activa):
+        res["replica_del_libro"] = {"perimetro_replicado": p_rep, "conforme": not rep,
+                                    "nota": "f vacía en el libro y en la réplica (D_X incompleta en la ventana" + (", o la normalización del circulante del libro no cubre la "
+                                                                                                                    "ventana o no se reconoce" if nl_activa else "") + ")"}
     elif r0 is None:
         rep.append(f"{p_rep} no calculable con la Historia del libro")
     else:
@@ -1272,6 +1420,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         res["replica_del_libro"] = {"f": fl(r0["f"], 15), "C58": fl(C58, 15), "ancla": fl(r0["ancla"]), "C53": fl(C53),
                                     "m0": fl(m0_rep, 15), "m0_del_libro": fl(m0_libro, 15), "m0_celda": celda_m0, "base_del_margen": base_m0,
                                     "flujos_contrastados": n_flujos, "conforme": not rep, "perimetro_replicado": p_rep}
+        if nl is not None:   # (V-CIRC) libro V6.3.2 F1: la réplica usa el circulante de su normalización efectiva
+            res["replica_del_libro"]["normalizacion_circulante_del_libro"] = {"efectiva": nl["efectiva"], "anios": nl["anios"]}
     G.add("F1-REPLICA", bool(rep), "BLOQUEA", "DATOS INVÁLIDOS", "; ".join(rep) if rep else
           f"la réplica A0 reproduce el libro (f, τ, m0 = {celda_m0}, ancla y flujos): la capa F1 y el libro son el mismo motor", "T1/T7", clase="implementacion")
 
@@ -1291,7 +1441,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             res["efecto_N1_frente_a_sin_normalizar"] = {k: (fl(v["F0"] - sin_n1["F0"], 6) if v else None) for k, v in variantes.items()}
     if per and decl_r is None:
         G.add("F1-PERIMETRO", True, "BLOQUEA", "INCOMPLETO", f"el perímetro {per} no es calculable: faltan series (D&A ROU, PPA o R) en la ventana"
-              + (" o, con US GAAP, la ubicación de la amortización del derecho de uso operativo o el importe que se retira del circulante" if us else ""), "(1a)")
+              + (" o, con US GAAP, la ubicación de la amortización del derecho de uso operativo o el importe que se retira del circulante" if us else "")
+              + (" o la normalización declarada del circulante no cubre la ventana (F1-CIRC)" if circ_aplica else ""), "(1a)")
     # K3 (revisión F1-IMPL, H5): el puente es una identidad y se conserva como presentación (E6); las tres comprobaciones que siguen las
     # pueden hacer fallar los datos
     k3 = {"identidad": None, "K3a_caja_base_dos_vias": None, "K3b_alquiler_contado": None, "K3c_reposicion_frente_a_su_caja": None}
@@ -1340,6 +1491,8 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     k3["K3a_caja_base_dos_vias"] = not k3a_mot
     G.add("F1-K3a", bool(k3a_mot), "BLOQUEA", "DATOS INVÁLIDOS",
           ("caja base por dos vías: " + "; ".join(k3a_mot)) if k3a_mot else "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada", "K3")
+    # (V-CIRC) F1-CIRC: la normalización declarada del circulante, coherente con la caja base (sin declaración no se añade nada)
+    circ_info = _guarda_circulante(G, circ, decl, H, ventana, horiz)
     # K3b · cuántas veces cuenta la proyección el coste de arrendamiento: amortización ROU en el margen + pagos en el FCF base − ROU que f devuelve
     if per and us:
         _k3b_us(G, k3, U, us_f, per, rou_pos, c49_pos)
@@ -1357,10 +1510,12 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         neg = decl_r["reinv"] < 0 and H["V"][ventana[-1]] >= H["V"][ventana[0]]
         just = str(decl.get("justificacion_reinversion_negativa") or "").strip()
         k3["K3c_reposicion_frente_a_su_caja"] = not neg or bool(just)
+        # (V-CIRC) con la normalización declarada, K3c mide la reinversión ya normalizada (la que calibra f): la regla no cambia
+        txt_c = f" (circulante normalizado a cero en {sorted(circ_anios)}, V-CIRC)" if circ_aplica else ""
         G.add("F1-K3c", neg, "AVISO" if just else "BLOQUEA", "INCOMPLETO",
-              (f"reinversión media de la ventana {float(decl_r['reinv']):.3f} < 0 con ventas que no bajan: D_X devuelve más amortización de la que el capex repuso"
+              (f"reinversión media de la ventana{txt_c} {float(decl_r['reinv']):.3f} < 0 con ventas que no bajan: D_X devuelve más amortización de la que el capex repuso"
                + (f" · justificación: {just}" if just else " · sin justificación")) if neg else
-              f"reinversión media {float(decl_r['reinv']):.3f} ≥ 0 (o ventas a la baja)", "K3")
+              f"reinversión media{txt_c} {float(decl_r['reinv']):.3f} ≥ 0 (o ventas a la baja)", "K3")
     k3["conforme"] = None if k3["identidad"] is None and k3["K3a_caja_base_dos_vias"] else all(v not in (False,) for v in (k3["identidad"], k3["K3a_caja_base_dos_vias"], k3["K3c_reposicion_frente_a_su_caja"])) \
         and k3["K3b_alquiler_contado"] in (None, "una vez", "ninguna vez (sin arrendamientos)")
     if us and k3["conforme"] is True and k3.get("K3b_contrastado") is False:
@@ -1384,21 +1539,31 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 v = mo["flujos"][t] if t < 10 else mo["flujo_11"]
                 if lv is not None and abs(v - lv) > TOL_LIBRO * max(1, abs(lv)):
                     dif_motor.append(f"Motor!{c}{fila}")
-    v631 = _libro_v631(L, per, rou8, ppa, anios, col, DX_de, decl_r, dif_motor)
+    # (V-CIRC) la normalización declarada del circulante con efecto (algún circulante distinto de cero en los años que usa la reinversión) solo la calcula el
+    # libro V6.3.2 F1; con un libro V6.3 o V6.3.1 F1 es un límite declarado (la salida es la V6.3.2 F1 en un expediente nuevo)
+    hay_circ = bool(circ_aplica and any(H["dwc"][y] for y in usados if H["dwc"][y] is not None))
+    txt_circ = (", circulante normalizado (V-CIRC; LÍMITE DECLARADO: ni la V6.3 ni la V6.3.1 F1 lo calculan; la salida es la plantilla V6.3.2 F1 en un "
+                "expediente nuevo)") if (hay_circ and nl is None) else ""
+    v631 = _libro_v631(L, per, rou8, ppa, anios, col, DX_de, decl_r, dif_motor, circ=(circ_anios if circ_aplica else None), circ_efecto=hay_circ)
+    ver_libro = "V6.3.2 F1" if nl is not None else "V6.3.1 F1"
     if v631 is not None:  # (V6.3.1 F1) el libro calcula el perímetro F1: la capa es el oráculo
         res["libro_v631_f1"] = v631
         if per and (v631["motivos"] or aj_ok or hay_terminos or hay_ajuste):
             G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
-                  f"el libro V6.3.1 F1 no calcula lo declarado ({per}" + (", N1" if aj_ok else "") + (", términos explícitos" if hay_terminos else "") + txt_ajuste
-                  + "; N1 y los términos explícitos no están en el libro): " + "; ".join(v631["motivos"])[:900]
+                  f"el libro {ver_libro} no calcula lo declarado ({per}" + (", N1" if aj_ok else "") + (", términos explícitos" if hay_terminos else "") + txt_ajuste
+                  + txt_circ + "; N1 y los términos explícitos no están en el libro): " + "; ".join(v631["motivos"])[:900]
                   + ": la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
-        else:
+        elif nl is None:
             G.add("F1-LIBRO", False, None, None, f"el libro V6.3.1 F1 calcula el perímetro declarado ({per}): f, ancla, D_X, series y "
                   f"{v631['flujos_contrastados']} flujos del Motor coinciden con la capa", "(1a) · implantación")
-    elif per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor or hay_ajuste):
+        else:
+            G.add("F1-LIBRO", False, None, None, f"el libro V6.3.2 F1 calcula el perímetro declarado ({per}) y la normalización del circulante declarada "
+                  f"({nl['efectiva']}" + (f" en {nl['anios']}" if nl["anios"] else "") + f"): f, ancla, D_X, series, años normalizados y "
+                  f"{v631['flujos_contrastados']} flujos del Motor coinciden con la capa", "(1a) · implantación")
+    elif per and (per != "A0_total" or aj_ok or hay_terminos or dif_motor or hay_ajuste or hay_circ):
         G.add("F1-LIBRO", True, "BLOQUEA", "MODELO NO APLICABLE",
               f"LÍMITE DECLARADO · el libro V6.3 calcula el perímetro A0 sin normalizar y sin términos explícitos; con {per}" + (" y N1" if aj_ok else "")
-              + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "") + txt_ajuste
+              + (" y términos explícitos de caja (transición o compras)" if hay_terminos else "") + txt_ajuste + txt_circ
               + (f"; flujos del perímetro declarado distintos de los del Motor en {len(dif_motor)} celdas" if dif_motor else "")
               + ": su valor no corresponde a la declaración; la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico", "(1a) · implantación")
     else:
@@ -1503,6 +1668,28 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     res["diagnostico_por_perimetro"] = {k: salida(v) for k, v in diag.items()}
     if "A0_total" in diag:
         res["diferencias_frente_a_A0_flujo_sin_crecimiento"] = {k: fl(v["F0"] - diag["A0_total"]["F0"], 6) for k, v in diag.items()}
+    if circ is not None or nl_activa:
+        # (V-CIRC) lo declarado, lo que se excluye por año (la fila 14 no cambia) y su efecto en el perímetro declarado (sin normalizar, como diagnóstico)
+        sin_n = calcular(per, normalizar=False) if (per and circ_aplica) else None
+
+        def _efecto(r):
+            return {"f": fl(r["f"], 15), "flujo_sin_crecimiento": fl(r["F0"], 9), "reinversion_media": fl(r["reinv"], 9), "ancla_s2c_E4": fl(r["ancla"])} if r else None
+        pcb = (circ_info or {}).get("partida_caja_base")
+        res["normalizacion_circulante"] = {
+            "decision": _REG_CIRC, "declarada": circ is not None, "aplicada": circ_aplica,
+            "regla": (circ or {}).get("regla"), "anios": (circ or {}).get("anios"), "fundamento": (circ or {}).get("fundamento"),
+            "registro": (circ or {}).get("registro"),
+            "excluido_por_anio": {str(y): fl(H["dwc"][y], 6) for y in sorted(circ_anios)},
+            "excluido_medio_en_la_ventana": (fl(media(H["dwc"][y] for y in ventana), 6)
+                                             if circ_aplica and all(y in circ_anios and H["dwc"][y] is not None for y in ventana) else None),
+            "caja_base": ({"componente": "C46", "partida": pcb.get("partida"), "importe": fl(Q(pcb.get("importe")), 6)} if pcb else None),
+            "problemas": (circ_info or {}).get("problemas") or [],
+            "efecto_en_el_perimetro_declarado": ({"sin_normalizar": _efecto(sin_n), "normalizado": _efecto(decl_r)} if sin_n or decl_r else None) if circ_aplica else None,
+            "libro": ({"version": "V6.3.2 F1", "efectiva": nl["efectiva"], "anios": nl["anios"]} if nl is not None else
+                      "V6.3 o V6.3.1 F1: el libro no normaliza el circulante"),
+            "nota": ("la fila 14 es la cifra publicada y no cambia; en los años normalizados el circulante no entra en la reinversión que calibra f ni en la del "
+                     "ancla de S2C (el ajuste es −fila 14; en el libro V6.3.2 F1, Historia filas 93–97). No es un dato: es la decisión V-CIRC de la persona, "
+                     "coherente con una caja base que excluye el mismo circulante")}
     if us:
         _informes_us(G, res, L, U, us_f, anios, ventana, col, V0, S_w, decl_r, pal, motor_)
         res["fase1_partes_sha256"] = (U.get("partes") or {}).get("sha256")   # las líneas de la fase 1 con que se contrastaron las ubicaciones (None: sin fase1_partes)
@@ -3177,9 +3364,11 @@ def _guarda_fuentes_series(G, decl, carpeta, anios, res=None, us=None, series=No
 
 def _f_vacia_v631(L):
     """(V6.3.1 F1) En un libro V6.3.1 con un perímetro F1 distinto de A0, f vacía (D_X incompleta en la ventana) no es un libro ilegible: es
-    un dato que falta (la capa lo dice con V-F1b o F1-PERIMETRO)."""
+    un dato que falta (la capa lo dice con V-F1b o F1-PERIMETRO). (V-CIRC) Tampoco en un libro V6.3.2 F1 con su normalización del circulante
+    efectiva o no reconocida (la ventana sin normalizar entera, o C93:L94 mal escritos: F1-CIRC, F1-LIBRO)."""
     import f1_libro_v631 as V631
-    return V631.perimetro_del_libro(L) not in (None, "A0_total")
+    nl = V631.normalizacion_del_libro(L)
+    return V631.perimetro_del_libro(L) not in (None, "A0_total") or (nl is not None and nl["efectiva"] in V631.EFECTIVAS_ACTIVAS)
 
 
 def _replica_v631(L, r0, calcular, anios, col, rep):
@@ -3193,16 +3382,19 @@ def _replica_v631(L, r0, calcular, anios, col, rep):
     return calcular("LIBRO_DX", aplicar_n1=False), f"D_X del libro ({p})"
 
 
-def _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor):
+def _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor, circ=None, circ_efecto=False):
     """(V6.3.1 F1) None si el libro no es V6.3.1 F1; si lo es, {perimetro_efectivo, motivos, flujos_contrastados}: motivos vacío = el libro
-    calcula el perímetro declarado (comparación numérica con la capa, que queda como oráculo)."""
+    calcula el perímetro declarado (comparación numérica con la capa, que queda como oráculo). (V-CIRC) circ: años de la normalización declarada y
+    aplicable del circulante (None sin ella); circ_efecto: si cambia algún circulante que usa la reinversión. En un libro V6.3.2 F1 se contrastan
+    también su normalización efectiva y sus años; en uno V6.3.1 F1, la normalización con efecto es un motivo (no la calcula)."""
     import f1_libro_v631 as V631
     p = V631.perimetro_del_libro(L)
     if p is None:
         return None
     n = sum(1 for k in L if k.startswith("Motor!") and k[6:8] in ("AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BF")
             and k[8:] in ("6", "7", "8") and Q(L[k]) is not None)
-    mot = V631.corresponde(L, per, rou, ppa, anios, col, (lambda y: DX_de(per, y)) if per else (lambda y: None), decl_r, dif_motor)
+    mot = V631.corresponde(L, per, rou, ppa, anios, col, (lambda y: DX_de(per, y)) if per else (lambda y: None), decl_r, dif_motor, circ=circ,
+                           circ_efecto=circ_efecto)
     esperado = 11 * len(decl_r["esc"]) if decl_r else 0   # sin palancas todavía (paso 7) no hay flujos en el libro ni en la capa
     if decl_r and n != esperado:
         mot.append(f"{n} flujos del Motor en el libro y {esperado} en la capa (11 por escenario con palancas)")
@@ -3244,6 +3436,22 @@ def informe_md(r):
                   f"{k3a['doble_computo_mm_a_la_escala_del_año_base']:.3f} a la escala del año base.")
     if r.get("us_gaap"):
         md += ["", "## US GAAP (ASC 842) · arrendamientos operativos y financieros por separado", "", "```", json.dumps(r["us_gaap"], ensure_ascii=False, indent=1), "```"]
+    nc = r.get("normalizacion_circulante")
+    if nc:   # (V-CIRC) la normalización declarada del circulante, a la vista
+        ef = nc.get("efecto_en_el_perimetro_declarado") or {}
+        sn, no = ef.get("sin_normalizar") or {}, ef.get("normalizado") or {}
+        md += ["", "## Normalización declarada del circulante (V-CIRC)", "",
+               f"- Declarada: {'sí' if nc.get('declarada') else 'no'} · aplicada: {'sí' if nc.get('aplicada') else 'no'} · regla: {nc.get('regla')} · años: {nc.get('anios')}",
+               f"- Circulante excluido de la reinversión por año (fila 14, + consume caja; la fila 14 no cambia): {nc.get('excluido_por_anio')}",
+               f"- Caja base (conciliacion_fcf_base, C46): {nc.get('caja_base')}",
+               f"- Libro: {nc.get('libro')}"]
+        if sn and no:
+            md += [f"- Efecto en el perímetro declarado (sin normalizar → normalizado): f {sn.get('f')} → {no.get('f')} · reinversión media "
+                   f"{sn.get('reinversion_media')} → {no.get('reinversion_media')} · flujo sin crecimiento {sn.get('flujo_sin_crecimiento')} → "
+                   f"{no.get('flujo_sin_crecimiento')} · ancla de S2C {sn.get('ancla_s2c_E4')} → {no.get('ancla_s2c_E4')}"]
+        if nc.get("problemas"):
+            md += [f"- Problemas (F1-CIRC): {'; '.join(nc['problemas'])}"]
+        md += [f"- {nc.get('nota')}"]
     if r.get("sensibilidad_peso_arrendamiento_1b"):
         md += ["", "## (1b) Sensibilidad al peso del año base", "", "```", json.dumps(r["sensibilidad_peso_arrendamiento_1b"], ensure_ascii=False, indent=1), "```"]
     md += ["", "## Parámetros sin valor adoptado", ""] + [f"- {k}: sin valor ({v['documento']})" for k, v in PARAMETROS_SIN_VALOR.items()]

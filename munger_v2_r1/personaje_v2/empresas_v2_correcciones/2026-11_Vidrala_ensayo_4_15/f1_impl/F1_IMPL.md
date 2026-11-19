@@ -252,3 +252,13 @@ correcciones. Se aplican así (resultados literales en `resultados/correcciones_
   de pruebas que pasan, no por el texto de cada línea (observación de la revisión).
 - **C1**: la integración en `examen/expedientes-f1` se hace con `merge --no-ff`, con el manifiesto regenerado en su propio commit.
 - `verificar_paquete.sh` exige al menos 177 pruebas en `test_motor_a_f1.py` y 72 en `test_perimetro_foso.py`.
+
+## 12. Normalización declarada del circulante (19-nov-2026, rama `f1/circulante-normalizado`)
+
+Decisión V-CIRC (a) de la persona responsable sobre VINCI (`DECISIONES_PARA_EL_USUARIO.md`:134): si la caja base excluye el circulante (C46, Control
+maestro M43), tampoco lo lleva la reinversión. Clave nueva `normalizacion_circulante` en `motor_a_f1.json` (regla `circulante_a_cero`, años, fundamento
+y registro; solo NIIF), guarda F1-CIRC (cobertura de la ventana y de H–L, coherencia con la caja base: una partida C46 de `conciliacion_fcf_base` igual
+a la media de la fila 14 de la ventana), partida propia en K3 y K3c sobre la reinversión ya normalizada; plantilla nueva V6.3.2 F1 (`v6/v632_f1/`) que
+la calcula (la V6.3.1 no cambia: con ella F1-LIBRO es un límite declarado). **Sin la declaración no cambia nada** (comprobado en ahold_f3, jumbo_g,
+zoetis_t1c y vinci/Vinci: resultado idéntico con el código anterior). Registro completo, pruebas y cómo aplicarlo a VINCI (expediente nuevo
+`vinci_b`): `../f1_circulante/F1_CIRCULANTE.md`. Sin revisión independiente todavía.

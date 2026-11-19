@@ -606,6 +606,7 @@ def _j_tolerante(p):
 RESUMEN_V64 = "resumen_v2_v64_experimental.csv"
 RESUMEN_V641 = "resumen_v2_v641_experimental.csv"
 RESUMEN_V631 = "resumen_v2_v631_f1.csv"   # (4.15, F1-IMPL) V6.3.1 F1
+RESUMEN_V632 = "resumen_v2_v632_f1.csv"   # (V-CIRC) V6.3.2 F1
 
 
 def nombre_resumen(carpeta, cfg=None):
@@ -621,7 +622,7 @@ def nombre_resumen(carpeta, cfg=None):
         v = None
     # (4.13 §7) la V6.4.1 tiene su propio resumen: sus filas no se mezclan con las de la V6.4 ni con las de la V6.3
     return (RESUMEN_V64 if v == "V6.4 experimental" else RESUMEN_V641 if v == "V6.4.1 experimental" else RESUMEN_V631 if v == "V6.3.1 F1"
-            else "resumen_v2.csv")
+            else RESUMEN_V632 if v == "V6.3.2 F1" else "resumen_v2.csv")
 
 
 def ruta_resumen(carpeta, cfg=None):
