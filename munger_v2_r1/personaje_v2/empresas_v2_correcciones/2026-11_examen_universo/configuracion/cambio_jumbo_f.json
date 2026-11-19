@@ -1,0 +1,92 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Jumbo",
+ "_estado_del_archivo": "Examen del personaje (19-nov-2026), ronda 2 de Jumbo. Expediente nuevo jumbo_f desde jumbo_e/Jumbo (que no se toca; tenía fases A, B, C, contradictor y registro de entradas sellado, commit cdf1b6f). POR QUÉ: el sellado del registro (munger-v2-evidencias-mistral, coordinacion/cierre_v2/examen/jumbo/revision_registro/REVISION_SELLADO.md, 787ad6f) confirma discrepancias que cambian valores del libro: C46 y C40 se calcularon con C76 = 200 (etapa 1), mientras la hipótesis vigente de la fase B de jumbo_e es C76 = 160. Por la salvaguarda J1 (los intereses de la caja sumada en C76 no entran), con C76 = 160: s = 160 × 3 ÷ (434,000394 + 444,815962 + 536,668758) = 0,339106; C46 = media 2023–2025 de [CFO + dividendos de la cartera + intereses cobrados − s × (intereses cobrados − cupones de bonos)] = 317,616988 → 317,617 (redondeo a 3 decimales, regla U2); C40 = FCF 2025 = 296,9129 − 38,384 − 2,3258 − 9,7272 + 1,8762 + 9,91679 − s' × (9,91679 − 0,595058), s' = 160 ÷ 471,8284 = 255,107832 → 255,108. Si la fase B de jumbo_f cambia C76, hay que recalcularlos (C52, f y lo que dependa los recalcula el libro). Se conservan las entradas declaradas restantes (C42, C47–C50, C96), fase1_partes, la declaración F1 (con la conciliación K3a de C46 actualizada tras preparar) y el registro de entradas verificacion_entradas.json, cuyas entradas corregidas quedan PENDIENTES de otro revisor (las selladas que no cambian conservan su sello solo si su vínculo sigue vigente). Historia!I17 (7,0351 frente a 7,0352) NO se corrige aquí: lo genera fase1_historia.py con redondeo binario de 7,03515 y ninguna corrección de entradas lo cambia sin tocar el producto (ver el informe). Nada adoptado; tasa 9 % provisional; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_f",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Jumbo S.A., la misma base y entradas que jumbo_e salvo C46 y C40, recalculadas por J1 con C76 = 160 (hipótesis vigente de la fase B de jumbo_e)."
+ },
+ "fechas": {
+  "ejecucion": "real",
+  "precio": "2026-11-17",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales oficiales 2016/17–2025 y semestral H1 2026 de Jumbo S.A. (FUENTES.tsv; Release fuentes-examen-20261118). Precio: página oficial de Euronext Athens leída por la persona responsable el 18-nov-2026 (coordinacion/cierre_v2/examen/precios/JUMBO_BELA_20261118.md). Tasa sin riesgo del agente de metadatos (buscador)."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md",
+  "extracto_v63.md",
+  "motor_a_f1.json",
+  "fuentes_mercado",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "notas_que_se_retiran": [],
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {
+  "C42": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)",
+  "C47": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)",
+  "C48": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)",
+  "C49": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)",
+  "C50": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)",
+  "C96": "entrada de jumbo_e sin cambio (configuracion/cambio_jumbo_e.json y resultados de jumbo_e: entradas_r3.json, recalculo_C42.json)"
+ },
+ "evidencia": {},
+ "textos_prohibidos": [
+  "24,72 € \\(precio de la etapa 1",
+  "PENDIENTE DE VERIFICACIÓN\\. No se usa el 27,28"
+ ],
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · JUMBO S.A. (caso del examen: «posible Sí») · plantilla V6.3.1 F1 (config_v2_v631_f1.json). Expediente jumbo_f (cambio_jumbo_f.json) desde jumbo_e, con C46 = 317,617 y C40 = 255,108 recalculados por J1 con C76 = 160 (hipótesis vigente de la fase B de jumbo_e), y antes jumbo_e desde jumbo_d, con la declaración F1 del motor A en el formato del código integrado (motor_a_f1.json; F1-A A2_propio, F1-B compras como crecimiento; series en euros con «escala»: «unidades»; PPA 2021–2025 = 0 con «cero_comprobado», PENDIENTE DE REVISOR; intereses de arrendamiento de la nota 5.5 para la vara del foso de P-FOSO (a)) y las mismas entradas que jumbo_c: decisiones J1–J3 de la persona responsable (18-nov-2026): C46 = 317,617 (C76 = 160) con los dividendos de la cartera cotizada y los intereses cobrados que no son de la caja de C76 (reparto s = C76/caja media = 200/471,83; SI LA FASE B CAMBIA C76, C46 HAY QUE RECALCULARLA); Historia de arrendamientos 2020–2025 corregida (etiquetas cruzadas por el emisor), C48 = interés 2,664 y C49 = principal 8,569. P-O2 (a): 134,365561 M acciones a 31-dic-2025. J-T: 2019 = seis meses, no comparable (2019 queda tal como se publicó; J-T bis, año natural 2019, decidido el 18-nov por la noche, NO está aplicado en este expediente). Precio 27,28 € del 17-nov-2026, verificado en Euronext Athens; es posterior a la fecha ex de la distribución extraordinaria de 1,00 € (≈ 134,37 mm), que C76 = 200 de la etapa 1 NO descuenta (límite para la fase B). Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen); fuentes_usuario/jumbo_etapa1/SHA256SUMS; metadato de la orquestación. · configuracion/cambio_jumbo_c.json (desde cambio_jumbo_base.json); DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2), «18-nov-2026 (tarde)»: P-O1 (c), P-O2 (a), J-T. J1–J3 y precio: DECISIONES_PARA_EL_USUARIO.md y examen/precios/JUMBO_BELA_20261118.md (coordinacion/cierre-v2). · configuracion/cambio_jumbo_d.json (declaración F1). · configuracion/cambio_jumbo_e.json (declaración F1 en el formato integrado; P-FOSO (a)). · configuracion/cambio_jumbo_f.json; coordinacion/cierre_v2/examen/jumbo/revision_registro/REVISION_SELLADO.md (787ad6f).",
+  "fecha": "2026-11-18"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ },
+ "analisis": {
+  "C46": {
+   "valor": 317.617,
+   "fuente": "(J1 con C76 = 160, 19-nov-2026) C46 = media 2023–2025 de [CFO + dividendos cobrados de la cartera cotizada + intereses cobrados − s × (intereses cobrados − cupones de bonos)], s = C76 160 × 3 ÷ caja 2023–2025 (434,000394 + 444,815962 + 536,668758) = 0,339106: CFO 323,918862 / 300,687098 / 296,912917; dividendos 0,133043 / 0,828384 / 1,8762; intereses cobrados 18,490712 / 13,791382 / 9,91679, de los que entran 12,422446 / 9,316283 / 6,755731 (cupones 0,595837 / 0,594641 / 0,595058) = 317,616988 → 317,617. Fuentes: AR2024 PDF p. 149, 154 y 178; AR2025 PDF p. 150, 155 y 179. C76 = 160 es la hipótesis vigente de la fase B de jumbo_e (no un dato): si la fase B cambia C76, C46 se recalcula.",
+   "pagina": "AR2024 PDF 149, 154 y 178; AR2025 PDF 150, 155 y 179",
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada derivada con su fórmula declarada (P-O1 c, J1, J2) y C76 = 160 (hipótesis de la fase B de jumbo_e)",
+   "fecha": "2025-12-31",
+   "derivacion": "media 2023–2025 de [CFO + dividendos de la cartera + intereses cobrados − s × (intereses cobrados − cupones)], s = 160 × 3 ÷ Σ caja 2023–2025",
+   "evidencia": {
+    "M": "C46 = 317,617 (317,616988) = media 2023–2025 de [CFO 323,918862 / 300,687098 / 296,912917 + dividendos 0,133043 / 0,828384 / 1,8762 + intereses cobrados que no son de la caja de C76 12,422446 / 9,316283 / 6,755731]; s = C76 160 ÷ caja media 471,828371 = 0,339106.",
+    "N": "[Clase: derivado de datos publicados + convención de reparto de la orquestación] Decisiones P-O1 (c), J1 y J2 (18-nov-2026). Recalculado en jumbo_f con C76 = 160, hipótesis vigente de la fase B de jumbo_e (REVISION_SELLADO.md de Jumbo): con C76 = 200 era 316,475. SI LA FASE B CAMBIA C76, hay que recalcular C46 y C40; con C76 = 0 entrarían todos los intereses."
+   }
+  },
+  "C40": {
+   "valor": 255.108,
+   "fuente": "(J1 con C76 = 160, 19-nov-2026) C40 = FCF del accionista 2025 con la definición de C46: CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 + dividendos de la cartera 1,8762 + intereses cobrados 9,91679 − s' × (9,91679 − cupones 0,595058), s' = 160 ÷ 471,8284 = 0,339107 → 6,755728; = 255,107832 → 255,108. Fuentes: AR2025 PDF p. 150, 155 y 179; Historia L11, L12, L16 y L17. C76 = 160: hipótesis vigente de la fase B de jumbo_e.",
+   "pagina": "AR2025 PDF 150, 155 y 179",
+   "periodo": "ejercicio 2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "naturaleza": "entrada derivada con su fórmula declarada (J1, J2) y C76 = 160",
+   "fecha": "2025-12-31",
+   "derivacion": "FCF 2025 = CFO − capex − intereses y principal de arrendamientos + dividendos de la cartera + intereses cobrados − s' × (intereses cobrados − cupones)",
+   "evidencia": {
+    "M": "C40 = 255,108 (255,107832) = 296,9129 − 38,384 − 2,3258 − 9,7272 + 1,8762 + 9,91679 − 0,339107 × (9,91679 − 0,595058).",
+    "N": "[Clase: derivado de datos publicados + convención de reparto de C46] Recalculado en jumbo_f con C76 = 160 (antes 254,318 con C76 = 200). Ejercicio 2025 y no LTM (decisión documentada de la etapa 1). FCF yield con C41 = 3.665,49: 6,96 %. No le afecta la desalineación de fechas de C42. SI LA FASE B CAMBIA C76, hay que recalcularlo."
+   }
+  }
+ }
+}
