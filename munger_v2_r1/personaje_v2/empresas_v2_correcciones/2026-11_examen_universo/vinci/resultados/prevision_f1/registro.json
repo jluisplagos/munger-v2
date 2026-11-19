@@ -1,0 +1,15 @@
+{
+ "fecha": "2026-11-19",
+ "que_es": "PREVISIÓN de la capa F1 del motor A (motor_a_f1.py evaluar) sobre el libro de datos recalculado del paso 4 (Vinci/recalc/Vinci_v63_datos.xlsx), ANTES de la fase A. No es la evaluación del paso 7 ni la sustituye; el pipeline la repetirá sobre el libro evaluado. Escrita fuera del expediente y copiada aquí como diagnóstico.",
+ "orden": "python3 scripts/motor_a_f1.py evaluar <vinci/Vinci> --libro <vinci/Vinci/recalc/Vinci_v63_datos.xlsx> --salida <scratch>  (código 3)",
+ "libro_sha256": "eaf0e5ce3ef1833a78f7edbd28448abb8313b21a2f9a0d239ee8be16e2e1950a",
+ "declaracion_sha256": "a3e0bfbeb4d0d754032a2388d96267e952d6e23cfd4399f92450f062c5b11196",
+ "resultado": "todas las guardas conformes (F1-NORMA, F1-REPLICA, F1-K3a, F1-K3b, F1-LIBRO, F1-SERIES, V-F1a…m) salvo F1-K3c, que BLOQUEA (INCOMPLETO → pendiente_de_datos): reinversión media 2023–2025 de la fila 30 (capex − D_X + circulante) = −1.514,333 con ventas al alza. Avisos: F1-SERIES-CERO (PPA 2021, pendiente de revisor) y V-F1f (informa).",
+ "diagnostico": "La fila 30 incluye el circulante de la Historia (fila 14: −1.463 / −2.311 / −2.496, entradas de caja), mientras que C46 lo EXCLUYE por la decisión del inversor de la etapa 1. Sin el circulante, capex − D_X = +329 / +876 / +522 (media +575,7). La guarda no se fuerza: la vía (justificación declarada en «justificacion_reinversion_negativa», corrección registrada de la fila 14 en un expediente nuevo u otra) es una decisión de la persona responsable o del coordinador.",
+ "cifras": {
+  "C52_FCF_base": 4419.333,
+  "f_A2": 0.044898608760346,
+  "flujo_sin_crecimiento_A2": 3016.068605087,
+  "K3a_residuo": -0.000333
+ }
+}

@@ -1,0 +1,334 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Vinci",
+ "_estado_del_archivo": "Examen del personaje (19-nov-2026). Expediente nuevo vinci/Vinci desde el montaje de la fase 1 vinci/montaje/Vinci (que no se toca; no se llevó más allá del relevo de la fase 1). Resuelve de antemano la parada del modo estricto del paso 2 (las entradas del FCF base de la etapa 1 son redondeos: 3.800, 89, 675, 344; C46 = 9.290 sí es exacta): C46–C50 con cálculo declarado y fuente (C46 más la regla espejo P-O1 c), vaciadas en la copia de ensayo de la etapa 1; C42 y C96 recalculadas con las acciones de P-O2 (a). Después de preparar, la orquestación añade en el DESTINO la declaración F1 del motor A (motor_a_f1.json; resultados/declaracion_f1_vinci.json). No se adopta nada; no apto para dinero real.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci/montaje/Vinci",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de VINCI SA (año natural, cerrado el 31-dic-2025), con el balance y el EBITDA LTM del semestral a 30-jun-2026 donde la etapa 1 los usa (C33, C40, C42, C53, C54). Decisiones de la persona responsable aplicadas: P-O1 (c) (C46), P-O2 (a) (C55 = 555,967094 M acciones en circulación a 31-dic-2025), F1-A y F1-B (declaración F1), E1 por precedente (medias exactas)."
+ },
+ "fechas": {
+  "ejecucion": "2026-10-10",
+  "precio": "2026-10-09",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026 de VINCI (FUENTES.tsv; Release fuentes-examen-20261118). Corte: fecha de análisis de la etapa 1 (Análisis!D4 = 2026-10-10); la información de los nueve meses de 2026 (22-oct-2026) queda fuera. Precio (107,05 €, 9-oct-2026) y tasa sin riesgo (3,486 %) de la etapa 1, proveedores secundarios, pendientes de verificación."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "notas_que_se_retiran": [],
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {},
+ "evidencia": {},
+ "textos_prohibidos": [
+  "→ C47 = 3800",
+  "→ C48 = 89\\.",
+  "→ C49 = 675\\.",
+  "→ C50 = 344"
+ ],
+ "control_maestro_textos": {
+  "F5": "3 años FY2023–2025 (decisión del inversor de la etapa 1, 23-oct-2026); medias exactas (precedente E1)",
+  "D88": "Medias del DCF: FY2023–2025 (C46–C50). Balance a 30/06/2026 y LTM a 30/06/2026 en C33, C40, C42, C53 y C54 (etapa 1); precio 09/10/2026 (etapa 1, pendiente de verificación); acciones en circulación a 31/12/2025 (C55 = 555,967094 M, P-O2 a).",
+  "C88": "OK",
+  "E88": "—",
+  "D90": "C46 = 9.327,333 (CFO sin circulante + dividendos de no consolidadas, P-O1 c), C47 = 3.799,667, C48 = 89,333, C49 = 675,333, C50 = 343,667: medias exactas FY2023–2025 con cálculo declarado (fase1_metadatos.json). Intereses de deuda dentro del CFO; intereses de arrendamientos en C48; principal en C49.",
+  "C90": "OK",
+  "E90": "—",
+  "D101": "Principal de arrendamientos por la nota 21 de cada URD; intereses de arrendamientos por la nota 6. Principal + interés = línea de financiación, salvo 1 mm de redondeo en 2023 (611 + 67 = 678 frente a 679)."
+ },
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · VINCI SA (DG, Euronext Paris) · plantilla V6.3.1 F1 (config_v2_v631_f1.json; rama examen/expedientes-f1). Expediente vinci/Vinci (configuracion/cambio_vinci.json) desde el montaje de la fase 1 (vinci/montaje/Vinci). Etapa 1 de la persona responsable (Vinci_evaluada.xlsx 7537492d…04d0, original en antecedentes/etapa1_original; Vinci_respuesta.md 63411305…07af), fecha de análisis 2026-10-10. Fuentes oficiales con huella (FUENTES.tsv): informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026; los nueve meses de 2026 (22-oct-2026) quedan fuera. Entradas: C46–C50 medias exactas 2023–2025 con cálculo declarado (precedente E1; C46 con la regla espejo P-O1 c), C55 = 555,967094 M acciones en circulación a 31-dic-2025 (P-O2 a), C42 y C96 recalculadas con ellas. Declaración F1 del motor A con norma NIIF, A2_propio (F1-A), compras como crecimiento (F1-B), series 2021–2025 de amortización de derechos de uso, PPA de Cobra IS e intereses de arrendamiento (P-FOSO a). Precio y tasa sin riesgo de la etapa 1, pendientes de verificación. Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen, rama coordinacion/cierre-v2 del repositorio auxiliar); fuentes_usuario/vinci_etapa1/SHA256SUMS (rama fuentes/etapa1-examen-20261117); DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2): F1-A, F1-B, P-O1 (c), P-O2 (a), P-FOSO (a); configuracion/cambio_vinci.json.",
+  "fecha": "2026-11-19"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ },
+ "analisis": {
+  "C46": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "redondeo": 3,
+    "terminos": [
+     {
+      "partida": "cfo",
+      "signo": 1
+     },
+     {
+      "partida": "circulante",
+      "signo": 1
+     },
+     {
+      "componente": "dividendos_sociedades_no_consolidadas",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "dividendos_sociedades_no_consolidadas": {
+      "2023": {
+       "valor": 31,
+       "fuente": "texto/vinci-urd-2024.txt",
+       "pagina": 348,
+       "cita": "Other 41 31",
+       "documento": "URD 2024 de VINCI (estados financieros consolidados 2024; comparativo 2023, la cifra más reciente publicada de 2023); nota 3.1, línea «Other» del cuadro de inversiones financieras, que el URD 2025 rotula «Dividends received from unconsolidated companies» (2024: 41 en las dos)"
+      },
+      "2024": {
+       "valor": 41,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 370,
+       "cita": "Dividends received from unconsolidated companies 40 41",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); nota 3.1"
+      },
+      "2025": {
+       "valor": 40,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 370,
+       "cita": "Dividends received from unconsolidated companies 40 41",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); nota 3.1"
+      }
+     }
+    },
+    "decision": "Decisión del inversor de la etapa 1 (Control maestro M43, 23-oct-2026): ventana de 3 años FY2023–2025 y CFO SIN la entrada de caja del circulante: media del CFO (fila 11: 10.540 / 11.714 / 11.886) + fila 14 de la Historia (circulante = −(variación del circulante del estado de flujos): −1.463 / −2.311 / −2.496) = 11.380 − 2.090 = 9.290, el valor de la etapa 1, exacto. P-O1 (c) «regla espejo» (persona responsable, 18-nov-2026, «para todas las empresas»; sustituye la decisión de la etapa 1 en ese punto) y, por analogía, J2 («igual que la caja»: C76 = 0, así que cuentan): se suman los dividendos de sociedades no consolidadas (participaciones financieras, p. ej. Groupe ADP), que VINCI incluye en el resultado de explotación pero presenta en inversión (nota 3.1): 31 / 41 / 40 (media 37,333). Los intereses ya van netos dentro del CFO («Net interest paid») y los dividendos de las puestas en equivalencia también: la regla espejo no añade nada más. APLICACIÓN DE LA ORQUESTACIÓN, pendiente de confirmación: 2023 se lee en la línea «Other» del URD 2024, que el URD 2025 rotula como dividendos de sociedades no consolidadas (mismo 41 de 2024). Efecto +37,333 (+0,4 %)."
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "fecha": "2025-12-31",
+   "naturaleza": "entrada de la etapa 1 (9.290, exacta) más la regla espejo P-O1 (c), con cálculo declarado",
+   "derivacion": "media 2023–2025 de [CFO + fila 14 (circulante) + dividendos de sociedades no consolidadas]",
+   "evidencia": {
+    "M": "Decisión del inversor (23-oct-2026): media 3 años FY2023–25 del CFO SIN la entrada de circulante: CFO 10.540 / 11.714 / 11.886 (media 11.380) − circulante 1.463 / 2.311 / 2.496 (media 2.090) = 9.290 (exacto). Regla espejo P-O1 (c) (18-nov-2026): + dividendos de sociedades no consolidadas, presentados en inversión, 31 / 41 / 40 (media 37,333) → C46 = 9.327,333 (cálculo declarado).",
+    "N": "Intereses netos pagados y dividendos de puestas en equivalencia ya dentro del CFO. C76 = 0 (etapa 1): los dividendos de las participaciones no consolidadas entran (analogía con J2). El CFO incluye anticipos de Polo Carmópolis (93 / −6 / −76) que la etapa 1 no retira. LTM 30/06/2026 y medias de 5 años en la etapa 1 (M43 anterior, en antecedentes/evidencia_anterior.json)."
+   }
+  },
+  "C47": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "redondeo": 3,
+    "terminos": [
+     {
+      "partida": "capex",
+      "signo": 1
+     },
+     {
+      "componente": "cobros_venta_inmovilizado",
+      "signo": -1
+     },
+     {
+      "componente": "cuentas_a_cobrar_ppp",
+      "signo": -1
+     }
+    ],
+    "componentes": {
+     "cobros_venta_inmovilizado": {
+      "2023": {
+       "valor": 148,
+       "fuente": "texto/vinci-urd-2024.txt",
+       "pagina": 336,
+       "cita": "Proceeds from sales of property, plant and equipment and intangible assets 170 148",
+       "documento": "URD 2024 de VINCI (estados financieros consolidados 2024; comparativo 2023, la cifra más reciente publicada de 2023); estado de flujos"
+      },
+      "2024": {
+       "valor": 170,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 358,
+       "cita": "Proceeds from sales of property, plant and equipment and intangible assets 179 170",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de flujos"
+      },
+      "2025": {
+       "valor": 179,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 358,
+       "cita": "Proceeds from sales of property, plant and equipment and intangible assets 179 170",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de flujos"
+      }
+     },
+     "cuentas_a_cobrar_ppp": {
+      "2023": {
+       "valor": -49,
+       "fuente": "texto/vinci-urd-2024.txt",
+       "pagina": 336,
+       "cita": "Financial receivables (PPP contracts and others) (279) (49)",
+       "documento": "URD 2024 de VINCI (estados financieros consolidados 2024; comparativo 2023, la cifra más reciente publicada de 2023); estado de flujos (pago publicado entre paréntesis; el término resta el valor publicado, es decir, suma su magnitud)"
+      },
+      "2024": {
+       "valor": -279,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 358,
+       "cita": "Financial receivables (PPP contracts and others) (311) (279)",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de flujos"
+      },
+      "2025": {
+       "valor": -311,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 358,
+       "cita": "Financial receivables (PPP contracts and others) (311) (279)",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de flujos"
+      }
+     }
+    },
+    "decision": "Definición D de la etapa 1 (Control maestro M44, decisión del inversor del 23-oct-2026): inversiones operativas netas de cobros + inversiones de crecimiento en concesiones y PPP (la que reproduce el FCF de VINCI): fila 12 de la Historia (compras de inmovilizado material e intangible + inversiones en inmovilizado de concesión: 3.332 / 4.052 / 3.873) − cobros por ventas de inmovilizado (148 / 170 / 179) + cuentas a cobrar financieras PPP (49 / 279 / 311) = 3.233 / 4.161 / 4.005; media exacta 3.799,667 (la etapa 1 traía el redondeo 3.800; precedente E1, valores exactos: SUPUESTO DE LA ORQUESTACIÓN, no decisión de la persona responsable para VINCI)."
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "fecha": "2025-12-31",
+   "naturaleza": "media exacta con cálculo declarado (precedente E1)",
+   "derivacion": "media 2023–2025 de [capex de la Historia − cobros por ventas + PPP]",
+   "evidencia": {
+    "M": "Decisión del inversor (23-oct-2026): capex definición D = inversiones operativas netas + inversiones de crecimiento en concesiones y PPP: 3.233 / 4.161 / 4.005 → media exacta 3.799,667 (cálculo declarado; la etapa 1 traía el redondeo 3.800; precedente E1)."
+   }
+  },
+  "C48": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "redondeo": 3,
+    "terminos": [
+     {
+      "partida": "intereses_financiacion",
+      "signo": 1
+     }
+    ],
+    "decision": "C48 = intereses de arrendamientos pagados en financiación (la única parte de los intereses que VINCI presenta en financiación, dentro de «Repayments of lease liabilities and financial expense on leases»; los de la deuda van en explotación, «Net interest paid»): media 2023–2025 de la fila 16 de la Historia = gasto financiero de arrendamientos de la nota 6, 67 / 91 / 110 (URD 2024 PDF p. 351; URD 2025 PDF p. 373), la fuente que cita la etapa 1 (Control maestro D101: «intereses de leases por la Nota 6»). Media exacta 89,333 (la etapa 1 traía el redondeo 89; precedente E1). Límite: la línea combinada menos el principal da 68 en 2023 (679 − 611) frente a 67 impreso (redondeo del emisor)."
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "fecha": "2025-12-31",
+   "naturaleza": "entrada de la etapa 1 con su valor exacto (precedente E1)",
+   "derivacion": "media 2023–2025 de la fila 16",
+   "evidencia": {
+    "M": "Intereses de arrendamientos (nota 6, «Financial expenses on lease liabilities»): 67 / 91 / 110 → media exacta 89,333 (la etapa 1 traía el redondeo 89). Intereses de la deuda financiera dentro del CFO («Net interest paid»), así que no entran aquí."
+   }
+  },
+  "C49": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "redondeo": 3,
+    "terminos": [
+     {
+      "partida": "arrendamientos_principal",
+      "signo": 1
+     }
+    ],
+    "decision": "C49 = principal de los pasivos por arrendamiento NIIF 16 (nota 21, «repayments of lease liabilities»): media 2023–2025 de la fila 17 de la Historia, 611 / 654 / 761 (URD 2023 PDF p. 183, URD 2024 p. 374, URD 2025 p. 396). Media exacta 675,333 (la etapa 1 traía 675; precedente E1). Sin subarriendos ni cobros de arrendamientos que restar (P-O1 c)."
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "fecha": "2025-12-31",
+   "naturaleza": "entrada de la etapa 1 con su valor exacto (precedente E1)",
+   "derivacion": "media 2023–2025 de la fila 17",
+   "evidencia": {
+    "M": "Principal de arrendamientos (nota 21): 611 / 654 / 761 → media exacta 675,333 (la etapa 1 traía 675). Principal + intereses (C48) = línea de financiación del estado de flujos (679 / 745 / 871), salvo 1 mm de redondeo en 2023."
+   }
+  },
+  "C50": {
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "redondeo": 3,
+    "terminos": [
+     {
+      "componente": "sbc_abonado_a_patrimonio",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "sbc_abonado_a_patrimonio": {
+      "2023": {
+       "valor": 265,
+       "fuente": "texto/vinci-urd-2024.txt",
+       "pagina": 337,
+       "cita": "Share-based payments (IFRS 2) - - - 265 - - - 265 - 265",
+       "documento": "URD 2024 de VINCI (estados financieros consolidados 2024; comparativo 2023, la cifra más reciente publicada de 2023); estado de cambios en el patrimonio, ejercicio 2023"
+      },
+      "2024": {
+       "valor": 344,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 359,
+       "cita": "Share-based payments (IFRS 2) - - - 344 - - - 344 - 344",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de cambios en el patrimonio, ejercicio 2024"
+      },
+      "2025": {
+       "valor": 422,
+       "fuente": "texto/vinci-urd-2025.txt",
+       "pagina": 359,
+       "cita": "Share-based payments (IFRS 2) - - - 422 - - - 422 - 422",
+       "documento": "URD 2025 de VINCI (estados financieros consolidados 2025; comparativo 2024); estado de cambios en el patrimonio, ejercicio 2025"
+      }
+     }
+    },
+    "decision": "Decisión del inversor de la etapa 1 (Control maestro M48, 23-oct-2026): SBC = la parte NO CAJA del gasto IFRS 2, la abonada a patrimonio (estado de cambios en el patrimonio): 265 / 344 / 422, media exacta 343,667 (la etapa 1 traía el redondeo 344; precedente E1). El gasto IFRS 2 total de la cuenta de resultados (fila 18 de la Historia: 360 / 462 / 567, media 463) es mayor: la diferencia (119,333 de media) no la explica el informe (la etapa 1 la escaló: cargas sociales o abonos en caja ya dentro del CFO); queda en la conciliación F1-K3a."
+   },
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "vaciar_en_etapa1": true,
+   "fecha": "2025-12-31",
+   "naturaleza": "entrada de la etapa 1 con su valor exacto (precedente E1)",
+   "derivacion": "media 2023–2025 del IFRS 2 abonado a patrimonio",
+   "evidencia": {
+    "M": "Decisión del inversor (23-oct-2026): SBC = parte no caja abonada a patrimonio 265 / 344 / 422 → media exacta 343,667 (cálculo declarado; la etapa 1 traía el redondeo 344; precedente E1). Gasto IFRS 2 total 360 / 462 / 567 (media 463)."
+   }
+  },
+  "C42": {
+   "valor": 6.27963994868316,
+   "fuente": "C42 = EV ÷ EBITDA LTM = (107,05 × 555,967094 + deuda financiera neta 22.450 + pasivos por arrendamiento 2.983 + minoritarios 3.654 − puestas en equivalencia 2.051) ÷ (13.507 + 6.405 − 6.129) = 86.552,2774127 ÷ 13.783 = 6,279640. Misma fórmula que la etapa 1 (6,25 con 551,548982 M acciones a 30-sep-2026), con las acciones de P-O2 (a) (en circulación a 31-dic-2025). Balance a 30-jun-2026 y EBITDA LTM del semestral (texto/vinci-hy-report-2026.txt PDF p. 3, 22, 23, 24, 55 y 60) y del URD 2025.",
+   "pagina": "Semestral 2026 PDF p. 3, 22, 23, 24, 55 y 60",
+   "periodo": "EV con precio del 9-oct-2026 y balance a 30-jun-2026; EBITDA LTM a 30-jun-2026",
+   "unidad": "x",
+   "evidencia": {
+    "M": "EV = capitalización 59.516,277 (107,05 × 555,967094 M acciones a 31-dic-2025, P-O2 a) + DFN 22.450 + arrendamientos 2.983 + minoritarios 3.654 − puesta en equivalencia 2.051 = 86.552,277 ÷ EBITDA LTM 13.783 = 6,28x."
+   }
+  },
+  "C96": {
+   "valor": 0.0009896862708928596,
+   "fuente": "% de insiders = acciones declaradas por los 15 consejeros a 31-dic-2025 (Huillard 336.616, Anjolras 201.670, Bazin 2.000, Medori 1.886, Laruelle 1.029, Grégoire Sainte Marie 1.016, Lombard 1.016, Messemer, Aguilar, Assouad, Bertocco Trindade y Zingoni 1.000 cada uno, tres consejeros de representación de empleados 0; total 550.233, URD 2025 PDF p. 148, cuadro «Composition of the Board of Directors») ÷ 555.967.094 acciones en circulación a 31-dic-2025 (= C55, P-O2 a; PDF p. 346) = 0,000990. La etapa 1 dividía entre las 581.816.830 emitidas (0,095 %). Límite de la etapa 1: solo el consejo.",
+   "pagina": "URD 2025 PDF p. 148 y 346",
+   "periodo": "31-dic-2025",
+   "unidad": "proporción",
+   "vaciar_en_etapa1": true,
+   "evidencia": {
+    "M": "Cálculo derivado: 550.233 acciones de los 15 consejeros (URD 2025 PDF p. 148) ÷ 555.967.094 en circulación a 31-dic-2025 (P-O2 a) = 0,099 %. Solo cubre el consejo (CEO incluido): límite inferior."
+   }
+  }
+ }
+}
