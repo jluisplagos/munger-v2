@@ -1,0 +1,201 @@
+- fase_c.una_sola_historia.incoherencias[0]: Fase A cerró con «el precio no da margen hoy» (C13 = No; unas 15,3 veces el FCF frente a una mediana de 12,5, C40, C41, C88). La hoja da `cumple_regla_k`, con el precio 0,79 € por debajo del precio de Sí (un 2,2 % del precio, diferencia ÷ precio). Ese colchón es más pequeño que cada una de las tres incertidumbres siguientes. Se resuelve con D10, no moviendo palancas.
+- fase_c.una_sola_historia.incoherencias[1]: Probabilidades B69:D69. La Observación cuenta la cola mala con el margen NIIF (cuatro de diez años ≤ 3,2 %) y la buena con el margen subyacente (tres años ≥ 4,4 %, AR2025 p. 64). Son medidas distintas. El margen del BUENO (4,5 % NIIF) nunca se ha alcanzado en NIIF (máximo 4,39 %, C51), y la propia Observación de B69 da «cuatro de diez» y lo deja en 0,2. Queda la convención sin un hecho que la sostenga: va a hipotesis_sin_fundamento.
+- fase_c.una_sola_historia.incoherencias[2]: Margen NORMAL Palancas!C15 = 0,04. Lo sostienen hechos NIIF (3,84 % en 2025 y 3,78 % de media 2021–2025, que redondean a 0,04). Pero la fase A trata los cargos como recurrentes. El subyacente actual (4,0 %, Q3-2026 p. 3) menos la media de cargos de 2021–2025 (0,38 puntos: subyacente de AR2025 p. 64 frente a la fila 29) da 3,62 %, que redondea a 0,035. La cifra está a 0,13 puntos de la frontera de redondeo. Se queda (no está mal derivada), pero es la hipótesis fundamentada de la que más depende la zona: en el tornado, el margen mueve el 48 % del ponderado.
+- fase_c.una_sola_historia.incoherencias[3]: Caja de partida del motor (dato, no palanca). El flujo sin crecimiento (2.770, motor_a_f1_resultado.md, K3) parte del FCF base C52 = 2.312, la media de 2023–2025. Según la nota de C46 y C47 (datos_v63 §2), esa ventana incluye la devolución fiscal belga de +367 de 2023, y el pago de unos 380 de 2021 queda fuera. La calibración de f trata como permanentes unos 122 al año: ≈ 1,5 € por acción en los tres escenarios, el doble del colchón. No recalculo la celda de datos (sección 17, regla 2): lo dejo dicho.
+- fase_c.una_sola_historia.incoherencias[4]: Precio C37 = 36,05: fuente secundaria (Trivano, 13-nov-2026), pendiente de fuente oficial (alcance_v2.json), y 32,75 el 30-oct. Un precio oficial por encima de 36,84 cambia la zona. Aviso A3: el precio y las acciones (P-O2 a, 28-dic-2025) tienen fechas separadas más de 90 días.
+- fase_c.una_sola_historia.incoherencias[5]: No son incoherencias, pero lo anoto. (a) El semáforo de la fila 42 marca el BUENO porque compara con 2 × C55, de todo el capital. Con F1 en A2_propio manda G7 con 2 × 14,82 % = 29,6 %, y no salta (§1 bis, límite declarado). (b) La fase B atribuye 1,8 puntos del salto del año 11 a la medida. No me apoyo en eso: justifico el salto entero como pérdida de ventaja. (c) A6 dice «DESCARTADA POR FILTRO PABRAI» y mi cubo provisional es Sí, solo por el orden de mando y sujeto a D10.
+- fase_c.lo_que_dice_la_hoja.escalera_precio_json: precio esc. MALO 28,47 · precio de Sí 36,84 (P*; el tope del NORMAL no actúa) · ponderado 40,19 · zona cumple_regla_k · el precio 0,79 € por debajo del precio de Sí (2,2 % del precio, diferencia ÷ precio) · precio esc. MALO 21 % por debajo del precio (diferencia ÷ precio) · regla antigua C156 = 28,47
+- fase_c.lo_que_dice_la_hoja.semaforos_relevantes[0]: fila 41 BUENO: ⚠ margen por encima de su máximo (G5 justificado en la fase B)
+- fase_c.lo_que_dice_la_hoja.semaforos_relevantes[1]: fila 42 BUENO: ⚠ «19 %, más del doble de su historia» frente a 2 × C55 (todo el capital); con F1 en A2_propio manda G7 (2 × 14,82 %), que no salta
+- fase_c.lo_que_dice_la_hoja.semaforos_relevantes[2]: fila 43 ROIC LP, fila 44 peso del terminal, fila 47 orden, fila 48 r ≥ r mínima (0,0786), fila 49 tipo-motor y fila 50 f: pasan
+- fase_c.lo_que_dice_la_hoja.semaforos_relevantes[3]: fila 45 cuota implícita: «—» (C24 vacía)
+- fase_c.lo_que_dice_la_hoja.semaforos_relevantes[4]: D85: asimetría débil; B267: «asimetría débil: revisa escenarios»; A6: DESCARTADA POR FILTRO PABRAI (C13 = No)
+- fase_c.lo_que_dice_la_hoja.salto_anio_11.explicacion: La rentabilidad marginal de los años 1–10 es 10,8 % / 16,0 % / 19,1 % (S2C × margen × (1 − t)), y el ROIC terminal 0,09 / 0,10 / 0,12. En el NORMAL y en el BUENO es mi hipótesis de que el exceso sobre el capital nuevo se estrecha a partir del año 11 (desviaciones_justificadas, G8). En el MALO no hay salto apreciable.
+- fase_c.lo_que_dice_la_hoja.dcf_inverso: Con el resto del NORMAL, el precio actual descuenta un crecimiento de ventas del −1,25 % anual en los años 1–5, y el precio de Sí uno del −0,45 % (tabla monótona, B193 pasa). Valor sin crecimiento 34,70: pago 1,35 por crecer y el crecimiento del NORMAL vale 5,98.
+- fase_c.lo_que_dice_la_hoja.palanca_mas_influyente: Margen / ROE objetivo (±2 pts): 19,67 € (48 % del ponderado); después la tasa (±1 pt) 6,80, el ROIC LP (±5 pts) 5,26, el crecimiento 2,57, g 0,49 y el S2C 0,25
+- fase_c.lo_que_dice_la_hoja.estado_tecnico: INCOMPLETO solo por las predicciones de la fase C (B256); B252 y B254 falsos: no hay bloqueo
+- fase_c.lo_que_dice_la_hoja.nota: el tornado es información, no criterio
+- fase_c.desviaciones_justificadas[0].comprobacion: G8
+- fase_c.desviaciones_justificadas[0].escenario: NORMAL
+- fase_c.desviaciones_justificadas[0].justificacion: Salto de 6,0 puntos: la rentabilidad marginal es 16,0 % (5,1 × 0,04 × 0,786) y el ROIC terminal 0,10. Es mi hipótesis sobre la ventaja. En los años 1–10 el capital propio nuevo (reformas, centros de distribución, automatización) rinde como el de hoy (16,15 % sin arrendamientos en 2025; 14,82 % de media), porque la densidad local aguanta (Albert Heijn, siete años ganando cuota; Food Lion, 53 trimestres de comparables positivas). Desde el año 11 el exceso sobre el capital nuevo se estrecha a un punto sobre r. El ahorro se reinvierte entero en precio, hay 1.000 M$ comprometidos en precios hasta 2028 y la presión de descuento se intensificó, y el retorno pagado el alquiler ya bajó al 10,67 % en 2024. La plantilla lo hace de golpe en el año 11; en la realidad sería gradual. «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM).
+- fase_c.desviaciones_justificadas[0].hechos[0]: datos_v63 §1 bis: ROIC sin arrendamientos 16,15 % (2025) y 14,82 % de media 2021–2025; ROIC del capital propio pagado el alquiler 10,67 % (2024), 13,03 % de media
+- fase_c.desviaciones_justificadas[0].hechos[1]: Diagnóstico V6 bloque 10 (resultados.json): rentabilidad marginal NORMAL 0,1603 frente a ROIC LP 0,10
+- fase_c.desviaciones_justificadas[0].hechos[2]: AR2025 p. 50: Albert Heijn 38,2 %, séptimo año ganando cuota; AR2025 p. 43: Food Lion 53 trimestres de comparables positivas
+- fase_c.desviaciones_justificadas[0].hechos[3]: AR2025 p. 45: ahorro de 1.294 (2025) y 1.354 (2024) reinvertido en precio; AR2025 p. 22: 1.000 M$ en precios en EE. UU. en 2025–2028
+- fase_c.desviaciones_justificadas[0].hechos[4]: AR2025 p. 69, 77: presión competitiva intensificada y downtrading hacia competidores de valor y descuento
+- fase_c.desviaciones_justificadas[0].clase: fundamentada
+- fase_c.desviaciones_justificadas[1].comprobacion: G8
+- fase_c.desviaciones_justificadas[1].escenario: BUENO
+- fase_c.desviaciones_justificadas[1].justificacion: Salto de 7,1 puntos: la rentabilidad marginal es 19,1 % (5,4 × 0,045 × 0,786) y el ROIC terminal 0,12. En los años 1–10 el BUENO se queda parte del ahorro, con la marca propia por encima del 40 % y Europa del 3,3 % al 3,8 % de margen subyacente. A perpetuidad no doy más de tres puntos sobre r (MR; E2), porque el foso es local y estrecho. Lo que pasó en 2021–2022 lo confirma: ROIC pagado el alquiler del 14,2–14,8 % con márgenes NIIF del 4,3–4,4 %, que bajó al 10,7–11,5 % en cuanto el margen volvió al 3,1–3,2 %. La ventaja de los años 1–10 no dura para siempre: «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM).
+- fase_c.desviaciones_justificadas[1].hechos[0]: datos_v63 §1 bis: 14,22 % (2021) y 14,75 % (2022); 11,48 % (2023) y 10,67 % (2024)
+- fase_c.desviaciones_justificadas[1].hechos[1]: Historia fila 29: margen NIIF 4,39 % (2021), 4,33 % (2022), 3,21 % (2023), 3,12 % (2024)
+- fase_c.desviaciones_justificadas[1].hechos[2]: Q2-2026 p. 4: marca propia por encima del 40 %; AR2025 p. 49: margen subyacente de Europa del 3,3 % (2023) al 3,8 % (2025)
+- fase_c.desviaciones_justificadas[1].hechos[3]: Diagnóstico V6 bloque 10 (resultados.json): rentabilidad marginal BUENO 0,1909 frente a ROIC LP 0,12
+- fase_c.desviaciones_justificadas[1].clase: fundamentada
+- fase_c.autocomprobacion[0].sesgo: anclaje en la etapa 1
+- fase_c.autocomprobacion[0].hallazgo: La etapa 1 dejó 0,2/0,6/0,2, consideró 0,3/0,6/0,1 y la descartó por contar el riesgo dos veces (datos_v63 §6, B69). La fase B mantiene la misma convención con el mismo argumento, y añade una frecuencia que mide las dos colas con varas distintas. C27 sí cambió (de Comprimiendo a Estable) con la serie de diez años.
+- fase_c.autocomprobacion[0].cambio: B69:D69 pasa a hipotesis_sin_fundamento con alternativas atadas a hechos. Las demás celdas heredadas de A y B nombran la evidencia revisada y no las toco.
+- fase_c.autocomprobacion[1].sesgo: anclaje en el precio o en la fuente externa
+- fase_c.autocomprobacion[1].hallazgo: No uso el valor externo de Simply Wall St (61,27, C38) ni el objetivo de los analistas (37,55). Miré si alguna palanca se acercó a la cotización: no, las cifras salen de las filas 28 y 29 y de la §1 bis, y el NORMAL (40,68) no se construyó desde el precio. Pero la zona depende de un precio de fuente secundaria que subió de 32,75 a 36,05 en dos semanas.
+- fase_c.autocomprobacion[1].cambio: Ninguno en las palancas. Dejo escrito que un precio oficial por encima de 36,84 cambia la zona y que la conclusión favorable no se apoya en el precio.
+- fase_c.autocomprobacion[2].sesgo: consistencia y compromiso
+- fase_c.autocomprobacion[2].hallazgo: La fase A decidió Vigilar porque el precio no daba margen. Las palancas no se ajustaron para llegar ahí: salieron favorables (cumple_regla_k). El riesgo ahora es el contrario, pasar a Sí porque la zona lo dice, o quedarme en Vigilar por compromiso con la fase A.
+- fase_c.autocomprobacion[2].cambio: El cubo provisional es Sí solo por el orden de mando. Que se mantenga lo decide la comprobación conjunta, no mi primera conclusión ni la zona.
+- fase_c.autocomprobacion[3].sesgo: historia bonita / viento de cola atribuido a la empresa
+- fase_c.autocomprobacion[3].hallazgo: C17 = No y el NORMAL crece con la inflación de alimentos, que no atribuyo a la empresa. Pero los años que sostienen el BUENO (margen NIIF del 4,3–4,4 % en 2021–2022) son los de cargos casi nulos y antes del compromiso de inversión en precios. Además, parte de la mejora de Europa en 2026 viene de una menor tasa del IMCA belga (Q3-2026 p. 8), que es regulación y no empresa.
+- fase_c.autocomprobacion[3].cambio: D69 entra en la lista con el suelo en 0,1. No muevo ninguna palanca.
+- fase_c.autocomprobacion[4].sesgo: optimismo del BUENO frente a la tasa base
+- fase_c.autocomprobacion[4].hallazgo: El BUENO pide un margen NIIF del 4,5 %, que nunca se ha dado (máximo 4,39 %), con un ROIC terminal de r + 3 puntos y crecimiento al ritmo del CAGR con Profi. No necesita más mercado (C24 vacía) ni más ROIC del que ha existido, pero su probabilidad de 0,2 se apoya en el margen subyacente, no en la medida de su palanca.
+- fase_c.autocomprobacion[4].cambio: p(BUENO) va a la lista, con el rango [0,1; 0,2] y el extremo adverso en 0,1.
+- fase_c.autocomprobacion[5].sesgo: doble castigo del mismo riesgo
+- fase_c.autocomprobacion[5].hallazgo: Miré la rigidez del alquiler, que está en la r heredada (Observación de C56), en el MALO (margen del 3 %), en la quiebra (0) y en la probabilidad (0,2). La quiebra no la cuenta, y la probabilidad central tampoco. En la combinación subo p(MALO) a 0,3 sin tocar la severidad, la r ni la quiebra: el riesgo se cuenta en un solo canal (PA; E6, extendido como convención del ejercicio).
+- fase_c.autocomprobacion[5].cambio: Ninguno: C22 = 0 y la severidad del MALO se quedan como están.
+- fase_c.autocomprobacion[6].sesgo: disponibilidad (lo vívido del extracto)
+- fase_c.autocomprobacion[6].hallazgo: Lo vívido es el incidente de ciberseguridad, los opioides, los 32 cierres de Stop & Shop y la compra de Tesco. Ninguno está extrapolado en las palancas: el incidente es puntual (75–100 en el 4T) y Tesco solo está en el BUENO. Lo que la Historia muestra en diez filas, la ventana del FCF base con la devolución belga, pesaba menos de lo que debía.
+- fase_c.autocomprobacion[6].cambio: Anoto en incoherencias el efecto de la devolución belga en la caja de partida (≈ 1,5 € por acción). No es una palanca y no la compenso con otra.
+- fase_c.autocomprobacion[7].sesgo: autoridad (guía de la dirección como hecho)
+- fase_c.autocomprobacion[7].hallazgo: Ninguna palanca copia la guía, pero el margen NORMAL de 0,04 coincide con la guía de «alrededor de 4 %» hasta 2028 (AR2025 p. 22). Su apoyo cita el margen subyacente, que es la medida de la dirección sin cargos. Con los cargos medios de 2021–2025, el subyacente actual da 3,62 % NIIF.
+- fase_c.autocomprobacion[7].cambio: C15 se queda en 0,04 porque la sostienen hechos NIIF (3,84 % y 3,78 %), pero la marco como la hipótesis fundamentada en la frontera de redondeo. No la muevo.
+- fase_c.autocomprobacion[8].sesgo: ¿el MALO es de verdad malo?
+- fase_c.autocomprobacion[8].hallazgo: El MALO (28,47, un 21 % bajo el precio) mantiene cinco años el margen de 2023–2024 (3,0 %), con las ventas planas en nominal, g del 1 % y ROIC igual a r. En él el crecimiento destruye 6,23 € y no es un NORMAL maquillado. Pero tampoco es severo: no modela una entrada fuerte del descuento con el margen hacia el 2,5 %. «We don't think because it's never happened that it won't» (AIWTK p.55; HIM).
+- fase_c.autocomprobacion[8].cambio: Ninguno en las palancas: el MALO tiene base en la fila 29 y queda escrito que no es un suelo ni la pérdida máxima (D11).
+- fase_c.autocomprobacion[9].sesgo: lo no numerable que pesa y no está en las palancas
+- fase_c.autocomprobacion[9].hallazgo: Hay cosas que ninguna celda recoge. La caja de partida tiene la devolución belga dentro. El precio está pendiente de fuente oficial. F1-SERIES sigue pendiente en tres años de la amortización de los derechos de uso (aptitud por entradas «no»). Hay unos 35.000 sin descontar de prórrogas de arrendamiento fuera del pasivo (AR2025 p. 272). Y hay cambios de los CEO de EE. UU. y de Europa sin motivo (Q3-2026 p. 11, 30).
+- fase_c.autocomprobacion[9].cambio: Lo escribo en una_sola_historia y en fase_c.md, y en el turno 2 irá a la tesis inversa y a B222:B223. No muevo palancas por ello.
+- fase_c.limite_del_modelo.porque: El motor A vale con F1 en A2_propio: el FCF base es positivo los diez años (fila 35), la financiación es estable y la gramática no tiene límites (0). F1-SERIES pendiente en tres años es una condición de aptitud por entradas, no un límite del modelo.
+- fase_c.cubo_provisional: Sí
+- fase_c.conclusion_provisional: comprar
+- fase_c.revision_datos_ausentes.revisados[0].dato: evidencia Historia!C23:L23
+- fase_c.revision_datos_ausentes.revisados[0].que_falta: ceros de la fila 23 (pasivo por arrendamientos) de 2016 y 2017, pendientes de verificación humana
+- fase_c.revision_datos_ausentes.revisados[0].conclusion_afectada: Historia fila 23 de 2016–2017 (capital invertido y ROIC de esos años); ninguna celda de juicio
+- fase_c.revision_datos_ausentes.revisados[0].porque: Los dos ceros son anteriores a la NIIF 16, que se aplica desde 2019. La cita dice que los arrendamientos financieros de la NIC 17 van en deuda. Ninguna ancla de mis palancas usa 2016–2017: el S2C, C54, C55 y la vara P-FOSO de la §1 bis son de 2021–2025. La verificación pendiente afecta a la etiqueta LISTO·PROVISIONAL, no a la escalera.
+- fase_c.revision_datos_ausentes.revisados[1].dato: evidencia Historia!C26:L26
+- fase_c.revision_datos_ausentes.revisados[1].que_falta: ceros de la fila 26 (minoritarios) de 2016–2025, pendientes de verificación humana
+- fase_c.revision_datos_ausentes.revisados[1].conclusion_afectada: valor por acción B78:D78 (minoritarios que restar del valor del accionista)
+- fase_c.revision_datos_ausentes.revisados[1].porque: El extracto da los minoritarios en cero en el resultado y en el resultado global de 2025 (AR2025 p. 212, 213) y en el balance del 3T de 2026 (Q3-2026 p. 14). La verificación humana pendiente es formal: los documentos no dan ningún minoritario que pudiera rebajar el valor por acción.
+- fase_c.revision_datos_ausentes.revisados[2].dato: Palancas!C24
+- fase_c.revision_datos_ausentes.revisados[2].que_falta: tamaño del mercado del año 10
+- fase_c.revision_datos_ausentes.revisados[2].conclusion_afectada: Palancas!C24 y la cuota implícita (fila 45, «—»); lectura del mercado que necesita el BUENO
+- fase_c.revision_datos_ausentes.revisados[2].porque: El BUENO crece al 4,5 % en los años 1–5, el CAGR de cinco años con Profi (C46), y no supone ganar cuota más allá de lo observado. En el tornado, el crecimiento (±2 puntos) mueve 2,57 €. Sin cifra primaria, C24 queda vacía por regla y la cuota implícita sería un techo de contraste, no un fundamento.
+- fase_c.revision_datos_ausentes.revisados[3].dato: extracto_v63: Entrada de la etapa 1: el archivo etapa1/extracto.md no existe en la carpeta; el texto de etapa 1 disponible es etapa1/Ahold_respuesta.md y se usó solo para no 
+- fase_c.revision_datos_ausentes.revisados[3].que_falta: el archivo etapa1/extracto.md
+- fase_c.revision_datos_ausentes.revisados[3].conclusion_afectada: comparacion_etapa_1 (turno 2); ninguna celda de juicio
+- fase_c.revision_datos_ausentes.revisados[3].porque: La respuesta de la etapa 1 (etapa1/Ahold_respuesta.md) y sus Observaciones están en datos_v63 §6, con el cubo Vigilar y el precio de Sí ≈ 23 €. Es lo que necesito para comparar. No falta ningún hecho de la empresa.
+- fase_c.revision_datos_ausentes.revisados[4].dato: extracto_v63: Convención de páginas: todas las citas usan la marca [PDF PAGE n] del texto; la página impresa del informe es una menos que la marca.
+- fase_c.revision_datos_ausentes.revisados[4].que_falta: nada: es la convención de páginas del extracto (página impresa = marca PDF − 1)
+- fase_c.revision_datos_ausentes.revisados[4].conclusion_afectada: la forma de citar las páginas; ninguna celda de juicio
+- fase_c.revision_datos_ausentes.revisados[4].porque: No es un dato ausente. Todas mis páginas siguen la marca [PDF PAGE n] del extracto, igual que en las fases A y B, así que las citas son coherentes entre fases y no cambia ninguna cifra.
+- fase_c.revision_datos_ausentes.revisados[5].dato: extracto_v63: Tamaño de mercado (valor) y crecimiento del mercado como cifra de la empresa, por país o región.
+- fase_c.revision_datos_ausentes.revisados[5].que_falta: tamaño y crecimiento del mercado como cifra de la empresa, por país o región
+- fase_c.revision_datos_ausentes.revisados[5].conclusion_afectada: Palancas!C24 y la cuota implícita; crecimiento del NORMAL
+- fase_c.revision_datos_ausentes.revisados[5].porque: El NORMAL (3 %) se apoya en la inflación de alimentos que cita la empresa (2,3–2,7 %, AR2025 p. 59) y en las comparables del 1,2–3,2 % (AR2025 p. 344; Q3-2026 p. 3), no en un crecimiento del mercado. Una cifra de mercado acotaría el BUENO, que pesa 0,2 y cuyo crecimiento mueve poco el valor.
+- fase_c.revision_datos_ausentes.revisados[6].dato: extracto_v63: Definición y mercado de referencia de la cuota de Albert Heijn (38,2 %); cuota de mercado de cualquier otra marca, incluidas las de EE. UU.
+- fase_c.revision_datos_ausentes.revisados[6].que_falta: definición y mercado de referencia del 38,2 % de Albert Heijn; cuota de las demás marcas
+- fase_c.revision_datos_ausentes.revisados[6].conclusion_afectada: C18 (foso estrecho y desigual por marca) y Palancas!C18:D18
+- fase_c.revision_datos_ausentes.revisados[6].porque: El foso no lo juzgo con la cuota: lo juzgo con el ROIC del capital propio pagado el alquiler (13,03 % de media frente a r, el peor año 10,67 %, §1 bis). El ROIC terminal del NORMAL solo deja un punto sobre r. La definición de la cuota afinaría la anchura del foso, pero no cambia los hechos que anclan las palancas.
+- fase_c.revision_datos_ausentes.revisados[7].dato: extracto_v63: Cifra de cuota de Delhaize (solo «récord»).
+- fase_c.revision_datos_ausentes.revisados[7].que_falta: cifra de cuota de Delhaize en Bélgica
+- fase_c.revision_datos_ausentes.revisados[7].conclusion_afectada: C18, solo para la marca belga
+- fase_c.revision_datos_ausentes.revisados[7].porque: Delhaize es una marca de Europa, que en conjunto pesa el 42,5 % de las ventas (AR2025 p. 49), y la serie de márgenes del segmento ya recoge su resultado. La cifra de cuota no movería ninguna palanca del grupo.
+- fase_c.revision_datos_ausentes.revisados[8].dato: extracto_v63: Competidores nombrados como tales: no aparecen; los nombres en los documentos son grupos de comparación de retribución y de rentabilidad para el accionista.
+- fase_c.revision_datos_ausentes.revisados[8].que_falta: competidores nombrados como tales
+- fase_c.revision_datos_ausentes.revisados[8].conclusion_afectada: C18 (quién me mata), severidad del MALO (B15, B66) y B102
+- fase_c.revision_datos_ausentes.revisados[8].porque: La empresa no los nombra, así que no está en sus documentos. Pero el efecto de los competidores de descuento ya se ve en lo que ancla el MALO: un margen NIIF del 3,21 % y 3,12 % en 2023–2024, con la presión competitiva intensificada (AR2025 p. 69, 77). Es el borde del círculo declarado en C12. Un nombre no cambia la cifra del MALO, aunque sí la calidad de la tesis inversa.
+- fase_c.revision_datos_ausentes.revisados[9].dato: extracto_v63: Importe y porcentaje de ventas de I+D.
+- fase_c.revision_datos_ausentes.revisados[9].que_falta: importe y porcentaje de I+D
+- fase_c.revision_datos_ausentes.revisados[9].conclusion_afectada: Palancas!C9 y C10
+- fase_c.revision_datos_ausentes.revisados[9].porque: Es un supermercado sin I+D publicada (Historia fila id «desconocido»), con C9 = No y C10 vacía. Capitalizarla no aplica a este negocio y no toca la escalera.
+- fase_c.revision_datos_ausentes.revisados[10].dato: extracto_v63: Capex por destino con importe (reformas, centros de distribución, tecnología); solo hay capex por región.
+- fase_c.revision_datos_ausentes.revisados[10].que_falta: capex por destino con importe (reformas, centros de distribución, tecnología)
+- fase_c.revision_datos_ausentes.revisados[10].conclusion_afectada: S2C marginal (Palancas!B16:D16) y reparto entre mantenimiento y crecimiento
+- fase_c.revision_datos_ausentes.revisados[10].porque: El S2C está anclado en el S2C medio del capital propio de 2021–2025 (4,57–5,43, §1 bis). En el tornado, el S2C (±0,3) mueve 0,25 €. El destino del capex afinaría la confianza, que es baja, pero no desplaza la cifra lo bastante para cambiar la zona.
+- fase_c.revision_datos_ausentes.revisados[11].dato: extracto_v63: Múltiplo pagado por Profi y precio de Delfood.
+- fase_c.revision_datos_ausentes.revisados[11].que_falta: múltiplo pagado por Profi y precio de Delfood
+- fase_c.revision_datos_ausentes.revisados[11].conclusion_afectada: C98 (asignación de capital)
+- fase_c.revision_datos_ausentes.revisados[11].porque: Lo que importa de Profi está en el extracto: 1.210 de contraprestación, 866 de fondo de comercio y una holgura de deterioro que «apenas supera» (AR2025 p. 222, 238). Con eso C98 queda en Aceptable. Delfood es inmaterial según la empresa (AR2025 p. 59, 279).
+- fase_c.revision_datos_ausentes.revisados[12].dato: extracto_v63: Retorno esperado del centro de distribución de Carolina del Norte, de las reformas y del arrendamiento de Blackstone.
+- fase_c.revision_datos_ausentes.revisados[12].que_falta: retorno esperado del centro de distribución de Carolina del Norte, de las reformas y del arrendamiento de Blackstone
+- fase_c.revision_datos_ausentes.revisados[12].conclusion_afectada: S2C y margen del BUENO
+- fase_c.revision_datos_ausentes.revisados[12].porque: Sería una previsión de la dirección, que no tomaría como hecho: «A projection prepared by… an executive trying to justify a particular course of action will frequently be a lie» (TCI p.60; HIM). Las palancas se anclan en retornos observados (§1 bis).
+- fase_c.revision_datos_ausentes.revisados[13].dato: extracto_v63: Desglose del efecto de precio, volumen y mezcla en las ventas comparables; cifra de volumen de 2025.
+- fase_c.revision_datos_ausentes.revisados[13].que_falta: desglose de precio, volumen y mezcla de las comparables y cifra de volumen de 2025
+- fase_c.revision_datos_ausentes.revisados[13].conclusion_afectada: crecimiento del NORMAL (Palancas!C14) y «qué lo pararía» del MALO
+- fase_c.revision_datos_ausentes.revisados[13].porque: El NORMAL (3 %) ya separa la inflación de alimentos (2,3–2,7 %) y algo de volumen, y lo contrasta con el CAGR de tres años (2,0 %, C45). La cifra de volumen afinaría medio punto como mucho, y en el tornado el crecimiento pesa poco (2,57 € con ±2 puntos).
+- fase_c.revision_datos_ausentes.revisados[14].dato: extracto_v63: Valores de penetración de compra online de alimentación de 2025 en EE. UU. y Europa: el gráfico existe pero las cifras no se pueden asignar con fiabilidad en el
+- fase_c.revision_datos_ausentes.revisados[14].que_falta: penetración de la compra online de alimentación de 2025 en EE. UU. y Europa
+- fase_c.revision_datos_ausentes.revisados[14].conclusion_afectada: narrativa del BUENO (D66) y crecimiento del BUENO
+- fase_c.revision_datos_ausentes.revisados[14].porque: Las ventas online se conocen con cifra (10.274, +11,2 %, AR2025 p. 343; EE. UU. +14,2 % en el 3T de 2026). La penetración del mercado sería contexto del BUENO, que pesa 0,2.
+- fase_c.revision_datos_ausentes.revisados[15].dato: extracto_v63: Margen por marca (Stop & Shop, Food Lion, Albert Heijn, etc.) y ventas por marca; solo hay segmentos EE. UU. y Europa.
+- fase_c.revision_datos_ausentes.revisados[15].que_falta: margen y ventas por marca
+- fase_c.revision_datos_ausentes.revisados[15].conclusion_afectada: C18 (foso desigual por marca) y MALO (Stop & Shop)
+- fase_c.revision_datos_ausentes.revisados[15].porque: Hay márgenes por segmento (EE. UU. 4,5 % y Europa 3,8 % en 2025, AR2025 p. 49) y una serie del grupo de diez años que ancla las palancas. El margen por marca explicaría el MALO, pero no cambia las anclas del grupo, que son las que usa el motor.
+- fase_c.revision_datos_ausentes.revisados[16].dato: extracto_v63: Reparto de ventas por país salvo Países Bajos y EE. UU.; el resto agrupado como «resto del mundo».
+- fase_c.revision_datos_ausentes.revisados[16].que_falta: reparto de las ventas por país fuera de Países Bajos y EE. UU.
+- fase_c.revision_datos_ausentes.revisados[16].conclusion_afectada: prima de riesgo país dentro de r (Palancas A28:B33), que es heredada (S-3)
+- fase_c.revision_datos_ausentes.revisados[16].porque: r = 0,09 viene heredada y no la decido yo. El «resto del mundo» (19.371, AR2025 p. 224) entra en la hoja como Europa occidental. Una prima mayor para Europa Central y del Este sobre una parte de ese 21 % subiría la r mínima (7,86 %) unas décimas, todavía por debajo de 9 %.
+- fase_c.revision_datos_ausentes.revisados[17].dato: extracto_v63: Coste medio ponderado de la deuda y tipo medio ponderado de descuento de los arrendamientos como cifra publicada.
+- fase_c.revision_datos_ausentes.revisados[17].que_falta: coste medio ponderado de la deuda y tipo de descuento de los arrendamientos publicados
+- fase_c.revision_datos_ausentes.revisados[17].conclusion_afectada: C22 (quiebra) y lectura de la financiación
+- fase_c.revision_datos_ausentes.revisados[17].porque: El motor usa los intereses pagados (C48 = 77 neto) y los pagos de arrendamiento (C49), y los intereses de arrendamiento están comprobados en cinco años (§1 bis). Un tipo medio publicado no cambia ninguna palanca.
+- fase_c.revision_datos_ausentes.revisados[18].dato: extracto_v63: Ratio de apalancamiento real frente al covenant de 5,5:1 (no se calcula porque no se comprueba).
+- fase_c.revision_datos_ausentes.revisados[18].que_falta: ratio de apalancamiento real frente al covenant de 5,5:1
+- fase_c.revision_datos_ausentes.revisados[18].conclusion_afectada: Palancas!C22 (quiebra = 0)
+- fase_c.revision_datos_ausentes.revisados[18].porque: El covenant solo se prueba si el rating baja de BBB/Baa2, y el rating es BBB+/Baa1 estable (AR2025 p. 55). La deuda neta sobre EBITDA es 2,2 veces (C33) y los bonos vencen por menos de 1.100 al año (AR2025 p. 263), frente a un CFO de 5.468–6.989 (fila 11). No hay causa de quiebra que dependa de esa cifra.
+- fase_c.revision_datos_ausentes.revisados[19].dato: extracto_v63: Serie publicada de ROIC o ROCE para la empresa.
+- fase_c.revision_datos_ausentes.revisados[19].que_falta: serie de ROIC o ROCE publicada por la empresa
+- fase_c.revision_datos_ausentes.revisados[19].conclusion_afectada: C18 y Palancas!B18:D18
+- fase_c.revision_datos_ausentes.revisados[19].porque: La vara del foso se calcula con la Historia y con los intereses de arrendamiento comprobados (§1 bis), y C24 trae el RoC de la empresa (10,9 %) como dato. Una serie publicada sería un contraste de otra definición.
+- fase_c.revision_datos_ausentes.revisados[20].dato: extracto_v63: Valor de la partida de Palancas!C24 (tamaño del mercado año 10): no hay cifra de fuente primaria en los textos.
+- fase_c.revision_datos_ausentes.revisados[20].que_falta: cifra primaria para Palancas!C24
+- fase_c.revision_datos_ausentes.revisados[20].conclusion_afectada: Palancas!C24
+- fase_c.revision_datos_ausentes.revisados[20].porque: Es el mismo hueco que el del tamaño de mercado. Sin cifra primaria, C24 queda vacía por regla y la cuota implícita no se calcula (G17 no se evalúa). El BUENO no depende de ganar mercado.
+- fase_c.revision_datos_ausentes.revisados[21].dato: extracto_v63: Operaciones de directivos y consejeros como serie: No encontrado en los textos de los informes anuales revisados.
+- fase_c.revision_datos_ausentes.revisados[21].que_falta: serie de operaciones de directivos y consejeros
+- fase_c.revision_datos_ausentes.revisados[21].conclusion_afectada: C97 (Neutral, técnico)
+- fase_c.revision_datos_ausentes.revisados[21].porque: C97 no es una hipótesis material de D10 y no entra en el motor. La gestión la juzgo por el historial (C98) y la participación de los insiders es mínima (0,064 %, C96). Una venta o una compra discrecional cambiaría la lectura de los incentivos, no el flujo ni la escalera.
+- fase_c.revision_datos_ausentes.revisados[22].dato: extracto_v63: Regulación y capital (sección 7): no aplica.
+- fase_c.revision_datos_ausentes.revisados[22].que_falta: nada: la sección 7 (regulación y capital) no aplica
+- fase_c.revision_datos_ausentes.revisados[22].conclusion_afectada: ninguna celda de juicio
+- fase_c.revision_datos_ausentes.revisados[22].porque: No es una entidad financiera ni regulada en capital, y el motor C no aplica. No hay ningún límite de capital regulatorio que afecte al valor.
+- fase_c.revision_datos_ausentes.revisados[23].dato: extracto_v63: (2026) Precio de Delfood; múltiplo de Tesco Chequia y Eslovaquia sobre ventas o resultado, y las ventas y el resultado de esa empresa: No encontrado en los docu
+- fase_c.revision_datos_ausentes.revisados[23].que_falta: precio de Delfood; múltiplo, ventas y resultado de Tesco Chequia y Eslovaquia
+- fase_c.revision_datos_ausentes.revisados[23].conclusion_afectada: crecimiento del BUENO (Palancas!D14) y C98
+- fase_c.revision_datos_ausentes.revisados[23].porque: Tesco está solo en el BUENO, como crecimiento, y no en el NORMAL. Su valor empresa se conoce (unos 1.200; 1.700 con arrendamientos, Q3-2026 p. 30) y el cierre es en 2027. El múltiplo informaría C98, no la zona.
+- fase_c.revision_datos_ausentes.revisados[24].dato: extracto_v63: (2026) Calificaciones crediticias vigentes en 2026 y covenants probados en 2026: No encontrado en los documentos.
+- fase_c.revision_datos_ausentes.revisados[24].que_falta: calificaciones crediticias vigentes en 2026 y covenants probados en 2026
+- fase_c.revision_datos_ausentes.revisados[24].conclusion_afectada: Palancas!C22 (quiebra = 0)
+- fase_c.revision_datos_ausentes.revisados[24].porque: No hay ninguna señal de rebaja en los documentos de 2026, y la empresa colocó 800 en marzo de 2026, con 500 a ocho años al 3,625 % (Q3-2026 p. 16, 21). La deuda neta de 16.087 (Q3-2026 p. 24) sube por el reparto, no por pérdidas.
+- fase_c.revision_datos_ausentes.revisados[25].dato: extracto_v63: (2026) Ventas y resultados del 4T de 2026 y efecto real del incidente de ciberseguridad (solo estimaciones del 3T): No encontrado en los documentos.
+- fase_c.revision_datos_ausentes.revisados[25].que_falta: ventas y resultados del 4T de 2026 y efecto real del incidente de ciberseguridad
+- fase_c.revision_datos_ausentes.revisados[25].conclusion_afectada: C25, FCF de 2026 y severidad del MALO
+- fase_c.revision_datos_ausentes.revisados[25].porque: La empresa estima el efecto en 75–100 de resultado del 4T (Q3-2026 p. 2, 5, 30): unos 0,1 € por acción, una sola vez. Aunque se doblara, queda muy por debajo del colchón de 0,79 €. La caída de la caja de 2026 ya se conoce (guía de unos 2.100, Q3-2026 p. 2, 9).
+- fase_c.revision_datos_ausentes.revisados[26].dato: extracto_v63: (2026) Cifras de cuota de mercado de 2026 (solo declaraciones de ganancia de cuota, y Nielsen del 1T de 2026 sin cifra).
+- fase_c.revision_datos_ausentes.revisados[26].que_falta: cifras de cuota de mercado de 2026
+- fase_c.revision_datos_ausentes.revisados[26].conclusion_afectada: C18
+- fase_c.revision_datos_ausentes.revisados[26].porque: Las declaraciones de ganancia de cuota sin cifra no las uso como hecho. El foso se juzga con la vara P-FOSO de 2021–2025 y no depende de la cuota de 2026.
+- fase_c.revision_datos_ausentes.revisados[27].dato: extracto_v63: (2026) Desglose de precio, volumen y mezcla en 2026: solo impactos en puntos porcentuales por factores (SNAP, huevos, farmacia, clima); sin cifra de volumen.
+- fase_c.revision_datos_ausentes.revisados[27].que_falta: desglose de precio, volumen y mezcla en 2026
+- fase_c.revision_datos_ausentes.revisados[27].conclusion_afectada: crecimiento del NORMAL y «qué lo pararía» del MALO
+- fase_c.revision_datos_ausentes.revisados[27].porque: En 2026 hay impactos en puntos (SNAP, huevos, farmacia, clima: unos −2,1 puntos en EE. UU. en el 3T, Q3-2026 p. 2, 4, 6) que explican las comparables bajas sin cambiar la tendencia. El NORMAL ya usa comparables del 1,2 %.
+- fase_c.revision_datos_ausentes.revisados[28].dato: extracto_v63: (2026) Motivo de los cambios de firmantes de la declaración de la dirección: No encontrado en los documentos.
+- fase_c.revision_datos_ausentes.revisados[28].que_falta: motivo de los cambios de firmantes de la declaración de la dirección en 2026
+- fase_c.revision_datos_ausentes.revisados[28].conclusion_afectada: C98 y la pregunta «¿confío en la gestión?»
+- fase_c.revision_datos_ausentes.revisados[28].porque: Es un cambio de personas (nuevos CEO de EE. UU. y de Europa, Q3-2026 p. 11, 30) sin señal de integridad en los documentos. La gestión la juzgo por el historial (guías de 2024 y 2025 cumplidas). Lo vigilo, pero no mueve ninguna palanca.
+- fase_c.fundamento_material.hipotesis_sin_fundamento[0].celda: B69:D69
+- fase_c.fundamento_material.hipotesis_sin_fundamento[0].hipotesis: probabilidades 0,2 / 0,6 / 0,2 (MALO / NORMAL / BUENO)
+- fase_c.fundamento_material.hipotesis_sin_fundamento[0].clase: convención
+- fase_c.fundamento_material.hipotesis_sin_fundamento[0].porque_sin_fundamento: Es la convención del ejercicio con un argumento cuyo hecho no la sostiene. La cola mala se cuenta con el margen NIIF (cuatro de diez años ≤ 3,2 %, frecuencia 0,4, y la Observación lo deja en 0,2) y la buena con el subyacente (≥ 4,4 %), que no es la medida del margen del BUENO (4,5 % NIIF, nunca alcanzado: máximo 4,39 %, C51). Lo que queda es la convención y la regla de no contar dos veces el riesgo, que es convención del ejercicio, no un hecho de esta empresa.
+- fase_c.fundamento_material.hipotesis_sin_fundamento[0].alternativas_defendibles.evidencia: p(MALO), suelo 0,2: dos de diez ejercicios (2023 y 2024) tuvieron el mecanismo del MALO, con inversión en precios y costes por encima de la inflación minorista (AR2025 p. 18, 45), y un margen NIIF al nivel del MALO (3,21 % y 3,12 %, Historia fila 29). Techo 0,3: añado 2016, con un margen NIIF del 3,19 % y el subyacente más bajo de la serie (3,8 %, AR2025 p. 64). No cuento 2020, cuyo NIIF del 2,93 % se debe a cargos de 1,9 puntos en el año de subyacente récord (4,8 %, AR2025 p. 64): no fue una compresión de margen. p(BUENO), techo 0,2: dos de diez ejercicios (2021 y 2022) con margen NIIF al nivel del BUENO (4,39 % y 4,33 %, fila 29). Suelo 0,1: esos dos años son anteriores al compromiso de 1.000 M$ en precios de 2025–2028 (AR2025 p. 22), que ocupa al menos tres de los cinco años del horizonte y va contra el mecanismo del BUENO; desde entonces el ahorro se va entero a precio (1.354 en 2024 y 1.294 en 2025, AR2025 p. 45). p(NORMAL) es el resto, 0,5 a 0,7.
+- fase_c.fundamento_material.comprobacion_conjunta.coherencia_economica: Una sola historia adversa: la inversión en precios de 2025–2028 y la presión de los competidores de descuento hacen más frecuentes los años como 2023–2024 (margen NIIF del 3,1–3,2 %) y menos los de 2021–2022 (4,3–4,4 %). Lo que gana el MALO lo pierde el BUENO y el NORMAL se queda con el 60 %. Cada valor está en el extremo desfavorable de su rango (MALO 0,3 y BUENO 0,1). El NORMAL está dentro de su rango y no en su extremo, porque la suma tiene que ser 1. No se tocan la severidad, la r ni la quiebra, para no contar dos veces el mismo riesgo. Valores de la lista, suma 1 y el BUENO no supera al MALO.
+- fase_c.fundamento_material.hipotesis_que_mas_condiciona: B69:D69
+- fase_c.fundamento_material.que_lo_resolveria: Los márgenes NIIF y subyacente de 2026 y 2027, con el desglose de deterioros y reestructuración y el destino del ahorro de Save for Our Customers: informe anual 2026 (resultados el 17-feb-2027, informe el 3-mar-2027, Q3-2026 p. 31) e informe anual 2027. Si el margen NIIF se queda en el 3,8 % o más durante dos ejercicios con la inversión en precios en marcha, la cola mala pierde peso; si vuelve al 3,1–3,2 %, lo gana. La pregunta a Relación con Inversores: qué parte del ahorro acumulado de 5.000 M de 2025–2028 (AR2025 p. 22) está prevista para el margen y qué parte para el precio.
+- fase_c.celdas_corregidas.C18.antes: Sí
+- fase_c.celdas_corregidas.C18.despues: Sí
+- fase_c.celdas_corregidas.C18.motivo: Revisada con la vara P-FOSO: el ROIC del capital propio pagado el alquiler es 13,03 % de media frente a r 9 % y 10,67 % el peor año (§1 bis). Es un foso estrecho, de escala local. Se mantiene.
+- fase_c.celdas_corregidas.C62.antes: Sí
+- fase_c.celdas_corregidas.C62.despues: Sí
+- fase_c.celdas_corregidas.C62.motivo: El motor A con F1 en A2_propio vale: FCF base positivo los diez años y financiación estable. No hay límite del modelo.
+- fase_c.celdas_corregidas.Palancas!C15.motivo: Sostenido por hechos NIIF (3,84 % y 3,78 %). Está en la frontera de redondeo si se restan los cargos medios al subyacente (3,62 %). No está mal derivado: anotado en incoherencias.
+- fase_c.celdas_corregidas.B69.motivo: Convención sin hecho que la sostenga: en hipotesis_sin_fundamento, con alternativas y comprobación conjunta. No la cambio.
+- fase_c.celdas_corregidas.C69.motivo: Es el resto de B69 y D69: en hipotesis_sin_fundamento. No la cambio.
+- fase_c.celdas_corregidas.D69.motivo: Apoyada en el margen subyacente y no en el NIIF del BUENO: en hipotesis_sin_fundamento. No la cambio.
