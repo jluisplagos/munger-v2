@@ -1,0 +1,549 @@
+{
+ "fecha": "2026-11-19",
+ "guion": "resultados/scripts/corregir_registro_tras_sellado_jumbo_g.py",
+ "revision": "REVISION_SELLADO.md @ 50f0b71 (auxiliar); producto 3355b60",
+ "registro_antes_sha256": "7953f6586b72d36181f9796636f390d9fd653bd122382269ff0986a7933cc5aa",
+ "registro_despues_sha256": "12fa4e82c18fe9663513233f9256a198e814d32bdaeeda3cbd8be3597f22ef8d",
+ "cambios": [
+  {
+   "celda": "Análisis!C46",
+   "motivo": "conciliación al día con C76 = 150 (fase B de jumbo_g) y el recálculo del paso 9 (317.902; exacto 317.902497); la fórmula y los orígenes no cambian",
+   "antes": {
+    "celda": "Análisis!C46",
+    "id": "cfo_media",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 317.902,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023",
+      "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024",
+      "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025",
+      "aux:jumbo-annual-report-fy2024_p154_dividends_received_2023",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2024",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025",
+      "aux:jumbo-annual-report-fy2024_p154_interest_received_2023",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2024",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2025",
+      "aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025",
+      "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025",
+      "Análisis!C76"
+     ],
+     "formula": "((o[\"aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_dividends_received_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])))/3",
+     "conciliacion": "C46 = media 2023–2025 de [CFO + dividendos cobrados de la cartera cotizada + intereses cobrados − s × (intereses cobrados − cupones de bonos)], con s = C76 × 3 ÷ Σ caja 2023–2025 = 150 × 3 ÷ 1.415,485114 = 0,317912 (decisiones P-O1 (c), J1 y J2; C76 = 150, hipótesis vigente de la fase B de jumbo_g). CFO 323,918862 / 300,687098 / 296,912917; dividendos 0,133043 / 0,828384 / 1,8762; intereses cobrados 18,490712 / 13,791382 / 9,91679; cupones 0,595837 / 0,594641 / 0,595058; caja 434,000394 / 444,815962 / 536,668758. Resultado exacto 317,902497 → libro 317,902 (redondeo a 3 decimales admitido en importe). Es el recálculo determinista del paso 9 tras la fase B (recalculo_dependientes.json → vigente → Análisis!C46: valor declarado 317,617 con C76 = 160 → 317,902 con C76 = 150; copia en resultados/recalculo_dependientes_Jumbo.json).",
+     "unidad": "millones de euros",
+     "recalculo": {
+      "celdas_de_juicio": [
+       "Análisis!C76"
+      ],
+      "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+      "conciliacion_f1": true
+     }
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/jumbo-annual-report-fy2024.txt [PDF PAGE 154]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 155]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 178]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 179]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 149]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 150]; Análisis!C76",
+     "nota": "[Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 317,9024970… → 317,902. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 317,616988 → «libro 317,617», que ya no es el valor. Corregir el texto de la conciliación (la vigencia de un fundamento forma parte de lo que se sella). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e: el libro usaba C76 = 200); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 317,616988 (libro 316,475). La cifra no está vigente respecto a su origen; co",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+    "recalculo_dependiente": {
+     "valor_declarado": 317.617,
+     "valor": 317.902,
+     "exacto": "168744844621311779/530806917750000",
+     "exacto_decimal": "317.902497082352",
+     "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     },
+     "formula_sha256": "08976be04945df333aa47eb27d81ff235c3030a0c83b4568e76910ce423fadf0",
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+     "formula": "verificacion_entradas.json → Análisis!C46 → derivacion.formula",
+     "rastro": "recalculo_dependientes.json"
+    }
+   },
+   "despues": {
+    "celda": "Análisis!C46",
+    "id": "cfo_media",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 317.902,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023",
+      "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024",
+      "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025",
+      "aux:jumbo-annual-report-fy2024_p154_dividends_received_2023",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2024",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025",
+      "aux:jumbo-annual-report-fy2024_p154_interest_received_2023",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2024",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2025",
+      "aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025",
+      "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025",
+      "Análisis!C76"
+     ],
+     "formula": "((o[\"aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_dividends_received_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])))/3",
+     "conciliacion": "C46 = media 2023–2025 de [CFO + dividendos cobrados de la cartera cotizada + intereses cobrados − s × (intereses cobrados − cupones de bonos)], con s = C76 × 3 ÷ Σ caja 2023–2025 = 150 × 3 ÷ 1.415,485114 = 0,317912 (decisiones P-O1 (c), J1 y J2; C76 = 150, hipótesis vigente de la fase B de jumbo_g). CFO 323,918862 / 300,687098 / 296,912917; dividendos 0,133043 / 0,828384 / 1,8762; intereses cobrados 18,490712 / 13,791382 / 9,91679; cupones 0,595837 / 0,594641 / 0,595058; caja 434,000394 / 444,815962 / 536,668758. Resultado exacto 317,902497 → libro 317,902 (redondeo a 3 decimales admitido en importe). Es el recálculo determinista del paso 9 tras la fase B (recalculo_dependientes.json → vigente → Análisis!C46: valor declarado 317,617 con C76 = 160 → 317,902 con C76 = 150; copia en resultados/recalculo_dependientes_Jumbo.json).",
+     "unidad": "millones de euros",
+     "recalculo": {
+      "celdas_de_juicio": [
+       "Análisis!C76"
+      ],
+      "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+      "conciliacion_f1": true
+     }
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "recalculo_dependientes.json; fórmula y orígenes del registro",
+     "nota": "[Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b71] conciliación al día con C76 = 150 (fase B de jumbo_g) y el recálculo del paso 9 (317.902; exacto 317.902497); la fórmula y los orígenes no cambian · Comprobación anterior: Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 317,9024970… → 317,902. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 317,616988 → «libro 317,617», que ya no es el valor. Corregir el texto de la conciliación (",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+    "recalculo_dependiente": {
+     "valor_declarado": 317.617,
+     "valor": 317.902,
+     "exacto": "168744844621311779/530806917750000",
+     "exacto_decimal": "317.902497082352",
+     "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     },
+     "formula_sha256": "08976be04945df333aa47eb27d81ff235c3030a0c83b4568e76910ce423fadf0",
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+     "formula": "verificacion_entradas.json → Análisis!C46 → derivacion.formula",
+     "rastro": "recalculo_dependientes.json"
+    }
+   }
+  },
+  {
+   "celda": "Análisis!C40",
+   "motivo": "conciliación al día con C76 = 150 (fase B de jumbo_g) y el recálculo del paso 9 (255.305; exacto 255.305398); la fórmula y los orígenes no cambian",
+   "antes": {
+    "celda": "Análisis!C40",
+    "id": "juicio_C40",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 255.305,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Historia!L11",
+      "Historia!L12",
+      "Historia!L16",
+      "Historia!L17",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2025",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025",
+      "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025",
+      "Análisis!C76"
+     ],
+     "formula": "o[\"Historia!L11\"]-o[\"Historia!L12\"]-o[\"Historia!L16\"]-o[\"Historia!L17\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]/round((o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])/3, 4)*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])",
+     "conciliacion": "FCF del accionista 2025 con la definición de C46: CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 + dividendos 1,8762 + intereses cobrados 9,91679 − C76 ÷ round(caja media, 4) × (9,91679 − cupones 0,595058), con C76 = 150 (hipótesis vigente de la fase B de jumbo_g) y caja media 471,8284 → 255,305398; libro 255,305 (redondeo a 3 decimales admitido en importe). Es el recálculo determinista del paso 9 tras la fase B (recalculo_dependientes.json → vigente → Análisis!C40: valor declarado 255,108 con C76 = 160 → 255,305 con C76 = 150; copia en resultados/recalculo_dependientes_Jumbo.json).",
+     "unidad": "millones de euros",
+     "recalculo": {
+      "celdas_de_juicio": [
+       "Análisis!C76"
+      ],
+      "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B"
+     }
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Historia!L11; Historia!L12; Historia!L16; Historia!L17; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 155]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 179]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 149]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 150]; Análisis!C76",
+     "nota": "[Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 255,3053977… → 255,305. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 255,107832 → «libro 255,108», que ya no es el valor. Corregir el texto de la conciliación (la vigencia de un fundamento forma parte de lo que se sella). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 255,107832 (libro 254,317567). La cifra no está vigente respecto a su origen;",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+    "recalculo_dependiente": {
+     "valor_declarado": 255.108,
+     "valor": 255.305,
+     "exacto": "30115084334619/117957100000",
+     "exacto_decimal": "255.305397764263",
+     "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     },
+     "formula_sha256": "74534821111c443cd8c8ef48fe17742b4ceaa3660d4077dc9011039d2d0e358b",
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+     "formula": "verificacion_entradas.json → Análisis!C40 → derivacion.formula",
+     "rastro": "recalculo_dependientes.json"
+    }
+   },
+   "despues": {
+    "celda": "Análisis!C40",
+    "id": "juicio_C40",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 255.305,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Historia!L11",
+      "Historia!L12",
+      "Historia!L16",
+      "Historia!L17",
+      "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025",
+      "aux:jumbo-annual-report-fy2025_p155_interest_received_2025",
+      "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025",
+      "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024",
+      "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025",
+      "Análisis!C76"
+     ],
+     "formula": "o[\"Historia!L11\"]-o[\"Historia!L12\"]-o[\"Historia!L16\"]-o[\"Historia!L17\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]/round((o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])/3, 4)*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])",
+     "conciliacion": "FCF del accionista 2025 con la definición de C46: CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 + dividendos 1,8762 + intereses cobrados 9,91679 − C76 ÷ round(caja media, 4) × (9,91679 − cupones 0,595058), con C76 = 150 (hipótesis vigente de la fase B de jumbo_g) y caja media 471,8284 → 255,305398; libro 255,305 (redondeo a 3 decimales admitido en importe). Es el recálculo determinista del paso 9 tras la fase B (recalculo_dependientes.json → vigente → Análisis!C40: valor declarado 255,108 con C76 = 160 → 255,305 con C76 = 150; copia en resultados/recalculo_dependientes_Jumbo.json).",
+     "unidad": "millones de euros",
+     "recalculo": {
+      "celdas_de_juicio": [
+       "Análisis!C76"
+      ],
+      "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B"
+     }
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "recalculo_dependientes.json; fórmula y orígenes del registro",
+     "nota": "[Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b71] conciliación al día con C76 = 150 (fase B de jumbo_g) y el recálculo del paso 9 (255.305; exacto 255.305398); la fórmula y los orígenes no cambian · Comprobación anterior: Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 255,3053977… → 255,305. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 255,107832 → «libro 255,108», que ya no es el valor. Corregir el texto de la conciliación (",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+    "recalculo_dependiente": {
+     "valor_declarado": 255.108,
+     "valor": 255.305,
+     "exacto": "30115084334619/117957100000",
+     "exacto_decimal": "255.305397764263",
+     "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     },
+     "formula_sha256": "74534821111c443cd8c8ef48fe17742b4ceaa3660d4077dc9011039d2d0e358b",
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+     "formula": "verificacion_entradas.json → Análisis!C40 → derivacion.formula",
+     "rastro": "recalculo_dependientes.json"
+    }
+   }
+  },
+  {
+   "celda": "Análisis!C38",
+   "motivo": "declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad",
+   "antes": {
+    "celda": "Análisis!C38",
+    "id": "juicio_C38",
+    "ambito": "juicio",
+    "uso": null,
+    "material": false,
+    "clase": "dato_publicado",
+    "valor_modelo": 33.04,
+    "fuente": {
+     "documento": "Simply Wall St, ficha de valoración de BELA (valor intrínseco)",
+     "version": "lectura externa el 2026-11-18; no se conservan bytes (página de terceros); valor según el volcado de la etapa 1 (datos_v63.md C38)",
+     "conservacion": "externa",
+     "lectura_externa": {
+      "referencia": "https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88)",
+      "fecha": "2026-11-18",
+      "evidencia": "el libro guarda 33.04 para Análisis!C38; según datos_v63.md proviene de la fuente externa indicada en la etapa 1",
+      "limitaciones": "fuente de terceros, no del emisor ni de la bolsa; sin bytes conservados no cuenta como comprobada; lectura externa listada aparte"
+     },
+     "archivo": null,
+     "sha256": null,
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "ficha de valoración / múltiplos históricos de la fuente externa",
+     "concepto": "juicio_C38",
+     "columna": "—",
+     "periodo": "2026-11 (lectura)",
+     "unidad": "EUR por acción",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "valor tal como figura en la fuente externa (etapa 1 heredada)",
+     "perimetro": "no aplica: dato de fuente externa de mercado",
+     "perimetro_justificacion": "dato de terceros, fuera del perímetro contable",
+     "reexpresado": "no aplica",
+     "valor_fuente": 33.04,
+     "cita": "33.04"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "lectura externa sin bytes en el expediente (https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88))",
+     "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco 33,04 de Simply Wall St, sin bytes ni captura; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] marcado «Dato no verificable» en el registro (tercero sin bytes) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco de terceros (Simply Wall St) sin bytes ni captura. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa (Simp",
+     "vinculo": null
+    },
+    "incidencia": "«Dato no verificable»: tercero sin bytes ni captura. En el libro sigue «Rellenado y verificado» (Control maestro F39, evidencia de la etapa 1); cambiar esa marca exige tocar la etapa 1 y regenerar el libro: no se hace.",
+    "justificacion_materialidad": "Valor intrínseco de un tercero (Simply Wall St, 33,04 €) sin bytes: solo es contexto. Celdas del libro Jumbo_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C38: Análisis!C39 (descuento frente a la fuente externa) y su rótulo D39; Análisis!C87 (valor ponderado frente a la fuente externa) y su rótulo D87; el texto de Análisis!E43; el aviso Motor!E235 (solo si C38 no es numérico). Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: las fases A y B no la citan (fase_a.json, fase_b.json: 0 menciones de C38, C39, C87 ni Simply Wall St). La fase C la examina en su autocomprobación (fase_c.json → autocomprobacion[1]) solo para descartarla: «ninguna [Observación] cita C38 … no uso C38 ni como contraste de la conclusión»; la cercanía del precio de Sí (33,42 €) con 33,04 € queda anotada como casual. Ninguna celda de juicio ni la conclusión dependen de su valor: con otro valor (o vacía) cambiarían C39, C87 y esos rótulos informativos, no el precio de Sí, la acción ni el estado. Límite: la fase C la vio; el revisor decide si eso la hace material."
+   },
+   "despues": {
+    "celda": "Análisis!C38",
+    "id": "juicio_C38",
+    "ambito": "juicio",
+    "uso": null,
+    "material": false,
+    "clase": "dato_publicado",
+    "valor_modelo": 33.04,
+    "fuente": {
+     "documento": "Simply Wall St, ficha de valoración de BELA (valor intrínseco)",
+     "version": "lectura externa el 2026-11-18; no se conservan bytes (página de terceros); valor según el volcado de la etapa 1 (datos_v63.md C38)",
+     "conservacion": "externa",
+     "lectura_externa": {
+      "referencia": "https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88)",
+      "fecha": "2026-11-18",
+      "evidencia": "el libro guarda 33.04 para Análisis!C38; según datos_v63.md proviene de la fuente externa indicada en la etapa 1",
+      "limitaciones": "fuente de terceros, no del emisor ni de la bolsa; sin bytes conservados no cuenta como comprobada; lectura externa listada aparte"
+     },
+     "archivo": null,
+     "sha256": null,
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "ficha de valoración / múltiplos históricos de la fuente externa",
+     "concepto": "juicio_C38",
+     "columna": "—",
+     "periodo": "2026-11 (lectura)",
+     "unidad": "EUR por acción",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "valor tal como figura en la fuente externa (etapa 1 heredada)",
+     "perimetro": "no aplica: dato de fuente externa de mercado",
+     "perimetro_justificacion": "dato de terceros, fuera del perímetro contable",
+     "reexpresado": "no aplica",
+     "valor_fuente": 33.04,
+     "cita": "33.04"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "fórmulas del libro (Análisis C39, D39, C87, D87, E43; Motor E235); fase_a.json, fase_b.json, fase_c.json",
+     "nota": "[Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b71] declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad · Comprobación anterior: Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco 33,04 de Simply Wall St, sin bytes ni captura; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] marcado «Dato no verificable» en el ",
+     "vinculo": null
+    },
+    "incidencia": "«Dato no verificable»: tercero sin bytes ni captura. En el libro sigue «Rellenado y verificado» (Control maestro F39, evidencia de la etapa 1); cambiar esa marca exige tocar la etapa 1 y regenerar el libro: no se hace.",
+    "justificacion_materialidad": "Valor intrínseco de un tercero (Simply Wall St, 33,04 €) sin bytes: solo es contexto. Celdas del libro Jumbo_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C38: Análisis!C39 (descuento frente a la fuente externa) y su rótulo D39; Análisis!C87 (valor ponderado frente a la fuente externa) y su rótulo D87; el texto de Análisis!E43; el aviso Motor!E235 (solo si C38 no es numérico). Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: las fases A y B no la citan (fase_a.json, fase_b.json: 0 menciones de C38, C39, C87 ni Simply Wall St). La fase C la examina en su autocomprobación (fase_c.json → autocomprobacion[1]) solo para descartarla: «ninguna [Observación] cita C38 … no uso C38 ni como contraste de la conclusión»; la cercanía del precio de Sí (33,42 €) con 33,04 € queda anotada como casual. Ninguna celda de juicio ni la conclusión dependen de su valor: con otro valor (o vacía) cambiarían C39, C87 y esos rótulos informativos, no el precio de Sí, la acción ni el estado. Límite: la fase C la vio; el revisor decide si eso la hace material."
+   }
+  },
+  {
+   "celda": "Análisis!C88",
+   "motivo": "declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad",
+   "antes": {
+    "celda": "Análisis!C88",
+    "id": "juicio_C88",
+    "ambito": "juicio",
+    "uso": null,
+    "material": false,
+    "clase": "dato_publicado",
+    "valor_modelo": 15.2,
+    "fuente": {
+     "documento": "MarketScreener / StockAnalysis (precios de fin de año) ÷ FCF por acción fin de año (P/FCF histórico)",
+     "version": "lectura externa el 2026-11-18; no se conservan bytes (página de terceros); valor según el volcado de la etapa 1 (datos_v63.md C88)",
+     "conservacion": "externa",
+     "lectura_externa": {
+      "referencia": "https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88)",
+      "fecha": "2026-11-18",
+      "evidencia": "el libro guarda 15.2 para Análisis!C88; según datos_v63.md proviene de la fuente externa indicada en la etapa 1",
+      "limitaciones": "fuente de terceros, no del emisor ni de la bolsa; sin bytes conservados no cuenta como comprobada; lectura externa listada aparte"
+     },
+     "archivo": null,
+     "sha256": null,
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "ficha de valoración / múltiplos históricos de la fuente externa",
+     "concepto": "juicio_C88",
+     "columna": "—",
+     "periodo": "2026-11 (lectura)",
+     "unidad": "veces",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "valor tal como figura en la fuente externa (etapa 1 heredada)",
+     "perimetro": "no aplica: dato de fuente externa de mercado",
+     "perimetro_justificacion": "dato de terceros, fuera del perímetro contable",
+     "reexpresado": "no aplica",
+     "valor_fuente": 15.2,
+     "cita": "15.2"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "lectura externa sin bytes en el expediente (https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88))",
+     "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF 15,2 de terceros (MarketScreener/StockAnalysis), sin bytes; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF de terceros (MarketScreener/StockAnalysis) sin bytes; el expediente lo marca «Dato no verificable» y además su FCF es la definición anterior a J1/J2/P-O1. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa de Mistral sin cambios; se añade la marca del expediente («Dato no verificable», entradas_r3.json)",
+     "vinculo": null
+    },
+    "incidencia": "El expediente lo marca «Dato no verificable» (entradas_r3.json): NO VERIFICABLE: capitalizaciones de fin de año de terceros (MarketScreener / StockAnalysis) sin bytes en el expediente; los informes de Jumbo no publican su cotización de cierre, así que no se puede recalcular. Además el FCF de cada año es la definición ANTERIOR a J1/J2 y P-O1 (sin intereses cobrados ni dividendos de la cartera; con ellos el FCF de 2023–2025 sube ≈ 3 %, C46 frente a la media de la fila 11, y el múltiplo bajaría en esa proporción). Valor de la etapa 1 conservado solo como contexto, no como dato verificado; la variante normalizada (12,3x) tiene la misma fuente.",
+    "justificacion_materialidad": "P/FCF histórico de terceros (MarketScreener / StockAnalysis, 15,2x) sin bytes, que el expediente ya marca «Dato no verificable» (Control maestro F73). Celdas del libro Jumbo_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C88: solo Análisis!D88, un rótulo informativo («ℹ … x implícito vs … x histórico · investiga la diferencia»); las banderas Motor!B311 y Motor!C311 leen D88 pero solo saltan si D88 contiene «BANDERA» o «REVISAR», que su fórmula nunca escribe. Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: ninguna fase la cita (fase_a.json, fase_b.json, fase_c.json: 0 menciones de C88 ni de su valor). Con otro valor (o vacía) solo cambiaría el rótulo D88."
+   },
+   "despues": {
+    "celda": "Análisis!C88",
+    "id": "juicio_C88",
+    "ambito": "juicio",
+    "uso": null,
+    "material": false,
+    "clase": "dato_publicado",
+    "valor_modelo": 15.2,
+    "fuente": {
+     "documento": "MarketScreener / StockAnalysis (precios de fin de año) ÷ FCF por acción fin de año (P/FCF histórico)",
+     "version": "lectura externa el 2026-11-18; no se conservan bytes (página de terceros); valor según el volcado de la etapa 1 (datos_v63.md C88)",
+     "conservacion": "externa",
+     "lectura_externa": {
+      "referencia": "https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88)",
+      "fecha": "2026-11-18",
+      "evidencia": "el libro guarda 15.2 para Análisis!C88; según datos_v63.md proviene de la fuente externa indicada en la etapa 1",
+      "limitaciones": "fuente de terceros, no del emisor ni de la bolsa; sin bytes conservados no cuenta como comprobada; lectura externa listada aparte"
+     },
+     "archivo": null,
+     "sha256": null,
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "ficha de valoración / múltiplos históricos de la fuente externa",
+     "concepto": "juicio_C88",
+     "columna": "—",
+     "periodo": "2026-11 (lectura)",
+     "unidad": "veces",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "valor tal como figura en la fuente externa (etapa 1 heredada)",
+     "perimetro": "no aplica: dato de fuente externa de mercado",
+     "perimetro_justificacion": "dato de terceros, fuera del perímetro contable",
+     "reexpresado": "no aplica",
+     "valor_fuente": 15.2,
+     "cita": "15.2"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "fórmulas del libro (Análisis D88; Motor B311, C311); fase_a.json, fase_b.json, fase_c.json",
+     "nota": "[Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b71] declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad · Comprobación anterior: Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF 15,2 de terceros (MarketScreener/StockAnalysis), sin bytes; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF de tercer",
+     "vinculo": null
+    },
+    "incidencia": "El expediente lo marca «Dato no verificable» (entradas_r3.json): NO VERIFICABLE: capitalizaciones de fin de año de terceros (MarketScreener / StockAnalysis) sin bytes en el expediente; los informes de Jumbo no publican su cotización de cierre, así que no se puede recalcular. Además el FCF de cada año es la definición ANTERIOR a J1/J2 y P-O1 (sin intereses cobrados ni dividendos de la cartera; con ellos el FCF de 2023–2025 sube ≈ 3 %, C46 frente a la media de la fila 11, y el múltiplo bajaría en esa proporción). Valor de la etapa 1 conservado solo como contexto, no como dato verificado; la variante normalizada (12,3x) tiene la misma fuente.",
+    "justificacion_materialidad": "P/FCF histórico de terceros (MarketScreener / StockAnalysis, 15,2x) sin bytes, que el expediente ya marca «Dato no verificable» (Control maestro F73). Celdas del libro Jumbo_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C88: solo Análisis!D88, un rótulo informativo («ℹ … x implícito vs … x histórico · investiga la diferencia»); las banderas Motor!B311 y Motor!C311 leen D88 pero solo saltan si D88 contiene «BANDERA» o «REVISAR», que su fórmula nunca escribe. Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: ninguna fase la cita (fase_a.json, fase_b.json, fase_c.json: 0 menciones de C88 ni de su valor). Con otro valor (o vacía) solo cambiaría el rótulo D88."
+   }
+  },
+  {
+   "celda": "Análisis!C31",
+   "motivo": "sin fuente equivalente en texto/ para el 1S-2025; se anota la aproximación con fuentes del expediente; queda pendiente",
+   "antes": {
+    "celda": "Análisis!C31",
+    "id": "juicio_C31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "No",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "identificacion": "V-C31",
+     "fundamento": "Cálculo o clasificación de la etapa 1, tal como lo documenta el libro: Control maestro!L34: H1-26 p.25, p.52; H1-25 p.23, p.50 · Control maestro!M34: Decisión del inversor (11-oct-2026): se mantiene C31 = No con la comparación semestral (mismo punto estacional); la acumulación de inventario a dic-2025 se vigila → C31 = No. Antes: Inventario 325,76 vs 316,66 = +2,9%; trade debtors 86,02 vs 90,28 = −4,7%; ventas H1 +4,42% → No. Partida relevante: inventario (retail). \"Trade debtors\" son sobre todo anticipos a proveedores (70,97); clientes netos 15,07 (−2,1%). Sin factoring ni supplier finance encontrados. · Control maestro!N34: Apoyo anual: a 31.12.2025 inventario +19,0% vs ventas +7,2% (acumulación de fin de año, AR2025 p.24), días de inventario 203 (2024: 187); CAGR 2022→25 inventario +9,0% vs ventas +9,1%. Revisar si a 31.12.2026 el inventario vuelve a crecer > ventas. Confianza alta (dato primario). · ESCALAR AL INVERSOR: la comparación anual (inventario +19,0% vs ventas +7,2%) daría BANDERA; la semestral da PASA. Dos definiciones razonables, veredictos distintos (regla del prompt).",
+     "alternativas": "La comparación anual (inventario +19,0 % frente a ventas +7,2 %) daría BANDERA (Control maestro N34).",
+     "limites": "Depende del período de comparación elegido (decisión del inversor del 11-oct-2026).",
+     "procedencia": "Control maestro!L–N34 del libro (Jumbo_v63_evaluada.xlsx)"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!L–N34 del libro (Jumbo_v63_evaluada.xlsx)) y con el valor del libro",
+     "nota": "[Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (inventario 316,66), que sigue sin estar en texto/: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (p. 23, p. 50: inventario 316,66), que no está en texto/ del expediente: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: Sin resolver en Mistral; se registra como dato tratado como convención (se lista aparte)",
+     "vinculo": null
+    },
+    "incidencia": "SIN FUENTE EQUIVALENTE EN EL EXPEDIENTE: el apoyo (Control maestro L34/M34) cita el informe del 1S-2025 (inventario 316,66 y deudores 90,28 a 30-jun-2025), que no está en texto/; el semestral del H1-2026 compara su balance con el 31-dic-2025 (inventario 325.764.610 frente a 310.497.568, PDF p. 25; deudores 86.024.991 frente a 75.235.066, p. 25) y no publica el nivel a 30-jun-2025. Aproximación con fuentes del expediente (no es la cifra publicada): inventario a 31-dic-2024 260.870.129 (AR2025 PDF p. 150) + aumento del 1S-2025 56.587.171 (H1-2026 PDF p. 61, «(Increase)/ decrease in inventories», columna 01.01–30.06.2025) = 317,46 mm frente a 316,66 (la diferencia, 0,80 mm, son partidas sin caja como deterioros); con ella el inventario sube un 2,6 % frente a ventas del 1S +4,42 % (519.257.126 frente a 497.278.437, H1-2026 PDF p. 23): mismo veredicto «No». Los deudores a 30-jun-2025 no se pueden aproximar con lo conservado. Queda pendiente: hace falta el informe del 1S-2025 o reescribir el apoyo en la evidencia del libro (decisión de la orquestación).",
+    "justificacion_clase": "Veredicto de texto («No») de una comparación de crecimientos (inventario y cobros frente a ventas) decidida por el inversor (comparación semestral); no es una cifra publicada."
+   },
+   "despues": {
+    "celda": "Análisis!C31",
+    "id": "juicio_C31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "No",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "identificacion": "V-C31",
+     "fundamento": "Cálculo o clasificación de la etapa 1, tal como lo documenta el libro: Control maestro!L34: H1-26 p.25, p.52; H1-25 p.23, p.50 · Control maestro!M34: Decisión del inversor (11-oct-2026): se mantiene C31 = No con la comparación semestral (mismo punto estacional); la acumulación de inventario a dic-2025 se vigila → C31 = No. Antes: Inventario 325,76 vs 316,66 = +2,9%; trade debtors 86,02 vs 90,28 = −4,7%; ventas H1 +4,42% → No. Partida relevante: inventario (retail). \"Trade debtors\" son sobre todo anticipos a proveedores (70,97); clientes netos 15,07 (−2,1%). Sin factoring ni supplier finance encontrados. · Control maestro!N34: Apoyo anual: a 31.12.2025 inventario +19,0% vs ventas +7,2% (acumulación de fin de año, AR2025 p.24), días de inventario 203 (2024: 187); CAGR 2022→25 inventario +9,0% vs ventas +9,1%. Revisar si a 31.12.2026 el inventario vuelve a crecer > ventas. Confianza alta (dato primario). · ESCALAR AL INVERSOR: la comparación anual (inventario +19,0% vs ventas +7,2%) daría BANDERA; la semestral da PASA. Dos definiciones razonables, veredictos distintos (regla del prompt).",
+     "alternativas": "La comparación anual (inventario +19,0 % frente a ventas +7,2 %) daría BANDERA (Control maestro N34).",
+     "limites": "Depende del período de comparación elegido (decisión del inversor del 11-oct-2026).",
+     "procedencia": "Control maestro!L–N34 del libro (Jumbo_v63_evaluada.xlsx)"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 23, 25, 61]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 150]",
+     "nota": "[Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b71] sin fuente equivalente en texto/ para el 1S-2025; se anota la aproximación con fuentes del expediente; queda pendiente · Comprobación anterior: Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (inventario 316,66), que sigue sin estar en texto/: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación s",
+     "vinculo": null
+    },
+    "incidencia": "SIN FUENTE EQUIVALENTE EN EL EXPEDIENTE: el apoyo (Control maestro L34/M34) cita el informe del 1S-2025 (inventario 316,66 y deudores 90,28 a 30-jun-2025), que no está en texto/; el semestral del H1-2026 compara su balance con el 31-dic-2025 (inventario 325.764.610 frente a 310.497.568, PDF p. 25; deudores 86.024.991 frente a 75.235.066, p. 25) y no publica el nivel a 30-jun-2025. Aproximación con fuentes del expediente (no es la cifra publicada): inventario a 31-dic-2024 260.870.129 (AR2025 PDF p. 150) + aumento del 1S-2025 56.587.171 (H1-2026 PDF p. 61, «(Increase)/ decrease in inventories», columna 01.01–30.06.2025) = 317,46 mm frente a 316,66 (la diferencia, 0,80 mm, son partidas sin caja como deterioros); con ella el inventario sube un 2,6 % frente a ventas del 1S +4,42 % (519.257.126 frente a 497.278.437, H1-2026 PDF p. 23): mismo veredicto «No». Los deudores a 30-jun-2025 no se pueden aproximar con lo conservado. Queda pendiente: hace falta el informe del 1S-2025 o reescribir el apoyo en la evidencia del libro (decisión de la orquestación).",
+    "justificacion_clase": "Veredicto de texto («No») de una comparación de crecimientos (inventario y cobros frente a ventas) decidida por el inversor (comparación semestral); no es una cifra publicada."
+   }
+  }
+ ]
+}
