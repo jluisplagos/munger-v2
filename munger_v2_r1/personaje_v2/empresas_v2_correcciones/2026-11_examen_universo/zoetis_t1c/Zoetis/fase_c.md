@@ -62,3 +62,55 @@ Lo que más condiciona es B69:C69 con Palancas!C18: que 2026 sea un escalón (NO
 ## 9. Configuración V6.4
 
 No aplica: no hay `configuracion_economica.json` en la carpeta (plantilla V6.3.1 F1). `configuracion_v64 = null`.
+
+## 10. Conclusión (turno 2)
+
+No hay `comprobacion_conjunta.json`, porque no procedía: `sobrevive = null` y `resultado = no_procede`. El cierre es **`pendiente_de_datos` · Vigilar · acción `null`**, sin precio objetivo. El precio cumple la regla k = 3 por 0,23: el precio de Sí es 73,31, el precio esc. MALO 62,07, el ponderado 80,06 y la zona `cumple_regla_k`. Aun así no emito la conclusión favorable, porque faltan dos datos materiales: las fechas de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela, y el nombre y la cuota del rival de dermatología. El tamaño de la posición, también el cero, lo decide José Luis. La r (0,09) está por debajo de la r mínima (10,8 %). La palanca que más pesa es la tasa de descuento: el valor depende sobre todo de la r exigida. Confianza global: baja.
+
+## 11. Tesis y tesis inversa
+
+**Tesis (B101).** Zoetis vende medicinas, vacunas y diagnóstico para animales, y en diez años ha llevado el margen EBIT del 28,5 % al 37,8 % (Historia fila 29). Leo que su ventaja es de cartera: patentes renovadas con I+D y una escala en vacunas, ganado e Internacional que no depende de ninguna patente. En 2026 la parte de patente tropieza: dermatología pierde 10 puntos de cuota [presentación 2T26, PDF p. 6]. El precio descuenta menos crecimiento que mi NORMAL (0,9 % en los años 1–5, C86). Pero la tesis se apoya en dos datos que no tengo.
+
+**Tesis inversa (B102).** El foso es una suma de exclusividades que caducan, y ya han empezado a caducar:
+
+- Draxxin perdió un 66 % tras su genérico [10-K 2025, PDF p. 42], y Cerenia y Convenia ya tienen genéricos.
+- La cuota de dermatología cae 5 puntos en un trimestre.
+- Las dos primeras franquicias suman el 28 % de los ingresos y no se conoce la fecha en que pierden la exclusividad [10-K 2025, PDF p. 44].
+- El margen se hizo con precio mientras bajaban las visitas, y ahora se devuelve en rebajas [conferencia 2T26, PDF p. 3, 12 y 16].
+- La dirección recompró con deuda a ≈134 y ≈124 justo antes del tropiezo (Historia fila 22).
+
+Si llegan genéricos a Simparica Trio o Apoquel antes de 2030, el MALO vale ≈55 (estimación auxiliar) y a 73,08 se pierde una cuarta parte. Un colchón de 0,23 no es margen de seguridad.
+
+## 12. Predicciones (dado el NORMAL)
+
+1. La cuota de dermatología en EE. UU. en el T3 2027 será del 80 % o más. Fecha: 2027-11-15. Probabilidad: 0,6.
+2. En 2027 el crecimiento orgánico operativo será de al menos +2 %. Fecha: 2028-02-29. Probabilidad: 0,65.
+3. El margen EBIT de 2027 estará entre el 33 % y el 37 %. Fecha: 2028-02-29. Probabilidad: 0,65.
+
+Las tres separan el escalón del NORMAL de la pendiente del MALO.
+
+## 13. Qué cambiaría el cubo
+
+- **A Sí:** que las exclusividades duren más allá de 2030, que el rival esté identificado y que la cuota de dermatología se mantenga en el 80 % o más en el T3 y el T4 de 2026, con la escalera todavía en `cumple_regla_k`.
+- **A No:** que 2027 vuelva a ser negativo en orgánico y que Simparica Trio empiece a caer.
+- **A Demasiado difícil:** que las exclusividades venzan antes de 2030 y que el valor pase a depender de la ciencia del riñón y la oncología.
+
+## 14. Comparación con la etapa 1
+
+Los dos análisis dan Vigilar, pero por motivos distintos. En la etapa 1 era Vigilar por precio, con un precio de Sí de ≈49 estimado sin escalera. En la v2 es Vigilar por falta de datos: el precio cumple la regla k = 3 (73,31). La diferencia está sobre todo en el MALO. El de la etapa 1 tenía un FCF que caía un 2 % al año; el de la v2 tiene ventas planas con un margen del 32 % y vale 62,07. Si las exclusividades vencen antes de 2030, el MALO v2 baja a ≈55 y se acerca al de la etapa 1. La etapa 1 acertaba en la tesis inversa pero no conocía la causa; la v2 tiene la causa medida y le faltan las fechas. «Knowing what you don't know is more useful than being brilliant» (TCI p.15; HIM).
+
+## 15. Checklist de la fase C
+
+He comprobado lo siguiente:
+
+- Las 68 celdas cuentan una sola historia, con las incoherencias del punto 1.
+- La autocomprobación tiene contenido en las diez tendencias.
+- Están revisados los 26 datos ausentes, y dos son materiales.
+- La lista de hipótesis sin fundamento está vacía, y digo qué revisé para llegar a eso.
+- No hubo combinación conjunta, porque un dato material la bloquea antes.
+- El estado (`pendiente_de_datos`), el cubo (Vigilar) y la acción (`null`) son coherentes con la sección 15.
+- C104 no lleva ningún porcentaje y su etiqueta es «pendiente de datos».
+- Las predicciones son tres, falsables, sobre el negocio y dentro de la ventana de 12–24 meses.
+- La tesis inversa está apoyada en hechos y B222/B223 son concretos.
+- La comparación con la etapa 1 y lo que cambiaría el cubo están escritos.
+- Cada cita lleva libro y página.
