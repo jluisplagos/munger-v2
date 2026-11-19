@@ -1,5 +1,5 @@
 {
- "paso": 6,
+ "paso": 8,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -19,12 +19,21 @@
   "  $ python3 rellenar_fase1_v63.py Ahold_v63_base.xlsx fase1_v63.json Ahold_v63_datos.xlsx --estricta → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
   "  $ python3 f1_libro_v631.py aplicar Ahold_v63_datos.xlsx Ahold_v63_datos.xlsx.f1.xlsx Ahold → 0 · OK: perímetro F1 aplicado al libro V6.3.1 (Historia C85 = 'A2_propio'; 8 importes) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f",
   "  $ python3 comprobar_entrada_v63.py Ahold_v63_datos.xlsx Ahold → 0 · OK: 0 bloqueantes · 2 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
-  "  $ python3 volcar_datos_v63.py Ahold_v63_datos.xlsx Ahold → 0 · OK: datos_v63.md (18427 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold"
+  "  $ python3 volcar_datos_v63.py Ahold_v63_datos.xlsx Ahold → 0 · OK: datos_v63.md (18427 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold",
+  "  $ python3 validar_esquema.py fase_a.json fase_a --salida esquema_fase_a.json.txt → 0 · VÁLIDO · fase_a.json contra fase_a.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_a.md fase_a.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_a.json A celdas_A.json → 0 · OK: 116 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold/celdas_A.json",
+  "  $ python3 escribir_v63.py Ahold_v63_datos.xlsx Ahold_v63_evaluada.xlsx --celdas celdas_A.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Ahold_v63_evaluada.xlsx Ahold_v63_datos.xlsx --fases A → 0 · PASS: 0 errores · 29 celdas correctas · fases ['A'] · motor A",
+  "  $ python3 comprobar_entrada_v63.py Ahold_v63_evaluada.xlsx Ahold --motor A → 0 · OK: 0 bloqueantes · 2 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
+  "  $ python3 motor_a_f1.py evaluar Ahold --libro Ahold_v63_evaluada.xlsx --motor A --libro-origen Ahold_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T09:19:04 · paso 7 · motor A · F1: motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "  $ python3 volcar_datos_v63.py Ahold_v63_evaluada.xlsx Ahold --referencias-mecanicas → 0 · OK: datos_v63.md (19010 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold · referencias_mecanicas"
  ],
- "motor": null,
+ "motor": "A",
  "fase_b_escrita": false,
  "fase_c_escrita": false,
- "esperando": "6:fase_a.json",
+ "esperando": "8:fase_b.json",
  "inicio": "2026-11-19T08:48:34",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -32,8 +41,16 @@
  },
  "f1_v631_declaracion_sha256": "5261d81e7d6a0a2f02a68d573ac41963363b63030fa0dbc1c6d9997470729336",
  "consumidos": {
-  "extracto_v63.md": 1795079049.958037
+  "extracto_v63.md": 1795079049.958037,
+  "fase_a.json": 1795079904.29985
  },
  "motivo_correccion": null,
- "esperando_desde": 1795079050.03927
+ "esperando_desde": 1795079945.725971,
+ "motor_a_f1": {
+  "paso": 7,
+  "bloquea": false,
+  "estado_propuesto": null,
+  "declaracion_sha256": "b31cafa8abe02b20375433502676bf8b5ca404394a5b028d9b45fbf9fefbbc5a",
+  "libro_sha256": "bf43f87e989b65758f0cde4d1778465afa6e7c36d8ad2cc7215dafd3b99bf133"
+ }
 }
