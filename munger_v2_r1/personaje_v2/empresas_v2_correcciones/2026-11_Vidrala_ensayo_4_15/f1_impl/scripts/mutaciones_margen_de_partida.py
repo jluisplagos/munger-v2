@@ -33,12 +33,15 @@ M = [
     ("z11 · V-F1f: lo que lleva m0, siempre del año base", "        if not ciclo:\n            return serie[yL] / V0", "        if True:\n            return serie[yL] / V0"),
     ("z12 · el m0 del perímetro declarado sin N1 (la Historia en lugar del EBIT normalizado)", '        m0 = margen_de_partida(anios, H["V"], ebit, V0, ciclo)',
      '        m0 = margen_de_partida(anios, H["V"], H["EBIT"], V0, ciclo)'),
+    ("z13 · leer_libro no lee Palancas C8 (r13 de la revisión d16a2d7; antes solo la veía L8, con LibreOffice)", '("Palancas", "C8:C8"), ', ""),
 ]
 SRC = open(os.path.join(PV, "scripts", "motor_a_f1.py"), encoding="utf-8").read()
 
 
 def correr(codigo):
-    """(pasan, fallan): nombres de las pruebas de las dos baterías con la capa `codigo`, en una copia temporal."""
+    """Las dos baterías con la capa `codigo`, en una copia temporal: {"pasan": comienzos de las líneas PASA (solo para los ejemplos), "n_pasa",
+    "n_falla", "interrumpidas": las baterías que acaban con Traceback}. (Revisión d16a2d7) Se detecta por el recuento, no por el texto de las
+    líneas: que cambie el detalle de una prueba que sigue pasando no cuenta como «deja de pasar»."""
     tmp = tempfile.mkdtemp(prefix="mut_m0_")
     try:
         pv = os.path.join(tmp, "personaje_v2")
@@ -50,23 +53,26 @@ def correr(codigo):
         open(os.path.join(pv, "scripts", "motor_a_f1.py"), "w", encoding="utf-8").write(codigo)
         td = os.path.join(tmp, "tmp")
         os.makedirs(td)
-        pasan, fallan = set(), set()
+        out = {"pasan": set(), "n_pasa": 0, "n_falla": 0, "interrumpidas": []}
         for b in BATERIAS:
             r = subprocess.run([sys.executable, "-B", os.path.join("pruebas", b)], cwd=pv, capture_output=True, text=True,
                                env=dict(os.environ, TMPDIR=td, PYTHONDONTWRITEBYTECODE="1"))
             for ln in r.stdout.splitlines():
                 if ln.startswith("PASA "):
-                    pasan.add((b, ln[8:160]))
+                    out["pasan"].add((b, ln[8:68]))
+                    out["n_pasa"] += 1
                 elif ln.startswith("FALLA"):
-                    fallan.add((b, ln[8:160]))
+                    out["n_falla"] += 1
             if r.returncode != 0 and "Traceback" in r.stderr:
-                fallan.add((b, "la batería se interrumpe: " + r.stderr.strip().splitlines()[-1][:120]))
-        return pasan, fallan
+                out["interrumpidas"].append(f"{b} ({r.stderr.strip().splitlines()[-1][:100]})")
+        return out
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-BASE_P, BASE_F = correr(SRC)
+BASE = correr(SRC)
+if BASE["interrumpidas"]:
+    sys.exit(f"sin mutar, se interrumpe {BASE['interrumpidas']}: no hay con qué comparar")
 
 
 def una(m):
@@ -74,15 +80,17 @@ def una(m):
     n = SRC.count(viejo)
     if n != 1:
         return False, f"ERROR        · {nombre}: el texto a mutar aparece {n} veces"
-    pasan, _ = correr(SRC.replace(viejo, nuevo))
-    dejan = sorted(BASE_P - pasan)
-    return bool(dejan), (("DETECTADA    " if dejan else "NO DETECTADA ") + f"· {nombre} · {len(dejan)} pruebas dejan de pasar"
-                         + (f" (p. ej. «{dejan[0][1][:100]}»)" if dejan else ""))
+    r = correr(SRC.replace(viejo, nuevo))
+    dejan = BASE["n_pasa"] - r["n_pasa"]
+    ok = dejan > 0 or bool(r["interrumpidas"])
+    ej = sorted(BASE["pasan"] - r["pasan"])
+    return ok, (("DETECTADA    " if ok else "NO DETECTADA ") + f"· {nombre} · pasan {r['n_pasa']} de {BASE['n_pasa']} ({dejan} dejan de pasar)"
+                + (f" · se interrumpe {r['interrumpidas'][0]}" if r["interrumpidas"] else "") + (f" (p. ej. «{ej[0][1]}…»)" if ej else ""))
 
 
 with ThreadPoolExecutor(max_workers=int(os.environ.get("MUT_TRABAJADORES", "3"))) as ex:
     res = list(ex.map(una, M))
-out = [f"sin mutar: {len(BASE_P)} pruebas pasan y {len(BASE_F)} fallan en la copia sin binarios (las del libro de Elis)"] + [x for _, x in res]
+out = [f"sin mutar: {BASE['n_pasa']} pruebas pasan y {BASE['n_falla']} fallan en la copia sin binarios (las del libro de Elis)"] + [x for _, x in res]
 det = sum(ok for ok, _ in res)
 out.append(f"\n{det} de {len(M)} mutaciones detectadas")
 if SALIDA:

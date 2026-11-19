@@ -942,6 +942,29 @@ paso("M0 · V-F1f (INFORMA) con «Media del ciclo»: lo que lleva m0 de la PPA e
      and _cerca_m0(inf1.get("PPA: año base ÷ ventas del año base (lo que lleva m0)"), 0.003) and _cerca_m0(inf1.get(EF_PPA), 0.0)
      and "no calculable" in str(inf2.get("PPA: lo que lleva m0")) and EF_PPA not in inf2, json.dumps(inf0, ensure_ascii=False)[:200])
 
+# (19-nov-2026; revisión de f1/usgaap-replica, C3) leer_libro lee Palancas C8, sin LibreOffice: el libro «Media del ciclo» de M0 se escribe en un .xlsx con sus
+# valores (como la caché de un libro recalculado), leer_libro lo lee y la capa da lo mismo que con el diccionario. Sin la lectura de C8 la capa partiría de C48
+# y la réplica bloquearía; hasta ahora eso solo lo veía L8 (probar_libro_v631_usgaap.py, con LibreOffice, en el modo «completa»)
+tmp_m0 = tempfile.mkdtemp(prefix="f1_m0_xlsx_")
+try:
+    import openpyxl
+    wb = openpyxl.Workbook()
+    for k, v in Lc0.items():
+        if "!" in k:
+            h, c = k.split("!")
+            (wb[h] if h in wb.sheetnames else wb.create_sheet(h))[c] = v
+    wb.save(os.path.join(tmp_m0, "libro_m0.xlsx"))
+    Lx = M.leer_libro(os.path.join(tmp_m0, "libro_m0.xlsx"))
+    rx = M.evaluar(Lx, dM0, carpeta=FUENTES7)
+    rpx = rx.get("replica_del_libro") or {}
+    paso("M0 · leer_libro lee Palancas C8 (sin LibreOffice): el libro «Media del ciclo» escrito en un .xlsx y leído con leer_libro da la capa del diccionario: "
+         "m0 = Historia C49, réplica conforme con 33 flujos, F1-REPLICA y F1-LIBRO sin saltar",
+         Lx.get("Palancas!C8") == CM0 and rpx.get("m0_celda") == "Historia!C49" and rpx.get("conforme") is True and rpx.get("flujos_contrastados") == 33
+         and not salta(rx, "F1-REPLICA") and not salta(rx, "F1-LIBRO") and abs(rx["calculo_perimetro_declarado"]["m0"] - c49_0) < 1e-12,
+         f"Palancas!C8 = {Lx.get('Palancas!C8')!r} · {rpx.get('m0_celda')} · conforme {rpx.get('conforme')}")
+finally:
+    shutil.rmtree(tmp_m0, ignore_errors=True)
+
 # ================================================================== REV V6.3.1 · V631-2: la cifra completa, de su ejercicio y su columna, en una fuente del expediente
 TABLA = ("[PDF PAGE 1]\n(In millions of euros)" + " " * 20 + "2025" + " " * 10 + "2024\n"
          + "Right-of-use assets" + " " * 21 + "(149.5)" + " " * 7 + "(132.2)\n"

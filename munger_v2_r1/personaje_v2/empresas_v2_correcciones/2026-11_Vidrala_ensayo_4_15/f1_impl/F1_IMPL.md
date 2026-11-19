@@ -238,6 +238,17 @@ Con la capa corregida, el libro real de `zoetis_t1c` (evaluado en una copia; el 
 usaban la base de C8. Queda para el expediente repetir el paso 12 con esta capa (`pipeline.py` con `--desde 12`: recalcula, verifica, vuelve a
 evaluar F1 y sigue hasta el relevo de la auditoría); no se ha hecho en esta rama.
 
-**Límite que queda** (no forma parte de esta corrección): `perimetro_f1.py` (P-FOSO, solo NIIF y A2) sigue rotulando «margen de partida
-(Historia!C48)» en el ROIC terminal neutro que muestra como referencia; con «Media del ciclo» el margen de partida es C49. Es informativo y no
-cambia ninguna guarda; con US GAAP no se calcula.
+**Revisión independiente** (coordinación, `coordinacion/cierre_v2/examen/revisiones/usgaap_replica/REVISION.md`, `d16a2d7`): conforme con
+correcciones. Se aplican así (resultados literales en `resultados/correcciones_revision_d16a2d7.txt`):
+- **C2** (el límite que este apartado dejaba escrito): `perimetro_f1.py` (P-FOSO, solo NIIF y A2) tomaba y rotulaba siempre C48 como «margen de
+  partida» del ROIC terminal neutro que lleva a `datos_v63.md`, que leen las fases B y C. Ahora `margen_de_partida()` toma la celda que elige
+  `Palancas!C8`, igual que la plantilla y la capa: C8 vacía o «Último año» → C48; «Media del ciclo» → C49 (vacía si no es calculable, sin caer
+  en C48); otro valor → ninguna, y lo dice. `desde_libro` y `desde_datos` lo usan, el bloque guarda `m0`, `m0_celda` y `base_del_margen` en lugar
+  de `C48_m0`, y el texto rotula la celda y C8. Es informativo: ninguna guarda usa esa cifra. Con «Último año» (todos los libros NIIF en curso)
+  la cifra no cambia. `test_perimetro_foso.py`, grupo M0 (6): 66/72 con el `perimetro_f1.py` de `5a525e0` → 72/72.
+- **C3**: una prueba sin LibreOffice escribe en un `.xlsx` el libro sintético «Media del ciclo», lo lee con `leer_libro` y comprueba que la capa
+  da lo mismo que con el diccionario (`test_motor_a_f1.py`, 177/177). La mutación que deja de leer `Palancas!C8` (r13 de la revisión, z13 en
+  `scripts/mutaciones_margen_de_partida.py`) ya no la ve solo L8, con LibreOffice: 13 de 13 detectadas. Ese guion ahora detecta por el recuento
+  de pruebas que pasan, no por el texto de cada línea (observación de la revisión).
+- **C1**: la integración en `examen/expedientes-f1` se hace con `merge --no-ff`, con el manifiesto regenerado en su propio commit.
+- `verificar_paquete.sh` exige al menos 177 pruebas en `test_motor_a_f1.py` y 72 en `test_perimetro_foso.py`.

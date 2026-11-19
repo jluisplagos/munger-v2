@@ -1,0 +1,47 @@
+# Correcciones de la revisión d16a2d7 (coordinacion/cierre_v2/examen/revisiones/usgaap_replica/REVISION.md) · resultados literales (19-nov-2026)
+# Rama f1/usgaap-replica: árbol de 5a525e0 con C2 (perimetro_f1.py y su prueba), C3 (prueba de leer_libro) y el guion de mutaciones con z13,
+# tal como entran en el commit siguiente a 5a525e0. Cada resultado es la última línea de la salida de esa ejecución, con sus FALLA cuando las hay.
+
+## C2 · test_perimetro_foso.py (sin LibreOffice)
+con el perimetro_f1.py de 5a525e0 (cambio temporal, repuesto y comprobado con cmp):
+  66/72 pruebas del perímetro F1 y la vara del foso (P-FOSO) PASAN
+    FALLA · M0 · «Último año» en Palancas C8 (Ahold): el margen de partida es Historia C48, y datos_v63.md lo rotula con su celda y con C8; el ROIC neutro no cambia · None = None
+    FALLA · M0 · «Media del ciclo» en Palancas C8: P-FOSO parte de Historia C49 (el margen medio del ciclo, el del Motor), no de C48, y así lo rotula en datos_v63.md · None = None · neutro 0.09041923253396103 (con C48: 0.09041923253396103)
+    FALLA · M0 · desde el libro (desde_libro, la que usa la capa F1) con «Media del ciclo»: Historia C49, igual que desde el volcado; sin C8, Historia C48
+    FALLA · M0 · «Media del ciclo» con Historia C49 vacía: sin margen de partida ni ROIC neutro (no se toma C48 por omisión), y datos_v63.md lo deja ver
+    FALLA · M0 · un valor de Palancas C8 fuera de la lista («media del ciclo»): sin margen de partida ni ROIC neutro, y lo dice (no adivina la celda)
+    FALLA · M0 · la regla es la de la plantilla: C8 vacía o «Último año» → Historia C48; «Media del ciclo» → Historia C49; otro valor → ninguna
+con C2:
+  72/72 pruebas del perímetro F1 y la vara del foso (P-FOSO) PASAN
+    PASA  · M0 · «Último año» en Palancas C8 (Ahold): el margen de partida es Historia C48, y datos_v63.md lo rotula con su celda y con C8; el ROIC neutro no cambia · Historia!C48 = 0.0383532571032571
+    PASA  · M0 · «Media del ciclo» en Palancas C8: P-FOSO parte de Historia C49 (el margen medio del ciclo, el del Motor), no de C48, y así lo rotula en datos_v63.md · Historia!C49 = 0.0367349850896926 · neutro 0.09043779065780179 (con C48: 0.09041923253396103)
+    PASA  · M0 · desde el libro (desde_libro, la que usa la capa F1) con «Media del ciclo»: Historia C49, igual que desde el volcado; sin C8, Historia C48
+    PASA  · M0 · «Media del ciclo» con Historia C49 vacía: sin margen de partida ni ROIC neutro (no se toma C48 por omisión), y datos_v63.md lo deja ver
+    PASA  · M0 · un valor de Palancas C8 fuera de la lista («media del ciclo»): sin margen de partida ni ROIC neutro, y lo dice (no adivina la celda)
+    PASA  · M0 · la regla es la de la plantilla: C8 vacía o «Último año» → Historia C48; «Media del ciclo» → Historia C49; otro valor → ninguna
+
+## C3 · test_motor_a_f1.py (sin LibreOffice)
+  177/177 pruebas del motor A F1 (4.15) PASAN
+    PASA  · M0 · leer_libro lee Palancas C8 (sin LibreOffice): el libro «Media del ciclo» escrito en un .xlsx y leído con leer_libro da la capa del diccionario: m0 = Historia C49, réplica conforme con 33 flujos, F1-REPLICA y F1-LIBRO sin saltar · Palancas!C8 = 'Media del ciclo' · Historia!C49 · conforme True
+
+## Mutaciones · scripts/mutaciones_margen_de_partida.py (13; detección por recuento)
+  sin mutar: 458 pruebas pasan y 2 fallan en la copia sin binarios (las del libro de Elis)
+  DETECTADA    · z01 · la base del margen no se lee (m0 siempre del último año) · pasan 444 de 458 (14 dejan de pasar) (p. ej. «M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ve…»)
+  DETECTADA    · z02 · la réplica solo contrasta la celda de la Historia · pasan 455 de 458 (3 dejan de pasar) (p. ej. «M0 · la réplica no se debilita: un libro que dice «Media del…»)
+  DETECTADA    · z03 · la réplica no contrasta m0 · pasan 453 de 458 (5 dejan de pasar) (p. ej. «M0 · la celda de la Historia que elige Palancas C8 vacía (C4…»)
+  DETECTADA    · z04 · un valor de Palancas C8 fuera de la lista se acepta · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · un valor de Palancas C8 fuera de la lista («media del c…»)
+  DETECTADA    · z05 · la celda de la Historia vacía no es diferencia · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · la celda de la Historia que elige Palancas C8 vacía (C4…»)
+  DETECTADA    · z06 · la tolerancia de m0 se relaja a 10⁻² · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · paso 7: una diferencia de 10⁻⁹ entre el m0 de la capa y…»)
+  DETECTADA    · z07 · la partida K3 vuelve a ser el EBIT del año base · pasan 454 de 458 (4 dejan de pasar) (p. ej. «M0 · «Media del ciclo» en Palancas C8: la capa parte del mar…»)
+  DETECTADA    · z08 · con «Media del ciclo» y C49 incalculable no se para · pasan 446 de 458 (12 dejan de pasar) · se interrumpe test_motor_a_f1.py (TypeError: unsupported operand type(s) for *: 'NoneType' and 'Fraction') (p. ej. «M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ve…»)
+  DETECTADA    · z09 · la media del ciclo sobre la ventana y no sobre todos los años con ventas · pasan 448 de 458 (10 dejan de pasar) (p. ej. «M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ve…»)
+  DETECTADA    · z10 · N1 con «Media del ciclo» y un ajuste fuera de la ventana sin aviso en F1-PARAM · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ve…»)
+  DETECTADA    · z11 · V-F1f: lo que lleva m0, siempre del año base · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · V-F1f (INFORMA) con «Media del ciclo»: lo que lleva m0 …»)
+  DETECTADA    · z12 · el m0 del perímetro declarado sin N1 (la Historia en lugar del EBIT normalizado) · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ve…»)
+  DETECTADA    · z13 · leer_libro no lee Palancas C8 (r13 de la revisión d16a2d7; antes solo la veía L8, con LibreOffice) · pasan 457 de 458 (1 dejan de pasar) (p. ej. «M0 · leer_libro lee Palancas C8 (sin LibreOffice): el libro …»)
+  13 de 13 mutaciones detectadas
+
+## Sin cambio de resultado (sin LibreOffice)
+test_motor_a_f1_usgaap.py: 294/294 pruebas del motor A F1 con US GAAP PASAN
+test_v631_f1.py: 29/29 pruebas V6.3.1 F1 (sin LibreOffice) PASAN
+test_f1_series_escala.py: 80/80 pruebas de F1-SERIES con escala y ceros PASAN
