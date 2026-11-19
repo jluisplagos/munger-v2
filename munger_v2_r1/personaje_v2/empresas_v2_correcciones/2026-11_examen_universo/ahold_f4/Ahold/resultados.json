@@ -29,10 +29,10 @@
   0.025
  ],
  "estados": {
-  "estado_tecnico_B255": "INCOMPLETO",
-  "causa_tecnica_B256": "Faltan 3 predicciones (Palancas A38:A40)",
+  "estado_tecnico_B255": "COMPLETO Y VÁLIDO",
+  "causa_tecnica_B256": null,
   "estado_inversion_B258": "DESCARTADA POR FILTRO PABRAI",
-  "estado_libro_B266": "NO LISTO · incompleto (1 pendientes)",
+  "estado_libro_B266": "LISTO · PROVISIONAL (24 estimaciones justificadas)",
   "lectura_precio_B267": "sin margen: tu DCF no da colchón",
   "veredicto_B268": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
   "evidencias_B269": "PROVISIONAL · 24 estimación(es) justificada(s) · documentadas 19 de 19 · hipótesis confirmadas 0 de 24",
@@ -40,7 +40,7 @@
   "comparable_B253": true,
   "bloqueo_lectura_B254": false,
   "n_avisos_B260": 2,
-  "n_causas_B261": 3,
+  "n_causas_B261": 2,
   "dcf_inverso_monotono_B193": "✓ PASA"
  },
  "reglas_motor": [
@@ -521,12 +521,12 @@
    "id": "C07",
    "regla": "Predicciones (Palancas A38:A40)",
    "aplica": true,
-   "resultado": "INCOMPLETO",
-   "codigo": "INC|Faltan 3 predicciones (Palancas A38:A40)",
-   "causa": "Faltan 3 predicciones (Palancas A38:A40)",
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
    "nivel": 3,
    "prioridad": 9,
-   "n_causa_activa": 3
+   "n_causa_activa": null
   },
   {
    "id": "C08",
@@ -586,8 +586,7 @@
  ],
  "causas_activas": [
   "1. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
-  "2. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
-  "3. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)"
+  "2. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha"
  ],
  "semaforos": {
   "fila40": [
@@ -854,7 +853,7 @@
   ],
   [
    "Las tres predicciones están escritas",
-   "⛔ TÉCNICO · Faltan 3 predicciones (Palancas A38:A40)"
+   "✓ PASA"
   ],
   [
    "Tipo de empresa y caso especial elegidos",
@@ -866,7 +865,7 @@
   ],
   [
    "ESTADO DEL LIBRO · LISTO = el cálculo está completo y pasa sus comprobaciones. No es una aprobación de inversión ni dice que los datos sean ciertos: mira el estado de las evidencias y las advertencias.",
-   "NO LISTO · incompleto (1 pendientes)"
+   "LISTO · PROVISIONAL (24 estimaciones justificadas)"
   ]
  ],
  "salto_anio_11": {
@@ -951,8 +950,8 @@
    ]
   ],
   "mas_influyente": "Margen / ROE objetivo (±2 pts)",
-  "B222": null,
-  "B223": null
+  "B222": "Con la lista de hipótesis sin fundamento vacía, la conclusión depende sobre todo del margen operativo NIIF del NORMAL (Palancas!C15 = 0,035): un subyacente del 4,0 % menos 0,4–0,5 puntos de cargos que se repiten. Con 0,04 el precio de Sí subiría a ≈ 35,9 con la hoja tal cual. El objetivo de 33,79 de precio.json tiene dos sesgos mecánicos que no rebato: el FCF base lleva la devolución fiscal belga de 2023 (≈ −2,0 € en el precio de Sí) y el valor está fechado a 28-dic-2025, no al día del precio (+0,9 a +1,4 €). Con los dos el precio de Sí queda en ≈ 32,5–33,0 (≈ 35,3 con el margen 0,04), por debajo de 36,05: la acción esperar se sostiene; el objetivo exacto, no.",
+  "B223": "Informe anual 2026 (3-mar-2027): conciliación del resultado operativo subyacente con el NIIF (deterioros, reestructuración y otros) y nota de deterioros con las holguras de Stop & Shop, Giant y Profi; resultados del 4T 2026 (17-feb-2027) con el margen subyacente de EE. UU. Pregunta a Relación con Inversores: qué parte de los cargos de 2023–2025 considera recurrente y cuál es el calendario de renovación de los arrendamientos. Y dos decisiones para la persona responsable: si normalizar la devolución fiscal belga de 367 de 2023 dentro del FCF base (C46; AR2023 PDF p. 220) y si fechar el valor del motor al día del precio, descontando los dividendos de 0,73 y 0,51 € pagados en 2026 (Q3-26 PDF p. 21)."
  },
  "precio_referencia_hoja_C156": 26.9614267937165,
  "parametros_hoja": {
@@ -1417,9 +1416,9 @@
   "C93": "Sí",
   "C97": "Neutral",
   "C98": "Aceptable",
-  "B101": "Ahold Delhaize vende comida en 9.551 tiendas de EE. UU. y Europa y por internet a 77 millones de clientes a la semana, con un margen operativo subyacente del 4,0% y €6.989m de caja operativa en 2025. Su ventaja es la densidad local y es real y medible: Albert Heijn declara el 38,2% de cuota en Países Bajos con siete años consecutivos de ganancias, y Food Lion lleva 53 trimestres de comparables positivos. Convierte esa posición en unos €2.000m de caja libre al año después de capex y arrendamientos y la devuelve casi entera (€1.008m de recompra y €1.070m de dividendo en 2025), reduciendo las acciones un 3,3% al año. El problema es que el ahorro no se queda en casa: con €1.294m capturados en 2025 y $1.000m comprometidos en inversión de precios para 2025-2028, el margen sigue en el 4,0% y la caja libre está plana desde 2022. Me gusta el negocio y no el precio: a €33,14 pago 15,7 veces esa caja libre frente a la mediana de 14,7 a la que ha cotizado, y mi suelo defendible está en €23.",
-  "B102": "El No se defiende con sus propias cifras y lo defiendo mejor que un bajista. Primero, no hay poder de precios: la empresa capturó €1.294m de ahorro en 2025 y €1.354m en 2024 y el margen operativo subyacente sigue clavado en el 4,0%, con el margen bruto cayendo del 27,4% (2021) al 26,5% (2025); el ahorro se va al cliente y encima se compromete a regalar $1.000m más en precios en EE. UU. hasta 2028. Segundo, el retorno no paga el esfuerzo: tras una fusión de €10,8 mil millones y una década de reinversión, el ROCE antes de impuestos es del 10,9% y el ROIC después de impuestos del 9,2%, dos o tres puntos sobre el propio WACC que la empresa usa en sus pruebas de deterioro (EE. UU. 6,7%; Países Bajos 5,0%). Tercero, la caja libre no crece: 2.149 (2022) → 1.911 (2025) → 1.813 (LTM), la guía propia de 2026 (≥€2.300m frente a €2.600m en 2025) admite el retroceso, y el primer semestre de 2026 trae €302m frente a €715m; el BPA sube porque hay un 19% menos de acciones que en 2019, no porque el negocio gane más. Cuarto, la estructura es rígida: el 85% de los 8.152 locales son alquilados, el pasivo por arrendamientos es de €11.974m con otros ~€35 mil millones sin descontar en prórrogas no comprometidas, y los pagos han subido de €1.530m (2019) a €1.944m (2025), más rápido que el resultado; con un 4% de margen, un tropiezo de dos puntos de margen bruto se lo come la renta. Quinto, el historial de asignación de capital tiene una pérdida reconocida (FreshDirect: €271m de compra en 2021, €153m de deterioro y €250m de pérdida en la venta de 2023), €8.363m de fondo de comercio con holgura *marginal* en Profi, y recompras de 2025-2026 a €34,67 y €35,22, por encima del precio de hoy. Sexto, la mitad grande del negocio está en obras —Stop & Shop en *revitalization* con 32 tiendas cerradas en 2024— y la propia empresa escribe que *Competitive pressure intensified across our markets*. Si todo eso es cierto, €33,14 no es una ganga: es el precio de una empresa que crece con la inflación de los alimentos y entrega el resto al cliente, y mi escenario malo de €23 deja de ser un escenario y pasa a ser la tendencia. Lo único que me impide firmar el No es que una cuota del 38,2% en un mercado desarrollado no se compra con dinero y que una red de 9.551 tiendas con BBB+ aguanta mucha mala gestión; por eso el cubo es Vigilar y no No.",
+  "B101": "Ahold Delhaize vende comida en 9.551 tiendas de EE. UU. y Europa y convierte un margen operativo subyacente del 4,0 % en unos 2.300 de caja base al año (C52), que devuelve casi entera en dividendo y recompra [AR2025 PDF p. 42, 56]. Su ventaja es la escala local, con Albert Heijn en el 38,2 % de cuota y siete años ganándola y Food Lion con 53 trimestres de comparables positivas [AR2025 PDF p. 43, 50], y el capital del accionista, pagado todo el alquiler, rinde un 13,03 % frente al 9 % que exijo (datos_v63 §1 bis). Pero el ahorro se va al cliente y el resultado subyacente está plano desde 2022 [AR2025 PDF p. 45, 49]: en mi NORMAL el capital nuevo rinde un 14 % hasta el año 10 y un 10 % después, porque la escala se erosiona con la inversión en precios. Con eso la acción vale 28,40 / 35,76 / 44,05 € en mis tres escenarios y el precio de Sí es 33,79 €. A 36,05 € pago algo más de lo que vale seguir como hoy sin crecer (34,70 € en la hoja; ≈ 33,1 € sin la devolución fiscal belga de 2023 que lleva el FCF base): me gusta el negocio, no el precio, y espero.",
+  "B102": "El No se defiende con las cifras de la propia empresa. Uno, el retorno es en parte prestado del casero: todo el capital rinde un 8,78 % (Historia!C55), menos que la r del 9 % y que el sector (10,08 %, Palancas!H18), y el 13 % del accionista sale de alquilar el 85 % de los locales a ≈ 3,3 % [AR2025 PDF p. 58], con unos 35.000 de prórrogas sin descontar que se renovarán a precios futuros [AR2025 PDF p. 272]. Dos, no hay poder de precio: 1.354 de ahorro en 2024 y 1.294 en 2025 se fueron al precio y el subyacente del Grupo bajó del 4,4 % (2021) al 4,0 % [AR2025 PDF p. 45, 64]; EE. UU., el 57,5 % de las ventas, va del 4,7 % al 4,3 % con comparables del 0,5 % en el 3T 2026 [AR2025 PDF p. 49; Q3-26 PDF p. 3, 7]. Tres, la caja no crece: FCF del accionista sin circulante de 2.149 en 2022 a 1.725 en los doce meses a septiembre de 2026, y guía de 2026 rebajada a unos 2.100 (extracto §0; Q3-26 PDF p. 2). Cuatro, los cargos se repiten: deterioros y reestructuración de 643 en 2024, y holguras de algo más del 1–2 % en Stop & Shop y Giant y mínima en Profi [AR2025 PDF p. 46, 238]. Cinco, se compra sin cifras: Tesco Chequia y Eslovaquia sin múltiplo publicado [Q3-26 PDF p. 30] y recompra a 35,41 € de media en 2026 [Q3-26 PDF p. 21], por encima de mi precio de Sí. Mi MALO (28,40 €) no es un suelo: arranca con más caja de la que la empresa ha generado nunca (2.649 en el año 1) y no incluye ni un deterioro ni alquileres más caros. Lo que me impide firmar el No es que la escala local y un balance BBB+ y Baa1 [AR2025 PDF p. 55] aguantan bastante mala gestión: por eso es Vigilar y no No.",
   "C103": "No",
-  "C104": "0% · Watchlist · precio de Sí ≈ 23 €"
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 33.79 · zona caro · precio de Sí ≤ 33.79 · precio esc. MALO 28.40 · ponderado 35.95 · fundamento no procede (conclusión no favorable)"
  }
 }

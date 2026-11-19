@@ -21,7 +21,7 @@ Incoherencias anotadas. Ninguna exige mover palancas.
 1. Las celdas de la fase C que hoy tiene el libro son de la etapa 1. C104 lleva un porcentaje de posición y un precio de Sí de otra escalera. B101 y B102 citan 33,14 €, 15,7 veces y un suelo de 23 €. Se reescriben en el turno 2.
 2. **El MALO arranca alto.** El flujo del año 1 es 2.649. Supera el FCF base (2.312), el FCF LTM (2.150) y todo FCF del accionista de diez años (máximo 2.150). Es mecánica, no un error. El flujo sin crecimiento (2.770) parte del EBIT de 2025, 381 por encima de la media de la ventana (K3 de `motor_a_f1_resultado.md`). Con crecimiento 0 no hay reinversión. La caída viene después: 1.981 en el año 10.
 3. **Tensión entre fases.** La fase A puso C8 = «Último año», como pide la regla. La fase B dice que 2025 tuvo pocos cargos. Con la media del ciclo (3,67 %), el valor bajaría ≈ 0,2–0,3 € por acción. Es menos de un 1 % del precio de Sí: ni cubo ni zona.
-4. **Acciones y balance de fechas distintas** (Z-ACC, decisión registrada). Con las 865,174 M acciones de septiembre, los valores por acción subirían ≈ 2,5 %. La zona pasaría de caro a vigilar y la acción no cambia. Es un dato: no lo toco.
+4. **Acciones y balance de fechas distintas** (Z-ACC, decisión registrada). Con las 865,174 M acciones de septiembre, y restando los 864 M€ que costó la recompra [Q3-26 PDF p. 16, 21], el precio de Sí sería ≈ 33,6 y el ponderado ≈ 35,9: sigue en caro y la acción no cambia (corregido tras la nota 1 del contradictor). Es un dato: no lo toco.
 5. **De dónde sale el exceso de C18** (13,03 % frente a r). Es el ROIC de todo el capital (8,78 %, por debajo de r y del sector) apalancado con locales alquilados a ≈ 3,3 % antes de impuestos. La vara P-FOSO lo admite. Pero su duración depende de renovar unos 35.000 de prórrogas [AR2025 PDF p. 272]. Es coherente con dejar a perpetuidad 1 punto en el NORMAL y ninguno en el MALO.
 
 ## 2. Desviaciones pendientes
@@ -50,7 +50,7 @@ La lista completa está en `fase_c.json`. Lo que más pesa:
   - probabilidades 0,1/0,6/0,3 → 35,76 (el tope del NORMAL);
   - margen NORMAL 0,04 (aproximación lineal con el tornado) → ≈ 35,9.
 
-  En todas el precio sigue por encima del precio de Sí. Pero el margen 0,04 junto con las acciones de septiembre daría ≈ 36,8 y la zona cumple_regla_k. La acción esperar es estrecha.
+  En todas el precio sigue por encima del precio de Sí. Con el margen 0,04 y las acciones de septiembre, restando la caja de la recompra, sería ≈ 35,8: aún por debajo (corrijo el ≈ 36,8 de antes). Con el valor fechado al día del precio (O2), el margen 0,04 sí cruzaría el precio. La acción esperar es estrecha.
 - **Historia bonita.** Parte del exceso es la financiación barata de los locales, no foso.
 - **¿El MALO es malo?** En su estado estable sí: subyacente ≈ 3,4 %, por debajo de cualquier año desde 2016. Pero sus primeros años llevan más caja que la observada, y no incluye un deterioro, una compra cara ni alquileres más caros. «We don't think because it's never happened that it won't» (AIWTK p.55; HIM).
 - **Doble castigo.** La renta está en la r heredada y en el MALO, no en la quiebra ni en las probabilidades (PA pp. 20–21; E6).
@@ -116,7 +116,7 @@ C103 = No. El margen es del 4 % sin poder de precio y todo el capital rinde por 
 2. Su ventaja es la escala local: Albert Heijn tiene el 38,2 % de cuota y Food Lion lleva 53 trimestres de comparables positivas [AR2025 PDF p. 43, 50]. El capital del accionista, pagado todo el alquiler, rinde un 13,03 % frente a mi 9 %.
 3. Pero el ahorro se va al cliente y el resultado subyacente está plano desde 2022 [AR2025 PDF p. 45, 49]. En mi NORMAL el capital nuevo rinde un 14 % hasta el año 10 y un 10 % después.
 4. La acción vale 28,40 / 35,76 / 44,05 €, con un precio de Sí de 33,79 €.
-5. A 36,05 € pago casi exactamente lo que vale seguir como hoy sin crecer (34,70 €). Me gusta el negocio, no el precio, y espero.
+5. A 36,05 € pago algo más de lo que vale seguir como hoy sin crecer: 34,70 € en la hoja, ≈ 33,1 € sin la devolución fiscal belga de 2023. Me gusta el negocio, no el precio, y espero.
 
 ## 11. Tesis inversa (B102)
 
@@ -143,7 +143,7 @@ Mi MALO no es un suelo. Lo que me impide firmar el No es que la escala local y e
 **B222.** Es el margen NORMAL de 0,035 (Palancas!C15):
 
 - Con 0,04, el precio de Sí sería ≈ 35,9.
-- Con 0,04 y las acciones de septiembre, sería ≈ 36,8 y el precio cumpliría la regla.
+- El objetivo de 33,79 tiene dos sesgos mecánicos que no rebato (sección 16). Con los dos corregidos, el precio de Sí queda en ≈ 32,5–33,0, y en ≈ 35,3 con el margen 0,04: siempre por debajo de 36,05.
 
 **B223.** Lo resolvería el informe anual 2026, con la conciliación del resultado subyacente con el NIIF y las holguras de deterioro. Y una pregunta a Relación con Inversores: qué parte de los cargos es recurrente y cuándo se renuevan los arrendamientos.
 
@@ -161,3 +161,19 @@ El cubo es el mismo, Vigilar, por la misma razón. El precio de Sí pasa de 23,1
 - **La regla.** La escalera k = 3 da 33,79 € con los mismos valores.
 
 Además, mi MALO (28,40) es menos duro que el de la etapa 1 (23,13). Con las dos, el precio del día queda por encima del precio de Sí.
+
+## 16. Respuesta al contradictor
+
+| Objeción | Respuesta | Efecto |
+|---|---|---|
+| **O1 (baja).** El FCF base 2023–2025 lleva la devolución fiscal belga de 367 de 2023; f la absorbe y el precio de Sí sale ≈ 2,0 € alto. | **No rebatida.** El propio expediente lo declara en C46 y C47: incluye la devolución fiscal belga, +367 en 2023 (datos_v63 §2). La empresa lo confirma (Bélgica, 367: AR2023 PDF p. 220) y lo trata como un cobro incidental (AR2024 PDF p. 52). Devuelve un pago de 2021, fuera de la ventana: no es caja repetible. No encuentro en la ventana una salida que lo compense. | Un escalón hacia abajo. El objetivo de 33,79 queda ≈ 2,0 € alto (≈ 31,7–31,8). Zona caro. No cambio C52 ni `precio.json`: normalizar el FCF base es una decisión humana. Ajusto el texto de B101, B222, B223 y los insumos. |
+| **O2 (sube).** El valor está fechado a 28-dic-2025 y el precio es del 13-nov-2026; llevado a la fecha del precio y restando los dividendos de 2026, el precio de Sí sube 0,9–1,4 €. | **No rebatida.** C55 dice que la valoración no está actualizada a 2026 (datos_v63 §2). Entre las dos fechas se pagaron 0,73 y 0,51 € (Q3-26 PDF p. 21). Lo único que podría oponer, la guía de FCF de 2026 de unos 2.100 (Q3-26 PDF p. 2), ya está en su extremo bajo. | Un escalón hacia arriba. El objetivo queda 0,9–1,4 € bajo (≈ 34,7–35,2) y la zona pasaría a vigilar; el precio sigue por encima del precio de Sí. Con el margen 0,04 cruzaría el precio (≈ 37,4). No cambio `precio.json`: la fecha es una convención del motor. |
+| Nota 1 (no es objeción). Mi cuenta de Z-ACC olvidaba los 864 M€ de la recompra. | **Aceptada.** | La corrijo: precio de Sí ≈ 33,6 y ponderado ≈ 35,9, zona caro; con el margen 0,04, ≈ 35,8. |
+
+**Regla de movimiento.** Hay dos objeciones válidas no rebatidas, una en cada dirección. El escalón hacia abajo (O1) y el escalón hacia arriba (O2) se compensan, así que la conclusión no se mueve.
+
+**Conclusión final:**
+
+- Estado `concluido` (provisional hasta la auditoría), cubo Vigilar, acción `esperar`.
+- Precio objetivo: 33,79 €, el de `precio.json`. Lleva dos sesgos mecánicos declarados; con los dos corregidos queda en ≈ 32,5–33,0 €, con un ponderado de ≈ 34,8–35,2 €.
+- Los dos valores quedan por debajo del precio de 36,05 €.

@@ -1,7 +1,7 @@
 {
  "version": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026)",
  "fecha": "2026-11-19",
- "libro_sha256": "bf43f87e989b65758f0cde4d1778465afa6e7c36d8ad2cc7215dafd3b99bf133",
+ "libro_sha256": "b960783b719e7fe9c34fc314b11cda91455d72592a63289a5786d1a462effd9d",
  "declaracion_sha256": "b31cafa8abe02b20375433502676bf8b5ca404394a5b028d9b45fbf9fefbbc5a",
  "apto_para_dinero_real": false,
  "parametros_sin_valor_adoptado": {
@@ -59,7 +59,29 @@
   ],
   "nota": "entradas registradas del FCF base: no cambian con F1 (E0.3, T10); la capa F1 no las escribe"
  },
- "palancas": null,
+ "palancas": {
+  "MALO": {
+   "g15": 0.0,
+   "m_obj": 0.03,
+   "s2c": 3.8,
+   "roic": 0.09,
+   "g_inf": 0.01
+  },
+  "NORMAL": {
+   "g15": 0.03,
+   "m_obj": 0.035,
+   "s2c": 5.1,
+   "roic": 0.1,
+   "g_inf": 0.02
+  },
+  "BUENO": {
+   "g15": 0.04,
+   "m_obj": 0.04,
+   "s2c": 5.4,
+   "roic": 0.12,
+   "g_inf": 0.025
+  }
+ },
  "replica_del_libro": {
   "f": 0.000139707589797,
   "C58": 0.000139707589797,
@@ -69,7 +91,7 @@
   "m0_del_libro": 0.038353257103257,
   "m0_celda": "Historia!C48",
   "base_del_margen": "Último año",
-  "flujos_contrastados": 0,
+  "flujos_contrastados": 33,
   "conforme": true,
   "perimetro_replicado": "D_X del libro (A2_propio)"
  },
@@ -102,16 +124,73 @@
  "libro_v631_f1": {
   "perimetro_efectivo": "A2_propio",
   "motivos": [],
-  "flujos_contrastados": 0
+  "flujos_contrastados": 33
  },
- "bloque_10_del_libro": null,
+ "bloque_10_del_libro": {
+  "MALO": {
+   "fila_176": 0.08956296,
+   "fila_177": 0.09,
+   "fila_178_salto": -0.00043704,
+   "C179": 0.05,
+   "supera_umbral": false,
+   "salto_igualdad_exacta": 0.00045859
+  },
+  "NORMAL": {
+   "fila_176": 0.14023674,
+   "fila_177": 0.1,
+   "fila_178_salto": 0.04023674,
+   "C179": 0.05,
+   "supera_umbral": false,
+   "salto_igualdad_exacta": 0.043041475
+  },
+  "BUENO": {
+   "fila_176": 0.16969824,
+   "fila_177": 0.12,
+   "fila_178_salto": 0.04969824,
+   "C179": 0.05,
+   "supera_umbral": false,
+   "salto_igualdad_exacta": 0.053940696
+  }
+ },
  "perimetro_f1_valores": {
-  "palancas": null,
+  "palancas": {
+   "MALO": {
+    "s2c": 3.8,
+    "mas_cerca_de_medio": "C54 (todo el capital)",
+    "mas_cerca_de": "C54 (todo el capital)",
+    "roic_terminal": 0.09,
+    "roic_neutro": 0.09053666049872658,
+    "exceso_sobre_neutro": -0.0005366604987265822
+   },
+   "NORMAL": {
+    "s2c": 5.1,
+    "mas_cerca_de_medio": "S2C medio sin arrendamientos",
+    "mas_cerca_de": "S2C medio sin arrendamientos",
+    "roic_terminal": 0.1,
+    "roic_neutro": 0.09045960320385359,
+    "exceso_sobre_neutro": 0.00954039679614642
+   },
+   "BUENO": {
+    "s2c": 5.4,
+    "mas_cerca_de_medio": "S2C medio sin arrendamientos",
+    "mas_cerca_de": "S2C medio sin arrendamientos",
+    "roic_terminal": 0.12,
+    "roic_neutro": 0.09040189625780562,
+    "exceso_sobre_neutro": 0.029598103742194376
+   }
+  },
   "aplicable": true,
   "intereses_estado": "comprobada",
   "roic_propio_utilizable": true,
   "roic_propio_pagado_el_alquiler_medio": 0.1302800349451796,
-  "roic_sin_arrendamientos_medio": 0.1481806181413951
+  "roic_sin_arrendamientos_medio": 0.1481806181413951,
+  "ancla_perimetro": 5.101650738488271,
+  "ancla_rotulo": "cota A1 (ancla E4 sin derechos de uso; la de A2 no es calculable)",
+  "C54_todo_el_capital": 3.18532059462629,
+  "s2c_medio_sin_arrendamientos_ultimo": 5.426405781773312,
+  "r": 0.09,
+  "f": 0.0001397075897974427,
+  "tau": 0.21436
  },
  "sensibilidad_peso_arrendamiento_1b": {
   "convencion": "media de la ventana (referencia de ensayo y convención declarada; no es una estimación del peso futuro)",
@@ -147,7 +226,53 @@
    "2024": 0.2165,
    "2025": 0.2242
   },
-  "escenarios": {},
+  "escenarios": {
+   "MALO": {
+    "anios_1_10": [
+     2648.619780347027,
+     2527.404956027026,
+     2406.190131707026,
+     2284.975307387027,
+     2163.760483067027,
+     2119.481688243687,
+     2079.353299207188,
+     2043.125890581379,
+     2010.572555171293,
+     1981.48654813306
+    ],
+    "anio_11": 2000.02548692647
+   },
+   "NORMAL": {
+    "anios_1_10": [
+     2259.563402972308,
+     2275.727548619941,
+     2290.827935943757,
+     2304.786191713245,
+     2317.520197686551,
+     2423.17271993594,
+     2528.160026069864,
+     2631.996256942767,
+     2734.182734989161,
+     2834.211731532047
+    ],
+    "anio_11": 2687.439783571284
+   },
+   "BUENO": {
+    "anios_1_10": [
+     2221.390967254419,
+     2336.092547925779,
+     2456.416029503242,
+     2582.62764153022,
+     2715.005916872152,
+     2875.482678981488,
+     3035.671494979328,
+     3194.509345217918,
+     3350.888529930654,
+     3503.66858684
+    ],
+    "anio_11": 3318.883891962671
+   }
+  },
   "K3": {
    "lineas": [
     {
@@ -212,7 +337,53 @@
     "2024": 0.2165,
     "2025": 0.2242
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      1240.67539301074,
+      1119.46056869074,
+      998.24574437074,
+      877.03092005074,
+      755.81609573074,
+      708.721412132728,
+      662.949981991785,
+      618.224153462683,
+      574.271604155648,
+      530.822587607259
+     ],
+     "anio_11": 534.85488679541
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      809.380684015933,
+      782.039348094875,
+      752.329089402939,
+      720.132379776202,
+      685.326771391397,
+      745.277877704521,
+      806.639917940428,
+      869.159666218225,
+      932.56373926868,
+      996.560355897155
+     ],
+     "anio_11": 813.035380423695
+    },
+    "BUENO": {
+     "anios_1_10": [
+      757.128804424681,
+      813.259898582852,
+      872.670074186597,
+      935.53184800091,
+      1002.026291601669,
+      1099.122807575997,
+      1198.91538794605,
+      1300.813798866609,
+      1404.169508281508,
+      1508.281589649626
+     ],
+     "anio_11": 1273.612219842538
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -279,7 +450,53 @@
     "2024": 0.2165,
     "2025": 0.2242
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2630.179567658169,
+      2508.964743338169,
+      2387.749919018169,
+      2266.535094698169,
+      2145.320270378169,
+      2101.004595129452,
+      2060.802297720496,
+      2024.463583085766,
+      1991.760949215716,
+      1962.486826117927
+     ],
+     "anio_11": 1980.835767691186
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2240.569983902785,
+      2256.164326978332,
+      2270.6778176529,
+      2284.031569873662,
+      2296.142937191781,
+      2401.196896147316,
+      2505.612830862736,
+      2608.907929050667,
+      2710.586463883436,
+      2810.143535004207
+     ],
+     "anio_11": 2662.890223112887
+    },
+    "BUENO": {
+     "anios_1_10": [
+      2202.213146058007,
+      2316.147613881511,
+      2435.673298097203,
+      2561.05520086794,
+      2692.57057858338,
+      2852.217233176032,
+      3011.615024016486,
+      3169.707123655228,
+      3325.391846164209,
+      3477.534485979394
+     ],
+     "anio_11": 3292.09643858055
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -345,7 +562,53 @@
     "2024": 0.2165,
     "2025": 0.2242
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2648.619780347027,
+      2527.404956027026,
+      2406.190131707026,
+      2284.975307387027,
+      2163.760483067027,
+      2119.481688243687,
+      2079.353299207188,
+      2043.125890581379,
+      2010.572555171293,
+      1981.48654813306
+     ],
+     "anio_11": 2000.02548692647
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2259.563402972308,
+      2275.727548619941,
+      2290.827935943757,
+      2304.786191713245,
+      2317.520197686551,
+      2423.17271993594,
+      2528.160026069864,
+      2631.996256942767,
+      2734.182734989161,
+      2834.211731532047
+     ],
+     "anio_11": 2687.439783571284
+    },
+    "BUENO": {
+     "anios_1_10": [
+      2221.390967254419,
+      2336.092547925779,
+      2456.416029503242,
+      2582.62764153022,
+      2715.005916872152,
+      2875.482678981488,
+      3035.671494979328,
+      3194.509345217918,
+      3350.888529930654,
+      3503.66858684
+     ],
+     "anio_11": 3318.883891962671
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -409,7 +672,53 @@
     "2024": 0.2165,
     "2025": 0.2242
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2601.836277784555,
+      2480.621453464555,
+      2359.406629144555,
+      2238.191804824555,
+      2116.976980504555,
+      2072.60461867609,
+      2032.288721361321,
+      1995.778925268436,
+      1962.846814135847,
+      1933.28354968726
+     ],
+     "anio_11": 1951.340458496212
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2211.376395332962,
+      2226.094930751415,
+      2239.706339539175,
+      2252.130947416525,
+      2263.28529606093,
+      2367.419241064801,
+      2470.956956748076,
+      2573.420313957256,
+      2674.318121257969,
+      2773.14982552623
+     ],
+     "anio_11": 2625.156639445351
+    },
+    "BUENO": {
+     "anios_1_10": [
+      2172.736124589448,
+      2285.49151155421,
+      2403.79095167681,
+      2527.897560590731,
+      2658.086632695083,
+      2816.457381289867,
+      2974.639337166192,
+      3131.585190512575,
+      3286.202498893561,
+      3437.365405026981
+     ],
+     "anio_11": 3250.923130604326
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -654,8 +963,17 @@
    "salta": false,
    "severidad": null,
    "efecto": null,
-   "detalle": "el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 0 flujos del Motor coinciden con la capa",
+   "detalle": "el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 33 flujos del Motor coinciden con la capa",
    "decision": "(1a) · implantación",
+   "clase": null
+  },
+  {
+   "id": "V-F1k (salto del terminal)",
+   "salta": false,
+   "severidad": null,
+   "efecto": null,
+   "detalle": "|salto| ≤ C179 en los tres escenarios: informa (no acredita coherencia)",
+   "decision": "(4a)",
    "clase": null
   },
   {
@@ -669,19 +987,19 @@
   },
   {
    "id": "V-F1g (valores)",
-   "salta": false,
-   "severidad": null,
-   "efecto": null,
-   "detalle": "perímetro A2_propio declarado; aún sin palancas (antes de la fase B): las cifras de B16:D16 y B18:D18 no se han medido frente a las medidas del perímetro; se miden cuando existen (gramática tras la fase B y capa F1 en el paso 12)",
+   "salta": true,
+   "severidad": "INFORMA",
+   "efecto": "INFORMA",
+   "detalle": "palancas S2C MALO 3.8 (más cerca del medio de todo el capital, C54); NORMAL 5.1 (más cerca del medio sin arrendamientos); BUENO 5.4 (más cerca del medio sin arrendamientos) · S2C medio sin arrendamientos (último año) = 5.426 · C54 (medio de todo el capital) = 3.185 (difieren un 70 %) · ancla marginal del perímetro, aparte: cota A1 (ancla E4 sin derechos de uso; la de A2 no es calculable) = 5.102 · lectura orientativa, no umbral",
    "decision": "(4a) · P-FOSO",
    "clase": null
   },
   {
    "id": "V-F1k (valores)",
-   "salta": false,
-   "severidad": null,
-   "efecto": null,
-   "detalle": "perímetro A2_propio declarado; aún sin palancas (antes de la fase B): las cifras de B16:D16 y B18:D18 no se han medido frente a las medidas del perímetro; se miden cuando existen (gramática tras la fase B y capa F1 en el paso 12)",
+   "salta": true,
+   "severidad": "INFORMA",
+   "efecto": "INFORMA",
+   "detalle": "ROIC terminal MALO 0.09 frente al neutro 9.05 % (-0.05 puntos); NORMAL 0.1 frente al neutro 9.05 % (+0.95 puntos); BUENO 0.12 frente al neutro 9.04 % (+2.96 puntos) · neutro = r·N/(N − f), N = margen objetivo × (1 − τ), r = 9.00 %, f del perímetro = 0.0001397 · histórico del capital propio pagado todo el alquiler = 13.03 % (P-FOSO: frente a r para el foso) · G4 no cambia: hasta r + 0,03 no pide nada; por encima de r + 0,03 exige C18 = Sí y una justificación de cuánto dura la ventaja (sin foso, por encima de r + 0,03 no hay justificación posible); r no se traduce a otro perímetro",
    "decision": "(4a) · P-FOSO",
    "clase": null
   },
@@ -709,5 +1027,5 @@
  "estado_propuesto": null,
  "rotulo": "motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
  "declaracion_ruta": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/ahold_f4/Ahold/motor_a_f1.json",
- "libro_origen_sha256": "a39e59dd7d4f9b75a71d62234e770c6206ebecc3335ae7987706a9734a0a2683"
+ "libro_origen_sha256": "b2976c0334c7abcdc094476b846bcac5aaf918584d5470248bb4966446c0c249"
 }

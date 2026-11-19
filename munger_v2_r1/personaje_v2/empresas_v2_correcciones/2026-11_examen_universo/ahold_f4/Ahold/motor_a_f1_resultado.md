@@ -1,6 +1,6 @@
 # Motor A · perímetro F1 · F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026)
 
-Libro `bf43f87e989b6575…` · declaración `b31cafa8abe02b20…` · 2026-11-19
+Libro `b960783b719e7fe9…` · declaración `b31cafa8abe02b20…` · 2026-11-19
 
 **motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)**
 
@@ -30,10 +30,11 @@ Estado propuesto: — · apto para dinero real: no.
 | F1-K3a | no | — | — | K3 | caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada |
 | F1-K3b | no | — | — | K3 | alquiler contado una vez |
 | F1-K3c | no | — | — | K3 | reinversión media 79.000 ≥ 0 (o ventas a la baja) |
-| F1-LIBRO | no | — | — | (1a) · implantación | el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 0 flujos del Motor coinciden con la capa |
+| F1-LIBRO | no | — | — | (1a) · implantación | el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 33 flujos del Motor coinciden con la capa |
+| V-F1k (salto del terminal) | no | — | — | (4a) | /salto/ ≤ C179 en los tres escenarios: informa (no acredita coherencia) |
 | F1-INTERESES-ARR | no | — | — | P-FOSO · C1 | series.intereses_arrendamiento: comprobada |
-| V-F1g (valores) | no | — | — | (4a) · P-FOSO | perímetro A2_propio declarado; aún sin palancas (antes de la fase B): las cifras de B16:D16 y B18:D18 no se han medido frente a las medidas del perímetro; se miden cuando existen (gramática tras la fase B y capa F1 en el paso 12) |
-| V-F1k (valores) | no | — | — | (4a) · P-FOSO | perímetro A2_propio declarado; aún sin palancas (antes de la fase B): las cifras de B16:D16 y B18:D18 no se han medido frente a las medidas del perímetro; se miden cuando existen (gramática tras la fase B y capa F1 en el paso 12) |
+| V-F1g (valores) | sí | INFORMA | INFORMA | (4a) · P-FOSO | palancas S2C MALO 3.8 (más cerca del medio de todo el capital, C54); NORMAL 5.1 (más cerca del medio sin arrendamientos); BUENO 5.4 (más cerca del medio sin arrendamientos) · S2C medio sin arrendamientos (último año) = 5.426 · C54 (medio de todo el capital) = 3.185 (difieren un 70 %) · ancla marginal del perímetro, aparte: cota A1 (ancla E4 sin derechos de uso; la de A2 no es calculable) = 5.102 · lectura orientativa, no umbral |
+| V-F1k (valores) | sí | INFORMA | INFORMA | (4a) · P-FOSO | ROIC terminal MALO 0.09 frente al neutro 9.05 % (-0.05 puntos); NORMAL 0.1 frente al neutro 9.05 % (+0.95 puntos); BUENO 0.12 frente al neutro 9.04 % (+2.96 puntos) · neutro = r·N/(N − f), N = margen objetivo × (1 − τ), r = 9.00 %, f del perímetro = 0.0001397 · histórico del capital propio pagado todo el alquiler = 13.03 % (P-FOSO: frente a r para el foso) · G4 no cambia: hasta r + 0,03 no pide nada; por encima de r + 0,03 exige C18 = Sí y una justificación de cuánto dura la ventaja (sin foso, por encima de r + 0,03 no hay justificación posible); r no se traduce a otro perímetro |
 | V-F1f | sí | INFORMA | INFORMA | (2) | {"PPA: media ÷ ventas medias (lo que devuelve f en A2)": 0.0002, "PPA: año base ÷ ventas del año base (lo que lleva m0)": 0.000195, "efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)": 0.44, "ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)": 0.015046, "ROU: año base ÷ ventas del año base (lo que lleva m0)": 0.015159, "efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)": -10.496, "años de agotamiento de la PPA al ritmo del año base (valor neto ÷ PPA)": 27.06} |
 | F1-SERIES | no | — | — | (1a) · H12 · V631-2 | D&A de derechos de uso y PPA: cifra publicada con su signo, como cifra completa, en una página existente de una fuente del expediente con su huella; columna del ejercicio comprobada en 5 años, PENDIENTE en 3 (la aptitud por entradas sigue en «no») |
 
