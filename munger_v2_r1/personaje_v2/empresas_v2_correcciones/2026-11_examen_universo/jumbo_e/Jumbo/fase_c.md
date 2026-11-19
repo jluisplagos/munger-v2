@@ -80,3 +80,60 @@ La lista `hipotesis_sin_fundamento` queda vacía y el resultado es `sin_limitaci
 ## 8. La hipótesis que más condiciona
 
 `Palancas!C15`, el margen objetivo del NORMAL (0,32): que la franja de 2021–2025 aguante diez años con el margen bruto bajando (55,61 → 54,72 → 53,53 % [AR2025, PDF p. 15; H1 2026, PDF p. 7]). La elijo por juicio, no por el tornado: el precio equivale a un margen de ≈ 22,5 %. Lo resolvería el informe anual de 2026, con el margen bruto y el margen EBIT del grupo y el resultado de Rumanía. Lo completaría una pregunta a Relación con Inversores por las ventas comparables por país de 2024 a 2026.
+
+# Fase C · turno 2 · conclusión
+
+## 9. Comprobación conjunta y estado
+
+No existe `comprobacion_conjunta.json`: con la lista de hipótesis sin fundamento vacía no procedía, y `sobrevive` queda `null`. El fundamento es `sin_limitacion`.
+
+El orden de mando no cambia: no hay bloqueo, límite del modelo, descalificador ni dato ausente material, y la zona es `cumple_regla_k`. **Estado `concluido` (provisional hasta la auditoría) · cubo Sí · acción comprar**, sin precio objetivo ni condición.
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: comprar al precio actual · zona cumple_regla_k · precio de Sí ≤ 32.38 · precio esc. MALO 25.88 · ponderado 35.63 · fundamento lista vacía». El tamaño de la posición lo decide José Luis.
+
+Lo que esta conclusión no es: no es una garantía. El precio de Sí sale de una convención k = 3 cuya suficiencia no está demostrada. El MALO no es un suelo: el precio está solo 1,40 € por encima de su valor, y mi MALO está en el lado suave. La r heredada está por debajo de la mínima de la hoja: con la r mínima, el precio de Sí bajaría a ≈ 28,01 €. Queda pendiente para la orquestación recalcular C46, C40, C52 y f por J1 (±0,13 € en el precio de Sí).
+
+## 10. Tesis (B101)
+
+1. Jumbo es un minorista de precio bajo y surtido enorme que compra directo, sobre todo en Asia [AR2025, PDF p. 24], con diez años de margen EBIT entre el 24,8 % y el 33,4 % (Historia fila 29) y sin préstamos [H1 2026, PDF p. 9].
+2. El foso es la escala de compra y el formato. Cuánto dura frente a las plataformas es la pregunta abierta, con el margen bruto bajando del 55,61 % al 53,53 %.
+3. La dirección devuelve la caja y recompró a 25,42 €.
+4. A 27,28 € el precio no paga crecimiento (valor sin crecimiento 28,12 €) y queda bajo el precio de Sí de 32,38 €.
+5. Comprar, con los dos avisos: el MALO cerca y la dependencia de la r.
+
+## 11. Tesis inversa (B102)
+
+El precio se sostiene solo con el margen, y el margen baja:
+
+- **Margen.** El margen bruto pasa del 55,61 % al 54,72 % y al 53,53 %, y el EBITDA del 36,77 % al 35,34 % [AR2025, PDF p. 15; H1 2026, PDF p. 7]. Mientras, crecen plataformas que la empresa acusa de romper la igualdad de condiciones [AR2025, PDF p. 23].
+- **El escalón de 2021.** El salto de margen de 2021 llegó con la salida de la pandemia (Historia fila 29). Si el margen vuelve al 25 %, el MALO valdría ≈ 24,3 €, un 11 % bajo el precio.
+- **Crecimiento.** Se frena: beneficio de 2025 plano (fila 9), Rumanía −6,50 % en ventas [H1 2026, PDF p. 6], Grecia sin apertura en 2027 [H1 2026, PDF p. 17] y guías incumplidas [AR2025, PDF p. 58].
+- **Dependencia de China.** El 70 % del producto viene de Asia, sobre todo de China [AR2025, PDF p. 24], y Balfin montará su propia cadena desde allí [H1 2026, PDF p. 18].
+- **Caja de la base favorecida.** El capex de 2025 quedó bajo la amortización (filas 12 y 8), el inventario sube un 19 % (C31) y vienen más de 95 mm en centros [AR2025, PDF p. 25].
+- **Convenciones.** La compra depende de dos: la r bajo la mínima y la regla k = 3. Con la regla antigua (C156 = 25,88 €), el precio de 27,28 € no daría para comprar.
+
+Es el nivel que pide «I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM). Lo que me hace mantener la compra pese a todo: incluso con margen 0,25, S2C 0,75 y f en contra a la vez, el precio de Sí quedaría en ≈ 31,37 € (mi réplica del motor). Y el precio actual equivale a un margen de ≈ 22,5 % con el crecimiento del NORMAL, por debajo del peor año de la serie.
+
+## 12. Predicciones (dado el NORMAL)
+
+| Predicción | Fecha de comprobación | Probabilidad | Por qué |
+|---|---|---|---|
+| Margen EBIT del grupo de 2027 ≥ 30 % | 2028-04-30 (informe anual de 2027) | 0,75 | Ningún año de 2021–2025 bajó del 31,7 % |
+| Ventas netas de 2027 > 1.330 mm | 2028-04-30 | 0,75 | Equivale a ≈ +3,9 % al año frente al ≈ +6 % de enero–agosto de 2026 [H1 2026, PDF p. 67] |
+| Al menos 92 hipermercados propios a 30.06.2028 | 2028-09-30 (semestral de H1 2028) | 0,7 | Las guías de aperturas se han incumplido [H1 2026, PDF p. 17] |
+
+## 13. Qué me haría cambiar de cubo
+
+- **A Vigilar:** un precio por encima de 32,38 €.
+- **A No:** un margen EBIT bajo el 30 % dos años sin causa transitoria, deuda nueva, o capital propio en Balfin, Canadá o los pop-ups sin retorno publicado.
+- **A Demasiado difícil:** un margen que pase a moverse con el dólar, el flete o los aranceles, o ventas que caigan sin que pueda separar las plataformas del consumo.
+
+## 14. Comparación con la etapa 1
+
+La etapa 1 decía Vigilar a 24,72 €, con un precio de Sí de ≈ 19 € (regla antigua, estimado). La v2 dice Sí a 27,28 €, con 32,38 €. La mayor parte de la diferencia es la regla: con la regla antigua la v2 daría 25,88 € y no compraría. El resto:
+
+- un MALO más suave (EBIT 0,27 frente a un EBITDA hacia el 25–28 %);
+- probabilidades que restan (0,25 / 0,6 / 0,15);
+- C76 de 160 con el precio ya sin el 1,00 € extraordinario.
+
+Lo digo sin blandura: el cambio de cubo depende sobre todo de la convención de precio del ejercicio, no de un hecho nuevo del negocio. Y de los dos errores opuestos, el que tengo más cerca sigue siendo pagar por una calidad cuya duración no puedo medir: «I know it's wonderful, but is it wonderful enough to justify that big a premium?» (DR p.308; HIM). Aquí la prima es pequeña: el precio no paga crecimiento.
