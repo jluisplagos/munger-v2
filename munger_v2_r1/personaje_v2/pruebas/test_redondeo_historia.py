@@ -4,6 +4,7 @@
 El generador redondeaba con aritmética binaria: 7.035.150 € impresos × 10⁻⁶ = 7,03515 mm se guardaba como 7,0351499… y round(…, 4) daba
 7,0351, mientras que ROUND de la hoja (mitad lejos de cero) da 7,0352. Ahora los importes se calculan exactos (fracciones) desde la cifra
 impresa como texto y se redondean una sola vez con la regla de la hoja. No cambia ninguna otra regla de construcción.
+Por construir: jumbo_f (I17, L14 y empates de acciones con una línea sintética en la copia) y Ahold (informe en millones).
 No escribe en el repositorio: trabaja sobre copias temporales.
 Uso: python3 -B pruebas/test_redondeo_historia.py      (código 0 si todo pasa)
 """
@@ -21,6 +22,8 @@ sys.path.insert(0, os.path.join(PV, "scripts"))
 import fase1_historia as F  # noqa: E402
 
 JUMBO = os.path.join(PV, "empresas_v2_correcciones", "2026-11_examen_universo", "jumbo_f", "Jumbo")
+AHOLD = os.path.join(PV, "empresas_v2_correcciones", "2026-11_examen_universo", "ahold_4_15", "Ahold")  # informe en millones
+PARTES = ("texto", "fase1_partes", "fase1_metadatos.json", "fase1_fuentes.json", "fase1_decisiones.json")
 fallos, total = [], 0
 
 
@@ -109,32 +112,94 @@ intento("media (1,0001 + 1,0004)/2 = 1,00025 → 1,0003 a 4 decimales", lambda: 
 intento("media (1,0001 + 1,0004 + 2,0015)/3 = 1,334 exacto", lambda: entrada("media", [2019, 2020, 2021], [{"partida": "p"}])["valor"], 1.334)
 intento("valor sin redondear de la suma = 2,0005 (float de la suma exacta)", lambda: entrada("suma", [2019, 2020], [{"partida": "p"}])["valor_sin_redondear"], 2.0005)
 
-# 5 · construir sobre jumbo_f real (copia temporal): Historia!I17 = 7,0352
+def copiar(origen, dest):
+    os.makedirs(dest)
+    for n in PARTES:
+        s = os.path.join(origen, n)
+        if os.path.isdir(s):
+            shutil.copytree(s, os.path.join(dest, n))
+        elif os.path.exists(s):
+            shutil.copy2(s, os.path.join(dest, n))
+    return dest
+
+
+def construir(c):
+    r = subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "fase1_historia.py"), "construir", c], capture_output=True, text=True)
+    return r.returncode, (r.stdout + r.stderr).strip()
+
+
+def historia(c):
+    return json.load(open(os.path.join(c, "fase1_v63.json"), encoding="utf-8"))["historia"]
+
+
+def celda(h, k, a):
+    return h["partidas"][k]["valores"][h["anios"].index(a)]
+
+
+def acciones_sinteticas(c, impreso, unidad):
+    """(revisión independiente, C3) Las acciones diluidas de 2025 de una copia de jumbo_f con una cifra de empate: la línea se añade a su
+    página del texto (solo en la copia) para que la cita siga comprobándose; unidad None = sin declarar (regla por tamaño). Sin
+    comparativo de 2024 en ese informe."""
+    ar = os.path.join(c, "fase1_partes", "AR_2025.json")
+    d = json.load(open(ar, encoding="utf-8"))
+    p = d["partidas"]["acciones_diluidas"]
+    linea = f"Prueba sintetica de acciones (redondeo) {impreso}"
+    pg = p["actual"][0]["pagina"]
+    p["actual"] = [{"concepto": "prueba sintética de empate", "impreso": impreso, "pagina": pg, "linea": linea}]
+    p["anterior"] = None  # la unidad de la partida vale para sus dos columnas: 2024 se toma de su propio informe
+    if unidad is None:
+        p.pop("unidad", None)
+    else:
+        p["unidad"] = unidad
+    json.dump(d, open(ar, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    tx = os.path.join(c, "texto", d["archivo"])
+    t = open(tx, encoding="utf-8").read()
+    marca = f"[PDF PAGE {pg + 1}]\n"
+    t = t.replace(marca, linea + "\n" + marca, 1) if marca in t else t + "\n" + linea + "\n"
+    open(tx, "w", encoding="utf-8").write(t)
+
+
 t = tempfile.mkdtemp(prefix="redondeo_historia_")
 try:
+    # 5 · construir sobre jumbo_f real (copia temporal): Historia!I17 = 7,0352
     if os.path.isdir(os.path.join(JUMBO, "fase1_partes")) and os.path.isdir(os.path.join(JUMBO, "texto")):
-        c = os.path.join(t, "Jumbo")
-        os.makedirs(c)
-        for n in ("texto", "fase1_partes", "fase1_metadatos.json", "fase1_fuentes.json", "fase1_decisiones.json"):
-            s = os.path.join(JUMBO, n)
-            if os.path.isdir(s):
-                shutil.copytree(s, os.path.join(c, n))
-            elif os.path.exists(s):
-                shutil.copy2(s, os.path.join(c, n))
-        r = subprocess.run([sys.executable, "-B", os.path.join(PV, "scripts", "fase1_historia.py"), "construir", c], capture_output=True, text=True)
-        paso("jumbo_f: construye", r.returncode == 0, (r.stdout + r.stderr).strip()[-160:])
-        if r.returncode == 0:
-            d = json.load(open(os.path.join(c, "fase1_v63.json"), encoding="utf-8"))
-            h = d["historia"]
-            i = h["anios"].index(2022)
-            v = h["partidas"]["arrendamientos_principal"]["valores"][i]
+        c = copiar(JUMBO, os.path.join(t, "jumbo", "Jumbo"))
+        rc, out = construir(c)
+        paso("jumbo_f: construye", rc == 0, out[-160:])
+        if rc == 0:
+            h = historia(c)
+            v = celda(h, "arrendamientos_principal", 2022)
             paso("jumbo_f: Historia!I17 (arrendamientos_principal 2022) = 7,0352", v == 7.0352, repr(v))
-            v = h["partidas"]["circulante"]["valores"][h["anios"].index(2025)]
+            v = celda(h, "circulante", 2025)
             paso("jumbo_f: Historia!L14 (circulante 2025, suma de componentes 61,15855) = 61,1586", v == 61.1586, repr(v))
             ok = all(x is None or (Fraction(repr(float(x))) * 10 ** 4).denominator == 1 for p in h["partidas"].values() for x in p["valores"])
             paso("jumbo_f: toda la Historia con 4 decimales como mucho", ok)
+        # 6 · acciones diluidas por construir, con empate: regla por tamaño (sin unidad) y unidad declarada (miles); antes 134,3656
+        for nombre, impreso, unidad in (("sin unidad declarada (regla por tamaño: > 10⁵ → ÷ 10⁶)", "134.365.650", None),
+                                        ("unidad declarada «miles»", "134.365,65", "miles")):
+            c = copiar(JUMBO, os.path.join(t, f"acciones_{unidad}", "Jumbo"))
+            acciones_sinteticas(c, impreso, unidad)
+            rc, out = construir(c)
+            v = celda(historia(c), "acciones_diluidas", 2025) if rc == 0 else None
+            paso(f"acciones {impreso} {nombre}: 134,36565 → 134,3657 millones", rc == 0 and v == 134.3657, repr(v) if rc == 0 else out[-200:])
     else:  # el expediente del examen no forma parte de todos los paquetes: sin él, la prueba real se omite y lo dice
-        print(f"OMITIDA · construir sobre jumbo_f: no está el expediente {JUMBO}")
+        print(f"OMITIDA · construir sobre jumbo_f y las acciones sintéticas: no está el expediente {JUMBO}")
+    # 7 · informe en millones (escala 1) por construir: Ahold, sin empates; la Historia es la guardada (la revisión no vio cambios)
+    if os.path.isdir(os.path.join(AHOLD, "fase1_partes")) and os.path.isdir(os.path.join(AHOLD, "texto")):
+        c = copiar(AHOLD, os.path.join(t, "ahold", "Ahold"))
+        rc, out = construir(c)
+        paso("Ahold (informe en millones): construye", rc == 0, out[-160:])
+        if rc == 0:
+            h, ref = historia(c), json.load(open(os.path.join(AHOLD, "fase1_v63.json"), encoding="utf-8"))["historia"]
+            v = celda(h, "ventas", 2025)
+            paso("Ahold: ventas 2025 «92,352» en millones = 92.352", v == 92352.0 and type(v) is float, repr(v))
+            v = celda(h, "acciones_diluidas", 2025)
+            paso("Ahold: acciones 2025 «905» con unidad declarada «millones» = 905", v == 905.0, repr(v))
+            dif = [f"{k} {a}" for k, p in ref["partidas"].items() for a, x in zip(ref["anios"], p["valores"])
+                   if k in h["partidas"] and x != celda(h, k, a)]
+            paso("Ahold: toda la Historia igual que la de su fase1_v63.json", h["anios"] == ref["anios"] and not dif, "; ".join(dif[:6]))
+    else:
+        print(f"OMITIDA · construir sobre Ahold (millones): no está el expediente {AHOLD}")
 finally:
     shutil.rmtree(t, ignore_errors=True)
 

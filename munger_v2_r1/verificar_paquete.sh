@@ -396,6 +396,26 @@ else
   tail -5 "$SALIDA_X"; echo "RESULTADO F1-SERIES con escala y ceros: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 80 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
+# (4.15, redondeo exacto de la Historia; examen, jumbo_f, Historia!I17; rama producto/redondeo-exacto y su revisión independiente, C3)
+# importes exactos desde la cifra impresa y ROUND de la hoja (mitad lejos de cero) en fase1_historia.py, también por construir
+# (jumbo_f, acciones con empate y Ahold en millones; sin esos expedientes esa parte se omite y lo dice). Sin LibreOffice ni binarios,
+# unos segundos; obligatoria en los dos modos; al menos 44 comprobaciones (38 en la primera entrega a la revisión), 34 si se omite construir
+echo "== batería del redondeo exacto de la Historia (personaje_v2/pruebas/test_redondeo_historia.py; obligatoria en los dos modos; sin LibreOffice)"
+SALIDA_X="$(mktemp)"
+if [ -f personaje_v2/pruebas/test_redondeo_historia.py ]; then
+  ( cd personaje_v2 && python3 -B pruebas/test_redondeo_historia.py ) > "$SALIDA_X" 2>&1; rc=$?
+else
+  rc=127; echo "FALTA personaje_v2/pruebas/test_redondeo_historia.py" > "$SALIDA_X"
+fi
+linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones PASAN$' "$SALIDA_X" | tail -1)"
+n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+minimo=44; grep -qE '^OMITIDA' "$SALIDA_X" && minimo=34   # sin los expedientes, las 10 comprobaciones por construir se omiten y lo dice
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge $minimo ]; then
+  echo "$linea"; grep -E '^OMITIDA' "$SALIDA_X"; echo "RESULTADO redondeo exacto de la Historia: PASA"
+else
+  tail -5 "$SALIDA_X"; echo "RESULTADO redondeo exacto de la Historia: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de $minimo comprobaciones; ver $SALIDA_X)"; fallos=$((fallos+1))
+fi
+
 echo "== batería de la integración V6.4 experimental (personaje_v2/pruebas/test_integracion_v64.py; obligatoria en «completa»; encargos 4.11, 4.12 y 4.13)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_V64="$(mktemp)"

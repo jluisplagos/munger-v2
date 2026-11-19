@@ -26,6 +26,22 @@ Convenciones (declaradas en las notas de cada partida y en historia_revision.md)
   - fase1_decisiones.json (opcional, lo escribe solo una persona; ningún agente ni script) fija a mano una cifra con su fuente:
     {"partida": {"año": {"valor_mm": x, "fuente": "..."}}}. Para confirmar un cero pendiente la decisión tiene que llevar además
     `fecha` (AAAA-MM-DD) y `confirmado_por` (una persona), y la fuente tiene que citar página; si no, `construir` se detiene.
+
+Redondeo (examen, jumbo_f, Historia!I17; rama producto/redondeo-exacto): cada importe de la Historia se calcula EXACTO (fracciones)
+desde la cifra impresa, con su signo y su escala, y se redondea una sola vez a 4 decimales con ROUND de la hoja (mitad lejos de
+cero). Antes se dividía en coma flotante y round() redondeaba el binario: 7.035.150 € daba 7,0351 en vez de 7,0352. Efectos al
+reconstruir una Historia con el código nuevo (revisión independiente, C1; los expedientes ya construidos no cambian solos):
+  - empates exactos en el 5.º decimal: jumbo y jumbo_b–f, I17 (2022) 7,0351 → 7,0352 y L14 (circulante 2025, suma de las líneas
+    61,15855) 61,1585 → 61,1586;
+  - el cero negativo desaparece (adquisiciones en cero de Vidrala, Viscofan y Jumbo): -0.0 → 0.0 en fase1_v63.json y «-0.000» →
+    «0.000» en historia_revision.md; v63_xml escribe «0» en vez de «-0» en el libro, así que su huella cambia aunque el valor no;
+  - `valor_sin_redondear` de calcular_entrada es el float de la suma exacta, no la suma float: cambia el último dígito binario
+    (jumbo_b C46: 307.1729666666667 → 307.17296666666664, también en el texto de su `fuente`; el valor 307,173 no cambia);
+  - la tabla de historia_revision.md muestra los valores nuevos (L14 = 61,159), todavía con el formato de Python (presentación);
+  - las medias C46–C50 redondean dos veces, a propósito y como la hoja: la media exacta de los valores ya redondeados a 4 decimales
+    de la Historia, redondeada a 3. La regla «una sola vez» vale para cada importe de la Historia y para calcular_entrada.
+No cambia ninguna otra regla: tolerancia de los comparativos, umbral del EBIT, decisiones humanas (valor_mm tal cual), ceros
+pendientes, regla de acciones ni numero() (que sigue dando float a motor_a_f1.py).
 """
 import glob
 import json
@@ -98,7 +114,10 @@ def numero_exacto(s):
 
 def exacto(x):
     """(redondeo exacto) Fracción exacta de un número: un float se toma por su representación decimal (repr), como el contraste de las
-    entradas (verificacion_entradas). Un texto no es un número aquí (la cifra impresa se lee con numero_exacto)."""
+    entradas (verificacion_entradas). Un texto no es un número aquí (la cifra impresa se lee con numero_exacto).
+    Límite (revisión independiente): sirve para un float que es una cifra decimal escrita (un valor de la Historia ya redondeado, un
+    número de JSON), no para el resultado de aritmética float, que ya arrastra el error binario (redondear(2.0004999999999997, 3)
+    da 2.0). Por eso a redondear solo llegan fracciones exactas o cifras así, nunca una suma o un cociente en float."""
     if isinstance(x, Fraction):
         return x
     if isinstance(x, bool) or not isinstance(x, (int, float)):
@@ -674,6 +693,7 @@ def construir(carpeta):
         raise SystemExit("fase1_metadatos.json · cálculo de entradas de Análisis no reproducible: " + "; ".join(errores_calculo))
     # v2.2 (Nike): los datos base del DCF (Análisis C46–C50) salen de la Historia si la etapa 1 no los trae: media de los
     # últimos anios_fcf_base ejercicios. rellenar_fase1_v63.py solo los escribe en celdas vacías (no pisa la etapa 1).
+    # (redondeo exacto) doble redondeo intencionado, como la hoja: la media exacta de los valores de la Historia (ya a 4 decimales) a 3.
     n_fcf = int(meta.get("anios_fcf_base", 3) or 3)
     for celda, k in (("C46", "cfo"), ("C47", "capex"), ("C48", "intereses_financiacion"), ("C49", "arrendamientos_principal"), ("C50", "sbc")):
         ult = serie[k][-n_fcf:]
