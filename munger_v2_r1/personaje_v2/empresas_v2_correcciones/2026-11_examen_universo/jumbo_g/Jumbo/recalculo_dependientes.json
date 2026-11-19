@@ -1,0 +1,225 @@
+{
+ "formato": "1",
+ "que": "Recálculo determinista de las entradas declaradas que dependen de celdas de juicio (entradas_dependientes.py, lanzado por el pipeline en el paso 9, tras escribir la fase B y antes del recálculo del libro y de la fase C). La declaración, la fórmula y sus orígenes están en verificacion_entradas.json (derivacion.recalculo); ningún agente de juicio interviene. No acredita la revisión de ninguna entrada ni aptitud alguna.",
+ "registro": "verificacion_entradas.json",
+ "vigente": {
+  "Análisis!C46": {
+   "valor_declarado": 317.617,
+   "valor": 317.902,
+   "exacto": "168744844621311779/530806917750000",
+   "exacto_decimal": "317.902497082352",
+   "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+   "celdas_de_juicio": {
+    "Análisis!C76": 150
+   },
+   "formula_sha256": "08976be04945df333aa47eb27d81ff235c3030a0c83b4568e76910ce423fadf0",
+   "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+   "formula": "verificacion_entradas.json → Análisis!C46 → derivacion.formula",
+   "rastro": "recalculo_dependientes.json",
+   "celda": "Análisis!C46",
+   "conciliacion_f1": {
+    "celda": "Análisis!C46",
+    "importe_declarado": 10.444,
+    "valor_declarado": 317.617,
+    "valor": 317.902,
+    "importe": 10.729,
+    "celdas_de_juicio": {
+     "Análisis!C76": 150
+    },
+    "rastro": "recalculo_dependientes.json"
+   }
+  },
+  "Análisis!C40": {
+   "valor_declarado": 255.108,
+   "valor": 255.305,
+   "exacto": "30115084334619/117957100000",
+   "exacto_decimal": "255.305397764263",
+   "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+   "celdas_de_juicio": {
+    "Análisis!C76": 150
+   },
+   "formula_sha256": "74534821111c443cd8c8ef48fe17742b4ceaa3660d4077dc9011039d2d0e358b",
+   "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+   "formula": "verificacion_entradas.json → Análisis!C40 → derivacion.formula",
+   "rastro": "recalculo_dependientes.json",
+   "celda": "Análisis!C40"
+  }
+ },
+ "historial": [
+  {
+   "fecha": "2026-11-19T08:23:56+00:00",
+   "paso": 9,
+   "fase": "B",
+   "fase_b_sha256": "f0fcac3b45700ec8461b13f769171657cf4ca7a7002657b9a2a2435d1436ec8d",
+   "cambios": [
+    {
+     "celda": "Análisis!C46",
+     "antes": 317.617,
+     "despues": 317.902,
+     "valor_declarado": 317.617,
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     }
+    },
+    {
+     "celda": "Análisis!C40",
+     "antes": 255.108,
+     "despues": 255.305,
+     "valor_declarado": 255.108,
+     "celdas_de_juicio": {
+      "Análisis!C76": 150
+     }
+    }
+   ],
+   "sin_cambio": [],
+   "escrito": [
+    "fase1_metadatos.json",
+    "fase1_v63.json",
+    "motor_a_f1.json",
+    "verificacion_entradas.json",
+    "Jumbo_v63_datos.xlsx",
+    "Jumbo_v63_evaluada.xlsx"
+   ],
+   "archivos": {
+    "fase1_v63.json": {
+     "antes": "6cd88cf1bd8c872fc82031878922048af4e1706f92b31d6df735b877941b8e56",
+     "despues": "4f85a9cbf4234a0d6fd66e87dbf6685f6cb5171e5273ef1395d0ed440ae3810d"
+    },
+    "fase1_metadatos.json": {
+     "antes": "72e5ce89c54dbad43c4b75347e50586c3af24ac47729ce300467b3f212e2958a",
+     "despues": "671832ee2e2b4e651748679bc757bac476579a32f8548aeb25f86b37d7d5204f"
+    },
+    "verificacion_entradas.json": {
+     "antes": "6b2159243ddf51edff60250c09d6fc941e9c9c542b264f4c40f29df226e6dbc0",
+     "despues": "2aff351596e5bf1b2cbdbc35f24095a0c2a1d7c11a40c1295597b170ec41a50a"
+    },
+    "motor_a_f1.json": {
+     "antes": "6979b62f1ad32d723e8de3b5b03513931d5bcfe262421e5ba93c4f355b63c5a9",
+     "despues": "6d94fc8c8320b6cb5c40e7afd85c758402b31bb8540c737973c0210f471ac731"
+    },
+    "Jumbo_v63_datos.xlsx": {
+     "antes": "4d493b391d2fee36e2828a994d5471ff9f148b3f40a7d4162b156342aa8d8989",
+     "despues": "2368425a5bf563df6655349604ee1e7b278e5cfd56da610890814a5d4e3d4844"
+    },
+    "Jumbo_v63_evaluada.xlsx": {
+     "antes": "b76e54740915b0eecf66b9440bf45d76f9a7e042aed46160a847be44f0444b0b",
+     "despues": "a637b72f0895012e31e906283094b22d94fb3daa101dccecf47acfc76d232817"
+    }
+   },
+   "origenes": {
+    "Análisis!C46": {
+     "aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023": {
+      "valor": 323.918862,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024": {
+      "valor": 300.687098,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025": {
+      "valor": 296.912917,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2024_p154_dividends_received_2023": {
+      "valor": 0.133043,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_dividends_received_2024": {
+      "valor": 0.828384,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025": {
+      "valor": 1.8762,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2024_p154_interest_received_2023": {
+      "valor": 18.490712,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_interest_received_2024": {
+      "valor": 13.791382,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_interest_received_2025": {
+      "valor": 9.91679,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023": {
+      "valor": 0.595837,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024": {
+      "valor": 0.594641,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025": {
+      "valor": 0.595058,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023": {
+      "valor": 434.000394,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024": {
+      "valor": 444.815962,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025": {
+      "valor": 536.668758,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "Análisis!C76": {
+      "valor": 150,
+      "de": "libro evaluado tras escribir la fase B"
+     }
+    },
+    "Análisis!C40": {
+     "Historia!L11": {
+      "valor": 296.9129,
+      "de": "libro evaluado (celda de datos)"
+     },
+     "Historia!L12": {
+      "valor": 38.384,
+      "de": "libro evaluado (celda de datos)"
+     },
+     "Historia!L16": {
+      "valor": 2.3258,
+      "de": "libro evaluado (celda de datos)"
+     },
+     "Historia!L17": {
+      "valor": 9.7272,
+      "de": "libro evaluado (celda de datos)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_dividends_received_2025": {
+      "valor": 1.8762,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p155_interest_received_2025": {
+      "valor": 9.91679,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025": {
+      "valor": 0.595058,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023": {
+      "valor": 434.000394,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024": {
+      "valor": 444.815962,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025": {
+      "valor": 536.668758,
+      "de": "registro (valor_modelo del auxiliar)"
+     },
+     "Análisis!C76": {
+      "valor": 150,
+      "de": "libro evaluado tras escribir la fase B"
+     }
+    }
+   }
+  }
+ ]
+}

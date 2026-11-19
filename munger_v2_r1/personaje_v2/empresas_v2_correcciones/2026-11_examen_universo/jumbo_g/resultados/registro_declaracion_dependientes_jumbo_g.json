@@ -1,0 +1,39 @@
+{
+ "fecha": "2026-11-19",
+ "extractor": "Claude orquestación",
+ "guion": "resultados/scripts/declarar_dependientes.py",
+ "registro": "Jumbo/verificacion_entradas.json",
+ "registro_antes_sha256": "b5a0e169fce212e640bfc195093c56e4717ada39e9260706a71a57bde433f05a",
+ "registro_despues_sha256": "6b2159243ddf51edff60250c09d6fc941e9c9c542b264f4c40f29df226e6dbc0",
+ "motivo": "la fase B de jumbo_g escribió C76 = 150 (fase_b.json, aaa2802) y C46/C40 se prepararon con C76 = 160: con la declaración, el paso 9 los recalcula con su fórmula registrada y la C76 de la fase B (entradas_dependientes.py), sin repetir la fase B",
+ "entradas": [
+  "Análisis!C46",
+  "Análisis!C40"
+ ],
+ "cambios": [
+  {
+   "celda": "Análisis!C46",
+   "clave": "derivacion.recalculo",
+   "antes": null,
+   "despues": {
+    "celdas_de_juicio": [
+     "Análisis!C76"
+    ],
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+    "conciliacion_f1": true
+   }
+  },
+  {
+   "celda": "Análisis!C40",
+   "clave": "derivacion.recalculo",
+   "antes": null,
+   "despues": {
+    "celdas_de_juicio": [
+     "Análisis!C76"
+    ],
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B"
+   }
+  }
+ ],
+ "no_cambia": "valores, fórmulas, orígenes, fuentes, comprobaciones ni vínculos; la entrada de Análisis!C76 (hipótesis, 160) sigue como estaba"
+}

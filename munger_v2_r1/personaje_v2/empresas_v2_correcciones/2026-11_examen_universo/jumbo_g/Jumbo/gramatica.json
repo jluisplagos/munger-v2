@@ -1,0 +1,125 @@
+{
+ "modo": "tras",
+ "con_fase_c": false,
+ "motor": "A",
+ "codigo": 1,
+ "hallazgos": [
+  {
+   "id": "G5",
+   "categoria": "desviación",
+   "escenario": "MALO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "margen objetivo MALO = 0.26 > máximo histórico (0.334369688816858) o Q3 del sector (0.0864079656277706)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar con el mecanismo (precio, mezcla, escala) y quién se queda la mejora"
+  },
+  {
+   "id": "G5",
+   "categoria": "desviación",
+   "escenario": "NORMAL",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "margen objetivo NORMAL = 0.315 > máximo histórico (0.334369688816858) o Q3 del sector (0.0864079656277706)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar con el mecanismo (precio, mezcla, escala) y quién se queda la mejora"
+  },
+  {
+   "id": "G5",
+   "categoria": "desviación",
+   "escenario": "BUENO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "margen objetivo BUENO = 0.32 > máximo histórico (0.334369688816858) o Q3 del sector (0.0864079656277706)",
+   "requiere_justificacion": true,
+   "justificada": true,
+   "consecuencia": "justificar con el mecanismo (precio, mezcla, escala) y quién se queda la mejora"
+  },
+  {
+   "id": "P-FOSO",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A",
+   "detalle": "perímetro F1 A2_propio · palancas S2C MALO 1.1 (más cerca del medio de todo el capital, C54); NORMAL 1.4 (más cerca del medio sin arrendamientos); BUENO 1.7 (más cerca del medio sin arrendamientos) · S2C medio sin arrendamientos (último año) = 1.186 · C54 (medio de todo el capital) = 1.115 (difieren un 6 %) · ancla marginal del perímetro, aparte: Historia!C53 = 1.701 · lectura orientativa, no umbral · ROIC terminal MALO 0.09 frente al neutro 8.83 % (+0.17 puntos); NORMAL 0.1 frente al neutro 8.86 % (+1.14 puntos); BUENO 0.12 frente al neutro 8.86 % (+3.14 puntos) · neutro = r·N/(N − f), N = margen objetivo × (1 − τ), r = 9.00 %, f del perímetro = -0.004 · histórico del capital propio pagado todo el alquiler NO COMPROBADO (columna del ejercicio sin comprobar en 5 años (cada año declara «fila» con la etiqueta de la línea; sin ella, la cifra podría ser la de otra fila u otro ejercicio de la misma página): series.intereses_arrendamiento.2021: escala «unidades» declarada y NO comprobada: la tabla de la cifra (página 87) no tiene encabezado de escala reconocible; series.intereses_arrendamiento.2022: escala «unidades» declarada y NO comprobada: la tabla de la cifra (página 92) no tiene encabezado de escala reconocible; series.intereses_arrendamiento.2023: escala «unidades» declarada y NO comprobada: la tabla de la cifra (página 95) no tiene encabezado de escala reconocible): no se compara con r · G4 no cambia: hasta r + 0,03 no pide nada; por encima de r + 0,03 exige C18 = Sí y una justificación de cuánto dura la ventaja (sin foso, por encima de r + 0,03 no hay justificación posible); r no se traduce a otro perímetro (neutro con τ = Historia!C52 y f = Historia!C58)",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "información para la fase C: no bloquea ni pide justificación"
+  },
+  {
+   "id": "G8",
+   "categoria": "desviación",
+   "escenario": "MALO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "salto del año 11 MALO = 0.145 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan · justificación rechazada: sin entrada en desviaciones_justificadas",
+   "requiere_justificacion": true,
+   "justificada": false,
+   "consecuencia": "la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11"
+  },
+  {
+   "id": "G8",
+   "categoria": "desviación",
+   "escenario": "NORMAL",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "salto del año 11 NORMAL = 0.262 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan · justificación rechazada: sin entrada en desviaciones_justificadas",
+   "requiere_justificacion": true,
+   "justificada": false,
+   "consecuencia": "la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11"
+  },
+  {
+   "id": "G8",
+   "categoria": "desviación",
+   "escenario": "BUENO",
+   "motor": "A",
+   "motores": "A, B",
+   "detalle": "salto del año 11 BUENO = 0.326 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan · justificación rechazada: sin entrada en desviaciones_justificadas",
+   "requiere_justificacion": true,
+   "justificada": false,
+   "consecuencia": "la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11"
+  },
+  {
+   "id": "A2",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A, B, C",
+   "detalle": "r frente a r mínima: ⚠ REVISAR · tu r (9.0 %) < r mínima (10.2 %)",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "se informa (r heredada, S-3)"
+  },
+  {
+   "id": "A3",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A, B, C",
+   "detalle": "fechas del precio y de las acciones: Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "se informa"
+  },
+  {
+   "id": "A5",
+   "categoria": "aviso",
+   "escenario": null,
+   "motor": "A",
+   "motores": "A, B, C",
+   "detalle": "la palanca más influyente del tornado es la tasa de descuento (r heredada)",
+   "requiere_justificacion": false,
+   "justificada": null,
+   "consecuencia": "la ficha dice que el valor depende sobre todo de la r exigida"
+  }
+ ],
+ "resumen": {
+  "errores": 0,
+  "limites": 0,
+  "desviaciones": 6,
+  "desviaciones_sin_justificar": 3,
+  "avisos": 4
+ }
+}

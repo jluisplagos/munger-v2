@@ -10628,7 +10628,7 @@
    "uso": null,
    "material": true,
    "clase": "derivado",
-   "valor_modelo": 317.617,
+   "valor_modelo": 317.902,
    "fuente": {},
    "derivacion": {
     "origenes": [
@@ -10651,7 +10651,14 @@
     ],
     "formula": "((o[\"aux:jumbo-annual-report-fy2024_p154_net_cash_flows_operating_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_dividends_received_2023\"]+o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2024_p154_interest_received_2023\"]-o[\"aux:jumbo-annual-report-fy2024_p178_corporate_bonds_2023\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2024\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2024\"]))+(o[\"aux:jumbo-annual-report-fy2025_p155_net_cash_flows_operating_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]*3/(o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])))/3",
     "conciliacion": "C46 = media 2023–2025 de [CFO + dividendos cobrados de la cartera cotizada + intereses cobrados − s × (intereses cobrados − cupones de bonos)], con s = C76 × 3 ÷ Σ caja 2023–2025 = 160 × 3 ÷ 1.415,485114 = 0,339106 (decisiones P-O1 (c), J1 y J2; C76 = 160, hipótesis vigente de la fase B de jumbo_e). CFO 323,918862 / 300,687098 / 296,912917; dividendos 0,133043 / 0,828384 / 1,8762; intereses cobrados 18,490712 / 13,791382 / 9,91679; cupones 0,595837 / 0,594641 / 0,595058; caja 434,000394 / 444,815962 / 536,668758. Resultado 317,616988 → libro 317,617 (redondeo a 3 decimales admitido en importe). Mientras el libro no tenga C76 = 160 (lo fija la fase B) la fórmula no reproduce el libro.",
-    "unidad": "millones de euros"
+    "unidad": "millones de euros",
+    "recalculo": {
+     "celdas_de_juicio": [
+      "Análisis!C76"
+     ],
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+     "conciliacion_f1": true
+    }
    },
    "hipotesis": null,
    "justificacion": null,
@@ -10665,7 +10672,21 @@
     "vinculo": null
    },
    "incidencia": null,
-   "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son."
+   "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+   "recalculo_dependiente": {
+    "valor_declarado": 317.617,
+    "valor": 317.902,
+    "exacto": "168744844621311779/530806917750000",
+    "exacto_decimal": "317.902497082352",
+    "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+    "celdas_de_juicio": {
+     "Análisis!C76": 150
+    },
+    "formula_sha256": "08976be04945df333aa47eb27d81ff235c3030a0c83b4568e76910ce423fadf0",
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+    "formula": "verificacion_entradas.json → Análisis!C46 → derivacion.formula",
+    "rastro": "recalculo_dependientes.json"
+   }
   },
   {
    "celda": "Análisis!C47",
@@ -11012,7 +11033,7 @@
    "uso": null,
    "material": true,
    "clase": "derivado",
-   "valor_modelo": 255.108,
+   "valor_modelo": 255.305,
    "fuente": {},
    "derivacion": {
     "origenes": [
@@ -11030,7 +11051,13 @@
     ],
     "formula": "o[\"Historia!L11\"]-o[\"Historia!L12\"]-o[\"Historia!L16\"]-o[\"Historia!L17\"]+o[\"aux:jumbo-annual-report-fy2025_p155_dividends_received_2025\"]+o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"Análisis!C76\"]/round((o[\"aux:jumbo-annual-report-fy2024_p149_cash_and_cash_equivalents_2023\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2024\"]+o[\"aux:jumbo-annual-report-fy2025_p150_cash_and_cash_equivalents_2025\"])/3, 4)*(o[\"aux:jumbo-annual-report-fy2025_p155_interest_received_2025\"]-o[\"aux:jumbo-annual-report-fy2025_p179_corporate_bonds_2025\"])",
     "conciliacion": "FCF del accionista 2025 con la definición de C46: CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 + dividendos 1,8762 + intereses cobrados 9,91679 − C76 ÷ round(caja media, 4) × (9,91679 − cupones 0,595058), con C76 = 160 (hipótesis vigente de la fase B de jumbo_e) y caja media 471,8284 → 255,107832; libro 255,108 (redondeo a 3 decimales admitido en importe). Mientras el libro no tenga C76 = 160 la fórmula no lo reproduce.",
-    "unidad": "millones de euros"
+    "unidad": "millones de euros",
+    "recalculo": {
+     "celdas_de_juicio": [
+      "Análisis!C76"
+     ],
+     "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B"
+    }
    },
    "hipotesis": null,
    "justificacion": null,
@@ -11044,7 +11071,21 @@
     "vinculo": null
    },
    "incidencia": null,
-   "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son."
+   "justificacion_clase": "Dato de la valoración que depende de la convención de reparto de la caja sobrante (Análisis!C76, juicio de las fases) por las decisiones P-O1 (c), J1 y J2: los intereses cobrados que cuentan son los que no corresponden a la caja sumada en C76. No es un dato publicado; sus componentes sí lo son.",
+   "recalculo_dependiente": {
+    "valor_declarado": 255.108,
+    "valor": 255.305,
+    "exacto": "30115084334619/117957100000",
+    "exacto_decimal": "255.305397764263",
+    "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+    "celdas_de_juicio": {
+     "Análisis!C76": 150
+    },
+    "formula_sha256": "74534821111c443cd8c8ef48fe17742b4ceaa3660d4077dc9011039d2d0e358b",
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+    "formula": "verificacion_entradas.json → Análisis!C40 → derivacion.formula",
+    "rastro": "recalculo_dependientes.json"
+   }
   },
   {
    "celda": "Análisis!C53",
@@ -29451,5 +29492,5 @@
  ],
  "extractor_complementario": "Claude orquestación",
  "fecha_extraccion_complementaria": "2026-11-19",
- "nota_del_extractor_complementario": "Adaptado el 2026-11-19 por Claude orquestación al expediente jumbo_e: parte del registro de Mistral (mistral/examen-jumbo-entradas @ fced486) y aplica, solo donde el expediente ya lo recoge, las correcciones de la revisión del registro (coordinacion/cierre_v2/examen/jumbo/revision_registro/) y de la orquestación (resultados/: correccion_fase1_partes_r2/r3, recalculo_C42, entradas_r3, declaración F1). Las hipótesis llevan el texto que escribieron las fases (Control maestro N). Las entradas cambiadas declaran como extractor «Claude orquestación»; todas las comprobaciones quedan «pendiente», sin revisor ni vínculo: el sellado es de un revisor independiente. Lista de cambios: resultados/registro_entradas_jumbo_e.json."
+ "nota_del_extractor_complementario": "Adaptado el 2026-11-19 por Claude orquestación al expediente jumbo_e: parte del registro de Mistral (mistral/examen-jumbo-entradas @ fced486) y aplica, solo donde el expediente ya lo recoge, las correcciones de la revisión del registro (coordinacion/cierre_v2/examen/jumbo/revision_registro/) y de la orquestación (resultados/: correccion_fase1_partes_r2/r3, recalculo_C42, entradas_r3, declaración F1). Las hipótesis llevan el texto que escribieron las fases (Control maestro N). Las entradas cambiadas declaran como extractor «Claude orquestación»; todas las comprobaciones quedan «pendiente», sin revisor ni vínculo: el sellado es de un revisor independiente. Lista de cambios: resultados/registro_entradas_jumbo_e.json. (jumbo_g, 2026-11-19) Claude orquestación declaró en Análisis!C46 (con conciliacion_f1) y Análisis!C40 «derivacion.recalculo» (celda de juicio Análisis!C76; P-O1 (c) y J1) para que el pipeline los recalcule en el paso 9, tras escribir la fase B (resultados/registro_declaracion_dependientes_jumbo_g.json); no cambia valores, fórmulas, orígenes ni comprobaciones, ni la entrada de C76."
 }

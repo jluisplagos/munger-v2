@@ -83,11 +83,25 @@
  ],
  "analisis": {
   "C46": {
-   "valor": 317.617,
+   "valor": 317.902,
    "fuente": "(J1 con C76 = 160, 19-nov-2026) C46 = media 2023–2025 de [CFO + dividendos cobrados de la cartera cotizada + intereses cobrados − s × (intereses cobrados − cupones de bonos)], s = C76 160 × 3 ÷ caja 2023–2025 (434,000394 + 444,815962 + 536,668758) = 0,339106: CFO 323,918862 / 300,687098 / 296,912917; dividendos 0,133043 / 0,828384 / 1,8762; intereses cobrados 18,490712 / 13,791382 / 9,91679, de los que entran 12,422446 / 9,316283 / 6,755731 (cupones 0,595837 / 0,594641 / 0,595058) = 317,616988 → 317,617. Fuentes: AR2024 PDF p. 149, 154 y 178; AR2025 PDF p. 150, 155 y 179. C76 = 160 es la hipótesis vigente de la fase B de jumbo_e (no un dato): si la fase B cambia C76, C46 se recalcula.",
    "pagina": "AR2024 PDF 149, 154 y 178; AR2025 PDF 150, 155 y 179",
    "periodo": "2023–2025",
-   "unidad": "mm"
+   "unidad": "mm",
+   "recalculo_dependiente": {
+    "valor_declarado": 317.617,
+    "valor": 317.902,
+    "exacto": "168744844621311779/530806917750000",
+    "exacto_decimal": "317.902497082352",
+    "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+    "celdas_de_juicio": {
+     "Análisis!C76": 150
+    },
+    "formula_sha256": "08976be04945df333aa47eb27d81ff235c3030a0c83b4568e76910ce423fadf0",
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+    "formula": "verificacion_entradas.json → Análisis!C46 → derivacion.formula",
+    "rastro": "recalculo_dependientes.json"
+   }
   },
   "C47": {
    "periodo": "2023–2025",
@@ -164,11 +178,25 @@
    "unidad": "x"
   },
   "C40": {
-   "valor": 255.108,
+   "valor": 255.305,
    "fuente": "(J1 con C76 = 160, 19-nov-2026) C40 = FCF del accionista 2025 con la definición de C46: CFO 296,9129 − capex 38,384 − intereses de arrendamientos 2,3258 − principal 9,7272 + dividendos de la cartera 1,8762 + intereses cobrados 9,91679 − s' × (9,91679 − cupones 0,595058), s' = 160 ÷ 471,8284 = 0,339107 → 6,755728; = 255,107832 → 255,108. Fuentes: AR2025 PDF p. 150, 155 y 179; Historia L11, L12, L16 y L17. C76 = 160: hipótesis vigente de la fase B de jumbo_e.",
    "pagina": "AR2025 PDF 150, 155 y 179",
    "periodo": "ejercicio 2025",
-   "unidad": "mm"
+   "unidad": "mm",
+   "recalculo_dependiente": {
+    "valor_declarado": 255.108,
+    "valor": 255.305,
+    "exacto": "30115084334619/117957100000",
+    "exacto_decimal": "255.305397764263",
+    "precision": "importe: el resultado exacto o su redondeo a 3 decimales (ROUND de la hoja, mitad lejos de cero; regla U2)",
+    "celdas_de_juicio": {
+     "Análisis!C76": 150
+    },
+    "formula_sha256": "74534821111c443cd8c8ef48fe17742b4ceaa3660d4077dc9011039d2d0e358b",
+    "regla": "P-O1 (c) y J1 (DECISIONES_PARA_EL_USUARIO.md, 18-nov-2026): con la regla espejo solo se excluyen los intereses cobrados de la caja que se suma aparte en C76 (s = C76 ÷ caja media); C76 lo escribe la fase B",
+    "formula": "verificacion_entradas.json → Análisis!C40 → derivacion.formula",
+    "rastro": "recalculo_dependientes.json"
+   }
   },
   "C96": {
    "valor": 0.16628031642721308,
