@@ -14,7 +14,7 @@ Incoherencias revisadas (detalle en `fase_c.json`), ninguna obliga a mover palan
 - B66 dice que el margen del MALO «vuelve hacia su media» y la fase B pone 0,32, por debajo. La cifra es más dura que la frase; el mecanismo (mezcla y rebajas [10-Q 2T26, PDF p. 35; conferencia 2T26, PDF p. 12]) es el mismo.
 - B69 dice que la pérdida continua es «tan plausible» como la de una vez, pero le da 0,3 frente a 0,7. La frase exagera; la cifra se sostiene con lo medido: dermatología −10 puntos y Simparica Trio −1 [presentación 2T26, PDF p. 6–7].
 - C17 = No frente a un NORMAL del ≈5 % desde 2027: por componentes (precio de 1–3 puntos, lanzamientos de 2–5; extracto, sección 4) no necesita viento, pero depende de que sigan los lanzamientos.
-- Perímetro de la I+D: con C9 = Sí, `C53` cuenta la I+D neta como reinversión y los márgenes objetivo son EBIT publicado, así que la I+D neta del crecimiento pesa dos veces. Es convención de la plantilla («solo cambia las anclas»), no una palanca mal derivada; la mido igual: con S2C sin I+D (0,8 / 1,0 / 1,3) el precio de Sí pasaría a ≈74,12 (+1,1 %), misma zona y mismo cubo (estimación auxiliar). Cumple la regla v2.1 y va contra la tesis: no pido revisión.
+- Perímetro de la I+D. *Corregido tras la nota (2) del contradictor.* En el turno 1 leí como I+D neta el exceso de la fila 31 sobre capex − D&A + circulante + adquisiciones, y de ahí saqué un doble cómputo. En realidad es la amortización de intangibles (149 / 141 / 128 en 2023–25 [10-K 2025, PDF p. 49 y 66]). No hay doble cómputo y retiro la estimación auxiliar de 74,12.
 
 ## 2. Desviaciones pendientes
 
@@ -26,7 +26,7 @@ Incoherencias revisadas (detalle en `fase_c.json`), ninguna obliga a mover palan
 
 ## 3. Palancas
 
-No pido revisión (`revisar_palancas = false`). Revisé la aritmética de la fase B (crecimientos compuestos, reinversión del BUENO ≈3.800, g ÷ ROIC ≈23 %, rentabilidades marginales, deuda neta ÷ EBITDA en el MALO ≈2,2x) y cuadra. El S2C se ancla en `C53`, no en `C54`. El ROIC terminal del MALO en r no se sube por el perímetro (sección 1 bis). La única cuestión de perímetro es la de la I+D, ya medida arriba. Las dudas sobre celdas de la fase A (C18, B66) y de la B (B69, Palancas!C14, B16:D16) quedan en `celdas_corregidas` con `despues = antes`.
+No pido revisión (`revisar_palancas = false`). Revisé la aritmética de la fase B (crecimientos compuestos, reinversión del BUENO ≈3.800, g ÷ ROIC ≈23 %, rentabilidades marginales, deuda neta ÷ EBITDA en el MALO ≈2,2x) y cuadra. El S2C se ancla en `C53`, no en `C54`. El ROIC terminal del MALO en r no se sube por el perímetro (sección 1 bis). No queda ninguna cuestión de perímetro: la de la I+D se retiró tras la nota del contradictor. Las dudas sobre celdas de la fase A (C18, B66) y de la B (B69, Palancas!C14, B16:D16) quedan en `celdas_corregidas` con `despues = antes`.
 
 ## 4. Autocomprobación
 
@@ -57,7 +57,7 @@ Ninguna hipótesis material entra en la lista de la sección 14. Revisé las cin
 
 ## 8. Lo que más condiciona y qué lo resolvería
 
-Lo que más condiciona es B69:C69 con Palancas!C18: que 2026 sea un escalón (NORMAL 0,5, ROIC terminal 0,11) y no una pendiente (MALO 0,3). Lo resolverían dos cosas. Primero, las fechas de exclusividad por producto y mercado, de la sección de propiedad intelectual del 10-K 2025 o preguntando a Relación con Inversores. Segundo, la cuota de dermatología y de Simparica Trio en el 3T26, junto con la del rival que la gana. «Knowing what you don't know is more useful than being brilliant» (TCI p.15; HIM).
+Lo que más condiciona es B69:C69 con Palancas!C18: que 2026 sea un escalón (NORMAL 0,5, ROIC terminal 0,11) y no una pendiente (MALO 0,3). Lo resolverían dos cosas. Primero, las fechas de exclusividad por producto y mercado. El resumen de patentes del 10-K 2025 [PDF p. 17] solo trae Draxxin, Excede/Naxcel y Cerenia, así que hay que preguntarlas a Relación con Inversores. Segundo, la cuota de dermatología y de Simparica Trio en el 3T26, junto con la del rival que la gana. «Knowing what you don't know is more useful than being brilliant» (TCI p.15; HIM).
 
 ## 9. Configuración V6.4
 
@@ -78,8 +78,10 @@ No hay `comprobacion_conjunta.json`, porque no procedía: `sobrevive = null` y `
 - Las dos primeras franquicias suman el 28 % de los ingresos y no se conoce la fecha en que pierden la exclusividad [10-K 2025, PDF p. 44].
 - El margen se hizo con precio mientras bajaban las visitas, y ahora se devuelve en rebajas [conferencia 2T26, PDF p. 3, 12 y 16].
 - La dirección recompró con deuda a ≈134 y ≈124 justo antes del tropiezo (Historia fila 22).
+- El IRS reclama unos 450, en recurso, que el motor no resta [10-Q 2T26, PDF p. 16; 10-K 2025, PDF p. 84].
+- El convertible al 0,25 % vence en 2029 [10-K 2025, PDF p. 59], y su refinanciación tampoco está en el valor.
 
-Si llegan genéricos a Simparica Trio o Apoquel antes de 2030, el MALO vale ≈55 (estimación auxiliar) y a 73,08 se pierde una cuarta parte. Un colchón de 0,23 no es margen de seguridad.
+Si llegan genéricos a Simparica Trio o Apoquel antes de 2030, el MALO vale ≈55 (estimación auxiliar) y a 73,08 se pierde una cuarta parte. Un colchón de 0,23 no es margen de seguridad, y con las objeciones del contradictor ni siquiera es colchón.
 
 ## 12. Predicciones (dado el NORMAL)
 
@@ -91,7 +93,7 @@ Las tres separan el escalón del NORMAL de la pendiente del MALO.
 
 ## 13. Qué cambiaría el cubo
 
-- **A Sí:** que las exclusividades duren más allá de 2030, que el rival esté identificado y que la cuota de dermatología se mantenga en el 80 % o más en el T3 y el T4 de 2026, con la escalera todavía en `cumple_regla_k`.
+- **A Sí:** que las exclusividades duren más allá de 2030, que el rival esté identificado y que la cuota de dermatología se mantenga en el 80 % o más en el T3 y el T4 de 2026, con un precio de Sí que, recalculado con las cuatro correcciones del contradictor, quede claramente por encima del precio.
 - **A No:** que 2027 vuelva a ser negativo en orgánico y que Simparica Trio empiece a caer.
 - **A Demasiado difícil:** que las exclusividades venzan antes de 2030 y que el valor pase a depender de la ciencia del riñón y la oncología.
 
@@ -114,3 +116,25 @@ He comprobado lo siguiente:
 - La tesis inversa está apoyada en hechos y B222/B223 son concretos.
 - La comparación con la etapa 1 y lo que cambiaría el cubo están escritos.
 - Cada cita lleva libro y página.
+
+## 16. Respuesta al contradictor
+
+He leído `OBJECIONES.json` y he comprobado las citas en `texto/`. Las cifras son estimaciones auxiliares: salen de mi réplica del motor A y, para O4 y el conjunto, de las cuentas del contradictor. No son precio.json.
+
+| Objeción | Respuesta | Efecto |
+|---|---|---|
+| **O1** (baja). Reclamación del IRS de unos 450, sin intereses ni sanciones, en recurso [10-Q 2T26, PDF p. 16; 10-K 2025, PDF p. 84] | **No rebatida.** La provisión no tiene cifra y no evita la salida de caja; el motor A no resta ese pasivo. Mi turno 2 la quitó de B102 diciendo que no estaba en mis entradas, y era un error. | Precio de Sí 72,78 si se cuenta como coste esperado al 50 % y 72,25 si se pierde entera. Vuelve a B102. Cuenta para el escalón a la baja. |
+| **O2** (baja). Intereses de la deuda nueva: 296 esperados frente a 276,7 de media en 2023–25 [10-K 2025, PDF p. 86; Historia fila 15]; convertible al 0,25 % con vencimiento en 2029 [10-K 2025, PDF p. 59] | **No rebatida.** El gasto por intereses sube un 15 % en el semestre [10-Q 2T26, PDF p. 29] y la caja que genera intereses ha bajado (Análisis!C53). | 72,91 en el caso mínimo, que es un hecho, y 71,44 en el central, que es un juicio sobre la refinanciación. Cuenta para el escalón a la baja. |
+| **O3** (baja). Tipo impositivo: 20,4 % en 2025 y en el semestre de 2026, frente a t = 0,1997 en la proyección [10-K 2025, PDF p. 50; 10-Q 2T26, PDF p. 32] | **No rebatida.** He comprobado que f sale del tipo de cada año de 2023–25 (275,3 ÷ 27.267). | 72,92 con el 20,36 % y 72,78 con el 20,5 %. Cuenta para el escalón a la baja. |
+| **O4** (sube). Fecha de la valoración y acciones: 414,15 M a 30-jun-2026 [10-Q 2T26, PDF p. 5]; repartos del semestre [10-Q 2T26, PDF p. 8]; aviso V28 de la hoja | **No rebatida.** La cuenta ya resta los repartos pagados; si acaso es prudente. | 75,71, o 75,39 si solo se actualizan las acciones. Cuenta para el escalón al alza. Sola no cambia el cubo: la rama de genéricos se queda en ≈71,1. |
+
+**Regla de movimiento.** O1, O2 y O3 dan un escalón a la baja y O4 uno al alza: se compensan.
+
+**Conclusión final, sin cambio:** `pendiente_de_datos` · Vigilar · acción `null`, sin precio objetivo. Lo que cambia es el motivo. Con las cuatro correcciones, el precio de Sí central queda en ≈72,6–72,7, por debajo de 73,08, y su rango (≈70–74,3) contiene el precio. El Vigilar es ahora por datos **y** por precio: aunque lleguen las fechas de exclusividad y el rival, habrá que recalcular antes de hablar de compra.
+
+**Notas del contradictor:**
+
+- **(2)** Tiene razón: no hay doble cómputo de la I+D. Corrijo la incoherencia 5, los motivos de B16:D16 y la autocomprobación.
+- **(3)** El 10-K no da las fechas de Simparica Trio, Apoquel, Cytopoint ni Librela. Corrijo B223.
+- **(4)** Rimadyl cayó un 39 % tras los genéricos [10-K 2025, PDF p. 25]. Suaviza la rama de genéricos, pero no fija ninguna fecha.
+- **(1)** y **(5)** no piden cambios.
