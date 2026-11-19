@@ -1,0 +1,1804 @@
+{
+ "fecha": "2026-11-19",
+ "guion": "resultados/scripts/corregir_registro_zoetis_t1d.py",
+ "registro_antes_sha256": "4a4f16e158bf28901e6e12ca0b1f8f9fb08e26faed5c693c78037865881cf9ec",
+ "registro_despues_sha256": "ffaaaf7fc0dcf53f3ca510b5252673e530923414b4ce5f93706e388c57429940",
+ "entradas_corregidas": [
+  "Análisis!C55",
+  "Análisis!C41",
+  "Análisis!C33",
+  "Análisis!C40",
+  "Análisis!C42",
+  "aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022",
+  "Historia!I26",
+  "aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023",
+  "Historia!J26",
+  "Historia!E26",
+  "Historia!C86",
+  "Historia!D86",
+  "Historia!E86",
+  "Historia!F86",
+  "Historia!G86",
+  "Historia!C87",
+  "Historia!D87",
+  "Historia!E87",
+  "Historia!F87",
+  "Historia!G87",
+  "Palancas!A31",
+  "Palancas!B31",
+  "Palancas!A33",
+  "Palancas!B33",
+  "Análisis!C57",
+  "Palancas!C7",
+  "Análisis!C37",
+  "Análisis!C38"
+ ],
+ "cambios": [
+  {
+   "celda": "Análisis!C55",
+   "antes": {
+    "celda": "Análisis!C55",
+    "id": "acciones",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 424.927535,
+    "fuente": {
+     "documento": "Form 10-K 2025 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2025)",
+     "version": "PDF oficial «zoetis-10k-fy2025.pdf», sha256 517a8d74c89bb357d297f491568b7fd79ac2f89b2e9dee11425afb50faf81efb (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2025.txt», sha256 4159130b8f53d35cb18c0617b2ac8f0e6405b1e5a808ce9014e6a6f0566a503a",
+     "archivo": "texto/zoetis-10k-fy2025.txt",
+     "sha256": "4159130b8f53d35cb18c0617b2ac8f0e6405b1e5a808ce9014e6a6f0566a503a",
+     "pagina": 68,
+     "folio": 60,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "acciones en circulación al 31-dic-2025 (Common stock … shares outstanding at December 31, 2025), en millones",
+     "columna": "2025 (columna del ejercicio corriente del informe 2025)",
+     "periodo": "ejercicio 2025 (cerrado el 31-12-2025)",
+     "unidad": "acciones",
+     "escala": 1e-06,
+     "signo": 1,
+     "tratamiento": "cifra impresa en acciones (424.927.535); escala 1e-6 la pasa a millones, sin redondear (un número de acciones no es un importe); sin dilución (fase1_metadatos.json: impreso «424,927,535», escala_impreso «unidades»; fase1_historia.py comprueba que valor = impreso × escala). P-O2: acciones al cierre del ejercicio, no media ponderada. Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025 (la desalineación se declara en C41 y C42, que combinan ambos).",
+     "perimetro": "consolidado",
+     "reexpresado": "no aplica (ejercicio corriente)",
+     "valor_fuente": 424927535,
+     "cita": "Common stock, $0.01 par value: 6,000,000,000 authorized, 501,891,243 and 501,891,243 shares issued; 424,927,535"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/zoetis-10k-fy2025.txt [PDF PAGE 68]",
+     "nota": "[Revisor sellado, 2026-11-19] Acciones en circulación a 31-dic-2025 = 424.927.535 (10-K 2025 PDF p. 68; coincide con el 10-Q p. 5). El libro guarda 424,928: el redondeo a 3 decimales está declarado en la fórmula, pero no está justificado para una cifra de acciones (no es un importe) y es el origen del desfase de C41. Guardar 424,927535. · Nota anterior del extractor: derivado: round(424.927535, 3) = 424.928 = libro (acciones en circulación al 31-dic-2025, 10-K 2025 p. 68; no media ponderada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Análisis!C55",
+    "id": "acciones",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 424.927535,
+    "fuente": {
+     "documento": "Form 10-K 2025 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2025)",
+     "version": "PDF oficial «zoetis-10k-fy2025.pdf», sha256 517a8d74c89bb357d297f491568b7fd79ac2f89b2e9dee11425afb50faf81efb (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2025.txt», sha256 4159130b8f53d35cb18c0617b2ac8f0e6405b1e5a808ce9014e6a6f0566a503a",
+     "archivo": "texto/zoetis-10k-fy2025.txt",
+     "sha256": "4159130b8f53d35cb18c0617b2ac8f0e6405b1e5a808ce9014e6a6f0566a503a",
+     "pagina": 68,
+     "folio": 60,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "acciones en circulación al 31-dic-2025 (Common stock … shares outstanding at December 31, 2025), en millones",
+     "columna": "2025 (columna del ejercicio corriente del informe 2025)",
+     "periodo": "ejercicio 2025 (cerrado el 31-12-2025)",
+     "unidad": "acciones",
+     "escala": 1e-06,
+     "signo": 1,
+     "tratamiento": "cifra impresa en acciones (424.927.535); escala 1e-6 la pasa a millones, sin redondear (un número de acciones no es un importe); sin dilución (fase1_metadatos.json: impreso «424,927,535», escala_impreso «unidades»; fase1_historia.py comprueba que valor = impreso × escala). P-O2: acciones al cierre del ejercicio, no media ponderada. Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025 (la desalineación se declara en C41 y C42, que combinan ambos).",
+     "perimetro": "consolidado",
+     "reexpresado": "no aplica (ejercicio corriente)",
+     "valor_fuente": 424927535,
+     "cita": "Common stock, $0.01 par value: 6,000,000,000 authorized, 501,891,243 and 501,891,243 shares issued; 424,927,535"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C55 = 424,927535 exacto (sellado de zoetis_t1c: el redondeo a 3 decimales no se justificaba para acciones); dato publicado con la misma fuente que el auxiliar sellado aux:zoetis-10k-fy2025_p68_common_stock_shares_outstanding_2025; configuracion/cambio_zoetis_t1d.json · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Acciones en circulación a 31-dic-2025 = 424.927.535 (10-K 2025 PDF p. 68; coincide con el 10-Q p. 5). El libro guarda 424,928: el redondeo a 3 decimales está declarado en la fórmula, pero no está justificado para una cifra de acciones (no es un importe) y es el origen del desfase de C41. Guardar 424,927535. · Nota anterior del extractor: derivado: round(424.927535, 3) = 424.928 = libro (acciones en circulación al 31-dic-2025, 10-K 2025 p. 68; no media ponderada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Análisis!C41",
+   "antes": {
+    "celda": "Análisis!C41",
+    "id": "capitalizacion",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 31053.7042578,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Análisis!C37",
+      "Análisis!C55"
+     ],
+     "formula": "o[\"Análisis!C37\"] * o[\"Análisis!C55\"]",
+     "conciliacion": "capitalización = C37 73,08 × C55 424,927535 = 31.053,7042578 exacto = libro (sin redondear las acciones ni el resultado; en zoetis_t1c salía 0,034 mm más con C55 redondeado). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) sería 30.266,37768168. C37: captura de investor.zoetis.com del 8-oct-2026 conservada en fuentes_mercado/ (anexo 3 ter).",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt [PDF PAGE 1]; Análisis!C55",
+     "nota": "[Revisor sellado, 2026-11-19] Usa C55 redondeado a 3 decimales (424,928) en vez de las 424.927.535 acciones publicadas (10-K 2025 PDF p. 68): 73,08 × 424,928 = 31.053,73824 frente a 31.053,704 con la cifra exacta (−0,034 mm, inmaterial). Corregir en el expediente, sin tocar la fuente. Depende además de C37 (transcripción del extractor, no bytes originales). · Nota anterior del extractor: C37 × C55 sin redondear",
+     "vinculo": null
+    },
+    "incidencia": "C37 sale ahora de la captura de investor.zoetis.com del 8-oct-2026 conservada en fuentes_mercado/ (anexo 3 ter), pendiente de revisor."
+   },
+   "despues": {
+    "celda": "Análisis!C41",
+    "id": "capitalizacion",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 31053.7042578,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Análisis!C37",
+      "Análisis!C55"
+     ],
+     "formula": "o[\"Análisis!C37\"] * o[\"Análisis!C55\"]",
+     "conciliacion": "capitalización = C37 73,08 × C55 424,927535 = 31.053,7042578 exacto = libro (sin redondear las acciones ni el resultado; en zoetis_t1c salía 0,034 mm más con C55 redondeado). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) sería 30.266,37768168. C37: captura de investor.zoetis.com del 8-oct-2026 conservada en fuentes_mercado/ (anexo 3 ter).",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C41 = C37 × C55 exactos (sellado de zoetis_t1c); Z-ACC declarada · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Usa C55 redondeado a 3 decimales (424,928) en vez de las 424.927.535 acciones publicadas (10-K 2025 PDF p. 68): 73,08 × 424,928 = 31.053,73824 frente a 31.053,704 con la cifra exacta (−0,034 mm, inmaterial). Corregir en el expediente, sin tocar la fuente. Depende además de C37 (transcripción del extractor, no bytes originales). · Nota anterior del extractor: C37 × C55 sin redondear",
+     "vinculo": null
+    },
+    "incidencia": "C37 sale ahora de la captura de investor.zoetis.com del 8-oct-2026 conservada en fuentes_mercado/ (anexo 3 ter), pendiente de revisor."
+   }
+  },
+  {
+   "celda": "Análisis!C33",
+   "antes": {
+    "celda": "Análisis!C33",
+    "id": "juicio_C33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 1.8967935871743486,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30",
+      "aux:zoetis-10q-2026-q2_p5_cash_2026-06-30",
+      "aux:zoetis-10k-fy2025_p66_bai_2025",
+      "aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p3_bai_6m2026",
+      "aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026",
+      "aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026"
+     ],
+     "formula": "(o[\"aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30\"] - o[\"aux:zoetis-10q-2026-q2_p5_cash_2026-06-30\"]) / (o[\"aux:zoetis-10k-fy2025_p66_bai_2025\"] - o[\"aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p3_bai_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm\"] - o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026\"])",
+     "unidad": "x",
+     "conciliacion": "APROXIMACIÓN (documental): deuda neta ÷ EBITDA TTM = (9.048 − 1.476) ÷ (3.360 − 1.712 + 1.624 + 222 − 107 + 123 + 487 − 243 + 238 = 3.992) = 1,896794 (entradas_r3.json)"
+    },
+    "hipotesis": {
+     "identificacion": "V-C33",
+     "fundamento": "C33 = 1.8967935871743486: deuda neta ÷ EBITDA TTM = (9.048 − 1.476) ÷ (3.360 − 1.712 + 1.624 + 222 − 107 + 123 + 487 − 243 + 238 = 3.992) = 1,896794 (entradas_r3.json) El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Con el 6M-2025 todo reexpresado sale ≈ 1,88x; con el 10-Q del T2 2025 en base antigua (no está en el expediente) se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Sin acciones ni precio: no le afecta la desalineación de C41/C42 (deuda neta del 30-jun-2026 y EBITDA de 12 meses a esa fecha).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C33); Control maestro L–N de la fila de C33; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/zoetis-10q-2026-q2.txt [PDF PAGE 5]; texto/zoetis-10k-fy2025.txt [PDF PAGE 66]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 10]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 3]; texto/zoetis-10k-fy2025.txt [PDF PAGE 70]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 8]",
+     "nota": "[Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos ((9.048 − 1.476) ÷ 3.992 = 1,896794; la revisión previa obtuvo 1,88–1,90x según la base), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. 3 y p. 8): mezcla bases. La incidencia lo declara, pero el registro lo presenta como derivado exacto y lo contaría entre los derivados comprobados. Corrección propuesta (no aplicada): registrarlo como convención/aproximación con justificacion_clase (como C24) o conseguir el 10-Q T2-2025 en base antigua. · Nota anterior del extractor: Recalculado en zoetis_t1c (entradas_r3.json); Mistral lo dejó sin resolver",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases.",
+    "justificacion_clase": "C33 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   },
+   "despues": {
+    "celda": "Análisis!C33",
+    "id": "juicio_C33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 1.8967935871743486,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30",
+      "aux:zoetis-10q-2026-q2_p5_cash_2026-06-30",
+      "aux:zoetis-10k-fy2025_p66_bai_2025",
+      "aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p3_bai_6m2026",
+      "aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026",
+      "aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026"
+     ],
+     "formula": "(o[\"aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30\"] - o[\"aux:zoetis-10q-2026-q2_p5_cash_2026-06-30\"]) / (o[\"aux:zoetis-10k-fy2025_p66_bai_2025\"] - o[\"aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p3_bai_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm\"] - o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026\"])",
+     "unidad": "x",
+     "conciliacion": "APROXIMACIÓN (documental): deuda neta ÷ EBITDA TTM = (9.048 − 1.476) ÷ (3.360 − 1.712 + 1.624 + 222 − 107 + 123 + 487 − 243 + 238 = 3.992) = 1,896794 (entradas_r3.json)"
+    },
+    "hipotesis": {
+     "identificacion": "V-C33",
+     "fundamento": "C33 = 1.8967935871743486: deuda neta ÷ EBITDA TTM = (9.048 − 1.476) ÷ (3.360 − 1.712 + 1.624 + 222 − 107 + 123 + 487 − 243 + 238 = 3.992) = 1,896794 (entradas_r3.json) El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Con el 6M-2025 todo reexpresado sale ≈ 1,88x; con el 10-Q del T2 2025 en base antigua (no está en el expediente) se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Sin acciones ni precio: no le afecta la desalineación de C41/C42 (deuda neta del 30-jun-2026 y EBITDA de 12 meses a esa fecha).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C33); Control maestro L–N de la fila de C33; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C33: de «derivado» a «convencion» con justificacion_clase (aproximación por la Fiscal Year Alignment; REVISION_SELLADO.md de zoetis_t1c) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos ((9.048 − 1.476) ÷ 3.992 = 1,896794; la revisión previa obtuvo 1,88–1,90x según la base), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. ",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases.",
+    "justificacion_clase": "C33 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   }
+  },
+  {
+   "celda": "Análisis!C40",
+   "antes": {
+    "celda": "Análisis!C40",
+    "id": "juicio_C40",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 2363,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p70_cfo_10k2025_2025",
+      "aux:zoetis-10q-2026-q2_p11_cfo_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p8_cfo_6m2026",
+      "aux:zoetis-10k-fy2025_p70_capex_10k2025_2025",
+      "aux:zoetis-10q-2026-q2_p8_capex_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_capex_6m2026",
+      "aux:zoetis-10k-fy2025_p89_principal_arrendamientos_financieros_2025",
+      "aux:zoetis-10q-2026-q2_p8_finance_leases_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_finance_leases_6m2026"
+     ],
+     "formula": "(o[\"aux:zoetis-10k-fy2025_p70_cfo_10k2025_2025\"] - o[\"aux:zoetis-10q-2026-q2_p11_cfo_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p8_cfo_6m2026\"]) - (o[\"aux:zoetis-10k-fy2025_p70_capex_10k2025_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_capex_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_capex_6m2026\"]) - (o[\"aux:zoetis-10k-fy2025_p89_principal_arrendamientos_financieros_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_finance_leases_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_finance_leases_6m2026\"])",
+     "unidad": "mm",
+     "conciliacion": "APROXIMACIÓN (documental): FCF TTM = CFO (2.904 − 1.073 + 1.056 = 2.887) − capex (621 − 324 + 227 = 524) − principal de arrendamientos financieros (2 − 2 + 0 = 0) = 2.363 (entradas_r3.json)"
+    },
+    "hipotesis": {
+     "identificacion": "V-C40",
+     "fundamento": "C40 = 2363: FCF TTM = CFO (2.904 − 1.073 + 1.056 = 2.887) − capex (621 − 324 + 227 = 524) − principal de arrendamientos financieros (2 − 2 + 0 = 0) = 2.363 (entradas_r3.json) El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Todo reexpresado sale 2.316; con el 10-Q del T2 2025 en base antigua (no está en el expediente) se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Sin acciones ni precio: no le afecta la desalineación de C41/C42 (12 meses a 30-jun-2026).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C40); Control maestro L–N de la fila de C40; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/zoetis-10k-fy2025.txt [PDF PAGE 70]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 11]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 8]; texto/zoetis-10k-fy2025.txt [PDF PAGE 89]",
+     "nota": "[Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos (2.887 − 524 − 0 = 2.363; todo en base reexpresada saldría 2.316), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. 3 y p. 8): mezcla bases. La incidencia lo declara, pero el registro lo presenta como derivado exacto y lo contaría entre los derivados comprobados. Corrección propuesta (no aplicada): registrarlo como convención/aproximación con justificacion_clase (como C24) o conseguir el 10-Q T2-2025 en base antigua. · Nota anterior del extractor: Recalculado en zoetis_t1c (entradas_r3.json); Mistral lo dejó sin resolver",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases.",
+    "justificacion_clase": "C40 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   },
+   "despues": {
+    "celda": "Análisis!C40",
+    "id": "juicio_C40",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 2363,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p70_cfo_10k2025_2025",
+      "aux:zoetis-10q-2026-q2_p11_cfo_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p8_cfo_6m2026",
+      "aux:zoetis-10k-fy2025_p70_capex_10k2025_2025",
+      "aux:zoetis-10q-2026-q2_p8_capex_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_capex_6m2026",
+      "aux:zoetis-10k-fy2025_p89_principal_arrendamientos_financieros_2025",
+      "aux:zoetis-10q-2026-q2_p8_finance_leases_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_finance_leases_6m2026"
+     ],
+     "formula": "(o[\"aux:zoetis-10k-fy2025_p70_cfo_10k2025_2025\"] - o[\"aux:zoetis-10q-2026-q2_p11_cfo_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p8_cfo_6m2026\"]) - (o[\"aux:zoetis-10k-fy2025_p70_capex_10k2025_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_capex_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_capex_6m2026\"]) - (o[\"aux:zoetis-10k-fy2025_p89_principal_arrendamientos_financieros_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_finance_leases_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_finance_leases_6m2026\"])",
+     "unidad": "mm",
+     "conciliacion": "APROXIMACIÓN (documental): FCF TTM = CFO (2.904 − 1.073 + 1.056 = 2.887) − capex (621 − 324 + 227 = 524) − principal de arrendamientos financieros (2 − 2 + 0 = 0) = 2.363 (entradas_r3.json)"
+    },
+    "hipotesis": {
+     "identificacion": "V-C40",
+     "fundamento": "C40 = 2363: FCF TTM = CFO (2.904 − 1.073 + 1.056 = 2.887) − capex (621 − 324 + 227 = 524) − principal de arrendamientos financieros (2 − 2 + 0 = 0) = 2.363 (entradas_r3.json) El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Todo reexpresado sale 2.316; con el 10-Q del T2 2025 en base antigua (no está en el expediente) se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Sin acciones ni precio: no le afecta la desalineación de C41/C42 (12 meses a 30-jun-2026).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C40); Control maestro L–N de la fila de C40; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C40: de «derivado» a «convencion» con justificacion_clase (aproximación por la Fiscal Year Alignment; REVISION_SELLADO.md de zoetis_t1c) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos (2.887 − 524 − 0 = 2.363; todo en base reexpresada saldría 2.316), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. 3 y p. 8): mezcla bases",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases.",
+    "justificacion_clase": "C40 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   }
+  },
+  {
+   "celda": "Análisis!C42",
+   "antes": {
+    "celda": "Análisis!C42",
+    "id": "juicio_C42",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 9.675777619689379,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Análisis!C41",
+      "aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30",
+      "aux:zoetis-10q-2026-q2_p5_cash_2026-06-30",
+      "aux:zoetis-10k-fy2025_p66_bai_2025",
+      "aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p3_bai_6m2026",
+      "aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026",
+      "aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026"
+     ],
+     "formula": "(o[\"Análisis!C41\"] + o[\"aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30\"] - o[\"aux:zoetis-10q-2026-q2_p5_cash_2026-06-30\"]) / (o[\"aux:zoetis-10k-fy2025_p66_bai_2025\"] - o[\"aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p3_bai_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm\"] - o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026\"])",
+     "unidad": "x",
+     "conciliacion": "APROXIMACIÓN (documental): EV ÷ EBITDA TTM = (C41 31.053,7042578 + 9.048 − 1.476) ÷ 3.992 = 9,675778 (entrada declarada en cambio_zoetis_t1d.json; en zoetis_t1c era 0,000008x más alto, con C41 de las acciones redondeadas). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025."
+    },
+    "hipotesis": {
+     "identificacion": "V-C42",
+     "fundamento": "C42 = 9.675777619689379: EV ÷ EBITDA TTM = (C41 31.053,7042578 + 9.048 − 1.476) ÷ 3.992 = 9,675778 (entrada declarada en cambio_zoetis_t1d.json; en zoetis_t1c era 0,000008x más alto, con C41 de las acciones redondeadas). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025. El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Con el 6M-2025 todo reexpresado (BAI 1.685) ≈ 9,61x; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) 9,48x; con el 10-Q del T2 2025 en base antigua se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025, balance del 30-jun-2026 y EBITDA de 12 meses a esa fecha. Depende de C41 y de C37 (captura del 8-oct-2026, pendiente de revisor).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C42); Control maestro L–N de la fila de C42; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Análisis!C41; texto/zoetis-10q-2026-q2.txt [PDF PAGE 5]; texto/zoetis-10k-fy2025.txt [PDF PAGE 66]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 10]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 3]; texto/zoetis-10k-fy2025.txt [PDF PAGE 70]; texto/zoetis-10q-2026-q2.txt [PDF PAGE 8]",
+     "nota": "[Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos ((31.053,73824 + 9.048 − 1.476) ÷ 3.992 = 9,675786), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. 3 y p. 8): mezcla bases. La incidencia lo declara, pero el registro lo presenta como derivado exacto y lo contaría entre los derivados comprobados. Corrección propuesta (no aplicada): registrarlo como convención/aproximación con justificacion_clase (como C24) o conseguir el 10-Q T2-2025 en base antigua. Además arrastra C41 (acciones redondeadas) y depende de C37 (transcripción, sin bytes originales); y mezcla el balance del 30-jun-2026 con las acciones del 31-dic-2025 (con 414.154.046 acciones a 30-jun-2026, ≈ 9,48x). · Nota anterior del extractor: Recalculado en zoetis_t1c (entradas_r3.json); Mistral lo dejó sin resolver",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases. Desalineación de fechas (REVISION_ORQUESTACION_R2.md, D): el balance es del 30-jun-2026 y C41 usa las acciones del 31-dic-2025; con las 414.154.046 acciones a 30-jun-2026 (10-Q p. 5) saldría ≈ 9,48x. Depende de C41 (exacto en zoetis_t1d) y de C37 (captura de investor.zoetis.com, pendiente de revisor).",
+    "justificacion_clase": "C42 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   },
+   "despues": {
+    "celda": "Análisis!C42",
+    "id": "juicio_C42",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": 9.675777619689379,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "Análisis!C41",
+      "aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30",
+      "aux:zoetis-10q-2026-q2_p5_cash_2026-06-30",
+      "aux:zoetis-10k-fy2025_p66_bai_2025",
+      "aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported",
+      "aux:zoetis-10q-2026-q2_p3_bai_6m2026",
+      "aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025",
+      "aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026",
+      "aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025",
+      "aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026"
+     ],
+     "formula": "(o[\"Análisis!C41\"] + o[\"aux:zoetis-10q-2026-q2_p5_long_term_debt_2026-06-30\"] - o[\"aux:zoetis-10q-2026-q2_p5_cash_2026-06-30\"]) / (o[\"aux:zoetis-10k-fy2025_p66_bai_2025\"] - o[\"aux:zoetis-10q-2026-q2_p10_bai_6m2025_as_previously_reported\"] + o[\"aux:zoetis-10q-2026-q2_p3_bai_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p66_interest_expense_2025_ttm\"] - o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p3_interest_expense_6m2026\"] + o[\"aux:zoetis-10k-fy2025_p70_depreciation_and_amortization_2025\"] - o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2025\"] + o[\"aux:zoetis-10q-2026-q2_p8_depreciation_and_amortization_6m2026\"])",
+     "unidad": "x",
+     "conciliacion": "APROXIMACIÓN (documental): EV ÷ EBITDA TTM = (C41 31.053,7042578 + 9.048 − 1.476) ÷ 3.992 = 9,675778 (entrada declarada en cambio_zoetis_t1d.json; en zoetis_t1c era 0,000008x más alto, con C41 de las acciones redondeadas). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025."
+    },
+    "hipotesis": {
+     "identificacion": "V-C42",
+     "fundamento": "C42 = 9.675777619689379: EV ÷ EBITDA TTM = (C41 31.053,7042578 + 9.048 − 1.476) ÷ 3.992 = 9,675778 (entrada declarada en cambio_zoetis_t1d.json; en zoetis_t1c era 0,000008x más alto, con C41 de las acciones redondeadas). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025. El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11).",
+     "alternativas": "Con el 6M-2025 todo reexpresado (BAI 1.685) ≈ 9,61x; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) 9,48x; con el 10-Q del T2 2025 en base antigua se podría rehacer en una sola base.",
+     "limites": "Mezcla bases (ver justificacion_clase). Desalineación de fechas declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × acciones en circulación al 31-dic-2025, balance del 30-jun-2026 y EBITDA de 12 meses a esa fecha. Depende de C41 y de C37 (captura del 8-oct-2026, pendiente de revisor).",
+     "procedencia": "configuracion/cambio_zoetis_t1d.json (analisis C42); Control maestro L–N de la fila de C42; resultados/entradas_r3.json de zoetis_t1c"
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C42: de «derivado» a «convencion» con justificacion_clase (aproximación por la Fiscal Year Alignment; REVISION_SELLADO.md de zoetis_t1c) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Orígenes, columnas y aritmética correctos ((31.053,73824 + 9.048 − 1.476) ÷ 3.992 = 9,675786), pero la clase «derivado» acredita que la fórmula deriva el concepto, y aquí da una APROXIMACIÓN: TTM = 2025 (10-K, base anterior a la Fiscal Year Alignment) − 6M-2025 + 6M-2026 (base nueva), con el BAI y el CFO de 6M-2025 «as previously reported» (10-Q PDF p. 10–11) pero los intereses, la D&A y el capex de 6M-2025 solo reexpresados (p. 3 y p. 8): mezcla bases. La incidenci",
+     "vinculo": null
+    },
+    "incidencia": "APROXIMACIÓN declarada en el expediente (entradas_r3.json): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI y el CFO, que se usan, pero solo reexpresado para intereses, D&A y capex: esos tres mezclan bases. Desalineación de fechas (REVISION_ORQUESTACION_R2.md, D): el balance es del 30-jun-2026 y C41 usa las acciones del 31-dic-2025; con las 414.154.046 acciones a 30-jun-2026 (10-Q p. 5) saldría ≈ 9,48x. Depende de C41 (exacto en zoetis_t1d) y de C37 (captura de investor.zoetis.com, pendiente de revisor).",
+    "justificacion_clase": "C42 es una aproximación declarada, no un derivado exacto del concepto: El TTM a 30-jun-2026 se forma con 2025 del 10-K (base anterior a la «Fiscal Year Alignment») − 6M-2025 + 6M-2026 del 10-Q del T2 2026 (base nueva); el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (10-Q T2 2026 PDF p. 3, 8, 10 y 11). Se registra como convención con su fundamento (como C24; REVISION_SELLADO.md de zoetis_t1c); la fórmula de «derivacion» solo documenta la aproximación."
+   }
+  },
+  {
+   "celda": "aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022",
+   "antes": null,
+   "despues": {
+    "celda": "aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022",
+    "id": "aux_minoritarios_impresos",
+    "ambito": null,
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": -2,
+    "fuente": {
+     "documento": "Form 10-K 2023 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2023)",
+     "version": "PDF oficial «zoetis-10k-fy2023.pdf», sha256 4fcc943b8738e5f307fd767fb034e657cdd403e8d636e0040d7166d016e65b5a (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2023.txt», sha256 2180a76772a3388f1452785a21de1e2e01888f321990254bd52963ed542ba305 (texto del expediente por OCR; segunda lectura verificada contra la imagen en la rama mistral/zoetis-texto-ocr)",
+     "archivo": "texto/zoetis-10k-fy2023.txt",
+     "sha256": "2180a76772a3388f1452785a21de1e2e01888f321990254bd52963ed542ba305",
+     "pagina": 67,
+     "folio": 59,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "Equity attributable to noncontrolling interests, 2022 (impreso entre paréntesis: negativo)",
+     "columna": "2022 (columna comparativa «anterior» del informe 2023, cifra más reciente publicada)",
+     "periodo": "ejercicio 2022 (cerrado el 31-12-2022)",
+     "unidad": "mm",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "cifra publicada tal como se imprime, negativa (patrimonio deficitario de minoritarios); signo 1, sin transformación",
+     "perimetro": "consolidado",
+     "reexpresado": "columna comparativa del informe 2023 (cifra más reciente publicada del ejercicio 2022); sin reexpresión declarada",
+     "valor_fuente": -2,
+     "cita": "Equity attributable to noncontrolling interests (6) (2)"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] auxiliar nuevo: minoritarios 2022 impresos -2 (origen de Historia!I26; Z-MIN)",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!I26",
+   "antes": {
+    "celda": "Historia!I26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022"
+     ],
+     "formula": "max(o[\"aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022\"], 0)",
+     "conciliacion": "minoritarios 2022: el balance imprime (2) = -2 (texto/zoetis-10k-fy2023.txt [PDF PAGE 67], «Equity attributable to noncontrolling interests (6) (2)»): patrimonio NEGATIVO de minoritarios; la Historia guarda 0 por la decisión Z-MIN de la persona responsable (19-nov-2026: minoritarios deficitarios → cero con aviso y la cifra impresa en el registro; fase1_historia.py, historia_revision.md «Signo de saldos impresos en negativo»). max(-2, 0) = 0 = libro. En zoetis_t1c el libro guardaba +2.",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "texto/zoetis-10k-fy2023.txt [PDF PAGE 67]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+     "nota": "[Revisor sellado, 2026-11-19] El balance imprime «(2)» para 2022 (10-K 2023 PDF p. 67: «Equity attributable to noncontrolling interests (6) (2)») (patrimonio NEGATIVO de minoritarios); el registro aplica signo −1 y el libro guarda +2, como si hubiera minoritarios positivos que restar. Debe ser −2 (o 0 con nota si el modelo no admite negativos). Inmaterial. · Nota anterior del extractor: minoritarios 2022 = 2 leído en zoetis-10k-fy2023.txt [PDF PAGE 67] (cita literal contrastada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!I26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022"
+     ],
+     "formula": "max(o[\"aux:zoetis-10k-fy2023_p67_noncontrolling_interests_2022\"], 0)",
+     "conciliacion": "minoritarios 2022: el balance imprime (2) = -2 (texto/zoetis-10k-fy2023.txt [PDF PAGE 67], «Equity attributable to noncontrolling interests (6) (2)»): patrimonio NEGATIVO de minoritarios; la Historia guarda 0 por la decisión Z-MIN de la persona responsable (19-nov-2026: minoritarios deficitarios → cero con aviso y la cifra impresa en el registro; fase1_historia.py, historia_revision.md «Signo de saldos impresos en negativo»). max(-2, 0) = 0 = libro. En zoetis_t1c el libro guardaba +2.",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Historia!I26 = 0 con la cifra impresa -2 en la conciliación (Z-MIN; REVISION_SELLADO.md de zoetis_t1c) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] El balance imprime «(2)» para 2022 (10-K 2023 PDF p. 67: «Equity attributable to noncontrolling interests (6) (2)») (patrimonio NEGATIVO de minoritarios); el registro aplica signo −1 y el libro guarda +2, como si hubiera minoritarios positivos que restar. Debe ser −2 (o 0 con nota si el modelo no admite negativos). Inmaterial. · Nota anterior del extractor: minoritarios 2022 = 2 leído en zoetis-10k-fy2023.txt [PDF PAGE 67] (cita literal contrastada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023",
+   "antes": null,
+   "despues": {
+    "celda": "aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023",
+    "id": "aux_minoritarios_impresos",
+    "ambito": null,
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": -6,
+    "fuente": {
+     "documento": "Form 10-K 2024 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2024)",
+     "version": "PDF oficial «zoetis-10k-fy2024.pdf», sha256 e8d4272374c8db721ad8c0556f773317e99489034ab0871615d5fac721ac2c2c (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2024.txt», sha256 ed65a34ca049f5e101421be316a9667e56a3f146ae34fcdf6f6ce1d676bc2b21 (texto del expediente por OCR; segunda lectura verificada contra la imagen en la rama mistral/zoetis-texto-ocr)",
+     "archivo": "texto/zoetis-10k-fy2024.txt",
+     "sha256": "ed65a34ca049f5e101421be316a9667e56a3f146ae34fcdf6f6ce1d676bc2b21",
+     "pagina": 66,
+     "folio": 58,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "Equity attributable to noncontrolling interests, 2023 (impreso entre paréntesis: negativo)",
+     "columna": "2023 (columna comparativa «anterior» del informe 2024, cifra más reciente publicada)",
+     "periodo": "ejercicio 2023 (cerrado el 31-12-2023)",
+     "unidad": "mm",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "cifra publicada tal como se imprime, negativa (patrimonio deficitario de minoritarios); signo 1, sin transformación",
+     "perimetro": "consolidado",
+     "reexpresado": "columna comparativa del informe 2024 (cifra más reciente publicada del ejercicio 2023); sin reexpresión declarada",
+     "valor_fuente": -6,
+     "cita": "Equity attributable to noncontrolling interests — (6)"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] auxiliar nuevo: minoritarios 2023 impresos -6 (origen de Historia!J26; Z-MIN)",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!J26",
+   "antes": {
+    "celda": "Historia!J26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023"
+     ],
+     "formula": "max(o[\"aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023\"], 0)",
+     "conciliacion": "minoritarios 2023: el balance imprime (6) = -6 (texto/zoetis-10k-fy2024.txt [PDF PAGE 66], «Equity attributable to noncontrolling interests — (6)»): patrimonio NEGATIVO de minoritarios; la Historia guarda 0 por la decisión Z-MIN de la persona responsable (19-nov-2026: minoritarios deficitarios → cero con aviso y la cifra impresa en el registro; fase1_historia.py, historia_revision.md «Signo de saldos impresos en negativo»). max(-6, 0) = 0 = libro. En zoetis_t1c el libro guardaba +6.",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "texto/zoetis-10k-fy2024.txt [PDF PAGE 66]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+     "nota": "[Revisor sellado, 2026-11-19] El balance imprime «(6)» para 2023 (10-K 2024 PDF p. 66: «Equity attributable to noncontrolling interests — (6)») (patrimonio NEGATIVO de minoritarios); el registro aplica signo −1 y el libro guarda +6, como si hubiera minoritarios positivos que restar. Debe ser −6 (o 0 con nota si el modelo no admite negativos). Inmaterial. · Nota anterior del extractor: minoritarios 2023 = 6 leído en zoetis-10k-fy2024.txt [PDF PAGE 66] (cita literal contrastada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!J26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023"
+     ],
+     "formula": "max(o[\"aux:zoetis-10k-fy2024_p66_noncontrolling_interests_2023\"], 0)",
+     "conciliacion": "minoritarios 2023: el balance imprime (6) = -6 (texto/zoetis-10k-fy2024.txt [PDF PAGE 66], «Equity attributable to noncontrolling interests — (6)»): patrimonio NEGATIVO de minoritarios; la Historia guarda 0 por la decisión Z-MIN de la persona responsable (19-nov-2026: minoritarios deficitarios → cero con aviso y la cifra impresa en el registro; fase1_historia.py, historia_revision.md «Signo de saldos impresos en negativo»). max(-6, 0) = 0 = libro. En zoetis_t1c el libro guardaba +6.",
+     "unidad": "mm"
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Historia!J26 = 0 con la cifra impresa -6 en la conciliación (Z-MIN; REVISION_SELLADO.md de zoetis_t1c) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] El balance imprime «(6)» para 2023 (10-K 2024 PDF p. 66: «Equity attributable to noncontrolling interests — (6)») (patrimonio NEGATIVO de minoritarios); el registro aplica signo −1 y el libro guarda +6, como si hubiera minoritarios positivos que restar. Debe ser −6 (o 0 con nota si el modelo no admite negativos). Inmaterial. · Nota anterior del extractor: minoritarios 2023 = 6 leído en zoetis-10k-fy2024.txt [PDF PAGE 66] (cita literal contrastada)",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!E26",
+   "antes": {
+    "celda": "Historia!E26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "cero_comprobado",
+    "valor_modelo": 0,
+    "fuente": {
+     "documento": "Form 10-K 2018 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2018)",
+     "version": "PDF oficial «zoetis-10k-fy2018.pdf», sha256 05f66e027a2353c2a448f1be935ad24e640cde17021f9c702d8e683ef8841667 (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2018.txt», sha256 fc02eb15b52ceeb23938b871efbec775216034185de559259e0c8120819070bb",
+     "archivo": "texto/zoetis-10k-fy2018.txt",
+     "sha256": "fc02eb15b52ceeb23938b871efbec775216034185de559259e0c8120819070bb",
+     "pagina": 73,
+     "folio": 65,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "participación de no controladores en el patrimonio (impresa como guion; cero)",
+     "columna": "2018 (columna del ejercicio corriente del informe 2018)",
+     "periodo": "ejercicio 2018 (cerrado el 31-12-2018)",
+     "unidad": "mm",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "cero comprobado: «Equity attributable to noncontrolling interests» es «—» en 2018 (16 en 2017)",
+     "perimetro": "consolidado",
+     "reexpresado": "no aplica (ejercicio corriente del informe 2018; el 10-K 2019 no tiene la línea)",
+     "valor_fuente": 0,
+     "cita": "Equity attributable to noncontrolling interests — 16"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] No es un dato ausente: el 10-K 2018 (PDF p. 73) imprime «Equity attributable to noncontrolling interests — 16», es decir, «—» en 2018. El libro está vacío y la justificación («desconocido») no es cierta; corresponde 0 como cero comprobado. · Nota anterior del extractor: minoritarios 2018: valor_modelo None en la plantilla → dato_ausente",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!E26",
+    "id": "h_minoritarios",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "cero_comprobado",
+    "valor_modelo": 0,
+    "fuente": {
+     "documento": "Form 10-K 2018 de Zoetis Inc. (informe anual oficial; estados financieros consolidados del ejercicio 2018)",
+     "version": "PDF oficial «zoetis-10k-fy2018.pdf», sha256 05f66e027a2353c2a448f1be935ad24e640cde17021f9c702d8e683ef8841667 (Release fuentes-examen-20261118 del repositorio auxiliar jluisplagos/munger-v2-evidencias-mistral, descargado el 2026-11-18 y verificado contra RELEASE_FUENTES_EXAMEN_SHA256SUMS y FUENTES.tsv); texto extraído con marcas [PDF PAGE n]: «texto/zoetis-10k-fy2018.txt», sha256 fc02eb15b52ceeb23938b871efbec775216034185de559259e0c8120819070bb",
+     "archivo": "texto/zoetis-10k-fy2018.txt",
+     "sha256": "fc02eb15b52ceeb23938b871efbec775216034185de559259e0c8120819070bb",
+     "pagina": 73,
+     "folio": 65,
+     "ubicacion": "balance consolidado (Consolidated Balance Sheets)",
+     "concepto": "participación de no controladores en el patrimonio (impresa como guion; cero)",
+     "columna": "2018 (columna del ejercicio corriente del informe 2018)",
+     "periodo": "ejercicio 2018 (cerrado el 31-12-2018)",
+     "unidad": "mm",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "cero comprobado: «Equity attributable to noncontrolling interests» es «—» en 2018 (16 en 2017)",
+     "perimetro": "consolidado",
+     "reexpresado": "no aplica (ejercicio corriente del informe 2018; el 10-K 2019 no tiene la línea)",
+     "valor_fuente": 0,
+     "cita": "Equity attributable to noncontrolling interests — 16"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] E26 = 0, cero publicado («—», 10-K 2018 PDF p. 73), con la corrección registrada de fase1_partes/AR_2018.json (resultados/correccion_fase1_partes_t1d.json) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] No es un dato ausente: el 10-K 2018 (PDF p. 73) imprime «Equity attributable to noncontrolling interests — 16», es decir, «—» en 2018. El libro está vacío y la justificación («desconocido») no es cierta; corresponde 0 como cero comprobado. · Nota anterior del extractor: minoritarios 2018: valor_modelo None en la plantilla → dato_ausente",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!C86",
+   "antes": {
+    "celda": "Historia!C86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2016 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!C86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2016 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publica",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!D86",
+   "antes": {
+    "celda": "Historia!D86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2017 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!D86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2017 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publica",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!E86",
+   "antes": {
+    "celda": "Historia!E86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2018 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!E86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2018 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publica",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!F86",
+   "antes": {
+    "celda": "Historia!F86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2019 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!F86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2019 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publica",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!G86",
+   "antes": {
+    "celda": "Historia!G86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2020 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!G86",
+    "id": "F1.da_rou",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_rou (amortización de derechos de uso de arrendamientos FINANCIEROS, D-US1: la de los operativos no está en la fila 8) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G86. Además, hasta 2023 Zoetis solo tenía arrendamientos operativos (10-K 2023 PDF p. 87: los financieros aparecen en 2023), como dicen H86 e I86 (no aplicable).",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de derechos de uso «no está publicada» y llama «renovación» a la serie. Con la declaración F1 vigente (C85 = A2_propio, D-US1) la serie da_rou es la amortización de derechos de uso de arrendamientos FINANCIEROS (J86:L86) y en 2020 no había arrendamientos financieros (como H86/I86: no_aplicable). Reescribir la justificación. · Nota anterior del extractor: D&A de renovación (rou) no publica",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!C87",
+   "antes": {
+    "celda": "Historia!C87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2016 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!C87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2016 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!D87",
+   "antes": {
+    "celda": "Historia!D87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2017 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!D87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2017 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!E87",
+   "antes": {
+    "celda": "Historia!E87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2018 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!E87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2018 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!F87",
+   "antes": {
+    "celda": "Historia!F87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2019 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!F87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2019 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Historia!G87",
+   "antes": {
+    "celda": "Historia!G87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+     "nota": "[Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2020 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Historia!G87",
+    "id": "F1.da_ppa",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_ausente",
+    "valor_modelo": null,
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio (US GAAP, D-US1) y la serie F1.da_ppa (ajustes de la contabilidad de compras «Amortization and depreciation» de la conciliación del beneficio ajustado, p. ej. 10-K 2022 PDF p. 52; cota superior de la PPA) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G87. La partida SÍ se publica: el vacío no se debe a que falte, sino a que la serie no se declara para ese año.",
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] justificación corregida (REVISION_SELLADO.md de zoetis_t1c: la serie F1 está declarada para 2021–2025) · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) aceptable, pero la justificación no es correcta: dice que la D&A de adquisiciones (PPA) «no está publicada», cuando el 10-K publica los ajustes de contabilidad de compras «Amortization and depreciation» (H87:L87, p. ej. 10-K 2022 PDF p. 52) y la serie F1 solo se declara para 2021–2025. El vacío de 2020 se debe a eso. Reescribir la justificación. · Nota anterior del extractor: D&A de PPA (adquisiciones) no publicado por Zoetis; celda vacía correcta",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Palancas!A31",
+   "antes": {
+    "celda": "Palancas!A31",
+    "id": "juicio_geografia_31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "Región · Asia",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "fundamento": "Agrupación del modelo sobre la nota «Revenue by geographic area» del 10-K 2025 (texto/zoetis-10k-fy2025.txt [PDF PAGE 77]): Región · Asia = China + Japan + Other emerging markets (países/agrupaciones que la nota imprime por separado).",
+     "alternativas": "Agrupar por los subtotales que imprime la nota (no hay subtotales por región; solo el total) o por segmentos (U.S. / International, también impresos en la misma nota).",
+     "limites": "Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. La etiqueta «Región · Asia» no es una etiqueta del informe: suma China 227 + Japón 154 + «Other emerging markets» 913 (que mezcla Asia, Latinoamérica, Europa del Este, Oriente Medio y África, sin desglose), así que atribuye a Asia ventas que no son solo suyas y fija con ellas la prima de esa región en la r mínima. La etiqueta de región no está impresa en la fuente: es una convención del modelo sobre los países publicados; «Other emerging markets» y «Other developed markets» son mezclas no desglosadas asignadas por aproximación (ver fase1_v63.json geografía)."
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fundamento contrastado con su procedencia (fuentes citadas en el fundamento) y con el valor del libro",
+     "nota": "[Revisor sellado, 2026-11-19] La agrupación no corresponde a la etiqueta: «Región · Asia» incluye «Other emerging markets» (913 mm, 10-K 2025 PDF p. 77), que no es solo Asia (Latinoamérica, Europa del Este, Oriente Medio…). El fundamento describe con exactitud qué suma, pero la etiqueta de región (que fija la r mínima de la fase A) atribuye a esa región ventas que no son suyas. Corrección propuesta: renombrar o reagrupar (decisión de la persona responsable). · Nota anterior del extractor: convención de agrupación geográfica Región · Asia sobre la nota de ingresos por área (10-K 2025 p. 77)",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "El libro guarda la etiqueta de región («Región · Asia») como texto de agrupación del modelo; la fuente imprime los países por separado y no contiene esa etiqueta, así que no puede ser dato publicado: se registra como convención con el fundamento documentado."
+   },
+   "despues": {
+    "celda": "Palancas!A31",
+    "id": "juicio_geografia_31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "Región · Asia",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "fundamento": "Agrupación del modelo sobre la nota «Revenue by geographic area» del 10-K 2025 (texto/zoetis-10k-fy2025.txt [PDF PAGE 77]): Región · Asia = China + Japan + Other emerging markets (países/agrupaciones que la nota imprime por separado).",
+     "alternativas": "Agrupar por los subtotales que imprime la nota (no hay subtotales por región; solo el total) o por segmentos (U.S. / International, también impresos en la misma nota).",
+     "limites": "Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. La etiqueta «Región · Asia» no es una etiqueta del informe: suma China 227 + Japón 154 + «Other emerging markets» 913 (que mezcla Asia, Latinoamérica, Europa del Este, Oriente Medio y África, sin desglose), así que atribuye a Asia ventas que no son solo suyas y fija con ellas la prima de esa región en la r mínima. La etiqueta de región no está impresa en la fuente: es una convención del modelo sobre los países publicados; «Other emerging markets» y «Other developed markets» son mezclas no desglosadas asignadas por aproximación (ver fase1_v63.json geografía)."
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Z-R: agrupación conservada con la diferencia anotada en «limites» · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] La agrupación no corresponde a la etiqueta: «Región · Asia» incluye «Other emerging markets» (913 mm, 10-K 2025 PDF p. 77), que no es solo Asia (Latinoamérica, Europa del Este, Oriente Medio…). El fundamento describe con exactitud qué suma, pero la etiqueta de región (que fija la r mínima de la fase A) atribuye a esa región ventas que no son suyas. Corrección propuesta: renombrar o reagrupar (decisión de la persona responsable). · Nota anterior del extractor: conven",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "El libro guarda la etiqueta de región («Región · Asia») como texto de agrupación del modelo; la fuente imprime los países por separado y no contiene esa etiqueta, así que no puede ser dato publicado: se registra como convención con el fundamento documentado."
+   }
+  },
+  {
+   "celda": "Palancas!B31",
+   "antes": {
+    "celda": "Palancas!B31",
+    "id": "juicio_geografia_31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0.1367,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p77_revenue_china_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_japan_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_other_emerging_markets_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025"
+     ],
+     "formula": "round((o[\"aux:zoetis-10k-fy2025_p77_revenue_china_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_japan_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_other_emerging_markets_2025\"]) / o[\"aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025\"], 4)",
+     "conciliacion": "peso geográfico 2025 Región · Asia = (1294) / 9467 = 0.136685 → round(...,4) = 0.1367; libro 0.1367 · Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. El peso incluye «Other emerging markets» (913 de 1.294 mm), que no es solo Asia (10-K 2025 PDF p. 77).",
+     "unidad": null
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/zoetis-10k-fy2025.txt [PDF PAGE 77]",
+     "nota": "[Revisor sellado, 2026-11-19] Aritmética correcta ((227 + 154 + 913) ÷ 9.467 = 0,1367), pero el peso no es el de Asia: arrastra la agrupación de A31. · Nota anterior del extractor: derivado geografía Región · Asia: 1294/9467 = 0.1367 vs libro 0.1367",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Palancas!B31",
+    "id": "juicio_geografia_31",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0.1367,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p77_revenue_china_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_japan_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_other_emerging_markets_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025"
+     ],
+     "formula": "round((o[\"aux:zoetis-10k-fy2025_p77_revenue_china_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_japan_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_other_emerging_markets_2025\"]) / o[\"aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025\"], 4)",
+     "conciliacion": "peso geográfico 2025 Región · Asia = (1294) / 9467 = 0.136685 → round(...,4) = 0.1367; libro 0.1367 · Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. El peso incluye «Other emerging markets» (913 de 1.294 mm), que no es solo Asia (10-K 2025 PDF p. 77).",
+     "unidad": null
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Z-R: peso conservado con la diferencia anotada en la conciliación · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Aritmética correcta ((227 + 154 + 913) ÷ 9.467 = 0,1367), pero el peso no es el de Asia: arrastra la agrupación de A31. · Nota anterior del extractor: derivado geografía Región · Asia: 1294/9467 = 0.1367 vs libro 0.1367",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Palancas!A33",
+   "antes": {
+    "celda": "Palancas!A33",
+    "id": "juicio_geografia_33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "Región · Australia & New Zealand",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "fundamento": "Agrupación del modelo sobre la nota «Revenue by geographic area» del 10-K 2025 (texto/zoetis-10k-fy2025.txt [PDF PAGE 77]): Región · Australia & New Zealand = Australia + Other developed markets + Contract manufacturing & human health (países/agrupaciones que la nota imprime por separado).",
+     "alternativas": "Agrupar por los subtotales que imprime la nota (no hay subtotales por región; solo el total) o por segmentos (U.S. / International, también impresos en la misma nota).",
+     "limites": "Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. La etiqueta «Región · Australia & New Zealand» no es una etiqueta del informe: suma Australia 329 + «Other developed markets» 641 (sin desglose por país) + «Contract manufacturing & human health» 116 (sin ubicación de cliente). La etiqueta de región no está impresa en la fuente: es una convención del modelo sobre los países publicados; «Other emerging markets» y «Other developed markets» son mezclas no desglosadas asignadas por aproximación (ver fase1_v63.json geografía)."
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fundamento contrastado con su procedencia (fuentes citadas en el fundamento) y con el valor del libro",
+     "nota": "[Revisor sellado, 2026-11-19] La agrupación no corresponde a la etiqueta: «Región · Australia & New Zealand» incluye «Other developed markets» (641) y «Contract manufacturing & human health» (116), que no son Australia/Nueva Zelanda (solo Australia, 329). El fundamento describe con exactitud qué suma, pero la etiqueta de región (que fija la r mínima de la fase A) atribuye a esa región ventas que no son suyas. Corrección propuesta: renombrar o reagrupar (decisión de la persona responsable). · Nota anterior del extractor: convención de agrupación geográfica Región · Australia & New Zealand sobre la nota de ingresos por área (10-K 2025 p. 77)",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "El libro guarda la etiqueta de región («Región · Australia & New Zealand») como texto de agrupación del modelo; la fuente imprime los países por separado y no contiene esa etiqueta, así que no puede ser dato publicado: se registra como convención con el fundamento documentado."
+   },
+   "despues": {
+    "celda": "Palancas!A33",
+    "id": "juicio_geografia_33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "convencion",
+    "valor_modelo": "Región · Australia & New Zealand",
+    "fuente": {},
+    "derivacion": null,
+    "hipotesis": {
+     "fundamento": "Agrupación del modelo sobre la nota «Revenue by geographic area» del 10-K 2025 (texto/zoetis-10k-fy2025.txt [PDF PAGE 77]): Región · Australia & New Zealand = Australia + Other developed markets + Contract manufacturing & human health (países/agrupaciones que la nota imprime por separado).",
+     "alternativas": "Agrupar por los subtotales que imprime la nota (no hay subtotales por región; solo el total) o por segmentos (U.S. / International, también impresos en la misma nota).",
+     "limites": "Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. La etiqueta «Región · Australia & New Zealand» no es una etiqueta del informe: suma Australia 329 + «Other developed markets» 641 (sin desglose por país) + «Contract manufacturing & human health» 116 (sin ubicación de cliente). La etiqueta de región no está impresa en la fuente: es una convención del modelo sobre los países publicados; «Other emerging markets» y «Other developed markets» son mezclas no desglosadas asignadas por aproximación (ver fase1_v63.json geografía)."
+    },
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Z-R: agrupación conservada con la diferencia anotada en «limites» · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] La agrupación no corresponde a la etiqueta: «Región · Australia & New Zealand» incluye «Other developed markets» (641) y «Contract manufacturing & human health» (116), que no son Australia/Nueva Zelanda (solo Australia, 329). El fundamento describe con exactitud qué suma, pero la etiqueta de región (que fija la r mínima de la fase A) atribuye a esa región ventas que no son suyas. Corrección propuesta: renombrar o reagrupar (decisión de la persona responsable). · Not",
+     "vinculo": null
+    },
+    "incidencia": null,
+    "justificacion_clase": "El libro guarda la etiqueta de región («Región · Australia & New Zealand») como texto de agrupación del modelo; la fuente imprime los países por separado y no contiene esa etiqueta, así que no puede ser dato publicado: se registra como convención con el fundamento documentado."
+   }
+  },
+  {
+   "celda": "Palancas!B33",
+   "antes": {
+    "celda": "Palancas!B33",
+    "id": "juicio_geografia_33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0.1147,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p77_revenue_australia_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_other_developed_markets_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_contract_manufacturing_human_health_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025"
+     ],
+     "formula": "round((o[\"aux:zoetis-10k-fy2025_p77_revenue_australia_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_other_developed_markets_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_contract_manufacturing_human_health_2025\"]) / o[\"aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025\"], 4)",
+     "conciliacion": "peso geográfico 2025 Región · Australia & New Zealand = (1086) / 9467 = 0.114714 → round(...,4) = 0.1147; libro 0.1147 · Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. El peso incluye «Other developed markets» (641) y «Contract manufacturing & human health» (116) de 1.086 mm, que no son solo Australia y Nueva Zelanda (10-K 2025 PDF p. 77).",
+     "unidad": null
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "discrepancia",
+     "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/zoetis-10k-fy2025.txt [PDF PAGE 77]",
+     "nota": "[Revisor sellado, 2026-11-19] Aritmética correcta ((329 + 641 + 116) ÷ 9.467 = 0,1147), pero el peso no es el de Australia y Nueva Zelanda: arrastra la agrupación de A33. · Nota anterior del extractor: derivado geografía Región · Australia & New Zealand: 1086/9467 = 0.1147 vs libro 0.1147",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Palancas!B33",
+    "id": "juicio_geografia_33",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "derivado",
+    "valor_modelo": 0.1147,
+    "fuente": {},
+    "derivacion": {
+     "origenes": [
+      "aux:zoetis-10k-fy2025_p77_revenue_australia_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_other_developed_markets_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_contract_manufacturing_human_health_2025",
+      "aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025"
+     ],
+     "formula": "round((o[\"aux:zoetis-10k-fy2025_p77_revenue_australia_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_other_developed_markets_2025\"] + o[\"aux:zoetis-10k-fy2025_p77_revenue_contract_manufacturing_human_health_2025\"]) / o[\"aux:zoetis-10k-fy2025_p77_revenue_total_revenue_2025\"], 4)",
+     "conciliacion": "peso geográfico 2025 Región · Australia & New Zealand = (1086) / 9467 = 0.114714 → round(...,4) = 0.1147; libro 0.1147 · Decisión Z-R de la persona responsable (19-nov-2026): se deja la agrupación y se anota la diferencia con las etiquetas del informe. El peso incluye «Other developed markets» (641) y «Contract manufacturing & human health» (116) de 1.086 mm, que no son solo Australia y Nueva Zelanda (10-K 2025 PDF p. 77).",
+     "unidad": null
+    },
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] Z-R: peso conservado con la diferencia anotada en la conciliación · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Aritmética correcta ((329 + 641 + 116) ÷ 9.467 = 0,1147), pero el peso no es el de Australia y Nueva Zelanda: arrastra la agrupación de A33. · Nota anterior del extractor: derivado geografía Región · Australia & New Zealand: 1086/9467 = 0.1147 vs libro 0.1147",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Análisis!C57",
+   "antes": {
+    "celda": "Análisis!C57",
+    "id": "juicio_C57",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 0.0522,
+    "fuente": {
+     "documento": "U.S. Department of the Treasury, Daily Treasury Par Yield Curve Rates (CMT), año 2026",
+     "version": "CSV oficial us_treasury_par_yield_2026.csv subido por la persona responsable a la Release fuentes-examen-20261118 de jluisplagos/munger-v2-evidencias-mistral (asset 766892834), descarga cruda conservada byte a byte en fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.csv, sha256 0707733bdc20fce9a21a1063c5b99dbfd3456acabb216f73e6d6b798f511243d (la huella publicada, RELEASE_FUENTES_EXAMEN_VERIFICACION.md anexo 3); conservado como texto con marca [PDF PAGE 1] y celdas separadas por « | », sin tocar ninguna cifra, sha256 367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+     "archivo": "fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.txt",
+     "sha256": "367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "tabla de la curva par diaria 2026 (cabecera «Date | 1 Mo | … | 10 Yr | 20 Yr | 30 Yr»), fila 10/08/2026",
+     "concepto": "rendimiento par del Treasury a 10 años (CMT 10 Yr)",
+     "columna": "10 Yr (13.ª columna)",
+     "periodo": "cierre del 8-oct-2026",
+     "unidad": "%",
+     "escala": 0.01,
+     "signo": 1,
+     "tratamiento": "tasa publicada en porcentaje; escala 0,01 la pasa a tanto por uno del modelo (5,22 % → 0,0522). Misma fecha que el precio (8-oct-2026).",
+     "perimetro": "no aplica: tipo libre de riesgo de EE. UU. en USD (moneda del modelo)",
+     "perimetro_justificacion": "la tasa sin riesgo es un dato de mercado del Tesoro de EE. UU., no del perímetro contable de la empresa",
+     "reexpresado": "no aplica",
+     "valor_fuente": 5.22,
+     "cita": "10/08/2026 | 4.14 | 4.14 | 4.13 | 4.23 | 4.29 | 4.30 | 4.44 | 4.75 | 4.85 | 4.99 | 5.11 | 5.22 | 5.64 | 5.60"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "fuentes_mercado/US_Treasury_Daily_Par_Yield_Curve_2026_10-08_20261118.txt [PDF PAGE 1]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+     "nota": "[Revisor sellado, 2026-11-19] La cifra coincide con el archivo conservado (fila 10/08/2026, «10 Yr = 5.22 %», fuentes_mercado/US_Treasury_Daily_Par_Yield_Curve_2026_10-08_20261118.txt, sha256 vigente), pero ese archivo es una extracto del CSV del Tesoro hecha por el extractor (HUELLAS.txt), no los bytes de la fuente oficial: no puedo contrastar la fuente. Pendiente hasta conservar la descarga original (o declararla lectura externa). · Nota anterior del extractor: Treasury 10 Yr del 8-oct-2026 = 5,22 % verificado en el CSV oficial del Tesoro (home.treasury.gov); 0,01 × 5,22 = 0,0522 = libro",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Análisis!C57",
+    "id": "juicio_C57",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 0.0522,
+    "fuente": {
+     "documento": "U.S. Department of the Treasury, Daily Treasury Par Yield Curve Rates (CMT), año 2026",
+     "version": "CSV oficial us_treasury_par_yield_2026.csv subido por la persona responsable a la Release fuentes-examen-20261118 de jluisplagos/munger-v2-evidencias-mistral (asset 766892834), descarga cruda conservada byte a byte en fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.csv, sha256 0707733bdc20fce9a21a1063c5b99dbfd3456acabb216f73e6d6b798f511243d (la huella publicada, RELEASE_FUENTES_EXAMEN_VERIFICACION.md anexo 3); conservado como texto con marca [PDF PAGE 1] y celdas separadas por « | », sin tocar ninguna cifra, sha256 367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+     "archivo": "fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.txt",
+     "sha256": "367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "tabla de la curva par diaria 2026 (cabecera «Date | 1 Mo | … | 10 Yr | 20 Yr | 30 Yr»), fila 10/08/2026",
+     "concepto": "rendimiento par del Treasury a 10 años (CMT 10 Yr)",
+     "columna": "10 Yr (13.ª columna)",
+     "periodo": "cierre del 8-oct-2026",
+     "unidad": "%",
+     "escala": 0.01,
+     "signo": 1,
+     "tratamiento": "tasa publicada en porcentaje; escala 0,01 la pasa a tanto por uno del modelo (5,22 % → 0,0522). Misma fecha que el precio (8-oct-2026).",
+     "perimetro": "no aplica: tipo libre de riesgo de EE. UU. en USD (moneda del modelo)",
+     "perimetro_justificacion": "la tasa sin riesgo es un dato de mercado del Tesoro de EE. UU., no del perímetro contable de la empresa",
+     "reexpresado": "no aplica",
+     "valor_fuente": 5.22,
+     "cita": "10/08/2026 | 4.14 | 4.14 | 4.13 | 4.23 | 4.29 | 4.30 | 4.44 | 4.75 | 4.85 | 4.99 | 5.11 | 5.22 | 5.64 | 5.60"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C57 con los bytes del CSV oficial del Tesoro (Release, asset 766892834); resultados/fuentes_mercado_zoetis_t1d.json · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] La cifra coincide con el archivo conservado (fila 10/08/2026, «10 Yr = 5.22 %», fuentes_mercado/US_Treasury_Daily_Par_Yield_Curve_2026_10-08_20261118.txt, sha256 vigente), pero ese archivo es una extracto del CSV del Tesoro hecha por el extractor (HUELLAS.txt), no los bytes de la fuente oficial: no puedo contrastar la fuente. Pendiente hasta conservar la descarga original (o declararla lectura externa). · Nota anterior del extractor: Treasury 10 Yr del 8-oct-2026 = ",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Palancas!C7",
+   "antes": {
+    "celda": "Palancas!C7",
+    "id": "juicio_C7",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": "Drugs (Pharmaceutical)",
+    "fuente": {
+     "documento": "Damodaran (NYU Stern), «Margins by industry» (margin.xls), hoja «Industry Averages», empresas de EE. UU., «Date updated» 2026-01-05",
+     "version": "XLS damodaran_margin.xls subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892761), descarga cruda conservada byte a byte en fuentes_mercado/Damodaran_margin_2026-01_Release_766892761.xls, sha256 25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a (la huella publicada, anexo 3); hoja «Industry Averages» conservada como texto con marca [PDF PAGE 1], una línea por fila («fila n: celda | celda …», xlrd 2.0.1), sha256 039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c",
+     "conservacion": "local",
+     "archivo": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01_Release_766892761.txt",
+     "sha256": "039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "hoja «Industry Averages», fila 34 (columna A «Industry Name»)",
+     "concepto": "sector de Damodaran asignado a Zoetis",
+     "columna": "Industry Name (columna A), fila 34 de la hoja",
+     "periodo": "clasificación de los datos de enero de 2026 («Date updated» 2026-01-05)",
+     "unidad": "texto",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "etiqueta de industria tal como figura en la tabla (228 empresas en esa fila, las mismas que la fila de mgnroc.html del extracto anterior); Zoetis es una emisora de EE. UU. y la tabla es de empresas de EE. UU.",
+     "perimetro": "no aplica: clasificación sectorial externa",
+     "perimetro_justificacion": "la clasificación sectorial es un dato externo al perímetro contable del grupo",
+     "reexpresado": "no aplica",
+     "valor_fuente": "Drugs (Pharmaceutical)",
+     "cita": "fila 34: Drugs (Pharmaceutical) | 228"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "lectura externa sin bytes en el expediente (https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/mgnroc.html)",
+     "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Drugs (Pharmaceutical)»; coincide con el extracto conservado (cead05cd…), que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: sector de Damodaran leído en la página oficial (extracto conservado en la entrega); lectura externa, no cuenta como comprobada",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Palancas!C7",
+    "id": "juicio_C7",
+    "ambito": "juicio",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": "Drugs (Pharmaceutical)",
+    "fuente": {
+     "documento": "Damodaran (NYU Stern), «Margins by industry» (margin.xls), hoja «Industry Averages», empresas de EE. UU., «Date updated» 2026-01-05",
+     "version": "XLS damodaran_margin.xls subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892761), descarga cruda conservada byte a byte en fuentes_mercado/Damodaran_margin_2026-01_Release_766892761.xls, sha256 25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a (la huella publicada, anexo 3); hoja «Industry Averages» conservada como texto con marca [PDF PAGE 1], una línea por fila («fila n: celda | celda …», xlrd 2.0.1), sha256 039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c",
+     "conservacion": "local",
+     "archivo": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01_Release_766892761.txt",
+     "sha256": "039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "hoja «Industry Averages», fila 34 (columna A «Industry Name»)",
+     "concepto": "sector de Damodaran asignado a Zoetis",
+     "columna": "Industry Name (columna A), fila 34 de la hoja",
+     "periodo": "clasificación de los datos de enero de 2026 («Date updated» 2026-01-05)",
+     "unidad": "texto",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "etiqueta de industria tal como figura en la tabla (228 empresas en esa fila, las mismas que la fila de mgnroc.html del extracto anterior); Zoetis es una emisora de EE. UU. y la tabla es de empresas de EE. UU.",
+     "perimetro": "no aplica: clasificación sectorial externa",
+     "perimetro_justificacion": "la clasificación sectorial es un dato externo al perímetro contable del grupo",
+     "reexpresado": "no aplica",
+     "valor_fuente": "Drugs (Pharmaceutical)",
+     "cita": "fila 34: Drugs (Pharmaceutical) | 228"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] lectura externa → fuente local: tabla de Damodaran de la Release (asset 766892761); resultados/fuentes_mercado_zoetis_t1d.json · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Drugs (Pharmaceutical)»; coincide con el extracto conservado (cead05cd…), que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: sector de Damodaran leído en la página oficial (extracto conservado en la entrega); lectura externa, no cuenta como comprobada",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Análisis!C37",
+   "antes": {
+    "celda": "Análisis!C37",
+    "id": "precio",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 73.08,
+    "fuente": {
+     "documento": "Página oficial de la empresa (Zoetis Investor Relations), «Stock Information» → «Historical Stock Quote», Lookup Date 2026 Oct 8",
+     "version": "captura de pantalla de https://investor.zoetis.com/stock-information/default.aspx#stock-historical entregada por la persona responsable el 19-nov-2026 (RELEASE_FUENTES_EXAMEN_VERIFICACION.md, anexo 3 ter), conservada byte a byte en fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png, sha256 c1871f7e80e1f46015912a0cc585292bc9186e2fad95db5d8ef98bbe632c1530; transcripción con marca [PDF PAGE 1] hecha por Claude orquestación leyendo la imagen, sha256 721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970 (el revisor la contrasta con la imagen). Sustituye la transcripción de la tabla hecha por el extractor (Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt, que se conserva)",
+     "archivo": "fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.txt",
+     "sha256": "721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "cuadro «Historical Stock Quote» con Lookup Date 2026 Oct 8 (Day's Open $71.36, Intraday Low $71.15, Intraday High $73.75, Volume 6,176,469)",
+     "concepto": "precio de cierre por acción (XNYS: ZTS) de la sesión del 8-oct-2026",
+     "columna": "Closing Price (Lookup Date 2026 Oct 8)",
+     "periodo": "cierre de la sesión del 8-oct-2026",
+     "unidad": "USD por acción",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "precio de cierre (no ajustado) de la sesión del 8-oct-2026, sin transformación. En esa fecha no hay dividendo pendiente de pagar: el dividendo de $0.53 se declaró el 8-oct-2026 con ex-date 30-oct-2026 (la acción cotizaba con derecho a él). La página de la bolsa (nyse.com) bloquea el acceso automatizado; se usa la página oficial de la empresa, como permite el encargo.",
+     "perimetro": "no aplica: dato de mercado de la acción ordinaria ZTS en NYSE",
+     "perimetro_justificacion": "el precio es de la acción de la sociedad cotizada en NYSE; el perímetro contable no se aplica a un dato de mercado",
+     "reexpresado": "no aplica (precio de mercado)",
+     "valor_fuente": 73.08,
+     "cita": "Closing Price $73.08"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Mistral (mistral-large-4-0)",
+     "revisor": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": "fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt [PDF PAGE 1]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+     "nota": "[Revisor sellado, 2026-11-19] La cifra coincide con el archivo conservado («October 08, 2026 $73.08», fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt, sha256 vigente), pero ese archivo es una transcripción de la tabla de investor.zoetis.com hecha por el extractor (HUELLAS.txt), no los bytes de la fuente oficial: no puedo contrastar la fuente. Pendiente hasta conservar la descarga original (o declararla lectura externa). · Nota anterior del extractor: precio 73,08 USD = fila October 08, 2026 de la tabla oficial de la empresa (investor.zoetis.com); contraste _cita_cifra ok",
+     "vinculo": null
+    },
+    "incidencia": null
+   },
+   "despues": {
+    "celda": "Análisis!C37",
+    "id": "precio",
+    "ambito": "calculo",
+    "uso": null,
+    "material": true,
+    "clase": "dato_publicado",
+    "valor_modelo": 73.08,
+    "fuente": {
+     "documento": "Página oficial de la empresa (Zoetis Investor Relations), «Stock Information» → «Historical Stock Quote», Lookup Date 2026 Oct 8",
+     "version": "captura de pantalla de https://investor.zoetis.com/stock-information/default.aspx#stock-historical entregada por la persona responsable el 19-nov-2026 (RELEASE_FUENTES_EXAMEN_VERIFICACION.md, anexo 3 ter), conservada byte a byte en fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png, sha256 c1871f7e80e1f46015912a0cc585292bc9186e2fad95db5d8ef98bbe632c1530; transcripción con marca [PDF PAGE 1] hecha por Claude orquestación leyendo la imagen, sha256 721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970 (el revisor la contrasta con la imagen). Sustituye la transcripción de la tabla hecha por el extractor (Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt, que se conserva)",
+     "archivo": "fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.txt",
+     "sha256": "721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970",
+     "pagina": 1,
+     "folio": null,
+     "ubicacion": "cuadro «Historical Stock Quote» con Lookup Date 2026 Oct 8 (Day's Open $71.36, Intraday Low $71.15, Intraday High $73.75, Volume 6,176,469)",
+     "concepto": "precio de cierre por acción (XNYS: ZTS) de la sesión del 8-oct-2026",
+     "columna": "Closing Price (Lookup Date 2026 Oct 8)",
+     "periodo": "cierre de la sesión del 8-oct-2026",
+     "unidad": "USD por acción",
+     "escala": 1,
+     "signo": 1,
+     "tratamiento": "precio de cierre (no ajustado) de la sesión del 8-oct-2026, sin transformación. En esa fecha no hay dividendo pendiente de pagar: el dividendo de $0.53 se declaró el 8-oct-2026 con ex-date 30-oct-2026 (la acción cotizaba con derecho a él). La página de la bolsa (nyse.com) bloquea el acceso automatizado; se usa la página oficial de la empresa, como permite el encargo.",
+     "perimetro": "no aplica: dato de mercado de la acción ordinaria ZTS en NYSE",
+     "perimetro_justificacion": "el precio es de la acción de la sociedad cotizada en NYSE; el perímetro contable no se aplica a un dato de mercado",
+     "reexpresado": "no aplica (precio de mercado)",
+     "valor_fuente": 73.08,
+     "cita": "Closing Price $73.08"
+    },
+    "derivacion": null,
+    "hipotesis": null,
+    "justificacion": null,
+    "comprobacion": {
+     "extractor": "Claude orquestación",
+     "revisor": null,
+     "fecha": "2026-11-19",
+     "resultado": "pendiente",
+     "fuente_examinada": null,
+     "nota": "[Claude orquestación, 2026-11-19, zoetis_t1d] C37 con la captura de investor.zoetis.com del 8-oct-2026 (anexo 3 ter), conservada con su huella, en vez de la transcripción del extractor; resultados/fuentes_mercado_zoetis_t1d.json · Comprobación anterior (zoetis_t1c): Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] La cifra coincide con el archivo conservado («October 08, 2026 $73.08», fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt, sha256 vigente), pero ese archivo es una transcripción de la tabla de investor.zoetis.com hecha por el extractor (HUELLAS.txt), no los bytes de la fuente oficial: no puedo contrastar la fuente. Pendiente hasta conservar la descarga original (o declararla lectura externa). · Nota anterior del extractor: precio 73,08 USD = fila Oc",
+     "vinculo": null
+    },
+    "incidencia": null
+   }
+  },
+  {
+   "celda": "Análisis!C38",
+   "solo": "incidencia",
+   "despues": "(zoetis_t1d, 19-nov-2026) En el libro, Control maestro F de C38 = «Dato no verificable» (copia de ensayo, cambio_zoetis_t1d.json): tercero sin bytes; solo contexto."
+  }
+ ]
+}

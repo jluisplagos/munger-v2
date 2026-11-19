@@ -1,0 +1,62 @@
+{
+ "fecha": "2026-11-19",
+ "guion": "resultados/scripts/vigencia_extracto_t1d.py",
+ "extracto_antes_sha256": "35fbaf4824228d4d351ff09fcd6f1c303dfd47d636a2d00c0cb3b9ca2d37447e",
+ "extracto_despues_sha256": "370b24c75b4b99b149cea9c9e62212b67de09c1475c8ba69e59976636fe2d4b0",
+ "bloque": "## 0. Vigencia de las cifras heredadas de la etapa 1 (zoetis_t1d, Claude orquestación, 19-nov-2026)\n\nLos textos heredados de la etapa 1 (sección 6 de `datos_v63.md`, `etapa1/Zoetis_respuesta.md`, observaciones del Control maestro) **no se han tocado** y citan cifras que hoy valen otra cosa. Esta tabla da, para cada una, el valor vigente del expediente, su celda y su fuente. Manda la columna «vigente». Bloque añadido por la orquestación al extracto conservado de zoetis_t1c (rastro: `resultados/vigencia_extracto_t1d.json`); no es extracción nueva de las fuentes.\n\n| Cifra | Etapa 1 (dónde la cita) | Vigente | Celda | Fuente |\n|---|---|---|---|---|\n| Capitalización (C41) | 30.198 mm (C13); 30.198,4 = 73,08 × 413,223602 (acciones de la portada del 10-Q, 31-jul-2026; Control maestro de la etapa 1) | 31.053,7042578 mm = 73,08 × 424,927535, producto exacto | Análisis!C41 | fase1_metadatos.json (capitalizacion); acciones: 10-K 2025 PDF p. 68. P-O2 y Z-ACC (19-nov-2026): acciones al cierre del ejercicio con precio del 8-oct-2026, desalineación de fechas declarada; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) sería 30.266,4 |\n| Acciones (C55) | 417,7 m (media ponderada diluida del 2T26; respuesta.md §1 y Control maestro); 413,2 en portada (31-jul-2026) | 424,927535 m, exactas (424.927.535 acciones en circulación a 31-dic-2025, sin dilución) | Análisis!C55 | 10-K 2025 PDF p. 68 (balance); comprobado contra la cifra impresa por fase1_historia.py (historia_revision.md, «Acciones de los metadatos») |\n| FCF base (C52) | 1.995 mm (C13, C25, B67, B69; respuesta.md §1); «≈2.000 mm» (respuesta.md §3) | 1.994,001 mm = C46 2.736,667 − C47 669,333 − C48 0 − C49 1,000 − C50 72,333 (con C51 = Sí, que decide la fase A) | Análisis!C52 (fórmula) | C46, C47, C49 y C50: cálculo declarado sobre el 10-K 2025 PDF p. 70 y 89 (fase1_v63.json); C48 = 0 (US GAAP) |\n| Rendimiento FCF base ÷ capitalización | ≈6,6 % (C13) | 6,42 % | C52 ÷ C41 | derivado de las dos filas anteriores |\n| Deuda neta | 7.575 mm (C13, C62, C76; respuesta.md §1); «≈18 USD/acción» | 7.572 mm = deuda 9.048 − caja 1.476 (30-jun-2026); 17,82 USD/acción con C55 | C54 − C53 | 10-Q T2 2026 PDF p. 5 |\n| Deuda neta ÷ EBITDA (C33) | 1,92x (C20; C33 de la etapa 1) | 1,8968x (aproximación declarada; todo reexpresado ≈ 1,88x) | Análisis!C33 | TTM = 2025 (10-K) − 6M-2025 + 6M-2026 (10-Q T2 2026 PDF p. 3, 5, 8 y 10); «Fiscal Year Alignment»: mezcla bases (convención/aproximación, no derivado exacto) |\n| EBIT TTM a 30-jun-2026 | 3.463 mm (EBIT derivado de la etapa 1, Control maestro M29, fundamento de C24) | 3.510 mm = BAI 3.272 + gasto por intereses 238 (EBIT = BAI + intereses: el signo de los intereses se corrigió desde zoetis_t1b); EBITDA 3.992 con D&A 482 | (dentro de C33 y C42) | 10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 8 y 10 |\n| EV/EBITDA (C42) | 9,57x (C42 de la etapa 1, con capitalización 30.198) | 9,675778x = (C41 + 7.572) ÷ 3.992 (aproximación declarada; con las acciones del 30-jun-2026, 9,48x; todo reexpresado ≈ 9,61x) | Análisis!C42 | C41 exacto y el TTM de C33; desalineación de fechas declarada (Z-ACC): precio 8-oct-2026, acciones 31-dic-2025, balance 30-jun-2026 |\n| FCF TTM (C40) | 2.365 mm (C25; C40 de la etapa 1, con el capex del 10-Q del T2 2025, que no está en el expediente) | 2.363 mm = CFO 2.887 − capex 524 − principal de arrendamientos financieros 0 (aproximación declarada; todo reexpresado 2.316) | Análisis!C40 | 10-K 2025 PDF p. 70 y 89; 10-Q T2 2026 PDF p. 8 y 11 |\n| ROIC (C24) | 26,6 % (C14, C24), ≈27 % (C93), 26–30 % (B101; respuesta.md §6) | C24 = 0,266 conservado como convención NO reproducible con el expediente (F «Dato no verificable»): con el EBIT corregido y el capital del expediente sale ≈ 26,2–26,9 % | Análisis!C24 | registro de entradas (Análisis!C24, justificacion_clase); su fórmula y el 10-Q del T2 2025 no están en el expediente |\n| Margen EBIT (Historia, EBIT = BAI + intereses) | la etapa 1 no cita el margen EBIT en cifras («márgenes crecientes», C14; el margen antes de impuestos 28,7 % → 35,5 % de C27 no depende del EBIT y no cambia) | 2016 28,5 % · 2017 32,0 % · 2018 32,5 % · 2019 32,3 % · 2020 33,4 % · 2021 34,9 % · 2022 35,6 % · 2023 37,2 % · 2024 36,3 % · 2025 37,8 % | Historia (ventas y ebit) | fase1_v63.json (Historia construida por fase1_historia.py) |\n| C46 / C47 / C50 | 2.736,7 / 669,3 / 72,3 (C51: «SBC media FY23–25 de 72,3 mm») | 2.736,667 / 669,333 / 72,333 (valores exactos, cálculo declarado) | Análisis!C46, C47, C50 | 10-K 2025 PDF p. 70 (precedente E1: exactos en lugar de redondeos) |\n| C48 / C49 | C48 «vacía» (C62; Control maestro M45) y C49 vacía (= 0) | C48 = 0 (US GAAP: intereses pagados dentro del CFO; cero pendiente H1) · C49 = 1,000 (principal de arrendamientos financieros — / 1 / 2) | Análisis!C48, C49 | 10-K 2025 PDF p. 70 y 89 |\n| P/FCF histórico (C88) | mediana 47,1x (C68), «47x» (B102), 66,4x en 2021 (C98) | sin valor vigente verificado: C88 = 47,1 es «Dato no verificable» (Digrin, tercero sin bytes en el expediente; su FCF es CFO − capex) | Análisis!C88 | registro de entradas (lectura externa, no comprobada) |\n| Valor intrínseco externo (C38) | 197,36 USD (Simply Wall St; Control maestro de la etapa 1) | sin valor vigente verificado: C38 pasa a «Dato no verificable» en zoetis_t1d (tercero sin bytes); solo contexto | Análisis!C38 | registro de entradas (lectura externa) |\n| Escenarios y precio de Sí | malo ≈48,7–49 USD, normal ≈90,9–91, bueno ≈120,2, ponderado ≈88,3; precio de Sí ≈49 USD; capitalización ≈20.200 (C13, C20, C104, B101, B102; respuesta.md §1, §6 y §7) | sin cifra vigente: son estimaciones de la etapa 1 hechas sin la hoja; las calcula el libro (precio_de_si.py) tras la fase B con las palancas de este expediente | Análisis (escenarios) | — |\n| Guía orgánica 2026 | «guía orgánica negativa para 2026 (datos)» (C13), «−3 % a −1 %» (C31, B102; respuesta.md §2) | misma cifra, ahora con fuente en el expediente: crecimiento orgánico operativo (3)%–(1)% (guía de la dirección, no hecho), comunicado y presentación de resultados del T2 2026 publicados el 6-ago-2026 | — | sección 5 de este extracto (decisión de la persona del 18-nov-2026: incluir la guía) |\n| Precio (C37) y tasa sin riesgo (C57) | 73,08 USD; Treasury a 10 años 5,22 % | sin cambio de valor, ahora con bytes: 73,08 USD = «Closing Price $73.08» de investor.zoetis.com («Historical Stock Quote», 2026-Oct-8; captura de la persona, anexo 3 ter), en vez de stockanalysis/MarketBeat; 5,22 % del CSV oficial del Tesoro (Release, asset 766892834) | Análisis!C37, C57 | fuentes_mercado/ (Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png y .txt; US_Treasury_par_yield_2026_Release_766892834.csv y .txt) |\n\nOtras correcciones de zoetis_t1d que la etapa 1 no cita:\n- Minoritarios (Historia fila 26): 2022 y 2023 impresos «(2)» y «(6)» (patrimonio negativo de minoritarios) → 0 (decisión Z-MIN de la persona, 19-nov-2026; cifra impresa en `historia_revision.md`); 2018 = 0 («—» impreso en el 10-K 2018 PDF p. 73), antes vacío.\n- Reparto geográfico de la r mínima (Palancas A28:B33; decisión Z-R, 19-nov-2026: se deja y se anota): «Región · Asia» incluye «Other emerging markets» (913 mm, que no son solo Asia) y «Región · Australia & New Zealand» incluye «Other developed markets» (641 mm) y «Contract manufacturing & human health» (116 mm): las etiquetas del modelo no son las del informe [zoetis-10k-fy2025.txt, PDF p. 77].\n- C33, C40 y C42 son aproximaciones declaradas (TTM con la «Fiscal Year Alignment»), no derivados exactos.\n\n",
+ "textos_control_maestro": {
+  "neutralizados": [
+   {
+    "celda": "Control maestro!F5",
+    "antes": "Pendiente de inversor: media FY23–25 / media FY21–25 / TTM a 30-jun-2026",
+    "como": "control_maestro_textos (cambio_zoetis_t1d.json → fase1_v63.json → rellenar_fase1_v63.py)",
+    "motivo": "el período de las medias ya está decidido (FY23–25)"
+   },
+   {
+    "celda": "Control maestro!D90",
+    "antes": "C46, C47, C50 y C51 pendientes de inversor; C48 y C49 vacíos (US GAAP; inmaterial).",
+    "como": "control_maestro_textos",
+    "motivo": "C46/C47/C50 están decididas y C48/C49 ya no están vacías"
+   },
+   {
+    "celda": "Control maestro!F39 y N39 (Análisis!C38)",
+    "antes": {
+     "F": "Rellenado y verificado",
+     "N": "Captura previa: 202,45 (29-sep-2026). No confundir con el \"Fair Value\" de consenso de analistas que muestra SWS (96). Precio objetivo medio de analistas: 96 (17 analistas, S&P Global vía stockanalysis, 24-ago-2026; mediana 89,5; rango 80–155; secundario). No atribuyo hipótesis concretas al DCF de SWS. [Guía de la plantilla: Solo contraste; no sustituye la valoración propia.]"
+    },
+    "como": "evidencia de cambio_zoetis_t1d.json (copia de ensayo; el anterior también en antecedentes/evidencia_anterior.json)",
+    "motivo": "tercero sin bytes: «Dato no verificable»"
+   }
+  ],
+  "ya_neutralizados_por_el_producto": [
+   {
+    "celda": "Control maestro!G/L/M/N41 (C41) y G/L/M/N52 (C55)",
+    "antes": {
+     "C41_M": "30.198,4 = 73,08 × 413,223602 mm acciones en circulación (portada del 10-Q 2T26; una sola clase; ya netas de autocartera, no se resta otra vez).",
+     "C55_M": "417,7 = acciones medias ponderadas diluidas del 2T26 (cuenta de resultados; método de la autocartera; el convertible no diluye por debajo de 148,20 USD)."
+    },
+    "motivo": "rellenar_fase1_v63.py escribe la evidencia de los metadatos (precio × acciones al 31-dic-2025) y vacía M y N en el libro de datos (comprobado en zoetis_t1c); no llegan a datos_v63.md"
+   },
+   {
+    "celda": "Control maestro!N73 (C88)",
+    "motivo": "«Dato no verificable» desde zoetis_t1c (copia de ensayo heredada)"
+   }
+  ],
+  "no_neutralizados": [
+   {
+    "celda": "Control maestro!M45 (C48)",
+    "texto": "US GAAP: los intereses pagados se clasifican en actividades operativas (ya restados en el CFO). Celda vacía.",
+    "motivo": "«Celda vacía» describe la etapa 1; el tratamiento (intereses dentro del CFO, US GAAP) no contradice ninguna decisión y C48 = 0 lo da la Historia. La fila de evidencia forma parte del vínculo sellado de Análisis!C48 (verificado): reescribirla retiraría ese sello. La columna M no se vuelca a datos_v63.md; la tabla de vigencia lo aclara"
+   },
+   {
+    "celda": "Control maestro!M29 (C24)",
+    "motivo": "es la procedencia documentada de la convención C24 (EBIT 3.463 de la etapa 1); se conserva y la tabla da el EBIT vigente (3.510)"
+   },
+   {
+    "celda": "Control maestro!B47 (fila CONTROL «Otros pagos relacionados con leases fuera de CFO»)",
+    "texto": "US GAAP: los pagos de arrendamientos operativos y los intereses de arrendamientos financieros ya están en el CFO; no hay otros pagos de arrendamiento materiales fuera del CFO.",
+    "motivo": "coherente con US GAAP y D-US1; no contradice ninguna decisión vigente"
+   }
+  ]
+ }
+}

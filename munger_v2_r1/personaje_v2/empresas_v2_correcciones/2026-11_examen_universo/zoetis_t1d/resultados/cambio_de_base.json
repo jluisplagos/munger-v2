@@ -1,0 +1,135 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_zoetis_t1d.json",
+ "cambio_sha256": "54334353ec7430b682486d0d342cdc477d1a4af6c631a87efb67d344020a57d4",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Zoetis (cerrado el 31-dic-2025), la misma base, fuentes y entradas declaradas que zoetis_t1c (primer tiempo: nada publicado después del 9-oct-2026). Cambios: C55 exacto (424,927535), C41 = C37 × C55 sin redondear, C42 con ese C41, minoritarios 2022–2023 a 0 (Z-MIN) y 2018 = 0 («—» impreso), y C37, C57 y Palancas!C7 con bytes oficiales (captura de investor.zoetis.com y Release)."
+ },
+ "fechas": {
+  "ejecucion": "2026-10-09",
+  "precio": "2026-10-08",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Form 10-K 2016–2025 y 10-Q T1/T2 2026 de Zoetis (FUENTES.tsv; Release fuentes-examen-20261118); 10-K 2020–2024 en texto por OCR (zoetis_t1/ocr_400dpi/LEEME.md). Corte del primer tiempo: nada publicado después del 9-oct-2026; fecha de análisis = 2026-10-09 (corte), como en zoetis_t1. Añadidos (decisión de la persona responsable, 18-nov-2026): comunicado, presentación y transcripción de la conferencia de resultados del T2 2026, publicados el 6-ago-2026 (Release fuentes-examen-20261118, anexo 2). Datos de mercado (19-nov-2026, Release fuentes-examen-20261118, anexo 3): CSV oficial del Tesoro de EE. UU. (curva par diaria 2026, asset 766892834) y damodaran_margin.xls (enero 2026, asset 766892761), subidos por la persona responsable; precio: captura de investor.zoetis.com «Historical Stock Quote» del 8-oct-2026 entregada por la persona (anexo 3 ter).",
+  "ejecucion_aplicada": "2026-10-09"
+ },
+ "heredados_movidos": 74,
+ "conservados": [
+  "FUENTES.tsv",
+  "etapa1",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_listas.md",
+  "fase1_partes",
+  "fuentes_mercado",
+  "motor_a_f1.json",
+  "pdf",
+  "texto",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Zoetis_evaluada.xlsx",
+  "original_sha256": "ced4ab65fdf91f5833e51d4e4e4c1bd85333b3a586de5240c6a73cff2d4b2811",
+  "copia_de_ensayo_sha256": "f4697847bbf418b13cba4bb4e6d88593c8a7dadfaae515bcfdd87ff51cc2f862",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C42",
+   "Análisis!C33",
+   "Análisis!C40"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!L42": {
+    "celda": "Análisis!C42",
+    "texto": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10; Análisis C41"
+   },
+   "Control maestro!M42": {
+    "celda": "Análisis!C42",
+    "texto": "EV ÷ EBITDA TTM = (C41 31.053,7042578 = 73,08 × 424,927535 (valor exacto, sin redondear las acciones) + deuda 9.048 − caja 1.476 (10-Q T2 2026 p. 5)) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3.272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3.992 (EBIT = BAI + intereses) = 38.625,7042578 ÷ 3.992 = 9,675778"
+   },
+   "Control maestro!N42": {
+    "celda": "Análisis!C42",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como C24; zoetis_t1d, sellado del registro de zoetis_t1c)] Recalculado en zoetis_t1c: la etapa 1 (9,57x) usaba una capitalización de 30.198 sin fuente en el expediente y el EBIT derivado con el signo de los intereses invertido. APROXIMACIÓN por la «Fiscal Year Alignment» (desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; los seis meses de 2025 del 10-Q del T2 2026 están reexpresados, p. 10–11): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (la etapa 1 usó el 10-Q del T2 2025, que no está en el expediente). Con el 6M-2025 todo reexpresado (BAI 1.685) sale 9,61x. Las variantes de la etapa 1 (FY25 9,4x, ajustado 9,3x, forward ≈ 10,3x, consenso ≈ 9,7x, historia 36,9…14,9x) tienen las definiciones o la capitalización antiguas y se retiran. DESALINEACIÓN DE FECHAS declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 8-oct-2026 × 424.927.535 acciones en circulación al 31-dic-2025 (10-K 2025 PDF p. 68), deuda y caja del balance del 30-jun-2026 y EBITDA de los 12 meses a 30-jun-2026; con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 PDF p. 5) saldría 9,48x. En zoetis_t1c salía 0,000008x más alto (C41 calculado con las acciones redondeadas a tres decimales)."
+   },
+   "Control maestro!L36": {
+    "celda": "Análisis!C33",
+    "texto": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10"
+   },
+   "Control maestro!M36": {
+    "celda": "Análisis!C33",
+    "texto": "Deuda neta ÷ EBITDA TTM = (deuda 9.048 − caja 1.476, 10-Q T2 2026 p. 5) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3992 = 7572 ÷ 3992 = 1.896794"
+   },
+   "Control maestro!N36": {
+    "celda": "Análisis!C33",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como C24; zoetis_t1d, sellado del registro de zoetis_t1c)] Recalculado en zoetis_t1c (la etapa 1 daba 1,92x con EBIT derivado 3.463, sin fuente reproducible en el expediente). APROXIMACIÓN por la «Fiscal Year Alignment» (desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; los seis meses de 2025 del 10-Q del T2 2026 están reexpresados, p. 10–11): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (la etapa 1 usó el 10-Q del T2 2025, que no está en el expediente). Con el 6M-2025 todo reexpresado sale 1,88x. Las sensibilidades de la etapa 1 (1,87x, 2,02x, 1,98x, 2,07x) se calcularon con el EBITDA anterior y se retiran; el covenant (≤ 3,50x) y la deuda sin arrendamientos operativos no cambian. Sin acciones ni precio: no le afecta la desalineación de C41 y C42 (deuda neta del 30-jun-2026 y EBITDA de 12 meses a esa fecha)."
+   },
+   "Control maestro!L40": {
+    "celda": "Análisis!C40",
+    "texto": "10-K 2025 PDF p. 70 y 89; 10-Q T2 2026 PDF p. 8 y 11"
+   },
+   "Control maestro!M40": {
+    "celda": "Análisis!C40",
+    "texto": "FCF TTM a 30-jun-2026 = CFO (2.904 − 1.073 «as previously reported» + 1.056 = 2887) − capex (621 − 324 + 227 = 524) − intereses fuera del CFO 0 (US GAAP) − principal de arrendamientos financieros (2 − 2 + 0 = 0; 10-Q p. 8) = 2363"
+   },
+   "Control maestro!N40": {
+    "celda": "Análisis!C40",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como C24; zoetis_t1d, sellado del registro de zoetis_t1c)] Recalculado en zoetis_t1c con las fuentes del expediente (la etapa 1 daba 2.365 con el capex del 10-Q del T2 2025, que no está en el expediente). APROXIMACIÓN por la «Fiscal Year Alignment» (desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; los seis meses de 2025 del 10-Q del T2 2026 están reexpresados, p. 10–11): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (la etapa 1 usó el 10-Q del T2 2025, que no está en el expediente). Todo reexpresado sale 2.316. P-O1 (c) no cambia nada con US GAAP (cobros dentro del CFO). Las variantes de la etapa 1 (2.270, 2.066, 2.281, ≈ 1.971) y sus yields se calcularon con la definición o el precio de la etapa 1 y se retiran. Sin acciones ni precio: no le afecta la desalineación de C41 y C42 (12 meses a 30-jun-2026)."
+   },
+   "Control maestro!F39": {
+    "celda": "Análisis!C38",
+    "texto": "Dato no verificable"
+   },
+   "Control maestro!N39": {
+    "celda": "Análisis!C38",
+    "texto": "NO VERIFICABLE (zoetis_t1d, 19-nov-2026): valor intrínseco de un tercero (Simply Wall St) sin bytes en el expediente; lectura externa que el registro de entradas no cuenta como comprobada (REVISION_SELLADO.md de zoetis_t1c). Solo contexto, no dato. Texto de la etapa 1: Captura previa: 202,45 (29-sep-2026). No confundir con el \"Fair Value\" de consenso de analistas que muestra SWS (96). Precio objetivo medio de analistas: 96 (17 analistas, S&P Global vía stockanalysis, 24-ago-2026; mediana 89,5; rango 80–155; secundario). No atribuyo hipótesis concretas al DCF de SWS. [Guía de la plantilla: Solo contraste; no sustituye la valoración propia.]"
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C42": {
+   "construido_por_fase1_historia": null,
+   "valor": 9.675777619689379,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-06-30",
+   "derivacion": "TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026 (10-Q T2 2026) ; EV con C41 = C37 × C55 exactos"
+  },
+  "C33": {
+   "construido_por_fase1_historia": null,
+   "valor": 1.8967935871743486,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-06-30",
+   "derivacion": "TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026 (10-Q T2 2026)"
+  },
+  "C40": {
+   "construido_por_fase1_historia": null,
+   "valor": 2363,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-06-30",
+   "derivacion": "TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026 (10-Q T2 2026)"
+  }
+ },
+ "correcciones_fase1_partes": [],
+ "notas_retiradas": 2,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {
+  "C46": "entrada de zoetis_t1c sin cambio (cambio_zoetis_t1.json → cambio_zoetis_t1c.json): las acciones exactas, los minoritarios y los datos de mercado no cambian C46",
+  "C47": "entrada de zoetis_t1c sin cambio (cambio_zoetis_t1.json → cambio_zoetis_t1c.json): las acciones exactas, los minoritarios y los datos de mercado no cambian C47",
+  "C49": "entrada de zoetis_t1c sin cambio (cambio_zoetis_t1.json → cambio_zoetis_t1c.json): las acciones exactas, los minoritarios y los datos de mercado no cambian C49",
+  "C50": "entrada de zoetis_t1c sin cambio (cambio_zoetis_t1.json → cambio_zoetis_t1c.json): las acciones exactas, los minoritarios y los datos de mercado no cambian C50"
+ },
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_zoetis_t1d.json"
+ }
+}

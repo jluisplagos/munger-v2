@@ -1,0 +1,46 @@
+{
+ "fecha": "2026-11-19",
+ "guion": "resultados/scripts/fuentes_mercado_zoetis_t1d.py",
+ "release": "jluisplagos/munger-v2-evidencias-mistral, fuentes-examen-20261118 (anexo 3)",
+ "descarga": "gh api -H 'Accept: application/octet-stream' repos/jluisplagos/munger-v2-evidencias-mistral/releases/assets/<asset>",
+ "archivos": [
+  {
+   "archivo": "fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.csv",
+   "asset": "766892834",
+   "sha256": "0707733bdc20fce9a21a1063c5b99dbfd3456acabb216f73e6d6b798f511243d",
+   "que": "descarga cruda (CSV oficial del Tesoro de EE. UU.)"
+  },
+  {
+   "archivo": "fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.txt",
+   "sha256": "367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+   "que": "copia de texto con marca [PDF PAGE 1] (celdas separadas por « | »)",
+   "fila_usada": "10/08/2026 | 4.14 | 4.14 | 4.13 | 4.23 | 4.29 | 4.30 | 4.44 | 4.75 | 4.85 | 4.99 | 5.11 | 5.22 | 5.64 | 5.60 (columna 13 «10 Yr» = 5.22; C57)"
+  },
+  {
+   "archivo": "fuentes_mercado/Damodaran_margin_2026-01_Release_766892761.xls",
+   "asset": "766892761",
+   "sha256": "25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a",
+   "que": "descarga cruda (XLS de Damodaran, «Margins by industry», empresas de EE. UU.)"
+  },
+  {
+   "archivo": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01_Release_766892761.txt",
+   "sha256": "039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c",
+   "que": "copia de texto con marca [PDF PAGE 1] de la hoja «Industry Averages» (xlrd 2.0.1)",
+   "fila_usada": "fila 34: Drugs (Pharmaceutical) | 228 | 0.7172528887945363 | 0.18537124465767768 | 0.31244829408911007 | 0.29539699980816747 | 0.2865531968316314 | 0.295443503779666 | 0.2865983085345496 | 0.272455087",
+   "fila": 34,
+   "fecha_datos": "2026-01-05"
+  },
+  {
+   "archivo": "fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png",
+   "sha256": "c1871f7e80e1f46015912a0cc585292bc9186e2fad95db5d8ef98bbe632c1530",
+   "que": "captura de investor.zoetis.com «Historical Stock Quote», 2026-Oct-8 (anexo 3 ter; copia del coordinador Zoetis_ZTS_2026-10-08_chat.png)"
+  },
+  {
+   "archivo": "fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.txt",
+   "sha256": "721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970",
+   "que": "transcripción de la captura con marca [PDF PAGE 1]",
+   "fila_usada": "Closing Price $73.08 (Lookup Date 2026 Oct 8; C37)"
+  }
+ ],
+ "huellas_txt_sha256": "9cbfa671ffe262e4397067a873ad5b72b36d4947484b97359281cedaa184444d"
+}

@@ -1,0 +1,305 @@
+{
+ "empresa": "Zoetis Inc.",
+ "ticker": "ZTS",
+ "fecha_analisis": "2026-10-09",
+ "sector_texto": "Medicamentos, vacunas, diagnósticos y servicios genéticos para salud animal (mascotas ≈70 % y ganado ≈30 % de los ingresos)",
+ "moneda_modelo": "USD",
+ "norma_contable": "US GAAP",
+ "cierre_fiscal": "diciembre",
+ "mercado": "NYSE",
+ "ratio_adr": null,
+ "sector_damodaran": "Drugs (Pharmaceutical)",
+ "precio": {
+  "valor": 73.08,
+  "moneda_cotizacion": "USD",
+  "fecha": "2026-10-08",
+  "fx": null,
+  "fx_fecha": null,
+  "fuente": "Cierre del 8-oct-2026 en NYSE (ZTS) = 73,08 USD, de la página oficial de la empresa: investor.zoetis.com, «Stock Information» → «Historical Stock Quote», Lookup Date 2026 Oct 8: Day's Open $71.36, Closing Price $73.08, Intraday Low $71.15, Intraday High $73.75, Volume 6,176,469. Bytes: captura de pantalla entregada por la persona responsable el 19-nov-2026 (RELEASE_FUENTES_EXAMEN_VERIFICACION.md, anexo 3 ter; SHA-256 c1871f7e80e1f46015912a0cc585292bc9186e2fad95db5d8ef98bbe632c1530), conservada en fuentes_mercado/Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png con su transcripción. Cierre del día, sin hora intradía. Sustituye a stockanalysis.com y MarketBeat (terceros) como fuente."
+ },
+ "acciones_diluidas": {
+  "valor": 424.927535,
+  "unidad": "millones de acciones",
+  "impreso": "424,927,535",
+  "escala_impreso": "unidades",
+  "fecha": "2025-12-31",
+  "pagina": 68,
+  "fuente": "Balance consolidado del 10-K FY2025 (PDF p. 68): «Common stock, $0.01 par value: 6,000,000,000 authorized, 501,891,243 and 501,891,243 shares issued; 424,927,535 and 448,473,073 shares outstanding at December 31, 2025 and 2024» → 424.927.535 acciones en circulación al 31-dic-2025 (emitidas menos 76.963.708 de autocartera) = 424,927535 millones, valor exacto (un número de acciones no es un importe: no se redondea). No se suma dilución (sin «dilucion»): las opciones/RSU antidilutivas no son materiales y el 10-K no publica dilución al cierre; las notas convertibles (precio de conversión ≈148,20 USD, con capped calls) están muy fuera de dinero frente a 73,08 USD. Cifra de cierre del ejercicio, no media ponderada (P-O2; Z-ACC, 19-nov-2026: se mantiene y la desalineación con el precio del 8-oct-2026 se declara en cada cifra que las combina)."
+ },
+ "capitalizacion": {
+  "valor": 31053.7042578,
+  "fecha": "2026-10-08",
+  "fuente": "Precio de cierre 73,08 USD (8-oct-2026; investor.zoetis.com, «Historical Stock Quote», captura conservada en fuentes_mercado/) × 424,927535 millones de acciones en circulación al 31-dic-2025 = 31.053,7042578 millones de USD, producto exacto (sin redondear las acciones ni el resultado). DESALINEACIÓN DE FECHAS declarada (Z-ACC, 19-nov-2026): precio del 8-oct-2026 y acciones al cierre del ejercicio (P-O2); con las 414.154.046 acciones del 30-jun-2026 (10-Q T2 2026 p. 5) sería 30.266,37768168. (zoetis_t1d: en zoetis_t1c la capitalización se calculó con las acciones redondeadas a tres decimales, 0,034 mm más.)"
+ },
+ "tasa_sin_riesgo": {
+  "valor": 0.0522,
+  "fuente": "Treasury de EE. UU. a 10 años, Daily Treasury Par Yield Curve Rates del Departamento del Tesoro, cierre del 8-oct-2026: 5,22 % (fila «10/08/2026», columna «10 Yr»). Bytes: CSV oficial us_treasury_par_yield_2026.csv subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892834, SHA-256 0707733bdc20fce9a21a1063c5b99dbfd3456acabb216f73e6d6b798f511243d), conservado en fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.csv. Moneda del modelo USD; el Treasury se toma como libre de riesgo de impago."
+ },
+ "geografia": [
+  {
+   "pais": "United States",
+   "pct": 0.5384,
+   "nota": "5.097 de 9.467 mm USD (ingresos por área geográfica, FY2025)."
+  },
+  {
+   "pais": "Región · Western Europe",
+   "pct": 0.1065,
+   "nota": "Francia 165 + Alemania 236 + Italia 137 + España 145 + Reino Unido 325 = 1.008 mm."
+  },
+  {
+   "pais": "Región · Central and South America",
+   "pct": 0.0731,
+   "nota": "Brasil 393 + Chile 139 + México 160 = 692 mm; México se asigna aquí por convención de las listas de Damodaran, aunque geográficamente es Norteamérica."
+  },
+  {
+   "pais": "Región · Asia",
+   "pct": 0.1367,
+   "nota": "China 227 + Japón 154 = 381 mm, más 913 mm de «Other emerging markets» (mezcla no desglosada de Asia, Latinoamérica, Europa del Este, Oriente Medio y África; aproximación: se asigna a Asia por ser la región emergente de mayor peso probable)."
+  },
+  {
+   "pais": "Canada",
+   "pct": 0.0306,
+   "nota": "290 mm."
+  },
+  {
+   "pais": "Región · Australia & New Zealand",
+   "pct": 0.1147,
+   "nota": "Australia 329 mm, más 641 mm de «Other developed markets» (no desglosado; aproximación) y 116 mm de «Contract manufacturing & human health» (sin ubicación de cliente; aproximación) = 1.086 mm."
+  }
+ ],
+ "geografia_fuente": {
+  "fuente": "10-K FY2025, Nota de ingresos «Revenue by geographic area» (ventas por ubicación del cliente), total 9.467 mm USD",
+  "pagina": 77
+ },
+ "convenciones": {
+  "caja_incluye_otros_activos_financieros": false,
+  "motivo_caja": "El balance del 31-dic-2025 (10-K p. 68) solo muestra «Cash and cash equivalents» de 2.312 mm USD y no hay inversiones financieras corrientes ni depósitos a plazo separados; los equivalentes incluyen fondos monetarios, certificados y depósitos a ≤3 meses (p. 75)."
+ },
+ "anios_fcf_base": 3,
+ "_notas": [
+  "Primer tiempo: la información usada es la publicada hasta el 9-oct-2026; precio y tasa son cierres del 8-oct-2026. fecha_analisis se fija en 2026-10-09 (corte del primer tiempo), no en la fecha de hoy.",
+  "Media ponderada diluida de acciones 2025 (nota 17, 10-K p. 96): 443,835 millones (básica 443,443 + 0,392 de opciones/RSU/DSU/PSU), solo informativa; no se usa como acciones del modelo.",
+  "Últimas cifras publicadas tras el cierre, solo informativas: 422.127.709 acciones el 6-feb-2026 (portada del 10-K, p. 7); 414.154.046 acciones en circulación el 30-jun-2026 (10-Q Q2 2026, balance, p. 5); media diluida del 2T26 de 417,7 millones. Las recompras reducen la cuenta tras el cierre.",
+  "Diferencia relevante: con 414,2 millones (jun-2026) la capitalización sería ≈30.265 mm USD; el criterio de la persona responsable (P-O2) fija las acciones al cierre de las cuentas.",
+  "Sector: «Drugs (Pharmaceutical)» por ser el negocio principal medicamentos y vacunas de marca (parasiticidas, dermatología, dolor, vacunas); Damodaran no tiene categoría de salud animal y «Healthcare Products» (dispositivos) o «Drugs (Biotechnology)» encajan peor.",
+  "Los 10-K de 2025 no desglosan «Other developed/emerging markets» por país; la asignación de esos 1.554 mm y de los 116 mm de contract manufacturing a regiones es aproximada (convención del ejercicio). Los pct suman 1,0000.",
+  "(zoetis_t1d, 19-nov-2026) La hora de cierre del precio y del Treasury no figura en las fuentes (cierre del día). El Treasury a 10 años (5,22 % el 8-oct-2026) se contrasta ahora con el CSV oficial del Tesoro subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892834, conservado en fuentes_mercado/ con su huella). El precio 73,08 USD (cierre del 8-oct-2026) sale de la página oficial de la empresa (investor.zoetis.com, «Historical Stock Quote»): captura entregada por la persona responsable (anexo 3 ter), conservada en fuentes_mercado/ con su huella; no se copió de la etapa 1 (coincide con ella). Z-ACC: acciones al cierre del ejercicio (P-O2) con precio del 8-oct-2026, desalineación declarada en C41 y C42. Z-R (19-nov-2026): se deja la agrupación geográfica de la r mínima; «Región · Asia» incluye «Other emerging markets» (913 mm, que no son solo Asia) y «Región · Australia & New Zealand» incluye «Other developed markets» (641 mm) y «Contract manufacturing & human health» (116 mm): las etiquetas del modelo no son las del informe (10-K 2025 PDF p. 77)."
+ ],
+ "analisis": {
+  "C46": {
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "cfo_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "cfo_10k2025": {
+      "2025": {
+       "valor": 2904,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 2953,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 2353,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Net cash provided by operating activities 2,904 2,953 2,353",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Net cash provided by operating activities» (2.904 / 2.953 / 2.353; 10-K 2025 PDF p. 70) = 2.736,667, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 2.736,7. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos. P-O1 (c): con US GAAP los intereses cobrados (ingresos por intereses de 93 mm en 2025, 10-K 2025 PDF p. 54 y p. 80) van dentro del CFO: el estado de flujos no tiene ninguna línea de intereses ni de dividendos cobrados en inversión (PDF p. 70; los intereses pagados, 261 / 274 / 295, figuran como información suplementaria y también están en el CFO); no hay subarriendos ni dividendos de negocios conjuntos que sumar. Nada que añadir.",
+    "redondeo": 3
+   }
+  },
+  "C47": {
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "capex_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "capex_10k2025": {
+      "2025": {
+       "valor": 621,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -621,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      },
+      "2024": {
+       "valor": 655,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -655,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      },
+      "2023": {
+       "valor": 732,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Capital expenditures (621) (655) (732)",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)",
+       "valor_fuente": -732,
+       "signo": -1,
+       "tratamiento": "salida de caja publicada entre paréntesis; magnitud positiva en el modelo (R415-SIGNO)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Capital expenditures» (621 / 655 / 732; 10-K 2025 PDF p. 70) = 669,333, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 669,3. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos.",
+    "redondeo": 3
+   }
+  },
+  "C49": {
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "principal_arrendamientos_financieros",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "principal_arrendamientos_financieros": {
+      "2025": {
+       "valor": 2,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 1,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 0,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 89,
+       "cita": "Financing cash flows – finance leases 2 1 —",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "C49 = principal de arrendamientos FINANCIEROS pagado en financiación: «Financing cash flows – finance leases» 2 / 1 / — (cero) en 2025 / 2024 / 2023 (nota de arrendamientos, 10-K 2025 PDF p. 89) → media 1,000. Con US GAAP los pagos de arrendamientos operativos (67 / 61 / 57, «Operating cash flows – operating leases», misma página) van dentro del CFO y no tienen principal en financiación. Los arrendamientos financieros SÍ están desglosados (pasivo de 7 mm, misma página), así que no se aplica la hipótesis D-WM («tratarlos como deuda», para los no desglosados): se resta su principal, como pide el coordinador (C49 = 1,0). La etapa 1 dejaba la celda vacía (= 0) por inmaterial (<0,1 % del FCF) y anotaba «si se quiere exactitud literal: 1». Contraste: el 10-K 2024 (OCR, PDF p. 86) da «Financing cash flows — finance leases 1 — —» para 2024, 2023 y 2022.",
+    "redondeo": 3
+   }
+  },
+  "C50": {
+   "periodo": "2023–2025",
+   "unidad": "mm",
+   "calculo": {
+    "operacion": "media",
+    "anios": [
+     2023,
+     2024,
+     2025
+    ],
+    "terminos": [
+     {
+      "componente": "sbc_10k2025",
+      "signo": 1
+     }
+    ],
+    "componentes": {
+     "sbc_10k2025": {
+      "2025": {
+       "valor": 83,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2024": {
+       "valor": 74,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      },
+      "2023": {
+       "valor": 60,
+       "fuente": "texto/zoetis-10k-fy2025.txt",
+       "pagina": 70,
+       "cita": "Share-based compensation expense 83 74 60",
+       "documento": "Form 10-K 2025 de Zoetis (estados financieros consolidados 2025)"
+      }
+     }
+    },
+    "decision": "Media 2023–2025 de «Share-based compensation expense» del estado de flujos (83 / 74 / 60; 10-K 2025 PDF p. 70; igual en la nota de pagos en acciones, PDF p. 94) = 72,333, valor exacto; SUPUESTO DE LA ORQUESTACIÓN por el precedente de la decisión E1 de la persona responsable (valores exactos en lugar de redondeos), no decisión para Zoetis; la etapa 1 traía el redondeo 72,3. Las tres cifras salen del 10-K 2025 (texto de pdftotext, sin OCR), que publica 2025, 2024 y 2023; coinciden con la Historia de la fase 1 (2023 del 10-K 2024 por OCR, PDF p. 68), así que la cifra de 2023 queda contrastada en dos documentos.",
+    "redondeo": 3
+   }
+  },
+  "C42": {
+   "valor": 9.675777619689379,
+   "fuente": "EV ÷ EBITDA TTM = (C41 31.053,7042578 = 73,08 × 424,927535 (valor exacto, sin redondear las acciones) + deuda 9.048 − caja 1.476 (10-Q T2 2026 p. 5)) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3.272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3.992 (EBIT = BAI + intereses) = 38.625,7042578 ÷ 3.992 = 9,675778",
+   "pagina": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10; Análisis C41",
+   "periodo": "EV con precio del 8-oct-2026 y balance a 30-jun-2026; EBITDA TTM a 30-jun-2026",
+   "unidad": "x"
+  },
+  "C33": {
+   "valor": 1.8967935871743486,
+   "fuente": "Deuda neta ÷ EBITDA TTM = (deuda 9.048 − caja 1.476, 10-Q T2 2026 p. 5) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3992 = 7572 ÷ 3992 = 1.896794",
+   "pagina": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10",
+   "periodo": "deuda neta a 30-jun-2026; EBITDA TTM a 30-jun-2026",
+   "unidad": "x"
+  },
+  "C40": {
+   "valor": 2363,
+   "fuente": "FCF TTM a 30-jun-2026 = CFO (2.904 − 1.073 «as previously reported» + 1.056 = 2887) − capex (621 − 324 + 227 = 524) − intereses fuera del CFO 0 (US GAAP) − principal de arrendamientos financieros (2 − 2 + 0 = 0; 10-Q p. 8) = 2363",
+   "pagina": "10-K 2025 PDF p. 70 y 89; 10-Q T2 2026 PDF p. 8 y 11",
+   "periodo": "12 meses a 30-jun-2026",
+   "unidad": "mm"
+  }
+ },
+ "entrada_efectiva": "estricta",
+ "control_maestro_textos": {
+  "F5": "FY2023–FY2025 (media de 3 años) en C46, C47 y C50 (decisión del inversor del 18-oct-2026, Control maestro M43, M44 y M48); TTM a 30-jun-2026 solo en C33, C40 y C42 (aproximación declarada por la «Fiscal Year Alignment»). (zoetis_t1d: sustituye el texto de la etapa 1 «Pendiente de inversor: media FY23–25 / media FY21–25 / TTM a 30-jun-2026».)",
+  "D90": "C46 = 2.736,667, C47 = 669,333 y C50 = 72,333 (media FY23–25, cálculo declarado); C48 = 0 (US GAAP: intereses pagados dentro del CFO; cero de la Historia pendiente de verificación H1) y C49 = 1,000 (principal de arrendamientos financieros —/1/2, 10-K 2025 PDF p. 89); C51 la decide la fase A. (zoetis_t1d: sustituye el texto de la etapa 1 «C46, C47, C50 y C51 pendientes de inversor; C48 y C49 vacíos (US GAAP; inmaterial)».)"
+ }
+}

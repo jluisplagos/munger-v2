@@ -1,0 +1,117 @@
+{
+ "escritas": [
+  "Análisis!B3",
+  "Análisis!D3",
+  "Análisis!D4",
+  "Análisis!C37",
+  "Análisis!C55",
+  "Análisis!C41",
+  "Análisis!C57",
+  "Análisis!C46",
+  "Análisis!C47",
+  "Análisis!C49",
+  "Análisis!C50",
+  "Análisis!C42",
+  "Análisis!C33",
+  "Análisis!C40",
+  "Análisis!C48"
+ ],
+ "derivadas": [],
+ "no_pisadas": [
+  {
+   "celda": "Análisis!B4",
+   "actual": "Salud animal (medicamentos, vacunas y diagnóstico veterinario)",
+   "nuevo": "Medicamentos, vacunas, diagnósticos y servicios genéticos para salud animal (mascotas ≈70 % y ganado ≈30 % de los ingresos)"
+  }
+ ],
+ "convenciones": [],
+ "avisos": [
+  "Análisis!C48: depende de un cero pendiente de verificación → «Dato no verificable»",
+  "Historia!C16:L16: cero pendiente de verificación en [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025] → «Dato no verificable»",
+  "Historia!C17:L17: cero pendiente de verificación en [2016, 2017, 2018, 2019, 2020, 2021, 2022] → «Dato no verificable»",
+  "Historia!C23:L23: cero pendiente de verificación en [2016, 2017, 2018, 2019, 2020, 2021] → «Dato no verificable»",
+  "Historia!C26:L26: cero pendiente de verificación en [2025] → «Dato no verificable»",
+  "Análisis!C24: depende de un cero pendiente de verificación → «Dato no verificable» (valor del libro conservado)"
+ ],
+ "evidencias_sustituidas": [
+  {
+   "celda": "Análisis!C37",
+   "fila_control_maestro": 38,
+   "antes": {
+    "G": "Cierre del 8-oct-2026",
+    "H": "USD / acción",
+    "I": "Secundaria (3 fuentes coincidentes)",
+    "J": "stockanalysis.com (histórico); StatMuse; Digrin",
+    "K": "https://stockanalysis.com/stocks/zts/history/",
+    "L": "Tabla diaria",
+    "M": "73,08 USD: último cierre consolidado en NYSE (8-oct-2026). ACTUALIZAR ANTES DE CUALQUIER DECISIÓN.",
+    "N": "El cierre del 9-oct-2026 no estaba consolidado al registrar (74,77–74,81 según la fuente; +2,3%). Rango de 52 semanas 68,77–148,30. −41,9% desde 125,82 (31-dic-2025)."
+   }
+  },
+  {
+   "celda": "Análisis!C55",
+   "fila_control_maestro": 52,
+   "antes": {
+    "G": "2T 2026 (3 meses a 30-jun-2026)",
+    "H": "mm acciones",
+    "I": "10-Q 2T26 (primaria)",
+    "J": "Zoetis 10-Q 2T26 (R23)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R23.htm",
+    "L": "R23",
+    "M": "417,7 = acciones medias ponderadas diluidas del 2T26 (cuenta de resultados; método de la autocartera; el convertible no diluye por debajo de 148,20 USD).",
+    "N": "Sensibilidad: en circulación en portada (31-jul-2026) 413,2 + 0,1 equivalentes = 413,3 (−1,1%). Convertible: dilución neta ≈0 hasta 211,72 USD gracias al capped call. [Guía de la plantilla: Documentar si son acciones diluidas medias ponderadas o base actual; no mezclar sin explicación.]"
+   }
+  },
+  {
+   "celda": "Análisis!C41",
+   "fila_control_maestro": 41,
+   "antes": {
+    "G": "Precio 8-oct-2026 · acciones a 31-jul-2026",
+    "H": "USD mm",
+    "I": "10-Q 2T26 (acciones, primaria) · precio secundario",
+    "J": "Zoetis 10-Q 2T26 (portada)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R1.htm",
+    "L": "R1 (dei:EntityCommonStockSharesOutstanding)",
+    "M": "30.198,4 = 73,08 × 413,223602 mm acciones en circulación (portada del 10-Q 2T26; una sola clase; ya netas de autocartera, no se resta otra vez).",
+    "N": "Con 417,7 mm diluidas: 30.525,5. Recompras posteriores al 31-jul no publicadas (la cifra real sería algo menor). Proveedores: ≈30,2 bn (solo contraste)."
+   }
+  },
+  {
+   "celda": "Análisis!C57",
+   "fila_control_maestro": 54,
+   "antes": {
+    "G": "8-oct-2026",
+    "H": "% (decimal)",
+    "I": "Primaria (U.S. Treasury)",
+    "J": "U.S. Department of the Treasury · Daily Treasury Par Yield Curve Rates",
+    "K": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=202610",
+    "L": "Columna 10 Yr",
+    "M": "0,0522: Treasury a 10 años (par yield) del 8-oct-2026; la vista de texto y el XML coinciden. Flujos en USD.",
+    "N": "FRED DGS10 a 7-oct: 5,28%. Sin riesgo país (emisora de EE. UU.). La r sigue siendo decisión del inversor."
+   }
+  },
+  {
+   "celda": "Análisis!C42",
+   "fila_control_maestro": 42,
+   "antes": {
+    "G": "EV con precio 8-oct-2026 y balance 30-jun-2026 · EBITDA TTM",
+    "H": "x",
+    "I": "10-Q 2T26 y 10-K 2025 (primaria) · cálculo derivado",
+    "J": "Zoetis 10-Q 2T26 (R5); Zoetis · Informe anual 2025 (10-K FY2025)",
+    "K": "https://www.sec.gov/Archives/edgar/data/1555280/000155528026000040/R5.htm",
+    "L": "10-K 2025 PDF p. 66 y 70; 10-Q T2 2026 PDF p. 3, 5, 8 y 10; Análisis C41",
+    "M": "EV ÷ EBITDA TTM = (C41 31053.73824 = 73,08 × 424,928 + deuda 9.048 − caja 1.476 (10-Q T2 2026 p. 5)) ÷ EBITDA TTM a 30-jun-2026 = BAI (3.360 − 1.712 + 1.624 = 3272) + gasto por intereses (222 − 107 + 123 = 238) + D&A (487 − 243 + 238 = 482) = 3992 (EBIT = BAI + intereses, signo corregido) = 38625.73824 ÷ 3992 = 9.675786",
+    "N": "[Clase: derivado de datos publicados, aproximado] Recalculado en zoetis_t1c: la etapa 1 (9,57x) usaba una capitalización de 30.198 sin fuente en el expediente y el EBIT derivado con el signo de los intereses invertido. APROXIMACIÓN por la «Fiscal Year Alignment» (desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; los seis meses de 2025 del 10-Q del T2 2026 están reexpresados, p. 10–11): TTM = 2025 (10-K, base antigua) − 6M-2025 + 6M-2026; el 10-Q da el 6M-2025 «as previously reported» para el BAI (1.712) y el CFO (1.073), que se usan, pero solo reexpresado para intereses (107), D&A (243) y capex (324): esos tres mezclan bases (la etapa 1 usó el 10-Q del T2 2025, que no está en el expediente). Con el 6M-2025 todo reexpresado (BAI 1.685) sale 9,61x. Las variantes de la etapa 1 (FY25 9,4x, ajustado 9,3x, forward ≈ 10,3x, consenso ≈ 9,7x, historia 36,9…14,9x) tienen las definiciones o la capitalización antiguas y se retiran."
+   }
+  }
+ ],
+ "pendientes_verificacion": [
+  "Análisis!C48",
+  "Historia!C16:L16",
+  "Historia!C17:L17",
+  "Historia!C23:L23",
+  "Historia!C26:L26",
+  "Análisis!C24"
+ ],
+ "n_celdas": 554
+}
