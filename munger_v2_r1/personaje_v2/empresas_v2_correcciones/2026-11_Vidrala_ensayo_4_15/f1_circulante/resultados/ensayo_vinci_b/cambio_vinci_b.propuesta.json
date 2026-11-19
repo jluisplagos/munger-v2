@@ -1,0 +1,73 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Vinci",
+ "_estado_del_archivo": "Examen del personaje (19-nov-2026). Expediente nuevo vinci_b desde vinci/Vinci (que no se toca), para aplicar la decisión V-CIRC (a) de la persona responsable (DECISIONES_PARA_EL_USUARIO.md:134): circulante a 0 también en la reinversión, con la plantilla V6.3.2 F1 (config_v2_v632_f1.json; rama f1/circulante-normalizado). La declaración F1 se conserva y se le añade normalizacion_circulante (2021–2025). Las entradas del FCF base y demás entradas de los metadatos de vinci/Vinci (con las correcciones de la revisión del montaje) se conservan sin cambio.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci/Vinci",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de VINCI SA (año natural, cerrado el 31-dic-2025), con el balance y el EBITDA LTM del semestral a 30-jun-2026 donde la etapa 1 los usa (C33, C40, C42, C53, C54). Decisiones de la persona responsable aplicadas: P-O1 (c) (C46), P-O2 (a) (C55 = 555,967094 M acciones en circulación a 31-dic-2025), F1-A y F1-B (declaración F1), E1 por precedente (medias exactas)."
+ },
+ "fechas": {
+  "ejecucion": "2026-10-10",
+  "precio": "2026-10-09",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026 de VINCI (FUENTES.tsv; Release fuentes-examen-20261118). Corte: fecha de análisis de la etapa 1 (Análisis!D4 = 2026-10-10); la información de los nueve meses de 2026 (22-oct-2026) queda fuera. Precio (107,05 €, 9-oct-2026) y tasa sin riesgo (3,486 %) de la etapa 1, proveedores secundarios, pendientes de verificación."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md",
+  "extracto_v63.md",
+  "motor_a_f1.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {},
+ "notas_que_se_retiran": [],
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {
+  "C46": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C47": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C48": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C49": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C50": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C42": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C96": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C40": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)"
+ },
+ "evidencia": {},
+ "textos_prohibidos": [
+  "→ C47 = 3800",
+  "→ C48 = 89\\.",
+  "→ C49 = 675\\.",
+  "→ C50 = 344"
+ ],
+ "control_maestro_textos": {
+  "F5": "3 años FY2023–2025 (decisión del inversor de la etapa 1, 23-oct-2026); medias exactas (precedente E1)",
+  "D88": "Medias del DCF: FY2023–2025 (C46–C50). Balance a 30/06/2026 y LTM a 30/06/2026 en C33, C40, C42, C53 y C54 (etapa 1); precio 09/10/2026 (etapa 1, pendiente de verificación); acciones en circulación a 31/12/2025 (C55 = 555,967094 M, P-O2 a).",
+  "C88": "OK",
+  "E88": "—",
+  "D90": "C46 = 9.327,333 (CFO sin circulante + dividendos de no consolidadas, P-O1 c), C47 = 3.799,667, C48 = 89,333, C49 = 675,333, C50 = 343,667: medias exactas FY2023–2025 con cálculo declarado (fase1_metadatos.json). Intereses de deuda dentro del CFO; intereses de arrendamientos en C48; principal en C49.",
+  "C90": "OK",
+  "E90": "—",
+  "D101": "Principal de arrendamientos por la nota 21 de cada URD; intereses de arrendamientos por la nota 6. Principal + interés = línea de financiación, salvo 1 mm de redondeo en 2023 (611 + 67 = 678 frente a 679)."
+ },
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · VINCI SA (DG, Euronext Paris) · plantilla V6.3.2 F1 (config_v2_v632_f1.json; normalización declarada del circulante, decisión V-CIRC (a)). Expediente vinci_b (configuracion/cambio_vinci_b.json) desde vinci/Vinci. Etapa 1 de la persona responsable (Vinci_evaluada.xlsx 7537492d…04d0, original en antecedentes/etapa1_original; Vinci_respuesta.md 63411305…07af), fecha de análisis 2026-10-10. Fuentes oficiales con huella (FUENTES.tsv): informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026; los nueve meses de 2026 (22-oct-2026) quedan fuera. Entradas: C46–C50 medias exactas 2023–2025 con cálculo declarado (precedente E1; C46 con la regla espejo P-O1 c), C55 = 555,967094 M acciones en circulación a 31-dic-2025 (P-O2 a), C42 y C96 recalculadas con ellas. Declaración F1 del motor A con norma NIIF, A2_propio (F1-A), compras como crecimiento (F1-B), series 2021–2025 de amortización de derechos de uso, PPA de Cobra IS e intereses de arrendamiento (P-FOSO a). Precio y tasa sin riesgo de la etapa 1, pendientes de verificación. Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen, rama coordinacion/cierre-v2 del repositorio auxiliar); fuentes_usuario/vinci_etapa1/SHA256SUMS (rama fuentes/etapa1-examen-20261117); DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2): F1-A, F1-B, P-O1 (c), P-O2 (a), P-FOSO (a); configuracion/cambio_vinci.json.",
+  "fecha": "2026-11-19"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ },
+ "analisis": {}
+}

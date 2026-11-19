@@ -1,0 +1,119 @@
+{
+ "prueba": "circ",
+ "fecha": "2026-11-19",
+ "plantilla_sha256": "046b64fc7b7898c8a76d924ef72be43c17deb998f2433f43c06c0a18e07800fd",
+ "referencia_sha256": "2bed4bac64b00a2a27a34d60a8c611c48726d2576a14228c99abc68d88ae181d",
+ "resultado": "PASA",
+ "total": 17,
+ "pasan": 17,
+ "comprobaciones": [
+  {
+   "prueba": "C1 · Vinci tipo, normalización 2021–2025: C97 «circulante_a_cero», fila 95 = fila 14 en 2021–2025 (0 antes), fila 96 = 0, Motor V05 OK",
+   "ok": true,
+   "detalle": "V05 'OK' · None"
+  },
+  {
+   "prueba": "C1 · libro = capa: f (C58) a 10⁻¹², ancla (C53) a 10⁻⁹ y reinversión media (C76) a 10⁻⁹; f ≈ 1,574 % y ancla ≈ 2,3226",
+   "ok": true,
+   "detalle": "C58 0.0157439542453269 · C53 2.3226451421801 · C76 575.666666666667"
+  },
+  {
+   "prueba": "C1 · los 33 flujos del Motor (años 1–10 y 11, tres escenarios con las palancas del ejemplo) = capa (10⁻⁹)",
+   "ok": true,
+   "detalle": "desviación máxima 6.91e-11"
+  },
+  {
+   "prueba": "C1 · F1-LIBRO, F1-REPLICA, F1-CIRC y F1-K3c no saltan; F1-LIBRO dice que el libro V6.3.2 calcula la normalización (33 flujos)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "prueba": "C2 · sin la normalización: el libro V6.3.2 es la V6.3.1 F1 con las mismas entradas (0 celdas distintas, igualdad exacta)",
+   "ok": true,
+   "detalle": "39950 celdas · []"
+  },
+  {
+   "prueba": "C2 · sin la normalización K3c BLOQUEA (reinversión −1.514,333) y el libro y la capa coinciden (F1-LIBRO no salta)",
+   "ok": true,
+   "detalle": "['F1-K3c']"
+  },
+  {
+   "prueba": "C1/C2 · identidad con los valores del libro: f normalizada = f − media del circulante de la ventana ÷ ventas medias (10⁻¹²)",
+   "ok": true,
+   "detalle": "0.0157439542453269 frente a 0.015743954245326833"
+  },
+  {
+   "prueba": "C1/C2 · identidad: C53 normalizada = ΔV ÷ (Σ fila 31 sin normalizar − Σ fila 14 de H–L) (10⁻⁹)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "prueba": "C3 · solo la ventana (2023–2025): f normalizada, C53 vacía en el libro y en la capa; F1-CIRC bloquea (INCOMPLETO) y F1-LIBRO no",
+   "ok": true,
+   "detalle": "['F1-CIRC']"
+  },
+  {
+   "prueba": "C4 · sin 2024 (ventana): f y C53 vacías, Motor V05 INCOMPLETO con su causa; la capa en pendiente_de_datos (F1-CIRC) sin error ni F1-REPLICA",
+   "ok": true,
+   "detalle": "'Motor A · normalización del circulante: faltan años de la ventana que calibra f en Historia C94:L94 (la normalización cubre todos los años que usa la reinversi"
+  },
+  {
+   "prueba": "C5 · regla no reconocida: C97 «no reconocida», f y C53 vacías, Motor V05 DATOS INVÁLIDOS; la capa bloquea (F1-LIBRO) sin F1-REPLICA",
+   "ok": true,
+   "detalle": "['F1-LIBRO']"
+  },
+  {
+   "prueba": "C5 · marca no reconocida: C97 «no reconocida», f y C53 vacías, Motor V05 DATOS INVÁLIDOS; la capa bloquea (F1-LIBRO) sin F1-REPLICA",
+   "ok": true,
+   "detalle": "['F1-LIBRO']"
+  },
+  {
+   "prueba": "C6 · A0_total con la normalización: el libro usa la rama de D_X con la fila 30 normalizada; f y ancla = capa; réplica conforme",
+   "ok": true,
+   "detalle": "['F1-2i', 'F1-K3b', 'F1-K3c', 'V-F1a']"
+  },
+  {
+   "prueba": "C7 · libro V6.3.1 con la normalización declarada: F1-LIBRO bloquea (límite declarado: la salida es la V6.3.2 F1) y la capa da las cifras normalizadas",
+   "ok": true,
+   "detalle": "['F1-LIBRO']"
+  },
+  {
+   "prueba": "C8 · Elis (su caja base NO excluye el circulante) con la normalización: el libro la calcula (= capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS",
+   "ok": true,
+   "detalle": "['F1-CIRC', 'F1-REGISTRO', 'V-F1g', 'V-F1i', 'V-F1j', 'V-F1k']"
+  },
+  {
+   "prueba": "C9 · (C1) caja base CON el circulante (C46 = 11.417,333) y dos partidas C46 que se compensan (−2.090 y +2.090, documento «x»): el libro calcula la normalización (f −1,34 % = capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS (el cálculo declarado de C46 da 9.327,333), y solo con él",
+   "ok": true,
+   "detalle": "['F1-CIRC'] · C58 -0.0134107002696922 · normalización del circulante: el libro lleva C46 = 11417.333 y el cálculo declarado de C46 da 9327.333: el libro no calcula la caja base con"
+  },
+  {
+   "prueba": "C1 · el libro con la normalización aplicada (antes de recalcular) es ÍNTEGRO frente a la referencia: C93:L94 son entradas",
+   "ok": true,
+   "detalle": "VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos"
+  }
+ ],
+ "detalle": {
+  "Vinci_tipo": {
+   "C58_normalizado": 0.0157439542453269,
+   "C53_normalizado": 2.3226451421801,
+   "C76_normalizado": 575.666666666667,
+   "C58_sin": 0.0448986087603459,
+   "C53_sin": 5.95952878586358,
+   "C76_sin": -1514.33333333333,
+   "flujo_sin_crecimiento_capa": 5190.976677253,
+   "bloquean_normalizado": [],
+   "bloquean_sin": [
+    "F1-K3c"
+   ]
+  },
+  "sonda_C1": {
+   "C58": -0.0134107002696922,
+   "C52": 6509.333,
+   "bloquean": [
+    "F1-CIRC"
+   ],
+   "F1_CIRC": "normalización del circulante: el libro lleva C46 = 11417.333 y el cálculo declarado de C46 da 9327.333: el libro no calcula la caja base con él, así que no demuestra que la excluya el circulante"
+  }
+ }
+}

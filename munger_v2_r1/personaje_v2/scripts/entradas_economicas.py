@@ -133,6 +133,14 @@ def instantanea(libro, version=RELACION_ACTUAL):
             celdas[k] = _norm(lec.leer("Historia", ref))
             tipos[k] = tipo
             ids[k] = ident
+    if "Historia" in hojas and "NORMALIZACIÓN DEL CIRCULANTE" in str(lec.leer("Historia", "A92") or ""):
+        # (V-CIRC) libro V6.3.2 F1: la normalización del circulante (C93, regla; C94:L94, años normalizados) mueve f, el ancla y el terminal: entra en la
+        # huella y en el universo de verificacion_entradas.py como configuración declarada (los libros V6.3, V6.3.1 y V6.4 no cambian de huella)
+        for ref, ident in ([("C93", "F1.normalizacion_circulante.regla")] + [(f"{c}94", "F1.normalizacion_circulante.anios") for c in "CDEFGHIJKL"]):
+            k = f"Historia!{ref}"
+            celdas[k] = _norm(lec.leer("Historia", ref))
+            tipos[k] = "configuracion"
+            ids[k] = ident
     texto = json.dumps(sorted(celdas.items()), ensure_ascii=False, default=str, separators=(",", ":"))
     return {"celdas": celdas, "tipos": tipos, "ids": ids, "n": len(celdas), "huella": hashlib.sha256(texto.encode("utf-8")).hexdigest(),
             "version": version if CE.HOJA in hojas else RELACION_4_12,

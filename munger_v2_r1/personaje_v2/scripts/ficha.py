@@ -412,6 +412,10 @@ def main():
             "libro_sha256": f1r.get("libro_sha256"), "libro_origen_sha256": f1r.get("libro_origen_sha256"), "declaracion_sha256": f1r.get("declaracion_sha256"),
             "parametros_sin_valor_adoptado": sorted((f1r.get("parametros_sin_valor_adoptado") or {}).keys()),
             "apto_para_dinero_real": False}
+        if f1r.get("normalizacion_circulante"):
+            # (V-CIRC) solo con la normalización declarada del circulante (o un libro V6.3.2 F1 con ella): la ficha de los demás expedientes no cambia
+            ficha["motor_a_f1"]["normalizacion_circulante"] = {k: f1r["normalizacion_circulante"].get(k) for k in (
+                "declarada", "aplicada", "regla", "anios", "excluido_por_anio", "caja_base", "calculo_C46", "efecto_en_el_perimetro_declarado", "libro", "problemas")}
         if f1r.get("us_gaap"):
             # (F1 · US GAAP; ronda 2, R1-12: solo con US GAAP, para que la ficha de un expediente NIIF sea la misma de antes) la conclusión que se apoya
             # en una hipótesis declarada (D-US1, D-WM) o en una ubicación sin contrastar es CONDICIONADA, con su cota; D-US2: se cuentan los pagos y la
@@ -420,7 +424,7 @@ def main():
             ficha["motor_a_f1"]["us_gaap"] = {k: f1r["us_gaap"].get(k) for k in ("base_del_arrendamiento_operativo", "diferencia_coste_lineal_menos_pagos", "D_US2_bis",
                                                                                  "D_WM", "contraste_de_ubicaciones", "puente_de_deuda")}
     pa = SEL.leer(c)
-    if pa is not None and pa.get("version") != SEL.V631:  # (V6.3.1 F1) sin configuración económica: su perímetro está en el bloque motor_a_f1
+    if pa is not None and pa.get("version") not in SEL.FAMILIA_V631:  # (V6.3.1 y V6.3.2 F1) sin configuración económica: su perímetro está en el bloque motor_a_f1
         # (4.11) solo en expedientes V6.4: base, versión, configuración efectiva y límites (los expedientes V6.3 no cambian de ficha)
         conf_e = SEL.configuracion(c) or {}
         cv = (res or {}).get("configuracion_v64") or {}
