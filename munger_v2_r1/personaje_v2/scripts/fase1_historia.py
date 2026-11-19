@@ -244,6 +244,37 @@ def incoherencias_acciones(anios, valores, acciones_meta=None, factor=10.0):
     return out
 
 
+def defecto_acciones_meta(ac):
+    """(examen, zoetis_t1c, Análisis!C55; rama producto/minoritarios-acciones) Las acciones de los metadatos son un número de acciones,
+    no un importe: el redondeo del libro a 3 decimales en mm no vale para ellas (verificacion_entradas, N4). Si los metadatos traen la
+    cifra impresa («impreso», con «unidad»: unidades por omisión, miles o millones), «valor» tiene que ser EXACTAMENTE esa cifra en
+    millones, con todos sus decimales (424.927.535 acciones → 424.927535, no 424,928). Lista de defectos; vacía si no hay o si los
+    metadatos no traen «impreso» (metadatos anteriores a esta regla: sin cambio, la precisión no se comprueba)."""
+    if not isinstance(ac, dict) or ac.get("impreso") is None:
+        return []
+    imp, uni = ac.get("impreso"), ac.get("unidad", "unidades")
+    if not isinstance(imp, str):
+        return [f"acciones_diluidas de los metadatos: «impreso» {imp!r} tiene que ser la cifra tal como se imprime (texto)"]
+    if uni not in ESCALA_EXACTA:
+        return [f"acciones_diluidas de los metadatos: unidad {uni!r} no es una de {list(ESCALA_EXACTA)}"]
+    try:
+        n = numero_exacto(imp)
+    except ValueError as e:
+        return [f"acciones_diluidas de los metadatos: {e}"]
+    exacta = n * ESCALA_EXACTA[uni]
+    if exacta <= 0:
+        return [f"acciones_diluidas de los metadatos: «impreso» {imp!r} no es un número positivo de acciones"]
+    v = ac.get("valor")
+    try:
+        ok = exacto(v) == exacta
+    except (TypeError, ValueError):
+        ok = False
+    if not ok:
+        return [f"acciones_diluidas de los metadatos (Análisis!C55): valor {v!r} no es la cifra impresa «{imp}» ({uni}) en millones = "
+                f"{float(exacta)!r}, con todos sus decimales (un número de acciones no se redondea)"]
+    return []
+
+
 def comprobar_anio(carpeta, anio, pendientes=None):
     """Errores de AR_<año>.json (lista vacía = sin errores). Reparación H1 (8-nov-2026):
       R-a  la `linea` normalizada tiene que estar en su página (sin vía alternativa);
@@ -731,7 +762,7 @@ def construir(carpeta):
     if f1["pendientes_verificacion"]:
         f1["_notas"].append(f"{len(f1['pendientes_verificacion'])} ceros pendientes de verificación (cita sin contrastar, reparación H1): ver historia_revision.md.")
     faltan_meta = [k for k in ("empresa", "ticker", "moneda_modelo", "precio", "acciones_diluidas", "sector_damodaran") if not f1.get(k)]
-    inc_acc = incoherencias_acciones(anios, serie["acciones_diluidas"], meta.get("acciones_diluidas"))
+    inc_acc = incoherencias_acciones(anios, serie["acciones_diluidas"], meta.get("acciones_diluidas")) + defecto_acciones_meta(meta.get("acciones_diluidas"))
     # revisión
     with open(os.path.join(carpeta, "historia_revision.md"), "w", encoding="utf-8") as f:
         f.write(f"# Revisión de la Historia · {f1.get('empresa')}\n\nInformes usados: " + ", ".join(f"{a} {fuentes[a]}" for a in anios) + "\n\n")
