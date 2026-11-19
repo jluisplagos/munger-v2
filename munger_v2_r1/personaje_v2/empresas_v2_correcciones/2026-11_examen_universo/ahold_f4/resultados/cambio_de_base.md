@@ -43,3 +43,7 @@ Revisión: `coordinacion/cierre_v2/examen/revisiones/expedientes_f1/REVISION_AHO
 - Pipeline: se detiene otra vez en el relevo de la fase A (paso 6).
 - `cambiar_base.py comprobar`: CONCUERDA Y SIN RESTOS.
 - `verificacion_entradas.py comprobar`: 465 comprobadas en total · 55 pendientes · 18 desactualizadas (casillas de las fases B y C) · 0 discrepancias · 0 errores · apto por entradas: False.
+
+## Adenda (orquestación, 19-nov-2026, antes de la auditoría)
+
+- `registro_antes_de_auditoria_ahold_f4.json` (guion `scripts/registro_antes_de_auditoria_ahold_f4.py`): 29 hipótesis y convenciones con el texto vigente de las fases de ahold_f4; C38 (Simply Wall St, sin bytes) declarada no material (regla N1) con la prueba de qué celdas la usan, pendiente de que un revisor selle ese juicio. C88 no cambia (derivado de cifras publicadas). 30 entradas pendientes de revisor, extractor «Claude orquestación».
