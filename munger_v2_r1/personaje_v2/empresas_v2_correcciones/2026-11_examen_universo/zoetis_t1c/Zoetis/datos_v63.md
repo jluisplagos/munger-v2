@@ -4,12 +4,12 @@ Volcado automático (volcar_datos_v63.py). Todo lo de aquí es DATO de fase 1 o 
 
 ## 1. Estado técnico del libro
 
-- Motor (Diagnóstico V6!C5): **A** · coherencia tipo/motor: —
+- Motor (Diagnóstico V6!C5): **A** · coherencia tipo/motor: ✓ PASA · tipo y motor coherentes
 - Motor!B255 estado técnico: **INCOMPLETO** · causa principal: Faltan palancas de crecimiento (Palancas B14:D14)
-- Motor!B266 estado del libro: NO LISTO · incompleto (6 pendientes) · B253 comparable precio↔valor: True · B252 bloqueo del valor: True
+- Motor!B266 estado del libro: NO LISTO · incompleto (5 pendientes) · B253 comparable precio↔valor: True · B252 bloqueo del valor: True
 - Moneda del modelo (Control maestro!H4): USD · moneda de cotización (Palancas!C48): USD · unidad: mm · norma contable: US GAAP · ratio ADR (D5): None
-- Causas activas: 1. INCOMPLETO · Faltan palancas de crecimiento (Palancas B14:D14); 2. INCOMPLETO · Faltan márgenes objetivo (Palancas B15:D15); 3. INCOMPLETO · Faltan ventas por euro reinvertido (Palancas B16:D16); 4. INCOMPLETO · Faltan ROIC a largo plazo (Palancas B18:D18); 5. AVISO · Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido; 6. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46); 7. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha; 8. INCOMPLETO · Falta la etapa o el caso especial (Palancas C5, C6); 9. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)
-- Reglas del motor que no están en OK/N/A: V12 INCOMPLETO (Faltan palancas de crecimiento (Palancas B14:D14)); V13 INCOMPLETO (Faltan márgenes objetivo (Palancas B15:D15)); V14 INCOMPLETO (Faltan ventas por euro reinvertido (Palancas B16:D16)); V16 INCOMPLETO (Faltan ROIC a largo plazo (Palancas B18:D18)); V19 AVISO (Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido); V28 AVISO (Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)); V31 AVISO (Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha); C03 INCOMPLETO (Falta la etapa o el caso especial (Palancas C5, C6)); C07 INCOMPLETO (Faltan 3 predicciones (Palancas A38:A40))
+- Causas activas: 1. INCOMPLETO · Faltan palancas de crecimiento (Palancas B14:D14); 2. INCOMPLETO · Faltan márgenes objetivo (Palancas B15:D15); 3. INCOMPLETO · Faltan ventas por euro reinvertido (Palancas B16:D16); 4. INCOMPLETO · Faltan ROIC a largo plazo (Palancas B18:D18); 5. AVISO · Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido; 6. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46); 7. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha; 8. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)
+- Reglas del motor que no están en OK/N/A: V12 INCOMPLETO (Faltan palancas de crecimiento (Palancas B14:D14)); V13 INCOMPLETO (Faltan márgenes objetivo (Palancas B15:D15)); V14 INCOMPLETO (Faltan ventas por euro reinvertido (Palancas B16:D16)); V16 INCOMPLETO (Faltan ROIC a largo plazo (Palancas B18:D18)); V19 AVISO (Probabilidad de quiebra vacía (Palancas C22): se asume 0 por convención, no es un riesgo medido); V28 AVISO (Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)); V31 AVISO (Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha); C07 INCOMPLETO (Faltan 3 predicciones (Palancas A38:A40))
 
 ## 1 bis. Perímetro F1 declarado y vara del foso (P-FOSO (a), 18-nov-2026 (coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md))
 
@@ -50,7 +50,7 @@ Volcado automático (volcar_datos_v63.py). Todo lo de aquí es DATO de fase 1 o 
 | C88 | P/FCF histórico | 47.1 | Dato no verificable | Digrin (precios sin ajustar); XBRL CommonStockSharesOutstanding; estados de flujos | Tabla mensual | NO VERIFICABLE: precios de un tercero (Digrin) sin bytes en el expediente; la revisión del registro no pudo reproducirlo. Valor de la etapa 1 conservado solo como contexto, no como dato verificado; su FCF (CFO − capex) es la definición anterior y no lleva el EBIT corregido. Las variantes de la etapa 1 (rango, media, mediana de 5 años, normalizado, «actual 12,8x») tienen la misma fuente y no se usan. |
 | C96 | Fecha de la evidencia de gestión | — | Dato no verificable | Zoetis · Proxy Statement 2026 | Pág. 92 (Stock Ownership Tables) | Contexto aparte (no son insiders): BlackRock 9,0% (13G/A a 30-jun-2026); Vanguard Capital Management 7,17% y Vanguard Portfolio Management 5,70% (31-mar-2026). Sin accionista de control. Acción pendiente: leer la pág. 92 del proxy. |
 
-FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37): 73.08 USD con fecha 2026-10-08 · Acciones (C55): 424.928 con fecha 2025-12-31 · Capitalización (C41): 31053.7 · Causa de diferencia de capitalización (Palancas!C47): None
+FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37): 73.08 USD con fecha 2026-10-08 · Acciones (C55): 424.928 con fecha 2025-12-31 · Capitalización (C41): 31053.7 · Causa de diferencia de capitalización (Palancas!C47): Ninguna
 
 ## 3. Historia (10 años; una celda vacía es DESCONOCIDO, nunca cero)
 
@@ -90,7 +90,7 @@ FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37
 | roic | 0.177823 | 0.186245 | 0.227089 | 0.233457 | 0.247861 | 0.289812 | 0.261989 | 0.265472 | 0.285794 | 0.283024 |
 | roe | 0.552118 | 0.488136 | 0.653547 | 0.553914 | 0.434598 | 0.448382 | 0.479909 | 0.469081 | 0.521174 | 0.802462 |
 | fcf_accionista | 460 | 1078 | 1399 | 1268 | 1614 | 1678 | 1264 | 1561 | 2223 | 2198 |
-| roic_con_id | — | — | — | — | — | — | — | — | — | — |
+| roic_con_id | 0.210638 | 0.196533 | 0.233949 | 0.227814 | 0.228022 | 0.254646 | 0.227593 | 0.22845 | 0.23838 | 0.230819 |
 
 ### Anclas (Historia C43:C66)
 
@@ -108,7 +108,7 @@ FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37
 | tipo_impositivo_5 | C52 | 0.1997 |
 | s2c_marginal | C53 | 0.808572 |
 | s2c_medio (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis) | C54 | 0.940306 |
-| roic_medio_5 (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis) | C55 | 0.277218 |
+| roic_medio_5 (todo el capital: con F1 en el perímetro declarado, solo frente al sector; ver 1 bis) | C55 | 0.235978 |
 | roe_medio_5 | C56 | 0.544202 |
 | anios_fcf_base | C57 | 3 |
 | f | C58 | 0.0100954 |
@@ -123,10 +123,10 @@ FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37
 
 ## 4. Sector y riesgo país que usa la hoja
 
-- Sector de Damodaran (Palancas!C7): **Drugs (Pharmaceutical)** · etapa (C5): None · caso especial (C6): None · base del margen (C8): None · I+D capitalizada (C9/C10): None / None
+- Sector de Damodaran (Palancas!C7): **Drugs (Pharmaceutical)** · etapa (C5): Madura en crecimiento · caso especial (C6): Intangibles (I+D, marca) · base del margen (C8): Media del ciclo · I+D capitalizada (C9/C10): Sí / 10
 - Crecimiento de ventas del sector (3 años) Q1 / mediana / Q3: 0.039 / 0.104 / 0.189 · media propia (F14): 0.0723887
 - Margen operativo del sector Q1 / mediana / Q3: -0.141447 / 0.0588798 / 0.154828 · media propia (F15): 0.340556
-- ROIC medio del sector (H18): 0.147373 · ROIC 5 años de todo el capital (F18 = C55; ver 1 bis): 0.277218
+- ROIC medio del sector (H18): 0.147373 · ROIC 5 años de todo el capital (F18 = C55; ver 1 bis): 0.235978
 - S2C MEDIO del sector (ventas ÷ capital; medida distinta de la palanca) Q1 / mediana / Q3: 0.406176 / 0.820196 / 1.3765 · propio (F19): 0.940306 · S2C MARGINAL propio (F16, la palanca): 0.808572
 - Tasa sin riesgo (Análisis!C57): 0.0522 · r del inversor (C56, heredada): 0.09 · r mínima (Diagnóstico!C17): 0.108265 · ⚠ REVISAR · tu r (9.0 %) < r mínima (10.8 %) · r operativa del motor B (C15): —
 - Reparto geográfico (Palancas A28:B33): United States 0.5384 (prima 0.00218635); Región · Western Europe 0.1065 (prima 0.00923547); Región · Central and South America 0.0731 (prima 0.0574814); Región · Asia 0.1367 (prima 0.0438939); Canada 0.0306 (prima 0); Región · Australia & New Zealand 0.1147 (prima 0.0148374)
@@ -135,7 +135,7 @@ FCF base (C52, fórmula): 1994 · Peso de la SBC (C59): 0.0350055 · Precio (C37
 
 - Parámetros de la hoja: tolerancia 0.05, corte 0.25, separación máxima de fechas 90 días
 - Reglas V22, V26, V27, V28: V22 OK; V26 OK; V27 OK; V28 AVISO (Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46))
-- f (fugas al accionista, Diagnóstico!C12 = Historia!C58): 0.0100954 · V0: 9467 · m0: 0.378367 · t: 0.1997
+- f (fugas al accionista, Diagnóstico!C12 = Historia!C58): 0.0100954 · V0: 9467 · m0: 0.340556 · t: 0.1997
 
 ## 6. HEREDADO de la etapa 1 (V5.3 decidida por el personaje v1) — hipótesis, no hechos (D3)
 
@@ -180,6 +180,24 @@ Libro: Zoetis_evaluada.xlsx. Cada celda con su Observación v1. El crecimiento d
 | B102 | El foso es una suma de exclusividades de producto que caducan, no una marca que dura: Draxxin perdió el 66 % de sus ventas en EE. UU. desde que llegaron los genéricos en 2021, Excede y Cerenia ya están perdiendo exclusividad y la concentración ha subido (cinco primeros productos del 29 % en 2019 al 42 % en 2025), así que cada vez hay más huevos en menos cestas. El crecimiento reciente fue sobre todo precio (≈5, ≈6 y ≈4 puntos en 2023–25), y el precio que sube más que el valor entregado invita a genéricos, alternativas baratas y a minoristas que, según la propia empresa, pueden impedirle sostener márgenes. Los resultados que la hicieron grande ya han empezado a pararse: US plano en 2025, Librela vendiendo menos y guía orgánica de −3 % a −1 % para 2026, y no sé por qué. El inventario crece más que las ventas en cinco de seis años mientras las provisiones bajan (115 → 97 → 68), lo que puede anticipar cargos; el calendario de 2025 (Fiscal Year Alignment) subió entre un 2,5 % y un 3,5 % las ventas internacionales del 4T25 y la empresa dice que no se repetirá. La dirección se endeudó (principal de 6.650 a 9.150 mm) para recomprar a ≈136 USD de media en 2025 y la autocartera costó ≈139 USD por acción frente a 73 hoy; el IRS reclama ≈450 mm. Si el FCF cae como en el escenario malo, 73 USD vale ≈49 y la mediana histórica de 47x FCF no vuelve: se puede perder un tercio de forma permanente. | [Clase: fundamentada] [Confianza: media] Apoyo: Intento defender el No mejor que un bajista y con hechos del extracto: «What's the flip side, what can go wrong that I haven't seen?» (TCI p.15; HIM). Lo que no he podido ver (fechas de patente, causa de 2026, proxy) está en la sección 2. Lo sustituiría: añadiría lo que diga la prueba de deterioro del 30-sep-2026. |
 | C103 | No | [Clase: fundamentada] [Confianza: media] Apoyo: Leo un foso de productos con exclusividad que hay que renovar con I+D; Draxxin muestra cómo acaba una franquicia, y la concentración sube (cinco primeros del 29 % al 42 % en 2019–25). La idea de «if you can buy a few great companies then you can sit on your ass» (PCA pp.85–86; HIM) pide un negocio que no dependa de renovar patentes cada década; este, creo, no lo es. Lo sustituiría: Sí, si veo años de ventas sostenidas tras pérdidas de exclusividad en productos de compañía. |
 | C104 | 0% · Watchlist · precio de Sí ≈ 49 USD (estimación) | [Clase: convención] [Confianza: alta] Apoyo: El tamaño es decisión del inversor; con VIGILAR, 0 % y lista de seguimiento con el precio de Sí estimado (≈49 USD; el script recalcula el exacto). Si llegara a Sí, la posición debería ser grande. Sin prisa: «Missing out on some opportunity never bothers us» (TCI p.57; HIM). Lo sustituiría: el tamaño que elija el inversor si el cubo pasa a Sí. |
+## 7. REFERENCIAS MECÁNICAS por palanca (convención del ejercicio, Anexo B §B.2; NO son estimaciones de Damodaran)
+
+Versión de las reglas: 0.2.1 · motor A · tasa del motor 0.09 · rf 0.0522. La fase B parte de aquí y se desvía con motivo; la clase «sin juicio propio» solo puede copiar una referencia disponible.
+
+| Palanca | MALO_ref | NORMAL_ref | BUENO_ref | Regla / motivo de no disponibilidad | Anclas usadas | Criterio relacionado (no respalda la cifra) |
+|---|---|---|---|---|---|---|
+| crecimiento_1_5 | 0.03 | 0.07 | 0.11 | NORMAL = CAGR 5a acotado a [Q1, Q3]; MALO = mín(NORMAL, máx(mín(Q1, NORMAL − σ), −0,10)); BUENO = máx(NORMAL, mín(NORMAL + σ, Q3, 1,5 × CAGR)) | {"cagr_5": 0.0723886810840868, "fuente": "Historia!C46 (CAGR 5 años de ventas)", "sector_q1": 0.039, "sector_mediana": 0.104, "sector_q3": 0.189, "sigma": 0.04054754308924379, "sigma_nota": "σ muestral de 9 tasas anuales = 0.0405"} | E4 (el pasado predice mal); I1 (el crecimiento se paga con reinversión) |
+| margen_objetivo | 0.34 | 0.34 | 0.34 | NORMAL = m0 (último año o media del ciclo según C8); MALO = máx(mín(m0, media), mínimo); BUENO = máx(m0, mín(máximo histórico, Q3 sector)); si m0 ya es el máximo, BUENO = m0 | {"m0": 0.340556331360566, "base": "Media del ciclo", "media": 0.340556331360566, "min": 0.28518821603928, "max": 0.378366958909898, "sector_q3": 0.154827605048904, "fuente": "Historia!C48 / C49 (según Palancas!C8), C50, C51 y Sector Q3"} | E2 (la competencia muerde los márgenes); E5 (cíclicas); E7 (comprobar contra la historia) |
+| s2c | 0.6 | 0.8 | 1 | NORMAL = Historia!C53 con tope (rentabilidad marginal ≤ 2× ROIC histórico); MALO = 0,75 × NORMAL; BUENO = 1,25 × NORMAL con el mismo tope | {"s2c_marginal_C53": 0.808572256009267, "roic_medio_5_C55": 0.23597771531463, "tipo_impositivo_C52": 0.1997} | I1 (reinversión = Δventas ÷ S2C); la banda ±25 % es convención del ejercicio |
+| g_perpetuo | 0.015 | 0.025 | 0.03 | NORMAL = mín(0,025; rf) ajustado a la lista; MALO = NORMAL − 0,01 (suelo 0); BUENO = mín(NORMAL + 0,005; rf; 0,03); siempre < tasa del motor | {"rf_C57": 0.0522, "tasa_del_motor": 0.09, "etapa_C5": "Madura en crecimiento"} | E1 (g estable ≤ rf, orientación); N1 (g < tasa del motor) |
+| roic_lp | 0.09 | 0.09 | 0.12 | NORMAL = MALO = tasa del motor (convención: sin retornos en exceso a perpetuidad como caso neutro; no una ley); BUENO = mín(ROIC medio 5a, Análisis!C56 + 0,10), y la tasa si el histórico es menor | {"tasa_del_motor": 0.09, "roic_hist": 0.23597771531463, "C56": 0.09, "sector_roic_media_H18_solo_contexto": 0.147372832071721} | E2, E3; I2 (reinversión terminal g ÷ ROIC); el tope sobre la tasa es config referencias_mecanicas.roic_lp_bueno_tope_sobre_c56 (0,03 desde v2.1, MR pp. 62–63) |
+| probabilidades | 0.2 | 0.6 | 0.2 | 0,2 / 0,6 / 0,2 (convención del ejercicio, S-6) | {} | E6 (suman 1 si cubren el rango) |
+
+- Quiebra (C22/C23): referencia 0.05 / 0 · disparadores: deuda + arrendamientos (Historia!C64 = 9049) > 3 × FCF base (1994.001) · vacío (= 0) salvo disparador; con disparador 0,05 como convención y obligación de argumentar; C23 = 0
+- Exceso de caja (C76): 0 · Tamaño de mercado (C24): solo con cifra de fuente primaria en los extractos
+- Rentabilidad marginal implícita (S2C × margen × (1 − t)) y salto del año 11 con las referencias: {"MALO": {"rentabilidad_marginal": 0.16326120000000002, "roic_lp_ref": 0.09, "salto_anio_11": 0.07326120000000003}, "NORMAL": {"rentabilidad_marginal": 0.21768160000000003, "roic_lp_ref": 0.09, "salto_anio_11": 0.12768160000000003}, "BUENO": {"rentabilidad_marginal": 0.272102, "roic_lp_ref": 0.12, "salto_anio_11": 0.15210200000000001}}
+- Notas del cálculo: roic_lp: P-FOSO (perímetro F1 A2_propio): el ROIC del capital propio pagado todo el alquiler no está disponible o sus intereses de arrendamiento no pasan la comprobación de la fuente: se usa C55 (todo el capital), que cruza perímetros
+
 ## 8. DATOS AUSENTES no bloqueantes (entrada de la revisión de la fase C, S-19)
 
 | Dato | Nivel | De dónde debería venir | Nota |
