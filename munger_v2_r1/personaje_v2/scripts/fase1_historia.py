@@ -32,6 +32,7 @@ import json
 import os
 import re
 import sys
+from fractions import Fraction
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.normpath(os.path.join(AQUI, ".."))
@@ -44,6 +45,8 @@ CON_SIGNO = {"ebit", "ebit_derivado", "beneficio_neto", "bai", "cfo", "patrimoni
 OPCIONALES = ["ebit_derivado"]
 ESENCIALES = ["ventas", "ebit", "beneficio_neto", "cfo", "capex", "patrimonio", "caja", "acciones_diluidas"]
 ESCALA = {"unidades": 1e-6, "miles": 1e-3, "millones": 1.0}
+# (redondeo exacto) la misma escala, exacta: los importes de la Historia se calculan con fracciones desde la cifra impresa
+ESCALA_EXACTA = {"unidades": Fraction(1, 10 ** 6), "miles": Fraction(1, 10 ** 3), "millones": Fraction(1)}
 # (4.14, tercera empresa) también los informes en francés (Elis: Document de référence 2016 y Document d'enregistrement universel 2024)
 CLAVE_ESTADOS = re.compile(r"balance sheet|statement of financial position|cash flow statement|statement of cash flows|estado de flujos|balance consolidado|estado de situaci"
                            r"|[ée]tat de la situation financi[èe]re|tableau des flux de tr[ée]sorerie|bilan consolid[ée]", re.I)
@@ -58,11 +61,11 @@ def norm(s):
     return re.sub(r"\s+", " ", str(s).replace("−", "-").replace("–", "-").replace("—", "-")).strip()
 
 
-def numero(s):
-    """'1,125,977' · '(12.345)' · '-8,580' · '3.463' · '–' → float. Separadores de miles con coma o punto; sin decimales en los estados."""
+def _cifra_impresa(s):
+    """(negativo, cifra decimal en texto sin separadores) de una cifra impresa; None si es un guion o está vacía (cero)."""
     s = norm(s)
     if s in ("-", "", "—"):
-        return 0.0
+        return None
     neg = s.startswith("(") or s.startswith("-")
     d = s.strip("()-+ ")
     if re.fullmatch(r"\d{1,3}( \d{3})+([.,]\d{1,2})?", d):  # (14-nov) miles con espacio: «4 573,7» (informes en francés)
@@ -71,10 +74,52 @@ def numero(s):
         raise ValueError(f"no numérico: {s!r}")
     m = re.fullmatch(r"(.*?)([.,])(\d{1,2})", d)
     if m and not re.fullmatch(r"\d{1,3}([.,]\d{3})+", d):  # decimales reales (p. ej. 11.37)
-        v = float(re.sub(r"[.,]", "", m.group(1)) + "." + m.group(3))
-    else:
-        v = float(re.sub(r"[.,]", "", d))
-    return -v if neg else v
+        return neg, re.sub(r"[.,]", "", m.group(1)) + "." + m.group(3)
+    return neg, re.sub(r"[.,]", "", d)
+
+
+def numero(s):
+    """'1,125,977' · '(12.345)' · '-8,580' · '3.463' · '–' → float. Separadores de miles con coma o punto; sin decimales en los estados."""
+    c = _cifra_impresa(s)
+    if c is None:
+        return 0.0
+    v = float(c[1])
+    return -v if c[0] else v
+
+
+def numero_exacto(s):
+    """(redondeo exacto) La misma lectura que numero(), pero exacta: la cifra impresa como fracción, sin pasar por coma flotante."""
+    c = _cifra_impresa(s)
+    if c is None:
+        return Fraction(0)
+    v = Fraction(c[1])
+    return -v if c[0] else v
+
+
+def exacto(x):
+    """(redondeo exacto) Fracción exacta de un número: un float se toma por su representación decimal (repr), como el contraste de las
+    entradas (verificacion_entradas). Un texto no es un número aquí (la cifra impresa se lee con numero_exacto)."""
+    if isinstance(x, Fraction):
+        return x
+    if isinstance(x, bool) or not isinstance(x, (int, float)):
+        raise TypeError(f"no es un número: {x!r}")
+    if isinstance(x, float):
+        if x != x or x in (float("inf"), float("-inf")):
+            raise ValueError(f"no es un número finito: {x!r}")
+        return Fraction(repr(x))
+    return Fraction(x)
+
+
+def redondear(x, n):
+    """(redondeo exacto) ROUND de la hoja de cálculo (LibreOffice/Excel): n decimales, mitad lejos de cero, calculado EXACTO sobre la
+    fracción (no sobre un float ya dividido, que convertía 7,03515 en 7,0351499… y lo redondeaba a 7,0351). Devuelve float."""
+    fx = exacto(x)
+    q = Fraction(10) ** n
+    y = abs(fx) * q
+    e = int(y)
+    if y - e >= Fraction(1, 2):
+        e += 1
+    return float(Fraction(e if fx >= 0 else -e) / q)
 
 
 def componentes(x):
@@ -391,7 +436,7 @@ def calcular_entrada(celda, d, H, anios, carpeta=None):
     por_anio, fuentes, pend = [], [], set()
     for a in sel:
         i = anios.index(a)
-        tot = 0.0
+        tot = Fraction(0)  # (redondeo exacto) suma exacta de las cifras declaradas (repr decimal), redondeada una vez con ROUND de la hoja
         for t in terms:
             if not isinstance(t, dict):
                 raise ValueError(f"término no válido: {t!r}")
@@ -437,10 +482,11 @@ def calcular_entrada(celda, d, H, anios, carpeta=None):
                                + f" ({cmp['fuente']} p.{cmp['pagina']})")
             else:
                 raise ValueError(f"término sin partida ni componente: {t}")
-            tot += sg * v
+            tot += sg * exacto(v)
         por_anio.append(tot)
-    bruto = sum(por_anio) / len(por_anio) if op == "media" else sum(por_anio)
-    val = round(bruto, red)
+    bruto_exacto = sum(por_anio, Fraction(0)) / len(por_anio) if op == "media" else sum(por_anio, Fraction(0))
+    val = redondear(bruto_exacto, red)
+    bruto = float(bruto_exacto)
     if d.get("valor") is not None and not (isinstance(d["valor"], (int, float)) and not isinstance(d["valor"], bool) and abs(d["valor"] - val) <= 1e-9 * max(1.0, abs(val))):
         raise ValueError(f"el valor declarado {d['valor']!r} no es el calculado {val!r}")
     desc = " ".join(("+" if t.get("signo", 1) == 1 else "−") + " " + (t.get("partida") or t.get("componente")) for t in terms).lstrip("+ ")
@@ -476,30 +522,31 @@ def construir(carpeta):
     AR = {a: json.load(open(os.path.join(carpeta, "fase1_partes", f"AR_{a}.json"), encoding="utf-8")) for a in anios}
 
     def leer(a, k, cual):
-        """(valor_mm, fuente, cero_motivo) del informe a, columna cual; valor None si no hay."""
+        """(valor_mm, fuente, cero_motivo) del informe a, columna cual; valor None si no hay. (redondeo exacto) valor_mm es una fracción
+        exacta: la cifra impresa (texto) por su signo y su escala, sin coma flotante; se redondea una sola vez, al escribir la serie."""
         d = AR[a]
         p = (d["partidas"] or {}).get(k) or {}
-        esc = ESCALA[d["unidad"]]
+        esc = ESCALA_EXACTA[d["unidad"]]
         comps = componentes(p.get(cual))
         if comps:
             if k == "circulante_lineas":
-                v = -sum(numero(c["impreso"]) * c.get("signo", 1) for c in comps)
+                v = -sum((numero_exacto(c["impreso"]) * c.get("signo", 1) for c in comps), Fraction(0))
             else:
-                v = sum(numero(c["impreso"]) * c.get("signo", 1) for c in comps)
+                v = sum((numero_exacto(c["impreso"]) * c.get("signo", 1) for c in comps), Fraction(0))
             if k == "acciones_diluidas":
                 # (examen, Ahold) la unidad declarada por el extractor manda: con más de 1.000 millones de acciones («1,031» en
                 # millones) la regla por tamaño las tomaba como miles y las dividía por mil. Sin declaración, la regla de siempre.
-                if isinstance(p.get("unidad"), str) and p["unidad"] in ESCALA:
-                    v = v * ESCALA[p["unidad"]]
+                if isinstance(p.get("unidad"), str) and p["unidad"] in ESCALA_EXACTA:
+                    v = v * ESCALA_EXACTA[p["unidad"]]
                 else:
-                    v = v / 1e6 if abs(v) > 1e5 else (v / 1e3 if abs(v) > 1e3 else v)
+                    v = v / 10 ** 6 if abs(v) > 10 ** 5 else (v / 10 ** 3 if abs(v) > 10 ** 3 else v)
             else:
                 v = v * esc
             pags = sorted({c["pagina"] for c in comps})
             return v, f"{d['archivo']} p.{','.join(map(str, pags))}", None
         cz = p.get("cero")
         if cz and cual == "actual":
-            return 0.0, f"{d['archivo']} p.{cz['pagina']} (cero: {cz['motivo']})", cz["motivo"]
+            return Fraction(0), f"{d['archivo']} p.{cz['pagina']} (cero: {cz['motivo']})", cz["motivo"]
         return None, None, None
 
     def ajustar(k, v):
@@ -521,8 +568,8 @@ def construir(carpeta):
             if a + 1 in AR:
                 v2, f2, _ = leer(a + 1, k, "anterior")
                 if v2 is not None:
-                    if v is not None and abs(abs(v2) - abs(v)) > max(0.0005 * max(abs(v), 1), 0.0005):
-                        rev.append(f"- **{k} {a}**: informe {a} = {round(ajustar(k, v), 3)} · comparativo del informe {a + 1} = {round(ajustar(k, v2), 3)} → se usa el más reciente ({f2}). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe {a + 1}: «{(AR[a + 1].get('reexpresion') or 'sin nota de reexpresión')[:200]}»")
+                    if v is not None and abs(abs(float(v2)) - abs(float(v))) > max(0.0005 * max(abs(float(v)), 1), 0.0005):
+                        rev.append(f"- **{k} {a}**: informe {a} = {redondear(ajustar(k, v), 3)} · comparativo del informe {a + 1} = {redondear(ajustar(k, v2), 3)} → se usa el más reciente ({f2}). Reexpresión, reclasificación o definición distinta: revisar si la diferencia es grande. Informe {a + 1}: «{(AR[a + 1].get('reexpresion') or 'sin nota de reexpresión')[:200]}»")
                     v, f, usado, cz = v2, f2 + " (comparativo del informe siguiente)", "siguiente", None
             # H1: el valor usado es un cero del propio informe con cita sin contrastar → PENDIENTE, salvo decisión humana válida
             pendiente = bool(cz) and (k, a) in pend_ar_idx
@@ -544,7 +591,7 @@ def construir(carpeta):
                 rev.append(f"- **{k} {a}**: fijado a mano en fase1_decisiones.json = {v} ({f})")
                 serie[k].append(v)
             else:
-                serie[k].append(None if v is None else round(ajustar(k, v), 4))
+                serie[k].append(None if v is None else redondear(ajustar(k, v), 4))  # (redondeo exacto) ROUND de la hoja sobre la cifra exacta
             if pendiente:
                 pend_usados.setdefault(k, []).append(a)
                 f = (f or "") + " (CERO PENDIENTE DE VERIFICACIÓN: cita sin contrastar)"
@@ -554,7 +601,7 @@ def construir(carpeta):
     if all(v is not None for v in serie["ebit_derivado"]):
         difs = [(a, i, d) for a, i, d in zip(anios, serie["ebit"], serie["ebit_derivado"]) if i is not None and abs(i - d) > max(0.005 * abs(d), 0.001)]
         for a, i, d in difs:
-            rev.append(f"- **ebit {a}**: subtotal impreso = {round(i, 3)} · derivado (BAI − resultado financiero) = {round(d, 3)} → se usa el derivado los diez años (misma definición)")
+            rev.append(f"- **ebit {a}**: subtotal impreso = {redondear(i, 3)} · derivado (BAI − resultado financiero) = {redondear(d, 3)} → se usa el derivado los diez años (misma definición)")
         serie["ebit"], fuente["ebit"], ebit_metodo = serie["ebit_derivado"], fuente["ebit_derivado"], "derivado"
     elif any(v is not None for v in serie["ebit_derivado"]) or any(v is None for v in serie["ebit"]):
         rev.append("- **AVISO EBIT**: no hay EBIT derivado los diez años; se usa el subtotal impreso donde existe. Revisar que la definición sea la misma todos los años.")
@@ -562,11 +609,11 @@ def construir(carpeta):
     tipo = []
     for i in range(len(anios)):
         t, b = serie["impuestos"][i], serie["bai"][i]
-        tipo.append(round(t / b, 4) if t is not None and b not in (None, 0) and b > 0 else None)
+        tipo.append(redondear(exacto(t) / exacto(b), 4) if t is not None and b not in (None, 0) and b > 0 else None)
     caja = list(serie["caja"])
     conv = (meta.get("convenciones") or {})
     if conv.get("caja_incluye_otros_activos_financieros"):
-        caja = [None if c is None else round(c + (o or 0.0), 4) for c, o in zip(serie["caja"], serie["otros_activos_financieros"])]
+        caja = [None if c is None else redondear(exacto(c) + exacto(o or 0), 4) for c, o in zip(serie["caja"], serie["otros_activos_financieros"])]
     H = {}
 
     origen = {"circulante": "circulante_lineas"}
@@ -631,7 +678,7 @@ def construir(carpeta):
     for celda, k in (("C46", "cfo"), ("C47", "capex"), ("C48", "intereses_financiacion"), ("C49", "arrendamientos_principal"), ("C50", "sbc")):
         ult = serie[k][-n_fcf:]
         if celda not in f1["analisis"] and len(ult) == n_fcf and all(v is not None for v in ult):
-            f1["analisis"][celda] = {"valor": round(sum(ult) / n_fcf, 3), "fuente": f"Historia de fase1_v63.json, media {anios[-n_fcf]}–{anios[-1]} de {k}: " + "; ".join(fuente[k][-n_fcf:])[:400], "pagina": None, "periodo": f"{anios[-n_fcf]}–{anios[-1]}", "unidad": "mm"}
+            f1["analisis"][celda] = {"valor": redondear(sum(map(exacto, ult), Fraction(0)) / n_fcf, 3), "fuente": f"Historia de fase1_v63.json, media {anios[-n_fcf]}–{anios[-1]} de {k}: " + "; ".join(fuente[k][-n_fcf:])[:400], "pagina": None, "periodo": f"{anios[-n_fcf]}–{anios[-1]}", "unidad": "mm"}
     # H1 (cierre): el pendiente se propaga a TODA celda de datos de Análisis que dependa de la Historia en su ventana, también si ya
     # venía en fase1_metadatos.json (caso B: una media de la misma Historia). Una fuente independiente solo se libra con un
     # respaldo explícito y trazable (`independiente`: fuente con página, fecha, persona, motivo); declararla no basta.
@@ -656,7 +703,7 @@ def construir(carpeta):
         e["pendiente_verificacion"] = sorted(set(pend_c) | set(e.get("pendiente_verificacion") or []))  # (4.15) sin perder los del cálculo
         e["nota"] = ((e.get("nota") or "") + f" Depende de la Historia con ceros pendientes en {', '.join(map(str, pend_c))}." + aviso_pend(pend_c)).strip()
     if not f1.get("capitalizacion") and f1.get("precio") and f1.get("acciones_diluidas"):
-        f1["capitalizacion"] = {"valor": round(f1["precio"]["valor"] * f1["acciones_diluidas"]["valor"], 1), "fecha": f1["precio"].get("fecha"), "fuente": "precio × acciones diluidas"}
+        f1["capitalizacion"] = {"valor": redondear(exacto(f1["precio"]["valor"]) * exacto(f1["acciones_diluidas"]["valor"]), 1), "fecha": f1["precio"].get("fecha"), "fuente": "precio × acciones diluidas"}
     f1["_notas"] = ["Historia construida por scripts/fase1_historia.py (pieza 7); revisión completa en historia_revision.md."] + list(meta.get("_notas") or [])
     f1["pendientes_verificacion"] = [dict(pend_ar_idx[(k, a)]) for k in sorted(pend_usados) for a in pend_usados[k]]
     if confirmados:
