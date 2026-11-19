@@ -1,4 +1,4 @@
-# Zoetis Inc. (ZTS) · fase C · turno 1
+# Zoetis Inc. (ZTS) · fase C · turnos 1 y 2
 
 ## 1. Una sola historia
 
@@ -55,3 +55,43 @@ La lista `hipotesis_sin_fundamento` está vacía. Ninguna palanca, probabilidad,
 ## 8. La hipótesis que más condiciona
 
 Análisis!C12 y su traducción en Palancas!B18:D18: cuánto duran Simparica y Apoquel frente a competidores que ya les quitan cuota. Ningún documento de hoy lo resuelve solo. Reabrirían el análisis tres cosas. Las fechas de exclusividad de las cuatro franquicias: el 10-K 2025 PDF p. 17 solo las da para Excede y Cerenia, así que hay que preguntarlas a Relación con Inversores. El nombre y el producto del competidor que gana cuota en dermatología. Y dos o tres trimestres de cuota estable de dermatología y Simparica Trio en clínicas de EE. UU., con precio realizado positivo (presentaciones del T3 2026 al T2 2027).
+
+## 9. Comprobación conjunta y conclusión (turno 2)
+
+No existe `comprobacion_conjunta.json`: la comprobación no procedía (lista D10 vacía, conclusión no favorable) y `sobrevive` queda `null`. `resultado = no_procede`.
+
+**Estado `concluido` (provisional hasta la auditoría) · cubo Demasiado difícil · acción `demasiado_dificil`**, sin precio objetivo.
+
+Dos datos ausentes son materiales para una conclusión favorable (`alguno_material = true`): las fechas de exclusividad y el competidor de dermatología. No llevan a `pendiente_de_datos`. En el orden de mando de la sección 15, el descalificador (3) va antes que el dato ausente material (4). S-19 deja que `demasiado_dificil` conviva con datos ausentes cuando digo por qué no lo afectan. Aun con esos datos, juzgar si la I+D y los productos nuevos sustituyen a los que pierden cuota sigue fuera de mi competencia. Un cubo Vigilar diría lo contrario de C12 = No: que está en el círculo. No lo está.
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: demasiado difícil · zona cumple_regla_k · precio de Sí ≤ 73.27 · precio esc. MALO 57.20 · ponderado 82.91 · fundamento no procede (conclusión no favorable)». Sin porcentajes: el tamaño de la posición es de José Luis.
+
+C93 = Sí. Crecer un 2,5 % para siempre con ROIC 0,08 pide reinvertir ≈31 % del beneficio operativo, y hay dónde. Con el ROIC en la tasa, g casi no mueve el valor (±0,5 puntos = 1,42 USD). C103 = No: es un foso de producto que hay que rehacer cada década.
+
+## 10. Tesis
+
+Zoetis vende medicinas, vacunas y diagnóstico para animales, sobre todo para perros y gatos. Sus franquicias con exclusividad le dejaron subir el precio cada año y llevar el margen EBIT del 28,5 % al 37,8 % (Historia!C29:L29). La caja es real y la deuda no mata (1,90x, Análisis!C33). Pero el valor depende de cuánto duran Simparica y Apoquel (28 % de los ingresos, 10-K 2025 PDF p. 44) frente a competidores que ya quitan 10 puntos de cuota en dermatología con la franquicia protegida (pres. T2 2026 PDF p. 6). Eso no sé juzgarlo. El precio cumple la regla por 0,19 USD, una frontera que mueve un redondeo y que no decide nada.
+
+## 11. Tesis inversa
+
+El foso es una suma de exclusividades que caducan. Draxxin perdió el 66 % tras el genérico (10-K 2025 PDF p. 42), y en 2026 la erosión llega sin genérico: dermatología −10 puntos de cuota, compañía en EE. UU. −11 % (10-Q T2 2026 PDF p. 33), Apoquel compitiendo por precio con rebajas (call T2 2026 PDF p. 8 y 12) y la guía rebajada en tres meses. El crecimiento de 2023–25 fue sobre todo precio, que es lo que ahora se pierde. El margen de 2025 llevó ayudas que no se repiten (10-K 2025 PDF p. 47 y 49). La concentración sube: los cinco primeros productos pasan del 37 % al 42 % de los ingresos. La dirección se endeudó para recomprar a ≈134 en 2025 y a ≈105 en 2026, frente a 73,08 hoy. Mi MALO (57,20) no es un suelo: no incluye que Simparica y Apoquel caigan como Draxxin (≈18 % de los ingresos, derivado).
+
+## 12. Predicciones (dado el NORMAL; comprobación el 2028-03-01, 10-K 2027)
+
+1. Ingresos de 2027 ≥ 9.500 millones de USD. Probabilidad 0,7.
+2. Ingresos de la categoría dermatología de 2027 ≥ 1.600 millones de USD. Probabilidad 0,5: está en el filo.
+3. Margen EBIT de 2027 (resultado antes de impuestos más intereses, sobre ingresos) ≥ 33 %. Probabilidad 0,75.
+
+Las tres separan el NORMAL del MALO y se falsan con el 10-K.
+
+## 13. Qué me haría cambiar de cubo
+
+- **A Vigilar**: las fechas de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela posteriores a 2030, el competidor de dermatología identificado y dos o tres trimestres de cuota estable con precio realizado positivo.
+- **A Sí**: solo después de pasar por Vigilar, con holgura frente al precio de Sí recalculado y con recompras pagadas con caja propia.
+- **A No**: que la cuota de dermatología baje de ≈80 % en 2027, que Simparica Trio empiece a caer como dermatología, que los ingresos de 2027 queden por debajo de los de 2025, o que siga recomprando con deuda.
+
+Lo más cerca de mí de los dos errores opuestos sigue siendo pagar por la calidad que tuvo. «I know it's wonderful, but is it wonderful enough to justify that big a premium?» (DR p.308; HIM).
+
+## 14. Comparación con la etapa 1
+
+Etapa 1: Vigilar con un precio de Sí de ≈49 USD, estimado sin la hoja, con un MALO de FCF −2 % al año y motor A. V2: Demasiado difícil con un precio de Sí de 73,27, calculado con la escalera k = 3 y el motor B. El precio de Sí sube por dos razones: la regla es otra y mi MALO es menos duro en caja. No hay más optimismo sobre el foso. El cubo cambia por C12. La etapa 1 lo dejó en Sí con un argumento de precio. Ella misma escribió que, si no conseguía las fechas de exclusividad, el cubo pasaría a demasiado difícil. Las fechas siguen sin publicarse (extracto §9), y el T2 2026 añadió la pérdida de cuota medida.
