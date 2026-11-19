@@ -273,6 +273,7 @@ componentes: es otro cambio.
 | efecto nulo (`scripts/comprobar_efecto_nulo.py`, código `ebf47fc` frente al nuevo) | ahold_f3, jumbo_g, zoetis_t1c y vinci/Vinci **idénticos** salvo versión y fecha (`resultados/efecto_nulo_expedientes.json`) |
 | diagnóstico de VINCI sobre una copia (§6) | las mismas cifras; F1-CIRC conforme con el cálculo de C46 (`resultados/diagnostico_vinci_circulante.{json,md}`) |
 | ensayo de la receta de `vinci_b` sobre una copia del árbol (§7 bis) | paso 6; C46 con su cálculo en `fase1_v63.json`; previsión F1: nada bloquea, F1-CIRC conforme (`resultados/ensayo_vinci_b/`) |
+| `flock … bash verificar_paquete.sh rapida` sobre una copia limpia de `3b971c4` (`git archive` más los 1.060 binarios del manifiesto, copiados con su huella; en `/dev/shm`, borrada después) | manifiesto `9863 archivos · modificados 6 · ausentes 0 · de más 14`: son exactamente los 20 archivos de jumbo_g de `ebf47fc` que este cambio no acepta → `RESULTADO manifiesto: FALLA`; los demás bloques PASAN: entorno, piloto, comprobadores `114/114`, normalización del circulante `98/98`, F1-SERIES `80/80`, redondeo `44/44`, acciones `30/30`, P-FOSO `72/72`, entradas dependientes `51/51`; `RESULTADO GLOBAL: FALLA (1 bloques)`, solo por el manifiesto de jumbo_g (`resultados/verificacion_rapida_3b971c4.txt`). Después de `3b971c4` solo cambian este documento, ese registro y el manifiesto |
 
 | Sonda del revisor (caja base que cuenta el circulante, normalización declarada y partidas C46 −2.090 / +2.090 del documento «x») | `fbb146d` | corrección C1 |
 |---|---|---|
