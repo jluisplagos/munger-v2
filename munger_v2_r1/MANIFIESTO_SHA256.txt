@@ -1,4 +1,4 @@
-# MANIFIESTO SHA-256 · munger_v2_r1 · 4.15 · F1 · examen/expedientes-f1 f55754c: integración de producto/minoritarios-acciones 2a323b8 (acciones exactas de los metadatos, Análisis!C55; revisión independiente CONFORME en la ronda 2, coordinacion/cierre_v2/examen/revisiones/minoritarios_acciones/REVISION.md) sobre aaa2802; productos aceptados: solo personaje_v2/scripts/fase1_historia.py, personaje_v2/prompts/metadatos_fase1.md, personaje_v2/pruebas/test_acciones_metadatos_exactas.py y verificar_paquete.sh; el resto de los cambios respecto del manifiesto anterior (141 archivos de expedientes del examen: ahold_f3, jumbo_g, zoetis_t1c, configuracion) solo se listan, no los acredita esta integración; copia limpia (git archive) con los 1059 binarios del manifiesto anterior; uso supervisado experimental, no apto para dinero real · 9687 archivos (todos salvo este). Formato: «huella  ruta».
+# MANIFIESTO SHA-256 · munger_v2_r1 · 4.15 · F1 · rama producto/entradas-dependientes sobre examen/expedientes-f1 1fc9359 (entradas declaradas que dependen de una celda de juicio: recálculo determinista tras la fase B en el paso 9; scripts/entradas_dependientes.py nuevo, pipeline.py, cierre_v2.py y cambiar_base.py; prueba pruebas/test_entradas_dependientes.py con bloque propio en verificar_paquete.sh); respecto del manifiesto de 1fc9359 solo cambian estos seis archivos (al integrar se aceptan estos, no el manifiesto entero); copia limpia (git archive) con los 1059 binarios del manifiesto anterior; uso supervisado experimental, no apto para dinero real · 9689 archivos (todos salvo este). Formato: «huella  ruta».
 e447e87943d869dda905cd65427ac336160348d91813721af39a0724d134d25a  CAMBIOS_ARCHIVOS.txt
 56e37708c24cf6bc06d721277aff1912cacbf3a730e64d18a72324153c40a27a  CONTINUIDAD.md
 c65f44d21ef05309d5f443b267ed50d20ebd7d6bfe6a89dad486513dd4cf2b6c  LEEME_REPARACION_H1-H3.md
@@ -9508,6 +9508,7 @@ ed39b08c99600322ad94d9aecc9e0dbb2ce7688d1ac06d56a7de318f9c2abfe5  personaje_v2/p
 970cc094fc3ad2b4f882ee55d3210b8675378295fa70309083e6bdf48f389c87  personaje_v2/pruebas/test_cierre_v2.py
 4d61b494d268e22a6f872c5fbba4c1fea826e331e5e7ad978e6132881f44f6c8  personaje_v2/pruebas/test_comprobadores.py
 9aa861c6922f479336c89a81ae8054ba83975b99682a869235d49d848e7c4ad2  personaje_v2/pruebas/test_entrada_efectiva_415.py
+529ab046e83851b0813508545587ec3bb5aade3cf4d9a50edd72b4efb65ba8bb  personaje_v2/pruebas/test_entradas_dependientes.py
 ec19625693c722c57ce5dfe22701780683abdd2bf85a5c62ecf7a3937b62cc20  personaje_v2/pruebas/test_estados_v2.py
 21b959e128d8ca29467bd78f9db701a6ce6fbd5720a4a3b24a00c6c59224c6c4  personaje_v2/pruebas/test_f1_series_escala.py
 f1c4b51dc72e75dd32a4181ef2c17382e0d9bfa0edf82b6fd853dbaabb3e3cb5  personaje_v2/pruebas/test_integracion_v64.py
@@ -9527,9 +9528,9 @@ e14147d07586d51848c8c0786b0357078227a091fb9c9c3e9de66cd1ca07724f  personaje_v2/p
 88c62dfcd9a127b7e2662cfcb8a42acbc384519dff370a7ea4fa8508292acf9f  personaje_v2/pruebas/test_verificacion_entradas_415.py
 566cc87b8bfa37f3b6bd015c5ffc2af31f3a3a14324f851cc43e7bff927d4665  personaje_v2/pruebas/test_vigencia_h5.py
 a0215ca7dca2f44f0e65a0d070e4585227f10967b087830f88ab8768d7fbc738  personaje_v2/scripts/acreditar_libro.py
-2661f9baa48ed1ea1b3d997548d82ddaec3e208112ca1805e0f99bb6504406c3  personaje_v2/scripts/cambiar_base.py
+633a68bbd214d2bc86872530aa8729953443d1aa519ca099ccf10ae680ea2fd8  personaje_v2/scripts/cambiar_base.py
 01f5fdcc5a60c384d74cb3490d4ca91ec2db2ddbb93a34a8aca89f2c568a993e  personaje_v2/scripts/celdas_v2.py
-e1c45d1e8670d09735050ca60dc1de97b9b2380f786a5bc161898cd32312fcf2  personaje_v2/scripts/cierre_v2.py
+eccebb7bbe4b0164e8c6184708c2130e065f49e15eca0544083e8c46cb68431b  personaje_v2/scripts/cierre_v2.py
 c9a36ea75c86fcb961879d52e0c3c062d3a3d11b6ee59161994c5e0ba2b37cb7  personaje_v2/scripts/comparar_zip.py
 a05efda389c1d3266347bd21aec6ef95766aa30f3767e662aab6d2bc8790bad9  personaje_v2/scripts/comprobacion_conjunta.py
 271e2b4da92b10330422e2e545eb1300894043a2207653c0377646ac9484c50c  personaje_v2/scripts/comprobar_celdas_v2.py
@@ -9541,6 +9542,7 @@ a9508c32033aac1d588d7f91bafb179adda5502baee2691e65b139ca33c9ba66  personaje_v2/s
 7c7dabbc6baf1ce9d4f4d1ffddb4328ce32597c9ecee913210b45e54c7e77654  personaje_v2/scripts/construir_corpus_damodaran.py
 11cc4cf22c0287a8de2c2dbd940e663e194b6a696777475ae0c89ecca425f58b  personaje_v2/scripts/diagnostico.py
 2d8e4cf25158ab3c202ff6a1180377997c3a3fd11223d1ac56701409ac2e4f93  personaje_v2/scripts/dominios_v64.py
+11b2a728edbc5b882e2638364e904d7fad465dd5bf1c974efb416bd4a51dcfae  personaje_v2/scripts/entradas_dependientes.py
 bf2d6adc788fe58a471c3d066369771d716a307c5361a30d431d98595650b3b8  personaje_v2/scripts/entradas_economicas.py
 d7d50f254b8ba60d4431ddc0081f37f76cc12147eaaaeb21b3b01812257901ef  personaje_v2/scripts/escribir_v63.py
 4a7756b0a3bedb9b9813d8dd257627e9f62fce74e82fca47ba3722ce7727532e  personaje_v2/scripts/estructura_json.py
@@ -9556,7 +9558,7 @@ da70fbab951750b3b6cbc6730003275c1f0c01b81b3f5a3dc7fa21894d3b2133  personaje_v2/s
 bd6b09e35de6ceae8c58d8a85c2dcecc7be7eb52d5f7e9a21f6e7c3ab777ac67  personaje_v2/scripts/objetivo_v64.py
 abc26c954e697ffcb6e75d1abe75f686750034c99918c49ba0ef61b3dfd405be  personaje_v2/scripts/pdf_a_texto.py
 5aef5cdfdbe29fea81c1ac6c6851bf81563813a65990dfb609ba806656a58d7d  personaje_v2/scripts/perimetro_f1.py
-9bca122b8b660871d3801ba03ea5695b9374f27749d29c850cc30f5f50e56782  personaje_v2/scripts/pipeline.py
+9a7a89aa1e0bde35eaf7c11aa23156768a5433e0c99d4e9e51a40481ff510e0f  personaje_v2/scripts/pipeline.py
 089fa5e354ad7b32614b091e787a2f489782bb80086d57ffe79b6415d184aad8  personaje_v2/scripts/precio_de_si.py
 a881da06bacb3a6ae160bfb4823d06889151dece4f01c5361b31948172604015  personaje_v2/scripts/recalc.sh
 387300f08ee1f1f057a426a6701531c0d287bff60361150a87464c360ede901a  personaje_v2/scripts/referencias_mecanicas.py
@@ -9685,4 +9687,4 @@ af1bef86dc7f6ce990534daded729b6b1c6918b36e084e465738b7f9ff52b6b0  v6/v64_experim
 683f762130b6490582e11bdfce95fe5b275c59f79f1a1fb9a1a2a741107dcfed  v6/v64_experimental/scripts/inventario_entradas.py
 e89a78e839e2d65c782e808de8f73ab71d83fecdfe0e23aec170f1a2dd27502c  v6/v64_experimental/scripts/trasladar_entradas.py
 944346fe1ed5e4fa632ac6f1f58912c0ad21821be29927e23b28bd08255dc150  v6/v64_experimental/scripts/verificar_v64.py
-684df53d8eb1eb0e37bae421c29a9f3d6154a97d282ac3e9b2367067c24a5753  verificar_paquete.sh
+5dd2e77c1aec96ae42dc5c945f10955aa1a06ea9fc4b687dca370a4e9fd0d581  verificar_paquete.sh
