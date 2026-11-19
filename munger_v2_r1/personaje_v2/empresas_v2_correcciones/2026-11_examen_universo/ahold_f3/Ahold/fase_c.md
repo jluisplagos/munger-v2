@@ -61,3 +61,37 @@ Todas tienen base, así que la comprobación conjunta procede, con una sola comb
 ## 8. Lo que más condiciona y qué lo resolvería
 
 La hipótesis que más condiciona es **B69:D69**. La resolverían los márgenes NIIF y subyacente de 2026 y 2027, con el desglose de deterioros y reestructuración y el destino del ahorro de Save for Our Customers. Están en el informe anual de 2026 (3-mar-2027; resultados el 17-feb-2027, Q3-2026 p. 31) y en el de 2027. Si con la inversión en precios en marcha el margen NIIF se queda en el 3,8 % o más durante dos ejercicios, la cola mala pierde peso. Si vuelve al 3,1–3,2 %, la gana. La pregunta a Relación con Inversores: qué parte del ahorro acumulado de 5.000 M de 2025–2028 (AR2025 p. 22) está prevista para el margen y qué parte para el precio. Aparte, y sin que sea mi hipótesis, la conclusión depende de dos cosas que no son palancas. Una es la caja de partida: una ventana del FCF base sin la devolución fiscal belga, o de cinco años, en la que el pago de 2021 y la devolución de 2023 se compensan. La otra es el precio con fuente oficial.
+
+# Turno 2 · 2026-11-19
+
+## 9. Comprobación conjunta y conclusión
+
+La copia de prueba con B69 = 0,3, C69 = 0,6 y D69 = 0,1 se recalculó con recálculo forzado y no dio errores de gramática (comprobacion_conjunta.json). Los valores por escenario no cambian (28,47 / 40,68 / 50,44). El ponderado baja a 37,99 y el precio de Sí a 34,42. El precio actual, 36,05, queda en la zona `vigilar`: **`sobrevive = false`**. La conclusión favorable depende de unas probabilidades que no puedo sostener con hechos. Por el orden de mando: **`pendiente_de_investigacion` · cubo Vigilar · sin acción**, con `fundamento_material.resultado = pendiente_de_investigacion`. El rango del precio de Sí entre la combinación adversa y las palancas centrales es 34,42–36,84. No es un intervalo de confianza: es lo que dan los rangos que encontré defendibles.
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: sin conclusión (pendiente de investigación) · zona cumple_regla_k · precio de Sí ≤ 36.84 · precio esc. MALO 28.47 · ponderado 40.19 · fundamento pendiente de investigación». El tamaño de la posición, incluido el cero, es de José Luis.
+
+C93 = Sí. g = 2 % es la de un supermercado maduro y reinvierte el 20 % con un ROIC de 0,10. El terminal pesa el 51 %. El salto del año 11 es mi hipótesis escrita. C103 = No: no es un negocio para no vender nunca, con un margen del 3,8 %, un ROIC de todo el capital por debajo del sector y marcas en reparación.
+
+## 10. Tesis
+
+Ahold Delhaize vende comida a 77 millones de clientes por semana con un margen NIIF del 3,84 % y reparte unos 2.000 millones al año. Su foso es la densidad local: estrecho pero real con la vara del accionista (13,0 % pagado el alquiler frente a r 9 %), y sin ventaja frente al sector con todo el capital (8,8 % frente a 10,1 %). El ahorro se va al cliente, así que el valor depende de que el margen aguante en torno al 4 % y de cuánto dura un punto de exceso sobre r. El precio cumple la regla por 0,79 €. Con unas probabilidades más cargadas al MALO, que los hechos defienden igual de bien, deja de cumplirla. Dos ejercicios con la inversión en precios en marcha dirán qué cola pesa más.
+
+## 11. Tesis inversa
+
+No hay poder de precio: 1.354 y 1.294 de ahorro reinvertidos en precio (AR2025 p. 45), 1.000 M$ más hasta 2028 (AR2025 p. 22), y el subyacente ha bajado del 4,4 % al 4,0 % (AR2025 p. 64). Con todo el capital no gana más que el sector (Historia!C55 frente a Palancas!H18), y el retorno pagado el alquiler cayó al 10,7 % en 2024. La caja no crece: la guía de 2026 es de unos 2.100 tras 2.600 (Q3-2026 p. 2, 9), y la base de la valoración lleva dentro una devolución fiscal belga que no se repite. La estructura es rígida: 85 % arrendado, 11.974 de pasivo y unos 35.000 en prórrogas (AR2025 p. 58, 271, 272). Las holguras de deterioro son justas (AR2025 p. 238), llega una compra de unos 1.700 con arrendamientos (Q3-2026 p. 30) y la deuda neta sube a 16.087 (Q3-2026 p. 24). Además, el precio paga 15,3 veces el FCF frente a una mediana de 12,5 (C40, C88). Si el margen vuelve al 3,1–3,2 %, el valor se acerca a 28,47. Lo que me impide firmar el No es la cuota del 38,2 % (AR2025 p. 50), la red y una deuda que no mata (AR2025 p. 55).
+
+## 12. Predicciones (dado el NORMAL)
+
+1. Margen operativo NIIF del Grupo de 2027 ≥ 3,5 % (informe anual 2027; comprobación el 2028-03-31; probabilidad 0,75).
+2. Ventas comparables sin gasolina del Grupo de 2027 entre el 0,5 % y el 3,5 % (2028-03-31; 0,7).
+3. Flujo de caja libre de 2027 con la definición de la empresa ≥ 2.000 millones (2028-03-31; 0,65).
+
+## 13. Incertidumbre pendiente, qué cambiaría el cubo y etapa 1
+
+B222 son las probabilidades B69:D69. B223 son los márgenes NIIF y subyacente de 2026–2027 con el desglose de cargos y del ahorro (resultados del 17-feb-2027 e informe anual 2026 del 3-mar-2027, Q3-2026 p. 31), más la pregunta a Relación con Inversores sobre cuánto de los 5.000 M de ahorro va al margen.
+
+- A Sí: dos años de margen NIIF del 3,8 % o más con el ahorro retenido en parte, una caja de partida sin la devolución belga que siga cumpliendo la regla y un precio de fuente oficial.
+- A No: el retorno pagado el alquiler por debajo de r dos años, un margen NIIF por debajo del 3,0 % o deterioros grandes en Profi, Stop & Shop o Giant Food.
+- A Demasiado difícil: compras que cambien el perímetro hasta que la Historia deje de describir el negocio, o una competencia de descuento que haga el margen imposible de acotar con lo que se publica.
+
+La etapa 1 fue Vigilar con un precio de Sí de unos 23 €, su suelo de FCF a −2 % anual, con un FCF de 1.821 y un precio de 33,14. La V6.3 llega a Vigilar con un precio de Sí de 36,84 por la regla espejo (C40 = 2.096), las palancas y la escalera k = 3. El motivo también cambia. La etapa 1 decía «está por encima de mi suelo». Yo digo que el precio cumple la regla, pero que la conclusión depende de unas probabilidades sin hecho que las sostenga. Del diagnóstico cualitativo de la etapa 1 conservo lo que la evidencia sostiene: no hay poder de precio, la estructura es rígida y el foso es estrecho.
