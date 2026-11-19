@@ -97,3 +97,67 @@ Con conclusión no favorable, `resultado = no_procede` y no hago la comprobació
 - Con 0,04, el precio de Sí sería ≈ 35,9, todavía por debajo de 36,05.
 
 **Qué lo resolvería**: la diferencia entre el resultado subyacente y el IFRS de 2026 en el informe anual 2026 (3-mar-2027), con el margen de EE. UU. del 4T y las holguras de deterioro de Stop & Shop, Giant y Profi.
+
+## 9. Turno 2 · comprobación conjunta y conclusión
+
+No hay `comprobacion_conjunta.json`, porque con una conclusión no favorable no procede: `sobrevive = null` y `resultado = no_procede`.
+
+**Estado `concluido` (provisional hasta la auditoría) · cubo Vigilar · acción `esperar` · precio objetivo 33,79 €** (precio de Sí de `precio.json`).
+
+C104: «Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 33.79 · zona caro · precio de Sí ≤ 33.79 · precio esc. MALO 28.40 · ponderado 35.95 · fundamento no procede (conclusión no favorable)». El tamaño de la posición lo decide el inversor (D16).
+
+C93 = Sí. Un g del 2 % con un ROIC terminal de 0,10 pide reinvertir el 20 % del resultado, por debajo del capex de hoy, y el terminal pesa un 51 %. «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM).
+
+C103 = No. El margen es del 4 % sin poder de precio y todo el capital rinde por debajo de r.
+
+## 10. Tesis (B101)
+
+1. Ahold Delhaize vende comida en 9.551 tiendas de EE. UU. y Europa. Convierte un margen subyacente del 4,0 % en unos 2.300 de caja base al año y la devuelve casi entera al accionista [AR2025 PDF p. 42, 56].
+2. Su ventaja es la escala local: Albert Heijn tiene el 38,2 % de cuota y Food Lion lleva 53 trimestres de comparables positivas [AR2025 PDF p. 43, 50]. El capital del accionista, pagado todo el alquiler, rinde un 13,03 % frente a mi 9 %.
+3. Pero el ahorro se va al cliente y el resultado subyacente está plano desde 2022 [AR2025 PDF p. 45, 49]. En mi NORMAL el capital nuevo rinde un 14 % hasta el año 10 y un 10 % después.
+4. La acción vale 28,40 / 35,76 / 44,05 €, con un precio de Sí de 33,79 €.
+5. A 36,05 € pago casi exactamente lo que vale seguir como hoy sin crecer (34,70 €). Me gusta el negocio, no el precio, y espero.
+
+## 11. Tesis inversa (B102)
+
+El No se defiende con las cifras de la propia empresa:
+
+1. **El retorno es en parte prestado del casero.** Todo el capital rinde un 8,78 % (Historia!C55), menos que r y que el sector. El 13 % del accionista sale de alquilar el 85 % de los locales a ≈ 3,3 %, con unos 35.000 de prórrogas por renovar [AR2025 PDF p. 58, 272].
+2. **No hay poder de precio.** El ahorro se fue al precio y el subyacente bajó del 4,4 % al 4,0 % [AR2025 PDF p. 45, 64]. EE. UU. va del 4,7 % al 4,3 %, con comparables del 0,5 % en el 3T 2026 [Q3-26 PDF p. 3, 7].
+3. **La caja no crece.** El FCF sin circulante bajó de 2.149 a 1.725 LTM y la guía de 2026 es de unos 2.100 (extracto §0; Q3-26 PDF p. 2).
+4. **Los cargos se repiten.** Hubo 643 en 2024, y las holguras de deterioro son de 1–2 % en Stop & Shop y Giant y mínima en Profi [AR2025 PDF p. 46, 238].
+5. **Se compra sin cifras.** Tesco Chequia y Eslovaquia no tiene múltiplo publicado, y la recompra de 2026 se hizo a 35,41 € de media [Q3-26 PDF p. 21, 30].
+
+Mi MALO no es un suelo. Lo que me impide firmar el No es que la escala local y el BBB+ aguantan bastante mala gestión.
+
+«I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM).
+
+## 12. Predicciones (dado el NORMAL, todas a 2028-03-31)
+
+1. **Margen subyacente del Grupo de 2027 entre el 3,8 % y el 4,2 %.** Probabilidad 0,7.
+2. **Comparables sin gasolina del Grupo de 2027 entre el 0,5 % y el 3,5 %.** Probabilidad 0,7.
+3. **Diferencia entre el resultado subyacente y el NIIF de 2027 de al menos 0,2 puntos de ventas.** Probabilidad 0,55. Pone a prueba la hipótesis de B222.
+
+## 13. Incertidumbre pendiente (B222/B223)
+
+**B222.** Es el margen NORMAL de 0,035 (Palancas!C15):
+
+- Con 0,04, el precio de Sí sería ≈ 35,9.
+- Con 0,04 y las acciones de septiembre, sería ≈ 36,8 y el precio cumpliría la regla.
+
+**B223.** Lo resolvería el informe anual 2026, con la conciliación del resultado subyacente con el NIIF y las holguras de deterioro. Y una pregunta a Relación con Inversores: qué parte de los cargos es recurrente y cuándo se renuevan los arrendamientos.
+
+## 14. Qué me haría cambiar de cubo
+
+- **A Sí.** Un precio por debajo de 33,79 € con los hechos iguales. O, sin que baje el precio, dos años de cargos por debajo de 0,25 puntos. Antes pediría competidores, el múltiplo de Tesco y el margen de EE. UU. de 2026.
+- **A No.** Cualquiera de estas: el ROIC propio por debajo de r dos años; el subyacente por debajo del 3,5 % dos años; un deterioro con cierres de tiendas; renovaciones de alquiler que se coman el diferencial; o una compra grande sin múltiplo.
+- **A Demasiado difícil.** Que el online cambie la economía de la tienda hasta no poder juzgar la densidad, o que el control de precios se extienda a otros mercados del grupo.
+
+## 15. Comparación con la etapa 1
+
+El cubo es el mismo, Vigilar, por la misma razón. El precio de Sí pasa de 23,13 € a 33,79 € por dos causas:
+
+- **Las entradas.** Con mis palancas y el FCF base de 2.312, la regla antigua da hoy 26,96 € (C156).
+- **La regla.** La escalera k = 3 da 33,79 € con los mismos valores.
+
+Además, mi MALO (28,40) es menos duro que el de la etapa 1 (23,13). Con las dos, el precio del día queda por encima del precio de Sí.

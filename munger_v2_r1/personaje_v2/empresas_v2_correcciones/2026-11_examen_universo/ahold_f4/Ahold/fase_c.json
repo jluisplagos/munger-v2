@@ -1,5 +1,5 @@
 {
- "turno": 1,
+ "turno": 2,
  "una_sola_historia": {
   "coherente": true,
   "incoherencias": [
@@ -358,16 +358,134 @@
    "motivo": "La hipótesis que más condiciona el objetivo: subyacente 4,0 % menos 0,4–0,5 puntos de cargos que se repiten (diez años: diferencia media 0,52 puntos, mediana ≈ 0,29; 2021–2025: 0,38). Para el valor cuenta la media: con ella el IFRS queda en 3,5–3,6 % y redondea a 0,035 (con la mediana, 3,71 %, también). Llegar a 0,04 exige cargos por debajo de 0,25 puntos de media; pasó en cinco años sueltos de diez, pero ninguna media de cinco años bajó de 0,38. Con 0,04 el precio de Sí sería ≈ 35,9, aún por debajo de 36,05. Bien derivada; no pido revisarla."
   }
  },
- "estado_analisis": null,
- "cubo_final": null,
- "escalera": null,
- "decision": null,
- "insumos_decision_cartera": null,
- "herencia": null,
- "comparacion_etapa_1": null,
- "celdas": null,
- "cambiaria_de_cubo": null,
- "observaciones": null,
- "confianza_global": null,
+ "estado_analisis": "concluido",
+ "cubo_final": "Vigilar",
+ "escalera": {
+  "de": "precio.json",
+  "k": 3.0,
+  "precio_actual": 36.05,
+  "precio_de_si": 33.79,
+  "tope_normal_aplicado": false,
+  "precio_escenario_malo": 28.4,
+  "ponderado": 35.95,
+  "zona": "caro",
+  "g_implicito_precio_actual": 0.0331,
+  "g_implicito_precio_de_si": 0.0073,
+  "regla_antigua_C156": 26.96,
+  "nota": "convención experimental del ejercicio (D11, k = 3); el precio del MALO no es un suelo de valor; sin comprobación conjunta (conclusión no favorable)"
+ },
+ "decision": {
+  "accion": "esperar",
+  "precio_objetivo": 33.79,
+  "condicion": null,
+  "condiciones_revision": {
+   "al_alza": "Revisaría el precio de Sí al alza si dos ejercicios seguidos (2026 y 2027) la diferencia entre el resultado operativo subyacente y el NIIF queda por debajo de 0,25 puntos de ventas con el subyacente del Grupo en el 4,0 % o más (informes anuales; hoy 0,38 puntos de media en 2021–2025 [AR2025 PDF p. 46, 64]): el NORMAL pasaría a 0,04 y el precio de Sí a ≈ 35,9; o si el margen subyacente de EE. UU. vuelve al 4,6 % dos trimestres con comparables por encima del 2 %.",
+   "a_la_baja": "Lo revisaría a la baja si el subyacente del Grupo cae por debajo del 3,8 % dos trimestres seguidos (entonces p(MALO) 0,3 y precio de Sí ≈ 32,1 con los valores de hoy), si hay un deterioro de Stop & Shop, Giant o Profi con cierres (holguras de 1–2 % [AR2025 PDF p. 238]), o si el ROIC propio pagado todo el alquiler baja del 11 % dos años (datos_v63 §1 bis)."
+  }
+ },
+ "insumos_decision_cartera": {
+  "precio_actual": 36.05,
+  "zona": "caro",
+  "precio_de_si": 33.79,
+  "precio_escenario_malo": 28.4,
+  "ponderado": 35.95,
+  "distancia_a_precio_si": 0.0626,
+  "distancia_a_malo": 0.2121,
+  "fundamento": "no procede (conclusión no favorable): lista de hipótesis sin fundamento vacía; la que más condiciona el objetivo es el margen NORMAL (Palancas!C15). Distancias de precio.json con el precio como denominador: el precio de Sí está un 6,3 % por debajo del precio; el precio está un 6,7 % por encima del precio de Sí (diferencia ÷ precio de Sí).",
+  "datos_ausentes_materiales": [],
+  "descalificadores_considerados": [
+   "no puedo explicar de dónde viene la caja: no aplica",
+   "el valor depende de predecir macro, tipos, divisas o materias primas: no aplica",
+   "cambio tecnológico que no me deja juzgar si el foso dura (online): no aplica, va a lo que no sé",
+   "gestión en la que no confío: no aplica (reservas en C98)",
+   "deuda que puede matar la empresa en un mal año: no aplica (deuda neta/EBITDA 2,21, BBB+ y Baa1)",
+   "reinvierte toda la caja para mantenerse con retornos mediocres: no aplica",
+   "demasiadas piezas móviles: no aplica",
+   "sin historial: no aplica",
+   "reestructuración o «la nueva dirección lo arreglará»: no aplica (Stop & Shop es una parte)"
+  ],
+  "r": 0.09,
+  "r_minima": 0.0789,
+  "palanca_mas_influyente": "Margen / ROE objetivo (±2 pts) (información, no criterio; la tasa ±1 punto mueve el NORMAL 5,94 €)"
+ },
+ "herencia": {
+  "C93": {
+   "etapa1": "Sí",
+   "decision": "mantiene",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La etapa 1 comprobaba la reinversión con el ROCE del 10,9 % (C24 de entonces); en la V6.3 la reinversión terminal es g ÷ ROIC con mi ROIC terminal del NORMAL (0,10): 0,02 ÷ 0,10 = 20 %, por debajo del capex de hoy (2,8 % de ventas [AR2025 PDF p. 57]), con un peso del terminal del 51 % y un salto del año 11 de 4,0 puntos que explico en la tesis."
+  },
+  "B101": {
+   "etapa1": "Ahold Delhaize vende comida en 9.551 tiendas de EE. UU. y Europa y por internet a 77 millones de clientes a la semana, con un margen operativo subyacente del 4,0% y €6.989m de caja operativa en 2025. Su ventaja es la densidad local y es real y medible: Albert Heijn declara el 38,2% de cuota en Países Bajos con siete años consecutivos de ganancias, y Food Lion lleva 53 trimestres de comparables positivos. Convierte esa posición en unos €2.000m de caja libre al año después de capex y arrendamientos y la devuelve casi entera (€1.008m de recompra y €1.070m de dividendo en 2025), reduciendo las acciones un 3,3% al año. El problema es que el ahorro no se queda en casa: con €1.294m capturados en 2025 y $1.000m comprometidos en inversión de precios para 2025-2028, el margen sigue en el 4,0% y la caja libre está plana desde 2022. Me gusta el negocio y no el precio: a €33,14 pago 15,7 veces esa caja libre frente a la mediana de 14,7 a la que ha cotizado, y mi suelo defendible está en €23.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Mantengo la idea (negocio que me gusta a un precio que no) y cambio las cifras: precio 36,05 (C37) en vez de 33,14, P/FCF 14,9 frente a una mediana de 12,49 (C88) en vez de 15,7 frente a 14,7, FCF base 2.312 con la regla espejo (C52), la vara del foso de la sección 1 bis (13,03 %) y la escalera de la V6.3 (precio de Sí 33,79) en vez del suelo de 23 €."
+  },
+  "B102": {
+   "etapa1": "El No se defiende con sus propias cifras y lo defiendo mejor que un bajista. Primero, no hay poder de precios: la empresa capturó €1.294m de ahorro en 2025 y €1.354m en 2024 y el margen operativo subyacente sigue clavado en el 4,0%, con el margen bruto cayendo del 27,4% (2021) al 26,5% (2025); el ahorro se va al cliente y encima se compromete a regalar $1.000m más en precios en EE. UU. hasta 2028. Segundo, el retorno no paga el esfuerzo: tras una fusión de €10,8 mil millones y una década de reinversión, el ROCE antes de impuestos es del 10,9% y el ROIC después de impuestos del 9,2%, dos o tres puntos sobre el propio WACC que la empresa usa en sus pruebas de deterioro (EE. UU. 6,7%; Países Bajos 5,0%). Tercero, la caja libre no crece: 2.149 (2022) → 1.911 (2025) → 1.813 (LTM), la guía propia de 2026 (≥€2.300m frente a €2.600m en 2025) admite el retroceso, y el primer semestre de 2026 trae €302m frente a €715m; el BPA sube porque hay un 19% menos de acciones que en 2019, no porque el negocio gane más. Cuarto, la estructura es rígida: el 85% de los 8.152 locales son alquilados, el pasivo por arrendamientos es de €11.974m con otros ~€35 mil millones sin descontar en prórrogas no comprometidas, y los pagos han subido de €1.530m (2019) a €1.944m (2025), más rápido que el resultado; con un 4% de margen, un tropiezo de dos puntos de margen bruto se lo come la renta. Quinto, el historial de asignación de capital tiene una pérdida reconocida (FreshDirect: €271m de compra en 2021, €153m de deterioro y €250m de pérdida en la venta de 2023), €8.363m de fondo de comercio con holgura *marginal* en Profi, y recompras de 2025-2026 a €34,67 y €35,22, por encima del precio de hoy. Sexto, la mitad grande del negocio está en obras —Stop & Shop en *revitalization* con 32 tiendas cerradas en 2024— y la propia empresa escribe que *Competitive pressure intensified across our markets*. Si todo eso es cierto, €33,14 no es una ganga: es el precio de una empresa que crece con la inflación de los alimentos y entrega el resto al cliente, y mi escenario malo de €23 deja de ser un escenario y pasa a ser la tendencia. Lo único que me impide firmar el No es que una cuota del 38,2% en un mercado desarrollado no se compra con dinero y que una red de 9.551 tiendas con BBB+ aguanta mucha mala gestión; por eso el cubo es Vigilar y no No.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Conservo los argumentos de la etapa 1 (sin poder de precio, caja plana, estructura rígida de alquileres, cargos y holguras) con las cifras del 3T 2026 (extracto §0) y añado el que la etapa 1 no tenía: con la sección 1 bis, el exceso del accionista es el ROIC de todo el capital (8,78 %, por debajo de r) apalancado con locales alquilados a ≈ 3,3 %. Quito el WACC de las pruebas de deterioro, que es un dato de la dirección."
+  },
+  "C103": {
+   "etapa1": "No",
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisada la misma evidencia (margen del 4 % sin poder de precio [AR2025 PDF p. 45], 85 % de locales arrendados [AR2025 PDF p. 58], caja libre plana desde 2022, extracto §0), sostiene el No: un negocio así hay que revisarlo y, si el margen se rompe, venderlo. Añado que todo el capital rinde 8,78 % (Historia!C55), por debajo de r."
+  },
+  "C104": {
+   "etapa1": "0% · Watchlist · precio de Sí ≈ 23 €",
+   "decision": "cambia",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La etapa 1 escribía un tamaño de posición y un precio de Sí con la regla mín(MALO; 0,75 × ponderado); en la V6.3 el tamaño es del inversor (D16) y el precio de Sí sale de la escalera k = 3 (D11) de precio.json: 33,79, con MALO 28,40, ponderado 35,95 y zona caro."
+  }
+ },
+ "comparacion_etapa_1": {
+  "cubo_v1": "Vigilar",
+  "precio_de_si_v1": 23.13,
+  "cubo_v2": "Vigilar",
+  "precio_de_si_v2": 33.79,
+  "por_que_difieren": "El cubo es el mismo y por la misma razón: el negocio sí, el precio no. El precio de Sí sube de 23,13 € a 33,79 € por dos cosas que se pueden separar. Las entradas: con mis palancas de la V6.3 y el FCF base de 2.312 (regla espejo, C52, frente a 1.999 de la etapa 1), la regla antigua mín(MALO; 0,75 × ponderado) da hoy 26,96 € (C156) en vez de 23,13 €. La regla: la escalera k = 3 con tope en el NORMAL (D11) da 33,79 € con los mismos valores. Además mi MALO es menos duro que el de la etapa 1 (28,40 frente a 23,13): ventas planas y margen NIIF del 3,0 % con ROIC terminal = r, en vez de una caja que cae un 2 % al año. Lo que cambié de la etapa 1 está en C19 (No), C27 (Estable) y las narrativas; no la ablando: con la etapa 1 el precio de hoy (33,14 €) estaba por encima de su precio de Sí, y con la mía el precio de hoy (36,05 €) también."
+ },
+ "celdas": {
+  "C93": "Sí",
+  "C103": "No",
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 33.79 · zona caro · precio de Sí ≤ 33.79 · precio esc. MALO 28.40 · ponderado 35.95 · fundamento no procede (conclusión no favorable)",
+  "B101": "Ahold Delhaize vende comida en 9.551 tiendas de EE. UU. y Europa y convierte un margen operativo subyacente del 4,0 % en unos 2.300 de caja base al año (C52), que devuelve casi entera en dividendo y recompra [AR2025 PDF p. 42, 56]. Su ventaja es la escala local, con Albert Heijn en el 38,2 % de cuota y siete años ganándola y Food Lion con 53 trimestres de comparables positivas [AR2025 PDF p. 43, 50], y el capital del accionista, pagado todo el alquiler, rinde un 13,03 % frente al 9 % que exijo (datos_v63 §1 bis). Pero el ahorro se va al cliente y el resultado subyacente está plano desde 2022 [AR2025 PDF p. 45, 49]: en mi NORMAL el capital nuevo rinde un 14 % hasta el año 10 y un 10 % después, porque la escala se erosiona con la inversión en precios. Con eso la acción vale 28,40 / 35,76 / 44,05 € en mis tres escenarios y el precio de Sí es 33,79 €. A 36,05 € pago casi exactamente lo que vale seguir como hoy sin crecer (34,70 €): me gusta el negocio, no el precio, y espero.",
+  "B102": "El No se defiende con las cifras de la propia empresa. Uno, el retorno es en parte prestado del casero: todo el capital rinde un 8,78 % (Historia!C55), menos que la r del 9 % y que el sector (10,08 %, Palancas!H18), y el 13 % del accionista sale de alquilar el 85 % de los locales a ≈ 3,3 % [AR2025 PDF p. 58], con unos 35.000 de prórrogas sin descontar que se renovarán a precios futuros [AR2025 PDF p. 272]. Dos, no hay poder de precio: 1.354 de ahorro en 2024 y 1.294 en 2025 se fueron al precio y el subyacente del Grupo bajó del 4,4 % (2021) al 4,0 % [AR2025 PDF p. 45, 64]; EE. UU., el 57,5 % de las ventas, va del 4,7 % al 4,3 % con comparables del 0,5 % en el 3T 2026 [AR2025 PDF p. 49; Q3-26 PDF p. 3, 7]. Tres, la caja no crece: FCF del accionista sin circulante de 2.149 en 2022 a 1.725 en los doce meses a septiembre de 2026, y guía de 2026 rebajada a unos 2.100 (extracto §0; Q3-26 PDF p. 2). Cuatro, los cargos se repiten: deterioros y reestructuración de 643 en 2024, y holguras de algo más del 1–2 % en Stop & Shop y Giant y mínima en Profi [AR2025 PDF p. 46, 238]. Cinco, se compra sin cifras: Tesco Chequia y Eslovaquia sin múltiplo publicado [Q3-26 PDF p. 30] y recompra a 35,41 € de media en 2026 [Q3-26 PDF p. 21], por encima de mi precio de Sí. Mi MALO (28,40 €) no es un suelo: arranca con más caja de la que la empresa ha generado nunca (2.649 en el año 1) y no incluye ni un deterioro ni alquileres más caros. Lo que me impide firmar el No es que la escala local y un balance BBB+ y Baa1 [AR2025 PDF p. 55] aguantan bastante mala gestión: por eso es Vigilar y no No.",
+  "Palancas!A38": "El margen operativo subyacente del Grupo del ejercicio 2027 que Ahold Delhaize publique en sus resultados anuales estará entre el 3,8 % y el 4,2 % de las ventas netas.",
+  "Palancas!B38": "2028-03-31",
+  "Palancas!C38": 0.7,
+  "Palancas!A39": "Las ventas comparables sin gasolina del Grupo del ejercicio 2027 que publique la empresa crecerán entre el 0,5 % y el 3,5 %.",
+  "Palancas!B39": "2028-03-31",
+  "Palancas!C39": 0.7,
+  "Palancas!A40": "La diferencia entre el resultado operativo subyacente y el resultado operativo NIIF del ejercicio 2027 (deterioros, reestructuración y otros) será de al menos 0,2 puntos de las ventas netas.",
+  "Palancas!B40": "2028-03-31",
+  "Palancas!C40": 0.55,
+  "Diagnóstico V6!B222": "Con la lista de hipótesis sin fundamento vacía, la conclusión depende sobre todo del margen operativo NIIF del NORMAL (Palancas!C15 = 0,035): un subyacente del 4,0 % menos 0,4–0,5 puntos de cargos que se repiten. Con 0,04 el precio de Sí subiría a ≈ 35,9, aún por debajo de 36,05; con 0,04 y las acciones de septiembre de 2026 (Z-ACC) llegaría a ≈ 36,8 y el precio cumpliría la regla. La acción esperar es estrecha.",
+  "Diagnóstico V6!B223": "Informe anual 2026 (3-mar-2027): conciliación del resultado operativo subyacente con el NIIF (deterioros, reestructuración y otros) y nota de deterioros con las holguras de Stop & Shop, Giant y Profi; resultados del 4T 2026 (17-feb-2027) con el margen subyacente de EE. UU. Pregunta a Relación con Inversores: qué parte de los cargos de 2023–2025 considera recurrente y cuál es el calendario de renovación de los arrendamientos."
+ },
+ "cambiaria_de_cubo": {
+  "a_si": "Un precio por debajo de 33,79 € con los hechos del negocio iguales (subyacente del Grupo en torno al 4,0 % y ROIC propio pagado todo el alquiler por encima de r), o, sin que baje el precio, dos ejercicios con cargos que se repiten por debajo de 0,25 puntos de ventas, que subirían el NORMAL y el precio de Sí por encima de 36,05. Antes de un Sí pediría lo que hoy falta para una conclusión favorable: competidores con nombre y cuota, el múltiplo de Tesco Chequia y Eslovaquia y el margen de EE. UU. de 2026.",
+  "a_no": "El ROIC del capital propio pagado todo el alquiler por debajo de r (9 %) dos años seguidos (datos_v63 §1 bis), el subyacente del Grupo por debajo del 3,5 % dos años, un deterioro de Stop & Shop, Giant o Profi con cierres de tiendas, o renovaciones de alquiler que se coman el diferencial entre lo que rinde la tienda y lo que cuesta el local; también una compra grande fuera de la alimentación o pagada con un múltiplo que no se publique.",
+  "a_demasiado_dificil": "Que la venta online y la entrega a domicilio cambien la economía de la tienda de barrio hasta el punto de no poder juzgar si la densidad local dura (por ejemplo, el online creciendo a doble dígito con el margen de EE. UU. bajando del 4 %), o que el control de precios de Serbia se extienda a otros mercados del grupo: el valor pasaría a depender de regulación y tecnología que no sé predecir."
+ },
+ "observaciones": {
+  "C93": "[Clase: fundamentada] [Confianza: media] Hereda: Sí → mantiene (definicion_o_medicion_distinta): la etapa 1 lo comprobaba con el ROCE de C24; en la V6.3 la reinversión terminal es g ÷ ROIC (I2). Apoyo: g NORMAL 0,02 con ROIC terminal 0,10 pide reinvertir el 20 % del resultado, menos que el capex de hoy (2,8 % de ventas [AR2025 PDF p. 57]); peso del terminal 51 % (pasa); salto del año 11 de 4,0 puntos, que es mi hipótesis de erosión de la escala, no un fallo; 2 % es precio sin volumen real, bajo rf 0,0337 (C57). «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM). Lo sustituiría: comparables por debajo del 1 % dos años con volumen negativo cifrado: No lo sé.",
+  "C103": "[Clase: fundamentada] [Confianza: alta] Hereda: No → mantiene (misma_evidencia): es una propiedad del negocio y no ha cambiado. Apoyo: margen del 4 % sin poder de precio (ahorro al cliente [AR2025 PDF p. 45]); todo el capital rinde 8,78 % (Historia!C55), por debajo de r; el exceso del accionista depende de renovar alquileres (unos 35.000 de prórrogas [AR2025 PDF p. 272]); caja plana desde 2022 (extracto §0). Un negocio así se revisa, no se olvida. Lo sustituiría: cinco años con el subyacente por encima del 4,5 % y el ROIC de todo el capital por encima de r: Sí.",
+  "C104": "[Clase: convención] [Confianza: media] Hereda: tamaño de posición y Watchlist con precio de Sí ≈ 23 € → cambia (definicion_o_medicion_distinta): la V6.3 usa la escalera del ejercicio (k = 3, D11) y no mín(MALO; 0,75 × ponderado), y el tamaño de la posición es del inversor (D16). Apoyo: precio.json: precio de Sí 33.79, MALO 28.40, ponderado 35.95, zona caro con el precio a 36,05 (C37); sin bloqueo, límite, descalificador ni dato ausente material; lista D10 vacía. El precio del MALO no es un suelo. Lo sustituiría: precio por debajo de 33.79 con los hechos iguales, o cargos que se repiten por debajo de 0,25 puntos dos años (precio de Sí ≈ 35,9).",
+  "B101": "[Clase: fundamentada] [Confianza: media] Hereda: tesis de la etapa 1 con 33,14 €, 15,7 veces y suelo de 23 € → cambia (evidencia_nueva): precio 36,05 (C37), FCF base 2.312 con la regla espejo (C52) y la vara del foso de la sección 1 bis. Apoyo: escala local [AR2025 PDF p. 43, 50]; ROIC propio pagado todo el alquiler 13,03 % (datos_v63 §1 bis); subyacente plano desde 2022 [AR2025 PDF p. 49]; valores 28,40 / 35,76 / 44,05 (B78:D78); valor sin crecimiento 34,70. «how much is going to stay home and how much is just going to flow through to the customer» (PCA pp.187–189; HIM). Lo sustituiría: el ahorro quedándose en casa dos años (subyacente por encima del 4,2 %).",
+  "B102": "[Clase: fundamentada] [Confianza: media] Hereda: tesis inversa de la etapa 1 con 33,14 €, ROCE 10,9 % y escenario malo de 23 € → cambia (evidencia_nueva): cifras del 3T 2026 y vara P-FOSO. Apoyo: C55 8,78 % frente a r y H18; 85 % de locales arrendados y 35.000 de prórrogas [AR2025 PDF p. 58, 272]; ahorro al precio y subyacente 4,4 % → 4,0 % [AR2025 PDF p. 45, 64]; EE. UU. 4,3 % y comparables 0,5 % [Q3-26 PDF p. 3, 7]; FCF sin circulante 1.725 LTM (extracto §0); cargos y holguras [AR2025 PDF p. 46, 238]; Tesco sin múltiplo [Q3-26 PDF p. 30]. «I'm not entitled to have an opinion unless I can state the arguments against my position better than the people who are in opposition» (PCA pp.467–468; HIM). Lo sustituiría: el ROIC de todo el capital por encima de r.",
+  "Palancas!A38": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: es el corazón del NORMAL: subyacente del 4,0 % en 2024, 2025 y 39 semanas de 2026 [AR2025 PDF p. 42; Q3-26 PDF p. 3]; serie 2016–2025 entre 3,8 % y 4,8 % [AR2025 PDF p. 64]. Falsable con la cifra que la empresa publica en sus resultados anuales. Lo sustituiría: si sale por debajo del 3,8 %, el MALO gana peso; por encima del 4,2 %, el BUENO.",
+  "Palancas!B38": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: los resultados del ejercicio 2027 se publican a mediados de febrero de 2028 y el informe anual a primeros de marzo (calendario de 2026: 17-feb y 3-mar-2027, Q3-26 PDF p. 31); 2028-03-31 cae dentro de la ventana de 12–24 meses desde la fecha de análisis. Lo sustituiría: un cambio de calendario de publicación.",
+  "Palancas!C38": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: dado el NORMAL, el subyacente se queda donde ha estado: en diez años quedaron por encima de 3,8–4,2 % 2018, 2020, 2021 y 2022 (4,3–4,8 %) y ninguno por debajo, y los cuatro últimos (4,1 %, 4,0 %, 4,0 % y 4,0 % en 39 semanas de 2026) están dentro [AR2025 PDF p. 64; Q3-26 PDF p. 3]; la guía nueva «acercándose al 4,0 %» [Q3-26 PDF p. 2] apunta al borde inferior. Por eso 0,7 y no más. Lo sustituiría: un 4T 2026 por debajo del 3,8 %: 0,6.",
+  "Palancas!A39": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: el NORMAL crece con su mercado: comparables sin gasolina del Grupo 3,2 % en 2025 y 1,4 % en 39 semanas de 2026 [AR2025 PDF p. 344; Q3-26 PDF p. 3]; EE. UU. 0,8 % y Europa 2,0 % en 2024 [AR2025 PDF p. 49]. La cifra la publica la empresa cada año. Lo sustituiría: comparables negativas del Grupo, que serían el MALO.",
+  "Palancas!B39": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: las comparables anuales del Grupo se publican con los resultados del 4T (mediados de febrero) y en el informe anual (primeros de marzo; calendario de 2026 en Q3-26 PDF p. 31); 2028-03-31 está dentro de la ventana de 12–24 meses. Lo sustituiría: un cambio de calendario de publicación.",
+  "Palancas!C39": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: dado el NORMAL, 2024 (≈ 1,3 % con EE. UU. 0,8 % y Europa 2,0 %), 2025 (3,2 %) y 39 semanas de 2026 (1,4 %) quedan dentro de 0,5–3,5 %, y 2022–2023, con la subida de precios de los alimentos, quedaron por encima [AR2025 PDF p. 49, 344; Q3-26 PDF p. 3]; los efectos de farmacia, SNAP y huevo restan puntos [Q3-26 PDF p. 2]. 0,7. Lo sustituiría: dos trimestres de 2027 con comparables del Grupo por debajo del 0,5 %: 0,5.",
+  "Palancas!A40": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: pone a prueba la hipótesis que más condiciona el objetivo (Palancas!C15): que los cargos se repiten. Diferencia entre subyacente e NIIF en 2016–2025 de 0,61, 0,36, 0,22, 0,18, 1,87, 0,01, −0,03, 0,89, 0,88 y 0,16 puntos (Historia fila 29; AR2025 PDF p. 64). Falsable con la conciliación que publica la empresa. Lo sustituiría: si sale por debajo de 0,2, el NORMAL se acerca a 0,04.",
+  "Palancas!B40": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: la conciliación del resultado operativo subyacente con el NIIF del ejercicio 2027 sale con los resultados del 4T y en el informe anual (calendario de 2026: 17-feb y 3-mar-2027, Q3-26 PDF p. 31); 2028-03-31 está dentro de la ventana de 12–24 meses. Lo sustituiría: un cambio de calendario de publicación.",
+  "Palancas!C40": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Apoyo: dado el NORMAL, en seis de diez años la diferencia fue de 0,2 puntos o más (2016, 2017, 2018, 2020, 2023 y 2024) y en cuatro no (Historia fila 29; AR2025 PDF p. 64); en el 3T 2026 el NIIF superó al subyacente por la liquidación de pensiones [Q3-26 PDF p. 10]. 0,55, cerca de la frecuencia y algo por debajo por la ganancia de 2026. Lo sustituiría: deterioros de 2026 por encima de 200: 0,65."
+ },
+ "confianza_global": "media",
  "configuracion_v64": null
 }
