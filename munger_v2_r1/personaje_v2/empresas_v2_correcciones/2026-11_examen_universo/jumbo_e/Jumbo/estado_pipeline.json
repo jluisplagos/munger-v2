@@ -66,7 +66,18 @@
   "2026-11-19T01:27:26 · paso 12 · verificación de las entradas financieras: 0 de 313 celdas del universo comprobadas · apta por entradas: no (no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada))",
   "  $ python3 ficha.py Jumbo --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Jumbo --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-19T01:27:29 · paso 13 · solicitud de auditoría SA-68e564c4a42b7c63 registrada para el material e8efb54ae83fdbec"
+  "2026-11-19T01:27:29 · paso 13 · solicitud de auditoría SA-68e564c4a42b7c63 registrada para el material e8efb54ae83fdbec",
+  "2026-11-19T01:40:24 · paso 13 · relevo caducado: el material fijado e8efb54ae83fdbec ya no es el vigente 6c5eda5caea34c4d (cambian: verificacion_entradas.json); se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente",
+  "  $ bash recalc.sh Jumbo_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/recalc/Jumbo_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
+  "  $ python3 leer_resultados.py Jumbo_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/resultados.json · motor A · estado COMPLETO Y VÁLIDO · l",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 27.28 · esc. MALO 25.8763219626812 · precio de Sí 32.3758 (P* 32.3758) · ponderado 35.6255 · zona cumple_regla_k",
+  "  $ bash verificar_todo.sh Jumbo Jumbo_v63_evaluada.xlsx Jumbo_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Jumbo --libro Jumbo_v63_evaluada.xlsx --motor A --libro-origen Jumbo_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T01:40:31 · paso 12 · motor A · F1: motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
+  "2026-11-19T01:40:35 · paso 12 · verificación de las entradas financieras: 0 de 313 celdas del universo comprobadas · apta por entradas: no (0 de 313 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 99 de juicio; +254 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 8 datos tr)",
+  "  $ python3 ficha.py Jumbo --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
+  "  $ python3 informe.py Jumbo --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-19T01:40:39 · paso 13 · solicitud de auditoría SA-7d0cddcad0bdb0d9 registrada para el material 77803fcef6c071db (sustituye a SA-68e564c4a42b7c63)"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -85,13 +96,13 @@
   "fase_c.json": 1795051574.939782
  },
  "motivo_correccion": null,
- "esperando_desde": 1795051649.183056,
+ "esperando_desde": 1795052439.853667,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "6511c5195e8a06482e9f29490e7b0a5ba99ccd710fbaac901dd19ca5c3e32ed9",
-  "libro_sha256": "5d0038e7fb798d9d98b73f1e98286a9559c9700e09506c41e94b9645645602db"
+  "libro_sha256": "3e3b28c2f4cbc7efee56ba46fa1afec066a21f8b11a7ea4524671f4740145a55"
  },
  "turno_c": null,
  "estado_pendiente": null,
@@ -101,27 +112,27 @@
   "universo": 313,
   "comprobadas": 0,
   "comprobadas_universo": 0,
-  "auxiliares": 0,
+  "auxiliares": 254,
   "universo_calculo": 214,
   "universo_juicio": 99,
   "comprobadas_calculo": 0,
   "comprobadas_juicio": 0,
   "lecturas_externas": 0,
-  "formato_registro": null,
+  "formato_registro": "4.15",
   "entradas_no_reproducibles": 0,
-  "datos_como_hipotesis": 0,
+  "datos_como_hipotesis": 8,
   "no_materiales": 0,
   "no_materiales_sin_revisar": 0,
-  "no_aplicables": 0,
-  "resumen": "no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada)",
+  "no_aplicables": 20,
+  "resumen": "0 de 313 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 99 de juicio); 0 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 0 sin revisar); 8 datos tratados como hipótesis o convención; 20 no aplicables; 0 lecturas externas sin bytes; 0 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
   "derivados_comprobados": 0,
-  "pendientes": 313,
+  "pendientes": 567,
   "desactualizadas": 0,
   "discrepancias": 0,
   "errores": 0,
-  "materiales_no_comprobadas": 283,
+  "materiales_no_comprobadas": 313,
   "apto_por_entradas": false,
-  "motivo": "no hay verificacion_entradas.json: ninguna entrada financiera está verificada (un Excel evaluado anterior no acredita nada)",
+  "motivo": "0 de 313 celdas del universo comprobadas (0 de 214 de cálculo y 0 de 99 de juicio; +254 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 8 datos tratados como hipótesis o convención; 0 entradas de juicio no materiales (0 sin el juicio de materialidad revisado); 20 no aplicables; 313 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
   "huella_entradas_economicas": "7d985d55fbe8984ab02ea068fe234120a419d04d61cbdef5d0309bcd4c4c1822",
   "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
  },
@@ -130,13 +141,25 @@
   "datos": "b522b140d341b754d8313dfa1c6cee9faefec771722fe8ee95be44b8bc2912a0"
  },
  "f1_repite_12": false,
- "material_auditoria": "e8efb54ae83fdbec",
+ "material_auditoria": "77803fcef6c071db",
  "solicitudes_auditoria": [
   {
    "id": "SA-68e564c4a42b7c63",
    "material": "e8efb54ae83fdbec",
    "creada": "2026-11-19T01:27:27+00:00",
    "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "sustituida",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null,
+   "sustituida": "2026-11-19T01:40:39+00:00",
+   "motivo_sustitucion": "el material fijado es 77803fcef6c071db, no e8efb54ae83fdbec"
+  },
+  {
+   "id": "SA-7d0cddcad0bdb0d9",
+   "material": "77803fcef6c071db",
+   "creada": "2026-11-19T01:40:39+00:00",
+   "motivo": "relevo caducado: el material fijado e8efb54ae83fdbec ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
    "estado": "pendiente",
    "respuesta_sha256": null,
    "respondida": null,
@@ -145,5 +168,17 @@
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null
+ "auditoria": null,
+ "relevos_caducados": [
+  {
+   "material_fijado": "e8efb54ae83fdbec",
+   "material_vigente": "6c5eda5caea34c4d",
+   "archivos_cambiados": [
+    "verificacion_entradas.json"
+   ],
+   "detectado": "2026-11-19T01:40:24+00:00",
+   "material_refijado": "77803fcef6c071db",
+   "solicitud": "SA-7d0cddcad0bdb0d9"
+  }
+ ]
 }

@@ -23,3 +23,4 @@ La línea «Correcciones de extracción en fase1_partes … ninguna» describe s
 - `recalculo_C42.json`: C42 con el precio activo (copia anterior en `antecedentes/etapa1_antes_de_C42/`).
 - `entradas_r3.json` y `entradas_r3_registro.json`: C40, C96, notas de C42 y C88 (copia anterior en `antecedentes/entradas_antes_de_r3/`).
 - `relevo_extraccion_jumbo_e_r2.json` y los relevos de extracción posteriores.
+- `registro_entradas_jumbo_e.json` (guion `scripts/registro_entradas_jumbo_e.py`, 19-nov-2026): `verificacion_entradas.json` del expediente a partir del registro de Mistral (`mistral/examen-jumbo-entradas` @ fced486), adaptado a los valores y fuentes vigentes; fuentes de mercado de Mistral copiadas en `Jumbo/fuentes_mercado/` con sus huellas. Todas las comprobaciones pendientes de un revisor independiente.
