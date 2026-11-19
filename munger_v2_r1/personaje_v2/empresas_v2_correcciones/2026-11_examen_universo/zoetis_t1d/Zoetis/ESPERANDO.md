@@ -1,1 +1,0 @@
-ESPERANDO al agente **verificacion** (paso 13). Entradas: todo lo de la carpeta (sin los prompts de las fases), material_auditoria.json (el material que se audita), solicitud_auditoria.json (la solicitud a la que se responde: SA-374d3f7d0373f99f). Escribe **auditoria.md** en esta carpeta y vuelve a lanzar pipeline.py.

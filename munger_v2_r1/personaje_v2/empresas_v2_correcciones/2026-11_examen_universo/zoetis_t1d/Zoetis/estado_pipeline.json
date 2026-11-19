@@ -1,6 +1,6 @@
 {
- "paso": 13,
- "estado_analisis": null,
+ "paso": 14,
+ "estado_analisis": "concluido",
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -78,12 +78,18 @@
   "2026-11-19T11:11:37 · paso 12 · verificación de las entradas financieras: 313 de 315 celdas del universo comprobadas · apta por entradas: sí",
   "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Demasiado difícil · acción demasiado_dificil",
   "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-19T11:11:40 · paso 13 · solicitud de auditoría SA-374d3f7d0373f99f registrada para el material 07e4c860be9dd69d (sustituye a SA-9c50248c0ba74ff4)"
+  "2026-11-19T11:11:40 · paso 13 · solicitud de auditoría SA-374d3f7d0373f99f registrada para el material 07e4c860be9dd69d (sustituye a SA-9c50248c0ba74ff4)",
+  "2026-11-19T11:17:07 · paso 13 · auditoría consumida: respuesta a la solicitud SA-374d3f7d0373f99f (SHA-256 955cf9848179…)",
+  "  $ python3 ficha.py Zoetis --estado concluido → 0 · OK: ficha.json · estado concluido · cubo Demasiado difícil · acción demasiado_dificil",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Zoetis → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Zoetis resumen_v2_v631_f1.csv → 0 · OK: fila de Zoetis Inc. en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/resumen_v2_v631_f1.csv",
+  "2026-11-19T11:17:10 · paso 14 · FIN · estado concluido · auditoría APROBADO"
  ],
  "motor": "B",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "13:auditoria.md",
+ "esperando": null,
  "inicio": "2026-11-19T09:08:28",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -94,7 +100,8 @@
   "extracto_v63.md": 1795079283.491037,
   "fase_a.json": 1795080395.5327404,
   "fase_b.json": 1795081374.7867842,
-  "fase_c.json": 1795084587.580358
+  "fase_c.json": 1795084587.580358,
+  "auditoria.md": 1795087007.005538
  },
  "motivo_correccion": null,
  "esperando_desde": 1795086700.983421,
@@ -173,15 +180,17 @@
    "material": "07e4c860be9dd69d",
    "creada": "2026-11-19T11:11:40+00:00",
    "motivo": "relevo caducado: el material fijado 5f1ae2a407cc6350 ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
-   "estado": "pendiente",
-   "respuesta_sha256": null,
-   "respondida": null,
-   "veredicto": null
+   "estado": "respondida",
+   "respuesta_sha256": "955cf984817901393623533bf4fc58fbd17e8a61ba3ce9c5f5d2ae8eddeb8826",
+   "respondida": "2026-11-19T11:17:07+00:00",
+   "veredicto": "APROBADO",
+   "respuesta_contenido": "4b6b72e6f540abe5e36c0aeb6fa836b1633b8ca6b510e0e739446ac648dda980",
+   "respuesta_fiel": "3061f8ea41154f42e4d43c94de91c28b28c508f003717d598728990f2348b8de"
   }
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null,
+ "auditoria": "APROBADO",
  "relevos_caducados": [
   {
    "material_fijado": "87c07ec4ab55d0af",
@@ -203,5 +212,23 @@
    "material_refijado": "07e4c860be9dd69d",
    "solicitud": "SA-374d3f7d0373f99f"
   }
- ]
+ ],
+ "auditoria_respuesta": {
+  "solicitud": "SA-374d3f7d0373f99f",
+  "sha256": "955cf984817901393623533bf4fc58fbd17e8a61ba3ce9c5f5d2ae8eddeb8826",
+  "contenido": "4b6b72e6f540abe5e36c0aeb6fa836b1633b8ca6b510e0e739446ac648dda980",
+  "fiel": "3061f8ea41154f42e4d43c94de91c28b28c508f003717d598728990f2348b8de",
+  "material": "07e4c860be9dd69d"
+ },
+ "fin": "2026-11-19T11:17:07",
+ "ficha_valida": true,
+ "publicaciones_de_la_aprobacion": [
+  {
+   "solicitud": "SA-374d3f7d0373f99f",
+   "auditoria_fiel": "3061f8ea41154f42e4d43c94de91c28b28c508f003717d598728990f2348b8de",
+   "csv": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/resumen_v2_v631_f1.csv",
+   "fecha": "2026-11-19T11:17:10"
+  }
+ ],
+ "resumen_pendiente": false
 }
