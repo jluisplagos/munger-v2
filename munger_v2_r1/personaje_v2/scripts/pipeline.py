@@ -646,6 +646,34 @@ class Pipeline:
                           que_hace_falta="ver motor_a_f1_resultado.md: un límite declarado del motor A F1 (p. ej. el libro V6.3 calcula A0) o una decisión pendiente", desde=2)
         return True
 
+    def recalcular_dependientes(self, libro_ev, libro_datos):
+        """(4.15, entradas dependientes de celdas de juicio; examen, Jumbo, J1) Paso 9, con la fase B escrita y sus celdas comprobadas y ANTES
+        del recálculo del libro y de la fase C: las entradas que el registro declara dependientes de una celda de juicio («derivacion.recalculo»
+        en verificacion_entradas.json, p. ej. Análisis!C46 y C40 de Jumbo con C76) se recalculan con su fórmula y la celda que acaba de
+        escribir la fase B (entradas_dependientes.py aplicar, sin ningún agente). Escribe el mismo valor en los dos libros, fase1_v63.json,
+        fase1_metadatos.json, el registro y, si se declara, la partida F1-K3a de motor_a_f1.json, con su rastro en recalculo_dependientes.json
+        (material auditado) y en ../resultados/. Si escribió algo, comprobar_celdas_v2 vuelve a exigir los dos libros iguales fuera de las
+        celdas de juicio. Sin declaraciones no hace nada (ni anota el historial). Devuelve True si terminó."""
+        import entradas_dependientes as ED
+        if not ED.hay_declaraciones(self.c):
+            return False
+        rc, out = self.run([PY, self.script("entradas_dependientes.py"), "aplicar", self.c, "--fase", "B"])
+        resumen = next((json.loads(l[len("RESUMEN_JSON "):]) for l in reversed(out.splitlines()) if l.startswith("RESUMEN_JSON ")), None) if rc == 0 else None
+        if rc != 0 or not isinstance(resumen, dict):
+            self.terminar("no_entregable", "fallo_de_implementacion", "recálculo de las entradas dependientes de celdas de juicio (entradas_dependientes.py): " + out[-400:], 9,
+                          que_hace_falta="corregir la declaración «derivacion.recalculo» del registro o la copia que se indica y relanzar con «--desde 9» "
+                                         "(la fase B escrita no se repite)", desde=9)
+            return True
+        self.st["recalculo_dependientes"] = {"paso": 9, "cambios": resumen.get("cambios") or [], "sin_cambio": [x.get("celda") for x in resumen.get("sin_cambio") or []],
+                                             "escrito": resumen.get("escrito") or [], "rastro": resumen.get("rastro")}
+        self.log("entradas dependientes de celdas de juicio tras la fase B: " + ED.resumen_texto(resumen)[:400])
+        if resumen.get("escrito"):
+            rc, out = self.run([PY, self.script("comprobar_celdas_v2.py"), libro_ev, libro_datos, "--fases", "A,B"])
+            if rc != 0:
+                self.terminar("no_entregable", "fallo_de_implementacion", "celdas de los libros tras el recálculo de las entradas dependientes (comprobar_celdas_v2): " + out[-400:], 9, desde=9)
+                return True
+        return False
+
     def recalc_leer_precio(self, libro):
         rc, out = self.run(["bash", self.script("recalc.sh"), libro, self.p("recalc"), self.perfil])
         if rc != 0:
@@ -742,6 +770,14 @@ class Pipeline:
                         return self.terminar("no_entregable", "fallo_de_implementacion", "configuración económica V6.4: " + out[-300:], 2)
                     os.replace(libro_datos + ".cfg.xlsx", libro_datos)
                     st["configuracion_economica_sha256"] = CIE._sha(self.p(SEL.CONF))
+                # (4.15, entradas dependientes de celdas de juicio; examen, Jumbo, J1) las declaraciones «derivacion.recalculo» del registro se
+                # validan antes de las fases: una declaración mal formada no se descubre en el paso 9. Sin declaraciones no se hace nada
+                import entradas_dependientes as ED
+                if ED.hay_declaraciones(self.c):
+                    rc, out = self.run([PY, self.script("entradas_dependientes.py"), "validar", self.c])
+                    if rc != 0:
+                        return self.terminar("no_entregable", "fallo_de_implementacion", "entradas dependientes declaradas en verificacion_entradas.json: " + out[-400:], 2,
+                                             que_hace_falta="corregir «derivacion.recalculo» de las entradas que lista entradas_dependientes.py validar", desde=2)
             elif paso == 3:
                 rc, out = self.run([PY, self.script("comprobar_entrada_v63.py"), libro_datos, self.c])
                 if rc == 1 and not os.path.exists(self.p("entrada_v63.json")):
@@ -874,6 +910,8 @@ class Pipeline:
                     if v == "continuar":
                         continue
                     return
+                if self.recalcular_dependientes(libro_ev, libro_datos):  # (4.15, entradas dependientes) antes del recálculo y de la fase C
+                    return
                 ok, rec = self.recalc_leer_precio(libro_ev)
                 if not ok:
                     return self.terminar("no_entregable", "fallo_de_implementacion", rec, 9)
@@ -911,6 +949,9 @@ class Pipeline:
                         # que se detecta al reaplicar la configuración) llega ya al prompt del turno 1 y a ESPERANDO.md; antes solo llegaba al turno 2
                         self.pedir_correccion(10, "fase_c_turno1", "fase_c.json", st["motivo_correccion_c"])
                     entradas_c = ["fase_a.json", "fase_b.json", "resultados.json", "precio.json", "gramatica.md", "datos_ausentes.json", "datos_v63.md", "extractos"]
+                    if os.path.isfile(self.p("recalculo_dependientes.json")):
+                        # (4.15, entradas dependientes) datos_v63.md muestra las entradas tal como estaban antes de la fase B
+                        entradas_c.append("recalculo_dependientes.json (entradas recalculadas tras la fase B con su celda de juicio; datos_v63.md da los valores anteriores)")
                     if self.v64 and SEL.experimental(self.c):
                         # (4.11) materialidad mecánica de cada parámetro experimental y estructuras compatibles, sobre COPIAS del libro evaluado
                         v = self.variantes_v64(libro_ev)

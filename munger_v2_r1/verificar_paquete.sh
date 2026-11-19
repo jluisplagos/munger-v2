@@ -473,6 +473,26 @@ else
   tail -5 "$SALIDA_X"; echo "RESULTADO perímetro F1 y vara del foso: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 72 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
+# (4.15, entradas dependientes de celdas de juicio; examen, Jumbo, J1; rama producto/entradas-dependientes) una entrada declarada en el
+# registro como dependiente de una celda de juicio («derivacion.recalculo»: C46 y C40 con C76) se recalcula en el paso 9, tras escribir la
+# fase B y antes del recálculo del libro y de la fase C. Sin LibreOffice ni binarios de expedientes, ≈ 1 min; obligatoria en los dos modos;
+# al menos 51 pruebas (57 con los libros de jumbo_g, que no están en Git: sin ellos esa parte se omite y lo dice)
+echo "== batería de las entradas dependientes de celdas de juicio (personaje_v2/pruebas/test_entradas_dependientes.py; obligatoria en los dos modos; sin LibreOffice)"
+SALIDA_X="$(mktemp)"
+if [ -f personaje_v2/pruebas/test_entradas_dependientes.py ]; then
+  ( cd personaje_v2 && python3 -B pruebas/test_entradas_dependientes.py ) > "$SALIDA_X" 2>&1; rc=$?
+else
+  rc=127; echo "FALTA personaje_v2/pruebas/test_entradas_dependientes.py" > "$SALIDA_X"
+fi
+linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de las entradas dependientes PASAN$' "$SALIDA_X" | tail -1)"
+n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
+minimo=57; grep -qE '^OMITIDA' "$SALIDA_X" && minimo=51   # sin los libros de jumbo_g (o con el expediente en otro estado), sus 6 pruebas se omiten y lo dice
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge $minimo ]; then
+  echo "$linea"; grep -E '^OMITIDA' "$SALIDA_X"; echo "RESULTADO entradas dependientes de celdas de juicio: PASA"
+else
+  tail -5 "$SALIDA_X"; echo "RESULTADO entradas dependientes de celdas de juicio: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de $minimo pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+fi
+
 echo "== batería de trazabilidad de la 4.10 (personaje_v2/pruebas/test_trazabilidad_v2.py; obligatoria en «completa»; BOM, marcadores de cierre y libro final)"
 if [ "${1:-}" = "completa" ]; then
   SALIDA_TRAZABILIDAD="$(mktemp)"
