@@ -1,5 +1,5 @@
 {
- "paso": 8,
+ "paso": 10,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -33,12 +33,22 @@
   "  $ python3 comprobar_entrada_v63.py Jumbo_v63_evaluada.xlsx Jumbo --motor A → 0 · OK: 0 bloqueantes · 7 necesarios para LISTO·PROVISIONAL · 1 no bloqueantes · motores calculables: ['A', 'B', 'C']",
   "  $ python3 motor_a_f1.py evaluar Jumbo --libro Jumbo_v63_evaluada.xlsx --motor A --libro-origen Jumbo_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
   "2026-11-19T00:00:06 · paso 7 · motor A · F1: motor A utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)",
-  "  $ python3 volcar_datos_v63.py Jumbo_v63_evaluada.xlsx Jumbo --referencias-mecanicas → 0 · OK: datos_v63.md (16198 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo · referencias_mecanicas."
+  "  $ python3 volcar_datos_v63.py Jumbo_v63_evaluada.xlsx Jumbo --referencias-mecanicas → 0 · OK: datos_v63.md (16198 palabras) y datos_v63.json en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo · referencias_mecanicas.",
+  "  $ python3 validar_esquema.py fase_b.json fase_b --salida esquema_fase_b.json.txt → 0 · VÁLIDO · fase_b.json contra fase_b.esquema.json",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_b.md fase_b.md → 0 · RESULTADO: PASS",
+  "  $ python3 comprobar_gramatica.py Jumbo --antes-de-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 3 (sin justificar 0) · avisos 1 → gramatica.md",
+  "  $ python3 fase_a_celdas.py fase_b.json B celdas_B.json → 0 · OK: 92 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/celdas_B.json",
+  "  $ python3 escribir_v63.py Jumbo_v63_evaluada.xlsx Jumbo_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_B.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Jumbo_v63_evaluada.xlsx Jumbo_v63_datos.xlsx --fases A,B → 0 · PASS: 0 errores · 48 celdas correctas · fases ['A', 'B'] · motor A",
+  "  $ bash recalc.sh Jumbo_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/recalc/Jumbo_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
+  "  $ python3 leer_resultados.py Jumbo_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/resultados.json · motor A · estado INCOMPLETO · libro NO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 27.28 · esc. MALO 25.8763219626812 · precio de Sí 32.3758 (P* 32.3758) · ponderado 35.6255 · zona cumple_regla_k",
+  "  $ python3 comprobar_gramatica.py Jumbo --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 4 → gramatica.md"
  ],
  "motor": "A",
- "fase_b_escrita": false,
+ "fase_b_escrita": true,
  "fase_c_escrita": false,
- "esperando": "8:fase_b.json",
+ "esperando": "10:fase_c.json",
  "inicio": "2026-11-18T23:05:33",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -47,10 +57,11 @@
  "f1_v631_declaracion_sha256": "77891fd74ba413e3814095a1eb4ac7b1bd28ca3f8688d91067a8fc90a10aa69a",
  "consumidos": {
   "extracto_v63.md": 1795045665.0145948,
-  "fase_a.json": 1795046293.4525752
+  "fase_a.json": 1795046293.4525752,
+  "fase_b.json": 1795047202.3117175
  },
  "motivo_correccion": null,
- "esperando_desde": 1795046407.254436,
+ "esperando_desde": 1795047236.562333,
  "motor_a_f1": {
   "paso": 7,
   "bloquea": false,
