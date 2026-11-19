@@ -1551,6 +1551,59 @@ paso("V631 · D-US2 bis en el libro V6.3.1 tal cual (caso Nike): el libro calcul
      bloquean(rV7) == [] and not salta(rV7, "F1-LIBRO") and cerca(F0(rV7), 68)
      and cerca(rV7["us_gaap"]["D_US2_bis"]["contando_los_pagos"]["variacion_maxima_del_flujo_sin_crecimiento_mm"], -1.0), str(bloquean(rV7)))
 
+# ================================================================== M0 · «Media del ciclo» con US GAAP, D-US1 y A2 en el libro V6.3.1 (caso zoetis_t1c)
+# (19-nov-2026) Con Palancas C8 = «Media del ciclo» el Motor parte de Historia C49 (Diagnóstico V6 C10 → D6:D8). La capa tomaba C48: en el paso 12 la réplica
+# y F1-LIBRO no cuadraban los flujos y en el paso 7 el flujo sin crecimiento y la cota de D-US1 no eran los del libro. Márgenes que suben (5,8 % → 6,8 %) con
+# los tres últimos años como la empresa de referencia (EBIT 68, FCF base 68): C48 = 6,8 %, C49 = 6,5 %; el Motor, con las fórmulas de la plantilla (aquí).
+EB_M0 = [58.0, 60.0, 62.0, 64.0, 66.0, 68.0, 68.0, 68.0, 68.0, 68.0]
+
+
+def motor_del_libro(L, m0):
+    """Diagnóstico V6 C10, Motor D6:D8 y los flujos AU:BD y BF de las filas 6–8 como los calcula la plantilla, partiendo del margen m0 (coma flotante)."""
+    out = {"Diagnóstico V6!C10": m0}
+    V0, tau, f = L["Historia!C44"], L["Historia!C52"], L["Historia!C58"]
+    for fila, c in ((6, "B"), (7, "C"), (8, "D")):
+        out[f"Motor!D{fila}"] = m0
+        g15, mo, s2c, roic, gi = (L.get(f"Palancas!{c}14"), L.get(f"Palancas!{c}15"), L.get(f"Palancas!{c}16"), L.get(f"Palancas!{c}18"), L.get(f"Análisis!{c}68"))
+        if None in (g15, mo, s2c, roic, gi):
+            continue
+        Lp, fl_ = V0, []
+        for t in range(1, 11):
+            gt = g15 if t <= 5 else g15 - (g15 - gi) * (t - 5) / 5
+            Lt = Lp * (1 + gt)
+            fl_.append(Lt * ((m0 + (mo - m0) * min(t, 5) / 5) * (1 - tau) - f) - (Lt - Lp) / s2c)
+            Lp = Lt
+        out.update({f"Motor!{cc}{fila}": x for cc, x in zip(["AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD"], fl_)})
+        out[f"Motor!BF{fila}"] = Lp * (1 + gi) * (mo * (1 - tau) * (1 - gi / roic) - f)
+    return out
+
+
+def libro_m0(palancas=True, base="Media del ciclo", m0_motor=None):
+    L = libro_v631(libro(ebit=EB_M0, palancas=palancas), "A2_propio", 0.0)
+    L.update({"Historia!C49": sum(e / 1000.0 for e in EB_M0) / 10, "Palancas!C8": base})
+    L.update(motor_del_libro(L, (L["Historia!C49"] if base == "Media del ciclo" else L["Historia!C48"]) if m0_motor is None else m0_motor))
+    return L
+
+
+dM0 = decl("A2_propio", ub_am="no_publicada", ub_pas="no_publicada")
+rM0 = ev_(libro_m0(), dM0)
+cM0 = cotas(rM0)
+paso("M0 · zoetis_t1c en sintético (US GAAP, D-US1, A2, libro V6.3.1, «Media del ciclo»): el Motor parte de C49 y la capa también; F1-REPLICA y F1-LIBRO no saltan "
+     "(33 flujos); utilizable CONDICIONADA; flujo sin crecimiento 65 (C49 = 6,5 %; con C48 saldría 68)",
+     not salta(rM0, "F1-REPLICA") and not salta(rM0, "F1-LIBRO") and rM0["libro_v631_f1"]["flujos_contrastados"] == 33 and rM0["utilizable_para_conclusion"]
+     and "CONDICIONADA" in rM0["rotulo"] and cerca(F0(rM0), 65.0) and cerca(rM0["calculo_perimetro_declarado"]["m0"], 0.065, 1e-12), f"{bloquean(rM0)} · F0 {F0(rM0)}")
+k_p0 = next((k for k in (rM0.get("condicionada") or {}).get("cota") or {} if k.startswith("si la variación del pasivo")), None)
+paso("M0 · la cota de D-US1 se mide frente al flujo sin crecimiento del libro: −12 mm son el −18,46 % de 65 (no el −17,65 % de 68)",
+     k_p0 is not None and cerca(cM0.get(k_p0), -12.0) and cerca(rM0["condicionada"]["cota"][k_p0]["variacion_maxima_del_flujo_sin_crecimiento_%"], -18.462, 1e-3),
+     str(rM0.get("condicionada", {}).get("cota", {}).get("resumen")))
+rM07 = ev_(libro_m0(palancas=False), dM0)
+paso("M0 · paso 7 (sin palancas, como zoetis_t1c tras la fase A): m0 = C49 y flujo sin crecimiento 65 ya en el paso 7; F1-REPLICA contrasta m0 con Diagnóstico V6 C10",
+     not salta(rM07, "F1-REPLICA") and rM07["libro_v631_f1"]["flujos_contrastados"] == 0 and cerca(F0(rM07), 65.0) and rM07["utilizable_para_conclusion"]
+     and rM07["replica_del_libro"].get("m0_celda") == "Historia!C49", f"{bloquean(rM07)} · F0 {F0(rM07)}")
+rM0x = ev_(libro_m0(m0_motor=0.068), dM0)
+paso("M0 · un libro V6.3.1 que dice «Media del ciclo» y cuyo Motor parte de C48 → F1-REPLICA y F1-LIBRO bloquean (fallo de implementación)",
+     bloquea(rM0x, "F1-REPLICA") and bloquea(rM0x, "F1-LIBRO") and rM0x["estado_propuesto"] == "no_entregable · fallo_de_implementacion", str(bloquean(rM0x)))
+
 # ================================================================== G13 · con crecimiento e impuestos
 V13 = [1000 * 1.05 ** i for i in range(10)]
 dao = [0.02 * v for v in V13]
