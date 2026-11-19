@@ -432,6 +432,46 @@ paso("A1 · con A1_sin_ROU (y la serie de intereses buena) no hay medidas: «no 
      and not any(k.endswith("(valores)") or k == "F1-INTERESES-ARR" for k in g_a1) and r_a1.get("perimetro_f1_valores") is None
      and "(valores)" not in g_a1["V-F1g"]["detalle"] + g_a1["V-F1k"]["detalle"])
 
+# =========================================================================================== M0 · margen de partida según Palancas C8
+# (19-nov-2026; revisión de f1/usgaap-replica, C2) el ROIC terminal neutro que P-FOSO lleva a datos_v63.md (lo leen las fases B y C) parte del
+# margen que usa el Motor, Diagnóstico V6 C10 = IF(Palancas!C8 = «Media del ciclo»; Historia!C49; Historia!C48), y lo rotula con su celda. Antes
+# tomaba y rotulaba siempre C48 («margen_ultimo»). Ahold tiene «Último año»; los casos «Media del ciclo» se construyen en copias en memoria.
+an = T0["historia"]["anclas"]
+neu48 = PF.neutro(T0["analisis"]["C56"], an["margen_ultimo"], an["tipo_impositivo_5"], an["f"])
+neu49 = PF.neutro(T0["analisis"]["C56"], an["margen_medio"], an["tipo_impositivo_5"], an["f"])
+paso("M0 · «Último año» en Palancas C8 (Ahold): el margen de partida es Historia C48, y datos_v63.md lo rotula con su celda y con C8; el ROIC neutro no cambia",
+     pf1.get("m0_celda") == "Historia!C48" and pf1.get("m0") == an["margen_ultimo"] and pf1.get("base_del_margen") == "Último año" and pf1["roic_neutro_con_m0"] == neu48
+     and f"margen de partida del Motor (Historia!C48 = {PF._f(an['margen_ultimo'])}; Palancas!C8 = «Último año»)" in md_de(pf1),
+     f"{pf1.get('m0_celda')} = {pf1.get('m0')}")
+tc = copy.deepcopy(T0)
+tc["palancas"]["C8"] = "Media del ciclo"
+pfc = PF.desde_datos(tc, D1, EXP)
+md_c = md_de(pfc, tc)
+paso("M0 · «Media del ciclo» en Palancas C8: P-FOSO parte de Historia C49 (el margen medio del ciclo, el del Motor), no de C48, y así lo rotula en datos_v63.md",
+     pfc.get("m0_celda") == "Historia!C49" and pfc.get("m0") == an["margen_medio"] and pfc["roic_neutro_con_m0"] == neu49 and neu49 != neu48
+     and f"margen de partida del Motor (Historia!C49 = {PF._f(an['margen_medio'])}; Palancas!C8 = «Media del ciclo»)" in md_c and "Historia!C48 =" not in md_c,
+     f"{pfc.get('m0_celda')} = {pfc.get('m0')} · neutro {pfc['roic_neutro_con_m0']} (con C48: {neu48})")
+pfl = PF.desde_libro({**LA, "Palancas!C8": "Media del ciclo", "Historia!C49": an["margen_medio"]}, D1, EXP)
+paso("M0 · desde el libro (desde_libro, la que usa la capa F1) con «Media del ciclo»: Historia C49, igual que desde el volcado; sin C8, Historia C48",
+     pfl.get("m0_celda") == "Historia!C49" and pfl.get("m0") == an["margen_medio"] and pfl["roic_neutro_con_m0"] == pfc["roic_neutro_con_m0"]
+     and PF.desde_libro({**LA, "Historia!C49": an["margen_medio"]}, D1, EXP).get("m0_celda") == "Historia!C48")
+tv = copy.deepcopy(tc)
+tv["historia"]["anclas"]["margen_medio"] = None
+pfv = PF.desde_datos(tv, D1, EXP)
+paso("M0 · «Media del ciclo» con Historia C49 vacía: sin margen de partida ni ROIC neutro (no se toma C48 por omisión), y datos_v63.md lo deja ver",
+     pfv.get("m0_celda") == "Historia!C49" and pfv.get("m0") is None and pfv["roic_neutro_con_m0"] is None
+     and "margen de partida del Motor (Historia!C49 = —; Palancas!C8 = «Media del ciclo»)" in md_de(pfv, tv))
+tx8 = copy.deepcopy(T0)
+tx8["palancas"]["C8"] = "media del ciclo"
+pfx8 = PF.desde_datos(tx8, D1, EXP)
+paso("M0 · un valor de Palancas C8 fuera de la lista («media del ciclo»): sin margen de partida ni ROIC neutro, y lo dice (no adivina la celda)",
+     pfx8.get("m0") is None and pfx8.get("m0_celda") is None and pfx8["roic_neutro_con_m0"] is None
+     and "Sin margen de partida: Palancas!C8 = «media del ciclo» no es un valor de la lista" in md_de(pfx8, tx8))
+paso("M0 · la regla es la de la plantilla: C8 vacía o «Último año» → Historia C48; «Media del ciclo» → Historia C49; otro valor → ninguna",
+     hasattr(PF, "margen_de_partida") and all(PF.margen_de_partida(b, 1.0, 2.0) == (1.0, "Historia!C48") for b in (None, "", "Último año"))
+     and PF.margen_de_partida("Media del ciclo", 1.0, 2.0) == (2.0, "Historia!C49") and PF.margen_de_partida("Media del ciclo", 1.0, None) == (None, "Historia!C49")
+     and PF.margen_de_partida("Otro", 1.0, 2.0) == (None, None))
+
 n_ok = sum(1 for _, ok in R if ok)
 print(f"\n{n_ok}/{len(R)} pruebas del perímetro F1 y la vara del foso (P-FOSO) PASAN")
 sys.exit(0 if n_ok == len(R) else 1)

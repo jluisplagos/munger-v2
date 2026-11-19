@@ -7,7 +7,9 @@ mismas entradas (Historia, Análisis, Palancas y Diagnóstico V6 del libro recal
 (`motor_a_f1.json`) con lo que el libro no tiene: la norma contable, los perímetros, la amortización de derechos de uso y de intangibles
 de combinaciones por año, la clasificación de las compras, la inversión de transición, la reinversión estimada y los ajustes N1.
   - Reproduce el libro en el perímetro A0 (f = Historia C58, ancla = C53, flujos = Motor AU:BD y BF): si no lo reproduce, bloquea
-    (F1-REPLICA). Es la comprobación de que la capa y el libro son el mismo motor.
+    (F1-REPLICA). Es la comprobación de que la capa y el libro son el mismo motor. El margen de partida m0 es el que usa el Motor
+    (Diagnóstico V6 C10 → Motor D6:D8): el del último año (Historia C48) o, con «Media del ciclo» en Palancas C8, la media de los
+    márgenes de todos los años con ventas (Historia C49); la réplica lo contrasta con esas celdas.
   - Calcula f, el ancla de S2C (E4), los flujos de los años 1–10 y del año 11 (E3) y el flujo sin crecimiento con el perímetro
     declarado y, como diagnóstico, con A0, A1 y A2.
   - Evalúa las guardas V-F1a…V-F1m con la severidad de E5 y las guardas de implantación F1-* (límites declarados).
@@ -44,7 +46,8 @@ from fractions import Fraction as Fr
 # está en sys.path (la regresión de Elis lo llama así) y el import fallaba desde la V6.3.1
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-VERSION = "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2)"
+VERSION = ("F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2"
+           " · margen de partida según Palancas C8, 19-nov-2026)")
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
 RESULTADO_MD = "motor_a_f1_resultado.md"
@@ -142,6 +145,12 @@ PARAMETROS_SIN_VALOR = {
 # reglas de normalización aprobadas: solo N1 (5a), sin efecto en el gasto por impuesto; N2 pendiente; nada por su etiqueta
 REGLAS_NORMALIZACION = {"N1": "no_deducible"}
 TOL_LIBRO = Fr(1, 10 ** 9)
+# (19-nov-2026, zoetis_t1c) base del margen de partida del libro: Palancas C8 (celda de la fase A con su lista de validación). La V6.3 y la V6.3.1
+# calculan Diagnóstico V6 C10 = IF(Palancas!C8="Media del ciclo"; Historia!C49; Historia!C48) y, con el motor A, Motor D6:D8 = Diagnóstico V6 C10.
+# Vacío es el último año, como en el libro; un valor fuera de la lista no se interpreta (la réplica bloquea)
+BASES_MARGEN = ("Último año", "Media del ciclo")
+BASE_CICLO = "Media del ciclo"
+TOL_M0 = Fr(1, 10 ** 12)
 COLS = "CDEFGHIJKL"
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
                "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
@@ -194,7 +203,7 @@ def leer_libro(ruta):
     import openpyxl
     wb = openpyxl.load_workbook(ruta, data_only=True, read_only=True)
     v = {"sha256": hashlib.sha256(open(ruta, "rb").read()).hexdigest(), "ruta": os.path.abspath(ruta)}
-    rangos = [("Historia", "A5:L81"), ("Historia", "A84:L89"), ("Análisis", "B44:D80"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
+    rangos = [("Historia", "A5:L81"), ("Historia", "A84:L89"), ("Análisis", "B44:D80"), ("Palancas", "C8:C8"), ("Palancas", "B14:D23"), ("Motor", "A6:BT9"),
               ("Diagnóstico V6", "B5:D16"), ("Diagnóstico V6", "B174:D179"), ("Control maestro", "H4:L4")]
     for hoja, rango in rangos:
         if hoja not in wb.sheetnames:
@@ -605,6 +614,34 @@ def motor(V0, m0, tau, f, g15, m_obj, s2c, g_inf, roic, X=None, X11=Fr(0)):
     return {"flujos": flujos, "flujo_11": terminal, "V": V}
 
 
+def margen_de_partida(anios, V, ebit, V0, ciclo):
+    """(19-nov-2026) Margen de partida m0 como el libro (Diagnóstico V6 C10 → Motor D6:D8): el EBIT del año base ÷ V0 (Historia C48) o, con
+    «Media del ciclo» en Palancas C8 (ciclo), la media de EBIT ÷ ventas de todos los años con ventas (Historia C49, media de la fila 29). None si
+    a algún año con ventas le falta el margen (EBIT vacío o ventas cero), como C49 vacía. ebit: el de cada año (con N1, el normalizado)."""
+    if not ciclo:
+        return ebit[anios[-1]] / V0
+    con_ventas = [y for y in anios if V.get(y) is not None]
+    margenes = [ebit[y] / V[y] for y in con_ventas if ebit.get(y) is not None and V[y] != 0]
+    return media(margenes) if con_ventas and len(margenes) == len(con_ventas) else None
+
+
+def _replica_m0(L, m0, base, celda):
+    """(19-nov-2026) Diferencias entre el margen de partida de la réplica y el que usa el libro: la celda de la Historia que elige Palancas C8 (C48 o
+    C49; vacía también es diferencia) y, si el libro las tiene, Diagnóstico V6 C10 y Motor D6:D8. Un valor de Palancas C8 fuera de la lista no se
+    interpreta: es una diferencia (la capa no sabe qué margen usa el libro)."""
+    dif = []
+    if base not in (None, "") and base not in BASES_MARGEN:
+        dif.append(f"Palancas C8 = {base!r}: la base del margen de partida no es ningún valor de la lista ({' o '.join(BASES_MARGEN)}); la capa no la interpreta")
+    for ref in (celda, "Diagnóstico V6!C10", "Motor!D6", "Motor!D7", "Motor!D8"):
+        v = L.get(ref)
+        if v is None and ref != celda:
+            continue
+        lv = Q(v)
+        if lv is None or abs(m0 - lv) > TOL_M0:
+            dif.append(f"m0 {float(m0)} ≠ {ref} {float(lv) if lv is not None else v!r} (base del margen, Palancas C8: {base!r})")
+    return dif
+
+
 # ----------------------------------------------------------------------------------------------------------- evaluación
 class Guardas:
     def __init__(self):
@@ -674,7 +711,13 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     n = int(n) if isinstance(n, (int, float)) and int(n) == n else None
     C70, C58, C52, C53 = (Q(L.get(f"Historia!{c}")) for c in ("C70", "C58", "C52", "C53"))
     C49 = Q(L.get("Análisis!C49"))
-    V0, m0_libro = Q(L.get("Historia!C44")), Q(L.get("Historia!C48"))
+    # (19-nov-2026, zoetis_t1c) el margen de partida es el que usa el Motor del libro (Diagnóstico V6 C10): Historia C48 o, con «Media del ciclo»
+    # en Palancas C8, Historia C49. Antes la capa tomaba siempre C48 y su réplica lo contrastaba con C48: con «Media del ciclo» los flujos del
+    # Motor no coincidían (F1-REPLICA y F1-LIBRO) y, en el paso 7, sin palancas, el flujo sin crecimiento y la cota no eran los del libro
+    base_m0 = L.get("Palancas!C8")
+    ciclo = base_m0 == BASE_CICLO
+    celda_m0 = "Historia!C49" if ciclo else "Historia!C48"
+    V0, m0_libro = Q(L.get("Historia!C44")), Q(L.get(celda_m0))
     if n is None or C70 is None or (C58 is None and not _f_vacia_v631(L)) or V0 is None:
         raise ErrorDeclaracion("el libro no tiene f calculada (Historia C57, C58, C70 o C44 vacías): el motor A no es calculable")
     ventana = anios[-n:]
@@ -684,10 +727,14 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         for k in ("V", "EBIT", "DA", "tau", "capex", "dwc"):
             if H[k][y] is None:
                 raise ErrorDeclaracion(f"Historia {k} {y} vacía dentro de la ventana de f")
+    if ciclo and margen_de_partida(anios, H["V"], H["EBIT"], V0, True) is None:
+        raise ErrorDeclaracion("Palancas C8 = «Media del ciclo» y el margen medio del ciclo no es calculable (a algún año con ventas le falta el EBIT, o "
+                               "sus ventas son cero: Historia C49 vacía): el motor A no es calculable")
     res["entradas_registradas"] = {"Historia!C70 (FCF base que calibra f)": fl(C70), "Análisis!C48": fl(Q(L.get("Análisis!C48"))),
                                    "Análisis!C49 (principal de arrendamientos)": fl(C49), "Análisis!C52": fl(Q(L.get("Análisis!C52"))),
                                    "Historia!C58 (f del libro, A0)": fl(C58, 15), "Historia!C52 (τ de 5 años)": fl(C52, 6),
                                    "Historia!C53 (S2C, A0)": fl(C53), "V0": fl(V0), "m0 del libro": fl(m0_libro, 15),
+                                   "base del margen de partida (Palancas!C8)": base_m0, "m0 del libro: celda": celda_m0,
                                    "ventana": ventana, "horizonte_ancla": horiz,
                                    "nota": "entradas registradas del FCF base: no cambian con F1 (E0.3, T10); la capa F1 no las escribe"}
 
@@ -878,6 +925,12 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         # (revisión, H9) el alcance de N1 a los ejercicios del τ fuera de la ventana no está decidido: no se elige por omisión
         param_pend.append(f"alcance de N1 a los ejercicios del τ fuera de la ventana sin decisión adoptada (declarados fuera de la ventana: {fuera or 'ninguno'}); "
                           "no se elige por omisión" + ("; se calculan las variantes" if fuera else ""))
+        if ciclo and fuera:
+            # (19-nov-2026) con «Media del ciclo» el EBIT de los años fuera de la ventana entra en m0 (media de todos los años con ventas); N1 solo
+            # normaliza el de la ventana, también en las variantes (que cambian el τ de esos años, no su EBIT)
+            param_pend.append(f"con la base del margen «Media del ciclo» (Palancas C8), m0 es la media de los márgenes de todos los años con ventas y N1 solo "
+                              f"normaliza el EBIT de los años de la ventana: sin decisión sobre si alcanza el EBIT de los demás años del ciclo (declarados: {fuera}); "
+                              "no se elige por omisión")
         if act or norm.get("actualizacion_financiera_earnout_declarada") is not False:
             param_pend.append("actualización financiera del earnout (N1 alcanza o no el BAI que da el tipo): sin decisión adoptada; "
                               "o se declara expresamente que no existe (actualizacion_financiera_earnout_declarada: false)")
@@ -1112,7 +1165,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         if any(tau[y] is None for y in tau_anios):
             return None
         tau5 = media(tau[y] for y in tau_anios) if CONVENCION_TAU == "cinco_anios" else media(tau[y] for y in ventana)
-        m0 = ebit[anios[-1]] / V0
+        m0 = margen_de_partida(anios, H["V"], ebit, V0, ciclo)   # el del Motor del libro: Historia C48 o, con «Media del ciclo», C49
         F0 = V0 * (m0 * (1 - tau5) - f)
         X, X11, hay_x = X_terminos(p)
         # ancla de S2C (E4): (V_L − V_G) ÷ Σ_H..L (capex − D_X + ΔWC + adquisiciones − X^v); X^v = términos explícitos de la ventana del ancla
@@ -1136,8 +1189,11 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
         # K3: puente FCF base → flujo sin crecimiento, partida a partida
         Eb = media(ebit[y] for y in ventana)
         da_own = {y: H["DA"][y] - rou8.get(y, Fr(0)) - ppa.get(y, Fr(0)) for y in ventana}
+        # EBIT de partida = m0 × V0: el del año base o, con «Media del ciclo», el margen medio del ciclo aplicado a las ventas del año base
         lineas = [("FCF base que calibra f (Historia C70, entrada registrada)", C70, "caja"),
-                  ("+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección", (ebit[anios[-1]] - Eb) * (1 - tau5), "explicada"),
+                  (("+ nivel del EBIT de partida (margen medio del ciclo, Historia C49, × ventas del año base; Palancas C8 «Media del ciclo») frente a la "
+                    "media de la ventana, al τ de proyección") if ciclo else "+ nivel del EBIT del año base frente a la media de la ventana, al τ de proyección",
+                   (m0 * V0 - Eb) * (1 - tau5), "explicada"),
                   ("+ τ de proyección frente al τ de cada año de la ventana", Eb * (1 - tau5) - nopat, "explicada"),
                   ("− f aplicada a las ventas del año base en lugar de las medias", -f * (V0 - S_), "explicada")]
         if p in ("A3_estimado", "B_cota_capex"):
@@ -1182,6 +1238,10 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     if us and U["retira_de_14"]:
         r0 = calcular("A0_total", aplicar_n1=False, con_ajuste=False)   # (F1 · US GAAP) la réplica es la del libro, que no retira nada del circulante
     r0, p_rep = _replica_v631(L, r0, lambda p, **k: calcular(p, **dict(k, con_ajuste=False)), anios, col, rep)
+    # (19-nov-2026) el margen de partida de la réplica (sin N1) frente al que usa el libro (la celda de la Historia según Palancas C8, Diagnóstico V6 C10
+    # y Motor D6:D8), con f o sin ella: en el paso 7, sin palancas, no hay flujos que lo delaten
+    m0_rep = margen_de_partida(anios, H["V"], H["EBIT"], V0, ciclo)
+    rep.extend(_replica_m0(L, m0_rep, base_m0, celda_m0))
     if r0 is None and C58 is None and p_rep != "A0":
         res["replica_del_libro"] = {"perimetro_replicado": p_rep, "conforme": not rep, "nota": "f vacía en el libro y en la réplica (D_X incompleta en la ventana)"}
     elif r0 is None:
@@ -1191,8 +1251,6 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             rep.append(f"f {p_rep} {float(r0['f'])} ≠ Historia C58 {None if C58 is None else float(C58)}")
         if C52 is not None and abs(r0["tau5"] - C52) > Fr(1, 10 ** 12):
             rep.append(f"τ de 5 años {float(r0['tau5'])} ≠ Historia C52 {float(C52)}")
-        if m0_libro is not None and abs(r0["m0"] - m0_libro) > Fr(1, 10 ** 12):
-            rep.append(f"m0 {float(r0['m0'])} ≠ Historia C48 {float(m0_libro)}")
         if C53 is not None and r0["ancla"] is not None and abs(r0["ancla"] - C53) > Fr(1, 10 ** 9):
             rep.append(f"ancla {p_rep} {float(r0['ancla'])} ≠ Historia C53 {float(C53)}")
         n_flujos = 0
@@ -1212,9 +1270,10 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                 if abs(mo["flujo_11"] - lv) > TOL_LIBRO:
                     rep.append(f"Motor!BF{fila} {float(lv)} ≠ réplica {float(mo['flujo_11'])}")
         res["replica_del_libro"] = {"f": fl(r0["f"], 15), "C58": fl(C58, 15), "ancla": fl(r0["ancla"]), "C53": fl(C53),
+                                    "m0": fl(m0_rep, 15), "m0_del_libro": fl(m0_libro, 15), "m0_celda": celda_m0, "base_del_margen": base_m0,
                                     "flujos_contrastados": n_flujos, "conforme": not rep, "perimetro_replicado": p_rep}
     G.add("F1-REPLICA", bool(rep), "BLOQUEA", "DATOS INVÁLIDOS", "; ".join(rep) if rep else
-          "la réplica A0 reproduce el libro (f, τ, m0, ancla y flujos): la capa F1 y el libro son el mismo motor", "T1/T7", clase="implementacion")
+          f"la réplica A0 reproduce el libro (f, τ, m0 = {celda_m0}, ancla y flujos): la capa F1 y el libro son el mismo motor", "T1/T7", clase="implementacion")
 
     # perímetro declarado: con N1 (variante «solo ventana» y, si hay ajustes fuera de la ventana, la otra)
     decl_r = calcular(per) if per else None
@@ -1371,14 +1430,33 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     info_f = {}
     yL = anios[-1]
     S_w = media(H["V"][y] for y in ventana)
+
+    def lleva_m0(serie):
+        """(19-nov-2026) Lo que lleva m0 de una partida del EBIT, en proporción de las ventas: la del año base o, con «Media del ciclo» (Palancas C8),
+        la media de (partida ÷ ventas) de todos los años con ventas; None si la serie no cubre esos años (no se completa con nada)."""
+        if not ciclo:
+            return serie[yL] / V0
+        cv = [y for y in anios if H["V"][y] is not None]
+        return media(serie[y] / H["V"][y] for y in cv) if all(y in serie and H["V"][y] for y in cv) else None
+    no_ciclo = "no calculable con la base del margen «Media del ciclo» (Palancas C8): la serie no cubre todos los años con ventas"
     if all(y in ppa for y in ventana) and yL in ppa:
         info_f["PPA: media ÷ ventas medias (lo que devuelve f en A2)"] = fl(media(ppa[y] for y in ventana) / S_w, 6)
-        info_f["PPA: año base ÷ ventas del año base (lo que lleva m0)"] = fl(ppa[yL] / V0, 6)
-        info_f["efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)"] = fl(media(ppa[y] for y in ventana) / S_w * V0 - ppa[yL], 3)
+        lm = lleva_m0(ppa)
+        if lm is None:
+            info_f["PPA: lo que lleva m0"] = no_ciclo
+        else:
+            info_f["PPA: media de (PPA ÷ ventas) de los años con ventas (lo que lleva m0 con «Media del ciclo»)" if ciclo else
+                   "PPA: año base ÷ ventas del año base (lo que lleva m0)"] = fl(lm, 6)
+            info_f["efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)"] = fl((media(ppa[y] for y in ventana) / S_w - lm) * V0, 3)
     if all(y in rou8 for y in ventana) and yL in rou8:
         info_f["ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)"] = fl(media(rou8[y] for y in ventana) / S_w, 6)
-        info_f["ROU: año base ÷ ventas del año base (lo que lleva m0)"] = fl(rou8[yL] / V0, 6)
-        info_f["efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)"] = fl(media(rou8[y] for y in ventana) / S_w * V0 - rou8[yL], 3)
+        lm = lleva_m0(rou8)
+        if lm is None:
+            info_f["ROU: lo que lleva m0"] = no_ciclo
+        else:
+            info_f["ROU: media de (ROU ÷ ventas) de los años con ventas (lo que lleva m0 con «Media del ciclo»)" if ciclo else
+                   "ROU: año base ÷ ventas del año base (lo que lleva m0)"] = fl(lm, 6)
+            info_f["efecto de escala de la ROU en el flujo sin crecimiento de A1 y A2 (mm)"] = fl((media(rou8[y] for y in ventana) / S_w - lm) * V0, 3)
     vnc = Q(((decl.get("series") or {}).get("vnc_intangibles_adquiridos") or {}).get("valor")) if isinstance((decl.get("series") or {}).get("vnc_intangibles_adquiridos"), dict) else None
     if vnc is not None and yL in ppa and ppa[yL] > 0:
         info_f["años de agotamiento de la PPA al ritmo del año base (valor neto ÷ PPA)"] = fl(vnc / ppa[yL], 2)

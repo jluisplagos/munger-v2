@@ -817,6 +817,154 @@ paso("REV2 · H10: transición como término sin importes históricos H–L (el 
 d11 = copy.deepcopy(d7)
 d11["transicion"]["registro"] = {"fecha": None, "persona": None, "motivo": None}
 paso("REV2 · H11: «sin transición conocida» sin registro → F1-REGISTRO", bloquea(M.evaluar(L7, d11, carpeta=FUENTES7), "F1-REGISTRO"))
+# ================================================================== M0 · margen de partida: Palancas C8 «Media del ciclo» (Historia C49) o «Último año» (C48)
+# (19-nov-2026, zoetis_t1c) La plantilla calcula Diagnóstico V6 C10 = IF(Palancas!C8="Media del ciclo"; Historia!C49; Historia!C48) y el Motor parte de ese
+# margen (D6:D8). La capa tomaba siempre C48: con «Media del ciclo» la réplica no reproducía los flujos (F1-REPLICA y F1-LIBRO) y, en el paso 7, sin
+# palancas, nada lo delataba. Libro sintético con márgenes que suben (C48 = 8 %, C49 = 6,92 %), sin arrendamientos ni PPA (A0 admisible, como T7);
+# el Motor se escribe aquí con las fórmulas de la plantilla, en coma flotante e independiente de motor_a_f1.
+E_M0 = [60.0, 62.0, 64.0, 66.0, 68.0, 70.0, 72.0, 74.0, 76.0, 80.0]
+CM0 = "Media del ciclo"
+
+
+def motor_del_libro(L, m0):
+    """Diagnóstico V6 C10, Motor D6:D8 y los flujos AU:BD y BF de las filas 6–8 como los calcula la plantilla, partiendo del margen m0."""
+    out = {"Diagnóstico V6!C10": m0}
+    V0, tau, f = L["Historia!C44"], L["Historia!C52"], L["Historia!C58"]
+    for fila, c in ((6, "B"), (7, "C"), (8, "D")):
+        out[f"Motor!D{fila}"] = m0
+        g15, mo, s2c, roic, gi = (L.get(f"Palancas!{c}14"), L.get(f"Palancas!{c}15"), L.get(f"Palancas!{c}16"), L.get(f"Palancas!{c}18"), L.get(f"Análisis!{c}68"))
+        if None in (g15, mo, s2c, roic, gi):
+            continue
+        Lp, fl_ = V0, []
+        for t in range(1, 11):
+            gt = g15 if t <= 5 else g15 - (g15 - gi) * (t - 5) / 5
+            Lt = Lp * (1 + gt)
+            mt = m0 + (mo - m0) * min(t, 5) / 5
+            fl_.append(Lt * (mt * (1 - tau) - f) - (Lt - Lp) / s2c)
+            Lp = Lt
+        for cc, x in zip(["AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD"], fl_):
+            out[f"Motor!{cc}{fila}"] = x
+        out[f"Motor!BF{fila}"] = Lp * (1 + gi) * (mo * (1 - tau) * (1 - gi / roic) - f)
+    return out
+
+
+def libro_m0(base, m0_motor=None, palancas=True, ebit=E_M0):
+    """Libro V6.3 sintético con la base del margen `base` en Palancas C8 (None: vacía), Historia C49 (media de la fila 29) y el Motor coherente con la
+    plantilla (m0 = C49 con «Media del ciclo»; C48 en otro caso) o, con m0_motor, partiendo de otro margen (un libro que no hace lo que dice C8)."""
+    L = libro([1000.0] * 10, list(ebit), [20.0] * 10, [0.0] * 10, [20.0] * 10, [0.0] * 10, [0.0] * 10, [0.0] * 10, 70.0, 0.0)
+    if not palancas:   # paso 7: sin palancas no hay flujos en el Motor
+        for k in [k for k in L if k.startswith("Palancas!") or k in ("Análisis!B68", "Análisis!C68", "Análisis!D68")]:
+            del L[k]
+    L["Historia!C49"] = sum(e / 1000.0 for e in ebit) / 10
+    if base is not None:
+        L["Palancas!C8"] = base
+    m0 = (L["Historia!C49"] if base == CM0 else L["Historia!C48"]) if m0_motor is None else m0_motor
+    L.update(motor_del_libro(L, m0))
+    return L
+
+
+dM0 = decl("A0_total", rou=todos(0), ppa=todos(0))
+Lc0 = libro_m0(CM0)
+c48_0, c49_0, f_0 = Lc0["Historia!C48"], Lc0["Historia!C49"], Lc0["Historia!C58"]
+rc0 = M.evaluar(Lc0, dM0, carpeta=FUENTES7)
+cc0 = rc0["calculo_perimetro_declarado"]
+paso("M0 · «Media del ciclo» en Palancas C8: la capa parte del margen medio del ciclo (Historia C49 = 6,92 %, no C48 = 8 %), como el Motor; la réplica "
+     "reproduce los 33 flujos; F1-REPLICA y F1-LIBRO no saltan; utilizable (caso zoetis_t1c sin arrendamientos)",
+     not salta(rc0, "F1-REPLICA") and not salta(rc0, "F1-LIBRO") and rc0["utilizable_para_conclusion"] and rc0["replica_del_libro"]["flujos_contrastados"] == 33
+     and abs(cc0["m0"] - c49_0) < 1e-12 and abs(c49_0 - c48_0) > 0.01 and rc0["replica_del_libro"]["m0_celda"] == "Historia!C49",
+     f"bloquean {[x['id'] for x in rc0['guardas'] if x['salta'] and x['severidad'] == 'BLOQUEA']} · m0 {cc0['m0']} · C49 {c49_0}")
+paso("M0 · «Media del ciclo»: el flujo sin crecimiento es V0·(C49·(1 − τ) − f) = 62,533, el del libro (con C48 saldría 73,333); el puente K3 sigue cuadrando y su "
+     "segunda partida es el EBIT de partida (C49 × V0) frente a la media de la ventana (69,2 − 76,667)",
+     abs(cc0["flujo_sin_crecimiento"] - 1000 * (c49_0 - f_0)) < 1e-9 and cc0["K3"]["identidad_cuadra"]
+     and "Media del ciclo" in cc0["K3"]["lineas"][1]["partida"] and abs(cc0["K3"]["lineas"][1]["mm"] - (69.2 - 230 / 3)) < 1e-6,
+     f"F0 {cc0['flujo_sin_crecimiento']} · {cc0['K3']['lineas'][1]}")
+ru0, rv0 = M.evaluar(libro_m0("Último año"), dM0, carpeta=FUENTES7), M.evaluar(libro_m0(None), dM0, carpeta=FUENTES7)
+paso("M0 · «Último año» (y Palancas C8 vacía, como en el libro): m0 = Historia C48 y la réplica sigue conforme (sin cambio); la partida K3 conserva su rótulo",
+     all(not salta(r_, "F1-REPLICA") and r_["utilizable_para_conclusion"] and abs(r_["calculo_perimetro_declarado"]["m0"] - c48_0) < 1e-12
+         and r_["calculo_perimetro_declarado"]["K3"]["lineas"][1]["partida"].startswith("+ nivel del EBIT del año base") for r_ in (ru0, rv0)))
+ri0 = M.evaluar(libro_m0(CM0, m0_motor=c48_0), dM0, carpeta=FUENTES7)
+paso("M0 · la réplica no se debilita: un libro que dice «Media del ciclo» y cuyo Motor parte de C48 (no es lo que calcula la plantilla) → F1-REPLICA bloquea "
+     "(m0 frente a Diagnóstico V6 C10 y Motor D6:D8, y los flujos)", bloquea(ri0, "F1-REPLICA") and "Diagnóstico V6!C10" in g(ri0, "F1-REPLICA")[1][0]["detalle"]
+     and "Motor!AU6" in g(ri0, "F1-REPLICA")[1][0]["detalle"] and not ri0["utilizable_para_conclusion"], g(ri0, "F1-REPLICA")[1][0]["detalle"][:160])
+paso("M0 · y al revés: «Último año» con un Motor que parte de C49 → F1-REPLICA bloquea", bloquea(M.evaluar(libro_m0("Último año", m0_motor=c49_0), dM0, carpeta=FUENTES7), "F1-REPLICA"))
+rp0 = M.evaluar(libro_m0(CM0, palancas=False), dM0, carpeta=FUENTES7)
+paso("M0 · paso 7 (sin palancas ni flujos en el Motor): con «Media del ciclo» el flujo sin crecimiento y m0 ya son los del libro (C49), no los de C48; "
+     "la réplica contrasta m0 con Diagnóstico V6 C10 y lo da por conforme",
+     rp0["replica_del_libro"]["flujos_contrastados"] == 0 and not salta(rp0, "F1-REPLICA") and abs(rp0["calculo_perimetro_declarado"]["m0"] - c49_0) < 1e-12
+     and abs(rp0["calculo_perimetro_declarado"]["flujo_sin_crecimiento"] - 1000 * (c49_0 - f_0)) < 1e-9, str(rp0["replica_del_libro"]))
+Lp7 = libro_m0(CM0, palancas=False)
+Lp7["Diagnóstico V6!C10"] = c48_0
+rp7 = M.evaluar(Lp7, dM0, carpeta=FUENTES7)
+paso("M0 · paso 7: si el margen de partida del libro (Diagnóstico V6 C10) no es el que pide Palancas C8 → F1-REPLICA bloquea aunque no haya flujos que comparar",
+     bloquea(rp7, "F1-REPLICA") and "Diagnóstico V6!C10" in g(rp7, "F1-REPLICA")[1][0]["detalle"], g(rp7, "F1-REPLICA")[1][0]["detalle"][:140])
+Lp9 = libro_m0(CM0, palancas=False)
+Lp9["Diagnóstico V6!C10"] = c49_0 + 1e-9
+paso("M0 · paso 7: una diferencia de 10⁻⁹ entre el m0 de la capa y Diagnóstico V6 C10 ya bloquea (tolerancia de m0 10⁻¹², la de f)",
+     bloquea(M.evaluar(Lp9, dM0, carpeta=FUENTES7), "F1-REPLICA"))
+Lv0 = libro_m0(CM0)
+del Lv0["Historia!C49"]
+rv49 = M.evaluar(Lv0, dM0, carpeta=FUENTES7)
+paso("M0 · la celda de la Historia que elige Palancas C8 vacía (C49 sin valor en el libro; el Motor y C10 sí lo tienen) → F1-REPLICA bloquea (vacío no es el margen de la capa)",
+     bloquea(rv49, "F1-REPLICA") and "Historia!C49" in g(rv49, "F1-REPLICA")[1][0]["detalle"], g(rv49, "F1-REPLICA")[1][0]["detalle"][:140])
+rx0 = M.evaluar(libro_m0("media del ciclo"), dM0, carpeta=FUENTES7)
+paso("M0 · un valor de Palancas C8 fuera de la lista («media del ciclo», en minúsculas) no se interpreta: F1-REPLICA bloquea (la capa no sabe qué margen usa el libro)",
+     bloquea(rx0, "F1-REPLICA") and "no es ningún valor de la lista" in g(rx0, "F1-REPLICA")[1][0]["detalle"], g(rx0, "F1-REPLICA")[1][0]["detalle"][:140])
+Lh0 = libro_m0(CM0)
+Lh0["Historia!C7"] = None
+try:
+    M.evaluar(Lh0, dM0, carpeta=FUENTES7)
+    h0_err = None
+except M.ErrorDeclaracion as ex:
+    h0_err = str(ex)
+paso("M0 · «Media del ciclo» con el EBIT de un año fuera de la ventana vacío (Historia C49 vacía en el libro): el motor A no es calculable (ErrorDeclaracion), "
+     "no se toma C48 por omisión", h0_err is not None and "Media del ciclo" in h0_err, str(h0_err))
+nM0 = copy.deepcopy(nfu)   # ajustes N1 de −5 en 2025 (ventana) y en 2022 (fuera de la ventana), con su BAI y su gasto
+rn0 =M.evaluar(libro_m0(CM0), decl("A0_total", rou=todos(0), ppa=todos(0), normalizacion=nM0), carpeta=FUENTES7)
+paso("M0 · N1 con «Media del ciclo»: N1 normaliza el EBIT de la ventana dentro de la media del ciclo (m0 = C49 + 5 ÷ 1000 ÷ 10) y, con un ajuste fuera de la "
+     "ventana (2022), F1-PARAM dice que no hay decisión sobre si alcanza el EBIT de los demás años del ciclo (bloquea; no se elige por omisión)",
+     bloquea(rn0, "F1-PARAM") and "Media del ciclo" in g(rn0, "F1-PARAM")[1][0]["detalle"]
+     and abs(rn0["calculo_perimetro_declarado"]["m0"] - (c49_0 + 5 / 1000 / 10)) < 1e-12, g(rn0, "F1-PARAM")[1][0]["detalle"][-200:])
+ppa_m0 = {y: (3 if y >= 2021 else 0) for y in ANIOS}
+rf0 = M.evaluar(libro_m0(CM0), decl("A2_propio", rou=todos(0), ppa=ppa_m0))
+rf1 = M.evaluar(libro_m0("Último año"), decl("A2_propio", rou=todos(0), ppa=ppa_m0))
+rf2 = M.evaluar(libro_m0(CM0), decl("A2_propio", rou=todos(0), ppa={y: 3 for y in range(2021, 2026)}))
+inf0, inf1, inf2 = (json.loads(g(r_, "V-F1f")[1][0]["detalle"]) for r_ in (rf0, rf1, rf2))
+EF_PPA = "efecto de escala de la PPA en el flujo sin crecimiento de A2 (mm)"
+
+
+def _cerca_m0(x, v):
+    return isinstance(x, (int, float)) and abs(x - v) < 1e-9
+
+
+paso("M0 · V-F1f (INFORMA) con «Media del ciclo»: lo que lleva m0 de la PPA es su media sobre las ventas de todos los años con ventas (0,0015) y el efecto de escala "
+     "(0,003 − 0,0015) × 1000 = 1,5; con «Último año», el año base (0,003; efecto 0); con la PPA solo en 2021–2025, «no calculable» (no se completa con nada)",
+     _cerca_m0(inf0.get("PPA: media de (PPA ÷ ventas) de los años con ventas (lo que lleva m0 con «Media del ciclo»)"), 0.0015) and _cerca_m0(inf0.get(EF_PPA), 1.5)
+     and _cerca_m0(inf1.get("PPA: año base ÷ ventas del año base (lo que lleva m0)"), 0.003) and _cerca_m0(inf1.get(EF_PPA), 0.0)
+     and "no calculable" in str(inf2.get("PPA: lo que lleva m0")) and EF_PPA not in inf2, json.dumps(inf0, ensure_ascii=False)[:200])
+
+# (19-nov-2026; revisión de f1/usgaap-replica, C3) leer_libro lee Palancas C8, sin LibreOffice: el libro «Media del ciclo» de M0 se escribe en un .xlsx con sus
+# valores (como la caché de un libro recalculado), leer_libro lo lee y la capa da lo mismo que con el diccionario. Sin la lectura de C8 la capa partiría de C48
+# y la réplica bloquearía; hasta ahora eso solo lo veía L8 (probar_libro_v631_usgaap.py, con LibreOffice, en el modo «completa»)
+tmp_m0 = tempfile.mkdtemp(prefix="f1_m0_xlsx_")
+try:
+    import openpyxl
+    wb = openpyxl.Workbook()
+    for k, v in Lc0.items():
+        if "!" in k:
+            h, c = k.split("!")
+            (wb[h] if h in wb.sheetnames else wb.create_sheet(h))[c] = v
+    wb.save(os.path.join(tmp_m0, "libro_m0.xlsx"))
+    Lx = M.leer_libro(os.path.join(tmp_m0, "libro_m0.xlsx"))
+    rx = M.evaluar(Lx, dM0, carpeta=FUENTES7)
+    rpx = rx.get("replica_del_libro") or {}
+    paso("M0 · leer_libro lee Palancas C8 (sin LibreOffice): el libro «Media del ciclo» escrito en un .xlsx y leído con leer_libro da la capa del diccionario: "
+         "m0 = Historia C49, réplica conforme con 33 flujos, F1-REPLICA y F1-LIBRO sin saltar",
+         Lx.get("Palancas!C8") == CM0 and rpx.get("m0_celda") == "Historia!C49" and rpx.get("conforme") is True and rpx.get("flujos_contrastados") == 33
+         and not salta(rx, "F1-REPLICA") and not salta(rx, "F1-LIBRO") and abs(rx["calculo_perimetro_declarado"]["m0"] - c49_0) < 1e-12,
+         f"Palancas!C8 = {Lx.get('Palancas!C8')!r} · {rpx.get('m0_celda')} · conforme {rpx.get('conforme')}")
+finally:
+    shutil.rmtree(tmp_m0, ignore_errors=True)
+
 # ================================================================== REV V6.3.1 · V631-2: la cifra completa, de su ejercicio y su columna, en una fuente del expediente
 TABLA = ("[PDF PAGE 1]\n(In millions of euros)" + " " * 20 + "2025" + " " * 10 + "2024\n"
          + "Right-of-use assets" + " " * 21 + "(149.5)" + " " * 7 + "(132.2)\n"

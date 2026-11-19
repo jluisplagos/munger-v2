@@ -23,11 +23,11 @@
 #                                        105 en el hito 1 de la 4.15) y la de la entrada efectiva del FCF base test_entrada_efectiva_415.py
 #                                        (al menos 62; 40 en el hito 1) y la del relevo caducado test_relevo_i19_415.py (4.15, hito 2; al
 #                                        menos 5; LibreOffice), igual de obligatorias; (4.15, F1-IMPL) la del motor A con el perímetro F1
-#                                        test_motor_a_f1.py (al menos 142 pruebas; sin LibreOffice) y la prueba del gancho F1 del pipeline
+#                                        test_motor_a_f1.py (al menos 177 pruebas; 176 antes de C3 de la revisión d16a2d7, 142 en F1-IMPL; sin LibreOffice) y la prueba del gancho F1 del pipeline
 #                                        prueba_pipeline_f1.py (al menos 8 casos; LibreOffice), igual de obligatorias; (4.15, F1 · US GAAP,
-#                                        ASC 842; ronda 2 y su cierre) la del motor A F1 con US GAAP test_motor_a_f1_usgaap.py (al menos 290 pruebas; sin
+#                                        ASC 842; ronda 2 y su cierre) la del motor A F1 con US GAAP test_motor_a_f1_usgaap.py (al menos 294 pruebas; 290 en el cierre de la ronda 2; sin
 #                                        LibreOffice), la de extremo a extremo prueba_pipeline_usgaap.py (al menos 26 casos; LibreOffice) y la
-#                                        del libro V6.3.1 real probar_libro_v631_usgaap.py (al menos 16 comprobaciones; LibreOffice), igual
+#                                        del libro V6.3.1 real probar_libro_v631_usgaap.py (al menos 18 comprobaciones; 16 en el cierre de la ronda 2; LibreOffice), igual
 #                                        de obligatorias
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
@@ -212,10 +212,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del motor A F1 \(4\.15\) PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 142 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 177 ]; then
     echo "$linea"; echo "RESULTADO motor A F1: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 142 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 177 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
@@ -251,10 +251,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del motor A F1 con US GAAP PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 290 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 294 ]; then
     echo "$linea"; echo "RESULTADO motor A F1 con US GAAP: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1 con US GAAP: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 290 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO motor A F1 con US GAAP: FALLA (código $rc; la batería no pasó, no llegó a ejecutarse o tiene menos de 294 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"
@@ -292,10 +292,10 @@ if [ "${1:-}" = "completa" ]; then
   fi
   linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones de F1 · US GAAP sobre el libro V6\.3\.1 PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 16 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 18 ]; then
     echo "$linea"; echo "RESULTADO F1 · US GAAP sobre el libro V6.3.1: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO F1 · US GAAP sobre el libro V6.3.1: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 16; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO F1 · US GAAP sobre el libro V6.3.1: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 18; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
   rm -rf "$D_US"
 else
@@ -437,7 +437,8 @@ fi
 
 # (4.15, P-FOSO) perímetro F1 en las fases (D2), G7 y referencias con el ROIC del perímetro (D1) y V-F1g/V-F1k por valores (D3); dictamen
 # examen/revisiones/dictamen_perimetro_g4 y decisión P-FOSO (a) del 18-nov-2026. Sin LibreOffice ni binarios, unos segundos; obligatoria en
-# los dos modos; al menos 66 pruebas (ronda 2: C1–C4 y D3 de la revisión de la implantación; ronda 3: A1 pendiente de decisión)
+# los dos modos; al menos 72 pruebas (ronda 2: C1–C4 y D3 de la revisión de la implantación; ronda 3: A1 pendiente de decisión; 66 antes de
+# C2 de la revisión d16a2d7, el margen de partida según Palancas C8)
 echo "== batería del perímetro F1 y la vara del foso (personaje_v2/pruebas/test_perimetro_foso.py; obligatoria en los dos modos; sin LibreOffice)"
 SALIDA_X="$(mktemp)"
 if [ -f personaje_v2/pruebas/test_perimetro_foso.py ]; then
@@ -447,10 +448,10 @@ else
 fi
 linea="$(grep -E '^[0-9]+/[0-9]+ pruebas del perímetro F1 y la vara del foso \(P-FOSO\) PASAN$' "$SALIDA_X" | tail -1)"
 n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 66 ]; then
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 72 ]; then
   echo "$linea"; echo "RESULTADO perímetro F1 y vara del foso: PASA"
 else
-  tail -5 "$SALIDA_X"; echo "RESULTADO perímetro F1 y vara del foso: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 66 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  tail -5 "$SALIDA_X"; echo "RESULTADO perímetro F1 y vara del foso: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 72 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
 echo "== batería de trazabilidad de la 4.10 (personaje_v2/pruebas/test_trazabilidad_v2.py; obligatoria en «completa»; BOM, marcadores de cierre y libro final)"

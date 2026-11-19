@@ -293,7 +293,7 @@ Empresa de referencia: ventas 1.000; EBIT 68 tras un alquiler operativo de 12; C
 ## 7. Qué calcula el libro V6.3.1 tal cual y qué no
 
 **Hecho** (L1, L3, L4, L7, PU1, PU6, PU7): el libro V6.3.1 F1 sin tocar calcula, con la capa como oráculo (f a 10⁻¹², ancla a 10⁻⁹, 33 flujos):
-- tramos **no publicados** (D-US1) o **fuera de las filas**: el caso de Zoetis y de Waste Management;
+- tramos **no publicados** (D-US1) o **fuera de las filas**: el caso de Zoetis y de Waste Management (L8, 19-nov-2026: también con la base del margen «Media del ciclo» en Palancas C8, una vez corregido el margen de partida de la capa; `../f1_impl/F1_IMPL.md` §11);
 - amortización operativa **dentro de la fila 8**, con o sin financieros: la fila 86 lleva la suma y A2 la excluye;
 - **los dos tramos dentro de la fila 14** (D-US2 bis): el caso de Nike;
 - financieros tratados como deuda (D-WM) o con su amortización fuera de la fila 8: la fila 86 no los lleva.

@@ -32,7 +32,7 @@ fase 1, su verificación de entradas (4.15) y una referencia de integridad nueva
 1. lee el libro V6.3 recalculado (Historia, Análisis, Palancas, Diagnóstico V6 y Control maestro L4) y una declaración del expediente,
    `motor_a_f1.json`, con lo que el libro no tiene (norma contable, perímetros, D&A ROU y PPA por año con su signo y su fuente, compras,
    transición, R estimada, ajustes N1);
-2. **reproduce el libro** con las mismas ecuaciones (Convenciones V6.3 §1–§3 y §10) en el perímetro A0: f = C58, τ = C52, m0 = C48,
+2. **reproduce el libro** con las mismas ecuaciones (Convenciones V6.3 §1–§3 y §10) en el perímetro A0: f = C58, τ = C52, m0 = el margen de partida del Motor (Diagnóstico V6 C10: C48, o C49 con «Media del ciclo» en Palancas C8; hasta el 19-nov-2026 la capa tomaba siempre C48, §11),
    ancla = C53 y los 33 flujos del Motor. Si no los reproduce, bloquea (`F1-REPLICA`): la capa y el libro son el mismo motor;
 3. calcula f (E3), el ancla (E4), los flujos de los años 1–10 y del año 11 con los términos explícitos (E3) y el flujo sin crecimiento
    con el perímetro declarado y, como diagnóstico rotulado, con A0, A1, A2 y la cota B;
@@ -196,3 +196,59 @@ La revisión de `2e9442f` (agente distinto, Fable) confirmó todas las cifras de
 **No corregido en esta ronda** (para la segunda, o declarado): H8 (rotular «A0 · no usable» la escalera y los valores por acción de la ficha y del informe cuando F1 bloquea), el resto de H9 (N1 solo para ajustes de earnout y con registro), H10 (términos explícitos con importes incompletos), H12 (verificación de las series nuevas; T9 en la capa contra la página) y H13 (historias de menos de diez años, tolerancia relativa en toda la réplica, lectura de L4). No se ha implementado la plantilla V6.3.1.
 
 **Pruebas de esta ronda:** batería 142/142; regresión de Elis 39/39; prueba del gancho 7/7; mutaciones en `resultados/mutaciones_motor_a_f1.txt`. `verificar_paquete.sh completa` sobre una copia de `340d78c` (`resultados/verificacion_completa_340d78c.txt`): las 18 baterías en PASA (sintética 30/30 con los nombres de la línea de base, motor A F1 142/142, gancho 7/7, V6.4 199/199, cierre 55/55…), pero `RESULTADO GLOBAL: FALLA (1 bloques)`: el manifiesto (0 modificados, 0 ausentes) contó 36 archivos «de más», el perfil de LibreOffice `personaje_v2/.lo_perfil/` que dejó en el árbol de trabajo la prueba del gancho ejecutada antes de copiarlo. Retirado ese perfil, el modo rápido sobre una copia limpia da el manifiesto conforme (`resultados/verificacion_rapida_*.txt`).
+
+## 11. Corrección del 19-nov-2026: el margen de partida según Palancas C8 (rama `f1/usgaap-replica`)
+
+**Hallazgo** (`zoetis_t1c`, paso 12, tras las fases B y C; rama `examen/expedientes-f1` @ `15c4ccf`): `F1-REPLICA` y `F1-LIBRO` bloqueaban con los
+flujos de los años 1–4 de los tres escenarios distintos (Motor!AU6 2453,48 frente a 2682,66 de la réplica). No era US GAAP, ni D-US1, ni A2 con PPA:
+la fase A escribió `Palancas!C8` = «Media del ciclo» y la plantilla (V6.3 y V6.3.1) calcula `Diagnóstico V6!C10 = IF(Palancas!C8="Media del
+ciclo"; Historia!C49; Historia!C48)`, que es el m0 del Motor (`Motor!D6:D8`). La capa tomaba siempre `EBIT del año base ÷ V0` (C48) y su réplica
+contrastaba m0 con C48, no con lo que usa el Motor. En el paso 7 no había palancas ni flujos y nada lo delataba (el flujo sin crecimiento y la cota
+de D-US1 ya eran los de C48). En `ahold_f3` y `jumbo_e` C8 es «Último año» (C48 = C10): por eso pasaban.
+
+**Cuenta de Motor!AU6 (MALO, g = 0, m_obj = 0,32, S2C = 0,6, τ = 0,1997, f = 0,0100954120365277, V0 = 9.467):** libro, m0 = C49 = 0,340556331360566:
+m_1 = 0,340556331360566 + (0,32 − 0,340556331360566) × 1/5 = 0,336445065088453; AU6 = 9.467 × (0,336445065088453 × 0,8003 − 0,0100954120365277)
+− 0 = 2.453,4826. Réplica, m0 = C48 = 0,378366958909898: m_1 = 0,366693567127918; 9.467 × (0,366693567127918 × 0,8003 − 0,0100954…) = 2.682,6586.
+Diferencia 229,18 = 9.467 × 0,8003 × (0,378367 − 0,340556) × 4/5; se reduce linealmente hasta cero en el año 5, cuando m_t = m_obj (AY6 coincide).
+
+**Cambio** (`motor_a_f1.py`): `margen_de_partida()` calcula m0 como el libro (C48, o la media de EBIT ÷ ventas de todos los años con ventas, que es
+C49); lo usan el cálculo por perímetro, el K3 (su segunda partida pasa a ser «EBIT de partida = m0 × V0» frente a la media de la ventana; con «Último
+año» no cambia) y V-F1f (lo que lleva m0 de la PPA y de la ROU; «no calculable» si la serie no cubre el ciclo). La réplica contrasta m0, con f o sin
+ella, con la celda de la Historia que elige C8, con `Diagnóstico V6!C10` y con `Motor!D6:D8` (10⁻¹²); un valor de C8 fuera de la lista bloquea
+(`F1-REPLICA`) y C49 incalculable con «Media del ciclo» para la capa (el libro tampoco calcula el Motor). Con N1 y un ajuste fuera de la ventana,
+`F1-PARAM` dice además que no hay decisión sobre si N1 alcanza el EBIT de los demás años del ciclo (ya bloqueaba). `leer_libro` lee `Palancas!C8`.
+No cambian el libro, la plantilla, las entradas registradas ni las decisiones.
+
+**Pruebas** (código de `7bf8bd2`; resultados literales en `resultados/margen_de_partida_5f52734.txt`):
+- `test_motor_a_f1.py`, grupo M0 (13 pruebas): con la capa anterior (`15c4ccf`) 165/176 (fallan las 11 que no son controles de «Último año»);
+  con la corrección, 176/176.
+- `test_motor_a_f1_usgaap.py`, grupo M0 (4: el caso de Zoetis en sintético, con palancas y en el paso 7, la cota frente al flujo del libro y un
+  libro incoherente): 290/294 → 294/294.
+- `probar_libro_v631_usgaap.py` (LibreOffice), caso L8 sobre el libro V6.3.1 real: 17/18 → 18/18 (la comprobación de la plantilla pasa con las dos).
+- Mutaciones: `scripts/mutaciones_margen_de_partida.py` 12 de 12 detectadas (`resultados/mutaciones_margen_de_partida_7bf8bd2.txt`);
+  `f1_usgaap/scripts/mutaciones_usgaap.py` 112 de 112 (sus patrones siguen aplicando una vez).
+- Sin cambio de resultado: P-FOSO 66/66, F1-SERIES 80/80, V6.3.1 sin LibreOffice 29/29 y estructura 21/21.
+- `verificar_paquete.sh rapida` sobre `5f52734`: `RESULTADO GLOBAL: PASA` (manifiesto: 9413 archivos · modificados 0 · ausentes 0 · de más 0).
+- Con LibreOffice, sobre `5f52734` (en secuencia, cada una con `flock`): US GAAP en el pipeline 26/26, libro V6.3.1 con US GAAP 18/18,
+  V6.3.1 a0 22/22 y f1 35/35, V6.3.1 en el pipeline 9/9 y gancho F1 del pipeline 8/8.
+Con la capa corregida, el libro real de `zoetis_t1c` (evaluado en una copia; el expediente no se toca): réplica y `F1-LIBRO` conformes (m0 = C49,
+33 flujos) y nada bloquea; siguen, como antes, los avisos `V-F1k` y `F1-US-HIPOTESIS` y el cero de `F1-SERIES-CERO`, pendiente de revisor.
+«Utilizable CONDICIONADA según F1 (D-US1)»; flujo sin crecimiento 2.484,631 (antes 2.771,101, calculado con C48); cota de D-US1 −2,6 % / +2,6 %
+(antes −2,3 % / +2,3 %). Las fases A, B y C no recibieron esas cifras (ni `datos_v63.md` ni sus encargos las llevan) y las referencias mecánicas ya
+usaban la base de C8. Queda para el expediente repetir el paso 12 con esta capa (`pipeline.py` con `--desde 12`: recalcula, verifica, vuelve a
+evaluar F1 y sigue hasta el relevo de la auditoría); no se ha hecho en esta rama.
+
+**Revisión independiente** (coordinación, `coordinacion/cierre_v2/examen/revisiones/usgaap_replica/REVISION.md`, `d16a2d7`): conforme con
+correcciones. Se aplican así (resultados literales en `resultados/correcciones_revision_d16a2d7.txt`):
+- **C2** (el límite que este apartado dejaba escrito): `perimetro_f1.py` (P-FOSO, solo NIIF y A2) tomaba y rotulaba siempre C48 como «margen de
+  partida» del ROIC terminal neutro que lleva a `datos_v63.md`, que leen las fases B y C. Ahora `margen_de_partida()` toma la celda que elige
+  `Palancas!C8`, igual que la plantilla y la capa: C8 vacía o «Último año» → C48; «Media del ciclo» → C49 (vacía si no es calculable, sin caer
+  en C48); otro valor → ninguna, y lo dice. `desde_libro` y `desde_datos` lo usan, el bloque guarda `m0`, `m0_celda` y `base_del_margen` en lugar
+  de `C48_m0`, y el texto rotula la celda y C8. Es informativo: ninguna guarda usa esa cifra. Con «Último año» (todos los libros NIIF en curso)
+  la cifra no cambia. `test_perimetro_foso.py`, grupo M0 (6): 66/72 con el `perimetro_f1.py` de `5a525e0` → 72/72.
+- **C3**: una prueba sin LibreOffice escribe en un `.xlsx` el libro sintético «Media del ciclo», lo lee con `leer_libro` y comprueba que la capa
+  da lo mismo que con el diccionario (`test_motor_a_f1.py`, 177/177). La mutación que deja de leer `Palancas!C8` (r13 de la revisión, z13 en
+  `scripts/mutaciones_margen_de_partida.py`) ya no la ve solo L8, con LibreOffice: 13 de 13 detectadas. Ese guion ahora detecta por el recuento
+  de pruebas que pasan, no por el texto de cada línea (observación de la revisión).
+- **C1**: la integración en `examen/expedientes-f1` se hace con `merge --no-ff`, con el manifiesto regenerado en su propio commit.
+- `verificar_paquete.sh` exige al menos 177 pruebas en `test_motor_a_f1.py` y 72 en `test_perimetro_foso.py`.

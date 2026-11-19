@@ -136,11 +136,12 @@ def _no_aplicable(out, motivo):
     return out
 
 
-def calcular(anios, fila, decl, carpeta=None, r=None, c55=None, c54=None, sector_roic=None, c53=None, c58=None, c52=None, m0=None, id_capitalizada=None):
+def calcular(anios, fila, decl, carpeta=None, r=None, c55=None, c54=None, sector_roic=None, c53=None, c58=None, c52=None, m0=None,
+             m0_celda="Historia!C48", base_m0=None, id_capitalizada=None):
     """Bloque del perímetro F1. anios: los diez años de la Historia (fila 5; un vacío es None); fila(n) → lista de diez valores de la fila n de la
     Historia (7 EBIT, 10 tipo, 23 arrendamientos, 32 capital invertido, 6 ventas). None si no hay perímetro F1 declarado sin derechos de uso;
     con perímetro pero sin medida posible (US GAAP, menos de cinco ejercicios), un bloque con «aplicable»: False y su motivo (se dice, no
-    desaparece)."""
+    desaparece). m0, m0_celda y base_m0: el margen de partida del Motor, su celda y Palancas!C8 (margen_de_partida; None si C8 no se entiende)."""
     per = perimetro_declarado(decl)
     if per is None:
         return None
@@ -148,7 +149,7 @@ def calcular(anios, fila, decl, carpeta=None, r=None, c55=None, c54=None, sector
     out = {"decision": DECISION, "perimetro": per, "perimetro_palancas_s2c": _valor(decl, "perimetro_palancas_s2c"),
            "perimetro_roic": _valor(decl, "perimetro_roic"), "norma_contable": norma, "aplicable": True, "motivo_no_aplicable": None,
            "r": _num(r), "C55_todo_el_capital": _num(c55), "C54_s2c_medio_todo_el_capital": _num(c54), "sector_roic_H18": _num(sector_roic),
-           "C53_ancla_s2c": _num(c53), "C58_f": _num(c58), "C52_tau": _num(c52), "C48_m0": _num(m0),
+           "C53_ancla_s2c": _num(c53), "C58_f": _num(c58), "C52_tau": _num(c52), "m0": _num(m0), "m0_celda": m0_celda, "base_del_margen": base_m0,
            "id_capitalizada": id_capitalizada == "Sí", "regla": REGLA.format(per=per), "g4": G4_TEXTO, "limites": list(LIMITES),
            "formulas": {
                "roic_propio_pagado_el_alquiler": "(EBIT − intereses de arrendamiento) × (1 − t) ÷ (capital invertido − arrendamientos); filas 7, 10, "
@@ -208,7 +209,7 @@ def calcular(anios, fila, decl, carpeta=None, r=None, c55=None, c54=None, sector
     ul = ult[-1]
     v, kp = H[6][ul], por[ul]["capital_propio"]
     out["s2c_medio_sin_arrendamientos_ultimo"] = (v / kp) if (v is not None and kp) else None
-    out["roic_neutro_con_m0"] = neutro(out["r"], out["C48_m0"], out["C52_tau"], out["C58_f"])
+    out["roic_neutro_con_m0"] = neutro(out["r"], out["m0"], out["C52_tau"], out["C58_f"])
     return out
 
 
@@ -254,6 +255,19 @@ def neutro(r, m, tau, f):
     return r * N / (N - f) if N - f > 0 else None
 
 
+def margen_de_partida(base, c48, c49):
+    """(19-nov-2026; revisión de f1/usgaap-replica, C2) El margen de partida del Motor, el mismo que toma la capa F1 (motor_a_f1.py): la plantilla
+    calcula Diagnóstico V6 C10 = IF(Palancas!C8 = «Media del ciclo»; Historia!C49; Historia!C48). Devuelve (m0, celda). Con C8 vacía o «Último
+    año», C48; con «Media del ciclo», C49 (vacía si no es calculable: no se sustituye por C48). Con un valor de C8 fuera de la lista, (None, None):
+    no se sabe qué margen usa el libro (la capa bloquea con F1-REPLICA) y no se muestra una cifra que podría no ser la del Motor."""
+    import motor_a_f1 as F1
+    if base == F1.BASE_CICLO:
+        return c49, "Historia!C49"
+    if base in (None, "") or base in F1.BASES_MARGEN:
+        return c48, "Historia!C48"
+    return None, None
+
+
 def desde_datos(t, decl, carpeta=None):
     """Desde el volcado de leer_v63.todo (datos_v63.json)."""
     h = t["historia"]
@@ -261,18 +275,21 @@ def desde_datos(t, decl, carpeta=None):
     filas = {6: p.get("ventas"), 7: p.get("ebit"), 10: p.get("tipo_impositivo"), 23: p.get("arrendamientos"), 32: s.get("capital_invertido")}
     anc = h.get("anclas") or {}
     anios = list(p.get("anio") or [None] * 10)
+    base = (t.get("palancas") or {}).get("C8")
+    m0, celda = margen_de_partida(base, anc.get("margen_ultimo"), anc.get("margen_medio"))
     return calcular(anios, lambda n: filas[n] or [None] * 10, decl, carpeta, r=(t.get("analisis") or {}).get("C56"),
                     c55=anc.get("roic_medio_5"), c54=anc.get("s2c_medio"), sector_roic=((t.get("palancas") or {}).get("sector") or {}).get("roic_media"),
-                    c53=anc.get("s2c_marginal"), c58=anc.get("f"), c52=anc.get("tipo_impositivo_5"), m0=anc.get("margen_ultimo"),
+                    c53=anc.get("s2c_marginal"), c58=anc.get("f"), c52=anc.get("tipo_impositivo_5"), m0=m0, m0_celda=celda, base_m0=base,
                     id_capitalizada=(t.get("palancas") or {}).get("C9"))
 
 
 def desde_libro(L, decl, carpeta=None):
     """Desde los valores del libro que lee motor_a_f1.leer_libro."""
     g = lambda ref: L.get(ref)  # noqa: E731
+    m0, celda = margen_de_partida(g("Palancas!C8"), g("Historia!C48"), g("Historia!C49"))
     return calcular([L.get(f"Historia!{c}5") for c in COLS], lambda n: [L.get(f"Historia!{c}{n}") for c in COLS], decl, carpeta,
                     r=g("Análisis!C56"), c55=g("Historia!C55"), c54=g("Historia!C54"), c53=g("Historia!C53"), c58=g("Historia!C58"),
-                    c52=g("Historia!C52"), m0=g("Historia!C48"))
+                    c52=g("Historia!C52"), m0=m0, m0_celda=celda, base_m0=g("Palancas!C8"))
 
 
 def _cerca(x, a, b):
@@ -373,6 +390,15 @@ def _f(x, n=4):
     return "—" if x is None else f"{x:.{n}g}"
 
 
+def _rotulo_m0(pf):
+    """(C2) El margen de partida con la celda que elige Palancas!C8, la que usa el Motor (antes se rotulaba siempre Historia!C48)."""
+    celda = pf.get("m0_celda", "Historia!C48" if "C48_m0" in pf else None)   # un bloque anterior al 19-nov-2026 solo trae C48_m0
+    m0, base = pf.get("m0", pf.get("C48_m0")), pf.get("base_del_margen")
+    if celda is None:
+        return f"Sin margen de partida: Palancas!C8 = «{base}» no es un valor de la lista (la capa F1 bloquea con F1-REPLICA)"
+    return f"Con el margen de partida del Motor ({celda} = {_f(m0)}; " + (f"Palancas!C8 = «{base}»" if base else "Palancas!C8 vacía") + ")"
+
+
 def seccion_md(pf, motor=None):
     """Sección de datos_v63.md para las fases (D2)."""
     if not pf:
@@ -438,8 +464,8 @@ def seccion_md(pf, motor=None):
               if pf["C53_ancla_s2c"] is None else "")
            + f" · S2C medio sin arrendamientos {ul[-1]} (ventas ÷ capital propio) = {_f(pf['s2c_medio_sin_arrendamientos_ultimo'])}"
            f" · C54 (medio de todo el capital) = {_f(pf['C54_s2c_medio_todo_el_capital'])}.",
-           f"- ROIC terminal neutro del motor: {pf['formulas']['roic_terminal_neutro']}. Con el margen de partida (Historia!C48 = "
-           f"{_f(pf['C48_m0'])}) y f = {_f(pf['C58_f'])}: {_p(pf['roic_neutro_con_m0'])}; con el margen objetivo de cada escenario cambia poco "
+           f"- ROIC terminal neutro del motor: {pf['formulas']['roic_terminal_neutro']}. {_rotulo_m0(pf)} y f = {_f(pf['C58_f'])}: "
+           f"{_p(pf['roic_neutro_con_m0'])}; con el margen objetivo de cada escenario cambia poco "
            "si f es pequeño (la gramática lo da por escenario tras la fase B). Por encima de él, el ROIC terminal afirma retorno en exceso sobre "
            f"el capital nuevo para siempre. {pf['g4']}.",
            "- Límites: " + "; ".join(pf["limites"] + (["**I+D capitalizada (Palancas!C9 = Sí): C55 usa la fila 38 con la I+D capitalizada; estas medidas "

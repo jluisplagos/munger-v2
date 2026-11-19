@@ -18,6 +18,9 @@ Casos:
        F1-US-PUENTE bloquea por el pasivo operativo; con la fila 23 a cero y 0 declarado, no bloquea.
   L7 · (ronda 2, D-US2 bis) los dos tramos dentro de la fila 14 con pagos ≠ coste: el libro tal cual calcula lo declarado; se publica su
        valor (coste contable) y cuánto cambiaría contando los pagos.
+  L8 · (19-nov-2026, zoetis_t1c) la base del margen «Media del ciclo» en Palancas C8, con D-US1 y A2: el Motor parte de Historia C49
+       (Diagnóstico V6 C10), no de C48 (el EBIT de 2016–2017 se rebaja para que difieran); libro = capa (m0, 33 flujos y el flujo sin
+       crecimiento del Motor); nada bloquea; conclusión condicionada.
 En todos los casos el expediente lleva el texto del estado de flujos (texto/) y las líneas que la fase 1 sumó en las filas 8 y 14
 (fase1_partes), coherentes con lo declarado: la capa contrasta con ellas las ubicaciones (ronda 2, R1-3).
 """
@@ -234,6 +237,25 @@ def main(dest, salida=None):
         "(identidad con los valores del libro)", mm7 is not None and abs(mm7 - (-(sum(neto.values()) / 3) / h7["C74"].value * h7["C44"].value)) <= 1e-6
         and "D-US2 bis" in r7["rotulo"] and "coste contable" in r7["rotulo"] and "condicionada" not in r7, f"{mm7!r} · {r7['rotulo'][:150]}")
     det["L7"] = {"C58": h7["C58"].value, "D_US2_bis": {k: v for k, v in bis.items() if k in ("texto", "dos_lineas_comprobadas", "flujo_sin_crecimiento_de_la_hoja")}}
+    # ---------------------------------------------------------------- L8 · base del margen «Media del ciclo» (Palancas C8), D-US1 y A2 (caso zoetis_t1c)
+    ebit_bajo = {f"Historia!{c_}7": round(0.7 * h[f"{c_}7"].value, 6) for c_ in "CD"}   # 2016–2017: fuera de la ventana de f (3 años) y del ancla (5)
+    rec8, d8, c8 = libro("L8_ciclo_DUS1_A2", decl("A2_propio", ub_am="no_publicada", ub_pas="no_publicada"),
+                         despues={"Palancas!C8": "Media del ciclo", **ebit_bajo})
+    wb8 = load_workbook(rec8, data_only=True)
+    h8, mo8, dg8 = wb8["Historia"], wb8["Motor"], wb8["Diagnóstico V6"]
+    r8 = M.evaluar(M.leer_libro(rec8), d8, carpeta=c8)
+    cd8 = r8["calculo_perimetro_declarado"]
+    chk("L8 · el libro real con «Media del ciclo» en Palancas C8 parte del margen medio del ciclo: Diagnóstico V6 C10 = Historia C49 ≠ C48 y Motor D6:D8 = C10",
+        wb8["Palancas"]["C8"].value == "Media del ciclo" and abs(dg8["C10"].value - h8["C49"].value) < 1e-15 and abs(h8["C49"].value - h8["C48"].value) > 1e-3
+        and all(abs(mo8[f"D{f_}"].value - dg8["C10"].value) < 1e-15 for f_ in (6, 7, 8)), f"C48 {h8['C48'].value!r} · C49 {h8['C49'].value!r} · C10 {dg8['C10'].value!r}")
+    chk("L8 · libro = capa con «Media del ciclo»: m0 = C49 (10⁻¹²), 33 flujos y el flujo sin crecimiento del Motor (BL7 × r); F1-REPLICA y F1-LIBRO no saltan; "
+        "nada bloquea; conclusión CONDICIONADA (D-US1)",
+        abs(cd8["m0"] - h8["C49"].value) <= 1e-12 and r8["libro_v631_f1"]["flujos_contrastados"] == 33 and r8["libro_v631_f1"]["motivos"] == []
+        and not salta(r8, "F1-REPLICA") and not salta(r8, "F1-LIBRO") and bloquean(r8) == [] and "CONDICIONADA" in r8["rotulo"]
+        and abs(cd8["flujo_sin_crecimiento"] - (mo8["BL7"].value - mo8["M7"].value) * mo8["J7"].value) <= 1e-6,
+        f"{bloquean(r8)} · m0 {cd8['m0']!r} · F0 {cd8['flujo_sin_crecimiento']!r} · BL7 {mo8['BL7'].value!r}")
+    det["L8"] = {"C48": h8["C48"].value, "C49": h8["C49"].value, "C10": dg8["C10"].value, "flujo_sin_crecimiento": cd8["flujo_sin_crecimiento"],
+                 "bloquean": bloquean(r8), "replica": r8.get("replica_del_libro")}
     # ---------------------------------------------------------------- L6 · motor B: el puente
     recb, db, cb = libro("L6_motor_B", decl("A2_propio", ub_am="fuera_de_las_filas_8_y_14"), despues={"Análisis!C62": "No · financiación cambia mucho"})
     wbb = load_workbook(recb, data_only=True)
