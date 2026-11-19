@@ -1,0 +1,54 @@
+HUELLAS SHA-256 de fuentes_mercado/ (conservadas por el extractor Mistral (mistral-large-4-0), 2026-11-18)
+
+Cada archivo conservado lleva la marca [PDF PAGE 1] para que verificacion_entradas.py pueda examinarlo.
+
+archivo: Damodaran_mgnroc_industrias_2026-01_pagina_oficial_20261118.txt
+  sha256 conservado: cead05cd38b81a7ae6dc59e14d73a168b89d844fbe0c9353a25f1e2ec81cf4b1
+  contenido: extracto de mgnroc.html (Damodaran, NYU Stern, datos a enero 2026), leído el 2026-11-18; fila usada por Palancas!C7: «Drugs (Pharmaceutical) | 228 | 26.36% | 1.11 | 29.30%». Lectura externa (fuente académica de terceros).
+
+archivo: US_Treasury_Daily_Par_Yield_Curve_2026_10-08_20261118.txt
+  sha256 conservado: c6e8af2f6e751a0bbbfe71b8964bec3717e9d50c9bbfad5d13e09ac821cb0d8c
+  contenido: extracto del CSV oficial del U.S. Department of the Treasury (Daily Treasury Par Yield Curve Rates, año 2026, home.treasury.gov), descargado el 2026-11-18; la fila usada por el libro (Análisis!C57) es 10/08/2026, columna «10 Yr» = 5,22 % (verificado: el 5,22 % de un resultado de búsqueda sin verificar queda confirmado contra esta fuente oficial).
+
+archivo: Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt
+  sha256 conservado: 7a8d45f26725c63de179bc1c348de12ee459fd9d30d388bc338f9d689226b0ad
+  contenido: transcripción de la tabla «XNYS:ZTS historical stock data» de la página oficial de la empresa (https://investor.zoetis.com/stock-information/default.aspx), leída el 2026-11-18; la fila usada por el libro (Análisis!C37) es October 08, 2026 $73.08. La página de la bolsa (nyse.com) bloquea el acceso automatizado, así que se usa la página de la empresa, como permite el encargo. En esa fecha no hay dividendo pendiente de pagar (dividendo $0.53 declarado el 8-oct-2026, ex-date 30-oct-2026).
+
+archivo: notas_lecturas_externas_20261118.txt
+  sha256 conservado: a68dd06042d7f4cfe5da7521dc2fa82cc0ac758bd8dd02ae965101c79b43d2fb
+  contenido: notas de las lecturas externas de terceros usadas en juicio (C38 Simply Wall St, C88 Digrin: sin bytes conservados, no cuentan como comprobadas) y de la verificación de C37/C57 en fuentes oficiales.
+
+--- Añadidas en zoetis_t1d por Claude orquestación (19-nov-2026; resultados/fuentes_mercado_zoetis_t1d.json): CSV y XLS oficiales de la Release
+fuentes-examen-20261118 (assets 766892834 y 766892761, anexo 3), subidos por la persona responsable, y captura del precio del 8-oct-2026 (anexo 3 ter); huellas comprobadas contra las publicadas.
+Los archivos anteriores (transcripciones o extractos del extractor) se conservan sin cambios.
+
+archivo: US_Treasury_par_yield_2026_Release_766892834.csv
+  sha256: 0707733bdc20fce9a21a1063c5b99dbfd3456acabb216f73e6d6b798f511243d
+  contenido: descarga cruda (CSV oficial del Tesoro de EE. UU.)
+
+archivo: US_Treasury_par_yield_2026_Release_766892834.txt
+  sha256: 367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414
+  contenido: copia de texto con marca [PDF PAGE 1] (celdas separadas por « | »); 10/08/2026 | 4.14 | 4.14 | 4.13 | 4.23 | 4.29 | 4.30 | 4.44 | 4.75 | 4.85 | 4.99 | 5.11 | 5.22 | 5.64 | 5.60 (columna 13 «10 Yr» = 5.22; C57)
+
+archivo: Damodaran_margin_2026-01_Release_766892761.xls
+  sha256: 25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a
+  contenido: descarga cruda (XLS de Damodaran, «Margins by industry», empresas de EE. UU.)
+
+archivo: Damodaran_margin_industry_averages_2026-01_Release_766892761.txt
+  sha256: 039aa83a4ed7494ca4631b037be6a87ec1451d5912c4d115d4463f382b8b861c
+  contenido: copia de texto con marca [PDF PAGE 1] de la hoja «Industry Averages» (xlrd 2.0.1); fila 34: Drugs (Pharmaceutical) | 228 | 0.7172528887945363 | 0.18537124465767768 | 0.31244829408911007 | 0.29539699980816747 | 0.2865531968316314 | 0.295443503779666 | 0.2865983085345496 | 0.272455087
+
+archivo: Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.png
+  sha256: c1871f7e80e1f46015912a0cc585292bc9186e2fad95db5d8ef98bbe632c1530
+  contenido: captura de investor.zoetis.com «Historical Stock Quote», 2026-Oct-8 (anexo 3 ter; copia del coordinador Zoetis_ZTS_2026-10-08_chat.png)
+
+archivo: Zoetis_ZTS_2026-10-08_investor_zoetis_historical_quote.txt
+  sha256: 721218b838d6c6b55487ac734bd6ca6a032f5cef89973f55093201bd6aa73970
+  contenido: transcripción de la captura con marca [PDF PAGE 1]; Closing Price $73.08 (Lookup Date 2026 Oct 8; C37)
+
+--- Añadida en zoetis_t2 por Claude orquestación (19-nov-2026; resultados/fuentes_zoetis_t2.json): precio del 5-nov-2026 (segundo tiempo).
+
+archivo: Zoetis_IR_XNYS_ZTS_historico_acciones_20261118_mistral_examen_zoetis_t2.txt
+  sha256: 1eee36e610e2d4980e85f416306c6878d2ba503f92f6859d8933a705556808de
+  contenido: transcripción de la tabla «XNYS:ZTS historical stock data» de investor.zoetis.com hecha por el extractor Mistral (mistral-large-4-0) el 18-nov-2026 (rama mistral/examen-zoetis-t2, la huella de su HUELLAS.txt); fila usada «November 05, 2026 | $82.11» (C37). SOLO TRANSCRIPCIÓN: falta una captura o un CSV original de la página. La transcripción heredada de zoetis_t1d (arriba) da el mismo cierre.
+  C57 (5-nov-2026): fila «11/05/2026 | 4.03 | 4.07 | 4.15 | 4.17 | 4.16 | 4.19 | 4.28 | 4.46 | 4.53 | 4.59 | 4.70 | 4.84 | 5.27 | 5.25» del CSV oficial ya conservado (columna «10 Yr» = 4.84).

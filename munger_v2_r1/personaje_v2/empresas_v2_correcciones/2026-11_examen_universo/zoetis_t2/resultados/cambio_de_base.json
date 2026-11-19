@@ -1,0 +1,449 @@
+{
+ "cambio": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/configuracion/cambio_zoetis_t2.json",
+ "cambio_sha256": "00ca338a83560c204b3a377fe15b99107ef5bb48d86f604dd57b3985fc3148d7",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1d/Zoetis",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de Zoetis (cerrado el 31-dic-2025) para el FCF base (FY2023–2025, sin cambios), con el SEGUNDO TIEMPO del examen: información hasta el 5-nov-2026 (10-Q, comunicado y presentación del T3 2026). Cambian los doce últimos meses y el balance reciente (30-sep-2026: C24, C32, C33, C40, C42, C53, C54), el precio (82,11 USD del 5-nov-2026), la capitalización (C37 × C55 exactos) y la tasa sin riesgo (4,84 %)."
+ },
+ "fechas": {
+  "ejecucion": "2026-11-05",
+  "precio": "2026-11-05",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Form 10-K 2016–2025 y 10-Q T1/T2 2026 de Zoetis (FUENTES.tsv; Release fuentes-examen-20261118); 10-K 2020–2024 en texto por OCR (zoetis_t1/ocr_400dpi/LEEME.md).  Añadidos (decisión de la persona responsable, 18-nov-2026): comunicado, presentación y transcripción de la conferencia de resultados del T2 2026, publicados el 6-ago-2026 (Release fuentes-examen-20261118, anexo 2). Datos de mercado (19-nov-2026, Release fuentes-examen-20261118, anexo 3): CSV oficial del Tesoro de EE. UU. (curva par diaria 2026, asset 766892834) y damodaran_margin.xls (enero 2026, asset 766892761), subidos por la persona responsable; precio: captura de investor.zoetis.com «Historical Stock Quote» del 8-oct-2026 entregada por la persona (anexo 3 ter). SEGUNDO TIEMPO (zoetis_t2, encargo del coordinador del 19-nov-2026): Form 10-Q del T3 2026 (presentado el 5-nov-2026), comunicado y presentación de resultados del T3 2026 (5-nov-2026), con la guía 2026 actualizada (Release fuentes-examen-20261118; RELEASE_FUENTES_EXAMEN_VERIFICACION.md: «segundo tiempo = comunicado y presentación del T3 (5-nov-2026) + 10-Q T3»). Nada publicado después del 5-nov-2026; fecha de análisis = 2026-11-05. Precio del 5-nov-2026 (investor.zoetis.com, transcripción de Mistral; falta captura o CSV) y Treasury del 5-nov-2026 (CSV oficial del Tesoro, asset 766892834).",
+  "ejecucion_aplicada": "2026-11-05"
+ },
+ "heredados_movidos": 74,
+ "conservados": [
+  "FUENTES.tsv",
+  "etapa1",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_listas.md",
+  "fase1_partes",
+  "fuentes_mercado",
+  "motor_a_f1.json",
+  "pdf",
+  "texto",
+  "verificacion_entradas.json"
+ ],
+ "fuentes_adicionales": [
+  {
+   "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/fuentes_release/zoetis-10q-2026-q3.pdf",
+   "pdf_sha256": "f797be282a86905e29ea3d41573fba5a645f2db674fc7c0f26fb93c0f71242bf",
+   "texto": "texto/zoetis-10q-2026-q3.txt",
+   "texto_sha256": "ddcd22703ceef1da78f5bc57015671e10c0eac411cee79f3710f98e0f777e70b"
+  },
+  {
+   "pdf": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/fuentes_release/zoetis-3q2026-financial-results.pdf",
+   "pdf_sha256": "bac00765798eb16967fc509b4f1b8c1011d05664249b70d22737f9bc6135e05d",
+   "texto": "texto/zoetis-3q2026-financial-results.txt",
+   "texto_sha256": "065baf629d005c0a2b3e869c1a3a6d5cfa20291826b9b7935c0aae57e985b2da"
+  }
+ ],
+ "etapa1": {
+  "original": "antecedentes/etapa1_original/Zoetis_evaluada.xlsx",
+  "original_sha256": "f4697847bbf418b13cba4bb4e6d88593c8a7dadfaae515bcfdd87ff51cc2f862",
+  "copia_de_ensayo_sha256": "3aa490a8117c0527d0dd1084062ca214bd083ab2a812ce3e60a6e92ed550a3f4",
+  "miembros_cambiados": [
+   "xl/worksheets/sheet1.xml",
+   "xl/worksheets/sheet4.xml"
+  ],
+  "vaciadas": [
+   "Análisis!C33",
+   "Análisis!C40",
+   "Análisis!C42",
+   "Análisis!C24",
+   "Análisis!C32",
+   "Análisis!C53",
+   "Análisis!C54"
+  ],
+  "evidencia_escrita": {
+   "Control maestro!G36": {
+    "celda": "Análisis!C33",
+    "texto": "Deuda neta a 30-sep-2026 · EBITDA LTM a 30-sep-2026"
+   },
+   "Control maestro!I36": {
+    "celda": "Análisis!C33",
+    "texto": "10-Q 3T26 y 10-K 2025 (primaria) · cálculo derivado (aproximación declarada)"
+   },
+   "Control maestro!J36": {
+    "celda": "Análisis!C33",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5, resultados p. 3, flujos p. 8, nota 2 p. 10); Zoetis · Informe anual 2025 (10-K FY2025, p. 66 y 70)"
+   },
+   "Control maestro!K36": {
+    "celda": "Análisis!C33",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L36": {
+    "celda": "Análisis!C33",
+    "texto": "10-K 2025 PDF p. 66 y 70; 10-Q T3 2026 PDF p. 3, 5, 8 y 10"
+   },
+   "Control maestro!M36": {
+    "celda": "Análisis!C33",
+    "texto": "Deuda neta ÷ EBITDA LTM = (deuda 750 + 8.299 = 9.049 − caja 1.333, 10-Q T3 2026 p. 5) ÷ EBITDA LTM a 30-sep-2026 = BAI (3.360 − 2.599 + 2.353 = 3.114) + gasto por intereses (222 − 165 + 185 = 242) + D&A (487 − 365 + 357 = 479) = 3.835 (EBIT = BAI + intereses = 3.356) = 7.716 ÷ 3.835 = 2,011995"
+   },
+   "Control maestro!N36": {
+    "celda": "Análisis!C33",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como en zoetis_t1d)] (zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Recalculado con el 10-Q del T3 2026 (el valor del primer tiempo, con el 2T, está en la tabla de vigencia del extracto y en antecedentes/evidencia_anterior.json). APROXIMACIÓN por la «Fiscal Year Alignment» (nota 2 del 10-Q T3 2026, PDF p. 10–11: desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; el 9M-2025 del 10-Q está reexpresado y el 10-K 2025 todavía no): LTM al 30-sep-2026 = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026); la nota 2 da el 9M-2025 «As previously reported» para el BAI (2.599), los impuestos (529), el beneficio neto (2.070) y el CFO (2.011), que se usan, pero solo reexpresado para intereses (165), D&A (365), capex (462) y arrendamientos financieros (2): esas cuatro mezclan bases. Con el 9M-2025 todo reexpresado (BAI 2.571) sale 2,00x. La deuda incluye ahora la porción corriente (750: el bono del 3,000 % vence el 12-sep-2027, 10-Q T3 PDF p. 44); sin arrendamientos (el 10-Q no los desglosa en el balance). Covenant: deuda neta consolidada ÷ EBITDA ≤ 3,50 a 1, cumplido a 30-sep-2026 (10-Q T3 PDF p. 42; la empresa no publica su propio cálculo). Sin acciones ni precio: no le afecta la desalineación de C41 y C42."
+   },
+   "Control maestro!G40": {
+    "celda": "Análisis!C40",
+    "texto": "LTM a 30-sep-2026"
+   },
+   "Control maestro!I40": {
+    "celda": "Análisis!C40",
+    "texto": "10-K 2025 y 10-Q 3T26 (primaria) · cálculo derivado (aproximación declarada)"
+   },
+   "Control maestro!J40": {
+    "celda": "Análisis!C40",
+    "texto": "Zoetis 10-Q 3T26 (flujos p. 8, nota 2 p. 11); Zoetis · Informe anual 2025 (10-K FY2025, p. 70 y 89)"
+   },
+   "Control maestro!K40": {
+    "celda": "Análisis!C40",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L40": {
+    "celda": "Análisis!C40",
+    "texto": "10-K 2025 PDF p. 70 y 89; 10-Q T3 2026 PDF p. 8 y 11"
+   },
+   "Control maestro!M40": {
+    "celda": "Análisis!C40",
+    "texto": "FCF LTM a 30-sep-2026 = CFO (2.904 − 2.011 «as previously reported» + 1.880 = 2.773) − capex (621 − 462 + 334 = 493) − intereses fuera del CFO 0 (US GAAP) − principal de arrendamientos financieros (2 − 2 + 1 = 1; 10-Q T3 p. 8) = 2.279"
+   },
+   "Control maestro!N40": {
+    "celda": "Análisis!C40",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como en zoetis_t1d)] (zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Recalculado con el 10-Q del T3 2026 (el valor del primer tiempo, con el 2T, está en la tabla de vigencia del extracto y en antecedentes/evidencia_anterior.json). APROXIMACIÓN por la «Fiscal Year Alignment» (nota 2 del 10-Q T3 2026, PDF p. 10–11: desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; el 9M-2025 del 10-Q está reexpresado y el 10-K 2025 todavía no): LTM al 30-sep-2026 = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026); la nota 2 da el 9M-2025 «As previously reported» para el BAI (2.599), los impuestos (529), el beneficio neto (2.070) y el CFO (2.011), que se usan, pero solo reexpresado para intereses (165), D&A (365), capex (462) y arrendamientos financieros (2): esas cuatro mezclan bases. Todo reexpresado (CFO 9M-2025 2.056) sale 2.234. P-O1 (c) no cambia nada con US GAAP (cobros dentro del CFO). Sin acciones ni precio: no le afecta la desalineación de C41 y C42."
+   },
+   "Control maestro!G42": {
+    "celda": "Análisis!C42",
+    "texto": "EV con precio 5-nov-2026 y balance 30-sep-2026 · EBITDA LTM a 30-sep-2026"
+   },
+   "Control maestro!I42": {
+    "celda": "Análisis!C42",
+    "texto": "10-Q 3T26 y 10-K 2025 (primaria) · cálculo derivado (aproximación declarada)"
+   },
+   "Control maestro!J42": {
+    "celda": "Análisis!C42",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5); Zoetis · Informe anual 2025 (10-K FY2025)"
+   },
+   "Control maestro!K42": {
+    "celda": "Análisis!C42",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L42": {
+    "celda": "Análisis!C42",
+    "texto": "10-K 2025 PDF p. 66 y 70; 10-Q T3 2026 PDF p. 3, 5, 8 y 10; Análisis C41"
+   },
+   "Control maestro!M42": {
+    "celda": "Análisis!C42",
+    "texto": "EV ÷ EBITDA LTM = (C41 34.890,79989885 = 82,11 × 424,927535 (valor exacto, sin redondear las acciones) + deuda 9.049 − caja 1.333 (10-Q T3 2026 p. 5)) ÷ EBITDA LTM a 30-sep-2026 = BAI (3.360 − 2.599 + 2.353 = 3.114) + gasto por intereses (222 − 165 + 185 = 242) + D&A (487 − 365 + 357 = 479) = 3.835 (EBIT = BAI + intereses = 3.356) = 42.606,79989885 ÷ 3.835 = 11,109987"
+   },
+   "Control maestro!N42": {
+    "celda": "Análisis!C42",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como en zoetis_t1d)] (zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Recalculado con el 10-Q del T3 2026 y el precio del 5-nov-2026 (el valor del primer tiempo, con el 2T, está en la tabla de vigencia del extracto y en antecedentes/evidencia_anterior.json). APROXIMACIÓN por la «Fiscal Year Alignment» (nota 2 del 10-Q T3 2026, PDF p. 10–11: desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; el 9M-2025 del 10-Q está reexpresado y el 10-K 2025 todavía no): LTM al 30-sep-2026 = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026); la nota 2 da el 9M-2025 «As previously reported» para el BAI (2.599), los impuestos (529), el beneficio neto (2.070) y el CFO (2.011), que se usan, pero solo reexpresado para intereses (165), D&A (365), capex (462) y arrendamientos financieros (2): esas cuatro mezclan bases. Con el 9M-2025 todo reexpresado (BAI 2.571) ≈ 11,03x. DESALINEACIÓN DE FECHAS declarada (decisión Z-ACC de la persona responsable, 19-nov-2026: se mantienen las acciones al cierre del ejercicio, P-O2): precio del 5-nov-2026 × 424.927.535 acciones en circulación al 31-dic-2025 (10-K 2025 PDF p. 68), deuda y caja del balance del 30-sep-2026 y EBITDA de los 12 meses a 30-sep-2026; con las 407.487.227 acciones del 30-sep-2026 (10-Q T3 2026 PDF p. 5) saldría 10,74x, y con las 406.316.147 de la portada del 10-Q T3 (30-oct-2026, PDF p. 1) 10,71x."
+   },
+   "Control maestro!G29": {
+    "celda": "Análisis!C24",
+    "texto": "LTM a 30-sep-2026 (capital invertido a 30-sep-2026)"
+   },
+   "Control maestro!I29": {
+    "celda": "Análisis!C24",
+    "texto": "10-Q 3T26 y 10-K 2025 (primaria) · cálculo derivado (aproximación declarada)"
+   },
+   "Control maestro!J29": {
+    "celda": "Análisis!C24",
+    "texto": "Zoetis 10-Q 3T26 (resultados p. 3, balance p. 5, nota 2 p. 10); Zoetis · Informe anual 2025 (10-K FY2025, p. 66)"
+   },
+   "Control maestro!K29": {
+    "celda": "Análisis!C24",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L29": {
+    "celda": "Análisis!C24",
+    "texto": "10-K 2025 PDF p. 66; 10-Q T3 2026 PDF p. 3, 5 y 10"
+   },
+   "Control maestro!M29": {
+    "celda": "Análisis!C24",
+    "texto": "ROIC DESPUÉS de impuestos (no ROCE), con goodwill, definición de la etapa 1 (NOPAT = EBIT × (1 − tipo efectivo GAAP); capital invertido = patrimonio + deuda financiera − caja) con el LTM a 30-sep-2026: EBIT LTM 3.356 (= BAI 3.114 + intereses 242) × (1 − impuestos LTM 687 − 529 + 470 = 628 ÷ BAI 3.114 = 20,167 %) = NOPAT 2.679,1959 ÷ capital invertido a 30-sep-2026 (patrimonio 3.303 + deuda 9.049 − caja 1.333 = 11.019) = 0,243143 (valor exacto del cociente, sin redondear)"
+   },
+   "Control maestro!N29": {
+    "celda": "Análisis!C24",
+    "texto": "[Clase: convención · aproximación declarada (no es un derivado exacto: en el registro de entradas es «convencion» con su justificacion_clase, como en zoetis_t1d)] (zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Sustituye al 26,6 % de la etapa 1 (doce meses al 2T 2026, con EBIT derivado 3.463 y capital medio de junio de 2025 y de 2026), que zoetis_t1d conservaba como convención no reproducible (su fórmula y el 10-Q del T2 2025 no están en el expediente). El 10-Q del T3 no publica el balance del 30-sep-2025, así que no hay capital medio de doce meses: se toma el capital al fin de los doce meses (la fecha de C53 y C54, como en ahold_f4). Sensibilidades: capital medio 31-dic-2025 (reexpresado: 3.415 + 9.042 − 2.450 = 10.007, 10-Q T3 p. 5) y 30-sep-2026 → 25,5 %; restando también las inversiones a corto (200) → 24,8 %. APROXIMACIÓN por la «Fiscal Year Alignment» (nota 2 del 10-Q T3 2026, PDF p. 10–11: desde el 1-ene-2026 las filiales no estadounidenses dejaron de declarar con un mes de desfase; el 9M-2025 del 10-Q está reexpresado y el 10-K 2025 todavía no): LTM al 30-sep-2026 = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026); la nota 2 da el 9M-2025 «As previously reported» para el BAI (2.599), los impuestos (529), el beneficio neto (2.070) y el CFO (2.011), que se usan, pero solo reexpresado para intereses (165), D&A (365), capex (462) y arrendamientos financieros (2): esas cuatro mezclan bases. El LTM incluye cargos de 9M-2026 que la empresa trata como no recurrentes: 142 de reestructuración (con 11 de deterioros) y 78 de deterioro de I+D en curso de PetMedix (10-Q T3 PDF p. 3, 15 y 39). Pasa igual con «Compounder» ≥ 15 % y con «Calidad» ≥ 12 %."
+   },
+   "Control maestro!H29": {
+    "celda": "Análisis!C24",
+    "texto": "% (decimal)"
+   },
+   "Control maestro!G35": {
+    "celda": "Análisis!C32",
+    "texto": "30-sep-2026"
+   },
+   "Control maestro!I35": {
+    "celda": "Análisis!C32",
+    "texto": "10-Q 3T26 (primaria)"
+   },
+   "Control maestro!J35": {
+    "celda": "Análisis!C32",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5; nota 11 de goodwill, p. 20)"
+   },
+   "Control maestro!K35": {
+    "celda": "Análisis!C32",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L35": {
+    "celda": "Análisis!C32",
+    "texto": "10-Q T3 2026 PDF p. 5 y 20"
+   },
+   "Control maestro!M35": {
+    "celda": "Análisis!C32",
+    "texto": "Literal: goodwill 2.888 ÷ activo total 15.088 (10-Q T3 2026 p. 5, 30-sep-2026) = 0,191410 (cociente exacto, sin redondear: la etapa 1 guardaba el redondeo a 3 decimales)"
+   },
+   "Control maestro!N35": {
+    "celda": "Análisis!C32",
+    "texto": "(zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Recalculado con el balance del 30-sep-2026 (antes 0,184 = round(2.771 ÷ 15.077, 3) a 30-jun-2026). El goodwill sube 114 por la compra de VitalRADS (107) y el tipo de cambio (7) (10-Q T3 PDF p. 20); sigue por debajo del umbral del 20 % (a 0,9 puntos). Deterioro: el 10-Q del T3 no informa de la prueba anual de goodwill; sí de 78 de deterioro de I+D en curso de PetMedix (intangible, no goodwill; PDF p. 15). Goodwill + intangibles: (2.888 + 850) ÷ 15.088 = 24,8 %."
+   },
+   "Control maestro!H35": {
+    "celda": "Análisis!C32",
+    "texto": "% (decimal)"
+   },
+   "Control maestro!G50": {
+    "celda": "Análisis!C53",
+    "texto": "30-sep-2026"
+   },
+   "Control maestro!I50": {
+    "celda": "Análisis!C53",
+    "texto": "10-Q 3T26 (primaria)"
+   },
+   "Control maestro!J50": {
+    "celda": "Análisis!C53",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5)"
+   },
+   "Control maestro!K50": {
+    "celda": "Análisis!C53",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L50": {
+    "celda": "Análisis!C53",
+    "texto": "10-Q T3 2026 PDF p. 5"
+   },
+   "Control maestro!M50": {
+    "celda": "Análisis!C53",
+    "texto": "1.333 (balance a 30-sep-2026; incluye 2 de caja restringida, nota (b)). Inversiones a corto plazo aparte: 200."
+   },
+   "Control maestro!N50": {
+    "celda": "Análisis!C53",
+    "texto": "(zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Antes 1.476 (30-jun-2026). 31-dic-2025: 2.312 en el 10-K / 2.450 reexpresado en el 10-Q (FYA). La caja baja 1.117 en nueve meses: recompras pagadas 1.690 y dividendos 666 frente a un CFO de 1.880 (10-Q T3 PDF p. 8). Sin dividendos a pagar en el balance del 30-sep-2026 («—», p. 5)."
+   },
+   "Control maestro!G51": {
+    "celda": "Análisis!C54",
+    "texto": "30-sep-2026"
+   },
+   "Control maestro!I51": {
+    "celda": "Análisis!C54",
+    "texto": "10-Q 3T26 (primaria)"
+   },
+   "Control maestro!J51": {
+    "celda": "Análisis!C54",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5; deuda p. 17 y 44)"
+   },
+   "Control maestro!K51": {
+    "celda": "Análisis!C54",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L51": {
+    "celda": "Análisis!C54",
+    "texto": "10-Q T3 2026 PDF p. 5 y 17"
+   },
+   "Control maestro!M51": {
+    "celda": "Análisis!C54",
+    "texto": "9.049 = porción corriente de la deuda a largo 750 + deuda a largo plazo contable 8.299 (balance a 30-sep-2026); sin préstamos a corto; sin arrendamientos."
+   },
+   "Control maestro!N51": {
+    "celda": "Análisis!C54",
+    "texto": "(zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Antes 9.048 (30-jun-2026, sin porción corriente). El bono de 750 al 3,000 % (vence el 12-sep-2027) pasa a corriente (10-Q T3 PDF p. 44). Nominal 9.150 sin cambios (11 emisiones, PDF p. 44); valor razonable de la deuda a largo 8.115 (PDF p. 17). Con arrendamientos operativos (no corrientes 188, p. 5; los corrientes no se desglosan en el 10-Q) sería mayor. Vencimientos: 2027 750 · 2028 1.350 · 2029 2.000 (convertible al 0,25 %, conversión ≈148,20 USD) · 2030 750 · después 4.300 (PDF p. 44)."
+   },
+   "Control maestro!M20": {
+    "celda": "Análisis!D4",
+    "texto": "Fecha del análisis: 5-nov-2026 (cierre del día en que se publicó el T3; segundo tiempo). Último periodo publicado: 10-Q 3T26 (cierre 30-sep-2026, presentado el 5-nov-2026). Métricas actuales: LTM a 30-sep-2026."
+   },
+   "Control maestro!N20": {
+    "celda": "Análisis!D4",
+    "texto": "Cambio contable: desde 1-ene-2026 Zoetis eliminó el desfase de un mes de las filiales no estadounidenses (Fiscal Year Alignment, retrospectivo; 10-Q T3 2026 nota 2, PDF p. 10–11). LTM principal = FY25 (10-K) − 9M25 «as previously reported» (donde la nota 2 lo da) + 9M26. (zoetis_t2: sustituye el texto del primer tiempo, que fechaba el análisis el 9-oct-2026 con los datos del 2T.)"
+   },
+   "Control maestro!G34": {
+    "celda": "Análisis!C31",
+    "texto": "LTM a 30-sep-2026 (variaciones del estado de flujos) · ingresos: 9M-2026 frente a 9M-2025"
+   },
+   "Control maestro!I34": {
+    "celda": "Análisis!C31",
+    "texto": "10-Q 3T26 (estado de flujos y balance) + 10-K 2025"
+   },
+   "Control maestro!M34": {
+    "celda": "Análisis!C31",
+    "texto": "Sí (comprobado con el T3 2026): inventario 2.536 y cobros 1.692 a 30-sep-2026 (10-Q T3 p. 5); en doce meses (variaciones del estado de flujos) el inventario aumenta 160 y los cobros 337, frente a ingresos de nueve meses +0,4 % reportados (−1 % operativos)."
+   },
+   "Control maestro!J34": {
+    "celda": "Análisis!C31",
+    "texto": "Zoetis 10-Q 3T26 (p. 3, 5 y 8); Zoetis · Informe anual 2025 (p. 70)"
+   },
+   "Control maestro!K34": {
+    "celda": "Análisis!C31",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L34": {
+    "celda": "Análisis!C31",
+    "texto": "10-Q T3 2026 PDF p. 3, 5 y 8; 10-K 2025 PDF p. 70"
+   },
+   "Control maestro!N34": {
+    "celda": "Análisis!C31",
+    "texto": "(zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Comprobado con el T3; el valor «Sí» no cambia. El 10-Q del T3 no publica el balance del 30-sep-2025, así que la comparación interanual del 2T de la etapa 1 no se repite; se usan las variaciones del estado de flujos (sin divisa ni adquisiciones), 2025 + 9M-2026 − 9M-2025 (aproximación: el 9M-2025 está reexpresado): inventario 199 − 182 + 143 = 160 de aumento (≈ 6,7 % sobre 2.376 → 2.536 a 30-sep-2026) y cobros 236 − 190 + 291 = 337 (≈ 24,9 % → 1.692), frente a ingresos de 9M +0,4 % reportados y −1 % operativos (10-Q T3 PDF p. 3 y 29). La empresa atribuye el aumento de cobros al calendario de ventas y cobros, con los días de cobro dentro de 45–75 (PDF p. 40 y 42). Confianza media."
+   },
+   "Control maestro!G37": {
+    "celda": "Análisis!C34",
+    "texto": "30-sep-2026 (balance del 3T 2026)"
+   },
+   "Control maestro!I37": {
+    "celda": "Análisis!C34",
+    "texto": "10-Q 3T26 (primaria)"
+   },
+   "Control maestro!J37": {
+    "celda": "Análisis!C34",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5; liquidez p. 42)"
+   },
+   "Control maestro!K37": {
+    "celda": "Análisis!C34",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L37": {
+    "celda": "Análisis!C34",
+    "texto": "10-Q T3 2026 PDF p. 5 y 42"
+   },
+   "Control maestro!M37": {
+    "celda": "Análisis!C34",
+    "texto": "Sí. Caja no restringida 1.331 (1.333 − 2 restringida) frente a deuda financiera a corto 750 (porción corriente del bono del 3,000 % que vence el 12-sep-2027; sin papel comercial ni préstamos)."
+   },
+   "Control maestro!N37": {
+    "celda": "Análisis!C34",
+    "texto": "(zoetis_t2, segundo tiempo, Claude orquestación, 19-nov-2026) Comprobado con el T3; el valor «Sí» no cambia: 1.331 ÷ 750 = 1,77x (con las inversiones a corto de 200, 2,04x). Con el 2T no había deuda a corto (la etapa 1 preveía 1,96x al pasar el bono a corriente). Revolving de 1.250 sin disponer, prorrogado en agosto de 2026 hasta el 27-ago-2031; otras líneas 46 sin disponer (PDF p. 42). Confianza alta."
+   },
+   "Control maestro!M30": {
+    "celda": "Análisis!C25",
+    "texto": "Evidencia (Claude orquestación, zoetis_t2, 3T 2026): FCF = CFO − capex 1.736 (2021) → 1.326 (2022) → 1.621 (2023) → 2.298 (2024) → 2.283 (2025) (Historia) → 2.280 LTM a 30-sep-2026 (CFO 2.773 − capex 493; todo reexpresado 2.235; 10-Q T3 PDF p. 8 y 11). 9M-2026: CFO 1.880 frente a 2.056 reexpresado (−8,6 %) y capex 334 frente a 462 (PDF p. 8). Por acción ayuda la recompra (acciones medias diluidas 9M 417,3 frente a 445,6, PDF p. 3)."
+   },
+   "Control maestro!M32": {
+    "celda": "Análisis!C27",
+    "texto": "Evidencia (Claude orquestación, zoetis_t2, 3T 2026): margen EBIT (BAI + intereses) 34,9 % (2021), 35,6 %, 37,2 %, 36,3 %, 37,8 % (2025) (Historia) → 35,3 % LTM a 30-sep-2026 (3.356 ÷ ingresos 9.467 − 7.080 + 7.121 = 9.508; 10-Q T3 PDF p. 3 y 10). 9M-2026: margen antes de impuestos 33 % frente a 36 %; coste de ventas 28,3 % frente a 27,9 % de los ingresos (PDF p. 29); incluye 142 de reestructuración y 78 de deterioro de I+D en curso (PDF p. 3 y 15). Margen bruto ajustado T3 71,0 % frente a 71,3 % (presentación del T3, PDF p. 9)."
+   },
+   "Control maestro!G82": {
+    "celda": "Análisis!C76",
+    "texto": "30-sep-2026"
+   },
+   "Control maestro!I82": {
+    "celda": "Análisis!C76",
+    "texto": "10-Q 3T26 (evidencia preparada)"
+   },
+   "Control maestro!J82": {
+    "celda": "Análisis!C76",
+    "texto": "Zoetis 10-Q 3T26 (balance p. 5; adquisiciones p. 14)"
+   },
+   "Control maestro!K82": {
+    "celda": "Análisis!C76",
+    "texto": "Release fuentes-examen-20261118 (zoetis-10q-2026-q3.pdf, sha256 f797be28…42bf); texto/zoetis-10q-2026-q3.txt"
+   },
+   "Control maestro!L82": {
+    "celda": "Análisis!C76",
+    "texto": "10-Q T3 2026 PDF p. 5, 8 y 14"
+   },
+   "Control maestro!M82": {
+    "celda": "Análisis!C76",
+    "texto": "Evidencia (Claude orquestación, zoetis_t2, 3T 2026): caja 1.333 (+200 de inversiones a corto en depósitos a plazo); restringida 2; sin dividendos a pagar en el balance del 30-sep-2026; deuda 9.049, con 750 a corto (bono de sep-2027): deuda neta 7.716. Neogen (genómica animal): cierre esperado a principios de 2027, precio no publicado en el 10-Q (PDF p. 14). Nada es claramente sobrante; recomendación de la etapa 1 (hecha con el 2T): vacío (= 0). Decide el inversor."
+   },
+   "Control maestro!F39": {
+    "celda": "Análisis!C38",
+    "texto": "Dato no verificable"
+   },
+   "Control maestro!N39": {
+    "celda": "Análisis!C38",
+    "texto": "NO VERIFICABLE (zoetis_t1d, 19-nov-2026): valor intrínseco de un tercero (Simply Wall St) sin bytes en el expediente; lectura externa que el registro de entradas no cuenta como comprobada (REVISION_SELLADO.md de zoetis_t1c). Solo contexto, no dato. Texto de la etapa 1: Captura previa: 202,45 (29-sep-2026). No confundir con el \"Fair Value\" de consenso de analistas que muestra SWS (96). Precio objetivo medio de analistas: 96 (17 analistas, S&P Global vía stockanalysis, 24-ago-2026; mediana 89,5; rango 80–155; secundario). No atribuyo hipótesis concretas al DCF de SWS. [Guía de la plantilla: Solo contraste; no sustituye la valoración propia.]"
+   }
+  }
+ },
+ "sustituidas_en_fase1_v63": {
+  "C33": {
+   "construido_por_fase1_historia": null,
+   "valor": 2.011994784876141,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "LTM = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026)"
+  },
+  "C40": {
+   "construido_por_fase1_historia": null,
+   "valor": 2279,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "LTM = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026)"
+  },
+  "C42": {
+   "construido_por_fase1_historia": null,
+   "valor": 11.109986935814863,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "LTM = 2025 (10-K, base antigua) − 9M-2025 + 9M-2026 (10-Q T3 2026) ; EV con C41 = C37 × C55 exactos"
+  },
+  "C24": {
+   "construido_por_fase1_historia": null,
+   "valor": 0.24314328791461562,
+   "naturaleza": "aproximación declarada por la «Fiscal Year Alignment» (convención de la orquestación; no derivado exacto)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "NOPAT LTM (2025 − 9M-2025 + 9M-2026) ÷ (patrimonio + deuda − caja) a 30-sep-2026"
+  },
+  "C32": {
+   "construido_por_fase1_historia": null,
+   "valor": 0.1914103923647932,
+   "naturaleza": "derivado de datos publicados (cociente exacto)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "goodwill ÷ activo total a 30-sep-2026"
+  },
+  "C53": {
+   "construido_por_fase1_historia": null,
+   "valor": 1333,
+   "naturaleza": "dato publicado",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "cifra tal como se publica"
+  },
+  "C54": {
+   "construido_por_fase1_historia": null,
+   "valor": 9049,
+   "naturaleza": "derivado de datos publicados (suma de dos líneas del balance)",
+   "perimetro": null,
+   "fecha": "2026-09-30",
+   "derivacion": "porción corriente + deuda a largo plazo (contables)"
+  }
+ },
+ "correcciones_fase1_partes": [],
+ "notas_retiradas": 4,
+ "configuracion_economica": false,
+ "alcance": true,
+ "analisis_heredadas_conservadas": {
+  "C46": "entrada de zoetis_t1d sin cambio (media FY2023–2025 del 10-K 2025, cálculo declarado): el T3 de 2026 y los datos de mercado del 5-nov-2026 no cambian C46",
+  "C47": "entrada de zoetis_t1d sin cambio (media FY2023–2025 del 10-K 2025, cálculo declarado): el T3 de 2026 y los datos de mercado del 5-nov-2026 no cambian C47",
+  "C49": "entrada de zoetis_t1d sin cambio (media FY2023–2025 del 10-K 2025, cálculo declarado): el T3 de 2026 y los datos de mercado del 5-nov-2026 no cambian C49",
+  "C50": "entrada de zoetis_t1d sin cambio (media FY2023–2025 del 10-K 2025, cálculo declarado): el T3 de 2026 y los datos de mercado del 5-nov-2026 no cambian C50"
+ },
+ "analisis_descartadas": {},
+ "entrada_efectiva": {
+  "formato": "4.15",
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)",
+  "declarado_por": "cambiar_base.py",
+  "cambio": "cambio_zoetis_t2.json"
+ }
+}

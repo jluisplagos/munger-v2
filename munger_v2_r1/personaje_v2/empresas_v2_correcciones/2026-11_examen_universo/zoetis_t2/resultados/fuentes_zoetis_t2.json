@@ -1,0 +1,57 @@
+{
+ "fecha": "2026-11-19",
+ "autor": "Claude orquestación",
+ "guion": "resultados/scripts/fuentes_zoetis_t2.py",
+ "pasos": [
+  {
+   "paso": "registro de entradas de zoetis_t1d en su versión comprometida",
+   "commit": "897db35",
+   "copiado_por_preparar_sha256": "53d8a0fd60d6a5c87eed405ccd7e673774ed0d847fc9b6261183f9be52cfe3f4",
+   "comprometido_sha256": "53d8a0fd60d6a5c87eed405ccd7e673774ed0d847fc9b6261183f9be52cfe3f4",
+   "motivo": "preparar copia el árbol de trabajo; se fija la versión comprometida (sellado definitivo de zoetis_t1d, 897db35; igual en dfc0a2c) para no heredar cambios sin commit"
+  },
+  {
+   "paso": "pdf/zoetis-10q-2026-q3.pdf",
+   "sha256": "f797be282a86905e29ea3d41573fba5a645f2db674fc7c0f26fb93c0f71242bf"
+  },
+  {
+   "paso": "pdf/zoetis-3q2026-financial-results.pdf",
+   "sha256": "bac00765798eb16967fc509b4f1b8c1011d05664249b70d22737f9bc6135e05d"
+  },
+  {
+   "paso": "pdf/zoetis-3q2026-press-release.html",
+   "sha256": "fe2c88a8d6e3b4cf14b2edfb75eb63a39244d9d20109ae32a97493db77aaeb77"
+  },
+  {
+   "paso": "texto/zoetis-3q2026-press-release.txt (una página, procedimiento de html_a_texto.py)",
+   "sha256": "c178da71bab2eaf7d92185447241d290cc7c6494b57aed496e52991d194a92f5"
+  },
+  {
+   "paso": "texto/zoetis-10q-2026-q3.txt (cambiar_base.py, pdftotext -layout con marcas)",
+   "sha256": "ddcd22703ceef1da78f5bc57015671e10c0eac411cee79f3710f98e0f777e70b"
+  },
+  {
+   "paso": "texto/zoetis-3q2026-financial-results.txt (cambiar_base.py, pdftotext -layout con marcas)",
+   "sha256": "065baf629d005c0a2b3e869c1a3a6d5cfa20291826b9b7935c0aae57e985b2da"
+  },
+  {
+   "paso": "FUENTES.tsv (3 filas nuevas)",
+   "sha256": "9d8f92395d9d0bf5f69104762797eb8a32336e810a4a321bff324ff6d2e5c14a"
+  },
+  {
+   "paso": "fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118_mistral_examen_zoetis_t2.txt",
+   "sha256": "1eee36e610e2d4980e85f416306c6878d2ba503f92f6859d8933a705556808de",
+   "fila_usada": "November 05, 2026 | $82.11 (C37)",
+   "origen": "munger-v2-evidencias-mistral, rama mistral/examen-zoetis-t2 (d12c75c), resultados_examen/zoetis_t2/fuentes_mercado/Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt",
+   "limitacion": "solo transcripción del extractor (web_fetch de investor.zoetis.com el 18-nov-2026); falta una captura o un CSV original de la página",
+   "contraste": "la transcripción del extractor heredada de zoetis_t1d (Zoetis_IR_XNYS_ZTS_historico_acciones_20261118.txt) da el mismo cierre: «November 05, 2026 $82.11»"
+  },
+  {
+   "paso": "Treasury del 5-nov-2026 (sin archivo nuevo)",
+   "archivo": "fuentes_mercado/US_Treasury_par_yield_2026_Release_766892834.txt",
+   "sha256": "367ebb65ba2eab73f350dbea8c992fc6d46fb2278c62387251520a72e5a92414",
+   "fila_usada": "11/05/2026 | 4.03 | 4.07 | 4.15 | 4.17 | 4.16 | 4.19 | 4.28 | 4.46 | 4.53 | 4.59 | 4.70 | 4.84 | 5.27 | 5.25 (columna 13 «10 Yr» = 4.84; C57)"
+  }
+ ],
+ "huellas_txt_sha256": "1b998629c61a166c52be275fd5a42a0b019fabccfaf7201080d8f1ccf5c78b87"
+}
