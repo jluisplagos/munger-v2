@@ -1,0 +1,387 @@
+{
+ "turno": 1,
+ "una_sola_historia": {
+  "coherente": true,
+  "incoherencias": [
+   "Fase A dejó el cubo provisional en Vigilar porque «el precio no da un margen que se vea sin la hoja» y remitió el precio de Sí a esta fase; la hoja da 25,88 / 37,23 / 45,44 € por escenario, ponderado 35,63 € y precio de Sí 32,38 €: el precio de 27,28 € está un 15,7 % por debajo del precio de Sí (diferencia ÷ precio de Sí), en cumple_regla_k. No contradice C13 = No (el valor sin crecimiento, 28,12 €, es casi el precio: sin suponer nada no se ve margen), pero el cubo provisional cambia por el orden de mando de la sección 15. A6 dice DESCARTADA POR FILTRO PABRAI; mi cubo provisional es Sí porque C13 = No no es un descalificador.",
+   "C76 = 160 (fase B) frente a C46, C40, C52 y f calculados con C76 = 200 (J1: s = 200 ÷ 471,83 = 0,4239). resultados.json trae f = −0,0030115, el mismo que antes de la fase B: no se recalculó. Con s = 0,3391 entran 1,14 mm más de intereses al año (C46 ≈ 317,62; C40 ≈ 255,46 mm; FCF yield ≈ 6,97 % frente a 6,94 %). Si ese cambio pasa entero a f (±0,00093), el precio de Sí se mueve ±0,13 € (32,24–32,51 €, ±0,4 %) en mi réplica del motor, que reproduce B78:D78 al céntimo; la zona no cambia. Es una celda de datos: no la recalculo y lo señalo a la orquestación para que aplique J1 antes del cierre.",
+   "S2C del MALO (Palancas!B16 = 1,0) frente a su propia historia: en el MALO siguen las aperturas y los centros de distribución, pero el motor reinvierte en diez años solo Δventas ÷ S2C = 129 mm, apenas más que los centros (más de 95 mm [AR2025, PDF p. 25]) sin contar el circulante (en 2022–2025, 210 mm de circulante por 401 mm de ventas nuevas, Historia filas 6 y 14). Una cifra de 0,75–0,8 cuadra mejor con la historia del MALO; 1,0 está en el extremo favorable del rango de la fase B (0,7–1,3), sin error aritmético. Corregido a 0,75: MALO 25,67 €, precio de Sí 32,27 € (−0,3 %), misma zona y mismo cubo: lo dejo (regla v2.1) y lo anoto.",
+   "El margen del MALO (0,27) está por encima de todos los años de 2016–2020 (24,8–26,9 %, Historia fila 29), mientras la narrativa dice que el margen «vuelve hacia el nivel que tenía antes de 2021». No es un error (0,27 está en el rango 0,25–0,29 de la fase B y «hacia» no es «hasta»), pero es un MALO moderado. Con 0,25 el MALO valdría 24,33 € y el precio de Sí 31,60 € (−2,4 %), con la misma zona.",
+   "El FCF del año 1 del MALO (306,7 mm) supera al del NORMAL (291,7 mm): es la mecánica del motor (menos crecimiento pide menos reinversión), agrandada por el S2C favorable del punto anterior. No cambia la historia; explica por qué el MALO vale casi el precio.",
+   "La r heredada (0,09) está por debajo de la r mínima de la hoja (10,19 %) y la tasa de descuento es la palanca que más mueve el valor (±1 punto ≈ ±6,06 € en el NORMAL). Con la r mínima y mis palancas, el precio de Sí sería ≈ 28,01 € y la zona seguiría siendo cumple_regla_k, con el precio un 2,6 % por debajo del precio de Sí (diferencia ÷ precio de Sí). La r no es decisión mía (S-3): lo informo y no la cambio."
+  ]
+ },
+ "lo_que_dice_la_hoja": {
+  "valores_por_accion": {
+   "MALO": 25.88,
+   "NORMAL": 37.23,
+   "BUENO": 45.44
+  },
+  "ponderado_C83": 35.63,
+  "escalera": "precio de Sí 32,38 € (P*, sin tope del NORMAL) · precio esc. MALO 25,88 € · ponderado 35,63 € · precio 27,28 € · zona cumple_regla_k: el precio está un 15,7 % por debajo del precio de Sí (diferencia ÷ precio de Sí) y 1,40 € por encima del valor del MALO (5,1 % del precio). Regla antigua C156 = 25,88 € (= valor del MALO).",
+  "semaforos_relevantes": [
+   "fila 41 · margen frente a su máximo y al Q3 del sector: REVISAR en los tres (G5, justificada en la fase B: ningún escenario pasa del máximo propio de 33,4 %; los tres superan el Q3 del sector de 8,6 %)",
+   "fila 48 · r frente a la r mínima: REVISAR (9,0 % frente a 10,2 %; r heredada, A2)",
+   "filas 40, 42, 43, 44, 46, 47, 49 y 50: PASA (crecimiento, ROIC marginal, ROIC terminal, peso del terminal, S2C medio, orden de escenarios, tipo y motor, f)",
+   "fila 45 · cuota implícita: «—» porque C24 está vacío (sin cifra de mercado)",
+   "autocomprobación ROIC terminal > g: REVISAR solo por el salto del año 11 (V16, aviso), no por la condición necesaria",
+   "estado técnico INCOMPLETO solo por las tres predicciones (C07), que son del turno 2; bloqueo del valor y de la lectura: no"
+  ],
+  "peso_terminal_NORMAL": 0.515,
+  "peso_terminal": {
+   "MALO": 0.438,
+   "NORMAL": 0.515,
+   "BUENO": 0.554
+  },
+  "salto_anio_11": {
+   "MALO": 0.131,
+   "NORMAL": 0.241,
+   "BUENO": 0.313,
+   "explicacion": "La rentabilidad marginal de los años 1–10 (S2C × margen × (1 − t)) es 0,22 / 0,34 / 0,43 y el ROIC terminal 0,09 / 0,10 / 0,12. El MALO tiene el ROIC terminal en la tasa del motor: es la gramática del ejercicio. En los tres escenarios es mi hipótesis de que el retorno extraordinario del capital incremental se acaba cuando se acaban los sitios donde abrir y la expansión sin capital propio; el margen del capital ya invertido sigue en el terminal. Justificado en desviaciones_justificadas (G8)."
+  },
+  "dcf_inverso": "El precio de 27,28 € descuenta un crecimiento de ventas de −1,96 % al año en los años 1–5 con el resto del NORMAL (C86); el precio de Sí, un +2,23 %. El valor sin crecimiento (margen de 2025 para siempre) es 28,12 €, por encima del precio: el precio no paga nada por crecer (pagas ÷ vale = −0,09). En mi réplica del motor, con el crecimiento del NORMAL el precio equivale a un margen objetivo de ≈ 22,5 %, por debajo del mínimo de diez años (24,8 %, Historia C50). Lo que el mercado duda no es el crecimiento sino el margen.",
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt)",
+  "tornado_eur_NORMAL": {
+   "tasa de descuento ±1 pt": 6.06,
+   "ROIC LP ±5 pts": 4.58,
+   "crecimiento 1–5 ±2 pts": 3.41,
+   "margen ±2 pts": 2.1,
+   "S2C ±0,3": 0.76,
+   "g ±0,5 pts": 0.55
+  },
+  "veredicto_A6": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13): no es mi decisión",
+  "nota": "el tornado es información, no criterio; las sensibilidades que cito son de mi réplica del motor A, que reproduce B78:D78, y tampoco deciden nada"
+ },
+ "desviaciones_justificadas": [
+  {
+   "comprobacion": "G8",
+   "escenario": "MALO",
+   "justificacion": "En el MALO el ROIC terminal es la tasa del motor (0,09; neutro 8,88 %), convención del ejercicio. En los años 1–10 cada euro nuevo rinde S2C × margen × (1 − t) = 1,0 × 0,27 × 0,82 ≈ 0,22 porque se invierte en abrir las últimas tiendas de un formato que ya funciona y en logística. En el año 11 esa ventaja se pierde: en la historia del MALO el ahorro de la escala de compra ya ha pasado al cliente frente a las plataformas, no quedan huecos donde abrir (Grecia sin apertura en 2027) y el capital nuevo solo acompaña a ventas que crecen al 1 %, así que rinde lo que exijo. El margen del capital ya invertido sigue en el NOPAT del terminal; lo que cae es el retorno del capital incremental.",
+   "hechos": [
+    "Diagnóstico V6 bloque 10: rentabilidad marginal 0,221 frente a ROIC terminal 0,09 (salto 0,131)",
+    "Palancas!B15 = 0,27, B16 = 1,0, B18 = 0,09",
+    "Historia fila 29 (margen EBIT 24,8–26,9 % en 2016–2020)",
+    "margen bruto 55,61 → 54,72 % [AR2025, PDF p. 15] y 53,53 % en H1 [H1 2026, PDF p. 7]",
+    "plataformas transfronterizas [AR2025, PDF p. 23]",
+    "Grecia sin hipermercado nuevo en 2027 [H1 2026, PDF p. 17]"
+   ],
+   "clase": "convención"
+  },
+  {
+   "comprobacion": "G8",
+   "escenario": "NORMAL",
+   "justificacion": "En el NORMAL la rentabilidad marginal de los años 1–10 es 1,3 × 0,32 × 0,82 ≈ 0,34: el dinero nuevo va a hipermercados en Rumanía, Chipre y Bulgaria, a circulante de socios que ponen su tienda y a centros logísticos, y rinde como el viejo porque la escala de compra directa ya existe. En el año 11 supongo que la red está hecha y que el crecimiento del 2 % es solo precio: ese capital ya no compra ventaja nueva y rinde un punto sobre r (0,10), no 0,34. La ventaja de escala sobre el capital existente sigue en el NOPAT del terminal (margen 0,32); lo que se pierde es la oportunidad de reinvertir a retornos extraordinarios, que es lo que se acaba cuando se acaban los sitios donde abrir.",
+   "hechos": [
+    "Diagnóstico V6 bloque 10: rentabilidad marginal 0,341 frente a ROIC terminal 0,10 (salto 0,241)",
+    "Palancas!C15 = 0,32, C16 = 1,3, C18 = 0,10; Análisis!C68 = 0,02",
+    "ROIC sin arrendamientos 28,93 % de media 2021–2025 (datos_v63 sección 1 bis)",
+    "hipermercados 85 → 89 entre 2023 y H1 2026 [H1 2026, PDF p. 7]",
+    "Grecia como «transitional year» en 2027 [H1 2026, PDF p. 17]",
+    "inflación del 2 % que usa la empresa [AR2025, PDF p. 203]",
+    "más de 200 proveedores, ninguno por encima del 3 % [AR2025, PDF p. 24]"
+   ],
+   "clase": "fundamentada"
+  },
+  {
+   "comprobacion": "G8",
+   "escenario": "BUENO",
+   "justificacion": "En el BUENO la rentabilidad marginal de los años 1–10 es 1,6 × 0,33 × 0,82 ≈ 0,43 porque buena parte del crecimiento llega por socios y por Balfin, que ponen la tienda y la inversión, y Jumbo solo financia la mercancía. En el año 11 los mercados de socios están abiertos y maduran, Balfin gestiona su propia cadena desde China y el crecimiento del 2,5 % ya no trae esa palanca sin capital: el capital nuevo rinde r + 3 puntos (0,12), el máximo que admito con C18 = Sí (MR p. 63; E2). Lo que se pierde en el año 11 es la expansión sin capital propio; lo que queda, el exceso de escala.",
+   "hechos": [
+    "Diagnóstico V6 bloque 10: rentabilidad marginal 0,433 frente a ROIC terminal 0,12 (salto 0,313)",
+    "Palancas!D15 = 0,33, D16 = 1,6, D18 = 0,12; Análisis!C18 = Sí",
+    "ventas a socios 61,7 → 80,5 mm en 2025 [AR2025, PDF p. 175]",
+    "expansión de Balfin sin la inversión del grupo, según la empresa [H1 2026, PDF p. 19]",
+    "Balfin con centro logístico propio en China [H1 2026, PDF p. 18]"
+   ],
+   "clase": "fundamentada"
+  }
+ ],
+ "autocomprobacion": [
+  {
+   "sesgo": "anclaje en la etapa 1",
+   "hallazgo": "Revisé lo heredado de A y B: g (B68:D68) se mantiene con la misma evidencia (inflación del 2 % [AR2025, PDF p. 203]); B69, D69 y C76 cambian con motivo. El riesgo de anclaje va al revés: el MALO de la etapa 1 era más duro (margen EBITDA hacia 25–28 %, caja libre −2 % al año, datos_v63 sección 6) que el actual (EBIT 0,27, crecimiento implícito del FCF −0,5 %), y ese ablandamiento explica buena parte de que la regla antigua pase de ≈ 19 € a 25,88 € (C156). Se apoya en la lectura de la fila 29 de la fase A, no en un hecho nuevo.",
+   "cambio": "ninguno en celdas; lo calculo (MALO con margen 0,25: precio de Sí ≈ 31,60 €, misma zona) y lo llevo a la tesis inversa del turno 2"
+  },
+  {
+   "sesgo": "anclaje en el precio o en la fuente externa",
+   "hallazgo": "El ponderado (35,63 €) y el precio de Sí (32,38 €) quedan cerca del Fair Value de Simply Wall St (33,04 €, C38) y de la media de analistas (32,24 €, nota de C38), y el MALO (25,88 €) queda solo un 5,1 % por debajo del precio (diferencia ÷ precio). Miré si alguna palanca se fijó mirando esas cifras: los márgenes salen de la fila 29, el crecimiento de componentes y las probabilidades de hechos de H1 2026; ninguna Observación cita C38.",
+   "cambio": "ninguno; la coincidencia es motivo de sospecha, no apoyo, y no la uso como contraste a favor"
+  },
+  {
+   "sesgo": "consistencia y compromiso",
+   "hallazgo": "La fase A cerró en Vigilar y la fase B no ajustó las palancas para sostenerlo: el resultado de B sale en cumple_regla_k, lo contrario de lo que habría salido si hubiera querido cuadrar con A. El riesgo ahora es el inverso: mantener Vigilar por no desdecirme, inventando una condición de espera que el MALO ya modela.",
+   "cambio": "cubo provisional Vigilar → Sí y conclusión provisional comprar, por el orden de mando de la sección 15"
+  },
+  {
+   "sesgo": "historia bonita / viento de cola atribuido a la empresa",
+   "hallazgo": "El NORMAL mantiene diez años el margen de 2021–2025 (0,32), y el salto de 2020 a 2021 (24,8 % → 32,3 %, fila 29) coincidió con la salida de la pandemia. A favor de la empresa: el margen aguantó 2022–2025 con fletes por el Cabo, inflación y Rumanía. En contra: el margen bruto baja desde 2024 (55,61 → 54,72 → 53,53 %). Si una parte del escalón de 2021 fue nicho y suerte, el NORMAL la atribuye a la empresa.",
+   "cambio": "ninguno en palancas (el MALO, con 0,25, devuelve ese escalón); calculado: NORMAL con 0,31 deja el precio de Sí en ≈ 31,96 €, misma zona"
+  },
+  {
+   "sesgo": "optimismo del BUENO frente a la tasa base",
+   "hallazgo": "El BUENO lleva las ventas a 2.278 mm en el año 10 (1,85 veces 2025), margen 0,33 junto al máximo propio y ROIC terminal r + 3 puntos, sin cifra de mercado para comprobar que cabe (C24 vacío). Pesa 0,15, menos que el MALO, y su crecimiento usa en parte la guía de duplicar Rumanía.",
+   "cambio": "ninguno; con el BUENO igual al NORMAL el precio de Sí bajaría a ≈ 31,56 € y la zona no cambiaría: la conclusión no depende del BUENO"
+  },
+  {
+   "sesgo": "doble castigo del mismo riesgo",
+   "hallazgo": "El riesgo de las plataformas está en el margen del MALO, en su probabilidad (0,25), en su g (0,01) y en la probabilidad del BUENO (0,15). No está en el NORMAL, ni en la r (heredada, sin prima por esto), ni en una quiebra (vacía: no hay deuda). El crecimiento del MALO (0,01) es más suave que su referencia (−0,005). No veo el mismo riesgo contado dos veces (PA; E6).",
+   "cambio": "ninguno, porque cada pieza del riesgo de plataformas está en un solo sitio y el NORMAL no lo lleva"
+  },
+  {
+   "sesgo": "disponibilidad (lo vívido del extracto)",
+   "hallazgo": "Lo vívido es H1 2026: Rumanía −6,50 %, el IVA absorbido y las plataformas que «disrupt the level playing field». Movió B69 a 0,25 y D69 a 0,15. La Historia en diez filas dice otra cosa más tranquila: una sola caída de ventas y margen EBIT ≥ 24,8 %. Rumanía es el 21 % de las ventas y su caída de resultado (24,5 → 20,1 mm) es ≈ 3 % del resultado del grupo [H1 2026, PDF p. 37].",
+   "cambio": "ninguno: el ajuste es de un escalón y está dentro del rango 0,2–0,3; con 0,2/0,6/0,2 el precio de Sí subiría, así que el sesgo, si lo hay, va contra la tesis"
+  },
+  {
+   "sesgo": "autoridad (guía de la dirección como hecho)",
+   "hallazgo": "Usan guía: las unas dos aperturas al año del NORMAL (contrastadas con 85 → 89 tiendas y con Grecia incumplida), los más de 95 mm de centros (usados para bajar el S2C, en contra de la tesis) y el objetivo de duplicar Rumanía en el BUENO (+1,5 puntos de crecimiento). «A projection prepared by… an executive trying to justify a particular course of action will frequently be a lie» (TCI p.60; HIM).",
+   "cambio": "ninguno; la única guía que sube el valor es la del BUENO, y sin ella (BUENO con 0,065) el precio de Sí sería ≈ 32,07 €"
+  },
+  {
+   "sesgo": "¿el MALO es de verdad malo?",
+   "hallazgo": "No es un NORMAL maquillado (margen EBIT un 15 % por debajo del de 2025, valor un 30 % por debajo del NORMAL), pero tampoco es el peor defendible: margen 0,27 por encima de todo 2016–2020, S2C 1,0 en el extremo favorable y FCF del año 1 por encima del NORMAL. Con margen 0,25, S2C 0,75 y f en contra a la vez, el MALO valdría ≈ 24,02 € y el precio de Sí ≈ 31,37 €, con la misma zona. Y la realidad puede ser peor que mi MALO: «We don't think because it's never happened that it won't» (AIWTK p.55; HIM).",
+   "cambio": "no muevo palancas (cada corrección cambia el precio de Sí menos de un 5 % y no cambia ni zona ni cubo, regla v2.1); lo dejo escrito en incoherencias y para B102 y B222"
+  },
+  {
+   "sesgo": "lo no numerable que pesa y no está en las palancas",
+   "hallazgo": "Sucesión del accionista de control sin plan en mis entradas (el antiguo bono llegaba a ligar su vigencia al control de la familia [AR2022, PDF p. 57]); inventario que sube un 19 % frente a ventas del 7 % (C31, 203 días); Balfin montando su propia cadena desde China, que puede reducir lo que compra a Jumbo; un centro comercial en Patras fuera del negocio; el 66 % de la caja en filiales (nota de C53). Ninguno tiene cifra para una palanca.",
+   "cambio": "ninguno en palancas; van a lo_que_no_se de la fase A, a la tesis inversa y a qué me haría cambiar de cubo (turno 2)"
+  }
+ ],
+ "revisar_palancas": false,
+ "instrucciones_revision": null,
+ "limite_del_modelo": {
+  "aplica": false,
+  "cual": null,
+  "porque": null
+ },
+ "cubo_provisional": "Sí",
+ "conclusion_provisional": "comprar",
+ "revision_datos_ausentes": {
+  "revisados": [
+   {
+    "dato": "evidencia Análisis!C50",
+    "que_falta": "La clasificación verificable de C50 (SBC = 0): el dato existe, pero la frase del informe se refiere al consejo y la Historia lleva ceros pendientes de verificación.",
+    "conclusion_afectada": "Análisis!C50 → C52 (FCF base) y f (Historia!C58); C51 y C61 de la fase A",
+    "material_para_conclusion_favorable": false,
+    "porque": "Jumbo no tiene plan de opciones ni de entrega de acciones [AR2025, PDF p. 51], el estado de flujos no tiene ajuste por pagos en acciones [AR2025, PDF p. 155] y el BPA básico es igual al diluido [AR2025, PDF p. 181]. Si hubiera una SBC escondida, tendría que ser pequeña para no verse en ninguno de los tres sitios; C51 ya la resta. No cambia la zona ni el precio de Sí de forma apreciable."
+   },
+   {
+    "dato": "evidencia Historia!C13:L13",
+    "que_falta": "Confirmación humana de los ceros de adquisiciones de 2016, 2017, 2019, 2020 y 2021 (Historia fila 13).",
+    "conclusion_afectada": "Historia C53 (S2C marginal de 2021–2025) y la serie de reinversión; ninguna palanca la copia",
+    "material_para_conclusion_favorable": false,
+    "porque": "De esos años solo 2021 entra en C53, y la fase B dejó 2021 fuera de su derivación del S2C (Palancas!B16:D16 parten de 2022–2025: Δventas 401 mm frente a 344 mm de reinversión). Las adquisiciones posteriores sí tienen cifra (1,2 mm en 2023 y 11,9 mm en 2025). Un cero falso en 2016–2021 no mueve ninguna palanca ni la escalera."
+   },
+   {
+    "dato": "evidencia Historia!C16:L16",
+    "que_falta": "Confirmación humana de los ceros de intereses de arrendamiento en financiación de 2016–2018 (Historia fila 16).",
+    "conclusion_afectada": "ninguna celda de juicio: C48 es la media 2023–2025",
+    "material_para_conclusion_favorable": false,
+    "porque": "Son ejercicios anteriores a la NIIF 16 (Jumbo publica arrendamientos desde 2019, fila 23): el cero es coherente con la norma de entonces. C48 (2,664 mm) usa 2023–2025, que tienen cifra. No afecta al FCF base ni a ninguna palanca."
+   },
+   {
+    "dato": "evidencia Historia!C17:L17",
+    "que_falta": "Confirmación humana de los ceros de principal de arrendamientos de 2016–2018 (Historia fila 17).",
+    "conclusion_afectada": "ninguna celda de juicio: C49 es la media 2023–2025",
+    "material_para_conclusion_favorable": false,
+    "porque": "Mismo motivo que la fila 16: antes de 2019 el alquiler iba dentro del EBIT y no había principal que separar. C49 (8,569 mm) sale de 2023–2025 con cifra. Lo único que toca es la comparabilidad del margen EBIT de 2016–2018 con el de 2019 en adelante (diferencia del orden del interés de arrendamiento, ≈ 0,2–0,4 puntos de margen), que no cambia la lectura del MALO."
+   },
+   {
+    "dato": "evidencia Historia!C18:L18",
+    "que_falta": "Confirmación humana de los ceros de SBC de 2019, 2020, 2023, 2024 y 2025 (Historia fila 18).",
+    "conclusion_afectada": "Análisis!C50, C52 y f; C51 y C61",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el mismo hecho que C50 visto desde la Historia: sin plan de opciones ni de entrega de acciones [AR2025, PDF p. 51], sin ajuste en el estado de flujos [AR2025, PDF p. 155] y con BPA básico igual al diluido [AR2025, PDF p. 181]. Una SBC material se habría visto en el BPA diluido. No sostiene ni tumba la conclusión favorable."
+   },
+   {
+    "dato": "evidencia Historia!C23:L23",
+    "que_falta": "Confirmación humana de los ceros del pasivo por arrendamientos de 2016–2018 (Historia fila 23).",
+    "conclusion_afectada": "ninguna celda de juicio: capital invertido de 2016–2018, fuera de C55 y de la sección 1 bis (2021–2025)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Antes de la NIIF 16 no se reconocía el pasivo; el primer año con cifra es 2019 (106,6 mm). C55, C54 y el ROIC sin arrendamientos de la sección 1 bis usan 2021–2025, todos con cifra. No hay celda de juicio que dependa de esos ceros."
+   },
+   {
+    "dato": "evidencia Historia!C26:L26",
+    "que_falta": "Confirmación humana de los ceros de minoritarios de 2016–2023 (Historia fila 26).",
+    "conclusion_afectada": "ninguna celda de juicio en el motor A (no resta minoritarios); f solo usa la base 2023–2025",
+    "material_para_conclusion_favorable": false,
+    "porque": "El informe de 2025 da «-» (cero) en participaciones no dominantes en 2025 y 2024 [AR2025, PDF p. 150] y las filiales de Chipre, Bulgaria y Rumanía son del grupo; con el motor A el flujo es del accionista y no se restan minoritarios. Un cero falso en 2016–2023 no cambia ni el valor ni la zona."
+   },
+   {
+    "dato": "Palancas!C24",
+    "que_falta": "Tamaño del mercado en el año 10 (Palancas!C24), vacío por falta de cifra de fuente primaria.",
+    "conclusion_afectada": "Palancas!C24 y el semáforo de cuota implícita (G17, fila 45 «—»); techo del BUENO (D14)",
+    "material_para_conclusion_favorable": false,
+    "porque": "C24 vacío es la regla cuando no hay cifra (extracto §1). Sin él no puedo comprobar si el BUENO (ventas de 2.278 mm en el año 10) cabe en el mercado, pero el BUENO pesa 0,15 y la conclusión no depende de él: con el BUENO igual al NORMAL el precio de Sí sería ≈ 31,56 € (mi réplica del motor) y el precio de 27,28 € seguiría en cumple_regla_k."
+   },
+   {
+    "dato": "extracto_v63: Tamaño de mercado, crecimiento del mercado y cuota de mercado de Jumbo en Grecia, Chipre, Bulgaria o Rumanía.",
+    "que_falta": "Tamaño, crecimiento del mercado y cuota de Jumbo en Grecia, Chipre, Bulgaria y Rumanía.",
+    "conclusion_afectada": "C18 (foso, fase A), B69:D69 y el margen del MALO (Palancas!B15); C24",
+    "material_para_conclusion_favorable": false,
+    "porque": "La cuota no se puede medir, pero lo que decide el valor es si el margen aguanta, y eso sí tiene diez años de hechos (margen EBIT 24,8–33,4 %, Historia fila 29) y ventas que siguen creciendo (≈ +6 % en enero–agosto de 2026 [H1 2026, PDF p. 67]). La cuota afinaría el MALO; no es condición para sostenerlo: el MALO ya devuelve la mejora de 2021 al cliente."
+   },
+   {
+    "dato": "extracto_v63: Nombre y cuota de competidores concretos.",
+    "que_falta": "Nombre y cuota de competidores concretos.",
+    "conclusion_afectada": "C18 (prueba «quién me mata», fase A) y narrativa del MALO (B65:B66)",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa nombra al competidor que más daño puede hacer por categoría: las plataformas internacionales de comercio electrónico [H1 2026, PDF p. 15; AR2025, PDF p. 23]. Con eso el MALO tiene mecanismo. El nombre concreto no cambiaría ninguna palanca; lo pediría a Relación con Inversores para la tesis inversa."
+   },
+   {
+    "dato": "extracto_v63: Evolución de ventas a tipo de cambio constante (por país o grupo).",
+    "que_falta": "Ventas a tipo de cambio constante por país o grupo.",
+    "conclusion_afectada": "Palancas!B14 (crecimiento del MALO) y la lectura de Rumanía en B69",
+    "material_para_conclusion_favorable": false,
+    "porque": "Solo Rumanía (21,34 % de las ventas [AR2025, PDF p. 17]) vende en otra moneda dentro de lo que pesa; su −6,50 % de H1 2026 [H1 2026, PDF p. 6] mezcla RON e IVA absorbido. Separarlo cambiaría el reparto de la caída entre moneda y volumen, no la cifra del MALO ni la zona: el 79 % restante vende en euros."
+   },
+   {
+    "dato": "extracto_v63: Ventas comparables, tráfico, ticket medio, ventas por m² y ventas por tienda.",
+    "que_falta": "Ventas comparables, tráfico, ticket, ventas por m² y por tienda.",
+    "conclusion_afectada": "Palancas!C14 (componente de tiendas existentes del NORMAL) y la separación entre aperturas y comportamiento de las tiendas en el MALO (B14)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No separo con precisión aperturas y tiendas existentes, pero los hechos acotan lo que importa: la red pasó de 89 hipermercados a 31.12.2025 a 89 a 30.06.2026 [H1 2026, PDF p. 7; AR2025, PDF p. 14] y las ventas del semestre subieron un 4,4 % [H1 2026, PDF p. 37]: las tiendas que ya estaban (con las abiertas en 2025) crecieron. El NORMAL de 0,055 se apoya en el total publicado, no en un dato comparable que no hay. Material sería si el total cayera con la red estable; hoy no es el caso."
+   },
+   {
+    "dato": "extracto_v63: Margen por categoría de producto.",
+    "que_falta": "Margen por categoría de producto.",
+    "conclusion_afectada": "Palancas!B15:D15 (mezcla dentro del margen)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El margen que modela la hoja es el del grupo, con diez años de historia (fila 29). La mezcla se mueve (hogar 39,47 % en 2025 y 45,10 % en H1 2026 [AR2025, PDF p. 177; H1 2026, PDF p. 39]) y el margen por categoría diría qué parte de la bajada del margen bruto es mezcla. Afinaría el MALO; no es condición de la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Subidas de precio concretas y su efecto en volumen; evidencia de elasticidad.",
+    "que_falta": "Subidas de precio concretas y su efecto en volumen (elasticidad).",
+    "conclusion_afectada": "dueño de la mejora en B66:D66 y margen del NORMAL (Palancas!C15)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No hay pruebas directas del poder de precio, pero el único hecho de precio que hay va en contra (absorbió el IVA rumano [H1 2026, PDF p. 7]) y ya está en el MALO. Que no haya prueba de poder de precio no apoya ningún escenario mejor que el NORMAL, que no supone subidas de margen."
+   },
+   {
+    "dato": "extracto_v63: Capex desglosado por destino (tiendas nuevas, mantenimiento, logística, TI) y capex presupuestado para 2026.",
+    "que_falta": "Capex por destino y capex presupuestado para 2026.",
+    "conclusion_afectada": "Palancas!B16:D16 (S2C)",
+    "material_para_conclusion_favorable": false,
+    "porque": "El S2C se deriva de la reinversión total de 2022–2025 (Historia, serie de la hoja) y de la guía de más de 95 mm en centros [AR2025, PDF p. 25], no del desglose. He calculado lo que pesa: con el S2C del MALO en 0,75 o el del NORMAL en 1,1, el precio de Sí queda en ≈ 32,27 € y ≈ 32,19 € (mi réplica; hoy 32,38 €), con la misma zona."
+   },
+   {
+    "dato": "extracto_v63: Importe de I+D y % de ventas (la empresa lo considera irrelevante).",
+    "que_falta": "Importe de I+D y % de ventas.",
+    "conclusion_afectada": "Palancas!C9 y C10 (fase A)",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa considera irrelevantes esos gastos [AR2025, PDF p. 102] y un minorista de surtido no capitaliza I+D: C9 = No no depende del importe. Ninguna palanca lo usa."
+   },
+   {
+    "dato": "extracto_v63: Múltiplo pagado en las adquisiciones de inmuebles y de Herald Hellas 2; precio de la tienda de Militari (Bucarest).",
+    "que_falta": "Múltiplo pagado por los inmuebles, por Herald Hellas 2 y por la tienda de Militari.",
+    "conclusion_afectada": "C98 (asignación de capital, fase A)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Son importes pequeños frente a la caja y al beneficio (Herald Hellas 2, 10,8 mm [AR2025, PDF p. 21]; Militari dentro de 3,2 mm de compra de filiales en H1 2026 [H1 2026, PDF p. 30]). El múltiplo diría si compraron bien, no cambia ninguna palanca: el capital ya está en la Historia."
+   },
+   {
+    "dato": "extracto_v63: Importe de inversión de los centros de distribución en H1 2026 (tras la reevaluación de Oinofyta) y precio del centro Giga de Rumanía.",
+    "que_falta": "Inversión en centros de distribución tras reevaluar Oinofyta y precio del centro Giga de Rumanía.",
+    "conclusion_afectada": "Palancas!B16:D16 (S2C) y C76",
+    "material_para_conclusion_favorable": false,
+    "porque": "La fase B cargó los más de 95 mm de la guía [AR2025, PDF p. 25] en el S2C y no en C76. Si Oinofyta se aplaza, el S2C sube y el valor también; si los centros cuestan más, el efecto en el precio de Sí es pequeño (S2C del NORMAL en 1,1: ≈ 32,19 €). No impide la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Inversión por hipermercado y retorno esperado de tiendas nuevas y del formato pop-up.",
+    "que_falta": "Inversión por hipermercado y retorno esperado de las tiendas nuevas y de los pop-ups.",
+    "conclusion_afectada": "Palancas!B16:D16 (S2C) y la rentabilidad marginal del salto del año 11",
+    "material_para_conclusion_favorable": false,
+    "porque": "Es el dato que mejor fundaría el S2C y la rentabilidad marginal de los años 1–10, pero la reinversión observada de 2022–2025 ya la acota (S2C ≈ 1,2 con nueve tiendas compradas e inventario, Historia fila 6 y serie de reinversión). He comprobado que mover el S2C dentro de los rangos de la fase B no cambia la zona."
+   },
+   {
+    "dato": "extracto_v63: Capital que Jumbo compromete en la cooperación con Balfin.",
+    "que_falta": "Capital que Jumbo pone en la cooperación con Balfin.",
+    "conclusion_afectada": "Palancas!D16 (S2C del BUENO) y narrativa del BUENO (D66)",
+    "material_para_conclusion_favorable": false,
+    "porque": "La empresa dice que busca crecer con la marca sin asumir la inversión [H1 2026, PDF p. 19], y es un plan, no un hecho. Solo toca al BUENO (0,15): si Jumbo tuviera que poner capital, el S2C del BUENO bajaría; con el BUENO igual al NORMAL el precio de Sí sería ≈ 31,56 €, con la misma zona."
+   },
+   {
+    "dato": "extracto_v63: Guía numérica de ventas, margen o capex del ejercicio, y política o payout objetivo de dividendos.",
+    "que_falta": "Guía numérica de ventas, margen o capex y política de dividendos.",
+    "conclusion_afectada": "ninguna celda de juicio: no copio guías en las palancas",
+    "material_para_conclusion_favorable": false,
+    "porque": "Las guías de la dirección no son hechos y no las uso como palancas (personaje, sección 3); la política de dividendos no entra en el motor A, que valora el flujo al accionista. Su ausencia no afecta a ninguna celda."
+   },
+   {
+    "dato": "extracto_v63: Rating crediticio de la empresa, covenants vigentes, vencimientos y coste medio de la deuda (no hay deuda).",
+    "que_falta": "Rating, covenants, vencimientos y coste de la deuda.",
+    "conclusion_afectada": "Palancas!C22 y C23 (quiebra) y C20 (fase A)",
+    "material_para_conclusion_favorable": false,
+    "porque": "No hay deuda: «neither the Company nor the Group has any borrowings» [H1 2026, PDF p. 9]. Sin deuda no hay covenants ni vencimientos que vigilar, y la quiebra vacía se sostiene sin esos datos."
+   },
+   {
+    "dato": "extracto_v63: Ratios de capital y límites regulatorios a la distribución (no aplica a un minorista).",
+    "que_falta": "Ratios de capital y límites regulatorios a la distribución.",
+    "conclusion_afectada": "ninguna celda de juicio: no es una financiera (Palancas!C6 = Ninguno, motor A)",
+    "material_para_conclusion_favorable": false,
+    "porque": "Jumbo es un minorista sin capital regulado (extracto §7); el único límite citado es la retención fiscal del 5 % [H1 2026, PDF p. 67]. No aplica al motor ni a la conclusión."
+   },
+   {
+    "dato": "extracto_v63: Cartera de pedidos y clientes activos.",
+    "que_falta": "Cartera de pedidos y clientes activos.",
+    "conclusion_afectada": "ninguna celda de juicio: un minorista de tienda física no tiene cartera de pedidos",
+    "material_para_conclusion_favorable": false,
+    "porque": "La métrica no existe en este negocio; tráfico y ticket ya están en la entrada de ventas comparables. No afecta a ninguna celda."
+   },
+   {
+    "dato": "extracto_v63: Explicación del emisor del cruce de etiquetas «Lease repayments» / «Interest paid for leases» (los textos solo muestran la coincidencia de cifras con la nota de",
+    "que_falta": "Explicación del emisor del cruce de etiquetas «Lease repayments» / «Interest paid for leases».",
+    "conclusion_afectada": "Análisis!C48 y C49 (reparto entre interés y principal) y la vara del foso de la sección 1 bis",
+    "material_para_conclusion_favorable": false,
+    "porque": "El cruce cambia el reparto entre C48 (2,664 mm) y C49 (8,569 mm), no su suma (11,23 mm), que es lo que resta el FCF base; el semestral rotula bien y su orden de magnitud lo confirma [H1 2026, PDF p. 30]. La vara del foso frente a r ya está NO COMPROBADA por otra causa (escala) y no me apoyo en ella: C18 se sostiene con diez años de márgenes frente al sector."
+   }
+  ],
+  "alguno_material": false
+ },
+ "fundamento_material": {
+  "hipotesis_sin_fundamento": [],
+  "revision_de_la_lista": "Revisé las hipótesis materiales del Anexo B §B.6 (B14:D16, B18:D18, B68:D69, C22, C23, C76, C44, C62, C8, C6 y B65:D66): ninguna tiene clase «sin juicio propio» ni «técnico»; todas las fundamentadas o de convención citan hechos con celda o página en su Observación (C69, convención, cita la fila 29 y la fila 28 de Historia y H1 2026 p. 67; C22 y C23, convención, citan C33, C34, C64, C52 y H1 2026 p. 9); C44 queda vacía porque C43 = No aplica; las narrativas nombran mecanismo, dueño de la mejora y qué lo pararía con hechos del extracto. C97 (técnico) y C56 (r heredada) no son hipótesis materiales de esta lista. Lo que sí encontré (S2C y margen del MALO, J1 de C46) son cifras en el extremo favorable de rangos fundamentados o celdas de datos, con efecto calculado de menos de un 5 % en el precio de Sí y sin cambio de zona.",
+  "comprobacion_conjunta": {
+   "procede": false,
+   "combinacion": null,
+   "coherencia_economica": null,
+   "sobrevive": null
+  },
+  "resultado": "sin_limitacion",
+  "hipotesis_que_mas_condiciona": "Palancas!C15 (margen objetivo del NORMAL, 0,32, fundamentada): que la franja de margen EBIT de 2021–2025 aguante diez años frente a las plataformas transfronterizas con el margen bruto en descenso (55,61 → 54,72 → 53,53 %). Es la hipótesis de la que más depende la conclusión según mi juicio: el precio equivale a un margen de ≈ 22,5 % con el crecimiento del NORMAL.",
+  "que_lo_resolveria": "El informe anual de 2026 (previsto para la primavera de 2027): margen bruto y margen EBIT del grupo de 2026 (si el margen bruto queda en el 54 % o más y el EBIT en el 31 % o más, el NORMAL se sostiene; por debajo del 52 % y del 30 %, el MALO pasa a ser el centro) y el resultado del segmento Rumanía; y una pregunta a Relación con Inversores por las ventas comparables por país de 2024 a 2026, que separan aperturas de tiendas existentes."
+ },
+ "celdas_corregidas": {
+  "C76": {
+   "antes": 160,
+   "despues": 160,
+   "motivo": "Revisada: la cifra se sostiene (546,14 − 94,06 − 134,37 − ≈ 150 de colchón). Pero C46, C40, C52 y f se calcularon con C76 = 200 (J1, s = 0,4239) y no se han recalculado (f igual en resultados.json): con 160, s = 0,3391 y entran 1,14 mm más al año. Efecto calculado en el precio de Sí ±0,13 € (±0,4 %), sin cambio de zona ni de cubo. Celda de datos: lo hace la orquestación por J1, no yo."
+  },
+  "Palancas!B16": {
+   "antes": 1.0,
+   "despues": 1.0,
+   "motivo": "S2C del MALO en el extremo favorable de su rango: con aperturas y más de 95 mm de centros sobre 129 mm de ventas nuevas, 0,75–0,8 cuadra mejor. Corregido a 0,75, el precio de Sí pasa de 32,38 a ≈ 32,27 € (−0,3 %), misma zona y mismo cubo: se deja (regla v2.1) y se anota."
+  },
+  "Palancas!B15": {
+   "antes": 0.27,
+   "despues": 0.27,
+   "motivo": "Margen del MALO por encima de todos los años de 2016–2020 (24,8–26,9 %, fila 29); dentro del rango 0,25–0,29 de la fase B, no es error. Con 0,25, precio de Sí ≈ 31,60 € (−2,4 %), misma zona y mismo cubo: se deja como juicio y se anota."
+  },
+  "C13": {
+   "antes": "No",
+   "despues": "No",
+   "motivo": "Celda de la fase A revisada: el valor sin crecimiento (28,12 €) es casi el precio (27,28 €), así que sin suponer crecimiento ni margen no se ve un valor claramente superior. C13 = No es coherente con la hoja y no es un descalificador: no impide la conclusión que da la escalera."
+  }
+ },
+ "estado_analisis": null,
+ "cubo_final": null,
+ "escalera": null,
+ "decision": null,
+ "insumos_decision_cartera": null,
+ "herencia": null,
+ "comparacion_etapa_1": null,
+ "cambiaria_de_cubo": null,
+ "celdas": null,
+ "observaciones": null,
+ "confianza_global": null,
+ "configuracion_v64": null
+}

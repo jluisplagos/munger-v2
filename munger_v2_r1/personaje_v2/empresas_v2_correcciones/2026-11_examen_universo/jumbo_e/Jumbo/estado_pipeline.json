@@ -43,7 +43,9 @@
   "  $ bash recalc.sh Jumbo_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/recalc/Jumbo_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
   "  $ python3 leer_resultados.py Jumbo_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/jumbo_e/Jumbo/resultados.json · motor A · estado INCOMPLETO · libro NO",
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 27.28 · esc. MALO 25.8763219626812 · precio de Sí 32.3758 (P* 32.3758) · ponderado 35.6255 · zona cumple_regla_k",
-  "  $ python3 comprobar_gramatica.py Jumbo --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 4 → gramatica.md"
+  "  $ python3 comprobar_gramatica.py Jumbo --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 4 → gramatica.md",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -58,15 +60,17 @@
  "consumidos": {
   "extracto_v63.md": 1795045665.0145948,
   "fase_a.json": 1795046293.4525752,
-  "fase_b.json": 1795047202.3117175
+  "fase_b.json": 1795047202.3117175,
+  "fase_c.json": 1795048182.4033952
  },
- "motivo_correccion": null,
- "esperando_desde": 1795047236.562333,
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1795048205.195535,
  "motor_a_f1": {
   "paso": 7,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "6511c5195e8a06482e9f29490e7b0a5ba99ccd710fbaac901dd19ca5c3e32ed9",
   "libro_sha256": "4bb0c93e8d9817919461518c96be2d5b6f447c70abcb1123d2c5469c0e6fd4b4"
- }
+ },
+ "turno_c": 2
 }
