@@ -1,6 +1,6 @@
 {
- "paso": 10,
- "estado_analisis": null,
+ "paso": 12,
+ "estado_analisis": "no_entregable",
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
@@ -45,12 +45,36 @@
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 62.0658527968958 · precio de Sí 73.3103 (P* 73.3103) · ponderado 80.0570 · zona cumple_regla_k",
   "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 6 (sin justificar 3) · avisos 3 → gramatica.md",
   "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
-  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 2 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 2)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_c.json C celdas_C.json → 0 · OK: 58 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/celdas_C.json",
+  "  $ python3 escribir_v63.py Zoetis_v63_evaluada.xlsx Zoetis_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_C.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx --fases A,B,C → 0 · PASS: 0 errores · 64 celdas correctas · fases ['A', 'B', 'C'] · motor A",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 62.0658527968958 · precio de Sí 73.3103 (P* 73.3103) · ponderado 80.0570 · zona cumple_regla_k",
+  "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo --con-fase-c → 0 · código 0 · errores 0 · límites 0 · desviaciones 6 (sin justificar 0) · avisos 3 → gramatica.md",
+  "  $ python3 diagnostico.py Zoetis --estado pendiente_de_datos --tipo falta_de_datos --detalle extracto_v63: Cuota de cada competidor (Boehringer Ingelheim, Merck, Elanco, IDEXX) y quién es el más peligroso.: La diferencia entre mi MALO y mi NORMAL es si los rivales nuevos siguen ganando cuota o se quedan con una parte de una vez. Sin saber quién es el rival de dermatología, si compite con un producto mejor o con descuentos de entrada, y cuánta cuota tiene, el 0,3 es un juicio sobre un mecanismo que no veo: «I think it's important to know which competitor is most likely to do you in» (AIW --paso 10 --que-hace-falta extracto_v63: Cuota de cada competidor (Boehringer Ingelheim, Merck, Elanco, IDEXX) y quién es el más peligroso. ← Quién es el rival que gana cuota en dermatología y parasiticidas, con qué producto y qué cuota tiene; cuotas de Boehringer Ingelheim, Merck, Elanco e IDEXX. (afecta a: Análisis!B69:C69 (p(MALO) 0,3 frente a NORMAL 0,5), las narrativas B66 y C66 (pérdida continua o de una vez) y C18 (¿quién me mata?).); extracto_v63: Fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytop --desde-paso 2 --quien  Claude Code → 0 · diagnóstico escrito: pendiente_de_datos · falta_de_datos · paso 10",
+  "  $ python3 ficha.py Zoetis --estado pendiente_de_datos --provisional → 0 · OK: ficha_provisional.json · estado propuesto pendiente_de_datos · cubo Vigilar · acción None",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 73.08 · esc. MALO 62.0658527968958 · precio de Sí 73.3103 (P* 73.3103) · ponderado 80.0570 · zona cumple_regla_k",
+  "  $ bash verificar_todo.sh Zoetis Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor A --libro-origen Zoetis_v63_evaluada.xlsx → 5 · DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-LIBRO, F1-REPLICA",
+  "2026-11-19T01:46:54 · paso 12 · motor A · F1: DIAGNÓSTICO F1 · el resultado del motor A no se usa para una conclusión: F1-LIBRO, F1-REPLICA",
+  "  $ python3 diagnostico.py Zoetis --estado no_entregable --tipo fallo_de_implementacion --detalle motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · F1-REPLICA DATOS INVÁLIDOS: Motor!AU6 2453.48261683346 ≠ réplica 2682.6585806501926; Motor!AV6 2422.33385418764 ≠ réplica 2594.2158270501927; Motor!; F1-LIBRO MODELO NO APLICABLE: el libro V6.3.1 F1 no calcula lo declarado (A2_propio; N1 y los términos explícitos no están en el libro): flujos del Mo --paso 12 --comprobacion F1 --que-hace-falta ver motor_a_f1_resultado.md: un límite declarado del motor A F1 (p. ej. el libro V6.3 calcula A0) o una decisión pendiente --desde-paso 2 → 0 · diagnóstico escrito: no_entregable · fallo_de_implementacion · paso 12",
+  "  $ python3 ficha.py Zoetis --estado no_entregable → 0 · OK: ficha.json · estado no_entregable · cubo None · acción None",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Zoetis → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Zoetis resumen_v2_v631_f1.csv → 0 · OK: fila de Zoetis Inc. en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t1c/resumen_v2_v631_f1.csv",
+  "2026-11-19T01:46:55 · paso 12 · FIN · estado no_entregable · fallo_de_implementacion: motor A · F1 (motor_a_f1_resultado.md): el resultado del motor A no se usa para una conclusión · F1-REPLICA DATOS INVÁLIDOS: Motor!AU6 2453.48261683346 ≠ réplic"
  ],
  "motor": "A",
  "fase_b_escrita": true,
- "fase_c_escrita": false,
- "esperando": "10:fase_c.json",
+ "fase_c_escrita": true,
+ "esperando": null,
  "inicio": "2026-11-18T23:14:51",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -62,15 +86,20 @@
   "extracto_v63.md": 1795045489.0549998,
   "fase_a.json": 1795046401.9437134,
   "fase_b.json": 1795047385.4197357,
-  "fase_c.json": 1795048344.457137
+  "fase_c.json": 1795051772.3913116
  },
- "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "motivo_correccion": null,
  "motor_a_f1": {
-  "paso": 7,
-  "bloquea": false,
-  "estado_propuesto": null,
+  "paso": 12,
+  "bloquea": true,
+  "estado_propuesto": "no_entregable · fallo_de_implementacion",
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
-  "libro_sha256": "0cab49ed7f0e836b0a0a681ceb90f5a40a1a34e35294ae28095cc5e820361afc"
+  "libro_sha256": "532504ee82b7c74a69eaf9993a249f4cb6d77a7ff6a7df14d2171270d887f97e"
  },
- "turno_c": 2
+ "turno_c": null,
+ "estado_pendiente": "pendiente_de_datos",
+ "estado_analisis_fase_c": "pendiente_de_datos",
+ "motivo_correccion_c": null,
+ "ficha_valida": true,
+ "resumen_pendiente": false
 }
