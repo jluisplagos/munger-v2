@@ -902,12 +902,30 @@
    "justificacion": "El libro guarda 0 por ausencia de la partida: ejercicio 2016/17, anterior a la NIIF 16; no hay pasivo por arrendamientos en el balance y el bloque de financiación del estado de flujos (texto/jumbo-annual-report-fy2016-17.txt [PDF PAGE 46]) no tiene ninguna línea de pagos de arrendamientos financieros NIC 17; los compromisos son sobre todo arrendamientos operativos ([PDF PAGE 93]; fase1_partes/AR_2016.json → partidas.arrendamientos.cero). La página no imprime un guion ni un 0 de esta partida. La cita anterior («Other liabilities …», ajuste de la nota 5.30) no probaba el cero. En fase1_v63.json sigue como cero PENDIENTE DE VERIFICACIÓN.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero («Other liabilities 36.786 78.248», AR2016-17 PDF p. 93: variación de otros pasivos en el estado de flujos, sin relación con arrendamientos). Corrección propuesta (no aplicada): no_aplicable: NIC 17, sin pasivo por arrendamientos en balance, como E23. · Nota anterior del extractor: Cero compr",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] no_aplicable con justificación comprobada en el estado de flujos del ejercicio (AR2016-17 p. 46, AR2017-18 p. 47, AR2018-19 p. 48): sin línea de compra de negocios ni de pagos de arrendamientos (anterior a la NIIF 16). La cita forzada anterior se retiró. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero («Other liabilities 36.786 78.248», AR2016-17 PDF p. 93: variación de otros pasivos en el estado de flujos, sin relación con arrendamientos). Corrección propuesta (no aplicada): no_aplicable: NIC 17, sin pasivo por arrendamientos en balance, como E23. · Nota anterior del extractor: Cero compr",
+    "vinculo": {
+     "huella": "6c7c084d0924bc2b1d6fac213f0cca8b9468d7cfbde01fc31d347bd3fd5da01a",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -1100,12 +1118,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «Law 4449/2017» (AR2018-19 PDF p. 7) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese informe. · No",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-annual-report-fy2018-19.txt [PDF PAGE 11]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Cita nueva: informe de gestión de AR2018-19 PDF p. 11 («… in 2018/2019 from € 94,84 mil in 2017/2018»), que usa la denominación del ejercicio de la columna; la ubicación declarada («informe de gestión») es exacta. (La nota del extractor la llama «cabecera de columnas»: no lo es, pero el registro sí lo dice bien.) · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «Law 4449/2017» (AR2018-19 PDF p. 7) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese informe. · No",
+    "vinculo": {
+     "huella": "9cb6ccebbd35d721953ce7a3fc800549d489308c8a4eec562ea041e64431412b",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -1460,12 +1496,30 @@
    "justificacion": "El libro guarda 0 por ausencia de la partida, no por una cifra impresa: el bloque de inversión del estado de flujos consolidado de 2017/18 (texto/jumbo-annual-report-fy2017-18.txt [PDF PAGE 47]) no tiene ninguna línea de compra ni de venta de negocios (fase1_partes/AR_2017.json → partidas.adquisiciones.cero). La página no imprime un guion ni un 0 de esta partida que pueda contrastarse como cero comprobado. La cita anterior («Investments in financial assets available for sale … 8.000.000») era una inversión financiera y no probaba el cero (REVISION_SELLADO.md). En fase1_v63.json sigue como cero PENDIENTE DE VERIFICACIÓN: solo una decisión humana registrada lo confirma.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero («Investments in financial assets available for sale – 8.000.000», AR2017-18 PDF p. 47: es una línea de inversiones financieras, no de compra de negocios). Corrección propuesta (no aplicada): no_aplicable con la justificación de que el bloque de inversión del grupo no tiene línea de adquisici",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] no_aplicable con justificación comprobada en el estado de flujos del ejercicio (AR2016-17 p. 46, AR2017-18 p. 47, AR2018-19 p. 48): sin línea de compra de negocios ni de pagos de arrendamientos (anterior a la NIIF 16). La cita forzada anterior se retiró. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero («Investments in financial assets available for sale – 8.000.000», AR2017-18 PDF p. 47: es una línea de inversiones financieras, no de compra de negocios). Corrección propuesta (no aplicada): no_aplicable con la justificación de que el bloque de inversión del grupo no tiene línea de adquisici",
+    "vinculo": {
+     "huella": "85af1b82684ef64f8a24499c296481e5dcc214a33a524546024a62b28c588849",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -1624,12 +1678,30 @@
    "justificacion": "El libro guarda 0 por ausencia de la partida: ejercicio 2017/18, anterior a la NIIF 16 (aplicada por el grupo desde el 1-jul-2019); el bloque de financiación del estado de flujos consolidado (texto/jumbo-annual-report-fy2017-18.txt [PDF PAGE 47]: dividendos, devolución de capital, dividendo a cuenta, préstamos obtenidos y devueltos) no tiene ninguna línea de pagos de arrendamientos financieros NIC 17 (fase1_partes/AR_2017.json → partidas.arrendamientos_principal.cero). La página no imprime un guion ni un 0 de esta partida. La cita anterior (una carta de garantía de 8,0 mm) no probaba el cero. En fase1_v63.json sigue como cero PENDIENTE DE VERIFICACIÓN.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 8,0 mm, AR2017-18 PDF p. 94). Corrección propuesta (no aplicada): no_aplicable: ejercicio anterior a la NIIF 16 (1-jul-2019), sin línea de pagos de arrendamiento en financiación, como C17. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2017",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] no_aplicable con justificación comprobada en el estado de flujos del ejercicio (AR2016-17 p. 46, AR2017-18 p. 47, AR2018-19 p. 48): sin línea de compra de negocios ni de pagos de arrendamientos (anterior a la NIIF 16). La cita forzada anterior se retiró. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 8,0 mm, AR2017-18 PDF p. 94). Corrección propuesta (no aplicada): no_aplicable: ejercicio anterior a la NIIF 16 (1-jul-2019), sin línea de pagos de arrendamiento en financiación, como C17. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2017",
+    "vinculo": {
+     "huella": "326ed233b9cdb3778daebc4e661aab8fb9b46c5b71b756a9edc655b4e75bbb1b",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -1874,12 +1946,30 @@
    "justificacion": "El libro guarda 0 por ausencia de la partida: ejercicio 2017/18, anterior a la NIIF 16; no hay pasivo por arrendamientos en el balance y el bloque de financiación del estado de flujos (texto/jumbo-annual-report-fy2017-18.txt [PDF PAGE 47]) no tiene ninguna línea de pagos de arrendamientos financieros NIC 17; los compromisos son sobre todo arrendamientos operativos ([PDF PAGE 94]; fase1_partes/AR_2017.json → partidas.arrendamientos.cero). La página no imprime un guion ni un 0 de esta partida. La cita anterior (una carta de garantía de 8,0 mm) no probaba el cero. En fase1_v63.json sigue como cero PENDIENTE DE VERIFICACIÓN.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 8,0 mm, AR2017-18 PDF p. 94). Corrección propuesta (no aplicada): no_aplicable: NIC 17, sin pasivo por arrendamientos en balance, como E23. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2017-18.txt [PDF PAGE 94]: Antes de NIIF 16 no hay pa",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] no_aplicable con justificación comprobada en el estado de flujos del ejercicio (AR2016-17 p. 46, AR2017-18 p. 47, AR2018-19 p. 48): sin línea de compra de negocios ni de pagos de arrendamientos (anterior a la NIIF 16). La cita forzada anterior se retiró. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 8,0 mm, AR2017-18 PDF p. 94). Corrección propuesta (no aplicada): no_aplicable: NIC 17, sin pasivo por arrendamientos en balance, como E23. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2017-18.txt [PDF PAGE 94]: Antes de NIIF 16 no hay pa",
+    "vinculo": {
+     "huella": "808c3b956ca776328fd37a404750c2d2c970cc57f541084b25d184f54b8505e0",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -2072,12 +2162,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «period from July 1st 2018 to December 31st 2018» (transición PDF p. 5) es el semestre comparativo, no el ejercicio 2018/19 (1-jul-2018 a 30-jun-2019) de la columna; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. ",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-annual-report-fy2018-19.txt [PDF PAGE 11]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Cita nueva: informe de gestión de AR2018-19 PDF p. 11 («… in 2018/2019 from € 94,84 mil in 2017/2018»), que usa la denominación del ejercicio de la columna; la ubicación declarada («informe de gestión») es exacta. (La nota del extractor la llama «cabecera de columnas»: no lo es, pero el registro sí lo dice bien.) · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «period from July 1st 2018 to December 31st 2018» (transición PDF p. 5) es el semestre comparativo, no el ejercicio 2018/19 (1-jul-2018 a 30-jun-2019) de la columna; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. ",
+    "vinculo": {
+     "huella": "329162a4317ce080a835b9c46303fe8151199c8d4398b1120a8c36778a4295d6",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -2614,12 +2722,30 @@
    "justificacion": "El libro guarda 0 por ausencia de la partida: ejercicio 2018/19, anterior a la NIIF 16 (1-jul-2019); el bloque de financiación del estado de flujos consolidado (texto/jumbo-annual-report-fy2018-19.txt [PDF PAGE 48]: dividendos, dividendo a cuenta, préstamos obtenidos, costes del bono, préstamos devueltos) no tiene ninguna línea de pagos de arrendamientos financieros NIC 17 (fase1_partes/AR_2018.json → partidas.arrendamientos_principal.cero). La página no imprime un guion ni un 0 de esta partida. La cita anterior (una carta de garantía de 7,5 mm) no probaba el cero. En fase1_v63.json sigue como cero PENDIENTE DE VERIFICACIÓN.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 7,5 mm, AR2018-19 PDF p. 97). Corrección propuesta (no aplicada): no_aplicable: ejercicio 2018/19 anterior a la NIIF 16 (AR2018-19 p. 52), como C17. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2018-19.txt [PDF PAGE 97]: Sin pagos de prin",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] no_aplicable con justificación comprobada en el estado de flujos del ejercicio (AR2016-17 p. 46, AR2017-18 p. 47, AR2018-19 p. 48): sin línea de compra de negocios ni de pagos de arrendamientos (anterior a la NIIF 16). La cita forzada anterior se retiró. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] cero con cita que no lo probaba → no_aplicable con su justificación (REVISION_SELLADO.md; precedente Historia!C16) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Cita forzada: el valor 0 es correcto, pero la línea citada no prueba el cero (carta de garantía de 7,5 mm, AR2018-19 PDF p. 97). Corrección propuesta (no aplicada): no_aplicable: ejercicio 2018/19 anterior a la NIIF 16 (AR2018-19 p. 52), como C17. · Nota anterior del extractor: Cero comprobado en texto/jumbo-annual-report-fy2018-19.txt [PDF PAGE 97]: Sin pagos de prin",
+    "vinculo": {
+     "huella": "d764ddb0561608887e8a3894fa548fda156231b42d0d43a118852f526f0486aa",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -3080,12 +3206,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «The fiscal year ended December 31st, 2019 is a sub-[twelve month]» (AR2020 PDF p. 5) describe el ejercicio de transición jul–dic 2019, no el año natural 2019 (1-ene a 31-dic-2019) que usa la columna; la cabecera «01/01/2019- 31/12/2019» de AR2020 PDF p. 50 sí lo prueba; además la u",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-annual-report-fy2020.txt [PDF PAGE 16]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Cita nueva: cabecera de columnas del cuadro del grupo («01/01/AAAA- 31/12/AAAA»), columna del año; ubicación declarada correcta. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «The fiscal year ended December 31st, 2019 is a sub-[twelve month]» (AR2020 PDF p. 5) describe el ejercicio de transición jul–dic 2019, no el año natural 2019 (1-ene a 31-dic-2019) que usa la columna; la cabecera «01/01/2019- 31/12/2019» de AR2020 PDF p. 50 sí lo prueba; además la u",
+    "vinculo": {
+     "huella": "d4a5f181ac4d5638280690fc099025741db4f311a064116488a28c4301c6486f",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -4148,12 +4292,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «Regulation (EU) 2020/1989» (AR2021 PDF p. 8) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese info",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-annual-report-fy2021.txt [PDF PAGE 14]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Cita nueva: cabecera de columnas del cuadro del grupo («01/01/AAAA- 31/12/AAAA»), columna del año; ubicación declarada correcta. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «Regulation (EU) 2020/1989» (AR2021 PDF p. 8) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese info",
+    "vinculo": {
+     "huella": "e5576f9f6d28a6a66974a7de3ce6d5736fdbe1b59e7a55864640cef526ec4297",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -6299,12 +6461,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «No. 214/4/11-02-2022 Decision» (AR2023 PDF p. 8) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese ",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-annual-report-fy2023.conversion.txt [PDF PAGE 14]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Cita nueva: cabecera de columnas del cuadro del grupo («01/01/AAAA- 31/12/AAAA»), columna del año; ubicación declarada correcta. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] la cita anterior salía de dígitos sueltos o de otro periodo (REVISION_SELLADO.md); ahora es la cabecera de columnas del estado financiero · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Año correcto por la convención del libro, pero la cita no prueba el año de la columna: «No. 214/4/11-02-2022 Decision» (AR2023 PDF p. 8) es una coincidencia de dígitos; además la ubicación declarada («cabecera de columnas de la cuenta de resultados consolidada») no es la línea citada. Corrección propuesta: citar la cabecera de columnas del estado de resultados de ese ",
+    "vinculo": {
+     "huella": "162ac73cde35e34a6b06f25af29526d2de9aab54591d0a5f3d6a628d34517d4c",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -6864,12 +7044,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] valor 7,0352 con el redondeo exacto de la Historia (código de examen/expedientes-f1 @ 6c0e678); la fórmula round(…, 4) ya lo reproduce · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Concepto, fuente y signo correctos (principal de arrendamientos 2022 = «Interest paid for leases (7.035.150)», AR2023 PDF p. 71, cruce J3). Valor: la cifra publicada es 7,03515 mm y su redondeo a 4 decimales es 7,0352 (mitad hacia arriba y también mitad al par); el libro guarda 7,0351 (redondeo binario del generador). La fórmula declarada no reproduce el libro con ari",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/jumbo-annual-report-fy2023.conversion.txt [PDF PAGE 71]",
+    "nota": "[Revisor sellado, 2026-11-19] 7.035.150 € → 7,03515 mm → redondeo exacto a 4 decimales = 7,0352 = libro (la discrepancia de jumbo_e queda resuelta). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] valor 7,0352 con el redondeo exacto de la Historia (código de examen/expedientes-f1 @ 6c0e678); la fórmula round(…, 4) ya lo reproduce · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Concepto, fuente y signo correctos (principal de arrendamientos 2022 = «Interest paid for leases (7.035.150)», AR2023 PDF p. 71, cruce J3). Valor: la cifra publicada es 7,03515 mm y su redondeo a 4 decimales es 7,0352 (mitad hacia arriba y también mitad al par); el libro guarda 7,0351 (redondeo binario del generador). La fórmula declarada no reproduce el libro con ari",
+    "vinculo": {
+     "huella": "981c72786056812b3aea3c8556390e4e11a53153f53742dfbe5d5bb8ee7cfd5c",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -9948,12 +10146,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] L14 = 61,1586 derivado de las cinco líneas (regla del producto), no del subtotal (redondeo_exacto/REVISION.md, C2) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «verificado»: [Revisor sellado, 2026-11-19] Subtotal impreso «(61.158.549)» de AR2025 PDF p. 209 (incluye +1.450.000 de depósitos restringidos no corrientes); la suma de líneas da 61.158.550 por redondeo del emisor. Correcto. · Nota anterior del extractor: Sin resolver en Mistral (empate de redondeo de los componentes); el subtotal publicado reproduce el libro",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/jumbo-annual-report-fy2025.txt [PDF PAGE 209]",
+    "nota": "[Revisor sellado, 2026-11-19] −(−49.627.440 + 1.798.445 − 19.492.757 + 1.450.000 + 4.713.202) = 61.158.550 € → 61,1586 = libro, desde las cinco líneas de AR2025 PDF p. 209 (el subtotal impreso es 61.158.549 por redondeo del emisor). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] L14 = 61,1586 derivado de las cinco líneas (regla del producto), no del subtotal (redondeo_exacto/REVISION.md, C2) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «verificado»: [Revisor sellado, 2026-11-19] Subtotal impreso «(61.158.549)» de AR2025 PDF p. 209 (incluye +1.450.000 de depósitos restringidos no corrientes); la suma de líneas da 61.158.550 por redondeo del emisor. Correcto. · Nota anterior del extractor: Sin resolver en Mistral (empate de redondeo de los componentes); el subtotal publicado reproduce el libro",
+    "vinculo": {
+     "huella": "5e22ed6dc041d2df8a6bb70cc65a455e127893e64242e8799f5b0f0de6e9e87c",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -10575,12 +10791,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens.jpg",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: captura de Euronext Athens del 17-nov-2026 (Release, asset 766946296, anexo 3 ter) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): precio 27,28 € (Previous Close 17-nov-2026, Euronext Athens); la copia fuentes_mercado/JUMBO_BELA_20261118.md (sha256 18767da2…) dice «Previous Close: 27,2800 EUR» y coincide, pero es el registro de la persona responsable, no los bytes de",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens_historical_data.txt [PDF PAGE 1]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Examiné la imagen Jumbo_BELA_2026-11-17_EuronextAthens.jpg (sha256 c6f6a4b1…, igual a la del anexo 3 ter): Euronext Athens «Historical Data», fila 11/17/2026: CLOSE 27.2800, OPEN 27.0000, HIGH 27.2800, LOW 26.7200, CHANGE +0.44 %, VOLUME 369,577; la transcripción con [PDF PAGE 1] la reproduce fielmente. LÍMITE: la imagen no muestra el nombre ni el código del instrumento. La identificación como BELA (Jumbo) no sale de los bytes, sino del nombre del archivo, del anexo 3 ter y del registro de la persona responsable (JUMBO_BELA_20261118.md: página de BELA, «Previous Close: 27,2800 EUR» el 18-nov), que coincide en fecha y cifra. Lo acepto como identificación atestada por la persona, no como prueba del documento por sí solo. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: captura de Euronext Athens del 17-nov-2026 (Release, asset 766946296, anexo 3 ter) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): precio 27,28 € (Previous Close 17-nov-2026, Euronext Athens); la copia fuentes_mercado/JUMBO_BELA_20261118.md (sha256 18767da2…) dice «Previous Close: 27,2800 EUR» y coincide, pero es el registro de la persona responsable, no los bytes de",
+    "vinculo": {
+     "huella": "5c479454bfbcad498685773ac50473e442099973c862db041bace37d95aa7d97",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": "La captura no muestra el nombre del instrumento (ver «tratamiento»); el revisor confirma la identificación con el anexo 3 ter."
   },
@@ -10606,12 +10840,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula y significado correctos (27,28 × 134,365561 = 3.665,49250408), pero depende de C37, lectura externa sin bytes: no puede sellarse como comprobada. · Nota anterior del extractor: Derivado: C37 × C55 = 27,28 × 134,365561 = 3665,49250408 = libro",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens_historical_data.txt [PDF PAGE 1]; Análisis!C55",
+    "nota": "[Revisor sellado, 2026-11-19] 27,28 (C37) × 134,365561 (C55) = 3.665,49250408 = libro. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula y significado correctos (27,28 × 134,365561 = 3.665,49250408), pero depende de C37, lectura externa sin bytes: no puede sellarse como comprobada. · Nota anterior del extractor: Derivado: C37 × C55 = 27,28 × 134,365561 = 3665,49250408 = libro",
+    "vinculo": {
+     "huella": "778ad904e4f9e3a51b76677e33a3c4086a796b09a4ca55841a9e4cd0bc3fb156",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -10658,11 +10910,11 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e: el libro usaba C76 = 200); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 317,616988 (libro 316,475). La cifra no está vigente respecto a su origen; co",
+    "resultado": "discrepancia",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: texto/jumbo-annual-report-fy2024.txt [PDF PAGE 154]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 155]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 178]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 179]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 149]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 150]; Análisis!C76",
+    "nota": "[Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 317,9024970… → 317,902. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 317,616988 → «libro 317,617», que ya no es el valor. Corregir el texto de la conciliación (la vigencia de un fundamento forma parte de lo que se sella). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e: el libro usaba C76 = 200); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 317,616988 (libro 316,475). La cifra no está vigente respecto a su origen; co",
     "vinculo": null
    },
    "incidencia": null,
@@ -10846,12 +11098,30 @@
    "justificacion": "C50 = media 2023–2025 de SBC = 0 (cálculo declarado en cambio_jumbo_c.json C50). Los informes 2023, 2024 y 2025 declaran textualmente que no hay opciones ni plan de entrega de acciones (texto/jumbo-annual-report-fy2023.conversion.txt [PDF PAGE 43], texto/jumbo-annual-report-fy2024.txt [PDF PAGE 48] y texto/jumbo-annual-report-fy2025.txt [PDF PAGE 51]: «No options have been granted and no share disposal plan is in place»); las páginas no imprimen guion ni 0 en tabla. Historia fila 18: J18, K18 y L18 son no_aplicable con esas frases (K18 lleva el cero desde jumbo_d, resultados/declaracion_f1_jumbo_d.json). El libro guarda 0.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («fy2024 p. ?», «K18 dato_ausente»): K18 es no_aplicable con AR2024 PDF p. 48 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor 0 correcto (sin plan de pagos basados en acciones en 2023–2025), pero la justificación está desactualizada: cita «fy2024 p. ?» y dice «K18 dato_ausente», cuando K18 es ya no_aplicable con la frase de AR2024 PDF p. 48. Corrección propuesta: actualizar la justificación (o registrar C50 como derivado de J18:L18). · Nota anterior del extractor: No aplica con valor 0",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada: AR2023 p. 43, AR2024 p. 48 y AR2025 p. 51 («No options have been granted and no share disposal plan is in place»); J18:L18 no_aplicable. 0 correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («fy2024 p. ?», «K18 dato_ausente»): K18 es no_aplicable con AR2024 PDF p. 48 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor 0 correcto (sin plan de pagos basados en acciones en 2023–2025), pero la justificación está desactualizada: cita «fy2024 p. ?» y dice «K18 dato_ausente», cuando K18 es ya no_aplicable con la frase de AR2024 PDF p. 48. Corrección propuesta: actualizar la justificación (o registrar C50 como derivado de J18:L18). · Nota anterior del extractor: No aplica con valor 0",
+    "vinculo": {
+     "huella": "eed5522929cf53891577276debdaa5be00ef4fbc7abb789c79a096b43dfd3252",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -11057,11 +11327,11 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 255,107832 (libro 254,317567). La cifra no está vigente respecto a su origen;",
+    "resultado": "discrepancia",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Historia!L11; Historia!L12; Historia!L16; Historia!L17; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 155]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 179]; texto/jumbo-annual-report-fy2024.txt [PDF PAGE 149]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 150]; Análisis!C76",
+    "nota": "[Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (P-O1 c y J1), y el valor reproduce el libro con la C76 vigente de la fase B de jumbo_g (150): 255,3053977… → 255,305. Pero la conciliación registrada está desactualizada: dice «C76 = 160, hipótesis vigente de la fase B de jumbo_e» y da 255,107832 → «libro 255,108», que ya no es el valor. Corregir el texto de la conciliación (la vigencia de un fundamento forma parte de lo que se sella). · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] valor recalculado con C76 = 160 (discrepancia del sellado de jumbo_e); configuracion/cambio_jumbo_g.json · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado (definición J1/J2/P-O1 con la parte s de los intereses cobrados) revisados y correctos, pero el valor del libro se calculó con C76 = 200 y el libro vigente tiene C76 = 160 (hipótesis de la fase B, Control maestro N82): con C76 = 160 y la fórmula declarada sale 255,107832 (libro 254,317567). La cifra no está vigente respecto a su origen;",
     "vinculo": null
    },
    "incidencia": null,
@@ -11224,12 +11494,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.csv",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: CSV oficial de la Bundesbank WT1010 (Release, asset 766892543, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): Bund 10a 3,35 % sin bytes oficiales (Bundesbank/BCE no conservados en el expediente; lecturas de terceros). No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anter",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt [PDF PAGE 1]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Fila «2026-11-17,3.35,» del CSV oficial de la Bundesbank BBSSY.D.REN.EUR.A630.000000WT1010.A («Daily yield of the current 10 year federal bond», sha256 fef9498e…) y su copia de texto (c236dfcc…); misma fecha que el precio; escala 0,01. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: CSV oficial de la Bundesbank WT1010 (Release, asset 766892543, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): Bund 10a 3,35 % sin bytes oficiales (Bundesbank/BCE no conservados en el expediente; lecturas de terceros). No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anter",
+    "vinculo": {
+     "huella": "79653215fc0a630e6ab427a74a00816b2c161c02f4fa0dd21d74181b1b432605",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -11274,11 +11562,11 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] marcado «Dato no verificable» en el registro (tercero sin bytes) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco de terceros (Simply Wall St) sin bytes ni captura. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa (Simp",
+    "fuente_examinada": "lectura externa sin bytes en el expediente (https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88))",
+    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco 33,04 de Simply Wall St, sin bytes ni captura; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] marcado «Dato no verificable» en el registro (tercero sin bytes) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco de terceros (Simply Wall St) sin bytes ni captura. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa (Simp",
     "vinculo": null
    },
    "incidencia": "«Dato no verificable»: valor intrínseco de terceros (Simply Wall St) sin bytes ni captura en el expediente; es contexto, no dato verificado. El libro sigue marcándolo «Rellenado y verificado» (Control maestro F39, evidencia de la etapa 1): cambiar esa marca exige tocar la etapa 1 y regenerar el libro que consumieron las fases; decisión de la orquestación."
@@ -11328,7 +11616,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "lectura externa sin bytes en el expediente (https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88))",
-    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF de terceros (MarketScreener/StockAnalysis) sin bytes; el expediente lo marca «Dato no verificable» y además su FCF es la definición anterior a J1/J2/P-O1. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa de Mistral sin cambios; se añade la marca del expediente («Dato no verificable», entradas_r3.json)",
+    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF 15,2 de terceros (MarketScreener/StockAnalysis), sin bytes; el expediente lo marca «Dato no verificable». No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): P/FCF de terceros (MarketScreener/StockAnalysis) sin bytes; el expediente lo marca «Dato no verificable» y además su FCF es la definición anterior a J1/J2/P-O1. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa de Mistral sin cambios; se añade la marca del expediente («Dato no verificable», entradas_r3.json)",
     "vinculo": null
    },
    "incidencia": "El expediente lo marca «Dato no verificable» (entradas_r3.json): NO VERIFICABLE: capitalizaciones de fin de año de terceros (MarketScreener / StockAnalysis) sin bytes en el expediente; los informes de Jumbo no publican su cotización de cierre, así que no se puede recalcular. Además el FCF de cada año es la definición ANTERIOR a J1/J2 y P-O1 (sin intereses cobrados ni dividendos de la cartera; con ellos el FCF de 2023–2025 sube ≈ 3 %, C46 frente a la media de la fila 11, y el múltiplo bajaría en esa proporción). Valor de la etapa 1 conservado solo como contexto, no como dato verificado; la variante normalizada (12,3x) tiene la misma fuente."
@@ -11405,7 +11693,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!L–N34 del libro (Jumbo_v63_evaluada.xlsx)) y con el valor del libro",
-    "nota": "[Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (p. 23, p. 50: inventario 316,66), que no está en texto/ del expediente: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: Sin resolver en Mistral; se registra como dato tratado como convención (se lista aparte)",
+    "nota": "[Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (inventario 316,66), que sigue sin estar en texto/: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: [Revisor sellado, 2026-11-19] Veredicto «No» decidido por el inversor (comparación semestral, 11-oct-2026). Su apoyo cita el informe H1-2025 (p. 23, p. 50: inventario 316,66), que no está en texto/ del expediente: no puedo contrastarlo. El inventario a 30-jun-2026 (325,76, H1-2026 PDF p. 25) sí coincide. · Nota anterior del extractor: Sin resolver en Mistral; se registra como dato tratado como convención (se lista aparte)",
     "vinculo": null
    },
    "incidencia": null,
@@ -11578,12 +11866,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Claude orquestación / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (EV/EBITDA LTM = 7,227054 con caja y arrendamientos a 30-jun-2026 y EBITDA LTM 440,234611; vigente con el precio C37 = 27,28). Depende de C41 (precio, lectura externa sin bytes): no puede sellarse. Queda además la desalineación ",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Análisis!C41; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 57]; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 25]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 148]; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 23]",
+    "nota": "[Revisor sellado, 2026-11-19] (3.665,49250408 + 62,247015 − 546,140091) ÷ 440,234611 = 7,227054 = libro. La desalineación de fechas (precio de noviembre, caja de junio, dividendos intermedios) está declarada en la incidencia y queda a decisión del expediente. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Claude orquestación / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (EV/EBITDA LTM = 7,227054 con caja y arrendamientos a 30-jun-2026 y EBITDA LTM 440,234611; vigente con el precio C37 = 27,28). Depende de C41 (precio, lectura externa sin bytes): no puede sellarse. Queda además la desalineación ",
+    "vinculo": {
+     "huella": "5142ae41e033f7da8578af6c30129ce3dbdaf817e0eea58385ee1a3df04167ee",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": "Desalineación de fechas declarada en el expediente (Control maestro M42/N42): el precio del 17-nov-2026 es posterior al dividendo de 0,70 € (pagado el 28-jul-2026) y a la fecha ex del reparto extraordinario de 1,00 €, mientras la caja es la del 30-jun-2026: 7,441x / 7,746x con los ajustes; el valor no se ajusta (decisión pendiente). Depende de C41 (precio, lectura externa sin bytes): no puede quedar comprobado mientras C37 no lo esté."
   },
@@ -11721,12 +12027,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "fuentes_mercado/Damodaran_margin_2026-01.xls",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: margin.xls de Damodaran (Release, asset 766892761, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Retail (General)»; coincide con el extracto conservado fuentes_mercado/Damodaran_mgnroc_retail_general_2026-01.txt, que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siend",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01.txt [PDF PAGE 1]: cita literal, columna/año, unidad/escala, signo y clase contrastados en la página",
+    "nota": "[Revisor sellado, 2026-11-19] Hoja «Industry Averages» del margin.xls de Damodaran (enero 2026; sha256 25b04fce…), fila 82 «Retail (General) | 23». Nota: es la tabla de empresas de EE. UU.; que sirva de referencia para un minorista griego es un juicio de la etapa 1, no un error de lectura. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: margin.xls de Damodaran (Release, asset 766892761, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Retail (General)»; coincide con el extracto conservado fuentes_mercado/Damodaran_mgnroc_retail_general_2026-01.txt, que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siend",
+    "vinculo": {
+     "huella": "8b937ecf8be0f0ed8e1a9ad794eb8ec54830ab6a184609d1f5538217948bf460",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12677,12 +13001,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "motor_a_f1.json → perimetro_reinversion",
-    "nota": "Configuración de la capa F1: hipótesis declarada por la persona; el revisor comprueba que la decisión citada es la vigente.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (motor_a_f1.json → Historia!C85 del libro (f1_libro_v631.py aplicar)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Hipótesis F1 = A2_propio: es la decisión vigente de la persona responsable (motor_a_f1.json → perimetro_reinversion.registro, 18-nov-2026; DECISIONES_PARA_EL_USUARIO.md, F1-A). Registro fiel; no se juzga su acierto. · Nota anterior del extractor: Configuración de la capa F1: hipótesis declarada por la persona; el revisor comprueba que la decisión citada es la vigente.",
+    "vinculo": {
+     "huella": "164a756c0b3fc4ef5771eb64de6babb5a8d7d65e762e27426e06c406013f9f65",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12700,12 +13042,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_rou (amortización de derechos de uso) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C86.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2016 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2016 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "66845a8c151efa16211071ee946410b165bb1471b9f229ff8e2dff023c0ed817",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12723,12 +13083,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_ppa (amortización de intangibles de combinaciones) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2016 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!C87.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2016 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2016 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "ad4ef433f11a76d6816e9c8b4e3d3d2e3a3e6efc4f85bc74246d752e1e04d43b",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12746,12 +13124,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_rou (amortización de derechos de uso) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D86.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2017 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2017 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "e8eda9caeaab621b30dc12767db04de02e7c7baaaa11a22cf4a1e1a4f8aab1d8",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12769,12 +13165,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_ppa (amortización de intangibles de combinaciones) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2017 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!D87.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2017 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2017 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "6f31bf4a7830341937ae41a9660d63fee023441ea3bf625017d76b3226a9cbb1",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12792,12 +13206,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_rou (amortización de derechos de uso) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E86.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2018 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2018 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "a86d2dea8eff81b3a854bb122ce86b7450a508a1c189f75e4707f84e7acfcdce",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12815,12 +13247,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_ppa (amortización de intangibles de combinaciones) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2018 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!E87.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2018 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2018 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "c6c73dced4059f3a854e2518fa810c0ffac6c0490a17a8a170eb2daa363a2b4a",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12838,12 +13288,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_rou (amortización de derechos de uso) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F86.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2019 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2019 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "491a28150de438f6ec86b1d6949c17f124e56d4e053fe78a28db96a95687334c",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12861,12 +13329,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_ppa (amortización de intangibles de combinaciones) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2019 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!F87.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2019 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2019 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "6503a50a3cb88bd588b6bccdd511506de00d6d55f4185158e44f06bb06283c66",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12884,12 +13370,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_rou (amortización de derechos de uso) solo para 2021–2025 (H86:L86): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G86.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2020 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_rou para 2021–2025 (H86:L86 registradas). El vacío de 2020 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "695c9357c1df463113d1094b475ed6a71a4dbb27f2947c5ec95f57248a10d075",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -12907,12 +13411,30 @@
    "justificacion": "Celda vacía en el libro (vacío no es cero). motor_a_f1.json declara C85 = A2_propio y la serie F1.da_ppa (amortización de intangibles de combinaciones) solo para 2021–2025 (H87:L87): la ventana de f (2023–2025) y los cinco años del ancla de S2C (2021–2025). 2020 no lo usa ningún cálculo del perímetro F1, así que no se declara; fase1_v63.json no declara cálculo para Historia!G87.",
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": null,
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2020 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "justificación contrastada con el libro (celda) y con las páginas y documentos que cita",
+    "nota": "[Revisor sellado, 2026-11-19] Justificación actualizada y correcta: la serie F1 está declarada para 2021–2025 (motor_a_f1.json, C85 = A2_propio); este año no lo usa ningún cálculo F1. Vacío correcto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] justificación desactualizada («el motor no declaró la serie»): la serie está declarada para 2021–2025 (REVISION_SELLADO.md) · Comprobación anterior (jumbo_e): Claude revisor sellado 2026-11-19 «discrepancia»: [Revisor sellado, 2026-11-19] Valor (vacío) correcto, pero la justificación está desactualizada: dice que el motor A/F1 no declaró la serie («perimetro_reinversion sin declarar»), cuando el libro y motor_a_f1.json ya declaran C85 = A2_propio y la serie F1.da_ppa para 2021–2025 (H87:L87 registradas). El vacío de 2020 se debe a que la serie solo cubre 2021–2025. Corrección propuesta: reescribir la j",
+    "vinculo": {
+     "huella": "cc72c8ecbf072de99d27d890681f6b2db09149dac7b66b0740cebda522df89df",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13441,12 +13963,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N57 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N57); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N57); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N57 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N57); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N57); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "7c9c3baa8fa55ccafc410a189fc25bc0e145bb496f21b2102694ff3c19d64bec",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13470,12 +14010,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N53 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N53); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N53); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N53 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N53); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N53); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "520cee3b606e81d331abbf105c6d0edffdcf3fd1df169d63c8165cb7d3425fcc",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13499,12 +14057,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N138 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N138); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N138); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N138 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N138); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N138); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "ec16d9626c2b8fbf113aafc715f9cf559b51e381955ad6b51329a46be9f58230",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13528,12 +14104,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N139 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N139); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N139); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N139 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N139); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N139); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "75138a9cd8a1588ba8bf9941aea1187b0abd52064a8a1ed23dc1ab9f52306006",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13557,12 +14151,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N129 del libro (Jumbo_v63_evaluada.xlsx)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N129); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N129 del libro (Jumbo_v63_evaluada.xlsx)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N129); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "4c6320ab38445228ff5387ce4398ddeae0ad85c35da6c98f9d77eed7aac2dd5f",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13586,12 +14198,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N49 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N49); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N49); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N49 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N49); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N49); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "0dc83e58b604f6ef260394f1d2b88e02c7cac795fb3099b8907e4f419e31dc0f",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13615,12 +14245,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N142 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N142); clase «hipotesis» según la fase («fundamentada»); valor 0.01 → 0.02 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N142); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N142 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N142); clase «hipotesis» según la fase («fundamentada»); valor 0.01 → 0.02 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N142); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "af67455542c066b1852bec6e6618c210953e7288c3a83a719343c06c3eaea5ad",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13644,12 +14292,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N143 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N143); clase «hipotesis» según la fase («fundamentada»); valor 0.27 → 0.26 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N143); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N143 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N143); clase «hipotesis» según la fase («fundamentada»); valor 0.27 → 0.26 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N143); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "b0ebfc33e40c62f82eb150f92e91c38823937566060b0d49f01e9eb3b92a7374",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13673,12 +14339,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N144 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N144); clase «hipotesis» según la fase («fundamentada»); valor 1 → 1.1 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N144); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N144 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N144); clase «hipotesis» según la fase («fundamentada»); valor 1 → 1.1 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N144); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "fe0ccbc513d11013e37fb6787005300835df020999ae15c8fb700100d6d7ed89",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13702,12 +14386,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N145 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N145); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N145); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N145 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N145); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N145); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "78fae16e4d7186c6475318be1b64f38cf6751eabaa1347dc17e4d1ec4c930ed7",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13731,12 +14433,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N61 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N61); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N61); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N61 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N61); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N61); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "596752707d800b45d545d2a5af0f3bd73d5609989bad243cf0153c35b8e8c80f",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13760,12 +14480,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N62 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N62); clase «convencion» según la fase («convención»); valor 0.25 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N62); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N62 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N62); clase «convencion» según la fase («convención»); valor 0.25 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N62); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "c248808a7c3f0f360347ce11c6e14630d24d7e3131f5aee1d397dbeb1db53fd1",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13789,12 +14527,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N146 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N146); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N146); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N146 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N146); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N146); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "e6c8ad4fe1d2033b3f351b35f5694146f27cb2901d8574d7ddb4192448afd6ed",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13818,12 +14574,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N147 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N147); clase «hipotesis» según la fase («fundamentada»); valor 0.32 → 0.315 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N147); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N147 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N147); clase «hipotesis» según la fase («fundamentada»); valor 0.32 → 0.315 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N147); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "09ef73cb96408fa6e7abb248a7197fc8717d10651b2ac7b3d66a037884187891",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13847,12 +14621,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N148 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N148); clase «hipotesis» según la fase («fundamentada»); valor 1.3 → 1.4 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N148); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N148 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N148); clase «hipotesis» según la fase («fundamentada»); valor 1.3 → 1.4 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N148); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "663a1f73a1bd57d15a6ef24308e93f864bc645f294c643195911ecdf53a25d8e",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13876,12 +14668,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N149 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N149); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N149); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N149 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N149); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N149); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "1cae27ce91702267adca9663cf7d34a33cd04c34a361e25f65e91ac381c33de1",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13905,12 +14715,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N66 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N66); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N66); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N66 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N66); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N66); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "75dd25e82fdee7ed70c229119b3e0dd8c41f66a15935b7ea1dc0dfcb288a5410",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13934,12 +14762,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N67 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N67); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N67); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N67 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N67); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N67); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "a7047067104cbad5558764ce9ef75277e26a16dfe7163cac5c8a7d99bbd7d649",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13963,12 +14809,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N150 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N150); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N150); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N150 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N150); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N150); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "ae21f47863c1f4d621c1ce735464d10134370f5350b37fe740a647a099c3ef77",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -13992,12 +14856,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N151 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N151); clase «hipotesis» según la fase («fundamentada»); valor 0.33 → 0.32 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N151); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N151 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N151); clase «hipotesis» según la fase («fundamentada»); valor 0.33 → 0.32 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N151); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "4dcdf9bf4ccb2f6315ca155438ec542f85531632d11f6e2faf49a6e2be376e8b",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14021,12 +14903,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N152 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N152); clase «hipotesis» según la fase («fundamentada»); valor 1.6 → 1.7 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N152); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N152 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N152); clase «hipotesis» según la fase («fundamentada»); valor 1.6 → 1.7 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N152); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "42e74b21e977874c4490f676619a214c9cde3ccbd8d6569abccc91c69c3a67b1",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14050,12 +14950,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N153 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N153); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N153); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N153 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N153); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N153); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "f7622e0952ed7c164ead888a07277b80c080c104b1a08d32b795fdcf631f007e",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14079,12 +14997,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N71 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N71); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N71); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N71 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N71); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N71); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "1bf9d0cc7f89a0b5a5ea1ab337462f4c5a8e1b7923db61b6e85ff658ac62abcf",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14108,12 +15044,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N72 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N72); clase «convencion» según la fase («convención»); valor 0.15 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N72); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N72 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N72); clase «convencion» según la fase («convención»); valor 0.15 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N72); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "914e214c5fee8591fb9add74f22fd30d210b35432e57793c2818b775c2e6baf8",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14137,12 +15091,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N154 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N154); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N154); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N154 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N154); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N154); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "75fcb2ea9013a596e7d05ace2cc78044f87c975566942ec80e8a35299a1caf41",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14166,12 +15138,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N155 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N155); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N155); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N155 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N155); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N155); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "f53d7eac533e475b7ca0ed19a26ad1d66bc8c93862f94ccc1eae6b62c34f9439",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14195,12 +15185,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N82 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N82); clase «hipotesis» según la fase («fundamentada»); valor 160 → 150 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N82); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N82 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel al texto vigente de la fase B (Control maestro!N82), valor 150 = libro. Comprobé la aritmética de su apoyo: 546,14 − 94,06 − 134,37 − 5,7 − 95 − 66,4 = 150,61 ≈ 150. Es juicio del inversor: el sello no acredita su acierto. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N82); clase «hipotesis» según la fase («fundamentada»); valor 160 → 150 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N82); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "1fdc4fe3dd6433afb4c9c049328f3058e57733211979e2493d580a73c6753313",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14224,12 +15232,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N166 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N166); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N166); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N166 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N166); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N166); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "d75ce72b3252f91892c76facff36d9d8287bf475619c0ec1a9deb5311d5f3ef5",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14253,12 +15279,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N167 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N167); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N167); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N167 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N167); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N167); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "2925b283b421de36373292d03bcfd16b4cc7bb2686220af62a4afec63392326b",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
@@ -14282,12 +15326,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-19",
-    "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N170 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N170); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N170); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "fundamento contrastado con su procedencia (Control maestro!N170 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)) y con el valor del libro",
+    "nota": "[Revisor sellado, 2026-11-19] Registro fiel: valor igual al del libro y fundamento idéntico al texto vigente de la fase (Control maestro!N, comparado carácter a carácter tras normalizar espacios); clase declarada por la fase. Es juicio del inversor: el sello acredita que el registro lo describe y lo presenta como hipótesis o convención, no que el juicio sea acertado. · Nota anterior del extractor: [Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N170); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N170); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "vinculo": {
+     "huella": "6c80d856a6b1a68bed22c01aa87790b362e91d2da6a8e5a4d14b27b1a08169a9",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-19",
+     "sellado_en": "2026-11-19T09:32:46+00:00"
+    }
    },
    "incidencia": null
   },
