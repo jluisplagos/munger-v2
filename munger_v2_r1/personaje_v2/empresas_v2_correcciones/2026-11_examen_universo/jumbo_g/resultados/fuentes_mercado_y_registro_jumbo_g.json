@@ -1,0 +1,224 @@
+{
+ "fecha": "2026-11-19",
+ "guion": "resultados/scripts/fuentes_mercado_y_registro_jumbo_g.py",
+ "release": "jluisplagos/munger-v2-evidencias-mistral, fuentes-examen-20261118 (anexos 3 y 3 ter de RELEASE_FUENTES_EXAMEN_VERIFICACION.md)",
+ "copias": "/home/user/e_work/fuentes_examen/mercado_persona/ (SHA256SUMS del coordinador)",
+ "archivos": [
+  {
+   "archivo": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens.jpg",
+   "asset": "766946296",
+   "sha256": "c6f6a4b192248837f41c69e7132f28a9c5c29f663c92ae9d16ad41e946976693",
+   "que": "captura de Euronext Athens «Historical Data» (anexo 3 ter)"
+  },
+  {
+   "archivo": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens_historical_data.txt",
+   "sha256": "1ef56fd29a662d069d59220638061b8c43bb1a545b760147e33496f81be750a6",
+   "que": "transcripción de la captura con marca [PDF PAGE 1]",
+   "fila_usada": "11/17/2026 | CLOSE 27.2800 (C37)"
+  },
+  {
+   "archivo": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.csv",
+   "asset": "766892543",
+   "sha256": "fef9498ea765b89547cebb222ab8720e91c84113c8caca74a676e21e5e571967",
+   "que": "descarga cruda (CSV oficial de la Bundesbank)"
+  },
+  {
+   "archivo": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt",
+   "sha256": "c236dfcc2229861ad1c32348bd3375b584fcb048ba72fcc2554791f67a9d63a4",
+   "que": "copia de texto con marca [PDF PAGE 1] (filas de datos con separador de espacio)",
+   "fila_usada": "2026-11-17 3.35 (fecha del precio, C37; C57)"
+  },
+  {
+   "archivo": "fuentes_mercado/Damodaran_margin_2026-01.xls",
+   "asset": "766892761",
+   "sha256": "25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a",
+   "que": "descarga cruda (XLS de Damodaran, «Margins by industry», empresas de EE. UU.)"
+  },
+  {
+   "archivo": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01.txt",
+   "sha256": "fe11adc50fad7efa191d0c99a899703f2e73cb1242f79b60cf2d5dfcbc1360ab",
+   "que": "copia de texto con marca [PDF PAGE 1] de la hoja «Industry Averages» (xlrd 2.0.1)",
+   "fila_usada": "fila 82: Retail (General) | 23 | 0.3317644379197894 | 0.05611346589050097 | 0.0814642271153312 | 0.06802333445025074 | 0.05503092282098765 | 0.06501798019766843",
+   "fecha_datos": "2026-01-05"
+  }
+ ],
+ "registro": {
+  "antes_sha256": "2aff351596e5bf1b2cbdbc35f24095a0c2a1d7c11a40c1295597b170ec41a50a",
+  "despues_sha256": "6a4d656bae2826a812c2252cb743167f6b7b102ba5229a1124fa27576dfd0780",
+  "cambiadas": 35,
+  "hipotesis_actualizadas": [
+   "Análisis!C62",
+   "Análisis!C56",
+   "Palancas!C6",
+   "Palancas!C8",
+   "Análisis!C51",
+   "Palancas!B14",
+   "Palancas!B15",
+   "Palancas!B16",
+   "Palancas!B18",
+   "Análisis!B68",
+   "Análisis!B69",
+   "Palancas!C14",
+   "Palancas!C15",
+   "Palancas!C16",
+   "Palancas!C18",
+   "Análisis!C68",
+   "Análisis!C69",
+   "Palancas!D14",
+   "Palancas!D15",
+   "Palancas!D16",
+   "Palancas!D18",
+   "Análisis!D68",
+   "Análisis!D69",
+   "Palancas!C22",
+   "Palancas!C23",
+   "Análisis!C76",
+   "Palancas!C43",
+   "Palancas!C44",
+   "Palancas!C47"
+  ],
+  "cambios": [
+   {
+    "celda": "Análisis!C37",
+    "motivo": "lectura externa → fuente local: captura de Euronext Athens del 17-nov-2026 (Release, asset 766946296, anexo 3 ter)"
+   },
+   {
+    "celda": "Análisis!C57",
+    "motivo": "lectura externa → fuente local: CSV oficial de la Bundesbank WT1010 (Release, asset 766892543, anexo 3)"
+   },
+   {
+    "celda": "Palancas!C7",
+    "motivo": "lectura externa → fuente local: margin.xls de Damodaran (Release, asset 766892761, anexo 3)"
+   },
+   {
+    "celda": "Análisis!C41",
+    "motivo": "sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo"
+   },
+   {
+    "celda": "Análisis!C42",
+    "motivo": "sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo"
+   },
+   {
+    "celda": "Análisis!C38",
+    "motivo": "marcado «Dato no verificable» en el registro (tercero sin bytes)"
+   },
+   {
+    "celda": "Análisis!C62",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N57); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!C56",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N53); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!C6",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N138); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Palancas!C8",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N139); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Análisis!C51",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N49); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!B14",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N142); clase «hipotesis» según la fase («fundamentada»); valor 0.01 → 0.02"
+   },
+   {
+    "celda": "Palancas!B15",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N143); clase «hipotesis» según la fase («fundamentada»); valor 0.27 → 0.26"
+   },
+   {
+    "celda": "Palancas!B16",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N144); clase «hipotesis» según la fase («fundamentada»); valor 1 → 1.1"
+   },
+   {
+    "celda": "Palancas!B18",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N145); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!B68",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N61); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!B69",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N62); clase «convencion» según la fase («convención»); valor 0.25 → 0.2"
+   },
+   {
+    "celda": "Palancas!C14",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N146); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Palancas!C15",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N147); clase «hipotesis» según la fase («fundamentada»); valor 0.32 → 0.315"
+   },
+   {
+    "celda": "Palancas!C16",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N148); clase «hipotesis» según la fase («fundamentada»); valor 1.3 → 1.4"
+   },
+   {
+    "celda": "Palancas!C18",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N149); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!C68",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N66); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!C69",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N67); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!D14",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N150); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Palancas!D15",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N151); clase «hipotesis» según la fase («fundamentada»); valor 0.33 → 0.32"
+   },
+   {
+    "celda": "Palancas!D16",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N152); clase «hipotesis» según la fase («fundamentada»); valor 1.6 → 1.7"
+   },
+   {
+    "celda": "Palancas!D18",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N153); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!D68",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N71); clase «hipotesis» según la fase («fundamentada»)"
+   },
+   {
+    "celda": "Análisis!D69",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N72); clase «convencion» según la fase («convención»); valor 0.15 → 0.2"
+   },
+   {
+    "celda": "Palancas!C22",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N154); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!C23",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N155); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Análisis!C76",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N82); clase «hipotesis» según la fase («fundamentada»); valor 160 → 150"
+   },
+   {
+    "celda": "Palancas!C43",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N166); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!C44",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N167); clase «convencion» según la fase («convención»)"
+   },
+   {
+    "celda": "Palancas!C47",
+    "motivo": "texto vigente de la fase en jumbo_g (Control maestro!N170); clase «convencion» según la fase («convención»)"
+   }
+  ]
+ },
+ "huellas_txt_sha256": "7b87a3d71e39760e0dbd3d8190f40163111119a75d0fc9b7f14986693bf8d633"
+}

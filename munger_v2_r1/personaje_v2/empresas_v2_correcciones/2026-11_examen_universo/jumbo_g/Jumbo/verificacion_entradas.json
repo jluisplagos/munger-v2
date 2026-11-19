@@ -10549,46 +10549,40 @@
    "clase": "dato_publicado",
    "valor_modelo": 27.28,
    "fuente": {
-    "documento": "Euronext Athens, página oficial del instrumento BELA (Jumbo S.A., ISIN GRS467003000, Euronext Athens Main Market)",
-    "version": "lectura el 2026-11-18 por la persona responsable (captura de pantalla, 18-nov-2026 ~13:24 hora local), registrada en coordinacion/cierre_v2/examen/precios/JUMBO_BELA_20261118.md (sha256 en fuentes_mercado/HUELLAS.txt); el extractor no pudo descargar el histórico de Euronext Live desde su sesión (el endpoint público no devolvió filas)",
-    "conservacion": "externa",
-    "lectura_externa": {
-     "referencia": "https://athens.euronext.com/en/market-data/instruments/stocks/BELA — «Previous Close: 27,2800 EUR» (cierre del 17-nov-2026)",
-     "fecha": "2026-11-18 (sesión de cierre 2026-11-17)",
-     "evidencia": "captura de la página oficial leída por la persona responsable el 18-nov-2026 (JUMBO_BELA_20261118.md, copia en fuentes_mercado/); verifica el 27,28 € del agente de metadatos de la fase 1; precio posterior a la fecha ex (16-nov-2026) de la distribución extraordinaria de 1,00 €/acción: sin derecho a ella",
-     "limitaciones": "no se conservan los bytes del histórico de Euronext Live (endpoint público no accesible desde la sesión del extractor); la evidencia es la lectura de la persona responsable en la fuente oficial; lectura externa: no cuenta como comprobada"
-    },
-    "archivo": null,
-    "sha256": null,
+    "documento": "Euronext Athens, «Historical Data» del instrumento (BELA, Jumbo S.A., ISIN GRS467003000), fila del 17-nov-2026",
+    "version": "captura de pantalla subida por la persona responsable a la Release fuentes-examen-20261118 (asset 766946296; anexo 3 ter), conservada byte a byte en fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens.jpg, sha256 c6f6a4b192248837f41c69e7132f28a9c5c29f663c92ae9d16ad41e946976693; transcripción con marca [PDF PAGE 1] hecha por Claude orquestación leyendo la imagen, sha256 1ef56fd29a662d069d59220638061b8c43bb1a545b760147e33496f81be750a6 (el revisor la contrasta con la imagen). Sustituye la lectura externa (JUMBO_BELA_20261118.md, «Previous Close» leído el 18-nov, que se conserva)",
+    "conservacion": "local",
+    "archivo": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens_historical_data.txt",
+    "sha256": "1ef56fd29a662d069d59220638061b8c43bb1a545b760147e33496f81be750a6",
     "pagina": 1,
     "folio": null,
-    "ubicacion": "Snapshot «Previous Close» de la página oficial del instrumento",
-    "concepto": "cierre oficial (Previous Close) de BELA en Euronext Athens, sesión del 17-nov-2026",
-    "columna": "sesión 2026-11-17",
-    "periodo": "2026-11-17",
+    "ubicacion": "cuadro «Historical Data», fila 11/17/2026 desplegada (OPEN 27.0000, HIGH 27.2800, LOW 26.7200, VOLUME 369,577)",
+    "concepto": "precio de cierre por acción (CLOSE) de la sesión del 17-nov-2026",
+    "columna": "CLOSE de la fila 11/17/2026",
+    "periodo": "cierre de la sesión del 17-nov-2026",
     "unidad": "EUR por acción",
     "escala": 1,
     "signo": 1,
-    "tratamiento": "precio de cierre (previous close) de la sesión más reciente; ex distribución extraordinaria de 1,00 €/acción (fecha ex 16-nov-2026)",
+    "tratamiento": "precio de cierre de la sesión del 17-nov-2026, sin transformación; posterior a la fecha ex (16-nov-2026) de la distribución extraordinaria de 1,00 €/acción: sin derecho a ella (Control maestro N38). Límite: la imagen no muestra el nombre ni el código del instrumento; la identificación como BELA se apoya en el nombre del archivo, el anexo 3 ter y la lectura anterior de la persona",
     "perimetro": "no aplica: dato de mercado",
-    "perimetro_justificacion": "el precio es un dato de mercado del instrumento, fuera del perímetro contable del grupo",
+    "perimetro_justificacion": "el precio es de la acción de Jumbo S.A. en Euronext Athens; el perímetro contable no se aplica a un dato de mercado",
     "reexpresado": "no aplica",
     "valor_fuente": 27.28,
-    "cita": "Previous Close: 27,2800 EUR (cierre del 17-nov-2026, Euronext Athens)"
+    "cita": "11/17/2026 | CLOSE 27.2800"
    },
    "derivacion": null,
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
-    "revisor": "Claude revisor sellado",
+    "extractor": "Claude orquestación",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "lectura externa sin bytes en el expediente (https://athens.euronext.com/en/market-data/instruments/stocks/BELA — «Previous Close: 27,2800 EUR» (cierre del 17-nov-2026))",
-    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): precio 27,28 € (Previous Close 17-nov-2026, Euronext Athens); la copia fuentes_mercado/JUMBO_BELA_20261118.md (sha256 18767da2…) dice «Previous Close: 27,2800 EUR» y coincide, pero es el registro de la persona responsable, no los bytes de la fuente oficial. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Precio verificado por la persona responsable en la página oficial de Euronext Athens (27,2800 EUR, 17-nov-2026); lectura externa para el extractor (sin bytes del histórico)",
+    "fuente_examinada": "fuentes_mercado/Jumbo_BELA_2026-11-17_EuronextAthens.jpg",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: captura de Euronext Athens del 17-nov-2026 (Release, asset 766946296, anexo 3 ter) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): precio 27,28 € (Previous Close 17-nov-2026, Euronext Athens); la copia fuentes_mercado/JUMBO_BELA_20261118.md (sha256 18767da2…) dice «Previous Close: 27,2800 EUR» y coincide, pero es el registro de la persona responsable, no los bytes de",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "La captura no muestra el nombre del instrumento (ver «tratamiento»); el revisor confirma la identificación con el anexo 3 ter."
   },
   {
    "celda": "Análisis!C41",
@@ -10611,12 +10605,12 @@
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
-    "revisor": "Claude revisor sellado",
+    "extractor": "Claude orquestación",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Análisis!C37; Análisis!C55",
-    "nota": "[Revisor sellado, 2026-11-19] Fórmula y significado correctos (27,28 × 134,365561 = 3.665,49250408), pero depende de C37, lectura externa sin bytes: no puede sellarse como comprobada. · Nota anterior del extractor: Derivado: C37 × C55 = 27,28 × 134,365561 = 3665,49250408 = libro",
+    "fuente_examinada": null,
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula y significado correctos (27,28 × 134,365561 = 3.665,49250408), pero depende de C37, lectura externa sin bytes: no puede sellarse como comprobada. · Nota anterior del extractor: Derivado: C37 × C55 = 27,28 × 134,365561 = 3665,49250408 = libro",
     "vinculo": null
    },
    "incidencia": null
@@ -11204,43 +11198,37 @@
    "clase": "dato_publicado",
    "valor_modelo": 0.0335,
    "fuente": {
-    "documento": "Bund alemán a 10 años (rendimiento del bono federal benchmark, restlaufzeit 9–10 años) — dato de mercado",
-    "version": "lectura externa el 2026-11-18; NO se pudo descargar Deutsche Bundesbank (api.statistiken.bundesbank.de bloqueó el acceso automatizado) ni el BCE Data Portal (comprobación de seguridad); valor del libro según el volcado de la etapa 1 (datos_v63.md / fase1_v63.json tasa_sin_riesgo): 3,35 % el 2026-11-17/18 según Trading Economics (3,35 % el 18-nov) e Ideal-investisseur (3,35 % el 17-nov, que declara fuente Deutsche Bundesbank); otras lecturas 3,37–3,38 % (Yahoo 16-nov, Investing.com, Cbonds 13-nov); rango 3,35–3,38 %",
-    "conservacion": "externa",
-    "lectura_externa": {
-     "referencia": "Deutsche Bundesbank, serie diaria de Umlaufrendite 9–10 años (BBSIS D.I.UMU.RD.EUR.S1311.B.A604.R0910.R.A.A._Z._Z.A) y BCE Data Portal (serie FM) — no accesibles desde la sesión del extractor; lecturas de terceros recogidas en datos_v63.md: Trading Economics e Ideal-investisseur (fuente declarada: Deutsche Bundesbank)",
-     "fecha": "2026-11-17 (misma fecha que la sesión del precio, 17-nov-2026)",
-     "evidencia": "3,35 % el 17/18-nov-2026 según las lecturas recogidas en el volcado de la fase 1 (datos_v63.md, Análisis!C57); el libro guarda 0,0335",
-     "limitaciones": "AVISO: no se conservan bytes de Bundesbank ni del BCE (bloqueo automatizado desde esta sesión) y no se pone otra fuente como oficial; lectura externa de terceros (rango 3,35–3,38 %); no cuenta como comprobada"
-    },
-    "archivo": null,
-    "sha256": null,
+    "documento": "Deutsche Bundesbank, serie diaria BBSSY.D.REN.EUR.A630.000000WT1010.A «Daily yield of the current 10 year federal bond» (Bund a 10 años de referencia)",
+    "version": "CSV oficial subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892543, bund_10y_WT1010.csv; última actualización de la serie 2026-11-18), descarga cruda conservada byte a byte en fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.csv, sha256 fef9498ea765b89547cebb222ab8720e91c84113c8caca74a676e21e5e571967 (la huella publicada, anexo 3); conservada como texto con marca [PDF PAGE 1] y separador de espacio en las filas de datos (la misma copia que ahold_f4), sha256 c236dfcc2229861ad1c32348bd3375b584fcb048ba72fcc2554791f67a9d63a4",
+    "conservacion": "local",
+    "archivo": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt",
+    "sha256": "c236dfcc2229861ad1c32348bd3375b584fcb048ba72fcc2554791f67a9d63a4",
     "pagina": 1,
     "folio": null,
-    "ubicacion": "serie diaria del rendimiento del Bund a 10 años, fila 2026-11-17",
-    "concepto": "rendimiento del Bund a 10 años (benchmark alemán en EUR), % diario",
-    "columna": "2026-11-17",
+    "ubicacion": "tabla de la serie diaria (cabecera con la definición de la serie), fila del 2026-11-17",
+    "concepto": "rendimiento del Bund a 10 años de referencia, en % diario",
+    "columna": "2026-11-17 (fecha del precio, C37 y Palancas!C45)",
     "periodo": "2026-11-17",
     "unidad": "percent",
     "escala": 0.01,
     "signo": 1,
-    "tratamiento": "rendimiento diario en %; escala 0,01 lo pasa a proporción (3,35% = 0,0335)",
-    "perimetro": "no aplica: dato de mercado (bono soberano benchmark en EUR)",
-    "perimetro_justificacion": "la tasa sin riesgo es un dato de mercado, fuera del perímetro contable",
+    "tratamiento": "rendimiento diario publicado en %; escala 0,01 lo pasa a proporción (3,35 % = 0,0335). Misma fecha que el precio (17-nov-2026). Sustituye las lecturas de terceros de los metadatos (Trading Economics, Ideal-investisseur), que coincidían",
+    "perimetro": "no aplica: dato de mercado",
+    "perimetro_justificacion": "la tasa sin riesgo es un dato de mercado del bono de referencia en EUR; el perímetro contable no se aplica",
     "reexpresado": "no aplica",
     "valor_fuente": 3.35,
-    "cita": "3,35 % (Bund 10a, 2026-11-17, según lecturas de Trading Economics / Ideal-investisseur recogidas en datos_v63.md; fuente oficial Bundesbank/BCE no accesible desde esta sesión)"
+    "cita": "2026-11-17 3.35"
    },
    "derivacion": null,
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
-    "revisor": "Claude revisor sellado",
+    "extractor": "Claude orquestación",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "lectura externa sin bytes en el expediente (Deutsche Bundesbank, serie diaria de Umlaufrendite 9–10 años (BBSIS D.I.UMU.RD.EUR.S1311.B.A604.R0910.R.A.A._Z._Z.A) y BCE Data Portal (serie FM) — no accesible)",
-    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): Bund 10a 3,35 % sin bytes oficiales (Bundesbank/BCE no conservados en el expediente; lecturas de terceros). No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Tasa 3,35% del 17-nov-2026; AVISO: Bundesbank y BCE no accesibles desde esta sesión (bloqueo), se declara lectura externa sin bytes oficiales",
+    "fuente_examinada": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.csv",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: CSV oficial de la Bundesbank WT1010 (Release, asset 766892543, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): Bund 10a 3,35 % sin bytes oficiales (Bundesbank/BCE no conservados en el expediente; lecturas de terceros). No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anter",
     "vinculo": null
    },
    "incidencia": null
@@ -11285,15 +11273,15 @@
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
-    "revisor": "Claude revisor sellado",
+    "extractor": "Claude orquestación",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "lectura externa sin bytes en el expediente (https://simplywall.st (C38) / https://www.marketscreener.com y https://stockanalysis.com (C88))",
-    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco de terceros (Simply Wall St) sin bytes ni captura. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa (Simply Wall St, ficha de valoración de BELA (valor intrínseco)); valor del libro 33.04; sin bytes conservados",
+    "fuente_examinada": null,
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] marcado «Dato no verificable» en el registro (tercero sin bytes) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): valor intrínseco de terceros (Simply Wall St) sin bytes ni captura. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Lectura externa (Simp",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "«Dato no verificable»: valor intrínseco de terceros (Simply Wall St) sin bytes ni captura en el expediente; es contexto, no dato verificado. El libro sigue marcándolo «Rellenado y verificado» (Control maestro F39, evidencia de la etapa 1): cambiar esa marca exige tocar la etapa 1 y regenerar el libro que consumieron las fases; decisión de la orquestación."
   },
   {
    "celda": "Análisis!C88",
@@ -11590,11 +11578,11 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": "Claude revisor sellado",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "fórmula recalculada y significado económico revisado sobre sus orígenes: Análisis!C41; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 57]; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 25]; texto/jumbo-annual-report-fy2025.txt [PDF PAGE 148]; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 23]",
-    "nota": "[Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (EV/EBITDA LTM = 7,227054 con caja y arrendamientos a 30-jun-2026 y EBITDA LTM 440,234611; vigente con el precio C37 = 27,28). Depende de C41 (precio, lectura externa sin bytes): no puede sellarse. Queda además la desalineación de fechas declarada en la incidencia (decisión pendiente del expediente). · Nota anterior del extractor: Recalculado en jumbo_e con el precio activo (resultados/recalculo_C42.json, entradas_r3.json); Mistral lo dejó sin resolver con el valor de la etapa 1 (6,4458)",
+    "fuente_examinada": null,
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] sin cambio de fórmula ni de valor; su origen C37 pasa a fuente local (la huella de sus orígenes cambia): revisar de nuevo · Comprobación anterior: Claude orquestación / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Fórmula, orígenes y significado correctos (EV/EBITDA LTM = 7,227054 con caja y arrendamientos a 30-jun-2026 y EBITDA LTM 440,234611; vigente con el precio C37 = 27,28). Depende de C41 (precio, lectura externa sin bytes): no puede sellarse. Queda además la desalineación ",
     "vinculo": null
    },
    "incidencia": "Desalineación de fechas declarada en el expediente (Control maestro M42/N42): el precio del 17-nov-2026 es posterior al dividendo de 0,70 € (pagado el 28-jul-2026) y a la fecha ex del reparto extraordinario de 1,00 €, mientras la caja es la del 30-jun-2026: 7,441x / 7,746x con los ajustes; el valor no se ajusta (decisión pendiente). Depende de C41 (precio, lectura externa sin bytes): no puede quedar comprobado mientras C37 no lo esté."
@@ -11707,43 +11695,37 @@
    "clase": "dato_publicado",
    "valor_modelo": "Retail (General)",
    "fuente": {
-    "documento": "Damodaran (NYU Stern), dataset «Margin/ROIC by Sector (US)» (mgnroc.html), datos a enero 2026",
-    "version": "lectura externa el 2026-11-18: https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/mgnroc.html («Last Updated in January 2026»); extracto de la tabla conservado en fuentes_mercado/Damodaran_mgnroc_retail_general_2026-01.txt (sha256 en HUELLAS.txt)",
-    "conservacion": "externa",
-    "lectura_externa": {
-     "referencia": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/mgnroc.html",
-     "fecha": "2026-11-18 (la tabla descargada es la de enero 2026)",
-     "evidencia": "la tabla de industrias incluye la fila «Retail (General) | 23 | 5.87% | 3.51 | 20.60%»; el libro usa ese sector (fase1_v63.json sector_damodaran; datos_v63.md Palancas!C7)",
-     "limitaciones": "fuente académica de terceros, no del emisor; extracto conservado en la entrega (fuentes_mercado), no dentro del expediente; lectura externa: no cuenta como comprobada"
-    },
-    "archivo": null,
-    "sha256": null,
+    "documento": "Damodaran (NYU Stern), «Margins by industry» (margin.xls), hoja «Industry Averages», empresas de EE. UU., «Date updated» 2026-01-05",
+    "version": "XLS subido por la persona responsable a la Release fuentes-examen-20261118 (asset 766892761, damodaran_margin.xls), descarga cruda conservada byte a byte en fuentes_mercado/Damodaran_margin_2026-01.xls, sha256 25b04fce9740d9a471d50e176bf55aa6b7608cd0621b00072508a20e7c35ed7a (la huella publicada, anexo 3); hoja «Industry Averages» conservada como texto con marca [PDF PAGE 1], una línea por fila («fila n: celda | celda …», xlrd 2.0.1; la misma copia que ahold_f4), sha256 fe11adc50fad7efa191d0c99a899703f2e73cb1242f79b60cf2d5dfcbc1360ab",
+    "conservacion": "local",
+    "archivo": "fuentes_mercado/Damodaran_margin_industry_averages_2026-01.txt",
+    "sha256": "fe11adc50fad7efa191d0c99a899703f2e73cb1242f79b60cf2d5dfcbc1360ab",
     "pagina": 1,
     "folio": null,
-    "ubicacion": "tabla por industria (columna Industry name)",
+    "ubicacion": "hoja «Industry Averages», fila 82 (columna A «Industry Name»)",
     "concepto": "sector de Damodaran asignado a Jumbo",
-    "columna": "Industry name",
-    "periodo": "clasificación vigente (datos enero 2026)",
+    "columna": "Industry Name (columna A), fila 82 de la hoja",
+    "periodo": "clasificación de los datos de enero de 2026 («Date updated» 2026-01-05)",
     "unidad": "texto",
     "escala": 1,
     "signo": 1,
-    "tratamiento": "etiqueta de industria tal como figura en la fuente",
-    "perimetro": "no aplica: clasificación sectorial externa",
+    "tratamiento": "etiqueta de industria tal como figura en la tabla (23 empresas en esa fila, las mismas que la fila de mgnroc.html del extracto anterior, que se conserva). Limitación: la tabla es de empresas de EE. UU. y Jumbo es una minorista griega; la tabla europea o de mercados emergentes de Damodaran no está en el expediente",
+    "perimetro": "no aplica: dato de mercado",
     "perimetro_justificacion": "la clasificación sectorial es un dato externo al perímetro contable del grupo",
     "reexpresado": "no aplica",
     "valor_fuente": "Retail (General)",
-    "cita": "Retail (General)"
+    "cita": "fila 82: Retail (General) | 23"
    },
    "derivacion": null,
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
-    "revisor": "Claude revisor sellado",
+    "extractor": "Claude orquestación",
+    "revisor": null,
     "fecha": "2026-11-19",
     "resultado": "pendiente",
-    "fuente_examinada": "lectura externa sin bytes en el expediente (https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/mgnroc.html)",
-    "nota": "[Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Retail (General)»; coincide con el extracto conservado fuentes_mercado/Damodaran_mgnroc_retail_general_2026-01.txt, que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siendo material, impide la aptitud por entradas. · Nota anterior del extractor: Sector «Retail (General)» de la tabla Damodaran mgnroc (enero 2026), lectura externa el 2026-11-18",
+    "fuente_examinada": "fuentes_mercado/Damodaran_margin_2026-01.xls",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] lectura externa → fuente local: margin.xls de Damodaran (Release, asset 766892761, anexo 3) · Comprobación anterior: Mistral (mistral-large-4-0) / Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Lectura externa sin bytes (R2): sector Damodaran «Retail (General)»; coincide con el extracto conservado fuentes_mercado/Damodaran_mgnroc_retail_general_2026-01.txt, que no es la página original. No se da por verificada: el programa no la cuenta como comprobada y, siend",
     "vinculo": null
    },
    "incidencia": null
@@ -13451,8 +13433,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-motor",
-    "fundamento": "[Clase: fundamentada] [Confianza: alta] Hereda: Sí → mantiene (evidencia_nueva): financiación estable y motor A calculable (entrada_v63, Motores calculables). Apoyo: sin préstamos desde la amortización del bono de 200 mm el 29.05.2023 [AR2023, PDF p. 12; H1 2026, PDF p. 9]; arrendamientos 66,4 mm (fila 23), pensiones 9,9 mm (fila 25), minoritarios 0; f = −0,003 (C58): el flujo al accionista aproxima bien. Corregida la incoherencia de etiquetas que vio la etapa 1 (J3: C48 = 2,664 interés, C49 = 8,569 principal). F1 en A2_propio (datos_v63 §1 bis). No es banco ni aseguradora. «Look for more value in terms of discounted future cash-flow than you are paying for» (PCA p.71; HIM). Lo sustituiría: B si tomara deuda relevante para los centros logísticos o una compra.",
-    "alternativas": "Lo sustituiría: B si tomara deuda relevante para los centros logísticos o una compra.",
+    "fundamento": "[Clase: fundamentada] [Confianza: alta] Hereda: Sí → mantiene (misma_evidencia): la financiación es estable y el flujo al accionista aproxima bien. Apoyo: deuda cero en 2023 y 2025 (Historia!J22:L22), arrendamientos 66 mm (Historia!L23), caja 537 mm (Historia!L24); sin préstamos [H1 2026, PDF p. 9]. Motor A calculable (entrada_v63) con F1 en A2_propio (datos_v63 1 bis); la etiqueta cruzada de arrendamientos está corregida en C48 y C49 sin cambiar el total. No es banco ni aseguradora. «Look for more value in terms of discounted future cash-flow than you are paying for» (PCA p.71; HIM). Lo sustituiría: motor B si la empresa volviera a endeudarse para los centros o los inmuebles; otro método si el valor pasara a depender de los inmuebles.",
+    "alternativas": "Lo sustituiría: motor B si la empresa volviera a endeudarse para los centros o los inmuebles; otro método si el valor pasara a depender de los inmuebles.",
     "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio metodológico del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N57 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
@@ -13463,7 +13445,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N57 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N57); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N57); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N57); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13480,7 +13462,7 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-r",
-    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0.09 → mantiene (misma_evidencia): r heredada, no la cambio. Apoyo: representa mi alternativa: el Bund a 10 años al 3,35 % (C57) más una prima por tener, en su lugar, la renta variable de un único minorista de Grecia y los Balcanes; no es CAPM. Está por debajo de la r mínima de la hoja (10,19 %, Diagnóstico V6!C17), que suma la prima país del reparto geográfico (Palancas A28:B33): lo informo y no la ajusto para que salga el número. «it's your alternatives that matter» (PCA p.114; HIM). Lo sustituiría: la r que fije el inversor.",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0,09 → mantiene (misma_evidencia): heredada, no la cambio. Apoyo: representa la alternativa del Bund a 10 años (3,35 %, C57) más una prima por tener renta variable de un solo minorista del sudeste de Europa; no es CAPM. Está por debajo de la r mínima de la hoja (10,19 %, Diagnóstico V6!C17): lo informo y no la bajo ni la subo para que salga un número. «it's your alternatives that matter» (PCA p.114; HIM). Lo sustituiría: la r que fije el inversor.",
     "alternativas": "Lo sustituiría: la r que fije el inversor.",
     "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N53 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
@@ -13492,7 +13474,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N53 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N53); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N53); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N53); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13509,8 +13491,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-caso_especial",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: minorista sin deuda ni capital regulado (extracto §7); no es cíclica en sentido estricto: la única caída en diez años es 2020 (−18,2 %, fila 28), por la pandemia; sin I+D relevante [AR2025, PDF p. 102]; un solo negocio (el segmento Otros, con Herald Hellas 2, da 0,43 mm de resultado [AR2025, PDF p. 175]). Vende en Grecia, Rumanía, Chipre y Bulgaria (Palancas A28:B33): la prima país ya la recoge la hoja y no la marco como Emergente. Coherente con el motor A (C62). Lo sustituiría: Multinegocio si los inmuebles o Balfin pesaran en el resultado; Emergente si los mercados de fuera de la UE dominaran las ventas.",
-    "alternativas": "Lo sustituiría: Multinegocio si los inmuebles o Balfin pesaran en el resultado; Emergente si los mercados de fuera de la UE dominaran las ventas.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: minorista, no financiera ni regulada (extracto sección 7); sin I+D relevante [FY2025, PDF p. 102]; no cíclica: una sola caída de ventas en diez años, 2020 (Historia!G28); el centro comercial de Patras es pequeño (10,8 mm [FY2025, PDF p. 21]) frente a 1.233 mm de ventas, no un conglomerado. El riesgo país de Grecia, Rumanía y Bulgaria ya lo recoge el reparto geográfico de la hoja (Palancas A28:B33). Coherente con el motor A. Lo sustituiría: Multinegocio o conglomerado si los inmuebles o la cartera financiera pasaran a pesar en el resultado; Emergente si la parte de Rumanía y Asia Central creciera mucho.",
+    "alternativas": "Lo sustituiría: Multinegocio o conglomerado si los inmuebles o la cartera financiera pasaran a pesar en el resultado; Emergente si la parte de Rumanía y Asia Central creciera mucho.",
     "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N138 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
@@ -13521,7 +13503,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N138 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N138); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N138); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N138); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13532,15 +13514,15 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
+   "clase": "convencion",
    "valor_modelo": "Último año",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-base_margen",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: el margen EBIT de 2025 (31,8 %, Historia C48) no es ni el máximo (33,4 %, C51) ni el mínimo (24,8 %, C50) de la serie, y no la trato como cíclica (C6 = Ninguno): la regla pide el último año. La media de diez años (29,2 %, C49) mezcla el nivel de 2016–2020 con el de 2021–2025; partir de ella pondría en la base un riesgo que ya cuento en el MALO. Lo sustituiría: Media del ciclo si 2026 confirmara que 2021–2025 fue un pico (margen EBIT por debajo del 30 %).",
-    "alternativas": "Lo sustituiría: Media del ciclo si 2026 confirmara que 2021–2025 fue un pico (margen EBIT por debajo del 30 %).",
-    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "identificacion": "V-base_margen",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: nueva en V6.3. Apoyo: margen EBIT de 2025 31,8 % (Historia!C48), que no es ni el máximo (33,4 %, 2023, Historia!C51) ni el mínimo (24,8 %, 2020, Historia!C50) de la serie, y el caso especial no es cíclico (Palancas!C6): la regla de la plantilla da Último año. La media de diez años (29,2 %, Historia!C49) mezcla el nivel de 2016–2020 con el de 2021–2025; normalizar el ciclo (UD; E5) no aplica sin ciclo. Lo sustituiría: Media del ciclo si el margen de 2026 cayera a un mínimo de la serie o si juzgara el negocio cíclico.",
+    "alternativas": "Lo sustituiría: Media del ciclo si el margen de 2026 cayera a un mínimo de la serie o si juzgara el negocio cíclico.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N139 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
@@ -13550,7 +13532,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N139 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N139); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N139); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N139); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13596,8 +13578,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-restar_sbc",
-    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: Sí → mantiene (misma_evidencia): la SBC se resta siempre. Apoyo: C50 = 0 con la frase del informe de que no se han concedido opciones ni hay plan de entrega de acciones [AR2025, PDF p. 51] y BPA básico igual al diluido [AR2025, PDF p. 181]; la frase se refiere al consejo y los ceros de la fila 18 están pendientes de verificación (H1): restarla hoy no cambia nada y protege si aparece un coste. «A stock option is both an expense and dilution» (PCA pp.126–127; HIM). Lo sustituiría: nada; si apareciera un plan de acciones, se restaría su coste.",
-    "alternativas": "Lo sustituiría: nada; si apareciera un plan de acciones, se restaría su coste.",
+    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: Sí → mantiene (misma_evidencia): la SBC se resta siempre. Apoyo: C50 = 0, apoyado en que no hay opciones ni plan de acciones [FY2025, PDF p. 51] y en un BPA básico igual al diluido [FY2025, PDF p. 181]; los ceros de Historia!L18 están pendientes de verificación (H1) y la frase se refiere al consejo, así que lo dejo dicho. «A stock option is both an expense and dilution» (PCA pp.126–127; HIM). Lo sustituiría: nada en el valor de la celda; si apareciera un plan de acciones, su coste se restaría.",
+    "alternativas": "Lo sustituiría: nada en el valor de la celda; si apareciera un plan de acciones, su coste se restaría.",
     "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Decisión del inversor / metodología elegida), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N49 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
@@ -13608,7 +13590,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N49 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N49); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N49); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N49); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13620,14 +13602,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 0.01,
+   "valor_modelo": 0.02,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: −0,005 (mín(NORMAL, máx(mín(Q1, NORMAL − σ), −0,10))). Decisión: 0,01. Desviación: +0,015 porque el MALO es de margen: crecen solo las tiendas nuevas (≈ +2 % al año) y las existentes pierden ≈ 1 % por precio y Rumanía; −0,005 pediría caídas de ≈ 2,5 % anual por tienda, que solo hubo en 2020. Apoyo: 85 → 89 hipermercados [H1 2026, PDF p. 7]; Rumanía −6,50 % [H1 2026, PDF p. 6]; única caída de ventas, 2020 (Historia fila 28). Rango 0 a 0,02. Lo sustituiría: 0 si las ventas del grupo cayeran en 2026–2027 con tiendas nuevas abiertas.",
-    "alternativas": "Referencia mecánica: −0,005 (mín(NORMAL, máx(mín(Q1, NORMAL − σ), −0,10))). Decisión: 0,01. Desviación: +0,015 porque el MALO es de margen: crecen solo las tiendas nuevas (≈ +2 % al año) y las existentes pierden ≈ 1 % por precio y Rumanía; −0,005 pediría caídas de ≈ 2,5 % anual por tienda, que solo hubo en 2020. · Lo sustituiría: 0 si las ventas del grupo cayeran en 2026–2027 con tiendas nuevas abiertas.",
-    "limites": "Rango declarado: Rango 0 a 0,02. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: −0,005 (NORMAL_ref − σ). Decisión: 0,02. Desviación: +0,025 porque el MALO es de margen: aperturas +2 % y comparables planas en euros corrientes. Apoyo: unos dos hipermercados al año sobre 89 [FY2025, PDF p. 26; H1 2026, PDF p. 7]; Rumanía −6,50 % en H1 2026 [H1 2026, PDF p. 6]; peor año sin pandemia +4,4 % (Historia!F28); la σ de la referencia sale de 2020–2021 (Historia!G28:H28). Rango 0–0,03. Lo sustituiría: 0 o negativo si Grecia cae en 2026–2027 con las aperturas en marcha.",
+    "alternativas": "Referencia mecánica: −0,005 (NORMAL_ref − σ). Decisión: 0,02. Desviación: +0,025 porque el MALO es de margen: aperturas +2 % y comparables planas en euros corrientes. · Lo sustituiría: 0 o negativo si Grecia cae en 2026–2027 con las aperturas en marcha.",
+    "limites": "Rango declarado: Rango 0–0,03. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N142 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13637,7 +13619,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N142 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N142); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N142); clase «hipotesis» según la fase («fundamentada»); valor 0.01 → 0.02 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N142); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13649,14 +13631,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 0.27,
+   "valor_modelo": 0.26,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,29 (máx(mín(m0, media), mínimo)). Decisión: 0,27. Desviación: −0,02 porque el MALO devuelve al cliente la mejora de 2021: entre el techo de 2016–2020 (26,9 %) y la media (29,2 %). Margen EBIT NIIF 16; supera el Q3 del sector por la Historia propia (G5 justificada). Apoyo: margen EBIT 24,8–26,9 % en 2016–2020 (Historia fila 29, C50); margen bruto 55,61 → 54,72 % [AR2025, PDF p. 15] y 53,53 % en H1 [H1 2026, PDF p. 7]. Rango 0,25–0,29. Lo sustituiría: 0,25 si el margen bruto de 2026 baja del 52 %; 0,29 si el derecho de 3 € frena a las plataformas.",
-    "alternativas": "Referencia mecánica: 0,29 (máx(mín(m0, media), mínimo)). Decisión: 0,27. Desviación: −0,02 porque el MALO devuelve al cliente la mejora de 2021: entre el techo de 2016–2020 (26,9 %) y la media (29,2 %). Margen EBIT NIIF 16; supera el Q3 del sector por la Historia propia (G5 justificada). · Lo sustituiría: 0,25 si el margen bruto de 2026 baja del 52 %; 0,29 si el derecho de 3 € frena a las plataformas.",
-    "limites": "Rango declarado: Rango 0,25–0,29. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,29 (media de diez años). Decisión: 0,26. Desviación: −0,03 porque el MALO de la fase A vuelve al nivel de 2016–2020 y la media de diez años mezcla dos niveles; el cliente se queda la mejora. Apoyo: margen EBIT 2016–2020 (Historia!C29:G29), mínimo 24,8 % (Historia!C50); margen bruto 54,72 % en 2025 [FY2025, PDF p. 15] y 53,53 % en H1 2026 [H1 2026, PDF p. 7]; dólar y flete [H1 2026, PDF p. 14]. Sobre el Q3 del sector por formato y escala (G5 justificada). Rango 0,245–0,28. Lo sustituiría: 0,245 si el margen bruto anual baja del 52 %.",
+    "alternativas": "Referencia mecánica: 0,29 (media de diez años). Decisión: 0,26. Desviación: −0,03 porque el MALO de la fase A vuelve al nivel de 2016–2020 y la media de diez años mezcla dos niveles; el cliente se queda la mejora. · Lo sustituiría: 0,245 si el margen bruto anual baja del 52 %.",
+    "limites": "Rango declarado: Rango 0,245–0,28. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N143 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13666,7 +13648,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N143 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N143); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N143); clase «hipotesis» según la fase («fundamentada»); valor 0.27 → 0.26 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N143); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13678,14 +13660,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 1,
+   "valor_modelo": 1.1,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,3 (0,75 × NORMAL). Decisión: 1,0. Desviación: −0,3 porque en el MALO solo crecen hipermercados propios y los centros de distribución se construyen igual sobre ventas que apenas crecen. Contraste: S2C medio sin arrendamientos 1,186 (datos_v63 §1 bis), no C54. Apoyo: S2C ≈ 1,2 en 2022–2025 (Δventas 401 mm, Historia fila 6, frente a 344 mm de reinversión neta); centros de más de 95 mm [AR2025, PDF p. 25]; tiendas de más de 9.000 m² [H1 2026, PDF p. 18]. Rango 0,7–1,3. Lo sustituiría: 1,3 si Oinofyta se cancela en el MALO; 0,8 si los centros superan los 95 mm.",
-    "alternativas": "Referencia mecánica: 1,3 (0,75 × NORMAL). Decisión: 1,0. Desviación: −0,3 porque en el MALO solo crecen hipermercados propios y los centros de distribución se construyen igual sobre ventas que apenas crecen. Contraste: S2C medio sin arrendamientos 1,186 (datos_v63 §1 bis), no C54. · Lo sustituiría: 1,3 si Oinofyta se cancela en el MALO; 0,8 si los centros superan los 95 mm.",
-    "limites": "Rango declarado: Rango 0,7–1,3. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,3 (0,75 × NORMAL). Decisión: 1,1. Desviación: −0,2 porque en el MALO el capital se pone y el volumen no acompaña: S2C de 2021–2025 sin ajustes. Apoyo: ventas +401 mm (Historia!H6, L6) con 357 mm de reinversión (Historia!I31:L31) = 1,12; S2C medio sin arrendamientos 1,19 (datos_v63, 1 bis). Rentabilidad marginal 0,235. Rango 1,0–1,3. Lo sustituiría: 1,0 si los centros de distribución superan los 95 mm [FY2025, PDF p. 25] sin más ventas.",
+    "alternativas": "Referencia mecánica: 1,3 (0,75 × NORMAL). Decisión: 1,1. Desviación: −0,2 porque en el MALO el capital se pone y el volumen no acompaña: S2C de 2021–2025 sin ajustes. · Lo sustituiría: 1,0 si los centros de distribución superan los 95 mm [FY2025, PDF p. 25] sin más ventas.",
+    "limites": "Rango declarado: Rango 1,0–1,3. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N144 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13695,7 +13677,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N144 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N144); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N144); clase «hipotesis» según la fase («fundamentada»); valor 1 → 1.1 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N144); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13712,8 +13694,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,09. Desviación: ninguna porque en el MALO la escala pasa al cliente y el capital nuevo tras el año 10 rinde r; coincide por la historia, no por copia (neutro del motor ≈ 8,9 %). Salto del año 11 ≈ 0,22 → 0,09: pérdida de la ventaja. Apoyo: margen EBIT 24,8–26,9 % en 2016–2020 (Historia fila 29); margen bruto en descenso [AR2025, PDF p. 15; H1 2026, PDF p. 7]; r = 0,09 (Análisis!C56). Rango 0,09–0,10. Lo sustituiría: 0,10 si el margen se estabiliza en el 27 % con el formato intacto.",
-    "alternativas": "Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,09. Desviación: ninguna porque en el MALO la escala pasa al cliente y el capital nuevo tras el año 10 rinde r; coincide por la historia, no por copia (neutro del motor ≈ 8,9 %). Salto del año 11 ≈ 0,22 → 0,09: pérdida de la ventaja. · Lo sustituiría: 0,10 si el margen se estabiliza en el 27 % con el formato intacto.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,09. Desviación: ninguna porque en el MALO la ventaja se traslada al cliente y el capital nuevo rinde lo que cuesta; salto del año 11 de 0,145 por esa pérdida. Apoyo: r 0,09 (Análisis!C56); neutro del motor 8,86 % (datos_v63, 1 bis); plataformas [FY2025, PDF p. 23]. Vara P-FOSO NO COMPROBADA. Rango 0,09–0,10. Lo sustituiría: 0,10 si con margen del 26 % el capital propio sigue ganando más de r + 3 puntos.",
+    "alternativas": "Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,09. Desviación: ninguna porque en el MALO la ventaja se traslada al cliente y el capital nuevo rinde lo que cuesta; salto del año 11 de 0,145 por esa pérdida. · Lo sustituiría: 0,10 si con margen del 26 % el capital propio sigue ganando más de r + 3 puntos.",
     "limites": "Rango declarado: Rango 0,09–0,10. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N145 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -13724,7 +13706,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N145 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N145); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N145); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N145); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13741,9 +13723,9 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-g_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0.01 → mantiene (misma_evidencia): un negocio que pierde peso frente a las plataformas crece bajo la inflación. Referencia mecánica: 0,015 (NORMAL − 0,01). Decisión: 0,01. Desviación: −0,005 porque, acabadas las aperturas, las tiendas crecen bajo la inflación del 2 %; no es doble castigo: r igual, sin quiebra y crecimiento a 5 años sobre su referencia. Apoyo: inflación del 2 % [AR2025, PDF p. 203]; juguete en retroceso [AR2025, PDF p. 60]; plataformas [AR2025, PDF p. 23]. Rango 0,005–0,015. Lo sustituiría: 0,015 si las ventas por tienda de Grecia crecen con la inflación en 2026–2027.",
-    "alternativas": "Referencia mecánica: 0,015 (NORMAL − 0,01). Decisión: 0,01. Desviación: −0,005 porque, acabadas las aperturas, las tiendas crecen bajo la inflación del 2 %; no es doble castigo: r igual, sin quiebra y crecimiento a 5 años sobre su referencia. · Lo sustituiría: 0,015 si las ventas por tienda de Grecia crecen con la inflación en 2026–2027.",
-    "limites": "Rango declarado: Rango 0,005–0,015. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0,01 → mantiene (misma_evidencia): MALO con pérdida de peso frente a las plataformas y el juguete en retroceso. Referencia mecánica: 0,015 (NORMAL_ref − 0,01). Decisión: 0,01. Desviación: −0,005 porque para siempre crece por debajo de la inflación del 2 % que la empresa supone; con ROIC = r pesa poco (E3). Apoyo: inflación 2,00 % [FY2025, PDF p. 203]; juguete [FY2025, PDF p. 60]; plataformas [FY2025, PDF p. 23]. 0,01 < 0,09. Rango 0–0,015. Lo sustituiría: 0,005 si el MALO resulta pérdida de cuota sostenida; 0,015 si el derecho de aduana frena a las plataformas.",
+    "alternativas": "Referencia mecánica: 0,015 (NORMAL_ref − 0,01). Decisión: 0,01. Desviación: −0,005 porque para siempre crece por debajo de la inflación del 2 % que la empresa supone; con ROIC = r pesa poco (E3). · Lo sustituiría: 0,005 si el MALO resulta pérdida de cuota sostenida; 0,015 si el derecho de aduana frena a las plataformas.",
+    "limites": "Rango declarado: Rango 0–0,015. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N61 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13753,7 +13735,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N61 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N61); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N61); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N61); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13764,15 +13746,15 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": 0.25,
+   "clase": "convencion",
+   "valor_modelo": 0.2,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-prob_MALO",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0.2 → cambia (razonamiento_corregido): la etapa 1 no lo subió para no contar dos veces las plataformas, pero la probabilidad mide cuánto creo el MALO, y el NORMAL no lleva la caída. Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,25. Desviación: +0,05 porque los motores del MALO se movieron en su dirección. Apoyo: margen bruto 55,61 → 54,72 % [AR2025, PDF p. 15] y 53,53 % en H1 [H1 2026, PDF p. 7]; EBITDA 33,25 → 32,73 % en H1 [H1 2026, PDF p. 7]; Rumanía −6,50 % [H1 2026, PDF p. 6]. Rango 0,2–0,3. Lo sustituiría: 0,2 si el margen bruto de 2026 cierra en el 54,7 % o más; 0,3 si baja del 53 %.",
-    "alternativas": "Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,25. Desviación: +0,05 porque los motores del MALO se movieron en su dirección. · Lo sustituiría: 0,2 si el margen bruto de 2026 cierra en el 54,7 % o más; 0,3 si baja del 53 %.",
-    "limites": "Rango declarado: Rango 0,2–0,3. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "identificacion": "V-prob_MALO",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0,2 → mantiene (misma_evidencia): la bajada del margen bruto ya está en el NORMAL y en el MALO. Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,2. Desviación: ninguna porque subirla contaría dos veces el mismo riesgo (PA p. 20; E6). Apoyo: margen bruto 54,72 % en 2025 [FY2025, PDF p. 15] y 53,53 % en H1 2026 [H1 2026, PDF p. 7]; margen EBIT 2021–2025 estable (Historia!H29:L29); derecho de aduana de 3 € [H1 2026, PDF p. 14]. Lo sustituiría: 0,3 si el margen bruto de 2026 baja del 53 %.",
+    "alternativas": "Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,2. Desviación: ninguna porque subirla contaría dos veces el mismo riesgo (PA p. 20; E6). · Lo sustituiría: 0,3 si el margen bruto de 2026 baja del 53 %.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N62 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13782,7 +13764,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N62 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N62); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N62); clase «convencion» según la fase («convención»); valor 0.25 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N62); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13799,8 +13781,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_NORMAL",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (CAGR de 5 años acotado a [Q1, Q3]). Decisión: 0,055. Desviación: −0,05 porque el CAGR parte del mínimo de 2020 y lleva el rebote de 2021–2023; por componentes: superficie ≈ +2 %, socios ≈ +1 punto, tiendas existentes ≈ +2–3 % (precios al 2 %). Apoyo: ventas +6,3 % y +7,2 % en 2024–2025 (Historia fila 28), CAGR de diez años 6,8 % (C47), ≈ +6 % en enero–agosto de 2026 [H1 2026, PDF p. 67]; socios 61,7 → 80,5 mm [AR2025, PDF p. 175]. Rango 0,045–0,065. Lo sustituiría: 0,065 si 2026 supera el +7 % con Rumanía en positivo; 0,04 si queda bajo el +4 %.",
-    "alternativas": "Referencia mecánica: 0,105 (CAGR de 5 años acotado a [Q1, Q3]). Decisión: 0,055. Desviación: −0,05 porque el CAGR parte del mínimo de 2020 y lleva el rebote de 2021–2023; por componentes: superficie ≈ +2 %, socios ≈ +1 punto, tiendas existentes ≈ +2–3 % (precios al 2 %). · Lo sustituiría: 0,065 si 2026 supera el +7 % con Rumanía en positivo; 0,04 si queda bajo el +4 %.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (CAGR 5a acotado al Q3). Decisión: 0,055. Desviación: −0,05 porque el CAGR de 5 años (Historia!C46) arranca en la caída de 2020 y lleva el rebote de 2021; por componentes: superficie +2 %, comparables +2,5–3 %, socios +0,5–1 punto. Apoyo: +6,3 % y +7,2 % en 2024–2025 (Historia!K28:L28); H1 2026 +4,4 % [H1 2026, PDF p. 37]; enero–agosto ≈ +6 % [H1 2026, PDF p. 67]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]; socios 61,7 → 80,5 mm [FY2025, PDF p. 175]. Rango 0,045–0,065. Lo sustituiría: 0,045 si 2026 cierra por debajo del +5 %; 0,065 si los socios siguen al +25 %.",
+    "alternativas": "Referencia mecánica: 0,105 (CAGR 5a acotado al Q3). Decisión: 0,055. Desviación: −0,05 porque el CAGR de 5 años (Historia!C46) arranca en la caída de 2020 y lleva el rebote de 2021; por componentes: superficie +2 %, comparables +2,5–3 %, socios +0,5–1 punto. · Lo sustituiría: 0,045 si 2026 cierra por debajo del +5 %; 0,065 si los socios siguen al +25 %.",
     "limites": "Rango declarado: Rango 0,045–0,065. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N146 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -13811,7 +13793,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N146 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N146); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N146); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N146); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13823,14 +13805,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 0.32,
+   "valor_modelo": 0.315,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_NORMAL",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (m0, último año). Decisión: 0,32. Desviación: ninguna porque el NORMAL deja el margen en la franja de 2021–2025 y el último año está dentro; no es copia sin juicio: supera el Q3 del sector y lo sostiene la Historia propia (G5 justificada). Apoyo: margen EBIT 31,8 % en 2025 (Historia C48), 31,7–33,4 % en 2021–2025 (fila 29), Q3 del sector 8,6 % (Palancas!I15); compra directa, ningún proveedor sobre el 3 % [AR2025, PDF p. 24]. Rango 0,31–0,33. Lo sustituiría: 0,31 si el margen EBIT de 2026 baja del 31 % sin causa transitoria.",
-    "alternativas": "Referencia mecánica: 0,32 (m0, último año). Decisión: 0,32. Desviación: ninguna porque el NORMAL deja el margen en la franja de 2021–2025 y el último año está dentro; no es copia sin juicio: supera el Q3 del sector y lo sostiene la Historia propia (G5 justificada). · Lo sustituiría: 0,31 si el margen EBIT de 2026 baja del 31 % sin causa transitoria.",
-    "limites": "Rango declarado: Rango 0,31–0,33. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (m0 = último año). Decisión: 0,315. Desviación: −0,005 porque H1 2026 ya trae medio punto menos de margen EBITDA (Rumanía, IVA) y la referencia redondea el 31,84 % hacia arriba. Apoyo: margen EBIT 2021–2025 (Historia!H29:L29); EBITDA 32,73 % frente a 33,25 % en H1 [H1 2026, PDF p. 7]; más de 200 proveedores, ninguno > 3 % [FY2025, PDF p. 24]. Mejora repartida con el cliente; sobre el Q3 por escala (G5 justificada). Rango 0,30–0,325. Lo sustituiría: 0,30 si 2026 cierra por debajo del 30,5 %; 0,325 si el margen bruto vuelve al 55 %.",
+    "alternativas": "Referencia mecánica: 0,32 (m0 = último año). Decisión: 0,315. Desviación: −0,005 porque H1 2026 ya trae medio punto menos de margen EBITDA (Rumanía, IVA) y la referencia redondea el 31,84 % hacia arriba. · Lo sustituiría: 0,30 si 2026 cierra por debajo del 30,5 %; 0,325 si el margen bruto vuelve al 55 %.",
+    "limites": "Rango declarado: Rango 0,30–0,325. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N147 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13840,7 +13822,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N147 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N147); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N147); clase «hipotesis» según la fase («fundamentada»); valor 0.32 → 0.315 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N147); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13852,13 +13834,13 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 1.3,
+   "valor_modelo": 1.4,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_NORMAL",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,7 (Historia C53, sin tope). Decisión: 1,3. Desviación: −0,4 porque C53 incluye 2021, cuando las ventas volvieron con reinversión de −40 mm (circulante −73,7); 2022–2025 da ≈ 1,2, ≈ 1,5 sin las nueve tiendas compradas y el inventario de 2025, y cargo los centros de distribución. Rentabilidad marginal ≈ 0,34 < 2 × 28,9 %. Apoyo: Historia fila 6 y serie de reinversión; nueve tiendas por ≈ 75 mm y centros de más de 95 mm [AR2025, PDF p. 25]; inventario 260,87 → 310,50 mm [AR2025, PDF p. 16]; S2C medio sin arrendamientos 1,186. Rango 1,1–1,7. Lo sustituiría: 1,5 si Oinofyta se aplaza; 1,1 si los centros pasan de 120 mm.",
-    "alternativas": "Referencia mecánica: 1,7 (Historia C53, sin tope). Decisión: 1,3. Desviación: −0,4 porque C53 incluye 2021, cuando las ventas volvieron con reinversión de −40 mm (circulante −73,7); 2022–2025 da ≈ 1,2, ≈ 1,5 sin las nueve tiendas compradas y el inventario de 2025, y cargo los centros de distribución. Rentabilidad marginal ≈ 0,34 < 2 × 28,9 %. · Lo sustituiría: 1,5 si Oinofyta se aplaza; 1,1 si los centros pasan de 120 mm.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 1,7 (Historia!C53). Decisión: 1,4. Desviación: −0,3 porque Historia!C53 cuenta el rebote de 2021, hecho con reinversión negativa (Historia!H31); de 2021 a 2025 sale 1,12 con unos 75 mm de compra de tiendas alquiladas, que no añaden ventas: sin ellas ≈ 1,4. Apoyo: Historia!I31:L31; tiendas compradas [FY2025, PDF p. 25]; Patras (Historia!L13); S2C medio sin arrendamientos 1,19 y ROIC sin arrendamientos 28,9 % (datos_v63, 1 bis). Rentabilidad marginal 0,362 < 2 × 28,9 %. Rango 1,1–1,7. Lo sustituiría: 1,1 si la inversión por tienda nueva resulta mayor que la de la base; 1,7 si los socios llegan al 10 % de las ventas.",
+    "alternativas": "Referencia mecánica: 1,7 (Historia!C53). Decisión: 1,4. Desviación: −0,3 porque Historia!C53 cuenta el rebote de 2021, hecho con reinversión negativa (Historia!H31); de 2021 a 2025 sale 1,12 con unos 75 mm de compra de tiendas alquiladas, que no añaden ventas: sin ellas ≈ 1,4. · Lo sustituiría: 1,1 si la inversión por tienda nueva resulta mayor que la de la base; 1,7 si los socios llegan al 10 % de las ventas.",
     "limites": "Rango declarado: Rango 1,1–1,7. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N148 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -13869,7 +13851,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N148 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N148); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N148); clase «hipotesis» según la fase («fundamentada»); valor 1.3 → 1.4 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N148); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13886,9 +13868,9 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_NORMAL",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor, convención neutra). Decisión: 0,10. Desviación: +0,01 porque con C18 = Sí dejo un punto de exceso para siempre, no tres: la escala existe, pero el margen bruto baja y la vara frente a r está NO COMPROBADA. Salto del año 11 ≈ 0,34 → 0,10: el capital nuevo tras el año 10 no rinde como la escala de hoy. Apoyo: margen EBIT ≥ 24,8 % diez años frente a Q3 8,6 % (Historia fila 29, Palancas!I15); C55 26,8 % frente a H18 11,7 %; 2–3 puntos como mucho (MR p. 63; E2); «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM). Rango 0,09–0,12. Lo sustituiría: 0,09 si el margen sale de la franja de 2021–2025 dos años.",
-    "alternativas": "Referencia mecánica: 0,09 (tasa del motor, convención neutra). Decisión: 0,10. Desviación: +0,01 porque con C18 = Sí dejo un punto de exceso para siempre, no tres: la escala existe, pero el margen bruto baja y la vara frente a r está NO COMPROBADA. Salto del año 11 ≈ 0,34 → 0,10: el capital nuevo tras el año 10 no rinde como la escala de hoy. · Lo sustituiría: 0,09 si el margen sale de la franja de 2021–2025 dos años.",
-    "limites": "Rango declarado: Rango 0,09–0,12. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,1. Desviación: +0,01 porque con Análisis!C18 = Sí algo de la escala dura más allá del año 10, pero es una ventaja de años, no de décadas: un punto sobre r, bajo r + 0,03 (MR p. 63; E2); salto del año 11 de 0,262 por la pérdida de ventaja. Apoyo: margen EBIT 2016–2025 (Historia!C29:L29) frente a Q3 8,6 % (Palancas!I15); ROIC de todo el capital 26,8 % (Historia!C55) frente a 11,7 % del sector (Palancas!H18); neutro 8,86 % (datos_v63, 1 bis). Rango 0,09–0,11. Lo sustituiría: 0,09 si el margen EBIT baja del 28 % dos años seguidos.",
+    "alternativas": "Referencia mecánica: 0,09 (tasa del motor). Decisión: 0,1. Desviación: +0,01 porque con Análisis!C18 = Sí algo de la escala dura más allá del año 10, pero es una ventaja de años, no de décadas: un punto sobre r, bajo r + 0,03 (MR p. 63; E2); salto del año 11 de 0,262 por la pérdida de ventaja. · Lo sustituiría: 0,09 si el margen EBIT baja del 28 % dos años seguidos.",
+    "limites": "Rango declarado: Rango 0,09–0,11. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N149 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13898,7 +13880,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N149 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N149); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N149); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N149); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13915,8 +13897,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-g_NORMAL",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0.02 → mantiene (misma_evidencia): la inflación del 2 % de la empresa sigue siendo el ancla. Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque sin aperturas para siempre el crecimiento real de un minorista maduro con el juguete en retroceso es ≈ 0. Apoyo: inflación del 2 % [AR2025, PDF p. 203]; juguete [AR2025, PDF p. 60]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]; rf 3,35 % (Análisis!C57). «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM). Rango 0,015–0,025. Lo sustituiría: 0,025 si la marca se extiende con socios más allá del año 10.",
-    "alternativas": "Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque sin aperturas para siempre el crecimiento real de un minorista maduro con el juguete en retroceso es ≈ 0. · Lo sustituiría: 0,025 si la marca se extiende con socios más allá del año 10.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0,02 → mantiene (misma_evidencia): inflación del 2 % para un minorista con Grecia madura. Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque Grecia, el 58 % de las ventas, está madura y lo que crece (Rumanía, socios) se agota antes del año 11; bajo rf (CV p. 5; E1). Apoyo: Grecia 58,29 % [FY2025, PDF p. 17]; una tienda cada tres años [FY2024, PDF p. 24]; ninguna en 2027 [H1 2026, PDF p. 17]; inflación 2,00 % [FY2025, PDF p. 203]; rf 3,35 % (Análisis!C57). Rango 0,015–0,025. Lo sustituiría: 0,015 si las aperturas se detienen después de 2030.",
+    "alternativas": "Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque Grecia, el 58 % de las ventas, está madura y lo que crece (Rumanía, socios) se agota antes del año 11; bajo rf (CV p. 5; E1). · Lo sustituiría: 0,015 si las aperturas se detienen después de 2030.",
     "limites": "Rango declarado: Rango 0,015–0,025. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N66 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -13927,7 +13909,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N66 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N66); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N66); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N66); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13944,8 +13926,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-prob_NORMAL",
-    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0.6 → mantiene (misma_evidencia): el central sigue siendo el más probable. Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque el negocio es predecible y el ajuste va entre los extremos. Apoyo: margen EBIT 24,8–33,4 % en diez años (Historia fila 29); una sola caída de ventas, 2020 (fila 28); ≈ +6 % en enero–agosto de 2026 [H1 2026, PDF p. 67]. Suman 1: 0,25 + 0,6 + 0,15. Lo sustituiría: 0,5 si 2026 muestra a la vez margen y ventas por tienda en descenso.",
-    "alternativas": "Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque el negocio es predecible y el ajuste va entre los extremos. · Lo sustituiría: 0,5 si 2026 muestra a la vez margen y ventas por tienda en descenso.",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0,6 → mantiene (misma_evidencia): negocio predecible sin deuda ni ciclo. Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque diez años de margen EBIT en 24,8–33,4 % y un solo año de caída de ventas lo hacen predecible; suman 1. Apoyo: Historia!C29:L29; Historia!G28; sin préstamos [H1 2026, PDF p. 9]; caso especial Ninguno (Palancas!C6). Lo sustituiría: 0,5 si sube la del MALO.",
+    "alternativas": "Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque diez años de margen EBIT en 24,8–33,4 % y un solo año de caída de ventas lo hacen predecible; suman 1. · Lo sustituiría: 0,5 si sube la del MALO.",
     "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N67 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -13956,7 +13938,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N67 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N67); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N67); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N67); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13973,9 +13955,9 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (máx(NORMAL, mín(NORMAL + σ, Q3, 1,5 × CAGR))). Decisión: 0,08. Desviación: −0,025 porque la referencia vuelve a ser el rebote de 2021–2023; sobre el NORMAL sumo Rumanía de nuevo en crecimiento (+1,5 puntos) y socios y Balfin (+1 punto). Apoyo: Rumanía 21,34 % de las ventas [AR2025, PDF p. 17] y objetivo de duplicar tiendas (guía) [AR2025, PDF p. 26]; tiendas de socios 36 → 46 [H1 2026, PDF p. 7]; «carefully examine each past success, looking for accidental, non causative factors» (PCA pp.548–549; HIM). Rango 0,07–0,10. Lo sustituiría: 0,10 si Rumanía y los socios crecen a doble dígito dos años.",
-    "alternativas": "Referencia mecánica: 0,105 (máx(NORMAL, mín(NORMAL + σ, Q3, 1,5 × CAGR))). Decisión: 0,08. Desviación: −0,025 porque la referencia vuelve a ser el rebote de 2021–2023; sobre el NORMAL sumo Rumanía de nuevo en crecimiento (+1,5 puntos) y socios y Balfin (+1 punto). · Lo sustituiría: 0,10 si Rumanía y los socios crecen a doble dígito dos años.",
-    "limites": "Rango declarado: Rango 0,07–0,10. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,105 (mín(NORMAL + σ, Q3)). Decisión: 0,08. Desviación: −0,025 porque por componentes salen superficie +3,5 %, comparables +3 % y socios +1,5 puntos; queda por debajo del Q3 y de 1,5 × la historia. Apoyo: objetivo de duplicar Rumanía en una década (guía) [FY2025, PDF p. 26]; tiendas previstas en 2028 [H1 2026, PDF p. 17]; socios +30,5 % en 2025 [FY2025, PDF p. 175]; Balfin sin inversión del grupo [H1 2026, PDF p. 19]. Rango 0,07–0,09. Lo sustituiría: 0,07 si los socios vuelven a incumplir (Israel [FY2025, PDF p. 58]).",
+    "alternativas": "Referencia mecánica: 0,105 (mín(NORMAL + σ, Q3)). Decisión: 0,08. Desviación: −0,025 porque por componentes salen superficie +3,5 %, comparables +3 % y socios +1,5 puntos; queda por debajo del Q3 y de 1,5 × la historia. · Lo sustituiría: 0,07 si los socios vuelven a incumplir (Israel [FY2025, PDF p. 58]).",
+    "limites": "Rango declarado: Rango 0,07–0,09. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N150 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -13985,7 +13967,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N150 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N150); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N150); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N150); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -13997,14 +13979,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 0.33,
+   "valor_modelo": 0.32,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (máx(m0, mín(máximo, Q3))). Decisión: 0,33. Desviación: +0,01 porque el BUENO mantiene el margen cerca de su máximo: más volumen comprado y logística propia bajan el coste por artículo y la empresa se queda la mejora; no paso del máximo porque los socios tienen menos margen bruto (G5 justificada). Apoyo: máximo 33,4 % (Historia C51); menor peso de franquiciados mejoró el margen bruto de H1 2026 [H1 2026, PDF p. 7]; centros de más de 95 mm [AR2025, PDF p. 25]. Rango 0,32–0,335. Lo sustituiría: 0,32 si las ventas a socios pasan del 10 % de las ventas.",
-    "alternativas": "Referencia mecánica: 0,32 (máx(m0, mín(máximo, Q3))). Decisión: 0,33. Desviación: +0,01 porque el BUENO mantiene el margen cerca de su máximo: más volumen comprado y logística propia bajan el coste por artículo y la empresa se queda la mejora; no paso del máximo porque los socios tienen menos margen bruto (G5 justificada). · Lo sustituiría: 0,32 si las ventas a socios pasan del 10 % de las ventas.",
-    "limites": "Rango declarado: Rango 0,32–0,335. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Referencia mecánica: 0,32 (máx(m0, mín(máximo, Q3))). Decisión: 0,32. Desviación: ninguna porque el BUENO crece más en ventas que en margen: el margen mayorista de los socios es menor y la escala solo protege el actual. Apoyo: margen 2025 31,8 % (Historia!L29), máximo 33,4 % (Historia!C51); menos peso de socios subió el margen bruto en H1 2026 [H1 2026, PDF p. 7]; Q3 del sector 8,6 % (Palancas!I15; G5 justificada). Rango 0,315–0,33. Lo sustituiría: 0,33 si el margen bruto pasa del 55,6 % de 2024 [FY2025, PDF p. 15].",
+    "alternativas": "Referencia mecánica: 0,32 (máx(m0, mín(máximo, Q3))). Decisión: 0,32. Desviación: ninguna porque el BUENO crece más en ventas que en margen: el margen mayorista de los socios es menor y la escala solo protege el actual. · Lo sustituiría: 0,33 si el margen bruto pasa del 55,6 % de 2024 [FY2025, PDF p. 15].",
+    "limites": "Rango declarado: Rango 0,315–0,33. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N151 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -14014,7 +13996,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N151 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N151); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N151); clase «hipotesis» según la fase («fundamentada»); valor 0.33 → 0.32 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N151); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14026,14 +14008,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 1.6,
+   "valor_modelo": 1.7,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 2,1 (1,25 × NORMAL). Decisión: 1,6. Desviación: −0,5 porque la referencia nace del 1,7 inflado por 2021; el BUENO crece por socios que ponen tienda e inversión (sube el S2C frente al NORMAL), pero Rumanía duplicando tiendas es capital propio y los centros siguen. Apoyo: socios 80,5 mm, +30 % [AR2025, PDF p. 175]; expansión de Balfin sin la inversión del grupo, según la empresa [H1 2026, PDF p. 19]; S2C ≈ 1,2 en 2022–2025 (Historia fila 6) y 1,70 con 2021 (C53). Rango 1,3–2,1. Lo sustituiría: 1,9 si los socios pasan del 10 % de las ventas sin capital de Jumbo; 1,3 si Jumbo pone capital en Balfin o Canadá.",
-    "alternativas": "Referencia mecánica: 2,1 (1,25 × NORMAL). Decisión: 1,6. Desviación: −0,5 porque la referencia nace del 1,7 inflado por 2021; el BUENO crece por socios que ponen tienda e inversión (sube el S2C frente al NORMAL), pero Rumanía duplicando tiendas es capital propio y los centros siguen. · Lo sustituiría: 1,9 si los socios pasan del 10 % de las ventas sin capital de Jumbo; 1,3 si Jumbo pone capital en Balfin o Canadá.",
-    "limites": "Rango declarado: Rango 1,3–2,1. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 2,1 (1,25 × NORMAL). Decisión: 1,7. Desviación: −0,4 porque el mejor S2C marginal medido es Historia!C53 (1,70) y ya incluye el rebote de 2021; Rumanía pide hipermercados propios. Apoyo: socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Balfin sin inversión del grupo [H1 2026, PDF p. 19]; hipermercados de más de 9.000 m² [H1 2026, PDF p. 18]. Rentabilidad marginal 0,446 < 0,579. Rango 1,4–2,0. Lo sustituiría: 2,0 si los socios superan el 12 % de las ventas con capex como en 2025 (Historia!L12).",
+    "alternativas": "Referencia mecánica: 2,1 (1,25 × NORMAL). Decisión: 1,7. Desviación: −0,4 porque el mejor S2C marginal medido es Historia!C53 (1,70) y ya incluye el rebote de 2021; Rumanía pide hipermercados propios. · Lo sustituiría: 2,0 si los socios superan el 12 % de las ventas con capex como en 2025 (Historia!L12).",
+    "limites": "Rango declarado: Rango 1,4–2,0. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N152 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -14043,7 +14025,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N152 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N152); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N152); clase «hipotesis» según la fase («fundamentada»); valor 1.6 → 1.7 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N152); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14060,8 +14042,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,12 (mín(C55; C56 + 0,03)). Decisión: 0,12. Desviación: ninguna porque en el BUENO la escala crece con el volumen y la marca se extiende con capital de socios: el foso dura y el exceso llega a los 3 puntos que el criterio admite como mucho; con C18 = Sí. Salto del año 11 ≈ 0,43 → 0,12. Apoyo: máximo 33,4 % (Historia C51); socios +30 % [AR2025, PDF p. 175]; C55 26,8 % frente a H18 11,7 %; (MR p. 63; E2). Rango 0,10–0,12. Lo sustituiría: 0,10 si el margen bruto sigue cayendo con el volumen creciendo.",
-    "alternativas": "Referencia mecánica: 0,12 (mín(C55; C56 + 0,03)). Decisión: 0,12. Desviación: ninguna porque en el BUENO la escala crece con el volumen y la marca se extiende con capital de socios: el foso dura y el exceso llega a los 3 puntos que el criterio admite como mucho; con C18 = Sí. Salto del año 11 ≈ 0,43 → 0,12. · Lo sustituiría: 0,10 si el margen bruto sigue cayendo con el volumen creciendo.",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja] Hereda: nueva en V6.3. Referencia mecánica: 0,12 (C56 + 0,03). Decisión: 0,12. Desviación: ninguna porque en el BUENO la escala crece con los socios y la ventaja dura en el máximo de 3 puntos sobre el coste (MR p. 63; E2); sin vara P-FOSO comprobada no subo; salto del año 11 de 0,326. Apoyo: Análisis!C18 = Sí; margen EBIT 2016–2025 (Historia!C29:L29); socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Balfin [H1 2026, PDF p. 18]. Rango 0,10–0,12. Lo sustituiría: 0,10 si los socios no cumplen sus aperturas de 2026–2027.",
+    "alternativas": "Referencia mecánica: 0,12 (C56 + 0,03). Decisión: 0,12. Desviación: ninguna porque en el BUENO la escala crece con los socios y la ventaja dura en el máximo de 3 puntos sobre el coste (MR p. 63; E2); sin vara P-FOSO comprobada no subo; salto del año 11 de 0,326. · Lo sustituiría: 0,10 si los socios no cumplen sus aperturas de 2026–2027.",
     "limites": "Rango declarado: Rango 0,10–0,12. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N153 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -14072,7 +14054,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N153 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N153); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N153); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N153); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14089,8 +14071,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-g_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0.025 → mantiene (misma_evidencia): la extensión con socios da medio punto sobre la inflación, no más. Referencia mecánica: 0,03 (mín(NORMAL + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque nada crece deprisa para siempre. Apoyo: tiendas de socios 36 → 46 [H1 2026, PDF p. 7]; Balfin en seis mercados [H1 2026, PDF p. 18]; inflación del 2 % [AR2025, PDF p. 203]; «Almost all great records eventually dwindle» (AIWTK p.140; HIM). Rango 0,02–0,03. Lo sustituiría: 0,03 con una década de mercados nuevos sin capital propio.",
-    "alternativas": "Referencia mecánica: 0,03 (mín(NORMAL + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque nada crece deprisa para siempre. · Lo sustituiría: 0,03 con una década de mercados nuevos sin capital propio.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0,025 → mantiene (misma_evidencia): socios y Rumanía dan medio punto sobre la inflación. Referencia mecánica: 0,03 (mín(NORMAL_ref + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque los grandes historiales se agotan y no pongo el techo de la lista. Apoyo: inflación 2,00 % [FY2025, PDF p. 203]; 46 tiendas de socios [H1 2026, PDF p. 7]; Balfin [H1 2026, PDF p. 18]; bajo rf (CV p. 5; E1). Rango 0,02–0,03. Lo sustituiría: 0,03 solo si el formato funciona en Canadá y en los mercados de Balfin sin capital propio.",
+    "alternativas": "Referencia mecánica: 0,03 (mín(NORMAL_ref + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque los grandes historiales se agotan y no pongo el techo de la lista. · Lo sustituiría: 0,03 solo si el formato funciona en Canadá y en los mercados de Balfin sin capital propio.",
     "limites": "Rango declarado: Rango 0,02–0,03. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N71 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -14101,7 +14083,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N71 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N71); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N71); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N71); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14112,15 +14094,15 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": 0.15,
+   "clase": "convencion",
+   "valor_modelo": 0.2,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-prob_BUENO",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 0.2 → cambia (evidencia_nueva): el extracto V6.3 trae hechos que debilitan el BUENO. Referencia mecánica: 0,2 (convención). Decisión: 0,15. Desviación: −0,05 porque Balfin montará su propia cadena desde China, Grecia no abrirá en 2027 e Israel incumplió la guía; el BUENO queda por debajo del MALO. Apoyo: Balfin [H1 2026, PDF p. 18]; Grecia [H1 2026, PDF p. 17]; cuatro tiendas en Israel frente a cinco [AR2025, PDF p. 58]; socios 38,3 → 43,2 mm en H1 [H1 2026, PDF p. 37]. Rango 0,1–0,2. Lo sustituiría: 0,2 si Rumanía vuelve a crecer en 2027 y Balfin mantiene sus compras.",
-    "alternativas": "Referencia mecánica: 0,2 (convención). Decisión: 0,15. Desviación: −0,05 porque Balfin montará su propia cadena desde China, Grecia no abrirá en 2027 e Israel incumplió la guía; el BUENO queda por debajo del MALO. · Lo sustituiría: 0,2 si Rumanía vuelve a crecer en 2027 y Balfin mantiene sus compras.",
-    "limites": "Rango declarado: Rango 0,1–0,2. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "identificacion": "V-prob_BUENO",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: 0,2 → mantiene (misma_evidencia): el BUENO depende de planes de socios. Referencia mecánica: 0,2 (convención). Decisión: 0,2. Desviación: ninguna porque el BUENO no recibe más que el MALO sin razón estructural y los socios ya se han retrasado. Apoyo: Israel, cuatro tiendas frente a cinco previstas [FY2025, PDF p. 58]; socios 61,7 → 80,5 mm [FY2025, PDF p. 175]; Grecia sin apertura en 2027 [H1 2026, PDF p. 17]. Lo sustituiría: 0,25 si Rumanía vuelve a crecer en 2027 y los socios cumplen sus aperturas.",
+    "alternativas": "Referencia mecánica: 0,2 (convención). Decisión: 0,2. Desviación: ninguna porque el BUENO no recibe más que el MALO sin razón estructural y los socios ya se han retrasado. · Lo sustituiría: 0,25 si Rumanía vuelve a crecer en 2027 y los socios cumplen sus aperturas.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N72 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -14130,7 +14112,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N72 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N72); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N72); clase «convencion» según la fase («convención»); valor 0.15 → 0.2 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N72); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14147,8 +14129,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-p_quiebra",
-    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío (= 0) sin disparador. Decisión: vacío. Desviación: ninguna porque no salta ningún disparador: deuda neta/EBITDA −1,10 (Análisis!C33), la caja cubre la deuda a corto (C34 = Sí), Madura en crecimiento (Palancas!C5), arrendamientos 66,4 mm frente a 3 × FCF base de 241,45 mm (Historia C64, C52). El MALO es de margen, no de quiebra. Apoyo: sin préstamos a 30.06.2026 [H1 2026, PDF p. 9]; «Three things ruin people: drugs, liquor, and leverage» (TCI p.68; HIM). Lo sustituiría: 0,05 si Jumbo se endeudara para centros o adquisiciones hasta saltar un disparador.",
-    "alternativas": "Referencia mecánica: vacío (= 0) sin disparador. Decisión: vacío. Desviación: ninguna porque no salta ningún disparador: deuda neta/EBITDA −1,10 (Análisis!C33), la caja cubre la deuda a corto (C34 = Sí), Madura en crecimiento (Palancas!C5), arrendamientos 66,4 mm frente a 3 × FCF base de 241,45 mm (Historia C64, C52). El MALO es de margen, no de quiebra. · Lo sustituiría: 0,05 si Jumbo se endeudara para centros o adquisiciones hasta saltar un disparador.",
+    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío (= 0) sin disparador. Decisión: vacía. Desviación: ninguna porque no hay ningún disparador: deuda neta ÷ EBITDA −1,10 (C33), la caja cubre la deuda a corto (C34 = Sí), no es joven (Palancas!C5) y arrendamientos de 66,4 mm (Historia!C64) frente a 3 × FCF base de 727,8 mm. Apoyo: sin préstamos [H1 2026, PDF p. 9]; bono amortizado en 2023 [FY2023, PDF p. 12]. «Three things ruin people: drugs, liquor, and leverage» (TCI p.68; HIM). Lo sustituiría: 0,05 si se endeudara para los centros o los inmuebles.",
+    "alternativas": "Referencia mecánica: vacío (= 0) sin disparador. Decisión: vacía. Desviación: ninguna porque no hay ningún disparador: deuda neta ÷ EBITDA −1,10 (C33), la caja cubre la deuda a corto (C34 = Sí), no es joven (Palancas!C5) y arrendamientos de 66,4 mm (Historia!C64) frente a 3 × FCF base de 727,8 mm. · Lo sustituiría: 0,05 si se endeudara para los centros o los inmuebles.",
     "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N154 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -14159,7 +14141,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N154 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N154); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N154); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N154); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14176,8 +14158,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-recuperacion",
-    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío (solo con C22 > 0; entonces 0). Decisión: vacío. Desviación: ninguna porque C22 queda vacío: sin probabilidad de quiebra no hay recuperación que escribir. Apoyo: ningún disparador (Análisis!C33 = −1,10; C34 = Sí; Historia C64 = 66,4 mm frente a C52 = 241,45 mm); sin préstamos [H1 2026, PDF p. 9]. Lo sustituiría: 0 explícito si C22 pasara a 0,05.",
-    "alternativas": "Referencia mecánica: vacío (solo con C22 > 0; entonces 0). Decisión: vacío. Desviación: ninguna porque C22 queda vacío: sin probabilidad de quiebra no hay recuperación que escribir. · Lo sustituiría: 0 explícito si C22 pasara a 0,05.",
+    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío sin quiebra; 0 si C22 > 0. Decisión: vacía. Desviación: ninguna porque sin probabilidad de quiebra (C22 vacía) la recuperación no se usa. Apoyo: deuda cero en 2023 y 2025 (Historia!J22:L22); caja 536,7 mm a fin de 2025 (Historia!L24). Lo sustituiría: 0 explícito si C22 pasara a 0,05.",
+    "alternativas": "Referencia mecánica: vacío sin quiebra; 0 si C22 > 0. Decisión: vacía. Desviación: ninguna porque sin probabilidad de quiebra (C22 vacía) la recuperación no se usa. · Lo sustituiría: 0 explícito si C22 pasara a 0,05.",
     "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N155 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -14188,7 +14170,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N155 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N155); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N155); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N155); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14200,14 +14182,14 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": 160,
+   "valor_modelo": 150,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-exceso_caja",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 200 → cambia (evidencia_nueva): el precio cotiza sin la extraordinaria de 1,00 € y los centros van al S2C. Referencia mecánica: 0 (regla del inversor). Decisión: 160. Desviación: +160 porque 546,14 (C53) − 94,06 (dividendo pagado el 28.07.2026) − 134,37 (1,00 €, ex 16.11.2026, C37) − 150 de colchón (≈ dos meses de costes de caja; caja de 379,34 a 30.06.2025) ≈ 168. Los intereses cobrados van en inversión; C46 y C40 se calcularon con C76 = 200 (s = 0,4239) y hay que recalcularlos con 160 por J1. Apoyo: C53, C37; ventas 1.232,9 − EBIT 392,5 + amortización 43,2 (Historia filas 6–8). «Excess cash is an advantage, not a disadvantage» (TCI p.141; HIM). Rango 120–220. Lo sustituiría: 0 si la caja se usara en adquisiciones.",
-    "alternativas": "Referencia mecánica: 0 (regla del inversor). Decisión: 160. Desviación: +160 porque 546,14 (C53) − 94,06 (dividendo pagado el 28.07.2026) − 134,37 (1,00 €, ex 16.11.2026, C37) − 150 de colchón (≈ dos meses de costes de caja; caja de 379,34 a 30.06.2025) ≈ 168. Los intereses cobrados van en inversión; C46 y C40 se calcularon con C76 = 200 (s = 0,4239) y hay que recalcularlos con 160 por J1. · Lo sustituiría: 0 si la caja se usara en adquisiciones.",
-    "limites": "Rango declarado: Rango 120–220. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / balance), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: 200 → cambia (evidencia_nueva): el precio es posterior a la fecha ex del 1,00 € extraordinario, que la etapa 1 no restaba. Referencia mecánica: 0 (regla del inversor v1.2). Decisión: 150. Desviación: +150 porque hay caja claramente sobrante: 546,14 − 94,06 (dividendo de julio) − 134,37 (1,00 €) − 5,7 (Nea Filadelfeia) − 95 (centros) − 66,4 (un mes de costes de caja) ≈ 150. Apoyo: C53; [H1 2026, PDF p. 67]; [FY2025, PDF p. 25 y p. 28]; Historia!C44 y C62. Intereses de esta caja fuera de C46 (J1). C46 y C40 se calcularon con 160: con 150 hay que recalcularlos. Rango 120–180. Lo sustituiría: 0 si la caja se destina a adquisiciones o inmuebles no comerciales.",
+    "alternativas": "Referencia mecánica: 0 (regla del inversor v1.2). Decisión: 150. Desviación: +150 porque hay caja claramente sobrante: 546,14 − 94,06 (dividendo de julio) − 134,37 (1,00 €) − 5,7 (Nea Filadelfeia) − 95 (centros) − 66,4 (un mes de costes de caja) ≈ 150. · Lo sustituiría: 0 si la caja se destina a adquisiciones o inmuebles no comerciales.",
+    "limites": "Rango declarado: Rango 120–180. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / balance), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N82 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
@@ -14217,7 +14199,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N82 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N82); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N82); clase «hipotesis» según la fase («fundamentada»); valor 160 → 150 · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N82); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14228,15 +14210,15 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
+   "clase": "convencion",
    "valor_modelo": "No aplica",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-naturaleza_fcf",
-    "fundamento": "[Clase: fundamentada] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: el FCF base es positivo (C52 = 241,45 mm) y la fila 35 lo es los diez años (de 65,9 a 280,3 mm): la naturaleza de un FCF base ≤ 0 no aplica. Lo sustituiría: solo un FCF base ≤ 0, que no veo en la historia.",
-    "alternativas": "Lo sustituiría: solo un FCF base ≤ 0, que no veo en la historia.",
-    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "identificacion": "V-naturaleza_fcf",
+    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Apoyo: el FCF base es positivo (Análisis!C52 = 242,596 mm) y el FCF al accionista lo es los diez años (Historia!C35:L35): la regla da No aplica. Lo sustituiría: Transitorio si el FCF base pasara a ser ≤ 0 por los centros de distribución o por inventario.",
+    "alternativas": "Lo sustituiría: Transitorio si el FCF base pasara a ser ≤ 0 por los centros de distribución o por inventario.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N166 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
@@ -14246,7 +14228,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N166 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N166); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N166); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N166); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14263,8 +14245,8 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-fcf_normalizado",
-    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: vacío salvo C43 = Transitorio o Extraordinario. Decisión: vacío. Desviación: ninguna porque la fase A dejó C43 = No aplica: el FCF base es positivo (241,45 mm, Historia C52) y no lo declaro transitorio. Apoyo: FCF al accionista 227,2 / 222,8 / 246,5 mm en 2023–2025 (Historia fila 35). Lo sustituiría: un FCF base que la fase A juzgara transitorio por el capex de los centros de distribución [AR2025, PDF p. 25].",
-    "alternativas": "Referencia mecánica: vacío salvo C43 = Transitorio o Extraordinario. Decisión: vacío. Desviación: ninguna porque la fase A dejó C43 = No aplica: el FCF base es positivo (241,45 mm, Historia C52) y no lo declaro transitorio. · Lo sustituiría: un FCF base que la fase A juzgara transitorio por el capex de los centros de distribución [AR2025, PDF p. 25].",
+    "fundamento": "[Clase: convención] [Confianza: alta] Hereda: nueva en V6.3. Referencia mecánica: no aplica (C43 = No aplica). Decisión: vacía. Desviación: sin referencia porque el FCF base es positivo y la fase A no lo declaró transitorio ni extraordinario. Apoyo: FCF base 242,596 mm (Análisis!C52); FCF al accionista positivo los diez años (Historia!C35:L35). Lo sustituiría: un FCF normalizado si el FCF base pasara a ser ≤ 0 por los centros de distribución o por inventario.",
+    "alternativas": "Referencia mecánica: no aplica (C43 = No aplica). Decisión: vacía. Desviación: sin referencia porque el FCF base es positivo y la fase A no lo declaró transitorio ni extraordinario. · Lo sustituiría: un FCF normalizado si el FCF base pasara a ser ≤ 0 por los centros de distribución o por inventario.",
     "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1 · documentar el cálculo), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N167 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
@@ -14275,7 +14257,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N167 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N167); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N167); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N167); clase «convencion» según la clase que declara la fase («convención»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -14286,15 +14268,15 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
+   "clase": "convencion",
    "valor_modelo": "Ninguna",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-causa_desviacion",
-    "fundamento": "[Clase: fundamentada] [Confianza: media] Hereda: nueva en V6.3. Apoyo: la conciliación precio × acciones ≈ capitalización pasa (V22, V26 y V27 en OK, datos_v63 §5): C41 = 27,28 € × 134,365561 mm = 3.665,49 mm. Queda el aviso V28 (precio del 17.11.2026, acciones del 31.12.2025): no conozco recompras ni emisiones posteriores (nuevo programa no encontrado, extracto §5; última anulación de acciones el 04.08.2025 [AR2025, PDF p. 21]). No hay diferencia que explicar. Lo sustituiría: Fechas distintas si aparecieran movimientos de acciones en 2026 que separaran la capitalización.",
-    "alternativas": "Lo sustituiría: Fechas distintas si aparecieran movimientos de acciones en 2026 que separaran la capitalización.",
-    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "identificacion": "V-causa_desviacion",
+    "fundamento": "[Clase: convención] [Confianza: media] Hereda: nueva en V6.3. Apoyo: la conciliación precio × acciones ≈ capitalización pasa (V22, V26 y V27 OK) porque C41 = 27,28 € × 134,365561 millones de acciones; solo queda el aviso V28 de fechas separadas (precio del 17-nov-2026, acciones del 31-dic-2025), sin nuevo programa de recompra en el extracto [FY2025, PDF p. 21]. La conciliación no pide causa: Ninguna. Lo sustituiría: Fechas distintas si una recompra o emisión de 2026 moviera las acciones más allá de la tolerancia.",
+    "alternativas": "Lo sustituiría: Fechas distintas si una recompra o emisión de 2026 moviera las acciones más allá de la tolerancia.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
     "procedencia": "Control maestro!N170 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
@@ -14304,7 +14286,7 @@
     "fecha": "2026-11-19",
     "resultado": "pendiente",
     "fuente_examinada": "Control maestro!N170 del libro (Jumbo_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
-    "nota": "Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N170); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
+    "nota": "[Claude orquestación, 2026-11-19, jumbo_g] texto vigente de la fase en jumbo_g (Control maestro!N170); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-19 «pendiente»: Fundamento, alternativas y límites copiados del texto de la fase (Control maestro!N170); clase «hipotesis» según la clase que declara la fase («fundamentada»). No se juzga su acierto.",
     "vinculo": null
    },
    "incidencia": null
@@ -29492,5 +29474,6 @@
  ],
  "extractor_complementario": "Claude orquestación",
  "fecha_extraccion_complementaria": "2026-11-19",
- "nota_del_extractor_complementario": "Adaptado el 2026-11-19 por Claude orquestación al expediente jumbo_e: parte del registro de Mistral (mistral/examen-jumbo-entradas @ fced486) y aplica, solo donde el expediente ya lo recoge, las correcciones de la revisión del registro (coordinacion/cierre_v2/examen/jumbo/revision_registro/) y de la orquestación (resultados/: correccion_fase1_partes_r2/r3, recalculo_C42, entradas_r3, declaración F1). Las hipótesis llevan el texto que escribieron las fases (Control maestro N). Las entradas cambiadas declaran como extractor «Claude orquestación»; todas las comprobaciones quedan «pendiente», sin revisor ni vínculo: el sellado es de un revisor independiente. Lista de cambios: resultados/registro_entradas_jumbo_e.json. (jumbo_g, 2026-11-19) Claude orquestación declaró en Análisis!C46 (con conciliacion_f1) y Análisis!C40 «derivacion.recalculo» (celda de juicio Análisis!C76; P-O1 (c) y J1) para que el pipeline los recalcule en el paso 9, tras escribir la fase B (resultados/registro_declaracion_dependientes_jumbo_g.json); no cambia valores, fórmulas, orígenes ni comprobaciones, ni la entrada de C76."
+ "nota_del_extractor_complementario": "Adaptado el 2026-11-19 por Claude orquestación al expediente jumbo_e: parte del registro de Mistral (mistral/examen-jumbo-entradas @ fced486) y aplica, solo donde el expediente ya lo recoge, las correcciones de la revisión del registro (coordinacion/cierre_v2/examen/jumbo/revision_registro/) y de la orquestación (resultados/: correccion_fase1_partes_r2/r3, recalculo_C42, entradas_r3, declaración F1). Las hipótesis llevan el texto que escribieron las fases (Control maestro N). Las entradas cambiadas declaran como extractor «Claude orquestación»; todas las comprobaciones quedan «pendiente», sin revisor ni vínculo: el sellado es de un revisor independiente. Lista de cambios: resultados/registro_entradas_jumbo_e.json. (jumbo_g, 2026-11-19) Claude orquestación declaró en Análisis!C46 (con conciliacion_f1) y Análisis!C40 «derivacion.recalculo» (celda de juicio Análisis!C76; P-O1 (c) y J1) para que el pipeline los recalcule en el paso 9, tras escribir la fase B (resultados/registro_declaracion_dependientes_jumbo_g.json); no cambia valores, fórmulas, orígenes ni comprobaciones, ni la entrada de C76.",
+ "nota_jumbo_g_mercado_e_hipotesis": "2026-11-19, Claude orquestación: C37, C57 y Palancas!C7 con los bytes de la persona responsable (Release, anexos 3 y 3 ter; fuentes_mercado/), C41/C42 de nuevo pendientes, C38 «Dato no verificable», hipótesis con el texto vigente de las fases de jumbo_g. Rastro: resultados/fuentes_mercado_y_registro_jumbo_g.json"
 }
