@@ -103,13 +103,15 @@ La lista `hipotesis_sin_fundamento` está vacía y D10 no limita la conclusión.
 
 ## 9. Comprobación conjunta
 
-No existe `comprobacion_conjunta.json` porque no procedía: la lista de hipótesis sin fundamento está vacía. `sobrevive = null` y `resultado = sin_limitacion`. No hay rango del precio de Sí bajo una combinación adversa. El único peldaño es el de `precio.json`.
+No existe `comprobacion_conjunta.json` porque no procedía: la lista de hipótesis sin fundamento está vacía. `sobrevive = null`. Con la conclusión final `esperar`, `resultado = no_procede` (antes de la respuesta al contradictor era `sin_limitacion`, con `comprar`). No hay rango del precio de Sí bajo una combinación adversa. El único peldaño es el de `precio.json`.
 
 ## 10. Estado, cubo y acción
 
-**`concluido` (provisional hasta la auditoría) · cubo Sí · `comprar` al precio actual.**
+**`concluido` (provisional hasta la auditoría) · cubo Vigilar · `esperar`, con condición de negocio y sin precio objetivo.**
 
-El orden de mando es el del turno 1:
+El turno 2 cerró en Sí · `comprar`. Tras la respuesta al contradictor (sección 17), la conclusión baja un escalón. La condición es esperar al informe anual de 2026: pasaría a comprar si el margen EBIT del grupo de 2026 es de al menos el 31,0 % y el margen bruto anual de al menos el 54,0 %. El precio objetivo es nulo porque la zona ya cumple la regla k.
+
+El orden de mando del turno 1 sigue igual:
 
 - sin bloqueo;
 - sin límite del modelo;
@@ -118,7 +120,7 @@ El orden de mando es el del turno 1:
 - lista vacía de hipótesis sin fundamento;
 - zona `cumple_regla_k`.
 
-C104: «Pendiente de decisión de cartera · conclusión del personaje: comprar al precio actual · zona cumple_regla_k · precio de Sí ≤ 33.42 · precio esc. MALO 26.12 · ponderado 36.34 · fundamento lista vacía».
+C104: «Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 33.42 · zona cumple_regla_k · precio de Sí ≤ 33.42 · precio esc. MALO 26.12 · ponderado 36.34 · fundamento no procede (conclusión no favorable)».
 
 Lo que no es la conclusión, y José Luis debe pesar:
 
@@ -140,9 +142,9 @@ No tiene deuda, reparte casi toda la caja y en Grecia vende más con las mismas 
 
 A 27,28 € el precio no paga nada por crecer (valor sin crecimiento 28,17 €) y descuenta ventas que caen un 1,7 % al año. Mi NORMAL vale 37,02 € y el MALO, con el margen de 2016–2020, 26,12 €.
 
-El precio está por debajo del precio de Sí (33,42 €, k = 3), sin hipótesis sin fundamento ni datos ausentes materiales: comprar al precio actual.
+El precio está por debajo del precio de Sí (33,42 €, k = 3). Pero el NORMAL y el BUENO cobran para siempre un margen que nació en 2021 sin causa explicada y que ya cede, y el tipo impositivo del motor es anterior a la subida de Chipre. Espero al margen de 2026 completo antes de comprar.
 
-Su fuerza depende de que dure el margen de 2021–2025 y de una r heredada, provisional y por debajo de la r mínima.
+La conclusión depende además de una r heredada, provisional y por debajo de la r mínima.
 
 ## 12. Tesis inversa (B102)
 
@@ -169,26 +171,52 @@ Las tres se comprueban con el informe anual de 2027 (fecha 2028-04-30). La proba
 
 ## 14. B222 y B223
 
-**B222.** La hipótesis fundamentada de la que más depende la conclusión es que el margen EBIT de 2021–2025 dure frente a las plataformas (C15:D15, C18).
+**B222.** La hipótesis fundamentada de la que más depende la conclusión es que el margen de 2021–2025 dure frente a las plataformas (C15:D15, C18). El NORMAL y el BUENO lo cobran para siempre en el terminal. El salto está en el margen bruto: del 51,78 % de 2020 al 55,66 % de 2021 [FY2021, PDF p. 11].
 
-**B223.** Lo resolverían tres cosas:
+**B223.** Los informes de 2016–2021 del expediente muestran el salto pero no su causa (O2 del contradictor), así que ya no lo resolverían. Lo resolverían dos cosas:
 
-1. La cuenta de resultados por naturaleza y el margen bruto de 2016–2021.
-2. La pregunta a Relación con Inversores sobre la causa del salto de 2021.
-3. El margen bruto y el margen EBIT de 2026 completo, el primer año con el derecho de aduana.
+1. La pregunta a Relación con Inversores sobre la causa del salto del margen bruto de 2021.
+2. El margen bruto y el margen EBIT de 2026 completo, el primer año con el derecho de aduana.
 
 ## 15. Qué me haría cambiar de cubo
 
-- **A Vigilar:** un precio por encima de 33,42 €, o una r de José Luis que deje el precio por encima del precio de Sí. También un margen EBIT de 2026 por debajo del 30 % mientras investigo la causa.
+- **A Sí:** que el informe anual de 2026 dé un margen EBIT de al menos el 31,0 % y un margen bruto de al menos el 54,0 %, con el precio aún por debajo de 33,42 €.
 - **A No:** un margen EBIT por debajo del 28 % dos años seguidos, ventas griegas que caigan con la misma red, o deuda para centros o inmuebles.
 - **A Demasiado difícil:** no poder explicar con los informes una caída en Grecia, una caja que pase a depender de socios, Balfin o inmuebles, o una compra grande no relacionada.
 
 ## 16. Comparación con la etapa 1
 
-La etapa 1 decía Vigilar con un precio de Sí ≈ 19 € (estimado) a 24,72 €. Ahora digo Sí con un precio de Sí de 33,42 € a 27,28 €. El negocio que veo es el mismo. Cambian tres cosas:
+La etapa 1 decía Vigilar con un precio de Sí ≈ 19 € (estimado) a 24,72 €. Ahora también digo Vigilar, pero por otra razón. El precio, 27,28 €, ya está por debajo del precio de Sí, 33,42 €, y espero una condición de margen, no un precio. El negocio que veo es el mismo. Cambian tres cosas:
 
-1. **La regla.** El paso a Sí depende de la convención k = 3. Con la regla antigua de hoy (26,12 €) seguiría en Vigilar.
+1. **La regla.** Con la convención k = 3 el precio pasa la regla de precio. Con la regla antigua de hoy (26,12 €) no la pasaría.
 2. **El MALO.** Antes era un FCF que caía un 2 % al año, estimado en ≈ 19 €. Ahora es un margen que vuelve al 26 % y vale 26,12 €. Es más suave, y lo digo.
 3. **El precio y la caja.** El precio sube a 27,28 € ya sin los repartos de 1,70 € por acción, y C76 pasa de 200 a 150.
 
-La etapa 1 no se equivocó en el negocio. Lo que la separa de esta conclusión es una convención y un MALO menos duro, y las dos cosas las tiene que juzgar José Luis.
+La etapa 1 no se equivocó en el negocio. Lo que la separa de esta conclusión es una convención, un MALO menos duro y una condición de margen, y José Luis tiene que juzgar las tres cosas.
+
+## 17. Respuesta al contradictor
+
+Leí `OBJECIONES.json` y comprobé en `texto/` los hechos que cita:
+
+- Chipre al 15 % desde el 1-ene-2026 [H1 2026, PDF p. 40].
+- La frase sobre la presión de largo plazo de las plataformas [H1 2026, PDF p. 14].
+- El margen bruto del 51,78 % en 2020 y del 55,66 % en 2021 [FY2021, PDF p. 11; FY2020, PDF p. 12].
+
+| Objeción | Respuesta | Efecto |
+|---|---|---|
+| **O1 · tipo impositivo** (baja). El motor usa el tipo medio de 2021–2025 (Historia!C52 = 17,99 %). En 2025 el tipo fue del 18,93 % y en H1 2026 del 19,97 %, y Chipre sube al 15 % [H1 2026, PDF p. 40]. | **No rebatida.** El hecho es cierto y el sesgo va en su dirección. C52 es una celda de datos que no puedo cambiar, y no tengo ningún dato que lo contradiga. | A la baja. Según su réplica del motor, el precio de Sí pasa de 33,42 a 32,98 € (−0,44 €). Sola no cambia la zona. Cuenta para el escalón de bajada. |
+| **O2 · margen para siempre** (baja). El terminal cobra sobre toda la base, para siempre, un margen que nació en 2021 sin causa en los informes y que ya cede. | **No rebatida.** Es la incoherencia que anoté en el turno 1 y resolví solo con palabras. El contradictor la cuantifica y comprueba que los informes de 2016–2021 no dan la causa del salto del margen bruto. Con eso cae el primer punto de mi B223, y no tengo un dato de la causa que lo rebata. | A la baja. El precio de Sí baja a 31,44 € si el terminal vuelve al 26 % (−1,98 €) y a ≈ 31,0 € sumando O1. Cuenta para el mismo escalón. |
+
+Son dos objeciones válidas, no rebatidas, en la misma dirección. Con la regla de movimiento del orquestador (como mucho un escalón por dirección), la conclusión baja un escalón: de concluido · Sí · comprar a concluido · Vigilar · esperar, con una condición de negocio comprobable en el informe anual de 2026.
+
+Con la regla de precio sola, la zona no cambiaría. El precio de Sí quedaría en ≈ 31,0 € según la réplica del contradictor, por encima del precio de 27,28 €, aunque el script no lo ha recalculado. La espera no sale de la escalera: sale de que la conclusión favorable descansaba en un margen terminal que la evidencia del expediente no explica.
+
+Cambios en `fase_c.json`:
+
+- cubo final, acción y condición;
+- `fundamento_material.resultado` (`no_procede`) y `que_lo_resolveria`;
+- C104, B101, B222 y B223, con las Observaciones de C104 y B101;
+- insumos, herencia de C104, comparación con la etapa 1 y «a Sí»;
+- las claves nuevas `respuesta_al_contradictor` y `respuesta_al_contradictor_efecto`.
+
+Nada más cambia. El turno 1 conserva su conclusión provisional como registro.
