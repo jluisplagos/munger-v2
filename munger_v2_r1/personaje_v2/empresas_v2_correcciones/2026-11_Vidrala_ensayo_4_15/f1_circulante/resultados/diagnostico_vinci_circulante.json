@@ -21,7 +21,7 @@
    "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md:134 (V-CIRC, 19-nov-2026, opción (a))"
   }
  },
- "codigo": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026)",
+ "codigo": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))",
  "capa_libro_V6.3.1_sin_la_declaracion": {
   "utilizable": false,
   "estado_propuesto": "pendiente_de_datos",
@@ -118,7 +118,7 @@
   "tau_proyeccion": 0.32022,
   "m0": 0.125524470837,
   "K3c": "reinversión media (circulante normalizado a cero en [2021, 2022, 2023, 2024, 2025], V-CIRC) 575.667 ≥ 0 (o ventas a la baja)",
-  "F1-CIRC": "normalización del circulante «circulante_a_cero» en [2021, 2022, 2023, 2024, 2025]: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo circulante (conciliacion_fcf_base, C46: -2090.000 = media de la fila 14 de la ventana)",
+  "F1-CIRC": "normalización del circulante «circulante_a_cero» en [2021, 2022, 2023, 2024, 2025]: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo circulante: el cálculo declarado de C46 del expediente (fase1_v63.json, analisis.C46.calculo: media 2023–2025 de cfo + circulante + dividendos_sociedades_no_consolidadas) se reproduce con sus fuentes, es el C46 del libro (9327.333) y suma la fila 14 de la ventana (media -2090.000) sin otro término que la compense; partida de conciliacion_fcf_base C46 -2090.000. Componentes, para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente (F1-CIRC solo descarta los que lo compensan exactamente): dividendos_sociedades_no_consolidadas (media +37.333): 2023: texto/vinci-urd-2024.txt p.348 «Other 41 31» · 2024: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41» · 2025: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»",
   "F1-LIBRO": "el libro V6.3.1 F1 no calcula lo declarado (A2_propio, circulante normalizado (V-CIRC; LÍMITE DECLARADO: ni la V6.3 ni la V6.3.1 F1 lo calculan; la salida es la plantilla V6.3.2 F1 en un expediente nuevo); N1 y los términos explícitos no están en el libro): el libro V6.3.1 F1 no normaliza el circulante (no tiene la sección de la V6.3.2 F1, Historia C93:L97): con la normalización declarada (V-CIRC) su reinversión sigue llevando la fila 14; hace falta la plantilla V6.3.2 F1, en un expediente nuevo; f: libro (Historia C58) 0.0448986087603459 ≠ capa 0.015743954245326885; ancla de S2C: libro (Historia C53) 5.95952878586358 ≠ capa 2.322645142180095: la conclusión del motor A no se toma del libro; los flujos F1 son un diagnóstico",
   "K3_lineas": [
    [
@@ -157,7 +157,7 @@
     "explicada"
    ],
    [
-    "− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de circulante; la caja base ya lo excluye, Análisis C46)",
+    "− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de circulante; la caja base tiene que excluirlo también, Análisis C46: F1-CIRC)",
     2090.0,
     "normalizacion_declarada"
    ]
@@ -305,7 +305,7 @@
   "tau_proyeccion": 0.32022,
   "m0": 0.125524470837,
   "K3c": "reinversión media (circulante normalizado a cero en [2021, 2022, 2023, 2024, 2025], V-CIRC) 575.667 ≥ 0 (o ventas a la baja)",
-  "F1-CIRC": "normalización del circulante «circulante_a_cero» en [2021, 2022, 2023, 2024, 2025]: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo circulante (conciliacion_fcf_base, C46: -2090.000 = media de la fila 14 de la ventana)",
+  "F1-CIRC": "normalización del circulante «circulante_a_cero» en [2021, 2022, 2023, 2024, 2025]: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo circulante: el cálculo declarado de C46 del expediente (fase1_v63.json, analisis.C46.calculo: media 2023–2025 de cfo + circulante + dividendos_sociedades_no_consolidadas) se reproduce con sus fuentes, es el C46 del libro (9327.333) y suma la fila 14 de la ventana (media -2090.000) sin otro término que la compense; partida de conciliacion_fcf_base C46 -2090.000. Componentes, para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente (F1-CIRC solo descarta los que lo compensan exactamente): dividendos_sociedades_no_consolidadas (media +37.333): 2023: texto/vinci-urd-2024.txt p.348 «Other 41 31» · 2024: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41» · 2025: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»",
   "F1-LIBRO": "el libro V6.3.2 F1 calcula el perímetro declarado (A2_propio) y la normalización del circulante declarada (circulante_a_cero en [2021, 2022, 2023, 2024, 2025]): f, ancla, D_X, series, años normalizados y 0 flujos del Motor coinciden con la capa",
   "K3_lineas": [
    [
@@ -344,7 +344,7 @@
     "explicada"
    ],
    [
-    "− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de circulante; la caja base ya lo excluye, Análisis C46)",
+    "− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de circulante; la caja base tiene que excluirlo también, Análisis C46: F1-CIRC)",
     2090.0,
     "normalizacion_declarada"
    ]
@@ -409,6 +409,31 @@
    "componente": "C46",
    "partida": "entrada de caja del circulante excluida del CFO en C46 por la decisión del inversor de la etapa 1 (media 2023–2025 de la fila 14: −1.463 / −2.311 / −2.496)",
    "importe": -2090.0
+  },
+  "calculo_C46": {
+   "fuente": "fase1_v63.json, analisis.C46.calculo",
+   "demostrado": true,
+   "revision": "para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente (F1-CIRC solo descarta los que lo compensan exactamente)",
+   "operacion": "media",
+   "anios": [
+    2023,
+    2024,
+    2025
+   ],
+   "valor_calculado": 9327.333,
+   "terminos": "cfo + circulante + dividendos_sociedades_no_consolidadas",
+   "C46_del_libro": 9327.333,
+   "componentes": {
+    "dividendos_sociedades_no_consolidadas": {
+     "signo": 1,
+     "media": 37.333333,
+     "fuentes": [
+      "2023: texto/vinci-urd-2024.txt p.348 «Other 41 31»",
+      "2024: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»",
+      "2025: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»"
+     ]
+    }
+   }
   },
   "problemas": [],
   "efecto_en_el_perimetro_declarado": {

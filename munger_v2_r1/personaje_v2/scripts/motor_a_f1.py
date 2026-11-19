@@ -30,7 +30,9 @@ circulante (Análisis C46, p. ej. Control maestro M43 en VINCI), la reinversión
 `normalizacion_circulante` (regla «circulante_a_cero», años, fundamento y registro; solo NIIF) el circulante de esos años no entra en la
 reinversión (ni entradas ni salidas). La fila 14 sigue siendo la cifra publicada; el ajuste (−fila 14) queda a la vista en el resultado y en las
 filas 93–97 del libro V6.3.2 F1. F1-CIRC exige que la normalización cubra los años que usa la reinversión (la ventana de f y los cinco del ancla) y
-que la caja base excluya el mismo circulante (una partida del componente C46 de conciliacion_fcf_base). Sin la declaración no cambia nada.
+que la caja base excluya el mismo circulante: una partida del componente C46 de conciliacion_fcf_base (una declaración) y, desde la revisión C1, el
+cálculo declarado de C46 del expediente (fase1_v63.json), reproducido con sus fuentes y atado al libro, que suma la fila 14 de la ventana sin otro
+término que la compense; si no puede demostrarlo, bloquea. Sin la declaración no cambia nada.
 
 Uso:
   motor_a_f1.py evaluar CARPETA [--libro LIBRO_RECALCULADO] [--declaracion motor_a_f1.json] [--salida DIR]
@@ -53,7 +55,8 @@ from fractions import Fraction as Fr
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 VERSION = ("F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2"
-           " · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026)")
+           " · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada"
+           " por el cálculo declarado de C46 (revisión C1))")
 DECLARACION = "motor_a_f1.json"
 RESULTADO = "motor_a_f1_resultado.json"
 RESULTADO_MD = "motor_a_f1_resultado.md"
@@ -165,6 +168,8 @@ CIRCULANTE = "normalizacion_circulante"
 REGLA_CIRCULANTE = "circulante_a_cero"
 CLAVES_CIRCULANTE = {"regla", "anios", "fundamento", "registro", "nota"}
 _REG_CIRC = "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md:134 (V-CIRC, 19-nov-2026, opción (a))"
+F1_V63 = "fase1_v63.json"
+MAX_TERMINOS_C46 = 16      # (revisión C1) términos del cálculo de C46, además del CFO y la fila 14, cuyas combinaciones se examinan (2¹⁶)
 CLAVES_DECL = {"formato", "nota", "norma_contable", "perimetro_reinversion", "perimetro_margen", "perimetro_palancas_s2c", "perimetro_roic",
                "clasificacion_compras", "transicion", "reinversion_estimada", "series", "normalizacion", "umbral_v_f1a", "parametros",
                "conciliacion_fcf_base", "justificacion_reinversion_negativa", "fuentes_series", "arrendamientos_us_gaap", CIRCULANTE}
@@ -624,14 +629,159 @@ def leer_circulante(decl, anios):
             "aplicable": not forma and norma == "NIIF", "norma": norma}
 
 
-def _guarda_circulante(G, C, decl, H, ventana, horiz):
+def _c46_sin_circulante(carpeta, L, ventana, col, media_w):
+    """(V-CIRC, revisión C1 del 19-nov-2026) La exclusión del circulante de la ventana en la caja base se DEMUESTRA con el cálculo declarado de C46 del
+    expediente (fase1_v63.json, analisis.C46.calculo), no con una partida de conciliacion_fcf_base: las partidas son declaraciones y una se compensa
+    declarando otra (dos partidas C46 de −2.090 y +2.090 hacían pasar F1-CIRC con una caja base que sí cuenta el circulante). Exige:
+      (i) la carpeta del expediente, su fase1_v63.json y C46 con su cálculo declarado (si falta, INCOMPLETO: no se puede demostrar);
+      (ii) que el cálculo se reproduzca con sus fuentes (fase1_historia.calcular_entrada con la carpeta: cada componente con su texto conservado en el
+           expediente, la página PDF citada, la cita en ella y la cifra publicada con su signo; el valor declarado, el calculado);
+      (iii) que sea la media de los años de la ventana de f y sume una vez el CFO y una vez la fila 14 (circulante): C46 = CFO + fila 14 + otros términos;
+      (iv) que describa este libro: Análisis C46 = el cálculo, redondeado a los decimales con que el libro lo escribe, y las filas 11 y 14 del libro en
+           la ventana = la Historia con que se calcula;
+      (v) que ningún otro término del cálculo, ni una combinación de ellos, devuelva en media el circulante que suma la fila 14 (±0,0005): un componente
+           con fuente que compensa la exclusión (la línea del circulante del estado de flujos, sus partes o cualquier cifra que la iguale).
+    Límite declarado: un componente con fuente verdadera que sea circulante solo en parte no se distingue de otro: lo ve la revisión de entradas, con
+    la lista de componentes, fuentes y citas que se enseña en el resultado. Las partidas de conciliacion_fcf_base siguen sin contrastarse con sus
+    fuentes (K3a solo exige que expliquen cada componente; hueco anterior a V-CIRC). Devuelve (problemas [(efecto, texto)], info)."""
+    prob, info = [], {"fuente": f"{F1_V63}, analisis.C46.calculo", "demostrado": False,
+                      "revision": "para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente "
+                                  "(F1-CIRC solo descarta los que lo compensan exactamente)"}
+    if carpeta is None:
+        prob.append(("INCOMPLETO", "sin la carpeta del expediente no se puede demostrar que la caja base excluye el circulante: hace falta el cálculo "
+                                   f"declarado de C46 ({F1_V63}, analisis.C46.calculo); una partida de conciliacion_fcf_base no lo demuestra"))
+        return prob, info
+    try:
+        with open(os.path.join(carpeta, F1_V63), encoding="utf-8") as fh:
+            f1 = json.load(fh)
+    except (OSError, ValueError) as ex:
+        prob.append(("INCOMPLETO", f"el expediente no tiene {F1_V63} legible ({type(ex).__name__}): no se puede demostrar que la caja base (C46) excluye "
+                                   "el circulante con su cálculo declarado; una partida de conciliacion_fcf_base no lo demuestra"))
+        return prob, info
+    an = f1.get("analisis") if isinstance(f1, dict) else None
+    d = an.get("C46") if isinstance(an, dict) else None
+    cal = d.get("calculo") if isinstance(d, dict) else None
+    if not isinstance(cal, dict):
+        prob.append(("INCOMPLETO", f"C46 no tiene cálculo declarado en {F1_V63} (analisis.C46.calculo): una cifra de la etapa 1 o la media del CFO no demuestra "
+                                   "que la caja base excluye el circulante; se declara el cálculo (media de la ventana de cfo + circulante + componentes con "
+                                   "fuente) en un expediente nuevo, y una partida de conciliacion_fcf_base no lo sustituye"))
+        return prob, info
+    hist = f1.get("historia") if isinstance(f1.get("historia"), dict) else {}
+    anios_h = hist.get("anios") if isinstance(hist.get("anios"), list) else []
+    partidas = hist.get("partidas") if isinstance(hist.get("partidas"), dict) else {}
+    import fase1_historia as FH
+    try:
+        out = FH.calcular_entrada("C46", d, partidas, anios_h, carpeta)
+    except (ValueError, TypeError, KeyError, AttributeError, IndexError, OSError) as ex:
+        prob.append(("DATOS INVÁLIDOS", f"el cálculo declarado de C46 ({F1_V63}) no se reproduce con sus fuentes: {ex}"))
+        return prob, info
+    terms = [t for t in cal.get("terminos") or [] if isinstance(t, dict)]
+    comps = cal.get("componentes") if isinstance(cal.get("componentes"), dict) else {}
+    sel = sorted(cal.get("anios") or [])
+    info.update(operacion=cal.get("operacion"), anios=sel, valor_calculado=out.get("valor"),
+                terminos=" ".join(("+ " if t.get("signo", 1) == 1 else "− ") + str(t.get("partida") or t.get("componente")) for t in terms).lstrip("+ "))
+    if cal.get("operacion") != "media":
+        prob.append(("DATOS INVÁLIDOS", f"el cálculo declarado de C46 es una «{cal.get('operacion')}», no la media de la ventana: no demuestra que la caja base "
+                                        "(un flujo medio) excluye el circulante"))
+    if sel != sorted(ventana):
+        prob.append(("DATOS INVÁLIDOS", f"el cálculo declarado de C46 usa los años {sel} y la ventana de f es {sorted(ventana)}: no demuestra que la caja base "
+                                        "excluye el circulante de la ventana"))
+    neto = {}
+    for t in terms:
+        if t.get("partida"):
+            neto[t["partida"]] = neto.get(t["partida"], 0) + t.get("signo", 1)
+    if neto.get("cfo", 0) != 1:
+        prob.append(("DATOS INVÁLIDOS", f"el cálculo declarado de C46 no suma el CFO una vez (cfo con signo neto {neto.get('cfo', 0):+d}): la caja base no es "
+                                        "CFO + fila 14, y la exclusión del circulante no se puede leer en él"))
+    if neto.get("circulante", 0) != 1:
+        prob.append(("DATOS INVÁLIDOS", f"el cálculo declarado de C46 no suma la fila 14 (circulante) una vez (signo neto {neto.get('circulante', 0):+d}): "
+                                        + ("la caja base cuenta el circulante de la ventana" if neto.get("circulante", 0) == 0 else
+                                           "la caja base no excluye el circulante de la ventana una vez")))
+
+    def valores(nombre):
+        p = partidas.get(nombre)
+        return (p.get("valores") if isinstance(p, dict) else p) if p is not None else None
+
+    def del_calculo(t, y):
+        """Valor con signo de un término del cálculo en el año y (None si no lo tiene)."""
+        if t.get("partida"):
+            vs, i = valores(t["partida"]), (anios_h.index(y) if y in anios_h else None)
+            v = Q(vs[i]) if isinstance(vs, list) and i is not None and i < len(vs) else None
+        else:
+            c = (comps.get(t.get("componente")) or {}).get(str(y)) if isinstance(comps.get(t.get("componente")), dict) else None
+            v = Q(c.get("valor")) if isinstance(c, dict) else None
+        return None if v is None else Fr(t.get("signo", 1)) * v
+
+    c46 = Q(L.get("Análisis!C46"))
+    bruto = Q(out.get("valor_sin_redondear"))
+    info["C46_del_libro"] = fl(c46, 6)
+    if c46 is None:
+        prob.append(("INCOMPLETO", "Análisis C46 vacía en el libro: no se puede contrastar con su cálculo declarado"))
+    elif bruto is None or abs(c46 - bruto) > max(TOL_E7, _unidad_de_redondeo(c46) / 2) + Fr(1, 10 ** 9):
+        prob.append(("DATOS INVÁLIDOS", f"el libro lleva C46 = {float(c46):.3f} y el cálculo declarado de C46 da {out.get('valor')!r}: el libro no calcula la caja "
+                                        "base con él, así que no demuestra que la excluya el circulante"))
+    for nombre, fila in (("cfo", 11), ("circulante", 14)):
+        dif = []
+        for y in ventana:
+            vh = del_calculo({"partida": nombre, "signo": 1}, y)
+            vl = Q(L.get(f"Historia!{col[y]}{fila}"))
+            if vh is None or vl is None or abs(vh - vl) > TOL_E7:
+                dif.append(f"{y}: libro {fl(vl, 4)}, cálculo {fl(vh, 4)}")
+        if dif:
+            prob.append(("DATOS INVÁLIDOS", f"la fila {fila} del libro no es la {nombre} de la Historia con que se declara el cálculo de C46 ({'; '.join(dif)}): "
+                                            "el cálculo no describe este libro"))
+    if not prob and media_w:
+        # (v) los demás términos: ninguno, ni una combinación, devuelve en media el circulante que suma la fila 14
+        quitar, otros = {"cfo": 1, "circulante": 1}, []
+        for t in terms:
+            if t.get("partida") in quitar and quitar[t["partida"]] and t.get("signo", 1) == 1:
+                quitar[t["partida"]] = 0
+                continue
+            otros.append(t)
+        serie = [(t, [del_calculo(t, y) for y in ventana]) for t in otros]
+        serie = [(t, s) for t, s in serie if all(x is not None for x in s)]
+        if len(serie) > MAX_TERMINOS_C46:
+            prob.append(("INCOMPLETO", f"el cálculo declarado de C46 tiene {len(serie)} términos además del CFO y la fila 14 (más de {MAX_TERMINOS_C46}): no se "
+                                       "comprueba que ninguna combinación compense el circulante"))
+        else:
+            from itertools import combinations
+            hallado = None
+            for k in range(1, len(serie) + 1):
+                for sub in combinations(serie, k):
+                    m = media(sum((s[j] for _, s in sub), Fr(0)) for j in range(len(ventana)))
+                    if abs(m + media_w) <= TOL_E7:
+                        hallado = (sub, m)
+                        break
+                if hallado:
+                    break
+            if hallado:
+                nombres = [str(t.get("componente") or t.get("partida")) for t, _ in hallado[0]]
+                uno = len(nombres) == 1
+                prob.append(("DATOS INVÁLIDOS", f"{'el término' if uno else 'los términos'} {', '.join(nombres)} del cálculo declarado de C46 "
+                                                f"devuelve{'' if uno else 'n'} el circulante que suma la fila 14 (media {float(hallado[1]):+.3f} frente a "
+                                                f"{float(media_w):+.3f}): la caja base cuenta el circulante de la ventana"))
+    info["componentes"] = {
+        str(t.get("componente")): {"signo": t.get("signo", 1),
+                                   "media": fl(media(Q(((comps.get(t.get("componente")) or {}).get(str(y)) or {}).get("valor")) or Fr(0) for y in sel), 6) if sel else None,
+                                   "fuentes": [f"{y}: {c.get('fuente')} p.{c.get('pagina')} «{c.get('cita')}»" for y in sel
+                                               for c in [((comps.get(t.get("componente")) or {}).get(str(y)) or {})] if isinstance(c, dict)]}
+        for t in terms if t.get("componente")}
+    info["demostrado"] = not prob
+    return prob, info
+
+
+def _guarda_circulante(G, C, decl, H, ventana, horiz, L=None, col=None, carpeta=None):
     """(V-CIRC) F1-CIRC: la normalización declarada del circulante (C = leer_circulante) solo es coherente si (i) su forma es válida, (ii) la norma es
     NIIF (con US GAAP la fila 14 puede llevar tramos del arrendamiento operativo: D-US2 y D-US2 bis), (iii) cubre todos los años que usa la reinversión:
     la ventana de f y los cinco años H–L del ancla de S2C (un ancla con el circulante en unos años y sin él en otros mezcla dos definiciones de la
     reinversión; E4: todo el denominador), (iv) lleva su fundamento (la decisión y dónde la caja base excluye el mismo circulante) y (v) la caja base
-    excluye de verdad ese circulante: una partida completa de conciliacion_fcf_base del componente C46 (C46 − CFO medio, el que contrasta K3a) igual a la
-    media de la fila 14 de la ventana. Sin (v), excluir el circulante de la reinversión lo contaría como caja permanente dentro de C70 (una vez) en lugar
-    de ninguna. Severidad BLOQUEA; el registro lo exige F1-REGISTRO. Devuelve lo que enseña el resultado (o None sin declaración)."""
+    excluye ese circulante. Para (v) se exigen dos cosas: una partida completa de conciliacion_fcf_base del componente C46 (C46 − CFO medio, el que
+    contrasta K3a) igual a la media de la fila 14 de la ventana, que es solo una declaración (K3a solo comprueba que la SUMA de las partidas C46
+    explica C46 − CFO; otra partida puede compensarla), y (revisión C1) la demostración con datos contrastados: el cálculo declarado de C46 del
+    expediente (fase1_v63.json), reproducido con sus fuentes, que suma la fila 14 de la ventana y es el C46 del libro, sin otro término que la
+    compense (_c46_sin_circulante; si no se puede demostrar, bloquea). Sin (v), excluir el circulante de la reinversión lo contaría como caja
+    permanente dentro de C70 (una vez) en lugar de ninguna. Límite declarado: un componente de C46 con fuente verdadera que sea circulante en parte lo
+    ve la revisión de entradas. Severidad BLOQUEA; el registro lo exige F1-REGISTRO. Devuelve lo que enseña el resultado (o None sin declaración)."""
     if C is None:
         return None
     prob = list(C["forma"])
@@ -662,20 +812,36 @@ def _guarda_circulante(G, C, decl, H, ventana, horiz):
     if media_w is None:
         prob.append(("INCOMPLETO", "la fila 14 tiene huecos en la ventana: no se puede comprobar que la caja base excluye el circulante"))
     elif media_w != 0 and not coinc:
-        prob.append(("DATOS INVÁLIDOS", f"la caja base no excluye el circulante de la ventana: ninguna partida completa de conciliacion_fcf_base del componente C46 "
-                                        f"(C46 − CFO medio) es la media de la fila 14 de la ventana ({float(media_w):+.3f}); sin esa exclusión, quitar el circulante "
-                                        "de la reinversión lo contaría como caja permanente dentro de C70 (una vez) en lugar de ninguna"))
+        prob.append(("DATOS INVÁLIDOS", f"la conciliación de la caja base no declara que excluye el circulante de la ventana: ninguna partida completa de "
+                                        f"conciliacion_fcf_base del componente C46 (C46 − CFO medio) es la media de la fila 14 de la ventana ({float(media_w):+.3f}); "
+                                        "con una caja base que cuenta el circulante, quitarlo de la reinversión lo contaría como caja permanente dentro de C70 (una "
+                                        "vez) en lugar de ninguna"))
+    # (revisión C1) la partida es una declaración: la exclusión se demuestra con el cálculo declarado de C46 del expediente (solo si la normalización
+    # se aplica y la fila 14 de la ventana no suma cero: con media cero, C46 es el mismo con el circulante o sin él)
+    c46 = None
+    if C["aplicable"] and media_w:
+        p46, c46 = _c46_sin_circulante(carpeta, L or {}, ventana, col or {}, media_w)
+        prob.extend(p46)
     efecto = ("MODELO NO APLICABLE" if any(p[0] == "MODELO NO APLICABLE" for p in prob) else "DATOS INVÁLIDOS" if any(p[0] == "DATOS INVÁLIDOS" for p in prob)
               else "INCOMPLETO")
-    G.add("F1-CIRC", bool(prob), "BLOQUEA", efecto,
-          ("normalización del circulante: " + "; ".join(p[1] for p in prob))[:1500] if prob else
-          (f"normalización del circulante «{REGLA_CIRCULANTE}» en {C['anios']}: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo "
-           f"circulante (conciliacion_fcf_base, C46: {float(Q(coinc[0]['importe'])) if coinc else 0.0:+.3f} = media de la fila 14 de la ventana)"),
-          "V-CIRC (a) · 19-nov-2026")
+    if prob:
+        txt = ("normalización del circulante: " + "; ".join(p[1] for p in prob))[:1500]
+    elif c46:
+        comp_ = "; ".join(f"{k} (media {float(v.get('media') or 0):+.3f}): {' · '.join(v.get('fuentes') or [])}" for k, v in (c46.get("componentes") or {}).items())
+        a46 = c46.get("anios") or []
+        txt = (f"normalización del circulante «{REGLA_CIRCULANTE}» en {C['anios']}: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el "
+               f"mismo circulante: el cálculo declarado de C46 del expediente ({c46.get('fuente')}: media {'–'.join(str(a) for a in a46[:1] + a46[-1:])} de "
+               f"{c46.get('terminos')}) se reproduce con sus fuentes, es el C46 del libro ({c46.get('C46_del_libro')}) y suma la fila 14 de la ventana (media "
+               f"{float(media_w):+.3f}) sin otro término que la compense; partida de conciliacion_fcf_base C46 "
+               f"{float(Q(coinc[0]['importe'])) if coinc else float('nan'):+.3f}. " + (f"Componentes, {c46.get('revision')}: {comp_}" if comp_ else "Sin más componentes"))[:1500]
+    else:
+        txt = (f"normalización del circulante «{REGLA_CIRCULANTE}» en {C['anios']}: cubre la ventana de f y los cinco años del ancla; la fila 14 de la ventana "
+               "suma cero, así que la caja base es la misma con el circulante o sin él")
+    G.add("F1-CIRC", bool(prob), "BLOQUEA", efecto, txt, "V-CIRC (a) · 19-nov-2026; revisión C1")
     if not _registro_ok(C["registro"]):
         G.add("F1-REGISTRO", True, "BLOQUEA", "INCOMPLETO", f"{CIRCULANTE} sin registro (fecha, persona, motivo): es una decisión, no la rellena el agente",
               "E2 (registro de cada declaración)")
-    return {"media_fila_14_ventana": media_w, "partida_caja_base": coinc[0] if coinc else None, "problemas": [p[1] for p in prob]}
+    return {"media_fila_14_ventana": media_w, "partida_caja_base": coinc[0] if coinc else None, "calculo_C46": c46, "problemas": [p[1] for p in prob]}
 
 
 def _guarda_norma(G, L, decl):
@@ -1352,9 +1518,10 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
                     lineas.append(("− partida del arrendamiento operativo dentro de la fila 14, que se retira del circulante (US GAAP: su pago ya está en el FCF base)",
                                    -media(U["ajuste"][y] for y in ventana), "explicada"))
                 elif (circ_aplica and normalizar) if con_ajuste else nl_activa:
-                    # (V-CIRC) el circulante que la normalización declarada excluye de la reinversión (la caja base ya lo excluye: Análisis C46)
+                    # (V-CIRC) el circulante que la normalización declarada excluye de la reinversión (la caja base tiene que excluirlo también,
+                    # Análisis C46: lo demuestra o no F1-CIRC con el cálculo declarado de C46; revisión C1)
                     lineas.append(("− circulante de la ventana que la normalización declarada excluye de la reinversión (V-CIRC: ni entradas ni salidas de "
-                                   "circulante; la caja base ya lo excluye, Análisis C46)",
+                                   "circulante; la caja base tiene que excluirlo también, Análisis C46: F1-CIRC)",
                                    -media(H["dwc"][y] - WC_de(y, con_ajuste, normalizar) for y in ventana), "normalizacion_declarada"))
             else:
                 lineas.append(("+ reinversión de la ventana que la proyección sin crecimiento no repite (capex − D_X + circulante; D&A ROU o PPA sin declarar)",
@@ -1492,7 +1659,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
     G.add("F1-K3a", bool(k3a_mot), "BLOQUEA", "DATOS INVÁLIDOS",
           ("caja base por dos vías: " + "; ".join(k3a_mot)) if k3a_mot else "caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada", "K3")
     # (V-CIRC) F1-CIRC: la normalización declarada del circulante, coherente con la caja base (sin declaración no se añade nada)
-    circ_info = _guarda_circulante(G, circ, decl, H, ventana, horiz)
+    circ_info = _guarda_circulante(G, circ, decl, H, ventana, horiz, L, col, carpeta)
     # K3b · cuántas veces cuenta la proyección el coste de arrendamiento: amortización ROU en el margen + pagos en el FCF base − ROU que f devuelve
     if per and us:
         _k3b_us(G, k3, U, us_f, per, rou_pos, c49_pos)
@@ -1683,6 +1850,7 @@ def evaluar(L, decl, motor_libro=None, carpeta=None):
             "excluido_medio_en_la_ventana": (fl(media(H["dwc"][y] for y in ventana), 6)
                                              if circ_aplica and all(y in circ_anios and H["dwc"][y] is not None for y in ventana) else None),
             "caja_base": ({"componente": "C46", "partida": pcb.get("partida"), "importe": fl(Q(pcb.get("importe")), 6)} if pcb else None),
+            "calculo_C46": (circ_info or {}).get("calculo_C46"),
             "problemas": (circ_info or {}).get("problemas") or [],
             "efecto_en_el_perimetro_declarado": ({"sin_normalizar": _efecto(sin_n), "normalizado": _efecto(decl_r)} if sin_n or decl_r else None) if circ_aplica else None,
             "libro": ({"version": "V6.3.2 F1", "efectiva": nl["efectiva"], "anios": nl["anios"]} if nl is not None else
@@ -3401,6 +3569,16 @@ def _libro_v631(L, per, rou, ppa, anios, col, DX_de, decl_r, dif_motor, circ=Non
     return {"perimetro_efectivo": p, "motivos": mot, "flujos_contrastados": n}
 
 
+def _md_calculo_c46(c):
+    """(V-CIRC, revisión C1) Línea del informe con el cálculo declarado de C46 que demuestra (o no) la exclusión del circulante en la caja base."""
+    if not c:
+        return "- Cálculo declarado de C46: no examinado (la normalización no se aplica o la fila 14 de la ventana suma cero)"
+    comp = "; ".join(f"{k} (media {v.get('media')}): {' · '.join(v.get('fuentes') or [])}" for k, v in (c.get("componentes") or {}).items()) or "ninguno"
+    return (f"- Cálculo declarado de C46 ({c.get('fuente')}): {'demuestra' if c.get('demostrado') else 'NO demuestra'} la exclusión del circulante · "
+            f"{c.get('operacion')} {c.get('anios')} de {c.get('terminos')} = {c.get('valor_calculado')} (C46 del libro {c.get('C46_del_libro')}) · "
+            f"componentes, {c.get('revision')}: {comp}")
+
+
 def informe_md(r):
     md = [f"# Motor A · perímetro F1 · {r.get('version')}", "",
           f"Libro `{str(r.get('libro_sha256'))[:16]}…` · declaración `{str(r.get('declaracion_sha256'))[:16]}…` · {r.get('fecha')}", "",
@@ -3444,6 +3622,7 @@ def informe_md(r):
                f"- Declarada: {'sí' if nc.get('declarada') else 'no'} · aplicada: {'sí' if nc.get('aplicada') else 'no'} · regla: {nc.get('regla')} · años: {nc.get('anios')}",
                f"- Circulante excluido de la reinversión por año (fila 14, + consume caja; la fila 14 no cambia): {nc.get('excluido_por_anio')}",
                f"- Caja base (conciliacion_fcf_base, C46): {nc.get('caja_base')}",
+               _md_calculo_c46(nc.get("calculo_C46")),
                f"- Libro: {nc.get('libro')}"]
         if sn and no:
             md += [f"- Efecto en el perímetro declarado (sin normalizar → normalizado): f {sn.get('f')} → {no.get('f')} · reinversión media "

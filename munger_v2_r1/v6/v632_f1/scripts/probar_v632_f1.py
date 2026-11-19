@@ -21,7 +21,10 @@ circ: (LibreOffice) el libro calcula la normalización declarada y la capa motor
   (f normalizada = f − media del circulante de la ventana ÷ ventas medias; C53 = ΔV ÷ (Σ fila 31 − Σ fila 14 de H–L)). Sin la normalización el libro es
   la V6.3.1 (0 celdas distintas) y K3c bloquea. Solo la ventana: f, sin ancla. Sin un año de la ventana: f vacía y Motor V05 INCOMPLETO. Regla o marca
   no reconocidas: f y ancla vacías y V05 DATOS INVÁLIDOS. A0 con la normalización. Un libro V6.3.1 con la normalización declarada: F1-LIBRO bloquea. Elis
-  (caja base CON el circulante) con la normalización: el libro la calcula y la capa bloquea (F1-CIRC, DATOS INVÁLIDOS).
+  (caja base CON el circulante) con la normalización: el libro la calcula y la capa bloquea (F1-CIRC, DATOS INVÁLIDOS). (Revisión C1) La carpeta lleva el
+  expediente sintético tipo VINCI (pruebas/datos_circulante/expediente_tipo_vinci.py: fase1_v63.json con el cálculo declarado de C46 y su texto), que
+  es lo que demuestra la exclusión del circulante en la caja base; C9: la sonda del revisor (caja base CON el circulante y dos partidas C46 que se
+  compensan) en un libro V6.3.2 recalculado: el libro calcula f −1,34 % y la capa bloquea con F1-CIRC.
 Escribe ../pruebas/resultado_<prueba>.json y .md. Código 0 si todo pasa.
 """
 import copy
@@ -352,6 +355,10 @@ def circ(dest):
     _nuevo(dest)
     open(os.path.join(dest, FUENTE_TXT), "w", encoding="utf-8").write(FUENTE)
     cel, vf = _vinci_entradas()
+    # (revisión C1) el expediente sintético tipo VINCI: fase1_v63.json con el cálculo declarado de C46 (CFO + fila 14 + dividendos) y su texto
+    sys.path.insert(0, os.path.join(PV, "pruebas", "datos_circulante"))
+    import expediente_tipo_vinci as EXP
+    EXP.escribir(dest, vf)
     detalle = {}
     bases = {}
     for pl, nom in ((PLANTILLA, "V6.3.2"), (PLANTILLA_V631, "V6.3.1")):
@@ -480,6 +487,22 @@ def circ(dest):
             and not salta(re_, "F1-LIBRO") and not salta(re_, "F1-REPLICA"), str(bloquean(re_)))
     else:
         chk("C8 · libro de Elis d2593777… materializado", False, sha(ELIS)[:16])
+    # ---------------------------------------------------------------- C9 · (revisión C1) la sonda del revisor en un libro V6.3.2 recalculado
+    d9 = _decl_vinci()
+    d9["conciliacion_fcf_base"].append({"componente": "C46", "importe": 2090.0, "partida": "compensación", "fuente": {"documento": "x", "pagina": 1}})
+    rec9 = libro("Vinci_tipo_compensadas", d9, despues={"Análisis!C46": 11417.333})
+    w9 = load_workbook(rec9, data_only=True)
+    r9 = evaluar(rec9, d9)
+    g9 = [g for g in r9["guardas"] if g["id"] == "F1-CIRC"]
+    chk("C9 · (C1) caja base CON el circulante (C46 = 11.417,333) y dos partidas C46 que se compensan (−2.090 y +2.090, documento «x»): el libro calcula "
+        "la normalización (f −1,34 % = capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS (el cálculo declarado de C46 da 9.327,333), y solo con él",
+        w9["Historia"]["C97"].value == REGLA and abs(w9["Historia"]["C58"].value - r9["calculo_perimetro_declarado"]["f"]) <= 1e-12
+        and abs(w9["Historia"]["C58"].value + 0.013411) < 1e-5 and abs(w9["Análisis"]["C52"].value - 6509.333) < 1e-6 and bloquean(r9) == ["F1-CIRC"]
+        and g9 and g9[0]["efecto"] == "DATOS INVÁLIDOS" and "9327.333" in g9[0]["detalle"] and not salta(r9, "F1-K3a") and not salta(r9, "F1-K3c")
+        and r9["utilizable_para_conclusion"] is False, f"{bloquean(r9)} · C58 {w9['Historia']['C58'].value!r} · {(g9[0]['detalle'] if g9 else '')[:140]}")
+    detalle["sonda_C1"] = {"C58": w9["Historia"]["C58"].value, "C52": w9["Análisis"]["C52"].value, "bloquean": bloquean(r9),
+                           "F1_CIRC": g9[0]["detalle"][:400] if g9 else None}
+    w9.close()
     rc, txt = run([PY, "-I", os.path.join(AQUI, "verificar_v632.py"), os.path.join(dest, "Vinci_tipo_norm.xlsx"), REF])
     chk("C1 · el libro con la normalización aplicada (antes de recalcular) es ÍNTEGRO frente a la referencia: C93:L94 son entradas", rc == 0, txt.splitlines()[1])
     shutil.rmtree(os.path.join(dest, "_perfil_lo"), ignore_errors=True)

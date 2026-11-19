@@ -1,0 +1,27 @@
+batería personaje_v2/pruebas/test_circulante_f1.py
+código anterior (fbb146d): pasan 75 de 98 (registradas 98; sentencias con error 0)
+código actual: pasan 98 de 98 (sentencias con error 0)
+no pasan con fbb146d y sí con el actual (23):
+  · VINCI · F1-K3c NO salta (mide la reinversión normalizada) y F1-CIRC no salta: cubre 2021–2025 y el cálculo declarado de C46 del expediente (fase1_v63.json: CFO + fila 14 + dividendos, con sus fuentes) excluye el circulante y es el
+  · VINCI · el resultado enseña el cálculo declarado de C46 que lo demuestra (años, términos, valor = C46 del libro) y, para la revisión de entradas, cada componente con su fuente, su página y su cita
+  · G · la partida C46 del circulante con otro importe (−2.000 frente a la media −2.090): F1-CIRC DATOS INVÁLIDOS (y K3a ve la caja base sin explicar)
+  · CAJA · (C1, sonda del revisor) caja base CON el circulante y dos partidas C46 que se compensan (−2.090 «circulante excluido» y +2.090 «compensación», documento «x»): K3a cuadra y K3c no salta, pero F1-CIRC BLOQUEA (DATOS INVÁLIDOS
+  · CAJA · (C1) la misma sonda con un libro V6.3.2 (antes: nada bloqueaba, utilizable con f −1,34 % y flujo sin crecimiento 7.365,9): ya no es utilizable y bloquea F1-CIRC, y solo él
+  · CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 sin la fila 14 (C46 = CFO + dividendos): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 con la fila 14 y un componente «compensación» de 2.090 que cita un documento que no existe («x», p. 1): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 con la fila 14 y la línea del circulante del estado de flujos como componente (fuente verdadera: 1.463 / 2.311 / 2.496): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 con la fila 14 y el circulante repartido en dos componentes con fuente (clientes y provisiones): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 con la fila 14 y un componente con fuente que lo compensa en media (2.090 cada año): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · caja base genuina y la partida C46 de −2.090, pero sin la carpeta del expediente: F1-CIRC INCOMPLETO (no se puede demostrar que C46 excluye el circulante)
+  · CAJA · caja base genuina y la partida C46 de −2.090, pero sin fase1_v63.json: F1-CIRC INCOMPLETO (no se puede demostrar que C46 excluye el circulante)
+  · CAJA · caja base genuina y la partida C46 de −2.090, pero con C46 sin cálculo declarado (una cifra): F1-CIRC INCOMPLETO (no se puede demostrar que C46 excluye el circulante)
+  · CAJA · el cálculo declarado de C46 es una suma, no la media: F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 usa otros años (2022–2024, CFO + fila 14): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 resta la fila 14: F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 suma la fila 14 dos veces: F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 no lleva el CFO: F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 cita una página que no existe (p. 99): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 cita un texto que no está en la página: F1-CIRC DATOS INVÁLIDOS
+  · CAJA · el cálculo declarado de C46 se hace con otra Historia (2024: CFO 11.403 y fila 14 −2.000, misma suma; el libro lleva 11.714 y −2.311): F1-CIRC DATOS INVÁLIDOS
+  · CAJA · C46 del libro con dos decimales (9.327,33 = el cálculo 9.327,333… redondeado): F1-CIRC no salta; con 9.327,34, DATOS INVÁLIDOS («el libro lleva C46»)
+  · MD · el informe lleva la sección «Normalización declarada del circulante (V-CIRC)» con el efecto y el cálculo declarado de C46 que demuestra la exclusión, con sus componentes para la revisión de entradas; sin la declaración, no

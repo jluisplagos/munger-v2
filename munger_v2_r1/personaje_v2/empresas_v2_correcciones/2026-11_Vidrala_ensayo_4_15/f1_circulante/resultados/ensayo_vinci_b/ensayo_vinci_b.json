@@ -1,8 +1,36 @@
 {
- "que_es": "ENSAYO de la receta de vinci_b sobre una copia del árbol en /dev/shm (borrada después): cambiar_base.py preparar con cambio_vinci_b.propuesta.json desde una copia de vinci/Vinci, el bloque normalizacion_circulante añadido a la declaración conservada y pipeline.py --config config_v2_v632_f1.json hasta el relevo de la fase A. Ningún expediente del repositorio se tocó.",
+ "que_es": "ENSAYO de la receta de vinci_b sobre una copia del árbol en /dev/shm (borrada después): cambiar_base.py preparar con cambio_vinci_b.propuesta.json desde una copia de vinci/Vinci, el bloque normalizacion_circulante añadido a la declaración conservada y pipeline.py --config config_v2_v632_f1.json hasta el relevo de la fase A; después, la previsión F1 sobre el libro de datos recalculado. Ningún expediente del repositorio se tocó.",
  "fecha": "2026-11-19",
- "codigo": "rama f1/circulante-normalizado (árbol de trabajo, antes del commit)",
+ "codigo": "rama f1/circulante-normalizado, árbol de trabajo con la corrección C1 (antes del commit)",
+ "cambiar_base": {
+  "codigo": 0,
+  "salida": "racion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)); C50 (entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)); C42 (entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)); C96 (entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)); C40 (entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)) · que se descartan: ninguna.\n- Entrada efectiva del FCF base: «estricta» (`entrada_efectiva.json`; expediente nuevo de la 4.15 (modo por defecto)).\n"
+ },
+ "fase1_v63_C46": {
+  "valor": 9327.333,
+  "con_calculo": true,
+  "terminos": [
+   {
+    "partida": "cfo",
+    "signo": 1
+   },
+   {
+    "partida": "circulante",
+    "signo": 1
+   },
+   {
+    "componente": "dividendos_sociedades_no_consolidadas",
+    "signo": 1
+   }
+  ],
+  "anios": [
+   2023,
+   2024,
+   2025
+  ]
+ },
  "pipeline": {
+  "codigo": 10,
   "paso": 6,
   "esperando": "6:fase_a.json",
   "plantilla_activa": {
@@ -15,13 +43,14 @@
  },
  "prevision_F1_sobre_el_libro_de_datos_recalculado": {
   "libro": "Vinci_v63_datos.xlsx",
-  "libro_sha256": "6d4a073c301b5eda079c9108ea26272c78354fcf9817c811e399a8b17df8fd93",
+  "libro_sha256": "2ddf5002251a52e0c3304034f3a2721173824befffdb38415465bc43ebca4214",
+  "version_capa": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))",
   "utilizable": true,
   "estado_propuesto": null,
   "bloquean": [],
   "avisos": [
-   "V-F1f",
-   "F1-SERIES-CERO"
+   "F1-SERIES-CERO",
+   "V-F1f"
   ],
   "f": 0.015743954245327,
   "flujo_sin_crecimiento": 5190.976677253,
@@ -43,7 +72,34 @@
   "C97": "circulante_a_cero",
   "C58": 0.0157439542453269,
   "C53": 2.3226451421801,
-  "Palancas_F16": null
- },
- "datos_v63_md": "lleva la nota «Normalización declarada del circulante (libro V6.3.2 F1, Historia C93:L97 …)» y, en P-FOSO, el ancla Historia!C53 = 2.323"
+  "F1_CIRC": {
+   "salta": false,
+   "detalle": "normalización del circulante «circulante_a_cero» en [2021, 2022, 2023, 2024, 2025]: cubre la ventana de f y los cinco años del ancla, y la caja base excluye el mismo circulante: el cálculo declarado de C46 del expediente (fase1_v63.json, analisis.C46.calculo: media 2023–2025 de cfo + circulante + dividendos_sociedades_no_consolidadas) se reproduce con sus fuentes, es el C46 del libro (9327.333) y suma la fila 14 de la ventana (media -2090.000) sin otro término que la compense; partida de conciliacion_fcf_base C46 -2090.000. Componentes, para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente (F1-CIRC solo descarta los que lo compensan exactamente): dividendos_sociedades_no_consolidadas (media +37.333): 2023: texto/vinci-urd-2024.txt p.348 «Other 41 31» · 2024: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41» · 2025: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»"
+  },
+  "calculo_C46": {
+   "fuente": "fase1_v63.json, analisis.C46.calculo",
+   "demostrado": true,
+   "revision": "para la revisión de entradas: que ningún componente del cálculo de C46 sea circulante, ni en parte, aunque tenga fuente (F1-CIRC solo descarta los que lo compensan exactamente)",
+   "operacion": "media",
+   "anios": [
+    2023,
+    2024,
+    2025
+   ],
+   "valor_calculado": 9327.333,
+   "terminos": "cfo + circulante + dividendos_sociedades_no_consolidadas",
+   "C46_del_libro": 9327.333,
+   "componentes": {
+    "dividendos_sociedades_no_consolidadas": {
+     "signo": 1,
+     "media": 37.333333,
+     "fuentes": [
+      "2023: texto/vinci-urd-2024.txt p.348 «Other 41 31»",
+      "2024: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»",
+      "2025: texto/vinci-urd-2025.txt p.370 «Dividends received from unconsolidated companies 40 41»"
+     ]
+    }
+   }
+  }
+ }
 }

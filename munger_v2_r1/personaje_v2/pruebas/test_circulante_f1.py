@@ -10,6 +10,10 @@ Grupos:
           el flujo sin crecimiento y el ancla son los del cálculo independiente (1,57 %, 5.191, 2,32), K3c no salta y el libro V6.3.1 no lo calcula.
   G       la declaración: forma, cobertura de los años que usa la reinversión, fundamento, registro, norma y coherencia con la caja base (F1-CIRC);
           vacío = sin declarar; una normalización inválida no se aplica.
+  CAJA    (revisión C1) la exclusión del circulante en C46 se demuestra con el cálculo declarado de C46 del expediente sintético
+          (datos_circulante/expediente_tipo_vinci.py: fase1_v63.json y su texto), no con partidas: la sonda del revisor (dos partidas C46 que se
+          compensan) con libros V6.3.1 y V6.3.2, cálculos amañados con y sin fuente, sin cálculo o sin carpeta (INCOMPLETO), cálculos que no son
+          la media de la ventana con CFO + fila 14 o que no describen el libro.
   K3      el puente lleva la partida del circulante excluido y cuadra; K3c mide la reinversión normalizada y sigue bloqueando si es negativa.
   LIBRO   oráculo y réplica con libros V6.3, V6.3.1 y V6.3.2 sintéticos (las celdas que dependen de las entradas se recalculan aquí, en coma
           flotante, como las fórmulas de la plantilla e independientemente de la capa).
@@ -29,9 +33,11 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 PV = os.path.dirname(AQUI)
 RAIZ = os.path.dirname(PV)
 sys.path.insert(0, os.path.join(PV, "scripts"))
+sys.path.insert(0, os.path.join(AQUI, "datos_circulante"))
 sys.dont_write_bytecode = True
 import motor_a_f1 as M  # noqa: E402
 import f1_libro_v631 as V631  # noqa: E402
+import expediente_tipo_vinci as EXP  # noqa: E402
 
 R = []
 
@@ -63,6 +69,35 @@ NORM = {"regla": "circulante_a_cero", "anios": [2021, 2022, 2023, 2024, 2025],
         "registro": REG}
 CARPETA = tempfile.mkdtemp(prefix="circ_f1_")
 open(os.path.join(CARPETA, FUENTE_TXT), "w", encoding="utf-8").write(FUENTE)
+# (revisión C1) el expediente sintético: fase1_v63.json con el cálculo declarado de C46 (CFO + fila 14 + dividendos, con su fuente) y su texto
+EXP.escribir(CARPETA, FIX["valores"])
+TMP_C46 = tempfile.mkdtemp(prefix="circ_c46_")
+
+
+def carpeta_con(f1=None, sin_f1=False):
+    """Otra carpeta de expediente sintético: la fuente de las series, el texto conservado y fase1_v63.json (el del expediente tipo, otro, o ninguno)."""
+    c = tempfile.mkdtemp(dir=TMP_C46)
+    open(os.path.join(c, FUENTE_TXT), "w", encoding="utf-8").write(FUENTE)
+    return EXP.escribir(c, None if sin_f1 else FIX["valores"], f1=f1)
+
+
+def f1_c46(terminos=None, componentes=None, quitar_calculo=False, **cambios):
+    """fase1_v63.json del expediente tipo con el cálculo declarado de C46 cambiado (términos, componentes añadidos y claves del cálculo)."""
+    f = EXP.fase1(FIX["valores"])
+    d = f["analisis"]["C46"]
+    if quitar_calculo:
+        del d["calculo"]
+        return f
+    cal = d["calculo"]
+    if terminos is not None:
+        cal["terminos"] = terminos
+    cal["componentes"].update(copy.deepcopy(componentes or {}))
+    for k, v in cambios.items():
+        if k == "valor":
+            d["valor"] = v
+        else:
+            cal[k] = v
+    return f
 
 
 def serie(vals):
@@ -170,8 +205,8 @@ def libro_vinci(v632=False, regla=None, anios_norm=(), **cambios):
     return recalcular(L)
 
 
-def ev(L, d):
-    return M.evaluar(L, d, carpeta=CARPETA)
+def ev(L, d, carpeta=CARPETA):
+    return M.evaluar(L, d, carpeta=carpeta)
 
 
 def g(r, gid):
@@ -241,9 +276,11 @@ paso("VINCI · reinversión media normalizada = capex − D_X = +575,667; flujo 
      and abs(cd(r_n)["flujo_sin_crecimiento"] - cd(r_sin)["flujo_sin_crecimiento"] - 2174.9) < 0.1, f"F0 {cd(r_n).get('flujo_sin_crecimiento')}")
 paso("VINCI · ancla de S2C normalizada en los cinco años H–L = ΔV ÷ Σ (capex − D_X + adquisiciones) = 31.365 ÷ 13.504 = 2,3226 (10⁻⁹)",
      abs(Fr(repr(cd(r_n)["ancla_s2c_E4"])) - E_NORM["ancla"]) < Fr(1, 10 ** 9) and abs(cd(r_n)["ancla_s2c_E4"] - 31365 / 13504) < 1e-9, f"{cd(r_n).get('ancla_s2c_E4')}")
-paso("VINCI · F1-K3c NO salta (mide la reinversión normalizada) y F1-CIRC no salta (cubre 2021–2025 y la caja base excluye −2.090 en C46)",
-     not salta(r_n, "F1-K3c") and g(r_n, "F1-CIRC") and not salta(r_n, "F1-CIRC") and "normalizado" in g(r_n, "F1-K3c")[0]["detalle"],
-     g(r_n, "F1-K3c")[0]["detalle"][:120])
+paso("VINCI · F1-K3c NO salta (mide la reinversión normalizada) y F1-CIRC no salta: cubre 2021–2025 y el cálculo declarado de C46 del expediente "
+     "(fase1_v63.json: CFO + fila 14 + dividendos, con sus fuentes) excluye el circulante y es el C46 del libro",
+     not salta(r_n, "F1-K3c") and g(r_n, "F1-CIRC") and not salta(r_n, "F1-CIRC") and "normalizado" in g(r_n, "F1-K3c")[0]["detalle"]
+     and "cálculo declarado de C46" in g(r_n, "F1-CIRC")[0]["detalle"] and "fase1_v63.json" in g(r_n, "F1-CIRC")[0]["detalle"],
+     g(r_n, "F1-CIRC")[0]["detalle"][:200])
 paso("VINCI · con el libro V6.3.1 F1 la conclusión no se toma del libro: F1-LIBRO BLOQUEA como límite declarado (la salida es la V6.3.2 F1 en un expediente nuevo) y solo él",
      bloquean(r_n) == ["F1-LIBRO"] and "V6.3.2 F1" in g(r_n, "F1-LIBRO")[0]["detalle"] and r_n["estado_propuesto"] == "no_entregable · limite_del_modelo"
      and "no normaliza el circulante" in g(r_n, "F1-LIBRO")[0]["detalle"] and not salta(r_n, "F1-REPLICA"), g(r_n, "F1-LIBRO")[0]["detalle"][:160])
@@ -252,6 +289,14 @@ paso("VINCI · el resultado enseña la normalización: años, lo excluido por a�
      nc.get("aplicada") is True and nc.get("anios") == NORM["anios"] and nc.get("excluido_por_anio") == {"2021": -1579.0, "2022": -392.0, "2023": -1463.0, "2024": -2311.0, "2025": -2496.0}
      and (nc.get("caja_base") or {}).get("importe") == -2090.0 and nc["efecto_en_el_perimetro_declarado"]["sin_normalizar"]["f"] == cd(r_sin)["f"]
      and nc["efecto_en_el_perimetro_declarado"]["normalizado"]["f"] == cd(r_n)["f"] and nc.get("libro") == "V6.3 o V6.3.1 F1: el libro no normaliza el circulante")
+c46n = nc.get("calculo_C46") or {}
+paso("VINCI · el resultado enseña el cálculo declarado de C46 que lo demuestra (años, términos, valor = C46 del libro) y, para la revisión de entradas, "
+     "cada componente con su fuente, su página y su cita",
+     c46n.get("demostrado") is True and c46n.get("anios") == [2023, 2024, 2025] and c46n.get("valor_calculado") == 9327.333 and c46n.get("C46_del_libro") == 9327.333
+     and "circulante" in str(c46n.get("terminos")) and list((c46n.get("componentes") or {})) == ["dividendos_sociedades_no_consolidadas"]
+     and abs(c46n["componentes"]["dividendos_sociedades_no_consolidadas"]["media"] - 37.333333) < 1e-6
+     and any("p.2" in x and "Other 41 31" in x for x in c46n["componentes"]["dividendos_sociedades_no_consolidadas"]["fuentes"])
+     and "revisión de entradas" in str(c46n.get("revision")), json.dumps(c46n, ensure_ascii=False)[:200])
 paso("VINCI · (control) la fila 14 (cifra publicada) no cambia: el libro y el resultado conservan −1.463 / −2.311 / −2.496",
      [h(L0, 14, y) for y in (2023, 2024, 2025)] == [-1463, -2311, -2496] and r_n["entradas_registradas"]["Historia!C70 (FCF base que calibra f)"] == 4419.333)
 paso("VINCI · los diagnósticos por perímetro usan la misma normalización (A0, A1, A2 y la cota B; la PPA y la ROU no cambian)",
@@ -296,7 +341,7 @@ paso("G · sin registro: F1-REGISTRO INCOMPLETO (es una decisión de la persona,
 conc_mal = [dict(e, importe=-2000.0) if e["importe"] == -2090.0 else e for e in CONC]
 r_c = ev(L0, decl(NORM, conc=conc_mal))
 paso("G · la partida C46 del circulante con otro importe (−2.000 frente a la media −2.090): F1-CIRC DATOS INVÁLIDOS (y K3a ve la caja base sin explicar)",
-     efecto(r_c, "F1-CIRC") == ["DATOS INVÁLIDOS"] and "caja base no excluye" in g(r_c, "F1-CIRC")[0]["detalle"] and bloquea(r_c, "F1-K3a"))
+     efecto(r_c, "F1-CIRC") == ["DATOS INVÁLIDOS"] and "no declara que excluye el circulante" in g(r_c, "F1-CIRC")[0]["detalle"] and bloquea(r_c, "F1-K3a"))
 conc_c70 = [dict(e, componente="C70") if e["importe"] == -2090.0 else e for e in CONC]
 r_c70 = ev(L0, decl(NORM, conc=conc_c70))
 paso("G · la partida del circulante declarada en otro componente (C70 en lugar de C46): F1-CIRC DATOS INVÁLIDOS (la exclusión del circulante es de C46, "
@@ -311,8 +356,8 @@ r_k = ev(L_con, decl(conc=conc_sin))
 r_kn = ev(L_con, decl(NORM, conc=conc_sin))
 paso("G · caja base CON el circulante (opción (b) del diagnóstico, sin la partida de M43): sin normalizar, K3a cuadra y K3c sigue BLOQUEANDO (reinversión −1.514,333)",
      not salta(r_k, "F1-K3a") and bloquea(r_k, "F1-K3c") and abs(cd(r_k)["f"] - cd(r_n)["f"]) < 1e-6, str(bloquean(r_k)))
-paso("G · la misma con la normalización declarada: K3c ya no saltaría (+575,667), pero F1-CIRC DATOS INVÁLIDOS (contaría el circulante como caja permanente "
-     "dentro de C70): la normalización no sirve para ocultar entradas de circulante",
+paso("G · la misma con la normalización declarada y sin partida C46 del circulante: K3c ya no saltaría (+575,667), pero F1-CIRC DATOS INVÁLIDOS "
+     "(ninguna partida C46 es la media de la fila 14; contaría el circulante como caja permanente dentro de C70). Las partidas que se compensan: grupo CAJA",
      efecto(r_kn, "F1-CIRC") == ["DATOS INVÁLIDOS"] and "caja permanente" in g(r_kn, "F1-CIRC")[0]["detalle"] and not salta(r_kn, "F1-K3c")
      and r_kn["utilizable_para_conclusion"] is False, g(r_kn, "F1-CIRC")[0]["detalle"][:160])
 r_us = ev(dict(L0, **{"Control maestro!L4": "US GAAP"}), decl(NORM, norma="US_GAAP"))
@@ -344,6 +389,80 @@ r_cero = ev(libro_vinci(**{f"Historia!{COL[y]}14": 0 for y in ANIOS}), decl(NORM
 paso("G · sin circulante (fila 14 = 0): la normalización no cambia nada, no exige partida en la caja base y el libro V6.3.1 la calcula (F1-LIBRO no salta por ella)",
      g(r_cero, "F1-CIRC") and not salta(r_cero, "F1-CIRC") and r_cero["normalizacion_circulante"]["aplicada"] is True
      and "circulante normalizado" not in g(r_cero, "F1-LIBRO")[0]["detalle"], str(bloquean(r_cero)))
+
+# ------------------------------------------------------------------------------------------------ CAJA · la exclusión del circulante en C46, demostrada
+# (revisión C1 del 19-nov-2026) F1-CIRC no se fía de las partidas de conciliacion_fcf_base, que son declaraciones: la exclusión del circulante se
+# demuestra con el cálculo declarado de C46 del expediente (fase1_v63.json), reproducido con sus fuentes y atado al libro; si no, bloquea.
+COMPENSA = [{"componente": "C46", "importe": -2090.0, "partida": "circulante excluido", "fuente": {"documento": "x", "pagina": 1}},
+            {"componente": "C46", "importe": 2090.0, "partida": "compensación", "fuente": {"documento": "x", "pagina": 1}}]
+conc_comp = conc_sin + COMPENSA
+L_con2 = libro_vinci(v632=True, regla="circulante_a_cero", anios_norm=NORM["anios"],
+                     **{"Análisis!C46": c46_con, "Análisis!C52": c52_con, "Historia!C70": c52_con})
+r_cp, r_cp2 = ev(L_con, decl(NORM, conc=conc_comp)), ev(L_con2, decl(NORM, conc=conc_comp))
+paso("CAJA · (C1, sonda del revisor) caja base CON el circulante y dos partidas C46 que se compensan (−2.090 «circulante excluido» y +2.090 "
+     "«compensación», documento «x»): K3a cuadra y K3c no salta, pero F1-CIRC BLOQUEA (DATOS INVÁLIDOS): el libro lleva C46 = 11.417,333 y el "
+     "cálculo declarado de C46 del expediente da 9.327,333",
+     not salta(r_cp, "F1-K3a") and not salta(r_cp, "F1-K3c") and efecto(r_cp, "F1-CIRC") == ["DATOS INVÁLIDOS"]
+     and "11417.333" in g(r_cp, "F1-CIRC")[0]["detalle"] and "9327.333" in g(r_cp, "F1-CIRC")[0]["detalle"], g(r_cp, "F1-CIRC")[0]["detalle"][:200])
+paso("CAJA · (C1) la misma sonda con un libro V6.3.2 (antes: nada bloqueaba, utilizable con f −1,34 % y flujo sin crecimiento 7.365,9): ya no es "
+     "utilizable y bloquea F1-CIRC, y solo él",
+     bloquean(r_cp2) == ["F1-CIRC"] and r_cp2["utilizable_para_conclusion"] is False and abs(cd(r_cp2)["f"] + 0.013411) < 1e-5
+     and abs(cd(r_cp2)["flujo_sin_crecimiento"] - 7365.885) < 1e-2, f"{bloquean(r_cp2)} · f {cd(r_cp2).get('f')} · F0 {cd(r_cp2).get('flujo_sin_crecimiento')}")
+# la declaración amañada de forma coherente: también el cálculo declarado de C46 del expediente (fase1_v63.json) cuenta el circulante
+CARPETAS_AMANADAS = (
+    ("sin la fila 14 (C46 = CFO + dividendos)", f1_c46(terminos=[{"partida": "cfo", "signo": 1}, {"componente": "dividendos_sociedades_no_consolidadas", "signo": 1}],
+                                                        valor=11417.333), "no suma la fila 14"),
+    ("con la fila 14 y un componente «compensación» de 2.090 que cita un documento que no existe («x», p. 1)",
+     f1_c46(terminos=EXP.CALCULO["terminos"] + [{"componente": "compensacion", "signo": 1}],
+            componentes={"compensacion": {str(y): {"valor": 2090, "fuente": "x", "pagina": 1, "cita": "x"} for y in (2023, 2024, 2025)}}, valor=11417.333),
+     "no se reproduce con sus fuentes"),
+    ("con la fila 14 y la línea del circulante del estado de flujos como componente (fuente verdadera: 1.463 / 2.311 / 2.496)",
+     f1_c46(terminos=EXP.CALCULO["terminos"] + [{"componente": "otros", "signo": 1}], componentes={"otros": EXP.CIRCULANTE_DEL_ESTADO_DE_FLUJOS}, valor=11417.333),
+     "devuelve el circulante"),
+    ("con la fila 14 y el circulante repartido en dos componentes con fuente (clientes y provisiones)",
+     f1_c46(terminos=EXP.CALCULO["terminos"] + [{"componente": "clientes", "signo": 1}, {"componente": "provisiones", "signo": 1}],
+            componentes={"clientes": EXP.CLIENTES, "provisiones": EXP.PROVISIONES}, valor=11417.333), "devuelven el circulante"),
+    ("con la fila 14 y un componente con fuente que lo compensa en media (2.090 cada año)",
+     f1_c46(terminos=EXP.CALCULO["terminos"] + [{"componente": "otros", "signo": 1}], componentes={"otros": EXP.OTROS_2090}, valor=11417.333),
+     "devuelve el circulante"))
+for nombre, f1_, frag in CARPETAS_AMANADAS:
+    r_ = ev(L_con, decl(NORM, conc=conc_comp), carpeta=carpeta_con(f1_))
+    paso(f"CAJA · caja base CON el circulante, partidas que se compensan y el cálculo de C46 {nombre}: F1-CIRC DATOS INVÁLIDOS",
+         efecto(r_, "F1-CIRC") == ["DATOS INVÁLIDOS"] and frag in g(r_, "F1-CIRC")[0]["detalle"] and not salta(r_, "F1-K3a") and not salta(r_, "F1-K3c"),
+         g(r_, "F1-CIRC")[0]["detalle"][:220])
+# sin el cálculo que lo demuestre, la partida no basta: INCOMPLETO
+for nombre, c_, frag in (("sin la carpeta del expediente", None, "sin la carpeta del expediente"),
+                         ("sin fase1_v63.json", carpeta_con(sin_f1=True), "no tiene fase1_v63.json"),
+                         ("con C46 sin cálculo declarado (una cifra)", carpeta_con(f1_c46(quitar_calculo=True)), "no tiene cálculo declarado")):
+    r_ = ev(L0, decl(NORM), carpeta=c_)
+    paso(f"CAJA · caja base genuina y la partida C46 de −2.090, pero {nombre}: F1-CIRC INCOMPLETO (no se puede demostrar que C46 excluye el circulante)",
+         efecto(r_, "F1-CIRC") == ["INCOMPLETO"] and frag in g(r_, "F1-CIRC")[0]["detalle"], g(r_, "F1-CIRC")[0]["detalle"][:200])
+# un cálculo de C46 que no demuestra la exclusión del circulante de la ventana de f, o que no describe este libro: DATOS INVÁLIDOS
+T_SIN_C = [t for t in EXP.CALCULO["terminos"] if t.get("partida") != "circulante"]
+f1_hist = f1_c46()
+f1_hist["historia"]["partidas"]["cfo"]["valores"][8], f1_hist["historia"]["partidas"]["circulante"]["valores"][8] = 11403, -2000   # 2024: misma suma
+for nombre, f1_, frag in (("es una suma, no la media", f1_c46(operacion="suma", valor=None), "no la media"),
+                          ("usa otros años (2022–2024, CFO + fila 14)", f1_c46(terminos=[{"partida": "cfo", "signo": 1}, {"partida": "circulante", "signo": 1}],
+                                                                            anios=[2022, 2023, 2024], valor=None), "ventana de f"),
+                          ("resta la fila 14", f1_c46(terminos=T_SIN_C + [{"partida": "circulante", "signo": -1}], valor=None), "no suma la fila 14"),
+                          ("suma la fila 14 dos veces", f1_c46(terminos=EXP.CALCULO["terminos"] + [{"partida": "circulante", "signo": 1}], valor=None), "no suma la fila 14"),
+                          ("no lleva el CFO", f1_c46(terminos=[t for t in EXP.CALCULO["terminos"] if t.get("partida") != "cfo"], valor=None), "no suma el CFO"),
+                          ("cita una página que no existe (p. 99)", f1_c46(componentes={"dividendos_sociedades_no_consolidadas": dict(
+                              EXP.DIVIDENDOS, **{"2024": dict(EXP.DIVIDENDOS["2024"], pagina=99)})}), "no se reproduce con sus fuentes"),
+                          ("cita un texto que no está en la página", f1_c46(componentes={"dividendos_sociedades_no_consolidadas": dict(
+                              EXP.DIVIDENDOS, **{"2023": dict(EXP.DIVIDENDOS["2023"], cita="Dividends 31")})}), "no se reproduce con sus fuentes"),
+                          ("se hace con otra Historia (2024: CFO 11.403 y fila 14 −2.000, misma suma; el libro lleva 11.714 y −2.311)", f1_hist, "no es la")):
+    r_ = ev(L0, decl(NORM), carpeta=carpeta_con(f1_))
+    paso(f"CAJA · el cálculo declarado de C46 {nombre}: F1-CIRC DATOS INVÁLIDOS", efecto(r_, "F1-CIRC") == ["DATOS INVÁLIDOS"] and frag in g(r_, "F1-CIRC")[0]["detalle"],
+         g(r_, "F1-CIRC")[0]["detalle"][:220])
+# el C46 del libro es el cálculo redondeado a los decimales con que lo escribe (no otra cifra)
+r_2d = ev(dict(L0, **{"Análisis!C46": 9327.33}), decl(NORM))
+r_mal = ev(dict(L0, **{"Análisis!C46": 9327.34}), decl(NORM))
+paso("CAJA · C46 del libro con dos decimales (9.327,33 = el cálculo 9.327,333… redondeado): F1-CIRC no salta; con 9.327,34, DATOS INVÁLIDOS («el libro lleva C46»)",
+     g(r_2d, "F1-CIRC") and not salta(r_2d, "F1-CIRC") and efecto(r_mal, "F1-CIRC") == ["DATOS INVÁLIDOS"] and "el libro lleva C46" in g(r_mal, "F1-CIRC")[0]["detalle"],
+     g(r_mal, "F1-CIRC")[0]["detalle"][:160])
+paso("CAJA · (control) sin la declaración nada de esto cuenta: la sonda del revisor sin normalizar sigue bloqueando por K3c y no hay F1-CIRC",
+     bloquea(ev(L_con, decl(conc=conc_comp)), "F1-K3c") and not g(ev(L_con, decl(conc=conc_comp), carpeta=None), "F1-CIRC"))
 
 # ------------------------------------------------------------------------------------------------ K3 · puente y K3c
 lineas = cd(r_n)["K3"]["lineas"]
@@ -532,12 +651,15 @@ paso("DATOS · el volcado a las fases dice los años normalizados y lo excluido 
      nd == {"anios": [2021, 2022, 2023, 2024, 2025], "excluido": {str(y): float(-y) for y in range(2021, 2026)}} and VD.normalizacion_circulante(wb) is None
      and VD.normalizacion_circulante(openpyxl.Workbook()) is None)
 md = M.informe_md(r_n)
-paso("MD · el informe lleva la sección «Normalización declarada del circulante (V-CIRC)» con el efecto; sin la declaración, no",
-     "## Normalización declarada del circulante (V-CIRC)" in md and "5190.97" in md and "Normalización declarada del circulante" not in M.informe_md(r_sin))
+paso("MD · el informe lleva la sección «Normalización declarada del circulante (V-CIRC)» con el efecto y el cálculo declarado de C46 que demuestra la "
+     "exclusión, con sus componentes para la revisión de entradas; sin la declaración, no",
+     "## Normalización declarada del circulante (V-CIRC)" in md and "5190.97" in md and "Normalización declarada del circulante" not in M.informe_md(r_sin)
+     and "Cálculo declarado de C46" in md and "dividendos_sociedades_no_consolidadas" in md and "revisión de entradas" in md)
 paso("MD · la plantilla de la declaración documenta la clave (vacía = sin declarar)", "normalizacion_circulante" in M.plantilla_declaracion()
      and M.plantilla_declaracion()["normalizacion_circulante"] is None and "normalizacion_circulante" in M.CLAVES_DECL)
 
 shutil.rmtree(CARPETA, ignore_errors=True)
+shutil.rmtree(TMP_C46, ignore_errors=True)
 n = sum(ok for _, ok in R)
 print(f"{n}/{len(R)} pruebas de la normalización del circulante (V-CIRC) PASAN" if n == len(R) else
       f"{n}/{len(R)} pruebas de la normalización del circulante (V-CIRC): FALLAN {len(R) - n}")

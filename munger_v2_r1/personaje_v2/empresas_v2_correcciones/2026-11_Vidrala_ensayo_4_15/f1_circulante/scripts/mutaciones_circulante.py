@@ -7,6 +7,7 @@ Uso (desde cualquier carpeta): python3 -I mutaciones_circulante.py [SALIDA.txt]
 Trabaja sobre copias temporales de personaje_v2 (scripts, esquema, prompts, configuraciones y las baterías): no toca el árbol. Las plantillas y su
 carpeta v6/ se enlazan (solo se leen). Sin LibreOffice. Baterías: test_circulante_f1.py (la de este cambio), test_motor_a_f1.py y test_v631_f1.py
 (las de F1 y de la V6.3.1, que no pueden cambiar). Se detecta por el recuento de pruebas que pasan (como mutaciones_margen_de_partida.py).
+c34–c51 (revisión C1, 19-nov-2026): la demostración de la exclusión del circulante en C46 con el cálculo declarado del expediente.
 """
 import os
 import shutil
@@ -71,6 +72,33 @@ M = [
     ("c33 · el volcado a las fases dice la normalización aunque no esté activa", VD,
      '    if "NORMALIZACIÓN DEL CIRCULANTE" not in str(ws["A92"].value or "") or ws["C97"].value != "circulante_a_cero":',
      '    if "NORMALIZACIÓN DEL CIRCULANTE" not in str(ws["A92"].value or ""):'),
+    # (revisión C1, 19-nov-2026) la exclusión del circulante en C46, demostrada con el cálculo declarado del expediente
+    ("c34 · F1-CIRC no exige la demostración con el cálculo declarado de C46 (vuelve a bastar la partida)", MF, '    if C["aplicable"] and media_w:\n', "    if False:\n"),
+    ("c35 · sin la carpeta del expediente la partida basta", MF, '        prob.append(("INCOMPLETO", "sin la carpeta del expediente no se puede demostrar',
+     '        return [], info\n        prob.append(("INCOMPLETO", "sin la carpeta del expediente no se puede demostrar'),
+    ("c36 · sin fase1_v63.json la partida basta", MF, '        prob.append(("INCOMPLETO", f"el expediente no tiene {F1_V63} legible',
+     '        return [], info\n        prob.append(("INCOMPLETO", f"el expediente no tiene {F1_V63} legible'),
+    ("c37 · con C46 sin cálculo declarado la partida basta", MF, '        prob.append(("INCOMPLETO", f"C46 no tiene cálculo declarado',
+     '        return [], info\n        prob.append(("INCOMPLETO", f"C46 no tiene cálculo declarado'),
+    ("c38 · el cálculo de C46 no se contrasta con sus fuentes (calcular_entrada sin la carpeta)", MF,
+     '        out = FH.calcular_entrada("C46", d, partidas, anios_h, carpeta)\n', '        out = FH.calcular_entrada("C46", d, partidas, anios_h)\n'),
+    ("c39 · el cálculo de C46 puede ser una suma", MF, '    if cal.get("operacion") != "media":\n', "    if False:\n"),
+    ("c40 · el cálculo de C46 puede usar otros años que la ventana de f", MF, "    if sel != sorted(ventana):\n", "    if False:\n"),
+    ("c41 · el cálculo de C46 puede no llevar el CFO", MF, '    if neto.get("cfo", 0) != 1:\n', "    if False:\n"),
+    ("c42 · el cálculo de C46 puede no sumar la fila 14 (o sumarla con otro signo o dos veces)", MF, '    if neto.get("circulante", 0) != 1:\n', "    if False:\n"),
+    ("c43 · el cálculo de C46 no se ata al C46 del libro", MF,
+     "    elif bruto is None or abs(c46 - bruto) > max(TOL_E7, _unidad_de_redondeo(c46) / 2) + Fr(1, 10 ** 9):\n", "    elif False:\n"),
+    ("c44 · el C46 del libro frente al cálculo sin la unidad con que lo escribe (±0,0005 siempre)", MF,
+     "abs(c46 - bruto) > max(TOL_E7, _unidad_de_redondeo(c46) / 2) + Fr(1, 10 ** 9):", "abs(c46 - bruto) > TOL_E7:"),
+    ("c45 · el C46 del libro frente al cálculo con una tolerancia de 100 mm", MF,
+     "abs(c46 - bruto) > max(TOL_E7, _unidad_de_redondeo(c46) / 2) + Fr(1, 10 ** 9):", "abs(c46 - bruto) > 100:"),
+    ("c46 · las filas 11 y 14 del libro no se atan a la Historia del cálculo", MF, "            if vh is None or vl is None or abs(vh - vl) > TOL_E7:\n",
+     "            if False:\n"),
+    ("c47 · no se buscan términos que compensen la fila 14", MF, "    if not prob and media_w:\n", "    if False:\n"),
+    ("c48 · solo compensaciones de un término (no combinaciones)", MF, "            for k in range(1, len(serie) + 1):\n", "            for k in range(1, 2):\n"),
+    ("c49 · la compensación se busca con el signo cambiado", MF, "                    if abs(m + media_w) <= TOL_E7:\n", "                    if abs(m - media_w) <= TOL_E7:\n"),
+    ("c50 · el informe no dice el cálculo de C46", MF, '               _md_calculo_c46(nc.get("calculo_C46")),\n', ""),
+    ("c51 · el resultado no enseña el cálculo de C46", MF, '            "calculo_C46": (circ_info or {}).get("calculo_C46"),\n', '            "calculo_C46": None,\n'),
 ]
 SRC = {f: open(os.path.join(PV, f), encoding="utf-8").read() for f in {m[1] for m in M}}
 

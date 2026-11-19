@@ -29,8 +29,9 @@
 #                                        LibreOffice), la de extremo a extremo prueba_pipeline_usgaap.py (al menos 26 casos; LibreOffice) y la
 #                                        del libro V6.3.1 real probar_libro_v631_usgaap.py (al menos 18 comprobaciones; 16 en el cierre de la ronda 2; LibreOffice), igual
 #                                        de obligatorias; (V-CIRC, 19-nov-2026) la de la normalización declarada del circulante test_circulante_f1.py (al menos
-#                                        77 pruebas; sin LibreOffice; también en el modo rápido) y las de la plantilla V6.3.2 F1: probar_v632_f1.py estructura (26),
-#                                        a0 (39; LibreOffice) y circ (16; LibreOffice) y prueba_pipeline_v632.py (8; LibreOffice), igual de obligatorias
+#                                        98 pruebas desde la corrección C1 de su revisión; sin LibreOffice; también en el modo rápido) y las de la plantilla
+#                                        V6.3.2 F1: probar_v632_f1.py estructura (26), a0 (39; LibreOffice) y circ (17; LibreOffice) y prueba_pipeline_v632.py
+#                                        (9; LibreOffice), igual de obligatorias
 # El modo rápido no ejecuta la batería sintética ni la de cierre: su PASA solo cubre lo que lista arriba.
 # Ninguno de los dos modos sustituye a los controles de los expedientes reales ni a sus auditorías.
 # Código de salida: 0 si todo PASA; distinto de 0 si algún bloque falla. Las pruebas escriben en personaje_v2/pruebas/: el manifiesto
@@ -383,7 +384,8 @@ fi
 
 # (V-CIRC, 19-nov-2026) normalización declarada del circulante de la reinversión (decisión (a) de la persona responsable sobre VINCI): capa F1,
 # aplicación al libro, plantilla V6.3.2 F1 (selección, huella de entradas, volcado a las fases). Sin LibreOffice; necesita las plantillas V6.3.1 y
-# V6.3.2 materializadas (binarios del manifiesto). Obligatoria en los dos modos; al menos 77 pruebas
+# V6.3.2 materializadas (binarios del manifiesto). Obligatoria en los dos modos; al menos 98 pruebas (77 antes de la corrección C1 de la revisión:
+# la exclusión del circulante en la caja base demostrada por el cálculo declarado de C46 del expediente)
 echo "== batería de la normalización declarada del circulante (personaje_v2/pruebas/test_circulante_f1.py; obligatoria en los dos modos; sin LibreOffice)"
 SALIDA_X="$(mktemp)"
 if [ -f personaje_v2/pruebas/test_circulante_f1.py ]; then
@@ -393,10 +395,10 @@ else
 fi
 linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la normalización del circulante \(V-CIRC\) PASAN$' "$SALIDA_X" | tail -1)"
 n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 77 ]; then
+if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 98 ]; then
   echo "$linea"; echo "RESULTADO normalización del circulante: PASA"
 else
-  tail -5 "$SALIDA_X"; echo "RESULTADO normalización del circulante: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 77 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
+  tail -5 "$SALIDA_X"; echo "RESULTADO normalización del circulante: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 98 pruebas; ver $SALIDA_X)"; fallos=$((fallos+1))
 fi
 
 echo "== estructura de la plantilla V6.3.2 F1 (v6/v632_f1/scripts/probar_v632_f1.py estructura; obligatoria en «completa»; V-CIRC)"
@@ -438,10 +440,10 @@ if [ "${1:-}" = "completa" ]; then
   ( python3 -I v6/v632_f1/scripts/probar_v632_f1.py circ "$D_C" ) > "$SALIDA_X" 2>&1; rc=$?
   linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones V6\.3\.2 F1 \(circ\) PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 16 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 17 ]; then
     echo "$linea"; echo "RESULTADO V6.3.2 F1 con la normalización: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.2 F1 con la normalización: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 16; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.2 F1 con la normalización: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 17; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
   rm -rf "$D_C"
 else
@@ -454,10 +456,10 @@ if [ "${1:-}" = "completa" ]; then
   ( python3 -B v6/v632_f1/scripts/prueba_pipeline_v632.py ) > "$SALIDA_X" 2>&1; rc=$?
   linea="$(grep -E '^[0-9]+/[0-9]+ pruebas de la V6\.3\.2 F1 en el pipeline PASAN$' "$SALIDA_X" | tail -1)"
   n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 8 ]; then
+  if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge 9 ]; then
     echo "$linea"; echo "RESULTADO V6.3.2 F1 en el pipeline: PASA"
   else
-    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.2 F1 en el pipeline: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 8; ver $SALIDA_X)"; fallos=$((fallos+1))
+    tail -5 "$SALIDA_X"; echo "RESULTADO V6.3.2 F1 en el pipeline: FALLA (código $rc; no pasó, no llegó a ejecutarse o tiene menos de 9; ver $SALIDA_X)"; fallos=$((fallos+1))
   fi
 else
   echo "omitida en el modo rápido (solo se ejecuta, y es obligatoria, en «completa»)"

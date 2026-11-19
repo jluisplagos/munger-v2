@@ -246,8 +246,10 @@ def main():
                      + f"; perímetro declarado: {f1b.get('perimetro_declarado') or 'sin declarar'}")
                   + (f"; flujo sin crecimiento frente a A0 (diagnóstico): " + ", ".join(f"{k} {v:+.1f}" for k, v in _d.items() if k != "A0_total" and v is not None) if _d else "")
                   # (V-CIRC) solo con la normalización declarada del circulante: la línea de los demás expedientes no cambia
-                  + ((f"; circulante normalizado a cero en {_nc.get('anios')} (V-CIRC: ni entradas ni salidas de circulante en la reinversión; la caja base ya lo "
-                      "excluye)" if _nc.get("aplicada") else "; normalización del circulante declarada y no aplicada (F1-CIRC)") if _nc else "")
+                  + ((f"; circulante normalizado a cero en {_nc.get('anios')} (V-CIRC: ni entradas ni salidas de circulante en la reinversión; "
+                      + ("la caja base ya lo excluye: lo demuestra el cálculo declarado de C46" if (_nc.get("calculo_C46") or {}).get("demostrado") else
+                         "F1-CIRC: no está demostrado que la caja base lo excluya") + ")" if _nc.get("aplicada") else
+                      "; normalización del circulante declarada y no aplicada (F1-CIRC)") if _nc else "")
                   + ". Detalle en motor_a_f1_resultado.md. Apta para dinero real: no.")
         _pf = [g for g in (f1b.get("avisos") or []) if str(g.get("id")).startswith(("V-F1g (valores)", "V-F1k (valores)"))]
         if _pf:

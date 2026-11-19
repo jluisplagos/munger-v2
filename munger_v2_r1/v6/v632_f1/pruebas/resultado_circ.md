@@ -2,7 +2,7 @@
 
 Fecha 2026-11-19 · plantilla `046b64fc7b7898c8…` · referencia `2bed4bac64b00a2a…`
 
-**PASA: 16/16**
+**PASA: 17/17**
 
 | Comprobación | Resultado | Detalle |
 |---|---|---|
@@ -21,4 +21,5 @@ Fecha 2026-11-19 · plantilla `046b64fc7b7898c8…` · referencia `2bed4bac64b00
 | C6 · A0_total con la normalización: el libro usa la rama de D_X con la fila 30 normalizada; f y ancla = capa; réplica conforme | PASA | ['F1-2i', 'F1-K3b', 'F1-K3c', 'V-F1a'] |
 | C7 · libro V6.3.1 con la normalización declarada: F1-LIBRO bloquea (límite declarado: la salida es la V6.3.2 F1) y la capa da las cifras normalizadas | PASA | ['F1-LIBRO'] |
 | C8 · Elis (su caja base NO excluye el circulante) con la normalización: el libro la calcula (= capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS | PASA | ['F1-CIRC', 'F1-REGISTRO', 'V-F1g', 'V-F1i', 'V-F1j', 'V-F1k'] |
+| C9 · (C1) caja base CON el circulante (C46 = 11.417,333) y dos partidas C46 que se compensan (−2.090 y +2.090, documento «x»): el libro calcula la normalización (f −1,34 % = capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS (el cálculo declarado de C46 da 9.327,333), y solo con él | PASA | ['F1-CIRC'] · C58 -0.0134107002696922 · normalización del circulante: el libro lleva C46 = 11417.333 y el cálculo declarado de C46 da 9327.333: el libro no calcula la caja base con |
 | C1 · el libro con la normalización aplicada (antes de recalcular) es ÍNTEGRO frente a la referencia: C93:L94 son entradas | PASA | VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos |

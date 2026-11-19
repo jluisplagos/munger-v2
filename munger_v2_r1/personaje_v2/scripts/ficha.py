@@ -415,7 +415,7 @@ def main():
         if f1r.get("normalizacion_circulante"):
             # (V-CIRC) solo con la normalización declarada del circulante (o un libro V6.3.2 F1 con ella): la ficha de los demás expedientes no cambia
             ficha["motor_a_f1"]["normalizacion_circulante"] = {k: f1r["normalizacion_circulante"].get(k) for k in (
-                "declarada", "aplicada", "regla", "anios", "excluido_por_anio", "caja_base", "efecto_en_el_perimetro_declarado", "libro", "problemas")}
+                "declarada", "aplicada", "regla", "anios", "excluido_por_anio", "caja_base", "calculo_C46", "efecto_en_el_perimetro_declarado", "libro", "problemas")}
         if f1r.get("us_gaap"):
             # (F1 · US GAAP; ronda 2, R1-12: solo con US GAAP, para que la ficha de un expediente NIIF sea la misma de antes) la conclusión que se apoya
             # en una hipótesis declarada (D-US1, D-WM) o en una ubicación sin contrastar es CONDICIONADA, con su cota; D-US2: se cuentan los pagos y la

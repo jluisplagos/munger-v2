@@ -21,8 +21,9 @@ circulante (Análisis C46), tampoco lo llevan la reinversión que calibra f ni l
 | `no reconocida` (otra regla, una marca distinta de 1, o marcas sin regla) | f, C76 y C53 vacías; Motor V05 DATOS INVÁLIDOS | — |
 
 **Qué no es.** No decide nada: vacío = sin normalización = la V6.3.1 F1. La fila 14 (cifra publicada) y las demás series no cambian. La hoja no
-comprueba que la caja base excluya el mismo circulante: lo comprueba la capa (`motor_a_f1.py`, guarda F1-CIRC). Como la V6.3.1, no calcula
-`A3_estimado`, N1 ni los términos explícitos.
+comprueba que la caja base excluya el mismo circulante: lo comprueba la capa (`motor_a_f1.py`, guarda F1-CIRC) con el cálculo declarado de C46 del
+expediente (`fase1_v63.json`), reproducido con sus fuentes y atado al libro (corrección C1 de la revisión independiente: una partida de
+`conciliacion_fcf_base` sola no lo demuestra). Como la V6.3.1, no calcula `A3_estimado`, N1 ni los términos explícitos.
 
 ## 2. Archivos
 
@@ -58,8 +59,8 @@ expediente V6.3.1 no se ejecuta con la V6.3.2 ni al revés (cambiar de plantilla
 |---|---|
 | `python3 -I probar_v632_f1.py estructura` | `26/26 comprobaciones V6.3.2 F1 (estructura) PASAN` |
 | `flock /home/user/e_work/libreoffice.lock python3 -I probar_v632_f1.py a0 <carpeta nueva fuera del repo>` | `39/39 comprobaciones V6.3.2 F1 (a0) PASAN` |
-| `flock … python3 -I probar_v632_f1.py circ <carpeta nueva>` | `16/16 comprobaciones V6.3.2 F1 (circ) PASAN` |
-| `flock … python3 -B prueba_pipeline_v632.py ../pruebas/resultado_pipeline_v632.txt` | `8/8 pruebas de la V6.3.2 F1 en el pipeline PASAN` |
+| `flock … python3 -I probar_v632_f1.py circ <carpeta nueva>` | `17/17 comprobaciones V6.3.2 F1 (circ) PASAN` |
+| `flock … python3 -B prueba_pipeline_v632.py ../pruebas/resultado_pipeline_v632.txt` | `9/9 pruebas de la V6.3.2 F1 en el pipeline PASAN` |
 
 - *estructura*: reconstrucción con el mismo SHA-256; la V6.3 y la V6.3.1 sin cambios; la referencia nueva difiere de la de la V6.3.1 exactamente en
   las celdas del §3 (ninguna fórmula o celda fija de la V6.3.1 quitada; formato condicional, nombres y partes del paquete idénticos); con «ninguna»,
@@ -73,11 +74,14 @@ expediente V6.3.1 no se ejecuta con la V6.3.2 ni al revés (cambiar de plantilla
   F1-LIBRO, F1-REPLICA, F1-CIRC y F1-K3c no saltan; identidades con los valores del propio libro; sin la normalización, 0 celdas distintas frente a
   la V6.3.1 y K3c bloquea; solo la ventana → f sin ancla; sin un año de la ventana → f vacía, V05 INCOMPLETO; regla o marca no reconocidas → V05 DATOS
   INVÁLIDOS; A0 con la normalización; un libro V6.3.1 con la normalización declarada → F1-LIBRO; Elis (su caja base no excluye el circulante) → el
-  libro la calcula y la capa bloquea con F1-CIRC.
-- *pipeline*: Q1 empresa sintética con la caja base sin el circulante y la normalización declarada → `plantilla_activa.json` V6.3.2, el paso 2
-  escribe C93:L94, F1 utilizable en los pasos 7 y 12, `concluido`, ficha con la versión y el bloque de la normalización, línea del informe, nota en
-  `datos_v63.md`, resumen propio; Q2 sin normalización → «ninguna», `concluido`, sin bloque; Q3 la misma declaración con la V6.3.1 → paso 7
-  `no_entregable · límite del modelo` (F1-LIBRO).
+  libro la calcula y la capa bloquea con F1-CIRC. La carpeta lleva el expediente sintético tipo VINCI
+  (`personaje_v2/pruebas/datos_circulante/expediente_tipo_vinci.py`: `fase1_v63.json` con el cálculo declarado de C46 y su texto); C9 (corrección C1):
+  la sonda del revisor (caja base CON el circulante y dos partidas C46 que se compensan) → el libro calcula f −1,34 % y la capa bloquea con F1-CIRC.
+- *pipeline*: Q1 empresa sintética con la caja base sin el circulante (C46 declarado con su cálculo en `fase1_v63.json`) y la normalización declarada →
+  `plantilla_activa.json` V6.3.2, el paso 2 escribe C93:L94, F1 utilizable en los pasos 7 y 12, `concluido`, ficha con la versión y el bloque de la
+  normalización, línea del informe, nota en `datos_v63.md`, resumen propio; Q2 sin normalización → «ninguna», `concluido`, sin bloque; Q3 la misma
+  declaración con la V6.3.1 → paso 7 `no_entregable · límite del modelo` (F1-LIBRO); Q4 (corrección C1) Q1 con C46 sin su cálculo declarado → paso 7
+  `pendiente_de_datos` con F1-CIRC INCOMPLETO.
 
 ## 5. Límites
 

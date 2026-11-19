@@ -4,8 +4,8 @@
  "plantilla_sha256": "046b64fc7b7898c8a76d924ef72be43c17deb998f2433f43c06c0a18e07800fd",
  "referencia_sha256": "2bed4bac64b00a2a27a34d60a8c611c48726d2576a14228c99abc68d88ae181d",
  "resultado": "PASA",
- "total": 16,
- "pasan": 16,
+ "total": 17,
+ "pasan": 17,
  "comprobaciones": [
   {
    "prueba": "C1 · Vinci tipo, normalización 2021–2025: C97 «circulante_a_cero», fila 95 = fila 14 en 2021–2025 (0 antes), fila 96 = 0, Motor V05 OK",
@@ -83,6 +83,11 @@
    "detalle": "['F1-CIRC', 'F1-REGISTRO', 'V-F1g', 'V-F1i', 'V-F1j', 'V-F1k']"
   },
   {
+   "prueba": "C9 · (C1) caja base CON el circulante (C46 = 11.417,333) y dos partidas C46 que se compensan (−2.090 y +2.090, documento «x»): el libro calcula la normalización (f −1,34 % = capa) y la capa bloquea con F1-CIRC DATOS INVÁLIDOS (el cálculo declarado de C46 da 9.327,333), y solo con él",
+   "ok": true,
+   "detalle": "['F1-CIRC'] · C58 -0.0134107002696922 · normalización del circulante: el libro lleva C46 = 11417.333 y el cálculo declarado de C46 da 9327.333: el libro no calcula la caja base con"
+  },
+  {
    "prueba": "C1 · el libro con la normalización aplicada (antes de recalcular) es ÍNTEGRO frente a la referencia: C93:L94 son entradas",
    "ok": true,
    "detalle": "VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos"
@@ -101,6 +106,14 @@
    "bloquean_sin": [
     "F1-K3c"
    ]
+  },
+  "sonda_C1": {
+   "C58": -0.0134107002696922,
+   "C52": 6509.333,
+   "bloquean": [
+    "F1-CIRC"
+   ],
+   "F1_CIRC": "normalización del circulante: el libro lleva C46 = 11417.333 y el cálculo declarado de C46 da 9327.333: el libro no calcula la caja base con él, así que no demuestra que la excluya el circulante"
   }
  }
 }

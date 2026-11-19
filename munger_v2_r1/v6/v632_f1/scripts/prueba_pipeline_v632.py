@@ -5,13 +5,16 @@ Directorio temporal; no toca la batería sintética ni su línea de base, ni las
 
 Uso (desde cualquier carpeta): flock … python3 -B prueba_pipeline_v632.py [SALIDA.txt]
 Empresa sintética SIN arrendamientos ni PPA (perímetro A0 declarado, como P2 de prueba_pipeline_f1.py), con circulante positivo (consume caja).
-  Q1 · con config_v2_v632_f1.json, la caja base sin el circulante (C46 = CFO + circulante medio de la ventana, con su partida en
-       conciliacion_fcf_base) y la normalización declarada 2021–2025: plantilla_activa.json V6.3.2; el paso 2 la aplica al libro (C93, C94:L94);
+  Q1 · con config_v2_v632_f1.json, la caja base sin el circulante (C46 = CFO + circulante medio de la ventana, declarado con su cálculo en
+       fase1_v63.json, que es lo que demuestra la exclusión desde la revisión C1, y con su partida en conciliacion_fcf_base) y la normalización
+       declarada 2021–2025: plantilla_activa.json V6.3.2; el paso 2 la aplica al libro (C93, C94:L94);
        C97 «circulante_a_cero»; F1 no bloquea en los pasos 7 y 12 (F1-LIBRO, F1-CIRC y F1-K3c no saltan) y el análisis llega a concluido; la
        ficha lleva la versión V6.3.2 F1 y el bloque de la normalización; el informe, la línea; datos_v63.md, la nota para las fases; el resumen va a
        resumen_v2_v632_f1.csv.
   Q2 · la misma empresa con la V6.3.2 y SIN normalización: C97 «ninguna», concluido; ni la ficha ni datos_v63.md hablan de normalización.
   Q3 · la declaración de Q1 con config_v2_v631_f1.json (V6.3.1): el paso 7 termina en no_entregable · límite del modelo con F1-LIBRO.
+  Q4 · (revisión C1) Q1 con C46 de fase1_v63.json sin su cálculo declarado (solo la cifra) y la misma partida C46: el gancho F1 lee el expediente
+       y el paso 7 termina en pendiente_de_datos con F1-CIRC INCOMPLETO (la partida no demuestra que la caja base excluya el circulante).
 """
 import json
 import os
@@ -63,7 +66,7 @@ def declaracion(normalizar):
     return d
 
 
-def preparar(nombre, normalizar):
+def preparar(nombre, normalizar, calculo=True):
     c = PF.preparar(nombre, declaracion(normalizar), sin_arrendamientos=True)
     if normalizar:   # la caja base sin el circulante: C46 de la etapa 1 (manda en el modo registrado) y de fase1_v63.json
         f1, n, h = historia()
@@ -76,7 +79,14 @@ def preparar(nombre, normalizar):
         wb.save(e1)
         p = os.path.join(c, "fase1_v63.json")
         f = json.load(open(p, encoding="utf-8"))
-        f["analisis"]["C46"]["valor"] = cfo + wc
+        if calculo:   # (revisión C1) C46 declarado con su cálculo: la media de la ventana de cfo + circulante (lo que demuestra la exclusión)
+            import fase1_historia as FH
+            cal = {"operacion": "media", "anios": f["historia"]["anios"][-n:], "redondeo": 3,
+                   "terminos": [{"partida": "cfo", "signo": 1}, {"partida": "circulante", "signo": 1}],
+                   "decision": "prueba: la caja base excluye el circulante de la ventana (C46 = CFO + fila 14)"}
+            f["analisis"]["C46"] = FH.calcular_entrada("C46", {"valor": None, "calculo": cal}, f["historia"]["partidas"], f["historia"]["anios"])
+        else:
+            f["analisis"]["C46"]["valor"] = cfo + wc
         json.dump(f, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return c
 
@@ -161,6 +171,16 @@ def main():
         paso("Q3 · la declaración con la normalización y la V6.3.1: el paso 7 termina en no_entregable · límite del modelo con F1-LIBRO (la V6.3.1 no la calcula)",
              st3.get("estado_analisis") == "no_entregable" and st3.get("paso") == 7 and (dg.get("causa") or {}).get("tipo") == "limite_del_modelo"
              and g3 and g3[0]["salta"] and "V6.3.2 F1" in g3[0]["detalle"], f"estado {st3.get('estado_analisis')} · paso {st3.get('paso')} · {bloquean(r3)[:2]}")
+        # Q4 (revisión C1)
+        c4 = preparar("EmpresaX_V632_sin_calculo", True, calculo=False)
+        rc4, _ = correr(c4, CFG632)
+        st4, r4 = TS.estado(c4), leer(c4, "motor_a_f1_resultado.json")
+        g4 = [x for x in r4.get("guardas") or [] if x["id"] == "F1-CIRC"]
+        paso("Q4 · (C1) C46 sin su cálculo declarado en fase1_v63.json y la misma partida C46: el paso 7 termina en pendiente_de_datos con F1-CIRC INCOMPLETO "
+             "(«no tiene cálculo declarado»): el gancho F1 lee el expediente y la partida sola no basta",
+             st4.get("estado_analisis") == "pendiente_de_datos" and st4.get("paso") == 7 and g4 and g4[0]["salta"] and g4[0]["efecto"] == "INCOMPLETO"
+             and "no tiene cálculo declarado" in g4[0]["detalle"] and not salta(r4, "F1-K3a"),
+             f"estado {st4.get('estado_analisis')} · paso {st4.get('paso')} · {bloquean(r4)[:2]}")
     finally:
         shutil.rmtree(TS.BASE, ignore_errors=True)
         TS.BASE = base0

@@ -258,7 +258,10 @@ correcciones. Se aplican así (resultados literales en `resultados/correcciones_
 Decisión V-CIRC (a) de la persona responsable sobre VINCI (`DECISIONES_PARA_EL_USUARIO.md`:134): si la caja base excluye el circulante (C46, Control
 maestro M43), tampoco lo lleva la reinversión. Clave nueva `normalizacion_circulante` en `motor_a_f1.json` (regla `circulante_a_cero`, años, fundamento
 y registro; solo NIIF), guarda F1-CIRC (cobertura de la ventana y de H–L, coherencia con la caja base: una partida C46 de `conciliacion_fcf_base` igual
-a la media de la fila 14 de la ventana), partida propia en K3 y K3c sobre la reinversión ya normalizada; plantilla nueva V6.3.2 F1 (`v6/v632_f1/`) que
-la calcula (la V6.3.1 no cambia: con ella F1-LIBRO es un límite declarado). **Sin la declaración no cambia nada** (comprobado en ahold_f3, jumbo_g,
-zoetis_t1c y vinci/Vinci: resultado idéntico con el código anterior). Registro completo, pruebas y cómo aplicarlo a VINCI (expediente nuevo
-`vinci_b`): `../f1_circulante/F1_CIRCULANTE.md`. Sin revisión independiente todavía.
+a la media de la fila 14 de la ventana, que es una declaración, y, desde la corrección C1 de la revisión independiente, el cálculo declarado de C46 del
+expediente en `fase1_v63.json`, reproducido con sus fuentes y atado al libro, que suma la fila 14 de la ventana sin otro término que la compense; si no
+puede demostrarlo, bloquea), partida propia en K3 y K3c sobre la reinversión ya normalizada; plantilla nueva V6.3.2 F1 (`v6/v632_f1/`) que la calcula
+(la V6.3.1 no cambia: con ella F1-LIBRO es un límite declarado). **Sin la declaración no cambia nada** (comprobado en ahold_f3, jumbo_g, zoetis_t1c y
+vinci/Vinci: resultado idéntico con el código anterior). Registro completo, pruebas y cómo aplicarlo a VINCI (expediente nuevo `vinci_b`):
+`../f1_circulante/F1_CIRCULANTE.md`. Revisión independiente: CONFORME CON CORRECCIONES (C1); la corrección C1 está en el §9 de ese documento, pendiente
+de la ronda corta del mismo revisor.
