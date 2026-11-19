@@ -1,6 +1,6 @@
 # Motor A · perímetro F1 · F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026)
 
-Libro `9e25c79d7db1916e…` · declaración `d85c2ea4820fa304…` · 2026-11-19
+Libro `019d1a09f030102e…` · declaración `d85c2ea4820fa304…` · 2026-11-19
 
 **motor B utilizable para una conclusión según F1 (condición necesaria, no suficiente; no apto para dinero real)**
 
