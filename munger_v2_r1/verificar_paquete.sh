@@ -417,8 +417,8 @@ else
 fi
 
 # (4.15, acciones exactas de los metadatos; examen, zoetis_t1c, Análisis!C55; rama producto/minoritarios-acciones) un número de acciones
-# no se redondea: con «impreso», construir exige el valor exacto en millones. Sin LibreOffice ni binarios, unos segundos; obligatoria en
-# los dos modos; al menos 17 comprobaciones (14 si se omite construir porque falta zoetis_t1c)
+# no se redondea: con «impreso» (y su «escala_impreso» y «dilucion»), construir exige el valor exacto en millones. Sin LibreOffice ni binarios, unos segundos; obligatoria en
+# los dos modos; al menos 30 comprobaciones (17 en la primera entrega a la revisión; 23 si se omite construir porque falta zoetis_t1c)
 echo "== batería de las acciones exactas de los metadatos (personaje_v2/pruebas/test_acciones_metadatos_exactas.py; obligatoria en los dos modos; sin LibreOffice)"
 SALIDA_X="$(mktemp)"
 if [ -f personaje_v2/pruebas/test_acciones_metadatos_exactas.py ]; then
@@ -428,7 +428,7 @@ else
 fi
 linea="$(grep -E '^[0-9]+/[0-9]+ comprobaciones PASAN$' "$SALIDA_X" | tail -1)"
 n_ok="${linea%%/*}"; resto="${linea#*/}"; n_tot="${resto%% *}"
-minimo=17; grep -qE '^OMITIDA' "$SALIDA_X" && minimo=14   # sin zoetis_t1c, las 3 comprobaciones por construir se omiten y lo dice
+minimo=30; grep -qE '^OMITIDA' "$SALIDA_X" && minimo=23   # sin zoetis_t1c, las 7 comprobaciones por construir se omiten y lo dice
 if [ $rc -eq 0 ] && [ -n "$linea" ] && [ "$n_ok" = "$n_tot" ] && [ "${n_tot:-0}" -ge $minimo ]; then
   echo "$linea"; grep -E '^OMITIDA' "$SALIDA_X"; echo "RESULTADO acciones exactas de los metadatos: PASA"
 else
