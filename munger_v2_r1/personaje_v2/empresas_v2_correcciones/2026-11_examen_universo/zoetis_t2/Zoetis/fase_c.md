@@ -15,7 +15,8 @@ La historia de la fase A es una empresa de calidad de cartera cuya ventaja dura 
 Incoherencias que anoto (ninguna rompe la historia):
 
 1. La fase A cita C55 como 27,7 %. La hoja da 23,6 %, con la I+D capitalizada; el 27,7 % es la media de 2021–2025 de la fila 33. C18 no cambia: las dos cifras casi doblan el 14,7 % del sector. La fase B ya usó el 23,6 %.
-2. Acciones y precio en fechas distintas (A3). La hoja divide por 424,93 m (31-dic-2025) y a 30-sep-2026 hay 407,49 m [zoetis-10q-2026-q3.txt, PDF p. 5]. Con C76 = 0 la caja gastada en recompras no se suma en ninguna fecha, así que el valor por acción sale hasta ≈ 4 % bajo. Derivado: ponderado ≈ 82,0, precio de Sí ≈ 75,0. La zona seguiría en `caro` por 0,1 USD y el precio seguiría por encima del precio de Sí. Es una celda de datos: no la toco.
+2. Acciones, fecha y deuda de la misma decisión de capital (A3; corregida tras el contradictor, O1 y O2). La hoja divide por 424,93 m (31-dic-2025) y a 30-oct-2026 hay 406,32 m [zoetis-10q-2026-q3.txt, PDF p. 1]. Solo con eso, el precio de Sí sería ≈ 75,3 y el ponderado ≈ 82,2, por encima del precio. Pero las recompras se pagaron con deuda y caja, y f no lleva su coste: el gasto por intereses sube (185 frente a 165 en nueve meses [zoetis-10q-2026-q3.txt, PDF p. 3]), los ingresos por intereses bajan (54 frente a 69 [PDF p. 15]) y entre 2027 y 2030 vencen 4.850 mm al 2 % medio, con el convertible al 0,25 % [PDF p. 44]. Juntas, precio de Sí ≈ 72,3–74,5 y ponderado ≈ 79,7–82,6. La zona queda en el filo entre `caro` y `vigilar`; en las dos zonas la acción es esperar. Es una celda de datos: no la toco.
+   - Además, la reclamación del IRS (≈ 450 mm, recurrida [zoetis-10q-2026-q3.txt, PDF p. 16]) sí está en las fuentes: si prospera, resta ≈ 1,1 USD por acción (O3).
 3. En el MALO las ventas caen y la hoja libera capital a S2C 0,8 (≈ 470 mm en diez años, derivado). La fase B dice que plantas e I+D no se venden con cada paciente perdido. Por eso el FCF del año 1 del MALO (2.532) es el más alto de los tres. Sin esa liberación, el MALO valdría ≈ 1 USD menos y el precio de Sí ≈ 0,5 USD menos.
 4. **Dos palancas derivadas con generosidad, que calculo y dejo.**
    - `Palancas!C14 = 0,03`. Los componentes de la fase B dan un CAGR de 1,3–2,1 % (si los +3 a +4 puntos son brutos) o de 2,1–2,9 % (si son netos). Con la tabla del DCF inverso de la hoja: con 0,025 el NORMAL vale 78,56 y el precio de Sí ≈ 71,37 (−0,8 %); con 0,02, 77,10 y ≈ 70,78 (−1,6 %).
@@ -78,7 +79,7 @@ Reviso los 57 uno a uno. Ninguno es material para sostener `esperar` con el prec
 
 - **Ceros pendientes de verificar.** Con US GAAP los ceros de intereses en financiación son lo que pide la norma, y los de arrendamientos y minoritarios mueven el FCF o el ROIC décimas.
 - **Hechos del T3 volcados por error como «no encontrado».** Son hechos, no ausencias, y los uso. Entre ellos están las 407,49 m acciones de la incoherencia 2.
-- **Ausencias reales.** Ninguna mueve una palanca ni la acción.
+- **Ausencias reales.** Ninguna mueve una palanca ni la acción. Corrijo una razón del turno 1 (O1): el coste de la deuda sí entra en el motor A, dentro de f; refinanciar los vencimientos movería el precio de Sí a 68,2–70,5, sin cambiar la acción.
 
 La que más pesa es la de las **fechas de pérdida de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela**. No la declaro material por cuatro razones:
 
@@ -130,7 +131,7 @@ Zoetis vende medicinas, vacunas y diagnósticos para animales, sobre todo para p
 1. **El foso caduca.** Es una suma de exclusividades que caducan, y la concentración sube: cinco productos eran el 37 % de los ingresos en 2023 y el 42 % en 2025.
 2. **El crecimiento era precio.** En 2023–2025 el crecimiento fue precio con visitas a la baja, y el precio ya resta. Dermatología cae un 16 % y ha perdido unos 16 puntos de cuota en poco más de un año.
 3. **El MALO puede quedarse corto.** Si Simparica y Apoquel siguen el camino de Draxxin, las ventas caen más que en mi MALO y su valor baja hacia ≈ 50.
-4. **La dirección.** Subió la deuda para recomprar a ≈ 134 USD, reparte más de lo que genera y tiene encima una demanda que alega que ocultó la caída de la demanda.
+4. **La dirección.** Subió la deuda para recomprar a ≈ 134 USD, reparte más de lo que genera y tiene encima una demanda que alega que ocultó la caída de la demanda. El convertible de 2.000 al 0,25 % vence en 2029 y habrá que refinanciarlo a los cupones del 4–5,6 % que ya paga, y hay una reclamación del IRS de ≈ 450 mm recurrida.
 5. **El precio.** A 82,11 se paga más por crecer de lo que vale mi NORMAL (17,14 frente a 15,09), y hasta el valor del MALO hay casi un 29 % de caída.
 
 ## 13. Predicciones (dado el NORMAL)
@@ -158,3 +159,23 @@ El cubo es el mismo, Vigilar, y por la misma razón: un buen negocio sin margen 
 3. **El NORMAL.** Crece al 3 % sin precio, frente al 5 % con precio de la etapa 1.
 
 También cambian C17 (de Sí a No), C27 (de Expandiendo a Estable) y p(MALO) (de 0,2 a 0,25). El precio pasó de 73,08 a 82,11.
+
+## 16. Respuesta al contradictor
+
+He comprobado en las fuentes los hechos de las tres objeciones: [zoetis-10q-2026-q3.txt, PDF p. 1, 3, 15, 16 y 44] y [zoetis-10k-fy2025.txt, PDF p. 54, 84 y 86]. Los tres son ciertos. No tengo un dato que rebata ninguna.
+
+| Objeción | Dirección | Respuesta | Efecto |
+|---|---|---|---|
+| O1 · la deuda cuesta más de lo que lleva f | baja | **No rebatida.** El gasto por intereses sube (185 frente a 165 en nueve meses) y los ingresos por intereses bajan (54 frente a 69). Vencen 4.850 mm al 2 % medio entre 2027 y 2030, con el convertible al 0,25 % [zoetis-10q-2026-q3.txt, PDF p. 3, 15 y 44]. Mi razón del turno 1 («el motor A no usa el coste de la deuda») era equivocada: lo usa dentro de f. | Precio de Sí 68,2–70,5 (cálculo del contradictor). Corrijo la incoherencia 2 y la revisión del dato ausente del coste de la deuda. |
+| O2 · precio de hoy con acciones y valor de hace diez meses | sube | **No rebatida.** Hay 406.316.147 acciones a 30-oct-2026 [zoetis-10q-2026-q3.txt, PDF p. 1]. Con ellas el ponderado (≈ 82,2) supera el precio, y mi «caro por 0,1 USD», hecho con las acciones del 30-sep, no se sostiene. | Precio de Sí 75,3–76,1. Junto con O1, ≈ 72,3–74,5. |
+| O3 · reclamación del IRS | baja | **No rebatida.** Son ≈ 450 mm más intereses y sanciones, recurridos [zoetis-10q-2026-q3.txt, PDF p. 16; zoetis-10k-fy2025.txt, PDF p. 84]. La fase A y yo la dimos por no comprobable. | De 0 a −1,1 USD en el precio de Sí. Vuelve a B102. |
+
+**Regla de movimiento.** Las tres objeciones son válidas y ninguna está rebatida.
+
+- **A la baja:** O1 y O3 van en la misma dirección y mueven, como mucho, un escalón. El escalón de abajo sería «sin conclusión»: Vigilar sin acción.
+- **Al alza:** O2 mueve un escalón. El escalón de arriba sería comprar, que no cabe: la zona de `precio.json` es `caro`, y el neto de O1 y O2 deja el precio de Sí en ≈ 72–74,5, frente a un precio de 82,11.
+- **Neto:** los dos escalones se compensan. La conclusión no cambia de escalón.
+
+**Conclusión final.** `concluido` · Vigilar · esperar, con precio objetivo 71,97. Es el precio de Sí de `precio.json`, y el pipeline exige ese número. Con las tres objeciones, el objetivo hay que leerlo como una banda de ≈ 71–74,5 USD, no como un punto exacto. Esa banda la calculó el contradictor, no la hoja.
+
+Además de las incoherencias, el dato ausente y la tesis inversa, cambian el registro de herencia y la Observación de B102. Nada más cambia.

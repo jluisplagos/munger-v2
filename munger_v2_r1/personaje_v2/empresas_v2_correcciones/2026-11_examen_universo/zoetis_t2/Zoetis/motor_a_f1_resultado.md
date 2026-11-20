@@ -1,6 +1,6 @@
 # Motor A · perímetro F1 · F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))
 
-Libro `99b4822025a7ec6c…` · declaración `d85c2ea4820fa304…` · 2026-11-20
+Libro `59f6fd7f180939ba…` · declaración `d85c2ea4820fa304…` · 2026-11-20
 
 **motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14 · cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 % (condición necesaria, no suficiente; no apto para dinero real)**
 
