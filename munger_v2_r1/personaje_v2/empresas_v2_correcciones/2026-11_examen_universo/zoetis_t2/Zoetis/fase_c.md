@@ -1,6 +1,6 @@
 # Zoetis Inc. (ZTS) · fase C · 5-nov-2026
 
-Turno 1 corregido tras la auditoría REPETIR (corrección 1). Las secciones 1–8 son del turno 1. Las secciones 9–15 son del turno 2 anterior y el turno 2 nuevo las rehará. La sección 16 es la respuesta al contradictor y se conserva.
+Fase C completa tras la auditoría REPETIR (corrección 1). Las secciones 1–8 son del turno 1 y las secciones 9–15 del turno 2. La sección 16 es la respuesta al contradictor.
 
 ## 1. Una sola historia
 

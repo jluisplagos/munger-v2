@@ -1,5 +1,5 @@
 {
- "paso": 10,
+ "paso": 13,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -93,12 +93,33 @@
   "2026-11-20T22:45:19 · paso 13 · auditoría consumida: respuesta a la solicitud SA-c6fa5352e69a45cd (SHA-256 af2ed7f1c78f…)",
   "2026-11-20T22:45:19 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)",
   "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
-  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 2 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 2)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_c.json C celdas_C.json → 0 · OK: 58 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/celdas_C.json",
+  "  $ python3 escribir_v63.py Zoetis_v63_evaluada.xlsx Zoetis_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_C.json --verificar referencia_V6.3.1_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx --fases A,B,C → 0 · PASS: 0 errores · 65 celdas correctas · fases ['A', 'B', 'C'] · motor A",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO ",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 82.11 · esc. MALO 58.6543610958914 · precio de Sí 71.9679 (P* 71.9679) · ponderado 78.6246 · zona caro",
+  "  $ python3 comprobar_gramatica.py Zoetis --tras-recalculo --con-fase-c → 0 · código 0 · errores 0 · límites 0 · desviaciones 7 (sin justificar 0) · avisos 3 → gramatica.md",
+  "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO ",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 82.11 · esc. MALO 58.6543610958914 · precio de Sí 71.9679 (P* 71.9679) · ponderado 78.6246 · zona caro",
+  "  $ bash verificar_todo.sh Zoetis Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor A --libro-origen Zoetis_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del",
+  "2026-11-20T22:48:18 · paso 12 · motor A · F1: motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas ",
+  "2026-11-20T22:48:21 · paso 12 · verificación de las entradas financieras: 313 de 315 celdas del universo comprobadas · apta por entradas: sí",
+  "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-20T22:48:26 · paso 13 · solicitud de auditoría SA-982f8b488e3b03a2 registrada para el material e98bece83ebbdaca"
  ],
  "motor": "A",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "10:fase_c.json",
+ "esperando": "13:auditoria.md",
  "inicio": "2026-11-19T11:36:55",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -109,19 +130,19 @@
   "extracto_v63.md": 1795088215.9102218,
   "fase_a.json": 1795209058.4248488,
   "fase_b.json": 1795209926.5617929,
-  "fase_c.json": 1795214808.072158,
+  "fase_c.json": 1795214863.5247166,
   "auditoria.md": 1795214696.2481158
  },
- "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
- "esperando_desde": 1795214826.832811,
+ "motivo_correccion": null,
+ "esperando_desde": 1795214906.151815,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
-  "libro_sha256": "f1a18e2ad829287b95ef149d7a2cac41c9587514cbf831a7d409e0c6fd164241"
+  "libro_sha256": "3148f64319d176773669f54420b0a447562ad3c9298f3adfec358ee52079df2c"
  },
- "turno_c": 2,
+ "turno_c": null,
  "estado_pendiente": null,
  "estado_analisis_fase_c": "concluido",
  "motivo_correccion_c": null,
@@ -154,11 +175,11 @@
   "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
  },
  "libros_verificados": {
-  "evaluado": "eee4c3cf3c9366099a640a9e7e06ac1a6864b834ba5c3a86e5902f4e7da61c76",
+  "evaluado": "cb48ecad727bfe7411282dd930361c396e2a3dd2096c9a70aebc4c94242c0c5b",
   "datos": "54e6d4f653e1d349bd1f8f499aa36ff7d092745ef9b43635252d10a6e9d53c09"
  },
  "f1_repite_12": false,
- "material_auditoria": "535429190e2dcb05",
+ "material_auditoria": "e98bece83ebbdaca",
  "solicitudes_auditoria": [
   {
    "id": "SA-6eb9456a105169f2",
@@ -207,11 +228,25 @@
    "veredicto": "REPETIR",
    "respuesta_contenido": "c1567d8f12018fd782109aac1d468ab6a1397971935c571b14335ccec069e4d4",
    "respuesta_fiel": "30f58a2cd0532d2d530de96a366a9c7fa13c035a959e9dd97455586d983a1908"
+  },
+  {
+   "id": "SA-982f8b488e3b03a2",
+   "material": "e98bece83ebbdaca",
+   "creada": "2026-11-20T22:48:25+00:00",
+   "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "pendiente",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null
   }
  ],
- "anteriores_sha256": [],
- "anteriores_contenido": [],
- "auditoria": "REPETIR",
+ "anteriores_sha256": [
+  "af2ed7f1c78febd92b02ae4f9f36ecb8173d93353dd4e85975629b05d66850c3"
+ ],
+ "anteriores_contenido": [
+  "c1567d8f12018fd782109aac1d468ab6a1397971935c571b14335ccec069e4d4"
+ ],
+ "auditoria": null,
  "relevos_caducados": [
   {
    "material_fijado": "4015a86cec7ea83d",
@@ -251,5 +286,10 @@
   "contenido": "c1567d8f12018fd782109aac1d468ab6a1397971935c571b14335ccec069e4d4",
   "fiel": "30f58a2cd0532d2d530de96a366a9c7fa13c035a959e9dd97455586d983a1908",
   "material": "535429190e2dcb05"
+ },
+ "ultima_auditoria_no_aceptada": {
+  "motivo": "auditoria.md responde a la solicitud SA-c6fa5352e69a45cd (respondida), no a la vigente SA-982f8b488e3b03a2",
+  "sha256": "af2ed7f1c78febd92b02ae4f9f36ecb8173d93353dd4e85975629b05d66850c3",
+  "solicitud_vigente": "SA-982f8b488e3b03a2"
  }
 }
