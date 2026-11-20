@@ -1,4 +1,4 @@
-# Gramática · modo tras · motor B · código 1
+# Gramática · modo tras · motor B · código 0
 
 Categorías (D17): **error** bloquea y ninguna explicación lo aprueba · **límite del modelo** vuelve a la fase A · **desviación** exige evidencia y razonamiento específicos en `desviaciones_justificadas` (justificación ≥ 40 caracteres, `hechos` no vacío, clase fundamentada o convención) · **aviso** informa.
 
@@ -12,7 +12,7 @@ Categorías (D17): **error** bloquea y ninguna explicación lo aprueba · **lím
 
 ## desviación (1)
 
-- **G8** · BUENO · salto del año 11 BUENO = 0.064 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan · justificación rechazada: sin entrada en desviaciones_justificadas → la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11 · **SIN JUSTIFICAR**
+- **G8** · BUENO · salto del año 11 BUENO = 0.056 (> 0.05): la rentabilidad marginal de los años 1–10 y el ROIC terminal se separan → la tesis o la Observación de B18:D18 explica la pérdida (o ganancia) de ventaja en el año 11 · **justificada**
 
 ## aviso (4)
 
