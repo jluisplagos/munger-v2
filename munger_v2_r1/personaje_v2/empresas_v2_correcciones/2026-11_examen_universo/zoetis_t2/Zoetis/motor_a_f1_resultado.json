@@ -1,7 +1,7 @@
 {
  "version": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))",
  "fecha": "2026-11-20",
- "libro_sha256": "e270d0ce0eac702f97d74b6e141a06856d231e86896d0081abfd05687a2465bc",
+ "libro_sha256": "99b4822025a7ec6c83286f6270b8c73f80fcf4bc10022119a4b6ce0beaa68dee",
  "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
  "apto_para_dinero_real": false,
  "parametros_sin_valor_adoptado": {
@@ -59,7 +59,29 @@
   ],
   "nota": "entradas registradas del FCF base: no cambian con F1 (E0.3, T10); la capa F1 no las escribe"
  },
- "palancas": null,
+ "palancas": {
+  "MALO": {
+   "g15": -0.01,
+   "m_obj": 0.31,
+   "s2c": 0.8,
+   "roic": 0.09,
+   "g_inf": 0.01
+  },
+  "NORMAL": {
+   "g15": 0.03,
+   "m_obj": 0.35,
+   "s2c": 0.8,
+   "roic": 0.12,
+   "g_inf": 0.025
+  },
+  "BUENO": {
+   "g15": 0.065,
+   "m_obj": 0.37,
+   "s2c": 1.0,
+   "roic": 0.15,
+   "g_inf": 0.03
+  }
+ },
  "replica_del_libro": {
   "f": 0.010095412036528,
   "C58": 0.010095412036528,
@@ -69,7 +91,7 @@
   "m0_del_libro": 0.340556331360566,
   "m0_celda": "Historia!C49",
   "base_del_margen": "Media del ciclo",
-  "flujos_contrastados": 0,
+  "flujos_contrastados": 33,
   "conforme": true,
   "perimetro_replicado": "D_X del libro (A2_propio)"
  },
@@ -105,9 +127,34 @@
  "libro_v631_f1": {
   "perimetro_efectivo": "A2_propio",
   "motivos": [],
-  "flujos_contrastados": 0
+  "flujos_contrastados": 33
  },
- "bloque_10_del_libro": null,
+ "bloque_10_del_libro": {
+  "MALO": {
+   "fila_176": 0.1984744,
+   "fila_177": 0.09,
+   "fila_178_salto": 0.1084744,
+   "C179": 0.05,
+   "supera_umbral": true,
+   "salto_igualdad_exacta": 0.110459144
+  },
+  "NORMAL": {
+   "fila_176": 0.224084,
+   "fila_177": 0.12,
+   "fila_178_salto": 0.104084,
+   "C179": 0.05,
+   "supera_umbral": true,
+   "salto_igualdad_exacta": 0.1096861
+  },
+  "BUENO": {
+   "fila_176": 0.296111,
+   "fila_177": 0.15,
+   "fila_178_salto": 0.146111,
+   "C179": 0.05,
+   "supera_umbral": true,
+   "salto_igualdad_exacta": 0.15499433
+  }
+ },
  "perimetro_f1_valores": {
   "palancas": null,
   "aplicable": false,
@@ -140,7 +187,53 @@
    "2024": 0.2033,
    "2025": 0.2045
   },
-  "escenarios": {},
+  "escenarios": {
+   "MALO": {
+    "anios_1_10": [
+     2532.283939267123,
+     2461.580859721267,
+     2392.038613372402,
+     2323.641053864542,
+     2256.372241685502,
+     2197.364196102038,
+     2147.954353697818,
+     2107.505239077269,
+     2075.494737230444,
+     2051.504840254898
+    ],
+    "anio_11": 1932.523961185491
+   },
+   "NORMAL": {
+    "anios_1_10": [
+     2218.896995156461,
+     2300.645254532749,
+     2385.301402175972,
+     2472.96633794871,
+     2563.744398605854,
+     2651.411976045761,
+     2739.37007095179,
+     2827.449460671962,
+     2915.474803592431,
+     3003.265145362702
+    ],
+    "anio_11": 2720.193413491571
+   },
+   "BUENO": {
+    "anios_1_10": [
+     2078.293073992632,
+     2263.986296214428,
+     2465.038849087437,
+     2682.662891732432,
+     2918.163270783882,
+     3172.669579078915,
+     3425.27000070983,
+     3672.04222167863,
+     3908.867202206123,
+     4131.534851004008
+    ],
+    "anio_11": 3756.928180860023
+   }
+  },
   "K3": {
    "lineas": [
     {
@@ -205,7 +298,53 @@
     "2024": 0.2033,
     "2025": 0.2045
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2386.544843657045,
+      2317.29915506729,
+      2249.199725764964,
+      2182.230555133179,
+      2116.375847941452,
+      2058.207780720453,
+      2009.076251146996,
+      1968.349380321346,
+      1935.503943321985,
+      1910.114138407354
+     ],
+     "anio_11": 1789.719352319472
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2067.269451238905,
+      2144.468884297666,
+      2224.439740833837,
+      2307.278826766311,
+      2393.086262087983,
+      2475.804753568872,
+      2558.845846245548,
+      2642.051081898651,
+      2725.256066971014,
+      2808.290940325749
+     ],
+     "anio_11": 2520.344853328695
+    },
+    "BUENO": {
+     "anios_1_10": [
+      1921.513137806033,
+      2097.015664175699,
+      2287.215125966191,
+      2493.280626608306,
+      2716.471158426687,
+      2959.279324205003,
+      3200.996842837349,
+      3437.90104485976,
+      3666.062801844954,
+      3881.446318632004
+     ],
+     "anio_11": 3499.336992516859
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -272,7 +411,53 @@
     "2024": 0.2033,
     "2025": 0.2045
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2387.576016503343,
+      2318.320016185125,
+      2250.210378271621,
+      2183.231101114769,
+      2117.366388463226,
+      2059.192377999097,
+      2010.058879231082,
+      1969.3339736616,
+      1936.494444222281,
+      1911.114544316652
+     ],
+     "anio_11": 1790.729762287863
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2068.342287634548,
+      2145.573905785178,
+      2225.577912965975,
+      2308.451144062413,
+      2394.293748902968,
+      2477.047257501491,
+      2560.12314028828,
+      2643.362862880537,
+      2726.60195425843,
+      2809.67047479535
+     ],
+     "anio_11": 2521.758876160035
+    },
+    "BUENO": {
+     "anios_1_10": [
+      1922.622429807353,
+      2098.197060157105,
+      2288.473312686389,
+      2494.620595465316,
+      2717.898225259403,
+      2960.789160914017,
+      3202.583681218522,
+      3439.557704129704,
+      3667.780757507887,
+      3883.215812964824
+     ],
+     "anio_11": 3501.159571679664
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -338,7 +523,53 @@
     "2024": 0.2033,
     "2025": 0.2045
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2532.283939267123,
+      2461.580859721267,
+      2392.038613372402,
+      2323.641053864542,
+      2256.372241685502,
+      2197.364196102038,
+      2147.954353697818,
+      2107.505239077269,
+      2075.494737230444,
+      2051.504840254898
+     ],
+     "anio_11": 1932.523961185491
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      2218.896995156461,
+      2300.645254532749,
+      2385.301402175972,
+      2472.96633794871,
+      2563.744398605854,
+      2651.411976045761,
+      2739.37007095179,
+      2827.449460671962,
+      2915.474803592431,
+      3003.265145362702
+     ],
+     "anio_11": 2720.193413491571
+    },
+    "BUENO": {
+     "anios_1_10": [
+      2078.293073992632,
+      2263.986296214428,
+      2465.038849087437,
+      2682.662891732432,
+      2918.163270783882,
+      3172.669579078915,
+      3425.27000070983,
+      3672.04222167863,
+      3908.867202206123,
+      4131.534851004008
+     ],
+     "anio_11": 3756.928180860023
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -402,7 +633,53 @@
     "2024": 0.2033,
     "2025": 0.2045
    },
-   "escenarios": {},
+   "escenarios": {
+    "MALO": {
+     "anios_1_10": [
+      2203.339801298149,
+      2135.926163131983,
+      2069.640463749011,
+      2004.466885737385,
+      1940.389815239616,
+      1883.277664214829,
+      1834.495994874382,
+      1793.419963536187,
+      1759.524950036115,
+      1732.375355188625
+     ],
+     "anio_11": 1610.203181268556
+    },
+    "NORMAL": {
+     "anios_1_10": [
+      1876.662184946317,
+      1948.1434000163,
+      2022.22449202403,
+      2098.99712049221,
+      2178.556104625659,
+      2255.05322154014,
+      2331.913271320012,
+      2408.991327450125,
+      2486.136758906827,
+      2563.193649559958
+     ],
+     "anio_11": 2269.120130293758
+    },
+    "BUENO": {
+     "anios_1_10": [
+      1724.428925571464,
+      1887.120978145883,
+      2063.677285344437,
+      2255.212826346137,
+      2462.928951147478,
+      2691.0316689036,
+      2919.068557115574,
+      3143.567914566227,
+      3360.839345730561,
+      3567.066158834178
+     ],
+     "anio_11": 3175.525427925098
+    }
+   },
    "K3": {
     "lineas": [
      {
@@ -490,13 +767,39 @@
     "variacion_maxima_de_f": 0.006784758,
     "variacion_maxima_del_flujo_sin_crecimiento_mm": -64.231305,
     "variacion_maxima_del_flujo_sin_crecimiento_%": -2.585,
-    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+     "MALO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -725.863,
+      "variacion_maxima_%": -2.91
+     },
+     "NORMAL": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1042.046,
+      "variacion_maxima_%": -3.06
+     },
+     "BUENO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1346.174,
+      "variacion_maxima_%": -2.98
+     }
+    }
    },
    "si la amortización del derecho de uso estuviera dentro de la fila 8, o sola dentro de la fila 14 (se contaría dos veces): como máximo, el coste lineal": {
     "variacion_maxima_de_f": -0.006711409,
     "variacion_maxima_del_flujo_sin_crecimiento_mm": 63.536913,
     "variacion_maxima_del_flujo_sin_crecimiento_%": 2.557,
-    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+     "MALO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 718.016,
+      "variacion_maxima_%": 2.88
+     },
+     "NORMAL": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1030.78,
+      "variacion_maxima_%": 3.03
+     },
+     "BUENO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1331.621,
+      "variacion_maxima_%": 2.95
+     }
+    }
    },
    "nota": "cotas, no estimaciones (salvo la de D-WM): la parte del pago que reduce el pasivo es menor que el pago y la amortización del derecho de uso es menor que el coste lineal; si los dos tramos estuvieran netos dentro de la fila 14, la variación sería solo −(pagos − coste lineal)",
    "resumen": {
@@ -508,8 +811,11 @@
      -2.585,
      2.557
     ],
-    "valor_presente_NORMAL_%": null,
-    "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %)"
+    "valor_presente_NORMAL_%": [
+     -3.06,
+     3.03
+    ],
+    "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 %"
    }
   }
  },
@@ -592,13 +898,39 @@
     "variacion_maxima_de_f": 0.006784758,
     "variacion_maxima_del_flujo_sin_crecimiento_mm": -64.231305,
     "variacion_maxima_del_flujo_sin_crecimiento_%": -2.585,
-    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+     "MALO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -725.863,
+      "variacion_maxima_%": -2.91
+     },
+     "NORMAL": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1042.046,
+      "variacion_maxima_%": -3.06
+     },
+     "BUENO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1346.174,
+      "variacion_maxima_%": -2.98
+     }
+    }
    },
    "si la amortización del derecho de uso estuviera dentro de la fila 8, o sola dentro de la fila 14 (se contaría dos veces): como máximo, el coste lineal": {
     "variacion_maxima_de_f": -0.006711409,
     "variacion_maxima_del_flujo_sin_crecimiento_mm": 63.536913,
     "variacion_maxima_del_flujo_sin_crecimiento_%": 2.557,
-    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+    "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+     "MALO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 718.016,
+      "variacion_maxima_%": 2.88
+     },
+     "NORMAL": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1030.78,
+      "variacion_maxima_%": 3.03
+     },
+     "BUENO": {
+      "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1331.621,
+      "variacion_maxima_%": 2.95
+     }
+    }
    },
    "nota": "cotas, no estimaciones (salvo la de D-WM): la parte del pago que reduce el pasivo es menor que el pago y la amortización del derecho de uso es menor que el coste lineal; si los dos tramos estuvieran netos dentro de la fila 14, la variación sería solo −(pagos − coste lineal)",
    "resumen": {
@@ -610,8 +942,11 @@
      -2.585,
      2.557
     ],
-    "valor_presente_NORMAL_%": null,
-    "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %)"
+    "valor_presente_NORMAL_%": [
+     -3.06,
+     3.03
+    ],
+    "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 %"
    }
   },
   "contraste_de_ubicaciones": {
@@ -939,8 +1274,17 @@
    "salta": false,
    "severidad": null,
    "efecto": null,
-   "detalle": "el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 0 flujos del Motor coinciden con la capa",
+   "detalle": "el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 33 flujos del Motor coinciden con la capa",
    "decision": "(1a) · implantación",
+   "clase": null
+  },
+  {
+   "id": "V-F1k (salto del terminal)",
+   "salta": true,
+   "severidad": "AVISO",
+   "efecto": "AVISO",
+   "detalle": "|salto| > C179 en ['MALO', 'NORMAL', 'BUENO']: G8 (vigente) exige justificación en la tesis u Observación de B18:D18",
+   "decision": "(4a)",
    "clase": null
   },
   {
@@ -1019,7 +1363,7 @@
  "bloquea": false,
  "utilizable_para_conclusion": true,
  "estado_propuesto": null,
- "rotulo": "motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14 · cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %) (condición necesaria, no suficiente; no apto para dinero real)",
+ "rotulo": "motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14 · cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 % (condición necesaria, no suficiente; no apto para dinero real)",
  "declaracion_ruta": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/motor_a_f1.json",
- "libro_origen_sha256": "e3c5aa750b9bd302ae17c0332a129e61bdca7f8d91d089c24c0a0c1b121a0f0b"
+ "libro_origen_sha256": "eee4c3cf3c9366099a640a9e7e06ac1a6864b834ba5c3a86e5902f4e7da61c76"
 }

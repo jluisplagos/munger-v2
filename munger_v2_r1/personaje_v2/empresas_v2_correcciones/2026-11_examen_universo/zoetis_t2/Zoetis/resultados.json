@@ -29,10 +29,10 @@
   0.03
  ],
  "estados": {
-  "estado_tecnico_B255": "INCOMPLETO",
-  "causa_tecnica_B256": "Faltan 3 predicciones (Palancas A38:A40)",
+  "estado_tecnico_B255": "COMPLETO Y VÁLIDO",
+  "causa_tecnica_B256": null,
   "estado_inversion_B258": "DESCARTADA POR FILTRO PABRAI",
-  "estado_libro_B266": "NO LISTO · incompleto (1 pendientes)",
+  "estado_libro_B266": "NO LISTO · evidencias incompletas (1 pendientes) · cálculo completo",
   "lectura_precio_B267": "sin margen: tu DCF no da colchón",
   "veredicto_B268": "DESCARTADA POR FILTRO PABRAI · el valor no es claro sin modelos (C13)",
   "evidencias_B269": "INCOMPLETAS · datos 18 de 19 · hipótesis confirmadas 0 de 24 · 24 estimaciones · 1 no verificables · 0 hipótesis pendientes · 0 sin dato, sin clasificar, sin fuente o incoherentes · 0 «No aplicable» indebido",
@@ -40,7 +40,7 @@
   "comparable_B253": true,
   "bloqueo_lectura_B254": false,
   "n_avisos_B260": 3,
-  "n_causas_B261": 4,
+  "n_causas_B261": 3,
   "dcf_inverso_monotono_B193": "✓ PASA"
  },
  "reglas_motor": [
@@ -521,12 +521,12 @@
    "id": "C07",
    "regla": "Predicciones (Palancas A38:A40)",
    "aplica": true,
-   "resultado": "INCOMPLETO",
-   "codigo": "INC|Faltan 3 predicciones (Palancas A38:A40)",
-   "causa": "Faltan 3 predicciones (Palancas A38:A40)",
+   "resultado": "OK",
+   "codigo": null,
+   "causa": null,
    "nivel": 3,
    "prioridad": 9,
-   "n_causa_activa": 4
+   "n_causa_activa": null
   },
   {
    "id": "C08",
@@ -587,8 +587,7 @@
  "causas_activas": [
   "1. AVISO · La rentabilidad marginal de los años 1–10 y el ROIC del terminal se separan más de 5 puntos: el salto del año 11 es una hipótesis. Hazla explícita (Diagnóstico V6, bloque 10)",
   "2. AVISO · Precio y acciones con fechas separadas más de 90 días (Palancas C45, C46)",
-  "3. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha",
-  "4. INCOMPLETO · Faltan 3 predicciones (Palancas A38:A40)"
+  "3. AVISO · Fecha de análisis escrita como texto (Análisis D4): escríbela como fecha"
  ],
  "semaforos": {
   "fila40": [
@@ -855,7 +854,7 @@
   ],
   [
    "Las tres predicciones están escritas",
-   "⛔ TÉCNICO · Faltan 3 predicciones (Palancas A38:A40)"
+   "✓ PASA"
   ],
   [
    "Tipo de empresa y caso especial elegidos",
@@ -867,7 +866,7 @@
   ],
   [
    "ESTADO DEL LIBRO · LISTO = el cálculo está completo y pasa sus comprobaciones. No es una aprobación de inversión ni dice que los datos sean ciertos: mira el estado de las evidencias y las advertencias.",
-   "NO LISTO · incompleto (1 pendientes)"
+   "NO LISTO · evidencias incompletas (1 pendientes) · cálculo completo"
   ]
  ],
  "salto_anio_11": {
@@ -952,8 +951,8 @@
    ]
   ],
   "mas_influyente": "Tasa de descuento (±1 pt)",
-  "B222": null,
-  "B223": null
+  "B222": "Palancas!C18, ROIC terminal del NORMAL (0,12): cuánto dura la ventaja de Simparica Trio, Apoquel, Cytopoint y Librela. Es la hipótesis fundamentada de la que más depende el objetivo: sale del punto medio entre r y la media del sector, con hechos que dicen que el foso de cartera existe pero no cuándo caduca cada exclusividad. El 10-K solo lista como expiraciones recientes y próximas Draxxin, Excede y Cerenia. Con un MALO como Draxxin el precio de Sí bajaría de 71,97 a ≈ 67,6 (derivado).",
+  "B223": "Fechas de expiración de las patentes de compuesto y de formulación, y de la exclusividad de datos, de Simparica Trio, Apoquel, Cytopoint y Librela en EE. UU. y la UE: pregunta a Relación con Inversores y consulta del registro de patentes y exclusividades de la FDA para medicamentos veterinarios (Green Book). Además, las cuotas Kynetec de dermatología y de Simparica Trio en las presentaciones del T4 2026 al T3 2027."
  },
  "precio_referencia_hoja_C156": 58.6543610958914,
  "parametros_hoja": {
@@ -1418,9 +1417,9 @@
   "C93": "Sí",
   "C97": "Neutral",
   "C98": "Dudosa",
-  "B101": "Zoetis vende medicamentos, vacunas y diagnósticos para animales, sobre todo para perros y gatos (≈70 % de los ingresos de 2025), a veterinarios, distribuidores, minoristas y comercio electrónico; supongo que, al final, paga el dueño del animal o el ganadero. Leo que gana porque sus franquicias de marca (parasiticidas, dermatología, dolor) le han dejado subir precios todos los años con márgenes crecientes y un ROIC del 26–30 %. La caja es real: CFO ÷ beneficio 1,06 en cinco años e impuestos pagados en caja por encima del gasto. El riesgo es la concentración (cinco productos = 42 % de las ventas) y que la erosión que sufrió Draxxin llegue a las franquicias de compañía, justo cuando la guía de 2026 es de crecimiento orgánico negativo por causas que mis documentos no explican. A 73 USD no hay margen: la miraría por debajo de ≈49 USD.",
-  "B102": "El foso es una suma de exclusividades de producto que caducan, no una marca que dura: Draxxin perdió el 66 % de sus ventas en EE. UU. desde que llegaron los genéricos en 2021, Excede y Cerenia ya están perdiendo exclusividad y la concentración ha subido (cinco primeros productos del 29 % en 2019 al 42 % en 2025), así que cada vez hay más huevos en menos cestas. El crecimiento reciente fue sobre todo precio (≈5, ≈6 y ≈4 puntos en 2023–25), y el precio que sube más que el valor entregado invita a genéricos, alternativas baratas y a minoristas que, según la propia empresa, pueden impedirle sostener márgenes. Los resultados que la hicieron grande ya han empezado a pararse: US plano en 2025, Librela vendiendo menos y guía orgánica de −3 % a −1 % para 2026, y no sé por qué. El inventario crece más que las ventas en cinco de seis años mientras las provisiones bajan (115 → 97 → 68), lo que puede anticipar cargos; el calendario de 2025 (Fiscal Year Alignment) subió entre un 2,5 % y un 3,5 % las ventas internacionales del 4T25 y la empresa dice que no se repetirá. La dirección se endeudó (principal de 6.650 a 9.150 mm) para recomprar a ≈136 USD de media en 2025 y la autocartera costó ≈139 USD por acción frente a 73 hoy; el IRS reclama ≈450 mm. Si el FCF cae como en el escenario malo, 73 USD vale ≈49 y la mediana histórica de 47x FCF no vuelve: se puede perder un tercio de forma permanente.",
+  "B101": "Zoetis vende medicinas, vacunas y diagnósticos para animales, sobre todo para perros y gatos (6.283 de 9.467 mm en 2025), con un margen EBIT del 34,9–37,8 % en 2021–2025 y un ROIC de al menos 17,8 % los diez años (Historia filas 29 y 33). Su foso es escala y una cartera de franquicias que hay que renovar: cada una caduca, como Draxxin (−66 %) y Rimadyl (−39 %) en EE. UU. tras los genéricos, y dermatología ya pierde cuota ante marcas nuevas (≈ 80 % en el T3). En 2026 el precio neto resta (−1 % en el T3) y la guía orgánica es negativa, así que mi escenario central crece al 3 % sin el precio de 2023–2025, con margen del 35 % y un ROIC terminal del 12 %. Con probabilidades 0,25/0,6/0,15 los escenarios valen 58,65/80,06/106,17 USD y el ponderado 78,62, por debajo del precio de 82,11. Vigilar: la miraría a 71,97 o menos, y vigilo las fechas de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela, que podrían bajar ese precio.",
+  "B102": "El foso es una suma de exclusividades que caducan y la concentración sube: cinco productos son el 42 % de los ingresos de 2025, frente al 37 % de 2023 (extracto §1), y la propia empresa dice que los genéricos la obligan a bajar precios y dar rebajas [zoetis-10k-fy2025.txt, PDF p. 25]. Lo que la hizo crecer en 2023–2025 fue precio (5, 6 y 4 puntos) con visitas a clínicas a la baja [zoetis-2q2026-earnings-call.txt, PDF p. 3], y ese precio ya resta (−1 % en el T3 [zoetis-10q-2026-q3.txt, PDF p. 29–30]) mientras dermatología cae un 16 % y pierde unos 16 puntos de cuota en poco más de un año [zoetis-3q2026-financial-results.txt, PDF p. 4 y 19]. Si la erosión pasa a Simparica (16 %) y Apoquel (12 %) como pasó con Draxxin, las ventas caen más que el 1 % anual de mi MALO y su valor baja de 58,65 hacia ≈ 50 USD (derivado). La dirección subió la deuda de 6.650 a 9.150 mm para recomprar a ≈ 134 USD en 2025 [zoetis-10k-fy2025.txt, PDF p. 59 y 86], en 2026 reparte más de lo que genera (2.356 frente a un CFO de 1.880 [zoetis-10q-2026-q3.txt, PDF p. 8]), una demanda colectiva alega que ocultó la caída de la demanda de sus cuatro productos principales [zoetis-10q-2026-q3.txt, PDF p. 24] y el director financiero se fue. A 82,11 el precio descuenta un 3,66 % de crecimiento (C86) con el año en curso negativo: se paga más por crecer de lo que vale mi NORMAL (17,14 frente a 15,09 USD) y hasta el valor del MALO, que no es un suelo, hay casi un 29 % de caída.",
   "C103": "No",
-  "C104": "0% · Watchlist · precio de Sí ≈ 49 USD (estimación)"
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 71.97 · zona caro · precio de Sí ≤ 71.97 · precio esc. MALO 58.65 · ponderado 78.62 · fundamento no procede (conclusión no favorable)"
  }
 }

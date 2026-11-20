@@ -1,8 +1,8 @@
 # Motor A · perímetro F1 · F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))
 
-Libro `e270d0ce0eac702f…` · declaración `d85c2ea4820fa304…` · 2026-11-20
+Libro `99b4822025a7ec6c…` · declaración `d85c2ea4820fa304…` · 2026-11-20
 
-**motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14 · cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %) (condición necesaria, no suficiente; no apto para dinero real)**
+**motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14 · cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 % (condición necesaria, no suficiente; no apto para dinero real)**
 
 Estado propuesto: — · apto para dinero real: no.
 
@@ -10,7 +10,7 @@ Estado propuesto: — · apto para dinero real: no.
 
 - **D-US1** (hipótesis general declarada): hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas 8 y 14
 
-cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %)
+cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 %
 
 ## Guardas
 
@@ -42,7 +42,8 @@ cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 
 | F1-K3a | no | — | — | K3 | caja base por dos vías: cada diferencia entre C70 y la fila 35 está explicada por una partida declarada |
 | F1-K3b | no | — | — | K3 | alquiler contado una vez (operativos, financieros) · según la hipótesis D-US1 (no es un dato ni una comprobación independiente) |
 | F1-K3c | no | — | — | K3 | reinversión media 599.333 ≥ 0 (o ventas a la baja) |
-| F1-LIBRO | no | — | — | (1a) · implantación | el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 0 flujos del Motor coinciden con la capa |
+| F1-LIBRO | no | — | — | (1a) · implantación | el libro V6.3.1 F1 calcula el perímetro declarado (A2_propio): f, ancla, D_X, series y 33 flujos del Motor coinciden con la capa |
+| V-F1k (salto del terminal) | sí | AVISO | AVISO | (4a) | /salto/ > C179 en ['MALO', 'NORMAL', 'BUENO']: G8 (vigente) exige justificación en la tesis u Observación de B18:D18 |
 | V-F1g (valores) | no | — | — | (4a) · P-FOSO | perímetro A2_propio declarado; medidas del perímetro no aplicables: norma contable 'US_GAAP': la medida solo tiene fórmula con NIIF (NIIF 16). Con US GAAP el arrendamiento operativo va entero en el EBIT y restarle su interés lo contaría dos veces; no se emite hasta que tenga su fórmula. G7 y las referencias usan C55, de todo el capital, como antes |
 | V-F1k (valores) | no | — | — | (4a) · P-FOSO | perímetro A2_propio declarado; medidas del perímetro no aplicables: norma contable 'US_GAAP': la medida solo tiene fórmula con NIIF (NIIF 16). Con US GAAP el arrendamiento operativo va entero en el EBIT y restarle su interés lo contaría dos veces; no se emite hasta que tenga su fórmula. G7 y las referencias usan C55, de todo el capital, como antes |
 | V-F1f | sí | INFORMA | INFORMA | (2) | {"PPA: media ÷ ventas medias (lo que devuelve f en A2)": 0.01544, "PPA: lo que lleva m0": "no calculable con la base del margen «Media del ciclo» (Palancas C8): la serie no cubre todos los años con ventas", "ROU: media ÷ ventas medias (lo que devuelve f en A1 y A2)": 0.00011, "ROU: lo que lleva m0": "no calculable con la base del margen «Media del ciclo» (Palancas C8): la serie no cubre todos los años con ventas"} |
@@ -171,13 +172,39 @@ Doble cómputo señalado por K3 en A0: 141.333 mm de media en la ventana; 147.21
    "variacion_maxima_de_f": 0.006784758,
    "variacion_maxima_del_flujo_sin_crecimiento_mm": -64.231305,
    "variacion_maxima_del_flujo_sin_crecimiento_%": -2.585,
-   "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+   "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+    "MALO": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": -725.863,
+     "variacion_maxima_%": -2.91
+    },
+    "NORMAL": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1042.046,
+     "variacion_maxima_%": -3.06
+    },
+    "BUENO": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": -1346.174,
+     "variacion_maxima_%": -2.98
+    }
+   }
   },
   "si la amortización del derecho de uso estuviera dentro de la fila 8, o sola dentro de la fila 14 (se contaría dos veces): como máximo, el coste lineal": {
    "variacion_maxima_de_f": -0.006711409,
    "variacion_maxima_del_flujo_sin_crecimiento_mm": 63.536913,
    "variacion_maxima_del_flujo_sin_crecimiento_%": 2.557,
-   "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": null
+   "por_escenario (valor presente de los flujos a la r del libro, sin exceso de caja ni quiebra)": {
+    "MALO": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": 718.016,
+     "variacion_maxima_%": 2.88
+    },
+    "NORMAL": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1030.78,
+     "variacion_maxima_%": 3.03
+    },
+    "BUENO": {
+     "variacion_maxima_del_valor_presente_de_los_flujos_mm": 1331.621,
+     "variacion_maxima_%": 2.95
+    }
+   }
   },
   "nota": "cotas, no estimaciones (salvo la de D-WM): la parte del pago que reduce el pasivo es menor que el pago y la amortización del derecho de uso es menor que el coste lineal; si los dos tramos estuvieran netos dentro de la fila 14, la variación sería solo −(pagos − coste lineal)",
   "resumen": {
@@ -189,8 +216,11 @@ Doble cómputo señalado por K3 en A0: 141.333 mm de media en la ventana; 147.21
     -2.585,
     2.557
    ],
-   "valor_presente_NORMAL_%": null,
-   "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %)"
+   "valor_presente_NORMAL_%": [
+    -3.06,
+    3.03
+   ],
+   "texto": "cota: el flujo sin crecimiento podría cambiar entre -64.231 y +63.537 mm (-2.6 % y +2.6 %); el valor presente de los flujos en el escenario NORMAL, entre -3.1 % y +3.0 %"
   }
  },
  "contraste_de_ubicaciones": {

@@ -101,3 +101,60 @@ La más débil, aunque fundamentada, es el ROIC terminal del NORMAL (0,12): sale
 
 - **Hipótesis que más condiciona:** `Palancas!C18`, el ROIC terminal del NORMAL. De él depende que el salto del año 11 cuente bien cuánto dura la ventaja de las cuatro grandes franquicias.
 - **Qué lo resolvería:** las fechas de expiración de patentes y de exclusividad de datos de Simparica Trio, Apoquel, Cytopoint y Librela en EE. UU. y la UE, pedidas a Relación con Inversores o buscadas en el registro de patentes y exclusividades de la FDA para medicamentos veterinarios (Green Book). Junto con las cuotas Kynetec de dermatología y de Simparica Trio de los cuatro próximos trimestres.
+
+## 9. Comprobación conjunta (turno 2)
+
+No hay `comprobacion_conjunta.json`: la lista de hipótesis sin fundamento está vacía y la conclusión no es favorable. `sobrevive` queda en `null` y el resultado sigue en `no_procede`. No hay un rango calculado del precio de Sí; las sensibilidades del turno 1 son derivadas, no las calculó la hoja.
+
+## 10. Conclusión
+
+**Estado `concluido` (provisional hasta la auditoría) · cubo Vigilar · acción esperar · precio objetivo 71,97 (precio de Sí de `precio.json`).**
+
+- **Por qué esperar.** El precio (82,11) está en la zona `caro`: 4,4 % por encima del ponderado (diferencia ÷ ponderado) y 14,1 % por encima del precio de Sí (diferencia ÷ precio de Sí).
+- **Insumos para José Luis.**
+   - Precio del MALO: 58,65, que no es un suelo.
+   - Regla antigua (C156): 58,65.
+   - Crecimiento implícito: el precio descuenta 3,66 % y el precio de Sí 0,13 %.
+   - r = 0,09 frente a una r mínima de 0,104; el valor depende sobre todo de la r exigida.
+   - Datos ausentes materiales: ninguno. Descalificadores: ninguno aplica.
+- **Tamaño.** No escribo ningún tamaño de posición: es de José Luis.
+
+`C93` = Sí: g 0,025, bajo la tasa sin riesgo (CV p. 5; E1). Con un ROIC terminal de 0,12 exige reinvertir ≈ 21 % del NOPAT (CV p. 12; I2), y el negocio lo paga. `C103` = No: el foso hay que renovarlo cada década. «if you can buy a few great companies then you can sit on your ass» (PCA pp.85–86; HIM) no describe este negocio.
+
+## 11. Tesis (B101)
+
+Zoetis vende medicinas, vacunas y diagnósticos para animales, sobre todo para perros y gatos, con márgenes del 35–38 % y un ROIC de al menos 17,8 % durante diez años. Su foso es escala y una cartera que hay que renovar. Cada franquicia caduca (Draxxin −66 %, Rimadyl −39 %), y dermatología ya pierde cuota ante marcas nuevas. Mi escenario central crece al 3 % sin el precio de 2023–2025. Con 0,25/0,6/0,15 el ponderado (78,62) queda por debajo del precio. La miraría a 71,97 o menos.
+
+## 12. Tesis inversa (B102)
+
+1. **El foso caduca.** Es una suma de exclusividades que caducan, y la concentración sube: cinco productos eran el 37 % de los ingresos en 2023 y el 42 % en 2025.
+2. **El crecimiento era precio.** En 2023–2025 el crecimiento fue precio con visitas a la baja, y el precio ya resta. Dermatología cae un 16 % y ha perdido unos 16 puntos de cuota en poco más de un año.
+3. **El MALO puede quedarse corto.** Si Simparica y Apoquel siguen el camino de Draxxin, las ventas caen más que en mi MALO y su valor baja hacia ≈ 50.
+4. **La dirección.** Subió la deuda para recomprar a ≈ 134 USD, reparte más de lo que genera y tiene encima una demanda que alega que ocultó la caída de la demanda.
+5. **El precio.** A 82,11 se paga más por crecer de lo que vale mi NORMAL (17,14 frente a 15,09), y hasta el valor del MALO hay casi un 29 % de caída.
+
+## 13. Predicciones (dado el NORMAL)
+
+1. La cuota de dermatología canina en EE. UU. (Kynetec) que publique la presentación del T3 de 2027 será ≥ 75 %. Se comprueba el 2027-11-30. Probabilidad 0,6.
+2. Los ingresos de 2027 del 10-K FY2027 estarán entre 9.250 y 9.900 mm. Se comprueba el 2028-03-15. Probabilidad 0,65.
+3. El margen EBIT de 2027 del 10-K FY2027 será ≥ 33,5 %. Se comprueba el 2028-03-15. Probabilidad 0,7.
+
+**B222.** `Palancas!C18`, el ROIC terminal del NORMAL: cuánto dura la ventaja de las cuatro grandes franquicias.
+
+**B223.** Las fechas de patentes y de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela, que pediría a Relación con Inversores o buscaría en el Green Book de la FDA, y las cuotas Kynetec de los próximos cuatro trimestres.
+
+## 14. Qué me haría cambiar de cubo
+
+- **A Sí:** que el precio baje de 71,97 y que las fechas de exclusividad sean posteriores a 2031, o que la cuota de dermatología se mantenga estable durante 2027.
+- **A No:** que se prueben las alegaciones de la demanda, que la deuda pase de 3x EBITDA para recomprar, o que Simparica Trio caiga por debajo del 18 % de cuota con el margen bruto de EE. UU. bajo el 80 %.
+- **A Demasiado difícil:** que Simparica Trio o Apoquel pierdan la exclusividad antes de 2030 y el valor pase a depender del pipeline, o que no pueda conseguir nunca las fechas.
+
+## 15. Comparación con la etapa 1
+
+El cubo es el mismo, Vigilar, y por la misma razón: un buen negocio sin margen al precio. El precio de Sí sube de ≈ 49 a 71,97 por tres motivos:
+
+1. **El método.** La etapa 1 usaba la regla antigua; hoy esa regla daría 58,65.
+2. **El MALO.** El mío es más suave que el de la etapa 1 (58,65 frente a ≈ 48,7). Lo digo sin rodeos: supone media Draxxin, no Draxxin entero.
+3. **El NORMAL.** Crece al 3 % sin precio, frente al 5 % con precio de la etapa 1.
+
+También cambian C17 (de Sí a No), C27 (de Expandiendo a Estable) y p(MALO) (de 0,2 a 0,25). El precio pasó de 73,08 a 82,11.
