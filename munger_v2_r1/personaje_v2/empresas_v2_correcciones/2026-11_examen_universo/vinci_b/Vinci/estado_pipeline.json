@@ -94,7 +94,10 @@
   "  $ python3 informe.py Vinci --provisional → 0 · OK: informe_provisional.md (13 secciones)",
   "2026-11-20T23:36:09 · paso 13 · solicitud de auditoría SA-d9b85c5abc303639 registrada para el material ee0c2f140b33ef00 (sustituye a SA-4a199f6d83dbb44e)",
   "2026-11-20T23:47:01 · paso 13 · auditoría consumida: respuesta a la solicitud SA-d9b85c5abc303639 (SHA-256 0ff9ab7e647c…)",
-  "2026-11-20T23:47:01 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)"
+  "2026-11-20T23:47:01 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 comprobacion_conjunta.py Vinci Vinci_v63_evaluada.xlsx → 0 · OK: comprobación conjunta → sobrevive = False · zona bajo la combinación: vigilar (original: caro) · errores de gramática: 0 → comprobacion_conjunta.json"
  ],
  "motor": "B",
  "fase_b_escrita": true,
@@ -110,12 +113,12 @@
   "extracto_v63.md": 1795209280.517049,
   "fase_a.json": 1795211080.2216897,
   "fase_b.json": 1795213149.5815732,
-  "fase_c.json": 1795213742.8290453,
+  "fase_c.json": 1795218721.123174,
   "auditoria.md": 1795218385.768335
  },
- "motivo_correccion": "auditoría REPETIR: ver auditoria.md",
- "esperando_desde": 1795218421.816078,
- "turno_c": 1,
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1795218752.651439,
+ "turno_c": 2,
  "estado_pendiente": null,
  "estado_analisis_fase_c": "concluido",
  "motivo_correccion_c": null,
