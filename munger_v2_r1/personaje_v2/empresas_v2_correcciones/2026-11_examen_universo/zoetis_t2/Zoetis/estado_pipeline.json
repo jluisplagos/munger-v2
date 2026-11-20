@@ -91,7 +91,9 @@
   "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
   "2026-11-20T22:39:28 · paso 13 · solicitud de auditoría SA-c6fa5352e69a45cd registrada para el material 535429190e2dcb05 (sustituye a SA-4e8eb97e3639d564)",
   "2026-11-20T22:45:19 · paso 13 · auditoría consumida: respuesta a la solicitud SA-c6fa5352e69a45cd (SHA-256 af2ed7f1c78f…)",
-  "2026-11-20T22:45:19 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)"
+  "2026-11-20T22:45:19 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -107,11 +109,11 @@
   "extracto_v63.md": 1795088215.9102218,
   "fase_a.json": 1795209058.4248488,
   "fase_b.json": 1795209926.5617929,
-  "fase_c.json": 1795211216.5301225,
+  "fase_c.json": 1795214808.072158,
   "auditoria.md": 1795214696.2481158
  },
- "motivo_correccion": "auditoría REPETIR: ver auditoria.md",
- "esperando_desde": 1795214719.308241,
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1795214826.832811,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
@@ -119,7 +121,7 @@
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
   "libro_sha256": "f1a18e2ad829287b95ef149d7a2cac41c9587514cbf831a7d409e0c6fd164241"
  },
- "turno_c": 1,
+ "turno_c": 2,
  "estado_pendiente": null,
  "estado_analisis_fase_c": "concluido",
  "motivo_correccion_c": null,

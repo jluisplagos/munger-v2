@@ -1,4 +1,6 @@
-# Zoetis Inc. (ZTS) · fase C · turno 1 · 5-nov-2026
+# Zoetis Inc. (ZTS) · fase C · 5-nov-2026
+
+Turno 1 corregido tras la auditoría REPETIR (corrección 1). Las secciones 1–8 son del turno 1. Las secciones 9–15 son del turno 2 anterior y el turno 2 nuevo las rehará. La sección 16 es la respuesta al contradictor y se conserva.
 
 ## 1. Una sola historia
 
@@ -92,7 +94,7 @@ Si una fecha cae antes de 2031, el MALO se queda corto. Por eso es el dato de B2
 
 ## 7. Fundamento material (D10)
 
-Recorrí las hipótesis materiales: las palancas de los tres escenarios, g, probabilidades, quiebra y recuperación, C76, C44, motor, base del margen, caso especial y narrativas. Todas están en clase fundamentada o convención, con hechos de la Historia o de los extractos. No hay ninguna «sin juicio propio» ni «técnico». Las narrativas tienen mecanismo y «qué lo pararía» propios.
+Recorrí las hipótesis materiales: las palancas de los tres escenarios, g, probabilidades, quiebra y recuperación, C76, C44, motor, base del margen, caso especial y narrativas. Todas están en clase fundamentada o convención, con hechos de la Historia o de los extractos. No hay ninguna «sin juicio propio» ni «técnico» entre las hipótesis materiales del valor. La única clase «técnico» del expediente es C97 (insiders = Neutral, fase A, sin datos de insiders: C96 vacía), que no es una hipótesis del valor según la sección 14 ni mueve ninguna palanca. Las narrativas tienen mecanismo y «qué lo pararía» propios.
 
 `hipotesis_sin_fundamento` queda vacía. La conclusión provisional no es favorable, así que el resultado es `no_procede` y no hago la comprobación conjunta.
 
@@ -101,7 +103,7 @@ La más débil, aunque fundamentada, es el ROIC terminal del NORMAL (0,12): sale
 ## 8. Lo que más condiciona y qué lo resolvería
 
 - **Hipótesis que más condiciona:** `Palancas!C18`, el ROIC terminal del NORMAL. De él depende que el salto del año 11 cuente bien cuánto dura la ventaja de las cuatro grandes franquicias.
-- **Qué lo resolvería:** las fechas de expiración de patentes y de exclusividad de datos de Simparica Trio, Apoquel, Cytopoint y Librela en EE. UU. y la UE, pedidas a Relación con Inversores o buscadas en el registro de patentes y exclusividades de la FDA para medicamentos veterinarios (Green Book). Junto con las cuotas Kynetec de dermatología y de Simparica Trio de los cuatro próximos trimestres.
+- **Qué lo resolvería:** las fechas de expiración de patentes y de exclusividad de datos de Simparica Trio, Apoquel, Cytopoint y Librela en EE. UU. y la UE, pedidas a Relación con Inversores, y si alguna entra en la lista de expiraciones de patentes clave de los próximos 10-K (en la del 10-K FY2025 solo están Draxxin, Excede y Cerenia [zoetis-10k-fy2025.txt, PDF p. 17]). Junto con las cuotas Kynetec de dermatología y de Simparica Trio de las presentaciones trimestrales del T4 2026 al T3 2027.
 
 ## 9. Comprobación conjunta (turno 2)
 
@@ -142,7 +144,7 @@ Zoetis vende medicinas, vacunas y diagnósticos para animales, sobre todo para p
 
 **B222.** `Palancas!C18`, el ROIC terminal del NORMAL: cuánto dura la ventaja de las cuatro grandes franquicias.
 
-**B223.** Las fechas de patentes y de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela, que pediría a Relación con Inversores o buscaría en el Green Book de la FDA, y las cuotas Kynetec de los próximos cuatro trimestres.
+**B223.** Las fechas de patentes y de exclusividad de Simparica Trio, Apoquel, Cytopoint y Librela, que pediría a Relación con Inversores, la lista de expiraciones de patentes clave de los próximos 10-K (10-K FY2025, PDF p. 17) y las cuotas Kynetec de las presentaciones trimestrales del T4 2026 al T3 2027.
 
 ## 14. Qué me haría cambiar de cubo
 
@@ -159,6 +161,14 @@ El cubo es el mismo, Vigilar, y por la misma razón: un buen negocio sin margen 
 3. **El NORMAL.** Crece al 3 % sin precio, frente al 5 % con precio de la etapa 1.
 
 También cambian C17 (de Sí a No), C27 (de Expandiendo a Estable) y p(MALO) (de 0,2 a 0,25). El precio pasó de 73,08 a 82,11.
+
+La etapa 1 condicionaba el cubo: sin las fechas de exclusividad, pasaba a Demasiado difícil. La v2 sigue sin esas fechas. No paso a Demasiado difícil por tres hechos:
+
+- La lista de expiraciones recientes y próximas de patentes clave del 10-K FY2025 no incluye ninguna de las cuatro grandes franquicias [zoetis-10k-fy2025.txt, PDF p. 17].
+- La erosión de 2026 viene de marcas nuevas, y se mide cada trimestre con las cuotas Kynetec.
+- El MALO ya supone una pérdida como la de Rimadyl.
+
+La condición de la etapa 1 sigue viva, pero más estrecha. Paso a Demasiado difícil si Simparica Trio o Apoquel pierden la exclusividad antes de 2030, o si no consigo nunca las fechas (sección 14).
 
 ## 16. Respuesta al contradictor
 
