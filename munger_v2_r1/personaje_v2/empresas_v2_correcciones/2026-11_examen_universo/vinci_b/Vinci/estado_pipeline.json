@@ -1,10 +1,10 @@
 {
- "paso": 13,
+ "paso": 10,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
-  "fase_c": 0,
-  "auditoria": 0,
+  "fase_c": 1,
+  "auditoria": 1,
   "vueltas_c_a_b": 1,
   "vueltas_b_a_a": 0
  },
@@ -92,12 +92,14 @@
   "2026-11-20T23:36:01 · paso 12 · verificación de las entradas financieras: 325 de 326 celdas del universo comprobadas · apta por entradas: sí",
   "  $ python3 ficha.py Vinci --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Vinci --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-20T23:36:09 · paso 13 · solicitud de auditoría SA-d9b85c5abc303639 registrada para el material ee0c2f140b33ef00 (sustituye a SA-4a199f6d83dbb44e)"
+  "2026-11-20T23:36:09 · paso 13 · solicitud de auditoría SA-d9b85c5abc303639 registrada para el material ee0c2f140b33ef00 (sustituye a SA-4a199f6d83dbb44e)",
+  "2026-11-20T23:47:01 · paso 13 · auditoría consumida: respuesta a la solicitud SA-d9b85c5abc303639 (SHA-256 0ff9ab7e647c…)",
+  "2026-11-20T23:47:01 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)"
  ],
  "motor": "B",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "13:auditoria.md",
+ "esperando": "10:fase_c.json",
  "inicio": "2026-11-20T21:14:40",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -108,11 +110,12 @@
   "extracto_v63.md": 1795209280.517049,
   "fase_a.json": 1795211080.2216897,
   "fase_b.json": 1795213149.5815732,
-  "fase_c.json": 1795213742.8290453
+  "fase_c.json": 1795213742.8290453,
+  "auditoria.md": 1795218385.768335
  },
- "motivo_correccion": null,
- "esperando_desde": 1795217769.739925,
- "turno_c": null,
+ "motivo_correccion": "auditoría REPETIR: ver auditoria.md",
+ "esperando_desde": 1795218421.816078,
+ "turno_c": 1,
  "estado_pendiente": null,
  "estado_analisis_fase_c": "concluido",
  "motivo_correccion_c": null,
@@ -192,15 +195,17 @@
    "material": "ee0c2f140b33ef00",
    "creada": "2026-11-20T23:36:08+00:00",
    "motivo": "relevo caducado: el material fijado 60d1763eeae00cea ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
-   "estado": "pendiente",
-   "respuesta_sha256": null,
-   "respondida": null,
-   "veredicto": null
+   "estado": "respondida",
+   "respuesta_sha256": "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d",
+   "respondida": "2026-11-20T23:47:01+00:00",
+   "veredicto": "REPETIR",
+   "respuesta_contenido": "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0",
+   "respuesta_fiel": "f03c6afd2fae0d6367fd6e2da4538d40b336032b75461dfce5e4235e79f16224"
   }
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null,
+ "auditoria": "REPETIR",
  "relevos_caducados": [
   {
    "material_fijado": "2b12666e0878f5a2",
@@ -233,5 +238,12 @@
    "material_refijado": "ee0c2f140b33ef00",
    "solicitud": "SA-d9b85c5abc303639"
   }
- ]
+ ],
+ "auditoria_respuesta": {
+  "solicitud": "SA-d9b85c5abc303639",
+  "sha256": "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d",
+  "contenido": "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0",
+  "fiel": "f03c6afd2fae0d6367fd6e2da4538d40b336032b75461dfce5e4235e79f16224",
+  "material": "ee0c2f140b33ef00"
+ }
 }
