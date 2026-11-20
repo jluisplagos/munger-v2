@@ -67,7 +67,18 @@
   "2026-11-20T22:24:17 · paso 12 · verificación de las entradas financieras: 270 de 315 celdas del universo comprobadas · apta por entradas: no (270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio; +198 datos de origen auxiliares); 2 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 d)",
   "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-20T22:24:22 · paso 13 · solicitud de auditoría SA-1a78e3a43e5b217f registrada para el material f1d288c6a8582c06 (sustituye a SA-6eb9456a105169f2)"
+  "2026-11-20T22:24:22 · paso 13 · solicitud de auditoría SA-1a78e3a43e5b217f registrada para el material f1d288c6a8582c06 (sustituye a SA-6eb9456a105169f2)",
+  "2026-11-20T22:27:01 · paso 13 · relevo caducado: el material fijado f1d288c6a8582c06 ya no es el vigente d1d9f6b591ce59aa (cambian: verificacion_entradas.json); se repite la verificación (paso 12) y se pide una auditoría nueva del material vigente",
+  "  $ bash recalc.sh Zoetis_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/recalc/Zoetis_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e",
+  "  $ python3 leer_resultados.py Zoetis_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/zoetis_t2/Zoetis/resultados.json · motor A · estado COMPLETO Y VÁLIDO ",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 82.11 · esc. MALO 58.6543610958914 · precio de Sí 71.9679 (P* 71.9679) · ponderado 78.6246 · zona caro",
+  "  $ bash verificar_todo.sh Zoetis Zoetis_v63_evaluada.xlsx Zoetis_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "  $ python3 motor_a_f1.py evaluar Zoetis --libro Zoetis_v63_evaluada.xlsx --motor A --libro-origen Zoetis_v63_evaluada.xlsx → 0 · motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del",
+  "2026-11-20T22:27:10 · paso 12 · motor A · F1: motor A utilizable para una conclusión CONDICIONADA según F1 · hipótesis D-US1 (no es un dato): la empresa no publica en qué líneas del flujo van la amortización del derecho de uso ni la variación del pasivo del arrendamiento operativo; se suponen dentro del flujo de explotación, fuera de las filas ",
+  "2026-11-20T22:27:13 · paso 12 · verificación de las entradas financieras: 270 de 315 celdas del universo comprobadas · apta por entradas: no (270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio; +198 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 d)",
+  "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
+  "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-20T22:27:18 · paso 13 · solicitud de auditoría SA-4e8eb97e3639d564 registrada para el material c9480601d509ca7c (sustituye a SA-1a78e3a43e5b217f)"
  ],
  "motor": "A",
  "fase_b_escrita": true,
@@ -86,13 +97,13 @@
   "fase_c.json": 1795211216.5301225
  },
  "motivo_correccion": null,
- "esperando_desde": 1795213462.403297,
+ "esperando_desde": 1795213638.327384,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
   "estado_propuesto": null,
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
-  "libro_sha256": "59f6fd7f180939ba1d986c1dcfded5c672d0af81c05183fc2db2cbd8ac233a0f"
+  "libro_sha256": "c3c619e674a96baf4fca9aa141bf28cf621819e4afa3c9a790543c6328bc42be"
  },
  "turno_c": null,
  "estado_pendiente": null,
@@ -107,22 +118,22 @@
   "universo_juicio": 101,
   "comprobadas_calculo": 182,
   "comprobadas_juicio": 88,
-  "lecturas_externas": 2,
+  "lecturas_externas": 0,
   "formato_registro": "4.15",
   "entradas_no_reproducibles": 0,
   "datos_como_hipotesis": 15,
   "no_materiales": 2,
-  "no_materiales_sin_revisar": 0,
+  "no_materiales_sin_revisar": 2,
   "no_aplicables": 26,
-  "resumen": "270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio); 2 entradas declaradas no materiales (de juicio o auxiliares) (2 con el juicio de materialidad revisado, 0 sin revisar); 15 datos tratados como hipótesis o convención; 26 no aplicables; 2 lecturas externas sin bytes; 63 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
+  "resumen": "270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio); 2 entradas declaradas no materiales (de juicio o auxiliares) (0 con el juicio de materialidad revisado, 2 sin revisar); 15 datos tratados como hipótesis o convención; 26 no aplicables; 0 lecturas externas sin bytes; 63 derivados comprobados (su significado económico lo acredita la revisión independiente, no el control automático)",
   "derivados_comprobados": 63,
-  "pendientes": 34,
-  "desactualizadas": 29,
+  "pendientes": 65,
+  "desactualizadas": 0,
   "discrepancias": 0,
   "errores": 0,
   "materiales_no_comprobadas": 43,
   "apto_por_entradas": false,
-  "motivo": "270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio; +198 datos de origen auxiliares); 2 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 datos tratados como hipótesis o convención; 2 entradas de juicio no materiales (0 sin el juicio de materialidad revisado); 26 no aplicables; 43 entradas materiales sin comprobar; 29 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
+  "motivo": "270 de 315 celdas del universo comprobadas (182 de 214 de cálculo y 88 de 101 de juicio; +198 datos de origen auxiliares); 0 lecturas externas sin bytes; 0 entradas del FCF base no reproducibles; 15 datos tratados como hipótesis o convención; 2 entradas de juicio no materiales (2 sin el juicio de materialidad revisado); 26 no aplicables; 43 entradas materiales sin comprobar; 0 desactualizadas; 0 discrepancias; 0 errores del contrato; 0 sin entrada",
   "huella_entradas_economicas": "7d797c724ab9bd13aaaf04d5eb0fef7cb9356801d6af4cf9c807554824ee536d",
   "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
  },
@@ -131,7 +142,7 @@
   "datos": "54e6d4f653e1d349bd1f8f499aa36ff7d092745ef9b43635252d10a6e9d53c09"
  },
  "f1_repite_12": false,
- "material_auditoria": "f1d288c6a8582c06",
+ "material_auditoria": "c9480601d509ca7c",
  "solicitudes_auditoria": [
   {
    "id": "SA-6eb9456a105169f2",
@@ -150,6 +161,18 @@
    "material": "f1d288c6a8582c06",
    "creada": "2026-11-20T22:24:22+00:00",
    "motivo": "relevo caducado: el material fijado 4015a86cec7ea83d ya no era el vigente (cambian: fase_c.json, fase_c.md); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
+   "estado": "sustituida",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null,
+   "sustituida": "2026-11-20T22:27:17+00:00",
+   "motivo_sustitucion": "el material fijado es c9480601d509ca7c, no f1d288c6a8582c06"
+  },
+  {
+   "id": "SA-4e8eb97e3639d564",
+   "material": "c9480601d509ca7c",
+   "creada": "2026-11-20T22:27:17+00:00",
+   "motivo": "relevo caducado: el material fijado f1d288c6a8582c06 ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
    "estado": "pendiente",
    "respuesta_sha256": null,
    "respondida": null,
@@ -170,6 +193,16 @@
    "detectado": "2026-11-20T22:24:05+00:00",
    "material_refijado": "f1d288c6a8582c06",
    "solicitud": "SA-1a78e3a43e5b217f"
+  },
+  {
+   "material_fijado": "f1d288c6a8582c06",
+   "material_vigente": "d1d9f6b591ce59aa",
+   "archivos_cambiados": [
+    "verificacion_entradas.json"
+   ],
+   "detectado": "2026-11-20T22:27:01+00:00",
+   "material_refijado": "c9480601d509ca7c",
+   "solicitud": "SA-4e8eb97e3639d564"
   }
  ]
 }
