@@ -11763,12 +11763,30 @@
    "justificacion": null,
    "comprobacion": {
     "extractor": "Claude orquestación",
-    "revisor": null,
+    "revisor": "Claude revisor sellado",
     "fecha": "2026-11-20",
-    "resultado": "pendiente",
-    "fuente_examinada": "texto/jumbo-h1-2025-financial-results.txt [PDF PAGE 8, 21, 23, 50] y pdf/jumbo-h1-2025-financial-results.pdf; texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 23, 25, 52]; Control maestro L–N34",
-    "nota": "[Claude orquestación, 2026-11-20, jumbo_g, tras REVISION_SELLADO.md] apoyo reescrito con el informe semestral H1-2025, ya en el expediente (pdf/ y texto/, FUENTES.tsv; sha256 0e69fd76…05f60, Release fuentes-examen-20261118, asset 767753771): inventario 316.655.374 (PDF p. 23; p. 8 «€ 316,66 mil.»), deudores comerciales 90.278.641 (p. 23 y nota 4.11, p. 50; clientes netos 15.390.263), ventas 497.278.437 (p. 21); con el H1-2026 (p. 23, 25, 52): +2,88 % / −4,71 % / −2,07 % frente a +4,42 % → «No». La clase y el valor no cambian; la incidencia anterior (sin fuente equivalente; aproximación 317,46) queda sustituida por la cifra publicada 316,66 · Comprobación anterior: Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Sigue sin fuente equivalente en el expediente: el veredicto «No» (decisión del inversor, comparación semestral) se apoya en el informe H1-2025 (inventario 316,66; deudores 90,28), que no está en texto/. El H1-2026 (PDF p. 25) compara con el 31-dic-2025, no con el 30-jun-2025. · Nota anterior: [Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b7",
-    "vinculo": null
+    "resultado": "verificado",
+    "fuente_examinada": "texto/jumbo-h1-2025-financial-results.txt [PDF PAGE 8, 21, 23, 50] (contrastado también con pdftotext sobre el PDF de huella 0e69fd76…, FUENTES.tsv); texto/jumbo-h1-2026-financial-results.txt [PDF PAGE 23, 25, 52]",
+    "nota": "[Revisor sellado, 2026-11-20] Convención «No» con su apoyo ya dentro del expediente: H1-2025 (informe semestral del grupo, PDF 0e69fd76… = FUENTES.tsv) p. 23 inventario 316.655.374 y deudores 90.278.641 (columna 30/06/2025 del grupo), p. 8 «€ 316,66 mil», nota 4.11 p. 50 clientes netos 15.390.263, p. 21 ventas 1S-2025 497.278.437; H1-2026 p. 25 inventario 325.764.610 y deudores 86.024.991, p. 52 clientes netos 15.072.374, p. 23 ventas 519.257.126 (su comparativo 497.278.437 coincide con el H1-2025). Recalculado: inventario +2,88 %, deudores −4,71 %, clientes netos −2,07 %, ventas +4,42 % → «No» con la comparación semestral que decidió el inversor; la alternativa anual (BANDERA) queda declarada. El sello acredita el registro, no el acierto de elegir la comparación semestral. · Nota anterior: [Claude orquestación, 2026-11-20, jumbo_g, tras REVISION_SELLADO.md] apoyo reescrito con el informe semestral H1-2025, ya en el expediente (pdf/ y texto/, FUENTES.tsv; sha256 0e69fd76…05f60, Release fuentes-examen-20261118, asset 767753771): inventario 316.655.374 (PDF p. 23; p. 8 «€ 316,66 mil.»), deudores comerciales 90.278.641 (p. 23 y nota 4.11, p. 50; clientes netos 15.390.263), ventas 497.278.437 (p. 21); con el H1-2026 (p. 23, 25, 52): +2,88 % / −4,71 % / −2,07 % frente a +4,42 % → «No». La clase y el valor no cambian; la incidencia anterior (sin fuente equivalente; aproximación 317,46) queda sustituida por la cifra publicada 316,66 · Comprobación anterior: Claude revisor sellado 2026-11-19 «pendiente»: [Revisor sellado, 2026-11-19] Sigue sin fuente equivalente en el expediente: el veredicto «No» (decisión del inversor, comparación semestral) se apoya en el informe H1-2025 (inventario 316,66; deudores 90,28), que no está en texto/. El H1-2026 (PDF p. 25) compara con el 31-dic-2025, no con el 30-jun-2025. · Nota anterior: [Claude orquestación, 2026-11-19, jumbo_g, tras REVISION_SELLADO.md @ 50f0b7",
+    "vinculo": {
+     "huella": "80876283a0189ae56b9870556d150a0ae204a474a4cae78d65f48edeb4a10034",
+     "elementos": [
+      "clase",
+      "material",
+      "valor_modelo",
+      "fuente (documento, archivo, sha256, página, cita, escala, signo…)",
+      "derivacion (orígenes, fórmula, conciliación)",
+      "hipotesis (fundamento, alternativas, límites)",
+      "justificacion (y la de la clase y la materialidad)",
+      "fila de evidencia del Control maestro de la celda en el libro (o la trazabilidad de su clave en «Configuración V6.4»)",
+      "extractor, revisor, fecha, resultado y fuente examinada de la comprobación",
+      "huellas vigentes de los orígenes de un derivado",
+      "declaración de la entrada en fase1_v63.json (FCF base)"
+     ],
+     "sellado_por": "Claude revisor sellado",
+     "fecha": "2026-11-20",
+     "sellado_en": "2026-11-20T21:13:13+00:00"
+    }
    },
    "incidencia": null,
    "justificacion_clase": "Veredicto de texto («No») de una comparación de crecimientos (inventario y cobros frente a ventas) decidida por el inversor (comparación semestral); no es una cifra publicada."
