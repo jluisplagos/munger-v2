@@ -1,0 +1,107 @@
+{
+ "tipo": "cambio_de_base",
+ "version_formato": 1,
+ "empresa": "Vinci",
+ "_estado_del_archivo": "Examen del personaje (19-nov-2026). Expediente nuevo vinci_b desde vinci/Vinci (que no se toca), para aplicar la decisión V-CIRC (a) de la persona responsable (DECISIONES_PARA_EL_USUARIO.md:134): circulante a 0 también en la reinversión, con la plantilla V6.3.2 F1 (config_v2_v632_f1.json; rama f1/circulante-normalizado). La declaración F1 se conserva y se le añade normalizacion_circulante (2021–2025). Las entradas del FCF base y demás entradas de los metadatos de vinci/Vinci (con las correcciones de la revisión del montaje) se conservan sin cambio. (vinci_b, Claude orquestación, 20-nov-2026) Además, datos de mercado con bytes oficiales (encargo del coordinador): C57 = 3,47 % (Bundesbank WT1010, 9-oct-2026; antes 3,486 % de Investing en la etapa 1) y C37 = 107,05 € verificado en la exportación de Euronext entregada por la persona (antes pendiente de verificación); fuentes en fuentes_mercado/ con huella. Generado por resultados/scripts/generar_cambio_vinci_b.py.",
+ "origen": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci/Vinci",
+ "destino": "personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b",
+ "base_economica": {
+  "fecha": "2025-12-31",
+  "descripcion": "Ejercicio 2025 de VINCI SA (año natural, cerrado el 31-dic-2025), con el balance y el EBITDA LTM del semestral a 30-jun-2026 donde la etapa 1 los usa (C33, C40, C42, C53, C54). Decisiones de la persona responsable aplicadas: P-O1 (c) (C46), P-O2 (a) (C55 = 555,967094 M acciones en circulación a 31-dic-2025), F1-A y F1-B (declaración F1), E1 por precedente (medias exactas)."
+ },
+ "fechas": {
+  "ejecucion": "2026-10-10",
+  "precio": "2026-10-09",
+  "acciones": "2025-12-31",
+  "publicacion_fuentes": "Informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026 de VINCI (FUENTES.tsv; Release fuentes-examen-20261118). Corte: fecha de análisis de la etapa 1 (Análisis!D4 = 2026-10-10); la información de los nueve meses de 2026 (22-oct-2026) queda fuera. Datos de mercado del 9-oct-2026 con bytes: precio 107,05 € de la exportación oficial de Euronext «Historical Data» (VINCI_historical_price.xls, entregado por la persona responsable el 19-nov-2026, anexo 3 bis) y tasa sin riesgo 3,47 % del CSV oficial de la Bundesbank (Bund a 10 años, serie WT1010; Release fuentes-examen-20261118, asset 766892543); sector de Damodaran con damodaran_margin.xls (enero 2026, asset 766892761)."
+ },
+ "conservar": [
+  "etapa1",
+  "texto",
+  "fase1_partes",
+  "fase1_fuentes.json",
+  "pdf",
+  "FUENTES.tsv",
+  "fase1_listas.md",
+  "extracto_v63.md",
+  "motor_a_f1.json"
+ ],
+ "fuentes_adicionales": [],
+ "metadatos": {
+  "precio": {
+   "valor": 107.05,
+   "moneda_cotizacion": "EUR",
+   "fecha": "2026-10-09",
+   "fx": null,
+   "fx_fecha": null,
+   "fuente": "Cierre de VINCI (FR0000125486, Euronext Paris) del 9-oct-2026 = 107,05 €, de la exportación oficial de Euronext «Historical Data» (del 2024-11-20 al 2026-11-18) entregada por la persona responsable el 19-nov-2026 (VINCI_historical_price.xls, SHA-256 78eee9c5d6b1e0402ab9bf8979a5f2d19c09acf3d861bca9e9427ebe305afb9d; RELEASE_FUENTES_EXAMEN_VERIFICACION.md, anexo 3 bis): fila «2026-10-09 | 107.8 | 108.1 | 106.75 | 107.05 | 107.05» (apertura 107,80; máximo 108,10; mínimo 106,75; último y cierre 107,05). Bytes conservados en fuentes_mercado/VINCI_DG_FR0000125486_Euronext_historical_price_2024-11-20_a_2026-11-18.xls con una copia de texto (LibreOffice). Coincide con el precio de la etapa 1 y con el histórico no ajustado de Euronext que conservó el extractor Mistral (fuentes_mercado/Euronext_DG_FR0000125486_XPAR_historico_NO_AJUSTADO_2026-01-02_a_2026-11-19.txt). El cierre lleva el dividendo a cuenta de 1,10 € (fecha ex 13-oct-2026, según la etapa 1). Cierre del día, sin hora intradía.",
+   "nota": "precio de cierre del 9-oct-2026 (fecha de análisis 2026-10-10), comprobado en la exportación oficial de Euronext entregada por la persona"
+  },
+  "capitalizacion": {
+   "valor": 59516.2774127,
+   "fecha": "2026-10-09",
+   "fuente": "107,05 € (cierre del 9-oct-2026, exportación oficial de Euronext) × 555,967094 millones de acciones en circulación a 31-dic-2025 (P-O2 (a)) = 59.516,2774127 mm, producto exacto. La etapa 1 daba 59.043 con las 551.548.982 acciones a 30-sep-2026. Desalineación de fechas declarada (Z-ACC): precio del 9-oct-2026 y acciones al cierre del ejercicio.",
+   "pagina": "derivado (acciones: URD 2025 PDF p. 346)",
+   "periodo": "precio del 9-oct-2026 × acciones a 31-dic-2025",
+   "unidad": "millones de EUR"
+  },
+  "tasa_sin_riesgo": {
+   "valor": 0.0347,
+   "fecha": "2026-10-09",
+   "fuente": "Deutsche Bundesbank, serie diaria BBSSY.D.REN.EUR.A630.000000WT1010.A «Daily yield of the current 10 year federal bond» (Bund alemán a 10 años de referencia; Alemania, AAA; moneda del modelo EUR), fila del 2026-10-09, la fecha del precio (C37): 3,47 % → 0,0347. CSV oficial subido por la persona responsable a la Release fuentes-examen-20261118 del repositorio auxiliar (asset 766892543, bund_10y_WT1010.csv, SHA-256 fef9498ea765b89547cebb222ab8720e91c84113c8caca74a676e21e5e571967; última actualización de la serie 2026-11-18 12:31:26), conservado en fuentes_mercado/ con su huella. Sustituye el 3,486 % de la etapa 1 (Investing.com, sin bytes conservados). Contraste (no es la serie elegida): la rentabilidad de 9 a 10 años de la Bundesbank (UMU) da 3,46 % y la curva AAA del BCE 3,5112 % ese día (conservadas por el extractor Mistral). El OAT francés no se usa: su prima la suma la plantilla en «Riesgo país».",
+   "pagina": "fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt, fila 2026-10-09",
+   "periodo": "2026-10-09 (fecha del precio)",
+   "unidad": "proporción"
+  }
+ },
+ "notas_que_se_retiran": [
+  "^Fecha de análisis = la de la etapa 1 \\(Análisis!D4 = 2026-10-10\\); fuentes posteriores"
+ ],
+ "analisis_que_se_descartan": {},
+ "analisis_que_se_conservan": {
+  "C46": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C47": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C48": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C49": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C50": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C42": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C96": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)",
+  "C40": "entrada de vinci/Vinci sin cambio (configuracion/cambio_vinci.json y correcciones de la revisión independiente del montaje, ee1ca6a)"
+ },
+ "evidencia": {},
+ "textos_prohibidos": [
+  "→ C47 = 3800",
+  "→ C48 = 89\\.",
+  "→ C49 = 675\\.",
+  "→ C50 = 344",
+  "según la etapa 1 \\(Investing",
+  "etapa 1, pendiente de verificación",
+  "pendiente de verificación en Euronext",
+  "pendientes de verificación en fuente oficial",
+  "Precio y tasa sin riesgo de la etapa 1"
+ ],
+ "control_maestro_textos": {
+  "F5": "3 años FY2023–2025 (decisión del inversor de la etapa 1, 23-oct-2026); medias exactas (precedente E1)",
+  "D88": "Medias del DCF: FY2023–2025 (C46–C50). Balance a 30/06/2026 y LTM a 30/06/2026 en C33, C40, C42, C53 y C54 (etapa 1); precio 09/10/2026 (Euronext, exportación oficial) y Bund a 10 años del mismo día (Bundesbank WT1010); acciones en circulación a 31/12/2025 (C55 = 555,967094 M, P-O2 a).",
+  "C88": "OK",
+  "E88": "—",
+  "D90": "C46 = 9.327,333 (CFO sin circulante + dividendos de no consolidadas, P-O1 c), C47 = 3.799,667, C48 = 89,333, C49 = 675,333, C50 = 343,667: medias exactas FY2023–2025 con cálculo declarado (fase1_metadatos.json). Intereses de deuda dentro del CFO; intereses de arrendamientos en C48; principal en C49.",
+  "C90": "OK",
+  "E90": "—",
+  "D101": "Principal de arrendamientos por la nota 21 de cada URD; intereses de arrendamientos por la nota 6. Principal + interés = línea de financiación, salvo 1 mm de redondeo en 2023 (611 + 67 = 678 frente a 679)."
+ },
+ "alcance": {
+  "tipo": "ensayo_exploratorio",
+  "aviso": "EXAMEN DEL PERSONAJE · VINCI SA (DG, Euronext Paris) · plantilla V6.3.2 F1 (config_v2_v632_f1.json; normalización declarada del circulante, decisión V-CIRC (a)). Expediente vinci_b (configuracion/cambio_vinci_b.json) desde vinci/Vinci. Etapa 1 de la persona responsable (Vinci_evaluada.xlsx 7537492d…04d0, original en antecedentes/etapa1_original; Vinci_respuesta.md 63411305…07af), fecha de análisis 2026-10-10. Fuentes oficiales con huella (FUENTES.tsv): informes anuales 2016–2019, URD 2020–2025 y semestral a 30-jun-2026; los nueve meses de 2026 (22-oct-2026) quedan fuera. Entradas: C46–C50 medias exactas 2023–2025 con cálculo declarado (precedente E1; C46 con la regla espejo P-O1 c), C55 = 555,967094 M acciones en circulación a 31-dic-2025 (P-O2 a), C42 y C96 recalculadas con ellas. Declaración F1 del motor A con norma NIIF, A2_propio (F1-A), compras como crecimiento (F1-B), series 2021–2025 de amortización de derechos de uso, PPA de Cobra IS e intereses de arrendamiento (P-FOSO a). Precio 107,05 € (Euronext, exportación oficial) y tasa sin riesgo 3,47 % (Bundesbank WT1010) del 9-oct-2026, con bytes en fuentes_mercado/. Tasa 9 % provisional, sin decidir. Nada adoptado; no apto para dinero real.",
+  "entrada_efectiva": "estricta",
+  "fuente": "RELEASE_FUENTES_EXAMEN_VERIFICACION.md y RELEASE_FUENTES_EXAMEN_SHA256SUMS (coordinacion/cierre_v2/examen, rama coordinacion/cierre-v2 del repositorio auxiliar); fuentes_usuario/vinci_etapa1/SHA256SUMS (rama fuentes/etapa1-examen-20261117); DECISIONES_PARA_EL_USUARIO.md (coordinacion/cierre-v2): F1-A, F1-B, P-O1 (c), P-O2 (a), P-FOSO (a); configuracion/cambio_vinci.json. V-CIRC (a) y V-ANCLA (a) (19-nov-2026); anexos 3 y 3 bis de RELEASE_FUENTES_EXAMEN_VERIFICACION.md (datos de mercado).",
+  "fecha": "2026-11-20"
+ },
+ "configuracion_economica": null,
+ "entrada_efectiva": {
+  "modo": "estricta",
+  "motivo": "expediente nuevo de la 4.15 (modo por defecto)"
+ },
+ "analisis": {},
+ "nota_metadatos": "(vinci_b, 20-nov-2026) Fecha de análisis = la de la etapa 1 (Análisis!D4 = 2026-10-10); fuentes posteriores (nueve meses de 2026, 22-oct-2026) fuera del expediente. Precio (107,05 €) y tasa sin riesgo (3,47 %) son cierres del 9-oct-2026 con bytes oficiales en fuentes_mercado/: exportación de Euronext entregada por la persona y CSV de la Bundesbank (serie WT1010). El sector de Damodaran (Engineering/Construction) se contrasta con damodaran_margin.xls (enero 2026, Release, asset 766892761)."
+}

@@ -1,0 +1,365 @@
+{
+ "formato": "motor_a_f1 v1",
+ "nota": "Declaración F1 de VINCI SA (examen, expediente vinci/Vinci, 19-nov-2026). Preparada por un agente de la orquestación; no acredita aptitud. Aplica literalmente las decisiones registradas del 17-nov (F1 (1a)–(5b), E8.1) y del 18-nov (Examen · F1-A y F1-B; P-FOSO (a)), igual que en Ahold y Jumbo. Las series son cifras publicadas con su fuente; ninguna es una entrada registrada del libro ni pasó por verificacion_entradas.py. La reinversión A2 es una HIPÓTESIS DECLARADA, no un dato. LÍMITES: (1) la D&A de derechos de uso y la PPA de Cobra IS están en la prosa de la nota 4.3, sin columnas: F1-SERIES deja la columna PENDIENTE; (2) la PPA solo recoge Cobra IS (la única que VINCI publica por separado): las revalorizaciones de concesiones adquiridas siguen en D_X; (3) PPA 2021 = 0 por lectura (cero_comprobado, PENDIENTE DE REVISOR); (4) sin pagos_arrendamiento (solo la sensibilidad (1b)); (5) el plan climático estima más de 1.500 M€ de CapEx en 2026–2030 dentro de los presupuestos de los negocios, sin calendario anual: se declara «sin transición conocida» (ver «transicion»), PENDIENTE de confirmación de la persona responsable. (19-nov-2026, tras la revisión independiente del montaje) Retirada la «justificacion_reinversion_negativa» (decisión del coordinador retirada: con ella el circulante se excluía dos veces; F1-K3c vuelve a BLOQUEAR hasta que decida la persona responsable; resultados/diagnostico_k3c_vinci.md); corregidas las citas de da_rou.2021 y da_ppa.2022; añadida a la PPA la cota de sensibilidad de las revalorizaciones de concesiones (sin cambiar la serie). Cota de sensibilidad de la PPA (no es un dato; no entra en el cálculo): revalorizaciones de concesiones adquiridas ≈ 150–350 mm/año dentro de D_X (URD 2025 PDF p. 375; REVISION.md §3); D_X sobrestima la reposición propia (conservador). Va en las notas de series.da_ppa (una clave propia la rechaza F1-DECLARACION).",
+ "norma_contable": {
+  "valor": "NIIF",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "Los estados financieros consolidados de 2025 «have been prepared in accordance with International Financial Reporting Standards (IFRS) as adopted by the European Union» (URD 2025, nota A.2, texto/vinci-urd-2025.txt PDF p. 360; la misma declaración en cada URD); el libro dice «IFRS» (Control maestro L4). Arrendamientos con NIIF 16 desde el 1-ene-2019 (fase1_partes AR_2019)."
+  }
+ },
+ "perimetro_reinversion": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · Examen F1-A: reinversión necesaria = amortización propia sin derechos de uso ni PPA (A2_propio), como hipótesis declarada, no como dato; se presenta condicionada y con su sensibilidad. VINCI no publica el reparto entre mantenimiento y crecimiento (sí publica «Operating investments» frente a «Growth investments in concessions and PPPs», que no es esa partición de la reposición)."
+  }
+ },
+ "perimetro_margen": {
+  "valor": "EBIT_NIIF16_PPA_constante",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (2)(v): la PPA y la ROU como proporción constante de las ventas (la que devuelve f)"
+  }
+ },
+ "perimetro_palancas_s2c": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (4a): un solo perímetro para f, el ancla de S2C, el margen y el ROIC del terminal (A2_propio por F1-A)"
+  }
+ },
+ "perimetro_roic": {
+  "valor": "A2_propio",
+  "registro": {
+   "fecha": "2026-11-17",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (4a): un solo perímetro (A2_propio por F1-A)"
+  }
+ },
+ "clasificacion_compras": {
+  "valor": "crecimiento_por_hipotesis",
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · Examen F1-B: compras de empresas como crecimiento, hipótesis declarada y revisable (equivale a (4b) opción B)"
+  },
+  "importes": null,
+  "proporcion_ventas": null,
+  "ancla_s2c_excluye_terminos": null,
+  "fundamento": "regla general F1-B del 18-nov-2026: las compras de la Historia (fila 13, «Net financial investments»: 3.446 en 2016 … 3.927 en 2021 con Cobra IS, 1.967 en 2022 con OMA, 4.596 en 2024 con Edimburgo, Northwest Parkway y Budapest, 801 en 2025) se tratan como crecimiento. AVISO PARA EL PERSONAJE (no se juzga aquí): las concesiones son finitas (ASF, Escota y Cofiroute vencen en 2032–2036) y parte de las compras de concesiones puede ser necesaria para mantener las ventas cuando venzan; si es así, lo señala el personaje."
+ },
+ "transicion": {
+  "conocida": false,
+  "tratamiento": null,
+  "registro": {
+   "fecha": "2026-11-18",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md · F1 (5b) por finalidad documentada; regla del encargo del coordinador (18-nov): sin inversión de transición documentada con importe → «sin transición conocida» con su motivo"
+  },
+  "importes": null,
+  "horizonte": null,
+  "naturaleza": null,
+  "finalidad_documentada": null,
+  "ancla_s2c_excluye_terminos": null,
+  "motivo_sin_transicion": "«The Group has estimated the amount of CapEx required to achieve its climate transition plan for 2026 to 2030 at over €1.5 billion, to be allocated proportionally based on the decarbonisation efforts being made» y «This CapEx is mainly funded by the own resources of the Group’s business lines» (URD 2025, texto/vinci-urd-2025.txt PDF p. 231). Es un mínimo agregado de cinco años (≈ 300 M€/año, ≈ 7–8 % del capex) dentro de los presupuestos de capex de los negocios (alumbrado LED, vehículos eléctricos, edificios), sin calendario anual ni importe histórico separado del capex (2025: más de 50 M€ alineados con la taxonomía y 380 M€ de vehículos eléctricos elegibles, dentro de las compras de inmovilizado): no hay importes por año que declarar como término y queda dentro del capex histórico y de la hipótesis F1-A. LÍMITE Y DUDA: hay una cifra documentada de inversión de transición; si la persona responsable la quiere como término explícito o en R, este registro cambia (y con un término explícito la capa F1 bloquearía por F1-LIBRO)."
+ },
+ "reinversion_estimada": null,
+ "series": {
+  "da_rou": {
+   "2021": {
+    "valor_fuente": 605,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2022",
+    "archivo": "texto/vinci-urd-2022.txt",
+    "pagina": 168,
+    "literal": "605",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2022; comparativo de 2021",
+    "cita": "Depreciation of property, plant and equipment included €623 million in 2022 relating to right-of-use assets under leases (€605 million",
+    "nota": "amortización de los derechos de uso de 2021 (la misma cifra en el URD 2021, PDF p. 156); dentro de la D&A total de la fila 8"
+   },
+   "2022": {
+    "valor_fuente": 623,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2023",
+    "archivo": "texto/vinci-urd-2023.txt",
+    "pagina": 171,
+    "literal": "623",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2023; comparativo de 2022",
+    "cita": "Depreciation of property, plant and equipment included €668 million in 2023 relating to right-of-use assets under leases (€623 million",
+    "nota": "amortización de los derechos de uso de 2022 (la misma cifra en el URD 2022, PDF p. 168)"
+   },
+   "2023": {
+    "valor_fuente": 668,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2024",
+    "archivo": "texto/vinci-urd-2024.txt",
+    "pagina": 350,
+    "literal": "668",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2024; comparativo de 2023",
+    "cita": "Depreciation of property, plant and equipment included €714 million in 2024 relating to right-of-use assets under leases (€668 million",
+    "nota": "amortización de los derechos de uso de 2023 (la misma cifra en el URD 2023, PDF p. 171)"
+   },
+   "2024": {
+    "valor_fuente": 714,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 372,
+    "literal": "714",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2025; comparativo de 2024",
+    "cita": "leases (€714 million in 2024).",
+    "nota": "amortización de los derechos de uso de 2024 (la misma cifra en el URD 2024, PDF p. 350)"
+   },
+   "2025": {
+    "valor_fuente": 817,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 372,
+    "literal": "817",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2025",
+    "cita": "Depreciation of property, plant and equipment included €817 million in 2025 relating to the amortisation of right-of-use assets under",
+    "nota": "amortización de los derechos de uso de 2025"
+   }
+  },
+  "da_ppa": {
+   "2021": {
+    "valor_fuente": 0,
+    "signo": 1,
+    "tratamiento": "ninguno",
+    "documento": "URD2021",
+    "archivo": "texto/vinci-urd-2021.txt",
+    "pagina": 150,
+    "cero_comprobado": {
+     "motivo": "PPA de 2021 = 0 por LECTURA, pendiente de revisor: la única amortización de intangibles de combinaciones que VINCI publica por separado es la de Cobra IS, y Cobra IS se adquirió el último día del ejercicio (frase citada, nota A.1 del URD 2021); la nota 4.3 de 2021 (PDF p. 156) no menciona ninguna amortización de intangibles de combinaciones. La frase no prueba por sí sola la inexistencia de otras. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones con clientes de Cobra IS). Las revalorizaciones a valor razonable de otras combinaciones (activos de concesión de ASF, OMA, Lima Expresa, Northwest Parkway; impuestos diferidos de «Remeasurement of assets», URD 2025 PDF p. 375) se amortizan dentro de «Concession intangible assets» sin cifra separada y siguen en D_X: A2_propio las trata como reposición. Los derechos de explotación de los aeropuertos en plena propiedad (Gatwick, Edimburgo) no se amortizan (URD 2025 PDF p. 389).",
+     "cita": "After announcing the agreement on 1 April 2021, VINCI completed its acquisition of ACS’s energy business (Cobra IS) on 31 December 2021."
+    },
+    "nota": "cero declarado con cero_comprobado (F1-SERIES-CERO: PENDIENTE de revisor; la aptitud por entradas sigue en «no») SOLO RECOGE COBRA IS. Cota de sensibilidad (NO es un dato ni cambia la serie): las revalorizaciones a valor razonable de concesiones adquiridas (ASF, OMA, Northwest Parkway, Lima Expresa, etc.) se amortizan dentro de D_X; su orden de magnitud, inferido de la reversión en resultados del impuesto diferido «Remeasurement of assets» (96 en 2025 y 48 en 2024, URD 2025 PDF p. 375) a un tipo del 25–35 %, es de unos 150–350 mm al año (Cobra incluida), un 5–10 % de D_X. Sentido: D_X sobrestima la reposición propia, así que f sale más alta y el flujo sin crecimiento más bajo (conservador). Cota de la revisión independiente del montaje (REVISION.md §3)."
+   },
+   "2022": {
+    "valor_fuente": 128,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2022",
+    "archivo": "texto/vinci-urd-2022.txt",
+    "pagina": 168,
+    "literal": "128",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2022",
+    "cita": "In 2022, amortisation of other intangible assets included €128 million relating to intangible assets identified when allocating the Cobra IS",
+    "nota": "amortización de los intangibles de la asignación del precio de Cobra IS (marcas, cartera y relaciones con clientes); el URD 2023 (PDF p. 171) dice «In 2022 and 2023 … €128 million». LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones con clientes de Cobra IS). Las revalorizaciones a valor razonable de otras combinaciones (activos de concesión de ASF, OMA, Lima Expresa, Northwest Parkway; impuestos diferidos de «Remeasurement of assets», URD 2025 PDF p. 375) se amortizan dentro de «Concession intangible assets» sin cifra separada y siguen en D_X: A2_propio las trata como reposición. Los derechos de explotación de los aeropuertos en plena propiedad (Gatwick, Edimburgo) no se amortizan (URD 2025 PDF p. 389). SOLO RECOGE COBRA IS. Cota de sensibilidad (NO es un dato ni cambia la serie): las revalorizaciones a valor razonable de concesiones adquiridas (ASF, OMA, Northwest Parkway, Lima Expresa, etc.) se amortizan dentro de D_X; su orden de magnitud, inferido de la reversión en resultados del impuesto diferido «Remeasurement of assets» (96 en 2025 y 48 en 2024, URD 2025 PDF p. 375) a un tipo del 25–35 %, es de unos 150–350 mm al año (Cobra incluida), un 5–10 % de D_X. Sentido: D_X sobrestima la reposición propia, así que f sale más alta y el flujo sin crecimiento más bajo (conservador). Cota de la revisión independiente del montaje (REVISION.md §3)."
+   },
+   "2023": {
+    "valor_fuente": 128,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2024",
+    "archivo": "texto/vinci-urd-2024.txt",
+    "pagina": 350,
+    "literal": "128",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2024; comparativo de 2023",
+    "cita": "Amortisation of other intangible assets included €108 million in 2024 (€128 million in 2023) relating to intangible assets identified when",
+    "nota": "amortización de los intangibles de la asignación del precio de Cobra IS de 2023. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones con clientes de Cobra IS). Las revalorizaciones a valor razonable de otras combinaciones (activos de concesión de ASF, OMA, Lima Expresa, Northwest Parkway; impuestos diferidos de «Remeasurement of assets», URD 2025 PDF p. 375) se amortizan dentro de «Concession intangible assets» sin cifra separada y siguen en D_X: A2_propio las trata como reposición. Los derechos de explotación de los aeropuertos en plena propiedad (Gatwick, Edimburgo) no se amortizan (URD 2025 PDF p. 389). SOLO RECOGE COBRA IS. Cota de sensibilidad (NO es un dato ni cambia la serie): las revalorizaciones a valor razonable de concesiones adquiridas (ASF, OMA, Northwest Parkway, Lima Expresa, etc.) se amortizan dentro de D_X; su orden de magnitud, inferido de la reversión en resultados del impuesto diferido «Remeasurement of assets» (96 en 2025 y 48 en 2024, URD 2025 PDF p. 375) a un tipo del 25–35 %, es de unos 150–350 mm al año (Cobra incluida), un 5–10 % de D_X. Sentido: D_X sobrestima la reposición propia, así que f sale más alta y el flujo sin crecimiento más bajo (conservador). Cota de la revisión independiente del montaje (REVISION.md §3)."
+   },
+   "2024": {
+    "valor_fuente": 108,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 372,
+    "literal": "108",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2025; comparativo de 2024",
+    "cita": "Amortisation of other intangible assets included a charge of €38 million in 2025 (€108 million in 2024) relating to intangible assets identified",
+    "nota": "amortización de los intangibles de la asignación del precio de Cobra IS de 2024. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones con clientes de Cobra IS). Las revalorizaciones a valor razonable de otras combinaciones (activos de concesión de ASF, OMA, Lima Expresa, Northwest Parkway; impuestos diferidos de «Remeasurement of assets», URD 2025 PDF p. 375) se amortizan dentro de «Concession intangible assets» sin cifra separada y siguen en D_X: A2_propio las trata como reposición. Los derechos de explotación de los aeropuertos en plena propiedad (Gatwick, Edimburgo) no se amortizan (URD 2025 PDF p. 389). SOLO RECOGE COBRA IS. Cota de sensibilidad (NO es un dato ni cambia la serie): las revalorizaciones a valor razonable de concesiones adquiridas (ASF, OMA, Northwest Parkway, Lima Expresa, etc.) se amortizan dentro de D_X; su orden de magnitud, inferido de la reversión en resultados del impuesto diferido «Remeasurement of assets» (96 en 2025 y 48 en 2024, URD 2025 PDF p. 375) a un tipo del 25–35 %, es de unos 150–350 mm al año (Cobra incluida), un 5–10 % de D_X. Sentido: D_X sobrestima la reposición propia, así que f sale más alta y el flujo sin crecimiento más bajo (conservador). Cota de la revisión independiente del montaje (REVISION.md §3)."
+   },
+   "2025": {
+    "valor_fuente": 38,
+    "signo": 1,
+    "tratamiento": "ninguno (cifra publicada en positivo en la prosa de la nota 4.3, en millones de euros)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 372,
+    "literal": "38",
+    "cuadro": "nota 4.3 «Depreciation and amortisation», texto bajo el cuadro (prosa, sin columnas: sin «fila», la columna queda PENDIENTE en F1-SERIES) del URD 2025",
+    "cita": "Amortisation of other intangible assets included a charge of €38 million in 2025 (€108 million in 2024) relating to intangible assets identified",
+    "nota": "amortización de los intangibles de la asignación del precio de Cobra IS de 2025. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones con clientes de Cobra IS). Las revalorizaciones a valor razonable de otras combinaciones (activos de concesión de ASF, OMA, Lima Expresa, Northwest Parkway; impuestos diferidos de «Remeasurement of assets», URD 2025 PDF p. 375) se amortizan dentro de «Concession intangible assets» sin cifra separada y siguen en D_X: A2_propio las trata como reposición. Los derechos de explotación de los aeropuertos en plena propiedad (Gatwick, Edimburgo) no se amortizan (URD 2025 PDF p. 389). SOLO RECOGE COBRA IS. Cota de sensibilidad (NO es un dato ni cambia la serie): las revalorizaciones a valor razonable de concesiones adquiridas (ASF, OMA, Northwest Parkway, Lima Expresa, etc.) se amortizan dentro de D_X; su orden de magnitud, inferido de la reversión en resultados del impuesto diferido «Remeasurement of assets» (96 en 2025 y 48 en 2024, URD 2025 PDF p. 375) a un tipo del 25–35 %, es de unos 150–350 mm al año (Cobra incluida), un 5–10 % de D_X. Sentido: D_X sobrestima la reposición propia, así que f sale más alta y el flujo sin crecimiento más bajo (conservador). Cota de la revisión independiente del montaje (REVISION.md §3)."
+   }
+  },
+  "intereses_arrendamiento": {
+   "2021": {
+    "valor_fuente": -43,
+    "signo": -1,
+    "tratamiento": "gasto publicado entre paréntesis; magnitud positiva en el modelo (signo −1)",
+    "documento": "URD2022",
+    "archivo": "texto/vinci-urd-2022.txt",
+    "pagina": 168,
+    "literal": "(43)",
+    "fila": "Financial expenses on lease liabilities",
+    "columna": "2021",
+    "cuadro": "nota 6 «Other financial income and expense» (columnas del ejercicio y del anterior, en millones de euros)",
+    "cita": "Financial expenses on lease liabilities (48) (43)",
+    "nota": "intereses del pasivo por arrendamiento (gasto financiero NIIF 16); solo para la vara del foso de P-FOSO (a). Es la fila 16 de la Historia (C48). Comparativo del URD 2022 (el URD 2021 da también 43, PDF p. 156)."
+   },
+   "2022": {
+    "valor_fuente": -48,
+    "signo": -1,
+    "tratamiento": "gasto publicado entre paréntesis; magnitud positiva en el modelo (signo −1)",
+    "documento": "URD2023",
+    "archivo": "texto/vinci-urd-2023.txt",
+    "pagina": 172,
+    "literal": "(48)",
+    "fila": "Financial expenses on lease liabilities",
+    "columna": "2022",
+    "cuadro": "nota 6 «Other financial income and expense» (columnas del ejercicio y del anterior, en millones de euros)",
+    "cita": "Financial expenses on lease liabilities (67) (48)",
+    "nota": "intereses del pasivo por arrendamiento (gasto financiero NIIF 16); solo para la vara del foso de P-FOSO (a). Es la fila 16 de la Historia (C48). Comparativo del URD 2023."
+   },
+   "2023": {
+    "valor_fuente": -67,
+    "signo": -1,
+    "tratamiento": "gasto publicado entre paréntesis; magnitud positiva en el modelo (signo −1)",
+    "documento": "URD2024",
+    "archivo": "texto/vinci-urd-2024.txt",
+    "pagina": 351,
+    "literal": "(67)",
+    "fila": "Financial expenses on lease liabilities",
+    "columna": "2023",
+    "cuadro": "nota 6 «Other financial income and expense» (columnas del ejercicio y del anterior, en millones de euros)",
+    "cita": "Financial expenses on lease liabilities (91) (67)",
+    "nota": "intereses del pasivo por arrendamiento (gasto financiero NIIF 16); solo para la vara del foso de P-FOSO (a). Es la fila 16 de la Historia (C48). Comparativo del URD 2024 (la línea del estado de flujos menos el principal da 68: redondeo del emisor)."
+   },
+   "2024": {
+    "valor_fuente": -91,
+    "signo": -1,
+    "tratamiento": "gasto publicado entre paréntesis; magnitud positiva en el modelo (signo −1)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 373,
+    "literal": "(91)",
+    "fila": "Financial expenses on lease liabilities",
+    "columna": "2024",
+    "cuadro": "nota 6 «Other financial income and expense» (columnas del ejercicio y del anterior, en millones de euros)",
+    "cita": "Financial expenses on lease liabilities (110) (91)",
+    "nota": "intereses del pasivo por arrendamiento (gasto financiero NIIF 16); solo para la vara del foso de P-FOSO (a). Es la fila 16 de la Historia (C48). Comparativo del URD 2025."
+   },
+   "2025": {
+    "valor_fuente": -110,
+    "signo": -1,
+    "tratamiento": "gasto publicado entre paréntesis; magnitud positiva en el modelo (signo −1)",
+    "documento": "URD2025",
+    "archivo": "texto/vinci-urd-2025.txt",
+    "pagina": 373,
+    "literal": "(110)",
+    "fila": "Financial expenses on lease liabilities",
+    "columna": "2025",
+    "cuadro": "nota 6 «Other financial income and expense» (columnas del ejercicio y del anterior, en millones de euros)",
+    "cita": "Financial expenses on lease liabilities (110) (91)",
+    "nota": "intereses del pasivo por arrendamiento (gasto financiero NIIF 16); solo para la vara del foso de P-FOSO (a). Es la fila 16 de la Historia (C48)."
+   }
+  }
+ },
+ "normalizacion": {
+  "ajustes": [],
+  "bai": {},
+  "gasto_impuesto": {},
+  "margen_objetivo_sin_ajustes": null,
+  "deducir_diagnostico_partidas_puntuales": false,
+  "nota": "N1 no se usa: VINCI no tiene partidas N1 declaradas (la contribución excepcional francesa del impuesto de sociedades de 2025, 449 M€, URD 2025 PDF p. 374, NO se normaliza: N2 sigue pendiente y no se aplica; la juzga el personaje)"
+ },
+ "umbral_v_f1a": null,
+ "conciliacion_fcf_base": [
+  {
+   "componente": "C46",
+   "importe": -2090.0,
+   "partida": "entrada de caja del circulante excluida del CFO en C46 por la decisión del inversor de la etapa 1 (media 2023–2025 de la fila 14: −1.463 / −2.311 / −2.496)",
+   "fuente": {
+    "documento": "URD 2024 (texto/vinci-urd-2024.txt) y URD 2025 (texto/vinci-urd-2025.txt), estados de flujos «Changes in operating working capital requirement and current provisions»; etapa 1, Control maestro M43; configuracion/cambio_vinci.json",
+    "pagina": "URD2024 PDF 336; URD2025 PDF 358"
+   }
+  },
+  {
+   "componente": "C46",
+   "importe": 37.333333,
+   "partida": "dividendos de sociedades no consolidadas (presentados en inversión) sumados en C46 por P-O1 (c) «regla espejo» (media 2023–2025 de 31 / 41 / 40)",
+   "fuente": {
+    "documento": "URD 2024 y URD 2025, nota 3.1 (cuadro de inversiones financieras); configuracion/cambio_vinci.json; DECISIONES_PARA_EL_USUARIO.md, P-O1 (c) (18-nov-2026)",
+    "pagina": "URD2024 PDF 348; URD2025 PDF 370"
+   }
+  },
+  {
+   "componente": "C47",
+   "importe": -213.0,
+   "partida": "cuentas a cobrar financieras de contratos PPP sumadas al capex en C47 (definición D de la etapa 1; media 2023–2025 de 49 / 279 / 311)",
+   "fuente": {
+    "documento": "URD 2024 y URD 2025, estados de flujos «Financial receivables (PPP contracts and others)»; etapa 1, Control maestro M44",
+    "pagina": "URD2024 PDF 336; URD2025 PDF 358"
+   }
+  },
+  {
+   "componente": "C47",
+   "importe": 165.666667,
+   "partida": "cobros por ventas de inmovilizado restados del capex en C47 (definición D de la etapa 1; media 2023–2025 de 148 / 170 / 179)",
+   "fuente": {
+    "documento": "URD 2024 y URD 2025, estados de flujos «Proceeds from sales of property, plant and equipment and intangible assets»; etapa 1, Control maestro M44",
+    "pagina": "URD2024 PDF 336; URD2025 PDF 358"
+   }
+  },
+  {
+   "componente": "C50",
+   "importe": 119.333333,
+   "partida": "SBC de C50 = parte no caja abonada a patrimonio (media 343,667) frente al gasto IFRS 2 total de la fila 18 (media 463): diferencia no explicada por el informe (decisión del inversor de la etapa 1, Control maestro M48/N48)",
+   "fuente": {
+    "documento": "URD 2024 y URD 2025, estados de cambios en el patrimonio «Share-based payments (IFRS 2)» y cuentas de resultados",
+    "pagina": "URD2024 PDF 334 y 337; URD2025 PDF 356 y 359"
+   }
+  }
+ ],
+ "fuentes_series": {
+  "URD2021": {
+   "archivo": "texto/vinci-urd-2021.txt",
+   "sha256": "bd5c916ebdfdccffb658f2cfa11d804cedba75bc2b953462d323ba377c58c2f2"
+  },
+  "URD2022": {
+   "archivo": "texto/vinci-urd-2022.txt",
+   "sha256": "796d54eaf7528a2bc51da44c8b9dd5db8d2d1e338129d3620cb5eb9705611ea5"
+  },
+  "URD2023": {
+   "archivo": "texto/vinci-urd-2023.txt",
+   "sha256": "67fdd2343e02104340b317b3f8162a170a5bd6257a70187cd33e59fa1ab23e06"
+  },
+  "URD2024": {
+   "archivo": "texto/vinci-urd-2024.txt",
+   "sha256": "492996b43e5d85bbf4d445b1bc8b1c02898f47b94ffe9d5c55c934dac3a65d22"
+  },
+  "URD2025": {
+   "archivo": "texto/vinci-urd-2025.txt",
+   "sha256": "489064181c9c4284183201404d75ebb7e1195038e694430e995bf9db240d77cd"
+  }
+ },
+ "normalizacion_circulante": {
+  "regla": "circulante_a_cero",
+  "anios": [
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "fundamento": "Decisión V-CIRC (a) de la persona responsable, 19-nov-2026 (DECISIONES_PARA_EL_USUARIO.md:134): «circulante a 0 también en la reinversión, con un mecanismo declarado (ni entradas ni salidas de circulante)»; y V-ANCLA (a), 19-nov-2026 (DECISIONES_PARA_EL_USUARIO.md:135): también en el ancla de S2C. La caja base ya lo excluye: C46 = CFO − circulante por la decisión del inversor de la etapa 1 (Control maestro M43); lo demuestra el cálculo declarado de C46 de fase1_v63.json (media 2023–2025 de cfo + circulante + dividendos de sociedades no consolidadas, con sus fuentes), y la partida de conciliacion_fcf_base, componente C46, −2.090 = media 2023–2025 de la fila 14. Años: los que usa la reinversión, la ventana de f (2023–2025) y los cinco del ancla de S2C (2021–2025).",
+  "registro": {
+   "fecha": "2026-11-19",
+   "persona": "persona responsable del proyecto (decisión registrada; no se firma aquí)",
+   "motivo": "munger-v2-evidencias-mistral, coordinacion/cierre_v2/DECISIONES_PARA_EL_USUARIO.md:134 (V-CIRC, 19-nov-2026, opción (a))"
+  }
+ }
+}

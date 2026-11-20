@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""vinci_b · tabla de vigencia de las cifras heredadas (etapa 1 y vinci/Vinci) al principio de extracto_v63.md (encargo del coordinador,
+20-nov-2026; como en ahold_f4 y zoetis_t1d). No toca los textos heredados (sección 6 de datos_v63.md, etapa1/Vinci_respuesta.md, observaciones del
+Control maestro): añade un bloque registrado «0. Vigencia …» entre la cabecera y la sección 1 del extracto conservado de vinci/Vinci (el original va a
+antecedentes/). Cada cifra vigente sale de fase1_v63.json / fase1_metadatos.json del expediente, de fuentes_mercado/ o de la previsión F1 del ensayo
+de la receta (f1/circulante-normalizado, F1_CIRCULANTE.md §6–§7 bis), que el informe del expediente vuelve a comprobar con el libro de vinci_b.
+El guion comprueba las que puede. Rastro en RASTRO.json. No es extracción nueva de las fuentes.
+Uso: python3 -I vigencia_extracto_vinci_b.py CARPETA_EMPRESA CARPETA_ANTECEDENTES RASTRO.json"""
+import hashlib, json, os, shutil, sys
+from fractions import Fraction as F
+C, ANT, RASTRO = sys.argv[1:4]
+h = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()  # noqa: E731
+ex = os.path.join(C, "extracto_v63.md")
+orig = os.path.join(ANT, "extracto_v63_conservado_de_vinci.md")
+assert not os.path.exists(orig)
+f1 = json.load(open(os.path.join(C, "fase1_v63.json"), encoding="utf-8"))
+an = {k: (v["valor"] if isinstance(v, dict) else v) for k, v in f1["analisis"].items()}
+P = f1["historia"]["partidas"]
+anios = f1["historia"]["anios"]
+circ = dict(zip(anios, P["circulante"]["valores"]))
+assert (circ[2023], circ[2024], circ[2025]) == (-1463, -2311, -2496)
+pr, acc, cap, rf = (F(repr(f1[k]["valor"])) for k in ("precio", "acciones_diluidas", "capitalizacion", "tasa_sin_riesgo"))
+assert pr == F("107.05") and acc == F("555.967094") and cap == pr * acc and rf == F("0.0347")
+c52 = F(repr(an["C46"])) - F(repr(an["C47"])) - F(repr(an["C48"])) - F(repr(an["C49"])) - F(repr(an["C50"]))
+assert c52 == F("4419.333") and an["C40"] == 4132 and an["C46"] == 9327.333 and an["C50"] == 343.667
+assert "\n2026-10-09 3.47\n" in open(os.path.join(C, "fuentes_mercado", "Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt"), encoding="utf-8").read()
+assert "\n2026-10-09 | 107.8 | 108.1 | 106.75 | 107.05 | 107.05 |" in open(os.path.join(C, "fuentes_mercado", "VINCI_DG_FR0000125486_Euronext_historical_price_2024-11-20_a_2026-11-18.txt"), encoding="utf-8").read()
+mot = json.load(open(os.path.join(C, "motor_a_f1.json"), encoding="utf-8"))
+assert mot["normalizacion_circulante"]["anios"] == [2021, 2022, 2023, 2024, 2025]
+coma = lambda x, d: f"{float(x):,.{d}f}".replace(",", "X").replace(".", ",").replace("X", ".")  # noqa: E731
+excl = F(-int(circ[2023] + circ[2024] + circ[2025]), 3)
+assert excl == 2090
+rmin_ant, rmin = F("0.03486") + F("0.042") + F("0.0140815433978628"), rf + F("0.042") + F("0.0140815433978628")
+
+filas = [
+ ("Precio (C37)", "107,05 € (C37; respuesta.md §1, C13, C20, B101); en vinci/Vinci «pendiente de verificación» (proveedores secundarios: Boursorama, ABC Bourse, MarketScreener)",
+  "107,05 € sin cambio de valor, ahora con bytes: cierre del 9-oct-2026 en la exportación oficial de Euronext «Historical Data» entregada por la persona (fila «2026-10-09 \\| 107.8 \\| 108.1 \\| 106.75 \\| 107.05 \\| 107.05»: cierre 107,05)",
+  "Análisis!C37", "[fuentes_mercado/VINCI_DG_FR0000125486_Euronext_historical_price_2024-11-20_a_2026-11-18.txt, PDF p. 1] (XLS original 78eee9c5…afb9d en la misma carpeta); coincide con el histórico no ajustado de Euronext conservado por Mistral"),
+ ("Tasa sin riesgo (C57)", "3,49 % (C57 del libro de la etapa 1; C56: «C57: 3,49 %»); 3,486 % de Investing.com (Control maestro fila 54 de la etapa 1; vinci/Vinci, 0,03486)",
+  f"3,47 % → 0,0347 (Bund a 10 años de la Bundesbank, serie WT1010, cierre del 9-oct-2026). Efecto: r mínima (Diagnóstico V6!C17 = C57 + riesgo país 4,2 % + Palancas D34) de {coma(100 * rmin_ant, 3)} % a {coma(100 * rmin, 3)} %; diferencial de r = 0,09 sobre rf de 5,51 % a 5,53 %",
+  "Análisis!C57", "[fuentes_mercado/Bundesbank_WT1010_bund10y_diaria_hasta_2026-11-18.txt, PDF p. 1] (CSV oficial fef9498e…1967, Release, asset 766892543); contraste, no elegidas: UMU 9–10 años 3,46 % y curva AAA del BCE 3,5112 % (fuentes_mercado/, Mistral)"),
+ ("Capitalización (C41)", "59.043 mm (C41 de la etapa 1, con 551.548.982 acciones a 30-sep-2026)",
+  f"{coma(cap, 7)} mm = 107,05 × 555,967094, producto exacto", "Análisis!C41",
+  "fase1_metadatos.json (capitalizacion); acciones: URD 2025 PDF p. 346. P-O2 (a) y Z-ACC: acciones al cierre del ejercicio con precio del 9-oct-2026, desalineación de fechas declarada"),
+ ("Acciones (C55)", "567,06 M (media ponderada diluida; respuesta.md §1: «división entre 567,06 millones de acciones diluidas»)",
+  "555,967094 M exactas (555.967.094 en circulación a 31-dic-2025: 581.816.830 emitidas − 25.849.736 de autocartera; sin dilución)", "Análisis!C55", "URD 2025 PDF p. 346"),
+ ("FCF base (C52)", "4.382 mm (respuesta.md §1 y §3, C13: «con la base normalizada de 4.382»)",
+  f"{coma(c52, 3)} mm = C46 9.327,333 − C47 3.799,667 − C48 89,333 − C49 675,333 − C50 343,667 (con C51 = Sí, que decide la fase A)", "Análisis!C52 (fórmula)",
+  "C46–C50: medias exactas FY2023–2025 con cálculo declarado (fase1_v63.json; precedente E1)"),
+ ("Caja operativa del FCF base (C46)", "9.290 mm (C25: «C46 (9.290) está por debajo del flujo operativo»)",
+  "9.327,333 mm = media 2023–2025 de CFO (10.540 / 11.714 / 11.886) + fila 14 (−1.463 / −2.311 / −2.496: sin la entrada de circulante, M43) + dividendos de sociedades no consolidadas (31 / 41 / 40, P-O1 c)",
+  "Análisis!C46", "cálculo declarado (fase1_v63.json; URD 2024 PDF p. 348, URD 2025 PDF p. 370); es también lo que demuestra a F1-CIRC que la caja base excluye el circulante"),
+ ("SBC (C50)", "344 mm (C51)", "343,667 mm (media exacta 2023–2025)", "Análisis!C50", "cálculo declarado (fase1_v63.json)"),
+ ("FCF LTM (C40)", "7.228 mm (C25: «C40 (7.228) no coincide con el FCF publicado de 2025 (7.010)»)",
+  "4.132 mm = 2025: CFO 11.886 + fila 14 (−2.496) + dividendos de no consolidadas 40 − capex D (3.873 − cobros 179 + PPP 311 = 4.005) − intereses de arrendamientos 110 − principal 761 − SBC 422 (misma definición que el FCF base)",
+  "Análisis!C40", "cálculo declarado (fase1_v63.json), conservado de vinci/Vinci (revisión del montaje, ee1ca6a); URD 2025 PDF p. 358, 359 y 370"),
+ ("Rendimiento del FCF", "12,2 % (C13, «C41: 12,2 %», con C40 7.228); 7,4 % con la base 4.382",
+  f"{coma(100 * F(4132) / cap, 2)} % (C40 ÷ C41); {coma(100 * c52 / cap, 2)} % con la base (C52 ÷ C41)", "C40 ÷ C41; C52 ÷ C41", "derivado de las filas anteriores"),
+ ("EV/EBITDA (C42)", "6,25x (C42 de la etapa 1)", f"{coma(an['C42'], 5)}x = (59.516,277 + DFN 22.450 + arrendamientos 2.983 + minoritarios 3.654 − puesta en equivalencia 2.051) ÷ EBITDA LTM 13.783",
+  "Análisis!C42", "semestral a 30-jun-2026 PDF p. 3 y 55; Z-ACC declarado"),
+ ("% de insiders (C96)", "0,09 % (C97: Huillard + Anjolras sobre 581,8 M emitidas)", "0,099 % = 550.233 acciones de los 15 consejeros ÷ 555.967.094 en circulación",
+  "Análisis!C96", "URD 2025 PDF p. 148 y 346"),
+ ("Circulante en la reinversión del motor A (F1)",
+  "etapa 1: «el circulante aportó +2.311 en 2024 y +2.496 en 2025» (C25), «nivel normal de entrada de caja por circulante» (§2). vinci/Vinci (V6.3.1 F1, sin normalizar): f 4,4899 %, reinversión media −1.514,333, flujo sin crecimiento 3.016,069, ancla S2C 5,9595 (Historia C53 = Palancas F16); F1-K3c bloqueaba",
+  f"vinci_b (V6.3.2 F1, normalización declarada «circulante_a_cero» 2021–2025; decisiones V-CIRC (a) y V-ANCLA (a)): la fila 14 sigue siendo la cifra publicada y no entra en la reinversión de 2021–2025 (filas 93–97); f ≈ 1,5744 %, reinversión media ≈ +575,667 (sin los {coma(excl, 0)} de circulante medio de 2023–2025 que la caja base ya excluye), flujo sin crecimiento ≈ 5.190,98, ancla S2C ≈ 2,3226; caja base sin cambio (C46 excluye ya el circulante, M43). Límite declarado: el capital del balance (ROIC y S2C medios de todo el capital, Historia C54–C55, P-FOSO) sigue incluyendo el circulante negativo",
+  "Historia C53, C58, C76, filas 30–31 y 93–97; Palancas F16",
+  "motor_a_f1.json (normalizacion_circulante); previsión F1 del ensayo de la receta (F1_CIRCULANTE.md §6–§7 bis), comprobada con el libro de vinci_b en resultados/registro_vinci_b.json"),
+ ("Escenarios y precio de Sí", "precio de Sí ≈ 79 €; normal ≈ 113–115 €; ponderado ≈ 115 €; malo ≈ 79 € (respuesta.md §1, C13, C20, B101, C104)",
+  "sin cifra vigente: son estimaciones de la etapa 1 hechas sin la hoja, con C52 = 4.382 y 567,06 M acciones; las calcula el libro (precio_de_si.py) tras la fase B con las palancas de este expediente", "Análisis (escenarios)", "—"),
+]
+bloque = ["## 0. Vigencia de las cifras heredadas (vinci_b, Claude orquestación, 20-nov-2026)", "",
+          "Los textos heredados de la etapa 1 (sección 6 de `datos_v63.md`, `etapa1/Vinci_respuesta.md`, observaciones del Control maestro) **no se han "
+          "tocado** y citan cifras que hoy valen otra cosa. Esta tabla da, para cada una, el valor vigente del expediente, su celda y su fuente. Manda la "
+          "columna «vigente». Bloque añadido por la orquestación al extracto conservado de vinci/Vinci (rastro: `resultados/vigencia_extracto_vinci_b.json`); "
+          "no es extracción nueva de las fuentes. Las cifras del motor A F1 son la previsión antes de la fase A.", "",
+          "| Cifra | Etapa 1 o vinci/Vinci (dónde la cita) | Vigente | Celda | Fuente |", "|---|---|---|---|---|"]
+bloque += [f"| {a} | {b} | {c} | {d} | {e} |" for a, b, c, d, e in filas]
+bloque += ["", "Sin cambio de valor frente a la etapa 1: C24 = 10,7 % (ROCE, URD 2025 PDF p. 142), C33 = 1,85x, C53 = 14.998 y C54 = 40.098 (semestral a "
+           "30-jun-2026), verificados en la revisión del registro de entradas; C26 = 2,31 y C60 = −0,002 se reproducen con la Historia (clase corregida en el "
+           "registro); C38 = 111,79 € (Simply Wall St) es una lectura externa sin bytes y C88 = 9,7x una convención de la etapa 1 sin precios conservados: "
+           "ninguna de las dos cuenta como comprobada.", ""]
+txt = open(ex, encoding="utf-8").read()
+i = txt.index("\n## 1. Mercado y cuota")
+assert "## 0." not in txt[:i]
+nuevo = txt[:i].rstrip("\n") + "\n\n" + "\n".join(bloque) + txt[i:]
+assert nuevo.endswith(txt[i:]) and nuevo.startswith(txt[:i].rstrip("\n"))
+antes = h(ex)
+shutil.copy2(ex, orig)
+open(ex, "w", encoding="utf-8").write(nuevo)
+json.dump({"fecha": "2026-11-20", "autor": "Claude orquestación", "guion": "resultados/scripts/vigencia_extracto_vinci_b.py", "extracto_antes_sha256": antes,
+           "extracto_despues_sha256": h(ex), "copia_anterior": os.path.relpath(orig, os.path.dirname(C)), "secciones_1_9_identicas": nuevo.endswith(txt[i:]),
+           "bloque": "\n".join(bloque)}, open(RASTRO, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print("\n".join(bloque))

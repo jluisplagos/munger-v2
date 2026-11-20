@@ -1,0 +1,142 @@
+{
+ "fecha": "2026-11-20",
+ "autor": "Claude orquestación",
+ "que_es": "Registro del montaje de vinci_b hasta el relevo de la fase A (paso 6, sin contestar): estado del pipeline, previsión F1 sobre el libro de datos recalculado (antes de la fase A: no es el paso 7), cifras clave del libro y resultado de comprobar del registro de entradas. No acredita aptitud; no apto para dinero real.",
+ "secuencia": "resultados/scripts/rehacer_vinci_b.sh (LibreOffice bajo flock)",
+ "pipeline": {
+  "config": "personaje_v2/config_v2_v632_f1.json",
+  "paso": 6,
+  "esperando": "6:fase_a.json",
+  "relevo": "vinci_b/Vinci/ESPERANDO.md y vinci_b/Vinci/prompts_generados/06_fase_a.md",
+  "salida": "resultados/pipeline_hasta_fase_a.txt"
+ },
+ "libro_datos_sha256": "b30198f8900a8811851ac9600bf6419713cb12987e60d55ac57bef8f263638aa",
+ "libro_recalculado_sha256": "c830a7838d07b5dc193d8db2dfac491954c0a755360041eb2cca75e60ff06f50",
+ "cifras_libro_recalculado": {
+  "Análisis!C37": 107.05,
+  "Análisis!C40": 4132,
+  "Análisis!C41": 59516.2774127,
+  "Análisis!C46": 9327.333,
+  "Análisis!C52": 4419.333,
+  "Análisis!C55": 555.967094,
+  "Análisis!C57": 0.0347,
+  "Historia!C53 (ancla S2C)": 2.3226451421801,
+  "Historia!C58 (f)": 0.0157439542453269,
+  "Historia!C76 (reinversión media)": 575.666666666667,
+  "Historia!C93": "circulante_a_cero",
+  "Historia!C94:L94": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "Historia!C97": "circulante_a_cero",
+  "Palancas!F16": 2.3226451421801,
+  "Palancas!C7": "Engineering/Construction",
+  "Diagnóstico V6!C17 (r mínima)": 0.0907815433978628
+ },
+ "prevision_F1": {
+  "orden": "python3 personaje_v2/scripts/motor_a_f1.py evaluar vinci_b/Vinci --libro vinci_b/Vinci/recalc/Vinci_v63_datos.xlsx --salida <scratchpad> (fuera del expediente)",
+  "version_capa": "F1-IMPL 2 (4.15 · decisiones F1 del 17-nov-2026 · US GAAP, ASC 842: D-US1, D-US2, D-US2 bis y D-WM del 18-nov-2026 · cierre de la revisión R2 · margen de partida según Palancas C8, 19-nov-2026 · normalización declarada del circulante (V-CIRC), 19-nov-2026, con la caja base demostrada por el cálculo declarado de C46 (revisión C1))",
+  "libro_sha256": "c830a7838d07b5dc193d8db2dfac491954c0a755360041eb2cca75e60ff06f50",
+  "declaracion_sha256": "5bda71b03cdb8db60ebfb2e2e15632443d7a2af1625fa572f186459ac38e7256",
+  "utilizable_para_conclusion": true,
+  "bloquea": false,
+  "guardas_con_severidad": {
+   "V-F1f": "INFORMA",
+   "F1-SERIES-CERO": "AVISO"
+  },
+  "guardas": [
+   "F1-NORMA",
+   "V-F1e",
+   "V-F1b",
+   "V-F1a",
+   "V-F1m",
+   "F1-M-SIM",
+   "F1-ROU-HISTORIA",
+   "F1-2i",
+   "V-F1l",
+   "V-F1j",
+   "V-F1i",
+   "V-F1d",
+   "V-F1c",
+   "V-F1h",
+   "V-F1g",
+   "V-F1k",
+   "F1-REPLICA",
+   "F1-K3a",
+   "F1-CIRC",
+   "F1-K3b",
+   "F1-K3c",
+   "F1-LIBRO",
+   "F1-INTERESES-ARR",
+   "V-F1g (valores)",
+   "V-F1k (valores)",
+   "V-F1f",
+   "F1-SERIES-CERO",
+   "F1-SERIES"
+  ],
+  "normalizacion_circulante": {
+   "aplicada": true,
+   "regla": "circulante_a_cero",
+   "anios": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "excluido_por_anio": {
+    "2021": -1579.0,
+    "2022": -392.0,
+    "2023": -1463.0,
+    "2024": -2311.0,
+    "2025": -2496.0
+   },
+   "excluido_medio_en_la_ventana": -2090.0,
+   "caja_base": {
+    "componente": "C46",
+    "partida": "entrada de caja del circulante excluida del CFO en C46 por la decisión del inversor de la etapa 1 (media 2023–2025 de la fila 14: −1.463 / −2.311 / −2.496)",
+    "importe": -2090.0
+   },
+   "problemas": [],
+   "efecto_en_el_perimetro_declarado": {
+    "sin_normalizar": {
+     "f": 0.044898608760346,
+     "flujo_sin_crecimiento": 3016.068605087,
+     "reinversion_media": -1514.333333333,
+     "ancla_s2c_E4": 5.959528785864
+    },
+    "normalizado": {
+     "f": 0.015743954245327,
+     "flujo_sin_crecimiento": 5190.976677253,
+     "reinversion_media": 575.666666667,
+     "ancla_s2c_E4": 2.32264514218
+    }
+   },
+   "libro": {
+    "version": "V6.3.2 F1",
+    "efectiva": "circulante_a_cero",
+    "anios": [
+     2021,
+     2022,
+     2023,
+     2024,
+     2025
+    ]
+   }
+  }
+ },
+ "concordancia_cambio_de_base": "resultados/concordancia_Vinci_v63_datos.md: CONCUERDA Y SIN RESTOS",
+ "registro_de_entradas": {
+  "rastro": "resultados/registro_entradas_vinci_b.json",
+  "comprobar": "universo 326 · comprobadas del universo 0 · comprobadas en total 0 · pendientes 488 · desactualizadas 0 · discrepancias 0 · errores 0 · auxiliares 162 · apto por entradas: False",
+  "simulacion_de_revision": "sobre una copia en /dev/shm (borrada), con revisor ficticio y vínculos dados por escritos, sin sellar: 0 pendientes, 0 desactualizadas, 0 discrepancias, 0 errores; solo queda C38 (lectura externa sin bytes) como material no comprobada"
+ }
+}
