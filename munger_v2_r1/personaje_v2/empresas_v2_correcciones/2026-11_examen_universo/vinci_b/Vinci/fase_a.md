@@ -1,0 +1,81 @@
+# Fase A · VINCI SA (DG, Euronext Paris) · fecha de análisis 2026-10-10
+
+Entradas: `datos_v63.md`, `extracto_v63.md`, `entrada_v63.md`. El extracto de la etapa 1 (`etapa1/extracto.md`) no está en el expediente (lo dice también `extracto_v63.md`): lo heredado lo trato como hipótesis y solo lo sostengo con hechos de mis entradas. Las cifras heredadas no vigentes (precio de Sí ≈ 79 €, normal ≈ 113 €, FCF base 4.382, 567,06 M acciones) no las uso: manda la tabla de vigencia del extracto (§0).
+
+## 1. Entender (C11 = Sí)
+
+1. VINCI cobra peajes en 4.443 km de autopistas en concesión en Francia y tasas en aeropuertos (334 millones de pasajeros en 2025), y vende servicios de energía (VINCI Energies, Cobra IS) y de construcción [URD 2025, PDF p. 12, 134].
+2. Pagan los usuarios de las autopistas y de los aeropuertos, y los clientes de energía y obra (electrificación, centros de datos, industria y edificios) [PDF p. 135].
+3. Pagan porque la autopista o el aeropuerto no tienen sustituto cercano y la tarifa la fija el contrato con el concedente [PDF p. 382]; en servicios, leo que por ejecución y precio, contrato a contrato.
+4. La caja sale sobre todo de las concesiones (3.890 de 7.010 de FCF en 2025, con el 80 % del capital empleado) y, en energía y obra, del circulante negativo de los contratos (excedente de 19,7 mil M) [PDF p. 139, 141].
+5. La parte más rentable, las autopistas francesas, vence en 2032–2036 [PDF p. 382], y el valor depende de a qué retorno se reinvierta esa caja.
+
+Concesiones son el 16,4 % de las ventas y el 62,1 % del Ebit (5.935 de 9.558) [PDF p. 134, 136]. Dentro de ellas, Autoroutes da 3.311 de Ebit sobre 16,6 mil M de capital empleado y Airports 2.459 sobre 24,1 mil M [PDF p. 136, 141]: ≈20 % frente a ≈10 % antes de impuestos [cálculo]. Energy Solutions da 2.250 sobre 9,5 mil M; Construcción, 1.356 sobre 1,9 mil M, con margen del 4,1 %.
+
+## 2. Círculo de competencia (C12 = Sí, confianza media)
+
+Las variables que deciden el valor a diez años son tres. (1) Las fechas de fin de contrato: Escota 2032, Cofiroute 2034, ASF 2036 [PDF p. 382]. Es contrato, no previsión. (2) El retorno al que se reinvierte la caja de las autopistas: lo juzgo por el historial, no por la guía (ROCE 10,7 % en 2025 y 11,4 % en 2024, PDF p. 142; lo comprado rinde como Airports). (3) La fiscalidad francesa sobre las concesiones (TEITLD de 284 desde 2024, URD 2024 PDF p. 134; contribución excepcional de 449 en 2025, prorrogada en 2026, URD 2025 PDF p. 138, 143): no la predigo, la pongo en el escenario MALO. Sé dónde está mi borde: «It's not a competency if you don't know the edge of it» (TCI p.100; HIM). El borde es Cobra IS (EPC y renovables con precio eléctrico; FCF −365 en 2025, PDF p. 140; goodwill 4.156, el 78 % de su capital empleado, C32) y la negociación política del fin de las autopistas.
+
+## 3. Descalificadores
+
+Ninguno aplica. El que más cerca está es «demasiadas piezas móviles»: cuatro negocios, decenas de concesiones en muchos países, 33 compras al año en VINCI Energies [PDF p. 131] y EPC en Cobra IS. Lo entiendo por partes y lo decisivo son pocas variables; si Cobra IS pasara a decidir el valor, aplicaría. La deuda no mata: deuda neta 1,4 veces el Ebitda (1,6 a junio de 2026), A−/A3, liquidez de 22,0 mil M y ratios de las financiaciones cumplidos [PDF p. 141, 405; semestral PDF p. 15]; la deuda está en las concesiones y el resto tiene caja neta [PDF p. 141]. «Reinvierte toda la caja para mantenerse» no aplica hoy (reparte 5,00 € de dividendo y recompra, PDF p. 141–142), pero es el riesgo del largo plazo: para no encoger tras 2036 tiene que comprar su futuro.
+
+## 4. Calidad del negocio
+
+**Foso (C18 = No, cambia frente a la etapa 1).** Con la vara de P-FOSO (`datos_v63.md` §1 bis), el ROIC del capital propio pagado todo el alquiler es 10,94 % de media 2021–2025 frente a r 9 %: +1,94 puntos, con un peor año de 5,93 % (2021). `Historia!C55` (10,5 %) solo la comparo con el sector (7,19 %): es mejor que el sector, pero esa es otra pregunta. El exceso sobre r es pequeño y lo sostiene sobre todo la parte que vence: las autopistas, un monopolio que concede el Estado por un plazo. Lo que VINCI compra para sustituirlas lo paga a precio de mercado y rinde como Airports, ≈10 % antes de impuestos sobre su capital [cálculo]. Las cuatro pruebas:
+
+- Sobrino idiota: las autopistas lo pasan hasta su vencimiento (margen Ebit 49,2 %, tarifa por contrato); construcción y EPC no.
+- Duración: contractual y conocida; aeropuertos en plena propiedad (Gatwick, Edimburgo) o en concesión hasta 2045–2080 [PDF p. 382, 9]. «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM): aquí la respuesta está escrita en el contrato.
+- Quién me mata: en las autopistas, el Estado (impuestos y fin de contrato); en las concesiones nuevas, los que pujan contra VINCI. El extracto solo nombra a Eiffage (2.560 km) y Abertis (1.807 km) en Francia [PDF p. 12]; en energía y obra no nombra competidores y los pediría.
+- Empresa o nicho: sobre todo nicho, «merely reflects the good fortune of being in your present niche» (AIWTK p.136; HIM). Lo que parece de la empresa es la escala con poco capital de Energy Solutions (margen 7,4 → 7,6 %).
+
+Del marco de los cuatro éxitos, leo una D (montar una ola: las concesiones francesas) más que una ventaja propia. No pido a la fase B un ROIC terminal por encima de r + 3 puntos: sin foso no habría justificación.
+
+**Viento de cola (C17 = Sí, confianza baja).** Está en Energy Solutions (+5,8 % orgánico en 2025, +6,8 % en el semestre; cartera de 69,8 a 76,8 mil M; PDF p. 134, 144; semestral PDF p. 9, 16) y se ha parado en concesiones (tráfico −2,9 % y pasajeros estables en el semestre; semestral PDF p. 7, 8). Es del sector, no mérito de VINCI.
+
+**Crecimiento (C19 = Sí) y FCF (C25 = Sí).** Ventas de 38.073 a 74.599 en diez años y beneficio de 2.505 a 4.903 (Historia filas 6 y 9), con 2020 como único bache: «cyclicality is fine with us as long as the price is appropriate» (PCA p.223; HIM). Pero 21.371 de compras en diez años (fila 13) y un orgánico del 2,6 % en 2025. El FCF al accionista sin la entrada de circulante (filas 35 y 14) pasa de 2.675 a 4.079 [cálculo], unos 4,8 % al año, pero desde 2023 está plano o a la baja (4.707 / 4.144 / 4.079) por capex y SBC.
+
+**Márgenes (C27 = Expandiendo; base `Palancas!C8` = Media del ciclo).** La fila 29 va de 10,8 % (2016) a 12,6 % (2025), con 5,7 % en 2020. Expansión lenta, en parte mezcla y salida del Covid. Como 2025 es el máximo de la serie, la base es la media del ciclo (UD; E5); la tendencia la recogerá el margen objetivo.
+
+**Tipo, etapa y caso especial.** `C14` = Calidad a precio razonable (ROCE 10,7 %, no es compounder; el 62 % del Ebit es concesión con tarifa, no es cíclica pura); la calidad del conjunto es media. `Palancas!C5` = Madura (orgánico 2,6 % y 1,3 % en el semestre; reinversión neta orgánica pequeña, fila 30). `Palancas!C6` = Regulada (red, concesión): el 80 % del capital empleado y el 62 % del Ebit, con precios que valida el concedente [PDF p. 382]; también es multinegocio y lo digo. `C9` = No (I+D no publicada, fila 19 vacía); `C10` vacía. `C43` = No aplica (C52 = 4.419 > 0). `C47` = Ninguna (C41 es el producto exacto y V22, V26 y V27 están en OK; V28 avisa de la separación de fechas declarada).
+
+## 5. Gestión
+
+**Asignación de capital (C98 = Aceptable).** «Proper allocation of capital is an investor's number one job» (TCI p.114; HIM). A favor: prudencia financiera (1,4 veces el Ebitda, A−), acciones estables (fila 20), earn-out de Cobra IS fijado en 380 frente a un tope de 600 [PDF p. 132], metas de 2025 cumplidas [PDF p. 143]. En contra: el crecimiento viene de compras grandes cuyo retorno sobre lo pagado no se publica (Gatwick, OMA, Edimburgo, Northwest Parkway, Cobra IS; múltiplos no encontrados), Cobra IS con FCF −365, recompras a 119,11 € en 2025 y 125,80 € en el semestre, por encima del precio actual [PDF p. 141; semestral PDF p. 15], y una SBC que se multiplica por 4,8 en diez años mientras las ventas se duplican (fila 18). «There are all kinds of things you can't buy your way out of» (AIWTK p.161; HIM): es el riesgo de un grupo que tiene que comprar su futuro.
+
+**Recompras y SBC (C61 = Sí; C51 = Sí).** Las acciones diluidas pasan de 559,7 M a 567,1 M en diez años (C60 = −0,2 % al año): neutraliza, aunque cara. La SBC se resta siempre: «A stock option is both an expense and dilution» (PCA pp.126–127; HIM).
+
+**Insiders (C97 = Neutral, técnico).** Mis entradas solo traen las tenencias de los 15 consejeros a 31-dic-2025 (550.233 acciones, 0,099 %; URD 2025 PDF p. 148), no operaciones. Las ventas anuales que la etapa 1 atribuía a dos directivos no están en mis entradas y no las puedo situar en la ventana de 12 meses. Es un supuesto técnico, no una señal.
+
+## 6. Precio (solo ahora)
+
+`C13` = No. A 107,05 € el FCF base rinde 7,43 % (C52 ÷ C41). A ojo, con r = 9 % eso equivale a que el flujo actual crezca en torno al 1,5 % para siempre [cálculo]: el precio supone que la caja de las autopistas se sustituye a retornos de hoy. Ese flujo incluye además la parte de los minoritarios (805 de dividendos a minoritarios en 2025, PDF p. 358). Para ver si hay margen necesito la hoja: no es una cuenta clara. La hoja dirá DESCARTADA POR FILTRO PABRAI; mi cubo es otro (abajo). `C20` = Riesgo real alto: la ruina es improbable, pero al precio actual el error en la sustitución de las autopistas es una pérdida permanente.
+
+`C56` = 0,09, heredada: la deuda alemana a 10 años (3,47 %) más un margen de renta variable. «it's your alternatives that matter» (PCA p.114; HIM). Queda 0,08 puntos por debajo de la r mínima de la hoja (9,08 %); lo digo y no la toco.
+
+**Motor (C62 = No · financiación cambia mucho → motor B).** Elijo B por tres hechos. La deuda de las concesiones se devuelve antes de su vencimiento (Autoroutes 15.001 de deuda neta, 3,1 veces su Ebitda; PDF p. 141, 382) y el flujo del motor A va antes de esa devolución. Los minoritarios son materiales (3.576 en balance; 49,99 % de Gatwick y Edimburgo, 70,01 % de OMA; PDF p. 399) y el motor A contaría su caja como del accionista de VINCI; el B los resta, junto con deuda, arrendamientos y pensiones. Y la deuda neta ha ido de 14,8 a 22,3 y a 19,5 mil M al ritmo de las compras (Historia filas 22 y 24) [cálculo]. `entrada_v63.md` da el motor B como calculable. Límite que dejo dicho: ningún motor de la hoja representa el escalón de 2032–2036 dentro del horizonte; la fase B tendrá que llevarlo a las palancas. Si no puede sin incoherencias, la respuesta correcta sería «otro método». No declaro hoy el límite del modelo porque creo que el escalón se puede aproximar sin torturar las cifras: «Better roughly right than precisely wrong» (PCA p.451; HIM).
+
+## 7. Las seis preguntas
+
+- **¿Confío en la gestión?** Lo suficiente para no descartarla, no para confiar mucho: prudencia financiera y metas cumplidas frente a compras sin retornos publicados, recompras caras y SBC al alza. Sin operaciones de insiders no juzgo la alineación por ahí.
+- **¿Puede dañar la reputación?** Puede: es concesionario del Estado francés y litiga con él por la TEITLD; los impuestos especiales se repiten. El extracto no trae litigios ni accidentes de obra y no los afirmo.
+- **¿Qué puede salir mal?** Que la caja de las autopistas (2,6 mil M de FCF, PDF p. 140) no se sustituya a retornos ≥ r; más presión fiscal; tráfico a la baja (−2,9 % en el semestre); deterioros en Cobra IS; que el excedente de circulante de 19,7 mil M se revierta si la obra se encoge.
+- **¿Lo entiendo?** Sí, por partes. Cobra IS es lo que menos entiendo.
+- **¿Necesita capital?** No aportaciones, pero sí comprar su futuro: inversiones financieras de 7,0 mil M en 2024 y casi 1,9 mil M en 2025 [PDF p. 140]; deuda bruta de 21.494 a 36.712 en diez años (fila 22).
+- **¿Qué caja espero?** Un flujo al accionista sin circulante de unos 4.100 a 4.700 (2023–2025) [cálculo], con la parte de minoritarios dentro, plano o algo al alza hasta 2032 y con un escalón a la baja al vencer las autopistas salvo que se sustituya. La guía de la empresa (hasta 6 mil M de FCF en 2026, PDF p. 144) no la uso como base.
+
+## 8. Las tres historias (sin números de palancas)
+
+**MALO (B65 = Compra cara o mala gestión del capital).** Las autopistas vencen sin prórroga; hasta entonces Francia mantiene la TEITLD y repite la contribución excepcional; VINCI reinvierte la caja de Autoroutes comprando aeropuertos y concesiones en procesos competidos a precios que dejan el retorno por debajo de r, y construcción y EPC pasan un ciclo malo. Mecanismo: el flujo de ≈20 % de retorno antes de impuestos se sustituye por activos de ≈10 % [cálculo]; cada euro nuevo rinde menos que r. Quién se queda la mejora: el Estado y los vendedores. Qué lo pararía: una prórroga o compensación, ganar el litigio fiscal, disciplina para devolver la caja en vez de comprar caro. Cambio frente a la etapa 1: el vencimiento está en los tres escenarios; lo que hace malo el MALO es la reinversión. El MALO tiene que ser real: «recognize that terrible things can happen» (AIWTK pp.77–78; HIM).
+
+**NORMAL (C65 = Otra).** El contrato se cumple tal cual. Energy Solutions y aeropuertos crecen con sus mercados, márgenes estables, la caja se reinvierte a un retorno en torno a r y los impuestos especiales se quedan como coste. Mecanismo: crecer sin crear mucho valor; la caja de las autopistas se compensa solo en parte. Quién se queda la mejora: se reparte, porque en concesiones el concedente valida las subidas [PDF p. 382] y en servicios el precio se negocia contrato a contrato. Qué lo pararía: más impuestos o tráfico a la baja (hacia el MALO); prórrogas o concesiones nuevas claramente por encima de r (hacia el BUENO).
+
+**BUENO (D65 = Otra).** VINCI sustituye la caja de las autopistas con concesiones largas y aeropuertos que rinden por encima de r: la segunda pista de Gatwick (hasta 80 millones de pasajeros), OMA con tarifas de inflación + 6,9 % en 2026–2030 [PDF p. 132], Safeway en India (nueve autopistas, vencimientos 2048–2058) y la A154–A120 a 35 años [semestral PDF p. 4]; Energy Solutions compone con poco capital (9,5 mil M para 29,6 mil M de ventas). Quién se queda la mejora: VINCI, si las tarifas aprobadas y la escala no se trasladan enteras al cliente; en Gatwick, Edimburgo y OMA, los minoritarios su parte. Qué lo pararía: precios altos en las compras, tarifas no aprobadas, precios eléctricos bajos para Zero.e, competencia en servicios.
+
+## 9. Cubo provisional: Vigilar
+
+Lo entiendo, está en mi círculo con un borde conocido (Cobra IS y la política francesa), no hay descalificadores, la gestión es aceptable y el balance sólido. Pero la calidad es media: el foso claro tiene fecha de caducidad y lo que lo sustituye rinde alrededor de r. A 107,05 € el precio ya supone que esa sustitución sale bien, así que no veo margen. Vigilar aquí no es «gran empresa a mal precio»: es un negocio correcto que solo compraría si el precio se apoyara en la caja contractual y en un resto que rinda r, cerca del valor del MALO. El error que tengo más cerca con VINCI es pagar por calidad: tomar por duradero lo que es un contrato con fecha. Me haría pasar a No que la fase B o la C mostraran que, con reinversión a ≈r, el valor del NORMAL queda por debajo del precio sin margen posible, o que hubiera deterioros en Cobra IS o en aeropuertos; a Demasiado difícil, que el valor pasara a depender de la negociación política tras 2036 o de Cobra IS.
+
+**Lo que no sé.** La deuda y los flujos de fin de contrato concesión por concesión; el retorno de las compras frente a lo pagado; qué parte del FCF base es de minoritarios; qué hará Francia con las autopistas y con sus impuestos; las subidas de peaje de ASF y Escota; las operaciones de insiders de los últimos 12 meses; por qué el gasto IFRS 2 total supera al abono a patrimonio (C50); si el excedente de circulante se mantiene.
+
+**Lo que no sabría Munger.** Cómo decidirá el Estado francés el futuro de las autopistas: es política, y ahí no hay nada que añadir. Si Zero.e y el EPC de Cobra IS rinden por encima de r con precios eléctricos impredecibles. El retorno de las compras pequeñas de VINCI Energies. El riesgo de país de las concesiones en México, Brasil, República Dominicana o India.
