@@ -44,7 +44,9 @@
   "  $ bash recalc.sh Vinci_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/recalc/Vinci_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
   "  $ python3 leer_resultados.py Vinci_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/resultados.json · motor B · estado INCOMPLETO · libro NO",
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 107.05 · esc. MALO 79.2813654954604 · precio de Sí 97.7859 (P* 97.7859) · ponderado 107.0382 · zona caro",
-  "  $ python3 comprobar_gramatica.py Vinci --tras-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 1 (sin justificar 0) · avisos 4 → gramatica.md"
+  "  $ python3 comprobar_gramatica.py Vinci --tras-recalculo → 0 · código 0 · errores 0 · límites 0 · desviaciones 1 (sin justificar 0) · avisos 4 → gramatica.md",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS"
  ],
  "motor": "B",
  "fase_b_escrita": true,
@@ -60,8 +62,9 @@
   "extracto_v63.md": 1795209280.517049,
   "fase_a.json": 1795211080.2216897,
   "fase_b.json": 1795213149.5815732,
-  "fase_c.json": 1795212893.6996927
+  "fase_c.json": 1795213500.6300485
  },
- "motivo_correccion": "la fase B ya revisó las palancas en la única vuelta C→B admitida (§4.5): el libro está recalculado con las palancas nuevas; otro revisar_palancas termina en no_entregable",
- "esperando_desde": 1795213226.454052
+ "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
+ "esperando_desde": 1795213520.801543,
+ "turno_c": 2
 }

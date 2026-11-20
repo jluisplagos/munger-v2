@@ -1,50 +1,119 @@
-# Fase C · turno 1 · VINCI SA (DG) · motor B
+# Fase C · turno 1 (tras la vuelta a la fase B) · VINCI SA (DG) · motor B
 
-Libro recalculado: MALO 93,87 € · NORMAL 122,34 € · BUENO 186,10 € · ponderado 124,79 € (p = 0,25 / 0,6 / 0,15). Escalera (`precio.json`): precio de Sí 114,48 € (sin tope del NORMAL), precio del escenario MALO 93,87 €, zona `cumple_regla_k`. El precio (107,05 €) está un 6,5 % por debajo del precio de Sí (7,43 ÷ 114,48, denominador el precio de Sí); dicho al revés, el precio de Sí está un 6,9 % por encima del precio (7,43 ÷ 107,05, denominador el precio). Regla antigua (C156): 93,59 €. Repaso todo como si lo hubiera escrito otro: «intensively consider any evidence tending to disconfirm any hypothesis of his» (PCA p.528; HIM).
+La fase B ya usó la única vuelta: en este turno no pido otra (`revisar_palancas = false`). Cambió B15:D15 de 0,095 / 0,10 / 0,105 a 0,085 / 0,09 / 0,10, por los minoritarios, y C16 de 1,7 a 1,5, por la mezcla de la reinversión.
+
+Libro recalculado, con p = 0,25 / 0,6 / 0,15:
+- MALO 79,28 €
+- NORMAL 101,75 €
+- BUENO 174,47 €
+- ponderado 107,04 €
+
+Escalera (`precio.json`):
+- precio de Sí: 97,79 €, sin tope del NORMAL;
+- precio del escenario MALO: 79,28 €;
+- zona: `caro`.
+
+El precio de 107,05 € está un 9,5 % por encima del precio de Sí (9,26 ÷ 97,79; denominador: el precio de Sí). Dicho al revés, el precio de Sí está un 8,7 % por debajo del precio (9,26 ÷ 107,05; denominador: el precio). La regla antigua (C156) da 79,28 €.
+
+Lo reviso como si fuera de otro: «intensively consider any evidence tending to disconfirm any hypothesis of his» (PCA p.528; HIM).
 
 ## 1. Una sola historia
 
-**Lo que coincide.** Los semáforos de las filas 40–44 pasan en los tres escenarios. El peso del terminal es 0,60 / 0,66 / 0,72, bajo el 0,75. El salto del año 11 es 2,4 / 4,6 / 6,4 puntos: solo el BUENO pasa de 5 (G8, punto 2). Comprobé el escalón de las autopistas que la fase B me dejó pendiente. Mi réplica del motor B fuera de la hoja reproduce B78:D78 al céntimo. Con ella, la suma de partes da 91,5–93,5 / 123,2–125,3 / 191,1–193,3 € por acción [cálculo]: el resto del grupo con su margen (2025 o su análogo de media del ciclo) más la caja de las autopistas (2,7–3,0 mil M al año, +1,5 %, con caídas en 2032, 2034 y 2036 por el peso de cada red: Escota 14 %, Cofiroute 25 %, ASF 58 %; URD 2025 PDF p. 12, 382), descontada a 6,41 %. Los márgenes equivalentes salen 0,093–0,095 / 0,100–0,102 / 0,107–0,108. El libro queda dentro del rango o algo por debajo. El escalón cabe en las palancas: no declaro el límite del modelo.
+**Lo que coincide.**
+- Los semáforos de las filas 40–44 y 47 pasan.
+- El peso del terminal es 0,60 / 0,68 / 0,72.
+- El salto del año 11 es de 1,5 / 2,2 / 5,6 puntos.
+- La rentabilidad marginal del NORMAL es 9,2 %, y el valor de su crecimiento, −1,8 € por acción. La historia NORMAL de la fase A ya cuenta lo mismo que la hoja: crecer reinvirtiendo en torno a r sin crear mucho valor.
+- Mi réplica del motor B reproduce los nuevos B78:D78 al céntimo.
+- El recorte por minoritarios está bien hecho: cada −0,001 de margen resta ≈811 / 975 / 1.293 M, y la fase B aplicó −0,008 / −0,008 / −0,007 para excesos de ≈6,5 / 7,9 / 8,8 mil M.
+- El S2C 1,5 sale de la mezcla de 2023–2025: 77 % compras al 6,9 % de Airports y 23 % propio al 16,1 % de Energy Solutions, ≈9 % [cálculo].
+- La fase A dijo Vigilar y que a 107,05 € no veía margen. Ahora el libro dice lo mismo.
 
-**El DCF inverso.** Con las demás palancas del NORMAL, 107,05 € descuentan ≈1,0 % de crecimiento de ventas en los años 1–5 (C86). El NORMAL pone 4 %: 2,5 % orgánico y 1,5 % de compras. El precio paga algo menos que el orgánico de 2025 (2,6 %; PDF p. 130) y nada por las compras. **El tornado** (información, no criterio): ±1 punto de tasa mueve ±50,8 €, el margen ±2 puntos ±35,1 €. El valor depende sobre todo de la rentabilidad exigida (r heredada, 9 %, por debajo de la r mínima 9,08 %) y del margen equivalente.
+**El DCF inverso.** El precio descuenta ≈5,4 % de crecimiento de ventas en los años 1–5 (C86). El NORMAL pone el 4 % (2,5 % orgánico + 1,5 % de compras), y el orgánico de 2025 fue del 2,6 % (URD 2025 PDF p. 130). El precio pide más que mi escenario central.
+
+**El tornado** (información): ±1 punto de tasa mueve ±45,5 €; ±2 puntos de margen, ±35,1 €. El valor depende sobre todo de la rentabilidad exigida (r heredada, 9 %, por debajo de la r mínima de 9,08 %).
 
 **Lo que no cuenta la misma historia.**
 
-1. **Minoritarios (material).** El motor B cobra el 100 % del flujo de London Gatwick y Edimburgo (49,99 % ajeno) y de OMA (70,01 % ajeno). Luego resta a los minoritarios por su valor contable: 3.576 (URD 2025 PDF p. 399), dentro de Historia C65. Pero esos minoritarios cobraron 805 de dividendos en 2025 y 902 en 2024 (PDF p. 358). Los precios de compra apuntan a lo mismo. OMA costó 1.169 por el 29,99 % (URD 2023 PDF p. 170): el 70,01 % ajeno valdría ≈2.729. Edimburgo costó 1.431 por el 50,01 % (URD 2025 PDF p. 370): el 49,99 % ajeno valdría ≈1.430 [cálculo]. Solo dos de las tres filiales suman 4.159, más que todo el valor contable, que también incluye Gatwick. Basta un exceso de 4.132 M (7,43 € por acción) para llevar el precio de Sí al precio [cálculo]. Si capitalizo los dividendos a r con un crecimiento de 0 a 2 %, el exceso sale 5,4–9,3 mil M (9,7–16,7 €). La zona `cumple_regla_k` depende de esto. La fase B lo vio y no lo corrigió «para no mezclar flujos y pasivos», pero es lo mismo que hizo con el escalón: la hoja no lo representa, así que hay que llevarlo a las palancas. Resto solo el exceso sobre los 3.576, que la hoja ya resta, para no contarlo dos veces. Esto no se arregla con palabras: es una palanca derivada en un perímetro (el 100 % consolidado) que no es el del accionista de VINCI. Corregirla mueve el precio de Sí más de un 5 % y con toda probabilidad cambia la zona: no puedo dejarla (punto 3).
-2. **S2C del NORMAL.** C16 = 1,7 da una rentabilidad marginal del 11,6 %. Eso son 2,6 puntos por encima de r y 5,2 por encima de la tasa del motor, y un valor del crecimiento de +18,8 € por acción. La historia NORMAL de la fase A dice otra cosa: «crecer sin crear mucho valor», con la caja reinvertida en torno a r y lo comprado rindiendo como Airports (2.459 de Ebit sobre 24,1 mil M, ≈6,9 % después de impuestos; PDF p. 136, 141). La ventana 2023–2025 es en un 77 % compras (5.795 de 7.522 de reinversión, Historia filas 13 y 31). Pero el Δventas de esos años incluye subidas de tarifa sin capital en concesiones que vencen. Por sí sola, con S2C 1,3 el precio de Sí bajaría a ≈111,7 € y la zona no cambiaría [cálculo]. Junto con el punto 1, sí.
-3. **La vara de la reinversión.** Las historias comparan el retorno después de impuestos con r = 9 %. El motor B descuenta a 6,41 % (C15). Con esa tasa, el MALO (8,4 % de rentabilidad marginal) crea algo de valor en los años 1–10, al revés de su historia. Solo su terminal (6 % < 6,41 %) destruye valor. La palanca no está mal derivada: la tasa es convención de la plantilla y r es heredada. Pero el MALO es más suave de lo que dicen sus palabras: con S2C 1,0 (rentabilidad ≈ la tasa del motor) valdría ≈89,7 € y el precio de Sí ≈112,4 € [cálculo].
-4. **«Cuánto pagas por crecer».** El valor sin crecimiento (103,58 €) aplica para siempre el margen de partida, que lleva las autopistas. Aquí no es un suelo, y el «pagas ÷ vale = 0,19» de la hoja no cuenta la historia de la fase A.
-5. **Fase A frente al libro.** En la fase A puse C13 = No y Vigilar porque a 107,05 € no veía margen, y dije que compraría cerca del MALO. Esa regla no es la convención del ejercicio (D11) y no la sostengo. La diferencia con la zona la explican los puntos 1 y 2, no una celda de la fase A. No dudo de ninguna celda de la fase A, y no hay celdas de A en `celdas_corregidas`.
+1. **La base del recorte por minoritarios.** La fase B capitaliza 805 de dividendos a r − g. Pero son dividendos, no resultado. El valor contable de los minoritarios bajó de 4.085 a 3.576 mientras cobraban 805 y 902 (URD 2025 PDF p. 358, 399). Eso apunta a que cobran más de lo que ganan, y entonces el recorte sería menor. Lo calculé con la réplica [cálculo]:
+   - con medio recorte (0,09 / 0,095 / 0,10), el precio de Sí sería ≈104,9 € y la zona `vigilar`;
+   - sin recorte, 113,3 € y `cumple_regla_k`.
+
+   La acción `esperar` aguanta mientras el exceso sobre los 3.576 contables pase de ≈3,45 mil M. Los dividendos y los precios de compra de OMA y Edimburgo (4.159 para la parte ajena de solo dos filiales) apuntan por encima. El precio objetivo sí depende de esta hipótesis, y no hay otra vuelta a la fase B: lo marco como provisional.
+2. **La vara de la reinversión.** El MALO rinde 7,5 %, por debajo de r pero por encima de la tasa del motor (6,41 %). En la hoja, su reinversión de los años 1–10 crea algo de valor, al revés de su historia. No es una palanca mal derivada, porque la tasa es convención de la plantilla. Con S2C 1,0 el MALO bajaría a ≈75,1 € y el precio de Sí a ≈95,7 € [cálculo]: la acción no cambia.
+3. **«Cuánto pagas por crecer».** El valor sin crecimiento (103,58 €) lleva para siempre las autopistas y no resta a los minoritarios. Queda por encima del NORMAL, así que el «⚠» de la hoja no es una lectura del negocio.
+4. **Zona en el filo.** El ponderado está a un céntimo del precio. Entre `caro` y `vigilar` la acción es la misma.
 
 ## 2. Desviaciones pendientes
 
-Solo G8 en el BUENO (6,4 puntos), que justifico con hechos (clase fundamentada). En los años 1–10 del BUENO, el capital nuevo rinde 16,4 % por dos cosas. Una es Energy Solutions, que vende 29,6 mil M con 9,5 mil M de capital: ≈16 % después de impuestos (PDF p. 134, 136, 141). La otra son las tarifas aprobadas sobre activos ya construidos: OMA, inflación + 6,9 % en 2026–2030; segunda pista de Gatwick (PDF p. 132). En el año 11 esa ventaja se pierde. Sin foso (C18 = No), la competencia en servicios y el precio de mercado de las concesiones nuevas llevan el retorno a r + 1 punto. Ese 10 % lo sostienen solo los aeropuertos en plena propiedad y las concesiones largas (PDF p. 382). «The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM): en el BUENO dura diez años, no para siempre. Lo escribiré en la tesis. MALO y NORMAL no pasan de 5 puntos. G16 y G17 no están pendientes: el peso del terminal pasa y la cuota no se calcula.
+Queda solo G8 en el BUENO: 5,6 puntos, ya justificada por la fase B y que repito con hechos (clase fundamentada).
+
+En los años 1–10, el capital nuevo del BUENO rinde 15,6 % por dos razones:
+- Energy Solutions vende 29,6 mil M con 9,5 mil M de capital, ≈16 % después de impuestos (URD 2025 PDF p. 134, 136, 141);
+- las tarifas aprobadas suben ventas sobre activos ya construidos: OMA a inflación + 6,9 % y la segunda pista de Gatwick (PDF p. 132).
+
+En el año 11, sin foso (C18 = No), la competencia y el precio de las concesiones nuevas lo llevan a r + 1. Solo lo sostienen los aeropuertos en plena propiedad y las concesiones largas (PDF p. 382).
+
+«The question of how long your period in the sun will be is a very good one» (AIWTK p.127; HIM): aquí, diez años. Va en la tesis.
+
+G16 y G17 no están pendientes.
 
 ## 3. Mover palancas
 
-`revisar_palancas = true`, una sola vuelta a la fase B:
+No pido otra vuelta: el pipeline solo admite una, y otra terminaría en `no_entregable`.
 
-- **Palancas!B15:D15, a la baja.** Restar el exceso del valor económico de los minoritarios sobre los 3.576 contables, con los hechos del punto 1. Según mi réplica, −0,001 de margen resta ≈811 M en el MALO, ≈975 M en el NORMAL y ≈1.293 M en el BUENO. Un exceso de 5–9 mil M equivale a ≈−0,005 a −0,01 en el NORMAL. La cifra sale de los hechos, no del umbral. El reparto por escenario va según el peso de los aeropuertos con minoritarios en cada historia, manteniendo el orden y el redondeo. Si no hay hechos para repartirlo, la fase B lo declara técnico. Por esto no cambian ni el ROIC terminal ni las probabilidades.
-- **Palancas!C16.** Justificar con hechos que la mezcla de orgánico y compras da el 11,6 %, o bajar hacia 1,3–1,5 (8,8–10,2 % de rentabilidad marginal), sin desordenar los escenarios.
+Revisé las palancas nuevas y ninguna está mal derivada:
+- el recorte y el S2C cuadran con su aritmética;
+- el orden MALO ≤ NORMAL ≤ BUENO se mantiene;
+- los redondeos van al múltiplo de 0,005 más cercano.
 
-No cambio ninguna celda. `celdas_corregidas` registra B15, C15, D15 y C16 con `despues = antes`.
+La duda que queda es de base (dividendos frente a resultado), no de cálculo. Va al fundamento material y marca el objetivo como provisional. En `celdas_corregidas` registro B15, C15, D15 y C16 con `despues = antes`.
 
 ## 4. Autocomprobación
 
-Las diez tendencias están en `fase_c.json`. Lo que cambia algo: el anclaje en el precio y el «consistencia y compromiso». El precio de Sí queda a 7,43 € del precio y cerca del Fair Value ajeno (111,79). Por eso no tomo la zona como conclusión. Tampoco vuelvo a Vigilar por lo que dije en la fase A, sino por un hecho que no depende de mi cubo y que he cuantificado. El MALO es más suave de lo que dice (punto 1.3). Y lo no numerable que más pesa es justo lo que la hoja resta a valor contable: la parte de los aeropuertos que no es de VINCI. «practically everybody (1) overweighs the stuff that can be numbered» (PCA pp.412–414; HIM). También pesan sin celda la negociación política del fin de las autopistas, el litigio de la TEITLD y la participación en ADP con bonos canjeables (semestral PDF p. 6). Irán a B102 y B222.
+Las diez tendencias están en `fase_c.json`. Destaco tres.
+
+- **Anclaje.** El MALO coincide ahora con el «≈79 €» de la etapa 1, y el ponderado con el precio. Comprobé que las dos coincidencias salen de fórmulas con hechos de este expediente, no de esas cifras.
+- **Consistencia.** La vuelta que pedí confirma mi Vigilar de la fase A. Reconozco la parte débil del recorte y la dejo como hipótesis sin base, sin darla por firme.
+- **Lo no numerable.** Pesan sin celda la negociación política del fin de las autopistas, el litigio de la TEITLD y los bonos canjeables en ADP (semestral PDF p. 6), además de la duda sobre los minoritarios. «practically everybody (1) overweighs the stuff that can be numbered» (PCA pp.412–414; HIM).
 
 ## 5. Cubo y conclusión provisionales
 
-Orden de mando. No hay bloqueo: gramática código 1, sin errores. No hay límite del modelo: el escalón cabe. No hay descalificadores: la deuda no mata (1,4 veces el Ebitda, A−) y las piezas móviles las entiendo por partes. «It's not a competency if you don't know the edge of it» (TCI p.100; HIM): el borde sigue siendo Cobra IS. No hay ningún dato ausente material (punto 6). Por la zona, la conclusión candidata es **comprar**. El fundamento material la para (punto 7): **cubo provisional Vigilar**, `pendiente_de_investigacion` mientras no se resuelvan los minoritarios. Tras la vuelta a la fase B, el turno 1 se repite con el libro nuevo. Si la zona pasa a `vigilar`, la conclusión natural es `esperar` con el precio de Sí nuevo como objetivo.
+Recorro el orden de mando:
+1. Bloqueo: no hay; la gramática da código 0.
+2. Límite del modelo: no hay.
+3. Descalificadores: ninguno. La deuda está en 1,4 veces el Ebitda, con calificación A−, y las piezas las entiendo por partes: «It's not a competency if you don't know the edge of it» (TCI p.100; HIM). El borde es Cobra IS.
+4. Datos ausentes materiales: ninguno.
+5. Fundamento material: no limita una conclusión no favorable.
+6. Zona: `caro`.
+
+**Cubo provisional: Vigilar. Conclusión provisional: `esperar`**, con el precio de Sí (97,79 €) como objetivo. Ese objetivo es provisional porque lo condiciona el recorte por minoritarios (punto 7): ≈104,9 € con la mitad del recorte.
+
+Es el caso de un negocio correcto, con un foso que caduca por contrato, a un precio que paga más que el escenario central. «I know it's wonderful, but is it wonderful enough to justify that big a premium?» (DR p.308; TCI p.17; HIM).
 
 ## 6. Datos ausentes (S-19)
 
-He revisado los trece datos. Ninguno es material para la conclusión favorable. Los tres de evidencia de la Historia (arrendamientos y los ceros de 2016–2018) no tocan el motor B ni las medias de 2021–2025: los 2.849 de arrendamientos de 2025 los confirma el extracto (PDF p. 396). El tamaño de mercado no mueve palancas razonadas por componentes y por cartera. Las subidas de peaje de ASF y Escota mueven entre −2,8 y +2,0 € por acción [cálculo]. Los flujos de fin de contrato quedan acotados entre el FCF publicado de Autoroutes (2,6 mil M) y ≈3,0 mil M, ≈4,2 €. Los múltiplos de compra ya están medidos por el capital empleado de cada negocio, que lleva el precio pagado. `alguno_material = false`. El problema material de VINCI no está en la lista: está en lo que el libro sí tiene (los minoritarios a valor contable), y lo trato en el punto 7.
+Revisé los trece datos uno a uno. Ninguno es material para `esperar` con precio objetivo, porque ninguno cambia la acción:
+- **Evidencia de arrendamientos y ceros de 2016–2018:** no tocan el motor B ni las medias de 2021–2025, y los 2.849 de 2025 los confirma el extracto (PDF p. 396).
+- **Subidas de peaje de ASF y Escota:** mueven entre −2,8 y +2,0 € [cálculo].
+- **Flujos de fin de contrato:** mueven ≈4,2 €. Ambos quedan muy por debajo de los 9,26 € que separan el precio de Sí del precio.
+- **Múltiplos de compra:** ya están medidos por el capital empleado por negocio y entran en la mezcla del S2C.
+- **Mercado, I+D, tipo constante, dividendos regulados y calendario climático:** no mueven ninguna palanca en su redondeo.
+
+`alguno_material = false`.
 
 ## 7. Fundamento material (D10)
 
-Las palancas, las probabilidades, la quiebra, C76, el motor, la base del margen, el caso especial y las narrativas tienen clase fundamentada o convención con hechos en su apoyo. Ninguna es «sin juicio propio» ni «técnico». Queda una hipótesis sin fundamento dentro de **Palancas!B15:D15**: que la parte ajena de Gatwick, Edimburgo y OMA vale lo que dice el balance. La Observación de C15 lo deja expresamente para la fase C, y ningún hecho lo sostiene. **No puedo acotarla.** Por abajo, los precios de compra llevan prima de control y fechas de 2022 y 2024, y no conozco el contable de Gatwick dentro de los 3.576. Por arriba, capitalizar los dividendos exige una tasa y un crecimiento que no son hechos de VINCI. Además, el contable que baja (4.085 → 3.576) sugiere que los dividendos superan el resultado de los minoritarios. `hay_base = false`. Con `comprar` como candidata: `resultado = pendiente_de_investigacion`, `comprobacion_conjunta.procede = false`. Una combinación adversa no tendría dónde apoyar su extremo.
+Hay una hipótesis sin base: **Palancas!B15:D15, el tamaño del recorte por minoritarios.**
+- La clase es fundamentada (confianza baja), pero ningún hecho acota el tamaño del recorte.
+- No tiene alternativas defendibles (`hay_base = false`). Por arriba, nada prueba que 805 sea el flujo sostenible. Por abajo, los precios de compra llevan prima de control y no conozco la parte de Gatwick en los 3.576.
+
+Las demás palancas, las probabilidades, la quiebra, el motor, la base del margen, el caso especial y las narrativas citan hechos.
+
+Con `esperar`, el resultado es `no_procede` y no hago la comprobación conjunta: la sensibilidad del punto 1 ya da el rango del precio de Sí (≈97,8–104,9 € entre el recorte entero y la mitad). En el turno 2, C104 marcará el objetivo como provisional, condicionado a esta hipótesis.
 
 ## 8. Lo que más condiciona y lo que lo resolvería
 
-**Hipótesis:** el valor económico de la parte de Gatwick, Edimburgo y OMA que no es de VINCI. Un exceso de 4,13 mil M sobre su valor contable lleva el precio de Sí al precio. **Lo resolvería:** la nota de intereses minoritarios del URD 2025, con el resultado neto, los dividendos, la deuda neta y el flujo de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios, o el resultado neto atribuido a minoritarios del grupo en 2023–2025. Con eso, la fase B fija el recorte del margen con hechos, y la conclusión deja de depender de un valor contable.
+**Hipótesis:** el tamaño del recorte por minoritarios en B15:D15, que mueve el objetivo entre ≈97,8 y ≈104,9 €. Solo cambiaría la acción si el exceso bajara de ≈3,45 mil M.
+
+**Lo resolvería:** la nota de intereses minoritarios del URD 2025: resultado neto, dividendos, deuda neta y flujo de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025. Con eso, el recorte se calcula sobre el resultado y no sobre los dividendos.
