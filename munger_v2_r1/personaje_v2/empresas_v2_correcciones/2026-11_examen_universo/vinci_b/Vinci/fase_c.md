@@ -117,3 +117,58 @@ Con `esperar`, el resultado es `no_procede` y no hago la comprobación conjunta:
 **Hipótesis:** el tamaño del recorte por minoritarios en B15:D15, que mueve el objetivo entre ≈97,8 y ≈104,9 €. Solo cambiaría la acción si el exceso bajara de ≈3,45 mil M.
 
 **Lo resolvería:** la nota de intereses minoritarios del URD 2025: resultado neto, dividendos, deuda neta y flujo de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025. Con eso, el recorte se calcula sobre el resultado y no sobre los dividendos.
+
+## 9. Turno 2 · conclusión
+
+No hay `comprobacion_conjunta.json`, porque con `esperar` no procedía: `sobrevive = null`.
+
+**Estado `concluido`, provisional hasta la auditoría. Cubo Vigilar. Acción `esperar`, con precio objetivo 97,79 €**, el precio de Sí de `precio.json`.
+
+El objetivo es provisional porque lo condiciona el recorte por minoritarios de B15:D15. Con medio recorte sería de ≈104,9 € [cálculo]. Es una sensibilidad condicional, no un intervalo de confianza.
+
+`fundamento_material.resultado = no_procede`. C104 lleva «fundamento no procede (conclusión no favorable)» y la marca del objetivo provisional, sin ningún porcentaje: el tamaño de la posición es de José Luis.
+
+Insumos para la decisión de cartera:
+- zona `caro`;
+- el precio está un 9,5 % por encima del precio de Sí (denominador: el precio de Sí) y un 35 % por encima del MALO (denominador: el MALO);
+- r 9 % frente a una r mínima de 9,08 %;
+- palanca más influyente: la tasa de descuento;
+- datos ausentes materiales: ninguno.
+
+Lo digo con sus palabras: no lo compraría «at the prices then prevailing» (PCA p.267; HIM). Y sin prisa: «Missing out on some opportunity never bothers us» (TCI p.57; HIM).
+
+## 10. Tesis y tesis inversa
+
+**Tesis (B101).** VINCI cobra peajes y tasas por infraestructuras sin sustituto cercano y vende servicios con poco capital (FCF de 7.010 M€, deuda neta de 1,4 veces el Ebitda, A−). Su mejor activo vuelve al Estado entre 2032 y 2036, y lo que compra para sustituirlo rinde ≈7 % después de impuestos. Una parte del flujo de los aeropuertos es de sus socios (805 M€ de dividendos en 2025). A 107,05 € el precio pide un 5,4 % de crecimiento de ventas al año, más que mi caso central. Espero, con un precio de Sí de 97,79 € todavía provisional.
+
+**Tesis inversa (B102).** Defiendo el No con cinco hechos:
+1. La joya se gasta: las autopistas dan 3.311 de Ebit y 2,6 mil M de FCF y vuelven al Estado.
+2. El Estado cobra antes del final: TEITLD y una contribución excepcional repetida.
+3. La parte del accionista es menor de lo que parece: minoritarios, circulante y pagos en acciones.
+4. El capital se asigna caro: compras sin múltiplos publicados, Cobra IS con FCF negativo y recompras por encima del precio.
+5. El precio ya está en el ponderado.
+
+Es el negocio en el que «all the excess cash must be reinvested» (PCA p.110; HIM) para no encoger.
+
+**C93 = Sí.** Un g del 2 % < rf con reposición a ≈7 % (lo que rinde hoy lo comprado) es sostenible, con un salto de 2,2 puntos y un peso del terminal de 0,68. **C103 = No**: el activo principal caduca por contrato.
+
+## 11. Predicciones (dado el NORMAL)
+
+Las tres se comprueban el 2028-03-31, con el informe anual 2027:
+1. **Ventas de Energy Solutions en 2027 ≥ 32.000 M€** (29.612 en 2025). Probabilidad: 0,65.
+2. **ROCE del grupo en 2027 entre el 9,0 % y el 11,5 %** (10,7 % en 2025). Probabilidad: 0,7.
+3. **Ingresos de VINCI Autoroutes en 2027 ≤ 7.100 M€** (6.733 en 2025). Probabilidad: 0,75.
+
+## 12. Qué me haría cambiar de cubo
+
+- **A Sí:** un precio por debajo del precio de Sí, con la nota de minoritarios resolviendo B222 y con fundamento para la compra (D10).
+- **A No:** compras a retornos por debajo de la tasa del motor, deterioros en Cobra IS o en aeropuertos, o una carga fiscal permanente que lleve el resto del grupo por debajo del 8 % de margen.
+- **A Demasiado difícil:** que el valor pase a depender de la negociación política del fin de las autopistas o del EPC de Cobra IS.
+
+## 13. Comparación con la etapa 1
+
+El cubo es el mismo: Vigilar. El precio de Sí pasa de ≈79 € a 97,79 €.
+
+La diferencia está en la regla, no en la valoración. La regla antigua (mín(MALO, 0,75 × ponderado)) da en este libro 79,28 € (C156), casi lo mismo que la v1. La v2 aplica la escalera k = 3 (D11) a tres escenarios calculados por la hoja, y descuenta la parte de los socios de los aeropuertos, que la v1 no restaba.
+
+Las cifras de la v1 (FCF base 4.382 y 567,06 M de acciones) no están vigentes. Sus ventas de directivos no están en mis entradas.
