@@ -11,6 +11,8 @@ Rutas:
 - corpus Damodaran (damodaran.md, si existe): /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/corpus/damodaran.md
 - modelo y esfuerzo previstos (config_v2.json → modelos): {"modelo": "opus", "esfuerzo": "alto"}
 
+**CORRECCIÓN pedida por el pipeline:** la fase C pide revisar palancas: Palancas!B15:D15 a la baja: el margen cobra el 100 % de Gatwick, Edimburgo y OMA y la hoja resta los minoritarios a valor contable (3.576) frente a 805–902 de dividendos al año (URD 2025 PDF p. 358): restad el exceso de su valor económico sobre 3.576 (≈−0,005 a −0,01 en el NORMAL; 4,1 mil M de exceso ya llevan el precio de Sí al precio). Palancas!C16: justificar o bajar. Detalle en fase_c.md. || D
+
 ---
 
 # Prompt de la FASE B · Traducción a palancas (modelo: Opus, esfuerzo alto, contexto limpio, uno por empresa)

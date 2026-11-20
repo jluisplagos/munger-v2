@@ -1,11 +1,11 @@
 {
- "paso": 10,
+ "paso": 8,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
   "fase_c": 0,
   "auditoria": 0,
-  "vueltas_c_a_b": 0,
+  "vueltas_c_a_b": 1,
   "vueltas_b_a_a": 0
  },
  "historial": [
@@ -31,12 +31,15 @@
   "  $ bash recalc.sh Vinci_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/recalc/Vinci_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
   "  $ python3 leer_resultados.py Vinci_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/resultados.json · motor B · estado INCOMPLETO · libro NO",
   "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 107.05 · esc. MALO 93.8712773184817 · precio de Sí 114.4825 (P* 114.4825) · ponderado 124.7882 · zona cumple_regla_k",
-  "  $ python3 comprobar_gramatica.py Vinci --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 1 (sin justificar 1) · avisos 4 → gramatica.md"
+  "  $ python3 comprobar_gramatica.py Vinci --tras-recalculo → 1 · código 1 · errores 0 · límites 0 · desviaciones 1 (sin justificar 1) · avisos 4 → gramatica.md",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "2026-11-20T22:15:15 · paso 8 · fase C pide revisar_palancas: vuelve a la fase B una sola vez"
  ],
  "motor": "B",
  "fase_b_escrita": true,
  "fase_c_escrita": false,
- "esperando": "10:fase_c.json",
+ "esperando": "8:fase_b.json",
  "inicio": "2026-11-20T21:14:40",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -46,8 +49,9 @@
  "consumidos": {
   "extracto_v63.md": 1795209280.517049,
   "fase_a.json": 1795211080.2216897,
-  "fase_b.json": 1795211955.4033527
+  "fase_b.json": 1795211955.4033527,
+  "fase_c.json": 1795212893.6996927
  },
- "motivo_correccion": null,
- "esperando_desde": 1795211987.711461
+ "motivo_correccion": "la fase C pide revisar palancas: Palancas!B15:D15 a la baja: el margen cobra el 100 % de Gatwick, Edimburgo y OMA y la hoja resta los minoritarios a valor contable (3.576) frente a 805–902 de dividendos al año (URD 2025 PDF p. 358): restad el exceso de su valor económico sobre 3.576 (≈−0,005 a −0,01 en el NORMAL; 4,1 mil M de exceso ya llevan el precio de Sí al precio). Palancas!C16: justificar o bajar. Detalle en fase_c.md. || D",
+ "esperando_desde": 1795212915.955428
 }
