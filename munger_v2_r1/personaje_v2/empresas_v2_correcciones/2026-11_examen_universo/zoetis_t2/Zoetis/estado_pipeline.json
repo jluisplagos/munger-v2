@@ -1,10 +1,10 @@
 {
- "paso": 13,
+ "paso": 10,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
-  "fase_c": 0,
-  "auditoria": 0,
+  "fase_c": 1,
+  "auditoria": 1,
   "vueltas_c_a_b": 0,
   "vueltas_b_a_a": 0
  },
@@ -89,12 +89,14 @@
   "2026-11-20T22:39:24 · paso 12 · verificación de las entradas financieras: 313 de 315 celdas del universo comprobadas · apta por entradas: sí",
   "  $ python3 ficha.py Zoetis --estado concluido --provisional → 0 · OK: ficha_provisional.json · estado propuesto concluido · cubo Vigilar · acción esperar",
   "  $ python3 informe.py Zoetis --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-20T22:39:28 · paso 13 · solicitud de auditoría SA-c6fa5352e69a45cd registrada para el material 535429190e2dcb05 (sustituye a SA-4e8eb97e3639d564)"
+  "2026-11-20T22:39:28 · paso 13 · solicitud de auditoría SA-c6fa5352e69a45cd registrada para el material 535429190e2dcb05 (sustituye a SA-4e8eb97e3639d564)",
+  "2026-11-20T22:45:19 · paso 13 · auditoría consumida: respuesta a la solicitud SA-c6fa5352e69a45cd (SHA-256 af2ed7f1c78f…)",
+  "2026-11-20T22:45:19 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)"
  ],
  "motor": "A",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "13:auditoria.md",
+ "esperando": "10:fase_c.json",
  "inicio": "2026-11-19T11:36:55",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -105,10 +107,11 @@
   "extracto_v63.md": 1795088215.9102218,
   "fase_a.json": 1795209058.4248488,
   "fase_b.json": 1795209926.5617929,
-  "fase_c.json": 1795211216.5301225
+  "fase_c.json": 1795211216.5301225,
+  "auditoria.md": 1795214696.2481158
  },
- "motivo_correccion": null,
- "esperando_desde": 1795214368.398924,
+ "motivo_correccion": "auditoría REPETIR: ver auditoria.md",
+ "esperando_desde": 1795214719.308241,
  "motor_a_f1": {
   "paso": 12,
   "bloquea": false,
@@ -116,7 +119,7 @@
   "declaracion_sha256": "d85c2ea4820fa304bf046b41dfb21a2fa7dcbb20e157809979556aba160f4c0d",
   "libro_sha256": "f1a18e2ad829287b95ef149d7a2cac41c9587514cbf831a7d409e0c6fd164241"
  },
- "turno_c": null,
+ "turno_c": 1,
  "estado_pendiente": null,
  "estado_analisis_fase_c": "concluido",
  "motivo_correccion_c": null,
@@ -196,15 +199,17 @@
    "material": "535429190e2dcb05",
    "creada": "2026-11-20T22:39:28+00:00",
    "motivo": "relevo caducado: el material fijado c9480601d509ca7c ya no era el vigente (cambian: verificacion_entradas.json); se repitió la verificación (paso 12). auditoría del material fijado en el paso 13",
-   "estado": "pendiente",
-   "respuesta_sha256": null,
-   "respondida": null,
-   "veredicto": null
+   "estado": "respondida",
+   "respuesta_sha256": "af2ed7f1c78febd92b02ae4f9f36ecb8173d93353dd4e85975629b05d66850c3",
+   "respondida": "2026-11-20T22:45:19+00:00",
+   "veredicto": "REPETIR",
+   "respuesta_contenido": "c1567d8f12018fd782109aac1d468ab6a1397971935c571b14335ccec069e4d4",
+   "respuesta_fiel": "30f58a2cd0532d2d530de96a366a9c7fa13c035a959e9dd97455586d983a1908"
   }
  ],
  "anteriores_sha256": [],
  "anteriores_contenido": [],
- "auditoria": null,
+ "auditoria": "REPETIR",
  "relevos_caducados": [
   {
    "material_fijado": "4015a86cec7ea83d",
@@ -237,5 +242,12 @@
    "material_refijado": "535429190e2dcb05",
    "solicitud": "SA-c6fa5352e69a45cd"
   }
- ]
+ ],
+ "auditoria_respuesta": {
+  "solicitud": "SA-c6fa5352e69a45cd",
+  "sha256": "af2ed7f1c78febd92b02ae4f9f36ecb8173d93353dd4e85975629b05d66850c3",
+  "contenido": "c1567d8f12018fd782109aac1d468ab6a1397971935c571b14335ccec069e4d4",
+  "fiel": "30f58a2cd0532d2d530de96a366a9c7fa13c035a959e9dd97455586d983a1908",
+  "material": "535429190e2dcb05"
+ }
 }

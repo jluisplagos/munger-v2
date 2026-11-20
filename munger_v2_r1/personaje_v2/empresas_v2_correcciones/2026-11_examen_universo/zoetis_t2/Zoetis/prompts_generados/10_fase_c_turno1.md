@@ -11,6 +11,8 @@ Rutas:
 - corpus Damodaran (damodaran.md, si existe): /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/corpus/damodaran.md
 - modelo y esfuerzo previstos (config_v2.json → modelos): {"modelo": "opus", "esfuerzo": "alto", "turnos": 2}
 
+**CORRECCIÓN pedida por el pipeline:** auditoría REPETIR: ver auditoria.md
+
 ---
 
 # Prompt de la FASE C · primer turno · Revisión inversa, datos ausentes y fundamento material (modelo: Opus, esfuerzo alto, contexto limpio, uno por empresa)
