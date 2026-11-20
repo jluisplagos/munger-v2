@@ -1,5 +1,5 @@
 {
- "paso": 10,
+ "paso": 13,
  "estado_analisis": null,
  "intentos": {
   "fase_b": 0,
@@ -97,12 +97,32 @@
   "2026-11-20T23:47:01 · paso 10 · auditoría REPETIR: corrección 1 desde el paso 10 (fase C)",
   "  $ python3 validar_esquema.py fase_c.json fase_c --turno 1 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 1)",
   "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
-  "  $ python3 comprobacion_conjunta.py Vinci Vinci_v63_evaluada.xlsx → 0 · OK: comprobación conjunta → sobrevive = False · zona bajo la combinación: vigilar (original: caro) · errores de gramática: 0 → comprobacion_conjunta.json"
+  "  $ python3 comprobacion_conjunta.py Vinci Vinci_v63_evaluada.xlsx → 0 · OK: comprobación conjunta → sobrevive = False · zona bajo la combinación: vigilar (original: caro) · errores de gramática: 0 → comprobacion_conjunta.json",
+  "  $ python3 validar_esquema.py fase_c.json fase_c --turno 2 --salida esquema_fase_c.json.txt → 0 · VÁLIDO · fase_c.json contra fase_c.esquema.json (turno 2)",
+  "  $ python3 verify_quotes_v2.py --corpus munger.md --corpus damodaran.md --paginas-estrictas citas_fase_c.md fase_c.md → 0 · RESULTADO: PASS",
+  "  $ python3 fase_a_celdas.py fase_c.json C celdas_C.json → 0 · OK: 58 celdas (incluidas E/F/N de Control maestro) → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/celdas_C.json",
+  "  $ python3 escribir_v63.py Vinci_v63_evaluada.xlsx Vinci_v63_evaluada.xlsx.tmp.xlsx --celdas celdas_C.json --verificar referencia_V6.3.2_F1.json → 0 · VEREDICTO: ÍNTEGRO · 0 fallos · 0 avisos",
+  "  $ python3 comprobar_celdas_v2.py Vinci_v63_evaluada.xlsx Vinci_v63_datos.xlsx --fases A,B,C → 0 · PASS: 0 errores · 65 celdas correctas · fases ['A', 'B', 'C'] · motor B",
+  "  $ bash recalc.sh Vinci_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/recalc/Vinci_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
+  "  $ python3 leer_resultados.py Vinci_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/resultados.json · motor B · estado COMPLETO Y VÁLIDO · l",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 107.05 · esc. MALO 79.2813654954604 · precio de Sí 97.7859 (P* 97.7859) · ponderado 107.0382 · zona caro",
+  "  $ python3 comprobar_gramatica.py Vinci --tras-recalculo --con-fase-c → 0 · código 0 · errores 0 · límites 0 · desviaciones 1 (sin justificar 0) · avisos 4 → gramatica.md",
+  "  $ python3 diagnostico.py Vinci --estado pendiente_de_investigacion --tipo incertidumbre_no_acotada --detalle Palancas!B15:D15: el recorte por minoritarios del libro queda fuera del rango defendible (nota 23.5, URD 2025 PDF p. 399). Dentro de ese rango el precio de Sí va de ≈102,5 a ≈110,9 € y la acción cambia; además Historia C52 (diferido sin caja de 2021) y C63 (coste neto de la deuda) mueven ≈+4,0 y ≈−5,9 € --paso 10 --que-hace-falta  51 M en Gatwick, OMA y Edimburgo) y recalcular el libro y la escalera; y que la persona responsable decida sobre las celdas de datos Historia C52 (URD 2021 PDF p. 67) y C63 (URD 2025 PDF p. 138, 356) --desde-paso 8 --quien  Claude Code → 0 · diagnóstico escrito: pendiente_de_investigacion · incertidumbre_no_acotada · paso 10",
+  "  $ python3 ficha.py Vinci --estado pendiente_de_investigacion --provisional → 0 · OK: ficha_provisional.json · estado propuesto pendiente_de_investigacion · cubo Vigilar · acción None",
+  "  $ python3 informe.py Vinci --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "  $ bash recalc.sh Vinci_v63_evaluada.xlsx recalc .lo_perfil → 0 · OK: /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/recalc/Vinci_v63_evaluada.xlsx (recálculo forzado, perfil /home/user/e_wor",
+  "  $ python3 leer_resultados.py Vinci_v63_evaluada.xlsx resultados.json --exigir-recalculo-forzado → 0 · OK: resultados.json → /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/Vinci/resultados.json · motor B · estado COMPLETO Y VÁLIDO · l",
+  "  $ python3 precio_de_si.py resultados.json precio.json --k 3 → 0 · OK: precio 107.05 · esc. MALO 79.2813654954604 · precio de Sí 97.7859 (P* 97.7859) · ponderado 107.0382 · zona caro",
+  "  $ bash verificar_todo.sh Vinci Vinci_v63_evaluada.xlsx Vinci_v63_datos.xlsx → 0 · RESULTADO verificar_todo.sh: PASS",
+  "2026-11-20T23:56:03 · paso 12 · verificación de las entradas financieras: 325 de 326 celdas del universo comprobadas · apta por entradas: sí",
+  "  $ python3 ficha.py Vinci --estado pendiente_de_investigacion --provisional → 0 · OK: ficha_provisional.json · estado propuesto pendiente_de_investigacion · cubo Vigilar · acción None",
+  "  $ python3 informe.py Vinci --provisional → 0 · OK: informe_provisional.md (13 secciones)",
+  "2026-11-20T23:56:12 · paso 13 · solicitud de auditoría SA-7c065ea359b33fd7 registrada para el material 124e464620a66353"
  ],
  "motor": "B",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "10:fase_c.json",
+ "esperando": "13:auditoria.md",
  "inicio": "2026-11-20T21:14:40",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -113,14 +133,14 @@
   "extracto_v63.md": 1795209280.517049,
   "fase_a.json": 1795211080.2216897,
   "fase_b.json": 1795213149.5815732,
-  "fase_c.json": 1795218721.123174,
+  "fase_c.json": 1795218910.1988916,
   "auditoria.md": 1795218385.768335
  },
- "motivo_correccion": "segundo turno de la fase C: lee comprobacion_conjunta.json (si existe) y cierra fase_c.json (turno 2)",
- "esperando_desde": 1795218752.651439,
- "turno_c": 2,
- "estado_pendiente": null,
- "estado_analisis_fase_c": "concluido",
+ "motivo_correccion": null,
+ "esperando_desde": 1795218972.063902,
+ "turno_c": null,
+ "estado_pendiente": "pendiente_de_investigacion",
+ "estado_analisis_fase_c": "pendiente_de_investigacion",
  "motivo_correccion_c": null,
  "verificacion_entradas": {
   "universo": 326,
@@ -151,11 +171,11 @@
   "nota": "condición necesaria, no suficiente, para presentar una conclusión como apta para dinero real; los controles automáticos comprueban cobertura, conciliaciones y coherencia, no la corrección semántica (revisión independiente de las fuentes)"
  },
  "libros_verificados": {
-  "evaluado": "81d938653f542c1f28125e5f9468f4e62c3a989e9e2828052805229fe9457bf1",
+  "evaluado": "c52b8c5aea075d2c10fc5ae2ae323ba4f03c74164c7fda467a1d287fbe419acc",
   "datos": "b30198f8900a8811851ac9600bf6419713cb12987e60d55ac57bef8f263638aa"
  },
  "f1_repite_12": false,
- "material_auditoria": "ee0c2f140b33ef00",
+ "material_auditoria": "124e464620a66353",
  "solicitudes_auditoria": [
   {
    "id": "SA-632c167abcfc323f",
@@ -204,11 +224,25 @@
    "veredicto": "REPETIR",
    "respuesta_contenido": "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0",
    "respuesta_fiel": "f03c6afd2fae0d6367fd6e2da4538d40b336032b75461dfce5e4235e79f16224"
+  },
+  {
+   "id": "SA-7c065ea359b33fd7",
+   "material": "124e464620a66353",
+   "creada": "2026-11-20T23:56:11+00:00",
+   "motivo": "auditoría del material fijado en el paso 13",
+   "estado": "pendiente",
+   "respuesta_sha256": null,
+   "respondida": null,
+   "veredicto": null
   }
  ],
- "anteriores_sha256": [],
- "anteriores_contenido": [],
- "auditoria": "REPETIR",
+ "anteriores_sha256": [
+  "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d"
+ ],
+ "anteriores_contenido": [
+  "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0"
+ ],
+ "auditoria": null,
  "relevos_caducados": [
   {
    "material_fijado": "2b12666e0878f5a2",
@@ -248,5 +282,10 @@
   "contenido": "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0",
   "fiel": "f03c6afd2fae0d6367fd6e2da4538d40b336032b75461dfce5e4235e79f16224",
   "material": "ee0c2f140b33ef00"
+ },
+ "ultima_auditoria_no_aceptada": {
+  "motivo": "auditoria.md responde a la solicitud SA-d9b85c5abc303639 (respondida), no a la vigente SA-7c065ea359b33fd7",
+  "sha256": "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d",
+  "solicitud_vigente": "SA-7c065ea359b33fd7"
  }
 }

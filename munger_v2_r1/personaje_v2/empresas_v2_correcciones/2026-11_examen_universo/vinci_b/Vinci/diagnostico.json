@@ -1,0 +1,241 @@
+{
+ "empresa": "VINCI SA",
+ "fecha": "2026-11-20",
+ "estado_analisis": "pendiente_de_investigacion",
+ "causa": {
+  "tipo": "incertidumbre_no_acotada",
+  "detalle": "Palancas!B15:D15: el recorte por minoritarios del libro queda fuera del rango defendible (nota 23.5, URD 2025 PDF p. 399). Dentro de ese rango el precio de Sí va de ≈102,5 a ≈110,9 € y la acción cambia; además Historia C52 (diferido sin caja de 2021) y C63 (coste neto de la deuda) mueven ≈+4,0 y ≈−5,9 €",
+  "comprobacion": null,
+  "categoria": null
+ },
+ "paso_en_que_se_detuvo": 10,
+ "intentos": {
+  "fase_b": 0,
+  "fase_c": 1,
+  "auditoria": 1,
+  "vueltas_c_a_b": 1,
+  "vueltas_b_a_a": 0
+ },
+ "lo_que_sigue_valido": {
+  "libro": "íntegro: True · estado técnico INCOMPLETO · motores calculables ['A', 'B', 'C']",
+  "cubo_cualitativo": "Vigilar",
+  "descalificadores": "ninguno aplica",
+  "gestion": {
+   "C97": "Neutral",
+   "C98": "Aceptable"
+  },
+  "seis_preguntas": true,
+  "celdas_fase_a": [
+   "B65",
+   "B66",
+   "C11",
+   "C12",
+   "C13",
+   "C14",
+   "C17",
+   "C18",
+   "C19",
+   "C20",
+   "C25",
+   "C27",
+   "C51",
+   "C56",
+   "C61",
+   "C62",
+   "C65",
+   "C66",
+   "C97",
+   "C98",
+   "D65",
+   "D66",
+   "Palancas!C10",
+   "Palancas!C43",
+   "Palancas!C47",
+   "Palancas!C5",
+   "Palancas!C6",
+   "Palancas!C8",
+   "Palancas!C9"
+  ],
+  "palancas_fase_b": "escritas",
+  "fase_c": {
+   "cubo_final": "Vigilar",
+   "estado_analisis": "pendiente_de_investigacion"
+  },
+  "revision_datos_ausentes": {
+   "revisados": [
+    {
+     "dato": "evidencia Historia!C23:L23",
+     "que_falta": "documento y clasificación verificables del pasivo por arrendamientos (fila 23)",
+     "conclusion_afectada": "pasivos netos del motor B (Historia C64 = 39.561 incluye 2.849 de arrendamientos) y vara del foso de la sección 1 bis (capital propio = capital invertido − arrendamientos)",
+     "material_para_conclusion_favorable": false,
+     "porque": "la cifra que pesa, 2.849 a 31-dic-2025, la confirma el extracto (URD 2025 PDF p. 396: 737 a menos de un año, 795, 700 y 617), y 2.983 a 30-jun-2026 (semestral PDF p. 55); los años 2019–2024 solo entran en las medias de C54–C55 y en el ROIC propio, donde los arrendamientos son el 4–5 % del capital: ni el valor ni C18 cambian de forma apreciable"
+    },
+    {
+     "dato": "evidencia Historia!C16:L16",
+     "que_falta": "contraste con la partida de los ceros de intereses de arrendamiento en financiación de 2016–2018",
+     "conclusion_afectada": "ninguna celda de juicio: C48 (89,333) es la media de 2023–2025 (67 / 91 / 110) y la vara del foso usa 2021–2025; el motor B no usa la fila 16",
+     "material_para_conclusion_favorable": false,
+     "porque": "los tres ceros son anteriores a la NIIF 16 (aplicable desde 2019) y en VINCI los intereses de la deuda van en explotación; aunque no fueran cero, no tocan C52, ni el motor B, ni la tabla de la sección 1 bis, que empiezan en 2021 o 2023"
+    },
+    {
+     "dato": "evidencia Historia!C17:L17",
+     "que_falta": "contraste con la partida de los ceros de principal de arrendamientos de 2016–2018",
+     "conclusion_afectada": "ninguna celda de juicio: C49 (675,333) es la media de 2023–2025 (611 / 654 / 761) y f (C58) se mide en 2021–2025",
+     "material_para_conclusion_favorable": false,
+     "porque": "son ceros anteriores a la NIIF 16, cuando los arrendamientos financieros estaban dentro de la deuda bruta; solo afectarían a la serie antigua de FCF al accionista (fila 35), que no decide ninguna palanca del motor B ni el FCF base"
+    },
+    {
+     "dato": "Palancas!C24",
+     "que_falta": "tamaño del mercado en el año 10 con cifra de fuente primaria",
+     "conclusion_afectada": "Palancas!C24 (vacía) y la comprobación de cuota implícita G17, que la hoja no calcula («—» en la fila 45)",
+     "material_para_conclusion_favorable": false,
+     "porque": "las ventas del BUENO (124.913 en el año 10) se apoyan en componentes con hechos de VINCI (cartera de 76,8 mil M y 14 meses de actividad, semestral PDF p. 16; concesiones con kilómetros y fechas, URD 2025 PDF p. 382), no en una cuota; el techo de mercado solo serviría de contraste por inversión"
+    },
+    {
+     "dato": "extracto_v63: Tamaño del mercado, crecimiento del mercado y cuota de mercado en euros o en porcentaje (solo la comparación de kilómetros de red en Francia).",
+     "que_falta": "tamaño, crecimiento y cuota de mercado de cada negocio",
+     "conclusion_afectada": "crecimiento de ventas B14:D14 y C24; viento de cola C17",
+     "material_para_conclusion_favorable": false,
+     "porque": "el crecimiento se razonó por negocio con el orgánico publicado (2,6 % en 2025, 1,3 % en el semestre; URD 2025 PDF p. 130, semestral PDF p. 7) y la cartera; en autopistas la red es fija (4.443 km frente a 2.560 de Eiffage, PDF p. 12) y el crecimiento es tarifa y tráfico: la cuota no movería ninguna palanca de forma que cambie la zona"
+    },
+    {
+     "dato": "extracto_v63: Gasto de investigación y desarrollo (importe y % de ventas).",
+     "que_falta": "gasto de I+D",
+     "conclusion_afectada": "Palancas!C9 (No) y C10 (vacía)",
+     "material_para_conclusion_favorable": false,
+     "porque": "VINCI es concesiones, servicios de energía y obra (C6 = Regulada, no Intangibles) y las cuentas no publican un gasto de I+D reconocido; capitalizar la I+D solo se pide con Intangibles o I+D > 5 % de ventas, y nada en el extracto sugiere ese peso"
+    },
+    {
+     "dato": "extracto_v63: Subidas anuales de peaje de ASF y Escota en porcentaje.",
+     "que_falta": "ley de tarifas anual de ASF y Escota",
+     "conclusion_afectada": "caja de las autopistas dentro del margen equivalente B15:D15 (crecimiento ≈1,5 % supuesto en la fase B)",
+     "material_para_conclusion_favorable": false,
+     "porque": "ASF y Escota son el 72 % de los ingresos de Autoroutes (URD 2025 PDF p. 12) y la ley de Cofiroute (83 % de la referencia, PDF p. 143) da el orden de magnitud; con la réplica, llevar ese crecimiento de 1,5 % a 0 % o a 2,5 % mueve el valor de la caja de las autopistas entre −2,8 y +2,0 € por acción [cálculo]. Frente a la conclusión favorable y al precio objetivo pesa menos que la hipótesis de B15:D15, que ya abre un rango de ≈8 € en el precio de Sí: no es este dato el que impide o permite concluir"
+    },
+    {
+     "dato": "extracto_v63: Ingresos por pasajero o tasas aeroportuarias por aeropuerto.",
+     "que_falta": "ingresos por pasajero y tasas por aeropuerto",
+     "conclusion_afectada": "BUENO (D14, D15) y crecimiento del NORMAL en aeropuertos",
+     "material_para_conclusion_favorable": false,
+     "porque": "VINCI Airports es el 6,4 % de las ventas (4.796 de 74.599, URD 2025 PDF p. 134) con margen Ebit del 51,3 % ya publicado; el plan de OMA (inflación + 6,9 %, PDF p. 132) y los pasajeros (334 M; estables en el semestre) bastan para las palancas de grupo: el desglose por aeropuerto afinaría el BUENO, que pesa 0,15"
+    },
+    {
+     "dato": "extracto_v63: Deuda, flujos y obligaciones de fin de contrato concesión por concesión (solo VINCI Autoroutes y VINCI Airports agregados).",
+     "que_falta": "deuda, flujos y obligaciones de restitución por concesión",
+     "conclusion_afectada": "valor de la caja de las autopistas en el margen equivalente B15:D15 y pasivos netos",
+     "material_para_conclusion_favorable": false,
+     "porque": "la deuda de las concesiones ya está entera en los pasivos netos (Autoroutes 15.001, PDF p. 141); los pesos y fechas de cada red están publicados (ASF 58 % en 2036, Cofiroute 25 % en 2034, Escota 14 % en 2032; PDF p. 12, 382) y la caja anual queda acotada entre el FCF publicado de Autoroutes (2,6 mil M después de financiación, PDF p. 140) y ≈3,0 mil M antes de ella. El rango 2,7–3,0 mueve ≈4,2 € por acción, dentro de unos límites atados a hechos; frente a la conclusión favorable y al precio objetivo pesa menos que la hipótesis de B15:D15 (≈8 € de rango), que es la que decide"
+    },
+    {
+     "dato": "extracto_v63: Múltiplos de compra de las adquisiciones.",
+     "que_falta": "múltiplos pagados en Gatwick, OMA, Edimburgo, Northwest Parkway y Cobra IS",
+     "conclusion_afectada": "S2C B16:C16, ROIC terminal B18:C18 y probabilidades B69/D69",
+     "material_para_conclusion_favorable": false,
+     "porque": "el retorno sobre lo pagado ya lo mide el capital empleado por negocio, que lleva el precio de compra (Airports 2.459 de Ebit sobre 24,1 mil M, Cobra IS 644 sobre 5,3 mil M; URD 2025 PDF p. 136, 141), y los importes pagados están publicados (PDF p. 370; URD 2023 PDF p. 170): el múltiplo afinaría la vara, no cambiaría el lado de r en el que caen las compras"
+    },
+    {
+     "dato": "extracto_v63: Márgenes por segmento a tipo de cambio constante.",
+     "que_falta": "márgenes por segmento a tipo constante",
+     "conclusion_afectada": "margen B15:D15 (margen del resto del grupo)",
+     "material_para_conclusion_favorable": false,
+     "porque": "el efecto del tipo de cambio en ventas fue −1,0 % en 2025 (URD 2025 PDF p. 130) y los márgenes por segmento se publican en euros corrientes en dos años (PDF p. 136): el tipo constante no movería el margen del resto (8,5–8,9 %) en el redondeo de 0,005"
+    },
+    {
+     "dato": "extracto_v63: Límites regulatorios a la distribución de dividendos.",
+     "que_falta": "restricciones a subir caja de concesiones y filiales a VINCI SA",
+     "conclusion_afectada": "ninguna celda de juicio directamente; lectura de la caja del accionista junto con los minoritarios",
+     "material_para_conclusion_favorable": false,
+     "porque": "los ratios de las financiaciones se cumplen (URD 2025 PDF p. 405), fuera de Concesiones hay caja neta (+1.718, +3.801 y +4.530 en holdings, PDF p. 141) y VINCI paga 5,00 € por acción (PDF p. 142); la caja que no es del accionista son los minoritarios, que la fase B ya resta del margen y que trato aparte como hipótesis sin base, no la regulación"
+    },
+    {
+     "dato": "extracto_v63: Calendario anual de la inversión del plan climático 2026–2030.",
+     "que_falta": "calendario anual del capex del plan climático",
+     "conclusion_afectada": "ninguna celda de juicio: S2C B16:D16 en el margen",
+     "material_para_conclusion_favorable": false,
+     "porque": "son «over €1.5 billion» en cinco años (URD 2025 PDF p. 231), ≈0,3 mil M al año frente a un capex de 3.873 (Historia L12) y financiados con los recursos de los negocios: su reparto por años no mueve la reinversión del motor en el redondeo de 0,1"
+    }
+   ],
+   "alguno_material": false
+  },
+  "hipotesis_sin_fundamento": [
+   "Palancas!B15:D15"
+  ]
+ },
+ "lo_que_no_es_valido": [
+  "conclusión de compra (sin fundamento suficiente)"
+ ],
+ "para_continuar": {
+  "que_hace_falta": "Rehacer B15:D15 en un nuevo ciclo con el resultado atribuido a minoritarios de la nota 23.5 (URD 2025 PDF p. 399: 144 / 143 / 51 M en Gatwick, OMA y Edimburgo) y recalcular el libro y la escalera; y que la persona responsable decida sobre las celdas de datos Historia C52 (URD 2021 PDF p. 67) y C63 (URD 2025 PDF p. 138, 356)",
+  "desde_que_paso": 8,
+  "quien": "José Luis (datos o documentos) / Claude Code"
+ },
+ "archivos": [
+  "ESPERANDO.md",
+  "FUENTES.tsv",
+  "Vinci_v63_base.xlsx",
+  "Vinci_v63_base.xlsx.conciliacion.json",
+  "Vinci_v63_datos.xlsx",
+  "Vinci_v63_datos.xlsx.fase1.registro.json",
+  "Vinci_v63_evaluada.xlsx",
+  "acreditacion_libro.json",
+  "alcance_v2.json",
+  "auditoria.md",
+  "auditorias_conocidas.json",
+  "celdas_A.json",
+  "celdas_B.json",
+  "celdas_C.json",
+  "citas_fase_a.md",
+  "citas_fase_a.txt",
+  "citas_fase_b.md",
+  "citas_fase_b.txt",
+  "citas_fase_c.md",
+  "citas_fase_c.txt",
+  "comprobacion_conjunta.json",
+  "datos_ausentes.json",
+  "datos_v63.json",
+  "datos_v63.md",
+  "entrada_efectiva.json",
+  "entrada_v63.json",
+  "entrada_v63.md",
+  "esquema_fase_a.json.txt",
+  "esquema_fase_b.json.txt",
+  "esquema_fase_c.json.txt",
+  "estado_pipeline.json",
+  "extracto_v63.md",
+  "fase1_fuentes.json",
+  "fase1_listas.md",
+  "fase1_metadatos.json",
+  "fase1_v63.json",
+  "fase_a.json",
+  "fase_a.md",
+  "fase_b.json",
+  "fase_b.md",
+  "fase_c.json",
+  "fase_c.md",
+  "ficha_provisional.json",
+  "gramatica.json",
+  "gramatica.md",
+  "historia_revision.md",
+  "informe_provisional.md",
+  "material_auditoria.json",
+  "motor_a_f1.json",
+  "observaciones_para_citas.md",
+  "plantilla_activa.json",
+  "precio.json",
+  "referencias_mecanicas.json",
+  "resultados.json",
+  "solicitud_auditoria.json",
+  "verificacion_acreditacion.txt",
+  "verificacion_c86.txt",
+  "verificacion_cache.txt",
+  "verificacion_celdas.json",
+  "verificacion_celdas.txt",
+  "verificacion_citas.txt",
+  "verificacion_entradas.json",
+  "verificacion_esquemas.txt",
+  "verificacion_estado_libro.txt",
+  "verificacion_gramatica.txt",
+  "verificacion_integridad.txt",
+  "verificacion_libro_final.txt"
+ ]
+}

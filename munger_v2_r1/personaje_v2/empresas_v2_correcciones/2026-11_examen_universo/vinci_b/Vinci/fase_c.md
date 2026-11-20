@@ -1,4 +1,4 @@
-# Fase C · turno 1 (tras la vuelta a la fase B; corrección 1 de la auditoría) · VINCI SA (DG) · motor B
+# Fase C · turnos 1 y 2 (tras la vuelta a la fase B; corrección 1 de la auditoría) · VINCI SA (DG) · motor B
 
 **Corrección 1 (auditoría REPETIR).** Corrijo cuatro cosas:
 - **Rango de B15:D15 (punto 5).** Evalúo el rango defendible entero y ya no presento «esperar con 97,79 €» como conclusión sostenida.
@@ -6,7 +6,7 @@
 - **Insiders (punto 9).** Anoto la evidencia de la URD que no había usado: C97 y la etapa 1.
 - **Datos ausentes (aviso del punto 16).** Mido su materialidad también contra la conclusión favorable y el objetivo.
 
-Las secciones de conclusión del turno 2 (antes §9–§13) se reescribirán en el turno 2. Allí corregiré la cita del punto 6, que debe ir como (TCI p.95; HIM), y la frase sobre los insiders de la v1. La respuesta al contradictor se conserva, salvo lo que corrige la auditoría.
+Las secciones de conclusión del turno 2 (§9–§13) se reescriben en el turno 2, con dos correcciones: la cita del punto 6 va ahora como (TCI p.95; HIM), y las frases sobre los insiders (B102 y §13) usan la URD. La respuesta al contradictor se conserva, salvo lo que corrige la auditoría.
 
 La fase B ya usó la única vuelta: en este turno no pido otra (`revisar_palancas = false`). Cambió B15:D15 de 0,095 / 0,10 / 0,105 a 0,085 / 0,09 / 0,10, por los minoritarios, y C16 de 1,7 a 1,5, por la mezcla de la reinversión.
 
@@ -152,6 +152,79 @@ El orden de los escenarios se mantiene. Historia C52 y C63 (O2, O3) no pueden en
 - rehacer B15:D15 en un ciclo nuevo con el resultado atribuido de la nota 23.5 (URD 2025 PDF p. 399: 144 / 143 / 51 M en Gatwick, OMA y Edimburgo) y recalcular el libro y la escalera;
 - que la persona responsable decida sobre las celdas de datos C52 (URD 2021 PDF p. 67) y C63 (URD 2025 PDF p. 138, 356).
 
+## 9. Turno 2 · conclusión
+
+`comprobacion_conjunta.json` aplicó la combinación del turno 1 sobre una copia del libro, con recálculo forzado: B15 = 0,09, C15 = 0,095, D15 = 0,105 y C16 = 1,4, el extremo adverso del rango defendible de B15:D15.
+- Valores: MALO 86,58 €, NORMAL 108,65 €, BUENO 186,10 €; ponderado 114,75 €.
+- Precio de Sí: 105,36 €, con zona `vigilar`.
+- Sin errores de gramática.
+- `sobrevive = false`, copiado tal cual.
+
+La conclusión favorable de la parte alta del rango no sobrevive. La del libro («esperar con 97,79 €») descansa en un B15:D15 que queda fuera del rango.
+
+**Estado `pendiente_de_investigacion`. Cubo Vigilar. Sin acción ni precio objetivo.** `fundamento_material.resultado = pendiente_de_investigacion`.
+
+C104 lleva «sin conclusión (pendiente de investigación)», los tres números de `precio.json` (97.79 / 79.28 / 107.04), la etiqueta «fundamento pendiente de investigación» y el resultado de la comprobación, sin ningún porcentaje. El tamaño de la posición es de José Luis.
+
+B222 nombra la hipótesis: el recorte por minoritarios de B15:D15. B223 dice qué la resolvería:
+- rehacerlo en un ciclo nuevo con el resultado de la nota 23.5 (URD 2025 PDF p. 399);
+- que la persona responsable decida sobre Historia C52 y C63.
+
+Es `pendiente_de_investigacion` y no Demasiado difícil porque un documento concreto, que ya está en la carpeta, lo resuelve.
+
+Insumos para la decisión de cartera:
+- zona del libro `caro`; el precio está un 9,5 % por encima del precio de Sí del libro (denominador: el precio de Sí) y un 35 % por encima del MALO (denominador: el MALO);
+- precio de Sí ≈102,5–110,9 € con B15:D15 dentro de su rango (sensibilidad condicional);
+- r del 9 % frente a una r mínima de 9,08 %; la palanca más influyente es la tasa de descuento;
+- datos ausentes materiales: ninguno;
+- confianza global: baja.
+
+## 10. Tesis y tesis inversa
+
+**Tesis (B101).**
+- VINCI cobra por infraestructuras sin sustituto cercano y vende servicios con poco capital (FCF de 7.010 M€, deuda neta de 1,4 veces el Ebitda, A−).
+- Su mejor activo vuelve al Estado entre 2032 y 2036, y lo que compra rinde ≈7 % después de impuestos.
+- Los socios de los aeropuertos ganaron 338 M€ y cobraron 805 M€ (PDF p. 358, 399).
+- Con el recorte bien medido, el precio de Sí va de ≈102,5 a ≈110,9 €, a los dos lados del precio.
+
+Hoy no concluyo.
+
+**Tesis inversa (B102).** Defiendo el No con cinco hechos:
+1. La joya se gasta: las autopistas dan 3.311 de Ebit y vuelven al Estado.
+2. El Estado cobra antes del final: TEITLD y una contribución excepcional repetida.
+3. La parte del accionista es menor: los minoritarios cobran 2,2 veces su resultado, y el FCF lleva circulante y pagos en acciones.
+4. Capital caro y dirección vendedora: compras sin múltiplos, Cobra IS con FCF negativo, recompras caras, y el presidente y el director financiero que venden cada año. Huillard vendió 29.365 y 41.999 acciones y Labeyrie 52.038 y 60.162, en 2025 y 2024 (URD 2025 PDF p. 180; URD 2024 PDF p. 181).
+5. El precio ya está en el ponderado del libro.
+
+Es el negocio en el que «all the excess cash must be reinvested» (TCI p.95; HIM) para no encoger.
+
+**C93 = Sí** (g del 2 % < rf, con reposición a ≈7 %). **C103 = No**: el activo principal caduca por contrato.
+
+## 11. Predicciones (dado el NORMAL)
+
+Las tres se comprueban el 2028-03-31, con el informe anual 2027:
+1. **Ventas de Energy Solutions en 2027 ≥ 32.000 M€.** Probabilidad: 0,65. Exige ≈4 % al año; la cartera crece, pero Cobra IS depende de EPC.
+2. **ROCE del grupo en 2027 entre el 9,0 % y el 11,5 %.** Probabilidad: 0,7. La banda cubre una contribución repetida o compras que diluyan el ROCE.
+3. **Ingresos de VINCI Autoroutes en 2027 ≤ 7.100 M€.** Probabilidad: 0,75. Exige ≈+2,7 % al año con el tráfico a la baja.
+
+Cada Observación de C38–C40 lleva ahora su propio apoyo (aviso del punto 13).
+
+## 12. Qué me haría cambiar de cubo
+
+- **A Sí:** el libro rehecho con B15:D15 basado en el resultado de los minoritarios y con C52 y C63 decididos, con el precio por debajo del nuevo precio de Sí y con fundamento para la compra (D10).
+- **A No:** compras a retornos por debajo de la tasa del motor, deterioros en Cobra IS o en aeropuertos, o una carga fiscal permanente.
+- **A Demasiado difícil:** que el valor pase a depender de la negociación política del fin de las autopistas o del EPC de Cobra IS.
+
+## 13. Comparación con la etapa 1
+
+El cubo es Vigilar en las dos, pero la v2 no concluye.
+
+El precio de Sí del libro (97,79 €) difiere del ≈79 € de la v1 por la regla: la regla de la v1 da 79,28 € en este libro (C156). Además, la v2 no lo sostiene, porque el recorte por minoritarios hay que rehacerlo.
+
+Las cifras de la v1 (FCF base 4.382, 567,06 M de acciones) no están vigentes.
+
+La v1 decía insiders «Vendiendo», y la URD confirma el patrón de ventas anuales de los directivos (2025 PDF p. 180; 2024 PDF p. 181). La fase A dejó C97 en Neutral sin usar esa evidencia: está anotado como incoherencia, y C97 es de la fase A y no se ha reescrito.
+
 ## Respuesta al contradictor
 
 He comprobado las tres objeciones en los textos de la carpeta y con mi réplica del motor, que reproduce el libro al céntimo.
@@ -166,7 +239,7 @@ He comprobado las tres objeciones en los textos de la carpeta y con mi réplica 
 
 **Regla de movimiento.** Hay un escalón al alza (O1 y O2) y uno a la baja (O3): se compensan. Pero la auditoría (punto 5) muestra que la acción no está determinada dentro del rango defendible, y que el objetivo de 97,79 € queda fuera de él.
 
-**Conclusión tras la corrección 1:** ya no es «concluido · Vigilar · esperar». Es una conclusión provisional `comprar` (candidata), con cubo provisional Vigilar, que se somete a la comprobación conjunta. La conclusión la fija el turno 2.
+**Conclusión tras la corrección 1:** ya no es «concluido · Vigilar · esperar». Es una conclusión provisional `comprar` (candidata), con cubo provisional Vigilar, que se somete a la comprobación conjunta. El turno 2 la fija: la comprobación conjunta no sobrevive (105,36 €, zona `vigilar`). **Conclusión final: `pendiente_de_investigacion` · Vigilar · sin acción.**
 
 El precio de Sí del libro (97,79 €) queda fuera del rango que doy por defendible, así que no lo emito como objetivo.
 

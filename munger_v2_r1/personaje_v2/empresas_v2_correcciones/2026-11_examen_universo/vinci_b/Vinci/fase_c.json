@@ -1,5 +1,5 @@
 {
- "turno": 1,
+ "turno": 2,
  "una_sola_historia": {
   "coherente": false,
   "incoherencias": [
@@ -260,9 +260,9 @@
     "Palancas!C16": 1.4
    },
    "coherencia_economica": "Una sola historia: los socios de Gatwick, Edimburgo y OMA valen lo más que dicen los hechos, el precio que VINCI pagó por el control (exceso de 4.254 M sobre su contable; informe anual 2019 PDF p. 302, URD 2023 PDF p. 170, URD 2025 PDF p. 370), así que cada margen va al extremo bajo de su rango con el redondeo de la hoja a 0,005: 0,09 (el único múltiplo de 0,005 dentro de 0,0878–0,093), 0,095 (dentro de 0,0936–0,098) y 0,105 (dentro de 0,1037–0,107). Como el S2C del NORMAL lo deriva la fase B de una rentabilidad marginal del 9 % sobre el margen (0,09 ÷ (0,095 × 0,68) = 1,39), sube el margen y baja con él el S2C, a 1,4: también va contra la tesis. El orden MALO ≤ NORMAL ≤ BUENO se mantiene en margen (0,09 / 0,095 / 0,105) y en S2C (1,3 / 1,4 / 2,3); el resto de palancas, g, ROIC y probabilidades no cambian. No puede llevar Historia C52 ni C63 (objeciones O2 y O3): son celdas de datos, no de las fases A y B.",
-   "sobrevive": null
+   "sobrevive": false
   },
-  "resultado": null,
+  "resultado": "pendiente_de_investigacion",
   "hipotesis_que_mas_condiciona": "Palancas!B15:D15: el recorte por minoritarios del libro queda fuera del rango defendible (nota 23.5, URD 2025 PDF p. 399). Dentro de ese rango el precio de Sí va de ≈102,5 a ≈110,9 € y la acción cambia; además Historia C52 (diferido sin caja de 2021) y C63 (coste neto de la deuda) mueven ≈+4,0 y ≈−5,9 €",
   "que_lo_resolveria": "Rehacer B15:D15 en un nuevo ciclo con el resultado atribuido a minoritarios de la nota 23.5 (URD 2025 PDF p. 399: 144 / 143 / 51 M en Gatwick, OMA y Edimburgo) y recalcular el libro y la escalera; y que la persona responsable decida sobre las celdas de datos Historia C52 (URD 2021 PDF p. 67) y C63 (URD 2025 PDF p. 138, 356)"
  },
@@ -293,17 +293,133 @@
    "motivo": "celda de la fase A (corrección 1, auditoría punto 9): la URD 2025 (PDF p. 180, §4.4.2) registra ventas en 2025 de Huillard (29.365) y Labeyrie (52.038) y una compra de 1.000, y la URD 2024 (PDF p. 181) ventas de los dos directivos en 2024; con esa evidencia C97 estaría más cerca de «Vendiendo». Sin fechas no las sitúo en la ventana de 12 meses. No la reescribo (no hay vuelta a la fase A); no impide la conclusión ni mueve palancas"
   }
  },
- "estado_analisis": null,
- "cubo_final": null,
- "escalera": null,
- "decision": null,
- "insumos_decision_cartera": null,
- "herencia": null,
- "comparacion_etapa_1": null,
- "celdas": null,
- "cambiaria_de_cubo": null,
- "observaciones": null,
- "confianza_global": null,
+ "estado_analisis": "pendiente_de_investigacion",
+ "cubo_final": "Vigilar",
+ "escalera": {
+  "de": "precio.json",
+  "precio_de_si": 97.79,
+  "precio_escenario_malo": 79.28,
+  "ponderado": 107.04,
+  "zona": "caro",
+  "bajo_combinacion": {
+   "de": "comprobacion_conjunta.json",
+   "precio_de_si": 105.36,
+   "precio_escenario_malo": 86.58,
+   "ponderado": 114.75,
+   "zona_precio_actual": "vigilar",
+   "sobrevive": false
+  },
+  "rango_precio_de_si_b15_d15": "≈102,5–110,9 € con B15:D15 dentro de su rango defendible [cálculo, réplica]; sensibilidad condicional, no intervalo de confianza"
+ },
+ "decision": {
+  "accion": null,
+  "precio_objetivo": null,
+  "condicion": null,
+  "condiciones_revision": {
+   "al_alza": "B15:D15 rehecho con el resultado atribuido de la nota 23.5 (372 M, URD 2025 PDF p. 356, 399) y el libro recalculado; una decisión sobre Historia C52 sin el diferido de 2021 (URD 2021 PDF p. 67); una prórroga o compensación de alguna autopista; compras de 2026 (Safeway, A154–A120, All for One) con retornos publicados por encima de r.",
+   "a_la_baja": "Historia C63 con el coste bruto de la deuda (4,4 %, URD 2025 PDF p. 138); una tercera carga fiscal francesa o la contribución excepcional hecha permanente; deterioros en Cobra IS (goodwill 4.156) o en aeropuertos; tráfico y pasajeros a la baja en 2026–2027; compras grandes a retornos por debajo del 7 % después de impuestos."
+  }
+ },
+ "insumos_decision_cartera": {
+  "precio_actual": 107.05,
+  "zona": "caro",
+  "precio_de_si": 97.79,
+  "precio_escenario_malo": 79.28,
+  "ponderado": 107.04,
+  "distancia_a_precio_si": 0.0865,
+  "distancia_a_malo": 0.2594,
+  "fundamento": "pendiente de investigación: Palancas!B15:D15 fuera de su rango defendible (nota 23.5, URD 2025 PDF p. 399); comprobación conjunta en el extremo adverso del rango no superada (105,36 €, zona vigilar); precio de Sí ≈102,5–110,9 € dentro del rango; Historia C52 y C63 pendientes de decisión (≈+4,0 y ≈−5,9 €)",
+  "datos_ausentes_materiales": [],
+  "descalificadores_considerados": [
+   "deuda que puede matar en un mal año: no (deuda neta 1,4 veces el Ebitda, A−/A3, liquidez 22,0 mil M; URD 2025 PDF p. 141, 405)",
+   "demasiadas piezas móviles / conglomerado (aviso A4): no; lo entiendo por partes y lo decisivo son pocas variables; el borde es Cobra IS",
+   "reinvertir toda la caja para mantenerse con retornos mediocres: riesgo tras 2036, no hoy (dividendo de 5,00 € y recompras; PDF p. 141–142)",
+   "valor que depende de prever macro o tipos: no; depende de contratos con fecha y del retorno de la reinversión",
+   "gestión en la que no confío: no (C98 = Aceptable)"
+  ],
+  "r": 0.09,
+  "r_minima": 0.0908,
+  "palanca_mas_influyente": "Tasa de descuento (±1 pt)"
+ },
+ "herencia": {
+  "C93": {
+   "etapa1": "No lo sé",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "La etapa 1 no sabía a qué retorno se reponían las concesiones. El capital empleado por negocio (URD 2025 PDF p. 136, 141) da 6,9 % (Airports) y 8,3 % (Cobra IS) después de impuestos: un ROIC terminal del 7 % con g 0,02 < rf queda dentro de lo observado, con salto del año 11 de 2,2 puntos y peso del terminal 0,68."
+  },
+  "B101": {
+   "etapa1": "VINCI cobra peajes y tasas por infraestructuras que nadie puede duplicar y vende servicios de energía y obra con poco capital. La caja es real: FCF de 3.179 a 7.010 M€ entre 2018 y 2025, deuda neta de 1,4 veces el Ebitda y calificación A−. Pero entre el 35 % y el 38 % del beneficio y del FCF viene de autopistas francesas que vuelven gratis al Estado entre 2032 y 2036, y ese Estado ya ha creado dos impuestos nuevos que le afectan. El valor depende de reinvertir esa caja por encima del 9 %, y el ROCE del grupo ha estado entre el 9 % y el 11 %. A 107 € pago más o menos el escenario normal; compraría hacia 79 €.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Mantiene el núcleo (caja real, autopistas que vencen, Estado que grava), pero el «compraría hacia 79 €» era una estimación sin la hoja con 4.382 de FCF base y 567,06 M de acciones (extracto §0); ahora el libro valora tres historias y la nota 23.5 (URD 2025 PDF p. 399) muestra que su recorte por minoritarios es demasiado grande: la tesis no da precio de compra."
+  },
+  "B102": {
+   "etapa1": "El argumento del No, lo mejor que sé hacerlo: (1) la joya es un activo que se gasta; VINCI Autoroutes es el 35 % del Ebit y el 38 % del FCF, y sus concesiones principales (ASF, Escota y Cofiroute) se devuelven sin compensación en 2032-2036, y para seguir igual VINCI tiene que comprar su futuro en concesiones nuevas a precios de mercado, y VINCI Airports rinde hoy ≈10 % antes de impuestos sobre su capital empleado [cálculo]. (2) La contraparte es un Estado con déficit que ya creó la TEITLD en 2024 (la empresa la considera contraria a las cláusulas de neutralidad fiscal de los contratos) y una contribución excepcional en 2025 que repite en 2026; lo extraordinario que se repite es gasto. (3) El FCF publicado de 7.010 está inflado para el accionista: +2.496 de circulante que la propia empresa llama excepcional, 805 de dividendos a minoritarios, 567 de pagos en acciones; la guía de 2026 es de unos 6.000. (4) Cobra IS añade piezas que no controlo: EPC al 45 % de sus ventas, renovables con riesgo de precio eléctrico, FCF de −365, goodwill de 4.156 sin deterioro y una compra de campos de petróleo que acabó en revisión estratégica. (5) Los incentivos premian BPA ajustado y Ebitda ajustado por circulante, cifras que se pueden mover con cobros de fin de año; el bonus sale al 98 % del máximo, los directivos venden todos los años y el TSR quedó 47,8 puntos por detrás de su índice en 2023-2025. A 107 € el precio ya descuenta el caso normal, así que cualquier error va contra mí.",
+   "decision": "cambia",
+   "motivo": "evidencia_nueva",
+   "evidencia_y_razonamiento": "Conservo sus argumentos de vencimiento, fiscalidad, Cobra IS, circulante y ventas de directivos, estos con su fuente (URD 2025 PDF p. 180; URD 2024 PDF p. 181: Huillard y Labeyrie venden en los dos años), y añado el retorno de lo comprado (6,9–8,3 %), el resultado de los minoritarios frente a sus dividendos (PDF p. 356, 358) y el DCF inverso del libro (5,4 %)."
+  },
+  "C103": {
+   "etapa1": "No",
+   "decision": "mantiene",
+   "motivo": "misma_evidencia",
+   "evidencia_y_razonamiento": "Revisados los vencimientos (URD 2025 PDF p. 382) y el retorno de lo que sustituye a las autopistas: el activo principal caduca por contrato y el futuro se compra a precio de mercado; «nunca vender» no es una propiedad de este negocio."
+  },
+  "C104": {
+   "etapa1": "0% · Watchlist · precio de Sí ≈ 79 €",
+   "decision": "cambia",
+   "motivo": "definicion_o_medicion_distinta",
+   "evidencia_y_razonamiento": "La V6.3 prohíbe el porcentaje de posición (D16) y fija la etiqueta de la sección 15: con la comprobación conjunta no superada (comprobacion_conjunta.json) es «sin conclusión (pendiente de investigación)»; el ≈79 € de la etapa 1 aplicaba la regla mín(MALO, 0,75 × ponderado), que en este libro (C156) da 79,28."
+  }
+ },
+ "comparacion_etapa_1": {
+  "cubo_v1": "Vigilar",
+  "precio_de_si_v1": 79,
+  "cubo_v2": "Vigilar",
+  "precio_de_si_v2": 97.79,
+  "por_que_difieren": "El cubo coincide en Vigilar, pero la v2 no concluye (pendiente de investigación). El precio de Sí del libro (97,79 €) difiere del ≈79 € de la v1 por la regla: la misma regla de la v1, mín(MALO, 0,75 × ponderado), da en este libro 79,28 € (C156); la v2 aplica la escalera k = 3 (D11). Y ese 97,79 € no lo sostengo: el recorte por minoritarios del libro queda fuera de su rango defendible y, con él dentro, el precio de Sí va de ≈102,5 a ≈110,9 €. Las cifras de la v1 (FCF base 4.382, 567,06 M de acciones, sin hoja) no están vigentes (extracto §0). La v1 no restaba la parte de los socios de los aeropuertos; la v2 la resta, pero con una base que hay que rehacer. La v1 decía insiders «Vendiendo» y el patrón de ventas anuales de los directivos lo confirma la URD (2025 PDF p. 180; 2024 PDF p. 181); la fase A dejó C97 en Neutral sin usar esa evidencia (incoherencia anotada en la corrección 1; C97 es de la fase A y no se ha reescrito)."
+ },
+ "celdas": {
+  "C93": "Sí",
+  "C103": "No",
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: sin conclusión (pendiente de investigación) · zona caro · precio de Sí ≤ 97.79 · precio esc. MALO 79.28 · ponderado 107.04 · fundamento pendiente de investigación · el recorte por minoritarios de Palancas!B15:D15 queda fuera de su rango defendible; con él dentro del rango el precio de Sí va de unos 102 a 111, y la comprobación conjunta en su extremo adverso da 105.36 (zona vigilar): no superada",
+  "B101": "VINCI cobra peajes y tasas por autopistas y aeropuertos sin sustituto cercano y vende servicios de energía y obra con poco capital: FCF de 7.010 M€ en 2025, deuda neta de 1,4 veces el Ebitda y calificación A− (URD 2025 PDF p. 139, 141). Su mejor activo, las autopistas francesas (3.311 de 9.558 M€ de Ebit), vuelve al Estado entre 2032 y 2036, y lo que compra para sustituirlo rinde cerca del 7 % después de impuestos (Airports 6,9 %, Cobra IS 8,3 % [cálculo, PDF p. 136, 141]). Una parte del flujo de Gatwick, Edimburgo y OMA es de sus socios: ganaron 338 M€ y cobraron 805 M€ en 2025 (PDF p. 358, 399). El libro resta esa parte con una base que la nota 23.5 desmiente, y con el recorte dentro de su rango defendible el precio de Sí va de ≈102,5 a ≈110,9 €, a los dos lados del precio de 107,05 €. Es un negocio correcto con un foso con fecha, y hoy no concluyo: falta rehacer ese recorte con el resultado de los minoritarios.",
+  "B102": "El argumento del No, mejor de lo que lo haría un bajista: (1) la joya se gasta: VINCI Autoroutes da 3.311 de los 9.558 M€ de Ebit y 2,6 mil M de FCF (URD 2025 PDF p. 136, 140) y ASF, Escota y Cofiroute vuelven al Estado en 2032–2036 (PDF p. 382); lo que compra para sustituirlas rinde menos que r: Airports 6,9 % y Cobra IS 8,3 % después de impuestos [cálculo, PDF p. 136, 141]. (2) La contraparte cobra antes del final: TEITLD de 284 desde 2024 (URD 2024 PDF p. 134) y contribución excepcional de 449 en 2025, repetida en 2026 (URD 2025 PDF p. 138, 143). (3) Lo del accionista es menos de lo que parece: los socios de los aeropuertos cobraron 805 M€, 2,2 veces su resultado de 372 M€ (PDF p. 356, 358), y el FCF publicado lleva +2.496 de circulante y 567 de pagos en acciones (Historia L14, L18). (4) Asigna caro el capital y la dirección no compra: 21.371 de compras en diez años sin múltiplos publicados (Historia fila 13; PDF p. 370), Cobra IS con FCF de −365 y goodwill de 4.156 (PDF p. 140; Análisis C32), recompras a 119,11 € y 125,80 € (PDF p. 141; semestral PDF p. 15), y el presidente y el director financiero venden cada año: 29.365 y 52.038 acciones en 2025 y 41.999 y 60.162 en 2024 (URD 2025 PDF p. 180; URD 2024 PDF p. 181). (5) El precio ya está en el ponderado del libro (107,04) y pide un 5,4 % de crecimiento de ventas con un orgánico del 1,3 % en el semestre y tráfico −2,9 % (semestral PDF p. 7): es el negocio en que «all the excess cash must be reinvested» (TCI p.95; HIM) para no encoger, y para eso no hace falta vigilarlo.",
+  "Diagnóstico V6!B222": "Palancas!B15:D15: el recorte por minoritarios capitaliza 805 M€ de dividendos cuando su resultado atribuido fue 372 M€ (URD 2025 PDF p. 356, 399) y deja los márgenes por debajo de su rango defendible (0,0878–0,093 / 0,0936–0,098 / 0,1037–0,107). Dentro del rango el precio de Sí va de ≈102,5 a ≈110,9 € y la acción cambia; la comprobación conjunta en el extremo adverso (0,09 / 0,095 / 0,105 y C16 1,4) da 105,36 € y zona vigilar: no superada.",
+  "Diagnóstico V6!B223": "Rehacer B15:D15 en un nuevo ciclo con el resultado atribuido de la nota 23.5 del URD 2025 (PDF p. 399: 144 / 143 / 51 M en Gatwick, OMA y Edimburgo) y recalcular el libro y la escalera; y que la persona responsable decida sobre Historia C52 (388 M de diferidos sin caja de 2021, URD 2021 PDF p. 67) y C63 (deuda bruta al 4,4 %, URD 2025 PDF p. 138; coste bruto 1.760 y rendimiento de la caja 513, p. 356).",
+  "Palancas!A38": "Las ventas de Energy Solutions (VINCI Energies más Cobra IS) del ejercicio 2027 publicadas por VINCI son de al menos 32.000 M€ (29.612 en 2025).",
+  "Palancas!B38": "2028-03-31",
+  "Palancas!C38": 0.65,
+  "Palancas!A39": "El ROCE del grupo que VINCI publica para el ejercicio 2027 queda entre el 9,0 % y el 11,5 % (10,7 % en 2025 y 11,4 % en 2024).",
+  "Palancas!B39": "2028-03-31",
+  "Palancas!C39": 0.7,
+  "Palancas!A40": "Los ingresos de VINCI Autoroutes del ejercicio 2027 no superan 7.100 M€ (6.733 en 2025).",
+  "Palancas!B40": "2028-03-31",
+  "Palancas!C40": 0.75
+ },
+ "cambiaria_de_cubo": {
+  "a_si": "El libro rehecho con B15:D15 basado en el resultado de los minoritarios (nota 23.5) y con C52 y C63 decididos, con el precio por debajo del nuevo precio de Sí y fundamento para la compra (D10).",
+  "a_no": "Que el valor del NORMAL quede por debajo del precio sin margen posible por hechos nuevos: compras de 2026–2027 a retornos por debajo de la tasa del motor, deterioros en Cobra IS o aeropuertos, o una carga fiscal francesa permanente que lleve el margen del resto del grupo por debajo del 8 %.",
+  "a_demasiado_dificil": "Que el valor pase a depender de la negociación política del fin de las autopistas después de 2036 (prórrogas a cambio de inversión, rescate anticipado) o de las pérdidas del EPC de Cobra IS, variables que no sé juzgar."
+ },
+ "observaciones": {
+  "Palancas!A38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 29.612 en 2025 (URD 2025 PDF p. 134), +6,8 % en el primer semestre de 2026 y cartera de 69,8 a 76,8 mil M (semestral PDF p. 9, 16); 32.000 exige ≈4 % al año, el ritmo del NORMAL del grupo (Palancas C14). Falsable con el informe anual 2027 (segmentos).\nLo sustituiría: ventas por debajo de 31.000 me moverían el NORMAL hacia el MALO; por encima de 34.000, hacia el BUENO.",
+  "Palancas!B38": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: 2028-03-31, a unos 18 meses de la fecha de análisis (Análisis D4 = 2026-10-10), dentro de la ventana de 12–24 meses; VINCI publica el informe anual del ejercicio en febrero o marzo del año siguiente (URD 2025, cuentas de 2025).\nLo sustituiría: un cambio en el calendario de publicación de VINCI.",
+  "Palancas!C38": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 0,65 es la probabilidad de la predicción 1 dado el NORMAL: 32.000 exige ≈4 % al año desde 29.612 (URD 2025 PDF p. 134); el semestre de 2026 creció un 6,8 % y la cartera de VINCI Energies y Cobra IS pasó de 35,6 a 38,3 mil M (semestral PDF p. 9, 16), pero Cobra IS depende de EPC y de renovables, y un año de proyectos retrasados la dejaría por debajo.\nLo sustituiría: las ventas de Energy Solutions de 2026 (informe anual 2026): por debajo de 30.800 bajaría a 0,4; por encima de 31.500 subiría a 0,8.",
+  "Palancas!A39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: ROCE 10,7 % en 2025 y 11,4 % en 2024 (URD 2025 PDF p. 142); el NORMAL reinvierte en torno a r (rentabilidad marginal 9,2 %, Palancas C16) y las autopistas siguen dentro hasta 2032: el ROCE no debería salir de esa banda. Falsable con el informe anual 2027.\nLo sustituiría: un ROCE por encima del 11,5 % con compras grandes me haría revisar el S2C del NORMAL al alza; por debajo del 9 %, hacia el MALO.",
+  "Palancas!B39": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: 2028-03-31, a unos 18 meses de la fecha de análisis (Análisis D4 = 2026-10-10), dentro de la ventana de 12–24 meses; VINCI publica el informe anual del ejercicio en febrero o marzo del año siguiente (URD 2025, cuentas de 2025).\nLo sustituiría: un cambio en el calendario de publicación de VINCI.",
+  "Palancas!C39": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 0,7 es la probabilidad de la predicción 2 dado el NORMAL: el ROCE ha estado en 10,7–11,4 % en 2024–2025 (URD 2025 PDF p. 142) y la banda 9,0–11,5 % deja sitio para una contribución excepcional repetida (PDF p. 143) o para compras como Safeway que bajen el ROCE (semestral PDF p. 4); el riesgo de salirse por arriba es que el excedente de circulante (19,7 mil M, URD 2025 PDF p. 141) siga reduciendo el capital empleado.\nLo sustituiría: el ROCE de 2026: fuera de la banda, bajaría a 0,5.",
+  "Palancas!A40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 6.733 en 2025 (URD 2025 PDF p. 134), tráfico −2,9 % y ingresos −0,7 % en el primer semestre de 2026 (semestral PDF p. 7) y subidas de peaje contractuales (Cofiroute al 83 % de la referencia, PDF p. 143): el NORMAL no espera crecimiento real de la red. Falsable con el informe anual 2027.\nLo sustituiría: ingresos por encima de 7.100 (tráfico al alza o una adenda con subidas) me harían revisar al alza la caja de las autopistas del margen equivalente.",
+  "Palancas!B40": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: 2028-03-31, a unos 18 meses de la fecha de análisis (Análisis D4 = 2026-10-10), dentro de la ventana de 12–24 meses; VINCI publica el informe anual del ejercicio en febrero o marzo del año siguiente (URD 2025, cuentas de 2025).\nLo sustituiría: un cambio en el calendario de publicación de VINCI.",
+  "Palancas!C40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 0,75 es la probabilidad de la predicción 3 dado el NORMAL: 7.100 exige ≈+2,7 % al año desde 6.733 (URD 2025 PDF p. 134), por encima de las subidas contractuales (Cofiroute al 83 % de la referencia, PDF p. 143) con un tráfico que cayó un 2,9 % en el semestre (semestral PDF p. 7); solo la superaría una adenda con subidas extra o una vuelta fuerte del tráfico.\nLo sustituiría: los ingresos de Autoroutes de 2026: por encima de 6.950 bajaría a 0,5.",
+  "C93": "[Clase: fundamentada] [Confianza: media]\nHereda: No lo sé → cambia (evidencia_nueva): el capital empleado por negocio y la vara de la sección 1 bis permiten juzgar la reposición.\nApoyo: g NORMAL 0,02 < rf 0,0347 (C57); ROIC terminal 7 % > tasa del motor 6,41 % y dentro de lo que rinde hoy lo que VINCI compra (Airports 6,9 %, Cobra IS 8,3 % después de impuestos [cálculo, URD 2025 PDF p. 136, 141]); reinvierte g ÷ ROIC ≈ 29 % del NOPAT; salto del año 11 de 2,2 puntos y peso del terminal 0,68 (< 0,75). Crecer un 2 % con la inflación de Europa reponiendo concesiones a ≈7 % es sostenible; lo que no lo sería es crecer más.\nLo sustituiría: compras de 2026–2027 (Safeway, All for One) a retornos por debajo del 6 %, hacia No lo sé.",
+  "C103": "[Clase: fundamentada] [Confianza: alta]\nHereda: No → mantiene (misma_evidencia): el activo principal caduca por contrato.\nApoyo: ASF 2036, Cofiroute 2034 y Escota 2032 vuelven al Estado (URD 2025 PDF p. 382) y para seguir igual VINCI tiene que comprar su futuro a precios de mercado (Airports 6,9 % después de impuestos [cálculo]). No es la empresa en la que «you can sit on your ass» (PCA pp.85–86; HIM).\nLo sustituiría: prórrogas largas de las autopistas o un historial de compras que rindan por encima de r de forma sostenida.",
+  "C104": "[Clase: convención] [Confianza: alta]\nHereda: 0% · Watchlist · precio de Sí ≈ 79 € → cambia (definicion_o_medicion_distinta): sin porcentaje de posición (D16) y con la etiqueta de la sección 15; la etapa 1 aplicaba mín(MALO, 0,75 × ponderado), que en este libro (C156) da 79,28.\nApoyo: precio.json (97,79 / 79,28 / 107,04, zona caro) y comprobacion_conjunta.json (105,36, zona vigilar, sobrevive = false): sin conclusión porque B15:D15 queda fuera de su rango defendible (nota 23.5, URD 2025 PDF p. 399). El tamaño es de José Luis.\nLo sustituiría: el libro recalculado con B15:D15 rehecho con el resultado de los minoritarios (B223).",
+  "B101": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis de la etapa 1 («… compraría hacia 79 €») → cambia (evidencia_nueva): el libro valora las tres historias y la nota 23.5 muestra que el recorte por minoritarios es demasiado grande.\nApoyo: FCF 7.010 y deuda neta 1,4× (URD 2025 PDF p. 139, 141); Ebit por negocio (PDF p. 136); vencimientos (PDF p. 382); dividendos y resultado de minoritarios (PDF p. 356, 358, 399); comprobacion_conjunta.json.\nLo sustituiría: B15:D15 rehecho con la nota 23.5, una prórroga de las autopistas o compras que rindan por encima de r.",
+  "B102": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis inversa de la etapa 1 → cambia (evidencia_nueva): mantiene vencimiento, fiscalidad, Cobra IS, circulante y ventas de directivos, ahora con su fuente, y añade el retorno de lo comprado, el resultado de los minoritarios y el DCF inverso.\nApoyo: URD 2025 PDF p. 136, 138, 140, 141, 143, 180, 356, 358, 370, 382; URD 2024 PDF p. 134, 181; semestral PDF p. 7, 15; Historia filas 13, 14 y 18; Análisis C32; C86.\nLo sustituiría: compras con retornos publicados por encima de r, compras de acciones de los directivos o una compensación del Estado al final de las concesiones."
+ },
+ "confianza_global": "baja",
  "configuracion_v64": null,
  "respuesta_contradictor": {
   "objeciones": [
@@ -334,6 +450,6 @@
   ],
   "combinacion_de_las_no_rebatidas": "Las tres juntas (O1 con márgenes redondeados o sin redondear, O2 mínima, O3 con 4,4 %): precio de Sí ≈103,0–105,1 € y zona `vigilar` [cálculo, réplica que reproduce el libro]; con O3 al 4,83 %, ≈101,4–103,5 €; con O1 en su extremo adverso, ≈100,2 €. Corrección 1: eso solo vale para las combinaciones elegidas. En el límite alto del rango defendible de B15:D15, aun con O2 y O3, el precio de Sí es ≈107,7–108,4 € y la regla de precio se cumple: dentro del rango la acción sí cambia.",
   "regla_de_movimiento": "Un escalón al alza (O1 y O2, como mucho uno por dirección) y un escalón a la baja (O3) se compensan. Pero la auditoría (punto 5) muestra que, dentro del rango defendible que yo mismo declaro, la acción no está determinada y el objetivo de 97,79 € queda fuera del rango: no sostengo «esperar con 97,79 €». La conclusión favorable de la parte alta del rango se somete a D10 con una combinación en el extremo adverso; si no sobrevive, el análisis se cierra sin conclusión (pendiente de investigación).",
-  "conclusion_final": "turno 1 corregido: conclusión provisional comprar (parte alta del rango defendible), cubo provisional Vigilar, comprobación conjunta en el extremo adverso del rango; la conclusión la fija el turno 2"
+  "conclusion_final": "pendiente_de_investigacion · Vigilar · sin acción: la comprobación conjunta en el extremo adverso del rango defendible de B15:D15 da 105,36 € y zona vigilar (sobrevive = false), y dentro del rango la acción cambia (≈102,5–110,9 €); falta rehacer B15:D15 con la nota 23.5 y decidir C52 y C63"
  }
 }
