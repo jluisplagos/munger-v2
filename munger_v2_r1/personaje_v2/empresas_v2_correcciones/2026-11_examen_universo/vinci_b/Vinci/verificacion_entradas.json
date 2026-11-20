@@ -181,18 +181,18 @@
      "aux:vinci-urd-2025_p370_div_2025"
     ],
     "formula": "(o[\"Historia!J11\"] + o[\"Historia!K11\"] + o[\"Historia!L11\"] + o[\"Historia!J14\"] + o[\"Historia!K14\"] + o[\"Historia!L14\"] + o[\"aux:vinci-urd-2024_p348_div_2023\"] + o[\"aux:vinci-urd-2025_p370_div_2024\"] + o[\"aux:vinci-urd-2025_p370_div_2025\"]) / 3",
-    "conciliacion": "media 2023-2025 de (CFO + circulante + dividendos de sociedades no consolidadas, regla espejo P-O1 c): (10.540+11.714+11.886 − 1.463−2.311−2.496 + 31+41+40) / 3 = 27.982 / 3 = 9.327,333...; el libro guarda 9327,333 (redondeo a 3 decimales admitido en importe mm)",
+    "conciliacion": "media 2023-2025 de (CFO + circulante + dividendos de sociedades no consolidadas, regla espejo P-O1 c): (10.540+11.714+11.886 − 1.463−2.311−2.496 + 31+41+40) / 3 = 27.982 / 3 = 9.327,333...; el libro guarda 9327,333 (redondeo a 3 decimales admitido en importe mm) · LÍMITE 9.4.1: el verificador comprueba que la fórmula reproduce el libro con todos sus orígenes, pero no detecta compensaciones parciales entre componentes reales (un componente mal leído que otro compensa): el revisor comprueba cada componente en su página, uno a uno. Normalización F1-CIRC (motor_a_f1.json → normalizacion_circulante, regla «circulante_a_cero», decisiones V-CIRC (a) y V-ANCLA (a), 19-nov-2026): la caja base excluye el circulante entero; su efecto es la media 2023–2025 de la fila 14, (−1.463 − 2.311 − 2.496) / 3 = −2.090 (conciliacion_fcf_base, componente C46). El dividendo de 2023 se lee en la línea «Other» de la nota 3.1 del URD 2024 (PDF p. 348), que el URD 2025 rotula «Dividends received from unconsolidated companies» (decisión documentada en fase1_v63.json → analisis.C46). COMPONENTES: Historia!J11 = 10540 ← texto/vinci-urd-2024.txt [PDF PAGE 336], «Net cash flows (used in)/from operating activities I 11,714 10,540» (valor_fuente 10540.0, signo 1) | Historia!K11 = 11714 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Net cash flows (used in)/from operating activities I 11,886 11,714» (valor_fuente 11714.0, signo 1) | Historia!L11 = 11886 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Net cash flows (used in)/from operating activities I 11,886 11,714» (valor_fuente 11886.0, signo 1) | Historia!J14 = -1463 ← texto/vinci-urd-2024.txt [PDF PAGE 336], «Changes in operating working capital requirement and current provisions 19.1 2,311 1,463» (valor_fuente 1463.0, signo -1) | Historia!K14 = -2311 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Changes in operating working capital requirement and current provisions 19.1 2,496 2,311» (valor_fuente 2311.0, signo -1) | Historia!L14 = -2496 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Changes in operating working capital requirement and current provisions 19.1 2,496 2,311» (valor_fuente 2496.0, signo -1) | aux:vinci-urd-2024_p348_div_2023 = 31 ← texto/vinci-urd-2024.txt [PDF PAGE 348], «Other 41 31» (valor_fuente 31, signo 1) | aux:vinci-urd-2025_p370_div_2024 = 41 ← texto/vinci-urd-2025.txt [PDF PAGE 370], «Dividends received from unconsolidated companies 40 41» (valor_fuente 41, signo 1) | aux:vinci-urd-2025_p370_div_2025 = 40 ← texto/vinci-urd-2025.txt [PDF PAGE 370], «Dividends received from unconsolidated companies 40 41» (valor_fuente 40, signo 1)",
     "unidad": "millones de euros"
    },
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
+    "extractor": "Claude orquestación",
     "revisor": null,
-    "fecha": "2026-11-19",
+    "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": null,
-    "nota": "C46 media 2023-2025 con cálculo declarado (cambio_vinci.json; P-O1 c)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] conciliación con cada componente y su origen (límite 9.4.1) y la normalización F1-CIRC; fórmula y valor sin cambios · Comprobación anterior: Mistral (mistral-large-4-0) / None 2026-11-19 «pendiente»: C46 media 2023-2025 con cálculo declarado (cambio_vinci.json; P-O1 c)",
     "vinculo": null
    },
    "incidencia": null
@@ -6332,15 +6332,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": "Sí",
+   "valor_modelo": "No · financiación cambia mucho",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-motor",
-    "fundamento": "[Clase: técnico] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: uso el DCF de la plantilla, pero no a ciegas. Una perpetuidad sobre el FCF consolidado sobrevalora un grupo cuya mayor concesión vence dentro del horizonte. Lo corrijo metiendo el vencimiento en el crecimiento a diez años y lo contrasto con una suma de partes a ojo (el resto del grupo crece un 5 % y las autopistas cobran hasta 2032-2036 y luego nada): sale un valor normal de 95-106 €, la misma zona que la plantilla con g = 0,02. La plantilla tampoco resta deuda (C54) ni la parte de los minoritarios. «Better roughly right than precisely wrong» (PCA p.451; HIM). Lo sustituiría: por «No · este tipo de empresa requiere otro método» si no consigo deuda y flujos concesión por concesión.",
-    "alternativas": "Lo sustituiría:por «No · este tipo de empresa requiere otro método» si no consigo deuda y flujos concesión por concesión.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «técnico»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N57 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: Sí → cambia (definicion_o_medicion_distinta): la V6.3 tiene un motor B que resta deuda, arrendamientos, pensiones y minoritarios.\nApoyo: la deuda de concesiones se devuelve antes del vencimiento (Autoroutes 15.001 neta, 3,1 veces su Ebitda; URD 2025 PDF p. 141, 382) y el flujo del motor A va antes de devolverla; minoritarios materiales (3.576; Gatwick y Edimburgo 49,99 %, OMA 70,01 %; 805 de dividendos; PDF p. 399, 358); deuda neta de 14,8 a 22,3 y a 19,5 mil M con las compras (Historia filas 22 y 24) [cálculo]. Motor B calculable (entrada_v63). Ningún motor modela el escalón de 2032–2036: va en las palancas.\nLo sustituiría: por «otro método» si la fase B no puede representarlo sin incoherencias.",
+    "alternativas": "Lo sustituiría: por «otro método» si la fase B no puede representarlo sin incoherencias.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio metodológico del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N57 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6348,8 +6348,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N57 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N57 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N57); clase «hipotesis» según la fase («fundamentada»); valor 'Sí' → 'No · financiación cambia mucho' · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6366,10 +6366,10 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-r",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: C56 viene vacía y uso 0,09 como convención del ejercicio. Representa mi alternativa: algo mejor que la deuda pública a 10 años (C57: 3,49 %) más un margen por ser renta variable. No sale del CAPM y no la bajo para que cuadre el número: «it's your alternatives that matter» (PCA p.114; HIM). Para sus incentivos la empresa calcula un WACC del 6,63 %; no lo uso. Sensibilidad estimada: con r = 0,08 el malo sube a unos 89 €, y con 0,10 baja a unos 70 €. El cubo no cambia. Lo sustituiría: por la r que fije el inversor.",
-    "alternativas": "Lo sustituiría:por la r que fije el inversor.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N53 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "fundamento": "[Clase: convención] [Confianza: media]\nHereda: 0,09 → mantiene (misma_evidencia): es la r heredada y no la cambio.\nApoyo: representa mi alternativa: la deuda pública alemana a 10 años (C57: 3,47 %) más un margen de unos 5,5 puntos por ser renta variable; no sale del CAPM ni del WACC de 6,63 % que la empresa usa en sus incentivos (C24). «it's your alternatives that matter» (PCA p.114; HIM). Aviso: queda por debajo de la r mínima de la hoja, 9,08 % (Diagnóstico V6!C17; datos_v63 §4), por 0,08 puntos; lo digo y no la ajusto.\nLo sustituiría: por la r que fije el inversor.",
+    "alternativas": "Lo sustituiría: por la r que fije el inversor.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N53 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6377,8 +6377,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N53 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N53 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N53); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6390,15 +6390,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": "Regulada (red, concesión)",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-caso_especial",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 138 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: Concesiones son el 80 % del capital empleado (46,3 de 58,2 mil M) y el 62 % del Ebit, con subidas de precio que valida el concedente y fin de contrato fijado (URD 2025 PDF p. 136, 141, 382). Es también multinegocio (energía y obra, con economía distinta), pero lo entiendo por partes y lo que decide el valor es la concesión. Coherente con el motor B (C62).\nLo sustituiría: por «Multinegocio o conglomerado» si Energy Solutions y Construcción pasaran a pesar más que las concesiones en el Ebit.",
+    "alternativas": "Lo sustituiría: por «Multinegocio o conglomerado» si Energy Solutions y Construcción pasaran a pesar más que las concesiones en el Ebit.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N138 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6406,8 +6406,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 138 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N138 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N138); clase «hipotesis» según la fase («fundamentada»); valor None → 'Regulada (red, concesión)' · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6418,16 +6418,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": null,
+   "clase": "convencion",
+   "valor_modelo": "Media del ciclo",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-base_margen",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 139 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "identificacion": "V-base_margen",
+    "fundamento": "[Clase: convención] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: el margen de 2025 (12,55 %, Historia C48) es el máximo de la serie (C51), y con el último año en el máximo la base es la media del ciclo (UD; E5). La media de diez años (C49: 10,7 %) incluye 2020 (5,7 %), que para un grupo con aeropuertos y tráfico es parte del ciclo, no una rareza. La tendencia al alza (C27) la recogerá el margen objetivo de la fase B, no la base.\nLo sustituiría: por «Último año» si el margen de 2026–2027 se mantuviera por encima del 12 % con una mezcla de negocios parecida.",
+    "alternativas": "Lo sustituiría: por «Último año» si el margen de 2026–2027 se mantuviera por encima del 12 % con una mezcla de negocios parecida.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N139 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6435,8 +6435,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 139 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N139 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N139); clase «convencion» según la fase («convención»); valor None → 'Media del ciclo' · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6453,10 +6453,10 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-anios_f",
-    "fundamento": "[Clase: convención] [Confianza: alta]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Años de la media del FCF base = 3: los mismos años que C46–C50 (fase1_v63.json / etapa 1). La fase A puede corregirlo.",
-    "alternativas": "La fase A puede corregirlo (otra ventana de años del FCF base).",
-    "limites": "Confianza declarada: alta. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N129 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "fundamento": "[Clase: convención] [Confianza: alta] Años de la media del FCF base = 3: los mismos años que C46–C50 (fase1_v63.json / etapa 1). La fase A puede corregirlo.",
+    "alternativas": "El texto de la fase no declara alternativa.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Dato objetivo / metadata), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N129 del libro (Vinci_v63_evaluada.xlsx)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6464,8 +6464,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N129 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N129 del libro (Vinci_v63_evaluada.xlsx)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N129); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6482,10 +6482,10 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-restar_sbc",
-    "fundamento": "[Clase: convención] [Confianza: alta]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: el SBC se resta siempre: «A stock option is both an expense and dilution» (PCA pp.126–127; HIM). Dato: C50 = 344, pero el extracto da un gasto IFRS 2 de 567 en 2025, 462 en 2024 y 360 en 2023. Con 567, la base bajaría unos 220 (≈5 %). No cambio la base; lo dejo dicho. Lo sustituiría: nunca por No. Sí revisaría el dato de C50.",
-    "alternativas": "Lo sustituiría:nunca por No. Sí revisaría el dato de C50.",
-    "limites": "Confianza declarada: alta. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N49 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "fundamento": "[Clase: convención] [Confianza: alta]\nHereda: Sí → mantiene (misma_evidencia): la SBC se resta siempre.\nApoyo: «A stock option is both an expense and dilution» (PCA pp.126–127; HIM). C50 = 343,667 es la parte abonada a patrimonio (265 / 344 / 422 en 2023–2025); el gasto de la Historia fila 18 es mayor (360 / 462 / 567) y la diferencia no la explica el informe (datos_v63 §2, C50). La SBC se ha multiplicado por 4,8 en diez años y las ventas por 2,0 (filas 6 y 18) [cálculo].\nLo sustituiría: nunca por No; revisaría el dato de C50 si se explica la diferencia.",
+    "alternativas": "Lo sustituiría: nunca por No; revisaría el dato de C50 si se explica la diferencia.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Decisión del inversor / metodología elegida), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N49 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6493,8 +6493,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N49 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N49 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N49); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6506,15 +6506,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.02,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_MALO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 142 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,02 (mín(Q1 del sector, C46 − σ)). Decisión: 0,02. Desviación: ninguna porque mis componentes dan lo mismo: orgánico ≈0,5 % y ≈1,5 % de compras, que en el MALO continúan (compra caro).\nApoyo: Construcción −1,3 % comparable y tráfico de VINCI Autoroutes −2,9 % en el semestre de 2026 (semestral PDF p. 7, 9); reservas de VINCI Immobilier −16 % (semestral PDF p. 9); perímetro +2,5 % en 2025 (URD 2025 PDF p. 130); −10,0 % en 2020 (Historia fila 28).\nLo sustituiría: un orgánico negativo dos años seguidos o el fin de las compras, hacia 0 o menos.",
+    "alternativas": "Referencia mecánica: 0,02 (mín(Q1 del sector, C46 − σ)). Decisión: 0,02. Desviación: ninguna porque mis componentes dan lo mismo: orgánico ≈0,5 % y ≈1,5 % de compras, que en el MALO continúan (compra caro). · Lo sustituiría: un orgánico negativo dos años seguidos o el fin de las compras, hacia 0 o menos.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N142 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6522,8 +6522,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 142 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N142 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N142); clase «hipotesis» según la fase («fundamentada»); valor None → 0.02 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6535,15 +6535,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.085,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_MALO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 143 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,105 (máx(mín(m0, C49), C50)). Decisión: 0,085. Desviación: −0,02 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,093–0,094 con el resto al 7,8 %. Y resto el exceso de los minoritarios sobre su contable (805 ÷ (r − g) − 3.576 ≈ 6,5 mil M): −0,008.\nApoyo: URD 2025 PDF p. 136, 140, 382; minoritarios 3.576 (PDF p. 399); dividendos a minoritarios 805 (PDF p. 358); contribución 449 (PDF p. 138); Historia L6, L7, C65.\nLo sustituiría: el resultado atribuido a los minoritarios; una prórroga, hacia 0,095.",
+    "alternativas": "Referencia mecánica: 0,105 (máx(mín(m0, C49), C50)). Decisión: 0,085. Desviación: −0,02 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,093–0,094 con el resto al 7,8 %. Y resto el exceso de los minoritarios sobre su contable (805 ÷ (r − g) − 3.576 ≈ 6,5 mil M): −0,008. · Lo sustituiría: el resultado atribuido a los minoritarios; una prórroga, hacia 0,095.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N143 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6551,8 +6551,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 143 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N143 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N143); clase «hipotesis» según la fase («fundamentada»); valor None → 0.085 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6564,15 +6564,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 1.3,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_MALO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 144 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 1,7 (0,75 × NORMAL_ref). Decisión: 1,3. Desviación: −0,4 porque en el MALO se compra caro: 2024, año de las compras de 7,0 mil M, dio 0,5 (Δventas 2.785 ÷ reinversión 5.472, filas 6 y 31 [cálculo]); queda bajo mi NORMAL (1,5). Rentabilidad marginal 7,5 %, bajo r (9 %).\nApoyo: Historia filas 6 y 31; inversiones financieras (URD 2025 PDF p. 140, 370); Airports 6,9 % y Cobra IS 8,3 % después de impuestos sobre su capital (URD 2025 PDF p. 136, 141 [cálculo]).\nLo sustituiría: múltiplos de compra publicados con retornos ≥ r, hacia 1,7.",
+    "alternativas": "Referencia mecánica: 1,7 (0,75 × NORMAL_ref). Decisión: 1,3. Desviación: −0,4 porque en el MALO se compra caro: 2024, año de las compras de 7,0 mil M, dio 0,5 (Δventas 2.785 ÷ reinversión 5.472, filas 6 y 31 [cálculo]); queda bajo mi NORMAL (1,5). Rentabilidad marginal 7,5 %, bajo r (9 %). · Lo sustituiría: múltiplos de compra publicados con retornos ≥ r, hacia 1,7.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N144 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6580,8 +6580,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 144 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N144 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N144); clase «hipotesis» según la fase («fundamentada»); valor None → 1.3 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6593,15 +6593,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.06,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_MALO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 145 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,06 (tasa del motor). Decisión: 0,06. Desviación: ninguna porque los hechos dan lo mismo: lo que VINCI compra hoy rinde el coste o algo más (Airports 6,9 %, Cobra IS 8,3 % después de impuestos [cálculo]) y el peor año del ROIC propio fue 5,93 %. Salto del año 11 ≈ 1,5 puntos.\nApoyo: URD 2025 PDF p. 136, 141; datos_v63 sección 1 bis; Diagnóstico V6 C15.\nLo sustituiría: múltiplos de compra con retornos ≥ r, hacia 0,07.",
+    "alternativas": "Referencia mecánica: 0,06 (tasa del motor). Decisión: 0,06. Desviación: ninguna porque los hechos dan lo mismo: lo que VINCI compra hoy rinde el coste o algo más (Airports 6,9 %, Cobra IS 8,3 % después de impuestos [cálculo]) y el peor año del ROIC propio fue 5,93 %. Salto del año 11 ≈ 1,5 puntos. · Lo sustituiría: múltiplos de compra con retornos ≥ r, hacia 0,07.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N145 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6609,8 +6609,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 145 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N145 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N145); clase «hipotesis» según la fase («fundamentada»); valor None → 0.06 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6621,16 +6621,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "convencion",
+   "clase": "hipotesis",
    "valor_modelo": 0.01,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "V-g_MALO",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: terminal entre el 1 % y el 3 % por convención, y por debajo de r. En el malo, después de 2036 queda un grupo sin autopistas francesas que tiene que seguir comprando concesiones finitas, así que pongo el mínimo. «If a thing can't go on forever, it will eventually stop» (PCA p.416; HIM). Lo sustituiría: por 0,015 si los aeropuertos en propiedad plena pesaran más en el resto.",
-    "alternativas": "Lo sustituiría:por 0,015 si los aeropuertos en propiedad plena pesaran más en el resto.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N61 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "H-g_MALO",
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,01 → mantiene (misma_evidencia): tras 2036 queda un grupo que recompra concesiones finitas.\nReferencia mecánica: 0,015 (NORMAL_ref − 0,01). Decisión: 0,01. Desviación: −0,005 porque las concesiones de aeropuertos también vencen (Belgrado 2045, Lyon 2047, OMA 2048) y en el MALO se sustituyen comprando caro: crecer exige recomprar la base.\nApoyo: vencimientos (URD 2025 PDF p. 382); Francia 41,3 % de las ventas (PDF p. 136); bajo rf (C57) y la tasa del motor (Diagnóstico V6 C15).\nLo sustituiría: concesiones vencidas sustituidas a retornos ≥ r, hacia 0,015.",
+    "alternativas": "Referencia mecánica: 0,015 (NORMAL_ref − 0,01). Decisión: 0,01. Desviación: −0,005 porque las concesiones de aeropuertos también vencen (Belgrado 2045, Lyon 2047, OMA 2048) y en el MALO se sustituyen comprando caro: crecer exige recomprar la base. · Lo sustituiría: concesiones vencidas sustituidas a retornos ≥ r, hacia 0,015.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N61 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6638,8 +6638,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N61 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N61 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N61); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6650,16 +6650,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "convencion",
-   "valor_modelo": 0.2,
+   "clase": "hipotesis",
+   "valor_modelo": 0.25,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "V-prob_MALO",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: uso el 20/60/20 de la convención. No subo la probabilidad del malo aunque Francia ya haya creado dos impuestos: ese riesgo está dentro del crecimiento del malo, y subir también la probabilidad sería castigarlo dos veces. No ajusto las probabilidades a la cotización. Lo sustituiría: por 0,3 si se aprueba un tercer gravamen o una revisión unilateral de los contratos.",
-    "alternativas": "Lo sustituiría:por 0,3 si se aprueba un tercer gravamen o una revisión unilateral de los contratos.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N62 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "H-prob_MALO",
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,2 → cambia (evidencia_nueva): la vara de la sección 1 bis y el capital por negocio muestran que lo que sustituye a las autopistas rinde menos que r.\nReferencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,25. Desviación: +0,05 porque el mecanismo del MALO es la frecuencia observada: Airports 6,9 % y Cobra IS 8,3 % después de impuestos [cálculo] frente a r 9 %, y dos cargas nuevas del Estado en dos años. Las palancas dicen cuánto; la probabilidad, cuán probable.\nApoyo: URD 2025 PDF p. 136, 141, 138, 143; URD 2024 PDF p. 134.\nLo sustituiría: retornos publicados de las compras ≥ r o una prórroga, vuelta a 0,2.",
+    "alternativas": "Referencia mecánica: 0,2 (convención 0,2/0,6/0,2). Decisión: 0,25. Desviación: +0,05 porque el mecanismo del MALO es la frecuencia observada: Airports 6,9 % y Cobra IS 8,3 % después de impuestos [cálculo] frente a r 9 %, y dos cargas nuevas del Estado en dos años. Las palancas dicen cuánto; la probabilidad, cuán probable. · Lo sustituiría: retornos publicados de las compras ≥ r o una prórroga, vuelta a 0,2.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N62 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6667,8 +6667,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N62 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N62 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N62); clase «hipotesis» según la fase («fundamentada»); valor 0.2 → 0.25 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6680,15 +6680,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.04,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_NORMAL",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 146 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,115 (CAGR 5 años, C46, dentro de [Q1, Q3]). Decisión: 0,04. Desviación: −0,075 porque C46 sale del valle del Covid y de 11.689 de compras (filas 13 y 28): no es repetible en una empresa Madura. Componentes: orgánico ≈2,5 % y compras pequeñas ≈1,5 %.\nApoyo: orgánico 2,6 % y perímetro +2,5 % en 2025 (URD 2025 PDF p. 130); +1,3 % comparable en el semestre (semestral PDF p. 7); Energy Solutions +5,8 % orgánico (URD 2025 PDF p. 134); C45 = 6,5 %. «Better roughly right than precisely wrong» (PCA p.451; HIM).\nLo sustituiría: dos años de orgánico ≥ 4 %, hacia 0,05; uno por debajo del 1 %, hacia 0,03.",
+    "alternativas": "Referencia mecánica: 0,115 (CAGR 5 años, C46, dentro de [Q1, Q3]). Decisión: 0,04. Desviación: −0,075 porque C46 sale del valle del Covid y de 11.689 de compras (filas 13 y 28): no es repetible en una empresa Madura. Componentes: orgánico ≈2,5 % y compras pequeñas ≈1,5 %. · Lo sustituiría: dos años de orgánico ≥ 4 %, hacia 0,05; uno por debajo del 1 %, hacia 0,03.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N146 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6696,8 +6696,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 146 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N146 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N146); clase «hipotesis» según la fase («fundamentada»); valor None → 0.04 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6709,15 +6709,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.09,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_NORMAL",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 147 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,105 (m0 = media del ciclo, C49). Decisión: 0,09. Desviación: −0,015 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,098–0,101 con el resto al 8,7 % (8,5 % y 8,9 % sin Autoroutes [cálculo]). Y resto el exceso de los minoritarios: 805 ÷ (0,09 − 0,02) − 3.576 ≈ 7,9 mil M, −0,008.\nApoyo: URD 2025 PDF p. 136, 140, 382; minoritarios 3.576 (PDF p. 399); dividendos 805 y 902 (PDF p. 358); Historia L6, L7, C65.\nLo sustituiría: el resultado atribuido a los minoritarios: si es menor que los dividendos, hacia 0,095.",
+    "alternativas": "Referencia mecánica: 0,105 (m0 = media del ciclo, C49). Decisión: 0,09. Desviación: −0,015 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,098–0,101 con el resto al 8,7 % (8,5 % y 8,9 % sin Autoroutes [cálculo]). Y resto el exceso de los minoritarios: 805 ÷ (0,09 − 0,02) − 3.576 ≈ 7,9 mil M, −0,008. · Lo sustituiría: el resultado atribuido a los minoritarios: si es menor que los dividendos, hacia 0,095.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N147 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6725,8 +6725,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 147 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N147 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N147); clase «hipotesis» según la fase («fundamentada»); valor None → 0.09 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6738,15 +6738,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 1.5,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_NORMAL",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 148 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 2,3 (Historia C53, sin tope). Decisión: 1,5. Desviación: −0,8 porque C53 lleva ventas de recuperación y subidas de tarifa sin capital. Mezcla de 2023–2025: 77 % compras (5.795 de 7.522, filas 13 y 31) al 6,9 % de Airports y 23 % propio al 16,1 % de Energy Solutions [cálculo] ≈ 9 %: S2C ≈ 0,09 ÷ (0,09 × 0,68) ≈ 1,5. Rentabilidad marginal 9,2 %, en torno a r, como dice la historia NORMAL.\nApoyo: Historia C53, filas 13 y 31; URD 2025 PDF p. 136, 141; S2C medio sin arrendamientos 1,486 (datos_v63 sección 1 bis).\nLo sustituiría: retornos publicados de las compras de 2024 por encima de r, hacia 1,7; otro año como 2024, hacia 1,3.",
+    "alternativas": "Referencia mecánica: 2,3 (Historia C53, sin tope). Decisión: 1,5. Desviación: −0,8 porque C53 lleva ventas de recuperación y subidas de tarifa sin capital. Mezcla de 2023–2025: 77 % compras (5.795 de 7.522, filas 13 y 31) al 6,9 % de Airports y 23 % propio al 16,1 % de Energy Solutions [cálculo] ≈ 9 %: S2C ≈ 0,09 ÷ (0,09 × 0,68) ≈ 1,5. Rentabilidad marginal 9,2 %, en torno a r, como dice la historia NORMAL. · Lo sustituiría: retornos publicados de las compras de 2024 por encima de r, hacia 1,7; otro año como 2024, hacia 1,3.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N148 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6754,8 +6754,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 148 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N148 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N148); clase «hipotesis» según la fase («fundamentada»); valor None → 1.5 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6767,15 +6767,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.07,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_NORMAL",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 149 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,06 (tasa del motor, 6,41 %). Decisión: 0,07. Desviación: +0,01 porque sin foso (C18 = No) el capital nuevo converge al retorno del sector, la referencia preferida (CV p. 10; E2): ROIC medio del sector 7,19 % (H18). Por encima de g y de la tasa del motor, por debajo de r. Salto del año 11 ≈ 2,2 puntos (9,2 % → 7 %).\nApoyo: Palancas H18; Historia C55; Ebit y capital empleado por negocio (URD 2025 PDF p. 136, 141); Análisis C18.\nLo sustituiría: compras con retornos publicados ≥ 9 %, hacia 0,08; deterioros, hacia 0,06.",
+    "alternativas": "Referencia mecánica: 0,06 (tasa del motor, 6,41 %). Decisión: 0,07. Desviación: +0,01 porque sin foso (C18 = No) el capital nuevo converge al retorno del sector, la referencia preferida (CV p. 10; E2): ROIC medio del sector 7,19 % (H18). Por encima de g y de la tasa del motor, por debajo de r. Salto del año 11 ≈ 2,2 puntos (9,2 % → 7 %). · Lo sustituiría: compras con retornos publicados ≥ 9 %, hacia 0,08; deterioros, hacia 0,06.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N149 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6783,8 +6783,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 149 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N149 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N149); clase «hipotesis» según la fase («fundamentada»); valor None → 0.07 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6795,16 +6795,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "convencion",
+   "clase": "hipotesis",
    "valor_modelo": 0.02,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "V-g_NORMAL",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: un 2 %, que es más o menos inflación a largo plazo. Gatwick y Edimburgo son de plena propiedad, las concesiones aeroportuarias llegan hasta 2080 y Energy Solutions crece con poco capital. No lo bajo más porque el riesgo de vencimiento ya está en C67 y no lo castigo dos veces (convención). Lo sustituiría: por 0,015 si a 2036 la mayoría del Ebit siguiera viniendo de concesiones con fecha cercana.",
-    "alternativas": "Lo sustituiría:por 0,015 si a 2036 la mayoría del Ebit siguiera viniendo de concesiones con fecha cercana.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N66 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "H-g_NORMAL",
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,02 → mantiene (misma_evidencia): inflación a largo plazo, sin crecimiento real del terminal.\nReferencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque el grupo del terminal crece con la inflación de Europa, donde vende el 80 %, y parte de su base son concesiones con fecha (2045–2080) que hay que renovar. Por debajo de rf (CV p. 5; E1).\nApoyo: vencimientos (URD 2025 PDF p. 382); reparto geográfico (PDF p. 136); Análisis C57 = 0,0347.\nLo sustituiría: una prórroga larga o concesiones nuevas a 2060–2080 con peso mayoritario, hacia 0,025.",
+    "alternativas": "Referencia mecánica: 0,025 (mín(0,025; rf)). Decisión: 0,02. Desviación: −0,005 porque el grupo del terminal crece con la inflación de Europa, donde vende el 80 %, y parte de su base son concesiones con fecha (2045–2080) que hay que renovar. Por debajo de rf (CV p. 5; E1). · Lo sustituiría: una prórroga larga o concesiones nuevas a 2060–2080 con peso mayoritario, hacia 0,025.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N66 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6812,8 +6812,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N66 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N66 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N66); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6830,10 +6830,10 @@
    "derivacion": null,
    "hipotesis": {
     "identificacion": "V-prob_NORMAL",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: el 0,6 de la convención. El normal es el contrato tal cual, que es el caso más probable sin información sobre prórrogas. Suma con B69 y D69 = 1. Lo sustituiría: por 0,5 si sube el malo.",
-    "alternativas": "Lo sustituiría:por 0,5 si sube el malo.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N67 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "fundamento": "[Clase: convención] [Confianza: media]\nHereda: 0,6 → mantiene (misma_evidencia): el NORMAL es el contrato tal cual, el caso más probable.\nReferencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque los vencimientos están escritos y el NORMAL los cumple; con 0,25 y 0,15 suma 1.\nApoyo: vencimientos de las concesiones (URD 2025 PDF p. 382).\nLo sustituiría: una tercera carga del Estado o una revisión de los contratos, hacia 0,5.",
+    "alternativas": "Referencia mecánica: 0,6 (convención). Decisión: 0,6. Desviación: ninguna porque los vencimientos están escritos y el NORMAL los cumple; con 0,25 y 0,15 suma 1. · Lo sustituiría: una tercera carga del Estado o una revisión de los contratos, hacia 0,5.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N67 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6841,8 +6841,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N67 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N67 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N67); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6854,15 +6854,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.065,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-crec_BUENO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 150 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,155 (C46 + σ, con tope en Q3). Decisión: 0,065. Desviación: −0,09 porque la referencia extrapola el rebote; mi BUENO es Energy Solutions ≈7 % sobre el 40 %, concesiones nuevas ≈6 % sobre el 16 %, Construcción ≈1,5 % y compras ≈2 %: la tasa de tres años, C45.\nApoyo: Energy Solutions +6,8 % y cartera de 69,8 a 76,8 mil M (semestral PDF p. 9, 16); OMA a inflación + 6,9 % y segunda pista de Gatwick (URD 2025 PDF p. 132); Safeway y A154–A120 (semestral PDF p. 4); ventas por negocio (URD 2025 PDF p. 134).\nLo sustituiría: Energy Solutions por encima del 10 % dos años, hacia 0,08; contratación a la baja, hacia 0,05.",
+    "alternativas": "Referencia mecánica: 0,155 (C46 + σ, con tope en Q3). Decisión: 0,065. Desviación: −0,09 porque la referencia extrapola el rebote; mi BUENO es Energy Solutions ≈7 % sobre el 40 %, concesiones nuevas ≈6 % sobre el 16 %, Construcción ≈1,5 % y compras ≈2 %: la tasa de tres años, C45. · Lo sustituiría: Energy Solutions por encima del 10 % dos años, hacia 0,08; contratación a la baja, hacia 0,05.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N150 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6870,8 +6870,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 150 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N150 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N150); clase «hipotesis» según la fase («fundamentada»); valor None → 0.065 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6883,15 +6883,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.1,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-margen_BUENO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 151 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,105 (máx(m0, mín(C51, Q3))). Decisión: 0,10. Desviación: −0,005 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,105–0,108 con el resto al 10 %. Y resto el exceso de los minoritarios, mayor aquí porque crecen sus aeropuertos: 805 ÷ (0,09 − 0,025) − 3.576 ≈ 8,8 mil M, −0,007.\nApoyo: márgenes por negocio (URD 2025 PDF p. 136); OMA y Gatwick (PDF p. 132); vencimientos (PDF p. 382); minoritarios (PDF p. 399); dividendos 805 (PDF p. 358); C51, C65; Palancas I15.\nLo sustituiría: el resultado atribuido a los minoritarios; Energy Solutions por encima del 8,5 %, hacia 0,105.",
+    "alternativas": "Referencia mecánica: 0,105 (máx(m0, mín(C51, Q3))). Decisión: 0,10. Desviación: −0,005 porque es un margen equivalente: la hoja aplica un margen desde el año 5 para siempre y las autopistas (Ebit 3.311, 49,2 %) vencen en 2032–2036; sumo al resto del grupo su caja hasta el vencimiento (≈3,0 mil M al año, ≈23 mil M a la tasa del motor) [cálculo, réplica aproximada]: 0,105–0,108 con el resto al 10 %. Y resto el exceso de los minoritarios, mayor aquí porque crecen sus aeropuertos: 805 ÷ (0,09 − 0,025) − 3.576 ≈ 8,8 mil M, −0,007. · Lo sustituiría: el resultado atribuido a los minoritarios; Energy Solutions por encima del 8,5 %, hacia 0,105.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N151 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6899,8 +6899,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 151 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N151 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N151); clase «hipotesis» según la fase («fundamentada»); valor None → 0.1 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6912,15 +6912,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 2.3,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-s2c_BUENO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 152 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 2,9 (1,25 × NORMAL_ref). Decisión: 2,3. Desviación: −0,6 porque uso C53, el marginal de cinco años, con Energy Solutions componiendo (16,1 % después de impuestos sobre su capital [cálculo]); no llego a 2,9 porque el BUENO lleva concesiones intensivas en capital (Gatwick, Safeway). Rentabilidad marginal 15,6 %.\nApoyo: Historia C53, C55; ventas y capital empleado por negocio (URD 2025 PDF p. 134, 136, 141); proyectos (URD 2025 PDF p. 132; semestral PDF p. 4).\nLo sustituiría: crecimiento sobre todo de concesiones, hacia 1,7; Energy Solutions al 10 % con el mismo capital, hacia 2,6.",
+    "alternativas": "Referencia mecánica: 2,9 (1,25 × NORMAL_ref). Decisión: 2,3. Desviación: −0,6 porque uso C53, el marginal de cinco años, con Energy Solutions componiendo (16,1 % después de impuestos sobre su capital [cálculo]); no llego a 2,9 porque el BUENO lleva concesiones intensivas en capital (Gatwick, Safeway). Rentabilidad marginal 15,6 %. · Lo sustituiría: crecimiento sobre todo de concesiones, hacia 1,7; Energy Solutions al 10 % con el mismo capital, hacia 2,6.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N152 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6928,8 +6928,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 152 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N152 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N152); clase «hipotesis» según la fase («fundamentada»); valor None → 2.3 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6941,15 +6941,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0.1,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-roic_BUENO",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 153 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,11 (mín(C55, C56 + 0,03)). Decisión: 0,10. Desviación: −0,01 porque sin foso no sostengo para siempre C55 (10,5 %), que llevan las autopistas que vencen (13,6 % después de impuestos [cálculo]); r + 1 punto por aeropuertos en propiedad y concesiones largas (MR p. 63; E2). Salto del año 11 ≈ 5,6 puntos (15,6 % → 10 %): pierde la ventaja en el año 11 (G8 justificada).\nApoyo: Historia C55; datos_v63 sección 1 bis; URD 2025 PDF p. 136, 141, 382; Análisis C18.\nLo sustituiría: retornos publicados de Gatwick por encima del 11 % durante años, hacia 0,11; sin ellos, hacia 0,09.",
+    "alternativas": "Referencia mecánica: 0,11 (mín(C55, C56 + 0,03)). Decisión: 0,10. Desviación: −0,01 porque sin foso no sostengo para siempre C55 (10,5 %), que llevan las autopistas que vencen (13,6 % después de impuestos [cálculo]); r + 1 punto por aeropuertos en propiedad y concesiones largas (MR p. 63; E2). Salto del año 11 ≈ 5,6 puntos (15,6 % → 10 %): pierde la ventaja en el año 11 (G8 justificada). · Lo sustituiría: retornos publicados de Gatwick por encima del 11 % durante años, hacia 0,11; sin ellos, hacia 0,09.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N153 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6957,8 +6957,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 153 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N153 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N153); clase «hipotesis» según la fase («fundamentada»); valor None → 0.1 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -6969,16 +6969,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "convencion",
+   "clase": "hipotesis",
    "valor_modelo": 0.025,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "V-g_BUENO",
-    "fundamento": "[Clase: convención] [Confianza: baja]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: un 2,5 %, por debajo del techo del 3 % y de r. Supone que la cartera de concesiones se renueva con retorno suficiente. Los grandes historiales acaban menguando: «come to grief on a finite earth» (PCA p.394; HIM). Lo sustituiría: por 0,02 si no veo historial de reposición rentable de concesiones.",
-    "alternativas": "Lo sustituiría:por 0,02 si no veo historial de reposición rentable de concesiones.",
-    "limites": "Confianza declarada: baja. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N71 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "H-g_BUENO",
+    "fundamento": "[Clase: fundamentada] [Confianza: baja]\nHereda: 0,025 → mantiene (misma_evidencia): la cartera se renueva con retorno, pero sigue siendo finita.\nReferencia mecánica: 0,03 (mín(NORMAL_ref + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque las concesiones siguen teniendo fecha y «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM).\nApoyo: concesiones a 2045–2086 y aeropuertos en plena propiedad (URD 2025 PDF p. 382); Safeway 2048–2058 (semestral PDF p. 4); Análisis C57.\nLo sustituiría: una década de renovaciones a retornos > r, hacia 0,03.",
+    "alternativas": "Referencia mecánica: 0,03 (mín(NORMAL_ref + 0,005; rf; 0,03)). Decisión: 0,025. Desviación: −0,005 porque las concesiones siguen teniendo fecha y «most big businesses eventually fall into mediocrity or worse» (AIWTK p.140; HIM). · Lo sustituiría: una década de renovaciones a retornos > r, hacia 0,03.",
+    "limites": "Sin rango declarado. Confianza declarada: baja. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N71 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -6986,8 +6986,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N71 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N71 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N71); clase «hipotesis» según la fase («fundamentada») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -6998,16 +6998,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "convencion",
-   "valor_modelo": 0.2,
+   "clase": "hipotesis",
+   "valor_modelo": 0.15,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "V-prob_BUENO",
-    "fundamento": "[Clase: convención] [Confianza: media]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: el 0,2 de la convención. No veo una razón concreta para pensar que una prórroga en Francia sea más o menos probable de lo normal, y el extracto no da ninguna. Lo sustituiría: por 0,3 si se anunciara una negociación de prórroga a cambio de inversión.",
-    "alternativas": "Lo sustituiría:por 0,3 si se anunciara una negociación de prórroga a cambio de inversión.",
-    "limites": "Confianza declarada: media. Es juicio de la etapa 1 de la persona responsable (clase declarada «convención»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N72 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "H-prob_BUENO",
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: 0,2 → cambia (evidencia_nueva): no hay historial publicado de sustituciones que rindan más que r.\nReferencia mecánica: 0,2 (convención). Decisión: 0,15. Desviación: −0,05 porque el BUENO exige sustituir las autopistas por encima de r y los múltiplos de compra no se publican; Airports rinde 6,9 % después de impuestos [cálculo]. Sigue por debajo del MALO.\nApoyo: precios de compras sin múltiplos (URD 2025 PDF p. 370); Ebit y capital empleado (URD 2025 PDF p. 136, 141).\nLo sustituiría: retornos publicados de Gatwick u OMA por encima de r, vuelta a 0,2.",
+    "alternativas": "Referencia mecánica: 0,2 (convención). Decisión: 0,15. Desviación: −0,05 porque el BUENO exige sustituir las autopistas por encima de r y los múltiplos de compra no se publican; Airports rinde 6,9 % después de impuestos [cálculo]. Sigue por debajo del MALO. · Lo sustituiría: retornos publicados de Gatwick u OMA por encima de r, vuelta a 0,2.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Decisión del inversor), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N72 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7015,8 +7015,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N72 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N72 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N72); clase «hipotesis» según la fase («fundamentada»); valor 0.2 → 0.15 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -7028,15 +7028,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": 0,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-p_quiebra",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 154 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nReferencia mecánica: 0,05 (disparador: Historia C64 = 39.561 > 3 × FCF base 4.419). Decisión: 0. Desviación: −0,05 porque la deuda está en las concesiones y se devuelve con su caja; el disparador la compara con un flujo ya después de intereses. Sin causa de liquidez; el riesgo es de reinversión y está en el MALO.\nApoyo: deuda neta 1,4 veces el Ebitda, caja neta fuera de Concesiones (URD 2025 PDF p. 141); A−/A3 y ratios cumplidos (PDF p. 405); C33 = 1,85; C34 = Sí. «Three things ruin people: drugs, liquor, and leverage» (TCI p.68; HIM).\nLo sustituiría: deuda neta sobre Ebitda por encima de 3 o pérdida del grado de inversión, hacia 0,05.",
+    "alternativas": "Referencia mecánica: 0,05 (disparador: Historia C64 = 39.561 > 3 × FCF base 4.419). Decisión: 0. Desviación: −0,05 porque la deuda está en las concesiones y se devuelve con su caja; el disparador la compara con un flujo ya después de intereses. Sin causa de liquidez; el riesgo es de reinversión y está en el MALO. · Lo sustituiría: deuda neta sobre Ebitda por encima de 3 o pérdida del grado de inversión, hacia 0,05.",
+    "limites": "Sin rango declarado. Confianza declarada: media. Es juicio del inversor (Juicio del inversor / V6), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N154 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7044,8 +7044,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 154 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N154 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N154); clase «hipotesis» según la fase («fundamentada»); valor None → 0 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -7056,16 +7056,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": null,
+   "clase": "convencion",
+   "valor_modelo": 0,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-recuperacion",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 155 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "identificacion": "V-recuperacion",
+    "fundamento": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nReferencia mecánica: 0 (convención). Decisión: 0. Desviación: ninguna porque C22 = 0 y, si hubiera quiebra, el accionista no recuperaría nada tras 36.712 de deuda bruta.\nApoyo: deuda financiera bruta 36.712 (URD 2025 PDF p. 404; Historia L22).\nLo sustituiría: nada mientras C22 = 0.",
+    "alternativas": "Referencia mecánica: 0 (convención). Decisión: 0. Desviación: ninguna porque C22 = 0 y, si hubiera quiebra, el accionista no recuperaría nada tras 36.712 de deuda bruta. · Lo sustituiría: nada mientras C22 = 0.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N155 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7073,8 +7073,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 155 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N155 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N155); clase «convencion» según la fase («convención»); valor None → 0 · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -7085,16 +7085,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": 0,
+   "clase": "convencion",
+   "valor_modelo": null,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-exceso_caja",
-    "fundamento": "[Clase: fundamentada] [Confianza: alta]\nHeredado de la etapa 1 de la persona responsable (la fase A o B lo reescribe): Apoyo: C53 da 14.998 de caja; el extracto da 17.254 de caja y equivalentes y 15.475 de caja neta gestionada, que no coinciden exactos y lo dejo dicho. Esa caja es operativa: está repartida entre Concesiones (5.647), Energy Solutions (4.892) y Construcción (5.190), y en energía y construcción leo que refleja en buena parte el circulante negativo de los cobros de fin de año. La deuda bruta es de 36.712 y la plantilla no la resta. En la tabla de la empresa los intereses netos (1.318 pagados en 2025) van dentro del flujo operativo, y leo que en C46 también, porque C48 es solo 89; sumar la caja los contaría dos veces. Además, el dividendo final propuesto (≈2.193) ya está comprometido. «Excess cash is an advantage, not a disadvantage» (TCI p.141; HIM), pero aquí no sobra. Lo sustituiría: por una cifra positiva solo si la caja neta gestionada superase la deuda bruta con vencimiento a menos de dos años.",
-    "alternativas": "Lo sustituiría:por una cifra positiva solo si la caja neta gestionada superase la deuda bruta con vencimiento a menos de dos años.",
-    "limites": "Confianza declarada: alta. Es juicio de la etapa 1 de la persona responsable (clase declarada «fundamentada»), heredado en el libro, no un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro. Si una fase lo reescribe, este fundamento deja de describir la celda.",
-    "procedencia": "Control maestro!N82 del libro (Vinci_v63_datos.xlsx), heredado de la etapa 1 (Vinci_evaluada.xlsx)"
+    "identificacion": "V-exceso_caja",
+    "fundamento": "[Clase: convención] [Confianza: alta]\nHereda: 0 → cambia (definicion_o_medicion_distinta): con el motor B la celda no se informa.\nReferencia mecánica: vacío en B y C (regla del inversor v1.2). Decisión: vacío. Desviación: ninguna porque el motor B ya resta deuda, arrendamientos, pensiones y minoritarios menos caja (pasivos netos 27.052 = C64 + C65 − C66); sumar caja aquí la contaría dos veces.\nApoyo: Análisis C62 (motor B); Historia C64 = 39.561, C65 = 4.745, C66 = 17.254; Análisis C53 = 14.998.\nLo sustituiría: nada mientras el motor sea B. [Evidencia preparada, Control maestro!M82: Evidencia (decisión del inversor; vacío = 0). Caja 14.998 (30/06/26) / 17.254 (31/12/25). Caja restringida no revelada; Concesiones ≈1,7 bn en project finance; 7,2 bn de caja en filiales no centralizada. Circulante negativo: −9,2 bn sin provisiones / −17,6 bn con provisiones. VINCI es deudor neto (NFD 22,5 bn). La caja de Energía y Construcción es contrapartida de anticipos de clientes, ya neteados en el capital empleado.]",
+    "alternativas": "Referencia mecánica: vacío en B y C (regla del inversor v1.2). Decisión: vacío. Desviación: ninguna porque el motor B ya resta deuda, arrendamientos, pensiones y minoritarios menos caja (pasivos netos 27.052 = C64 + C65 − C66); sumar caja aquí la contaría dos veces. · Lo sustituiría: nada mientras el motor sea B.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / balance), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N82 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7102,8 +7102,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!N82 del libro",
-    "nota": "Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
+    "fuente_examinada": "Control maestro!N82 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N82); clase «convencion» según la fase («convención»); valor 0 → None · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Hipótesis del modelo con valor heredado de la etapa 1: se registra el fundamento que guarda el libro",
     "vinculo": null
    },
    "incidencia": null
@@ -7114,16 +7114,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
-   "valor_modelo": null,
+   "clase": "convencion",
+   "valor_modelo": "No aplica",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-naturaleza_fcf",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 166 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "identificacion": "V-naturaleza_fcf",
+    "fundamento": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: el FCF base es positivo (C52 = 4.419,33) y el motor elegido es el B; la celda solo actúa con FCF base ≤ 0 en el motor A. El FCF sin circulante ha sido positivo los diez años (Historia filas 35 y 14; mínimo 1.339 en 2020) [cálculo].\nLo sustituiría: por «Transitorio» solo si se volviera al motor A con un FCF base ≤ 0.",
+    "alternativas": "Lo sustituiría: por «Transitorio» solo si se volviera al motor A con un FCF base ≤ 0.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N166 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7131,8 +7131,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 166 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N166 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N166); clase «convencion» según la fase («convención»); valor None → 'No aplica' · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -7143,16 +7143,16 @@
    "ambito": "calculo",
    "uso": null,
    "material": true,
-   "clase": "hipotesis",
+   "clase": "convencion",
    "valor_modelo": null,
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
-    "identificacion": "H-fcf_normalizado",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 167 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "identificacion": "V-fcf_normalizado",
+    "fundamento": "[Clase: convención] [Confianza: alta]\nHereda: nueva en V6.3.\nReferencia mecánica: no aplica (C43 = No aplica). Decisión: vacío. Desviación: sin referencia porque el FCF base es positivo (C52 = 4.419) y la fase A no lo declaró transitorio; además el motor es B.\nApoyo: Análisis C52 = 4.419,33; Palancas C43; Análisis C62.\nLo sustituiría: un FCF base ≤ 0 declarado transitorio o extraordinario por la fase A.",
+    "alternativas": "Referencia mecánica: no aplica (C43 = No aplica). Decisión: vacío. Desviación: sin referencia porque el FCF base es positivo (C52 = 4.419) y la fase A no lo declaró transitorio; además el motor es B. · Lo sustituiría: un FCF base ≤ 0 declarado transitorio o extraordinario por la fase A.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1 · documentar el cálculo), clase declarada «convención»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N167 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7160,8 +7160,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 167 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N167 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase B (celdas_B.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N167); clase «convencion» según la fase («convención») · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -7173,15 +7173,15 @@
    "uso": null,
    "material": true,
    "clase": "hipotesis",
-   "valor_modelo": null,
+   "valor_modelo": "Ninguna",
    "fuente": {},
    "derivacion": null,
    "hipotesis": {
     "identificacion": "H-causa_desviacion",
-    "fundamento": "SIN HIPÓTESIS TODAVÍA (relevo de la fase A sin contestar): la celda está vacía en el libro y la escribe el personaje en sus fases. Este registro no declara ningún fundamento para ella; la entrada solo existe para que la cobertura sea completa y quedará desactualizada en cuanto una fase escriba la celda.",
-    "alternativas": "Las que declare la fase que la escriba.",
-    "limites": "Sin valor ni fundamento: no cuenta como comprobada y bloquea la aptitud por entradas hasta que la fase la escriba y se registre su fundamento.",
-    "procedencia": "Control maestro!fila 170 del libro (Vinci_v63_datos.xlsx): vacía antes de la fase A"
+    "fundamento": "[Clase: fundamentada] [Confianza: alta]\nHereda: nueva en V6.3.\nApoyo: la conciliación no lo pide: C41 = 107,05 × 555,967 = 59.516,3, producto exacto, y V22, V26 y V27 están en OK (datos_v63 §5). V28 avisa de fechas separadas más de 90 días (precio del 9-oct-2026, acciones a 31-dic-2025), desalineación declarada (Z-ACC) que no crea diferencia; con las 551,55 M acciones a 30-sep-2026 sería 59.043 (−0,8 %, dentro de la tolerancia del 5 %).\nLo sustituiría: por «Fechas distintas» si cambiara la fecha de las acciones y la diferencia superara la tolerancia.",
+    "alternativas": "Lo sustituiría: por «Fechas distintas» si cambiara la fecha de las acciones y la diferencia superara la tolerancia.",
+    "limites": "Sin rango declarado. Confianza declarada: alta. Es juicio del inversor (Juicio del inversor / V6.1), clase declarada «fundamentada»: no es un dato publicado ni se demuestra con una firma; las cifras y páginas de apoyo no se contrastan en este registro (apoyan el juicio, no son entradas). Si una fase lo reescribe, este fundamento deja de describir la celda.",
+    "procedencia": "Control maestro!N170 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)"
    },
    "justificacion": null,
    "comprobacion": {
@@ -7189,8 +7189,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!fila 170 del libro (vacía)",
-    "nota": "Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
+    "fuente_examinada": "Control maestro!N170 del libro (Vinci_v63_evaluada.xlsx); escrito en la fase A (celdas_A.json)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] texto vigente de la fase en vinci_b (Control maestro!N170); clase «hipotesis» según la fase («fundamentada»); valor None → 'Ninguna' · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Celda de hipótesis vacía antes de la fase A: sin fundamento que registrar",
     "vinculo": null
    },
    "incidencia": null
@@ -7376,10 +7376,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2022.txt [PDF PAGE 168]",
-    "nota": "Serie F1 da_rou 2021 de motor_a_f1.json (amortización de los derechos de uso de 2021 (la misma cifra en el URD 2021, PDF p. 156); dentro de la D&A total de la fila 8)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_rou 2021 de motor_a_f1.json (amortización de los derechos de uso de 2021 (la misma cifra en el URD 2021, PDF p. 156); dentro de la D&A total de la fila 8)",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€605 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!I86",
@@ -7418,10 +7418,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2023.txt [PDF PAGE 171]",
-    "nota": "Serie F1 da_rou 2022 de motor_a_f1.json (amortización de los derechos de uso de 2022 (la misma cifra en el URD 2022, PDF p. 168))",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_rou 2022 de motor_a_f1.json (amortización de los derechos de uso de 2022 (la misma cifra en el URD 2022, PDF p. 168))",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€623 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!J86",
@@ -7460,10 +7460,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2024.txt [PDF PAGE 350]",
-    "nota": "Serie F1 da_rou 2023 de motor_a_f1.json (amortización de los derechos de uso de 2023 (la misma cifra en el URD 2023, PDF p. 171))",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_rou 2023 de motor_a_f1.json (amortización de los derechos de uso de 2023 (la misma cifra en el URD 2023, PDF p. 171))",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€668 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!K86",
@@ -7502,10 +7502,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2025.txt [PDF PAGE 372]",
-    "nota": "Serie F1 da_rou 2024 de motor_a_f1.json (amortización de los derechos de uso de 2024 (la misma cifra en el URD 2024, PDF p. 350))",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_rou 2024 de motor_a_f1.json (amortización de los derechos de uso de 2024 (la misma cifra en el URD 2024, PDF p. 350))",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€714 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!L86",
@@ -7682,10 +7682,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2021.txt [PDF PAGE 150]",
-    "nota": "Cero por lectura de la declaración F1 (series.da_ppa.2021), pendiente de revisor. La revisión del registro proponía cero_comprobado; con esa clase la cita, que no contiene un 0, daría discrepancia",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión no_aplicable frente al cero por lectura de motor_a_f1.json; justificación sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Cero por lectura de la declaración F1 (series.da_ppa.2021), pendiente de revisor. La revisión del registro proponía cero_comprobado; con esa clase la cita, que no contiene un 0, daría discrepancia",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR: motor_a_f1.json declara la PPA de 2021 como cero por lectura (series.da_ppa.2021, F1-SERIES-CERO, pendiente de revisor); en el registro va como no_aplicable porque la página no imprime un 0 de la partida (un cero_comprobado exige la cifra en la cita). La compra de Cobra IS se cerró el 31-dic-2021: no hubo amortización de su PPA ese año. Límite: la frase no prueba por sí sola que no haya otras PPA."
   },
   {
    "celda": "Historia!I87",
@@ -7766,10 +7766,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2024.txt [PDF PAGE 350]",
-    "nota": "Serie F1 da_ppa 2023 de motor_a_f1.json (amortización de los intangibles de la asignación del precio de Cobra IS de 2023. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones c)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_ppa 2023 de motor_a_f1.json (amortización de los intangibles de la asignación del precio de Cobra IS de 2023. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones c)",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€128 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!K87",
@@ -7808,10 +7808,10 @@
     "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2025.txt [PDF PAGE 372]",
-    "nota": "Serie F1 da_ppa 2024 de motor_a_f1.json (amortización de los intangibles de la asignación del precio de Cobra IS de 2024. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones c)",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: documentada la decisión de citar el URD del propio ejercicio (R415-SIGNO); cifra, cita y fuente sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Serie F1 da_ppa 2024 de motor_a_f1.json (amortización de los intangibles de la asignación del precio de Cobra IS de 2024. LÍMITE: es la única amortización de intangibles de combinaciones de negocios que VINCI publica por separado (marcas, cartera y relaciones c)",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "DECISIÓN DEL CONSTRUCTOR (registro_entradas_vinci_b.py): se cita el URD del propio ejercicio y no el comparativo del informe siguiente que declara motor_a_f1.json, porque ese comparativo publica la cifra entre paréntesis dentro de una frase («(€108 million…») y el contraste de signo (R415-SIGNO) la lee como «signo indeterminado» (comprobado el 2026-11-20 con _cita_cifra): la entrada quedaría pendiente para siempre. Las dos fuentes dan la misma cifra (ver «reexpresado»); el revisor comprueba las dos."
   },
   {
    "celda": "Historia!L87",
@@ -7989,11 +7989,11 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!L–N34 del libro",
-    "nota": "Clase null en el registro del extractor (SIN RESOLVER: Veredicto de texto de la etapa 1 («No», datos_v63.md). Sin resolver.) → convención con el fundamento de la etapa 1 (revisión del registro; precedente Jumbo)",
+    "fuente_examinada": "texto/vinci-hy-interim-fs-2026.txt [PDF PAGE 1, 3]",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia con la fuente precisa del semestral 2026 (p. 1 y 3) que reproduce el apoyo; clase y fundamento sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Clase null en el registro del extractor (SIN RESOLVER: Veredicto de texto de la etapa 1 («No», datos_v63.md). Sin resolver.) → convención con el fundamento de la etapa 1 (revisión del registro; precedente Jumbo)",
     "vinculo": null
    },
-   "incidencia": null,
+   "incidencia": "FUENTE PRECISA (el apoyo del libro cita «H1 p.~20»): estados financieros semestrales del 1S-2026, texto/vinci-hy-interim-fs-2026.txt — [PDF PAGE 3] «Trade and other receivables 20,923 20,451 19,504» (30/06/2026, 30/06/2025, 31/12/2025): +2,31 % junio frente a junio; «Inventories and work in progress 1,754 1,808 1,700»; cobros + inventarios 22.677 frente a 22.259 = +1,88 %; [PDF PAGE 1] «Revenue (*) 35,597 34,852 74,599» (1S-2026, 1S-2025, 2025): +2,14 %. Reproducen las cifras del apoyo (Control maestro M34). El veredicto «No» es la decisión del inversor (23-oct-2026) de no contar la diferencia de 0,17 pp por Fletcher; con la lectura literal sería «Sí».",
    "justificacion_clase": "Veredicto de texto (Sí/No) de la etapa 1 que compara el crecimiento de cobros e inventarios con el de los ingresos (junio frente a junio, perímetro igual) con la decisión del inversor del 23-oct-2026; no es una cifra publicada."
   },
   {
@@ -8096,7 +8096,7 @@
    "id": "juicio_C38",
    "ambito": "juicio",
    "uso": null,
-   "material": true,
+   "material": false,
    "clase": "dato_publicado",
    "valor_modelo": 111.79,
    "fuente": {
@@ -8135,11 +8135,12 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "lectura externa (sin bytes)",
-    "nota": "Duda de la revisión del registro: dato_publicado con lectura externa",
+    "fuente_examinada": "fórmulas del libro (Análisis C39, D39, C87, D87, E43; Motor E235); fase_a.json, fase_b.json, fase_c.json",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Duda de la revisión del registro: dato_publicado con lectura externa",
     "vinculo": null
    },
-   "incidencia": "Lectura externa sin bytes: no cuenta como comprobada. Material (no se declara un juicio de materialidad en este registro)."
+   "incidencia": "«Dato no verificable»: tercero sin bytes ni captura en el expediente; es contexto, no dato verificado.",
+   "justificacion_materialidad": "Fair Value de un tercero (Simply Wall St, 111.79 €) sin bytes: solo es contexto. Celdas del libro Vinci_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C38: Análisis!C39 (descuento frente a la fuente externa) y su rótulo D39; Análisis!C87 (valor ponderado frente a la fuente externa) y su rótulo D87; el texto de Análisis!E43; el aviso Motor!E235 (solo si C38 no es numérico). Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: las fases A y B no la citan (fase_a.json, fase_b.json: 0 menciones de C38, C39, C87 ni Simply Wall St). La fase C la menciona solo en su autocomprobación (fase_c.json → autocomprobacion[1]) para descartarla: «El Fair Value ajeno (111,79) no entra en nada». Con otro valor (o vacía) cambiarían C39, C87 y esos rótulos informativos, no el precio de Sí, la acción ni el estado. Límite: la fase C la vio; el revisor decide si eso la hace material."
   },
   {
    "celda": "Análisis!C40",
@@ -8163,7 +8164,7 @@
      "aux:vinci-urd-2025_p359_sbc_ab_2025"
     ],
     "formula": "o[\"Historia!L11\"] + o[\"Historia!L14\"] + o[\"aux:vinci-urd-2025_p370_div_2025\"] - o[\"Historia!L12\"] + o[\"aux:vinci-urd-2025_p358_cobros_2025\"] + o[\"aux:vinci-urd-2025_p358_ppp_2025\"] - o[\"Historia!L16\"] - o[\"Historia!L17\"] - o[\"aux:vinci-urd-2025_p359_sbc_ab_2025\"]",
-    "conciliacion": "FCF del accionista de 2025 con la definición de C46–C52 (cálculo declarado de fase1_v63.json; revisión del montaje): CFO 11.886 + fila 14 (−2.496, sin la entrada de circulante, M43) + dividendos de sociedades no consolidadas 40 (P-O1 c) − capex D (3.873 − cobros 179 + PPP 311 = 4.005) − intereses de arrendamientos 110 − principal 761 − SBC abonada a patrimonio 422 = 4.132 = libro. La etapa 1 traía 7.228 (FCF de VINCI de los doce meses a 30-jun-2026, con el circulante y sin los dividendos ni la SBC).",
+    "conciliacion": "FCF del accionista de 2025 con la definición de C46–C52 (cálculo declarado de fase1_v63.json; revisión del montaje): CFO 11.886 + fila 14 (−2.496, sin la entrada de circulante, M43) + dividendos de sociedades no consolidadas 40 (P-O1 c) − capex D (3.873 − cobros 179 + PPP 311 = 4.005) − intereses de arrendamientos 110 − principal 761 − SBC abonada a patrimonio 422 = 4.132 = libro. La etapa 1 traía 7.228 (FCF de VINCI de los doce meses a 30-jun-2026, con el circulante y sin los dividendos ni la SBC). · LÍMITE 9.4.1: el verificador comprueba que la fórmula reproduce el libro con todos sus orígenes, pero no detecta compensaciones parciales entre componentes reales (un componente mal leído que otro compensa): el revisor comprueba cada componente en su página, uno a uno. Misma definición que C46 (sin la entrada de circulante: fila 14 de 2025 = −2.496). COMPONENTES: Historia!L11 = 11886 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Net cash flows (used in)/from operating activities I 11,886 11,714» (valor_fuente 11886.0, signo 1) | Historia!L14 = -2496 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Changes in operating working capital requirement and current provisions 19.1 2,496 2,311» (valor_fuente 2496.0, signo -1) | aux:vinci-urd-2025_p370_div_2025 = 40 ← texto/vinci-urd-2025.txt [PDF PAGE 370], «Dividends received from unconsolidated companies 40 41» (valor_fuente 40, signo 1) | Historia!L12 = 3873 ← derivado: o[\"aux:vinci-urd-2025_p358_purchases_of_property_plant_and_equipm_2025\"] + o[\"aux:vinci-urd-2025_p358_investments_in_concession_fixed_assets_2025\"] — capex 2025 = suma de las líneas publicadas: 3011 + 862 = 3873; el libro guarda 3873 | aux:vinci-urd-2025_p358_cobros_2025 = 179 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Proceeds from sales of property, plant and equipment and intangible assets 179 170» (valor_fuente 179, signo 1) | aux:vinci-urd-2025_p358_ppp_2025 = -311 ← texto/vinci-urd-2025.txt [PDF PAGE 358], «Financial receivables (PPP contracts and others) (311) (279)» (valor_fuente -311, signo 1) | Historia!L16 = 110 ← texto/vinci-urd-2025.txt [PDF PAGE 373], «Financial expenses on lease liabilities (110) (91)» (valor_fuente -110.0, signo -1) | Historia!L17 = 761 ← texto/vinci-urd-2025.txt [PDF PAGE 396], «• repayments of lease liabilities: decrease of €761 million;» (valor_fuente 761.0, signo 1) | aux:vinci-urd-2025_p359_sbc_ab_2025 = 422 ← texto/vinci-urd-2025.txt [PDF PAGE 359], «Share-based payments (IFRS 2) - - - 422 - - - 422 - 422» (valor_fuente 422, signo 1)",
     "unidad": "millones de euros"
    },
    "hipotesis": null,
@@ -8173,8 +8174,8 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "orígenes del cálculo declarado (fase1_v63.json, analisis.C40.calculo)",
-    "nota": "C40 sin resolver en el registro del extractor: el libro vigente guarda 4.132 (la plantilla de Mistral, anterior a ee1ca6a, decía 7.228). Derivado del cálculo declarado (revisión del registro, C40)",
+    "fuente_examinada": null,
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] conciliación con cada componente y su origen (límite 9.4.1); fórmula y valor sin cambios · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: C40 sin resolver en el registro del extractor: el libro vigente guarda 4.132 (la plantilla de Mistral, anterior a ee1ca6a, decía 7.228). Derivado del cálculo declarado (revisión del registro, C40)",
     "vinculo": null
    },
    "incidencia": null
@@ -8368,7 +8369,7 @@
    "id": "juicio_C88",
    "ambito": "juicio",
    "uso": null,
-   "material": true,
+   "material": false,
    "clase": "convencion",
    "valor_modelo": 9.7,
    "fuente": {},
@@ -8386,12 +8387,13 @@
     "revisor": null,
     "fecha": "2026-11-20",
     "resultado": "pendiente",
-    "fuente_examinada": "Control maestro!L–N73 del libro",
-    "nota": "Clase null en el registro del extractor (SIN RESOLVER: P/FCF histórico 9,7x de la etapa 1 (serie URD 2019-2025 «VINCI share performance»); valor de texto de la etapa 1 sin línea única publicada que lo ) → convención con el fundamento de la etapa 1 (revisión del registro; precedente Jumbo)",
+    "fuente_examinada": "fórmulas del libro (Análisis D88; Motor B311, C311); fase_a.json, fase_b.json, fase_c.json",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] declarada no material (regla N1) con la prueba de qué celdas la usan; pendiente de que un revisor independiente selle ese juicio de materialidad · Comprobación anterior: Claude orquestación / None 2026-11-20 «pendiente»: Clase null en el registro del extractor (SIN RESOLVER: P/FCF histórico 9,7x de la etapa 1 (serie URD 2019-2025 «VINCI share performance»); valor de texto de la etapa 1 sin línea única publicada que lo ) → convención con el fundamento de la etapa 1 (revisión del registro; precedente Jumbo)",
     "vinculo": null
    },
    "incidencia": null,
-   "justificacion_clase": "Mediana del P/FCF de fin de año 2019–2025 sin 2020 (capitalización a 31-dic ÷ FCF publicado por VINCI) calculada por la etapa 1; los precios de cierre de año no están conservados en el expediente y la mediana no cabe en el formato de fórmulas: no es una cifra publicada."
+   "justificacion_clase": "Mediana del P/FCF de fin de año 2019–2025 sin 2020 (capitalización a 31-dic ÷ FCF publicado por VINCI) calculada por la etapa 1; los precios de cierre de año no están conservados en el expediente y la mediana no cabe en el formato de fórmulas: no es una cifra publicada.",
+   "justificacion_materialidad": "Mediana del P/FCF de fin de año 2019–2025 sin 2020 (9.7x) calculada por la etapa 1 con precios de cierre de año que no están conservados en el expediente (convención: no es una cifra publicada ni reproducible). Celdas del libro Vinci_v63_evaluada.xlsx (búsqueda en todas las fórmulas de las 11 hojas) que leen Análisis!C88: solo Análisis!D88, un rótulo informativo («ℹ … x implícito vs … x histórico · investiga la diferencia»); las banderas Motor!B311 y Motor!C311 leen D88 pero solo saltan si D88 contiene «BANDERA» o «REVISAR», que su fórmula nunca escribe. Ninguna fórmula de la valoración (Motor, escenarios, precio de Sí, precio ponderado, FCF base) ni de la Historia la usa; no está en la instantánea de entradas_economicas (universo de cálculo): es una entrada de juicio (DATOS_JUICIO_ANALISIS). Juicio: ninguna fase la cita (fase_a.json, fase_b.json, fase_c.json: 0 menciones de C88, D88 ni de su fuente). Con otro valor (o vacía) solo cambiaría el rótulo D88."
   },
   {
    "celda": "Análisis!C96",
@@ -17053,15 +17055,15 @@
    "hipotesis": null,
    "justificacion": null,
    "comprobacion": {
-    "extractor": "Mistral (mistral-large-4-0)",
+    "extractor": "Claude orquestación",
     "revisor": null,
-    "fecha": "2026-11-19",
+    "fecha": "2026-11-20",
     "resultado": "pendiente",
     "fuente_examinada": "texto/vinci-urd-2024.txt [PDF PAGE 348]",
-    "nota": "auxiliar publicado del calculo declarado: div 2023 = 31",
+    "nota": "[Claude orquestación, 2026-11-20, vinci_b, antes de la auditoría] incidencia: la línea «Other» como dividendo de 2023 (decisión documentada); cifra y cita sin cambios · Comprobación anterior: Mistral (mistral-large-4-0) / None 2026-11-19 «pendiente»: auxiliar publicado del calculo declarado: div 2023 = 31",
     "vinculo": null
    },
-   "incidencia": null
+   "incidencia": "Decisión de la orquestación (fase1_v63.json → analisis.C46): el dividendo de sociedades no consolidadas de 2023 se lee en la línea «Other» del cuadro de la nota 3.1 del URD 2024 (PDF p. 348), sin rótulo propio; el URD 2025 rotula la misma línea «Dividends received from unconsolidated companies 40 41» (PDF p. 370, mismo 41 de 2024) y el URD 2023 la da como «Other 31 20» (PDF p. 170). El revisor confirma que la línea es el dividendo."
   },
   {
    "celda": "aux:vinci-urd-2025_p370_div_2024",
@@ -18615,5 +18617,6 @@
  ],
  "extractor_orquestacion": "Claude orquestación",
  "fecha_orquestacion": "2026-11-20",
- "nota_de_la_orquestacion": "2026-11-20, Claude orquestación: registro de vinci_b desde el del extractor Mistral (mistral/examen-vinci-entradas @ 737a8d8, sha256 1bec26fe73a7d2910a6f4e7d0654c7bbb071df303b2bd9d0d2c3954a110deb96) con las correcciones de la revisión independiente del registro (coordinacion/cierre_v2/examen/vinci/revision_registro/REVISION.md y .tsv), adaptado a los valores actuales de vinci_b (plantilla regenerada sobre el libro V6.3.2 F1: 326 entradas, 11 nuevas de la normalización del circulante). 189 entradas cambiadas o nuevas, con extractor «Claude orquestación»; las demás conservan a Mistral. Todas pendientes de revisor (sin sellar). Las 19 celdas de hipótesis vacías antes de la fase A llevan una entrada que dice que aún no hay hipótesis; las 11 con valor, el fundamento heredado de la etapa 1. Rastro: resultados/registro_entradas_vinci_b.json."
+ "nota_de_la_orquestacion": "2026-11-20, Claude orquestación: registro de vinci_b desde el del extractor Mistral (mistral/examen-vinci-entradas @ 737a8d8, sha256 1bec26fe73a7d2910a6f4e7d0654c7bbb071df303b2bd9d0d2c3954a110deb96) con las correcciones de la revisión independiente del registro (coordinacion/cierre_v2/examen/vinci/revision_registro/REVISION.md y .tsv), adaptado a los valores actuales de vinci_b (plantilla regenerada sobre el libro V6.3.2 F1: 326 entradas, 11 nuevas de la normalización del circulante). 189 entradas cambiadas o nuevas, con extractor «Claude orquestación»; las demás conservan a Mistral. Todas pendientes de revisor (sin sellar). Las 19 celdas de hipótesis vacías antes de la fase A llevan una entrada que dice que aún no hay hipótesis; las 11 con valor, el fundamento heredado de la etapa 1. Rastro: resultados/registro_entradas_vinci_b.json.",
+ "nota_vinci_b_antes_de_auditoria": "2026-11-20, Claude orquestación: hipótesis y convenciones con el texto vigente de las fases de vinci_b; C38 y C88 no materiales (N1), pendientes de que un revisor selle ese juicio; C46/C40 con sus componentes; decisiones de la capa F1 documentadas. Rastro: resultados/registro_antes_de_auditoria_vinci_b.json"
 }
