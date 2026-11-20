@@ -6,7 +6,8 @@
    "Minoritarios (resuelta en parte): tras la vuelta, B15:D15 restan el exceso del valor de los minoritarios de Gatwick, Edimburgo y OMA sobre su valor contable (−0,008 / −0,008 / −0,007). Ese exceso es 805 ÷ (r − g) − 3.576, unos 6,5 / 7,9 / 8,8 mil M. Lo que queda abierto es la base: 805 son dividendos, no resultado, y el valor contable de los minoritarios baja de 4.085 a 3.576 mientras cobran 805 (URD 2025 PDF p. 358, 399). Eso sugiere que los dividendos superan su resultado, y entonces el recorte sería menor. Con medio recorte (0,09 / 0,095 / 0,10) el precio de Sí sería ≈104,9 € y la zona `vigilar`; sin recorte, 113,3 € y `cumple_regla_k` [cálculo, réplica que reproduce B78:D78]. La acción `esperar` solo cambia si el exceso baja de ≈3,45 mil M; el precio objetivo, en cambio, depende de esta hipótesis. No admite otra vuelta a la fase B: marca el objetivo como provisional.",
    "Vara de la reinversión (sigue): el MALO rinde 7,5 % en los años 1–10, por debajo de r (9 %) pero por encima de la tasa del motor (6,41 %, Diagnóstico V6!C15). En la hoja, su reinversión crea algo de valor en esos años, al revés de su historia; solo su terminal (6 % < 6,41 %) destruye valor. No es una palanca mal derivada: la tasa es convención de la plantilla y r es heredada. Pero el MALO es más suave que sus palabras: con S2C 1,0 bajaría a ≈75,1 € y el precio de Sí a ≈95,7 € [cálculo], sin cambiar la acción.",
    "Lectura «cuánto pagas por crecer»: el valor sin crecimiento (103,58 €) aplica para siempre el margen de partida (10,69 %), con las autopistas dentro y sin restar a los minoritarios. Queda por encima del NORMAL (101,75 €). El «⚠ pagas por un crecimiento que no añade valor» de la hoja compara con una base que no cuenta la historia del expediente: no es un suelo.",
-   "Zona en el filo: el ponderado (107,04) queda a un céntimo del precio (107,05), así que la frontera entre `caro` y `vigilar` la decide el redondeo. Las dos zonas llevan a la misma acción (`esperar`): no leo nada en la etiqueta."
+   "Zona en el filo: el ponderado (107,04) queda a un céntimo del precio (107,05), así que la frontera entre `caro` y `vigilar` la decide el redondeo. Las dos zonas llevan a la misma acción (`esperar`): no leo nada en la etiqueta.",
+   "Tras el contradictor: el recorte por minoritarios del libro (B15:D15) se basa en dividendos que son 2,2 veces el resultado atribuido (texto/vinci-urd-2025.txt PDF p. 399, 356, 358); el t de Historia C52 incluye 388 M de diferidos sin caja de 2021 (texto/vinci-urd-2021.txt PDF p. 67); y el coste de la deuda de Historia C63 es neto de lo que rinde una caja que el motor ya resta entera (PDF p. 356, 138). Juntas dejan el precio de Sí en ≈103–105 € y la zona en `vigilar` [cálculo]; no admiten otra vuelta a la fase B en este ciclo y C52 y C63 son celdas de datos."
   ]
  },
  "lo_que_dice_la_hoja": {
@@ -227,11 +228,24 @@
     "celda": "Palancas!B15:D15",
     "hipotesis": "el recorte por minoritarios (−0,008 / −0,008 / −0,007) supone que su parte de Gatwick, Edimburgo y OMA vale 805 ÷ (r − g), es decir, que los 805 de dividendos de 2025 son el flujo sostenible de los minoritarios",
     "clase": "fundamentada, con confianza baja, según la fase B; el tamaño del recorte no tiene ningún hecho que lo acote",
-    "porque_sin_fundamento": "805 son dividendos, no el resultado atribuido. El valor contable de los minoritarios baja de 4.085 a 3.576 (URD 2025 PDF p. 399) mientras cobran 805 y 902 (PDF p. 358), lo que apunta a dividendos por encima del resultado. La propia Observación de C15 dice que con el resultado atribuido el NORMAL iría hacia 0,095. El precio de Sí pasa de 97,79 a ≈104,9 € con medio recorte [cálculo]",
+    "porque_sin_fundamento": "el recorte del libro (−0,008 / −0,008 / −0,007) capitaliza 805 de dividendos (PDF p. 358) cuando el resultado atribuido a minoritarios fue 372 M en 2025 y 410 en 2024 (PDF p. 356, 138) y 338 M en las tres filiales (nota 23.5, PDF p. 399): el dato que daba por ausente está en los textos de la carpeta y muestra que el recorte es demasiado grande",
     "alternativas_defendibles": {
-     "hay_base": false,
-     "rango": null,
-     "evidencia": "No puedo atar los dos límites a hechos. Por arriba, el recorte de la fase B ya usa el menor de los dos años de dividendos, pero no hay hecho que diga que el flujo sostenible de los minoritarios sea tan alto. Por abajo, los precios de compra (OMA 1.169 por el 29,99 %, URD 2023 PDF p. 170; Edimburgo 1.431 por el 50,01 %, URD 2025 PDF p. 370) implican 4.159 para la parte ajena de dos de las tres filiales. Pero llevan prima de control, son de 2022 y 2024, y no conozco qué parte de los 3.576 es de Gatwick. Haría falta la nota de intereses minoritarios del URD 2025: resultado neto, dividendos, deuda neta y flujo atribuidos a los minoritarios de London Gatwick, Edimburgo y OMA."
+     "hay_base": true,
+     "rango": {
+      "Palancas!B15": [
+       0.0878,
+       0.093
+      ],
+      "Palancas!C15": [
+       0.0936,
+       0.098
+      ],
+      "Palancas!D15": [
+       0.1037,
+       0.107
+      ]
+     },
+     "evidencia": "Límite bajo de cada margen (recorte mayor): los minoritarios valorados a los precios de compra de VINCI, que llevan prima de control y por eso acotan por arriba el valor de una participación sin control: Gatwick 3.080 por el 50,01 % (texto/vinci-annual-report-2019.txt PDF p. 302), OMA 1.169 por el 29,99 % (URD 2023 PDF p. 170), Edimburgo 1.431 por el 50,01 % (URD 2025 PDF p. 370) y el resto al contable: exceso 4.254 M [cálculo]. Límite alto (sin recorte, margen equivalente previo): la parte de los minoritarios en la caja libre de las tres filiales (explotación menos inversión, nota 23.5, PDF p. 399) es ≈207 M, que capitalizada a r − g no llega o apenas supera su valor contable (2.984 en las tres): el exceso es ≈0 [cálculo]. El libro (0,085 / 0,09 / 0,10) queda por debajo de los dos límites."
     }
    }
   ],
@@ -242,8 +256,8 @@
    "sobrevive": null
   },
   "resultado": "no_procede",
-  "hipotesis_que_mas_condiciona": "Palancas!B15:D15: tamaño del recorte por minoritarios (805 de dividendos capitalizados a r − g frente a 3.576 contables). Condiciona el precio objetivo (97,79 € con el recorte entero, ≈104,9 € con la mitad) y, solo si el exceso bajara de ≈3,45 mil M, la acción",
-  "que_lo_resolveria": "URD 2025, nota de intereses minoritarios: resultado neto, dividendos, deuda neta y flujo de caja de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025 (o el resultado neto atribuido a minoritarios del grupo), para sustituir los dividendos por el resultado en el recorte de B15:D15"
+  "hipotesis_que_mas_condiciona": "Palancas!B15:D15: el recorte por minoritarios del libro está por debajo del rango que dan los hechos (nota 23.5, URD 2025 PDF p. 399); junto con el t de 2021 sin el diferido británico (Historia C52) y el coste bruto de la deuda (Historia C63), el precio de Sí sería de ≈103–105 € y no 97,79",
+  "que_lo_resolveria": "Rehacer B15:D15 con el resultado atribuido a minoritarios de la nota 23.5 (URD 2025 PDF p. 399) en un nuevo ciclo, y que la persona responsable decida sobre las celdas de datos Historia C52 (diferido sin caja de 2021, URD 2021 PDF p. 67) y C63 (coste bruto de la deuda, URD 2025 PDF p. 138, 356); después recalcular el libro y la escalera"
  },
  "celdas_corregidas": {
   "Palancas!B15": {
@@ -275,14 +289,15 @@
   "precio_escenario_malo": 79.28,
   "ponderado": 107.04,
   "zona": "caro",
-  "rango_precio_de_si_por_minoritarios": "≈97,8 (recorte entero, libro) a ≈104,9 € (medio recorte) [cálculo, réplica]; sensibilidad condicional, no intervalo de confianza"
+  "rango_precio_de_si_por_minoritarios": "≈97,8 (recorte entero, libro) a ≈104,9 € (medio recorte) [cálculo, réplica]; sensibilidad condicional, no intervalo de confianza",
+  "rango_precio_de_si_objeciones": "≈100,2–105,1 € con las tres objeciones no rebatidas en sus variantes [cálculo, réplica]; sensibilidad condicional, no intervalo de confianza"
  },
  "decision": {
   "accion": "esperar",
   "precio_objetivo": 97.79,
   "condicion": null,
   "condiciones_revision": {
-   "al_alza": "Que la nota de minoritarios del URD muestre un resultado atribuido menor que los dividendos (recorte menor: precio de Sí hacia 105 €); una prórroga o compensación de alguna autopista francesa; compras de 2026 (Safeway, A154–A120, All for One) con retornos publicados por encima de r.",
+   "al_alza": "Rehacer el recorte por minoritarios con su resultado (372 M, URD 2025 PDF p. 356, 399) y decidir t y el coste de la deuda: el precio de Sí iría a ≈103–105 €; una prórroga o compensación de alguna autopista; compras de 2026 (Safeway, A154–A120, All for One) con retornos publicados por encima de r.",
    "a_la_baja": "Una tercera carga fiscal francesa sobre las concesiones o la contribución excepcional hecha permanente; deterioros en Cobra IS (goodwill 4.156) o en aeropuertos; tráfico de autopistas y pasajeros a la baja en 2026–2027; compras grandes a retornos por debajo del 7 % después de impuestos."
   }
  },
@@ -294,7 +309,7 @@
   "ponderado": 107.04,
   "distancia_a_precio_si": 0.0865,
   "distancia_a_malo": 0.2594,
-  "fundamento": "no procede (conclusión no favorable); precio objetivo provisional, condicionado al recorte por minoritarios de Palancas!B15:D15 (hipótesis sin base)",
+  "fundamento": "no procede (conclusión no favorable); precio objetivo provisional: con las objeciones no rebatidas del contradictor (minoritarios por su resultado, t sin el diferido de 2021, coste bruto de la deuda) el precio de Sí sería de ≈103–105 €",
   "datos_ausentes_materiales": [],
   "descalificadores_considerados": [
    "deuda que puede matar en un mal año: no (deuda neta 1,4 veces el Ebitda, A−/A3, liquidez 22,0 mil M; URD 2025 PDF p. 141, 405)",
@@ -349,11 +364,11 @@
  "celdas": {
   "C93": "Sí",
   "C103": "No",
-  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 97.79 · zona caro · precio de Sí ≤ 97.79 · precio esc. MALO 79.28 · ponderado 107.04 · fundamento no procede (conclusión no favorable) · objetivo provisional: depende del recorte por minoritarios de Palancas!B15:D15 (con medio recorte el precio de Sí sería de unos 105)",
+  "C104": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 97.79 · zona caro · precio de Sí ≤ 97.79 · precio esc. MALO 79.28 · ponderado 107.04 · fundamento no procede (conclusión no favorable) · objetivo provisional: con las objeciones no rebatidas (minoritarios por su resultado, tipo de 2021 sin el diferido británico, coste bruto de la deuda) el precio de Sí sería de unos 103 a 105, sin recálculo del libro",
   "B101": "VINCI cobra peajes y tasas por autopistas y aeropuertos sin sustituto cercano y vende servicios de energía y obra con poco capital: FCF de 7.010 M€ en 2025, deuda neta de 1,4 veces el Ebitda y calificación A− (URD 2025 PDF p. 139, 141). Su mejor activo, las autopistas francesas (3.311 de 9.558 M€ de Ebit), vuelve al Estado entre 2032 y 2036, y lo que compra para sustituirlo rinde cerca del 7 % después de impuestos (Airports 6,9 %, Cobra IS 8,3 % [cálculo, PDF p. 136, 141]). Además, una parte del flujo de Gatwick, Edimburgo y OMA es de sus socios, que cobraron 805 M€ de dividendos en 2025 (PDF p. 358). Con mis tres escenarios vale 79 / 102 / 174 € y a 107,05 € el precio pide un crecimiento de ventas del 5,4 % al año, más que mi caso central del 4 %. Es un negocio correcto con un foso con fecha: espero, con un precio de Sí de 97,79 € que es provisional mientras no conozca el resultado de los minoritarios.",
   "B102": "El argumento del No, mejor de lo que lo haría un bajista: (1) la joya se gasta: VINCI Autoroutes da 3.311 de los 9.558 M€ de Ebit y 2,6 mil M de FCF (URD 2025 PDF p. 136, 140) y ASF, Escota y Cofiroute vuelven al Estado en 2032–2036 (PDF p. 382); lo que compra para sustituirlas rinde menos que r: Airports 6,9 % y Cobra IS 8,3 % después de impuestos [cálculo, PDF p. 136, 141]. (2) La contraparte cobra antes del final: TEITLD de 284 desde 2024 (URD 2024 PDF p. 134) y contribución excepcional de 449 en 2025, repetida en 2026 (URD 2025 PDF p. 138, 143). (3) Lo del accionista es menos de lo que parece: 805 M€ de dividendos a minoritarios frente a 3.576 de valor contable (PDF p. 358, 399), y el FCF publicado lleva +2.496 de circulante y 567 de pagos en acciones (Historia L14, L18). (4) Asigna mal el capital caro: 21.371 de compras en diez años sin múltiplos publicados (Historia fila 13; PDF p. 370), Cobra IS con FCF de −365 y goodwill de 4.156 (PDF p. 140; Análisis C32), y recompras a 119,11 € y 125,80 €, por encima del precio (PDF p. 141; semestral PDF p. 15). (5) El precio ya está en el ponderado (107,04) y pide un 5,4 % de crecimiento de ventas con un orgánico del 1,3 % en el semestre y tráfico −2,9 % (semestral PDF p. 7): es el negocio en que «all the excess cash must be reinvested» (PCA p.110; HIM) para no encoger, y para eso no hace falta vigilarlo.",
-  "Diagnóstico V6!B222": "Tamaño del recorte por minoritarios en Palancas!B15:D15 (−0,008 / −0,008 / −0,007): capitaliza los 805 M€ de dividendos de 2025 a r − g frente a 3.576 de valor contable, pero el contable baja de 4.085 a 3.576 y los dividendos pueden superar el resultado atribuido; con medio recorte el precio de Sí pasaría de 97,79 a unos 105 € (objetivo provisional).",
-  "Diagnóstico V6!B223": "URD 2025, nota de intereses minoritarios (información resumida de filiales con minoritarios materiales): resultado neto, dividendos, deuda neta y flujo de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025; si no está, pregunta a Relación con Inversores por el resultado neto atribuido a minoritarios por filiales.",
+  "Diagnóstico V6!B222": "El recorte por minoritarios de Palancas!B15:D15 capitaliza 805 M€ de dividendos cuando su resultado atribuido fue 372 M€ (URD 2025 PDF p. 356, 399): es demasiado grande. Con el resultado, el tipo de 2021 sin el diferido británico (Historia C52) y el coste bruto de la deuda (Historia C63), el precio de Sí pasaría de 97,79 a unos 103–105 € (objetivo provisional).",
+  "Diagnóstico V6!B223": "Nota 23.5 del URD 2025 (PDF p. 399: resultado, activos netos y flujos de Gatwick, OMA y Edimburgo atribuidos a minoritarios) para rehacer B15:D15 en un nuevo ciclo; decisión de la persona responsable sobre Historia C52 (388 M de diferidos sin caja de 2021, URD 2021 PDF p. 67) y C63 (deuda bruta al 4,4 %, URD 2025 PDF p. 138; coste bruto 1.760 y rendimiento de la caja 513, p. 356).",
   "Palancas!A38": "Las ventas de Energy Solutions (VINCI Energies más Cobra IS) del ejercicio 2027 publicadas por VINCI son de al menos 32.000 M€ (29.612 en 2025).",
   "Palancas!B38": "2028-03-31",
   "Palancas!C38": 0.65,
@@ -365,7 +380,7 @@
   "Palancas!C40": 0.75
  },
  "cambiaria_de_cubo": {
-  "a_si": "Un precio por debajo del precio de Sí (97,79 €, o el que resulte cuando la nota de minoritarios fije el recorte) con los hechos intactos, y la nota de minoritarios del URD resolviendo la hipótesis de B222; para comprar haría falta además que la conclusión favorable tuviera fundamento (D10).",
+  "a_si": "Un precio por debajo del precio de Sí recalculado con la nota 23.5 (≈103–105 € según las objeciones) con los hechos intactos, y fundamento para la compra (D10) en el libro rehecho.",
   "a_no": "Que el valor del NORMAL quede por debajo del precio sin margen posible por hechos nuevos: compras de 2026–2027 a retornos por debajo de la tasa del motor, deterioros en Cobra IS o aeropuertos, o una carga fiscal francesa permanente que lleve el margen del resto del grupo por debajo del 8 %.",
   "a_demasiado_dificil": "Que el valor pase a depender de la negociación política del fin de las autopistas después de 2036 (prórrogas a cambio de inversión, rescate anticipado) o de las pérdidas del EPC de Cobra IS, variables que no sé juzgar."
  },
@@ -381,10 +396,41 @@
   "Palancas!C40": "[Clase: fundamentada] [Confianza: media]\nHereda: nueva en V6.3.\nApoyo: 0.75 es la probabilidad de que la predicción 3 se cumpla dado el escenario NORMAL (no la probabilidad del escenario): el NORMAL la cumple con su centro y la banda deja margen para un año flojo como el semestre de 2026 (semestral PDF p. 7, 9).\nLo sustituiría: los datos del ejercicio 2026, que dirán si la senda del NORMAL se sostiene.",
   "C93": "[Clase: fundamentada] [Confianza: media]\nHereda: No lo sé → cambia (evidencia_nueva): el capital empleado por negocio y la vara de la sección 1 bis permiten juzgar la reposición.\nApoyo: g NORMAL 0,02 < rf 0,0347 (C57); ROIC terminal 7 % > tasa del motor 6,41 % y dentro de lo que rinde hoy lo que VINCI compra (Airports 6,9 %, Cobra IS 8,3 % después de impuestos [cálculo, URD 2025 PDF p. 136, 141]); reinvierte g ÷ ROIC ≈ 29 % del NOPAT; salto del año 11 de 2,2 puntos y peso del terminal 0,68 (< 0,75). Crecer un 2 % con la inflación de Europa reponiendo concesiones a ≈7 % es sostenible; lo que no lo sería es crecer más.\nLo sustituiría: compras de 2026–2027 (Safeway, All for One) a retornos por debajo del 6 %, hacia No lo sé.",
   "C103": "[Clase: fundamentada] [Confianza: alta]\nHereda: No → mantiene (misma_evidencia): el activo principal caduca por contrato.\nApoyo: ASF 2036, Cofiroute 2034 y Escota 2032 vuelven al Estado (URD 2025 PDF p. 382) y para seguir igual VINCI tiene que comprar su futuro a precios de mercado (Airports 6,9 % después de impuestos [cálculo]). No es la empresa en la que «you can sit on your ass» (PCA pp.85–86; HIM).\nLo sustituiría: prórrogas largas de las autopistas o un historial de compras que rindan por encima de r de forma sostenida.",
-  "C104": "[Clase: convención] [Confianza: alta]\nHereda: 0% · Watchlist · precio de Sí ≈ 79 € → cambia (definicion_o_medicion_distinta): sin porcentaje de posición (D16) y con la escalera k = 3 del libro, no la regla mín(MALO, 0,75 × ponderado).\nApoyo: precio.json: precio de Sí 97,79, MALO 79,28, ponderado 107,04, zona caro; la regla antigua (C156) da 79,28. El objetivo es provisional: lo condiciona el recorte por minoritarios (B222). El tamaño es de José Luis.\nLo sustituiría: la nota de minoritarios del URD (B223), que fijaría el recorte y el precio de Sí; un precio por debajo del precio de Sí con los hechos intactos.",
+  "C104": "[Clase: convención] [Confianza: alta]\nHereda: 0% · Watchlist · precio de Sí ≈ 79 € → cambia (definicion_o_medicion_distinta): sin porcentaje de posición (D16) y con la escalera k = 3 del libro, no la regla mín(MALO, 0,75 × ponderado).\nApoyo: precio.json: precio de Sí 97,79, MALO 79,28, ponderado 107,04, zona caro; la regla antigua (C156) da 79,28. El objetivo es provisional: el contradictor mostró, con la nota 23.5 (URD 2025 PDF p. 399), el diferido de 2021 (URD 2021 PDF p. 67) y el coste bruto de la deuda (URD 2025 PDF p. 138), un precio de Sí de ≈103–105 € [cálculo]. El tamaño es de José Luis.\nLo sustituiría: el libro recalculado con esos tres datos; un precio por debajo del precio de Sí con los hechos intactos.",
   "B101": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis de la etapa 1 («… compraría hacia 79 €») → cambia (evidencia_nueva): el libro valora las tres historias y la parte de los minoritarios.\nApoyo: FCF 7.010 y deuda neta 1,4× (URD 2025 PDF p. 139, 141); Ebit por negocio (PDF p. 136); vencimientos (PDF p. 382); dividendos a minoritarios 805 (PDF p. 358); B78:D78 y C86 del libro; precio.json.\nLo sustituiría: una prórroga de las autopistas, la nota de minoritarios o compras que rindan por encima de r.",
   "B102": "[Clase: fundamentada] [Confianza: media]\nHereda: tesis inversa de la etapa 1 → cambia (evidencia_nueva): mantiene sus puntos de vencimiento y fiscalidad y añade los minoritarios, el retorno de lo comprado y el DCF inverso.\nApoyo: URD 2025 PDF p. 136, 138, 140, 141, 143, 358, 370, 382, 399; URD 2024 PDF p. 134; semestral PDF p. 7, 15; Historia filas 13, 14 y 18; Análisis C32; C86.\nLo sustituiría: compras con retornos publicados por encima de r o una compensación del Estado al final de las concesiones."
  },
  "confianza_global": "media",
- "configuracion_v64": null
+ "configuracion_v64": null,
+ "respuesta_contradictor": {
+  "objeciones": [
+   {
+    "id": "O1",
+    "direccion": "sube",
+    "respuesta": "no rebatida",
+    "dato": "texto/vinci-urd-2025.txt PDF p. 399 (nota 23.5): resultado atribuido a minoritarios 144 / 143 / 51 en Gatwick, OMA y Edimburgo; p. 356 y p. 138: 372 M en el grupo (410 en 2024); p. 358: 805 de dividendos. El recorte del libro capitaliza dividendos que son 2,2 veces el resultado; con el resultado, el exceso es 1,1 / 1,7 / 2,1 mil M (no 6,5 / 7,9 / 8,8).",
+    "matiz": "La nota no estaba en mis entradas de la fase C (extracto_v63 §9) pero sí en los textos de la carpeta: mi turno 1 la dio por ausente sin buscarla. Admito también que mi frontera de ≈3,45 mil M salía de los márgenes previos ya redondeados (0,095 / 0,10 / 0,105); con los equivalentes exactos (0,093 / 0,098 / 0,107) es ≈2,1 mil M [cálculo]. El extremo adverso con precios de compra (Gatwick 3.080 por el 50,01 %, informe anual 2019 PDF p. 302) da un exceso de 4.254 M y sigue por encima del libro: precio de Sí ≈102,5 €.",
+    "efecto": "precio de Sí de 97,79 a ≈105,4 € (márgenes redondeados 0,09 / 0,095 / 0,105 y S2C 1,4) o ≈107,5 € (sin redondear) [cálculo]; un escalón al alza"
+   },
+   {
+    "id": "O2",
+    "direccion": "sube",
+    "respuesta": "rebatida en parte; no rebatida en su versión mínima",
+    "dato": "Rebato la parte de 2025: la historia NORMAL de la fase A deja los impuestos especiales como coste (fase_a.md §8) y la empresa espera en 2026 una carga de la misma magnitud que la de 2025 (texto/vinci-urd-2025.txt PDF p. 143; 323 en el primer semestre, semestral PDF p. 12): no es un apunte que el NORMAL deba quitar. No rebato la de 2021: los 388 M de diferidos por Gatwick tuvieron impacto nulo en caja (texto/vinci-urd-2021.txt PDF p. 67) y entran en el t de Historia C52 (0,4254 en 2021) que el motor cobra para siempre.",
+    "matiz": "t (Historia C52) es una celda de datos: no la cambio; registro la incoherencia. Su versión mínima, t = 0,2999, sube el precio de Sí a ≈101,8 € [cálculo].",
+    "efecto": "≈+4,0 € en el precio de Sí (versión mínima); al alza, en el mismo escalón que O1 (como mucho uno por dirección)"
+   },
+   {
+    "id": "O3",
+    "direccion": "baja",
+    "respuesta": "no rebatida",
+    "dato": "texto/vinci-urd-2025.txt PDF p. 356: coste de la deuda bruta 1.760 y rendimiento de la caja 513; p. 138: tipo medio de la deuda bruta a largo plazo 4,4 %. Historia C63 (3,69 %) se construye con Net interest paid, neto de los intereses cobrados (datos_v63 §3, fila «intereses») mientras el motor resta la caja entera (pasivos netos 27.052).",
+    "matiz": "Lo que más se acerca a rebatirla es el coste de la financiación nueva de 2026, 3,2 % (semestral PDF p. 6), pero incluye 500 de bonos canjeables en ADP al 0,75 % y el coste medio del semestre fue 4,5 % (misma página): no la rebate. Tomo el 4,4 % y no el 4,83 % de la cuenta de resultados, que mezcla deuda a corto. C63 es dato de la hoja: no lo cambio.",
+    "efecto": "precio de Sí ≈−5,9 € (91,87 con kd 4,4 %) [cálculo]; un escalón a la baja"
+   }
+  ],
+  "combinacion_de_las_no_rebatidas": "Las tres juntas (O1 con márgenes redondeados o sin redondear, O2 mínima, O3 con 4,4 %): precio de Sí ≈103,0–105,1 € y zona `vigilar` [cálculo, réplica que reproduce el libro]; con O3 al 4,83 %, ≈101,4–103,5 €; con O1 en su extremo adverso, ≈100,2 €. En ninguna combinación el precio (107,05) baja del precio de Sí: la acción no cambia.",
+  "regla_de_movimiento": "Un escalón al alza (O1 y O2, como mucho uno por dirección) y un escalón a la baja (O3) se compensan: la conclusión sigue en `esperar` con cubo Vigilar. Lo que cambia es el precio objetivo: el oficial es el precio de Sí de precio.json (97,79 €), que el libro no ha recalculado, y con las tres objeciones sería de ≈103–105 €; queda marcado como provisional.",
+  "conclusion_final": "concluido · Vigilar · esperar · precio objetivo 97,79 € (precio.json), provisional: con las objeciones no rebatidas, ≈100–105 €"
+ }
 }

@@ -172,3 +172,29 @@ El cubo es el mismo: Vigilar. El precio de Sí pasa de ≈79 € a 97,79 €.
 La diferencia está en la regla, no en la valoración. La regla antigua (mín(MALO, 0,75 × ponderado)) da en este libro 79,28 € (C156), casi lo mismo que la v1. La v2 aplica la escalera k = 3 (D11) a tres escenarios calculados por la hoja, y descuenta la parte de los socios de los aeropuertos, que la v1 no restaba.
 
 Las cifras de la v1 (FCF base 4.382 y 567,06 M de acciones) no están vigentes. Sus ventas de directivos no están en mis entradas.
+
+## Respuesta al contradictor
+
+He comprobado las tres objeciones en los textos de la carpeta y con mi réplica del motor, que reproduce el libro al céntimo.
+
+| Objeción | Respuesta | Efecto |
+|---|---|---|
+| **O1 · sube** · los socios de los aeropuertos cobran más del doble de lo que ganan | **No rebatida.** La nota 23.5 da un resultado atribuido de 144 / 143 / 51 M en Gatwick, OMA y Edimburgo (texto/vinci-urd-2025.txt PDF p. 399). En el grupo son 372 M (410 en 2024; PDF p. 356, 138), frente a 805 M de dividendos (PDF p. 358). El dato que di por ausente estaba en los textos de la carpeta, aunque no en el extracto. Mi frontera de ≈3,45 mil M salía de márgenes ya redondeados; con los equivalentes exactos es ≈2,1 mil M [cálculo]. Incluso con los precios de compra, que llevan prima de control (Gatwick 3.080 por el 50,01 %, texto/vinci-annual-report-2019.txt PDF p. 302), el recorte del libro es demasiado grande. | Precio de Sí de 97,79 a ≈105,4 € (márgenes 0,09 / 0,095 / 0,105 y S2C 1,4) o ≈107,5 € sin redondear; ≈102,5 € en el extremo de los precios de compra [cálculo]. **Un escalón al alza.** |
+| **O2 · sube** · el tipo impositivo «para siempre» incluye un apunte sin caja | **Rebatida en parte.** La historia NORMAL deja los impuestos especiales como coste (fase_a.md §8), y la empresa espera en 2026 una carga de la misma magnitud que la de 2025 (texto/vinci-urd-2025.txt PDF p. 143; 323 M en el semestre, semestral PDF p. 12): la contribución de 2025 no se quita. **No rebatida en lo de 2021:** los 388 M de diferidos de Gatwick tuvieron impacto nulo en caja (texto/vinci-urd-2021.txt PDF p. 67) y pesan en Historia C52, una celda de datos que no cambio. | Versión mínima (t = 0,2999): precio de Sí ≈101,8 € (+4,0) [cálculo]. Al alza, en el mismo escalón que O1: como mucho uno por dirección. |
+| **O3 · baja** · la caja cuenta dos veces en la tasa del motor | **No rebatida.** La deuda bruta costó 1.760 M y la caja rindió 513 M (texto/vinci-urd-2025.txt PDF p. 356). El tipo medio de la deuda bruta a largo plazo fue del 4,4 % (PDF p. 138). Historia C63 (3,69 %) usa Net interest paid, neto de lo cobrado (datos_v63 §3, fila «intereses»), mientras el motor resta la caja entera. La financiación nueva al 3,2 % (semestral PDF p. 6) incluye bonos canjeables al 0,75 %, y el coste medio del semestre fue del 4,5 % (misma página): no la rebate. | Con un coste de la deuda del 4,4 %: precio de Sí ≈91,9 € (−5,9) [cálculo]. **Un escalón a la baja.** |
+
+**Las tres juntas.** Con O1, O2 en su versión mínima y O3 al 4,4 %, el precio de Sí queda en ≈103,0–105,1 € y la zona en `vigilar` [cálculo]. Con O3 al 4,83 % baja a ≈101,4–103,5 €, y con O1 en su extremo adverso, a ≈100,2 €. En ninguna combinación el precio (107,05 €) queda por debajo del precio de Sí.
+
+**Regla de movimiento.** Hay un escalón al alza (O1 y O2) y uno a la baja (O3): se compensan. **Conclusión final: `concluido` (provisional hasta la auditoría) · Vigilar · `esperar`.**
+
+El precio objetivo oficial sigue siendo el precio de Sí de `precio.json` (97,79 €), porque el libro no se ha recalculado. Queda marcado como provisional. Con las objeciones no rebatidas sería de ≈103–105 €: es una sensibilidad condicional, no un intervalo de confianza.
+
+**Cambios en `fase_c.json`.**
+- Nuevo bloque `respuesta_contradictor`.
+- Una incoherencia nueva.
+- La hipótesis de B15:D15 pasa a tener base. Rango por margen: MALO 0,0878–0,093, NORMAL 0,0936–0,098 y BUENO 0,1037–0,107. El libro queda por debajo de los dos límites.
+- Actualizados `hipotesis_que_mas_condiciona`, `que_lo_resolveria`, B222, B223, C104 con su Observación, la condición de revisión al alza, el fundamento de los insumos, el rango de la escalera y el paso a Sí.
+
+Lo demás no cambia.
+
+**Lo que resolvería todo.** Rehacer B15:D15 con la nota 23.5 en un ciclo nuevo. Y que la persona responsable decida sobre las celdas de datos Historia C52 (tipo impositivo) y C63 (coste de la deuda), y después recalcular el libro.

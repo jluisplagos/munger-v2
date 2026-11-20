@@ -30,7 +30,7 @@
   "precio_objetivo": 97.79,
   "condicion": null,
   "condiciones_revision": {
-   "al_alza": "Que la nota de minoritarios del URD muestre un resultado atribuido menor que los dividendos (recorte menor: precio de Sí hacia 105 €); una prórroga o compensación de alguna autopista francesa; compras de 2026 (Safeway, A154–A120, All for One) con retornos publicados por encima de r.",
+   "al_alza": "Rehacer el recorte por minoritarios con su resultado (372 M, URD 2025 PDF p. 356, 399) y decidir t y el coste de la deuda: el precio de Sí iría a ≈103–105 €; una prórroga o compensación de alguna autopista; compras de 2026 (Safeway, A154–A120, All for One) con retornos publicados por encima de r.",
    "a_la_baja": "Una tercera carga fiscal francesa sobre las concesiones o la contribución excepcional hecha permanente; deterioros en Cobra IS (goodwill 4.156) o en aeropuertos; tráfico de autopistas y pasajeros a la baja en 2026–2027; compras grandes a retornos por debajo del 7 % después de impuestos."
   }
  },
@@ -42,7 +42,7 @@
   "ponderado": 107.04,
   "distancia_a_precio_si": 0.0865,
   "distancia_a_malo": 0.2594,
-  "fundamento": "no procede (conclusión no favorable); precio objetivo provisional, condicionado al recorte por minoritarios de Palancas!B15:D15 (hipótesis sin base)",
+  "fundamento": "no procede (conclusión no favorable); precio objetivo provisional: con las objeciones no rebatidas del contradictor (minoritarios por su resultado, t sin el diferido de 2021, coste bruto de la deuda) el precio de Sí sería de ≈103–105 €",
   "datos_ausentes_materiales": [],
   "descalificadores_considerados": [
    "deuda que puede matar en un mal año: no (deuda neta 1,4 veces el Ebitda, A−/A3, liquidez 22,0 mil M; URD 2025 PDF p. 141, 405)",
@@ -287,11 +287,24 @@
     "celda": "Palancas!B15:D15",
     "hipotesis": "el recorte por minoritarios (−0,008 / −0,008 / −0,007) supone que su parte de Gatwick, Edimburgo y OMA vale 805 ÷ (r − g), es decir, que los 805 de dividendos de 2025 son el flujo sostenible de los minoritarios",
     "clase": "fundamentada, con confianza baja, según la fase B; el tamaño del recorte no tiene ningún hecho que lo acote",
-    "porque_sin_fundamento": "805 son dividendos, no el resultado atribuido. El valor contable de los minoritarios baja de 4.085 a 3.576 (URD 2025 PDF p. 399) mientras cobran 805 y 902 (PDF p. 358), lo que apunta a dividendos por encima del resultado. La propia Observación de C15 dice que con el resultado atribuido el NORMAL iría hacia 0,095. El precio de Sí pasa de 97,79 a ≈104,9 € con medio recorte [cálculo]",
+    "porque_sin_fundamento": "el recorte del libro (−0,008 / −0,008 / −0,007) capitaliza 805 de dividendos (PDF p. 358) cuando el resultado atribuido a minoritarios fue 372 M en 2025 y 410 en 2024 (PDF p. 356, 138) y 338 M en las tres filiales (nota 23.5, PDF p. 399): el dato que daba por ausente está en los textos de la carpeta y muestra que el recorte es demasiado grande",
     "alternativas_defendibles": {
-     "hay_base": false,
-     "rango": null,
-     "evidencia": "No puedo atar los dos límites a hechos. Por arriba, el recorte de la fase B ya usa el menor de los dos años de dividendos, pero no hay hecho que diga que el flujo sostenible de los minoritarios sea tan alto. Por abajo, los precios de compra (OMA 1.169 por el 29,99 %, URD 2023 PDF p. 170; Edimburgo 1.431 por el 50,01 %, URD 2025 PDF p. 370) implican 4.159 para la parte ajena de dos de las tres filiales. Pero llevan prima de control, son de 2022 y 2024, y no conozco qué parte de los 3.576 es de Gatwick. Haría falta la nota de intereses minoritarios del URD 2025: resultado neto, dividendos, deuda neta y flujo atribuidos a los minoritarios de London Gatwick, Edimburgo y OMA."
+     "hay_base": true,
+     "rango": {
+      "Palancas!B15": [
+       0.0878,
+       0.093
+      ],
+      "Palancas!C15": [
+       0.0936,
+       0.098
+      ],
+      "Palancas!D15": [
+       0.1037,
+       0.107
+      ]
+     },
+     "evidencia": "Límite bajo de cada margen (recorte mayor): los minoritarios valorados a los precios de compra de VINCI, que llevan prima de control y por eso acotan por arriba el valor de una participación sin control: Gatwick 3.080 por el 50,01 % (texto/vinci-annual-report-2019.txt PDF p. 302), OMA 1.169 por el 29,99 % (URD 2023 PDF p. 170), Edimburgo 1.431 por el 50,01 % (URD 2025 PDF p. 370) y el resto al contable: exceso 4.254 M [cálculo]. Límite alto (sin recorte, margen equivalente previo): la parte de los minoritarios en la caja libre de las tres filiales (explotación menos inversión, nota 23.5, PDF p. 399) es ≈207 M, que capitalizada a r − g no llega o apenas supera su valor contable (2.984 en las tres): el exceso es ≈0 [cálculo]. El libro (0,085 / 0,09 / 0,10) queda por debajo de los dos límites."
     }
    }
   ],
@@ -302,8 +315,8 @@
    "sobrevive": null
   },
   "resultado": "no_procede",
-  "hipotesis_que_mas_condiciona": "Palancas!B15:D15: tamaño del recorte por minoritarios (805 de dividendos capitalizados a r − g frente a 3.576 contables). Condiciona el precio objetivo (97,79 € con el recorte entero, ≈104,9 € con la mitad) y, solo si el exceso bajara de ≈3,45 mil M, la acción",
-  "que_lo_resolveria": "URD 2025, nota de intereses minoritarios: resultado neto, dividendos, deuda neta y flujo de caja de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025 (o el resultado neto atribuido a minoritarios del grupo), para sustituir los dividendos por el resultado en el recorte de B15:D15"
+  "hipotesis_que_mas_condiciona": "Palancas!B15:D15: el recorte por minoritarios del libro está por debajo del rango que dan los hechos (nota 23.5, URD 2025 PDF p. 399); junto con el t de 2021 sin el diferido británico (Historia C52) y el coste bruto de la deuda (Historia C63), el precio de Sí sería de ≈103–105 € y no 97,79",
+  "que_lo_resolveria": "Rehacer B15:D15 con el resultado atribuido a minoritarios de la nota 23.5 (URD 2025 PDF p. 399) en un nuevo ciclo, y que la persona responsable decida sobre las celdas de datos Historia C52 (diferido sin caja de 2021, URD 2021 PDF p. 67) y C63 (coste bruto de la deuda, URD 2025 PDF p. 138, 356); después recalcular el libro y la escalera"
  },
  "comprobacion_conjunta": null,
  "revision_datos_ausentes": {
@@ -755,7 +768,7 @@
   {
    "celda": "C104",
    "antes": "0% · Watchlist · precio de Sí ≈ 79 €",
-   "despues": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 97.79 · zona caro · precio de Sí ≤ 97.79 · precio esc. MALO 79.28 · ponderado 107.04 · fundamento no procede (conclusión no favorable) · objetivo provisional: depende del recorte por minoritarios de Palancas!B15:D15 (con medio recorte el precio de Sí sería de unos 105)",
+   "despues": "Pendiente de decisión de cartera · conclusión del personaje: esperar: precio de Sí ≤ 97.79 · zona caro · precio de Sí ≤ 97.79 · precio esc. MALO 79.28 · ponderado 107.04 · fundamento no procede (conclusión no favorable) · objetivo provisional: con las objeciones no rebatidas (minoritarios por su resultado, tipo de 2021 sin el diferido británico, coste bruto de la deuda) el precio de Sí sería de unos 103 a 105, sin recálculo del libro",
    "decision": "cambia",
    "motivo": "definicion_o_medicion_distinta",
    "evidencia_y_razonamiento": "La V6.3 prohíbe el porcentaje de posición (D16) y fija la etiqueta de la sección 15 con la escalera k = 3 de precio.json; el ≈79 € de la etapa 1 aplicaba la regla mín(MALO, 0,75 × ponderado), que en este libro (C156) da 79,28."
@@ -782,10 +795,10 @@
    "resultado": null
   }
  ],
- "incertidumbre_pendiente": "Tamaño del recorte por minoritarios en Palancas!B15:D15 (−0,008 / −0,008 / −0,007): capitaliza los 805 M€ de dividendos de 2025 a r − g frente a 3.576 de valor contable, pero el contable baja de 4.085 a 3.576 y los dividendos pueden superar el resultado atribuido; con medio recorte el precio de Sí pasaría de 97,79 a unos 105 € (objetivo provisional).",
- "que_lo_resolveria": "URD 2025, nota de intereses minoritarios (información resumida de filiales con minoritarios materiales): resultado neto, dividendos, deuda neta y flujo de London Gatwick, Edimburgo y OMA atribuidos a los minoritarios en 2023–2025; si no está, pregunta a Relación con Inversores por el resultado neto atribuido a minoritarios por filiales.",
+ "incertidumbre_pendiente": "El recorte por minoritarios de Palancas!B15:D15 capitaliza 805 M€ de dividendos cuando su resultado atribuido fue 372 M€ (URD 2025 PDF p. 356, 399): es demasiado grande. Con el resultado, el tipo de 2021 sin el diferido británico (Historia C52) y el coste bruto de la deuda (Historia C63), el precio de Sí pasaría de 97,79 a unos 103–105 € (objetivo provisional).",
+ "que_lo_resolveria": "Nota 23.5 del URD 2025 (PDF p. 399: resultado, activos netos y flujos de Gatwick, OMA y Edimburgo atribuidos a minoritarios) para rehacer B15:D15 en un nuevo ciclo; decisión de la persona responsable sobre Historia C52 (388 M de diferidos sin caja de 2021, URD 2021 PDF p. 67) y C63 (deuda bruta al 4,4 %, URD 2025 PDF p. 138; coste bruto 1.760 y rendimiento de la caja 513, p. 356).",
  "cambiaria_de_cubo": {
-  "a_si": "Un precio por debajo del precio de Sí (97,79 €, o el que resulte cuando la nota de minoritarios fije el recorte) con los hechos intactos, y la nota de minoritarios del URD resolviendo la hipótesis de B222; para comprar haría falta además que la conclusión favorable tuviera fundamento (D10).",
+  "a_si": "Un precio por debajo del precio de Sí recalculado con la nota 23.5 (≈103–105 € según las objeciones) con los hechos intactos, y fundamento para la compra (D10) en el libro rehecho.",
   "a_no": "Que el valor del NORMAL quede por debajo del precio sin margen posible por hechos nuevos: compras de 2026–2027 a retornos por debajo de la tasa del motor, deterioros en Cobra IS o aeropuertos, o una carga fiscal francesa permanente que lleve el margen del resto del grupo por debajo del 8 %.",
   "a_demasiado_dificil": "Que el valor pase a depender de la negociación política del fin de las autopistas después de 2036 (prórrogas a cambio de inversión, rescate anticipado) o de las pérdidas del EPC de Cobra IS, variables que no sé juzgar."
  },
