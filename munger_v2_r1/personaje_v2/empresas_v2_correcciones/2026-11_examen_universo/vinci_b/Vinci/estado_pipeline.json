@@ -1,6 +1,6 @@
 {
- "paso": 13,
- "estado_analisis": null,
+ "paso": 14,
+ "estado_analisis": "pendiente_de_investigacion",
  "intentos": {
   "fase_b": 0,
   "fase_c": 1,
@@ -117,12 +117,18 @@
   "2026-11-20T23:56:03 · paso 12 · verificación de las entradas financieras: 325 de 326 celdas del universo comprobadas · apta por entradas: sí",
   "  $ python3 ficha.py Vinci --estado pendiente_de_investigacion --provisional → 0 · OK: ficha_provisional.json · estado propuesto pendiente_de_investigacion · cubo Vigilar · acción None",
   "  $ python3 informe.py Vinci --provisional → 0 · OK: informe_provisional.md (13 secciones)",
-  "2026-11-20T23:56:12 · paso 13 · solicitud de auditoría SA-7c065ea359b33fd7 registrada para el material 124e464620a66353"
+  "2026-11-20T23:56:12 · paso 13 · solicitud de auditoría SA-7c065ea359b33fd7 registrada para el material 124e464620a66353",
+  "2026-11-21T00:08:12 · paso 13 · auditoría consumida: respuesta a la solicitud SA-7c065ea359b33fd7 (SHA-256 8a8717c8ed55…)",
+  "  $ python3 ficha.py Vinci --estado pendiente_de_investigacion → 0 · OK: ficha.json · estado pendiente_de_investigacion · cubo Vigilar · acción None",
+  "  $ python3 validar_esquema.py ficha.json ficha --salida esquema_ficha.json.txt → 0 · VÁLIDO · ficha.json contra ficha.esquema.json",
+  "  $ python3 informe.py Vinci → 0 · OK: informe.md (13 secciones)",
+  "  $ python3 resumen.py Vinci resumen_v2_v632_f1.csv → 0 · OK: fila de VINCI SA en /home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/resumen_v2_v632_f1.csv",
+  "2026-11-21T00:08:21 · paso 14 · FIN · estado pendiente_de_investigacion · auditoría APROBADO"
  ],
  "motor": "B",
  "fase_b_escrita": true,
  "fase_c_escrita": true,
- "esperando": "13:auditoria.md",
+ "esperando": null,
  "inicio": "2026-11-20T21:14:40",
  "entrada_efectiva": {
   "modo": "estricta",
@@ -134,7 +140,7 @@
   "fase_a.json": 1795211080.2216897,
   "fase_b.json": 1795213149.5815732,
   "fase_c.json": 1795218910.1988916,
-  "auditoria.md": 1795218385.768335
+  "auditoria.md": 1795219646.02841
  },
  "motivo_correccion": null,
  "esperando_desde": 1795218972.063902,
@@ -230,10 +236,12 @@
    "material": "124e464620a66353",
    "creada": "2026-11-20T23:56:11+00:00",
    "motivo": "auditoría del material fijado en el paso 13",
-   "estado": "pendiente",
-   "respuesta_sha256": null,
-   "respondida": null,
-   "veredicto": null
+   "estado": "respondida",
+   "respuesta_sha256": "8a8717c8ed5517dd6e73f9e1dfcca73573c12339dc495a9730db5884eb264671",
+   "respondida": "2026-11-21T00:08:12+00:00",
+   "veredicto": "APROBADO",
+   "respuesta_contenido": "4c1ad4297e144c200f6a9b4e93b2c822138ec228cfe09506794d91ebbffacc36",
+   "respuesta_fiel": "19f7ea62f746b16fa936ca5984485142c5c91518ac477bc0d135f14edff1c09b"
   }
  ],
  "anteriores_sha256": [
@@ -242,7 +250,7 @@
  "anteriores_contenido": [
   "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0"
  ],
- "auditoria": null,
+ "auditoria": "APROBADO",
  "relevos_caducados": [
   {
    "material_fijado": "2b12666e0878f5a2",
@@ -277,15 +285,26 @@
   }
  ],
  "auditoria_respuesta": {
-  "solicitud": "SA-d9b85c5abc303639",
-  "sha256": "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d",
-  "contenido": "a490b0b4e644144e895876d313607a962fe905f57e51fade2cb69c67159e8bd0",
-  "fiel": "f03c6afd2fae0d6367fd6e2da4538d40b336032b75461dfce5e4235e79f16224",
-  "material": "ee0c2f140b33ef00"
+  "solicitud": "SA-7c065ea359b33fd7",
+  "sha256": "8a8717c8ed5517dd6e73f9e1dfcca73573c12339dc495a9730db5884eb264671",
+  "contenido": "4c1ad4297e144c200f6a9b4e93b2c822138ec228cfe09506794d91ebbffacc36",
+  "fiel": "19f7ea62f746b16fa936ca5984485142c5c91518ac477bc0d135f14edff1c09b",
+  "material": "124e464620a66353"
  },
  "ultima_auditoria_no_aceptada": {
   "motivo": "auditoria.md responde a la solicitud SA-d9b85c5abc303639 (respondida), no a la vigente SA-7c065ea359b33fd7",
   "sha256": "0ff9ab7e647c50396b14f46a3b040be03617525ac4e9e7f82b6f47425e5da80d",
   "solicitud_vigente": "SA-7c065ea359b33fd7"
- }
+ },
+ "fin": "2026-11-21T00:08:12",
+ "ficha_valida": true,
+ "publicaciones_de_la_aprobacion": [
+  {
+   "solicitud": "SA-7c065ea359b33fd7",
+   "auditoria_fiel": "19f7ea62f746b16fa936ca5984485142c5c91518ac477bc0d135f14edff1c09b",
+   "csv": "/home/user/e_work/wt_expedientes/munger_v2_r1/personaje_v2/empresas_v2_correcciones/2026-11_examen_universo/vinci_b/resumen_v2_v632_f1.csv",
+   "fecha": "2026-11-21T00:08:21"
+  }
+ ],
+ "resumen_pendiente": false
 }
